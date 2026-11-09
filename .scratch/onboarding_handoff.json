@@ -14,7 +14,7 @@
   ],
   "build_passed": true,
   "launch_checked": true,
-  "launch_check_note": "CLI-generated scaffold assembled and its process remained running on PICO emulator 6.1.0 (emulator-5554). No game scene was rendered or validated; startup logs contain ControllerActionResult size and graphics-backend errors requiring investigation.",
+  "launch_check_note": "Commit 25219ff built and launched on PICO emulator 6.1.0 (emulator-5554); installed APK and local APK SHA-256 both 971f29efa8386b7b04130f96dd7b22662bff39bbf81047dbcb14e6a5fcb92f40. This is an empty scaffold; the new process log contains a MESA rendernode error, and tracking, scene and game behavior remain unverified.",
   "resume_required": true,
   "resume_skill": "spatial-design-to-app"
 }
