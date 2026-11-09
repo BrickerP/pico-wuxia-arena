@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "phase": "6_scaffold_handoff",
+  "producer_skill": "spatial-app-onboarding",
+  "consumer_skill": "spatial-design-to-app",
+  "scaffold_only": true,
+  "product_ui_implemented": false,
+  "template": "stage",
+  "package": "com.example.wuxiaarena.p0d2f0182",
+  "package_source": "generated_default",
+  "entry_points": [
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/Main.kt",
+    "app/src/main/AndroidManifest.xml"
+  ],
+  "build_passed": true,
+  "launch_checked": true,
+  "launch_check_note": "CLI-generated scaffold assembled and its process remained running on PICO emulator 6.1.0 (emulator-5554). No game scene was rendered or validated; startup logs contain ControllerActionResult size and graphics-backend errors requiring investigation.",
+  "resume_required": true,
+  "resume_skill": "spatial-design-to-app"
+}
