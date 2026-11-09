@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
@@ -31,11 +32,15 @@ private const val STATUS_POLL_NANOS = 100_000_000L
 private const val STOP_ATTEMPTS = 4
 private const val ACTION_DIAGNOSTIC_CAPACITY = 64
 
-private class TrackingSession(private val diagnosticsEnabled: Boolean) {
+private class TrackingSession(
+    private val diagnosticsEnabled: Boolean,
+    private val emulatorPreview: Boolean,
+    private val onObservation: (TrackingEvent, Boolean, TrackingSnapshot) -> Unit,
+) {
     private val buffer = TrackingEventBuffer(BUFFER_CAPACITY)
     private val headProvider = HMDTrackingProvider()
     private val controllerProvider = ControllerTrackingProvider()
-    private val adapter = PicoTrackingAdapter(buffer, headProvider, controllerProvider)
+    private val adapter = PicoTrackingAdapter(buffer, headProvider, controllerProvider, emulatorPreview)
     private val processor = TrackingProcessor()
     private var attempted = false
     private var active = false
@@ -57,6 +62,8 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
     private var lastControllerStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var newestHeadObservation: TrackingEvent.Head? = null
     private var lastLoggedHeadPose: ObservedPose? = null
+    private var newestControllerObservation: TrackingEvent.Controllers? = null
+    private var lastLoggedControllerPoses: Pair<ObservedPose?, ObservedPose?>? = null
 
     private data class ActionValues(
         val leftX: Float,
@@ -74,6 +81,9 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
         if (attempted) return
         attempted = true
         try {
+            if (diagnosticsEnabled) {
+                Log.i(TAG, "Input source mode=${if (emulatorPreview) "HMD_DERIVED_DESKTOP_PREVIEW" else "PICO_HARDWARE"}")
+            }
             if (diagnosticsEnabled) {
                 try {
                     startActionDiagnostics()
@@ -93,6 +103,8 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
             sawControllers = false
             newestHeadObservation = null
             lastLoggedHeadPose = null
+            newestControllerObservation = null
+            lastLoggedControllerPoses = null
             reportedFailure = null
             pendingControlRecovery = false
             Log.i(TAG, "Tracking provider start requested")
@@ -119,7 +131,10 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
             drain()
             if (diagnosticsEnabled) {
                 drainActionDiagnostics()
-                if (pollDue) logObservedHeadMovement()
+                if (pollDue) {
+                    logObservedHeadMovement()
+                    if (emulatorPreview) logObservedPreviewHands()
+                }
             }
             val failure = adapter.lastProviderFailure
             if (failure != null && failure.cause !== reportedFailure) {
@@ -276,21 +291,25 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
         if (diagnosticsEnabled && accepted && event is TrackingEvent.Head) {
             newestHeadObservation = event
         }
+        if (diagnosticsEnabled && emulatorPreview && accepted && event is TrackingEvent.Controllers) {
+            newestControllerObservation = event
+        }
         if (accepted && event is TrackingEvent.Discontinuity) {
             Log.i(TAG, "Tracking discontinuity: target=${event.target}, reason=${event.reason}")
         }
         if (accepted && event is TrackingEvent.Head && !sawHead) {
             sawHead = true
-            Log.i(TAG, "First head pose observed")
+            Log.i(TAG, "First head pose observed; origin=${event.stamp.origin}")
         }
         if (accepted && event is TrackingEvent.Controllers && !sawControllers) {
             sawControllers = true
-            Log.i(TAG, "First controller snapshot observed; left=${event.left != null}, right=${event.right != null}")
+            Log.i(TAG, "First controller snapshot observed; left=${event.left != null}, right=${event.right != null}, origin=${event.stamp.origin}, synthetic=$emulatorPreview")
         }
         if (snapshot.hasRequiredObservations != observedReady) {
             observedReady = snapshot.hasRequiredObservations
             Log.i(TAG, "Required observations present=$observedReady; hardware tracking quality remains unknown")
         }
+        onObservation(event, accepted, snapshot)
     }
 
     private fun logObservedHeadMovement() {
@@ -301,17 +320,40 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
             TAG,
             "Head observation sequence=${observation.stamp.sequence}, " +
                 "receivedAtNanos=${observation.stamp.receivedAtNanos}, " +
+                "origin=${observation.stamp.origin}, " +
                 "position=${observation.pose?.position}, rotation=${observation.pose?.rotation}",
+        )
+    }
+
+    private fun logObservedPreviewHands() {
+        val observation = newestControllerObservation ?: return
+        val poses = observation.left to observation.right
+        if (poses == lastLoggedControllerPoses) return
+        lastLoggedControllerPoses = poses
+        Log.i(
+            TAG,
+            "Hand observation source=HMD_DERIVED, synthetic=true, origin=${observation.stamp.origin}, " +
+                "sequence=${observation.stamp.sequence}, receivedAtNanos=${observation.stamp.receivedAtNanos}, " +
+                "left=${observation.left}, right=${observation.right}",
         )
     }
 }
 
 @Composable
-fun ObserveTracking() {
+fun ObserveTracking(
+    onEvent: (TrackingEvent, Boolean, TrackingSnapshot) -> Unit,
+    emulatorPreview: Boolean = false,
+) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
     val diagnosticsEnabled = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 && Build.HARDWARE == "ranchu"
-    val session = remember(diagnosticsEnabled) { TrackingSession(diagnosticsEnabled) }
+    val previewEnabled = emulatorPreview && diagnosticsEnabled
+    val currentOnEvent = rememberUpdatedState(onEvent)
+    val session = remember(diagnosticsEnabled, previewEnabled) {
+        TrackingSession(diagnosticsEnabled, previewEnabled) { event, accepted, snapshot ->
+            currentOnEvent.value(event, accepted, snapshot)
+        }
+    }
 
     DisposableEffect(lifecycleOwner, session) {
         val observer = LifecycleEventObserver { _, event ->

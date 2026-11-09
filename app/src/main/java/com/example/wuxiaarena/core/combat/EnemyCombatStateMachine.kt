@@ -138,11 +138,13 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
     private var nextPauseId = 1L
     private var hitDurationNanos = HIT_DURATION
 
+    /** Reads attack readiness using the caller's range decision without advancing state. */
+    fun canStartAttack(targetInRange: Boolean): Boolean =
+        pauseReason == null && phase == EnemyPhase.IDLE && phaseElapsedNanos >= IDLE_DELAY && targetInRange
+
     /** The caller decides direction and range; the idle delay is enforced here. */
     fun tryStartAttack(direction: AttackDirection, targetInRange: Boolean): List<EnemyCombatEvent> {
-        if (pauseReason != null || phase != EnemyPhase.IDLE || phaseElapsedNanos < IDLE_DELAY || !targetInRange) {
-            return emptyList()
-        }
+        if (!canStartAttack(targetInRange)) return emptyList()
         return mutableListOf<EnemyCombatEvent>().also { startAttack(direction, false, it) }
     }
 

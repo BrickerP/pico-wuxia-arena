@@ -14,24 +14,28 @@ import com.pico.spatial.core.math.Quat
 import com.pico.spatial.core.math.Vector3
 import com.pico.spatial.ui.foundation.content.SpatialView
 import java.util.concurrent.CancellationException
+import kotlin.math.abs
+import kotlin.math.hypot
+import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 
 private const val TAG = "TavernScene"
 private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
 private const val ENEMY_ASSET = "asset://models/tripo_warrior.glb"
 
-private class SceneOwner {
+private class SceneOwner(private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
     var root: Entity? = null
 
     fun release() {
         val current = root ?: return
         root = null
+        onEnemyGeometry(null, 0.0)
         if (current.valid) current.destroy()
     }
 }
 
 @Composable
-fun HomeStage() {
-    val owner = remember { SceneOwner() }
+fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
+    val owner = remember { SceneOwner(onEnemyGeometry) }
 
     DisposableEffect(owner) {
         onDispose { owner.release() }
@@ -92,6 +96,13 @@ fun HomeStage() {
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
                 val enemyBounds = enemy.getVisualBounds(null)
                 Log.i(TAG, "Tripo enemy attached; static=true, stage bounds center=${enemyBounds.center}, size=${enemyBounds.size}")
+                val origin = enemy.convertPositionTo(Vector3(0f, 0f, 0f), null)
+                val reachX = abs(enemyBounds.center.x - origin.x) + enemyBounds.size.x / 2f
+                val reachZ = abs(enemyBounds.center.z - origin.z) + enemyBounds.size.z / 2f
+                onEnemyGeometry(
+                    TrackingVector3(origin.x.toDouble(), origin.y.toDouble(), origin.z.toDouble()),
+                    hypot(reachX.toDouble(), reachZ.toDouble()),
+                )
             } catch (error: Exception) {
                 Log.w(TAG, "Tavern attached but visual bounds are unavailable", error)
             }

@@ -28,7 +28,11 @@ class PicoTrackingAdapter(
     private val buffer: TrackingEventBuffer,
     private val hmd: DataProvider<HMDTrackingData> = HMDTrackingProvider(),
     private val controllers: DataProvider<ControllerTrackingData> = ControllerTrackingProvider(),
+    // The runtime owner enables this only for an explicit debug/ranchu preview.
+    private val emulatorPreview: Boolean = false,
 ) {
+    private val inputOrigin = if (emulatorPreview) InputOrigin.DESKTOP else InputOrigin.PICO
+    private val headTarget = if (emulatorPreview) TrackingTarget.ALL else TrackingTarget.HEAD
     private val gate = Any()
     private var active = false
     private var generation = 0L
@@ -77,7 +81,7 @@ class PicoTrackingAdapter(
         var emittedGap = false
         if (providerControl != null) {
             try {
-                buffer.discontinuity(InputOrigin.PICO, providerControl.target, providerControl.reason)
+                buffer.discontinuity(inputOrigin, providerControl.target, providerControl.reason)
                 emittedGap = providerControl.target == TrackingTarget.ALL &&
                     providerControl.reason == DiscontinuityReason.QUEUE_GAP
                 pendingProviderControl = null
@@ -88,7 +92,7 @@ class PicoTrackingAdapter(
         if (pendingStopReason != null || pendingUserPause) return false
         if (!emittedGap) {
             try {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.QUEUE_GAP)
+                buffer.discontinuity(inputOrigin, TrackingTarget.ALL, DiscontinuityReason.QUEUE_GAP)
             } catch (_: TrackingControlOverflowException) {
                 pendingProviderControl = PendingProviderControl(TrackingTarget.ALL, DiscontinuityReason.QUEUE_GAP)
                 return false
@@ -169,11 +173,11 @@ class PicoTrackingAdapter(
             generation
         }
         val headStatus = readAvailability(hmd)
-        val handsStatus = readAvailability(controllers)
+        val handsStatus = if (emulatorPreview) null else readAvailability(controllers)
         synchronized(gate) {
             if (!active || token != generation || controlFaulted) return
             headStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.HEAD, it) }
-            handsStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.BOTH_HANDS, it) }
+            handsStatus?.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.BOTH_HANDS, it) }
             hmdStatusKnown = true
             controllerStatusKnown = true
             try {
@@ -182,7 +186,7 @@ class PicoTrackingAdapter(
                 return
             }
             try {
-                updateControllerAvailability(handsStatus.reason)
+                if (handsStatus != null) updateControllerAvailability(handsStatus.reason)
             } catch (_: TrackingControlOverflowException) {
                 return
             }
@@ -216,7 +220,7 @@ class PicoTrackingAdapter(
                 throw TrackingControlOverflowException()
             }
             try {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.USER_PAUSED)
+                buffer.discontinuity(inputOrigin, TrackingTarget.ALL, DiscontinuityReason.USER_PAUSED)
                 pendingUserPause = false
             } catch (error: TrackingControlOverflowException) {
                 pendingUserPause = true
@@ -244,7 +248,7 @@ class PicoTrackingAdapter(
     private fun captureHead(data: HMDTrackingData) {
         if (!hmdStatusKnown) {
             if (!hmdPreStatusGap) {
-                emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.QUEUE_GAP)
+                emitProviderControl(headTarget, DiscontinuityReason.QUEUE_GAP)
                 hmdPreStatusGap = true
             }
             return
@@ -254,16 +258,20 @@ class PicoTrackingAdapter(
         val position = pose.position != null
         val rotation = pose.rotation != null
         if ((headPosition && !position) || (headRotation && !rotation)) {
-            emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+            emitProviderControl(headTarget, DiscontinuityReason.PROVIDER_UNAVAILABLE)
         }
         headPosition = position
         headRotation = rotation
-        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.offerHead(inputOrigin, pose)
+        if (emulatorPreview) {
+            // Fixed Stage-space preview offsets, in metres. Both hands translate with the HMD.
+            offerControllerPoses(previewHand(pose, -0.25), previewHand(pose, 0.25))
+        }
     }
 
     private fun onControllers(token: Long, data: ControllerTrackingData) {
         synchronized(gate) {
-            if (!active || token != generation) return
+            if (!active || token != generation || emulatorPreview) return
             if (controlFaulted) {
                 skippedCallbacks++
                 return
@@ -287,6 +295,10 @@ class PicoTrackingAdapter(
         if (controllersUnavailable != null) return
         val left = data.left?.toObservation()
         val right = data.right?.toObservation()
+        offerControllerPoses(left, right)
+    }
+
+    private fun offerControllerPoses(left: ObservedPose?, right: ObservedPose?) {
         val leftPos = left?.position != null
         val leftRot = left?.rotation != null
         val rightPos = right?.position != null
@@ -301,14 +313,22 @@ class PicoTrackingAdapter(
         leftRotation = leftRot
         rightPosition = rightPos
         rightRotation = rightRot
-        buffer.offerControllers(InputOrigin.PICO, left, right)
+        buffer.offerControllers(inputOrigin, left, right)
+    }
+
+    private fun previewHand(head: ObservedPose, xOffset: Double): ObservedPose? {
+        val position = head.position ?: return null
+        val rotation = head.rotation ?: return null
+        val handPosition = Vector3(position.x + xOffset, position.y - 0.4, position.z - 0.35)
+        return ObservedPose(handPosition.takeIf { it.isFinite() }, rotation, TrackingQuality.UNKNOWN)
     }
 
     private fun updateHeadAvailability(reason: DiscontinuityReason?) {
         if (reason != hmdUnavailable) {
             if (reason != null) {
-                emitProviderControl(TrackingTarget.HEAD, reason)
+                emitProviderControl(headTarget, reason)
                 clearHeadComponents()
+                if (emulatorPreview) clearControllerComponents()
             }
             hmdUnavailable = reason
         }
@@ -329,7 +349,7 @@ class PicoTrackingAdapter(
             val pending = pendingStopReason ?: return false
             require(reason == pending) { "retry the failed stop with the same reason" }
             if (pendingProviderControl != null || pendingUserPause) throw TrackingControlOverflowException()
-            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, pending)
+            buffer.discontinuity(inputOrigin, TrackingTarget.ALL, pending)
             pendingStopReason = null
             return true
         }
@@ -337,7 +357,7 @@ class PicoTrackingAdapter(
         generation++
         try {
             if (pendingProviderControl != null || pendingUserPause) throw TrackingControlOverflowException()
-            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, reason)
+            buffer.discontinuity(inputOrigin, TrackingTarget.ALL, reason)
         } catch (error: Exception) {
             pendingStopReason = reason
             if (error is TrackingControlOverflowException) recordControlFault(TrackingTarget.ALL, error)
@@ -350,7 +370,7 @@ class PicoTrackingAdapter(
 
     private fun emitProviderControl(target: TrackingTarget, reason: DiscontinuityReason) {
         try {
-            buffer.discontinuity(InputOrigin.PICO, target, reason)
+            buffer.discontinuity(inputOrigin, target, reason)
         } catch (error: TrackingControlOverflowException) {
             if (pendingProviderControl == null) pendingProviderControl = PendingProviderControl(target, reason)
             recordControlFault(target, error)
