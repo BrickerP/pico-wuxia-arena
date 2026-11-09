@@ -97,8 +97,10 @@ fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
                 val enemyBounds = enemy.getVisualBounds(null)
                 Log.i(TAG, "Tripo enemy attached; static=true, stage bounds center=${enemyBounds.center}, size=${enemyBounds.size}")
                 val origin = enemy.convertPositionTo(Vector3(0f, 0f, 0f), null)
-                val reachX = abs(enemyBounds.center.x - origin.x) + enemyBounds.size.x / 2f
-                val reachZ = abs(enemyBounds.center.z - origin.z) + enemyBounds.size.z / 2f
+                val localBounds = enemy.getVisualBounds(enemy)
+                val reachX = abs(localBounds.center.x) + localBounds.size.x / 2f
+                val reachZ = abs(localBounds.center.z) + localBounds.size.z / 2f
+                Log.i(TAG, "Enemy local bounds center=${localBounds.center}, size=${localBounds.size}; stage origin=$origin")
                 onEnemyGeometry(
                     TrackingVector3(origin.x.toDouble(), origin.y.toDouble(), origin.z.toDouble()),
                     hypot(reachX.toDouble(), reachZ.toDouble()),

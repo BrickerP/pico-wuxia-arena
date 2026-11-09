@@ -16,6 +16,9 @@ internal class ArenaSession {
     private var enemyReachMeters = 0.0
     private var lastInputTime: Long? = null
     private var lastReportTime: Long? = null
+    private var lastReportedHead: Vector3? = null
+    private var lastReportedHand: Vector3? = null
+    private var lastReportedEligibility: Boolean? = null
     private var hadReadyInput = false
     private var reportedWaiting = false
 
@@ -30,10 +33,12 @@ internal class ArenaSession {
             combat.resetRound()
             lastInputTime = null
             lastReportTime = null
+            lastReportedHead = null
             hadReadyInput = false
         }
         if (!snapshot.hasRequiredObservations) {
             lastInputTime = null
+            lastReportedHead = null
             if (hadReadyInput) {
                 combat.interruptTracking()
                 hadReadyInput = false
@@ -63,8 +68,13 @@ internal class ArenaSession {
         reportedWaiting = false
         val canStartAttack = combat.canStartAttack(targetInRange)
         val lastReport = lastReportTime
-        if (lastReport == null || now < lastReport || now - lastReport >= 100_000_000L) {
+        val changed = headPosition != lastReportedHead || handPosition != lastReportedHand ||
+            canStartAttack != lastReportedEligibility
+        if (changed && (lastReport == null || now < lastReport || now - lastReport >= 100_000_000L)) {
             lastReportTime = now
+            lastReportedHead = headPosition
+            lastReportedHand = handPosition
+            lastReportedEligibility = canStartAttack
             Log.i(
                 "ArenaCombat",
                 "Combat input evaluated origin=${event.stamp.origin}, sequence=${event.stamp.sequence}, " +
