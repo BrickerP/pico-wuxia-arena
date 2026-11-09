@@ -1,0 +1,25 @@
+{
+  "task_id": "44c8eae0-b28e-4d91-b3ad-56a862cae592",
+  "type": "animate_retarget",
+  "status": "success",
+  "credits_consumed": 10,
+  "output_dir": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0",
+  "files": [
+    "model.glb"
+  ],
+  "model_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0/model.glb",
+  "chain": [
+    {
+      "task_id": "44c8eae0-b28e-4d91-b3ad-56a862cae592",
+      "type": "animate_retarget",
+      "status": "success",
+      "credits_consumed": 10,
+      "output_dir": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0",
+      "files": [
+        "model.glb"
+      ],
+      "model_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0/model.glb"
+    }
+  ],
+  "source_task_id": "bb23cd4c-e0b9-4478-b47f-24a326757289"
+}

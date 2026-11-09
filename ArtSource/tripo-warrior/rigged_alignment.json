@@ -1,0 +1,285 @@
+{
+  "source_glb": "tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb",
+  "source_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+  "body_height_metres": 1.78,
+  "source_forward": "+X",
+  "prepared_forward": "+Z",
+  "rotation_y_degrees": -90,
+  "uniform_scale": 1.7834830996693503,
+  "normalization_matrix_gltf": [
+    -7.795852496883526e-08,
+    0.0,
+    1.7834831476211548,
+    0.0,
+    0.0,
+    1.7834831476211548,
+    0.0,
+    0.0,
+    -1.7834831476211548,
+    0.0,
+    -7.795852496883526e-08,
+    0.0,
+    -1.5945582276799541e-07,
+    4.783674398822768e-07,
+    -2.657597697464098e-08,
+    1.0
+  ],
+  "source_triangles": 18833,
+  "source_vertices": 10734,
+  "joint_count": 78,
+  "animation_count": 4,
+  "animations": [
+    {
+      "name": "idle",
+      "source_glb": "tripo-out/bb23cd4c-retarget-2-43bfb8da/model.glb",
+      "source_sha256": "b4d92356d0c74e066d9301b7bf2bf6ef58f0ce209c821765b96610e5e2985645",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        15.366666793823242
+      ],
+      "interpolation_modes": [
+        "LINEAR",
+        "STEP"
+      ],
+      "keyframe_semantics_sha256": "3df9c04bd046d8f89d49847e904dd98dfea27e78637511ac944c3a2fa499b2b4",
+      "max_default_local_matrix_difference": 6.377696990966797e-06
+    },
+    {
+      "name": "slash",
+      "source_glb": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
+      "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        6.599999904632568
+      ],
+      "interpolation_modes": [
+        "LINEAR",
+        "STEP"
+      ],
+      "keyframe_semantics_sha256": "2d0391eb21bb87904a1b512a1db31e5b2b856a387927a7c0146c5dff2b59b778",
+      "max_default_local_matrix_difference": 6.377696990966797e-06
+    },
+    {
+      "name": "hurt",
+      "source_glb": "tripo-out/bb23cd4c-retarget-3-221c8495/model.glb",
+      "source_sha256": "4a664278fcbd244956898172606baefd19e216c146f47cdbac377594300dce08",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        13.866666793823242
+      ],
+      "interpolation_modes": [
+        "LINEAR",
+        "STEP"
+      ],
+      "keyframe_semantics_sha256": "ae79363f8c78153576fd5faa0c711a48fc5498b247c5d9d4f1b0f4c8cfa1ade8",
+      "max_default_local_matrix_difference": 6.377696990966797e-06
+    },
+    {
+      "name": "fall",
+      "source_glb": "tripo-out/bb23cd4c-retarget-4-44c8eae0/model.glb",
+      "source_sha256": "542852badb502f3706b6b3e1932094522aee00db9991bea021c021cd0cf720c9",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        3.0333333015441895
+      ],
+      "interpolation_modes": [
+        "LINEAR",
+        "STEP"
+      ],
+      "keyframe_semantics_sha256": "40844839026932cc1037f23cbf62544027c9f9f8e390a346e432f33350b9d7a8",
+      "max_default_local_matrix_difference": 6.377696990966797e-06
+    }
+  ],
+  "body_bounds_node": "TripoBody_Mesh",
+  "body_subtree": "TripoBody_Root",
+  "body_bounds_scope": "primitive0 only, full rendered mesh also contains dao",
+  "body_primitive_indices": [
+    0
+  ],
+  "body_bind_bounds_gltf_metres": {
+    "min": [
+      -0.8586499094963074,
+      0.0,
+      -0.18287670612335205
+    ],
+    "max": [
+      0.8586498498916626,
+      1.78000009059906,
+      0.18287672102451324
+    ]
+  },
+  "weapon_subtree": "Weapon_Root",
+  "grip_node": "HandGrip_R",
+  "grip_parent": "R_Hand",
+  "grip_local_matrix_gltf": [
+    -0.1831674426794052,
+    -0.5286014676094055,
+    -0.03761883080005646,
+    0.0,
+    -0.27157995104789734,
+    0.12781037390232086,
+    -0.4735967814922333,
+    0.0,
+    0.4550594687461853,
+    -0.13649174571037292,
+    -0.2977851331233978,
+    0.0,
+    0.019713686779141426,
+    0.024356914684176445,
+    -0.02339722029864788,
+    1.0
+  ],
+  "grip_world_metres": [
+    -0.692558228969574,
+    1.3591461181640625,
+    0.0030453214421868324
+  ],
+  "grip_pose": "fixed conservative curled-hand calibration B",
+  "grip_source_metres": [
+    0.0017075459472835064,
+    0.7620737552642822,
+    0.38831767439842224
+  ],
+  "weapon_binding": {
+    "method": "same-skin rigid vertices",
+    "skin": 0,
+    "joint_name": "R_Hand",
+    "joint_palette_index": 60,
+    "body_primitive_indices": [
+      0
+    ],
+    "weapon_primitive_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "primitive_sources": [
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 0,
+        "target_primitive": 1
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 1,
+        "target_primitive": 2
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 2,
+        "target_primitive": 3
+      },
+      {
+        "source_node": "Blade collar",
+        "source_mesh": 1,
+        "source_primitive": 0,
+        "target_primitive": 4
+      },
+      {
+        "source_node": "Blade | asymmetric wear",
+        "source_mesh": 2,
+        "source_primitive": 0,
+        "target_primitive": 5
+      },
+      {
+        "source_node": "Blade | shallow fuller",
+        "source_mesh": 3,
+        "source_primitive": 0,
+        "target_primitive": 6
+      },
+      {
+        "source_node": "Grip ferrule",
+        "source_mesh": 4,
+        "source_primitive": 0,
+        "target_primitive": 7
+      },
+      {
+        "source_node": "Grip | cord wrap",
+        "source_mesh": 5,
+        "source_primitive": 0,
+        "target_primitive": 8
+      },
+      {
+        "source_node": "Guard pin 1",
+        "source_mesh": 6,
+        "source_primitive": 0,
+        "target_primitive": 9
+      },
+      {
+        "source_node": "Guard pin 2",
+        "source_mesh": 7,
+        "source_primitive": 0,
+        "target_primitive": 10
+      },
+      {
+        "source_node": "Guard | flared oval",
+        "source_mesh": 8,
+        "source_primitive": 0,
+        "target_primitive": 11
+      },
+      {
+        "source_node": "Guard | outer rim",
+        "source_mesh": 9,
+        "source_primitive": 0,
+        "target_primitive": 12
+      },
+      {
+        "source_node": "Handle core",
+        "source_mesh": 10,
+        "source_primitive": 0,
+        "target_primitive": 13
+      },
+      {
+        "source_node": "Pommel ring",
+        "source_mesh": 11,
+        "source_primitive": 0,
+        "target_primitive": 14
+      },
+      {
+        "source_node": "Pommel | brass",
+        "source_mesh": 12,
+        "source_primitive": 0,
+        "target_primitive": 15
+      }
+    ]
+  },
+  "anchor_nodes_role": "bind/source anchors; SDK dynamic markers require joint-pose support",
+  "weapon_bind_forward_vector_gltf": [
+    -0.013089502230286598,
+    5.401671643312511e-08,
+    0.9999144077301025
+  ],
+  "weapon_world_scale": 1.0,
+  "source_binary_sha256": "4d9e82c0b1b9e6dc243ceed817a2c4f2f68406e777dfe2d5804e2f4637227057",
+  "outputs": [
+    {
+      "file": "tripo_warrior_rigged.glb",
+      "bytes": 3567088,
+      "sha256": "ed8c9900037359eda2f021bbc19c2fa64470bd783693bb40223aca5caf4dd809"
+    },
+    {
+      "file": "tripo_warrior_rigged_with_dao.glb",
+      "bytes": 4437664,
+      "sha256": "50060630f12d132fe352e675cb714b41080525906cee3699c2586588c11abc87"
+    }
+  ]
+}

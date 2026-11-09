@@ -1,0 +1,164 @@
+{
+  "clips": {
+    "idle": {
+      "frames": [
+        1,
+        461
+      ],
+      "frame_count": 461,
+      "actual_skin_vertex_max_motion_m": 0.2538883017750236,
+      "body_all_frame_bounds_min_blender": [
+        -0.17913905218542442,
+        -0.276925002295639,
+        -0.033376936624563536
+      ],
+      "body_all_frame_bounds_max_blender": [
+        0.6421396693798299,
+        0.17275777277541648,
+        1.785736843017986
+      ],
+      "tip_max_displacement_m": 0.26086281006842055,
+      "root_max_displacement_m": 0.0,
+      "grip_parent": [
+        "BONE",
+        "R_Hand"
+      ],
+      "max_grip_gap_m": 5.974998672435225e-08,
+      "blade_length_range_m": [
+        0.7206744019346492,
+        0.7206749323221875
+      ],
+      "weapon_world_scale_max_error": 1.7881393432617188e-06,
+      "bind_vertex_mapping_max_position_error_m": 3.217581343902526e-07,
+      "bind_weight_mapping_max_l1_error": 1.564621925354004e-07,
+      "source_clip_vs_packaged_actual_skin_max_error_m": 1.6125651068461585e-06,
+      "channels": 234,
+      "keyframe_arrays_identical": true
+    },
+    "slash": {
+      "frames": [
+        1,
+        198
+      ],
+      "frame_count": 198,
+      "actual_skin_vertex_max_motion_m": 1.1504937433039952,
+      "body_all_frame_bounds_min_blender": [
+        -0.31196964039625136,
+        -0.9714889289214315,
+        -0.03717805440900612
+      ],
+      "body_all_frame_bounds_max_blender": [
+        0.7665760919911231,
+        0.32603389919473774,
+        1.8118331697830001
+      ],
+      "tip_max_displacement_m": 1.7375556145276057,
+      "root_max_displacement_m": 0.0,
+      "grip_parent": [
+        "BONE",
+        "R_Hand"
+      ],
+      "max_grip_gap_m": 5.972094663188382e-08,
+      "blade_length_range_m": [
+        0.7206744436994416,
+        0.7206750853958513
+      ],
+      "weapon_world_scale_max_error": 1.7285346984863281e-06,
+      "bind_vertex_mapping_max_position_error_m": 3.217581343902526e-07,
+      "bind_weight_mapping_max_l1_error": 1.564621925354004e-07,
+      "source_clip_vs_packaged_actual_skin_max_error_m": 1.555917904528279e-06,
+      "channels": 234,
+      "keyframe_arrays_identical": true
+    },
+    "hurt": {
+      "frames": [
+        1,
+        416
+      ],
+      "frame_count": 416,
+      "actual_skin_vertex_max_motion_m": 1.1398202267636608,
+      "body_all_frame_bounds_min_blender": [
+        -0.22245941450091689,
+        -0.7240166448965338,
+        -0.06982298584147051
+      ],
+      "body_all_frame_bounds_max_blender": [
+        0.8007564990739888,
+        0.5473861008026797,
+        0.9453319638998892
+      ],
+      "tip_max_displacement_m": 1.572331078184667,
+      "root_max_displacement_m": 0.0,
+      "grip_parent": [
+        "BONE",
+        "R_Hand"
+      ],
+      "max_grip_gap_m": 6.143906154658885e-08,
+      "blade_length_range_m": [
+        0.7206745607251493,
+        0.7206755415747472
+      ],
+      "weapon_world_scale_max_error": 1.6093254089355469e-06,
+      "bind_vertex_mapping_max_position_error_m": 3.217581343902526e-07,
+      "bind_weight_mapping_max_l1_error": 1.564621925354004e-07,
+      "source_clip_vs_packaged_actual_skin_max_error_m": 2.038751961616757e-06,
+      "channels": 234,
+      "keyframe_arrays_identical": true
+    },
+    "fall": {
+      "frames": [
+        1,
+        91
+      ],
+      "frame_count": 91,
+      "actual_skin_vertex_max_motion_m": 1.6142325844358876,
+      "body_all_frame_bounds_min_blender": [
+        -0.8840082790843526,
+        -0.7139824222305595,
+        -0.040686796660932556
+      ],
+      "body_all_frame_bounds_max_blender": [
+        1.1843157094248824,
+        0.3582595891418554,
+        1.6824223349359002
+      ],
+      "tip_max_displacement_m": 2.080784505287166,
+      "root_max_displacement_m": 0.0,
+      "grip_parent": [
+        "BONE",
+        "R_Hand"
+      ],
+      "max_grip_gap_m": 6.143906154658885e-08,
+      "blade_length_range_m": [
+        0.7206748094914781,
+        0.720675488590811
+      ],
+      "weapon_world_scale_max_error": 1.6093254089355469e-06,
+      "bind_vertex_mapping_max_position_error_m": 3.217581343902526e-07,
+      "bind_weight_mapping_max_l1_error": 1.564621925354004e-07,
+      "source_clip_vs_packaged_actual_skin_max_error_m": 2.0951321899462356e-06,
+      "channels": 234,
+      "keyframe_arrays_identical": true
+    }
+  },
+  "hashes_before": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo_warrior_rigged.glb": "ed8c9900037359eda2f021bbc19c2fa64470bd783693bb40223aca5caf4dd809",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo_warrior_rigged_with_dao.glb": "5e073c9582a2abc0b9b20fabcd5e3cb59d36e0ec56fc5d3dbc69d8250c3d5672",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-2-43bfb8da/model.glb": "b4d92356d0c74e066d9301b7bf2bf6ef58f0ce209c821765b96610e5e2985645",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-a65f688a/model.glb": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-3-221c8495/model.glb": "4a664278fcbd244956898172606baefd19e216c146f47cdbac377594300dce08",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0/model.glb": "542852badb502f3706b6b3e1932094522aee00db9991bea021c021cd0cf720c9"
+  },
+  "hashes_after": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo_warrior_rigged.glb": "ed8c9900037359eda2f021bbc19c2fa64470bd783693bb40223aca5caf4dd809",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo_warrior_rigged_with_dao.glb": "5e073c9582a2abc0b9b20fabcd5e3cb59d36e0ec56fc5d3dbc69d8250c3d5672",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-2-43bfb8da/model.glb": "b4d92356d0c74e066d9301b7bf2bf6ef58f0ce209c821765b96610e5e2985645",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-a65f688a/model.glb": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-3-221c8495/model.glb": "4a664278fcbd244956898172606baefd19e216c146f47cdbac377594300dce08",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-4-44c8eae0/model.glb": "542852badb502f3706b6b3e1932094522aee00db9991bea021c021cd0cf720c9"
+  },
+  "all_hashes_unchanged": true,
+  "known_grip_limits": "The reviewed slash right-finger/handle and left-hand/blade intersections remain unchanged."
+}

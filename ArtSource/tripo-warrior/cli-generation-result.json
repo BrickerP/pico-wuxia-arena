@@ -1,0 +1,54 @@
+{
+  "task_id": "4f577636-83a1-40ed-a8a2-323eab91db23",
+  "type": "animate_rig",
+  "status": "success",
+  "credits_consumed": 55,
+  "output_dir": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636",
+  "files": [
+    "model.glb",
+    "rendered_image.webp",
+    "preview.png"
+  ],
+  "model_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/model.glb",
+  "preview": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/preview.png",
+  "chain": [
+    {
+      "task_id": "f2a5c5b3-d567-46ee-bc81-5a4dcf52135b",
+      "type": "texture_model",
+      "status": "success",
+      "credits_consumed": 10
+    },
+    {
+      "task_id": "4f577636-83a1-40ed-a8a2-323eab91db23",
+      "type": "animate_rig",
+      "status": "success",
+      "credits_consumed": 25,
+      "output_dir": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636",
+      "files": [
+        "model.glb",
+        "rendered_image.webp",
+        "preview.png"
+      ],
+      "model_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/model.glb",
+      "preview": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/preview.png"
+    }
+  ],
+  "source_task_id": "60d50ca0-3e6b-415f-9f02-8acf34be2da6",
+  "credits_breakdown": [
+    {
+      "task_id": "60d50ca0-3e6b-415f-9f02-8acf34be2da6",
+      "type": "text_to_model",
+      "credits_consumed": 20
+    },
+    {
+      "task_id": "f2a5c5b3-d567-46ee-bc81-5a4dcf52135b",
+      "type": "texture_model",
+      "credits_consumed": 10
+    },
+    {
+      "task_id": "4f577636-83a1-40ed-a8a2-323eab91db23",
+      "type": "animate_rig",
+      "credits_consumed": 25
+    }
+  ]
+}

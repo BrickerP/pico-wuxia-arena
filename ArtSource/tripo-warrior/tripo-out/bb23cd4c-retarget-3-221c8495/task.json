@@ -1,0 +1,21 @@
+{
+  "task_id": "221c8495-3ee3-4084-a7e2-a5bc3ec5ada8",
+  "type": "animate_retarget",
+  "status": "success",
+  "input": {
+    "animation": "preset:hurt",
+    "out_format": "glb",
+    "animate_in_place": true,
+    "original_model_id": "bb23cd4c-e0b9-4478-b47f-24a326757289",
+    "export_with_geometry": true
+  },
+  "output_fields": [
+    "model_url"
+  ],
+  "credits_consumed": 10,
+  "created_at": "2026-11-09T13:18:34.489172Z",
+  "completed_at": "2026-11-09T13:18:52.174139Z",
+  "files": [
+    "model.glb"
+  ]
+}

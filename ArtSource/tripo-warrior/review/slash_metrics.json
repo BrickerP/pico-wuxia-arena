@@ -1,0 +1,365 @@
+{
+  "fps": 30,
+  "action": "slash",
+  "slot": "OBArmature",
+  "action_frame_range": [
+    1.0,
+    198.0
+  ],
+  "sampled_frames": [
+    1,
+    198
+  ],
+  "frame_count": 198,
+  "vertices": 10736,
+  "triangles": 18833,
+  "right_hand_parent": "R_Hand",
+  "blade_meshes": [
+    "Blade",
+    "Blade | asymmetric wear",
+    "Blade | shallow fuller"
+  ],
+  "handle_meshes": [
+    "Grip | cord wrap",
+    "Handle core"
+  ],
+  "max_grip_gap_m": 6.143906154658885e-08,
+  "blade_length_range_m": [
+    0.7206750265965676,
+    0.7206757586796162
+  ],
+  "tip_bounds_min": [
+    -0.11372216045856476,
+    0.5883573889732361,
+    -0.5205832719802856
+  ],
+  "tip_bounds_max": [
+    0.8942394852638245,
+    1.857581615447998,
+    1.2221219539642334
+  ],
+  "base_bounds_min": [
+    -0.09114045649766922,
+    0.6010058522224426,
+    0.09508735686540604
+  ],
+  "base_bounds_max": [
+    0.5543723702430725,
+    1.6557668447494507,
+    0.7784003615379333
+  ],
+  "tip_speed_global_peak": {
+    "frame": 63,
+    "time": 2.1,
+    "base": [
+      0.05354093015193939,
+      0.8879654407501221,
+      0.7145802974700928
+    ],
+    "tip": [
+      0.16314221918582916,
+      1.510004997253418,
+      1.061606526374817
+    ],
+    "tip_velocity": [
+      -2.060479000210762,
+      -11.733339428901672,
+      7.831217050552368
+    ],
+    "tip_speed": 14.25639464791117,
+    "blade_pairs": 0,
+    "handle_pairs": 519,
+    "blade_regions": {},
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_velocity_x_min": {
+    "frame": 39,
+    "time": 1.3,
+    "base": [
+      0.28612208366394043,
+      0.7649366855621338,
+      0.18034720420837402
+    ],
+    "tip": [
+      0.7575563788414001,
+      0.9409304261207581,
+      -0.3355490565299988
+    ],
+    "tip_velocity": [
+      -2.330337166786194,
+      -0.27247756719589233,
+      -3.5998208820819855
+    ],
+    "tip_speed": 4.296908856213222,
+    "blade_pairs": 57,
+    "handle_pairs": 519,
+    "blade_regions": {
+      "left_hand": 57
+    },
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_velocity_x_max": {
+    "frame": 32,
+    "time": 1.0666666666666667,
+    "base": [
+      0.018939077854156494,
+      0.7738494277000427,
+      0.18064714968204498
+    ],
+    "tip": [
+      0.6052488684654236,
+      0.6227719783782959,
+      0.5715299844741821
+    ],
+    "tip_velocity": [
+      2.5742965936660767,
+      0.7058340311050415,
+      -1.904131919145584
+    ],
+    "tip_speed": 3.278860014873432,
+    "blade_pairs": 0,
+    "handle_pairs": 519,
+    "blade_regions": {},
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_velocity_z_min": {
+    "frame": 37,
+    "time": 1.2333333333333334,
+    "base": [
+      0.21009613573551178,
+      0.7528564929962158,
+      0.19619984924793243
+    ],
+    "tip": [
+      0.8942394852638245,
+      0.8791232705116272,
+      0.008110233582556248
+    ],
+    "tip_velocity": [
+      -0.5943676829338074,
+      1.8169024586677551,
+      -5.500767230987549
+    ],
+    "tip_speed": 5.823473844393521,
+    "blade_pairs": 0,
+    "handle_pairs": 519,
+    "blade_regions": {},
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_velocity_z_max": {
+    "frame": 62,
+    "time": 2.066666666666667,
+    "base": [
+      0.1237872764468193,
+      1.1489022970199585,
+      0.7784003615379333
+    ],
+    "tip": [
+      0.2274969071149826,
+      1.8506182432174683,
+      0.6510716676712036
+    ],
+    "tip_velocity": [
+      -1.1901504546403885,
+      -5.213649272918701,
+      13.196148052811623
+    ],
+    "tip_speed": 14.238571567310059,
+    "blade_pairs": 0,
+    "handle_pairs": 519,
+    "blade_regions": {},
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_forward_extent": {
+    "frame": 92,
+    "time": 3.066666666666667,
+    "base": [
+      0.01710921712219715,
+      0.7153381705284119,
+      0.5083413124084473
+    ],
+    "tip": [
+      0.023640308529138565,
+      0.8145731687545776,
+      1.2221219539642334
+    ],
+    "tip_velocity": [
+      0.6529203057289124,
+      0.8607736229896545,
+      -0.04763603210449219
+    ],
+    "tip_speed": 1.0814367051392941,
+    "blade_pairs": 0,
+    "handle_pairs": 519,
+    "blade_regions": {},
+    "handle_regions": {
+      "right_hand": 519
+    }
+  },
+  "tip_speed_local_peak_candidates": [
+    {
+      "frame": 37,
+      "time": 1.2333333333333334,
+      "base": [
+        0.21009613573551178,
+        0.7528564929962158,
+        0.19619984924793243
+      ],
+      "tip": [
+        0.8942394852638245,
+        0.8791232705116272,
+        0.008110233582556248
+      ],
+      "tip_velocity": [
+        -0.5943676829338074,
+        1.8169024586677551,
+        -5.500767230987549
+      ],
+      "tip_speed": 5.823473844393521,
+      "blade_pairs": 0,
+      "handle_pairs": 519,
+      "blade_regions": {},
+      "handle_regions": {
+        "right_hand": 519
+      }
+    },
+    {
+      "frame": 63,
+      "time": 2.1,
+      "base": [
+        0.05354093015193939,
+        0.8879654407501221,
+        0.7145802974700928
+      ],
+      "tip": [
+        0.16314221918582916,
+        1.510004997253418,
+        1.061606526374817
+      ],
+      "tip_velocity": [
+        -2.060479000210762,
+        -11.733339428901672,
+        7.831217050552368
+      ],
+      "tip_speed": 14.25639464791117,
+      "blade_pairs": 0,
+      "handle_pairs": 519,
+      "blade_regions": {},
+      "handle_regions": {
+        "right_hand": 519
+      }
+    },
+    {
+      "frame": 95,
+      "time": 3.1666666666666665,
+      "base": [
+        -0.033800967037677765,
+        0.8116703033447266,
+        0.46555453538894653
+      ],
+      "tip": [
+        -0.004939699545502663,
+        0.986817479133606,
+        1.1640267372131348
+      ],
+      "tip_velocity": [
+        -1.9934453442692757,
+        1.8490836024284363,
+        -1.0892003774642944
+      ],
+      "tip_speed": 2.9290428422313894,
+      "blade_pairs": 0,
+      "handle_pairs": 519,
+      "blade_regions": {},
+      "handle_regions": {
+        "right_hand": 519
+      }
+    }
+  ],
+  "blade_intersection_frame_runs": [
+    [
+      39,
+      45
+    ]
+  ],
+  "handle_intersection_frame_runs": [
+    [
+      1,
+      198
+    ]
+  ],
+  "max_blade_pairs": 99,
+  "max_handle_pairs": 1056,
+  "root_head_max_displacement_m": 0.0,
+  "hip_head_bounds_min": [
+    0.12950049340724945,
+    0.843489408493042,
+    -0.05859466642141342
+  ],
+  "hip_head_bounds_max": [
+    0.14470811188220978,
+    0.9324691891670227,
+    0.05888943746685982
+  ],
+  "fingers_relative_to_hand": {
+    "Thumb": {
+      "max_joint_relative_hand_motion_m": 1.9318602657067366e-07,
+      "proximal_middle_distal_bend_degrees_min": 37.197128257619404,
+      "max": 37.19762344633423
+    },
+    "Index": {
+      "max_joint_relative_hand_motion_m": 2.446100613903525e-07,
+      "proximal_middle_distal_bend_degrees_min": 74.79135688339417,
+      "max": 74.79201941174367
+    },
+    "Mid": {
+      "max_joint_relative_hand_motion_m": 2.645611891580324e-07,
+      "proximal_middle_distal_bend_degrees_min": 66.86696457815621,
+      "max": 66.86762710650571
+    },
+    "Ring": {
+      "max_joint_relative_hand_motion_m": 2.691763922497649e-07,
+      "proximal_middle_distal_bend_degrees_min": 67.24217419002169,
+      "max": 67.24265913345276
+    },
+    "Pinky": {
+      "max_joint_relative_hand_motion_m": 2.0026416582838392e-07,
+      "proximal_middle_distal_bend_degrees_min": 23.950729390735663,
+      "max": 23.95140216436891
+    }
+  },
+  "hashes_before": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-a65f688a/model.glb": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "/private/tmp/pico-tripo-slash-inspect-aligned.glb": "589713ecae1c40f47cd1749788870cb73cfc289a0ae59ebd4949a02a8b487342"
+  },
+  "hashes_after": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/tripo-out/bb23cd4c-retarget-a65f688a/model.glb": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "/private/tmp/pico-tripo-slash-inspect-aligned.glb": "589713ecae1c40f47cd1749788870cb73cfc289a0ae59ebd4949a02a8b487342"
+  },
+  "source_glb": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
+  "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+  "basis": "normalized glTF coordinates in metres",
+  "video_first_source_frame": 1,
+  "hand_core_interior_check": {
+    "sampled_frames": [
+      1,
+      42,
+      63,
+      198
+    ],
+    "right_hand_vertices": 567,
+    "inside_core_vertices_each_sample": 25,
+    "max_depth_metres_approx": 0.01119,
+    "median_internal_depth_metres_approx": 0.00482
+  }
+}

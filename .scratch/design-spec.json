@@ -1,18 +1,19 @@
 {
+  "$schema": "/Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/pico-spatial-app-designer/assets/design-spec.schema.json",
   "schemaVersion": "1.0",
   "metadata": {
-    "projectName": "雨巷试锋",
+    "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 5
+    "revision": 11
   },
   "experience": {
-    "subject": "雨后山镇酒馆前的武侠单挑",
-    "user": "佩戴 PICO Space Pro 的玩家",
-    "context": "站立在已设置的安全区域内",
-    "singleJob": "用身体与刀回应对手的攻势，完成一场近身对决",
+    "subject": "写实中式刀术试炼的场边状态与轮次控制",
+    "user": "站立使用 PICO Space Pro 的单人玩家",
+    "context": "Full Space 酒馆竞技场，中心视线持续跟随刀客和双方武器",
+    "singleJob": "不离开对手即可看懂当前试炼状态并完成开始、暂停恢复与重新开局",
     "space": "full",
     "form": "stage_full",
-    "signature": "酒馆灯笼映照下的雨后石板与近身刀剑"
+    "signature": "左右场边双匾与三段招向印"
   },
   "theme": {
     "scheme": "vibrant",
@@ -83,33 +84,28 @@
       }
     },
     "brandColors": {
-      "lanternRed": "#8D3328",
-      "inkDark": "#1D2725",
-      "inkSecondary": "#364440"
+      "arenaPanelSurface": "#101010",
+      "arenaPanelControl": "#49443F",
+      "arenaPanelText": "#F6F0E6",
+      "arenaPanelSecondary": "#D3CDC4"
     },
     "typography": {
-      "display": {
-        "family": "serif",
-        "sizeDp": 48,
-        "lineHeightDp": 60,
-        "weight": 600
-      },
       "title": {
-        "family": "sans-serif",
-        "sizeDp": 26,
-        "lineHeightDp": 36,
+        "family": "PicoTheme",
+        "sizeDp": 20,
+        "lineHeightDp": 26,
         "weight": 600
       },
       "body": {
-        "family": "sans-serif",
-        "sizeDp": 18,
-        "lineHeightDp": 30,
-        "weight": 500
+        "family": "PicoTheme",
+        "sizeDp": 16,
+        "lineHeightDp": 24,
+        "weight": 400
       },
       "label": {
-        "family": "sans-serif",
-        "sizeDp": 15,
-        "lineHeightDp": 24,
+        "family": "PicoTheme",
+        "sizeDp": 14,
+        "lineHeightDp": 20,
         "weight": 500
       }
     },
@@ -122,733 +118,1210 @@
   },
   "surfaces": [
     {
-      "id": "arena",
+      "id": "arena-stage",
       "type": "stage_full",
       "defaultSize": {
-        "width": 5,
-        "height": 3.5,
+        "width": 4.345,
+        "height": 3.428,
         "unit": "m"
       },
       "minSize": {
-        "width": 5,
-        "height": 3.5,
+        "width": 4.345,
+        "height": 3.428,
         "unit": "m"
       },
       "maxSize": {
-        "width": 5,
-        "height": 3.5,
+        "width": 4.345,
+        "height": 3.428,
         "unit": "m"
       },
-      "rootNodeId": "start-screen",
+      "rootNodeId": "stage-root",
       "placement": {
-        "sizeMeaning": "酒馆可见内容的设计跨度，不是 Stage 边界或安全区域尺寸",
-        "panelAnchor": "场景实体；在进入或重新居中时依据初始头部位置和水平朝向定位，之后保持世界固定",
-        "panelDistanceM": 1.75,
-        "panelSizeDp": {
-          "width": 960,
-          "height": 540
+        "container": "existing-full-stage",
+        "role": "existing-scene-context"
+      }
+    },
+    {
+      "id": "trial-control",
+      "type": "planar",
+      "defaultSize": {
+        "width": 360,
+        "height": 176,
+        "unit": "dp"
+      },
+      "minSize": {
+        "width": 340,
+        "height": 160,
+        "unit": "dp"
+      },
+      "maxSize": {
+        "width": 400,
+        "height": 184,
+        "unit": "dp"
+      },
+      "rootNodeId": "control-surface",
+      "placement": {
+        "container": "existing-full-stage",
+        "attachment": "arena-root",
+        "positionMeters": {
+          "x": -0.8,
+          "y": 1.08,
+          "z": -1.9
         },
-        "panelMinSizeDp": {
-          "width": 640,
-          "height": 440
+        "yawDegrees": 34,
+        "role": "left-field-control",
+        "viewRole": "deliberate-turn-control"
+      }
+    },
+    {
+      "id": "combat-status",
+      "type": "planar",
+      "defaultSize": {
+        "width": 440,
+        "height": 156,
+        "unit": "dp"
+      },
+      "minSize": {
+        "width": 400,
+        "height": 148,
+        "unit": "dp"
+      },
+      "maxSize": {
+        "width": 480,
+        "height": 176,
+        "unit": "dp"
+      },
+      "rootNodeId": "status-surface",
+      "placement": {
+        "container": "existing-full-stage",
+        "attachment": "arena-root",
+        "positionMeters": {
+          "x": 0.0,
+          "y": 2.1,
+          "z": -2.4
         },
-        "panelMaxSizeDp": {
-          "width": 1280,
-          "height": 720
+        "yawDegrees": 0,
+        "role": "above-enemy-status",
+        "clearanceMeters": {
+          "enemyVisualTop": 1.808,
+          "minimumBottomEdge": 1.95
         }
       }
     }
   ],
-  "initialStateId": "start",
+  "initialStateId": "ready",
   "states": [
     {
-      "id": "start",
+      "id": "ready",
       "surfaceRoots": {
-        "arena": "start-screen"
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
       }
     },
     {
-      "id": "preparing",
+      "id": "fighting",
       "surfaceRoots": {
-        "arena": "prepare-screen"
-      }
-    },
-    {
-      "id": "battle",
-      "surfaceRoots": {
-        "arena": "battle-screen"
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
       }
     },
     {
       "id": "paused",
       "surfaceRoots": {
-        "arena": "paused-screen"
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
       }
     },
     {
-      "id": "won",
+      "id": "tracking-lost",
       "surfaceRoots": {
-        "arena": "won-screen"
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
+      }
+    },
+    {
+      "id": "tracking-resume-ready",
+      "surfaceRoots": {
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
       }
     },
     {
       "id": "defeated",
       "surfaceRoots": {
-        "arena": "defeated-screen"
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
       }
     }
   ],
   "transitions": [
     {
-      "id": "begin",
-      "from": "start",
-      "to": "preparing",
+      "id": "start-trial",
+      "from": "ready",
+      "to": "fighting",
       "trigger": {
         "nodeId": "start-button",
         "event": "click-action"
       }
     },
     {
-      "id": "cancel-prepare",
-      "from": "preparing",
-      "to": "start",
+      "id": "pause-trial",
+      "from": "fighting",
+      "to": "paused",
       "trigger": {
-        "nodeId": "cancel-button",
+        "nodeId": "pause-button",
         "event": "click-action"
       }
     },
     {
-      "id": "tracking-ready",
-      "from": "preparing",
-      "to": "battle",
-      "trigger": {
-        "nodeId": "prepare-screen",
-        "event": "tracking-ready"
-      }
-    },
-    {
-      "id": "tracking-interrupted",
-      "from": "battle",
-      "to": "paused",
-      "trigger": {
-        "nodeId": "arena-scene",
-        "event": "tracking-interrupted"
-      }
-    },
-    {
-      "id": "manual-pause",
-      "from": "battle",
-      "to": "paused",
-      "trigger": {
-        "nodeId": "arena-scene",
-        "event": "manual-pause"
-      }
-    },
-    {
-      "id": "resume-battle",
+      "id": "resume-trial",
       "from": "paused",
-      "to": "battle",
+      "to": "fighting",
       "trigger": {
         "nodeId": "resume-button",
         "event": "click-action"
       }
     },
     {
-      "id": "victory",
-      "from": "battle",
-      "to": "won",
+      "id": "tracking-interrupted",
+      "from": "fighting",
+      "to": "tracking-lost",
       "trigger": {
-        "nodeId": "arena-scene",
-        "event": "victory"
+        "nodeId": "status-root",
+        "event": "tracking-lost"
       }
     },
     {
-      "id": "defeat",
-      "from": "battle",
+      "id": "tracking-restored",
+      "from": "tracking-lost",
+      "to": "tracking-resume-ready",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "tracking-restored"
+      }
+    },
+    {
+      "id": "confirm-tracking-resume",
+      "from": "tracking-resume-ready",
+      "to": "fighting",
+      "trigger": {
+        "nodeId": "resume-tracking-button",
+        "event": "click-action"
+      }
+    },
+    {
+      "id": "reset-from-tracking-ready",
+      "from": "tracking-resume-ready",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "reset-tracking-ready-button",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "追踪已恢复，但当前试炼进度仍将清除。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "继续试炼"
+      }
+    },
+    {
+      "id": "enemy-defeated",
+      "from": "fighting",
       "to": "defeated",
       "trigger": {
-        "nodeId": "arena-scene",
-        "event": "defeat"
+        "nodeId": "status-root",
+        "event": "enemy-defeated"
       }
     },
     {
-      "id": "retry-won",
-      "from": "won",
-      "to": "preparing",
+      "id": "reset-from-fighting",
+      "from": "fighting",
+      "to": "ready",
       "trigger": {
-        "nodeId": "retry-won-button",
+        "nodeId": "reset-fighting-button",
         "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "当前试炼进度将清除，双方回到初始状态。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "继续试炼"
       }
     },
     {
-      "id": "retry-defeated",
+      "id": "reset-from-paused",
+      "from": "paused",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "reset-paused-button",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "当前试炼进度将清除，双方回到初始状态。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "保持暂停"
+      }
+    },
+    {
+      "id": "reset-from-tracking",
+      "from": "tracking-lost",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "reset-tracking-button",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "追踪仍未恢复，当前试炼进度将清除。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "等待追踪"
+      }
+    },
+    {
+      "id": "reset-from-defeated",
       "from": "defeated",
-      "to": "preparing",
+      "to": "ready",
       "trigger": {
-        "nodeId": "retry-defeated-button",
+        "nodeId": "reset-defeated-button",
         "event": "click-action"
+      },
+      "confirmation": {
+        "title": "再试一局？",
+        "body": "刀客与试炼状态将回到初始位置。",
+        "confirmLabel": "再试一局",
+        "cancelLabel": "留在此处"
       }
     }
   ],
   "actions": [
     {
-      "id": "begin-action",
+      "id": "start-action",
       "type": "transition",
-      "purpose": "开始准备追踪",
-      "transitionId": "begin"
-    },
-    {
-      "id": "cancel-action",
-      "type": "transition",
-      "purpose": "返回开场",
-      "transitionId": "cancel-prepare"
-    },
-    {
-      "id": "ready-action",
-      "type": "transition",
-      "purpose": "追踪连续有效并就绪后进入对局",
-      "transitionId": "tracking-ready",
-      "payload": {
-        "requires": "tracking.canResume"
-      }
-    },
-    {
-      "id": "interrupt-action",
-      "type": "transition",
-      "purpose": "必要追踪失效或应用失去可用空间时停止裁决",
-      "transitionId": "tracking-interrupted",
-      "payload": {
-        "dataCase": "fallback",
-        "pauseReason": "tracking"
-      }
+      "purpose": "通过现有 tryStartAttack 接线开始试炼",
+      "transitionId": "start-trial"
     },
     {
       "id": "pause-action",
       "type": "transition",
-      "purpose": "玩家主动暂停并冻结战斗时钟",
-      "transitionId": "manual-pause",
-      "payload": {
-        "pauseReason": "manual"
-      }
-    },
-    {
-      "id": "paused-interrupt-action",
-      "type": "set",
-      "purpose": "暂停期间发生追踪失效或重定位，恢复改为取消敌招",
-      "binding": "session.pauseReason",
-      "value": "tracking",
-      "payload": {
-        "dataCase": "fallback"
-      }
+      "purpose": "调用现有 pauseByPlayer 进入用户暂停",
+      "transitionId": "pause-trial"
     },
     {
       "id": "resume-action",
       "type": "transition",
-      "purpose": "追踪稳定后玩家主动继续；纯主动暂停保留敌人状态，出现追踪中断则取消敌招回待机",
-      "transitionId": "resume-battle",
-      "payload": {
-        "requires": "tracking.canResume"
-      }
+      "purpose": "以当前 pauseId 和有效输入调用 tryResume",
+      "transitionId": "resume-trial"
     },
     {
-      "id": "victory-action",
+      "id": "tracking-loss-action",
       "type": "transition",
-      "purpose": "敌人被击败后显示结果",
-      "transitionId": "victory"
+      "purpose": "反映现有追踪中断事件",
+      "transitionId": "tracking-interrupted"
     },
     {
-      "id": "defeat-action",
+      "id": "tracking-restore-action",
       "type": "transition",
-      "purpose": "玩家被击败后显示结果",
-      "transitionId": "defeat"
+      "purpose": "新头手观察有效后恢复试炼",
+      "transitionId": "tracking-restored"
     },
     {
-      "id": "retry-won-action",
+      "id": "defeated-action",
       "type": "transition",
-      "purpose": "重新准备一局",
-      "transitionId": "retry-won"
+      "purpose": "敌人生命归零后显示试炼结束",
+      "transitionId": "enemy-defeated"
     },
     {
-      "id": "retry-defeated-action",
+      "id": "reset-fighting-action",
       "type": "transition",
-      "purpose": "重新准备一局",
-      "transitionId": "retry-defeated"
+      "purpose": "确认后调用 resetRound",
+      "transitionId": "reset-from-fighting"
+    },
+    {
+      "id": "reset-paused-action",
+      "type": "transition",
+      "purpose": "确认后调用 resetRound",
+      "transitionId": "reset-from-paused"
+    },
+    {
+      "id": "reset-tracking-action",
+      "type": "transition",
+      "purpose": "确认后调用 resetRound",
+      "transitionId": "reset-from-tracking"
+    },
+    {
+      "id": "reset-defeated-action",
+      "type": "transition",
+      "purpose": "确认后调用 resetRound",
+      "transitionId": "reset-from-defeated"
+    },
+    {
+      "id": "resume-tracking-action",
+      "type": "transition",
+      "purpose": "resumeReady为真后由玩家显式确认当前pauseId并调用tryResume",
+      "transitionId": "confirm-tracking-resume"
+    },
+    {
+      "id": "reset-tracking-ready-action",
+      "type": "transition",
+      "purpose": "确认后调用resetRound",
+      "transitionId": "reset-from-tracking-ready"
     }
   ],
   "dataCases": {
     "normal": {
-      "tracking": {
-        "canResume": true,
-        "prepareMessage": "追踪已就绪，准备入场。",
-        "pauseMessage": "追踪已就绪，可以继续对局。"
+      "stateSamples": {
+        "ready": {
+          "control": {
+            "stateTitle": "试炼未启"
+          },
+          "combat": {
+            "phaseLabel": "待机",
+            "healthFraction": 1.0,
+            "healthText": "100 / 100",
+            "guardLabel": "护身：未起",
+            "attackDirection": "none",
+            "rangeLabel": "尚未进入攻防"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · HMD 派生手位 · 头手观察已就绪"
+          }
+        },
+        "fighting": {
+          "control": {
+            "stateTitle": "试炼进行中"
+          },
+          "combat": {
+            "phaseLabel": "蓄势",
+            "healthFraction": 0.72,
+            "healthText": "72 / 100",
+            "guardLabel": "护身：未起",
+            "attackDirection": "left",
+            "rangeLabel": "左侧来势 · 目标在范围内"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · HMD 派生手位 · 头手观察已就绪"
+          }
+        },
+        "paused": {
+          "control": {
+            "stateTitle": "试炼已暂停"
+          },
+          "combat": {
+            "phaseLabel": "暂停",
+            "healthFraction": 0.72,
+            "healthText": "72 / 100",
+            "guardLabel": "护身：未起",
+            "attackDirection": "none",
+            "rangeLabel": "战斗时钟已停止"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · HMD 派生手位 · 输入仍有效"
+          }
+        },
+        "tracking-lost": {
+          "control": {
+            "stateTitle": "追踪中断"
+          },
+          "combat": {
+            "phaseLabel": "中断",
+            "healthFraction": 0.72,
+            "healthText": "72 / 100",
+            "guardLabel": "护身：状态保留",
+            "attackDirection": "none",
+            "rangeLabel": "未判定动作与范围"
+          },
+          "input": {
+            "sourceLabel": "输入来源待恢复 · 头手观察不可用"
+          }
+        },
+        "tracking-resume-ready": {
+          "control": {
+            "stateTitle": "追踪已恢复"
+          },
+          "combat": {
+            "phaseLabel": "待确认",
+            "healthFraction": 0.72,
+            "healthText": "72 / 100",
+            "guardLabel": "护身：状态保留",
+            "attackDirection": "none",
+            "rangeLabel": "新头手基线已建立 · 请确认继续"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · HMD 派生手位 · 可继续"
+          }
+        },
+        "defeated": {
+          "control": {
+            "stateTitle": "试炼结束"
+          },
+          "combat": {
+            "phaseLabel": "倒地",
+            "healthFraction": 0.0,
+            "healthText": "0 / 100",
+            "guardLabel": "护身：解除",
+            "attackDirection": "none",
+            "rangeLabel": "本轮已结束"
+          },
+          "input": {
+            "sourceLabel": "设备追踪 · 头手动作 · 输入有效"
+          }
+        }
       }
     },
     "fallback": {
-      "tracking": {
-        "canResume": false,
-        "prepareMessage": "正在等待头显与持刀手柄追踪。",
-        "pauseMessage": "正在等待头显与持刀手柄追踪。"
+      "stateSamples": {
+        "ready": {
+          "control": {
+            "stateTitle": "等待场景"
+          },
+          "combat": {
+            "phaseLabel": "未知",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：未知",
+            "attackDirection": "none",
+            "rangeLabel": "范围状态未知"
+          },
+          "input": {
+            "sourceLabel": "输入来源待确认 · 等待头手观察"
+          }
+        },
+        "fighting": {
+          "control": {
+            "stateTitle": "状态暂缺"
+          },
+          "combat": {
+            "phaseLabel": "未知",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：未知",
+            "attackDirection": "none",
+            "rangeLabel": "未判定动作与范围"
+          },
+          "input": {
+            "sourceLabel": "输入来源待确认 · 等待新观察"
+          }
+        },
+        "paused": {
+          "control": {
+            "stateTitle": "暂停"
+          },
+          "combat": {
+            "phaseLabel": "暂停",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：未知",
+            "attackDirection": "none",
+            "rangeLabel": "战斗时钟已停止"
+          },
+          "input": {
+            "sourceLabel": "输入来源待确认 · 等待新观察"
+          }
+        },
+        "tracking-lost": {
+          "control": {
+            "stateTitle": "追踪中断"
+          },
+          "combat": {
+            "phaseLabel": "中断",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：未知",
+            "attackDirection": "none",
+            "rangeLabel": "未判定动作与范围"
+          },
+          "input": {
+            "sourceLabel": "输入来源待恢复 · 头手观察不可用"
+          }
+        },
+        "tracking-resume-ready": {
+          "control": {
+            "stateTitle": "恢复条件待确认"
+          },
+          "combat": {
+            "phaseLabel": "中断",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：未知",
+            "attackDirection": "none",
+            "rangeLabel": "等待确认当前暂停标识"
+          },
+          "input": {
+            "sourceLabel": "输入来源待确认 · 恢复条件待确认"
+          }
+        },
+        "defeated": {
+          "control": {
+            "stateTitle": "试炼结束"
+          },
+          "combat": {
+            "phaseLabel": "结束",
+            "healthFraction": 0,
+            "healthText": "0 / —",
+            "guardLabel": "护身：解除",
+            "attackDirection": "none",
+            "rangeLabel": "本轮已结束"
+          },
+          "input": {
+            "sourceLabel": "输入来源待确认 · 结果已锁定"
+          }
+        }
       }
     },
     "error": {
-      "tracking": {
-        "canResume": false,
-        "prepareMessage": "追踪暂不可用，请确认设备连接与安全区域。",
-        "pauseMessage": "追踪暂不可用，请确认设备连接与安全区域。"
+      "stateSamples": {
+        "ready": {
+          "control": {
+            "stateTitle": "场景未就绪"
+          },
+          "combat": {
+            "phaseLabel": "不可用",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：不可用",
+            "attackDirection": "none",
+            "rangeLabel": "敌人场景不可用"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+          }
+        },
+        "fighting": {
+          "control": {
+            "stateTitle": "场景异常"
+          },
+          "combat": {
+            "phaseLabel": "不可用",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：不可用",
+            "attackDirection": "none",
+            "rangeLabel": "敌人场景不可用"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+          }
+        },
+        "paused": {
+          "control": {
+            "stateTitle": "场景异常"
+          },
+          "combat": {
+            "phaseLabel": "不可用",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：不可用",
+            "attackDirection": "none",
+            "rangeLabel": "敌人场景不可用"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+          }
+        },
+        "tracking-lost": {
+          "control": {
+            "stateTitle": "追踪与场景中断"
+          },
+          "combat": {
+            "phaseLabel": "不可用",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：不可用",
+            "attackDirection": "none",
+            "rangeLabel": "敌人场景不可用"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 头手与场景不可用"
+          }
+        },
+        "tracking-resume-ready": {
+          "control": {
+            "stateTitle": "恢复状态不可读取"
+          },
+          "combat": {
+            "phaseLabel": "不可用",
+            "healthFraction": 0,
+            "healthText": "— / —",
+            "guardLabel": "护身：不可用",
+            "attackDirection": "none",
+            "rangeLabel": "无法确认恢复条件"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 无法确认继续"
+          }
+        },
+        "defeated": {
+          "control": {
+            "stateTitle": "结果不可读取"
+          },
+          "combat": {
+            "phaseLabel": "结束",
+            "healthFraction": 0,
+            "healthText": "0 / —",
+            "guardLabel": "护身：解除",
+            "attackDirection": "none",
+            "rangeLabel": "结果数据不可用"
+          },
+          "input": {
+            "sourceLabel": "输入来源不可用 · 结果已锁定"
+          }
+        }
       }
     }
   },
   "nodes": [
     {
-      "id": "start-screen",
+      "id": "stage-root",
       "kind": "layout",
       "layout": {
-        "mode": "column",
-        "gapDp": 24,
-        "paddingDp": 32,
-        "align": "start",
-        "justify": "center"
+        "mode": "stack",
+        "overflow": "hidden"
       },
       "children": [
-        "start-kicker",
-        "start-title",
-        "start-subtitle",
-        "start-instruction",
-        "start-button"
+        "stage-reference"
       ]
     },
     {
-      "id": "start-kicker",
+      "id": "stage-reference",
+      "kind": "media",
+      "assetId": "full-stage-reference",
+      "props": {
+        "fit": "cover",
+        "crop": {
+          "left": 53,
+          "top": 31,
+          "right": 1,
+          "bottom": 33
+        }
+      },
+      "accessibilityLabel": "现有酒馆 Full Stage 运行画面"
+    },
+    {
+      "id": "control-surface",
       "kind": "text",
-      "content": "一场雨 · 一场对决",
+      "content": "",
       "textStyle": {
         "typography": "label",
-        "color": "lanternRed"
-      }
+        "color": "labelPrimary",
+        "maxLines": 1
+      },
+      "layout": {
+        "mode": "column",
+        "widthDp": 360,
+        "heightDp": 176
+      },
+      "appearance": {
+        "fill": "arenaPanelSurface",
+        "radiusDp": 32
+      },
+      "children": [
+        "control-root"
+      ],
+      "accessibilityLabel": "场边试炼控制面板"
     },
     {
-      "id": "start-title",
+      "id": "status-surface",
       "kind": "text",
-      "content": "雨巷试锋",
+      "content": "",
       "textStyle": {
-        "typography": "display",
-        "color": "inkDark"
-      }
+        "typography": "label",
+        "color": "labelPrimary",
+        "maxLines": 1
+      },
+      "layout": {
+        "mode": "column",
+        "widthDp": 440,
+        "heightDp": 156
+      },
+      "appearance": {
+        "fill": "arenaPanelSurface",
+        "radiusDp": 32
+      },
+      "children": [
+        "status-root"
+      ],
+      "accessibilityLabel": "对手态势面板"
     },
     {
-      "id": "start-subtitle",
+      "id": "control-root",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "paddingDp": 16,
+        "gapDp": 8,
+        "align": "stretch"
+      },
+      "children": [
+        "control-heading",
+        "control-state-title",
+        "input-source",
+        "control-actions"
+      ]
+    },
+    {
+      "id": "control-heading",
       "kind": "text",
-      "content": "酒馆前，一人一刀。",
+      "content": "场边试炼",
       "textStyle": {
         "typography": "title",
-        "color": "inkDark"
+        "color": "labelSecondary",
+        "maxLines": 1
       }
     },
     {
-      "id": "start-instruction",
+      "id": "control-state-title",
       "kind": "text",
-      "content": "挥刀迎敌，以刀格挡；观察来势，侧身避让。",
+      "content": "试炼未启",
+      "bindings": {
+        "content": "control.stateTitle"
+      },
       "textStyle": {
         "typography": "body",
-        "color": "inkSecondary"
+        "color": "labelPrimary",
+        "maxLines": 1
       }
+    },
+    {
+      "id": "input-source",
+      "kind": "text",
+      "content": "桌面预演 · HMD 派生手位",
+      "bindings": {
+        "content": "input.sourceLabel"
+      },
+      "textStyle": {
+        "typography": "label",
+        "color": "labelSecondary",
+        "maxLines": 1
+      }
+    },
+    {
+      "id": "control-actions",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "start-button",
+        "pause-button",
+        "resume-button",
+        "resume-tracking-button",
+        "wait-tracking-button",
+        "reset-fighting-button",
+        "reset-paused-button",
+        "reset-tracking-button",
+        "reset-tracking-ready-button",
+        "reset-defeated-button"
+      ]
     },
     {
       "id": "start-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "text": "准备入场",
-        "size": "max"
+        "size": "regular",
+        "text": "开始试炼",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
       },
       "events": {
-        "click-action": "begin-action"
+        "click-action": "start-action"
       },
-      "accessibilityLabel": "准备入场"
-    },
-    {
-      "id": "prepare-screen",
-      "kind": "layout",
-      "layout": {
-        "mode": "column",
-        "gapDp": 24,
-        "paddingDp": 32,
-        "align": "start",
-        "justify": "center"
-      },
-      "children": [
-        "prepare-kicker",
-        "prepare-title",
-        "prepare-status",
-        "cancel-button"
+      "visibleInStates": [
+        "ready"
       ],
-      "events": {
-        "tracking-ready": "ready-action"
-      }
+      "accessibilityLabel": "开始试炼"
     },
     {
-      "id": "prepare-kicker",
-      "kind": "text",
-      "content": "准备",
-      "textStyle": {
-        "typography": "label",
-        "color": "lanternRed"
-      }
-    },
-    {
-      "id": "prepare-title",
-      "kind": "text",
-      "content": "站稳，握刀",
-      "textStyle": {
-        "typography": "display",
-        "color": "inkDark"
-      }
-    },
-    {
-      "id": "prepare-status",
-      "kind": "text",
-      "content": "正在等待头显与持刀手柄追踪。",
-      "bindings": {
-        "content": "tracking.prepareMessage"
-      },
-      "textStyle": {
-        "typography": "body",
-        "color": "inkSecondary"
-      }
-    },
-    {
-      "id": "cancel-button",
+      "id": "pause-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "text": "返回",
-        "size": "max"
+        "size": "regular",
+        "text": "暂停",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
       },
       "events": {
-        "click-action": "cancel-action"
+        "click-action": "pause-action"
       },
-      "accessibilityLabel": "返回开场"
-    },
-    {
-      "id": "battle-screen",
-      "kind": "layout",
-      "layout": {
-        "mode": "column",
-        "gapDp": 16,
-        "paddingDp": 32,
-        "align": "stretch"
-      },
-      "children": [
-        "arena-scene"
-      ]
-    },
-    {
-      "id": "arena-scene",
-      "kind": "domain_visual",
-      "rendererKey": "arena-scene",
-      "purpose": "Full Stage 三维酒馆场景与一对一对局；网页只用示意布局，不是游戏画面",
-      "props": {
-        "backgroundSubject": "雨后酒馆",
-        "enemySubject": "对手",
-        "playerSubject": "玩家",
-        "enemyPositionM": [
-          0,
-          0,
-          -1.5
-        ],
-        "playerPositionM": [
-          0,
-          0,
-          0
-        ],
-        "initialForward": "-Z",
-        "battlePanel": "none",
-        "previewMinHeightDp": 320
-      },
-      "events": {
-        "tracking-interrupted": "interrupt-action",
-        "manual-pause": "pause-action",
-        "victory": "victory-action",
-        "defeat": "defeat-action"
-      }
-    },
-    {
-      "id": "paused-screen",
-      "kind": "layout",
-      "layout": {
-        "mode": "column",
-        "gapDp": 24,
-        "paddingDp": 32,
-        "align": "start",
-        "justify": "center"
-      },
-      "children": [
-        "paused-kicker",
-        "paused-title",
-        "paused-status",
-        "resume-button"
+      "visibleInStates": [
+        "fighting"
       ],
-      "events": {
-        "tracking-interrupted": "paused-interrupt-action"
-      }
-    },
-    {
-      "id": "paused-kicker",
-      "kind": "text",
-      "content": "对局暂停",
-      "textStyle": {
-        "typography": "label",
-        "color": "lanternRed"
-      }
-    },
-    {
-      "id": "paused-title",
-      "kind": "text",
-      "content": "先稳住，再继续",
-      "textStyle": {
-        "typography": "display",
-        "color": "inkDark"
-      }
-    },
-    {
-      "id": "paused-status",
-      "kind": "text",
-      "content": "正在等待头显与持刀手柄追踪。",
-      "bindings": {
-        "content": "tracking.pauseMessage"
-      },
-      "textStyle": {
-        "typography": "body",
-        "color": "inkSecondary"
-      }
+      "accessibilityLabel": "暂停试炼"
     },
     {
       "id": "resume-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "text": "继续对局",
-        "size": "max"
-      },
-      "bindings": {
-        "enabled": "tracking.canResume"
+        "size": "regular",
+        "text": "恢复",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
       },
       "events": {
         "click-action": "resume-action"
       },
-      "accessibilityLabel": "追踪恢复后继续对局"
+      "visibleInStates": [
+        "paused"
+      ],
+      "accessibilityLabel": "恢复试炼"
     },
     {
-      "id": "won-screen",
-      "kind": "layout",
-      "layout": {
-        "mode": "column",
-        "gapDp": 24,
-        "paddingDp": 32,
-        "align": "start",
-        "justify": "center"
-      },
-      "children": [
-        "won-kicker",
-        "won-title",
-        "won-body",
-        "retry-won-button"
-      ]
-    },
-    {
-      "id": "won-kicker",
-      "kind": "text",
-      "content": "对局结束",
-      "textStyle": {
-        "typography": "label",
-        "color": "lanternRed"
-      }
-    },
-    {
-      "id": "won-title",
-      "kind": "text",
-      "content": "胜",
-      "textStyle": {
-        "typography": "display",
-        "color": "inkDark"
-      }
-    },
-    {
-      "id": "won-body",
-      "kind": "text",
-      "content": "收刀，雨声未歇。",
-      "textStyle": {
-        "typography": "body",
-        "color": "inkSecondary"
-      }
-    },
-    {
-      "id": "retry-won-button",
+      "id": "resume-tracking-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "text": "再战一次",
-        "size": "max"
+        "size": "regular",
+        "text": "继续试炼",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
       },
       "events": {
-        "click-action": "retry-won-action"
+        "click-action": "resume-tracking-action"
       },
-      "accessibilityLabel": "再战一次"
+      "visibleInStates": [
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "确认追踪恢复并继续试炼"
     },
     {
-      "id": "defeated-screen",
-      "kind": "layout",
-      "layout": {
-        "mode": "column",
-        "gapDp": 24,
-        "paddingDp": 32,
-        "align": "start",
-        "justify": "center"
-      },
-      "children": [
-        "defeated-kicker",
-        "defeated-title",
-        "defeated-body",
-        "retry-defeated-button"
-      ]
-    },
-    {
-      "id": "defeated-kicker",
-      "kind": "text",
-      "content": "对局结束",
-      "textStyle": {
-        "typography": "label",
-        "color": "lanternRed"
-      }
-    },
-    {
-      "id": "defeated-title",
-      "kind": "text",
-      "content": "败",
-      "textStyle": {
-        "typography": "display",
-        "color": "inkDark"
-      }
-    },
-    {
-      "id": "defeated-body",
-      "kind": "text",
-      "content": "看清来势，再试一次。",
-      "textStyle": {
-        "typography": "body",
-        "color": "inkSecondary"
-      }
-    },
-    {
-      "id": "retry-defeated-button",
+      "id": "reset-tracking-ready-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "text": "再战一次",
-        "size": "max"
+        "size": "small",
+        "text": "重新开局",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
       },
       "events": {
-        "click-action": "retry-defeated-action"
+        "click-action": "reset-tracking-ready-action"
       },
-      "accessibilityLabel": "再战一次"
+      "visibleInStates": [
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "重新开局"
+    },
+    {
+      "id": "wait-tracking-button",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "size": "regular",
+        "text": "等待追踪",
+        "disabled": true,
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
+      },
+      "visibleInStates": [
+        "tracking-lost"
+      ],
+      "accessibilityLabel": "等待追踪恢复"
+    },
+    {
+      "id": "reset-fighting-button",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "size": "small",
+        "text": "重新开局",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
+      },
+      "events": {
+        "click-action": "reset-fighting-action"
+      },
+      "visibleInStates": [
+        "fighting"
+      ],
+      "accessibilityLabel": "重新开局"
+    },
+    {
+      "id": "reset-paused-button",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "size": "small",
+        "text": "重新开局",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
+      },
+      "events": {
+        "click-action": "reset-paused-action"
+      },
+      "visibleInStates": [
+        "paused"
+      ],
+      "accessibilityLabel": "重新开局"
+    },
+    {
+      "id": "reset-tracking-button",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "size": "small",
+        "text": "重新开局",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
+      },
+      "events": {
+        "click-action": "reset-tracking-action"
+      },
+      "visibleInStates": [
+        "tracking-lost"
+      ],
+      "accessibilityLabel": "重新开局"
+    },
+    {
+      "id": "reset-defeated-button",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "size": "regular",
+        "text": "再试一局",
+        "containerColorRole": "fillSecondary",
+        "contentColorRole": "labelPrimary"
+      },
+      "events": {
+        "click-action": "reset-defeated-action"
+      },
+      "visibleInStates": [
+        "defeated"
+      ],
+      "accessibilityLabel": "再试一局"
+    },
+    {
+      "id": "status-root",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "paddingDp": 16,
+        "gapDp": 8,
+        "align": "stretch"
+      },
+      "children": [
+        "status-header",
+        "status-body",
+        "range-status"
+      ]
+    },
+    {
+      "id": "status-header",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 12,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "status-heading",
+        "phase-chip"
+      ]
+    },
+    {
+      "id": "status-heading",
+      "kind": "text",
+      "content": "对手态势",
+      "textStyle": {
+        "typography": "title",
+        "color": "labelSecondary",
+        "maxLines": 1
+      }
+    },
+    {
+      "id": "phase-chip",
+      "kind": "spatialui",
+      "component": "sui-chip",
+      "props": {
+        "size": "small",
+        "label": "待机"
+      },
+      "bindings": {
+        "label": "combat.phaseLabel"
+      },
+      "accessibilityLabel": "敌人阶段"
+    },
+    {
+      "id": "status-body",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 12,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "health-cluster",
+        "guard-status",
+        "attack-seal"
+      ]
+    },
+    {
+      "id": "health-cluster",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "start"
+      },
+      "children": [
+        "health-progress",
+        "health-value"
+      ]
+    },
+    {
+      "id": "health-progress",
+      "kind": "spatialui",
+      "component": "sui-circular-progress",
+      "props": {
+        "size": "regular",
+        "value": 1.0
+      },
+      "bindings": {
+        "value": "combat.healthFraction"
+      },
+      "accessibilityLabel": "敌人气血进度"
+    },
+    {
+      "id": "health-value",
+      "kind": "text",
+      "content": "100 / 100",
+      "bindings": {
+        "content": "combat.healthText"
+      },
+      "textStyle": {
+        "typography": "label",
+        "color": "labelPrimary",
+        "maxLines": 1
+      }
+    },
+    {
+      "id": "guard-status",
+      "kind": "text",
+      "content": "护身：未起",
+      "bindings": {
+        "content": "combat.guardLabel"
+      },
+      "textStyle": {
+        "typography": "label",
+        "color": "labelSecondary",
+        "maxLines": 1
+      }
+    },
+    {
+      "id": "attack-seal",
+      "kind": "domain_visual",
+      "rendererKey": "attack-direction-seal",
+      "purpose": "以位置、文字和抬升显示现有左上右攻击方向",
+      "props": {
+        "label": "招向印",
+        "idleLabel": "观势",
+        "directions": [
+          {
+            "id": "left",
+            "label": "左"
+          },
+          {
+            "id": "up",
+            "label": "上"
+          },
+          {
+            "id": "right",
+            "label": "右"
+          }
+        ]
+      },
+      "bindings": {
+        "activeDirection": "combat.attackDirection"
+      },
+      "parts": {
+        "directionCell": {
+          "appearance": {
+            "foreground": "labelSecondary",
+            "radiusDp": 16
+          },
+          "states": {
+            "active": {
+              "fill": "interaction",
+              "foreground": "labelPrimaryLight",
+              "depthDp": 12
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "range-status",
+      "kind": "text",
+      "content": "尚未进入攻防",
+      "bindings": {
+        "content": "combat.rangeLabel"
+      },
+      "textStyle": {
+        "typography": "label",
+        "color": "labelTertiary",
+        "maxLines": 1
+      }
     }
   ],
   "responsiveRules": [
     {
-      "id": "compact-start",
-      "surfaceId": "arena",
+      "id": "control-compact",
+      "surfaceId": "trial-control",
       "when": {
-        "maxWidthDp": 720
+        "maxWidthDp": 350
       },
       "overrides": [
         {
-          "nodeId": "start-screen",
+          "nodeId": "control-root",
           "layout": {
             "mode": "column",
-            "gapDp": 16,
-            "paddingDp": 24,
-            "align": "start",
-            "justify": "center"
+            "paddingDp": 8,
+            "gapDp": 8,
+            "align": "stretch"
           }
         }
       ]
     },
     {
-      "id": "compact-prepare",
-      "surfaceId": "arena",
+      "id": "status-compact",
+      "surfaceId": "combat-status",
       "when": {
-        "maxWidthDp": 720
+        "maxWidthDp": 420
       },
       "overrides": [
         {
-          "nodeId": "prepare-screen",
+          "nodeId": "status-root",
           "layout": {
             "mode": "column",
-            "gapDp": 16,
-            "paddingDp": 24,
-            "align": "start",
-            "justify": "center"
-          }
-        }
-      ]
-    },
-    {
-      "id": "compact-pause",
-      "surfaceId": "arena",
-      "when": {
-        "maxWidthDp": 720
-      },
-      "overrides": [
-        {
-          "nodeId": "paused-screen",
-          "layout": {
-            "mode": "column",
-            "gapDp": 16,
-            "paddingDp": 24,
-            "align": "start",
-            "justify": "center"
-          }
-        }
-      ]
-    },
-    {
-      "id": "compact-won",
-      "surfaceId": "arena",
-      "when": {
-        "maxWidthDp": 720
-      },
-      "overrides": [
-        {
-          "nodeId": "won-screen",
-          "layout": {
-            "mode": "column",
-            "gapDp": 16,
-            "paddingDp": 24,
-            "align": "start",
-            "justify": "center"
-          }
-        }
-      ]
-    },
-    {
-      "id": "compact-defeated",
-      "surfaceId": "arena",
-      "when": {
-        "maxWidthDp": 720
-      },
-      "overrides": [
-        {
-          "nodeId": "defeated-screen",
-          "layout": {
-            "mode": "column",
-            "gapDp": 16,
-            "paddingDp": 24,
-            "align": "start",
-            "justify": "center"
+            "paddingDp": 8,
+            "gapDp": 8,
+            "align": "stretch"
           }
         }
       ]
     }
   ],
-  "assets": []
+  "assets": [
+    {
+      "id": "full-stage-reference",
+      "kind": "image",
+      "src": "../../artifacts/runtime/f5ab507-full-stage-mission-control.png",
+      "purpose": "仅用于 Web 设计验证的现有 Full Stage 场景上下文",
+      "alt": "酒馆、刀客与石板地面的实际模拟器画面"
+    }
+  ]
 }

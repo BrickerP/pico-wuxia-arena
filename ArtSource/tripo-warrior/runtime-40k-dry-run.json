@@ -1,0 +1,43 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "f2a5c5b3-d567-46ee-bc81-5a4dcf52135b",
+  "source_task_id": "f2a5c5b3-d567-46ee-bc81-5a4dcf52135b",
+  "steps": [
+    {
+      "name": "decimate",
+      "endpoint": "/v3/mesh/decimate",
+      "task_type": "highpoly_to_lowpoly",
+      "payload": {
+        "input": "<upstream>",
+        "model": "v1.0",
+        "face_limit": 40000,
+        "quad": false
+      }
+    },
+    {
+      "name": "rig",
+      "endpoint": "/v3/animations/rig",
+      "task_type": "animate_rig",
+      "payload": {
+        "input": "<upstream>",
+        "model": "v3.0-20260909",
+        "rig_type": "biped",
+        "out_format": "glb"
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [
+    "GLB"
+  ],
+  "candidates": 1,
+  "warnings": [
+    "chain legality unverified: upstream task type unknown (no local history for f2a5c5b3-d567-46ee-bc81-5a4dcf52135b); the real run checks it via the API"
+  ],
+  "errors": [],
+  "generation_credits_estimate": null,
+  "cost_notes": [
+    "cost not estimated (not zero credits); notes below are cost impacts only; check regional official pricing and balance before running"
+  ]
+}

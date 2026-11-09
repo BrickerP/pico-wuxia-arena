@@ -5,10 +5,54 @@
   "visual_asset_present": false,
   "gate_required": true,
   "status": "designer_passed",
+  "route": {
+    "input_mode": "product_doc",
+    "generation_mode": "existing_module",
+    "visual_asset_present": false,
+    "reason": "既有游戏上的完整两区域 HUD 功能规格，包含真实字段、状态和交互约束；不是一句话意图，也没有改变根容器。"
+  },
   "pre_gates": {
     "designDocComplete": true,
     "designSpecValid": true,
     "previewMatchesSpec": true,
     "postBuildVerdict": "pass"
+  },
+  "evidence": {
+    "designDoc": "/Users/yupeng/projects/personal/pico-wuxia-arena/.scratch/design-doc.md",
+    "designSpec": "/Users/yupeng/projects/personal/pico-wuxia-arena/.scratch/design-spec.json",
+    "preview": "/Users/yupeng/projects/personal/pico-wuxia-arena/.scratch/preview.html",
+    "schema": "/Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/pico-spatial-app-designer/assets/design-spec.schema.json",
+    "surfaceDisciplineScript": "/Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/pico-spatial-app-designer/scripts/check_design_surface_discipline.py",
+    "receiptChecker": "/Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/spatial-design-to-app/scripts/check_handoff_receipts.py",
+    "checks": {
+      "schema": "pass",
+      "surfaceDiscipline": "PASS errors=0 warnings=0 app_surfaces=2/30",
+      "previewSpecEquality": "pass",
+      "browserInteractions": "pass: 6 states, 12 transitions, 3 data cases",
+      "defaultViewport": "pass: 1360x760",
+      "minimumDeclaredSurfaces": "pass: control 340x160 dp, status 400x148 dp",
+      "bodyEnvironment": "pass: rgb(218, 214, 211), background-image none",
+      "fullHandoffChecker": "pass: product_doc + existing_module + visual_asset=false",
+      "spatialUiDesignStyle": "pass: errors=0 warnings=0",
+      "boundedSurfaceContrast": "pass in revision10 preview: control/status backgrounds rgba(16,16,16,0.9); runtime recheck delegated to root"
+    },
+    "commands": {
+      "fullHandoffChecker": "python3 /Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/spatial-design-to-app/scripts/check_handoff_receipts.py --target /Users/yupeng/projects/personal/pico-wuxia-arena --input-mode product_doc --generation-mode existing_module --visual-asset false",
+      "surfaceDiscipline": "python3 /Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/pico-spatial-app-designer/scripts/check_design_surface_discipline.py .scratch/design-spec.json",
+      "spatialUiDesignStyle": "bash /Users/yupeng/.codex/plugins/cache/pico-xr/pico-spatial-agentic-tools/0.6.1/skills/spatial-ui-design-style/scripts/verify-design-style.sh app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt --no-design-colors --design-spec .scratch/design-spec.json"
+    },
+    "viewGeometry": {
+      "hmdZ0": {
+        "status": "distance 2.452m, yaw 0.0deg, pitch +11.8deg",
+        "control": "distance 2.126m, yaw -22.8deg, pitch -14.2deg"
+      },
+      "hmdZMinus1_4": {
+        "status": "distance 1.118m, yaw 0.0deg, pitch +26.6deg",
+        "control": "distance 1.077m, yaw -58.0deg, pitch -28.9deg"
+      },
+      "statusClearance": "enemy visual top 1.808m; runtime panel bottom must remain >=1.95m"
+    },
+    "deviceValidation": "not_performed",
+    "runtimeReadabilityEvidence": "/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/runtime/hud-animation-first.png"
   }
 }

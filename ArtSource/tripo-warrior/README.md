@@ -1,67 +1,113 @@
-# Tripo swordsman
+# CLI runtime swordsman
 
-The character was generated in Tripo Studio using the prompt saved in
-`generation-prompt.txt`. The selected delivery is a free static GLB.
+The runtime candidate uses the approved baked reduction and biped re-rig of the
+overseas Tripo CLI character. Its original download is preserved at
+`tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb`.
+The source is 2,390,360 bytes with SHA-256
+`6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9`.
 
-- `tripo_warrior.glb` contains the character and named placement markers in metres.
-- `tripo_warrior_with_dao.glb` adds the existing dao at the static installation candidate.
-- `tripo_warrior.blend` preserves the editable placement hierarchy.
-- `source/tripo_warrior_static.glb` is the original Tripo download.
-- `source/generation.json` records the generation settings, source ID, hashes,
-  credit use and export restrictions.
-- `alignment.json` records the scale and marker positions for integration.
+The geometry originated from `v3.1-20260211`, followed by PBR texturing,
+approved 20k-target baked reduction and a new biped rig. Generation consumed
+55 API credits and the reduction/re-rig chain consumed 60, totalling 115.
+The provider task records are `cli-generation-result.json` and
+`cli-runtime-20k-result.json`. The high-detail original remains in
+`tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/model.glb` as source
+reference.
 
-## Generation and export
+## Prepared assets
 
-The source was generated on 2026-11-09 with H2.5 Legacy, a target of 40,000
-triangles, 2K textures, PBR materials and a neutral T-pose. Generation consumed
-30 existing credits. Tripo's Mixamo humanoid auto-rig consumed another 20
-credits, and its `slash` preset played in Studio. The account's export dialog
-labels Export Skeleton as Subscribers Only. The user selected free static
-GLB delivery. The local files therefore contain zero skins and zero animations.
-[Source model](https://studio.tripo3d.ai/workspace/generate/94b2c7c4-0125-4ae8-8923-476a16fcdf73)
+- `tripo_warrior_rigged.glb` contains the metre-scaled body and skeleton.
+- `tripo_warrior_rigged_with_dao.glb` adds the existing dao under the actual
+  right-hand joint.
+- `rigged_alignment.json` records source/output hashes, normalization and the
+  static right-hand mounting frame.
+- `prepare_rigged_warrior.py` reproduces the outputs with Blender 4.5 Python.
 
-## Placement
+The outer root is `TripoWarrior_Root`. `TripoBody_Root` contains the normalized
+source scene. Read **`TripoBody_Mesh`** for body-only bounds. The weapon is
+labelled `Weapon_Root` and belongs to `HandGrip_R`, directly under `R_Hand`.
+The skeleton branch in the dao variant also contains this weapon subtree.
 
-The original character has a height of approximately 0.999817 m. Its feet
-already lie on Y=0, its XZ bounds are centred and its face points along glTF
-+Z. The prepared body is uniformly scaled to 1.78 m including the topknot.
-The imported dao retains its original metre scale. Exact scale and positions
-are in `alignment.json`.
+The runtime source faces +X and is approximately 0.998047024 m high. A common
+parent frame rotates it -90 degrees around Y, uniformly scales it to 1.78 m,
+centres XZ and sets the foot plane to Y=0. Prepared facing is +Z. Source joint
+TRS, skin definition, weights, inverse bind matrices and PBR payload remain
+intact. Applying the same parent frame to mesh and joints preserves their
+relative skinning transforms under glTF's scene and skin rules.
+[Khronos nodes and transforms](https://github.khronos.org/glTF-Tutorials/gltfTutorial/gltfTutorial_004_ScenesNodes.html), [Khronos skinning](https://github.khronos.org/glTF-Tutorials/gltfTutorial/gltfTutorial_020_Skins.html)
 
-The hierarchy begins at `TripoWarrior_Root`. `TripoBody_Metric` contains the
-scaled character, and `HandGrip_R` carries the dao's `DAO_Root` in the alignment variant. `Grip`,
-`Blade_Base` and `Blade_Tip` retain their existing weapon meanings.
-`HandGrip_R` is a static palm-side installation candidate. The source hand is
-open in a T-pose with largely connected finger geometry. Natural grasp and
-animated attachment require further source capability and visual review.
+The runtime source contains **10,734 vertices, 18,833 triangles, 1 skin,
+78 joints**. The raw rig has zero clips, and the prepared assets contain the
+four clips listed below. Basecolor is 2048 square. Normal and metallic-roughness are 1024 square. All are embedded. Existing topology and
+source image bytes are preserved. Main owns runtime loading, memory and
+rendering measurements on the emulator and Space Pro.
 
-The Tripo source cloth has strong specular highlights in offline inspection.
-A rough blue-cloth pixel mask gives a median G roughness of approximately
-0.106. Source material content is preserved for runtime inspection.
+The dao keeps its original metre scale through compensation in the hand
+mounting frame. The bind hand is open in a T-pose. The mounting candidate has approximately
+3 mm measured handle-vertex clearance in that bind pose. The motion review
+below records the curled-finger fit during slash.
+The main coordinator owns motion generation, Full Stage integration, project
+builds, device input and captures.
 
-## Source permission and review
+## Packed actions and motion review
 
-Tripo's official sources conflict about free-model commercial rights. Terms
-section 5.2.1 and the commercial-use help page reserve rights or mark Free
-commercial use as unavailable. The Pricing & Credits product document says
-free commercial use is available with attribution. Commercial, competition
-and platform distribution permission remains unresolved for this asset.
-[Terms](https://www.tripo3d.ai/terms), [commercial-use help](https://www.tripo3d.ai/help/privacy-policy/how-to-use-tripo-models-commercially), [Pricing & Credits](https://www.tripo3d.ai/product-doc/getting-started/pricing-credits)
+Both prepared GLBs contain one body, one skin and four named clips targeting
+the existing 78 joints. The base geometry, weights, inverse binds and PBR
+payload are preserved. Animation target indices are remapped by verified joint
+names and full parent chains. Original time/value arrays and LINEAR/STEP
+interpolation are copied without resampling. Only referenced animation
+accessors are added, with aligned buffer views.
+[Khronos animations](https://github.khronos.org/glTF-Tutorials/gltfTutorial/gltfTutorial_007_Animations.html), [Khronos buffers and accessors](https://github.khronos.org/glTF-Tutorials/gltfTutorial/gltfTutorial_005_BuffersBufferViewsAccessors.html)
 
-The dao's editable source and provenance are in `../dao/README.md`. The main
-coordinator owns Full Stage integration and emulator or Space Pro observations.
+| Clip | Source keyframe range in seconds | Channels |
+| --- | --- | --- |
+| idle | 0.033333–15.366667 | 234 |
+| slash | 0.033333–6.600000 | 234 |
+| hurt | 0.033333–13.866667 | 234 |
+| fall | 0.033333–3.033333 | 234 |
 
-## Asset checks
+Blender 4.5 checked all 1166 integer frames. Each clip deforms the mesh, with
+maximum difference from its normalized original below 0.0021 mm. DAO follows
+R_Hand throughout, and maximum Grip marker error is below 0.000001 m.
+The source curves and full interpolation modes match byte-for-byte.
+Validation evidence is in review/four_clip_validation.json and
+review/four_clip_frames.csv. The generator stages both GLBs and alignment
+metadata together and restores the previous files on publication errors.
 
-Blender 4.5.15 reimport and an independent read of both GLBs confirmed a
-body height of 1.779999971 m, feet on Y=0 and forward +Z. All three Tripo
-texture payloads and material bindings are preserved. In the dao variant,
-Grip and HandGrip_R differ by less than 0.00001 m, the blade marker segment
-is 0.720675775 m, and the weapon retains its original scale.
+The 30 fps front/side review in review/slash_offline.mp4 uses source frames
+1–198 and the existing mounting frame. Source time is frame/30. The main
+cut occupies frames 62–65, approximately 2.067–2.167 s. Peak tip speed is
+14.256 m/s at frame 63. Scene target contact and playback range/speed belong
+to runtime alignment by the main coordinator.
 
-The final static pose yields zero detected triangle-surface intersections
-between the dao meshes and the body. The nearest measured handle vertex is about
-2.686 mm from the body. The mounting point is 50 mm along the measured
-open-palm outward normal. Animated grip, general collision behaviour and
-runtime material appearance remain for subsequent review.
+The current mount requires further grip review. Slash frames 39–45 intersect
+the left hand with the blade. In sampled source frames 1/42/63/198, 25 of 567
+right-hand vertices enter the handle core, with maximum measured depth about
+11.19 mm. The preset holds a curled-finger pose. Close-ups and measurements
+are in review/slash_left_hand_f42.png, review/slash_grip_f63_front.png,
+review/slash_grip_f63_back.png and review/slash_metrics.json. The package
+retains the reviewed mounting frame and source curves for the next grip review.
+
+## Source permission
+
+This batch uses the international Tripo API. Its developer terms have distinct
+commercial-use and output-rights provisions. Sections 3.2 and 5.2 describe
+permitted uses and distinguish Paid Users from Free Users. Account-specific commercial, competition and distribution permissions require
+confirmation through the applicable terms and billing status.
+[ov API terms](https://developers.tripo3d.ai/en/terms), [API billing](https://developers.tripo3d.ai/en/docs/billing)
+
+The dao's editable source and provenance are in `../dao/README.md`.
+
+## Earlier delivered artifacts
+
+`tripo_warrior.glb`, `tripo_warrior_with_dao.glb` and `tripo_warrior.blend`
+preserve the earlier H2.5 Studio static study. Its original file, prompt,
+settings and hashes are in `source/`, `generation-prompt.txt` and
+`source/generation.json`. The Studio study contains zero skins and zero clips.
+Its free-plan permission review remains recorded separately in that provenance.
+
+`mixamo_input.fbx` preserves a local FBX Binary 7.4 conversion of the earlier
+1.78 m static body. It embeds the original basecolor and normal media, with
+39,964 triangles and one UV set. Packed roughness/metallic data remain in its
+source GLB. The file records the earlier conversion work. The active rigged
+asset route is the approved Tripo CLI chain above.

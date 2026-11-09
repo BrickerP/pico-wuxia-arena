@@ -33,3 +33,13 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Local device captures may include other desktop windows.
+artifacts/
+__pycache__/
+.tripo/
+
+# Preserve the generated high-resolution source locally.
+ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/
+ArtSource/tripo-warrior/mixamo_input.fbx
+ArtSource/tripo-warrior/source/tripo_export_rig_gate.png

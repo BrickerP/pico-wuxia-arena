@@ -1,4 +1,69 @@
 <resources>
     <string name="app_name">WuxiaArena</string>
     <string name="hello">Hello, Spatial SDK！</string>
+
+    <string name="arena_control_title">场边试炼</string>
+    <string name="arena_status_title">对手态势</string>
+    <string name="arena_state_scene_waiting">等待场景</string>
+    <string name="arena_state_not_started">试炼未启</string>
+    <string name="arena_state_fighting">试炼进行中</string>
+    <string name="arena_state_user_paused">试炼已暂停</string>
+    <string name="arena_state_tracking_lost">追踪中断</string>
+    <string name="arena_state_tracking_resume_ready">追踪已恢复</string>
+    <string name="arena_state_defeated">试炼结束</string>
+    <string name="arena_control_processing">正在处理控制请求</string>
+
+    <string name="arena_input_desktop">桌面预演 · HMD 派生手位</string>
+    <string name="arena_input_pico">设备追踪 · 头手动作</string>
+    <string name="arena_input_synthetic">合成输入 · 非设备追踪</string>
+    <string name="arena_input_unknown">输入来源待确认</string>
+    <string name="arena_observation_ready">头手观察已就绪</string>
+    <string name="arena_observation_baseline_wait">等待新头手基线</string>
+    <string name="arena_observation_wait">等待头手观察</string>
+    <string name="arena_observation_resume_ready">可确认继续</string>
+    <string name="arena_input_summary">%1$s · %2$s</string>
+
+    <string name="arena_action_start">开始试炼</string>
+    <string name="arena_action_pause">暂停</string>
+    <string name="arena_action_resume">继续试炼</string>
+    <string name="arena_action_wait_tracking">等待追踪</string>
+    <string name="arena_action_wait_ready">等待就绪</string>
+    <string name="arena_action_restart">重新开局</string>
+    <string name="arena_action_retry">再试一局</string>
+    <string name="arena_restart_title">重新开局？</string>
+    <string name="arena_restart_defeated_title">再试一局？</string>
+    <string name="arena_restart_body">当前试炼状态将清除，双方回到初始状态。</string>
+    <string name="arena_restart_cancel">保留当前状态</string>
+
+    <string name="arena_phase_idle">待机</string>
+    <string name="arena_phase_preparing">蓄势</string>
+    <string name="arena_phase_startup">起势</string>
+    <string name="arena_phase_active">出招</string>
+    <string name="arena_phase_recovering">收势</string>
+    <string name="arena_phase_hit">受击</string>
+    <string name="arena_phase_dead">倒地</string>
+    <string name="arena_phase_paused">暂停</string>
+    <string name="arena_phase_interrupted">中断</string>
+    <string name="arena_phase_confirmation_required">待确认</string>
+
+    <string name="arena_health_format">%1$d / %2$d</string>
+    <string name="arena_guard_active">护身：已起</string>
+    <string name="arena_guard_inactive">护身：未起</string>
+    <string name="arena_direction_title">招向印</string>
+    <string name="arena_direction_observe">观势</string>
+    <string name="arena_direction_left">左</string>
+    <string name="arena_direction_overhead">上</string>
+    <string name="arena_direction_right">右</string>
+    <string name="arena_direction_active_description">%1$s侧来势</string>
+
+    <string name="arena_status_scene_unavailable">敌人场景不可用</string>
+    <string name="arena_status_round_ended">本轮已结束</string>
+    <string name="arena_status_clock_paused">战斗时钟已停止</string>
+    <string name="arena_status_resume_confirmation">新头手基线已建立 · 请确认继续</string>
+    <string name="arena_status_tracking_interrupted">追踪中断 · 等待新头手观察</string>
+    <string name="arena_status_waiting_observations">等待头手观察</string>
+    <string name="arena_status_in_range">目标在范围内</string>
+    <string name="arena_status_out_of_range">目标在范围外</string>
+    <string name="arena_status_not_started">尚未进入攻防</string>
+    <string name="arena_status_direction_format">%1$s侧来势 · %2$s</string>
 </resources>

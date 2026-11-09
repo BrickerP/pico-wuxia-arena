@@ -1,0 +1,51 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "Adult Chinese male swordsman, realistic human anatomy and natural body proportions, full body, neutral symmetrical T-pose, arms straight horizontally, open empty hands with separated fingers. Traditional Chinese cross-collar robe, overlapping lapels, cloth waist sash, fitted trousers, cloth boots, dark weathered woven fabric, realistic seams and restrained embroidered details, natural skin, believable face, tidy tied-back hair. Practical layered clothing suitable for sword combat, separated legs and visible joints for skeletal rigging. Realistic PBR materials, matte woven cloth with natural roughness.",
+  "model": "v3.1-20260211",
+  "model_reason": "explicit --model",
+  "steps": [
+    {
+      "name": "text-to-model",
+      "endpoint": "/v3/generation/text-to-model",
+      "task_type": "text_to_model",
+      "payload": {
+        "prompt": "Adult Chinese male swordsman, realistic human anatomy and natural body proportions, full body, neutral symmetrical T-pose, arms straight horizontally, open empty hands with separated fingers. Traditional Chinese cross-collar robe, overlapping lapels, cloth waist sash, fitted trousers, cloth boots, dark weathered woven fabric, realistic seams and restrained embroidered details, natural skin, believable face, tidy tied-back hair. Practical layered clothing suitable for sword combat, separated legs and visible joints for skeletal rigging. Realistic PBR materials, matte woven cloth with natural roughness.",
+        "pbr": true,
+        "model": "v3.1-20260211"
+      }
+    },
+    {
+      "name": "texture",
+      "endpoint": "/v3/models/texture",
+      "task_type": "texture_model",
+      "payload": {
+        "input": "<upstream>",
+        "pbr": true,
+        "model": "v3.0-20250812"
+      }
+    },
+    {
+      "name": "rig",
+      "endpoint": "/v3/animations/rig",
+      "task_type": "animate_rig",
+      "payload": {
+        "input": "<upstream>",
+        "rig_type": "biped",
+        "out_format": "glb",
+        "model": "v3.0-20260909"
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [
+    "GLB"
+  ],
+  "candidates": 1,
+  "warnings": [],
+  "errors": [],
+  "generation_credits_estimate": 20,
+  "cost_notes": [
+    "estimated generation cost: 20 credits (official list price; chain steps not estimated)"
+  ]
+}
