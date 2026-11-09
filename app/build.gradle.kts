@@ -41,6 +41,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":game-core"))
     implementation(libs.androidx.core.ktx)
     implementation(platform(libs.spatial.bom))
     implementation(libs.spatial.core)

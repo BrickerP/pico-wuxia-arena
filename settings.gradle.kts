@@ -30,3 +30,4 @@ dependencyResolutionManagement {
 rootProject.name = "WuxiaArena"
 
 include(":app")
+include(":game-core")
