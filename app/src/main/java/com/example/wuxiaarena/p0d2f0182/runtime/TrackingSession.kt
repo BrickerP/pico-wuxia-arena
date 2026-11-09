@@ -13,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.wuxiaarena.core.input.TrackingControlOverflowException
+import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingEvent
 import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingSnapshot
@@ -54,6 +55,8 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
     private var lastActionValues: ActionValues? = null
     private var lastHeadStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var lastControllerStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
+    private var newestHeadObservation: TrackingEvent.Head? = null
+    private var lastLoggedHeadPose: ObservedPose? = null
 
     private data class ActionValues(
         val leftX: Float,
@@ -88,6 +91,8 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
             lastPollFrame = null
             sawHead = false
             sawControllers = false
+            newestHeadObservation = null
+            lastLoggedHeadPose = null
             reportedFailure = null
             pendingControlRecovery = false
             Log.i(TAG, "Tracking provider start requested")
@@ -105,13 +110,17 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
         if (!active) return
         try {
             val previous = lastPollFrame
-            if (previous == null || frameNanos < previous || frameNanos - previous >= STATUS_POLL_NANOS) {
+            val pollDue = previous == null || frameNanos < previous || frameNanos - previous >= STATUS_POLL_NANOS
+            if (pollDue) {
                 adapter.pollAvailability()
                 if (diagnosticsEnabled) logProviderStatus()
                 lastPollFrame = frameNanos
             }
             drain()
-            if (diagnosticsEnabled) drainActionDiagnostics()
+            if (diagnosticsEnabled) {
+                drainActionDiagnostics()
+                if (pollDue) logObservedHeadMovement()
+            }
             val failure = adapter.lastProviderFailure
             if (failure != null && failure.cause !== reportedFailure) {
                 reportedFailure = failure.cause
@@ -264,6 +273,9 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
 
     private fun onEvent(event: TrackingEvent, accepted: Boolean, snapshot: TrackingSnapshot) {
         if (!accepted) Log.w(TAG, "Rejected tracking observation ${event.stamp.sequence}")
+        if (diagnosticsEnabled && accepted && event is TrackingEvent.Head) {
+            newestHeadObservation = event
+        }
         if (accepted && event is TrackingEvent.Discontinuity) {
             Log.i(TAG, "Tracking discontinuity: target=${event.target}, reason=${event.reason}")
         }
@@ -279,6 +291,18 @@ private class TrackingSession(private val diagnosticsEnabled: Boolean) {
             observedReady = snapshot.hasRequiredObservations
             Log.i(TAG, "Required observations present=$observedReady; hardware tracking quality remains unknown")
         }
+    }
+
+    private fun logObservedHeadMovement() {
+        val observation = newestHeadObservation ?: return
+        if (observation.pose == lastLoggedHeadPose) return
+        lastLoggedHeadPose = observation.pose
+        Log.i(
+            TAG,
+            "Head observation sequence=${observation.stamp.sequence}, " +
+                "receivedAtNanos=${observation.stamp.receivedAtNanos}, " +
+                "position=${observation.pose?.position}, rotation=${observation.pose?.rotation}",
+        )
     }
 }
 
