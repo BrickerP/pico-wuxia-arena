@@ -26,18 +26,24 @@ import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
+import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import java.util.concurrent.CancellationException
 import kotlin.math.abs
 import kotlin.math.hypot
+import kotlin.math.sin
+import kotlin.math.cos
 import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 
 private const val TAG = "TavernScene"
 private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
+private const val FORECOURT_ASSET = "asset://models/forecourt.glb"
 private const val ENEMY_ASSET = "asset://models/tripo_warrior.glb"
 private const val PLAYER_DAO_ASSET = "asset://models/dao_grip.glb"
 private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
-private const val HUD_WORLD_SCALE = 2f
+private const val HUD_WORLD_SCALE = 1.4f
 private const val ENEMY_STAGE_Z = -2.4f
 
 private class SceneOwner(
@@ -48,7 +54,43 @@ private class SceneOwner(
     var root: Entity? = null
     var playerWeapon: Entity? = null
     var enemyAnimator: EnemyAnimator? = null
+    var enemyModel: Entity? = null
+    var keyLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
+    var enemyWorldPosition: TrackingVector3? = null
+    var statusPanelY = 2.15f
+    private var lastFeedback = -1L
+    private var pulseUntil = 0L
+    private var pulseLit = false
+
+    fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+        val parent = root ?: return
+        val enemy = enemyModel ?: return
+        if (!parent.valid || !enemy.valid) return
+        state.enemyPosition?.let { position ->
+            enemyWorldPosition = position
+            val transform = checkNotNull(enemy.components[TransformComponent::class.java])
+            transform.setPosition(parent.convertPositionFrom(Vector3(position.x.toFloat(), position.y.toFloat(), position.z.toFloat()), null))
+            val halfYaw = state.enemyYawRadians / 2f
+            transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
+            panelAnchors[STATUS_PANEL_ID]?.let { anchor ->
+                placeAttachment(parent, anchor, Vector3(position.x.toFloat(), statusPanelY, position.z.toFloat()), Quat.identity())
+            }
+        }
+        if (lastFeedback != state.feedbackSequence) {
+            lastFeedback = state.feedbackSequence
+            if (state.feedback in listOf(CombatFeedback.HIT, CombatFeedback.HEADSHOT, CombatFeedback.PARRY,
+                    CombatFeedback.SKILL, CombatFeedback.EXECUTION)) {
+                pulseUntil = System.nanoTime() + 100_000_000L
+            }
+        }
+        val illuminated = System.nanoTime() < pulseUntil
+        if (illuminated != pulseLit) {
+            keyLight?.takeIf { it.valid }?.components?.set(DirectionalLightComponent(Color4.WHITE, if (illuminated) 1300f else 800f))
+            pulseLit = illuminated
+        }
+        enemyAnimator?.present(state, events)
+    }
 
     fun presentPlayerHand(pose: ObservedPose?) {
         val parent = root ?: return
@@ -84,13 +126,21 @@ private class SceneOwner(
         val current = root ?: return
         root = null
         playerWeapon = null
+        enemyModel = null
+        keyLight = null
         panelAnchors.clear()
         onPlayerHandPresenter(null)
         onEnemyPresenter(null)
-        enemyAnimator?.close()
+        val animator = enemyAnimator
         enemyAnimator = null
-        onEnemyGeometry(null, 0.0)
-        if (current.valid) current.destroy()
+        try {
+            animator?.close()
+        } catch (error: Exception) {
+            Log.w(TAG, "Enemy animation cleanup failed", error)
+        } finally {
+            onEnemyGeometry(null, 0.0)
+            if (current.valid) current.destroy()
+        }
     }
 }
 
@@ -106,17 +156,18 @@ internal fun HomeStage(
     val currentControls = rememberUpdatedState(controlsPanel)
     val currentStatus = rememberUpdatedState(statusPanel)
     val converter = LocalPhysicalLengthConverter.current
-    val statusHeightMeters = converter.dpToLength(156.dp, LengthUnit.Meters) * HUD_WORLD_SCALE
-    val statusPosition = Vector3(0f, maxOf(2.10f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
-    val controlPosition = remember { Vector3(-0.8f, 1.08f, -1.9f) }
+    val statusHeightMeters = converter.dpToLength(260.dp, LengthUnit.Meters) * HUD_WORLD_SCALE
+    val statusPosition = Vector3(0f, maxOf(2.15f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
+    owner.statusPanelY = statusPosition.y
+    val controlPosition = remember { Vector3(-0.85f, 1.15f, -1.45f) }
     val controlRotation = remember { Quat(0f, 0.2923717f, 0f, 0.9563048f) }
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 360.dp, height = 176.dp)) { currentControls.value() }
+                Box(Modifier.size(width = 400.dp, height = 400.dp)) { currentControls.value() }
             }
             AttachmentPanel(STATUS_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 440.dp, height = 156.dp)) { currentStatus.value() }
+                Box(Modifier.size(width = 500.dp, height = 260.dp)) { currentStatus.value() }
             }
         }
     }
@@ -132,7 +183,9 @@ internal fun HomeStage(
             val root = owner.root
             if (root != null && root.valid) {
                 placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
-                placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity())
+                val enemy = owner.enemyWorldPosition
+                val location = if (enemy == null) statusPosition else Vector3(enemy.x.toFloat(), statusPosition.y, enemy.z.toFloat())
+                placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), location, Quat.identity())
             }
         },
     ) { content, attachments ->
@@ -141,6 +194,8 @@ internal fun HomeStage(
         owner.root = root
         var model: Entity? = null
         var modelAttached = false
+        var forecourt: Entity? = null
+        var forecourtAttached = false
         var enemy: Entity? = null
         var enemyAttached = false
         var playerWeapon: Entity? = null
@@ -173,6 +228,17 @@ internal fun HomeStage(
             transform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
             transform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
 
+            forecourt = Entity.loadSuspend(FORECOURT_ASSET)
+            if (owner.root !== root) {
+                forecourt.destroy()
+                return@SpatialView
+            }
+            check(root.addChild(forecourt)) { "Could not attach forecourt paving" }
+            forecourtAttached = true
+            val pavingTransform = checkNotNull(forecourt.components[TransformComponent::class.java])
+            pavingTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
+            pavingTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+
             enemy = Entity.loadSuspend(ENEMY_ASSET)
             if (owner.root !== root) {
                 enemy.destroy()
@@ -180,6 +246,7 @@ internal fun HomeStage(
             }
             check(root.addChild(enemy)) { "Could not attach Tripo enemy" }
             enemyAttached = true
+            owner.enemyModel = enemy
             val enemyTransform = checkNotNull(enemy.components[TransformComponent::class.java]) {
                 "Tripo enemy has no transform"
             }
@@ -208,6 +275,7 @@ internal fun HomeStage(
             lightTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
             check(root.addChild(light)) { "Could not attach scene light" }
             lightAttached = true
+            owner.keyLight = light
             try {
                 val bounds = model.getVisualBounds(null)
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
@@ -227,9 +295,10 @@ internal fun HomeStage(
             }
             val animator = EnemyAnimator(enemy)
             owner.enemyAnimator = animator
-            onEnemyPresenter(animator::present)
+            onEnemyPresenter(owner::presentArena)
         } catch (error: Exception) {
             if (!modelAttached) model?.destroy()
+            if (!forecourtAttached) forecourt?.destroy()
             if (!enemyAttached) enemy?.destroy()
             if (!playerWeaponAttached) playerWeapon?.destroy()
             if (!lightAttached) light?.destroy()

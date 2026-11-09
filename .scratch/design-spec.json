@@ -4,7 +4,7 @@
   "metadata": {
     "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 11
+    "revision": 13
   },
   "experience": {
     "subject": "写实中式刀术试炼的场边状态与轮次控制",
@@ -145,18 +145,18 @@
       "id": "trial-control",
       "type": "planar",
       "defaultSize": {
-        "width": 360,
-        "height": 176,
+        "width": 400,
+        "height": 400,
         "unit": "dp"
       },
       "minSize": {
-        "width": 340,
-        "height": 160,
+        "width": 400,
+        "height": 400,
         "unit": "dp"
       },
       "maxSize": {
         "width": 400,
-        "height": 184,
+        "height": 400,
         "unit": "dp"
       },
       "rootNodeId": "control-surface",
@@ -177,18 +177,18 @@
       "id": "combat-status",
       "type": "planar",
       "defaultSize": {
-        "width": 440,
-        "height": 156,
+        "width": 500,
+        "height": 260,
         "unit": "dp"
       },
       "minSize": {
-        "width": 400,
-        "height": 148,
+        "width": 500,
+        "height": 260,
         "unit": "dp"
       },
       "maxSize": {
-        "width": 480,
-        "height": 176,
+        "width": 500,
+        "height": 260,
         "unit": "dp"
       },
       "rootNodeId": "status-surface",
@@ -220,7 +220,23 @@
       }
     },
     {
+      "id": "countdown",
+      "surfaceRoots": {
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
+      }
+    },
+    {
       "id": "fighting",
+      "surfaceRoots": {
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
+      }
+    },
+    {
+      "id": "round-clear",
       "surfaceRoots": {
         "arena-stage": "stage-root",
         "trial-control": "control-surface",
@@ -252,7 +268,15 @@
       }
     },
     {
-      "id": "defeated",
+      "id": "victory",
+      "surfaceRoots": {
+        "arena-stage": "stage-root",
+        "trial-control": "control-surface",
+        "combat-status": "status-surface"
+      }
+    },
+    {
+      "id": "defeat",
       "surfaceRoots": {
         "arena-stage": "stage-root",
         "trial-control": "control-surface",
@@ -264,10 +288,55 @@
     {
       "id": "start-trial",
       "from": "ready",
-      "to": "fighting",
+      "to": "countdown",
       "trigger": {
         "nodeId": "start-button",
         "event": "click-action"
+      }
+    },
+    {
+      "id": "countdown-finished",
+      "from": "countdown",
+      "to": "fighting",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "countdown-finished"
+      }
+    },
+    {
+      "id": "round-complete",
+      "from": "fighting",
+      "to": "round-clear",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "enemy-defeated"
+      }
+    },
+    {
+      "id": "next-round",
+      "from": "round-clear",
+      "to": "countdown",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "next-round"
+      }
+    },
+    {
+      "id": "match-victory",
+      "from": "round-clear",
+      "to": "victory",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "match-victory"
+      }
+    },
+    {
+      "id": "match-defeat",
+      "from": "fighting",
+      "to": "defeat",
+      "trigger": {
+        "nodeId": "status-root",
+        "event": "match-defeat"
       }
     },
     {
@@ -311,92 +380,41 @@
       "from": "tracking-resume-ready",
       "to": "fighting",
       "trigger": {
-        "nodeId": "resume-tracking-button",
+        "nodeId": "resume-button",
         "event": "click-action"
       }
     },
     {
-      "id": "reset-from-tracking-ready",
-      "from": "tracking-resume-ready",
-      "to": "ready",
-      "trigger": {
-        "nodeId": "reset-tracking-ready-button",
-        "event": "click-action"
-      },
-      "confirmation": {
-        "title": "重新开局？",
-        "body": "追踪已恢复，但当前试炼进度仍将清除。",
-        "confirmLabel": "重新开局",
-        "cancelLabel": "继续试炼"
-      }
-    },
-    {
-      "id": "enemy-defeated",
-      "from": "fighting",
-      "to": "defeated",
-      "trigger": {
-        "nodeId": "status-root",
-        "event": "enemy-defeated"
-      }
-    },
-    {
-      "id": "reset-from-fighting",
+      "id": "restart-active",
       "from": "fighting",
       "to": "ready",
       "trigger": {
-        "nodeId": "reset-fighting-button",
+        "nodeId": "reset-button",
         "event": "click-action"
       },
       "confirmation": {
         "title": "重新开局？",
-        "body": "当前试炼进度将清除，双方回到初始状态。",
+        "body": "本次连战进度将清除，双方回到初始状态。",
         "confirmLabel": "重新开局",
-        "cancelLabel": "继续试炼"
+        "cancelLabel": "保留当前状态"
       }
     },
     {
-      "id": "reset-from-paused",
-      "from": "paused",
+      "id": "retry-victory",
+      "from": "victory",
       "to": "ready",
       "trigger": {
-        "nodeId": "reset-paused-button",
+        "nodeId": "retry-button",
         "event": "click-action"
-      },
-      "confirmation": {
-        "title": "重新开局？",
-        "body": "当前试炼进度将清除，双方回到初始状态。",
-        "confirmLabel": "重新开局",
-        "cancelLabel": "保持暂停"
       }
     },
     {
-      "id": "reset-from-tracking",
-      "from": "tracking-lost",
+      "id": "retry-defeat",
+      "from": "defeat",
       "to": "ready",
       "trigger": {
-        "nodeId": "reset-tracking-button",
+        "nodeId": "retry-button",
         "event": "click-action"
-      },
-      "confirmation": {
-        "title": "重新开局？",
-        "body": "追踪仍未恢复，当前试炼进度将清除。",
-        "confirmLabel": "重新开局",
-        "cancelLabel": "等待追踪"
-      }
-    },
-    {
-      "id": "reset-from-defeated",
-      "from": "defeated",
-      "to": "ready",
-      "trigger": {
-        "nodeId": "reset-defeated-button",
-        "event": "click-action"
-      },
-      "confirmation": {
-        "title": "再试一局？",
-        "body": "刀客与试炼状态将回到初始位置。",
-        "confirmLabel": "再试一局",
-        "cancelLabel": "留在此处"
       }
     }
   ],
@@ -404,74 +422,79 @@
     {
       "id": "start-action",
       "type": "transition",
-      "purpose": "通过现有 tryStartAttack 接线开始试炼",
+      "purpose": "按会话实际就绪门槛开始倒数",
       "transitionId": "start-trial"
     },
     {
       "id": "pause-action",
       "type": "transition",
-      "purpose": "调用现有 pauseByPlayer 进入用户暂停",
+      "purpose": "通过现有输入队列主动暂停",
       "transitionId": "pause-trial"
     },
     {
       "id": "resume-action",
       "type": "transition",
-      "purpose": "以当前 pauseId 和有效输入调用 tryResume",
+      "purpose": "新基线就绪后携当前pauseId确认恢复",
       "transitionId": "resume-trial"
     },
     {
-      "id": "tracking-loss-action",
+      "id": "reset-action",
       "type": "transition",
-      "purpose": "反映现有追踪中断事件",
-      "transitionId": "tracking-interrupted"
+      "purpose": "确认后经ROUND_RESET重置当前连战",
+      "transitionId": "restart-active"
     },
     {
-      "id": "tracking-restore-action",
-      "type": "transition",
-      "purpose": "新头手观察有效后恢复试炼",
-      "transitionId": "tracking-restored"
+      "id": "retry-action",
+      "type": "custom",
+      "purpose": "结算后经同一ROUND_RESET入口再次挑战",
+      "payload": {
+        "control": "resetRound"
+      }
     },
     {
-      "id": "defeated-action",
-      "type": "transition",
-      "purpose": "敌人生命归零后显示试炼结束",
-      "transitionId": "enemy-defeated"
+      "id": "desktop-slash-action",
+      "type": "custom",
+      "purpose": "生成头手预演轨迹并交同一战斗判定",
+      "payload": {
+        "desktopAction": "SLASH",
+        "directDamage": false
+      }
     },
     {
-      "id": "reset-fighting-action",
-      "type": "transition",
-      "purpose": "确认后调用 resetRound",
-      "transitionId": "reset-from-fighting"
+      "id": "desktop-thrust-action",
+      "type": "custom",
+      "purpose": "生成头手预演轨迹并交同一战斗判定",
+      "payload": {
+        "desktopAction": "THRUST",
+        "directDamage": false
+      }
     },
     {
-      "id": "reset-paused-action",
-      "type": "transition",
-      "purpose": "确认后调用 resetRound",
-      "transitionId": "reset-from-paused"
+      "id": "desktop-guard-action",
+      "type": "custom",
+      "purpose": "生成头手预演轨迹并交同一战斗判定",
+      "payload": {
+        "desktopAction": "GUARD_OVERHEAD",
+        "directDamage": false
+      }
     },
     {
-      "id": "reset-tracking-action",
-      "type": "transition",
-      "purpose": "确认后调用 resetRound",
-      "transitionId": "reset-from-tracking"
+      "id": "desktop-dodge-action",
+      "type": "custom",
+      "purpose": "生成头手预演轨迹并交同一战斗判定",
+      "payload": {
+        "desktopAction": "DODGE_LEFT",
+        "directDamage": false
+      }
     },
     {
-      "id": "reset-defeated-action",
-      "type": "transition",
-      "purpose": "确认后调用 resetRound",
-      "transitionId": "reset-from-defeated"
-    },
-    {
-      "id": "resume-tracking-action",
-      "type": "transition",
-      "purpose": "resumeReady为真后由玩家显式确认当前pauseId并调用tryResume",
-      "transitionId": "confirm-tracking-resume"
-    },
-    {
-      "id": "reset-tracking-ready-action",
-      "type": "transition",
-      "purpose": "确认后调用resetRound",
-      "transitionId": "reset-from-tracking-ready"
+      "id": "desktop-skill-action",
+      "type": "custom",
+      "purpose": "生成头手预演轨迹并交同一战斗判定",
+      "payload": {
+        "desktopAction": "SKILL",
+        "directDamage": false
+      }
     }
   ],
   "dataCases": {
@@ -479,98 +502,299 @@
       "stateSamples": {
         "ready": {
           "control": {
-            "stateTitle": "试炼未启"
+            "stateTitle": "试炼未启",
+            "startEnabled": true,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "待机",
-            "healthFraction": 1.0,
-            "healthText": "100 / 100",
-            "guardLabel": "护身：未起",
+            "phaseLabel": "试炼未启",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "尚未进入攻防"
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "桌面预演 · HMD 派生手位 · 头手观察已就绪"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "countdown": {
+          "control": {
+            "stateTitle": "试炼即将开始 · 3",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "试炼即将开始 · 3",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "fighting": {
           "control": {
-            "stateTitle": "试炼进行中"
+            "stateTitle": "试炼进行中",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
             "phaseLabel": "蓄势",
-            "healthFraction": 0.72,
-            "healthText": "72 / 100",
-            "guardLabel": "护身：未起",
-            "attackDirection": "left",
-            "rangeLabel": "左侧来势 · 目标在范围内"
+            "enemyText": "刀客气血 72/100",
+            "enemyFraction": 0.72,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "up",
+            "feedbackLabel": "弹反成功 · 反击良机"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "桌面预演 · HMD 派生手位 · 头手观察已就绪"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": true,
+            "skillEnabled": true
+          }
+        },
+        "round-clear": {
+          "control": {
+            "stateTitle": "本场已破 · 3秒后再战",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本场已破 · 3秒后再战",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "paused": {
           "control": {
-            "stateTitle": "试炼已暂停"
+            "stateTitle": "试炼已暂停",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": true,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "暂停",
-            "healthFraction": 0.72,
-            "healthText": "72 / 100",
-            "guardLabel": "护身：未起",
+            "phaseLabel": "试炼已暂停",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "战斗时钟已停止"
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "桌面预演 · HMD 派生手位 · 输入仍有效"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-lost": {
           "control": {
-            "stateTitle": "追踪中断"
+            "stateTitle": "追踪中断",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "中断",
-            "healthFraction": 0.72,
-            "healthText": "72 / 100",
-            "guardLabel": "护身：状态保留",
+            "phaseLabel": "追踪中断",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "未判定动作与范围"
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待恢复 · 头手观察不可用"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-resume-ready": {
           "control": {
-            "stateTitle": "追踪已恢复"
+            "stateTitle": "追踪已恢复",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": true,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "待确认",
-            "healthFraction": 0.72,
-            "healthText": "72 / 100",
-            "guardLabel": "护身：状态保留",
+            "phaseLabel": "追踪已恢复",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "新头手基线已建立 · 请确认继续"
+            "feedbackLabel": "调整站位与架势"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "桌面预演 · HMD 派生手位 · 可继续"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
-        "defeated": {
+        "victory": {
           "control": {
-            "stateTitle": "试炼结束"
+            "stateTitle": "试炼通关",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "倒地",
-            "healthFraction": 0.0,
-            "healthText": "0 / 100",
-            "guardLabel": "护身：解除",
+            "phaseLabel": "试炼通关",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "本轮已结束"
+            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "设备追踪 · 头手动作 · 输入有效"
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "defeat": {
+          "control": {
+            "stateTitle": "本次落败",
+            "startEnabled": false,
+            "controlsEnabled": true,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本次落败",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         }
       }
@@ -579,98 +803,299 @@
       "stateSamples": {
         "ready": {
           "control": {
-            "stateTitle": "等待场景"
+            "stateTitle": "试炼未启",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "未知",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：未知",
+            "phaseLabel": "试炼未启",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "范围状态未知"
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待确认 · 等待头手观察"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "countdown": {
+          "control": {
+            "stateTitle": "试炼即将开始 · 3",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "试炼即将开始 · 3",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "fighting": {
           "control": {
-            "stateTitle": "状态暂缺"
+            "stateTitle": "试炼进行中",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "未知",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：未知",
-            "attackDirection": "none",
-            "rangeLabel": "未判定动作与范围"
+            "phaseLabel": "蓄势",
+            "enemyText": "刀客气血 72/100",
+            "enemyFraction": 0.72,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "up",
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待确认 · 等待新观察"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "round-clear": {
+          "control": {
+            "stateTitle": "本场已破 · 3秒后再战",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本场已破 · 3秒后再战",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "paused": {
           "control": {
-            "stateTitle": "暂停"
+            "stateTitle": "试炼已暂停",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "暂停",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：未知",
+            "phaseLabel": "试炼已暂停",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "战斗时钟已停止"
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待确认 · 等待新观察"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-lost": {
           "control": {
-            "stateTitle": "追踪中断"
+            "stateTitle": "追踪中断",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "中断",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：未知",
+            "phaseLabel": "追踪中断",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "未判定动作与范围"
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待恢复 · 头手观察不可用"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-resume-ready": {
           "control": {
-            "stateTitle": "恢复条件待确认"
+            "stateTitle": "追踪已恢复",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "中断",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：未知",
+            "phaseLabel": "追踪已恢复",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "等待确认当前暂停标识"
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待确认 · 恢复条件待确认"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
-        "defeated": {
+        "victory": {
           "control": {
-            "stateTitle": "试炼结束"
+            "stateTitle": "试炼通关",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "结束",
-            "healthFraction": 0,
-            "healthText": "0 / —",
-            "guardLabel": "护身：解除",
+            "phaseLabel": "试炼通关",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "本轮已结束"
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源待确认 · 结果已锁定"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "defeat": {
+          "control": {
+            "stateTitle": "本次落败",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本次落败",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "等待头手观察"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         }
       }
@@ -679,98 +1104,299 @@
       "stateSamples": {
         "ready": {
           "control": {
-            "stateTitle": "场景未就绪"
+            "stateTitle": "试炼未启",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "不可用",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：不可用",
+            "phaseLabel": "试炼未启",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "敌人场景不可用"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "countdown": {
+          "control": {
+            "stateTitle": "试炼即将开始 · 3",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "试炼即将开始 · 3",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "fighting": {
           "control": {
-            "stateTitle": "场景异常"
+            "stateTitle": "试炼进行中",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "不可用",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：不可用",
-            "attackDirection": "none",
-            "rangeLabel": "敌人场景不可用"
+            "phaseLabel": "蓄势",
+            "enemyText": "刀客气血 72/100",
+            "enemyFraction": 0.72,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "up",
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "round-clear": {
+          "control": {
+            "stateTitle": "本场已破 · 3秒后再战",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本场已破 · 3秒后再战",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "paused": {
           "control": {
-            "stateTitle": "场景异常"
+            "stateTitle": "试炼已暂停",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "不可用",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：不可用",
+            "phaseLabel": "试炼已暂停",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "敌人场景不可用"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 无法读取战斗状态"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-lost": {
           "control": {
-            "stateTitle": "追踪与场景中断"
+            "stateTitle": "追踪中断",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "不可用",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：不可用",
+            "phaseLabel": "追踪中断",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "敌人场景不可用"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 头手与场景不可用"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
         "tracking-resume-ready": {
           "control": {
-            "stateTitle": "恢复状态不可读取"
+            "stateTitle": "追踪已恢复",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "不可用",
-            "healthFraction": 0,
-            "healthText": "— / —",
-            "guardLabel": "护身：不可用",
+            "phaseLabel": "追踪已恢复",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "无法确认恢复条件"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 无法确认继续"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         },
-        "defeated": {
+        "victory": {
           "control": {
-            "stateTitle": "结果不可读取"
+            "stateTitle": "试炼通关",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
           },
           "combat": {
-            "phaseLabel": "结束",
-            "healthFraction": 0,
-            "healthText": "0 / —",
-            "guardLabel": "护身：解除",
+            "phaseLabel": "试炼通关",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
             "attackDirection": "none",
-            "rangeLabel": "结果数据不可用"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
           },
           "input": {
-            "sourceLabel": "输入来源不可用 · 结果已锁定"
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
+          }
+        },
+        "defeat": {
+          "control": {
+            "stateTitle": "本次落败",
+            "startEnabled": false,
+            "controlsEnabled": false,
+            "resumeEnabled": false,
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+          },
+          "combat": {
+            "phaseLabel": "本次落败",
+            "enemyText": "刀客气血 100/100",
+            "enemyFraction": 1.0,
+            "playerText": "自身气血 80/100",
+            "playerFraction": 0.8,
+            "staminaText": "体力 64/100",
+            "staminaFraction": 0.64,
+            "focusText": "气势 100/100",
+            "focusFraction": 1.0,
+            "attackDirection": "none",
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+          },
+          "match": {
+            "roundTime": "第 1/3 场 · 2:35",
+            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+          },
+          "input": {
+            "sourceLabel": "输入暂不可用 · 等待新的头手观察",
+            "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
+            "previewEnabled": false,
+            "skillEnabled": false
           }
         }
       }
@@ -814,8 +1440,8 @@
       },
       "layout": {
         "mode": "column",
-        "widthDp": 360,
-        "heightDp": 176
+        "widthDp": 400,
+        "heightDp": 400
       },
       "appearance": {
         "fill": "arenaPanelSurface",
@@ -837,8 +1463,8 @@
       },
       "layout": {
         "mode": "column",
-        "widthDp": 440,
-        "heightDp": 156
+        "widthDp": 500,
+        "heightDp": 260
       },
       "appearance": {
         "fill": "arenaPanelSurface",
@@ -854,15 +1480,17 @@
       "kind": "layout",
       "layout": {
         "mode": "column",
+        "gapDp": 6,
+        "align": "stretch",
         "paddingDp": 16,
-        "gapDp": 8,
-        "align": "stretch"
+        "heightDp": 400
       },
       "children": [
         "control-heading",
         "control-state-title",
         "input-source",
-        "control-actions"
+        "control-actions",
+        "control-body"
       ]
     },
     {
@@ -870,35 +1498,35 @@
       "kind": "text",
       "content": "场边试炼",
       "textStyle": {
-        "typography": "title",
-        "color": "labelSecondary",
-        "maxLines": 1
+        "typography": "body",
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
       }
     },
     {
       "id": "control-state-title",
       "kind": "text",
       "content": "试炼未启",
-      "bindings": {
-        "content": "control.stateTitle"
-      },
       "textStyle": {
         "typography": "body",
-        "color": "labelPrimary",
-        "maxLines": 1
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "control.stateTitle"
       }
     },
     {
       "id": "input-source",
       "kind": "text",
-      "content": "桌面预演 · HMD 派生手位",
-      "bindings": {
-        "content": "input.sourceLabel"
-      },
+      "content": "桌面预演 · 合成头手轨迹",
       "textStyle": {
         "typography": "label",
-        "color": "labelSecondary",
-        "maxLines": 1
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "input.sourceLabel"
       }
     },
     {
@@ -907,20 +1535,31 @@
       "layout": {
         "mode": "row",
         "gapDp": 8,
-        "align": "center",
-        "justify": "start"
+        "align": "stretch"
       },
       "children": [
         "start-button",
         "pause-button",
         "resume-button",
-        "resume-tracking-button",
-        "wait-tracking-button",
-        "reset-fighting-button",
-        "reset-paused-button",
-        "reset-tracking-button",
-        "reset-tracking-ready-button",
-        "reset-defeated-button"
+        "reset-button",
+        "retry-button"
+      ]
+    },
+    {
+      "id": "control-body",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch",
+        "grow": 1,
+        "overflow": "scroll"
+      },
+      "children": [
+        "instruction",
+        "settlement",
+        "desktop-actions",
+        "keyboard-help"
       ]
     },
     {
@@ -928,10 +1567,10 @@
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "size": "regular",
         "text": "开始试炼",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText"
       },
       "events": {
         "click-action": "start-action"
@@ -939,181 +1578,237 @@
       "visibleInStates": [
         "ready"
       ],
-      "accessibilityLabel": "开始试炼"
+      "accessibilityLabel": "开始试炼",
+      "bindings": {
+        "enabled": "control.startEnabled"
+      }
     },
     {
       "id": "pause-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "size": "regular",
         "text": "暂停",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText"
       },
       "events": {
         "click-action": "pause-action"
       },
       "visibleInStates": [
-        "fighting"
+        "countdown",
+        "fighting",
+        "round-clear"
       ],
-      "accessibilityLabel": "暂停试炼"
+      "accessibilityLabel": "暂停",
+      "bindings": {
+        "enabled": "control.controlsEnabled"
+      }
     },
     {
       "id": "resume-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "size": "regular",
-        "text": "恢复",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+        "text": "继续试炼",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText"
       },
       "events": {
         "click-action": "resume-action"
       },
       "visibleInStates": [
-        "paused"
-      ],
-      "accessibilityLabel": "恢复试炼"
-    },
-    {
-      "id": "resume-tracking-button",
-      "kind": "spatialui",
-      "component": "sui-button",
-      "props": {
-        "size": "regular",
-        "text": "继续试炼",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
-      },
-      "events": {
-        "click-action": "resume-tracking-action"
-      },
-      "visibleInStates": [
+        "paused",
+        "tracking-lost",
         "tracking-resume-ready"
       ],
-      "accessibilityLabel": "确认追踪恢复并继续试炼"
+      "accessibilityLabel": "继续试炼",
+      "bindings": {
+        "enabled": "control.resumeEnabled"
+      }
     },
     {
-      "id": "reset-tracking-ready-button",
+      "id": "reset-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "size": "small",
         "text": "重新开局",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText"
       },
       "events": {
-        "click-action": "reset-tracking-ready-action"
+        "click-action": "reset-action"
       },
       "visibleInStates": [
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
         "tracking-resume-ready"
       ],
-      "accessibilityLabel": "重新开局"
+      "accessibilityLabel": "重新开局",
+      "bindings": {
+        "enabled": "control.controlsEnabled"
+      }
     },
     {
-      "id": "wait-tracking-button",
+      "id": "retry-button",
       "kind": "spatialui",
       "component": "sui-button",
       "props": {
-        "size": "regular",
-        "text": "等待追踪",
-        "disabled": true,
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
-      },
-      "visibleInStates": [
-        "tracking-lost"
-      ],
-      "accessibilityLabel": "等待追踪恢复"
-    },
-    {
-      "id": "reset-fighting-button",
-      "kind": "spatialui",
-      "component": "sui-button",
-      "props": {
+        "text": "再挑战",
         "size": "small",
-        "text": "重新开局",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText"
       },
       "events": {
-        "click-action": "reset-fighting-action"
+        "click-action": "retry-action"
       },
       "visibleInStates": [
-        "fighting"
+        "victory",
+        "defeat"
       ],
-      "accessibilityLabel": "重新开局"
+      "accessibilityLabel": "再挑战",
+      "bindings": {
+        "enabled": "control.controlsEnabled"
+      }
     },
     {
-      "id": "reset-paused-button",
-      "kind": "spatialui",
-      "component": "sui-button",
-      "props": {
-        "size": "small",
-        "text": "重新开局",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+      "id": "instruction",
+      "kind": "text",
+      "content": "挥刀或前刺进攻 · 举刀格挡；迎刀弹反 · 侧移或下蹲闪避。气势满时双手收刀蓄势后前推破势，对手虚弱时同样动作自动处决。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
       },
-      "events": {
-        "click-action": "reset-paused-action"
+      "bindings": {
+        "content": "control.instruction"
       },
       "visibleInStates": [
-        "paused"
-      ],
-      "accessibilityLabel": "重新开局"
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ]
     },
     {
-      "id": "reset-tracking-button",
-      "kind": "spatialui",
-      "component": "sui-button",
-      "props": {
-        "size": "small",
-        "text": "重新开局",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+      "id": "settlement",
+      "kind": "text",
+      "content": "得分 0 · 最佳 0",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
       },
-      "events": {
-        "click-action": "reset-tracking-action"
+      "bindings": {
+        "content": "match.settlement"
       },
       "visibleInStates": [
-        "tracking-lost"
-      ],
-      "accessibilityLabel": "重新开局"
+        "victory",
+        "defeat"
+      ]
     },
     {
-      "id": "reset-defeated-button",
-      "kind": "spatialui",
-      "component": "sui-button",
-      "props": {
-        "size": "regular",
-        "text": "再试一局",
-        "containerColorRole": "fillSecondary",
-        "contentColorRole": "labelPrimary"
+      "id": "desktop-actions",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch"
       },
-      "events": {
-        "click-action": "reset-defeated-action"
+      "children": [
+        "desktop-row-one",
+        "desktop-row-two"
+      ],
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "props": {
+        "desktopOnly": true
+      }
+    },
+    {
+      "id": "desktop-row-one",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "desktop-slash",
+        "desktop-thrust",
+        "desktop-guard"
+      ]
+    },
+    {
+      "id": "desktop-row-two",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "desktop-dodge",
+        "desktop-skill"
+      ]
+    },
+    {
+      "id": "keyboard-help",
+      "kind": "text",
+      "content": "1/J斩击 · 4/K刺击 · 5/V架刀 · 8/Z左闪 · 9/X右闪 · C蹲 · G破势 / 虚弱时自动处决",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "input.keyboardHelp"
       },
       "visibleInStates": [
-        "defeated"
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
       ],
-      "accessibilityLabel": "再试一局"
+      "props": {
+        "desktopOnly": true
+      }
     },
     {
       "id": "status-root",
       "kind": "layout",
       "layout": {
         "mode": "column",
-        "paddingDp": 16,
-        "gapDp": 8,
-        "align": "stretch"
+        "gapDp": 6,
+        "align": "stretch",
+        "paddingDp": 12
       },
       "children": [
         "status-header",
-        "status-body",
-        "range-status"
+        "health-resources",
+        "energy-resources",
+        "attack-state",
+        "combat-feedback",
+        "score-summary"
       ]
     },
     {
@@ -1121,111 +1816,421 @@
       "kind": "layout",
       "layout": {
         "mode": "row",
-        "gapDp": 12,
-        "align": "center",
-        "justify": "space-between"
+        "gapDp": 6,
+        "align": "stretch"
       },
       "children": [
         "status-heading",
-        "phase-chip"
+        "round-time"
       ]
     },
     {
       "id": "status-heading",
       "kind": "text",
-      "content": "对手态势",
+      "content": "试炼态势",
       "textStyle": {
-        "typography": "title",
-        "color": "labelSecondary",
-        "maxLines": 1
+        "typography": "body",
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
       }
     },
     {
-      "id": "phase-chip",
-      "kind": "spatialui",
-      "component": "sui-chip",
-      "props": {
-        "size": "small",
-        "label": "待机"
+      "id": "round-time",
+      "kind": "text",
+      "content": "第 1/3 场 · 3:00",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
       },
       "bindings": {
-        "label": "combat.phaseLabel"
-      },
-      "accessibilityLabel": "敌人阶段"
+        "content": "match.roundTime"
+      }
     },
     {
-      "id": "status-body",
+      "id": "health-resources",
       "kind": "layout",
       "layout": {
         "mode": "row",
         "gapDp": 12,
-        "align": "center",
-        "justify": "space-between"
+        "align": "stretch"
       },
       "children": [
-        "health-cluster",
-        "guard-status",
-        "attack-seal"
+        "enemy-meter",
+        "player-meter"
       ]
     },
     {
-      "id": "health-cluster",
+      "id": "energy-resources",
       "kind": "layout",
       "layout": {
         "mode": "row",
-        "gapDp": 8,
-        "align": "center",
-        "justify": "start"
+        "gapDp": 12,
+        "align": "stretch"
       },
       "children": [
-        "health-progress",
-        "health-value"
+        "stamina-meter",
+        "focus-meter"
       ]
     },
     {
-      "id": "health-progress",
+      "id": "attack-state",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "phase-label",
+        "attack-direction-seal"
+      ]
+    },
+    {
+      "id": "phase-label",
+      "kind": "text",
+      "content": "待机",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.phaseLabel"
+      }
+    },
+    {
+      "id": "combat-feedback",
+      "kind": "text",
+      "content": "尚未进入攻防",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.feedbackLabel"
+      }
+    },
+    {
+      "id": "score-summary",
+      "kind": "text",
+      "content": "得分 0 · 0 连击 · 最佳 0",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "match.scoreCombo"
+      }
+    },
+    {
+      "id": "desktop-slash",
       "kind": "spatialui",
-      "component": "sui-circular-progress",
+      "component": "sui-button",
       "props": {
-        "size": "regular",
-        "value": 1.0
+        "text": "斩击",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText",
+        "desktopOnly": true,
+        "action": "SLASH"
       },
+      "events": {
+        "click-action": "desktop-slash-action"
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "斩击",
       "bindings": {
-        "value": "combat.healthFraction"
-      },
-      "accessibilityLabel": "敌人气血进度"
-    },
-    {
-      "id": "health-value",
-      "kind": "text",
-      "content": "100 / 100",
-      "bindings": {
-        "content": "combat.healthText"
-      },
-      "textStyle": {
-        "typography": "label",
-        "color": "labelPrimary",
-        "maxLines": 1
+        "enabled": "input.previewEnabled"
       }
     },
     {
-      "id": "guard-status",
-      "kind": "text",
-      "content": "护身：未起",
-      "bindings": {
-        "content": "combat.guardLabel"
+      "id": "desktop-thrust",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "前刺",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText",
+        "desktopOnly": true,
+        "action": "THRUST"
       },
-      "textStyle": {
-        "typography": "label",
-        "color": "labelSecondary",
-        "maxLines": 1
+      "events": {
+        "click-action": "desktop-thrust-action"
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "前刺",
+      "bindings": {
+        "enabled": "input.previewEnabled"
       }
     },
     {
-      "id": "attack-seal",
+      "id": "desktop-guard",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "架刀",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText",
+        "desktopOnly": true,
+        "action": "GUARD_OVERHEAD"
+      },
+      "events": {
+        "click-action": "desktop-guard-action"
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "架刀",
+      "bindings": {
+        "enabled": "input.previewEnabled"
+      }
+    },
+    {
+      "id": "desktop-dodge",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "侧闪",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText",
+        "desktopOnly": true,
+        "action": "DODGE_LEFT"
+      },
+      "events": {
+        "click-action": "desktop-dodge-action"
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "侧闪",
+      "bindings": {
+        "enabled": "input.previewEnabled"
+      }
+    },
+    {
+      "id": "desktop-skill",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "破势 / 处决",
+        "size": "small",
+        "containerColor": "arenaPanelControl",
+        "contentColor": "arenaPanelText",
+        "desktopOnly": true,
+        "action": "SKILL"
+      },
+      "events": {
+        "click-action": "desktop-skill-action"
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "accessibilityLabel": "破势 / 虚弱时自动处决",
+      "bindings": {
+        "enabled": "input.skillEnabled"
+      }
+    },
+    {
+      "id": "enemy-meter",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "enemy-resource-label",
+        "enemy-progress"
+      ]
+    },
+    {
+      "id": "enemy-resource-label",
+      "kind": "text",
+      "content": "刀客气血 100/100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.enemyText"
+      }
+    },
+    {
+      "id": "enemy-progress",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "value": 1.0,
+        "height": 6
+      },
+      "bindings": {
+        "value": "combat.enemyFraction"
+      },
+      "accessibilityLabel": "刀客气血进度"
+    },
+    {
+      "id": "player-meter",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "player-resource-label",
+        "player-progress"
+      ]
+    },
+    {
+      "id": "player-resource-label",
+      "kind": "text",
+      "content": "自身气血 100/100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.playerText"
+      }
+    },
+    {
+      "id": "player-progress",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "value": 1.0,
+        "height": 6
+      },
+      "bindings": {
+        "value": "combat.playerFraction"
+      },
+      "accessibilityLabel": "自身气血进度"
+    },
+    {
+      "id": "stamina-meter",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "stamina-resource-label",
+        "stamina-progress"
+      ]
+    },
+    {
+      "id": "stamina-resource-label",
+      "kind": "text",
+      "content": "体力 100/100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.staminaText"
+      }
+    },
+    {
+      "id": "stamina-progress",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "value": 1.0,
+        "height": 6
+      },
+      "bindings": {
+        "value": "combat.staminaFraction"
+      },
+      "accessibilityLabel": "体力进度"
+    },
+    {
+      "id": "focus-meter",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 6,
+        "align": "stretch"
+      },
+      "children": [
+        "focus-resource-label",
+        "focus-progress"
+      ]
+    },
+    {
+      "id": "focus-resource-label",
+      "kind": "text",
+      "content": "气势 100/100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.focusText"
+      }
+    },
+    {
+      "id": "focus-progress",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "value": 1.0,
+        "height": 6
+      },
+      "bindings": {
+        "value": "combat.focusFraction"
+      },
+      "accessibilityLabel": "气势进度"
+    },
+    {
+      "id": "attack-direction-seal",
       "kind": "domain_visual",
       "rendererKey": "attack-direction-seal",
-      "purpose": "以位置、文字和抬升显示现有左上右攻击方向",
+      "purpose": "以同一平面的文字和颜色高亮显示真实攻击方向",
       "props": {
         "label": "招向印",
         "idleLabel": "观势",
@@ -1242,10 +2247,13 @@
             "id": "right",
             "label": "右"
           }
-        ]
+        ],
+        "badgeSizeDp": 30,
+        "radiusDp": 14,
+        "activeDepthDp": 0
       },
       "bindings": {
-        "activeDirection": "combat.attackDirection"
+        "direction": "combat.attackDirection"
       },
       "parts": {
         "directionCell": {
@@ -1257,64 +2265,14 @@
             "active": {
               "fill": "interaction",
               "foreground": "labelPrimaryLight",
-              "depthDp": 12
+              "depthDp": 0
             }
           }
         }
       }
-    },
-    {
-      "id": "range-status",
-      "kind": "text",
-      "content": "尚未进入攻防",
-      "bindings": {
-        "content": "combat.rangeLabel"
-      },
-      "textStyle": {
-        "typography": "label",
-        "color": "labelTertiary",
-        "maxLines": 1
-      }
     }
   ],
-  "responsiveRules": [
-    {
-      "id": "control-compact",
-      "surfaceId": "trial-control",
-      "when": {
-        "maxWidthDp": 350
-      },
-      "overrides": [
-        {
-          "nodeId": "control-root",
-          "layout": {
-            "mode": "column",
-            "paddingDp": 8,
-            "gapDp": 8,
-            "align": "stretch"
-          }
-        }
-      ]
-    },
-    {
-      "id": "status-compact",
-      "surfaceId": "combat-status",
-      "when": {
-        "maxWidthDp": 420
-      },
-      "overrides": [
-        {
-          "nodeId": "status-root",
-          "layout": {
-            "mode": "column",
-            "paddingDp": 8,
-            "gapDp": 8,
-            "align": "stretch"
-          }
-        }
-      ]
-    }
-  ],
+  "responsiveRules": [],
   "assets": [
     {
       "id": "full-stage-reference",

@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
 import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
@@ -64,7 +65,8 @@ internal class EnemyAnimator(enemy: Entity) {
             playbackKey = key
             previous?.close()
             if (state.phase == EnemyPhase.DEAD) {
-                next.setTime((state.phaseElapsedNanos / 1_000_000_000.0).toFloat().coerceAtMost(next.getDuration()))
+                next.setTime(state.deathElapsedSeconds.coerceAtMost(next.getDuration()))
+                if (state.executing) next.setSpeed(0.65f)
             }
             Log.i(TAG, "Playing clip=$clip, round=${state.roundGeneration}, attackId=${state.attackId}")
         }
@@ -79,10 +81,12 @@ internal class EnemyAnimator(enemy: Entity) {
             EnemyPhase.RECOVERING -> seekPhase(active, state, 2.167f, 3.0f)
             // The supplied hurt clip is seated. The standing fall introduction supplies this short cue.
             EnemyPhase.HIT -> seekPhase(active, state, 0.05f, 0.85f)
-            EnemyPhase.IDLE, EnemyPhase.DEAD -> Unit
+            EnemyPhase.DEAD -> active.setTime(state.deathElapsedSeconds.coerceAtMost(active.getDuration()))
+            EnemyPhase.IDLE -> Unit
         }
 
-        val paused = state.pauseReason != null || !state.inputReady
+        val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
+            !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT
         if (paused && !active.isPaused()) active.pause()
         if (!paused && active.isPaused()) active.resume()
         if (lastPhase != state.phase || lastPaused != paused) {
@@ -111,10 +115,21 @@ internal class EnemyAnimator(enemy: Entity) {
     }
 
     fun close() {
-        controller?.close()
+        val resources = buildList<AutoCloseable> {
+            controller?.let(::add)
+            addAll(singleClips.values)
+            addAll(importedResources)
+        }
         controller = null
-        singleClips.values.forEach { it.close() }
         singleClips.clear()
-        importedResources.forEach { it.close() }
+        var failure: Exception? = null
+        for (resource in resources) {
+            try {
+                resource.close()
+            } catch (error: Exception) {
+                if (failure == null) failure = error else failure.addSuppressed(error)
+            }
+        }
+        failure?.let { throw it }
     }
 }

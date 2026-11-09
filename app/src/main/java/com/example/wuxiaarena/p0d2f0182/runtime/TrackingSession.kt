@@ -23,6 +23,7 @@ import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingTarget
 import com.example.wuxiaarena.p0d2f0182.input.PicoTrackingAdapter
+import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
 import com.pico.spatial.tracking.DataProvider
 import com.pico.spatial.tracking.controller.ControllerTrackingProvider
 import com.pico.spatial.tracking.hmd.HMDTrackingProvider
@@ -110,7 +111,7 @@ private class TrackingSession(
             }
             if (diagnosticsEnabled) {
                 try {
-                    startActionDiagnostics()
+                    if (!emulatorPreview) startActionDiagnostics()
                 } catch (error: Exception) {
                     Log.w(TAG, "Unable to register controller action diagnostics", error)
                     stopActionDiagnostics()
@@ -156,6 +157,7 @@ private class TrackingSession(
                 if (diagnosticsEnabled) logProviderStatus()
                 lastPollFrame = frameNanos
             }
+            adapter.pollDesktopPreview(System.nanoTime())
             drain()
             if (diagnosticsEnabled) {
                 drainActionDiagnostics()
@@ -329,6 +331,7 @@ private class TrackingSession(
                             )
                         }
                         pendingControlEnqueued = true
+                        if (emulatorPreview && request == PendingControl.ROUND_RESET) DesktopCombatInput.reset()
                     } catch (_: TrackingControlOverflowException) {
                         drain()
                         pendingControlRecovery = !adapter.recoverControlOverflow()
@@ -479,6 +482,7 @@ private class TrackingSession(
             newestControllerObservation = event
         }
         if (accepted && event is TrackingEvent.Discontinuity) {
+            if (emulatorPreview) DesktopCombatInput.reset()
             Log.i(TAG, "Tracking discontinuity: target=${event.target}, reason=${event.reason}")
         }
         if (accepted && event is TrackingEvent.Head && !sawHead) {

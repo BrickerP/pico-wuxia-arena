@@ -1,64 +1,32 @@
-# Tavern entrance study
+# 酒馆院落与前院铺地
 
-An editable, modular entrance vignette: timber structure and roof, left and
-right doors, individual flagstones and a hanging paper lantern. The geometry,
-plaster map, and hand-built `酒` sign were made for this project. Blender
-coordinates use metres, +Z up, X across the entrance, and -Y toward the front.
-The overall structure is roughly 4.3 m wide and 3.3 m high.
+场景为本项目制作的可编辑酒馆入口，包括木结构、屋檐、左右门扇、石铺地、手工“酒”字牌与纸灯笼。Blender采用米制、+Z向上、X横向、-Y朝入口前方，整体约4.3m宽、3.3m高。
 
-The GLB uses +Y up and maps Blender `(X,Y,Z)` to `(X,Z,-Y)`: the entrance front
-is on the GLB's +Z side, toward the user when facing the entrance in Stage.
-`../verify_glb_axes.py` checks native node coordinates; placement, materials
-and visibility still need to be verified in the actual PICO application.
+glTF转换为+Y向上，Blender `(X,Y,Z)` 对应glTF `(X,Z,-Y)`，入口朝+Z。当前PICO入口使用 `tavern_slice.glb`，原始模块仍为Structure_Root、Door_Left_Root、Door_Right_Root、Paving_Root及Lantern_Root。
 
-`tavern_slice.blend` is the editable source. The `Structure_Root`,
-`Door_Left_Root`, `Door_Right_Root`, `Paving_Root`, and `Lantern_Root` children
-are separate modules in the source and interchange files; stone pieces inside
-the paving mesh remain separable as loose parts. The two door roots are at their
-outer hinge edges and the lantern root is at its suspension point; door motion
-has not been implemented. `tavern_slice.glb` is the candidate interchange
-for the PICO Spatial pipeline. The previous `tavern_slice.fbx` is retained as
-an older research snapshot; it is not regenerated or used by this pipeline. The
-three preview PNGs use an offline Blender studio; they are **not** PICO device
-or emulator screenshots. Studio cameras and lights are excluded from the GLB.
+## 前院复用
 
-## Texture sources
+`extend_forecourt.py`从现有GLB中取Paving模块，按模块实际深度向玩家侧平移，生成 `forecourt.glb`。它复用原几何、材质、UV与贴图，补充近身交战区域的脚下铺地。运行文件同时放入 `app/src/main/assets/models/forecourt.glb`，由HomeStage与酒馆同基点加载。
 
-Six 1K JPEGs in `textures/` come from Poly Haven and are provided under its
-[CC0 license](https://polyhaven.com/license); source files are included so the
-Blender project is reproducible. Credit is recorded even though CC0 does not
-require attribution:
+在仓库根目录通过Blender Python生成生产资产。
 
-- [Fine Grained Wood](https://polyhaven.com/a/fine_grained_wood), Rob Tuytel:
-  colour, roughness and OpenGL normal maps, used on timber.
-- [Granite Tile](https://polyhaven.com/a/granite_tile), Charlotte Baglioni:
-  colour, roughness and OpenGL normal maps, used on flagstones and bases. Each
-  stone samples a portion of the source image to avoid repeating its tile grid.
-- `tavern_wood_wet_rough.png` and `tavern_stone_wet_rough.png` are generated
-  from the respective CC0 roughness maps with uneven wetness. The original
-  source maps remain in `textures/`. `tavern_plaster_color.png` and
-  `tavern_lantern_color.png` are original generated maps.
-
-The shallow stone gate surround and layered eaves are informed by the
-[UNESCO description of Xidi and Hongcun](https://whc.unesco.org/en/list/1002/)
-and the [Huangshan government's description of Hui architecture](https://www.huangshan.gov.cn/zjhs/rwhz/hpjz/8294054.html).
-These are structural references; no source photographs are included.
-
-CC0 permits commercial use and redistribution of the above texture files; the
-competition's separate originality requirement and VibeLab conditions still
-need confirmation before the eventual submission.
-
-To rebuild and verify on this machine, run from this directory:
-
-```sh
-BLENDER=/Users/yupeng/Applications/Blender-4.5.15-LTS.app/Contents/MacOS/Blender
-"$BLENDER" -b --factory-startup --python-exit-code 1 --python build_tavern.py
-"$BLENDER" -b --factory-startup --python-exit-code 1 --python verify_tavern.py
+```bash
+BLENDER=/path/to/Blender
+"$BLENDER" --background --python ArtSource/tavern/extend_forecourt.py
 ```
 
-Use another Blender 4.5 LTS executable path on other machines. The build
-overwrites its generated files. The verifier opens the source and GLB and checks
-module hierarchy, geometry, scale and texture availability, compares wetness
-maps to their source roughness, and exercises a missing-module failure case.
-It does not validate the PICO loader, materials,
-lighting, draw calls, colliders, or PICO device performance.
+`build_tavern.py`可重建酒馆及其离线预览。离线预览只作为资产制作参考，本轮没有生成新的PICO设备验收画面。门扇动作仍非本轮交战链路的一部分。
+
+## 纹理来源
+
+`textures/`中的六张1K JPEG来自Poly Haven，来源采用其[CC0许可](https://polyhaven.com/license)，原文件保留用于重建。
+
+- [Fine Grained Wood](https://polyhaven.com/a/fine_grained_wood)，Rob Tuytel，颜色、粗糙度及OpenGL法线，用于木结构。
+- [Granite Tile](https://polyhaven.com/a/granite_tile)，Charlotte Baglioni，颜色、粗糙度及OpenGL法线，用于石材。
+- `tavern_wood_wet_rough.png`、`tavern_stone_wet_rough.png`由上述粗糙度图派生。灰泥与灯笼颜色图为本项目原始生成资源。
+
+门套和层叠屋檐的结构参考来自[UNESCO西递宏村说明](https://whc.unesco.org/en/list/1002/)与[黄山市徽派建筑介绍](https://www.huangshan.gov.cn/zjhs/rwhz/hpjz/8294054.html)，项目未包含来源照片。
+
+## 当前交付边界
+
+本轮复用前院铺地已生成并进入场景代码，主控已完成整体编译。按用户要求没有执行本轮自测、铺地检查脚本或设备验收。实际拼接、脚下覆盖、近景材质、光照、碰撞与终端性能继续按主控验收清单核对。

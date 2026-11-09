@@ -97,9 +97,13 @@ sealed interface EnemyCombatEvent {
  * orders simultaneous events: interruption first, then blade defense, player hit and
  * enemy hit. Event times are simulation time, not device observation timestamps.
  */
-class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
+class EnemyCombatStateMachine(
+    private val initialHealth: Int = 100,
+    private val idleDelayNanos: Long = IDLE_DELAY,
+) {
     init {
         require(initialHealth > 0) { "initial health must be positive" }
+        require(idleDelayNanos >= 0L) { "idle delay must be non-negative" }
     }
 
     var phase: EnemyPhase = EnemyPhase.IDLE
@@ -140,7 +144,7 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
 
     /** Reads attack readiness using the caller's range decision without advancing state. */
     fun canStartAttack(targetInRange: Boolean): Boolean =
-        pauseReason == null && phase == EnemyPhase.IDLE && phaseElapsedNanos >= IDLE_DELAY && targetInRange
+        pauseReason == null && phase == EnemyPhase.IDLE && phaseElapsedNanos >= idleDelayNanos && targetInRange
 
     /** The caller decides direction and range; the idle delay is enforced here. */
     fun tryStartAttack(direction: AttackDirection, targetInRange: Boolean): List<EnemyCombatEvent> {
@@ -181,14 +185,16 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
     }
 
     /** Accepts one already-deduplicated, valid player hit; it does not detect contact. */
-    fun receivePlayerHit(): List<EnemyCombatEvent> {
+    fun receivePlayerHit(damage: Int = NORMAL_DAMAGE, breakGuard: Boolean = false, armGuard: Boolean = false): List<EnemyCombatEvent> {
+        require(damage > 0) { "damage must be positive" }
         if (pauseReason != null || phase == EnemyPhase.DEAD) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
-        if (!guarding && phase == EnemyPhase.HIT && hitReaction == HitReaction.PLAYER_HIT) {
+        if (breakGuard) endGuard(events)
+        if (!breakGuard && !guarding && (armGuard || phase == EnemyPhase.HIT && hitReaction == HitReaction.PLAYER_HIT)) {
             guarding = true
             events += EnemyCombatEvent.GuardChanged(true, simulationNanos)
         }
-        val nominal = if (guarding) GUARDED_DAMAGE else NORMAL_DAMAGE
+        val nominal = if (guarding) maxOf(1, (damage.toLong() * GUARDED_DAMAGE / NORMAL_DAMAGE).toInt()) else damage
         val before = health
         health = maxOf(0, health - nominal)
         events += EnemyCombatEvent.EnemyDamaged(nominal, before - health, before, health, guarding, simulationNanos)
@@ -198,6 +204,8 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
             endGuard(events)
             hitReaction = null
             changePhase(EnemyPhase.DEAD, events)
+        } else if (guarding && phase == EnemyPhase.IDLE && armGuard) {
+            startAttack(AttackDirection.OVERHEAD, true, events)
         } else if (!guarding) {
             val remainingParry = if (phase == EnemyPhase.HIT && hitReaction == HitReaction.PARRIED) {
                 hitDurationNanos - phaseElapsedNanos
@@ -221,7 +229,7 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
     }
 
     fun pauseByPlayer(): List<EnemyCombatEvent> {
-        if (phase == EnemyPhase.DEAD || pauseReason != null) return emptyList()
+        if (pauseReason != null) return emptyList()
         val pauseId = allocatePauseId()
         pauseReason = PauseReason.USER
         currentPauseId = pauseId
@@ -230,7 +238,6 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
 
     /** Each call is a new discontinuity; callers must deduplicate repeated source reports. */
     fun interruptTracking(): List<EnemyCombatEvent> {
-        if (phase == EnemyPhase.DEAD) return emptyList()
         val previous = pauseReason
         val pauseId = allocatePauseId()
         pauseReason = PauseReason.TRACKING_INTERRUPTION
@@ -248,7 +255,7 @@ class EnemyCombatStateMachine(private val initialHealth: Int = 100) {
         val pauseId = checkNotNull(currentPauseId)
         if (!trackingReady || !actionReady || confirmedPauseId != pauseId) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
-        if (reason == PauseReason.TRACKING_INTERRUPTION) {
+        if (reason == PauseReason.TRACKING_INTERRUPTION && phase != EnemyPhase.DEAD) {
             cancelAttack(AttackCancelReason.TRACKING_INTERRUPTION, events)
             endGuard(events)
             hitReaction = null
