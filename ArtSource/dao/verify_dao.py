@@ -1,4 +1,4 @@
-"""Check source, FBX and glTF scale, geometry, materials and named anchors.
+"""Check source and glTF scale, geometry, materials and named anchors.
 
 Run: blender -b --factory-startup --python-exit-code 1 --python verify_dao.py
 """
@@ -139,8 +139,6 @@ def check(label, exported):
 
 bpy.ops.wm.open_mainfile(filepath=str(HERE / "dao_study.blend"))
 check("Blender source", False)
-for name, importer in (("dao_study.fbx", bpy.ops.import_scene.fbx),
-                       ("dao_study.glb", bpy.ops.import_scene.gltf)):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    importer(filepath=str(HERE / name))
-    check(name, True)
+bpy.ops.wm.read_factory_settings(use_empty=True)
+bpy.ops.import_scene.gltf(filepath=str(HERE / "dao_study.glb"))
+check("dao_study.glb", True)

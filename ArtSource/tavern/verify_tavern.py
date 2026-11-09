@@ -1,7 +1,7 @@
 """Check modular roots, metre scale, geometry and textures after round trips.
 
 Run with Blender 4.5 LTS and --python-exit-code 1. This checks interchange in
-Blender, not Unity rendering, PICO device performance, or collider behavior.
+Blender, not PICO runtime rendering, device performance, or collider behavior.
 """
 
 import math
@@ -71,6 +71,33 @@ def check_textures(name, minimum):
         raise ValueError("texture is not connected to required shader inputs: " + name)
 
 
+def check_nonuniform_roughness(name):
+    mat = bpy.data.materials[name]
+    shader = next(n for n in mat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
+    pending = [link.from_node for link in shader.inputs["Roughness"].links]
+    visited = set()
+    images = []
+    while pending:
+        node = pending.pop()
+        if node.name in visited:
+            continue
+        visited.add(node.name)
+        if node.type == "TEX_IMAGE" and node.image:
+            images.append(node.image)
+        for socket in node.inputs:
+            pending.extend(link.from_node for link in socket.links)
+    if not images:
+        raise ValueError("roughness has no upstream image: " + name)
+    image = images[0]
+    width, height = image.size
+    if width < 16 or height < 16:
+        raise ValueError("roughness image too small: " + name)
+    samples = [image.pixels[4*(int(y*height/16)*width + int(x*width/16)) + 1]
+               for y in range(16) for x in range(16)]
+    if max(samples) - min(samples) < .08:
+        raise ValueError("wetness roughness is unexpectedly uniform: " + name)
+
+
 def count_separate_slabs(obj):
     # Weld positions only for the check: glTF can split vertices at UV seams.
     coords = [tuple(round(float(n), 6) for n in vertex.co) for vertex in obj.data.vertices]
@@ -97,6 +124,28 @@ def count_separate_slabs(obj):
         if .45 < extent[0] < .65 and .37 < extent[1] < .49 and .04 < extent[2] < .06:
             slabs += 1
     return slabs
+
+
+def compare_wet_map(label, source_file, wet_file):
+    images = []
+    for path in (HERE / "textures" / source_file, HERE / wet_file):
+        image = bpy.data.images.load(str(path), check_existing=False)
+        image.colorspace_settings.name = "Non-Color"
+        images.append(image)
+    sample_sets = []
+    for image in images:
+        width, height = image.size
+        samples = [image.pixels[4*(int(y*height/32)*width + int(x*width/32))]
+                   for y in range(32) for x in range(32)]
+        sample_sets.append(samples)
+    dry, wet = sample_sets
+    dry_mean, wet_mean = sum(dry)/len(dry), sum(wet)/len(wet)
+    if dry_mean-wet_mean < .05 or max(wet)-min(wet) < .08:
+        raise ValueError("wetness map is not lower and spatially varied: " + label)
+    print("PASS %s roughness samples: source mean %.3f, wet mean %.3f, range %.3f..%.3f" %
+          (label, dry_mean, wet_mean, min(wet), max(wet)))
+    for image in images:
+        bpy.data.images.remove(image)
 
 
 def check(label, exported):
@@ -129,8 +178,11 @@ def check(label, exported):
             raise ValueError("door scale changed: " + name)
     for name, count in (("Wood | aged scanned grain", 3),
                         ("Stone | grey scanned granite", 3),
-                        ("Plaster | weathered wall", 1)):
+                        ("Plaster | weathered wall", 1),
+                        ("Lantern | vermilion paper", 1)):
         check_textures(name, count)
+    for name in ("Wood | aged scanned grain", "Stone | grey scanned granite"):
+        check_nonuniform_roughness(name)
     triangles = 0
     used = set()
     for mesh_name in MODULES.values():
@@ -162,8 +214,8 @@ def check(label, exported):
 
 bpy.ops.wm.open_mainfile(filepath=str(HERE / "tavern_slice.blend"))
 check("Blender source", False)
-for name, importer in (("tavern_slice.fbx", bpy.ops.import_scene.fbx),
-                       ("tavern_slice.glb", bpy.ops.import_scene.gltf)):
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-    importer(filepath=str(HERE / name))
-    check(name, True)
+bpy.ops.wm.read_factory_settings(use_empty=True)
+bpy.ops.import_scene.gltf(filepath=str(HERE / "tavern_slice.glb"))
+check("tavern_slice.glb", True)
+compare_wet_map("wood", "fine_grained_wood_rough_1k.jpg", "tavern_wood_wet_rough.png")
+compare_wet_map("stone", "granite_tile_rough_1k.jpg", "tavern_stone_wet_rough.png")

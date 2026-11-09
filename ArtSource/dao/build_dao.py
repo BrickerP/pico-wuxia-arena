@@ -396,10 +396,6 @@ bpy.context.view_layer.objects.active = root
 bpy.ops.export_scene.gltf(filepath=str(OUT / "dao_study.glb"), export_format="GLB",
                           use_selection=True, export_extras=True,
                           export_yup=True, export_animations=False)
-bpy.ops.export_scene.fbx(filepath=str(OUT / "dao_study.fbx"), use_selection=True,
-                         object_types={"EMPTY", "MESH"}, bake_anim=False,
-                         axis_forward="-Z", axis_up="Y", use_custom_props=True,
-                         path_mode="COPY", embed_textures=True)
 scene.render.filepath = str(OUT / "dao_review_full.png")
 bpy.ops.render.render(write_still=True)
 scene.camera = detail

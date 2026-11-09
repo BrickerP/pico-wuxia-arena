@@ -39,17 +39,47 @@ def solid(name, color, roughness=.7, metallic=0):
     return mat
 
 
-def scanned(name, color_file, rough_file, normal_file, strength):
+def wet_roughness(source_file, output_file, seed, wet_amount):
+    """Make a tileable, spatially uneven wet roughness map from the CC0 scan."""
+    source = bpy.data.images.load(str(TEXTURES / source_file), check_existing=True)
+    source.colorspace_settings.name = "Non-Color"
+    width, height = source.size
+    source_pixels = array("f", [0.0]) * (width * height * 4)
+    source.pixels.foreach_get(source_pixels)
+    rng = random.Random(seed)
+    size = 12
+    grid = [[rng.random() for _ in range(size)] for _ in range(size)]
+    result = array("f")
+    for py in range(height):
+        gy = py / height * size
+        iy, fy = int(gy), gy % 1
+        for px in range(width):
+            gx = px / width * size
+            ix, fx = int(gx), gx % 1
+            a = grid[iy][ix]*(1-fx) + grid[iy][(ix+1)%size]*fx
+            b = grid[(iy+1)%size][ix]*(1-fx) + grid[(iy+1)%size][(ix+1)%size]*fx
+            wet = a*(1-fy) + b*fy
+            rough = max(.08, min(.98, source_pixels[4*(py*width+px)] * (1-wet_amount*wet)))
+            result.extend((rough, rough, rough, 1.0))
+    image = bpy.data.images.new(output_file, width=width, height=height)
+    image.colorspace_settings.name = "Non-Color"
+    image.pixels.foreach_set(result)
+    image.filepath_raw = str(OUT / output_file)
+    image.file_format = "PNG"
+    image.save()
+    image.pack()
+    return image
+
+
+def scanned(name, color_file, rough_file, normal_file, strength, wet_file, seed, wet_amount):
     mat = solid(name, (.35, .3, .25))
     nodes = mat.node_tree.nodes
     links = mat.node_tree.links
     shader = nodes.get("Principled BSDF")
-    for filename, dest, non_color in ((color_file, "Base Color", False),
-                                      (rough_file, "Roughness", True)):
-        image = bpy.data.images.load(str(TEXTURES / filename), check_existing=True)
-        if non_color:
-            image.colorspace_settings.name = "Non-Color"
-        image.pack()
+    color = bpy.data.images.load(str(TEXTURES / color_file), check_existing=True)
+    color.pack()
+    rough = wet_roughness(rough_file, wet_file, seed, wet_amount)
+    for image, dest in ((color, "Base Color"), (rough, "Roughness")):
         node = nodes.new("ShaderNodeTexImage")
         node.image = image
         links.new(node.outputs["Color"], shader.inputs[dest])
@@ -67,10 +97,10 @@ def scanned(name, color_file, rough_file, normal_file, strength):
 
 wood = scanned("Wood | aged scanned grain",
                "fine_grained_wood_col_1k.jpg", "fine_grained_wood_rough_1k.jpg",
-               "fine_grained_wood_nor_gl_1k.jpg", .48)
+               "fine_grained_wood_nor_gl_1k.jpg", .48, "tavern_wood_wet_rough.png", 723, .52)
 stone = scanned("Stone | grey scanned granite",
                 "granite_tile_diff_1k.jpg", "granite_tile_rough_1k.jpg",
-                "granite_tile_nor_gl_1k.jpg", .52)
+                "granite_tile_nor_gl_1k.jpg", .52, "tavern_stone_wet_rough.png", 947, .76)
 wood_dark = solid("Timber | darkened edges", (.046, .024, .013), .84)
 plaster = solid("Plaster | weathered wall", (.27, .245, .20), .94)
 roof = solid("Roof | charcoal fired clay", (.047, .054, .055), .78)
@@ -79,11 +109,31 @@ brass = solid("Brass | dulled fittings", (.21, .135, .063), .48, .7)
 paper = solid("Window | old paper", (.40, .31, .20), .88)
 lantern_red = solid("Lantern | vermilion paper", (.28, .018, .007), .78)
 lantern_rib = solid("Lantern | dark ribs", (.09, .029, .012), .76)
-wet = solid("Paving | shallow wet patches", (.055, .071, .073), .12, .15)
 grout = solid("Paving | dark joints", (.027, .031, .029), .95)
 lantern_shader = lantern_red.node_tree.nodes.get("Principled BSDF")
 lantern_shader.inputs["Emission Color"].default_value = (.32, .055, .006, 1)
 lantern_shader.inputs["Emission Strength"].default_value = .22
+
+# An original red paper map keeps fibre and staining visible without relying
+# on Blender-only procedural nodes in the exported asset.
+lantern_rng = random.Random(241)
+lantern_pixels = array("f")
+for py in range(512):
+    for px in range(512):
+        fibre = .012*math.sin(px*.38) + .009*math.sin(py*.19)
+        stains = .035*max(0, math.sin(px*.025 + math.sin(py*.018)*1.3))
+        red = max(.25, min(.56, .43 + fibre - stains + lantern_rng.uniform(-.012,.012)))
+        lantern_pixels.extend((red, red*.22, red*.10, 1.0))
+lantern_image = bpy.data.images.new("Tavern | paper lantern", width=512, height=512)
+lantern_image.pixels.foreach_set(lantern_pixels)
+lantern_image.filepath_raw = str(OUT / "tavern_lantern_color.png")
+lantern_image.file_format = "PNG"
+lantern_image.save()
+lantern_image.pack()
+lantern_texture = lantern_red.node_tree.nodes.new("ShaderNodeTexImage")
+lantern_texture.image = lantern_image
+lantern_red.node_tree.links.new(lantern_texture.outputs["Color"],
+                                lantern_shader.inputs["Base Color"])
 
 # Original, subtly mottled plaster colour map, packed for interchange export.
 plaster_rng = random.Random(127)
@@ -98,8 +148,8 @@ for py in range(512):
         low = grid[iy][ix]*(1-tx) + grid[iy][ix+1]*tx
         high = grid[iy+1][ix]*(1-tx) + grid[iy+1][ix+1]*tx
         stain = low*(1-ty) + high*ty
-        value = max(.25, min(.59, .47 - .035*stain + plaster_rng.uniform(-.012,.012)))
-        pixels.extend((value, value*.92, value*.79, 1.0))
+        value = max(.35, min(.72, .60 - .045*stain + plaster_rng.uniform(-.012,.012)))
+        pixels.extend((value, value*.98, value*.93, 1.0))
 plaster_image = bpy.data.images.new("Tavern | mottled plaster", width=512, height=512)
 plaster_image.pixels.foreach_set(pixels)
 plaster_image.filepath_raw = str(OUT / "tavern_plaster_color.png")
@@ -252,8 +302,14 @@ for side in (-1, 1):
     structure.box((side*1.04,-.04,1.42), (.18,.28,2.84), 0)
     structure.box((side*1.04,-.04,.12), (.28,.34,.24), 4)
     structure.box((side*1.94,-.015,1.40), (.14,.23,2.80), 0)
+    # A shallow stone gate surround and short wooden support below the eave.
+    structure.box((side*.965,-.20,1.32), (.08,.13,2.48), 4)
+    structure.bar_xz((side*1.10,2.46),(side*1.34,2.66),-.20,.075,.12,0)
+structure.box((0,-.206,2.53), (2.02,.13,.10), 4)
 structure.box((0,-.04,2.68), (4.06,.32,.20), 0)
 structure.box((0,-.12,2.84), (4.32,.46,.16), 1)
+structure.box((0,-.30,2.77), (2.26,.22,.07), 1)
+structure.box((0,-.32,2.83), (2.42,.27,.05), 1)
 structure.box((0,.15,2.38), (1.96,.20,.12), 0)
 structure.box((0,.07,2.52), (1.96,.16,.18), 0)
 structure.box((0,-.02,.08), (1.96,.42,.16), 4)
@@ -310,6 +366,17 @@ def make_door(side):
             door.diamond_xz((xc,zc),.10,.09,-.115,.017,.022,0)
     for dx in (-.27,0,.27):
         door.box((center+dx,-.073,.66), (.014,.045,.92), 1)
+    # Uneven small scratches on the lower wood panel, rather than a mirrored
+    # ornamental pattern. They remain clear of the raised stiles and rails.
+    scratches = random.Random(440 + side)
+    for _ in range(18):
+        x = center + scratches.uniform(-.32,.32)
+        z = scratches.uniform(.28,.92)
+        length = scratches.uniform(.045,.16)
+        width = scratches.uniform(.001,.003)
+        lean = scratches.uniform(-.006,.006)
+        door.face([(x,-.0085,z),(x+width,-.0085,z),
+                   (x+width+lean,-.0085,z+length),(x+lean,-.0085,z+length)],1)
     for x in (center-.34,center-.17,center,center+.17,center+.34):
         for z in (.23,1.12,2.25):
             door.box((x,-.127,z), (.025,.025,.025), 4)
@@ -325,20 +392,20 @@ make_door(1)
 
 # Flagstones have irregular chamfered outlines and separated joints. Each slab
 # remains a loose mesh component even though the module exports as one mesh.
-paving = Parts("Paving", roots["Paving_Root"], [stone, grout, wet])
+paving = Parts("Paving", roots["Paving_Root"], [stone, grout])
 paving.box((0,-1.29,-.074), (4.25,3.02,.10), 1)
 for row in range(6):
-    y = -.10 - row*.49
     for col in range(7):
-        x = -1.82 + col*.61 + (.055 if row % 2 else 0)
+        x = -1.82 + col*.61 + (.055 if row % 2 else 0) + random.uniform(-.010,.010)
+        y = -.10 - row*.49 + random.uniform(-.006,.006)
         half_x = .292 - random.uniform(0,.025)
         half_y = .229 - random.uniform(0,.018)
-        chamfer = random.uniform(.025,.055)
+        c0,c1,c2,c3 = (random.uniform(.020,.075) for _ in range(4))
         top = .025 + random.uniform(-.003,.003)
-        outline = [(-half_x+chamfer,-half_y),(half_x-chamfer,-half_y),
-                   (half_x,-half_y+chamfer),(half_x,half_y-chamfer),
-                   (half_x-chamfer,half_y),(-half_x+chamfer,half_y),
-                   (-half_x,half_y-chamfer),(-half_x,-half_y+chamfer)]
+        outline = [(-half_x+c0,-half_y),(half_x-c1,-half_y),
+                   (half_x,-half_y+c1),(half_x,half_y-c2),
+                   (half_x-c2,half_y),(-half_x+c3,half_y),
+                   (-half_x,half_y-c3),(-half_x,-half_y+c0)]
         lower = [(x+px,y+py,-.025) for px,py in outline]
         upper = [(x+px,y+py,top) for px,py in outline]
         paving.face(list(reversed(lower)), 0)
@@ -351,13 +418,6 @@ for row in range(6):
             paving.face([lower[i],lower[j],upper[j],upper[i]], 0,
                         [(uv[i][0],uv[i][1]-.025),(uv[j][0],uv[j][1]-.025),
                          uv[j],uv[i]])
-        if random.random() < .26:
-            px = random.uniform(-.10,.10)
-            py = random.uniform(-.08,.08)
-            length = random.uniform(.05,.13)
-            radius = random.uniform(.012,.035)
-            paving.face([(x+px-length,y+py,top+.0005),(x+px,y+py-radius,top+.0005),
-                         (x+px+length,y+py,top+.0005),(x+px,y+py+radius,top+.0005)], 2)
 paving.finish()
 
 # A ribbed paper lantern with visible cap, suspension and tassel.
@@ -375,7 +435,9 @@ for n in range(len(profiles)-1):
         lamp.face([(lx+r0*math.cos(a),ly+r0*math.sin(a),z0),
                    (lx+r0*math.cos(b),ly+r0*math.sin(b),z0),
                    (lx+r1*math.cos(b),ly+r1*math.sin(b),z1),
-                   (lx+r1*math.cos(a),ly+r1*math.sin(a),z1)], 0, smooth=True)
+                   (lx+r1*math.cos(a),ly+r1*math.sin(a),z1)], 0,
+                  [(j/segments,(z0-2.28)/.36),((j+1)/segments,(z0-2.28)/.36),
+                   ((j+1)/segments,(z1-2.28)/.36),(j/segments,(z1-2.28)/.36)], smooth=True)
 for j in range(16):
     a=2*math.pi*j/16
     for n in range(len(profiles)-1):
@@ -429,6 +491,7 @@ area("Lantern warmth", (-1.6,-1.1,2.45), (-.7,0,1.7), 30, .75, (1.0,.38,.12))
 area("Door bounce", (1.2,-2.2,2.1), (0,0,1.2), 55, 2.4, (1.0,.69,.45))
 full=camera("Review | entrance", (3.35,-6.9,2.65), (0,-.32,1.48), 42)
 detail=camera("Review | lantern and wood", (-2.8,-3.8,2.55), (-.85,-.05,1.77), 55)
+paving_detail=camera("Review | wet paving", (-.7,-3.4,1.05), (0,-1.2,.02), 48)
 scene.camera=full
 scene.render.engine="CYCLES"
 scene.cycles.samples=48
@@ -447,14 +510,15 @@ bpy.context.view_layer.objects.active=root
 bpy.ops.export_scene.gltf(filepath=str(OUT / "tavern_slice.glb"), export_format="GLB",
                           use_selection=True, export_extras=True,
                           export_yup=True, export_animations=False)
-bpy.ops.export_scene.fbx(filepath=str(OUT / "tavern_slice.fbx"), use_selection=True,
-                         object_types={"EMPTY","MESH"}, bake_anim=False,
-                         axis_forward="-Z", axis_up="Y", use_custom_props=True,
-                         path_mode="COPY", embed_textures=True)
 scene.render.filepath=str(OUT / "tavern_review_full.png")
 bpy.ops.render.render(write_still=True)
 scene.camera=detail
 scene.render.resolution_x=1200
 scene.render.resolution_y=1000
 scene.render.filepath=str(OUT / "tavern_review_detail.png")
+bpy.ops.render.render(write_still=True)
+scene.camera=paving_detail
+scene.render.resolution_x=1200
+scene.render.resolution_y=900
+scene.render.filepath=str(OUT / "tavern_review_paving.png")
 bpy.ops.render.render(write_still=True)
