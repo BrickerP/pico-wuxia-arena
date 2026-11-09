@@ -4,7 +4,7 @@
   "metadata": {
     "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 14
+    "revision": 15
   },
   "experience": {
     "subject": "写实中式刀术试炼的场边状态与轮次控制",
@@ -506,32 +506,37 @@
             "startEnabled": true,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
             "phaseLabel": "试炼未启",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "先读起手，再迎刀反击",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "countdown": {
@@ -540,32 +545,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "稳住身位 · 等候刀客起势",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "fighting": {
@@ -574,32 +584,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
             "phaseLabel": "蓄势",
-            "enemyText": "刀客气血 72/100",
             "enemyFraction": 0.72,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "up",
-            "feedbackLabel": "弹反成功 · 反击良机"
+            "feedbackLabel": "弹反成功 · 反击良机",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "观察刀路 · 举刀准备迎锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "72 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
-            "previewEnabled": true,
-            "skillEnabled": true
+            "previewEnabled": false,
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "round-clear": {
@@ -608,32 +623,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调息整备 · 补给后迎下一场",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "paused": {
@@ -642,32 +662,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": true,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "tracking-lost": {
@@ -676,32 +701,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "设备追踪 · 头手动作 · 等待头手观察"
           },
           "combat": {
             "phaseLabel": "追踪中断",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "等待头手观察",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 等待头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "tracking-resume-ready": {
@@ -710,32 +740,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": true,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "设备追踪 · 头手动作 · 可确认继续"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "调整站位与架势"
+            "feedbackLabel": "调整站位与架势",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 可确认继续",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "victory": {
@@ -744,32 +779,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "本局已结 · 可再挑战"
           },
           "combat": {
             "phaseLabel": "试炼通关",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决"
+            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "三场尽破 · 可再挑战磨练刀术",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         },
         "defeat": {
@@ -778,32 +818,37 @@
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
-            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
+            "contextLabel": "本局已结 · 可再挑战"
           },
           "combat": {
             "phaseLabel": "本次落败",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决"
+            "feedbackLabel": "对手已虚弱 · 可双手收刀前推处决",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
-            "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
+            "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": false
           }
         }
       }
@@ -816,32 +861,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼未启",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "先读起手，再迎刀反击",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "countdown": {
@@ -850,32 +900,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "稳住身位 · 等候刀客起势",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "fighting": {
@@ -884,32 +939,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "蓄势",
-            "enemyText": "刀客气血 72/100",
             "enemyFraction": 0.72,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "up",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "观察刀路 · 举刀准备迎锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "72 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "round-clear": {
@@ -918,32 +978,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调息整备 · 补给后迎下一场",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "paused": {
@@ -952,32 +1017,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "tracking-lost": {
@@ -986,32 +1056,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪中断",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "等待头手观察",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "tracking-resume-ready": {
@@ -1020,32 +1095,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "victory": {
@@ -1054,32 +1134,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼通关",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "三场尽破 · 可再挑战磨练刀术",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "defeat": {
@@ -1088,32 +1173,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本次落败",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "等待头手观察"
+            "feedbackLabel": "等待头手观察",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         }
       }
@@ -1126,32 +1216,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼未启",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "先读起手，再迎刀反击",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "countdown": {
@@ -1160,32 +1255,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "稳住身位 · 等候刀客起势",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "fighting": {
@@ -1194,32 +1294,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "蓄势",
-            "enemyText": "刀客气血 72/100",
             "enemyFraction": 0.72,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "up",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "观察刀路 · 举刀准备迎锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "72 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "round-clear": {
@@ -1228,32 +1333,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调息整备 · 补给后迎下一场",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "paused": {
@@ -1262,32 +1372,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "tracking-lost": {
@@ -1296,32 +1411,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪中断",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "等待头手观察",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "tracking-resume-ready": {
@@ -1330,32 +1450,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "刀势暂歇 · 继续后再接来锋",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "victory": {
@@ -1364,32 +1489,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼通关",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "三场尽破 · 可再挑战磨练刀术",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         },
         "defeat": {
@@ -1398,32 +1528,37 @@
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
             "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本次落败",
-            "enemyText": "刀客气血 100/100",
             "enemyFraction": 1.0,
-            "playerText": "自身气血 80/100",
             "playerFraction": 0.8,
-            "staminaText": "体力 64/100",
             "staminaFraction": 0.64,
-            "focusText": "气势 100/100",
             "focusFraction": 1.0,
             "attackDirection": "none",
-            "feedbackLabel": "输入中断 · 准备就绪后确认继续"
+            "feedbackLabel": "输入中断 · 准备就绪后确认继续",
+            "enemyName": "酒馆刀客",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "motionCharge": 0,
+            "chargeLabel": "",
+            "enemyAmount": "100 / 100",
+            "playerAmount": "80 / 100",
+            "staminaAmount": "64 / 100",
+            "focusAmount": "100 / 100"
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
             "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
-            "comboLabel": "连击 2"
+            "comboLabel": "连击 2",
+            "roundLabel": "第 1 / 3 场"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false
+            "skillEnabled": false,
+            "desktop": true
           }
         }
       }
@@ -1513,7 +1648,7 @@
         "heightDp": 400
       },
       "children": [
-        "control-heading",
+        "control-header",
         "control-state-title",
         "input-source",
         "control-actions",
@@ -1526,7 +1661,7 @@
       "content": "酒馆试炼",
       "textStyle": {
         "typography": "body",
-        "color": "arenaPanelSecondary",
+        "color": "arenaPanelText",
         "maxLines": 2
       }
     },
@@ -1583,10 +1718,11 @@
         "overflow": "scroll"
       },
       "children": [
-        "instruction",
         "settlement",
+        "preview-instruction",
         "desktop-actions",
-        "keyboard-help"
+        "keyboard-help",
+        "technique-guide"
       ]
     },
     {
@@ -1707,14 +1843,11 @@
     {
       "id": "instruction",
       "kind": "text",
-      "content": "挥刀或前刺进攻 · 举刀格挡；迎刀弹反 · 侧移或下蹲闪避。气势满时双手收刀蓄势后前推破势，对手虚弱时同样动作自动处决。",
+      "content": "刀术要诀",
       "textStyle": {
-        "typography": "label",
+        "typography": "body",
         "color": "arenaPanelText",
-        "maxLines": 2
-      },
-      "bindings": {
-        "content": "control.instruction"
+        "maxLines": 1
       },
       "visibleInStates": [
         "ready",
@@ -1825,17 +1958,18 @@
       "kind": "layout",
       "layout": {
         "mode": "column",
-        "gapDp": 6,
+        "gapDp": 4,
         "align": "stretch",
         "paddingDp": 12
       },
       "children": [
         "status-header",
+        "attack-state",
+        "phase-hint",
+        "motion-charge",
         "health-resources",
         "energy-resources",
-        "attack-state",
-        "combat-feedback",
-        "score-summary"
+        "combat-footer"
       ]
     },
     {
@@ -1854,11 +1988,14 @@
     {
       "id": "status-heading",
       "kind": "text",
-      "content": "试炼态势",
+      "content": "酒馆刀客",
       "textStyle": {
         "typography": "body",
         "color": "arenaPanelSecondary",
         "maxLines": 2
+      },
+      "bindings": {
+        "content": "combat.enemyName"
       }
     },
     {
@@ -1906,7 +2043,8 @@
       "layout": {
         "mode": "row",
         "gapDp": 6,
-        "align": "stretch"
+        "align": "center",
+        "justify": "space-between"
       },
       "children": [
         "phase-label",
@@ -1918,7 +2056,7 @@
       "kind": "text",
       "content": "待机",
       "textStyle": {
-        "typography": "label",
+        "typography": "body",
         "color": "arenaPanelText",
         "maxLines": 2
       },
@@ -2106,21 +2244,18 @@
         "align": "stretch"
       },
       "children": [
-        "enemy-resource-label",
+        "enemy-meter-heading",
         "enemy-progress"
       ]
     },
     {
       "id": "enemy-resource-label",
       "kind": "text",
-      "content": "刀客气血 100/100",
+      "content": "刀客气血",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelText",
         "maxLines": 2
-      },
-      "bindings": {
-        "content": "combat.enemyText"
       }
     },
     {
@@ -2145,21 +2280,18 @@
         "align": "stretch"
       },
       "children": [
-        "player-resource-label",
+        "player-meter-heading",
         "player-progress"
       ]
     },
     {
       "id": "player-resource-label",
       "kind": "text",
-      "content": "自身气血 100/100",
+      "content": "自身气血",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelText",
         "maxLines": 2
-      },
-      "bindings": {
-        "content": "combat.playerText"
       }
     },
     {
@@ -2184,21 +2316,18 @@
         "align": "stretch"
       },
       "children": [
-        "stamina-resource-label",
+        "stamina-meter-heading",
         "stamina-progress"
       ]
     },
     {
       "id": "stamina-resource-label",
       "kind": "text",
-      "content": "体力 100/100",
+      "content": "体力",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelText",
         "maxLines": 2
-      },
-      "bindings": {
-        "content": "combat.staminaText"
       }
     },
     {
@@ -2223,21 +2352,18 @@
         "align": "stretch"
       },
       "children": [
-        "focus-resource-label",
+        "focus-meter-heading",
         "focus-progress"
       ]
     },
     {
       "id": "focus-resource-label",
       "kind": "text",
-      "content": "气势 100/100",
+      "content": "气势",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelText",
         "maxLines": 2
-      },
-      "bindings": {
-        "content": "combat.focusText"
       }
     },
     {
@@ -2296,6 +2422,416 @@
             }
           }
         }
+      }
+    },
+    {
+      "id": "control-header",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "control-heading",
+        "control-round"
+      ]
+    },
+    {
+      "id": "control-round",
+      "kind": "text",
+      "content": "第 1 / 3 场",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "match.roundLabel"
+      }
+    },
+    {
+      "id": "preview-instruction",
+      "kind": "text",
+      "content": "动作预演会生成头手轨迹，复用体感判定。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 2
+      },
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ],
+      "props": {
+        "desktopOnly": true
+      }
+    },
+    {
+      "id": "technique-guide",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 10,
+        "align": "stretch"
+      },
+      "children": [
+        "instruction",
+        "lesson-strike",
+        "lesson-guard",
+        "lesson-dodge",
+        "lesson-skill"
+      ],
+      "visibleInStates": [
+        "ready",
+        "countdown",
+        "fighting",
+        "round-clear",
+        "paused",
+        "tracking-lost",
+        "tracking-resume-ready"
+      ]
+    },
+    {
+      "id": "lesson-strike",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 10,
+        "align": "start"
+      },
+      "children": [
+        "lesson-strike-title",
+        "lesson-strike-detail"
+      ]
+    },
+    {
+      "id": "lesson-strike-title",
+      "kind": "text",
+      "content": "进刀",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "layout": {
+        "widthDp": 78
+      }
+    },
+    {
+      "id": "lesson-strike-detail",
+      "kind": "text",
+      "content": "抬手蓄刀，挥斩或前刺，让刀锋切过对手。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 3
+      },
+      "layout": {
+        "grow": 1
+      }
+    },
+    {
+      "id": "lesson-guard",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 10,
+        "align": "start"
+      },
+      "children": [
+        "lesson-guard-title",
+        "lesson-guard-detail"
+      ]
+    },
+    {
+      "id": "lesson-guard-title",
+      "kind": "text",
+      "content": "架刀",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "layout": {
+        "widthDp": 78
+      }
+    },
+    {
+      "id": "lesson-guard-detail",
+      "kind": "text",
+      "content": "横刀护在头前。来锋将至时迅速成架，可迎刀弹反。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 3
+      },
+      "layout": {
+        "grow": 1
+      }
+    },
+    {
+      "id": "lesson-dodge",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 10,
+        "align": "start"
+      },
+      "children": [
+        "lesson-dodge-title",
+        "lesson-dodge-detail"
+      ]
+    },
+    {
+      "id": "lesson-dodge-title",
+      "kind": "text",
+      "content": "避锋",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "layout": {
+        "widthDp": 78
+      }
+    },
+    {
+      "id": "lesson-dodge-detail",
+      "kind": "text",
+      "content": "看见起势后侧移或下蹲，让开原本头部位置。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 3
+      },
+      "layout": {
+        "grow": 1
+      }
+    },
+    {
+      "id": "lesson-skill",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 10,
+        "align": "start"
+      },
+      "children": [
+        "lesson-skill-title",
+        "lesson-skill-detail"
+      ]
+    },
+    {
+      "id": "lesson-skill-title",
+      "kind": "text",
+      "content": "破势",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "layout": {
+        "widthDp": 78
+      }
+    },
+    {
+      "id": "lesson-skill-detail",
+      "kind": "text",
+      "content": "双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 3
+      },
+      "layout": {
+        "grow": 1
+      }
+    },
+    {
+      "id": "phase-hint",
+      "kind": "text",
+      "content": "先读起手，再迎刀反击",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelSecondary",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.phaseHint"
+      },
+      "props": {
+        "hideWhileCharging": true
+      }
+    },
+    {
+      "id": "motion-charge",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 3,
+        "align": "stretch"
+      },
+      "children": [
+        "motion-charge-label",
+        "motion-charge-progress"
+      ],
+      "props": {
+        "chargingOnly": true
+      }
+    },
+    {
+      "id": "motion-charge-label",
+      "kind": "text",
+      "content": "收刀蓄势",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.chargeLabel"
+      }
+    },
+    {
+      "id": "motion-charge-progress",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "value": 0,
+        "height": 4
+      },
+      "bindings": {
+        "value": "combat.motionCharge"
+      },
+      "accessibilityLabel": "双手收刀蓄势进度"
+    },
+    {
+      "id": "combat-footer",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 12,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "combat-feedback",
+        "score-summary"
+      ]
+    },
+    {
+      "id": "enemy-meter-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "justify": "space-between",
+        "align": "center"
+      },
+      "children": [
+        "enemy-resource-label",
+        "enemy-resource-amount"
+      ]
+    },
+    {
+      "id": "enemy-resource-amount",
+      "kind": "text",
+      "content": "100 / 100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.enemyAmount"
+      }
+    },
+    {
+      "id": "player-meter-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "justify": "space-between",
+        "align": "center"
+      },
+      "children": [
+        "player-resource-label",
+        "player-resource-amount"
+      ]
+    },
+    {
+      "id": "player-resource-amount",
+      "kind": "text",
+      "content": "100 / 100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.playerAmount"
+      }
+    },
+    {
+      "id": "stamina-meter-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "justify": "space-between",
+        "align": "center"
+      },
+      "children": [
+        "stamina-resource-label",
+        "stamina-resource-amount"
+      ]
+    },
+    {
+      "id": "stamina-resource-amount",
+      "kind": "text",
+      "content": "100 / 100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.staminaAmount"
+      }
+    },
+    {
+      "id": "focus-meter-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 6,
+        "justify": "space-between",
+        "align": "center"
+      },
+      "children": [
+        "focus-resource-label",
+        "focus-resource-amount"
+      ]
+    },
+    {
+      "id": "focus-resource-amount",
+      "kind": "text",
+      "content": "100 / 100",
+      "textStyle": {
+        "typography": "label",
+        "color": "arenaPanelText",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "combat.focusAmount"
       }
     }
   ],

@@ -1,0 +1,26 @@
+{
+  "type": "animate_rig",
+  "status": "success",
+  "progress": 100,
+  "input": {
+    "spec": "tripo",
+    "topology": "biped",
+    "out_format": "glb",
+    "original_model_id": "d077622d-e63a-48d6-964b-8c388d5934ae"
+  },
+  "output": {
+    "model_url": "https://openapi-dl.data.tripo3d.com/tcli_0924d4a857be446882f9938affd93308/20261109/baf40635-24e0-4d58-8413-6a21e40b7d62/tripo_rigging_baf40635-24e0-4d58-8413-6a21e40b7d62.glb?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV8wOTI0ZDRhODU3YmU0NDY4ODJmOTkzOGFmZmQ5MzMwOC8yMDI2MTEwOS9iYWY0MDYzNS0yNGUwLTRkNTgtODQxMy02YTIxZTQwYjdkNjIvdHJpcG9fcmlnZ2luZ19iYWY0MDYzNS0yNGUwLTRkNTgtODQxMy02YTIxZTQwYjdkNjIuZ2xiIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk0MzMzODM5fX19XX0_&Signature=OOjo5d2ulbUmwHHJfpPvZ~A4gAW3ediKWF5qQ2-muqiEEjH1M6Ijd2qegOIcuFX4OeUbpUu9j7zfoFhDp2Bsd3vGgQBIFOZ2tMLY1pi7i1SIBWSw0U-vJncqrq7X~8XkkirrvOCBPuQoLonxFLUocW369EkQEg6xF~Wt-e4zWLBqKmALZmW8L-Jr2iLRSpJ9QKipinrQB0gYmoMzeFqHeK9CMa-wYXmvE0V1mK1ZIeEMASnMMAs4SaDyl3MfvEVDjiP0EVFyNyMlqkwt0daFEEku4XKUm0sGwE8QEM-h2F9M2nmmGYJsn2xCixAELwvdpKwBbP981X8QmHyhnG4u3A__&Key-Pair-Id=K1676C64NMVM2J",
+    "rendered_image_url": "https://openapi-dl.data.tripo3d.com/tcli_0924d4a857be446882f9938affd93308/20261109/baf40635-24e0-4d58-8413-6a21e40b7d62/legacy_mesh.webp?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9vcGVuYXBpLWRsLmRhdGEudHJpcG8zZC5jb20vdGNsaV8wOTI0ZDRhODU3YmU0NDY4ODJmOTkzOGFmZmQ5MzMwOC8yMDI2MTEwOS9iYWY0MDYzNS0yNGUwLTRkNTgtODQxMy02YTIxZTQwYjdkNjIvbGVnYWN5X21lc2gud2VicCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5NDMzMzgzOX19fV19&Signature=UiS0oeQ46ycvl8fcU3woqmjZtI6pvHd5Zsz2rMv61pDYLjSY6SM2C9fkKbbpe-uwTpPNIallIYpyUuLGUMXc-uLclC9k-GuuT74~JprR6RoV7YgYeTum1emUXhXvPGQcAOh7NcQY0d8QqTblPRoKQzhTvaU44hujo0CUPYucHS26Mn8HKn7Os6Xzw3TH5p21yiFzS60RyT67oZrSjAMwT0oDtdRCG8xR4a2iNMvmliRYEGo~A9k4MKTLjhDEVEJl5C3MzT2btb8qse8J36-N3Hvwq3WWtigBlBRB~sHiG0ZJeAe0RDiE3qpGMnIBY-nSd-MmGgbTaghxZEhtGqi7UQ__&Key-Pair-Id=K1676C64NMVM2J"
+  },
+  "task_id": "baf40635-24e0-4d58-8413-6a21e40b7d62",
+  "created_at": "2026-11-09T18:03:39.594548Z",
+  "completed_at": "2026-11-09T18:03:53.462552Z",
+  "credits_consumed": 25,
+  "output_dir": "ArtSource/tripo-warrior/expanded/veteran-refined",
+  "files": [
+    "ArtSource/tripo-warrior/expanded/veteran-refined/model.glb",
+    "ArtSource/tripo-warrior/expanded/veteran-refined/rendered_image.webp",
+    "ArtSource/tripo-warrior/expanded/veteran-refined/preview.png"
+  ],
+  "model_file": "ArtSource/tripo-warrior/expanded/veteran-refined/model.glb"
+}

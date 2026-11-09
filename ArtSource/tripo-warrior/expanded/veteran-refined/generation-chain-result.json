@@ -1,0 +1,1 @@
+{"error":"task baf40635-24e0-4d58-8413-6a21e40b7d62 succeeded but downloading its artifacts failed: terminated","exit_code":7,"task_id":"baf40635-24e0-4d58-8413-6a21e40b7d62","suggestion":"the task is finished and billed; do not regenerate. Download it with \"tripo task get baf40635-24e0-4d58-8413-6a21e40b7d62 --download\""}

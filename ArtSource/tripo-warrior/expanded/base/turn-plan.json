@@ -1,0 +1,34 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "e7df779b-f863-480e-af32-db89657622f2",
+  "source_task_id": "e7df779b-f863-480e-af32-db89657622f2",
+  "steps": [
+    {
+      "name": "retarget",
+      "endpoint": "/v3/animations/retarget",
+      "task_type": "animate_retarget",
+      "payload": {
+        "input": "<upstream>",
+        "animation": "preset:biped:turn",
+        "out_format": "glb",
+        "animate_in_place": true,
+        "export_with_geometry": true
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [
+    "GLB"
+  ],
+  "candidates": 1,
+  "warnings": [
+    "chain legality unverified: upstream task type unknown (no local history for e7df779b-f863-480e-af32-db89657622f2); the real run checks it via the API"
+  ],
+  "errors": [],
+  "generation_credits_estimate": null,
+  "cost_notes": [
+    "cost not estimated (not zero credits); notes below are cost impacts only; check regional official pricing and balance before running",
+    "retarget 1 animation(s): billed per animation"
+  ]
+}

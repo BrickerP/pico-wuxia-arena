@@ -1,0 +1,84 @@
+{
+  "motion_source": {
+    "source": "expanded/base/tripo-out/461fea24-rig-e7df779b/model.glb",
+    "source_sha256": "b25da49650aa6ff9cdaf09053c1e891a38a1c8297d03ee3630eccbf1eb85e8d6",
+    "clips": [
+      {
+        "name": "idle",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-e011ab58/model.glb",
+        "source_sha256": "9a2c2c951c13eed0891fe462455ec09c8a7593a3ff7cedd7d025b8cd5c9a6bc9"
+      },
+      {
+        "name": "walk",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-2-7ddf98ee/model.glb",
+        "source_sha256": "38bfc0f00c6d3d635d7eb18c2aab1232a2c1f0d0361806a568f3c540f9ecc8d6"
+      },
+      {
+        "name": "fall",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
+        "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c"
+      },
+      {
+        "name": "turn",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-5-b35c205e/model.glb",
+        "source_sha256": "3a4f7f12934f87cebf2d8fed59602f69fcb5eafb7b9ba203652116478c694a26"
+      },
+      {
+        "name": "hit_body",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-6-8b0a1035/model.glb",
+        "source_sha256": "f8f16bb8f5ae4369134e61b5662fe891a80dca122c8ed77cb999aef6fb7b860c"
+      },
+      {
+        "name": "hit_head",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-7-a03d8662/model.glb",
+        "source_sha256": "b152df4679efc20e29e218cd382d8b52d694cb767ec4dcb7f415a855e0f4b026"
+      },
+      {
+        "name": "hit_side",
+        "source": "expanded/base/tripo-out/e7df779b-retarget-8-68546cb4/model.glb",
+        "source_sha256": "a27a5a3a1ea1bd68774d10740a7a55aee5549a0be70669327fd8679c2443120c"
+      }
+    ]
+  },
+  "characters": [
+    {
+      "id": "base",
+      "name": "试刀客",
+      "source": "tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb",
+      "source_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+      "grip_source": {
+        "source": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
+        "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+        "time_seconds": 2.117
+      },
+      "height_metres": 1.78,
+      "output": "base.glb"
+    },
+    {
+      "id": "indigo",
+      "name": "青衫护院",
+      "source": "expanded/indigo/tripo-out/0f073f22-rig-bc292084/model.glb",
+      "source_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+      "grip_source": {
+        "source": "expanded/indigo/tripo-out/bc292084-retarget-12bbb9fd/model.glb",
+        "source_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+        "time_seconds": 2.117
+      },
+      "height_metres": 1.78,
+      "output": "indigo.glb"
+    },
+    {
+      "id": "veteran",
+      "name": "玄甲守擂",
+      "source": "expanded/veteran-refined/model.glb",
+      "source_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+      "grip_source": {
+        "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
+        "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+        "time_seconds": 2.117
+      },
+      "height_metres": 1.78,
+      "output": "veteran.glb"
+    }
+  ]
+}

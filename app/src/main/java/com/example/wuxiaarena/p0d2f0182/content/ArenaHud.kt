@@ -29,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyPhase
+import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.p0d2f0182.R
@@ -110,12 +111,24 @@ private fun ArenaControlPanelContent(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Text(
-                text = stringResource(R.string.arena_control_title),
-                style = PicoTheme.typography.bodyLarge,
-                color = ArenaPanelSecondary,
-                maxLines = 1,
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.arena_control_title),
+                    style = PicoTheme.typography.bodyLarge,
+                    color = ArenaPanelText,
+                    maxLines = 1,
+                )
+                Text(
+                    text = stringResource(R.string.arena_control_round, state.roundNumber, state.roundCount),
+                    style = PicoTheme.typography.labelSmall,
+                    color = ArenaPanelSecondary,
+                    maxLines = 1,
+                )
+            }
             Text(
                 text = controlStateLabel(state),
                 style = PicoTheme.typography.bodyLarge,
@@ -199,19 +212,6 @@ private fun ArenaControlPanelContent(
                         color = ArenaPanelSecondary,
                         maxLines = 2,
                     )
-                } else {
-                    Text(
-                        text = stringResource(R.string.arena_play_instruction),
-                        style = PicoTheme.typography.labelMedium,
-                        color = ArenaPanelText,
-                        maxLines = 3,
-                    )
-                    Text(
-                        text = stringResource(R.string.arena_skill_instruction),
-                        style = PicoTheme.typography.labelSmall,
-                        color = ArenaPanelSecondary,
-                        maxLines = 2,
-                    )
                 }
                 if (desktop && !terminal) {
                     DesktopActions(
@@ -228,6 +228,7 @@ private fun ArenaControlPanelContent(
                         maxLines = 3,
                     )
                 }
+                if (!terminal) TechniqueGuide()
             }
         }
     }
@@ -240,6 +241,45 @@ private fun ArenaControlPanelContent(
                 showRestartConfirmation = false
                 onRestart()
             },
+        )
+    }
+}
+
+@Composable
+private fun TechniqueGuide() {
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Text(
+            text = stringResource(R.string.arena_technique_title),
+            style = PicoTheme.typography.bodyLarge,
+            color = ArenaPanelText,
+            maxLines = 1,
+        )
+        TechniqueLesson(R.string.arena_technique_strike, R.string.arena_technique_strike_detail)
+        TechniqueLesson(R.string.arena_technique_guard, R.string.arena_technique_guard_detail)
+        TechniqueLesson(R.string.arena_technique_dodge, R.string.arena_technique_dodge_detail)
+        TechniqueLesson(R.string.arena_technique_skill, R.string.arena_technique_skill_detail)
+    }
+}
+
+@Composable
+private fun TechniqueLesson(title: Int, description: Int) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        Text(
+            text = stringResource(title),
+            modifier = Modifier.weight(0.22f),
+            style = PicoTheme.typography.labelMedium,
+            color = ArenaPanelText,
+            maxLines = 1,
+        )
+        Text(
+            text = stringResource(description),
+            modifier = Modifier.weight(0.78f),
+            style = PicoTheme.typography.labelSmall,
+            color = ArenaPanelSecondary,
+            maxLines = 3,
         )
     }
 }
@@ -327,7 +367,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
         ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -335,7 +375,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = stringResource(R.string.arena_status_title),
+                        text = state.enemyName,
                         style = PicoTheme.typography.bodyLarge,
                         color = ArenaPanelSecondary,
                         maxLines = 1,
@@ -350,6 +390,31 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                         ),
                         style = PicoTheme.typography.labelMedium,
                         color = ArenaPanelText,
+                        maxLines = 1,
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = phaseLabel(state),
+                        style = PicoTheme.typography.bodyLarge,
+                        color = ArenaPanelText,
+                        maxLines = 1,
+                    )
+                    AttackDirectionSeal(state.attackDirection)
+                }
+                if (state.result == TrialResult.FIGHTING && state.pauseReason == null &&
+                    state.inputReady && state.motionCharge.isFinite() && state.motionCharge > 0f
+                ) {
+                    MotionChargeHint(state)
+                } else {
+                    Text(
+                        text = phaseHint(state),
+                        style = PicoTheme.typography.labelSmall,
+                        color = ArenaPanelSecondary,
                         maxLines = 1,
                     )
                 }
@@ -391,29 +456,51 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = phaseLabel(state),
+                        text = feedbackLabel(state),
+                        modifier = Modifier.weight(1f),
                         style = PicoTheme.typography.labelMedium,
                         color = ArenaPanelText,
                         maxLines = 1,
                     )
-                    AttackDirectionSeal(state.attackDirection)
-                }
-                Text(
-                    text = feedbackLabel(state),
-                    style = PicoTheme.typography.labelMedium,
-                    color = ArenaPanelText,
-                    maxLines = 1,
-                )
-                if (state.combo >= 2) {
-                    Text(
-                        text = stringResource(R.string.arena_combo, state.combo),
-                        style = PicoTheme.typography.labelSmall,
-                        color = ArenaPanelSecondary,
-                        maxLines = 1,
-                    )
+                    if (state.combo >= 2) {
+                        Text(
+                            text = stringResource(R.string.arena_combo, state.combo),
+                            style = PicoTheme.typography.labelSmall,
+                            color = ArenaPanelSecondary,
+                            maxLines = 1,
+                        )
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun MotionChargeHint(state: ArenaViewState) {
+    val progress = state.motionCharge.coerceIn(0f, 1f)
+    val label = when {
+        progress < 1f -> stringResource(R.string.arena_charge_progress, (progress * 100f).toInt())
+        state.executionAvailable -> stringResource(R.string.arena_charge_execution)
+        state.focus >= 100 -> stringResource(R.string.arena_charge_skill)
+        else -> stringResource(R.string.arena_charge_low_focus)
+    }
+    Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
+        Text(
+            text = label,
+            style = PicoTheme.typography.labelSmall,
+            color = ArenaPanelText,
+            maxLines = 1,
+        )
+        LinearProgressIndicator(
+            progress = { progress },
+            modifier = Modifier.fillMaxWidth().height(4.dp),
+            colors = LinearProgressDefaults.linearProgressColors(
+                indicatorColor = PicoTheme.colorScheme.interaction,
+                backgroundColor = ArenaPanelControl,
+            ),
+            height = LinearProgressDefaults.linearProgressHeight(4.dp),
+        )
     }
 }
 
@@ -427,12 +514,23 @@ private fun ResourceMeter(
 ) {
     val fraction = if (maximum > 0) (value.toFloat() / maximum).coerceIn(0f, 1f) else 0f
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(3.dp)) {
-        Text(
-            text = stringResource(R.string.arena_resource_value, label, value.coerceAtLeast(0), maximum.coerceAtLeast(0)),
-            style = PicoTheme.typography.labelSmall,
-            color = ArenaPanelSecondary,
-            maxLines = 1,
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Text(
+                text = label,
+                style = PicoTheme.typography.labelSmall,
+                color = ArenaPanelSecondary,
+                maxLines = 1,
+            )
+            Text(
+                text = stringResource(R.string.arena_resource_amount, value.coerceAtLeast(0), maximum.coerceAtLeast(0)),
+                style = PicoTheme.typography.labelSmall,
+                color = ArenaPanelText,
+                maxLines = 1,
+            )
+        }
         LinearProgressIndicator(
             progress = { fraction },
             modifier = Modifier.fillMaxWidth().height(6.dp),
@@ -523,7 +621,10 @@ private fun controlStateLabel(state: ArenaViewState): String {
         state.pauseReason != null || !state.sceneReady -> stringResource(resource)
         state.result == TrialResult.COUNTDOWN -> stringResource(resource, state.countdownSeconds.coerceAtLeast(0))
         state.result == TrialResult.ROUND_CLEAR && state.countdownSeconds > 0 -> {
-            stringResource(R.string.arena_state_round_clear_countdown, state.countdownSeconds)
+            stringResource(
+                if (state.roundNumber >= state.roundCount) R.string.arena_state_final_clear_countdown else R.string.arena_state_round_clear_countdown,
+                state.countdownSeconds,
+            )
         }
         else -> stringResource(resource)
     }
@@ -558,6 +659,7 @@ private fun phaseLabel(state: ArenaViewState): String = stringResource(
         state.pauseReason == PauseReason.USER -> R.string.arena_phase_paused
         state.pauseReason == PauseReason.TRACKING_INTERRUPTION -> R.string.arena_phase_interrupted
         state.result == TrialResult.COUNTDOWN -> R.string.arena_phase_countdown
+        state.executing -> R.string.arena_status_executing
         state.result == TrialResult.ROUND_CLEAR -> R.string.arena_phase_round_clear
         state.phase == EnemyPhase.IDLE -> R.string.arena_phase_idle
         state.phase == EnemyPhase.PREPARING -> R.string.arena_phase_preparing
@@ -570,7 +672,43 @@ private fun phaseLabel(state: ArenaViewState): String = stringResource(
 )
 
 @Composable
+private fun phaseHint(state: ArenaViewState): String = stringResource(
+    when {
+        state.result == TrialResult.VICTORY -> R.string.arena_hint_victory
+        state.result == TrialResult.DEFEAT -> R.string.arena_hint_defeat
+        state.pauseReason != null -> R.string.arena_hint_paused
+        !state.inputReady -> R.string.arena_status_waiting_observations
+        state.result == TrialResult.READY -> R.string.arena_hint_ready
+        state.result == TrialResult.COUNTDOWN -> R.string.arena_hint_countdown
+        state.executing -> R.string.arena_hint_executing
+        state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
+        state.result == TrialResult.ROUND_CLEAR -> R.string.arena_hint_round_clear
+        state.phase == EnemyPhase.PREPARING -> R.string.arena_hint_preparing
+        state.phase == EnemyPhase.STARTUP -> R.string.arena_hint_startup
+        state.phase == EnemyPhase.ACTIVE -> R.string.arena_hint_active
+        state.phase == EnemyPhase.RECOVERING -> R.string.arena_hint_recovering
+        state.phase == EnemyPhase.HIT && state.hitReaction == HitReaction.PARRIED -> R.string.arena_hint_parried
+        state.phase == EnemyPhase.HIT -> R.string.arena_hint_hit
+        else -> R.string.arena_hint_idle
+    },
+)
+
+@Composable
 private fun feedbackLabel(state: ArenaViewState): String {
+    val status = when {
+        state.result == TrialResult.VICTORY -> R.string.arena_victory_detail
+        state.result == TrialResult.DEFEAT && state.feedback == CombatFeedback.TIMEOUT -> R.string.arena_feedback_timeout
+        state.result == TrialResult.DEFEAT -> R.string.arena_defeat_detail
+        state.pauseReason != null -> R.string.arena_status_clock_paused
+        !state.inputReady -> R.string.arena_status_waiting_observations
+        state.executing -> R.string.arena_status_executing
+        state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
+        state.result == TrialResult.ROUND_CLEAR -> R.string.arena_status_round_transition
+        state.result == TrialResult.COUNTDOWN -> R.string.arena_status_countdown
+        state.result == TrialResult.READY -> R.string.arena_status_not_started
+        else -> null
+    }
+    if (status != null) return stringResource(status)
     val feedback = state.feedback
     if (feedback != null) {
         return stringResource(
@@ -594,18 +732,10 @@ private fun feedbackLabel(state: ArenaViewState): String {
     }
     return stringResource(
         when {
-            state.result == TrialResult.VICTORY -> R.string.arena_victory_detail
-            state.result == TrialResult.DEFEAT -> R.string.arena_defeat_detail
-            state.pauseReason != null -> R.string.arena_status_clock_paused
-            !state.inputReady -> R.string.arena_status_waiting_observations
-            state.executing -> R.string.arena_status_executing
             state.executionAvailable -> R.string.arena_status_execution_ready
             state.focus >= 100 -> R.string.arena_status_skill_ready
             state.guarding -> R.string.arena_status_enemy_guard
             state.targetInRange == false -> R.string.arena_status_out_of_range
-            state.result == TrialResult.COUNTDOWN -> R.string.arena_status_countdown
-            state.result == TrialResult.ROUND_CLEAR -> R.string.arena_status_round_transition
-            state.result == TrialResult.READY -> R.string.arena_status_not_started
             else -> R.string.arena_status_in_range
         },
     )

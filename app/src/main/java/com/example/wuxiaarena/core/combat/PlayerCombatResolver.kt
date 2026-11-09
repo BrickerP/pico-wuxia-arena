@@ -25,6 +25,7 @@ data class PlayerMotionFrame(
     val skillGesture: Boolean,
     val headPosition: Vector3,
     val guardDirection: AttackDirection? = null,
+    val chargeProgress: Float = 0f,
 )
 
 /**
@@ -163,8 +164,13 @@ class PlayerCombatResolver {
         previousDirection = direction ?: previousDirection
         val channeling = chargeStartedAt != null || chargeOrigin != null || skillLatched ||
             elapsedSince(sample.stamp.receivedAtNanos, lastSkillAt) < 0.45
+        val chargeProgress = when {
+            chargeOrigin != null -> 1f
+            chargeStartedAt != null -> (elapsedSince(sample.stamp.receivedAtNanos, chargeStartedAt) / SKILL_CHARGE).coerceIn(0.0, 1.0).toFloat()
+            else -> 0f
+        }
         val frame = PlayerMotionFrame(sample.stamp.receivedAtNanos, base, tip, tipDistance / elapsed,
-            if (channeling) null else strike, skill, headPosition, currentGuard)
+            if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress)
         latestFrame = frame
         return frame
     }

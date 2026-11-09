@@ -1,0 +1,54 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "Adult Chinese male martial artist with a complete anatomically correct rounded human head, full forehead, complete scalp and clearly visible crown, both ears, small high tied topknot of black hair. Realistic eight-head-tall human anatomy and natural proportions. Entire body and complete head in symmetrical T-pose, straight horizontal arms, open separated fingers and separated legs. Historical Chinese charcoal cross-collar coat, aged dark bronze small lamellar torso armor, restrained burgundy sash, layered shoulder cloth, fitted bracers, split knee-length robe panels, trousers and leather boots. Mature dignified face, visible stitching, armor lacing and garment layers. Full closed sculpted skull and high hair bun, realistic PBR cloth and weathered metal, isolated complete character.",
+  "model": "v3.1-20260211",
+  "model_reason": "explicit --model",
+  "steps": [
+    {
+      "name": "text-to-model",
+      "endpoint": "/v3/generation/text-to-model",
+      "task_type": "text_to_model",
+      "payload": {
+        "prompt": "Adult Chinese male martial artist with a complete anatomically correct rounded human head, full forehead, complete scalp and clearly visible crown, both ears, small high tied topknot of black hair. Realistic eight-head-tall human anatomy and natural proportions. Entire body and complete head in symmetrical T-pose, straight horizontal arms, open separated fingers and separated legs. Historical Chinese charcoal cross-collar coat, aged dark bronze small lamellar torso armor, restrained burgundy sash, layered shoulder cloth, fitted bracers, split knee-length robe panels, trousers and leather boots. Mature dignified face, visible stitching, armor lacing and garment layers. Full closed sculpted skull and high hair bun, realistic PBR cloth and weathered metal, isolated complete character.",
+        "smart_low_poly": true,
+        "face_limit": 20000,
+        "pbr": true,
+        "texture_quality": "detailed",
+        "model": "v3.1-20260211"
+      }
+    },
+    {
+      "name": "rig-check",
+      "endpoint": "/v3/animations/rig-check",
+      "task_type": "animate_prerigcheck",
+      "payload": {
+        "input": "<upstream>"
+      }
+    },
+    {
+      "name": "rig",
+      "endpoint": "/v3/animations/rig",
+      "task_type": "animate_rig",
+      "payload": {
+        "input": "<upstream>",
+        "model": "v3.0-20260909",
+        "rig_type": "biped",
+        "spec": "tripo",
+        "out_format": "glb"
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [
+    "GLB"
+  ],
+  "candidates": 1,
+  "warnings": [],
+  "errors": [],
+  "generation_credits_estimate": 40,
+  "cost_notes": [
+    "estimated generation cost: 40 credits (official list price; chain steps not estimated)",
+    "texture_quality detailed: higher price tier"
+  ]
+}

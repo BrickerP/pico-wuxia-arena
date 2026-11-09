@@ -1,0 +1,33 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "5f78dd12-d618-4fd7-b777-27e10a0c0f16",
+  "source_task_id": "5f78dd12-d618-4fd7-b777-27e10a0c0f16",
+  "steps": [
+    {
+      "name": "rig",
+      "endpoint": "/v3/animations/rig",
+      "task_type": "animate_rig",
+      "payload": {
+        "input": "<upstream>",
+        "model": "v3.0-20260909",
+        "rig_type": "biped",
+        "spec": "tripo",
+        "out_format": "glb"
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [
+    "GLB"
+  ],
+  "candidates": 1,
+  "warnings": [
+    "chain legality unverified: upstream task type unknown (no local history for 5f78dd12-d618-4fd7-b777-27e10a0c0f16); the real run checks it via the API"
+  ],
+  "errors": [],
+  "generation_credits_estimate": null,
+  "cost_notes": [
+    "cost not estimated (not zero credits); notes below are cost impacts only; check regional official pricing and balance before running"
+  ]
+}

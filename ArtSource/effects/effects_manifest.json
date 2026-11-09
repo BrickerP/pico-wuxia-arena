@@ -1,0 +1,101 @@
+{
+  "units": "metres",
+  "coordinates": "glTF +Y up",
+  "source": "Original geometry and vertex-color effects authored for this project",
+  "textures": 0,
+  "skins": 0,
+  "effects": [
+    {
+      "file": "metal_sparks.glb",
+      "bytes": 40392,
+      "sha256": "4ef9d4c5b0eadd464f8555c4264f20ea55f3576bdf51031fc8ab71ef2ff213c6",
+      "runtime": "asset://models/effects/metal_sparks.glb",
+      "clip": "metal_sparks_burst",
+      "durationSeconds": 0.24,
+      "plane": "XY facing +Z",
+      "triangles": 36,
+      "nodes": 19,
+      "defaultPoseBoundsMeters": {
+        "min": [
+          -0.17412764432366176,
+          -0.16086662874085925,
+          -0.017989481085766517
+        ],
+        "max": [
+          0.16885133300931982,
+          0.1129622825138433,
+          0.018720098586169347
+        ]
+      }
+    },
+    {
+      "file": "blade_arc.glb",
+      "bytes": 11576,
+      "sha256": "be9f52e1b9dcae20c6e785da945e7ba0f25dbd4ffde342939b391c9eea1812d1",
+      "runtime": "asset://models/effects/blade_arc.glb",
+      "clip": "blade_arc_cut",
+      "durationSeconds": 0.18,
+      "plane": "XY facing +Z, radius around origin",
+      "triangles": 224,
+      "nodes": 3,
+      "defaultPoseBoundsMeters": {
+        "min": [
+          -0.07664580392930492,
+          -0.16744988719271972,
+          0.0
+        ],
+        "max": [
+          0.44211550158788926,
+          0.43771544857920686,
+          0.002
+        ]
+      }
+    },
+    {
+      "file": "break_ring.glb",
+      "bytes": 24944,
+      "sha256": "9989957e46188395353d636ec37001788bab9234b8c4f6a5938befa8fd64b925",
+      "runtime": "asset://models/effects/break_ring.glb",
+      "clip": "break_ring_release",
+      "durationSeconds": 0.44,
+      "plane": "XZ ground, +Y normal",
+      "triangles": 432,
+      "nodes": 7,
+      "defaultPoseBoundsMeters": {
+        "min": [
+          -0.4013263909290457,
+          0.016,
+          -0.3981818384776462
+        ],
+        "max": [
+          0.3873206248402902,
+          0.021,
+          0.39197228081217655
+        ]
+      }
+    },
+    {
+      "file": "foot_dust.glb",
+      "bytes": 33324,
+      "sha256": "deb1eaea50a707386afe7eb437212a02ee1f1f0f831fab3a66611e30a9c42dbd",
+      "runtime": "asset://models/effects/foot_dust.glb",
+      "clip": "foot_dust_settle",
+      "durationSeconds": 0.52,
+      "plane": "XZ ground, +Y normal",
+      "triangles": 104,
+      "nodes": 17,
+      "defaultPoseBoundsMeters": {
+        "min": [
+          -0.1897135840907943,
+          0.009126901677879044,
+          -0.15135429791232585
+        ],
+        "max": [
+          0.20723566425913326,
+          0.024678059684161795,
+          0.09973440825234427
+        ]
+      }
+    }
+  ]
+}

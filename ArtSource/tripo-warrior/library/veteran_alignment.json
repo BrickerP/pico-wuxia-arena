@@ -1,0 +1,477 @@
+{
+  "source_glb": "expanded/veteran-refined/model.glb",
+  "source_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+  "body_height_metres": 1.78,
+  "source_forward": "+X",
+  "prepared_forward": "+Z",
+  "rotation_y_degrees": -90,
+  "uniform_scale": 1.8155286383175528,
+  "normalization_matrix_gltf": [
+    -7.935927470725801e-08,
+    0.0,
+    1.8155286312103271,
+    0.0,
+    0.0,
+    1.8155286312103271,
+    0.0,
+    0.0,
+    -1.8155286312103271,
+    0.0,
+    -7.935927470725801e-08,
+    0.0,
+    0.001776602235622704,
+    1.6232090160883672e-07,
+    0.0017763928044587374,
+    1.0
+  ],
+  "source_triangles": 25113,
+  "source_vertices": 33011,
+  "joint_count": 78,
+  "animation_count": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "source_glb": "library/veteran_retargeted/idle.glb",
+      "source_sha256": "7bd3c5678cde0459bec076a1545269aac50361065954f821087887213617bf0f",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        15.366666793823242
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "2b1f6ad21d29dacb54c67cb57f28fd8dd5f5244b6419bdfebdec9ca916d4c80d",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "walk",
+      "source_glb": "library/veteran_retargeted/walk.glb",
+      "source_sha256": "5469f681e267b748c326b1967d6313f9a5c1c5ddef27d1b5e47ba2ea9f562bfb",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        2.366666555404663
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "16a8d8d7eea369e66ea79d64b452a4eb1dd0f43df9dad21db7778d21ea468688",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "fall",
+      "source_glb": "library/veteran_retargeted/fall.glb",
+      "source_sha256": "28af236b1e84b5b629a5eec3bdd2df7f28517959795bc04d15f06adac351c0dd",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        3.0333333015441895
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "1baaf99b0f9bb0a4ede50fd742dd1e1be56177c0e9a5014d6c1a30d19a6cba7c",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "turn",
+      "source_glb": "library/veteran_retargeted/turn.glb",
+      "source_sha256": "6bffa27e618691413d679c42a716f34f8956ba6fc35fc54e9e07c29595795797",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        3.866666555404663
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "9171ed3b073f119e98b518b252219f390be1ef18f9c1c0c0aa0aa7d17124deac",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "hit_body",
+      "source_glb": "library/veteran_retargeted/hit_body.glb",
+      "source_sha256": "e8d3cc264dbb75dc4a0e72cc1ca211f9e578a87d1ce5b22868a0813f48038da4",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        1.2999999523162842
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "81006d023b32cd6ab3a017e8c72692e8395338abc05b52e3335971f1b477fa94",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "hit_head",
+      "source_glb": "library/veteran_retargeted/hit_head.glb",
+      "source_sha256": "751f9ef0d3fa7bd761137037ab428df34ed8414ab597c4ab81cb4f89073bd652",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        1.8666666746139526
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "eed87b6748001f763aa460f99e44f509ff0cb9f482c1bcb5e20c7b51d899f4ab",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "hit_side",
+      "source_glb": "library/veteran_retargeted/hit_side.glb",
+      "source_sha256": "50405e1605a60bc266ae2a114573ed08812e4e1c594ae9ae37ff44a65f8f2ad9",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        1.2666666507720947
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "0977364e8657954b65ccb0c1411a6cdefdda6d4329e5da62837d3465db1fc95c",
+      "max_default_local_matrix_difference": 0.0
+    },
+    {
+      "name": "slash",
+      "source_glb": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
+      "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.03333333507180214,
+        6.599999904632568
+      ],
+      "interpolation_modes": [
+        "LINEAR",
+        "STEP"
+      ],
+      "keyframe_semantics_sha256": "4859dd9bd476a1c549c5f1e835afaaa0698932a65c43ecb1b20a5a57abb3b190",
+      "max_default_local_matrix_difference": 1.0609626770019531e-05
+    }
+  ],
+  "body_bounds_node": "TripoBody_Mesh",
+  "body_subtree": "TripoBody_Root",
+  "body_bounds_scope": "all body primitives before same-skin dao",
+  "body_primitive_indices": [
+    0
+  ],
+  "body_bind_bounds_gltf_metres": {
+    "min": [
+      -0.9059879779815674,
+      0.0,
+      -0.22383230924606323
+    ],
+    "max": [
+      0.9059879779815674,
+      1.7799999713897705,
+      0.22383230924606323
+    ]
+  },
+  "weapon_subtree": "Weapon_Root",
+  "grip_node": "HandGrip_R",
+  "grip_parent": "R_Hand",
+  "grip_local_matrix_gltf": [
+    -0.10662046819925308,
+    -0.5376186370849609,
+    0.05461851507425308,
+    0.0,
+    -0.5248810052871704,
+    0.0897907242178917,
+    -0.14079207181930542,
+    0.0,
+    0.12851785123348236,
+    -0.07930147647857666,
+    -0.5296974182128906,
+    0.0,
+    -0.004309980198740959,
+    0.026030100882053375,
+    -0.027922607958316803,
+    1.0
+  ],
+  "grip_world_metres": [
+    -0.7385304570198059,
+    1.2507896423339844,
+    -0.02127973735332489
+  ],
+  "grip_pose": "reviewed curled-hand frame transferred through normalized wrist rest frame",
+  "grip_source_metres": [
+    -0.012699387036263943,
+    0.6889395713806152,
+    0.40776389837265015
+  ],
+  "weapon_binding": {
+    "method": "same-skin rigid vertices",
+    "skin": 0,
+    "joint_name": "R_Hand",
+    "joint_palette_index": 60,
+    "body_primitive_indices": [
+      0
+    ],
+    "weapon_primitive_indices": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "primitive_sources": [
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 0,
+        "target_primitive": 1
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 1,
+        "target_primitive": 2
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 2,
+        "target_primitive": 3
+      },
+      {
+        "source_node": "Blade collar",
+        "source_mesh": 1,
+        "source_primitive": 0,
+        "target_primitive": 4
+      },
+      {
+        "source_node": "Blade | asymmetric wear",
+        "source_mesh": 2,
+        "source_primitive": 0,
+        "target_primitive": 5
+      },
+      {
+        "source_node": "Blade | shallow fuller",
+        "source_mesh": 3,
+        "source_primitive": 0,
+        "target_primitive": 6
+      },
+      {
+        "source_node": "Grip ferrule",
+        "source_mesh": 4,
+        "source_primitive": 0,
+        "target_primitive": 7
+      },
+      {
+        "source_node": "Grip | cord wrap",
+        "source_mesh": 5,
+        "source_primitive": 0,
+        "target_primitive": 8
+      },
+      {
+        "source_node": "Guard pin 1",
+        "source_mesh": 6,
+        "source_primitive": 0,
+        "target_primitive": 9
+      },
+      {
+        "source_node": "Guard pin 2",
+        "source_mesh": 7,
+        "source_primitive": 0,
+        "target_primitive": 10
+      },
+      {
+        "source_node": "Guard | flared oval",
+        "source_mesh": 8,
+        "source_primitive": 0,
+        "target_primitive": 11
+      },
+      {
+        "source_node": "Guard | outer rim",
+        "source_mesh": 9,
+        "source_primitive": 0,
+        "target_primitive": 12
+      },
+      {
+        "source_node": "Handle core",
+        "source_mesh": 10,
+        "source_primitive": 0,
+        "target_primitive": 13
+      },
+      {
+        "source_node": "Pommel ring",
+        "source_mesh": 11,
+        "source_primitive": 0,
+        "target_primitive": 14
+      },
+      {
+        "source_node": "Pommel | brass",
+        "source_mesh": 12,
+        "source_primitive": 0,
+        "target_primitive": 15
+      }
+    ]
+  },
+  "anchor_nodes_role": "bind/source anchors; SDK dynamic markers require joint-pose support",
+  "weapon_bind_forward_vector_gltf": [
+    -0.013089647516608238,
+    -1.655425734270466e-07,
+    0.9999143481254578
+  ],
+  "weapon_world_scale": 1.0,
+  "source_binary_sha256": "68fc9b17f7ca210dd20ed8850613aea5b0c75e4b08150e859e2c2ae44dbc3607",
+  "outputs": [
+    {
+      "file": "veteran_body.glb",
+      "bytes": 13312440,
+      "sha256": "45172fb5315d6aae54a7b8812ee21f6e325c3e6cace357bfd068a6984b9e9bff"
+    },
+    {
+      "file": "veteran.glb",
+      "bytes": 14183252,
+      "sha256": "95b29e999e469a9869768d63dffa5372eff9041a4f01ed1942be1e71ff850405"
+    }
+  ],
+  "id": "veteran",
+  "name": "玄甲守擂",
+  "retargeting": [
+    {
+      "name": "idle",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-e011ab58/model.glb",
+      "source_sha256": "9a2c2c951c13eed0891fe462455ec09c8a7593a3ff7cedd7d025b8cd5c9a6bc9",
+      "output_sha256": "7bd3c5678cde0459bec076a1545269aac50361065954f821087887213617bf0f",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 461,
+      "time_range_seconds": [
+        0.03333333507180214,
+        15.366666793823242
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.07675966620445251
+    },
+    {
+      "name": "walk",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-2-7ddf98ee/model.glb",
+      "source_sha256": "38bfc0f00c6d3d635d7eb18c2aab1232a2c1f0d0361806a568f3c540f9ecc8d6",
+      "output_sha256": "5469f681e267b748c326b1967d6313f9a5c1c5ddef27d1b5e47ba2ea9f562bfb",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 71,
+      "time_range_seconds": [
+        0.03333333507180214,
+        2.366666555404663
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.30098193883895874
+    },
+    {
+      "name": "fall",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
+      "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c",
+      "output_sha256": "28af236b1e84b5b629a5eec3bdd2df7f28517959795bc04d15f06adac351c0dd",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 91,
+      "time_range_seconds": [
+        0.03333333507180214,
+        3.0333333015441895
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.4949328601360321
+    },
+    {
+      "name": "turn",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-5-b35c205e/model.glb",
+      "source_sha256": "3a4f7f12934f87cebf2d8fed59602f69fcb5eafb7b9ba203652116478c694a26",
+      "output_sha256": "6bffa27e618691413d679c42a716f34f8956ba6fc35fc54e9e07c29595795797",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 116,
+      "time_range_seconds": [
+        0.03333333507180214,
+        3.866666555404663
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.2946639955043793
+    },
+    {
+      "name": "hit_body",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-6-8b0a1035/model.glb",
+      "source_sha256": "f8f16bb8f5ae4369134e61b5662fe891a80dca122c8ed77cb999aef6fb7b860c",
+      "output_sha256": "e8d3cc264dbb75dc4a0e72cc1ca211f9e578a87d1ce5b22868a0813f48038da4",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 39,
+      "time_range_seconds": [
+        0.03333333507180214,
+        1.2999999523162842
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.4584042429924011
+    },
+    {
+      "name": "hit_head",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-7-a03d8662/model.glb",
+      "source_sha256": "b152df4679efc20e29e218cd382d8b52d694cb767ec4dcb7f415a855e0f4b026",
+      "output_sha256": "751f9ef0d3fa7bd761137037ab428df34ed8414ab597c4ab81cb4f89073bd652",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 56,
+      "time_range_seconds": [
+        0.03333333507180214,
+        1.8666666746139526
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.3627701997756958
+    },
+    {
+      "name": "hit_side",
+      "source": "expanded/base/tripo-out/e7df779b-retarget-8-68546cb4/model.glb",
+      "source_sha256": "a27a5a3a1ea1bd68774d10740a7a55aee5549a0be70669327fd8679c2443120c",
+      "output_sha256": "50405e1605a60bc266ae2a114573ed08812e4e1c594ae9ae37ff44a65f8f2ad9",
+      "method": "world-space bind-rotation delta, target local bone lengths preserved",
+      "source_joints": 41,
+      "target_joints": 78,
+      "mapped_body_joints": 41,
+      "fixed_native_finger_joints": 30,
+      "sample_count": 38,
+      "time_range_seconds": [
+        0.03333333507180214,
+        1.2666666507720947
+      ],
+      "translation_scale": 0.9823492139167916,
+      "maximum_quaternion_step_radians": 0.4071386456489563
+    }
+  ],
+  "grip_source": {
+    "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
+    "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+    "time_seconds": 2.117
+  }
+}

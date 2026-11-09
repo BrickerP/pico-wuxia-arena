@@ -1,0 +1,88 @@
+{
+  "characters": [
+    {
+      "id": "base",
+      "name": "试刀客",
+      "output": "base.glb",
+      "animations": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "slash"
+      ],
+      "joint_count": 78,
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 5921104,
+          "sha256": "286f6d09d3c928624aa9aede344d7e69a08fadb5cd019228a3b34c5a02d342cf"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 6791824,
+          "sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22"
+        }
+      ]
+    },
+    {
+      "id": "indigo",
+      "name": "青衫护院",
+      "output": "indigo.glb",
+      "animations": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "slash"
+      ],
+      "joint_count": 78,
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 13755120,
+          "sha256": "0c42bb8ac263a1136394b4f3102107871f62be84207a16c949ef9b9a52e9837d"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 14625948,
+          "sha256": "7cf06c1227869552155ba11f1ae99e6f9d961e2921ab308ac5dc322e3c706063"
+        }
+      ]
+    },
+    {
+      "id": "veteran",
+      "name": "玄甲守擂",
+      "output": "veteran.glb",
+      "animations": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "slash"
+      ],
+      "joint_count": 78,
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 13312440,
+          "sha256": "45172fb5315d6aae54a7b8812ee21f6e325c3e6cace357bfd068a6984b9e9bff"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 14183252,
+          "sha256": "95b29e999e469a9869768d63dffa5372eff9041a4f01ed1942be1e71ff850405"
+        }
+      ]
+    }
+  ]
+}

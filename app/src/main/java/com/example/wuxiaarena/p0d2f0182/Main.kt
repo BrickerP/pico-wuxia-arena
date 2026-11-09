@@ -61,6 +61,12 @@ fun mainApp(scope: SpatialAppScope) =
                             enemyYawRadians = previous.enemyYawRadians,
                             hitStop = previous.hitStop,
                             deathElapsedSeconds = previous.deathElapsedSeconds,
+                            enemyTravelMeters = previous.enemyTravelMeters,
+                            enemyGaitMeters = previous.enemyGaitMeters,
+                            enemyMoveDirection = previous.enemyMoveDirection,
+                            playerBladeBase = previous.playerBladeBase,
+                            playerBladeTip = previous.playerBladeTip,
+                            playerHeadPosition = previous.playerHeadPosition,
                         )
                         if (hudComparable != previous) viewState.value = state
                         val pending = pendingControl.value

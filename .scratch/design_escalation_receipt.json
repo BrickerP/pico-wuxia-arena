@@ -5,7 +5,7 @@
   "visual_asset_present": false,
   "gate_required": true,
   "status": "current_revision_verification_deferred",
-  "currentRevision": 14,
+  "currentRevision": 15,
   "lastVerifiedRevision": 10,
   "currentVerification": {
     "compile": "passed_by_root_assembleDebug_offline",
@@ -13,8 +13,7 @@
     "deviceAcceptance": "not_run_at_user_request",
     "designSchema": "deferred",
     "surfaceDiscipline": "deferred",
-    "previewFidelity": "deferred",
-    "apkSha256": "be53f85ceb32a8640489c4642748a54017cb92eb874fe9b39062289b298d1f84"
+    "previewFidelity": "deferred"
   },
   "historicalReceipt": {
     "schema_version": 1,
@@ -74,5 +73,5 @@
       "runtimeReadabilityEvidence": "/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/runtime/hud-animation-first.png"
     }
   },
-  "note": "当前revision14落实中式写实短竞技场主题，正常VR侧重论刀目标与实际来势。旧revision10为历史证据，当前运行与视觉验证按用户要求延期。"
+  "note": "当前revision15完善刀术要诀、真实角色名、阶段攻防提示和双手蓄势指示。用户要求先开发，当前编译由主控统一执行，运行与视觉验证延期。旧revision10仅为历史证据。"
 }

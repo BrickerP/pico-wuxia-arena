@@ -1,0 +1,21 @@
+{
+  "task_id": "9a342753-d002-40ce-9f0f-b1903046a956",
+  "type": "animate_retarget",
+  "status": "success",
+  "input": {
+    "animation": "preset:biped:fall",
+    "out_format": "glb",
+    "animate_in_place": true,
+    "original_model_id": "e7df779b-f863-480e-af32-db89657622f2",
+    "export_with_geometry": true
+  },
+  "output_fields": [
+    "model_url"
+  ],
+  "credits_consumed": 10,
+  "created_at": "2026-11-09T17:30:53.761970Z",
+  "completed_at": "2026-11-09T17:31:01.066678Z",
+  "files": [
+    "model.glb"
+  ]
+}

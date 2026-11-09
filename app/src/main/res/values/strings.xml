@@ -3,9 +3,9 @@
     <string name="hello">Hello, Spatial SDK！</string>
 
     <string name="arena_control_title">酒馆试炼</string>
+    <string name="arena_control_round">第 %1$d / %2$d 场</string>
     <string name="arena_trial_objective">连胜三场 · 读招、架刀、反击</string>
     <string name="arena_trial_finished">本局已结 · 可再挑战</string>
-    <string name="arena_status_title">对手态势</string>
     <string name="arena_state_scene_waiting">等待场景</string>
     <string name="arena_state_not_started">试炼未启</string>
     <string name="arena_state_fighting">试炼进行中</string>
@@ -55,10 +55,18 @@
     <string name="arena_state_countdown">试炼即将开始 · %1$d</string>
     <string name="arena_state_round_clear">本场已破</string>
     <string name="arena_state_round_clear_countdown">本场已破 · %1$d 秒后再战</string>
+    <string name="arena_state_final_clear_countdown">三场尽破 · %1$d 秒后结算</string>
     <string name="arena_state_victory">试炼通关</string>
     <string name="arena_state_defeat">本次落败</string>
-    <string name="arena_play_instruction">挥刀或前刺进攻 · 举刀格挡\n迎刀弹反 · 侧移或下蹲闪避</string>
-    <string name="arena_skill_instruction">气势满时双手收刀蓄势，再前推破势。对手虚弱时同样动作自动处决。</string>
+    <string name="arena_technique_title">刀术要诀</string>
+    <string name="arena_technique_strike">进刀</string>
+    <string name="arena_technique_strike_detail">抬手蓄刀，挥斩或前刺，让刀锋切过对手。</string>
+    <string name="arena_technique_guard">架刀</string>
+    <string name="arena_technique_guard_detail">横刀护在头前。来锋将至时迅速成架，可迎刀弹反。</string>
+    <string name="arena_technique_dodge">避锋</string>
+    <string name="arena_technique_dodge_detail">看见起势后侧移或下蹲，让开原本头部位置。</string>
+    <string name="arena_technique_skill">破势</string>
+    <string name="arena_technique_skill_detail">双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。</string>
     <string name="arena_keyboard_help">1/J 斩击 · 4/K 刺击 · 5/V 架刀\n8/Z 左闪 · 9/X 右闪 · C 蹲\nG 破势 / 虚弱时自动处决</string>
     <string name="arena_preview_slash">斩击</string>
     <string name="arena_preview_thrust">前刺</string>
@@ -74,7 +82,7 @@
     <string name="arena_resource_player">自身气血</string>
     <string name="arena_resource_stamina">体力</string>
     <string name="arena_resource_focus">气势</string>
-    <string name="arena_resource_value">%1$s %2$d/%3$d</string>
+    <string name="arena_resource_amount">%1$d / %2$d</string>
     <string name="arena_combo">连击 %1$d</string>
     <string name="arena_phase_countdown">准备</string>
     <string name="arena_phase_round_clear">休整</string>
@@ -99,4 +107,23 @@
     <string name="arena_status_countdown">调整站位与架势</string>
     <string name="arena_status_round_transition">下一场即将开始</string>
     <string name="arena_preview_instruction">动作预演会生成头手轨迹，复用体感判定。</string>
+    <string name="arena_hint_ready">先读起手，再迎刀反击</string>
+    <string name="arena_hint_countdown">稳住身位 · 等候刀客起势</string>
+    <string name="arena_hint_idle">刀客接近 · 举刀护住头部</string>
+    <string name="arena_hint_preparing">观察刀路 · 举刀准备迎锋</string>
+    <string name="arena_hint_startup">来锋将至 · 快速架刀或闪身</string>
+    <string name="arena_hint_active">刀锋已至 · 格挡或避开</string>
+    <string name="arena_hint_recovering">收势露隙 · 趁机进刀</string>
+    <string name="arena_hint_parried">弹反得势 · 趁隙还刀</string>
+    <string name="arena_hint_hit">对手失衡 · 追刀后留神反击</string>
+    <string name="arena_hint_executing">斩决收势中 · 待动作完成</string>
+    <string name="arena_hint_round_clear">调息整备 · 补给后迎下一场</string>
+    <string name="arena_hint_final_clear">此局已定 · 收刀待结算</string>
+    <string name="arena_hint_paused">刀势暂歇 · 继续后再接来锋</string>
+    <string name="arena_hint_victory">三场尽破 · 可再挑战磨练刀术</string>
+    <string name="arena_hint_defeat">调整架势与节奏，再战一局</string>
+    <string name="arena_charge_progress">收刀蓄势 · %1$d%%</string>
+    <string name="arena_charge_skill">蓄势已足 · 向前推刀破势</string>
+    <string name="arena_charge_execution">蓄势已足 · 向前推刀处决</string>
+    <string name="arena_charge_low_focus">气势未满 · 进刀与防御可积蓄气势</string>
 </resources>

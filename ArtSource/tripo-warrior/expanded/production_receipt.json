@@ -1,0 +1,18 @@
+{
+  "region": "ov",
+  "client": "tripo-cli 0.11.2",
+  "starting_balance": 4845,
+  "ending_balance": 4465,
+  "credits_consumed": 380,
+  "frozen": 0,
+  "breakdown": {
+    "legacy_motion_rig_and_eight_sources": 105,
+    "indigo_generation_two_rigs_and_native_slash": 100,
+    "rejected_veteran_generation_two_rigs_and_slash": 100,
+    "refined_veteran_generation_rig_and_native_slash": 75
+  },
+  "rejected_generation_task": "5f78dd12-d618-4fd7-b777-27e10a0c0f16",
+  "replacement_generation_task": "d077622d-e63a-48d6-964b-8c388d5934ae",
+  "replacement_rig_task": "baf40635-24e0-4d58-8413-6a21e40b7d62",
+  "replacement_slash_task": "ab0b61cc-71e4-47bb-bb6e-9da56bab7d9c"
+}

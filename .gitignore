@@ -43,3 +43,16 @@ __pycache__/
 ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/
 ArtSource/tripo-warrior/mixamo_input.fbx
 ArtSource/tripo-warrior/source/tripo_export_rig_gate.png
+
+# Rebuildable intermediate retargets and body-only exports.
+ArtSource/tripo-warrior/library/*_retargeted/
+ArtSource/tripo-warrior/library/*_body.glb
+# Superseded intermediate rigs and the unused legacy-rig slash remain in the local CLI cache.
+ArtSource/tripo-warrior/expanded/indigo/tripo-out/adult-chinese-male-courtyard-swo-3-21e895c7/model.glb
+ArtSource/tripo-warrior/expanded/veteran/tripo-out/adult-chinese-male-veteran-arena-3-0fd7abd6/model.glb
+ArtSource/tripo-warrior/expanded/base/tripo-out/e7df779b-retarget-3-f3ba1d89/model.glb
+
+# Non-published generated candidates and duplicate recovery downloads.
+ArtSource/tripo-warrior/expanded/veteran-refined/tripo-out/adult-chinese-male-martial-artis-3-baf40635/model.glb
+ArtSource/tripo-warrior/expanded/veteran/tripo-out/005ca746-retarget-49bd972f/model.glb
+ArtSource/tripo-warrior/expanded/veteran/tripo-out/5f78dd12-rig-005ca746/model.glb

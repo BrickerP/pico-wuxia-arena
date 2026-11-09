@@ -169,7 +169,7 @@ def animation_signature(doc, binary, animation):
     return hashlib.sha256(json.dumps(rows, separators=(',', ':')).encode()).hexdigest()
 
 
-def append_animations(doc, binary, reference):
+def append_animations(doc, binary, reference, clip_sources=None):
     """Copy only referenced curves into the existing body and joint nodes."""
     target_nodes = {node.get('name'): index for index,node in enumerate(doc['nodes'])}
     reference_nodes = {node.get('name'): index for index,node in enumerate(reference['nodes'])}
@@ -188,8 +188,14 @@ def append_animations(doc, binary, reference):
                 return names
             index = parents[index]
 
-    for name,folder,expected_sha in CLIP_SOURCES:
-        path = HERE / 'tripo-out' / folder / 'model.glb'
+    if clip_sources is None:
+        clip_sources = [(name, HERE / 'tripo-out' / folder / 'model.glb', digest)
+                        for name, folder, digest in CLIP_SOURCES]
+    names = [name for name, path, digest in clip_sources]
+    if not names or len(names) != len(set(names)):
+        raise ValueError('animation names must be nonempty and unique')
+    for name,path,expected_sha in clip_sources:
+        path = Path(path)
         if hashlib.sha256(path.read_bytes()).hexdigest() != expected_sha:
             raise ValueError('approved animation source hash changed: ' + name)
         source, source_binary = read_glb(path)
@@ -391,31 +397,80 @@ def append_dao(doc, binary, hand, mount):
     combined = binary + bytes(packed_dao)
     doc['buffers'][0]['byteLength'] = len(combined)
     return combined,anchor_index,{'method':'same-skin rigid vertices','skin':0,
-                                 'joint_name':'R_Hand','joint_palette_index':palette,
+                                 'joint_name':doc['nodes'][hand]['name'],'joint_palette_index':palette,
                                  'body_primitive_indices':body_indices,
                                  'weapon_primitive_indices':weapon_indices,
                                  'primitive_sources':primitive_sources}
 
 
-def main():
+def normalization_frame(source, height):
+    """Fit the complete skinned body to a metre-scale, feet-at-zero scene frame."""
+    mesh_nodes = [index for index, node in enumerate(source['nodes']) if 'mesh' in node]
+    if len(mesh_nodes) != 1:
+        raise ValueError('expected one skinned body mesh node')
+    mesh_node = mesh_nodes[0]
+    if source['nodes'][mesh_node].get('skin') != 0:
+        raise ValueError('body mesh must use the supplied skin')
+    mesh = source['meshes'][source['nodes'][mesh_node]['mesh']]
+    transform = world_matrix(source['nodes'], mesh_node)
+    corners = []
+    for primitive in mesh['primitives']:
+        accessor = source['accessors'][primitive['attributes']['POSITION']]
+        for x in (accessor['min'][0], accessor['max'][0]):
+            for y in (accessor['min'][1], accessor['max'][1]):
+                for z in (accessor['min'][2], accessor['max'][2]):
+                    corners.append(transform @ Vector((x, y, z)))
+    low = Vector(tuple(min(point[axis] for point in corners) for axis in range(3)))
+    high = Vector(tuple(max(point[axis] for point in corners) for axis in range(3)))
+    if not math.isfinite(height) or height <= 0 or high.y <= low.y:
+        raise ValueError('body height must be finite and positive')
+    scale = height / (high.y - low.y)
+    centre = Vector(((low.x + high.x) / 2, low.y, (low.z + high.z) / 2))
+    normalization = (Matrix.Scale(scale, 4) @ Matrix.Rotation(-math.pi / 2, 4, 'Y')
+                     @ Matrix.Translation(-centre))
+    return normalization, scale, low, high, mesh_node
+
+
+def calibrated_mount(source, normalization, hand):
+    """Transfer the reviewed metre-scale wrist-to-grip frame to this rig's rest axes."""
     if hashlib.sha256(SOURCE.read_bytes()).hexdigest() != SOURCE_SHA:
+        raise ValueError('reviewed grip reference source hash changed')
+    reference, _ = read_glb(SOURCE)
+    reference_frame, _, _, _, _ = normalization_frame(reference, HEIGHT)
+    reference_hand = next(index for index, node in enumerate(reference['nodes'])
+                          if node.get('name') == 'R_Hand')
+    wrist_frame = reference_frame @ world_matrix(reference['nodes'], reference_hand)
+    location, rotation, _ = local_matrix({'matrix': GRIP_LOCAL_FRAME}).decompose()
+    rotation.normalize()
+    oriented = wrist_frame @ Matrix.LocRotScale(None, rotation, None)
+    compensation = Vector(tuple(1 / value for value in oriented.to_scale()))
+    reference_grip = wrist_frame @ Matrix.LocRotScale(location, rotation, compensation)
+    wrist_offset = reference_grip.translation - wrist_frame.translation
+    target_wrist = normalization @ world_matrix(source['nodes'], hand)
+    target_grip = Matrix.LocRotScale(target_wrist.translation + wrist_offset,
+                                    reference_grip.to_quaternion(), Vector((1, 1, 1)))
+    return target_wrist.inverted() @ target_grip
+
+
+def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_path,
+                      alignment_path, height=HEIGHT, grip_frame=None):
+    """Publish a body, its same-skin dao variant and their shared asset metadata."""
+    source_path = Path(source_path)
+    if hashlib.sha256(source_path.read_bytes()).hexdigest() != source_sha:
         raise ValueError('approved source hash changed')
-    source, binary = read_glb(SOURCE)
-    if len(source.get('skins', [])) != 1 or len(source['skins'][0]['joints']) != 78:
-        raise ValueError('source skeleton differs from the reviewed 78-joint rig')
+    source, binary = read_glb(source_path)
+    if len(source.get('skins', [])) != 1 or not source['skins'][0]['joints']:
+        raise ValueError('expected one nonempty character skin')
+    joint_names = [source['nodes'][index].get('name') for index in source['skins'][0]['joints']]
+    if None in joint_names or len(set(joint_names)) != len(joint_names):
+        raise ValueError('skin joint names must be present and unique')
+    if 'R_Hand' not in joint_names:
+        raise ValueError('character has no R_Hand weapon joint')
     if source.get('animations'):
         raise ValueError('source animation contract changed')
     doc = copy.deepcopy(source)
-    mesh_node = next(index for index,node in enumerate(doc['nodes']) if 'mesh' in node)
-    mesh = doc['meshes'][doc['nodes'][mesh_node]['mesh']]
-    position = doc['accessors'][mesh['primitives'][0]['attributes']['POSITION']]
-    low,high = Vector(position['min']),Vector(position['max'])
-    if local_matrix(doc['nodes'][mesh_node]) != Matrix.Identity(4):
-        raise ValueError('mesh transform requires a fresh source inspection')
-    scale = HEIGHT/(high.y-low.y)
-    centre = Vector(((low.x+high.x)/2, low.y, (low.z+high.z)/2))
-    rotation = Matrix.Rotation(-math.pi/2, 4, 'Y')
-    normalization = Matrix.Scale(scale, 4) @ rotation @ Matrix.Translation(-centre)
+    normalization, scale, low, high, mesh_node = normalization_frame(source, height)
+    source_mesh = source['meshes'][source['nodes'][mesh_node]['mesh']]
     original_roots = doc['scenes'][doc.get('scene',0)]['nodes']
     doc['nodes'][mesh_node]['name'] = 'TripoBody_Mesh'
     body_index = len(doc['nodes'])
@@ -428,18 +483,22 @@ def main():
     for key in ('meshes','accessors','bufferViews','materials','images','textures','skins'):
         assert doc.get(key) == source.get(key), key
     source_binary = binary
-    binary, animation_records = append_animations(doc,binary,source)
+    binary, animation_records = append_animations(doc,binary,source,clip_sources)
     assert binary[:len(source_binary)] == source_binary
-    body_path = HERE/'tripo_warrior_rigged.glb'
+    body_path, weapon_path, alignment_path = Path(body_path), Path(weapon_path), Path(alignment_path)
     body_bytes = encode_glb(doc,binary)
     body_output = output_info(body_path,body_bytes)
     hand = next(index for index,node in enumerate(source['nodes']) if node.get('name') == 'R_Hand')
     hand_world = normalization @ world_matrix(source['nodes'],hand)
-    location,quaternion,_ = local_matrix({'matrix':GRIP_LOCAL_FRAME}).decompose()
-    quaternion.normalize()
-    oriented_world = hand_world @ Matrix.LocRotScale(None,quaternion,None)
-    compensation = Vector(tuple(1/value for value in oriented_world.to_scale()))
-    mount = Matrix.LocRotScale(location,quaternion,compensation)
+    if grip_frame is None:
+        mount = calibrated_mount(source, normalization, hand)
+    else:
+        location,quaternion,_ = local_matrix({'matrix':grip_frame}).decompose()
+        quaternion.normalize()
+        oriented_world = hand_world @ Matrix.LocRotScale(None,quaternion,None)
+        compensation = Vector(tuple(1/value for value in oriented_world.to_scale()))
+        mount = Matrix.LocRotScale(location,quaternion,compensation)
+    location = mount.translation
     target = (hand_world @ mount).translation
     source_target = world_matrix(source['nodes'],hand) @ location
     combined,weapon_index,weapon_binding = append_dao(doc,binary,hand,mount)
@@ -451,23 +510,24 @@ def main():
     for joint in source['skins'][0]['joints']:
         for key in ('translation','rotation','scale','matrix'):
             assert doc['nodes'][joint].get(key) == source['nodes'][joint].get(key), (joint,key)
-    weapon_path = HERE/'tripo_warrior_rigged_with_dao.glb'
     weapon_bytes = encode_glb(doc,combined)
     weapon_output = output_info(weapon_path,weapon_bytes)
-    record = {'source_glb':str(SOURCE.relative_to(HERE)),'source_sha256':SOURCE_SHA,
-              'body_height_metres':HEIGHT,'source_forward':'+X','prepared_forward':'+Z',
+    record = {'source_glb':str(source_path.relative_to(HERE)),'source_sha256':source_sha,
+              'body_height_metres':height,'source_forward':'+X','prepared_forward':'+Z',
               'rotation_y_degrees':-90,'uniform_scale':scale,'normalization_matrix_gltf':matrix_values(normalization),
-              'source_triangles':sum(source['accessors'][p['indices']]['count']//3 for p in source['meshes'][0]['primitives']),
-              'source_vertices':position['count'],'joint_count':len(source['skins'][0]['joints']),
+              'source_triangles':sum(source['accessors'][p['indices']]['count']//3 for p in source_mesh['primitives']),
+              'source_vertices':sum(source['accessors'][index]['count'] for index in
+                                    {primitive['attributes']['POSITION'] for primitive in source_mesh['primitives']}),
+              'joint_count':len(source['skins'][0]['joints']),
               'animation_count':len(doc['animations']),'animations':animation_records,
               'body_bounds_node':'TripoBody_Mesh','body_subtree':'TripoBody_Root',
-              'body_bounds_scope':'primitive0 only, full rendered mesh also contains dao',
+              'body_bounds_scope':'all body primitives before same-skin dao',
               'body_primitive_indices':weapon_binding['body_primitive_indices'],
               'body_bind_bounds_gltf_metres':{'min':[min((normalization@Vector((x,y,z)))[i] for x in (low.x,high.x) for y in (low.y,high.y) for z in (low.z,high.z)) for i in range(3)],
                                             'max':[max((normalization@Vector((x,y,z)))[i] for x in (low.x,high.x) for y in (low.y,high.y) for z in (low.z,high.z)) for i in range(3)]},
               'weapon_subtree':'Weapon_Root','grip_node':'HandGrip_R','grip_parent':'R_Hand',
               'grip_local_matrix_gltf':matrix_values(mount),'grip_world_metres':list(target),
-              'grip_pose':'fixed conservative curled-hand calibration B',
+              'grip_pose':'reviewed curled-hand frame transferred through normalized wrist rest frame' if grip_frame is None else 'fixed conservative curled-hand calibration B',
               'grip_source_metres':list(source_target),'weapon_binding':weapon_binding,
               'anchor_nodes_role':'bind/source anchors; SDK dynamic markers require joint-pose support',
               'weapon_bind_forward_vector_gltf':list(((hand_world@mount).to_3x3()@Vector((0,1,0))).normalized()),
@@ -476,8 +536,16 @@ def main():
               'outputs':[body_output,weapon_output]}
     alignment_bytes = (json.dumps(record,indent=2)+'\n').encode('utf-8')
     publish_outputs(((body_path,body_bytes), (weapon_path,weapon_bytes),
-                     (HERE/'rigged_alignment.json',alignment_bytes)))
-    print('PREPARED',json.dumps(record))
+                     (alignment_path,alignment_bytes)))
+    return record
+
+
+def main():
+    record = prepare_character(SOURCE, SOURCE_SHA, None,
+                               HERE / 'tripo_warrior_rigged.glb',
+                               HERE / 'tripo_warrior_rigged_with_dao.glb',
+                               HERE / 'rigged_alignment.json', grip_frame=GRIP_LOCAL_FRAME)
+    print('PREPARED', json.dumps(record))
 
 
 if __name__ == '__main__':

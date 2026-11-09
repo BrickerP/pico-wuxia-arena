@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pico.spatial.core.ecs.AttachmentPanelComponent
 import com.pico.spatial.core.ecs.DirectionalLightComponent
+import com.pico.spatial.core.ecs.PointLightComponent
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.TransformComponent
 import com.pico.spatial.core.math.Color4
@@ -28,6 +29,7 @@ import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import java.util.concurrent.CancellationException
 import kotlin.math.abs
@@ -39,12 +41,13 @@ import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 private const val TAG = "TavernScene"
 private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
 private const val FORECOURT_ASSET = "asset://models/forecourt.glb"
-private const val ENEMY_ASSET = "asset://models/tripo_warrior.glb"
+private const val COURTYARD_DETAILS_ASSET = "asset://models/courtyard_details.glb"
 private const val PLAYER_DAO_ASSET = "asset://models/dao_grip.glb"
 private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
 private const val HUD_WORLD_SCALE = 1.4f
 private const val ENEMY_STAGE_Z = -2.4f
+private val KEY_LIGHT_COLOR = Color4(0.82f, 0.88f, 1f, 1f)
 
 private class SceneOwner(
     private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
@@ -55,6 +58,9 @@ private class SceneOwner(
     var playerWeapon: Entity? = null
     var enemyAnimator: EnemyAnimator? = null
     var enemyModel: Entity? = null
+    val enemies = mutableListOf<Entity>()
+    val animators = mutableListOf<EnemyAnimator>()
+    var effects: CombatEffects? = null
     var keyLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
     var enemyWorldPosition: TrackingVector3? = null
@@ -65,6 +71,18 @@ private class SceneOwner(
 
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
+        if (enemies.isNotEmpty()) {
+            val index = state.roundNumber - 1
+            enemies.forEachIndexed { candidate, entity ->
+                val visible = candidate == index
+                if (entity.valid && entity.enabled != visible) {
+                    if (!visible) animators[candidate].suspend()
+                    entity.enabled = visible
+                }
+            }
+            enemyModel = enemies[index]
+            enemyAnimator = animators[index]
+        }
         val enemy = enemyModel ?: return
         if (!parent.valid || !enemy.valid) return
         state.enemyPosition?.let { position ->
@@ -86,10 +104,11 @@ private class SceneOwner(
         }
         val illuminated = System.nanoTime() < pulseUntil
         if (illuminated != pulseLit) {
-            keyLight?.takeIf { it.valid }?.components?.set(DirectionalLightComponent(Color4.WHITE, if (illuminated) 1300f else 800f))
+            keyLight?.takeIf { it.valid }?.components?.set(DirectionalLightComponent(KEY_LIGHT_COLOR, if (illuminated) 950f else 750f))
             pulseLit = illuminated
         }
         enemyAnimator?.present(state, events)
+        effects?.present(state, events)
     }
 
     fun presentPlayerHand(pose: ObservedPose?) {
@@ -131,12 +150,23 @@ private class SceneOwner(
         panelAnchors.clear()
         onPlayerHandPresenter(null)
         onEnemyPresenter(null)
-        val animator = enemyAnimator
         enemyAnimator = null
         try {
-            animator?.close()
-        } catch (error: Exception) {
-            Log.w(TAG, "Enemy animation cleanup failed", error)
+            for (animator in animators) {
+                try {
+                    animator.close()
+                } catch (error: Exception) {
+                    Log.w(TAG, "Enemy animation cleanup failed", error)
+                }
+            }
+            animators.clear()
+            enemies.clear()
+            try {
+                effects?.close()
+            } catch (error: Exception) {
+                Log.w(TAG, "Combat effect cleanup failed", error)
+            }
+            effects = null
         } finally {
             onEnemyGeometry(null, 0.0)
             if (current.valid) current.destroy()
@@ -196,6 +226,8 @@ internal fun HomeStage(
         var modelAttached = false
         var forecourt: Entity? = null
         var forecourtAttached = false
+        var details: Entity? = null
+        var detailsAttached = false
         var enemy: Entity? = null
         var enemyAttached = false
         var playerWeapon: Entity? = null
@@ -239,21 +271,46 @@ internal fun HomeStage(
             pavingTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
             pavingTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
 
-            enemy = Entity.loadSuspend(ENEMY_ASSET)
+            details = Entity.loadSuspend(COURTYARD_DETAILS_ASSET)
             if (owner.root !== root) {
-                enemy.destroy()
+                details.destroy()
                 return@SpatialView
             }
-            check(root.addChild(enemy)) { "Could not attach Tripo enemy" }
-            enemyAttached = true
-            owner.enemyModel = enemy
-            val enemyTransform = checkNotNull(enemy.components[TransformComponent::class.java]) {
-                "Tripo enemy has no transform"
+            check(root.addChild(details)) { "Could not attach courtyard details" }
+            detailsAttached = true
+            val detailsTransform = checkNotNull(details.components[TransformComponent::class.java])
+            detailsTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, 0f), null))
+            detailsTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+
+            for ((index, opponent) in arenaOpponents.withIndex()) {
+                enemyAttached = false
+                enemy = Entity.loadSuspend(opponent.asset)
+                if (owner.root !== root) {
+                    enemy.destroy()
+                    return@SpatialView
+                }
+                check(root.addChild(enemy)) { "Could not attach ${opponent.name}" }
+                enemyAttached = true
+                owner.enemies += enemy
+                val enemyTransform = checkNotNull(enemy.components[TransformComponent::class.java]) {
+                    "Tripo enemy has no transform"
+                }
+                enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, ENEMY_STAGE_Z), null))
+                enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+                // The three rounds reuse loaded opponents. Only the current fighter is visible.
+                owner.animators += EnemyAnimator(enemy)
+                enemy.enabled = index == 0
             }
-            // The prepared GLB is metre-scaled, feet at Y=0 and faces +Z.
-            // Paving's highest source surface is Y=0.02794 m.
-            enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, ENEMY_STAGE_Z), null))
-            enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+            owner.enemyModel = owner.enemies.first()
+            owner.enemyAnimator = owner.animators.first()
+            val firstEnemy = owner.enemies.first()
+
+            val effects = CombatEffects.load(root)
+            if (owner.root !== root) {
+                effects.close()
+                return@SpatialView
+            }
+            owner.effects = effects
 
             playerWeapon = Entity.loadSuspend(PLAYER_DAO_ASSET)
             if (owner.root !== root) {
@@ -268,7 +325,7 @@ internal fun HomeStage(
             Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
 
             light = Entity()
-            light.components.set(DirectionalLightComponent(Color4.WHITE, 800f))
+            light.components.set(DirectionalLightComponent(KEY_LIGHT_COLOR, 750f))
             val lightTransform = checkNotNull(light.components[TransformComponent::class.java]) {
                 "Scene light has no transform"
             }
@@ -276,13 +333,23 @@ internal fun HomeStage(
             check(root.addChild(light)) { "Could not attach scene light" }
             lightAttached = true
             owner.keyLight = light
+            for (side in listOf(-1f, 1f)) {
+                val lantern = Entity()
+                if (!root.addChild(lantern)) {
+                    lantern.destroy()
+                    error("Could not attach lantern light")
+                }
+                lantern.components.set(PointLightComponent(Color4(1f, 0.61f, 0.30f, 1f), 450f, 3f))
+                val lanternTransform = checkNotNull(lantern.components[TransformComponent::class.java])
+                lanternTransform.setPosition(root.convertPositionFrom(Vector3(side * 2.72f, 2.12f, -1.22f), null))
+            }
             try {
                 val bounds = model.getVisualBounds(null)
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
-                val enemyBounds = enemy.getVisualBounds(null)
+                val enemyBounds = firstEnemy.getVisualBounds(null)
                 Log.i(TAG, "Tripo enemy attached; stage bounds center=${enemyBounds.center}, size=${enemyBounds.size}")
-                val origin = enemy.convertPositionTo(Vector3(0f, 0f, 0f), null)
-                val localBounds = enemy.getVisualBounds(enemy)
+                val origin = firstEnemy.convertPositionTo(Vector3(0f, 0f, 0f), null)
+                val localBounds = firstEnemy.getVisualBounds(firstEnemy)
                 val reachX = abs(localBounds.center.x) + localBounds.size.x / 2f
                 val reachZ = abs(localBounds.center.z) + localBounds.size.z / 2f
                 Log.i(TAG, "Enemy local bounds center=${localBounds.center}, size=${localBounds.size}; stage origin=$origin")
@@ -293,12 +360,11 @@ internal fun HomeStage(
             } catch (error: Exception) {
                 Log.w(TAG, "Tavern attached but visual bounds are unavailable", error)
             }
-            val animator = EnemyAnimator(enemy)
-            owner.enemyAnimator = animator
             onEnemyPresenter(owner::presentArena)
         } catch (error: Exception) {
             if (!modelAttached) model?.destroy()
             if (!forecourtAttached) forecourt?.destroy()
+            if (!detailsAttached) details?.destroy()
             if (!enemyAttached) enemy?.destroy()
             if (!playerWeaponAttached) playerWeapon?.destroy()
             if (!lightAttached) light?.destroy()

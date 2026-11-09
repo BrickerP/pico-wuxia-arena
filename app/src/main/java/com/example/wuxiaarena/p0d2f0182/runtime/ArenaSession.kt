@@ -78,6 +78,14 @@ internal data class ArenaViewState(
     val executing: Boolean = false,
     val deathElapsedSeconds: Float = 0f,
     val dominantHand: Hand = Hand.RIGHT,
+    val enemyName: String = "刀客",
+    val enemyTravelMeters: Double = 0.0,
+    val enemyGaitMeters: Double = 0.0,
+    val enemyMoveDirection: Float = 0f,
+    val motionCharge: Float = 0f,
+    val playerBladeBase: Vector3? = null,
+    val playerBladeTip: Vector3? = null,
+    val playerHeadPosition: Vector3? = null,
 )
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
@@ -118,6 +126,9 @@ internal class ArenaSession(
     private var sceneAvailable = false
     private var enemySpawn: Vector3? = null
     private var enemyYaw = 0f
+    private var enemyTravelMeters = 0.0
+    private var enemyGaitMeters = 0.0
+    private var enemyMoveDirection = 0f
     private var observedAttackId: Long? = null
     private var attackHeadBaseline: Vector3? = null
     private var resolvedContactId: Long? = null
@@ -187,6 +198,7 @@ internal class ArenaSession(
                 bestScore = bestScore,
                 combo = combo,
                 roundNumber = roundNumber,
+                roundCount = arenaOpponents.size,
                 remainingSeconds = ((MATCH_DURATION - matchNanos).coerceAtLeast(0L) + SECOND - 1L).div(SECOND).toInt(),
                 countdownSeconds = when (result) {
                     TrialResult.COUNTDOWN -> ((COUNTDOWN_DURATION - countdownNanos).coerceAtLeast(0L) + SECOND - 1L).div(SECOND).toInt()
@@ -200,9 +212,16 @@ internal class ArenaSession(
                 hitStop = hitStopNanos > 0L,
                 executionAvailable = result == TrialResult.FIGHTING && combat.health in 1..executionThreshold(),
                 executing = executionActive,
-                deathElapsedSeconds = ((intermissionNanos - 110_000_000L).coerceAtLeast(0L) / 1_000_000_000.0 *
-                    if (executionActive) 0.65 else 1.0).toFloat(),
+                deathElapsedSeconds = ((intermissionNanos - 110_000_000L).coerceAtLeast(0L) / 1_000_000_000.0).toFloat(),
                 dominantHand = snapshot?.dominantHand ?: Hand.RIGHT,
+                enemyName = arenaOpponents[roundNumber - 1].name,
+                enemyTravelMeters = enemyTravelMeters,
+                enemyGaitMeters = enemyGaitMeters,
+                enemyMoveDirection = enemyMoveDirection,
+                motionCharge = if (result == TrialResult.FIGHTING && combat.pauseReason == null) latestMotion?.chargeProgress ?: 0f else 0f,
+                playerBladeBase = latestMotion?.bladeBase,
+                playerBladeTip = latestMotion?.bladeTip,
+                playerHeadPosition = snapshot?.head?.pose?.position,
             )
         }
 
@@ -281,7 +300,7 @@ internal class ArenaSession(
                     hitStopNanos = (hitStopNanos - step).coerceAtLeast(0L)
                     intermissionNanos += step
                     if (intermissionNanos >= intermissionDuration()) {
-                        if (roundNumber == 3) {
+                        if (roundNumber == arenaOpponents.size) {
                             result = TrialResult.VICTORY
                             score += 100 + playerHealth + viewState.remainingSeconds
                             bestScore = maxOf(bestScore, score)
@@ -503,6 +522,7 @@ internal class ArenaSession(
     }
 
     private fun moveEnemy(delta: Long) {
+        enemyMoveDirection = 0f
         val head = latestTrackingSnapshot?.head?.pose?.position ?: return
         val enemy = enemyPosition ?: return
         if (combat.phase != EnemyPhase.IDLE) return
@@ -510,10 +530,16 @@ internal class ArenaSession(
         val distance = toward.length()
         if (distance > 0.01) enemyYaw = atan2(toward.x, toward.z).toFloat()
         val direction = toward.normalizedOrNull() ?: return
-        val desired = 1.45
+        // Native slash reaches about 1.2 m from the actor. Leave the remaining contact allowance to the body volume.
+        val desired = 1.30
         val difference = distance - desired
         val travel = (delta / 1_000_000_000.0 * 0.65).coerceAtMost(kotlin.math.abs(difference))
-        if (kotlin.math.abs(difference) > 0.05) enemyPosition = enemy + direction * (if (difference > 0) travel else -travel)
+        if (kotlin.math.abs(difference) > 0.05 && travel > 0.0) {
+            enemyMoveDirection = if (difference > 0.0) 1f else -1f
+            enemyPosition = enemy + direction * (travel * enemyMoveDirection)
+            enemyTravelMeters += travel
+            enemyGaitMeters += travel * enemyMoveDirection
+        }
     }
 
     private fun beginNextRound(events: MutableList<EnemyCombatEvent>) {
@@ -525,6 +551,9 @@ internal class ArenaSession(
         combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L)
         enemyPosition = enemySpawn
         enemyYaw = 0f
+        enemyTravelMeters = 0.0
+        enemyGaitMeters = 0.0
+        enemyMoveDirection = 0f
         executionActive = false
         hitStopNanos = 0L
         playerHealth = (playerHealth + 20).coerceAtMost(100)
@@ -633,6 +662,9 @@ internal class ArenaSession(
                 feedback = null
                 enemyPosition = enemySpawn
                 enemyYaw = 0f
+                enemyTravelMeters = 0.0
+                enemyGaitMeters = 0.0
+                enemyMoveDirection = 0f
                 revokeActionBaseline(event.stamp.sequence)
                 lastReportTime = null
                 lastReportedHead = null
