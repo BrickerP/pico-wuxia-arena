@@ -1,30 +1,27 @@
-# Dao study
+# Dao study, revision 2
 
-First-pass, original weapon asset for artistic and integration review. The
-`.blend` is editable; `.fbx` is the intended Unity interchange candidate, and
-`.glb` is a second portable interchange copy. The two PNGs are **offline Blender
-studio renders**, not screenshots of Unity or a PICO headset.
+Editable original weapon geometry with a curved tip, fuller, aged fittings,
+and uneven wrapped grip. The reference for approximate historical proportions
+and material combinations is the [Metropolitan Museum's Qing saber](https://www.metmuseum.org/art/collection/search/31110):
+its catalogue lists a 72.4 cm blade and steel, iron, silk, leather and wood.
+The object is a reference; no museum image or geometry is included here.
 
-- Unit scale is metres. Overall length is approximately 0.97 m; the proposed
-  blade segment from `Blade_Base` to `Blade_Tip` is approximately 0.72 m.
-- `DAO_Root` is at the guard; `Grip`, `Blade_Base` and `Blade_Tip` are named
-  empties. Blade endpoints lie on the cutting edge rather than the centre of
-  the blade. Their final orientation and use must be agreed with the combat team.
-- In Blender coordinates, +Z points from the handle towards the tip and +X
-  points toward the sharpened edge near the guard; Y is blade thickness.
-  The exported files preserve the proposed points when re-imported in Blender;
-  Unity axis conversion is still unverified.
-- Geometry and the brushed-steel colour map were made for this project. No
-  third-party asset or texture is included. The material and surface wear are
-  a first study, not a final textured hero prop.
-- No Unity scene, prefab or `.meta` files are included: those can only be
-  produced and reviewed against the actual Unity baseline. Blender's studio
-  lights and cameras are deliberately excluded from both exports.
+- `dao_study.blend` is editable. `dao_study.fbx` is the Unity interchange
+  candidate; `dao_study.glb` is a second portable copy. All three contain the
+  proposed named anchors; the two preview PNGs are offline Blender renders.
+- `dao_steel_color.png`, `dao_leather_color.png`, and `dao_cord_color.png` are
+  generated for this project and packed in the Blender source. The materials
+  and surface wear remain a work in progress, not a final real-time look.
+- In Blender coordinates, +Z runs from the handle towards the blade, +X points
+  toward the cutting edge near the guard and Y is thickness. The origin and
+  `Grip` and `Blade_Base` positions match the previous study. To follow the new
+  curvature, `Blade_Tip` moved from X=0.0122 m to X=0.0532 m (both Z=0.735 m).
+  The blade segment remains approximately 0.721 m. Coordinate conversion,
+  grip pose and these endpoints still need agreement with the combat team.
+- No Unity prefab or `.meta` files are included because the Unity baseline was
+  not present in this branch. The offline studio is excluded from exports.
 
-To rebuild or verify with Blender 4.5 LTS, run from this directory. On the
-current machine the isolated installation is used because the existing
-Homebrew `blender` launcher points to a missing app; on another machine, set
-`BLENDER` to its Blender executable instead.
+To rebuild and verify on the current machine, run from this directory:
 
 ```sh
 BLENDER=/Users/yupeng/Applications/Blender-4.5.15-LTS.app/Contents/MacOS/Blender
@@ -32,8 +29,8 @@ BLENDER=/Users/yupeng/Applications/Blender-4.5.15-LTS.app/Contents/MacOS/Blender
 "$BLENDER" -b --factory-startup --python-exit-code 1 --python verify_dao.py
 ```
 
-The build overwrites the six generated files in this directory. The check
-opens both interchange formats again, checks their named anchors, scale,
-geometry and materials, and rejects a missing anchor or an off-edge tip. Unity
-import, visual material fidelity, interaction, device performance and the
-full art slice remain to be verified separately.
+Use another Blender 4.5 LTS executable path on other machines. The build
+overwrites the generated assets in this directory. The verifier reopens the
+source and both exports, checks scale, geometry, materials and anchors, and
+rejects missing or off-edge anchors. Unity import, real-time appearance, actual
+draw calls, PICO performance and interaction are not covered by this check.

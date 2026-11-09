@@ -1,4 +1,4 @@
-"""Build the first editable dao study and a standalone glTF preview.
+"""Build the editable dao study, interchange files and review renders.
 
 Run in a separate Blender process: blender -b --python build_dao.py
 The Blender scene's lights and cameras are for the offline review only.
@@ -52,14 +52,14 @@ def material(name, color, metallic, roughness):
     return result
 
 
-steel = material("Steel | forged body", (0.32, 0.36, 0.38), 0.92, 0.32)
-edge = material("Steel | sharpened edge", (0.52, 0.55, 0.55), 0.98, 0.22)
+steel = material("Steel | forged body", (0.32, 0.36, 0.38), 0.92, 0.33)
+edge = material("Steel | sharpened edge", (0.42, 0.45, 0.45), 0.98, 0.27)
 spine = material("Steel | dark spine", (0.15, 0.17, 0.17), 0.90, 0.4)
-scar = material("Steel | uneven wear", (0.17, 0.20, 0.20), 0.85, 0.52)
-brass = material("Brass | aged", (0.30, 0.19, 0.075), 0.78, 0.39)
-brass_edge = material("Brass | polished ridges", (0.48, 0.32, 0.12), 0.84, 0.28)
-leather = material("Grip | dark oxblood leather", (0.065, 0.024, 0.015), 0.0, 0.82)
-cord = material("Grip | worn cord", (0.18, 0.105, 0.061), 0.0, 0.9)
+scar = material("Steel | uneven wear", (0.21, 0.24, 0.24), 0.85, 0.52)
+brass = material("Brass | aged", (0.095, 0.068, 0.040), 0.78, 0.48)
+brass_edge = material("Brass | polished ridges", (0.24, 0.16, 0.075), 0.84, 0.37)
+leather = material("Grip | dark oxblood leather", (0.055, 0.021, 0.012), 0.0, 0.82)
+cord = material("Grip | worn cord", (0.18, 0.115, 0.065), 0.0, 0.9)
 
 
 def empty(name, point):
@@ -77,7 +77,7 @@ root["contract"] = "proposed anchors; verify orientation and timing with combat"
 for name, location in (
     ("Grip", (0, 0, -0.114)),
     ("Blade_Base", (0.022, 0, 0.015)),
-    ("Blade_Tip", (0.0122, 0, 0.735)),
+    ("Blade_Tip", (0.0532, 0, 0.735)),
 ):
     empty(name, location).parent = root
 
@@ -87,12 +87,12 @@ sections = [
     (0.015, -0.020, 0.022, 0.0032),
     (0.055, -0.022, 0.025, 0.0032),
     (0.160, -0.023, 0.027, 0.0030),
-    (0.330, -0.022, 0.028, 0.0028),
-    (0.500, -0.020, 0.029, 0.0026),
-    (0.610, -0.014, 0.030, 0.0023),
-    (0.680, -0.002, 0.026, 0.0018),
-    (0.720, 0.008, 0.019, 0.0010),
-    (0.735, 0.0118, 0.0122, 0.0001),
+    (0.330, -0.021, 0.030, 0.0028),
+    (0.500, -0.014, 0.039, 0.0026),
+    (0.610, -0.003, 0.051, 0.0023),
+    (0.680, 0.014, 0.058, 0.0018),
+    (0.720, 0.036, 0.058, 0.0010),
+    (0.735, 0.0528, 0.0532, 0.0001),
 ]
 vertices = []
 for z, back, cutting, half_thickness in sections:
@@ -130,7 +130,9 @@ for py in range(height):
         if any(abs(px - sx) <= 1 and sy <= py < sy + length
                for sx, sy, length in streaks):
             grain -= .055
-        value = max(.12, min(.65, .48 + grain))
+        wave = .014 * math.sin(px * .20 + math.sin(py * .018) * 1.4)
+        stain = .025 * max(0, math.sin(px * .046 + py * .011))
+        value = max(.12, min(.65, .48 + grain + wave - stain))
         pixels.extend((value * .94, value * .99, value, 1.0))
 image = bpy.data.images.new("DAO | brushed steel", width=width, height=height)
 image.pixels.foreach_set(pixels)
@@ -147,7 +149,50 @@ uv = blade.data.uv_layers.new(name="BladeUV")
 for polygon in blade.data.polygons:
     for loop_index in polygon.loop_indices:
         vertex = blade.data.vertices[blade.data.loops[loop_index].vertex_index].co
-        uv.data[loop_index].uv = ((vertex.x + .023) / .054, (vertex.z - .015) / .72)
+        uv.data[loop_index].uv = ((vertex.x + .025) / .085, (vertex.z - .015) / .72)
+
+# Small original colour map, packed into the source and embedded in the
+# interchange files. This adds uneven grain without relying on Blender-only
+# procedural shaders.
+leather_rng = random.Random(459)
+leather_pixels = array("f")
+for py in range(512):
+    for px in range(256):
+        grain = leather_rng.uniform(-.025, .025)
+        stain = .030 * max(0, math.sin(px * .075 + math.sin(py * .037) * 2))
+        worn = max(.08, min(.36, .22 + grain - stain))
+        leather_pixels.extend((worn, worn * .54, worn * .31, 1.0))
+leather_image = bpy.data.images.new("DAO | worn leather", width=256, height=512)
+leather_image.pixels.foreach_set(leather_pixels)
+leather_image.filepath_raw = str(OUT / "dao_leather_color.png")
+leather_image.file_format = "PNG"
+leather_image.save()
+leather_image.pack()
+leather_nodes = leather.node_tree.nodes
+leather_tex = leather_nodes.new("ShaderNodeTexImage")
+leather_tex.image = leather_image
+leather.node_tree.links.new(leather_tex.outputs["Color"],
+                            leather_nodes.get("Principled BSDF").inputs["Base Color"])
+
+cord_rng = random.Random(882)
+cord_pixels = array("f")
+for py in range(512):
+    for px in range(256):
+        weave = .012*math.sin(px*.8) + .010*math.sin(py*.72)
+        mottling = .025*math.sin(px*.041 + math.sin(py*.021)*1.7)
+        value = max(.25, min(.58, .46 + weave + mottling + cord_rng.uniform(-.015,.015)))
+        cord_pixels.extend((value, value*.75, value*.49, 1.0))
+cord_image = bpy.data.images.new("DAO | worn woven cord", width=256, height=512)
+cord_image.pixels.foreach_set(cord_pixels)
+cord_image.filepath_raw = str(OUT / "dao_cord_color.png")
+cord_image.file_format = "PNG"
+cord_image.save()
+cord_image.pack()
+cord_nodes = cord.node_tree.nodes
+cord_tex = cord_nodes.new("ShaderNodeTexImage")
+cord_tex.image = cord_image
+cord.node_tree.links.new(cord_tex.outputs["Color"],
+                         cord_nodes.get("Principled BSDF").inputs["Base Color"])
 
 
 def elliptical_lathe(name, rings, mat, segments=32):
@@ -167,6 +212,16 @@ def elliptical_lathe(name, rings, mat, segments=32):
     obj.parent = root
     for polygon in obj.data.polygons[:-2]:
         polygon.use_smooth = True
+    uvmap = obj.data.uv_layers.new(name="SurfaceUV")
+    for poly in obj.data.polygons:
+        for loop_index in poly.loop_indices:
+            index = obj.data.loops[loop_index].vertex_index
+            ring, point = divmod(index, segments)
+            u = point / segments
+            if point == 0 and any(v % segments == segments - 1 for v in poly.vertices):
+                u = 1.0
+            v = (rings[ring][0] - rings[0][0]) / max(rings[-1][0] - rings[0][0], .00001)
+            uvmap.data[loop_index].uv = (u, v)
     return obj
 
 
@@ -193,7 +248,7 @@ for label, z, rx, ry in (("Pommel ring", -0.219, .0175, .0135),
 
 # A continuous, slightly irregular cord wrap makes the grip easy to read in VR.
 points, polygons = [], []
-segments = 320
+segments = 720
 
 
 def grip_radii(z):
@@ -207,9 +262,10 @@ def grip_radii(z):
 
 for i in range(segments + 1):
     t = i / segments
-    a = t * math.pi * 2 * 8.5
-    z = -0.207 + t * 0.178
-    for offset in (-.0031, .0031):
+    a = t * math.pi * 2 * 18.0
+    z = -0.207 + t * 0.178 + .00035 * math.sin(t * 83)
+    width = .00425 + .00045 * math.sin(t * 59 + 1)
+    for offset in (-width, width):
         height_at_edge = z + offset
         rx, ry = grip_radii(height_at_edge)
         points.append((rx * math.cos(a), ry * math.sin(a), height_at_edge))
@@ -217,8 +273,12 @@ for i in range(segments):
     polygons.append((2*i, 2*i + 1, 2*i + 3, 2*i + 2))
 wrap = mesh_object("Grip | cord wrap", points, polygons, [cord])
 wrap.parent = root
+wrap_uv = wrap.data.uv_layers.new(name="CordUV")
 for face in wrap.data.polygons:
     face.use_smooth = True
+    for index in face.loop_indices:
+        vertex_index = wrap.data.loops[index].vertex_index
+        wrap_uv.data[index].uv = (vertex_index % 2, (vertex_index // 2) / segments * 12)
 
 # A restrained set of irregular scars, only on one side, is intentionally not
 # mirrored. Geometry rather than procedural shader nodes survives glTF export.
@@ -237,7 +297,13 @@ def front_surface(z, x):
 
 for _ in range(27):
     z = random.uniform(.06, .57)
-    x = random.uniform(-.014, .007)
+    for a, b in zip(sections, sections[1:]):
+        if a[0] <= z <= b[0]:
+            t = (z - a[0]) / (b[0] - a[0])
+            back = a[1] + (b[1] - a[1]) * t
+            cutting = a[2] + (b[2] - a[2]) * t
+            break
+    x = back + (cutting - back) * random.uniform(.18, .52)
     length = random.uniform(.008, .038)
     width = random.uniform(.00012, .00040)
     drift = random.uniform(-.001, .001)
@@ -249,6 +315,19 @@ for _ in range(27):
     polygons.append(tuple(range(start, start + 4)))
 wear = mesh_object("Blade | asymmetric wear", points, polygons, [scar])
 wear.parent = root
+
+# A narrow recessed-looking fuller on the presentation side follows the
+# changing silhouette; it is geometry so it survives the interchange exports.
+points, polygons = [], []
+fuller_sections = sections[1:-2]
+for z, back, cutting, _ in fuller_sections:
+    centre = back + (cutting - back) * .23
+    for x in (centre - .0013, centre + .0013):
+        points.append((x, front_surface(z, x) - .000015, z))
+for i in range(len(fuller_sections) - 1):
+    polygons.append((2*i, 2*i+1, 2*i+3, 2*i+2))
+fuller = mesh_object("Blade | shallow fuller", points, polygons, [spine])
+fuller.parent = root
 
 # Round pinheads on the front of the guard.
 for i, x in enumerate((-.027, .027)):

@@ -41,6 +41,25 @@ def check_edge_positions(blade, base, tip):
             raise ValueError(anchor_name + " no longer sits on the sharpened edge")
 
 
+def check_textured_material(material):
+    if not material.use_nodes:
+        raise ValueError(material.name + " has no shader nodes")
+    textures = [node for node in material.node_tree.nodes
+                if node.type == "TEX_IMAGE" and node.image]
+    linked = [node for node in textures if any(
+        link.from_node == node and link.to_node.type == "BSDF_PRINCIPLED"
+        for link in material.node_tree.links
+    )]
+    # Packed images can be lazy-loaded after opening a .blend.
+    try:
+        valid_image = any(len(node.image.pixels) > 0 and
+                          math.isfinite(node.image.pixels[0]) for node in linked)
+    except (RuntimeError, IndexError):
+        valid_image = False
+    if not valid_image:
+        raise ValueError(material.name + " texture did not survive import")
+
+
 def check(label, exported):
     bpy.context.view_layer.update()
     objects = {obj.name: obj for obj in bpy.data.objects}
@@ -70,31 +89,36 @@ def check(label, exported):
             raise
     else:
         raise AssertionError("off-edge blade tip was accepted")
-    steel = blade.data.materials[0]
-    if not steel.use_nodes:
-        raise ValueError("blade material has no shader nodes")
-    textures = [node for node in steel.node_tree.nodes
-                if node.type == "TEX_IMAGE" and node.image]
-    linked = [node for node in textures if any(
-        link.from_node == node and link.to_node.type == "BSDF_PRINCIPLED"
-        for link in steel.node_tree.links
-    )]
-    # Packed images can be lazy-loaded after opening a .blend. Reading a pixel
-    # forces loading instead of misclassifying an unopened image as absent.
-    try:
-        valid_image = any(len(node.image.pixels) > 0 and
-                          math.isfinite(node.image.pixels[0]) for node in linked)
-    except (RuntimeError, IndexError):
-        valid_image = False
-    if not valid_image:
-        raise ValueError("brushed-steel texture did not survive import")
+    check_textured_material(blade.data.materials[0])
+    handle = objects.get("Handle core")
+    if handle is None or not handle.data.materials:
+        raise ValueError("textured handle missing")
+    check_textured_material(handle.data.materials[0])
+    wrap = objects.get("Grip | cord wrap")
+    if wrap is None or not wrap.data.materials:
+        raise ValueError("textured cord missing")
+    check_textured_material(wrap.data.materials[0])
     points = []
     triangles = 0
+    used_materials = set()
     for obj in meshes:
         if not obj.data.vertices or not obj.data.polygons:
             raise ValueError("empty mesh: " + obj.name)
+        if any(face.area < 1e-10 for face in obj.data.polygons):
+            raise ValueError("zero-area face: " + obj.name)
+        copy = obj.data.copy()
+        try:
+            invalid = copy.validate(verbose=False, clean_customdata=False)
+        finally:
+            bpy.data.meshes.remove(copy)
+        if invalid:
+            raise ValueError("invalid mesh: " + obj.name)
         if not obj.data.materials or any(slot.material is None for slot in obj.material_slots):
             raise ValueError("missing material: " + obj.name)
+        for face in obj.data.polygons:
+            if face.material_index >= len(obj.data.materials):
+                raise ValueError("invalid material index: " + obj.name)
+            used_materials.add(obj.data.materials[face.material_index].name)
         obj.data.calc_loop_triangles()
         triangles += len(obj.data.loop_triangles)
         points.extend(obj.matrix_world @ vertex.co for vertex in obj.data.vertices)
@@ -108,8 +132,9 @@ def check(label, exported):
     high = Vector(tuple(max(p[i] for p in points) for i in range(3)))
     if not .95 < (high - low).length < 1.05:
         raise ValueError("weapon bounds are not approximately one metre")
-    print("PASS %s: %d meshes, %d triangles, blade %.4f m, bounds %.4f m" %
-          (label, len(meshes), triangles, (tip - base).length, (high - low).length))
+    print("PASS %s: %d meshes, %d triangles, %d used materials, blade %.4f m, bounds %.4f m" %
+          (label, len(meshes), triangles, len(used_materials),
+           (tip - base).length, (high - low).length))
 
 
 bpy.ops.wm.open_mainfile(filepath=str(HERE / "dao_study.blend"))
