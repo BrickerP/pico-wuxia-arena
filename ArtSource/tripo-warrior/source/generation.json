@@ -1,0 +1,69 @@
+{
+  "provider": "Tripo Studio",
+  "source_url": "https://studio.tripo3d.ai/workspace/generate/94b2c7c4-0125-4ae8-8923-476a16fcdf73",
+  "source_model_id": "94b2c7c4-0125-4ae8-8923-476a16fcdf73",
+  "created_date": "2026-11-09",
+  "model_version": "H2.5 Legacy",
+  "prompt_file": "../generation-prompt.txt",
+  "requested_settings": {
+    "mode": "text_to_model",
+    "pose": "T-pose",
+    "topology": "triangle",
+    "polycount": 40000,
+    "texture_resolution": "2K",
+    "pbr": true,
+    "remove_lighting": true,
+    "privacy": "Public"
+  },
+  "generation_credit_cost": 30,
+  "account_plan_at_generation": "Free",
+  "static_export": {
+    "file": "tripo_warrior_static.glb",
+    "format": "GLB",
+    "sha256": "c6bc718f4212c6914c728cf28e793a1dc8a9983274a578a9d6799ecf275d0d50",
+    "bytes": 3210004
+  },
+  "license_review": {
+    "status": "unresolved_official_source_conflict",
+    "terms": "https://www.tripo3d.ai/terms",
+    "commercial_help": "https://www.tripo3d.ai/help/privacy-policy/how-to-use-tripo-models-commercially",
+    "pricing_credits": "https://www.tripo3d.ai/product-doc/getting-started/pricing-credits"
+  },
+  "rigging": {
+    "provider": "Tripo Studio",
+    "skeleton_template": "Mixamo",
+    "credit_cost": 20,
+    "editor_result": "completed",
+    "export_permission": "Subscribers Only"
+  },
+  "preset_animation": {
+    "name": "slash",
+    "editor_playback": "observed",
+    "additional_credit_cost_observed": 0,
+    "export_permission": "requires skeleton export"
+  },
+  "credits_after_generation_and_rigging": 150,
+  "delivery_selection": "Free static GLB, confirmed by user",
+  "prepared_exports": [
+    {
+      "file": "../tripo_warrior.glb",
+      "bytes": 2970552,
+      "sha256": "c5fb22a54f2bfaa45c1fdb0262851d5f3a5c53cc4599e96809d444fcc8947d1d",
+      "meshes": 1,
+      "materials": 1,
+      "embedded_images": 3,
+      "skins": 0,
+      "animations": 0
+    },
+    {
+      "file": "../tripo_warrior_with_dao.glb",
+      "bytes": 3767476,
+      "sha256": "043f88e49e41d3e8c42bcb4eb27c075669f730d7c27087b0cb4b4bda6eb89ea2",
+      "meshes": 14,
+      "materials": 9,
+      "embedded_images": 6,
+      "skins": 0,
+      "animations": 0
+    }
+  ]
+}

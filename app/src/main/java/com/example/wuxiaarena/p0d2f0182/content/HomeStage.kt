@@ -17,6 +17,7 @@ import java.util.concurrent.CancellationException
 
 private const val TAG = "TavernScene"
 private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
+private const val ENEMY_ASSET = "asset://models/tripo_warrior.glb"
 
 private class SceneOwner {
     var root: Entity? = null
@@ -42,6 +43,8 @@ fun HomeStage() {
         owner.root = root
         var model: Entity? = null
         var modelAttached = false
+        var enemy: Entity? = null
+        var enemyAttached = false
         var light: Entity? = null
         var lightAttached = false
 
@@ -61,6 +64,21 @@ fun HomeStage() {
             transform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
             transform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
 
+            enemy = Entity.loadSuspend(ENEMY_ASSET)
+            if (owner.root !== root) {
+                enemy.destroy()
+                return@SpatialView
+            }
+            check(root.addChild(enemy)) { "Could not attach Tripo enemy" }
+            enemyAttached = true
+            val enemyTransform = checkNotNull(enemy.components[TransformComponent::class.java]) {
+                "Tripo enemy has no transform"
+            }
+            // The prepared GLB is metre-scaled, feet at Y=0 and faces +Z.
+            // Paving's highest source surface is Y=0.02794 m.
+            enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, -2.4f), null))
+            enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+
             light = Entity()
             light.components.set(DirectionalLightComponent(Color4.WHITE, 800f))
             val lightTransform = checkNotNull(light.components[TransformComponent::class.java]) {
@@ -72,11 +90,14 @@ fun HomeStage() {
             try {
                 val bounds = model.getVisualBounds(null)
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
+                val enemyBounds = enemy.getVisualBounds(null)
+                Log.i(TAG, "Tripo enemy attached; static=true, stage bounds center=${enemyBounds.center}, size=${enemyBounds.size}")
             } catch (error: Exception) {
                 Log.w(TAG, "Tavern attached but visual bounds are unavailable", error)
             }
         } catch (error: Exception) {
             if (!modelAttached) model?.destroy()
+            if (!enemyAttached) enemy?.destroy()
             if (!lightAttached) light?.destroy()
             if (owner.root === root) owner.release()
             if (error is CancellationException) throw error

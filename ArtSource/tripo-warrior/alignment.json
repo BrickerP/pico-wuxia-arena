@@ -1,0 +1,35 @@
+{
+  "body_height_metres_including_topknot": 1.78,
+  "body_uniform_scale_from_static_source": 1.7803259874244552,
+  "source_forward": "+Z glTF",
+  "prepared_forward": "+Z glTF",
+  "origin": "body foot plane Y=0, XZ centred",
+  "hand_grip_r_gltf_metres": [
+    -0.71261,
+    1.302404,
+    0.10918
+  ],
+  "dao_grip_gltf_metres": [
+    -0.71261,
+    1.302404,
+    0.10918
+  ],
+  "blade_base_gltf_metres": [
+    -0.69061,
+    1.302404,
+    0.23818
+  ],
+  "blade_tip_gltf_metres": [
+    -0.65941,
+    1.302404,
+    0.95818
+  ],
+  "blade_segment_metres": 0.720675691924722,
+  "grip_marker_gap_metres": 7.450580596923828e-09,
+  "attachment_type": "static, 50 mm from measured open-palm surface along its outward normal",
+  "body_glb": "tripo_warrior.glb",
+  "dao_alignment_glb": "tripo_warrior_with_dao.glb",
+  "exported_skins": 0,
+  "exported_animations": 0,
+  "source_materials": "preserved from Tripo and existing dao"
+}
