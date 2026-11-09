@@ -5,16 +5,16 @@
 | 项目 | 当前状态 |
 | --- | --- |
 | 状态 | 已合入 |
-| 当前阶段 | 第一阶段：Blender 环境、素材授权候选与刀具样件 |
-| 代码工作分支 / 工作副本 | `codex/art-preparation`；`/Users/yupeng/projects/personal/pico-wuxia-arena-art` |
-| 可审核的提交 | `e4477ff796c501245a3c66c531baea72879185aa` |
-| 最新成果 | 独立安装 Blender 4.5.15 LTS；完成原创刀具初样、可编辑源文件与 FBX/glTF |
-| 验证结果 | Blender 源文件、FBX、glTF 重导入均通过尺寸、材质、刀刃定位与异常用例检查 |
-| 未验证与阻塞 | 本分支基线尚无 Unity 工程；未验证 Unity 导入、视觉质量、动作、72 Hz 或 PICO 真机 |
-| 需要主控审核 | 首阶段已审；下一阶段需提交细化资产与 Unity 实时验证 |
-| 主控审核结论 | 刀具作为研究初样条件通过；未通过最终视觉或真机验收，详见下方主控审核 |
-| 合入版本 | `b08a34815d7179f4159c1656fc04d8592435a009`（合入初样，不代表最终资产验收） |
-| 最后更新 | 2026-11-08 |
+| 当前阶段 | 第二阶段研究资产已复审并合入；Unity 实时验收待后续进行 |
+| 代码工作分支 / 工作副本 | `codex/art-tavern-slice`；`/Users/yupeng/projects/personal/pico-wuxia-arena-art-v2` |
+| 可审核的提交 | `a89eb2035cc8cfd8a0937ae1cebfe03f1fb218c7` |
+| 最新成果 | 细化刀具与定位点；新增可拆分酒馆门口、灯笼和青石切片，整理角色、动作与音效候选 |
+| 验证结果 | 刀具与切片的 Blender、FBX、glTF 往返检查均通过；42 块石板可分离 |
+| 未验证与阻塞 | 本分支基线无 Unity 工程；Unity 导入、真实握姿与动作、实际绘制、72 Hz、PICO 真机和赛事素材解释均未验证 |
+| 需要主控审核 | 第二轮研究资产已审；Unity 导入与最终视觉待后续验证 |
+| 主控审核结论 | 刀具与酒馆研究切片条件通过并已合入；非最终品质，详见 11-09 复审 |
+| 合入版本 | `5214c7fce9c7a3f4355b07a1700183528ed79e8c`（研究资产，不代表最终验收） |
+| 最后更新 | 2026-11-09 |
 
 状态使用：待派发、进行中、待审核、需修复、已合入、阻塞。Agent 维护任务与证据；“主控审核结论”和“合入版本”由主控填写。
 
@@ -55,7 +55,19 @@
 - 已核对候选角色与动作的作者页面均标注 CC0；可继续作为**灰盒候选**验证。其角色偏风格化，不默认接受为最终写实角色；动作覆盖、骨架重定向、赛事和平台具体提交条件仍未验证。未采购或导入候选资产。
 - 本项目还需要刀风、格挡、弹反、受击和环境声音。请在不挤占核心资产的前提下提出来源与授权；战斗侧负责触发结果，主控负责最终接线，QA 负责验证，当前尚无实测音频或触觉。
 
-## 下一轮任务（主控，待用户派发）
+## 主控复审（2026-11-09）
+
+**结论：刀具和酒馆作为研究切片合入主分支；不作为最终视觉或设备性能通过。** 主控独立复跑 Blender 4.5.15 检查：刀具源文件、FBX、glTF 均通过（13 网格、3722 三角面）；酒馆三种格式均通过（5 模块、42 块可分离石板、5278 三角面）。对应 Poly Haven 木材、石材页面和许可已核对为 CC0；赛事/VibeLab 具体条件仍待确认。
+
+- 刀柄、护手与木门目前仍较规则、干净；酒馆立面较平、石板铺设较整齐，距离用户希望的真实中式细节和雨夜氛围仍有差距。当前预览为 Blender 离线画面，不是 Unity/PICO 实机效果。
+- `Blade_Tip` 横向变化 4.1 cm 已知悉；战斗接入必须读取新版定位点并验证握姿。根据源码截面独立计算，弯刃相对刀根至刀尖直线最大偏差约 7.18 mm，是否影响扫掠以 Unity 实际几何测试为准。
+- 酒馆现有 12 个实际使用材质和刀具 8 个材质是资产现状，不能据此推断移动端通过；Unity 导入、轴向、材质、绘制次数及 72 Hz 均未验证。候选人形、动作和音效尚未实际导入，不能称为已交付。
+
+## 下一阶段任务（主控）
+
+基于当前主分支的已合入切片，在独立分支继续以真实皖南建筑和雨后材质为依据做局部细化：增加合理的结构层次、木石磨损、非均匀湿润和灯笼质感，保留模块化，不提前堆砌完整地图；准备一个可合法使用的灰盒人物与必要攻击/受击/护刀动作候选并核对授权。Unity 基线出现后，交付可复现的实时导入/固定视角检查，核对刀具定位点与实际材质；PICO 未实测前不标记最终画质或性能通过。完成阶段后在本文件写提交和证据，等待主控 review。
+
+## 上一轮任务（已交付）
 
 **本轮目标：在已合入的刀具初样基础上，交付更细致的原创刀具和一块可审阅的酒馆门口美术切片。** 用户要求每阶段完成后等待主控 review；Blender 工作可立即进行，Unity 实时验收等待主控建立工程。
 
@@ -69,34 +81,39 @@
 
 ## 最新交接详情
 
-### 本阶段交付与查看
+**阶段结束，等待 review：** 第二阶段提交 `a89eb2035cc8cfd8a0937ae1cebfe03f1fb218c7` 已交付；当前上方主控审核针对第一阶段，收到针对本提交的新审核意见后继续下一轮。
 
-- **基线与提交：** 主分支基线 `fa0c255c11b88f4556036eb76907a0de5e1480e9`；独立工作副本 `/Users/yupeng/projects/personal/pico-wuxia-arena-art`、分支 `codex/art-preparation`；已审核资产提交 `e4477ff796c501245a3c66c531baea72879185aa`，主分支合入 `b08a34815d7179f4159c1656fc04d8592435a009`。资产提交仅含 `ArtSource/dao/`，不包含此交接文件。
-- **刀具样件：** `ArtSource/dao/dao_study.blend` 为可编辑源文件，`dao_study.fbx` 为 Unity 接入候选，`dao_study.glb` 为可携带预览格式；`dao_steel_color.png` 是本项目生成的刀身贴图，`build_dao.py`、`verify_dao.py` 可重建和检查。`dao_review_full.png` / `dao_review_detail.png` 是 Blender 离线预览，**不是 Unity 或 PICO 实机画面**。这是一把用于确认比例、接口与美术方向的初样，细节和材质距离最终写实品质还有差距；未包含酒馆、青石、灯笼、角色及动画。
-- **提议的战斗交接：** 米制；`DAO_Root` 位于刀格，`Grip` 位于握持处，`Blade_Base` 和 `Blade_Tip` 分别位于刃线根部与尖端。Blender 中 +Z 大体从柄指向尖端、+X 朝刀刃，刀刃两端距离约 0.720 米；最终轴向、握刀姿态和判定含义须由战斗侧和主控确认，不能视为已冻结。
+### 本轮交付与逐项回应
 
-### Blender 环境与复现
+- **仓库基线与提交：** 以主分支 `a08ce0f4b557368fdf76e78ba9f1718cb4b92620`（含首轮刀具合入）创建独立工作副本 `/Users/yupeng/projects/personal/pico-wuxia-arena-art-v2`、分支 `codex/art-tavern-slice`；已审提交 `a89eb2035cc8cfd8a0937ae1cebfe03f1fb218c7`，主分支合入 `5214c7fce9c7a3f4355b07a1700183528ed79e8c`。提交只涉及 `ArtSource/dao/` 与 `ArtSource/tavern/`，不含交接文档或其他 Agent 文件。
+- **回应刀具比例和材质：** 参照[大都会博物馆馆藏清代腰刀](https://www.metmuseum.org/art/collection/search/31110)的 72.4 cm 刀身及钢、铁、丝、皮、木材质信息，重做刀尖弧度和刀槽，增加不均匀刀身磨损、织纹和皮革贴图，压低护手金属亮度；本次没有复制馆藏图片或模型。源文件、FBX、glTF 和整体/局部 Blender 预览均在 `ArtSource/dao/`；这些仍是离线方向预览，不代表最终写实品质。
+- **回应武器接口：** `DAO_Root`、`Grip`、`Blade_Base` 的名称与位置保持；`Blade_Tip` 为跟随新刃线从 Blender X=0.0122 移至 X=0.0532 米（Z 均为 0.735 米），横向变化 **4.1 cm**。刃线长度约 0.7207 米；刀尖和刀根分别处于刃线上。该点变更须由战斗侧和主控确认，Unity 轴向与真实握姿未验证，不能沿用旧刀尖坐标。
+- **回应酒馆切片：** `ArtSource/tavern/` 提供木门、梁柱和檐瓦、纸灯笼、42 块可分离青石；五个可拆分模块分别是结构、左右门、地面和灯笼。两扇门根节点位于各自外侧铰链，灯笼根节点位于悬挂处；尚未实现开门动画。整体结构约 4.32 × 3.30 米。`tavern_slice.blend` 可编辑；`tavern_slice.fbx` / `.glb` 为导入候选，整体及局部 `tavern_review_*.png` 仅为 Blender 离线预览。
+- **回应资源接入与效率：** 材质及贴图包含在可编辑源文件中，FBX/glTF 的纹理及层级已在 Blender 重导入；检查离线导出中无预览灯和相机。本分支没有 Unity 工程，故没有创建 Unity prefab 或 `.meta`，也未验证 Unity 材质、近中远距离、实际绘制次数或 72 Hz。网格和材质数是审阅数据，不是移动端性能结论。
 
-- 现有 `/opt/homebrew/bin/blender` 指向 4.5.5 的包装脚本；该脚本调用的 `/Applications/Blender.app` 已缺失，故旧命令仍不可用。没有改写旧入口或覆盖旧文件。
-- 已从 [Blender 官方 4.5 LTS](https://www.blender.org/download/lts/4-5/) 下载 Apple Silicon 4.5.15，逐文件核对官方 SHA-256 并验证应用签名，安装于 `/Users/yupeng/Applications/Blender-4.5.15-LTS.app`。复制官方验证通过的应用到未占用的独立路径，再调用其 `Contents/MacOS/Blender` 是可复现修复路径；项目内 README 给出此机完整命令。全局旧 `blender` 命令是否恢复交主控决定。
-- 用独立 Blender 4.5.15 实际重建后，`verify_dao.py` 分别读取 `.blend`，重导入 `.fbx`、`.glb`：各为 12 个网格、2912 个三角面，整体包围盒对角线约 0.972 米、刃线约 0.720 米；贴图与材质存在，缺失定位点及偏离刃线刀尖的负例均被拒绝。验收限于 Blender；Unity 坐标、材质与实际导入效果仍待测。
+### 验证证据
 
-### 素材候选与授权
+- 在 Blender 4.5.15 LTS 用各目录的 `build_*.py` 重新生成，再用 `verify_dao.py` 与 `verify_tavern.py` 分别检查源 `.blend`、重新导入 `.fbx` 和 `.glb`。三种格式一致：**刀具 13 网格、3722 三角面、8 个实际使用材质；酒馆 5 个模块网格、5278 三角面、12 个实际使用材质**。
+- 刀具检查了三处定位点、刃线与尺寸、刀身/皮革/缠带贴图，并确认缺失定位点和刀尖偏离刃线的负例被拒绝；酒馆检查五个模块父子层级、门和灯笼支点、尺寸、42 块独立石板、木/石材质的颜色/粗糙度/法线贴图及缺失灯笼模块的负例。两项同时检查网格合法性及零面积面。
+- 预览分别检查了整体和近景；初版门格重叠产生的黑点已通过修正几何消除。以上不覆盖 Unity 实时灯光和材质、Windows、PICO 实机、性能与持续运行。
 
-当前提交的刀具几何、材质和贴图为本项目生成，**没有导入以下第三方素材**。截至 2026-11-08，候选的各自官方页面分别声明 CC0，许可允许商用和再分发，因此从素材许可角度可用于游戏与提交到 GitHub；下表的比赛及 VibeLab 结论不能只由 CC0 推断：
+### 来源与授权
 
-| 用途 | 候选及作者 | 许可与待核验 |
+- 刀具、酒馆几何、刀具三张色图、灰墙色图和牌匾字形由本项目生成；未使用第三方模型或馆藏图片。酒馆使用 [Fine Grained Wood](https://polyhaven.com/a/fine_grained_wood)（Rob Tuytel）和 [Granite Tile](https://polyhaven.com/a/granite_tile)（Charlotte Baglioni）的 1K 颜色、粗糙度、OpenGL 法线贴图，各自原文件已包含在 `ArtSource/tavern/textures/`，官方许可均为 [Poly Haven CC0](https://polyhaven.com/license)。两套素材可用于商用并可再分发，但 [PICO 赛事规则](https://spaceprogram-cn.picoxr.com/docs/pico-space-program-rules.pdf)的作品原创性及 VibeLab 具体要求仍须另行确认。
+- **角色灰盒候选：** [Universal Base Characters](https://quaternius.itch.io/universal-base-characters)，Quaternius，CC0；作者称人形骨架可重定向，标准包免费、约 13k 三角面/角色，含 `.blend` 源工程的 Source 版标价 **19.99 美元**。偏风格化，只建议占位；未下载、购买、导入或验证。
+- **动作灰盒候选：** [Universal Animation Library](https://quaternius.itch.io/universal-animation-library) 与 [Library 2](https://quaternius.itch.io/universal-animation-library-2)，Quaternius，CC0；作者描述涵盖人形骨架、剑击及连招，免费 Standard 是完整库的子集，第二库含 `.blend` 的 Source 版标价 **14.99 美元**。作者发布的[第一库标准版说明](https://opengameart.org/content/universal-animation-library)曾列 45 个动作；具体免费版本中左右/上方攻击、受击、弹反硬直和处决覆盖、骨骼重定向及时序仍未实测。未购买或把角色动作资产加入项目。
+
+### 音效候选（只列来源，未下载、试听或接线）
+
+| 用途 | 候选与作者 | 许可与注意事项 |
 | --- | --- | --- |
-| 青石 | [Paving Stones 036](https://ambientcg.com/a/PavingStones036)，ambientCG（平台运营者 Lennart Demes） | [ambientCG CC0](https://docs.ambientcg.com/license/)；未下载、未检查场景风格及纹理分辨率。 |
-| 人形 | [Universal Base Characters](https://quaternius.itch.io/universal-base-characters)，Quaternius | 页面标 CC0；标准包免费，含 Blender 源工程的 Source 版标价 19.99 美元；造型偏风格化，约 13k 三角面/角色，适配、性能未验证。 |
-| 动作 | [Universal Animation Library](https://quaternius.itch.io/universal-animation-library)，Quaternius；页面致谢协作者 Gonzalo Furnier | 页面标 CC0；标准包免费，含 Blender 源工程的 Source 版标价 14.99 美元；左右/上攻击、受击及处决覆盖、时间点和重定向均未验证。 |
+| 刀风 | [Whoosh 03](https://freesound.org/people/velcronator/sounds/733890/)，velcronator | CC0；约 0.99 秒，待试听和裁剪。 |
+| 普通格挡 | [Sword Clash](https://freesound.org/people/loudernoises/sounds/334169/)，loudernoises | CC0；约 0.52 秒，待与弹反音色区分。 |
+| 弹反 | [Sword Clash (48)](https://freesound.org/people/JohnBuhr/sounds/326794/)，JohnBuhr | CC0；约 1.02 秒，待试听、压缩和触发时序设计。 |
+| 受击 | [body_hit.wav](https://freesound.org/people/insanity54/sounds/276600/)，insanity54 | CC0；约 0.84 秒，待试听和混音。 |
+| 雨夜环境 | [Rain on wood](https://freesound.org/people/SamsterBirdies/sounds/584267/)，SamsterBirdies | CC0；约 90 秒，原文件 18.2 MB，需先评估循环及设备内存。 |
 
-[赛事正式规则](https://spaceprogram-cn.picoxr.com/docs/pico-space-program-rules.pdf)第 7 页同时要求作品原创、拥有权利或取得合法授权，并要求入选后授予 PICO 可转授权的展示、传播等权利；第 4 页规定 VibeLab 与仓库提交内容。CC0 的宽许可并不自动证明本比赛对第三方素材的原创性要求及 VibeLab 具体条款已满足；采用候选前需主控核对赛事解释和平台细则。
-
-### 审核与后续边界
-
-主控首轮结论见上方：刀具研究初样已合入，候选素材可继续作为灰盒调查。下一阶段进行刀具细化、酒馆美术切片及与战斗侧的骨架和动作对齐。Unity 工程/资源 `.meta`、角色与全部动作片段、Unity 近中远距离画面、Windows、PICO 真机、72 Hz 和 30 分钟稳定性均未验证。
-
+主控复审见上方：本轮作为研究切片合入，刀尖坐标变化与弯刃几何须在 Unity 与战斗侧核对。素材是否满足比赛原创性和平台要求、Unity 接入、最终品质和实机验收均待后续处理。
 每次进展只更新本文件上方状态表和本节：写明完成内容、仓库基线和分支、可审核 commit ID、变更路径、资产许可与来源、查看或测试方式及结果、未验证事项、阻塞和需要主控决定的问题。用最新状态覆盖旧状态，不记录冗长流水账；不要写入密钥或个人敏感信息。
 
 **固定进度文件：** `/Users/yupeng/projects/personal/pico-wuxia-arena/docs/agents/03-art.md`。即使在独立工作副本制作资产，也更新这个主仓库路径，不要只更新工作副本里的同名文件；资产提交不要包含工作副本中的进度文档副本。主控读取四份固定文档，并依据其中的提交、差异和验证证据完成审核与合入。
