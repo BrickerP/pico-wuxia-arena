@@ -66,7 +66,7 @@ class TrackingEventBufferTest {
     }
 
     @Test
-    fun overflowRetainsTheLatestHandSelectionFromDiscardedEvents() {
+    fun overflowPreservesAHandSelectionBeforeTheGap() {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
         buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
@@ -75,9 +75,161 @@ class TrackingEventBufferTest {
         val batch = buffer.drain()
         val state = TrackingState(Hand.RIGHT)
         batch.events.forEach(state::accept)
-        assertEquals(DiscontinuityReason.QUEUE_GAP, (batch.events.first() as TrackingEvent.Discontinuity).reason)
+        assertEquals(Hand.LEFT, (batch.events.first() as TrackingEvent.DominantHandChanged).hand)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (batch.events.last() as TrackingEvent.Discontinuity).reason)
         assertEquals(Hand.LEFT, state.snapshot.dominantHand)
         assertFalse(state.snapshot.hasRequiredObservations)
+    }
+
+    @Test
+    fun roundResetCannotBeOverwrittenByALaterProviderFailure() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        buffer.offerHead(InputOrigin.PICO, pose)
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+
+        val reasons = buffer.drain().events.filterIsInstance<TrackingEvent.Discontinuity>().map { it.reason }
+        assertEquals(
+            listOf(DiscontinuityReason.QUEUE_GAP, DiscontinuityReason.ROUND_RESET, DiscontinuityReason.PROVIDER_UNAVAILABLE),
+            reasons,
+        )
+    }
+
+    @Test
+    fun resetThatCausesOverflowIsDeliveredAfterTheGap() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        val batch = buffer.drain()
+        assertEquals(1, batch.droppedEvents)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (batch.events[0] as TrackingEvent.Discontinuity).reason)
+        assertEquals(DiscontinuityReason.ROUND_RESET, (batch.events[1] as TrackingEvent.Discontinuity).reason)
+        assertEquals(1, batch.events[1].stamp.coordinateEpoch)
+    }
+
+    @Test
+    fun controlsBeforeAndAfterAResetKeepTheirOrderAcrossOverflow() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(4) { clock.getAndIncrement() }
+        repeat(4) { buffer.offerHead(InputOrigin.PICO, pose) }
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.RIGHT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+
+        val events = buffer.drain().events
+        assertEquals(5, events.size)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (events[0] as TrackingEvent.Discontinuity).reason)
+        assertEquals(TrackingTarget.HEAD, (events[1] as TrackingEvent.Discontinuity).target)
+        assertEquals(DiscontinuityReason.ROUND_RESET, (events[2] as TrackingEvent.Discontinuity).reason)
+        assertEquals(Hand.LEFT, (events[3] as TrackingEvent.DominantHandChanged).hand)
+        assertEquals(TrackingTarget.RIGHT_HAND, (events[4] as TrackingEvent.Discontinuity).target)
+        assertEquals(events.map { it.stamp.sequence }.sorted(), events.map { it.stamp.sequence })
+    }
+
+    @Test
+    fun repeatedTrackingFailuresOnBothSidesOfResetAreNotCoalesced() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(3) { clock.getAndIncrement() }
+        repeat(4) { buffer.offerHead(InputOrigin.PICO, pose) }
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        val reasons = buffer.drain().events.filterIsInstance<TrackingEvent.Discontinuity>().map { it.reason }
+        assertEquals(
+            listOf(
+                DiscontinuityReason.QUEUE_GAP,
+                DiscontinuityReason.PROVIDER_UNAVAILABLE,
+                DiscontinuityReason.ROUND_RESET,
+                DiscontinuityReason.PROVIDER_UNAVAILABLE,
+            ),
+            reasons,
+        )
+    }
+
+    @Test
+    fun controlsAlreadyQueuedAreNotMovedPastTheOverflowGap() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(2) { clock.getAndIncrement() }
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+
+        val events = buffer.drain().events
+        assertEquals(DiscontinuityReason.ROUND_RESET, (events[0] as TrackingEvent.Discontinuity).reason)
+        assertEquals(Hand.LEFT, (events[1] as TrackingEvent.DominantHandChanged).hand)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (events[2] as TrackingEvent.Discontinuity).reason)
+        assertEquals(TrackingTarget.HEAD, (events[3] as TrackingEvent.Discontinuity).target)
+    }
+
+    @Test
+    fun controlSaturationRejectsTheNewEventWithoutChangingItsEpoch() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        assertThrows(TrackingControlOverflowException::class.java) {
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        }
+
+        val events = buffer.drain().events
+        assertEquals(DiscontinuityReason.ROUND_RESET, (events[1] as TrackingEvent.Discontinuity).reason)
+        assertEquals(1, events.last().stamp.coordinateEpoch)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        assertEquals(2, buffer.drain().events.single().stamp.coordinateEpoch)
+    }
+
+    @Test
+    fun rejectedControlBlocksNewSamplesAndOtherControlsUntilItIsRetried() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        assertThrows(TrackingControlOverflowException::class.java) {
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        }
+        buffer.drain()
+        assertThrows(TrackingControlOverflowException::class.java) {
+            buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        }
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        val retried = buffer.drain()
+        assertEquals(1, retried.droppedEvents)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (retried.events[0] as TrackingEvent.Discontinuity).reason)
+        assertEquals(DiscontinuityReason.RECENTERED, (retried.events[1] as TrackingEvent.Discontinuity).reason)
+        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertEquals(Hand.LEFT, (buffer.drain().events.single() as TrackingEvent.DominantHandChanged).hand)
+    }
+
+    @Test
+    fun rejectedRoundResetMustBeRetriedBeforeSamplesCanResume() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.offerHead(InputOrigin.PICO, pose)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertThrows(TrackingControlOverflowException::class.java) {
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        }
+        assertTrue(buffer.drain().events.all { it.stamp.coordinateEpoch == 0L })
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        val retry = buffer.drain()
+        assertEquals(DiscontinuityReason.QUEUE_GAP, (retry.events[0] as TrackingEvent.Discontinuity).reason)
+        assertEquals(DiscontinuityReason.ROUND_RESET, (retry.events[1] as TrackingEvent.Discontinuity).reason)
+        assertEquals(1, retry.events.last().stamp.coordinateEpoch)
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
     }
 
     @Test

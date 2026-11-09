@@ -4,6 +4,7 @@ import androidx.annotation.MainThread
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.ObservedPose
+import com.example.wuxiaarena.core.input.TrackingControlOverflowException
 import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.input.TrackingTarget
@@ -50,21 +51,72 @@ class PicoTrackingAdapter(
     private var rightPosition = false
     private var rightRotation = false
     private var providerFailure: PicoProviderFailure? = null
+    private var controlFaulted = false
+    private var pendingStopReason: DiscontinuityReason? = null
+    private var pendingUserPause = false
+    private var pendingProviderControl: PendingProviderControl? = null
+    private var skippedCallbacks = 0L
 
     val lastProviderFailure: PicoProviderFailure?
         get() = synchronized(gate) { providerFailure }
 
+    /** Application callbacks skipped while a control-overflow fault is unresolved. */
+    val droppedCallbacksDuringControlFault: Long
+        get() = synchronized(gate) { skippedCallbacks }
+
+    /** Drain the buffer before retrying; recovery emits a gap for callbacks skipped during the fault. */
+    @MainThread
+    fun recoverControlOverflow(): Boolean = synchronized(gate) {
+        if (!controlFaulted) return true
+        val providerControl = pendingProviderControl
+        var emittedGap = false
+        if (providerControl != null) {
+            try {
+                buffer.discontinuity(InputOrigin.PICO, providerControl.target, providerControl.reason)
+                emittedGap = providerControl.target == TrackingTarget.ALL &&
+                    providerControl.reason == DiscontinuityReason.QUEUE_GAP
+                pendingProviderControl = null
+            } catch (_: TrackingControlOverflowException) {
+                return false
+            }
+        }
+        if (pendingStopReason != null || pendingUserPause) return false
+        if (!emittedGap) {
+            try {
+                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.QUEUE_GAP)
+            } catch (_: TrackingControlOverflowException) {
+                pendingProviderControl = PendingProviderControl(TrackingTarget.ALL, DiscontinuityReason.QUEUE_GAP)
+                return false
+            }
+        }
+        controlFaulted = false
+        hmdStatusKnown = false
+        controllerStatusKnown = false
+        hmdPreStatusGap = false
+        controllerPreStatusGap = false
+        clearHeadComponents()
+        clearControllerComponents()
+        true
+    }
+
     @MainThread
     fun start() {
-        synchronized(gate) { if (active) return }
+        synchronized(gate) {
+            if (active) return
+            check(pendingStopReason == null && !pendingUserPause) { "retry the failed lifecycle control after draining the buffer" }
+        }
         if (hmdRegistered || controllerRegistered || hmdStartAttempted || controllerStartAttempted) cleanup()
         val token = synchronized(gate) {
             if (active) return
+            if (controlFaulted) {
+                check(recoverControlOverflow()) { "drain the buffer and retry the rejected control" }
+            }
             active = true
             generation++
             clearHeadComponents()
             clearControllerComponents()
             providerFailure = null
+            skippedCallbacks = 0
             hmdUnavailable = null
             controllersUnavailable = null
             hmdStatusKnown = false
@@ -106,19 +158,27 @@ class PicoTrackingAdapter(
     @MainThread
     fun pollAvailability() {
         val token = synchronized(gate) {
-            if (!active) return
+            if (!active || controlFaulted) return
             generation
         }
         val headStatus = readAvailability(hmd)
         val handsStatus = readAvailability(controllers)
         synchronized(gate) {
-            if (!active || token != generation) return
+            if (!active || token != generation || controlFaulted) return
             headStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.HEAD, it) }
             handsStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.BOTH_HANDS, it) }
             hmdStatusKnown = true
             controllerStatusKnown = true
-            updateHeadAvailability(headStatus.reason)
-            updateControllerAvailability(handsStatus.reason)
+            try {
+                updateHeadAvailability(headStatus.reason)
+            } catch (_: TrackingControlOverflowException) {
+                return
+            }
+            try {
+                updateControllerAvailability(handsStatus.reason)
+            } catch (_: TrackingControlOverflowException) {
+                return
+            }
         }
     }
 
@@ -143,67 +203,104 @@ class PicoTrackingAdapter(
 
     @MainThread
     fun markUserPause() = synchronized(gate) {
-        if (active) buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.USER_PAUSED)
+        if (active || pendingUserPause) {
+            if (controlFaulted && (!pendingUserPause || pendingProviderControl != null)) {
+                pendingUserPause = true
+                throw TrackingControlOverflowException()
+            }
+            try {
+                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.USER_PAUSED)
+                pendingUserPause = false
+            } catch (error: TrackingControlOverflowException) {
+                pendingUserPause = true
+                recordControlFault(TrackingTarget.ALL, error)
+                throw error
+            }
+        }
     }
 
     private fun onHead(token: Long, data: HMDTrackingData) {
         synchronized(gate) {
             if (!active || token != generation) return
-            if (!hmdStatusKnown) {
-                if (!hmdPreStatusGap) {
-                    buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.QUEUE_GAP)
-                    hmdPreStatusGap = true
-                }
+            if (controlFaulted) {
+                skippedCallbacks++
                 return
             }
-            if (hmdUnavailable != null) return
-            val pose = observe(data.hmdPose.position, data.hmdPose.rotation)
-            val position = pose.position != null
-            val rotation = pose.rotation != null
-            if ((headPosition && !position) || (headRotation && !rotation)) {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+            try {
+                captureHead(data)
+            } catch (_: TrackingControlOverflowException) {
+                return
             }
-            headPosition = position
-            headRotation = rotation
-            buffer.offerHead(InputOrigin.PICO, pose)
         }
+    }
+
+    private fun captureHead(data: HMDTrackingData) {
+        if (!hmdStatusKnown) {
+            if (!hmdPreStatusGap) {
+                emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.QUEUE_GAP)
+                hmdPreStatusGap = true
+            }
+            return
+        }
+        if (hmdUnavailable != null) return
+        val pose = observe(data.hmdPose.position, data.hmdPose.rotation)
+        val position = pose.position != null
+        val rotation = pose.rotation != null
+        if ((headPosition && !position) || (headRotation && !rotation)) {
+            emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        }
+        headPosition = position
+        headRotation = rotation
+        buffer.offerHead(InputOrigin.PICO, pose)
     }
 
     private fun onControllers(token: Long, data: ControllerTrackingData) {
         synchronized(gate) {
             if (!active || token != generation) return
-            if (!controllerStatusKnown) {
-                if (!controllerPreStatusGap) {
-                    buffer.discontinuity(InputOrigin.PICO, TrackingTarget.BOTH_HANDS, DiscontinuityReason.QUEUE_GAP)
-                    controllerPreStatusGap = true
-                }
+            if (controlFaulted) {
+                skippedCallbacks++
                 return
             }
-            if (controllersUnavailable != null) return
-            val left = data.left?.toObservation()
-            val right = data.right?.toObservation()
-            val leftPos = left?.position != null
-            val leftRot = left?.rotation != null
-            val rightPos = right?.position != null
-            val rightRot = right?.rotation != null
-            if ((leftPosition && !leftPos) || (leftRotation && !leftRot)) {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.LEFT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+            try {
+                captureControllers(data)
+            } catch (_: TrackingControlOverflowException) {
+                return
             }
-            if ((rightPosition && !rightPos) || (rightRotation && !rightRot)) {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.RIGHT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
-            }
-            leftPosition = leftPos
-            leftRotation = leftRot
-            rightPosition = rightPos
-            rightRotation = rightRot
-            buffer.offerControllers(InputOrigin.PICO, left, right)
         }
+    }
+
+    private fun captureControllers(data: ControllerTrackingData) {
+        if (!controllerStatusKnown) {
+            if (!controllerPreStatusGap) {
+                emitProviderControl(TrackingTarget.BOTH_HANDS, DiscontinuityReason.QUEUE_GAP)
+                controllerPreStatusGap = true
+            }
+            return
+        }
+        if (controllersUnavailable != null) return
+        val left = data.left?.toObservation()
+        val right = data.right?.toObservation()
+        val leftPos = left?.position != null
+        val leftRot = left?.rotation != null
+        val rightPos = right?.position != null
+        val rightRot = right?.rotation != null
+        if ((leftPosition && !leftPos) || (leftRotation && !leftRot)) {
+            emitProviderControl(TrackingTarget.LEFT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        }
+        if ((rightPosition && !rightPos) || (rightRotation && !rightRot)) {
+            emitProviderControl(TrackingTarget.RIGHT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        }
+        leftPosition = leftPos
+        leftRotation = leftRot
+        rightPosition = rightPos
+        rightRotation = rightRot
+        buffer.offerControllers(InputOrigin.PICO, left, right)
     }
 
     private fun updateHeadAvailability(reason: DiscontinuityReason?) {
         if (reason != hmdUnavailable) {
             if (reason != null) {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, reason)
+                emitProviderControl(TrackingTarget.HEAD, reason)
                 clearHeadComponents()
             }
             hmdUnavailable = reason
@@ -213,7 +310,7 @@ class PicoTrackingAdapter(
     private fun updateControllerAvailability(reason: DiscontinuityReason?) {
         if (reason != controllersUnavailable) {
             if (reason != null) {
-                buffer.discontinuity(InputOrigin.PICO, TrackingTarget.BOTH_HANDS, reason)
+                emitProviderControl(TrackingTarget.BOTH_HANDS, reason)
                 clearControllerComponents()
             }
             controllersUnavailable = reason
@@ -221,11 +318,42 @@ class PicoTrackingAdapter(
     }
 
     private fun deactivate(reason: DiscontinuityReason): Boolean = synchronized(gate) {
-        if (!active) return false
+        if (!active) {
+            val pending = pendingStopReason ?: return false
+            require(reason == pending) { "retry the failed stop with the same reason" }
+            if (pendingProviderControl != null || pendingUserPause) throw TrackingControlOverflowException()
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, pending)
+            pendingStopReason = null
+            return true
+        }
         active = false
         generation++
-        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, reason)
+        try {
+            if (pendingProviderControl != null || pendingUserPause) throw TrackingControlOverflowException()
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, reason)
+        } catch (error: Exception) {
+            pendingStopReason = reason
+            if (error is TrackingControlOverflowException) recordControlFault(TrackingTarget.ALL, error)
+            throw error
+        }
         true
+    }
+
+    private data class PendingProviderControl(val target: TrackingTarget, val reason: DiscontinuityReason)
+
+    private fun emitProviderControl(target: TrackingTarget, reason: DiscontinuityReason) {
+        try {
+            buffer.discontinuity(InputOrigin.PICO, target, reason)
+        } catch (error: TrackingControlOverflowException) {
+            if (pendingProviderControl == null) pendingProviderControl = PendingProviderControl(target, reason)
+            recordControlFault(target, error)
+            throw error
+        }
+    }
+
+    private fun recordControlFault(target: TrackingTarget, error: TrackingControlOverflowException) {
+        controlFaulted = true
+        providerFailure = PicoProviderFailure(target, error)
     }
 
     private fun clearHeadComponents() {

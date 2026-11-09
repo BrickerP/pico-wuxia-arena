@@ -2,6 +2,8 @@ package com.example.wuxiaarena.p0d2f0182.input
 
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.Hand
+import com.example.wuxiaarena.core.input.InputOrigin
+import com.example.wuxiaarena.core.input.TrackingControlOverflowException
 import com.example.wuxiaarena.core.input.TrackingEvent
 import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingQuality
@@ -389,6 +391,114 @@ class PicoTrackingAdapterTest {
         adapter.stop()
         assertTrue(controllers.listeners.isEmpty())
         assertEquals(1, controllers.stops)
+    }
+
+    @Test
+    fun controlOverflowInACallbackBlocksSamplesUntilRecoveryWithGap() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
+        adapter.start()
+        controllers.emit(hands())
+        controllers.emit(hands())
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        controllers.emit(hands(right = null))
+        assertTrue(adapter.lastProviderFailure?.cause is TrackingControlOverflowException)
+        assertEquals(TrackingTarget.RIGHT_HAND, adapter.lastProviderFailure?.target)
+        assertFalse(adapter.recoverControlOverflow())
+        hmd.emit(head())
+        assertEquals(1, adapter.droppedCallbacksDuringControlFault)
+        val first = buffer.drain().events
+        assertTrue(first.none { it is TrackingEvent.Head })
+        assertEquals(DiscontinuityReason.ROUND_RESET, (first[1] as TrackingEvent.Discontinuity).reason)
+
+        assertTrue(adapter.recoverControlOverflow())
+        val recovery = buffer.drain().events.filterIsInstance<TrackingEvent.Discontinuity>()
+        assertTrue(recovery.any { it.reason == DiscontinuityReason.QUEUE_GAP })
+        adapter.pollAvailability()
+        hmd.emit(head())
+        assertTrue(buffer.drain().events.single() is TrackingEvent.Head)
+        adapter.stop()
+    }
+
+    @Test
+    fun providerRecoveryCannotBypassAnEarlierRejectedExternalControl() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
+        adapter.start()
+        controllers.emit(hands())
+        controllers.emit(hands())
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        assertThrows(TrackingControlOverflowException::class.java) {
+            buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        }
+        controllers.emit(hands(right = null))
+        buffer.drain()
+        assertFalse(adapter.recoverControlOverflow())
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        assertTrue(adapter.recoverControlOverflow())
+        val events = buffer.drain().events
+        assertEquals(DiscontinuityReason.RECENTERED, (events.first() as TrackingEvent.Discontinuity).reason)
+        assertTrue(events.any { it is TrackingEvent.Discontinuity && it.target == TrackingTarget.RIGHT_HAND })
+        adapter.stop()
+    }
+
+    @Test
+    fun rejectedStopIsRetriedBeforeAProviderCanRestart() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
+        adapter.start()
+        buffer.offerHead(InputOrigin.PICO, null)
+        buffer.offerHead(InputOrigin.PICO, null)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        assertThrows(TrackingControlOverflowException::class.java) { adapter.stop(DiscontinuityReason.RECENTERED) }
+        assertEquals(1, hmd.stops)
+        assertEquals(1, controllers.stops)
+        assertThrows(IllegalStateException::class.java) { adapter.start() }
+
+        buffer.drain()
+        assertThrows(IllegalArgumentException::class.java) { adapter.stop() }
+        adapter.stop(DiscontinuityReason.RECENTERED)
+        val retried = buffer.drain().events.single() as TrackingEvent.Discontinuity
+        assertEquals(DiscontinuityReason.RECENTERED, retried.reason)
+        assertEquals(2, retried.stamp.coordinateEpoch)
+        adapter.start()
+        assertTrue(buffer.drain().events.any { it is TrackingEvent.Discontinuity && it.reason == DiscontinuityReason.QUEUE_GAP })
+        adapter.stop()
+    }
+
+    @Test
+    fun userPauseIsNotAcceptedUntilControlOverflowIsDrainedAndRetried() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
+        adapter.start()
+        buffer.offerHead(InputOrigin.PICO, null)
+        buffer.offerHead(InputOrigin.PICO, null)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        assertThrows(TrackingControlOverflowException::class.java) { adapter.markUserPause() }
+        assertTrue(buffer.drain().events.none { it is TrackingEvent.Discontinuity && it.reason == DiscontinuityReason.USER_PAUSED })
+        assertFalse(adapter.recoverControlOverflow())
+        adapter.markUserPause()
+        assertTrue(adapter.recoverControlOverflow())
+        val recovered = buffer.drain().events.filterIsInstance<TrackingEvent.Discontinuity>()
+        assertTrue(recovered.any { it.reason == DiscontinuityReason.USER_PAUSED })
+        assertTrue(recovered.any { it.reason == DiscontinuityReason.QUEUE_GAP })
+        adapter.stop()
     }
 
     @Test

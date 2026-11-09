@@ -43,6 +43,15 @@ class TrackingState(initialHand: Hand) {
     fun accept(event: TrackingEvent): Boolean {
         val stamp = event.stamp
         val last = lastStamp
+        if (last != null && stamp.coordinateEpoch < last.coordinateEpoch) {
+            invalidateAll()
+            requireNewObservations(maxOf(last.sequence, stamp.sequence))
+            lastStamp = last.copy(
+                sequence = maxOf(last.sequence, stamp.sequence),
+                receivedAtNanos = maxOf(last.receivedAtNanos, stamp.receivedAtNanos),
+            )
+            return false
+        }
         if (last != null && stamp.sequence <= last.sequence) {
             if (stamp.sequence < last.sequence) {
                 invalidateAll()

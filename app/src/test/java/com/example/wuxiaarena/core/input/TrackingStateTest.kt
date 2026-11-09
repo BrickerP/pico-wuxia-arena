@@ -78,6 +78,60 @@ class TrackingStateTest {
     }
 
     @Test
+    fun olderCoordinateEpochCannotRestoreReadiness() {
+        val state = TrackingState(Hand.RIGHT)
+        assertTrue(state.accept(TrackingEvent.Head(stamp(0, epoch = 1), pose)))
+        assertTrue(state.accept(TrackingEvent.Controllers(stamp(1, epoch = 1), null, pose)))
+        assertTrue(state.snapshot.hasRequiredObservations)
+        assertFalse(state.accept(TrackingEvent.Head(stamp(2, epoch = 0), pose)))
+        assertFalse(state.accept(TrackingEvent.Controllers(stamp(3, epoch = 0), null, pose)))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertTrue(state.accept(TrackingEvent.Head(stamp(4, epoch = 1), pose)))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertTrue(state.accept(TrackingEvent.Controllers(stamp(5, epoch = 1), null, pose)))
+        assertTrue(state.snapshot.hasRequiredObservations)
+    }
+
+    @Test
+    fun staleEpochWithDuplicateSequenceStillInvalidatesTheBaseline() {
+        val state = TrackingState(Hand.RIGHT)
+        state.accept(TrackingEvent.Head(stamp(0, epoch = 2), pose))
+        state.accept(TrackingEvent.Controllers(stamp(1, epoch = 2), null, pose))
+        assertTrue(state.snapshot.hasRequiredObservations)
+        assertFalse(state.accept(TrackingEvent.Head(stamp(1, epoch = 1), pose)))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertNull(state.snapshot.head)
+        assertNull(state.snapshot.right)
+    }
+
+    @Test
+    fun rejectedOldEpochDoesNotAllowLaterSequenceToMoveBackwards() {
+        val state = TrackingState(Hand.RIGHT)
+        state.accept(TrackingEvent.Head(stamp(0, epoch = 1), pose))
+        state.accept(TrackingEvent.Controllers(stamp(1, epoch = 1), null, pose))
+        assertFalse(state.accept(TrackingEvent.Head(stamp(3, epoch = 0), pose)))
+        assertFalse(state.accept(TrackingEvent.Controllers(stamp(2, epoch = 1), null, pose)))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertTrue(state.accept(TrackingEvent.Head(stamp(4, epoch = 1), pose)))
+        assertTrue(state.accept(TrackingEvent.Controllers(stamp(5, epoch = 1), null, pose)))
+        assertTrue(state.snapshot.hasRequiredObservations)
+    }
+
+    @Test
+    fun oldEpochControlCannotChangeTheDominantHandOrRestoreReadiness() {
+        val state = TrackingState(Hand.RIGHT)
+        state.accept(TrackingEvent.Head(stamp(0, epoch = 1), pose))
+        state.accept(TrackingEvent.Controllers(stamp(1, epoch = 1), null, pose))
+        assertFalse(state.accept(TrackingEvent.DominantHandChanged(stamp(2, epoch = 0), Hand.LEFT)))
+        assertFalse(state.accept(TrackingEvent.Discontinuity(stamp(3, epoch = 0), TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)))
+        assertEquals(Hand.RIGHT, state.snapshot.dominantHand)
+        assertFalse(state.snapshot.hasRequiredObservations)
+        state.accept(TrackingEvent.Head(stamp(4, epoch = 1), pose))
+        state.accept(TrackingEvent.Controllers(stamp(5, epoch = 1), null, pose))
+        assertTrue(state.snapshot.hasRequiredObservations)
+    }
+
+    @Test
     fun staleSequenceIsIgnoredAndRegressingTimeInvalidatesHistory() {
         val state = TrackingState(Hand.RIGHT)
         state.accept(TrackingEvent.Head(stamp(0, 10), pose))
