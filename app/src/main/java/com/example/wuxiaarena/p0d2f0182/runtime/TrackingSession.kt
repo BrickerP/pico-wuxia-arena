@@ -1,11 +1,14 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
+import android.content.pm.ApplicationInfo
+import android.os.Build
 import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.withFrameNanos
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -14,6 +17,9 @@ import com.example.wuxiaarena.core.input.TrackingEvent
 import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.p0d2f0182.input.PicoTrackingAdapter
+import com.pico.spatial.tracking.DataProvider
+import com.pico.spatial.tracking.controller.ControllerTrackingProvider
+import com.pico.spatial.tracking.hmd.HMDTrackingProvider
 import kotlinx.coroutines.isActive
 import kotlin.coroutines.coroutineContext
 
@@ -22,10 +28,13 @@ private const val TAG = "ArenaTracking"
 private const val BUFFER_CAPACITY = 256
 private const val STATUS_POLL_NANOS = 100_000_000L
 private const val STOP_ATTEMPTS = 4
+private const val ACTION_DIAGNOSTIC_CAPACITY = 64
 
-private class TrackingSession {
+private class TrackingSession(private val diagnosticsEnabled: Boolean) {
     private val buffer = TrackingEventBuffer(BUFFER_CAPACITY)
-    private val adapter = PicoTrackingAdapter(buffer)
+    private val headProvider = HMDTrackingProvider()
+    private val controllerProvider = ControllerTrackingProvider()
+    private val adapter = PicoTrackingAdapter(buffer, headProvider, controllerProvider)
     private val processor = TrackingProcessor()
     private var attempted = false
     private var active = false
@@ -35,6 +44,26 @@ private class TrackingSession {
     private var sawControllers = false
     private var reportedFailure: Throwable? = null
     private var pendingControlRecovery = false
+    private val actionGate = Any()
+    private val actionChanges = ArrayDeque<ActionObservation>()
+    private var actionListener: ControllerTrackingProvider.ControllerActionListener? = null
+    private var actionGeneration = 0L
+    private var acceptingActions = false
+    private var actionCallbacks = 0L
+    private var droppedActionChanges = 0L
+    private var lastActionValues: ActionValues? = null
+    private var lastHeadStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
+    private var lastControllerStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
+
+    private data class ActionValues(
+        val leftX: Float,
+        val leftY: Float,
+        val rightX: Float,
+        val rightY: Float,
+        val rightA: Boolean,
+    )
+
+    private data class ActionObservation(val values: ActionValues, val count: Long, val receivedAtNanos: Long)
 
     fun start() {
         if (active) return
@@ -42,7 +71,19 @@ private class TrackingSession {
         if (attempted) return
         attempted = true
         try {
+            if (diagnosticsEnabled) {
+                try {
+                    startActionDiagnostics()
+                } catch (error: Exception) {
+                    Log.w(TAG, "Unable to register controller action diagnostics", error)
+                    stopActionDiagnostics()
+                }
+            }
             adapter.start()
+            if (diagnosticsEnabled) {
+                Log.i(TAG, "Provider start results head=${adapter.lastHmdStartResult}, controllers=${adapter.lastControllerStartResult}, receivedAtNanos=${System.nanoTime()}")
+                logProviderStatus()
+            }
             active = true
             lastPollFrame = null
             sawHead = false
@@ -51,6 +92,11 @@ private class TrackingSession {
             pendingControlRecovery = false
             Log.i(TAG, "Tracking provider start requested")
         } catch (error: Exception) {
+            if (diagnosticsEnabled) {
+                Log.i(TAG, "Provider start interrupted head=${adapter.lastHmdStartResult}, controllers=${adapter.lastControllerStartResult}, receivedAtNanos=${System.nanoTime()}")
+                logProviderStatus()
+                stopActionDiagnostics()
+            }
             Log.e(TAG, "Unable to start tracking", error)
         }
     }
@@ -61,9 +107,11 @@ private class TrackingSession {
             val previous = lastPollFrame
             if (previous == null || frameNanos < previous || frameNanos - previous >= STATUS_POLL_NANOS) {
                 adapter.pollAvailability()
+                if (diagnosticsEnabled) logProviderStatus()
                 lastPollFrame = frameNanos
             }
             drain()
+            if (diagnosticsEnabled) drainActionDiagnostics()
             val failure = adapter.lastProviderFailure
             if (failure != null && failure.cause !== reportedFailure) {
                 reportedFailure = failure.cause
@@ -81,8 +129,12 @@ private class TrackingSession {
     }
 
     fun stop() {
-        if (!attempted) return
+        if (!attempted) {
+            if (diagnosticsEnabled) stopActionDiagnostics()
+            return
+        }
         active = false
+        if (diagnosticsEnabled) stopActionDiagnostics()
         if (observedReady) {
             observedReady = false
             Log.i(TAG, "Required observations present=false; tracking stopped")
@@ -108,6 +160,7 @@ private class TrackingSession {
             }
         }
         drain()
+        if (diagnosticsEnabled) logProviderStatus()
         if (stopped) {
             attempted = false
             Log.i(TAG, "Tracking providers stopped")
@@ -120,6 +173,93 @@ private class TrackingSession {
         val batch = buffer.drain()
         if (batch.droppedEvents > 0) Log.w(TAG, "Tracking queue dropped ${batch.droppedEvents} observations")
         processor.process(batch, ::onEvent)
+    }
+
+    private fun startActionDiagnostics() {
+        if (actionListener != null) stopActionDiagnostics()
+        check(actionListener == null) { "controller action listener removal must finish before restarting diagnostics" }
+        val token = synchronized(actionGate) {
+            actionGeneration++
+            acceptingActions = true
+            actionCallbacks = 0
+            droppedActionChanges = 0
+            lastActionValues = null
+            actionChanges.clear()
+            actionGeneration
+        }
+        lastHeadStatus = null
+        lastControllerStatus = null
+        val listener = ControllerTrackingProvider.ControllerActionListener { action ->
+            synchronized(actionGate) {
+                if (!acceptingActions || actionGeneration != token) return@ControllerActionListener
+                actionCallbacks++
+                val values = ActionValues(
+                    action.left.thumbstickValue.x, action.left.thumbstickValue.y,
+                    action.right.thumbstickValue.x, action.right.thumbstickValue.y,
+                    action.right.aButtonPressed,
+                )
+                if (values != lastActionValues) {
+                    lastActionValues = values
+                    if (actionChanges.size < ACTION_DIAGNOSTIC_CAPACITY) {
+                        actionChanges.addLast(ActionObservation(values, actionCallbacks, System.nanoTime()))
+                    } else {
+                        droppedActionChanges++
+                    }
+                }
+            }
+        }
+        // Keep the reference even if SDK registration fails partway, for paired cleanup.
+        actionListener = listener
+        controllerProvider.addControllerActionListener(listener)
+        Log.i(TAG, "Controller action diagnostics registered; callbackCount=0, receivedAtNanos=${System.nanoTime()}")
+    }
+
+    private fun stopActionDiagnostics() {
+        val listener = actionListener ?: return
+        synchronized(actionGate) {
+            acceptingActions = false
+            actionGeneration++
+        }
+        try {
+            controllerProvider.removeControllerActionListener(listener)
+            actionListener = null
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to remove controller action diagnostic listener", error)
+        }
+        drainActionDiagnostics()
+        val count = synchronized(actionGate) { actionCallbacks }
+        Log.i(TAG, "Controller action diagnostics stopped; callbackCount=$count, receivedAtNanos=${System.nanoTime()}")
+    }
+
+    private fun drainActionDiagnostics() {
+        val (changes, dropped) = synchronized(actionGate) {
+            val result = actionChanges.toList() to droppedActionChanges
+            actionChanges.clear()
+            droppedActionChanges = 0
+            result
+        }
+        for (observation in changes) {
+            val values = observation.values
+            Log.i(TAG, "Controller action left=(${values.leftX},${values.leftY}), right=(${values.rightX},${values.rightY}), rightA=${values.rightA}, callbackCount=${observation.count}, receivedAtNanos=${observation.receivedAtNanos}")
+        }
+        if (dropped > 0) Log.w(TAG, "Controller action diagnostic gap; droppedChanges=$dropped, receivedAtNanos=${System.nanoTime()}")
+    }
+
+    private fun logProviderStatus() {
+        try {
+            val head = headProvider.state to headProvider.supportState
+            val controllers = controllerProvider.state to controllerProvider.supportState
+            if (head != lastHeadStatus) {
+                Log.i(TAG, "Head provider state=${head.first}, supportState=${head.second}, receivedAtNanos=${System.nanoTime()}")
+                lastHeadStatus = head
+            }
+            if (controllers != lastControllerStatus) {
+                Log.i(TAG, "Controller provider state=${controllers.first}, supportState=${controllers.second}, receivedAtNanos=${System.nanoTime()}")
+                lastControllerStatus = controllers
+            }
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to read diagnostic provider state", error)
+        }
     }
 
     private fun onEvent(event: TrackingEvent, accepted: Boolean, snapshot: TrackingSnapshot) {
@@ -145,7 +285,9 @@ private class TrackingSession {
 @Composable
 fun ObserveTracking() {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val session = remember { TrackingSession() }
+    val context = LocalContext.current
+    val diagnosticsEnabled = (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 && Build.HARDWARE == "ranchu"
+    val session = remember(diagnosticsEnabled) { TrackingSession(diagnosticsEnabled) }
 
     DisposableEffect(lifecycleOwner, session) {
         val observer = LifecycleEventObserver { _, event ->

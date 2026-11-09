@@ -57,6 +57,11 @@ class PicoTrackingAdapter(
     private var pendingProviderControl: PendingProviderControl? = null
     private var skippedCallbacks = 0L
 
+    var lastHmdStartResult: DataProvider.StartResult? = null
+        private set
+    var lastControllerStartResult: DataProvider.StartResult? = null
+        private set
+
     val lastProviderFailure: PicoProviderFailure?
         get() = synchronized(gate) { providerFailure }
 
@@ -129,15 +134,17 @@ class PicoTrackingAdapter(
         val handsListener = DataProvider.DataListener<ControllerTrackingData> { data -> onControllers(token, data) }
         hmdListener = headListener
         controllerListener = handsListener
+        lastHmdStartResult = null
+        lastControllerStartResult = null
         try {
             hmdRegistered = true
             hmd.addListener(headListener)
             controllerRegistered = true
             controllers.addListener(handsListener)
             hmdStartAttempted = true
-            hmd.start()
+            lastHmdStartResult = hmd.start()
             controllerStartAttempted = true
-            controllers.start()
+            lastControllerStartResult = controllers.start()
             pollAvailability()
         } catch (error: Exception) {
             try {
