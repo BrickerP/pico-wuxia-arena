@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="pico-design-revision" content="10">
+  <meta name="pico-design-revision" content="14">
   <title>PICO SpatialUI Preview</title>
   <style>
     * { box-sizing: border-box; }
@@ -3741,7 +3741,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
   "metadata": {
     "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 13
+    "revision": 14
   },
   "experience": {
     "subject": "写实中式刀术试炼的场边状态与轮次控制",
@@ -3750,7 +3750,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
     "singleJob": "不离开对手即可看懂当前试炼状态并完成开始、暂停恢复与重新开局",
     "space": "full",
     "form": "stage_full",
-    "signature": "左右场边双匾与三段招向印"
+    "signature": "场边双匾与实际来势印"
   },
   "theme": {
     "scheme": "vibrant",
@@ -4243,7 +4243,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": true,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "试炼未启",
@@ -4260,8 +4261,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4276,7 +4277,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
@@ -4293,8 +4295,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4309,7 +4311,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "蓄势",
@@ -4326,8 +4329,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4342,7 +4345,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
@@ -4359,8 +4363,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4375,7 +4379,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": true,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
@@ -4392,8 +4397,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4408,7 +4413,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "追踪中断",
@@ -4425,8 +4431,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4441,7 +4447,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": true,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
@@ -4458,8 +4465,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4474,7 +4481,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "试炼通关",
@@ -4491,8 +4499,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4507,7 +4515,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": true,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪"
           },
           "combat": {
             "phaseLabel": "本次落败",
@@ -4524,8 +4533,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "桌面预演 · 合成头手轨迹 · 头手观察已就绪",
@@ -4544,7 +4553,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼未启",
@@ -4561,8 +4571,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4577,7 +4587,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
@@ -4594,8 +4605,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4610,7 +4621,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "蓄势",
@@ -4627,8 +4639,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4643,7 +4655,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
@@ -4660,8 +4673,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4676,7 +4689,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
@@ -4693,8 +4707,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4709,7 +4723,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪中断",
@@ -4726,8 +4741,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4742,7 +4757,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
@@ -4759,8 +4775,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4775,7 +4791,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼通关",
@@ -4792,8 +4809,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4808,7 +4825,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本次落败",
@@ -4825,8 +4843,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4845,7 +4863,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼未启",
@@ -4862,8 +4881,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4878,7 +4897,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼即将开始 · 3",
@@ -4895,8 +4915,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4911,7 +4931,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "蓄势",
@@ -4928,8 +4949,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4944,7 +4965,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本场已破 · 3秒后再战",
@@ -4961,8 +4983,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -4977,7 +4999,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼已暂停",
@@ -4994,8 +5017,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -5010,7 +5033,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪中断",
@@ -5027,8 +5051,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -5043,7 +5067,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "追踪已恢复",
@@ -5060,8 +5085,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -5076,7 +5101,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "试炼通关",
@@ -5093,8 +5119,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -5109,7 +5135,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "startEnabled": false,
             "controlsEnabled": false,
             "resumeEnabled": false,
-            "instruction": "动作预演会生成头手轨迹，复用体感判定。"
+            "instruction": "动作预演会生成头手轨迹，复用体感判定。",
+            "contextLabel": "输入暂不可用 · 等待新的头手观察"
           },
           "combat": {
             "phaseLabel": "本次落败",
@@ -5126,8 +5153,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
-            "scoreCombo": "得分 120 · 2连击 · 最佳 300",
-            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80"
+            "settlement": "得分 120 · 最佳 300\n连战 3/3 场 · 余血 80",
+            "comboLabel": "连击 2"
           },
           "input": {
             "sourceLabel": "输入暂不可用 · 等待新的头手观察",
@@ -5233,7 +5260,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
     {
       "id": "control-heading",
       "kind": "text",
-      "content": "场边试炼",
+      "content": "酒馆试炼",
       "textStyle": {
         "typography": "body",
         "color": "arenaPanelSecondary",
@@ -5256,14 +5283,14 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
     {
       "id": "input-source",
       "kind": "text",
-      "content": "桌面预演 · 合成头手轨迹",
+      "content": "连胜三场 · 读招、架刀、反击",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelSecondary",
         "maxLines": 2
       },
       "bindings": {
-        "content": "input.sourceLabel"
+        "content": "control.contextLabel"
       }
     },
     {
@@ -5652,14 +5679,14 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
     {
       "id": "score-summary",
       "kind": "text",
-      "content": "得分 0 · 0 连击 · 最佳 0",
+      "content": "",
       "textStyle": {
         "typography": "label",
         "color": "arenaPanelSecondary",
         "maxLines": 2
       },
       "bindings": {
-        "content": "match.scoreCombo"
+        "content": "match.comboLabel"
       }
     },
     {
@@ -5967,10 +5994,10 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
       "id": "attack-direction-seal",
       "kind": "domain_visual",
       "rendererKey": "attack-direction-seal",
-      "purpose": "以同一平面的文字和颜色高亮显示真实攻击方向",
+      "purpose": "仅显示当前敌招的实际来势，待机时收起",
       "props": {
-        "label": "招向印",
-        "idleLabel": "观势",
+        "label": "",
+        "idleLabel": "",
         "directions": [
           {
             "id": "left",
@@ -6081,14 +6108,15 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
         label.textContent = node.props.label;
         const cells = document.createElement('div');
         cells.className = 'direction-cells';
-        const active = getPath(data, node.bindings.activeDirection) || 'none';
+        const active = getPath(data, node.bindings.direction) || 'none';
+        if (active === 'none') return root;
         const part = node.parts.directionCell;
-        node.props.directions.forEach(direction => {
+        node.props.directions.filter(direction => direction.id === active).forEach(direction => {
           const cell = document.createElement('span');
           cell.className = 'direction-cell';
           cell.textContent = direction.label;
           applyAppearance(cell, direction.id === active ? { ...part.appearance, ...part.states.active } : part.appearance);
-          cell.setAttribute('aria-label', direction.id === active ? `${direction.label}侧来势` : direction.label);
+          cell.setAttribute('aria-label', direction.id === active ? `${direction.label}路来势` : direction.label);
           cells.append(cell);
         });
         if (active === 'none') label.textContent = node.props.idleLabel;

@@ -1,8 +1,10 @@
 <resources>
-    <string name="app_name">WuxiaArena</string>
+    <string name="app_name">酒馆试炼</string>
     <string name="hello">Hello, Spatial SDK！</string>
 
-    <string name="arena_control_title">场边试炼</string>
+    <string name="arena_control_title">酒馆试炼</string>
+    <string name="arena_trial_objective">连胜三场 · 读招、架刀、反击</string>
+    <string name="arena_trial_finished">本局已结 · 可再挑战</string>
     <string name="arena_status_title">对手态势</string>
     <string name="arena_state_scene_waiting">等待场景</string>
     <string name="arena_state_not_started">试炼未启</string>
@@ -73,7 +75,7 @@
     <string name="arena_resource_stamina">体力</string>
     <string name="arena_resource_focus">气势</string>
     <string name="arena_resource_value">%1$s %2$d/%3$d</string>
-    <string name="arena_score_combo">得分 %1$d · %2$d 连击 · 最佳 %3$d</string>
+    <string name="arena_combo">连击 %1$d</string>
     <string name="arena_phase_countdown">准备</string>
     <string name="arena_phase_round_clear">休整</string>
     <string name="arena_feedback_hit">刀锋命中</string>

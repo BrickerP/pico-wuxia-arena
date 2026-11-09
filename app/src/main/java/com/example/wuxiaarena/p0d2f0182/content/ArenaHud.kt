@@ -123,7 +123,12 @@ private fun ArenaControlPanelContent(
                 maxLines = 1,
             )
             Text(
-                text = if (controlPending) stringResource(R.string.arena_control_processing) else inputSummary(state),
+                text = when {
+                    controlPending -> stringResource(R.string.arena_control_processing)
+                    terminal -> stringResource(R.string.arena_trial_finished)
+                    desktop || !state.inputReady || state.pauseReason == PauseReason.TRACKING_INTERRUPTION -> inputSummary(state)
+                    else -> stringResource(R.string.arena_trial_objective)
+                },
                 style = PicoTheme.typography.labelSmall,
                 color = ArenaPanelSecondary,
                 maxLines = 1,
@@ -399,12 +404,14 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     color = ArenaPanelText,
                     maxLines = 1,
                 )
-                Text(
-                    text = stringResource(R.string.arena_score_combo, state.score, state.combo, state.bestScore),
-                    style = PicoTheme.typography.labelSmall,
-                    color = ArenaPanelSecondary,
-                    maxLines = 1,
-                )
+                if (state.combo >= 2) {
+                    Text(
+                        text = stringResource(R.string.arena_combo, state.combo),
+                        style = PicoTheme.typography.labelSmall,
+                        color = ArenaPanelSecondary,
+                        maxLines = 1,
+                    )
+                }
             }
         }
     }
@@ -473,31 +480,24 @@ private fun RestartConfirmationDialog(
 
 @Composable
 private fun AttackDirectionSeal(direction: AttackDirection?) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(5.dp),
-        verticalAlignment = Alignment.CenterVertically,
+    if (direction == null) return
+    val label = stringResource(when (direction) {
+        AttackDirection.LEFT -> R.string.arena_direction_left
+        AttackDirection.OVERHEAD -> R.string.arena_direction_overhead
+        AttackDirection.RIGHT -> R.string.arena_direction_right
+    })
+    val description = stringResource(R.string.arena_direction_active_description, label)
+    Badge(
+        modifier = Modifier.size(30.dp).semantics { contentDescription = description },
+        badgeColor = BadgeDefaults.badgeColors(
+            backgroundColor = PicoTheme.colorScheme.interaction,
+            contentColor = ArenaPanelText,
+        ),
+        badgeSize = BadgeDefaults.badgeSize(width = 30.dp, height = 30.dp),
+        radius = 14.dp,
+        contentPadding = PaddingValues(0.dp),
     ) {
-        val directions = listOf(
-            AttackDirection.LEFT to stringResource(R.string.arena_direction_left),
-            AttackDirection.OVERHEAD to stringResource(R.string.arena_direction_overhead),
-            AttackDirection.RIGHT to stringResource(R.string.arena_direction_right),
-        )
-        directions.forEach { (candidate, label) ->
-            val active = direction == candidate
-            val description = if (active) stringResource(R.string.arena_direction_active_description, label) else label
-            Badge(
-                modifier = Modifier.size(30.dp).semantics { contentDescription = description },
-                badgeColor = BadgeDefaults.badgeColors(
-                    backgroundColor = if (active) PicoTheme.colorScheme.interaction else ArenaPanelControl,
-                    contentColor = if (active) ArenaPanelText else ArenaPanelSecondary,
-                ),
-                badgeSize = BadgeDefaults.badgeSize(width = 30.dp, height = 30.dp),
-                radius = 14.dp,
-                contentPadding = PaddingValues(0.dp),
-            ) {
-                Text(text = label, style = PicoTheme.typography.labelSmall, maxLines = 1)
-            }
-        }
+        Text(text = label, style = PicoTheme.typography.labelSmall, maxLines = 1)
     }
 }
 
