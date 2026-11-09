@@ -10,7 +10,7 @@ class LaunchActivity : SpatialLaunchActivity() {
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         if (Build.HARDWARE == "ranchu" &&
             (applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0 &&
-            event.keyCode == KeyEvent.KEYCODE_W &&
+            (event.keyCode == KeyEvent.KEYCODE_W || event.keyCode == KeyEvent.KEYCODE_1) &&
             (event.action == KeyEvent.ACTION_DOWN || event.action == KeyEvent.ACTION_UP)
         ) {
             Log.i(

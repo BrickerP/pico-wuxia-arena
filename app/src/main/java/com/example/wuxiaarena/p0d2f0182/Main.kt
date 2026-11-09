@@ -14,7 +14,10 @@ fun mainApp(scope: SpatialAppScope) =
             PicoTheme {
                 val arena = remember { ArenaSession() }
                 ObserveTracking(onEvent = arena::onTrackingEvent, emulatorPreview = true)
-                HomeStage(onEnemyGeometry = arena::setEnemyGeometry)
+                HomeStage(
+                    onEnemyGeometry = arena::setEnemyGeometry,
+                    onPlayerHandPresenter = arena::setPlayerHandPresenter,
+                )
             }
         }
     }

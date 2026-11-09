@@ -13,6 +13,9 @@ import com.pico.spatial.core.math.Color4
 import com.pico.spatial.core.math.Quat
 import com.pico.spatial.core.math.Vector3
 import com.pico.spatial.ui.foundation.content.SpatialView
+import com.example.wuxiaarena.core.input.ObservedPose
+import com.example.wuxiaarena.core.input.TrackingQuality
+import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import java.util.concurrent.CancellationException
 import kotlin.math.abs
 import kotlin.math.hypot
@@ -21,21 +24,61 @@ import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 private const val TAG = "TavernScene"
 private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
 private const val ENEMY_ASSET = "asset://models/tripo_warrior.glb"
+private const val PLAYER_DAO_ASSET = "asset://models/dao_grip.glb"
 
-private class SceneOwner(private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
+private class SceneOwner(
+    private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
+    private val onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
+) {
     var root: Entity? = null
+    var playerWeapon: Entity? = null
+
+    fun presentPlayerHand(pose: ObservedPose?) {
+        val parent = root ?: return
+        val weapon = playerWeapon ?: return
+        if (!parent.valid || !weapon.valid) return
+        val position = pose?.position
+        val rotation = pose?.rotation?.normalizedOrNull()
+        if (position == null || !position.isFinite() || rotation == null ||
+            pose?.quality == TrackingQuality.SOURCE_REPORTED_INVALID
+        ) {
+            if (weapon.enabled) weapon.enabled = false
+            return
+        }
+        val x = position.x.toFloat()
+        val y = position.y.toFloat()
+        val z = position.z.toFloat()
+        if (!x.isFinite() || !y.isFinite() || !z.isFinite()) {
+            weapon.enabled = false
+            return
+        }
+        val transform = checkNotNull(weapon.components[TransformComponent::class.java])
+        transform.setPosition(parent.convertPositionFrom(Vector3(x, y, z), null))
+        transform.setQuaternion(
+            parent.convertRotationFrom(
+                Quat(rotation.x.toFloat(), rotation.y.toFloat(), rotation.z.toFloat(), rotation.w.toFloat()),
+                null,
+            )
+        )
+        if (!weapon.enabled) weapon.enabled = true
+    }
 
     fun release() {
         val current = root ?: return
         root = null
+        playerWeapon = null
+        onPlayerHandPresenter(null)
         onEnemyGeometry(null, 0.0)
         if (current.valid) current.destroy()
     }
 }
 
 @Composable
-fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
-    val owner = remember { SceneOwner(onEnemyGeometry) }
+fun HomeStage(
+    onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
+    onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
+) {
+    val owner = remember { SceneOwner(onEnemyGeometry, onPlayerHandPresenter) }
 
     DisposableEffect(owner) {
         onDispose { owner.release() }
@@ -49,6 +92,8 @@ fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
         var modelAttached = false
         var enemy: Entity? = null
         var enemyAttached = false
+        var playerWeapon: Entity? = null
+        var playerWeaponAttached = false
         var light: Entity? = null
         var lightAttached = false
 
@@ -83,6 +128,18 @@ fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
             enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, -2.4f), null))
             enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
 
+            playerWeapon = Entity.loadSuspend(PLAYER_DAO_ASSET)
+            if (owner.root !== root) {
+                playerWeapon.destroy()
+                return@SpatialView
+            }
+            playerWeapon.enabled = false
+            check(root.addChild(playerWeapon)) { "Could not attach player dao" }
+            playerWeaponAttached = true
+            owner.playerWeapon = playerWeapon
+            onPlayerHandPresenter(owner::presentPlayerHand)
+            Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
+
             light = Entity()
             light.components.set(DirectionalLightComponent(Color4.WHITE, 800f))
             val lightTransform = checkNotNull(light.components[TransformComponent::class.java]) {
@@ -111,6 +168,7 @@ fun HomeStage(onEnemyGeometry: (TrackingVector3?, Double) -> Unit) {
         } catch (error: Exception) {
             if (!modelAttached) model?.destroy()
             if (!enemyAttached) enemy?.destroy()
+            if (!playerWeaponAttached) playerWeapon?.destroy()
             if (!lightAttached) light?.destroy()
             if (owner.root === root) owner.release()
             if (error is CancellationException) throw error

@@ -38,3 +38,19 @@ overwrites the generated assets in this directory. The verifier reopens the
 source and GLB, checks scale, geometry, materials and anchors, and
 rejects missing or off-edge anchors. PICO loading, real-time appearance, actual
 draw calls, PICO performance and interaction are not covered by this check.
+
+## Player grip export
+
+`dao_grip.glb` is derived from the same source with `Grip` as its identity
+root and origin. glTF uses +Y up, and the blade's length axis runs toward -Z.
+`Blade_Base=(0.022,0,-0.129)` and `Blade_Tip=(0.0532,0,-0.849)` are in metres.
+The tip's lateral offset is retained from the curved blade. The blade marker
+segment is approximately 0.720676 m.
+
+Run `python3 ArtSource/dao/prepare_dao_grip.py` from the project root to rebuild.
+It changes the node frame, preserves the mesh/material/image definitions and
+copies the GLB binary payload unchanged. Blender 4.5.15 reimport confirms
+13 meshes, 3722 triangles, 8 materials and bounds of approximately
+0.104 × 0.039 × 0.967 m. All transformed vertices match the source rigid
+coordinate transform within 0.000001 m. Main coordinates presentation on
+the virtual hand and runtime grip review.

@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assert.assertThrows
 import org.junit.Test
@@ -116,6 +117,116 @@ class PicoTrackingAdapterTest {
         events.forEach(state::accept)
         assertTrue(state.snapshot.hasRequiredObservations)
         assertEquals(rightRevision, state.snapshot.rightContinuity)
+        adapter.stop()
+    }
+
+    @Test
+    fun emulatorPreviewPairsDesktopHeadAndHandsAndIgnoresRealControllers() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
+        val state = TrackingState(Hand.RIGHT)
+        adapter.start()
+        buffer.drain().events.forEach(state::accept)
+
+        controllers.emit(hands(left = controller(-9f), right = controller(9f)))
+        assertTrue(buffer.drain().events.isEmpty())
+        assertFalse(state.snapshot.hasRequiredObservations)
+
+        hmd.emit(head())
+        val pair = buffer.drain().events
+        assertEquals(2, pair.size)
+        val headEvent = pair[0] as TrackingEvent.Head
+        val handEvent = pair[1] as TrackingEvent.Controllers
+        assertEquals(InputOrigin.DESKTOP, headEvent.stamp.origin)
+        assertEquals(InputOrigin.DESKTOP, handEvent.stamp.origin)
+        assertEquals(headEvent.stamp.sequence + 1, handEvent.stamp.sequence)
+        assertEquals(headEvent.stamp.coordinateEpoch, handEvent.stamp.coordinateEpoch)
+        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(headEvent.pose).quality)
+        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(handEvent.left).quality)
+        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(handEvent.right).quality)
+
+        assertTrue(state.accept(headEvent))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertTrue(state.accept(handEvent))
+        assertTrue(state.snapshot.hasRequiredObservations)
+        assertEquals(headEvent.stamp, state.snapshot.head?.stamp)
+        assertEquals(handEvent.stamp, state.snapshot.left?.stamp)
+        assertEquals(handEvent.stamp, state.snapshot.right?.stamp)
+
+        controllers.emit(hands())
+        assertTrue(buffer.drain().events.isEmpty())
+        adapter.stop()
+    }
+
+    @Test
+    fun emulatorPreviewLossClearsThePairAndRecoveryRequiresNewObservations() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
+        val state = TrackingState(Hand.RIGHT)
+        val sample = head()
+        adapter.start()
+        buffer.drain().events.forEach(state::accept)
+        hmd.emit(sample)
+        val oldPair = buffer.drain().events
+        assertEquals(2, oldPair.size)
+        oldPair.forEach { assertTrue(state.accept(it)) }
+        assertTrue(state.snapshot.hasRequiredObservations)
+        val beforeLoss = state.snapshot
+
+        hmd.state = DataProvider.State.PENDING
+        hmd.supportState = DataProvider.SupportState.DEVICE_NOT_SUPPORTED
+        adapter.pollAvailability()
+        adapter.pollAvailability()
+        val loss = buffer.drain().events.single() as TrackingEvent.Discontinuity
+        assertEquals(InputOrigin.DESKTOP, loss.stamp.origin)
+        assertEquals(TrackingTarget.ALL, loss.target)
+        assertEquals(DiscontinuityReason.PROVIDER_UNAVAILABLE, loss.reason)
+        assertTrue(state.accept(loss))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertNull(state.snapshot.head)
+        assertNull(state.snapshot.left)
+        assertNull(state.snapshot.right)
+        assertEquals(beforeLoss.headContinuity + 1, state.snapshot.headContinuity)
+        assertEquals(beforeLoss.leftContinuity + 1, state.snapshot.leftContinuity)
+        assertEquals(beforeLoss.rightContinuity + 1, state.snapshot.rightContinuity)
+
+        hmd.emit(sample)
+        controllers.emit(hands())
+        assertTrue(buffer.drain().events.isEmpty())
+        assertFalse(state.snapshot.hasRequiredObservations)
+
+        hmd.state = DataProvider.State.STARTED
+        hmd.supportState = DataProvider.SupportState.SUPPORTED
+        adapter.pollAvailability()
+        assertTrue(buffer.drain().events.isEmpty())
+        assertFalse(state.snapshot.hasRequiredObservations)
+        oldPair.forEach {
+            assertFalse(state.accept(it))
+            assertFalse(state.snapshot.hasRequiredObservations)
+        }
+        val beforeRecovery = state.snapshot
+
+        hmd.emit(sample)
+        val newPair = buffer.drain().events
+        assertEquals(2, newPair.size)
+        assertTrue(newPair.first().stamp.sequence > loss.stamp.sequence)
+        assertEquals(loss.stamp.coordinateEpoch, newPair.first().stamp.coordinateEpoch)
+        assertTrue(state.accept(newPair[0]))
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertTrue(state.accept(newPair[1]))
+        assertTrue(state.snapshot.hasRequiredObservations)
+        assertEquals(newPair[0].stamp, state.snapshot.head?.stamp)
+        assertEquals(newPair[1].stamp, state.snapshot.left?.stamp)
+        assertEquals(newPair[1].stamp, state.snapshot.right?.stamp)
+        assertEquals(beforeRecovery.headContinuity, state.snapshot.headContinuity)
+        assertEquals(beforeRecovery.leftContinuity, state.snapshot.leftContinuity)
+        assertEquals(beforeRecovery.rightContinuity, state.snapshot.rightContinuity)
         adapter.stop()
     }
 
