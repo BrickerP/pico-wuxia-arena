@@ -83,7 +83,7 @@ private val STANDING_CONTACT_POSE = EnemyContactPose(
 
 private data class ContactPoseKey(val sourceSeconds: Double, val pose: EnemyContactPose)
 
-// base source SHA-256 a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22
+// base source SHA-256 a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889
 private val BASE_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
         head = Vector3(0.095559, 1.555521, 0.292081),
@@ -122,7 +122,7 @@ private val BASE_CONTACT_KEYS = listOf(
     )),
 )
 
-// indigo source SHA-256 6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d
+// indigo source SHA-256 e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe
 private val INDIGO_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
         head = Vector3(0.071524, 1.573468, 0.270420),
@@ -161,7 +161,7 @@ private val INDIGO_CONTACT_KEYS = listOf(
     )),
 )
 
-// veteran source SHA-256 f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39
+// veteran source SHA-256 6085e905e68c22f67249b5c8e3e35e334bbee0185d479667f4ca97f87777a0ea
 private val VETERAN_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
         head = Vector3(0.080244, 1.573472, 0.296548),

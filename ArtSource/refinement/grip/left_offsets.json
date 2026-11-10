@@ -1,0 +1,58 @@
+{
+  "composition": "native_local_quaternion @ Qx(localXdegrees) @ Qz(localZdegrees)",
+  "maximum_vector_degrees_per_bone": 18,
+  "preserved": "wrist/body transforms, clip time inputs, blade geometry/mount, mesh, inverse binds, weights",
+  "offsets_by_character": {
+    "base": {},
+    "indigo": {
+      "L_Ring2": [
+        -9.0,
+        0.0
+      ]
+    },
+    "veteran": {
+      "L_Pinky1": [
+        0.0,
+        -18.0
+      ]
+    }
+  },
+  "validation": {
+    "indigo": {
+      "input_sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
+      "sampled_poses": 65,
+      "before": {
+        "summed_confirmed_pairs": 299,
+        "maximum_confirmed_pairs": 43,
+        "summed_near3mm_samples": 224,
+        "min_unsigned_surface_gap_mm": 0.05238883022684604
+      },
+      "after": {
+        "summed_confirmed_pairs": 275,
+        "maximum_confirmed_pairs": 33,
+        "summed_near3mm_samples": 213,
+        "min_unsigned_surface_gap_mm": 0.05238883022684604
+      },
+      "no_pose_increases_crossings_or_near3mm_samples": true,
+      "remaining_limitation": "residual discrete blade/finger surface crossings remain; candidate is partial improvement, no collision-free claim"
+    },
+    "veteran": {
+      "input_sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
+      "sampled_poses": 65,
+      "before": {
+        "summed_confirmed_pairs": 72,
+        "maximum_confirmed_pairs": 23,
+        "summed_near3mm_samples": 53,
+        "min_unsigned_surface_gap_mm": 0.09972558473236859
+      },
+      "after": {
+        "summed_confirmed_pairs": 23,
+        "maximum_confirmed_pairs": 23,
+        "summed_near3mm_samples": 13,
+        "min_unsigned_surface_gap_mm": 0.9623235673643649
+      },
+      "no_pose_increases_crossings_or_near3mm_samples": true,
+      "remaining_limitation": "residual discrete blade/finger surface crossings remain; candidate is partial improvement, no collision-free claim"
+    }
+  }
+}

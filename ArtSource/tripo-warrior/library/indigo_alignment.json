@@ -41,8 +41,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "b7bf517f2487e10e1f524684d381a990bbed730a116da5e8112d32e90c32b693",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "f1f315cf4051cef7c82801f85830d3110cc67edd8bd7f3283d2561cd40a2ebbc",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "b7bf517f2487e10e1f524684d381a990bbed730a116da5e8112d32e90c32b693"
     },
     {
       "name": "walk",
@@ -56,8 +57,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "056e27e21caf2b590911ad4c2565b155998223740921de4422f25afb85fb6c12",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "c9e0ee02dc122e1324b601934062cc72b42140efa79169ff8a4125df48d0fd91",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "056e27e21caf2b590911ad4c2565b155998223740921de4422f25afb85fb6c12"
     },
     {
       "name": "fall",
@@ -71,8 +73,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "eb15e4bea6184daae1014e9825ef4945fca86c7bc8792e4c38f5df1b71b39462",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "926aaaa05eb60170841c6074390ee5705c135be41df7c6a49d039ddec4fcdf71",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "eb15e4bea6184daae1014e9825ef4945fca86c7bc8792e4c38f5df1b71b39462"
     },
     {
       "name": "turn",
@@ -86,8 +89,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "5b49364ef4555e5ed8c28c91d311f99a06ccdccf4e102513661be09e50cab9ab",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "c491df78722b317ae2830cad7bf1d4d61dbc016cb7498de1c25bcf29127b55db",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "5b49364ef4555e5ed8c28c91d311f99a06ccdccf4e102513661be09e50cab9ab"
     },
     {
       "name": "hit_body",
@@ -101,8 +105,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "3c0ad031739e97451d87b62ad12b68c56f6a231b77d2bf9222a81da4228026f0",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "0e6cb06fa6a70b00a79a4696e3a28d0b8d6ba52f18faab2cb066d9a9cb3f75d8",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "3c0ad031739e97451d87b62ad12b68c56f6a231b77d2bf9222a81da4228026f0"
     },
     {
       "name": "hit_head",
@@ -116,8 +121,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "de08abf49f97a5af5261568d881d03107fbd18cb99cc3b6e03c5d4967e4f1919",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "5e95431ac1328694c1f481aee1550ed47deeb4a6b43483678ae5256fc262b66e",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "de08abf49f97a5af5261568d881d03107fbd18cb99cc3b6e03c5d4967e4f1919"
     },
     {
       "name": "hit_side",
@@ -131,8 +137,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "4a65b06550c4409f5faa7363b279ef0853a475ae796c4de2c347989c2654122d",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "17d83b5ef7bd7f87ccfb054336969be85395a4574fc63c182e6a3ef1a90b1148",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "4a65b06550c4409f5faa7363b279ef0853a475ae796c4de2c347989c2654122d"
     },
     {
       "name": "slash",
@@ -147,8 +154,9 @@
         "LINEAR",
         "STEP"
       ],
-      "keyframe_semantics_sha256": "e91f074ff4dc1f55933b1ec5208beb589315be24d44d5ca12e805f38ba3e9a92",
-      "max_default_local_matrix_difference": 2.455851063132286e-05
+      "keyframe_semantics_sha256": "c3c8719a473bac3fa7ed60462ac3d6dd281050a7350c6ba737a83356ff37e6d1",
+      "max_default_local_matrix_difference": 2.455851063132286e-05,
+      "source_keyframe_semantics_sha256": "e91f074ff4dc1f55933b1ec5208beb589315be24d44d5ca12e805f38ba3e9a92"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -330,15 +338,103 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 13755120,
-      "sha256": "0c42bb8ac263a1136394b4f3102107871f62be84207a16c949ef9b9a52e9837d"
+      "bytes": 13937492,
+      "sha256": "d219cc478c73d882a27887619a14521ce887df257653e60c327c9117666f93f5"
     },
     {
       "file": "indigo.glb",
-      "bytes": 14625912,
-      "sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d"
+      "bytes": 14808284,
+      "sha256": "e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe"
     }
   ],
+  "finger_rotation_calibration": {
+    "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+    "offsets": {
+      "L_Ring2": {
+        "x_degrees": -9.0,
+        "z_degrees": 0.0
+      },
+      "R_Ring2": {
+        "x_degrees": -1.5,
+        "z_degrees": 0.0
+      },
+      "R_Ring1": {
+        "x_degrees": -7.5,
+        "z_degrees": 3.0
+      },
+      "R_Mid2": {
+        "x_degrees": 0.0,
+        "z_degrees": 6.0
+      },
+      "R_Thumb3": {
+        "x_degrees": -1.5,
+        "z_degrees": -3.0
+      },
+      "R_Thumb2": {
+        "x_degrees": 1.5,
+        "z_degrees": 1.5
+      },
+      "R_Thumb1": {
+        "x_degrees": 1.5,
+        "z_degrees": 1.5
+      },
+      "R_Index3": {
+        "x_degrees": 1.5,
+        "z_degrees": 3.0
+      },
+      "R_Index2": {
+        "x_degrees": -1.5,
+        "z_degrees": 6.0
+      },
+      "R_Index1": {
+        "x_degrees": -1.5,
+        "z_degrees": 0.0
+      },
+      "R_Pinky2": {
+        "x_degrees": 1.5,
+        "z_degrees": 0.0
+      },
+      "R_Pinky1": {
+        "x_degrees": -4.5,
+        "z_degrees": 12.0
+      }
+    },
+    "clips": [
+      {
+        "clip": "idle",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "walk",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "fall",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "turn",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "hit_body",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "hit_head",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "hit_side",
+        "modified_rotation_tracks": 12
+      },
+      {
+        "clip": "slash",
+        "modified_rotation_tracks": 12
+      }
+    ],
+    "modified_rotation_tracks": 96
+  },
   "id": "indigo",
   "name": "青衫护院",
   "retargeting": [
@@ -473,5 +569,14 @@
     "source": "expanded/indigo/tripo-out/bc292084-retarget-12bbb9fd/model.glb",
     "source_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
     "time_seconds": 2.117
+  },
+  "finger_rotation_review": {
+    "calibration_file": "../refinement/grip/calibration.json",
+    "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
+    "target_rig_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+    "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+    "grip_time_seconds": 2.117,
+    "reviewed_source_asset_sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
+    "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43"
   }
 }

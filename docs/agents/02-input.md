@@ -72,3 +72,45 @@
 主控已查看持刀手同机位图和玄甲1.833秒、青衫3.133秒残余图，接受本阶段指姿的局部改善接入正式producer。指标代表离散代理与交叉采样，掌指自然度和残余刀面穿插继续待修。
 
 下一阶段仅在offhand子目录制作slash的非持刀侧局部腕／必要前臂与手指修正，优先青衫3.133／3.167秒与玄甲1.55秒，采用平滑起止和完整关键姿态检查。右手与刀具轨迹继续固定，原rest、骨长与skin保持。新候选独立评审后由主控统一接入现有制作入口。
+
+## 非持刀侧局部腕／前臂阶段交付
+
+**阶段结束，交主控 review，本回合直接结束。** 新产物全部位于 [offhand 候选目录](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/README.md)。输入固定为上阶段已审核的 `grip/candidates` 哈希，保留上阶段 candidate/calibration。当前正式 library 已由主控发布时，仍使用固定候选基线。
+
+### 最终实物和参数
+
+| 角色 | 新候选 | slash 唯一修改 | 包络起点／全幅起点／全幅终点／终点 |
+| --- | --- | --- | --- |
+| 青衫 | [indigo.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/candidates/indigo.glb) | L_Hand 局部 X +8° | 1.80／2.00／3.40／3.60 秒 |
+| 玄甲 V2 | [veteran.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/candidates/veteran.glb) | L_Forearm 局部 Z +4° | 1.50／1.55／1.72／1.95 秒 |
+
+原生运动继续播放，校正右乘到原生局部四元数。全部原关键帧保留，局部窗口加入 60 Hz 与四分之一抬升点采样，窗外校正为零，源动作范围仍为约 0.033333–6.6 秒。原 rest、骨长、skin、权重、逆绑定、网格和其他七动作均保持，右手与刀具轨道保持原语义。玄甲允许的左腕位置变化峰值为 15.833 mm。
+
+玄甲初版 +12° 腕姿在提前抬手 1.3–1.5 秒增加交叉，已退回并保留 [拒绝证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/rejected_wrist_audit.json)。最终 V2 将修改缩为上述 4° 前臂局部窗，完整审计未见新增交叉回归。导出 LINEAR 轨道为 C0 连续采样近似，接缝斜率已记录，解析余弦包络的零导数不作为导出轨道的严格 C1 保证。
+
+### 密集审计与剩余边界
+
+[独立审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/audit.json)检查 1–4 秒的 120 Hz、四分之一抬升点和接缝 ±1 ms，青衫 370 个姿态、玄甲 373 个姿态均未增加确认交叉。
+
+| 指定 1.55–3.4 秒范围 | 青衫 | 玄甲 V2 |
+| --- | --- | --- |
+| 密集采样数 | 229 | 230 |
+| 累计确认非共面三角形交叉对 | 1100→0 | 44→0 |
+| 采样左手顶点到刀面最小无符号距离 | 2.428 mm | 4.589 mm |
+| 3 mm 内顶点累计数 | 748→19 | 38→0 |
+
+目标关键区间的离散交叉已清开，连续时间及共面交叠仍未获得全量证明。青衫约 1.325–1.408 秒、玄甲约 1.142–1.533 秒与 3.65–4 秒仍有原生交叉，位于本次目标范围之外并已保留审计。护手自然度、掌指观感和正式设备画面继续由主控审查。
+
+### 同机位图与动作
+
+- 青衫 [3.133 秒近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/indigo_left_slash_3133_before_after.png)、[3.167 秒侧面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/indigo_left_side_slash_3167_before_after.png)及[左臂护手全貌](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/indigo_arm_slash_3167_before_after.png)。
+- 玄甲 [1.55 秒掌部](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/veteran_left_slash_1550_before_after.png)、[1.516667 秒过渡](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/veteran_arm_slash_1517_before_after.png)与[1.533333 秒过渡](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/veteran_arm_slash_1533_before_after.png)。
+- [青衫十帧片段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/indigo_slash_before_after.gif)、[玄甲十帧片段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/veteran_slash_before_after.gif)与[相机／最终哈希清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/previews/render_manifest.json)。
+
+已完成离线实际蒙皮渲染与目检，全部最终图对应青衫 `398e3aa9…`、玄甲 V2 `6379628c…`，完整 SHA 见 [calibration.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/offhand/calibration.json)。2 个固定哈希确定性回放、2 组包络检查与 6 个边界拒绝实际通过，独立核对旋转公式、窗外零修正、源时间保留、结构和右手／刀具一致性通过。源指姿候选仍为 `4516458a…` 和 `010e80a0…`。
+
+主控可按 README 将本包络接入唯一 producer 的已审核指姿阶段之后，正式发布预期保留 22 个完整动作，另外两个 slash 各只更改上述一个左侧旋转轨道。本会话费用 0，阶段交付结束，后续正式发布与设备验收由主控统一执行。
+
+## 主控正式发布指姿
+
+已把已审核指姿接入prepare_character_library→prepare_character唯一生产链，绑定raw rig／grip源SHA与采样时刻，防换源误套旧校正。主控实际生成三角色body／带刀版本和索引，24份动作的语义签名及rest节点与审核candidate完全一致，再以分组发布同步app副本。生产身份见production_receipt.json，原Tripo源保留。剩余offhand第二阶段继续独立评审。

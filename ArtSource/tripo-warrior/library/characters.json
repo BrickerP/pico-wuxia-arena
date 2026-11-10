@@ -18,13 +18,13 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 5921104,
-          "sha256": "286f6d09d3c928624aa9aede344d7e69a08fadb5cd019228a3b34c5a02d342cf"
+          "bytes": 6070384,
+          "sha256": "30a06a5ee6258df739f6c73afd2e72223601a60fcb50dd8b083cb2d70ef0211b"
         },
         {
           "file": "base.glb",
-          "bytes": 6791824,
-          "sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22"
+          "bytes": 6941104,
+          "sha256": "a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889"
         }
       ]
     },
@@ -46,13 +46,13 @@
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 13755120,
-          "sha256": "0c42bb8ac263a1136394b4f3102107871f62be84207a16c949ef9b9a52e9837d"
+          "bytes": 13937492,
+          "sha256": "d219cc478c73d882a27887619a14521ce887df257653e60c327c9117666f93f5"
         },
         {
           "file": "indigo.glb",
-          "bytes": 14625912,
-          "sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d"
+          "bytes": 14808284,
+          "sha256": "e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe"
         }
       ]
     },
@@ -74,13 +74,13 @@
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 13312440,
-          "sha256": "45172fb5315d6aae54a7b8812ee21f6e325c3e6cace357bfd068a6984b9e9bff"
+          "bytes": 13435068,
+          "sha256": "c395f1801d99dc6fa8d82108b8e582940accbb33d9f4031a9d9484dd7f4a10fc"
         },
         {
           "file": "veteran.glb",
-          "bytes": 14183244,
-          "sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39"
+          "bytes": 14305872,
+          "sha256": "6085e905e68c22f67249b5c8e3e35e334bbee0185d479667f4ca97f87777a0ea"
         }
       ]
     }

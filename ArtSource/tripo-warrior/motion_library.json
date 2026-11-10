@@ -52,7 +52,58 @@
         "time_seconds": 2.117
       },
       "height_metres": 1.78,
-      "output": "base.glb"
+      "output": "base.glb",
+      "finger_rotation_offsets": {
+        "R_Ring2": {
+          "x_degrees": -4.5,
+          "z_degrees": 0.0
+        },
+        "R_Ring1": {
+          "x_degrees": 1.5,
+          "z_degrees": -1.5
+        },
+        "R_Mid3": {
+          "x_degrees": 3.0,
+          "z_degrees": 7.5
+        },
+        "R_Mid2": {
+          "x_degrees": 4.5,
+          "z_degrees": 6.0
+        },
+        "R_Thumb1": {
+          "x_degrees": 0.0,
+          "z_degrees": 6.0
+        },
+        "R_Index2": {
+          "x_degrees": 0.0,
+          "z_degrees": 1.5
+        },
+        "R_Index1": {
+          "x_degrees": -7.5,
+          "z_degrees": 3.0
+        },
+        "R_Pinky3": {
+          "x_degrees": -1.5,
+          "z_degrees": 1.5
+        },
+        "R_Pinky2": {
+          "x_degrees": 0.0,
+          "z_degrees": 1.5
+        },
+        "R_Pinky1": {
+          "x_degrees": -6.0,
+          "z_degrees": 0.0
+        }
+      },
+      "finger_rotation_review": {
+        "calibration_file": "../refinement/grip/calibration.json",
+        "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
+        "target_rig_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+        "target_grip_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+        "grip_time_seconds": 2.117,
+        "reviewed_source_asset_sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
+        "reviewed_candidate_asset_sha256": "7fe40c92c431300f641fbf46437bd793f84d8455864299a6e3580e673d19300c"
+      }
     },
     {
       "id": "indigo",
@@ -83,7 +134,66 @@
         0.06671556085348129,
         -0.019212497398257256,
         1.0
-      ]
+      ],
+      "finger_rotation_offsets": {
+        "L_Ring2": {
+          "x_degrees": -9.0,
+          "z_degrees": 0.0
+        },
+        "R_Ring2": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        },
+        "R_Ring1": {
+          "x_degrees": -7.5,
+          "z_degrees": 3.0
+        },
+        "R_Mid2": {
+          "x_degrees": 0.0,
+          "z_degrees": 6.0
+        },
+        "R_Thumb3": {
+          "x_degrees": -1.5,
+          "z_degrees": -3.0
+        },
+        "R_Thumb2": {
+          "x_degrees": 1.5,
+          "z_degrees": 1.5
+        },
+        "R_Thumb1": {
+          "x_degrees": 1.5,
+          "z_degrees": 1.5
+        },
+        "R_Index3": {
+          "x_degrees": 1.5,
+          "z_degrees": 3.0
+        },
+        "R_Index2": {
+          "x_degrees": -1.5,
+          "z_degrees": 6.0
+        },
+        "R_Index1": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        },
+        "R_Pinky2": {
+          "x_degrees": 1.5,
+          "z_degrees": 0.0
+        },
+        "R_Pinky1": {
+          "x_degrees": -4.5,
+          "z_degrees": 12.0
+        }
+      },
+      "finger_rotation_review": {
+        "calibration_file": "../refinement/grip/calibration.json",
+        "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
+        "target_rig_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+        "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+        "grip_time_seconds": 2.117,
+        "reviewed_source_asset_sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
+        "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43"
+      }
     },
     {
       "id": "veteran",
@@ -114,7 +224,50 @@
         0.04748240113258362,
         -0.026754900813102722,
         1.0
-      ]
+      ],
+      "finger_rotation_offsets": {
+        "L_Pinky1": {
+          "x_degrees": 0.0,
+          "z_degrees": -18.0
+        },
+        "R_Ring2": {
+          "x_degrees": -3.0,
+          "z_degrees": -1.5
+        },
+        "R_Mid1": {
+          "x_degrees": 1.5,
+          "z_degrees": 0.0
+        },
+        "R_Thumb3": {
+          "x_degrees": -6.0,
+          "z_degrees": 0.0
+        },
+        "R_Thumb2": {
+          "x_degrees": 7.5,
+          "z_degrees": 1.5
+        },
+        "R_Index2": {
+          "x_degrees": -1.5,
+          "z_degrees": 3.0
+        },
+        "R_Index1": {
+          "x_degrees": -4.5,
+          "z_degrees": 0.0
+        },
+        "R_Pinky2": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        }
+      },
+      "finger_rotation_review": {
+        "calibration_file": "../refinement/grip/calibration.json",
+        "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
+        "target_rig_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+        "target_grip_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+        "grip_time_seconds": 2.117,
+        "reviewed_source_asset_sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
+        "reviewed_candidate_asset_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3"
+      }
     }
   ]
 }

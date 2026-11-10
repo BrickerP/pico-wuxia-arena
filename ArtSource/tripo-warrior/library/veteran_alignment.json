@@ -41,8 +41,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "2b1f6ad21d29dacb54c67cb57f28fd8dd5f5244b6419bdfebdec9ca916d4c80d",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "2f0f834eddd87c1f8e9f87c4cce23eaa1554917c96d9a014c2fdc0e3779facce",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "2b1f6ad21d29dacb54c67cb57f28fd8dd5f5244b6419bdfebdec9ca916d4c80d"
     },
     {
       "name": "walk",
@@ -56,8 +57,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "16a8d8d7eea369e66ea79d64b452a4eb1dd0f43df9dad21db7778d21ea468688",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "3afabcc18ae6ffc19d91f9b9f93b324a0d8758c413e07d727dcfca519176921e",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "16a8d8d7eea369e66ea79d64b452a4eb1dd0f43df9dad21db7778d21ea468688"
     },
     {
       "name": "fall",
@@ -71,8 +73,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "1baaf99b0f9bb0a4ede50fd742dd1e1be56177c0e9a5014d6c1a30d19a6cba7c",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "89243b0b743579019bce47a771c8af742c54dc34c3ca91f429a699a6a79275bf",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "1baaf99b0f9bb0a4ede50fd742dd1e1be56177c0e9a5014d6c1a30d19a6cba7c"
     },
     {
       "name": "turn",
@@ -86,8 +89,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "9171ed3b073f119e98b518b252219f390be1ef18f9c1c0c0aa0aa7d17124deac",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "418ad23b4afbc60368f1d17bafe7fa247b7daf1464c9836479e99598de33a7f2",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "9171ed3b073f119e98b518b252219f390be1ef18f9c1c0c0aa0aa7d17124deac"
     },
     {
       "name": "hit_body",
@@ -101,8 +105,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "81006d023b32cd6ab3a017e8c72692e8395338abc05b52e3335971f1b477fa94",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "e218c15b4fb244e623016fbb014422fc80efc5cf9da92c5b4f55b5a87d03c127",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "81006d023b32cd6ab3a017e8c72692e8395338abc05b52e3335971f1b477fa94"
     },
     {
       "name": "hit_head",
@@ -116,8 +121,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "eed87b6748001f763aa460f99e44f509ff0cb9f482c1bcb5e20c7b51d899f4ab",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "fb87772af2e96e751c8cc91dbc8ae454db29066951294a24df30d603dd5bdb51",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "eed87b6748001f763aa460f99e44f509ff0cb9f482c1bcb5e20c7b51d899f4ab"
     },
     {
       "name": "hit_side",
@@ -131,8 +137,9 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "0977364e8657954b65ccb0c1411a6cdefdda6d4329e5da62837d3465db1fc95c",
-      "max_default_local_matrix_difference": 0.0
+      "keyframe_semantics_sha256": "ab1f8b7959f551f4578b02d503fbfe4c57af415934c8340f77fa7b10f601b729",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "0977364e8657954b65ccb0c1411a6cdefdda6d4329e5da62837d3465db1fc95c"
     },
     {
       "name": "slash",
@@ -147,8 +154,9 @@
         "LINEAR",
         "STEP"
       ],
-      "keyframe_semantics_sha256": "4859dd9bd476a1c549c5f1e835afaaa0698932a65c43ecb1b20a5a57abb3b190",
-      "max_default_local_matrix_difference": 1.0609626770019531e-05
+      "keyframe_semantics_sha256": "8ec97beae2ee4013cf55b36d1ca68780f320fd3be83cf4eb52586867a9d39c33",
+      "max_default_local_matrix_difference": 1.0609626770019531e-05,
+      "source_keyframe_semantics_sha256": "4859dd9bd476a1c549c5f1e835afaaa0698932a65c43ecb1b20a5a57abb3b190"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -330,15 +338,87 @@
   "outputs": [
     {
       "file": "veteran_body.glb",
-      "bytes": 13312440,
-      "sha256": "45172fb5315d6aae54a7b8812ee21f6e325c3e6cace357bfd068a6984b9e9bff"
+      "bytes": 13435068,
+      "sha256": "c395f1801d99dc6fa8d82108b8e582940accbb33d9f4031a9d9484dd7f4a10fc"
     },
     {
       "file": "veteran.glb",
-      "bytes": 14183244,
-      "sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39"
+      "bytes": 14305872,
+      "sha256": "6085e905e68c22f67249b5c8e3e35e334bbee0185d479667f4ca97f87777a0ea"
     }
   ],
+  "finger_rotation_calibration": {
+    "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+    "offsets": {
+      "L_Pinky1": {
+        "x_degrees": 0.0,
+        "z_degrees": -18.0
+      },
+      "R_Ring2": {
+        "x_degrees": -3.0,
+        "z_degrees": -1.5
+      },
+      "R_Mid1": {
+        "x_degrees": 1.5,
+        "z_degrees": 0.0
+      },
+      "R_Thumb3": {
+        "x_degrees": -6.0,
+        "z_degrees": 0.0
+      },
+      "R_Thumb2": {
+        "x_degrees": 7.5,
+        "z_degrees": 1.5
+      },
+      "R_Index2": {
+        "x_degrees": -1.5,
+        "z_degrees": 3.0
+      },
+      "R_Index1": {
+        "x_degrees": -4.5,
+        "z_degrees": 0.0
+      },
+      "R_Pinky2": {
+        "x_degrees": -1.5,
+        "z_degrees": 0.0
+      }
+    },
+    "clips": [
+      {
+        "clip": "idle",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "walk",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "fall",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "turn",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "hit_body",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "hit_head",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "hit_side",
+        "modified_rotation_tracks": 8
+      },
+      {
+        "clip": "slash",
+        "modified_rotation_tracks": 8
+      }
+    ],
+    "modified_rotation_tracks": 64
+  },
   "id": "veteran",
   "name": "玄甲守擂",
   "retargeting": [
@@ -473,5 +553,14 @@
     "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
     "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
     "time_seconds": 2.117
+  },
+  "finger_rotation_review": {
+    "calibration_file": "../refinement/grip/calibration.json",
+    "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
+    "target_rig_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+    "target_grip_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+    "grip_time_seconds": 2.117,
+    "reviewed_source_asset_sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
+    "reviewed_candidate_asset_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3"
   }
 }

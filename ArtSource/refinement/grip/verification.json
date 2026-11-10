@@ -1,0 +1,48 @@
+{
+  "characters": [
+    {
+      "id": "base",
+      "modified_finger_rotation_tracks": 80,
+      "preservation_passed": true,
+      "rejected_boundary_cases": [
+        "rest_node_mutation",
+        "time_accessor_mutation",
+        "source_buffer_mutation",
+        "wrong_corrected_quaternion",
+        "nonfinite_corrected_quaternion",
+        "rotation_key_count_mutation",
+        "unreviewed_left_joint"
+      ]
+    },
+    {
+      "id": "indigo",
+      "modified_finger_rotation_tracks": 96,
+      "preservation_passed": true,
+      "rejected_boundary_cases": [
+        "rest_node_mutation",
+        "time_accessor_mutation",
+        "source_buffer_mutation",
+        "wrong_corrected_quaternion",
+        "nonfinite_corrected_quaternion",
+        "rotation_key_count_mutation",
+        "unreviewed_left_joint"
+      ]
+    },
+    {
+      "id": "veteran",
+      "modified_finger_rotation_tracks": 64,
+      "preservation_passed": true,
+      "rejected_boundary_cases": [
+        "rest_node_mutation",
+        "time_accessor_mutation",
+        "source_buffer_mutation",
+        "wrong_corrected_quaternion",
+        "nonfinite_corrected_quaternion",
+        "rotation_key_count_mutation",
+        "unreviewed_left_joint"
+      ]
+    }
+  ],
+  "happy_paths": 3,
+  "boundary_rejections": 21
+}

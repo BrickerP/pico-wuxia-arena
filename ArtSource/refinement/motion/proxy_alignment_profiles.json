@@ -12,7 +12,7 @@
     {
       "actor": "base",
       "source": "app/src/main/assets/models/opponents/base.glb",
-      "sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
+      "sha256": "a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889",
       "calibration": {
         "clip": "idle",
         "source_seconds": 1.0,
@@ -370,7 +370,7 @@
     {
       "actor": "indigo",
       "source": "app/src/main/assets/models/opponents/indigo.glb",
-      "sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
+      "sha256": "e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe",
       "calibration": {
         "clip": "idle",
         "source_seconds": 1.0,
@@ -728,7 +728,7 @@
     {
       "actor": "veteran",
       "source": "app/src/main/assets/models/opponents/veteran.glb",
-      "sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
+      "sha256": "6085e905e68c22f67249b5c8e3e35e334bbee0185d479667f4ca97f87777a0ea",
       "calibration": {
         "clip": "idle",
         "source_seconds": 1.0,

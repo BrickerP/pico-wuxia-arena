@@ -2,7 +2,7 @@
   "schema": "wuxia.source-contact-anchor-measurement/v1",
   "measured_on": "2026-11-10",
   "source": "app/src/main/assets/models/opponents/base.glb",
-  "sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
+  "sha256": "a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889",
   "frame": {
     "relative_to": "TripoWarrior_Root",
     "units": "metres",

@@ -263,6 +263,82 @@ def append_animations(doc, binary, reference, clip_sources=None):
     return bytes(packed), records
 
 
+def apply_finger_rotation_offsets(doc, binary, offsets):
+    """Apply reviewed local X/Z offsets once to freshly merged finger tracks."""
+    if not offsets:
+        return binary, None
+    joint_nodes = {doc['nodes'][index]['name']: index for index in doc['skins'][0]['joints']}
+    finger_names = {side + finger + str(segment)
+                    for side in ('L_', 'R_')
+                    for finger in ('Thumb', 'Index', 'Mid', 'Ring', 'Pinky')
+                    for segment in (1, 2, 3)}
+    rotations = {}
+    for name, angles in offsets.items():
+        if name not in finger_names or name not in joint_nodes:
+            raise ValueError('finger calibration targets an unavailable finger joint: ' + name)
+        if set(angles) != {'x_degrees', 'z_degrees'}:
+            raise ValueError('finger calibration requires local X/Z angles: ' + name)
+        x, z = angles['x_degrees'], angles['z_degrees']
+        if not all(isinstance(value, (int, float)) and not isinstance(value, bool)
+                   and math.isfinite(value) for value in (x, z)):
+            raise ValueError('finger calibration angles must be finite numbers: ' + name)
+        rotations[joint_nodes[name]] = (
+            name, Quaternion((1, 0, 0), math.radians(x)) @ Quaternion((0, 0, 1), math.radians(z)))
+
+    packed = bytearray(binary)
+    clips = []
+    for animation in doc['animations']:
+        references = {}
+        for channel in animation['channels']:
+            index = channel['sampler']
+            references[index] = references.get(index, 0) + 1
+        modified = set()
+        for channel in animation['channels']:
+            target = channel['target']
+            if target['path'] != 'rotation' or target['node'] not in rotations:
+                continue
+            name, delta = rotations[target['node']]
+            if name in modified:
+                raise ValueError('duplicate finger rotation channel: ' + name)
+            sampler_index = channel['sampler']
+            sampler = animation['samplers'][sampler_index]
+            if sampler.get('interpolation', 'LINEAR') not in {'LINEAR', 'STEP'}:
+                raise ValueError('finger calibration requires LINEAR/STEP quaternion interpolation')
+            accessor = doc['accessors'][sampler['output']]
+            if accessor['componentType'] != 5126 or accessor['type'] != 'VEC4':
+                raise ValueError('finger rotation output must be FLOAT VEC4')
+            values = accessor_bytes(doc, binary, sampler['output'])
+            output = bytearray()
+            for x, y, z, w in struct.iter_unpack('<4f', values):
+                if not all(math.isfinite(value) for value in (x, y, z, w)) or x*x + y*y + z*z + w*w <= 1e-12:
+                    raise ValueError('finger rotation contains an invalid quaternion: ' + name)
+                q = (Quaternion((w, x, y, z)) @ delta).normalized()
+                output.extend(struct.pack('<4f', q.x, q.y, q.z, q.w))
+            packed.extend(b'\0' * (-len(packed) % 4))
+            view = len(doc['bufferViews'])
+            doc['bufferViews'].append({'buffer': 0, 'byteOffset': len(packed), 'byteLength': len(output)})
+            packed.extend(output)
+            output_index = len(doc['accessors'])
+            doc['accessors'].append({'bufferView': view, 'componentType': 5126,
+                                     'count': accessor['count'], 'type': 'VEC4'})
+            # A shared sampler may also serve a different finger or an uncalibrated joint.
+            if references[sampler_index] > 1:
+                sampler = copy.deepcopy(sampler)
+                channel['sampler'] = len(animation['samplers'])
+                animation['samplers'].append(sampler)
+            sampler['output'] = output_index
+            modified.add(name)
+        if modified != set(offsets):
+            raise ValueError('clip lacks calibrated finger rotation tracks: ' + animation['name'])
+        clips.append({'clip': animation['name'], 'modified_rotation_tracks': len(modified)})
+    doc['buffers'][0]['byteLength'] = len(packed)
+    return bytes(packed), {
+        'application': 'normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space',
+        'offsets': copy.deepcopy(offsets), 'clips': clips,
+        'modified_rotation_tracks': sum(row['modified_rotation_tracks'] for row in clips),
+    }
+
+
 def append_dao(doc, binary, hand, mount):
     """Bake the dao into body bind space and rigidly skin it to R_Hand."""
     dao, original_binary = read_glb(DAO_SOURCE)
@@ -453,7 +529,7 @@ def calibrated_mount(source, normalization, hand):
 
 
 def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_path,
-                      alignment_path, height=HEIGHT, grip_frame=None):
+                      alignment_path, height=HEIGHT, grip_frame=None, finger_rotation_offsets=None):
     """Publish a body, its same-skin dao variant and their shared asset metadata."""
     source_path = Path(source_path)
     if hashlib.sha256(source_path.read_bytes()).hexdigest() != source_sha:
@@ -484,6 +560,11 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
         assert doc.get(key) == source.get(key), key
     source_binary = binary
     binary, animation_records = append_animations(doc,binary,source,clip_sources)
+    binary, finger_calibration = apply_finger_rotation_offsets(doc, binary, finger_rotation_offsets)
+    if finger_calibration is not None:
+        for animation, record in zip(doc['animations'], animation_records):
+            record['source_keyframe_semantics_sha256'] = record['keyframe_semantics_sha256']
+            record['keyframe_semantics_sha256'] = animation_signature(doc, binary, animation)
     assert binary[:len(source_binary)] == source_binary
     body_path, weapon_path, alignment_path = Path(body_path), Path(weapon_path), Path(alignment_path)
     body_bytes = encode_glb(doc,binary)
@@ -534,6 +615,8 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
               'weapon_world_scale':1.0,
               'source_binary_sha256':hashlib.sha256(source_binary).hexdigest(),
               'outputs':[body_output,weapon_output]}
+    if finger_calibration is not None:
+        record['finger_rotation_calibration'] = finger_calibration
     alignment_bytes = (json.dumps(record,indent=2)+'\n').encode('utf-8')
     publish_outputs(((body_path,body_bytes), (weapon_path,weapon_bytes),
                      (alignment_path,alignment_bytes)))

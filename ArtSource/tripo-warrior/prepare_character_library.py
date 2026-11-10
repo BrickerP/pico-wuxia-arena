@@ -292,6 +292,28 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, grip
     return encode_glb(result, bytes(packed)), record
 
 
+def validate_finger_calibration(character):
+    offsets = character.get('finger_rotation_offsets')
+    review = character.get('finger_rotation_review')
+    if not offsets and not review:
+        return
+    if not offsets or not review:
+        raise ValueError('finger offsets require their reviewed source binding: ' + character['id'])
+    if (review['target_rig_sha256'] != character['source_sha256'] or
+            review['target_grip_sha256'] != character['grip_source']['source_sha256'] or
+            review['grip_time_seconds'] != character['grip_source'].get('time_seconds', 2.117)):
+        raise ValueError('finger calibration requires review for the selected rig/grip source: ' + character['id'])
+    path = HERE / review['calibration_file']
+    if hashlib.sha256(path.read_bytes()).hexdigest() != review['calibration_sha256']:
+        raise ValueError('reviewed finger calibration file changed')
+    approved = json.loads(path.read_text())['characters']
+    row = next((entry for entry in approved if entry['id'] == character['id']), None)
+    if (row is None or row['local_finger_offsets'] != offsets or
+            row['source_sha256'] != review['reviewed_source_asset_sha256'] or
+            row['candidate_sha256'] != review['reviewed_candidate_asset_sha256']):
+        raise ValueError('finger offsets differ from the reviewed candidate: ' + character['id'])
+
+
 def build_library(manifest_path):
     manifest = json.loads(manifest_path.read_text())
     characters = manifest['characters']
@@ -299,6 +321,8 @@ def build_library(manifest_path):
         raise ValueError('manifest requires uniquely identified characters')
     if len({character['output'] for character in characters}) != len(characters):
         raise ValueError('characters must have distinct output files')
+    for character in characters:
+        validate_finger_calibration(character)
     _, motion_rig, _ = pinned_source(manifest['motion_source'])
     clips = manifest['motion_source']['clips']
     clip_names = [clip['name'] for clip in clips]
@@ -343,11 +367,14 @@ def build_library(manifest_path):
                                    library / (stem + '_body.glb'), library / output_name,
                                    library / (stem + '_alignment.json'),
                                    height=character.get('height_metres', 1.78),
-                                   grip_frame=character.get('grip_frame'))
+                                   grip_frame=character.get('grip_frame'),
+                                   finger_rotation_offsets=character.get('finger_rotation_offsets'))
         record['id'] = character['id']
         record['name'] = character['name']
         record['retargeting'] = records
         record['grip_source'] = character['grip_source']
+        if character.get('finger_rotation_review'):
+            record['finger_rotation_review'] = copy.deepcopy(character['finger_rotation_review'])
         metadata = (json.dumps(record, ensure_ascii=False, indent=2) + '\n').encode()
         publish_outputs(((library / (stem + '_alignment.json'), metadata),))
         summaries.append({'id': character['id'], 'name': character['name'],
