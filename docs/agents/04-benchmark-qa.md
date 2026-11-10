@@ -157,3 +157,15 @@ SoundPool加载完成前的接触先排队，记录System.nanoTime入队时间�
 主控已核对960×640／24fps／2.75秒H264＋AAC成片，并抽看1.833秒弹反峰值。第二触点已从布衣躯干修正为实际钢刀PARRY，正式素材、声效、90ms短停与hit_side语义对齐，接受本轮离线制作产物。
 
 主控另已完成当前APK构建、安装启动和实际Full Stage准备态截图，场景／人物／HUD可见。真实输入触发的战斗特效、混音／触觉、整局与Space Pro体验仍在后续验收。下一轮先收紧主角残余拇指交叠与源段外交叉，再做动作收势／步法和UI细化，维持现有三轮短竞技场。
+
+## 参考流程review后的端内呈现方案
+
+整体对照见03的Kensei参考流程review。本地最终GLB的人体为普通opaque PBR，皮肤、眼、发、衣物共用一套全身4K图集。MR图支持像素级差异，部位造型、纹理分配和表面响应仍需独立审校。
+
+当前HomeStage方向光设world identity，官方定义沿本地-Z照射，初始视角接近顺光。两侧暖点光在(±2.72,2.12,-1.22)，衰减半径3m，位于初始人物的半径边缘。代码没有显式接入IBL；SDK默认环境贡献尚未量测。离线棚灯与端内场景的品质分别审核。
+
+已核对本机6.1官方文档和6.1.9公开类型。StageEnvironmentLightingComponent可接全场IBL，HDR cubemap输入使用.ktx。方向光／聚光具有阴影入口，GroundShadowComponent需要分别设置实际渲染mesh与接收地面，其属性不向children传播。PointLight不投影。全局曝光／tone mapper控制未在本机公开接口中检出，Editor预览设置与运行时能力分别记录。
+
+下一轮先用同一角色、机位、姿态和分辨率建立实际PICO基准，调整主光方向、有效补光／IBL和脚底投影。随后按皮肤、眼、发、布、皮革、金属审校PBR响应，结合画面和端侧开销决定材质组织。验收以实际Full Stage前后图与动作片段为主，离线图保留来源和条件标记。
+
+官方依据为spatial-sdk_rendering_image-based-lighting.md、core.ecs.md中的StageEnvironmentLightingComponent、DirectionalLightComponent、PointLightComponent与GroundShadowComponent。实现阶段查对应公开接口和样例，再进入代码。

@@ -127,3 +127,11 @@ CombatImpact的id在ArenaSession生命周期内递增，三轮与重开均不复
 - 新PNG/SVG已生成并目视核对。绘图脚本从当前base数据和实际核对结果读取SHA与误差，旧base SHA硬编码已移除，SVG逐行trim whitespace检查通过。[离线前后对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/motion/proxy_alignment_sideview.png)
 
 本轮未修改模型、library/app资产、Main、HomeStage、ArenaSession或生产helper/manifest，未构建、游戏测试、设备操作、提交或产生收费。运行时蒙皮、crossfade与关键点间插值仍待主控专项核对，当前证据仅覆盖所列源身份与关键姿态。
+
+## 参考流程review后的动作精修提案
+
+整体依据见03的Kensei参考流程review。本地审计发现七段重定向资源把双手30根指骨固定为原生slash在2.117秒的同一握姿。这会将空手左手的意图一并固定，是下一轮要移除的统一锁姿机制。
+
+手姿建议按手别和片段制作。持刀手围绕实际刀柄保持接触，空手在待机、移动、引刀和受击时有对应的放松或护身姿态。先在现有骨架上评审守势、引刀、击中、随势、收式五类关键姿态，再完成插值与衔接。
+
+制作数据包含脚底接触区间滑移、循环首尾差、最低点、重心变化和关节拉伸。制作pose检查与实际VR输入判定分别记录。源动作或接触时标发生变化时，由主控同步动画映射和动作代理，以同一来源数据发布。
