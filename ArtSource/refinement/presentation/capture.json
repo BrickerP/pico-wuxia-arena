@@ -9,5 +9,66 @@
   "apk_sha256": "37873e1c0a25e3d28fc87d722e13cf67acb5b7e655f09bbb32887aee59e7c05f",
   "actor_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
   "screenshot_sha256": "32f4ffcd61e81c3aec87e72590b998cf6b1c590c6d1651f62d4ba71b3879977b",
-  "scope": "Build, install, launch and ready-state model display. Combat gameplay and hardware performance remain pending."
+  "scope": "Build, install, launch and ready-state model display. Combat gameplay and hardware performance remain pending.",
+  "working_directory": "/Users/yupeng/projects/personal/pico-wuxia-arena",
+  "executed_commands": {
+    "build": {
+      "env": {
+        "JAVA_HOME": "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home",
+        "PICO_HOME": "/Users/yupeng/Library/PICO/sdk",
+        "ANDROID_HOME": "/Users/yupeng/Library/Android/sdk",
+        "ANDROID_SDK_ROOT": "/Users/yupeng/Library/Android/sdk"
+      },
+      "argv": [
+        "./gradlew",
+        ":app:assembleDebug",
+        "--offline"
+      ]
+    },
+    "install": [
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/lib/node_modules/@picoxr/pico-cli/dist/index.js",
+      "app",
+      "install",
+      "app/build/outputs/apk/debug/app-debug.apk",
+      "--device",
+      "emulator-5554",
+      "--replace"
+    ],
+    "launch": [
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/lib/node_modules/@picoxr/pico-cli/dist/index.js",
+      "app",
+      "launch",
+      "com.example.wuxiaarena.p0d2f0182",
+      "--activity",
+      ".platform.LaunchActivity",
+      "--device",
+      "emulator-5554"
+    ],
+    "single_log_snapshot": [
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/lib/node_modules/@picoxr/pico-cli/dist/index.js",
+      "app",
+      "logcat",
+      "--package",
+      "com.example.wuxiaarena.p0d2f0182",
+      "--device",
+      "emulator-5554",
+      "--lines",
+      "180",
+      "--format",
+      "json"
+    ],
+    "capture": [
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+      "/Users/yupeng/.nvm/versions/node/v22.22.1/lib/node_modules/@picoxr/pico-cli/dist/index.js",
+      "capture",
+      "screenshot",
+      "--device",
+      "emulator-5554",
+      "--out",
+      "artifacts/refinement/full-stage-hero60k.png"
+    ]
+  }
 }
