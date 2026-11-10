@@ -1,0 +1,160 @@
+{
+  "scope": "offline source GLB rest-pose review",
+  "blender_version": "4.5.15 LTS",
+  "engine": "BLENDER_EEVEE_NEXT",
+  "resolution": [
+    768,
+    768
+  ],
+  "display_height_metres": 1.78,
+  "material_display": "neutral grey clay",
+  "view_cameras": {
+    "whole": [
+      [
+        0,
+        0,
+        0.94
+      ],
+      [
+        3.8,
+        -7,
+        2.6
+      ],
+      2.4
+    ],
+    "head": [
+      [
+        0,
+        -0.015,
+        1.61
+      ],
+      [
+        0.36,
+        -2,
+        1.76
+      ],
+      0.5
+    ],
+    "collar": [
+      [
+        0,
+        -0.015,
+        1.27
+      ],
+      [
+        0.3,
+        -2,
+        1.5
+      ],
+      0.65
+    ],
+    "right_hand": [
+      [
+        -0.77,
+        0,
+        1.31
+      ],
+      [
+        -0.77,
+        -2,
+        1.66
+      ],
+      0.52
+    ],
+    "left_hand": [
+      [
+        0.77,
+        0,
+        1.31
+      ],
+      [
+        0.77,
+        -2,
+        1.66
+      ],
+      0.52
+    ]
+  },
+  "sources": {
+    "before": {
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/library/base_body.glb",
+      "source_sha256": "286f6d09d3c928624aa9aede344d7e69a08fadb5cd019228a3b34c5a02d342cf",
+      "yaw_degrees": 0,
+      "uniform_scale": 0.9999998759447938,
+      "translation_metres": [
+        -2.682208730675484e-07,
+        -2.2351738238057806e-08,
+        1.1009943179374204e-08
+      ],
+      "normalized_bounds_metres": [
+        [
+          -0.8586496710777283,
+          -0.18287676572799683,
+          0.0
+        ],
+        [
+          0.8586496114730835,
+          0.18287676572799683,
+          1.7799999713897705
+        ]
+      ],
+      "rest_pose": true,
+      "mesh_names": [
+        "TripoBody_Mesh"
+      ],
+      "renders": {
+        "whole": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_whole.png",
+        "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_head.png",
+        "collar": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_collar.png",
+        "right_hand": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_right_hand.png",
+        "left_hand": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_left_hand.png"
+      },
+      "turntable": {
+        "frames": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/before_turntable",
+        "fps": 12,
+        "frame_count": 24,
+        "motion": "camera orbit about normalized character centre"
+      }
+    },
+    "after": {
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/high_geometry/model.glb",
+      "source_sha256": "a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132",
+      "yaw_degrees": -90.0,
+      "uniform_scale": 1.8200750922929443,
+      "translation_metres": [
+        -0.00010685765300877392,
+        -0.00016351390513591468,
+        0.8897074460983276
+      ],
+      "normalized_bounds_metres": [
+        [
+          -0.8141979575157166,
+          -0.17944787442684174,
+          0.0
+        ],
+        [
+          0.8141978979110718,
+          0.17944785952568054,
+          1.7799999713897705
+        ]
+      ],
+      "rest_pose": true,
+      "mesh_names": [
+        "tripo_node_89f78fc8-53b0-4e6b-ada3-7277e8606007"
+      ],
+      "renders": {
+        "whole": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_whole.png",
+        "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_head.png",
+        "collar": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_collar.png",
+        "right_hand": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_right_hand.png",
+        "left_hand": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_left_hand.png"
+      },
+      "turntable": {
+        "frames": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/review/after_turntable",
+        "fps": 12,
+        "frame_count": 24,
+        "motion": "camera orbit about normalized character centre"
+      }
+    }
+  }
+}

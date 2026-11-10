@@ -7,6 +7,7 @@ change gameplay contact geometry. Run from the repository root with Python 3.
 from __future__ import annotations
 
 import bisect
+import argparse
 import hashlib
 import json
 import math
@@ -246,13 +247,18 @@ def measure(source):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--actor", choices=("base", "indigo", "veteran"))
+    args = parser.parse_args()
     reports = []
-    for actor in ("base", "indigo", "veteran"):
+    for actor in ((args.actor,) if args.actor else ("base", "indigo", "veteran")):
         report = measure(SOURCE.with_name(actor + ".glb"))
         report["actor"] = actor
         reports.append(report)
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(reports[0], indent=2, ensure_ascii=False) + "\n")
+    base_report = next((report for report in reports if report["actor"] == "base"), None)
+    if base_report is not None:
+        OUTPUT.write_text(json.dumps(base_report, indent=2, ensure_ascii=False) + "\n")
     profile_path = OUTPUT.with_name("proxy_alignment_profiles.json")
     profile = {
         "schema": "wuxia.calibrated-proxy-keyposes/v1",
@@ -267,6 +273,14 @@ def main():
         } for report in reports],
         "limits": reports[0]["limits"],
     }
+    if args.actor:
+        existing = json.loads(profile_path.read_text())
+        replacement = profile["actors"][0]
+        if not any(actor["actor"] == args.actor for actor in existing["actors"]):
+            raise ValueError("selected actor has no existing profile")
+        existing["actors"] = [replacement if actor["actor"] == args.actor else actor
+                              for actor in existing["actors"]]
+        profile = existing
     profile_path.write_text(json.dumps(profile, indent=2, ensure_ascii=False) + "\n")
     print("Saved", OUTPUT.relative_to(ROOT), "and", profile_path.relative_to(ROOT))
     for report in reports:

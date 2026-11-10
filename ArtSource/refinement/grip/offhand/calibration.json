@@ -1,0 +1,75 @@
+{
+  "scope": "slash-only smoothly enveloped local offhand rotation",
+  "envelope": "raised-cosine sampled values; zero endpoint correction; exported LINEAR track is C0 with sampled seam slopes",
+  "sample_rate_hz": 60,
+  "characters": [
+    {
+      "id": "indigo",
+      "source": "ArtSource/refinement/grip/candidates/indigo.glb",
+      "source_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+      "candidate": "ArtSource/refinement/grip/offhand/candidates/indigo.glb",
+      "candidate_sha256": "398e3aa99865c3259f155ba49c305594ba822c75f01d92e05a5201488c9cf7eb",
+      "window_seconds": [
+        1.8,
+        2.0,
+        3.4,
+        3.6
+      ],
+      "rotations": {
+        "L_Hand": {
+          "axis": [
+            1,
+            0,
+            0
+          ],
+          "degrees": 8.0
+        }
+      },
+      "changed_tracks": [
+        {
+          "bone": "L_Hand",
+          "source_key_count": 198,
+          "candidate_key_count": 253,
+          "source_range_seconds": [
+            0.03333333507180214,
+            6.599999904632568
+          ]
+        }
+      ]
+    },
+    {
+      "id": "veteran",
+      "source": "ArtSource/refinement/grip/candidates/veteran.glb",
+      "source_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3",
+      "candidate": "ArtSource/refinement/grip/offhand/candidates/veteran.glb",
+      "candidate_sha256": "6379628c7a83b4036dc53245ad6ec9612e9aa6e8d6b758864c8a8e348ec9c7ba",
+      "window_seconds": [
+        1.5,
+        1.55,
+        1.72,
+        1.95
+      ],
+      "rotations": {
+        "L_Forearm": {
+          "axis": [
+            0,
+            0,
+            1
+          ],
+          "degrees": 4.0
+        }
+      },
+      "changed_tracks": [
+        {
+          "bone": "L_Forearm",
+          "source_key_count": 198,
+          "candidate_key_count": 216,
+          "source_range_seconds": [
+            0.03333333507180214,
+            6.599999904632568
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,38 +1,38 @@
 {
-  "source_glb": "tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb",
-  "source_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+  "source_glb": "refined-base60k/rig.glb",
+  "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
   "body_height_metres": 1.78,
   "source_forward": "+X",
   "prepared_forward": "+Z",
   "rotation_y_degrees": -90,
-  "uniform_scale": 1.7834830996693503,
+  "uniform_scale": 1.8198763321545721,
   "normalization_matrix_gltf": [
-    -7.795852496883526e-08,
+    -7.954932357279176e-08,
     0.0,
-    1.7834831476211548,
-    0.0,
-    0.0,
-    1.7834831476211548,
+    1.8198763132095337,
     0.0,
     0.0,
-    -1.7834831476211548,
+    1.8198763132095337,
     0.0,
-    -7.795852496883526e-08,
     0.0,
-    -1.5945582276799541e-07,
-    4.783674398822768e-07,
-    -2.657597697464098e-08,
+    -1.8198763132095337,
+    0.0,
+    -7.954932357279176e-08,
+    0.0,
+    0.0002712369314394891,
+    0.0002871282340493053,
+    -0.00013677097740583122,
     1.0
   ],
-  "source_triangles": 18833,
-  "source_vertices": 10734,
+  "source_triangles": 60006,
+  "source_vertices": 35308,
   "joint_count": 78,
   "animation_count": 8,
   "animations": [
     {
       "name": "idle",
       "source_glb": "library/base_retargeted/idle.glb",
-      "source_sha256": "2540bc1bbce7d17c847e54e623904dc43e330bd7e141c3d74d55cd33910da53e",
+      "source_sha256": "14d7d2e95109a693621f6e627af29e6f0faa7240ef6c53b36c79c2ab59e18fd2",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -41,14 +41,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "55364ad12c48dd99a4f475aa5d0689538043104647f6703a2a16edec8425f58d",
+      "keyframe_semantics_sha256": "0e1d16e6ab64dcaa310024a49a86031c269879a0df6a91c17f1997699e3ea650",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "3aeb16b943af066b64159fc0ad98d94189e4fc699c8793b883fe3bbae938a678"
+      "source_keyframe_semantics_sha256": "3593d814a30dabe8503eb14a14245c7075b3c2739f91807a6bba9b195268ede1"
     },
     {
       "name": "walk",
       "source_glb": "library/base_retargeted/walk.glb",
-      "source_sha256": "88b928b3caf1587184b95f1fa207102383aa47fbadc9157214db9ea397dedb47",
+      "source_sha256": "e62022d264ab87a9b694a0dcb472ce74f9f37cba7745956d6f2b9df18468a11b",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -57,14 +57,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "3fba0e1b9b96ddf9f6e39effc580fc3996b31cca72c2f6aa99b3f9a18e2deda8",
+      "keyframe_semantics_sha256": "434e282cccfc9ff0d181820464b2d59e580d35729f7aaa9dc5f6dd68f5bbe862",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "3de9460de60fc757279ad053b8df8b3e55bbd36638b550f07fdfa922254a55f4"
+      "source_keyframe_semantics_sha256": "23284385e91c4d82e8a6bc445a3dda3b3955c53ea2aa9c2e699e64b840ee213e"
     },
     {
       "name": "fall",
       "source_glb": "library/base_retargeted/fall.glb",
-      "source_sha256": "bd86a77839b3200083a627bf0f3721641d2321ca03625d42e2999d7735d41fc7",
+      "source_sha256": "491b517a2366be5280cd4a95a3c345e4860303d400fa87a6cdc5e5db67cf18df",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -73,14 +73,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "00f95e1f266698970f3af41aacd70105aa085b09951ebd7a13cea2022a2d8e5b",
+      "keyframe_semantics_sha256": "77a5cc5c9f34788deaf4da5535d821050c705c137e357ed4e0c7364e4dc428b6",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "9652757baa59a90766b4ed339a110e44a3f34b446284935128ae2ebe2bd6d5b6"
+      "source_keyframe_semantics_sha256": "839e00d1b9bc7a24005dfaedb707751a551241d63a59d90f688d99d2b0ec792b"
     },
     {
       "name": "turn",
       "source_glb": "library/base_retargeted/turn.glb",
-      "source_sha256": "bbed99b64a2706db444d3620477bb021ea65babe84c90271c52130c7f9b40195",
+      "source_sha256": "81a93e9b3243e04c70c3015ae4996e1751c088699e6bcb914ee1aff2ba37d802",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -89,14 +89,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "755c6051ddcc60e8f76b23aea03e82435e7a479ba2373a6e36671824d23437b1",
+      "keyframe_semantics_sha256": "b56e30dce14d454d8997783facc180ce25d9f0e59caf45faf6fca80935769eb4",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "be6da6a8910e084c459b39b26302b26ef2d6f1400cdebc852c509ac0082c6479"
+      "source_keyframe_semantics_sha256": "17823aae2bca379a0bda280896045d2ddf051c63c515e843c6f456d6e25d0327"
     },
     {
       "name": "hit_body",
       "source_glb": "library/base_retargeted/hit_body.glb",
-      "source_sha256": "9a74969c4e02dbffed97383779ec84f72d965641af7d008bd776035384e6b705",
+      "source_sha256": "ed4517baa5f1ee164062582ccf58f0b4915245b67e97ea2341116bdcfd16426d",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -105,14 +105,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "016ba0008e02b075735ece02cc46589fec930f2c3d2e3601d7b46cbaf236f07e",
+      "keyframe_semantics_sha256": "05e18a859392dd2a55378b391c454f5ad7f7881d8afd7cee0d6fcc39e8848aa2",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "40d17c7616926d842abdf090425bfdfe4ff1bdcf2d1c35750f4dc3d18dd0f22c"
+      "source_keyframe_semantics_sha256": "0ab65d93c538f93232f2b3a6915f045495d903f30d476124a698d9404adfe170"
     },
     {
       "name": "hit_head",
       "source_glb": "library/base_retargeted/hit_head.glb",
-      "source_sha256": "bebeabf64437793e7c39e672d676741ab6a4a46fc2793f91b2bc555d668b3731",
+      "source_sha256": "425168e9906d603dab9261110651776fac75a33ac6bd79d322fdc97e06b5efc4",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -121,14 +121,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "e279b5c0590783388def9f6c98d94102c3e8e442a462650f00dac9fed161dc46",
+      "keyframe_semantics_sha256": "6ba765c3c71764b70367c0795cfb1be009b87b8b4f9c57583a8b17c23d5fa97e",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "4710791cb2459e8702a97464c4b2808f80fd0f7217887e0ab60fed162ddc5bfe"
+      "source_keyframe_semantics_sha256": "3dd5ba23a792927d72346bebe2ba1d0b4929983edfb70572bae1449c0ed187e8"
     },
     {
       "name": "hit_side",
       "source_glb": "library/base_retargeted/hit_side.glb",
-      "source_sha256": "f507f07a875204fcf30a0aa5102fe5ca277f8930983f20132d3b4fa8695d3200",
+      "source_sha256": "93fd6195a16a44995236e6988b2fe9c559bb079acb8b9ff9f5b7841e90e83b25",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -137,14 +137,14 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "873665ad87371c1b49ac8f25a8b420c9989354b921eb672551b6bb130311aa3b",
+      "keyframe_semantics_sha256": "aa77d94cbfb9e12c3d1a91aafdd23cdd436e02f1cf96b108f4660765519a6f3a",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "15a5bd431fa2733adbac238fdb90f192e2f52d5277941827b7adfdd7d09cc955"
+      "source_keyframe_semantics_sha256": "2c9cb9ea99debc52ad86d44a01dd9876c5fc6749b5a5cd7fa90d4db59b073916"
     },
     {
       "name": "slash",
-      "source_glb": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
-      "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+      "source_glb": "refined-base60k/slash.glb",
+      "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.03333333507180214,
@@ -154,9 +154,9 @@
         "LINEAR",
         "STEP"
       ],
-      "keyframe_semantics_sha256": "290b2a05d8106dccbd55cf6f07fa16ea2fd7565821b12e793094d75aac5301d6",
-      "max_default_local_matrix_difference": 6.377696990966797e-06,
-      "source_keyframe_semantics_sha256": "2d0391eb21bb87904a1b512a1db31e5b2b856a387927a7c0146c5dff2b59b778"
+      "keyframe_semantics_sha256": "edca5ef631f8c3acd37980d74e3e37dcc76237991c4ebef22ca8c70aabbbd7b3",
+      "max_default_local_matrix_difference": 2.294779676503822e-06,
+      "source_keyframe_semantics_sha256": "d27728249e6b1200e4785cd683496ac200def2b7f2bab81f54b60f7e3873f026"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -167,47 +167,47 @@
   ],
   "body_bind_bounds_gltf_metres": {
     "min": [
-      -0.8586499094963074,
+      -0.8142391443252563,
       0.0,
-      -0.18287670612335205
+      -0.17948460578918457
     ],
     "max": [
-      0.8586498498916626,
-      1.78000009059906,
-      0.18287672102451324
+      0.8142390847206116,
+      1.7799999713897705,
+      0.17948460578918457
     ]
   },
   "weapon_subtree": "Weapon_Root",
   "grip_node": "HandGrip_R",
   "grip_parent": "R_Hand",
   "grip_local_matrix_gltf": [
-    -0.18316735327243805,
-    -0.5286015272140503,
-    -0.037618886679410934,
+    -0.16072334349155426,
+    -0.524860143661499,
+    0.025034064427018166,
     0.0,
-    -0.2715798318386078,
-    0.12781046330928802,
-    -0.4735969007015228,
+    -0.4625539481639862,
+    0.12890206277370453,
+    -0.26714247465133667,
     0.0,
-    0.45505955815315247,
-    -0.1364917904138565,
-    -0.29778510332107544,
+    0.2492966204881668,
+    -0.09921170771121979,
+    -0.4795258641242981,
     0.0,
-    0.019713670015335083,
-    0.024356942623853683,
-    -0.02339719794690609,
+    0.013535577803850174,
+    0.046395160257816315,
+    -0.0215284563601017,
     1.0
   ],
   "grip_world_metres": [
-    -0.692558228969574,
-    1.359146237373352,
-    0.003045313060283661
+    -0.6953499913215637,
+    1.3245830535888672,
+    0.00020404160022735596
   ],
-  "grip_pose": "reviewed curled-hand frame transferred through normalized wrist rest frame",
+  "grip_pose": "per-character reviewed grip-frame calibration",
   "grip_source_metres": [
-    0.0017075398936867714,
-    0.7620737552642822,
-    0.38831770420074463
+    0.00018728990107774734,
+    0.727684497833252,
+    0.38223543763160706
   ],
   "weapon_binding": {
     "method": "same-skin rigid vertices",
@@ -329,103 +329,95 @@
   },
   "anchor_nodes_role": "bind/source anchors; SDK dynamic markers require joint-pose support",
   "weapon_bind_forward_vector_gltf": [
-    -0.013089677318930626,
-    -2.2351738948600541e-07,
-    0.999914288520813
+    -0.013089725747704506,
+    -2.2817405920250167e-07,
+    0.9999144077301025
   ],
   "weapon_world_scale": 1.0,
-  "source_binary_sha256": "4d9e82c0b1b9e6dc243ceed817a2c4f2f68406e777dfe2d5804e2f4637227057",
+  "source_binary_sha256": "30e0d95ddd32e876c90d042b9c6a2a9737af372c757dc61e187dfe6e110c0f40",
   "outputs": [
     {
       "file": "base_body.glb",
-      "bytes": 6070384,
-      "sha256": "30a06a5ee6258df739f6c73afd2e72223601a60fcb50dd8b083cb2d70ef0211b"
+      "bytes": 22129764,
+      "sha256": "65c0702e348627c539b1e33d7f95e044a037e22caf851d0a93a085860525ae55"
     },
     {
       "file": "base.glb",
-      "bytes": 6941104,
-      "sha256": "a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889"
+      "bytes": 23000580,
+      "sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641"
     }
   ],
   "finger_rotation_calibration": {
     "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
     "offsets": {
-      "R_Ring2": {
-        "x_degrees": -4.5,
+      "R_Thumb1": {
+        "x_degrees": 4.5,
+        "z_degrees": 0.0
+      },
+      "R_Thumb2": {
+        "x_degrees": 4.5,
+        "z_degrees": 0.0
+      },
+      "R_Index2": {
+        "x_degrees": 3.0,
         "z_degrees": 0.0
       },
       "R_Ring1": {
-        "x_degrees": 1.5,
+        "x_degrees": 0.0,
         "z_degrees": -1.5
       },
-      "R_Mid3": {
-        "x_degrees": 3.0,
-        "z_degrees": 7.5
-      },
-      "R_Mid2": {
-        "x_degrees": 4.5,
-        "z_degrees": 6.0
-      },
-      "R_Thumb1": {
+      "R_Mid1": {
         "x_degrees": 0.0,
-        "z_degrees": 6.0
+        "z_degrees": -1.5
       },
-      "R_Index2": {
-        "x_degrees": 0.0,
-        "z_degrees": 1.5
+      "R_Thumb3": {
+        "x_degrees": -3.0,
+        "z_degrees": -3.0
       },
       "R_Index1": {
-        "x_degrees": -7.5,
-        "z_degrees": 3.0
-      },
-      "R_Pinky3": {
         "x_degrees": -1.5,
-        "z_degrees": 1.5
-      },
-      "R_Pinky2": {
-        "x_degrees": 0.0,
-        "z_degrees": 1.5
+        "z_degrees": 0.0
       },
       "R_Pinky1": {
-        "x_degrees": -6.0,
+        "x_degrees": -1.5,
         "z_degrees": 0.0
       }
     },
     "clips": [
       {
         "clip": "idle",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "walk",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "fall",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "turn",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "hit_body",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "hit_head",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "hit_side",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       },
       {
         "clip": "slash",
-        "modified_rotation_tracks": 10
+        "modified_rotation_tracks": 8
       }
     ],
-    "modified_rotation_tracks": 80
+    "modified_rotation_tracks": 64
   },
   "id": "base",
   "name": "试刀客",
@@ -434,7 +426,7 @@
       "name": "idle",
       "source": "expanded/base/tripo-out/e7df779b-retarget-e011ab58/model.glb",
       "source_sha256": "9a2c2c951c13eed0891fe462455ec09c8a7593a3ff7cedd7d025b8cd5c9a6bc9",
-      "output_sha256": "2540bc1bbce7d17c847e54e623904dc43e330bd7e141c3d74d55cd33910da53e",
+      "output_sha256": "14d7d2e95109a693621f6e627af29e6f0faa7240ef6c53b36c79c2ab59e18fd2",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -445,14 +437,14 @@
         0.03333333507180214,
         15.366666793823242
       ],
-      "translation_scale": 1.0000000173959154,
-      "maximum_quaternion_step_radians": 0.07676277309656143
+      "translation_scale": 0.9800023766357714,
+      "maximum_quaternion_step_radians": 0.07675966620445251
     },
     {
       "name": "walk",
       "source": "expanded/base/tripo-out/e7df779b-retarget-2-7ddf98ee/model.glb",
       "source_sha256": "38bfc0f00c6d3d635d7eb18c2aab1232a2c1f0d0361806a568f3c540f9ecc8d6",
-      "output_sha256": "88b928b3caf1587184b95f1fa207102383aa47fbadc9157214db9ea397dedb47",
+      "output_sha256": "e62022d264ab87a9b694a0dcb472ce74f9f37cba7745956d6f2b9df18468a11b",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -463,14 +455,14 @@
         0.03333333507180214,
         2.366666555404663
       ],
-      "translation_scale": 1.0000000173959154,
+      "translation_scale": 0.9800023766357714,
       "maximum_quaternion_step_radians": 0.30098193883895874
     },
     {
       "name": "fall",
       "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
       "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c",
-      "output_sha256": "bd86a77839b3200083a627bf0f3721641d2321ca03625d42e2999d7735d41fc7",
+      "output_sha256": "491b517a2366be5280cd4a95a3c345e4860303d400fa87a6cdc5e5db67cf18df",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -481,14 +473,14 @@
         0.03333333507180214,
         3.0333333015441895
       ],
-      "translation_scale": 1.0000000173959154,
-      "maximum_quaternion_step_radians": 0.4949323832988739
+      "translation_scale": 0.9800023766357714,
+      "maximum_quaternion_step_radians": 0.4949333667755127
     },
     {
       "name": "turn",
       "source": "expanded/base/tripo-out/e7df779b-retarget-5-b35c205e/model.glb",
       "source_sha256": "3a4f7f12934f87cebf2d8fed59602f69fcb5eafb7b9ba203652116478c694a26",
-      "output_sha256": "bbed99b64a2706db444d3620477bb021ea65babe84c90271c52130c7f9b40195",
+      "output_sha256": "81a93e9b3243e04c70c3015ae4996e1751c088699e6bcb914ee1aff2ba37d802",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -499,14 +491,14 @@
         0.03333333507180214,
         3.866666555404663
       ],
-      "translation_scale": 1.0000000173959154,
-      "maximum_quaternion_step_radians": 0.2946639955043793
+      "translation_scale": 0.9800023766357714,
+      "maximum_quaternion_step_radians": 0.2946631908416748
     },
     {
       "name": "hit_body",
       "source": "expanded/base/tripo-out/e7df779b-retarget-6-8b0a1035/model.glb",
       "source_sha256": "f8f16bb8f5ae4369134e61b5662fe891a80dca122c8ed77cb999aef6fb7b860c",
-      "output_sha256": "9a74969c4e02dbffed97383779ec84f72d965641af7d008bd776035384e6b705",
+      "output_sha256": "ed4517baa5f1ee164062582ccf58f0b4915245b67e97ea2341116bdcfd16426d",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -517,14 +509,14 @@
         0.03333333507180214,
         1.2999999523162842
       ],
-      "translation_scale": 1.0000000173959154,
-      "maximum_quaternion_step_radians": 0.45840370655059814
+      "translation_scale": 0.9800023766357714,
+      "maximum_quaternion_step_radians": 0.4584042429924011
     },
     {
       "name": "hit_head",
       "source": "expanded/base/tripo-out/e7df779b-retarget-7-a03d8662/model.glb",
       "source_sha256": "b152df4679efc20e29e218cd382d8b52d694cb767ec4dcb7f415a855e0f4b026",
-      "output_sha256": "bebeabf64437793e7c39e672d676741ab6a4a46fc2793f91b2bc555d668b3731",
+      "output_sha256": "425168e9906d603dab9261110651776fac75a33ac6bd79d322fdc97e06b5efc4",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -535,14 +527,14 @@
         0.03333333507180214,
         1.8666666746139526
       ],
-      "translation_scale": 1.0000000173959154,
+      "translation_scale": 0.9800023766357714,
       "maximum_quaternion_step_radians": 0.36277085542678833
     },
     {
       "name": "hit_side",
       "source": "expanded/base/tripo-out/e7df779b-retarget-8-68546cb4/model.glb",
       "source_sha256": "a27a5a3a1ea1bd68774d10740a7a55aee5549a0be70669327fd8679c2443120c",
-      "output_sha256": "f507f07a875204fcf30a0aa5102fe5ca277f8930983f20132d3b4fa8695d3200",
+      "output_sha256": "93fd6195a16a44995236e6988b2fe9c559bb079acb8b9ff9f5b7841e90e83b25",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -553,22 +545,23 @@
         0.03333333507180214,
         1.2666666507720947
       ],
-      "translation_scale": 1.0000000173959154,
-      "maximum_quaternion_step_radians": 0.40713804960250854
+      "translation_scale": 0.9800023766357714,
+      "maximum_quaternion_step_radians": 0.40713921189308167
     }
   ],
   "grip_source": {
-    "source": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
-    "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "source": "refined-base60k/slash.glb",
+    "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
     "time_seconds": 2.117
   },
   "finger_rotation_review": {
-    "calibration_file": "../refinement/grip/calibration.json",
-    "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
-    "target_rig_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
-    "target_grip_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+    "calibration_file": "../refinement/grip/hero60k/producer_calibration.json",
+    "calibration_sha256": "0d03bef2185606a334a2cee466537884b8ee7ef8d4aead7f5b4c12bff8f0c1b2",
+    "target_rig_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+    "target_grip_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
     "grip_time_seconds": 2.117,
-    "reviewed_source_asset_sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
-    "reviewed_candidate_asset_sha256": "7fe40c92c431300f641fbf46437bd793f84d8455864299a6e3580e673d19300c"
+    "reviewed_source_asset_sha256": "5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f",
+    "reviewed_candidate_asset_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+    "grip_frame_sha256": "3a573d20de4b9eab1926ffddfc964ad61ece3b31934e6260ca69286fc4f8ebcf"
   }
 }

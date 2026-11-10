@@ -129,8 +129,9 @@ private class SceneOwner(
             pulseUntil = now + 140_000_000L
         }
         val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
-        val visible = now < pulseUntil && state.sceneReady &&
-            (terminal || (state.pauseReason == null && state.inputReady))
+        val available = state.sceneReady && (terminal || (state.pauseReason == null && state.inputReady))
+        if (!available) pulseUntil = 0L
+        val visible = available && now < pulseUntil
         if (light.enabled != visible) light.enabled = visible
     }
 

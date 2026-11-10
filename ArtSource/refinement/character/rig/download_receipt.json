@@ -1,0 +1,44 @@
+{
+  "task_id": "b465d763-a04a-45a9-906a-96bb85b4aa9c",
+  "status": "verified",
+  "model": {
+    "file": "model.glb",
+    "bytes": 26984692,
+    "sha256": "a29557eb06868957e6bb20581fe53eead0425e0b000da37ac635b8e6ebf06b6c",
+    "glb_version": 2,
+    "glb_declared_bytes": 26984692
+  },
+  "preview": {
+    "file": "preview.webp",
+    "bytes": 127926,
+    "sha256": "10b99b8bb73cf4ad7b79100a04c4c786e282c850180275c1bb4ef0672c9f2e0b"
+  },
+  "head": {
+    "content_length": 26984692,
+    "accept_ranges": "bytes",
+    "etag": "\"7f58a479f24baac920af237d4bc09971-6\""
+  },
+  "workers": 4,
+  "parts": [
+    {
+      "part": 0,
+      "bytes": 6746173,
+      "requests": 1
+    },
+    {
+      "part": 1,
+      "bytes": 6746173,
+      "requests": 1
+    },
+    {
+      "part": 2,
+      "bytes": 6746173,
+      "requests": 1
+    },
+    {
+      "part": 3,
+      "bytes": 6746173,
+      "requests": 1
+    }
+  ]
+}

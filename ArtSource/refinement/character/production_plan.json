@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "status": "frozen_waiting_review",
+  "budget_credits": 300,
+  "route": "One explicit H3.1 detailed geometry source, inspect head/hands before PBR and mobile bake.",
+  "alternatives": [
+    {
+      "route": "Retexture current low mesh",
+      "tradeoff": "Retains known rig but cannot restore facial planes, fingers or collar thickness."
+    },
+    {
+      "route": "New H3.1 detailed source",
+      "tradeoff": "New geometry can recover anatomy and garment layers, requires new texture/bake/rig inspection. Approved route."
+    },
+    {
+      "route": "Local P2 Mesh Edit on H3",
+      "tradeoff": "Targeted change but local cost is not_estimated and topology/UV/rig retention is not guaranteed. Plan only."
+    }
+  ],
+  "steps": [
+    {
+      "name": "geometry",
+      "model": "v3.1-20260211",
+      "task_id": "89f78fc8-53b0-4e6b-ada3-7277e8606007",
+      "estimated_credits": 30,
+      "status": "success",
+      "credits_consumed": 30
+    },
+    {
+      "name": "pbr",
+      "model": "v3.5-20260815",
+      "quality": "extreme",
+      "pbr": true,
+      "delight": true,
+      "estimated_credits": 30,
+      "task_id": "d2ca3080-2179-47b4-8b61-4da73b37e4de",
+      "status": "success",
+      "credits_consumed": 30
+    },
+    {
+      "name": "mobile_bake",
+      "model": "v3.0",
+      "face_limit": 20000,
+      "bake": true,
+      "quad": false,
+      "estimated_credits": 35,
+      "task_id": "f2fd1fd6-b436-4312-9ba2-172602653810",
+      "status": "success",
+      "credits_consumed": 35
+    },
+    {
+      "name": "rig",
+      "model": "v3.0-20260909",
+      "rig_type": "biped",
+      "spec": "tripo",
+      "expected_joint_count": 78,
+      "estimated_credits": 25,
+      "task_id": "b465d763-a04a-45a9-906a-96bb85b4aa9c",
+      "status": "success",
+      "credits_consumed": 25
+    },
+    {
+      "name": "slash",
+      "animation": "preset:slash",
+      "estimated_credits": 10,
+      "task_id": "1e5d9538-e3e5-435a-a05c-c7ba8df05752",
+      "status": "success",
+      "credits_consumed": 10,
+      "local_status": "verified",
+      "source_sha256": "7573cc9983d49eb48918892ddd2d588721dc30e8ce42d3e34a2bff524baff77f",
+      "clips": [
+        {
+          "name": "slash",
+          "channel_count": 234,
+          "seconds": [
+            0.03333333333333333,
+            6.6
+          ]
+        }
+      ]
+    }
+  ],
+  "estimated_standard_total": 130,
+  "source_baseline": {
+    "runtime": "ArtSource/tripo-warrior/library/base.glb",
+    "body_source": "ArtSource/tripo-warrior/tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb",
+    "high_source": "ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/model.glb"
+  },
+  "failure_rules": [
+    "Use each real task_id, never resubmit a paid task to poll or download.",
+    "Inspect geometry before downstream paid operations.",
+    "Report actual consumed credits from receipts.",
+    "Experimental mesh_edit is a plan until separately authorized.",
+    "All candidate artifacts stay in this directory until review."
+  ],
+  "pricing_source": "https://developers.tripo3d.ai/en/pricing",
+  "delivery_scope": "Offline candidate and source comparison. Main coordinates runtime integration and device validation.",
+  "credits_consumed_total": 175,
+  "geometry_gate": "Passed actual whole/head/collar and both top-down hand renders. Five fingers separated. Main confirmed review and authorized stage 2.",
+  "credits_committed_estimate": 130,
+  "remaining_budget_credits": 125,
+  "initial_standard_budget_credits": 200,
+  "quality_comparison_extra_budget_credits": 100,
+  "quality_comparison": {
+    "status": "success",
+    "task_id": "78aef961-efe3-4f9f-a9e2-d501bb808dac",
+    "source_task_id": "d2ca3080-2179-47b4-8b61-4da73b37e4de",
+    "route": "/v3/models/convert",
+    "face_limit": 60000,
+    "bake": false,
+    "with_animation": true,
+    "credits_consumed": 10,
+    "approved_once": true,
+    "static_review": "Passed by main coordinator. Selected 60k direction.",
+    "rig_task_id": "584470a3-9b9a-4636-a9dc-0b1ffb4171eb",
+    "rig_credits_consumed": 25,
+    "rig_local_status": "verified",
+    "known_uv_degenerate_triangles": 7,
+    "slash_task_id": "5c6edff0-2cf7-4c6b-8885-749b33ec8a62",
+    "slash_credits_consumed": 10,
+    "slash_local_status": "verified"
+  }
+}

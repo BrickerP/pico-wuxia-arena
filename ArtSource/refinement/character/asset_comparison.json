@@ -1,0 +1,203 @@
+{
+  "before_runtime_body": {
+    "path": "ArtSource/tripo-warrior/library/base_body.glb",
+    "sha256": "286f6d09d3c928624aa9aede344d7e69a08fadb5cd019228a3b34c5a02d342cf",
+    "bytes": 5921104,
+    "triangles": 18833,
+    "vertices": 10734,
+    "joint_counts": [
+      78
+    ],
+    "animation_names": [
+      "idle",
+      "walk",
+      "fall",
+      "turn",
+      "hit_body",
+      "hit_head",
+      "hit_side",
+      "slash"
+    ],
+    "materials": [
+      {
+        "doubleSided": true,
+        "name": "tripo_node_60d50ca0-3e6b-415f-9f02-8acf34be2da6_material.002",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      }
+    ],
+    "primitives": [
+      {
+        "name": "tripo_node_60d50ca0-3e6b-415f-9f02-8acf34be2da6",
+        "vertices": 10734,
+        "triangles": 18833,
+        "position_bounds": [
+          [
+            -0.10253904014825821,
+            -2.682209014892578e-07,
+            -0.4814455509185791
+          ],
+          [
+            0.1025390699505806,
+            0.9980467557907104,
+            0.4814453721046448
+          ]
+        ],
+        "material": 0
+      }
+    ],
+    "images": 3
+  },
+  "before_high_rig": {
+    "path": "ArtSource/tripo-warrior/tripo-out/adult-chinese-male-swordsman-rea-3-4f577636/model.glb",
+    "sha256": "be2b3e9efc8e28440ac3d562e7652634bb73ff9c8196f7152e3c9b1837eb6a1c",
+    "bytes": 61659400,
+    "triangles": 1489123,
+    "vertices": 762070,
+    "joint_counts": [
+      78
+    ],
+    "animation_names": [],
+    "materials": [
+      {
+        "doubleSided": true,
+        "name": "tripo_node_60d50ca0-3e6b-415f-9f02-8acf34be2da6_material",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      }
+    ],
+    "primitives": [
+      {
+        "name": "tripo_mesh_60d50ca0-3e6b-415f-9f02-8acf34be2da6",
+        "vertices": 762070,
+        "triangles": 1489123,
+        "position_bounds": [
+          [
+            -0.10166741162538528,
+            1.1920928955078125e-07,
+            -0.4835575819015503
+          ],
+          [
+            0.10166740417480469,
+            1.000000238418579,
+            0.4835570454597473
+          ]
+        ],
+        "material": 0
+      }
+    ],
+    "images": 3
+  },
+  "after_high_geometry": {
+    "task_id": "89f78fc8-53b0-4e6b-ada3-7277e8606007",
+    "remote_status": "success",
+    "credits_consumed": 30,
+    "completed_record": "geometry_task.json",
+    "local_download_status": "complete",
+    "model_file": "high_geometry/model.glb",
+    "bytes": 53996800,
+    "sha256": "a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132",
+    "triangles": 1900024,
+    "vertices": 974844,
+    "download_recovery": "Validated four exact HTTP ranges and assembled full GLB after stalled CLI artifact download. Same successful source task, no new generation.",
+    "path": "ArtSource/refinement/character/high_geometry/model.glb",
+    "joint_counts": [],
+    "animation_names": [],
+    "images": 0,
+    "materials": [
+      {
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.4,
+            0.4,
+            0.4,
+            1.0
+          ],
+          "roughnessFactor": 0.9036020036098448
+        },
+        "doubleSided": false
+      }
+    ],
+    "position_bounds": [
+      [
+        -0.09868348389863968,
+        -0.4888300895690918,
+        -0.447401762008667
+      ],
+      [
+        0.09850380569696426,
+        0.4891515374183655,
+        0.4472843408584595
+      ]
+    ]
+  },
+  "after_mobile": {
+    "path": "ArtSource/refinement/character/mobile/model.glb",
+    "sha256": "8c4effee95c0c3619bb2cf8023cf8543caf1e67d6163e30882a05bb84639812a",
+    "bytes": 26539168,
+    "triangles": 18955,
+    "vertices": 21052,
+    "images": [
+      {
+        "mime": "image/jpeg",
+        "pixels": [
+          4096,
+          4096
+        ],
+        "bytes": 3325934
+      },
+      {
+        "mime": "image/jpeg",
+        "pixels": [
+          8192,
+          8192
+        ],
+        "bytes": 4849288
+      },
+      {
+        "mime": "image/png",
+        "pixels": [
+          4096,
+          4096
+        ],
+        "bytes": 17574524
+      }
+    ],
+    "materials": [
+      {
+        "doubleSided": true,
+        "name": "tripo_node_89f78fc8-53b0-4e6b-ada3-7277e8606007_material.002",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicRoughnessTexture": {
+            "index": 2
+          }
+        }
+      }
+    ],
+    "joint_counts": []
+  }
+}

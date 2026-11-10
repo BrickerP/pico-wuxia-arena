@@ -1,0 +1,19 @@
+{
+  "normal_count": 35308,
+  "normal_lengths": [
+    0.9999999126056339,
+    1.0000001374437484
+  ],
+  "normal_length_bad_1e4": 0,
+  "uv_degenerate_triangles_1e12": 7,
+  "uv_tiny_triangles_1e8": 9,
+  "triangles": 60006,
+  "uv_min": [
+    0.0,
+    0.00020611286163330078
+  ],
+  "uv_max": [
+    0.9991798400878906,
+    1.0
+  ]
+}

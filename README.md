@@ -4,19 +4,21 @@
 
 ## 当前开发节点
 
-当前开发预发行节点为 `checkpoint-2026-11-10`，提供安装包、角色动作短片与院落制作图。代码基线为 `8020076`，APK已编译打包，约71.7MiB。[下载开发节点](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/checkpoint-2026-11-10) · [源码基线](https://github.com/BrickerP/pico-wuxia-arena/commit/80200763013ffd5c020185ee016c3ae74d60f9f9)
+当前精修预发行节点为 `refinement-2026-11-10`，提供约90.1MiB安装包、实际模拟器Full Stage画面和离线动效预演。主展示刀客采用同源60k几何、3张4K PBR、78骨与专属握持。[下载精修节点](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10) · [本节点源码](https://github.com/BrickerP/pico-wuxia-arena/tree/refinement-2026-11-10)
+
+上一开发节点保留在[原始预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/checkpoint-2026-11-10)。
 
 | 工作节点 | 当前交付 |
 | --- | --- |
 | 玩法实现 | 三轮交战、玩家资源、攻防判定、胜负与重开已接入代码 |
 | 人物动作 | 三名78骨刀客，每人8份资源，其中7份用于当前播放，已接入步法、分部位受击与两段处决 |
 | 场景与呈现 | 六个院落细节模块、四类接触特效与HUD revision16已集成 |
-| 精修与review | 已修正受击部位覆盖、收势提示、破防反馈和腕后漂浮，仍有局部手指交叠与足底接触待优化 |
-| 运行验收 | 真实键盘、Full Stage画面、三轮现场操作及Space Pro体验待后续阶段完成 |
+| 精修与review | 已修正受击部位覆盖、收势提示、破防反馈和腕后漂浮，主角局部手指交叠、长源段窗外交叉与足底接触继续精修 |
+| 运行验收 | 本轮Full Stage准备态画面已确认，真实键盘到战斗、三轮现场操作和Space Pro体验待验收 |
 
-主线后续已集成独立接触事件、材质特效与声触反馈，三角色首轮指姿通过正式producer发布。新主刀客继续做几何／PBR近景审核。
+主线已集成独立接触事件、材质特效与声触反馈。三角色经正式producer发布，主刀客完成60k源替换与新握持，青衫和玄甲完成当前斩击源段的非持刀侧修正。
 
-当前节点完成静态review、离线资产制作核对和编译打包。附带图片及动作视频为离线制作展示，实际游戏运行结果记录在[验收清单](docs/acceptance.md)。
+当前节点完成review、离线制作核对、编译、安装启动及Full Stage准备态取图。动效视频为离线制作展示，游戏流程与真机观感记录在[验收清单](docs/acceptance.md)。
 
 ## 当前节点之后的待办
 

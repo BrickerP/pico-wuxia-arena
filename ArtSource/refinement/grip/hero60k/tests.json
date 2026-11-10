@@ -1,0 +1,5 @@
+{
+  "reviewed_parameter_replay": true,
+  "source_hash_drift_rejected_without_writing": true,
+  "candidate_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545"
+}

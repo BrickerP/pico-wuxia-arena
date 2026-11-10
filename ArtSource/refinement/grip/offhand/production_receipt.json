@@ -1,0 +1,37 @@
+{
+  "source_baseline_commit": "eeb2d9a",
+  "publication": "Canonical raw-source producer, followed by grouped runtime publication",
+  "scope": "Reviewed finger corrections and slash offhand envelopes; full native clip residuals remain documented",
+  "characters": [
+    {
+      "id": "base",
+      "source": "ArtSource/tripo-warrior/library/base.glb",
+      "runtime": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889",
+      "bytes": 6941104,
+      "reviewed_candidate_sha256": "7fe40c92c431300f641fbf46437bd793f84d8455864299a6e3580e673d19300c",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "joint_count": 78
+    },
+    {
+      "id": "indigo",
+      "source": "ArtSource/tripo-warrior/library/indigo.glb",
+      "runtime": "app/src/main/assets/models/opponents/indigo.glb",
+      "sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6",
+      "bytes": 14813640,
+      "reviewed_candidate_sha256": "398e3aa99865c3259f155ba49c305594ba822c75f01d92e05a5201488c9cf7eb",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "joint_count": 78
+    },
+    {
+      "id": "veteran",
+      "source": "ArtSource/tripo-warrior/library/veteran.glb",
+      "runtime": "app/src/main/assets/models/opponents/veteran.glb",
+      "sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7",
+      "bytes": 14310484,
+      "reviewed_candidate_sha256": "6379628c7a83b4036dc53245ad6ec9612e9aa6e8d6b758864c8a8e348ec9c7ba",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "joint_count": 78
+    }
+  ]
+}

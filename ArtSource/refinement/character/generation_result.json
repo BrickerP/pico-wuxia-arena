@@ -1,0 +1,13 @@
+{
+  "task_id": "89f78fc8-53b0-4e6b-ada3-7277e8606007",
+  "remote_status": "success",
+  "credits_consumed": 30,
+  "completed_record": "geometry_task.json",
+  "local_download_status": "complete",
+  "model_file": "high_geometry/model.glb",
+  "bytes": 53996800,
+  "sha256": "a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132",
+  "triangles": 1900024,
+  "vertices": 974844,
+  "download_recovery": "Validated four exact HTTP ranges and assembled full GLB after stalled CLI artifact download. Same successful source task, no new generation."
+}

@@ -62,3 +62,15 @@ ArtSource/refinement/character/high_geometry/
 ArtSource/refinement/character/high_pbr/
 ArtSource/refinement/character/**/**_turntable/
 ArtSource/refinement/grip/previews/*/
+ArtSource/refinement/grip/offhand/previews/*/
+
+# Superseded 20k comparison binaries and render frame sequences.
+ArtSource/refinement/character/mobile/model.glb
+ArtSource/refinement/character/rig/model.glb
+ArtSource/refinement/character/slash/model.glb
+ArtSource/refinement/character/rig60k/model.glb
+ArtSource/refinement/character/slash60k/model.glb
+ArtSource/refinement/character/**/frames/
+ArtSource/refinement/character/**/*_frames/
+ArtSource/refinement/grip/hero60k/previews/*/
+ArtSource/refinement/effects/hero60k/frames/

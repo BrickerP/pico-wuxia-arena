@@ -1,0 +1,2904 @@
+{
+  "source": "ArtSource/tripo-warrior/library/base.glb",
+  "source_sha256": "5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f",
+  "candidate": "ArtSource/refinement/grip/hero60k/candidates/base.glb",
+  "candidate_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+  "grip_offset_metres": [
+    -0.04,
+    -0.01,
+    -0.01
+  ],
+  "grip_before_gltf": [
+    -0.16072334349155426,
+    -0.5248600840568542,
+    0.025034062564373016,
+    0.0,
+    -0.46255403757095337,
+    0.12890203297138214,
+    -0.26714247465133667,
+    0.0,
+    0.24929668009281158,
+    -0.09921175241470337,
+    -0.47952595353126526,
+    0.0,
+    0.0049740709364414215,
+    0.025697659701108932,
+    -0.02799377776682377,
+    1.0
+  ],
+  "grip_after_gltf": [
+    -0.16072334349155426,
+    -0.5248600840568542,
+    0.025034062564373016,
+    0.0,
+    -0.46255403757095337,
+    0.12890203297138214,
+    -0.26714247465133667,
+    0.0,
+    0.24929668009281158,
+    -0.09921175241470337,
+    -0.47952595353126526,
+    0.0,
+    0.013535577803850174,
+    0.046395160257816315,
+    -0.0215284563601017,
+    1.0
+  ],
+  "weapon_bind_shift": [
+    -0.005788890179246664,
+    0.0026771563570946455,
+    0.022423386573791504
+  ],
+  "right_finger_local_offsets": {
+    "R_Thumb1": {
+      "x_degrees": 4.5,
+      "z_degrees": 0.0
+    },
+    "R_Thumb2": {
+      "x_degrees": 4.5,
+      "z_degrees": 0.0
+    },
+    "R_Index2": {
+      "x_degrees": 3.0,
+      "z_degrees": 0.0
+    },
+    "R_Ring1": {
+      "x_degrees": 0.0,
+      "z_degrees": -1.5
+    },
+    "R_Mid1": {
+      "x_degrees": 0.0,
+      "z_degrees": -1.5
+    },
+    "R_Thumb3": {
+      "x_degrees": -3.0,
+      "z_degrees": -3.0
+    },
+    "R_Index1": {
+      "x_degrees": -1.5,
+      "z_degrees": 0.0
+    },
+    "R_Pinky1": {
+      "x_degrees": -1.5,
+      "z_degrees": 0.0
+    }
+  },
+  "changed_rotation_tracks": 64,
+  "contact_marker_seconds": 2.117,
+  "contact_pose_before": {
+    "max_radial_penetration_mm": 10.714753070142839,
+    "mean_radial_penetration_mm": 0.031100683723012314,
+    "vertices_deeper_than_2mm": 6,
+    "surface_samples_within_3mm": 10,
+    "finger_nearest_core_surface_mm": {
+      "Thumb": 0.29179688124021663,
+      "Index": 30.767916036446053,
+      "Mid": 27.95204343703833,
+      "Ring": 22.2618622556636,
+      "Pinky": 25.238297047292086
+    }
+  },
+  "contact_pose_moved_before_fingers": {
+    "max_radial_penetration_mm": 10.42974374925549,
+    "mean_radial_penetration_mm": 0.15099927256147702,
+    "vertices_deeper_than_2mm": 39,
+    "surface_samples_within_3mm": 69,
+    "finger_nearest_core_surface_mm": {
+      "Thumb": 0.09193130601312452,
+      "Index": 1.495429815324481,
+      "Mid": 0.32366473492638664,
+      "Ring": 0.3566591043367394,
+      "Pinky": 0.20921031460104966
+    }
+  },
+  "contact_pose_after": {
+    "max_radial_penetration_mm": 8.333382465619328,
+    "mean_radial_penetration_mm": 0.13383012722681845,
+    "vertices_deeper_than_2mm": 34,
+    "surface_samples_within_3mm": 71,
+    "finger_nearest_core_surface_mm": {
+      "Thumb": 0.1636093661731737,
+      "Index": 0.04373695015093618,
+      "Mid": 0.07359397250431172,
+      "Ring": 0.05484200689225699,
+      "Pinky": 0.014012996014136497
+    }
+  },
+  "blade_path": [
+    {
+      "time_seconds": 1.55,
+      "before_tip_metres": [
+        0.6505184769630432,
+        1.4423599243164062,
+        -0.44522935152053833
+      ],
+      "after_tip_metres": [
+        0.6877962946891785,
+        1.4415020942687988,
+        -0.42499104142189026
+      ],
+      "translation_mm": 42.42594496844597
+    },
+    {
+      "time_seconds": 1.5666666666666667,
+      "before_tip_metres": [
+        0.6359336376190186,
+        1.47694993019104,
+        -0.4477754533290863
+      ],
+      "after_tip_metres": [
+        0.6732516288757324,
+        1.4784550666809082,
+        -0.42764848470687866
+      ],
+      "translation_mm": 42.42632205566888
+    },
+    {
+      "time_seconds": 1.6,
+      "before_tip_metres": [
+        0.6023021936416626,
+        1.5411584377288818,
+        -0.44892773032188416
+      ],
+      "after_tip_metres": [
+        0.6391009092330933,
+        1.5479085445404053,
+        -0.4289204776287079
+      ],
+      "translation_mm": 42.42640174778487
+    },
+    {
+      "time_seconds": 1.6333333333333333,
+      "before_tip_metres": [
+        0.5579311847686768,
+        1.5928614139556885,
+        -0.45044615864753723
+      ],
+      "after_tip_metres": [
+        0.5932168960571289,
+        1.6058675050735474,
+        -0.4308054447174072
+      ],
+      "translation_mm": 42.42637718097771
+    },
+    {
+      "time_seconds": 1.6666666666666667,
+      "before_tip_metres": [
+        0.5047947764396667,
+        1.6191792488098145,
+        -0.45432665944099426
+      ],
+      "after_tip_metres": [
+        0.5370060801506042,
+        1.639556884765625,
+        -0.4356938600540161
+      ],
+      "translation_mm": 42.42637563751291
+    },
+    {
+      "time_seconds": 1.7,
+      "before_tip_metres": [
+        0.4517301619052887,
+        1.6069265604019165,
+        -0.4586171805858612
+      ],
+      "after_tip_metres": [
+        0.4788171648979187,
+        1.6351094245910645,
+        -0.4421243369579315
+      ],
+      "translation_mm": 42.426329676535396
+    },
+    {
+      "time_seconds": 1.7333333333333334,
+      "before_tip_metres": [
+        0.41722962260246277,
+        1.5620037317276,
+        -0.4562949240207672
+      ],
+      "after_tip_metres": [
+        0.4378483295440674,
+        1.5966683626174927,
+        -0.4431333839893341
+      ],
+      "translation_mm": 42.42633430693464
+    },
+    {
+      "time_seconds": 1.7666666666666666,
+      "before_tip_metres": [
+        0.40005141496658325,
+        1.5374765396118164,
+        -0.4438021779060364
+      ],
+      "after_tip_metres": [
+        0.41480985283851624,
+        1.5758336782455444,
+        -0.43327054381370544
+      ],
+      "translation_mm": 42.426370578377906
+    },
+    {
+      "time_seconds": 1.8,
+      "before_tip_metres": [
+        0.38427507877349854,
+        1.5375844240188599,
+        -0.42774268984794617
+      ],
+      "after_tip_metres": [
+        0.39454832673072815,
+        1.5777239799499512,
+        -0.4186170697212219
+      ],
+      "translation_mm": 42.426413280888376
+    },
+    {
+      "time_seconds": 1.8333333333333333,
+      "before_tip_metres": [
+        0.3628096282482147,
+        1.5535519123077393,
+        -0.4112200140953064
+      ],
+      "after_tip_metres": [
+        0.3695749342441559,
+        1.5944900512695312,
+        -0.4023713767528534
+      ],
+      "translation_mm": 42.42639531668489
+    },
+    {
+      "time_seconds": 1.8666666666666667,
+      "before_tip_metres": [
+        0.33750972151756287,
+        1.5748838186264038,
+        -0.394034206867218
+      ],
+      "after_tip_metres": [
+        0.3406068980693817,
+        1.6161463260650635,
+        -0.38466331362724304
+      ],
+      "translation_mm": 42.42641529596562
+    },
+    {
+      "time_seconds": 1.9,
+      "before_tip_metres": [
+        0.30855438113212585,
+        1.5969117879867554,
+        -0.3740512728691101
+      ],
+      "after_tip_metres": [
+        0.3083246946334839,
+        1.6379928588867188,
+        -0.3634546101093292
+      ],
+      "translation_mm": 42.42636480872242
+    },
+    {
+      "time_seconds": 1.9333333333333333,
+      "before_tip_metres": [
+        0.2731800079345703,
+        1.6248862743377686,
+        -0.3485981523990631
+      ],
+      "after_tip_metres": [
+        0.2710416913032532,
+        1.6652392148971558,
+        -0.33567288517951965
+      ],
+      "translation_mm": 42.42634456455339
+    },
+    {
+      "time_seconds": 1.9666666666666666,
+      "before_tip_metres": [
+        0.23010645806789398,
+        1.6759295463562012,
+        -0.3034861981868744
+      ],
+      "after_tip_metres": [
+        0.2285444736480713,
+        1.7143750190734863,
+        -0.2856115996837616
+      ],
+      "translation_mm": 42.426352563243405
+    },
+    {
+      "time_seconds": 2.0,
+      "before_tip_metres": [
+        0.19183827936649323,
+        1.768759846687317,
+        -0.2016129344701767
+      ],
+      "after_tip_metres": [
+        0.19250276684761047,
+        1.802018165588379,
+        -0.17527960240840912
+      ],
+      "translation_mm": 42.42642685418693
+    },
+    {
+      "time_seconds": 2.033333333333333,
+      "before_tip_metres": [
+        0.20490968227386475,
+        1.8958797454833984,
+        0.04518744349479675
+      ],
+      "after_tip_metres": [
+        0.20566928386688232,
+        1.916372299194336,
+        0.08232876658439636
+      ],
+      "translation_mm": 42.426402865188386
+    },
+    {
+      "time_seconds": 2.066666666666667,
+      "before_tip_metres": [
+        0.20855119824409485,
+        1.9255294799804688,
+        0.5024346113204956
+      ],
+      "after_tip_metres": [
+        0.2082071602344513,
+        1.9209543466567993,
+        0.5446121692657471
+      ],
+      "translation_mm": 42.42636657568525
+    },
+    {
+      "time_seconds": 2.1,
+      "before_tip_metres": [
+        0.16645240783691406,
+        1.60420823097229,
+        0.9315085411071777
+      ],
+      "after_tip_metres": [
+        0.16547538340091705,
+        1.5739474296569824,
+        0.9612293839454651
+      ],
+      "translation_mm": 42.42639724869461
+    },
+    {
+      "time_seconds": 2.117,
+      "before_tip_metres": [
+        0.1392698734998703,
+        1.3822417259216309,
+        1.0239278078079224
+      ],
+      "after_tip_metres": [
+        0.13991139829158783,
+        1.3449087142944336,
+        1.0440729856491089
+      ],
+      "translation_mm": 42.426330667663294
+    },
+    {
+      "time_seconds": 2.1333333333333333,
+      "before_tip_metres": [
+        0.10345780104398727,
+        1.1502807140350342,
+        1.061237096786499
+      ],
+      "after_tip_metres": [
+        0.10696262121200562,
+        1.1090972423553467,
+        1.0708094835281372
+      ],
+      "translation_mm": 42.42632073729098
+    },
+    {
+      "time_seconds": 2.1666666666666665,
+      "before_tip_metres": [
+        0.09418945014476776,
+        0.9333943724632263,
+        1.0051531791687012
+      ],
+      "after_tip_metres": [
+        0.09902291744947433,
+        0.8912522792816162,
+        1.0059760808944702
+      ],
+      "translation_mm": 42.42635487844184
+    },
+    {
+      "time_seconds": 2.2,
+      "before_tip_metres": [
+        0.07746123522520065,
+        0.9452393054962158,
+        0.9691523313522339
+      ],
+      "after_tip_metres": [
+        0.0839153602719307,
+        0.9034010767936707,
+        0.9719643592834473
+      ],
+      "translation_mm": 42.42641462070039
+    },
+    {
+      "time_seconds": 2.2333333333333334,
+      "before_tip_metres": [
+        0.06132660061120987,
+        0.9337886571884155,
+        0.9703667163848877
+      ],
+      "after_tip_metres": [
+        0.06898253411054611,
+        0.8921664357185364,
+        0.9733625054359436
+      ],
+      "translation_mm": 42.42637645211934
+    },
+    {
+      "time_seconds": 2.2666666666666666,
+      "before_tip_metres": [
+        0.051166143268346786,
+        0.9286175966262817,
+        0.97866290807724
+      ],
+      "after_tip_metres": [
+        0.05943191424012184,
+        0.8871087431907654,
+        0.9816110134124756
+      ],
+      "translation_mm": 42.4263978998435
+    },
+    {
+      "time_seconds": 2.3,
+      "before_tip_metres": [
+        0.04470321536064148,
+        0.9292056560516357,
+        0.9859501719474792
+      ],
+      "after_tip_metres": [
+        0.05343960225582123,
+        0.8877795338630676,
+        0.9886979460716248
+      ],
+      "translation_mm": 42.42638637209506
+    },
+    {
+      "time_seconds": 2.3333333333333335,
+      "before_tip_metres": [
+        0.040319766849279404,
+        0.929282009601593,
+        0.9915347695350647
+      ],
+      "after_tip_metres": [
+        0.04978908225893974,
+        0.8879839181900024,
+        0.993725061416626
+      ],
+      "translation_mm": 42.426378869142276
+    },
+    {
+      "time_seconds": 2.3666666666666667,
+      "before_tip_metres": [
+        0.03695224970579147,
+        0.9341833591461182,
+        0.9957646131515503
+      ],
+      "after_tip_metres": [
+        0.047149039804935455,
+        0.8930328488349915,
+        0.9973961710929871
+      ],
+      "translation_mm": 42.426418334659054
+    },
+    {
+      "time_seconds": 2.4,
+      "before_tip_metres": [
+        0.03528826683759689,
+        0.9381104707717896,
+        1.000779151916504
+      ],
+      "after_tip_metres": [
+        0.04596225172281265,
+        0.8970624208450317,
+        1.0018390417099
+      ],
+      "translation_mm": 42.42640353107513
+    },
+    {
+      "time_seconds": 2.433333333333333,
+      "before_tip_metres": [
+        0.03664834797382355,
+        0.9406608939170837,
+        1.0063639879226685
+      ],
+      "after_tip_metres": [
+        0.04745447635650635,
+        0.8996370434761047,
+        1.006881833076477
+      ],
+      "translation_mm": 42.42637067484446
+    },
+    {
+      "time_seconds": 2.466666666666667,
+      "before_tip_metres": [
+        0.0371818020939827,
+        0.9414264559745789,
+        1.0118517875671387
+      ],
+      "after_tip_metres": [
+        0.04809840768575668,
+        0.9004286527633667,
+        1.0119045972824097
+      ],
+      "translation_mm": 42.42634753776847
+    },
+    {
+      "time_seconds": 2.5,
+      "before_tip_metres": [
+        0.03354030102491379,
+        0.9397875070571899,
+        1.0162453651428223
+      ],
+      "after_tip_metres": [
+        0.044840008020401,
+        0.8988947868347168,
+        1.0159268379211426
+      ],
+      "translation_mm": 42.42640020432096
+    },
+    {
+      "time_seconds": 2.533333333333333,
+      "before_tip_metres": [
+        0.02966497465968132,
+        0.9345363974571228,
+        1.0187835693359375
+      ],
+      "after_tip_metres": [
+        0.04130269214510918,
+        0.8937429189682007,
+        1.0181090831756592
+      ],
+      "translation_mm": 42.426398559701155
+    },
+    {
+      "time_seconds": 2.566666666666667,
+      "before_tip_metres": [
+        0.026376998052001,
+        0.9264681935310364,
+        1.019728183746338
+      ],
+      "after_tip_metres": [
+        0.038281090557575226,
+        0.885758638381958,
+        1.0187163352966309
+      ],
+      "translation_mm": 42.42639717098549
+    },
+    {
+      "time_seconds": 2.6,
+      "before_tip_metres": [
+        0.023957908153533936,
+        0.9171611070632935,
+        1.019478678703308
+      ],
+      "after_tip_metres": [
+        0.036011844873428345,
+        0.8765048384666443,
+        1.0181498527526855
+      ],
+      "translation_mm": 42.426351691024514
+    },
+    {
+      "time_seconds": 2.6333333333333333,
+      "before_tip_metres": [
+        0.022934284061193466,
+        0.9075725674629211,
+        1.0185540914535522
+      ],
+      "after_tip_metres": [
+        0.03496048226952553,
+        0.8669189214706421,
+        1.0169270038604736
+      ],
+      "translation_mm": 42.426357957334005
+    },
+    {
+      "time_seconds": 2.6666666666666665,
+      "before_tip_metres": [
+        0.024100754410028458,
+        0.8986120223999023,
+        1.0174682140350342
+      ],
+      "after_tip_metres": [
+        0.03583410754799843,
+        0.8578847646713257,
+        1.015566349029541
+      ],
+      "translation_mm": 42.42638516626345
+    },
+    {
+      "time_seconds": 2.7,
+      "before_tip_metres": [
+        0.02838052436709404,
+        0.8914226293563843,
+        1.0164108276367188
+      ],
+      "after_tip_metres": [
+        0.039442215114831924,
+        0.8505188822746277,
+        1.0142836570739746
+      ],
+      "translation_mm": 42.42643559679167
+    },
+    {
+      "time_seconds": 2.7333333333333334,
+      "before_tip_metres": [
+        0.03440341725945473,
+        0.88580322265625,
+        1.0159534215927124
+      ],
+      "after_tip_metres": [
+        0.044559430330991745,
+        0.8446752429008484,
+        1.0136421918869019
+      ],
+      "translation_mm": 42.42637212184289
+    },
+    {
+      "time_seconds": 2.7666666666666666,
+      "before_tip_metres": [
+        0.040722206234931946,
+        0.8813143968582153,
+        1.016375184059143
+      ],
+      "after_tip_metres": [
+        0.04988470673561096,
+        0.8399624824523926,
+        1.0139124393463135
+      ],
+      "translation_mm": 42.42637508550987
+    },
+    {
+      "time_seconds": 2.8,
+      "before_tip_metres": [
+        0.04591035097837448,
+        0.877686619758606,
+        1.0176149606704712
+      ],
+      "after_tip_metres": [
+        0.05411878228187561,
+        0.836142897605896,
+        1.0150189399719238
+      ],
+      "translation_mm": 42.426389919919416
+    },
+    {
+      "time_seconds": 2.8333333333333335,
+      "before_tip_metres": [
+        0.0481548085808754,
+        0.8742637038230896,
+        1.0195400714874268
+      ],
+      "after_tip_metres": [
+        0.05566876381635666,
+        0.832598865032196,
+        1.0167862176895142
+      ],
+      "translation_mm": 42.42643010892413
+    },
+    {
+      "time_seconds": 2.8666666666666667,
+      "before_tip_metres": [
+        0.04354403540492058,
+        0.8694660663604736,
+        1.0227985382080078
+      ],
+      "after_tip_metres": [
+        0.051263149827718735,
+        0.8278579115867615,
+        1.019769549369812
+      ],
+      "translation_mm": 42.426384019383576
+    },
+    {
+      "time_seconds": 2.9,
+      "before_tip_metres": [
+        0.029026571661233902,
+        0.8624269366264343,
+        1.0288723707199097
+      ],
+      "after_tip_metres": [
+        0.038484442979097366,
+        0.8212141990661621,
+        1.0253995656967163
+      ],
+      "translation_mm": 42.42642419231614
+    },
+    {
+      "time_seconds": 2.933333333333333,
+      "before_tip_metres": [
+        0.011564835906028748,
+        0.85480797290802,
+        1.0367785692214966
+      ],
+      "after_tip_metres": [
+        0.02329186350107193,
+        0.8142329454421997,
+        1.0327608585357666
+      ],
+      "translation_mm": 42.42638434093868
+    },
+    {
+      "time_seconds": 2.966666666666667,
+      "before_tip_metres": [
+        -0.0033259689807891846,
+        0.8484361171722412,
+        1.0451346635818481
+      ],
+      "after_tip_metres": [
+        0.010287836194038391,
+        0.8085182905197144,
+        1.0405272245407104
+      ],
+      "translation_mm": 42.42637203609483
+    },
+    {
+      "time_seconds": 3.0,
+      "before_tip_metres": [
+        -0.011505620554089546,
+        0.8450371026992798,
+        1.0527104139328003
+      ],
+      "after_tip_metres": [
+        0.003010964021086693,
+        0.8055194616317749,
+        1.0474547147750854
+      ],
+      "translation_mm": 42.42637752396988
+    },
+    {
+      "time_seconds": 3.033333333333333,
+      "before_tip_metres": [
+        -0.0069978609681129456,
+        0.8455947637557983,
+        1.0589308738708496
+      ],
+      "after_tip_metres": [
+        0.00750385969877243,
+        0.806198239326477,
+        1.0527979135513306
+      ],
+      "translation_mm": 42.42639733176299
+    },
+    {
+      "time_seconds": 3.066666666666667,
+      "before_tip_metres": [
+        0.010533848777413368,
+        0.8627893328666687,
+        1.0595003366470337
+      ],
+      "after_tip_metres": [
+        0.023580217733979225,
+        0.8229710459709167,
+        1.0528448820114136
+      ],
+      "translation_mm": 42.42639304436267
+    },
+    {
+      "time_seconds": 3.1,
+      "before_tip_metres": [
+        0.032679300755262375,
+        0.9074999690055847,
+        1.050958514213562
+      ],
+      "after_tip_metres": [
+        0.04327710345387459,
+        0.8668708205223083,
+        1.0448793172836304
+      ],
+      "translation_mm": 42.42638048227723
+    },
+    {
+      "time_seconds": 3.1333333333333333,
+      "before_tip_metres": [
+        0.03148319572210312,
+        0.970140278339386,
+        1.0324872732162476
+      ],
+      "after_tip_metres": [
+        0.04084379971027374,
+        0.929009199142456,
+        1.027947187423706
+      ],
+      "translation_mm": 42.4263953381219
+    },
+    {
+      "time_seconds": 3.1666666666666665,
+      "before_tip_metres": [
+        -0.02688160538673401,
+        1.0347601175308228,
+        1.0064502954483032
+      ],
+      "after_tip_metres": [
+        -0.01528245024383068,
+        0.9940332770347595,
+        1.0038470029830933
+      ],
+      "translation_mm": 42.42632469242454
+    },
+    {
+      "time_seconds": 3.2,
+      "before_tip_metres": [
+        -0.11004268378019333,
+        1.0799930095672607,
+        0.96966952085495
+      ],
+      "after_tip_metres": [
+        -0.09452365338802338,
+        1.040514349937439,
+        0.9688971042633057
+      ],
+      "translation_mm": 42.42642501496051
+    },
+    {
+      "time_seconds": 3.2333333333333334,
+      "before_tip_metres": [
+        -0.1447898894548416,
+        1.1144617795944214,
+        0.931060254573822
+      ],
+      "after_tip_metres": [
+        -0.12828421592712402,
+        1.075379729270935,
+        0.9314631819725037
+      ],
+      "translation_mm": 42.4264803598644
+    },
+    {
+      "time_seconds": 3.2666666666666666,
+      "before_tip_metres": [
+        -0.14048108458518982,
+        1.1334967613220215,
+        0.9012278914451599
+      ],
+      "after_tip_metres": [
+        -0.12517617642879486,
+        1.0939323902130127,
+        0.9018702507019043
+      ],
+      "translation_mm": 42.426316711816774
+    },
+    {
+      "time_seconds": 3.3,
+      "before_tip_metres": [
+        -0.10740675032138824,
+        1.142418384552002,
+        0.8817327618598938
+      ],
+      "after_tip_metres": [
+        -0.09486636519432068,
+        1.101889967918396,
+        0.8821655511856079
+      ],
+      "translation_mm": 42.42641998832182
+    },
+    {
+      "time_seconds": 3.3333333333333335,
+      "before_tip_metres": [
+        -0.05779875069856644,
+        1.148740291595459,
+        0.8691476583480835
+      ],
+      "after_tip_metres": [
+        -0.04830031096935272,
+        1.1073925495147705,
+        0.8695269227027893
+      ],
+      "translation_mm": 42.42640585665433
+    },
+    {
+      "time_seconds": 3.3666666666666667,
+      "before_tip_metres": [
+        -0.012936156243085861,
+        1.1549997329711914,
+        0.860689103603363
+      ],
+      "after_tip_metres": [
+        -0.0050608813762664795,
+        1.1133145093917847,
+        0.8612615466117859
+      ],
+      "translation_mm": 42.42647129002024
+    },
+    {
+      "time_seconds": 3.4,
+      "before_tip_metres": [
+        0.017290189862251282,
+        1.1620392799377441,
+        0.8550757765769958
+      ],
+      "after_tip_metres": [
+        0.024256166070699692,
+        1.120200753211975,
+        0.8560826182365417
+      ],
+      "translation_mm": 42.42641739679073
+    }
+  ],
+  "pose_measurements": [
+    {
+      "clip": "slash",
+      "time_seconds": 1.55,
+      "before": {
+        "max_radial_penetration_mm": 10.714760260433414,
+        "mean_radial_penetration_mm": 0.031100635211360486,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29178413428844996,
+          "Index": 30.76789837686359,
+          "Mid": 27.952084452619133,
+          "Ring": 22.261877123468455,
+          "Pinky": 25.238295677137273
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333369475778811,
+        "mean_radial_penetration_mm": 0.1338304200658739,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16365357005769,
+          "Index": 0.04380420051752071,
+          "Mid": 0.0735662869956466,
+          "Ring": 0.054836153298523996,
+          "Pinky": 0.014022407006613127
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.5666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.71484175162252,
+        "mean_radial_penetration_mm": 0.031100966947639145,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29175443878254326,
+          "Index": 30.767874061160647,
+          "Mid": 27.952025021866746,
+          "Ring": 22.26185711849121,
+          "Pinky": 25.23827951402902
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33348067646888,
+        "mean_radial_penetration_mm": 0.13383010140516668,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636941768502539,
+          "Index": 0.043780399399364484,
+          "Mid": 0.07363885943149212,
+          "Ring": 0.05486747954138935,
+          "Pinky": 0.014113428694504868
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.6,
+      "before": {
+        "max_radial_penetration_mm": 10.71495143088656,
+        "mean_radial_penetration_mm": 0.03110122741639225,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2916568837029055,
+          "Index": 30.767782507704325,
+          "Mid": 27.952022121223358,
+          "Ring": 22.261864059134673,
+          "Pinky": 25.23828263710515
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333466772808933,
+        "mean_radial_penetration_mm": 0.13383073727835343,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636968952647179,
+          "Index": 0.04375615312658676,
+          "Mid": 0.07369330990290857,
+          "Ring": 0.05489389423962883,
+          "Pinky": 0.01414995363726787
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.6333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714586481241358,
+        "mean_radial_penetration_mm": 0.031100168745782558,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29191783993176224,
+          "Index": 30.768037128992233,
+          "Mid": 27.952006093722368,
+          "Ring": 22.26181252234967,
+          "Pinky": 25.2382137441049
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333280523490398,
+        "mean_radial_penetration_mm": 0.13382889020389724,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1634674679471277,
+          "Index": 0.043616489580559914,
+          "Mid": 0.07346098515427328,
+          "Ring": 0.05471332724049649,
+          "Pinky": 0.013952907714186169
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.6666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714579279589039,
+        "mean_radial_penetration_mm": 0.03110004541469384,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29190987935576346,
+          "Index": 30.76806507259961,
+          "Mid": 27.952010860941225,
+          "Ring": 22.261905269247677,
+          "Pinky": 25.238315642942972
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33326570728923,
+        "mean_radial_penetration_mm": 0.13382860555339898,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16346400993695956,
+          "Index": 0.04360366476889935,
+          "Mid": 0.07348792666074522,
+          "Ring": 0.054665988260758566,
+          "Pinky": 0.013923091733460125
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.7,
+      "before": {
+        "max_radial_penetration_mm": 10.714870064343572,
+        "mean_radial_penetration_mm": 0.031101046626471826,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917173596007159,
+          "Index": 30.76785580212627,
+          "Mid": 27.952047117663184,
+          "Ring": 22.261870068183033,
+          "Pinky": 25.23829763004079
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333416802133625,
+        "mean_radial_penetration_mm": 0.13383089685640898,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636767376161658,
+          "Index": 0.04380490471567883,
+          "Mid": 0.07366978529799867,
+          "Ring": 0.05490026974918662,
+          "Pinky": 0.014052524259943258
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.7333333333333334,
+      "before": {
+        "max_radial_penetration_mm": 10.714996577089009,
+        "mean_radial_penetration_mm": 0.03110187055397975,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917056926855822,
+          "Index": 30.767739545429425,
+          "Mid": 27.951890718142906,
+          "Ring": 22.261710614389692,
+          "Pinky": 25.238157318779976
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333283865209932,
+        "mean_radial_penetration_mm": 0.1338297515764295,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16351809084561714,
+          "Index": 0.043714937969875634,
+          "Mid": 0.07353091855560011,
+          "Ring": 0.054746220705224544,
+          "Pinky": 0.01390818041727658
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.7666666666666666,
+      "before": {
+        "max_radial_penetration_mm": 10.714722978478639,
+        "mean_radial_penetration_mm": 0.03110105765636752,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918935092724416,
+          "Index": 30.767935961857443,
+          "Mid": 27.95192919380737,
+          "Ring": 22.26173010026658,
+          "Pinky": 25.238161068097078
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333313377365332,
+        "mean_radial_penetration_mm": 0.1338312356468129,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636325865362453,
+          "Index": 0.043760793770754314,
+          "Mid": 0.07361792310286996,
+          "Ring": 0.05489709729776526,
+          "Pinky": 0.0140508566357396
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.8,
+      "before": {
+        "max_radial_penetration_mm": 10.714669929867949,
+        "mean_radial_penetration_mm": 0.031100585881368954,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918773127858643,
+          "Index": 30.767987538142695,
+          "Mid": 27.9520855206337,
+          "Ring": 22.26187007446856,
+          "Pinky": 25.238271751161236
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333262109729935,
+        "mean_radial_penetration_mm": 0.13383108308138827,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358594876735194,
+          "Index": 0.043821509798699226,
+          "Mid": 0.07362755753519308,
+          "Ring": 0.05489115518969058,
+          "Pinky": 0.014064696003681168
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.8333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714721925372455,
+        "mean_radial_penetration_mm": 0.031100915657112347,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918627488625331,
+          "Index": 30.76792439239873,
+          "Mid": 27.951883561967076,
+          "Ring": 22.261744856122306,
+          "Pinky": 25.238166613122125
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333373608415462,
+        "mean_radial_penetration_mm": 0.1338316686440795,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16369733320832114,
+          "Index": 0.043819218650525266,
+          "Mid": 0.07367139484124041,
+          "Ring": 0.05495077100616322,
+          "Pinky": 0.014102070654824217
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.8666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714819826484622,
+        "mean_radial_penetration_mm": 0.031101806221610087,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918889141411574,
+          "Index": 30.767823049450158,
+          "Mid": 27.951771375453784,
+          "Ring": 22.261520883703806,
+          "Pinky": 25.237960972897977
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333423770235024,
+        "mean_radial_penetration_mm": 0.13383131798016482,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16372321021480493,
+          "Index": 0.04389222022291653,
+          "Mid": 0.07367476866623757,
+          "Ring": 0.05494558555936037,
+          "Pinky": 0.01413836223963967
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.9,
+      "before": {
+        "max_radial_penetration_mm": 10.714750229621886,
+        "mean_radial_penetration_mm": 0.0311004053399671,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29176250685256433,
+          "Index": 30.76793905651872,
+          "Mid": 27.95212422293222,
+          "Ring": 22.2618318432219,
+          "Pinky": 25.238382344887018
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333433503194424,
+        "mean_radial_penetration_mm": 0.13382835955286765,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16355776189633764,
+          "Index": 0.04362820977645704,
+          "Mid": 0.0735129261220848,
+          "Ring": 0.054741741407703104,
+          "Pinky": 0.013962014531680722
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.9333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.71475207427046,
+        "mean_radial_penetration_mm": 0.031100916928257755,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182990764579053,
+          "Index": 30.767883970896207,
+          "Mid": 27.951974022115056,
+          "Ring": 22.261703699156126,
+          "Pinky": 25.23813771446156
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33335412283091,
+        "mean_radial_penetration_mm": 0.13383155768324195,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16363389765452868,
+          "Index": 0.04389120165562699,
+          "Mid": 0.07363743291350332,
+          "Ring": 0.0549274329028869,
+          "Pinky": 0.014051776070431177
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 1.9666666666666666,
+      "before": {
+        "max_radial_penetration_mm": 10.714670628371586,
+        "mean_radial_penetration_mm": 0.031100205091702627,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918150060287495,
+          "Index": 30.767979428882338,
+          "Mid": 27.952131830326113,
+          "Ring": 22.261932846017476,
+          "Pinky": 25.23831950745347
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333402533269199,
+        "mean_radial_penetration_mm": 0.13382969530946098,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358747604352553,
+          "Index": 0.04370656888218541,
+          "Mid": 0.07351192226510983,
+          "Ring": 0.05482938862134967,
+          "Pinky": 0.014008991686314046
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.0,
+      "before": {
+        "max_radial_penetration_mm": 10.714682613748487,
+        "mean_radial_penetration_mm": 0.031100295809681634,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918215970529239,
+          "Index": 30.767988286714356,
+          "Mid": 27.9521218761668,
+          "Ring": 22.26195289695129,
+          "Pinky": 25.23833697687271
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333327399674234,
+        "mean_radial_penetration_mm": 0.13383038578538295,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635983069214718,
+          "Index": 0.04371260857224252,
+          "Mid": 0.0735945748961131,
+          "Ring": 0.054843240091213136,
+          "Pinky": 0.014015152936685052
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.033333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714811495381557,
+        "mean_radial_penetration_mm": 0.031100990737638102,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917724688665316,
+          "Index": 30.767869259750395,
+          "Mid": 27.95202665720775,
+          "Ring": 22.261837519606665,
+          "Pinky": 25.23826730693863
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333357552174318,
+        "mean_radial_penetration_mm": 0.133829943641192,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358686849416923,
+          "Index": 0.04368686879675093,
+          "Mid": 0.07353352239838039,
+          "Ring": 0.05483080674607323,
+          "Pinky": 0.01400868372747853
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.066666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714638918178965,
+        "mean_radial_penetration_mm": 0.031100034491379505,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182699463392237,
+          "Index": 30.76801109315956,
+          "Mid": 27.95217241578758,
+          "Ring": 22.261951900493873,
+          "Pinky": 25.23834453578425
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333408669673378,
+        "mean_radial_penetration_mm": 0.13382946445783395,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636014983311101,
+          "Index": 0.043673834575683884,
+          "Mid": 0.07352572503171485,
+          "Ring": 0.05480648849548811,
+          "Pinky": 0.014012755160901572
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.1,
+      "before": {
+        "max_radial_penetration_mm": 10.714738315453431,
+        "mean_radial_penetration_mm": 0.031100615479850734,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29180691331619907,
+          "Index": 30.767931610812617,
+          "Mid": 27.952121342644354,
+          "Ring": 22.261884718178866,
+          "Pinky": 25.2382531206213
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333376218942126,
+        "mean_radial_penetration_mm": 0.13382990012749527,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360196072935304,
+          "Index": 0.04368707172350619,
+          "Mid": 0.07357035864609916,
+          "Ring": 0.05482116050391922,
+          "Pinky": 0.014014333181430055
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.117,
+      "before": {
+        "max_radial_penetration_mm": 10.714753070142839,
+        "mean_radial_penetration_mm": 0.031100683723012314,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29179688124021663,
+          "Index": 30.767916036446053,
+          "Mid": 27.95204343703833,
+          "Ring": 22.2618622556636,
+          "Pinky": 25.238297047292086
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333382465619328,
+        "mean_radial_penetration_mm": 0.13383012722681845,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636093661731737,
+          "Index": 0.04373695015093618,
+          "Mid": 0.07359397250431172,
+          "Ring": 0.05484200689225699,
+          "Pinky": 0.014012996014136497
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.1333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714736944426994,
+        "mean_radial_penetration_mm": 0.03110065982843494,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29181155209360815,
+          "Index": 30.767927960152967,
+          "Mid": 27.95204605472966,
+          "Ring": 22.261874323797624,
+          "Pinky": 25.238275932505566
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333361692520748,
+        "mean_radial_penetration_mm": 0.133829991078737,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358028907725863,
+          "Index": 0.04375933264815293,
+          "Mid": 0.07357532021140707,
+          "Ring": 0.054831359460131776,
+          "Pinky": 0.013994121755020808
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.1666666666666665,
+      "before": {
+        "max_radial_penetration_mm": 10.714743208000185,
+        "mean_radial_penetration_mm": 0.031100704573099783,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918107813616906,
+          "Index": 30.76791314195414,
+          "Mid": 27.95197966578667,
+          "Ring": 22.26180262695342,
+          "Pinky": 25.23822234196363
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33336660209936,
+        "mean_radial_penetration_mm": 0.1338305600875445,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360575952294523,
+          "Index": 0.0437468950363791,
+          "Mid": 0.07361052556992785,
+          "Ring": 0.054871122783101134,
+          "Pinky": 0.014027635202570887
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.2,
+      "before": {
+        "max_radial_penetration_mm": 10.714716323380312,
+        "mean_radial_penetration_mm": 0.031100468857026015,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918034297213681,
+          "Index": 30.767947823491937,
+          "Mid": 27.952108039523377,
+          "Ring": 22.261878336522646,
+          "Pinky": 25.23830718392643
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333306357721316,
+        "mean_radial_penetration_mm": 0.1338309141893969,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16359612977503818,
+          "Index": 0.04380125436227386,
+          "Mid": 0.0735962447554455,
+          "Ring": 0.05486320158899424,
+          "Pinky": 0.014025014883978573
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.2333333333333334,
+      "before": {
+        "max_radial_penetration_mm": 10.714769229498026,
+        "mean_radial_penetration_mm": 0.031100832461240523,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917965104325265,
+          "Index": 30.767892240236083,
+          "Mid": 27.95202424127391,
+          "Ring": 22.261790540361293,
+          "Pinky": 25.238214859344787
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333427564201415,
+        "mean_radial_penetration_mm": 0.13382960017945544,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16361329265809563,
+          "Index": 0.043695735677987124,
+          "Mid": 0.07355966650698931,
+          "Ring": 0.054843190283924634,
+          "Pinky": 0.0140453718003343
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.2666666666666666,
+      "before": {
+        "max_radial_penetration_mm": 10.714733168077116,
+        "mean_radial_penetration_mm": 0.03110051435214304,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29179358028139435,
+          "Index": 30.767938261336532,
+          "Mid": 27.952056304142392,
+          "Ring": 22.2618406910581,
+          "Pinky": 25.238326039821764
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333377485644283,
+        "mean_radial_penetration_mm": 0.1338301767869552,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635994989281804,
+          "Index": 0.043717974488492045,
+          "Mid": 0.07357758725320268,
+          "Ring": 0.05484706577681131,
+          "Pinky": 0.01402004975501435
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.3,
+      "before": {
+        "max_radial_penetration_mm": 10.71473723935417,
+        "mean_radial_penetration_mm": 0.031100695470504664,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29181713377143814,
+          "Index": 30.7679276130008,
+          "Mid": 27.95201024222535,
+          "Ring": 22.261799442093928,
+          "Pinky": 25.238236302735203
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333392164667034,
+        "mean_radial_penetration_mm": 0.13383071985519146,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636242800031086,
+          "Index": 0.04377768117252642,
+          "Mid": 0.07361742653659055,
+          "Ring": 0.05489125273242662,
+          "Pinky": 0.014043748057562117
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.3333333333333335,
+      "before": {
+        "max_radial_penetration_mm": 10.71483532516554,
+        "mean_radial_penetration_mm": 0.03110096154835478,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917405552631241,
+          "Index": 30.767852164016578,
+          "Mid": 27.95206221165386,
+          "Ring": 22.261798973586334,
+          "Pinky": 25.23825026286927
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333327872761119,
+        "mean_radial_penetration_mm": 0.13383026941718068,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358460298068755,
+          "Index": 0.04378336463292665,
+          "Mid": 0.07354076164012291,
+          "Ring": 0.05484536638883375,
+          "Pinky": 0.014019835148024185
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.3666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714678746216919,
+        "mean_radial_penetration_mm": 0.03110039187568584,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918337542663404,
+          "Index": 30.767960205115042,
+          "Mid": 27.95208177592147,
+          "Ring": 22.26179290051902,
+          "Pinky": 25.238272323863676
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333440215803643,
+        "mean_radial_penetration_mm": 0.13382949446578635,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16359272341175818,
+          "Index": 0.04371334445891703,
+          "Mid": 0.07354654835539827,
+          "Ring": 0.05483678327491796,
+          "Pinky": 0.014008131166507592
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.4,
+      "before": {
+        "max_radial_penetration_mm": 10.714762253238666,
+        "mean_radial_penetration_mm": 0.031100808650657362,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918043347326007,
+          "Index": 30.767899321279824,
+          "Mid": 27.952002609428664,
+          "Ring": 22.261775064348935,
+          "Pinky": 25.238223272940544
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333349012874768,
+        "mean_radial_penetration_mm": 0.1338305360339623,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16359955505308027,
+          "Index": 0.043760814710139956,
+          "Mid": 0.07357563765792753,
+          "Ring": 0.05486683286071853,
+          "Pinky": 0.014004366365453352
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.433333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714728309348262,
+        "mean_radial_penetration_mm": 0.031100568900776268,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.291807833302073,
+          "Index": 30.767941056452035,
+          "Mid": 27.952044107866623,
+          "Ring": 22.26184020780163,
+          "Pinky": 25.238273529333945
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333414660259491,
+        "mean_radial_penetration_mm": 0.13382878934518913,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16356061965846524,
+          "Index": 0.0436560139368998,
+          "Mid": 0.0734755699692731,
+          "Ring": 0.0547876034041276,
+          "Pinky": 0.013972095853518815
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.466666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714756078641724,
+        "mean_radial_penetration_mm": 0.031100706241213447,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29179674483210266,
+          "Index": 30.767910032764124,
+          "Mid": 27.952016869066032,
+          "Ring": 22.261789287341706,
+          "Pinky": 25.238252502021517
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333389668241098,
+        "mean_radial_penetration_mm": 0.1338306918260034,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16363220396673275,
+          "Index": 0.04376712956430731,
+          "Mid": 0.0736055544604923,
+          "Ring": 0.05490004200751908,
+          "Pinky": 0.0140502507335067
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.5,
+      "before": {
+        "max_radial_penetration_mm": 10.714699959528895,
+        "mean_radial_penetration_mm": 0.031100609397074798,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29183967900930746,
+          "Index": 30.767947574532677,
+          "Mid": 27.952041206181246,
+          "Ring": 22.261771193556136,
+          "Pinky": 25.23819302626148
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333426059644667,
+        "mean_radial_penetration_mm": 0.1338305606748534,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16365146384774917,
+          "Index": 0.04377099660716685,
+          "Mid": 0.07358820716190859,
+          "Ring": 0.05489745475842703,
+          "Pinky": 0.014053316532187596
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.533333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714769394858807,
+        "mean_radial_penetration_mm": 0.03110077744570582,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917905275901609,
+          "Index": 30.767901895547546,
+          "Mid": 27.95203140086383,
+          "Ring": 22.261812000673412,
+          "Pinky": 25.238230613192076
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333384227620911,
+        "mean_radial_penetration_mm": 0.13383129526656606,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16365356371028303,
+          "Index": 0.04381596295182852,
+          "Mid": 0.07364590384973356,
+          "Ring": 0.05491202875498001,
+          "Pinky": 0.014050890724971038
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.566666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714700724216625,
+        "mean_radial_penetration_mm": 0.031100398135713476,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29181389116147116,
+          "Index": 30.76796045550044,
+          "Mid": 27.952063611762927,
+          "Ring": 22.261800836415926,
+          "Pinky": 25.23827705115132
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333342861847715,
+        "mean_radial_penetration_mm": 0.13383031425293823,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358346793847456,
+          "Index": 0.04377095358982369,
+          "Mid": 0.07357831128869223,
+          "Ring": 0.05484272616541365,
+          "Pinky": 0.014000481209789153
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.6,
+      "before": {
+        "max_radial_penetration_mm": 10.714721335443128,
+        "mean_radial_penetration_mm": 0.031100550900436227,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918118808943153,
+          "Index": 30.76793941094554,
+          "Mid": 27.952093176072655,
+          "Ring": 22.26181277034734,
+          "Pinky": 25.238268657947646
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33342904183624,
+        "mean_radial_penetration_mm": 0.13382955220399415,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16361026079866545,
+          "Index": 0.04366486426175126,
+          "Mid": 0.07354714344779377,
+          "Ring": 0.054839737208557324,
+          "Pinky": 0.014015011808858613
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.6333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714734278360858,
+        "mean_radial_penetration_mm": 0.031100769827594472,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182698091627035,
+          "Index": 30.767918107975973,
+          "Mid": 27.952025132734107,
+          "Ring": 22.26173147648596,
+          "Pinky": 25.238217971075976
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333366478829761,
+        "mean_radial_penetration_mm": 0.1338297710468071,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16355292608794847,
+          "Index": 0.04369505734011861,
+          "Mid": 0.07352682115480298,
+          "Ring": 0.054822558252459394,
+          "Pinky": 0.01395658799348623
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.6666666666666665,
+      "before": {
+        "max_radial_penetration_mm": 10.714732537953957,
+        "mean_radial_penetration_mm": 0.031100649522200034,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918154293060967,
+          "Index": 30.76792859286218,
+          "Mid": 27.95199426355176,
+          "Ring": 22.26173660834773,
+          "Pinky": 25.238209265716886
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333400015581933,
+        "mean_radial_penetration_mm": 0.13383090238444062,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16364599898185603,
+          "Index": 0.04376089956562371,
+          "Mid": 0.07362953701941025,
+          "Ring": 0.05489915686354013,
+          "Pinky": 0.01406672796088436
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.7,
+      "before": {
+        "max_radial_penetration_mm": 10.714621490047836,
+        "mean_radial_penetration_mm": 0.031100128686049673,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29186666481089557,
+          "Index": 30.768014042781683,
+          "Mid": 27.952067264815604,
+          "Ring": 22.261806699415917,
+          "Pinky": 25.238234362223736
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333435170517944,
+        "mean_radial_penetration_mm": 0.13383071410076425,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16366215163988485,
+          "Index": 0.04374331531687217,
+          "Mid": 0.07361687796303244,
+          "Ring": 0.05490338587825147,
+          "Pinky": 0.014060456077779476
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.7333333333333334,
+      "before": {
+        "max_radial_penetration_mm": 10.714716312039206,
+        "mean_radial_penetration_mm": 0.031100680513016114,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918393247522983,
+          "Index": 30.76792757763983,
+          "Mid": 27.952016264257743,
+          "Ring": 22.261698915339764,
+          "Pinky": 25.238215870870302
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333354486548428,
+        "mean_radial_penetration_mm": 0.13383082940300767,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16361197283486922,
+          "Index": 0.04382490934592628,
+          "Mid": 0.07356504212031705,
+          "Ring": 0.05489479563129847,
+          "Pinky": 0.014026927752425547
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.7666666666666666,
+      "before": {
+        "max_radial_penetration_mm": 10.714751173203242,
+        "mean_radial_penetration_mm": 0.031100776009052696,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918150448241192,
+          "Index": 30.767918701627444,
+          "Mid": 27.952034097636734,
+          "Ring": 22.2617423222676,
+          "Pinky": 25.238250307463296
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33345557284278,
+        "mean_radial_penetration_mm": 0.13382940414182498,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.163618145759159,
+          "Index": 0.043715559739608556,
+          "Mid": 0.07350701993863798,
+          "Ring": 0.05485081449795211,
+          "Pinky": 0.014045347808940359
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.8,
+      "before": {
+        "max_radial_penetration_mm": 10.714750493513538,
+        "mean_radial_penetration_mm": 0.031100608564142894,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29178729568855,
+          "Index": 30.767930062434765,
+          "Mid": 27.952080757171377,
+          "Ring": 22.26180894918804,
+          "Pinky": 25.238282686318648
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333371298792514,
+        "mean_radial_penetration_mm": 0.13383010720367938,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358538595973549,
+          "Index": 0.043663968809802556,
+          "Mid": 0.07355631487735402,
+          "Ring": 0.05483071759827124,
+          "Pinky": 0.014007567594913686
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.8333333333333335,
+      "before": {
+        "max_radial_penetration_mm": 10.71464641606716,
+        "mean_radial_penetration_mm": 0.031100142468130122,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918357264730109,
+          "Index": 30.76800905823124,
+          "Mid": 27.95213472946324,
+          "Ring": 22.261852927412153,
+          "Pinky": 25.23833271205302
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333369466292366,
+        "mean_radial_penetration_mm": 0.13383020169482548,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635941557423578,
+          "Index": 0.043738859570163074,
+          "Mid": 0.07356545693063855,
+          "Ring": 0.054849769053556124,
+          "Pinky": 0.014011386725047356
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.8666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714713540371106,
+        "mean_radial_penetration_mm": 0.031100500668493746,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918117002205234,
+          "Index": 30.767947264288633,
+          "Mid": 27.952067307439034,
+          "Ring": 22.261782276376604,
+          "Pinky": 25.23824294704163
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33343905929863,
+        "mean_radial_penetration_mm": 0.13382955336185925,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636161251261925,
+          "Index": 0.04368592116096512,
+          "Mid": 0.07353298364161723,
+          "Ring": 0.05485763197908729,
+          "Pinky": 0.014030306889100883
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.9,
+      "before": {
+        "max_radial_penetration_mm": 10.7146167577068,
+        "mean_radial_penetration_mm": 0.03110017545236817,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29187324987576396,
+          "Index": 30.768008975805365,
+          "Mid": 27.952109885129374,
+          "Ring": 22.26178108580594,
+          "Pinky": 25.238259918981623
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33336736960312,
+        "mean_radial_penetration_mm": 0.133829527306267,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16356259917754862,
+          "Index": 0.04369378087479975,
+          "Mid": 0.07350824073253451,
+          "Ring": 0.054822558482376174,
+          "Pinky": 0.014004084111590709
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.933333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714744354296453,
+        "mean_radial_penetration_mm": 0.031100799768418952,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182737772794587,
+          "Index": 30.767922283649998,
+          "Mid": 27.95202991048993,
+          "Ring": 22.261712130125318,
+          "Pinky": 25.238176117647757
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333392597087485,
+        "mean_radial_penetration_mm": 0.13383060154106982,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16362224369637426,
+          "Index": 0.043748839776494575,
+          "Mid": 0.07357532852574414,
+          "Ring": 0.05488601232293833,
+          "Pinky": 0.014028990728944327
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 2.966666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714821338758156,
+        "mean_radial_penetration_mm": 0.031101088561614976,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29178207874147255,
+          "Index": 30.76785420621761,
+          "Mid": 27.951950191811445,
+          "Ring": 22.261749163545165,
+          "Pinky": 25.238197319367455
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333363661058716,
+        "mean_radial_penetration_mm": 0.13383037759837232,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360273335764772,
+          "Index": 0.043760791854176306,
+          "Mid": 0.07357421149740799,
+          "Ring": 0.05487993056964985,
+          "Pinky": 0.014013012443823969
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.0,
+      "before": {
+        "max_radial_penetration_mm": 10.714683186787884,
+        "mean_radial_penetration_mm": 0.03110051838343328,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29185548759096125,
+          "Index": 30.767965364937776,
+          "Mid": 27.952047473086598,
+          "Ring": 22.26177193208374,
+          "Pinky": 25.238221597810472
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333436842467954,
+        "mean_radial_penetration_mm": 0.13383100135201034,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16367408050827448,
+          "Index": 0.043784567382364886,
+          "Mid": 0.07361000332499826,
+          "Ring": 0.05493675843105256,
+          "Pinky": 0.014083717653646383
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.033333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714760093092586,
+        "mean_radial_penetration_mm": 0.031100737037138216,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917938544976118,
+          "Index": 30.767895906825437,
+          "Mid": 27.952016027080898,
+          "Ring": 22.261690982676708,
+          "Pinky": 25.238195946436285
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333422857568404,
+        "mean_radial_penetration_mm": 0.13382997046970618,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360943312877968,
+          "Index": 0.04375856834835587,
+          "Mid": 0.07353879121840823,
+          "Ring": 0.05485675406387627,
+          "Pinky": 0.014029573336930487
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.066666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714581355488809,
+        "mean_radial_penetration_mm": 0.031099993530613372,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.291886688369155,
+          "Index": 30.768039028186887,
+          "Mid": 27.95211907126543,
+          "Ring": 22.26182049080029,
+          "Pinky": 25.23825842510312
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333469168772933,
+        "mean_radial_penetration_mm": 0.13382973078724528,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16363291074760444,
+          "Index": 0.04370348459926607,
+          "Mid": 0.07354698207751899,
+          "Ring": 0.05486257453606383,
+          "Pinky": 0.014052287115247017
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.1,
+      "before": {
+        "max_radial_penetration_mm": 10.714680113338332,
+        "mean_radial_penetration_mm": 0.031100462083816807,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29184390632739504,
+          "Index": 30.767957335934945,
+          "Mid": 27.952056393059532,
+          "Ring": 22.261735927606946,
+          "Pinky": 25.238213160664156
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333409356268657,
+        "mean_radial_penetration_mm": 0.13383039905405403,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360882137054533,
+          "Index": 0.04378191653770652,
+          "Mid": 0.07354766686771923,
+          "Ring": 0.054877364875517004,
+          "Pinky": 0.01401753386585762
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.1333333333333333,
+      "before": {
+        "max_radial_penetration_mm": 10.714673476462034,
+        "mean_radial_penetration_mm": 0.031100268621425193,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918243091195871,
+          "Index": 30.767985086006004,
+          "Mid": 27.95210069921118,
+          "Ring": 22.261784151382777,
+          "Pinky": 25.2383058299141
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333390680643799,
+        "mean_radial_penetration_mm": 0.13382956811239194,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16357895422085095,
+          "Index": 0.043710540471506715,
+          "Mid": 0.07352118762105411,
+          "Ring": 0.05483976323190226,
+          "Pinky": 0.014011821493228882
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.1666666666666665,
+      "before": {
+        "max_radial_penetration_mm": 10.714711931451074,
+        "mean_radial_penetration_mm": 0.031100752976676912,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918507747199043,
+          "Index": 30.767930786835137,
+          "Mid": 27.951942346899237,
+          "Ring": 22.261695553312695,
+          "Pinky": 25.23818137392089
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333392415863896,
+        "mean_radial_penetration_mm": 0.13382978346469732,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358868315774489,
+          "Index": 0.04370624497071485,
+          "Mid": 0.0735486881480174,
+          "Ring": 0.05484864116681552,
+          "Pinky": 0.014007318928538001
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.2,
+      "before": {
+        "max_radial_penetration_mm": 10.714594150103476,
+        "mean_radial_penetration_mm": 0.03110018016350959,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29189685780297603,
+          "Index": 30.76800729242886,
+          "Mid": 27.952055442589383,
+          "Ring": 22.261724902664675,
+          "Pinky": 25.23819927791452
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333449600288594,
+        "mean_radial_penetration_mm": 0.1338297533045414,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16361369241317364,
+          "Index": 0.04371476199249366,
+          "Mid": 0.07353494930310671,
+          "Ring": 0.05486221907037743,
+          "Pinky": 0.014030119041587297
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.2333333333333334,
+      "before": {
+        "max_radial_penetration_mm": 10.714727466289089,
+        "mean_radial_penetration_mm": 0.031100484268072427,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29179274514903353,
+          "Index": 30.76794451178181,
+          "Mid": 27.952116430564054,
+          "Ring": 22.26177917596903,
+          "Pinky": 25.238318995086647
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333333890130717,
+        "mean_radial_penetration_mm": 0.13383027278928653,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635742310350831,
+          "Index": 0.04374756751380007,
+          "Mid": 0.0735595849392437,
+          "Ring": 0.05485888610362068,
+          "Pinky": 0.014011239538213455
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.2666666666666666,
+      "before": {
+        "max_radial_penetration_mm": 10.714612483958533,
+        "mean_radial_penetration_mm": 0.03109995550668764,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.291846596564874,
+          "Index": 30.768029378643202,
+          "Mid": 27.95219153863914,
+          "Ring": 22.261869219769114,
+          "Pinky": 25.238310333628345
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333464684528854,
+        "mean_radial_penetration_mm": 0.13382971978655825,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16361946772022912,
+          "Index": 0.043714092319097064,
+          "Mid": 0.07353745447719051,
+          "Ring": 0.05486898419498204,
+          "Pinky": 0.014034298608285242
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.3,
+      "before": {
+        "max_radial_penetration_mm": 10.71470194759808,
+        "mean_radial_penetration_mm": 0.031100761108474744,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29187245962569025,
+          "Index": 30.767936717180763,
+          "Mid": 27.95201153487918,
+          "Ring": 22.261621824173183,
+          "Pinky": 25.238143389844506
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333429404350518,
+        "mean_radial_penetration_mm": 0.13383072188079195,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16365795164333813,
+          "Index": 0.04379097772611376,
+          "Mid": 0.07358288287310014,
+          "Ring": 0.05493147272045418,
+          "Pinky": 0.014073865186705128
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.3333333333333335,
+      "before": {
+        "max_radial_penetration_mm": 10.714746979690101,
+        "mean_radial_penetration_mm": 0.031100572366309698,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29178474397365506,
+          "Index": 30.767928649587315,
+          "Mid": 27.95213716896502,
+          "Ring": 22.26177739117286,
+          "Pinky": 25.238322638163638
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333386894198405,
+        "mean_radial_penetration_mm": 0.1338298600993726,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635848842963146,
+          "Index": 0.04372296504326703,
+          "Mid": 0.07350305909203589,
+          "Ring": 0.054851636591270875,
+          "Pinky": 0.014003269965243148
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.3666666666666667,
+      "before": {
+        "max_radial_penetration_mm": 10.714760414396524,
+        "mean_radial_penetration_mm": 0.03110068336764071,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29178589487989687,
+          "Index": 30.76791787407136,
+          "Mid": 27.952149789754486,
+          "Ring": 22.261796998683884,
+          "Pinky": 25.23826065720363
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333382422332821,
+        "mean_radial_penetration_mm": 0.1338301911907921,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.163606190515456,
+          "Index": 0.043691839402643096,
+          "Mid": 0.0735252639726524,
+          "Ring": 0.05486145548827363,
+          "Pinky": 0.014026674733593966
+        }
+      }
+    },
+    {
+      "clip": "slash",
+      "time_seconds": 3.4,
+      "before": {
+        "max_radial_penetration_mm": 10.71469602330838,
+        "mean_radial_penetration_mm": 0.031100575373144125,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29184580239647107,
+          "Index": 30.767951923469504,
+          "Mid": 27.952080812196808,
+          "Ring": 22.261691832561976,
+          "Pinky": 25.238233258836676
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333471948312743,
+        "mean_radial_penetration_mm": 0.13383065820998497,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16367199675519117,
+          "Index": 0.04379172259745892,
+          "Mid": 0.07360359091866144,
+          "Ring": 0.054954632633703523,
+          "Pinky": 0.014085136236600612
+        }
+      }
+    },
+    {
+      "clip": "idle",
+      "time_seconds": 1.0,
+      "before": {
+        "max_radial_penetration_mm": 10.714797029135509,
+        "mean_radial_penetration_mm": 0.03110118602012078,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182603413614033,
+          "Index": 30.767863904019656,
+          "Mid": 27.951868356508648,
+          "Ring": 22.261670026109197,
+          "Pinky": 25.238105540636678
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333364082835093,
+        "mean_radial_penetration_mm": 0.13383047291495712,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16360644495983304,
+          "Index": 0.04372660975671128,
+          "Mid": 0.07361435358110152,
+          "Ring": 0.05484194862090397,
+          "Pinky": 0.01402386514800201
+        }
+      }
+    },
+    {
+      "clip": "walk",
+      "time_seconds": 0.6,
+      "before": {
+        "max_radial_penetration_mm": 10.714695136703723,
+        "mean_radial_penetration_mm": 0.031100259030772247,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918051227675678,
+          "Index": 30.767971370060142,
+          "Mid": 27.95202133033493,
+          "Ring": 22.26188148561013,
+          "Pinky": 25.23832297972728
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333412984291424,
+        "mean_radial_penetration_mm": 0.13382977171276536,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636003630882503,
+          "Index": 0.04372499938804647,
+          "Mid": 0.0735971731249084,
+          "Ring": 0.05483771646334554,
+          "Pinky": 0.014008140299016578
+        }
+      }
+    },
+    {
+      "clip": "turn",
+      "time_seconds": 0.6,
+      "before": {
+        "max_radial_penetration_mm": 10.714744124195416,
+        "mean_radial_penetration_mm": 0.031100612719831906,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2917964175288574,
+          "Index": 30.767921415781927,
+          "Mid": 27.95198825833169,
+          "Ring": 22.26182347185347,
+          "Pinky": 25.238257411755708
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.33342555714992,
+        "mean_radial_penetration_mm": 0.13382955991658532,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16358249806145905,
+          "Index": 0.04374648534423431,
+          "Mid": 0.07356847543255572,
+          "Ring": 0.05481674810022853,
+          "Pinky": 0.013991527848627311
+        }
+      }
+    },
+    {
+      "clip": "hit_body",
+      "time_seconds": 0.35,
+      "before": {
+        "max_radial_penetration_mm": 10.714683187077174,
+        "mean_radial_penetration_mm": 0.03110067015496043,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2918882302623774,
+          "Index": 30.767957537146547,
+          "Mid": 27.95195301954006,
+          "Ring": 22.261722711507844,
+          "Pinky": 25.23816737487391
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333434178656832,
+        "mean_radial_penetration_mm": 0.13383033008229625,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16365325883581708,
+          "Index": 0.04376886254479906,
+          "Mid": 0.07358770723759657,
+          "Ring": 0.05485875905513436,
+          "Pinky": 0.01403375880006108
+        }
+      }
+    },
+    {
+      "clip": "hit_head",
+      "time_seconds": 0.35,
+      "before": {
+        "max_radial_penetration_mm": 10.714839860695907,
+        "mean_radial_penetration_mm": 0.03110092241170802,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29172686754129656,
+          "Index": 30.767861921163533,
+          "Mid": 27.952017668784812,
+          "Ring": 22.26180633139354,
+          "Pinky": 25.23820512768486
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333239020145214,
+        "mean_radial_penetration_mm": 0.13382875731770266,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.16341505361816902,
+          "Index": 0.04367525766263425,
+          "Mid": 0.07344842321412026,
+          "Ring": 0.05459514192791316,
+          "Pinky": 0.013946066354747141
+        }
+      }
+    },
+    {
+      "clip": "hit_side",
+      "time_seconds": 0.35,
+      "before": {
+        "max_radial_penetration_mm": 10.714693729794993,
+        "mean_radial_penetration_mm": 0.03110089087772279,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.2919037354075071,
+          "Index": 30.76793966369347,
+          "Mid": 27.951832397226905,
+          "Ring": 22.261676372974428,
+          "Pinky": 25.23810531680234
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333277238735114,
+        "mean_radial_penetration_mm": 0.1338312168017141,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1635771455522142,
+          "Index": 0.04377390510612242,
+          "Mid": 0.07361414864556076,
+          "Ring": 0.054858307748994334,
+          "Pinky": 0.013994158750727653
+        }
+      }
+    },
+    {
+      "clip": "fall",
+      "time_seconds": 0.6,
+      "before": {
+        "max_radial_penetration_mm": 10.714701315461733,
+        "mean_radial_penetration_mm": 0.03110047224846036,
+        "vertices_deeper_than_2mm": 6,
+        "surface_samples_within_3mm": 10,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.29182382402232965,
+          "Index": 30.7679560604009,
+          "Mid": 27.95205389861608,
+          "Ring": 22.261839750036962,
+          "Pinky": 25.23827882224997
+        }
+      },
+      "after": {
+        "max_radial_penetration_mm": 8.333396760090661,
+        "mean_radial_penetration_mm": 0.13383067731567255,
+        "vertices_deeper_than_2mm": 34,
+        "surface_samples_within_3mm": 71,
+        "finger_nearest_core_surface_mm": {
+          "Thumb": 0.1636229906690403,
+          "Index": 0.04376122923168552,
+          "Mid": 0.07364650163860925,
+          "Ring": 0.05487956621719366,
+          "Pinky": 0.01404054773592768
+        }
+      }
+    }
+  ],
+  "review_status": "requires_review_new_left_crossings_and_penetration_tradeoff",
+  "raw_sources": {
+    "rig": {
+      "path": "ArtSource/tripo-warrior/refined-base60k/rig.glb",
+      "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6"
+    },
+    "slash": {
+      "path": "ArtSource/tripo-warrior/refined-base60k/slash.glb",
+      "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a"
+    }
+  }
+}

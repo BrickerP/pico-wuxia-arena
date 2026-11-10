@@ -1,0 +1,174 @@
+{
+  "scope": "offline source GLB rest-pose review",
+  "blender_version": "4.5.15 LTS",
+  "engine": "BLENDER_EEVEE_NEXT",
+  "resolution": [
+    768,
+    768
+  ],
+  "display_height_metres": 1.78,
+  "material_display": "neutral grey clay",
+  "view_cameras": {
+    "whole": [
+      [
+        0,
+        0,
+        0.94
+      ],
+      [
+        3.8,
+        -7,
+        2.6
+      ],
+      2.4
+    ],
+    "head": [
+      [
+        0,
+        -0.015,
+        1.61
+      ],
+      [
+        0.36,
+        -2,
+        1.76
+      ],
+      0.5
+    ],
+    "collar": [
+      [
+        0,
+        -0.015,
+        1.27
+      ],
+      [
+        0.3,
+        -2,
+        1.5
+      ],
+      0.65
+    ],
+    "right_hand": [
+      [
+        -0.77,
+        0,
+        1.31
+      ],
+      [
+        -0.77,
+        -2,
+        1.66
+      ],
+      0.52
+    ],
+    "left_hand": [
+      [
+        0.77,
+        0,
+        1.31
+      ],
+      [
+        0.77,
+        -2,
+        1.66
+      ],
+      0.52
+    ],
+    "right_hand_top": [
+      [
+        -0.77,
+        0,
+        1.31
+      ],
+      [
+        -0.77,
+        -0.08,
+        2.7
+      ],
+      0.48
+    ],
+    "left_hand_top": [
+      [
+        0.77,
+        0,
+        1.31
+      ],
+      [
+        0.77,
+        -0.08,
+        2.7
+      ],
+      0.48
+    ]
+  },
+  "sources": {
+    "before": {
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/mobile/model.glb",
+      "source_sha256": "8c4effee95c0c3619bb2cf8023cf8543caf1e67d6163e30882a05bb84639812a",
+      "yaw_degrees": -90.0,
+      "uniform_scale": 1.8236369385436844,
+      "translation_metres": [
+        -0.00010706677130656317,
+        -0.00016383390175178647,
+        0.8897069096565247
+      ],
+      "normalized_bounds_metres": [
+        [
+          -0.8203326463699341,
+          -0.17939338088035583,
+          5.960464477539063e-08
+        ],
+        [
+          0.8203327059745789,
+          0.17939339578151703,
+          1.7799999713897705
+        ]
+      ],
+      "rest_pose": true,
+      "normalization_pose": "REST",
+      "mesh_names": [
+        "tripo_node_89f78fc8-53b0-4e6b-ada3-7277e8606007"
+      ],
+      "renders": {
+        "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/before_head.png",
+        "collar": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/before_collar.png",
+        "right_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/before_right_hand_top.png",
+        "left_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/before_left_hand_top.png"
+      }
+    },
+    "after": {
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/mobile60k/model.glb",
+      "source_sha256": "b7a080d8f27b4ea5318d30c81bbbe222aefb17abb0a63e8dccfc355c2998ffe0",
+      "yaw_degrees": -90.0,
+      "uniform_scale": 1.8198762767030023,
+      "translation_metres": [
+        -0.0002714267757255584,
+        -0.00013673710054717958,
+        0.8897132873535156
+      ],
+      "normalized_bounds_metres": [
+        [
+          -0.8142387270927429,
+          -0.17948457598686218,
+          0.0
+        ],
+        [
+          0.8142387270927429,
+          0.179484561085701,
+          1.7799999713897705
+        ]
+      ],
+      "rest_pose": true,
+      "normalization_pose": "REST",
+      "mesh_names": [
+        "tripo_node_78aef961-efe3-4f9f-a9e2-d501bb808dac"
+      ],
+      "renders": {
+        "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/after_head.png",
+        "collar": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/after_collar.png",
+        "right_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/after_right_hand_top.png",
+        "left_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/density60k_clay_review/after_left_hand_top.png"
+      }
+    }
+  }
+}

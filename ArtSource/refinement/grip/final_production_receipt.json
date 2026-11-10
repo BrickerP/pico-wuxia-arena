@@ -1,0 +1,43 @@
+{
+  "producer": "ArtSource/tripo-warrior/prepare_character_library.py",
+  "publication": "Canonical raw-source producer, followed by grouped runtime publication",
+  "scope": "Reviewed finger corrections and slash offhand envelopes; full native clip residuals remain documented",
+  "characters": [
+    {
+      "id": "base",
+      "source": "ArtSource/tripo-warrior/library/base.glb",
+      "runtime": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+      "bytes": 23000580,
+      "reviewed_candidate_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "maximum_geometry_component_error_metres": 8.940696716308594e-08,
+      "maximum_authoring_locator_matrix_component_error": 8.940696716308594e-08,
+      "joint_count": 78
+    },
+    {
+      "id": "indigo",
+      "source": "ArtSource/tripo-warrior/library/indigo.glb",
+      "runtime": "app/src/main/assets/models/opponents/indigo.glb",
+      "sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6",
+      "bytes": 14813640,
+      "reviewed_candidate_sha256": "398e3aa99865c3259f155ba49c305594ba822c75f01d92e05a5201488c9cf7eb",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "maximum_geometry_component_error_metres": 0.0,
+      "maximum_authoring_locator_matrix_component_error": 0.0,
+      "joint_count": 78
+    },
+    {
+      "id": "veteran",
+      "source": "ArtSource/tripo-warrior/library/veteran.glb",
+      "runtime": "app/src/main/assets/models/opponents/veteran.glb",
+      "sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7",
+      "bytes": 14310484,
+      "reviewed_candidate_sha256": "6379628c7a83b4036dc53245ad6ec9612e9aa6e8d6b758864c8a8e348ec9c7ba",
+      "all_eight_animation_signatures_match_reviewed_candidate": true,
+      "maximum_geometry_component_error_metres": 0.0,
+      "maximum_authoring_locator_matrix_component_error": 0.0,
+      "joint_count": 78
+    }
+  ]
+}

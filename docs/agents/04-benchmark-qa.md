@@ -116,3 +116,44 @@ SoundPool加载完成前的接触先排队，记录System.nanoTime入队时间�
 两项返修的独立复审结论为接受。Main、HomeStage、CombatEffects与CombatAudio共同保留终局当前批次接触，声音等待边界为120ms。已采用本文件材质触觉候选并按strength缩放，加入140ms接触点灯光。主控整合增量构建通过，仍未运行游戏流程、测试套件或Space Pro验收。
 
 主控已查看torso_contact_before_after.png，软衣料冲击与钢刀火星的近身比例通过离线制作初审。下一轮在通过角色review的新主刀客上重看接触遮挡、短停后反冲与音画时序，保留实际视口验证边界。
+
+## 命中材质语义复审
+
+主控将普通身体命中按现役衣料／护甲映射。试刀客和青衫身体走软接触，玄甲护甲身体走金属硬接触；裸露头部命中走软接触，伤害强度继续控制包络，头部80ms短停保留。格挡、弹反和护身仍走已接受的防御接触。该修正避免把所有头部强命中解释为金属火星。
+
+## 冻结60k主刀客最终展示一阶段
+
+已交付 [近身接触图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/hero60k_contact.png)与[2.75秒离线资产动效预演](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/hero60k_preview.mp4)。画面固定机位，包含头部、双手和刀尖，全片标注“离线资产动效预演”及制作切段。角色、FX与声音均来自正式生产资产。
+
+正式角色为 `app/src/main/assets/models/opponents/base.glb`，制作前后SHA-256均为 `53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641`。四份正式FX与11份WAV的输入路径、SHA和字节数记录在 [inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/inputs.json)，实际使用的接触素材及逐帧源秒记录在 [timeline.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/timeline.json)。
+
+| 制作段输出采样秒 | 正式clip | 实际源采样秒 |
+| --- | --- | --- |
+| 0.000至0.792 | slash | 1.350至2.100，含头部接触停顿 |
+| 0.833至1.458 | hit_head | 0.053至0.678 |
+| 1.500至1.833 | slash | 1.850至2.100，制作切段及刀刃接触停顿 |
+| 1.875至2.708 | hit_side | 0.093至1.128 |
+
+按本轮主控复审，当前无甲主刀客采用“裸头SOFT / 刀刃PARRY”。0.75秒裸头接触使用soft_contact与arena_hit，保持80毫秒短停；1.75秒接触取自真实DAO钢刀表面，使用metal_contact与arena_parry，保持90毫秒短停后转入hit_side。两次接触strength为0.7、整体尺寸倍率1.042，停顿后均有220毫秒反冲，峰值0.0635米、包络4p(1−p)。PARRY使用0.54秒总包络、0.22秒核心及1.3倍核心尺寸，水平反冲沿接触法线。FX按独立输出时钟继续，声音对齐第18和42帧。24fps以相邻采样帧表达80／90毫秒停顿。
+
+修正版短片为960×640、24fps、66帧，H.264与48kHz单声道AAC。原先身体HARD段已撤回，当前静帧为第43帧、1.791667秒的刀刃PARRY峰值。为同步全片字幕，同机位重渲了66帧；首36帧源秒摘要、首触点参数、机位及灯光均与已通过版本一致，真实遮挡保留。
+
+可复现制作脚本为 [render_hero60k.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/render_hero60k.py)。片中clip以制作切段衔接，未做跨clip混合，来源秒和NLA映射均留在timeline。该交付用于正式资产、接触遮挡及短停反冲音画时序的离线review，PICO运行表现继续待主控专项验收。
+
+**本阶段最终展示制作结束，交主控review。** 本次仅新增hero60k目录产物与更新本文件，runtime、正式角色及生产FX／WAV均保持只读，当前回合结束。
+
+### 本轮材质语义返修定版
+
+第二触点取自当前正式DAO的 `Steel | forged body` 变形网格面。actor-local glTF米制点为 (0.149048, 1.302999, 0.845157)，法线为 (−0.962155, −0.065006, 0.264636)，锚点沿该法线外移8毫米。PARRY水平反冲方向为 (−0.964194, 0, 0.265197)，90毫秒短停后执行220毫秒、峰值0.0635米的反冲。
+
+图、片、字幕与timeline已统一为“裸头SOFT / 刀刃PARRY”。PARRY使用正式arena_parry.wav，0.54秒总包络、0.22秒核心及1.3倍核心尺寸。保留首段80毫秒头部短停和原接触源秒。相机边界仍沿用首次采样以固定机位，其中hit_body仅为边界测量项；成片逐帧动作由slash、hit_head与hit_side构成。
+
+已目视最终PARRY峰值图，核对片长、视频／音轨、两次接触帧、材质名及实际FX／WAV哈希。正式actor与全部输入哈希保持一致，首36帧源秒摘要一致，脚本语法及静态差异检查通过。PARRY核心紧邻头部与刀身，保留实际几何遮挡，仍属于离线资产动效预演，PICO运行观感由主控验收。
+
+**本轮材质语义返修阶段结束，交主控review与统一提交。** 当前hero60k图、片、脚本和timeline为修正版，runtime、正式actor、生产FX／WAV及inputs.json均保持只读，当前回合结束。
+
+## 主控最终review与本轮收口
+
+主控已核对960×640／24fps／2.75秒H264＋AAC成片，并抽看1.833秒弹反峰值。第二触点已从布衣躯干修正为实际钢刀PARRY，正式素材、声效、90ms短停与hit_side语义对齐，接受本轮离线制作产物。
+
+主控另已完成当前APK构建、安装启动和实际Full Stage准备态截图，场景／人物／HUD可见。真实输入触发的战斗特效、混音／触觉、整局与Space Pro体验仍在后续验收。下一轮先收紧主角残余拇指交叠与源段外交叉，再做动作收势／步法和UI细化，维持现有三轮短竞技场。

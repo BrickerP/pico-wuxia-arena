@@ -2,11 +2,11 @@
 
 ## 当前交付状态
 
-[当前开发节点与下载](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/checkpoint-2026-11-10) · [后续里程碑](https://github.com/BrickerP/pico-wuxia-arena/milestone/1) · [全部待办](https://github.com/BrickerP/pico-wuxia-arena/issues)
+[当前开发节点与下载](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10) · [后续里程碑](https://github.com/BrickerP/pico-wuxia-arena/milestone/1) · [全部待办](https://github.com/BrickerP/pico-wuxia-arena/issues)
 
 主题为中式写实PVE刀术短竞技场，手感优先、视觉其次，终端为Space Pro／OS6，技术栈为Kotlin + PICO Spatial SDK6.1.9。当前精修沿同一酒馆院落和三轮试炼推进，集中在人物近景、握持穿插、动作接触、特效与声音触觉。
 
-以下勾选表示资产和代码已接入。主控已完成接触事件、新呈现链与review返修的整合编译。三角色首轮局部指姿已正式生成并进入app，新主角色与第二轮非持刀手仍在候选审核。本轮验证覆盖构建、离线资产生成和专项制作检查，游戏流程与游戏测试套件后置。
+以下勾选表示资产和代码已接入。主控已完成接触事件、新呈现链、指姿和第二轮非持刀侧修正的整合编译。三角色首轮指姿和第二轮非持刀侧包络已正式生成并进入app，新主角60k源与专属握持已通过本轮制作review并进入app。本轮验证覆盖构建、离线资产生成和专项制作检查，游戏流程与游戏测试套件后置。
 
 ## 已实现的游戏路径
 
@@ -59,7 +59,7 @@
 | 青衫护院 | 9.793mm | 1.569mm |
 | 玄甲守擂 | 7.467mm | 6.475mm |
 
-这些数值为离散蒙皮顶点到刀柄椭圆核的代理，实际近景一起参与review。非持刀手第二轮腕／前臂候选已完成，1.55–3.4秒范围密集采样的确认刀面交叉为0，完整源动作范围仍有残余，正在接入正式producer前复审。
+这些数值为离散蒙皮顶点到刀柄椭圆核的代理，实际近景一起参与review。非持刀手第二轮腕／前臂候选已完成，1.55–3.4秒范围密集采样的确认刀面交叉为0，完整源动作范围仍有残余，已通过唯一producer正式发布，24份动作语义与审核candidate一致。
 
 生产身份见ArtSource/refinement/grip/production_receipt.json，原始测量、同机位近景及下一轮计划见02交接。
 
@@ -76,7 +76,7 @@
 
 ## 构建与证据边界
 
-主控完成精修呈现链及review返修版 `:app:assembleDebug --offline`，增量构建成功。当前本地APK为75,202,441字节，输出路径为 `app/build/outputs/apk/debug/app-debug.apk`，SHA-256为 `c683b96fb85a02834e269bbe3b688b8b6fe817fa08de711cd50a523a0c993beb`。页首预发行下载仍对应先前已发布节点，当前精修版本尚未覆盖该安装包。
+主控完成精修呈现链及review返修版 `:app:assembleDebug --offline`，增量构建成功。当前本地APK为94,484,445字节，输出路径为 `app/build/outputs/apk/debug/app-debug.apk`，SHA-256为 `37873e1c0a25e3d28fc87d722e13cf67acb5b7e655f09bbb32887aee59e7c05f`。本轮预发行附件与本节APK身份一致，先前checkpoint保留为历史节点。
 
 本轮新建7项接触契约专项测试，按先开发的安排尚未运行。截图流程使用PICO技能对目标分类，当前emulator-5554为swan_arm64模拟器。其screencap不支持spatial参数，替换为常规显示捕获后得到2160×2158像素的可读Full Stage基线图，保存在本机artifacts/refinement/emulator-display.png。图像来自既有运行版本，只用于确认取图通路，当前新构建的攻击反馈未做现场验收。
 
@@ -86,4 +86,18 @@
 
 ## 制作结算
 
-上一资产节点Tripo消耗380credits，结束时余额4465、冻结0，包含头部缺损弃用候选及修订链。本轮新主人物标准链已完成高精几何、PBR、烘焙、绑定和原生slash，实际130credits。当前审核真实PBR近景及较高密度候选，后续实际账单由03随任务回填。账户凭据沿CLI本机配置管理。
+上一资产节点Tripo消耗380credits，结束时余额4465、冻结0，包含头部缺损弃用候选及修订链。本轮新人物总实耗175credits。20k烘焙链保留对照，主展示选用同一PBR源转换的60,006三角版本，3张4K材质、78骨与原生slash已装入正式8动作库。账户凭据沿CLI本机配置管理。
+
+## 新主角本轮review边界
+
+新主角已替换首轮对手，身体60,006三角，含刀63,728三角，最终模型SHA53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641。原始rig／slash、源账单与处理链均可追溯。20k候选的唇线、鼻翼与指尖轮廓经review退回，60k同机位形体与PBR对照通过。
+
+新握持将最大指面近距间隙由30.768mm降至0.164mm，刀路平移42.42648mm，源接触标记2.117秒保留。仍有8.333mm峰值径向代理和深样本增加的取舍；当前播放源段1.55–3.4秒未见确认左手交叉，完整源段窗外新增交叉继续列为后续修正。7个微小UV退化三角分布在右后腰、左后靴和左手，严格全TBN检查仍保留该局部失败。
+
+## 本轮Full Stage画面
+
+主控已将当前94,484,445字节APK安装到emulator-5554并启动。单次应用日志快照记录角色、场景与玩家刀完成加载，当前应用保持准备态。常规显示捕获的2160×2158像素PNG已逐张目视确认新主刀客、刀具、院落和HUD，实图与APK／模型身份在ArtSource/refinement/presentation。当前验证为启动与画面交付，战斗流程、效果触发、真实手感和Space Pro性能继续待验收。
+
+## 动效预演交付
+
+hero60k_preview.mp4为2.75秒、960×640、24fps的离线资产动效预演，包含实际GLB、正式FX与WAV。首段为裸头软接触80ms短停，第二段为实际钢刀表面PARRY、90ms短停及hit_side，带220ms反冲和0.54秒弹反包络。已核对视频／音轨和最终材质语义，Full Stage准备态截图另有实际模拟器取图身份。

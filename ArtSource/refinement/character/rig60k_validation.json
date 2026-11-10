@@ -1,0 +1,36 @@
+{
+  "source": "rig60k/model.glb",
+  "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+  "bytes": 18480880,
+  "joint_counts": [
+    78
+  ],
+  "primitives": [
+    {
+      "vertices": 35308,
+      "triangles": 60006,
+      "invalid_weight_vertices": 0,
+      "max_weight_sum_error": 1.0803341865539551e-07,
+      "weighted_joints_count": 51
+    }
+  ],
+  "pbr_images": {
+    "normal": {
+      "sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167",
+      "bytes": 1271883,
+      "mime": "image/jpeg"
+    },
+    "base_color": {
+      "sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b",
+      "bytes": 3075339,
+      "mime": "image/jpeg"
+    },
+    "metallic_roughness": {
+      "sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd",
+      "bytes": 11910857,
+      "mime": "image/png"
+    }
+  },
+  "pbr_image_bytes_preserved_from_convert": true,
+  "inverse_bind_matrices_finite": true
+}

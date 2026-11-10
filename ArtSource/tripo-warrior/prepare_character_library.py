@@ -7,7 +7,6 @@ bone lengths, weights, inverse binds and sampled native grip pose.
 """
 
 import argparse
-import bisect
 import copy
 import hashlib
 import json
@@ -29,6 +28,7 @@ from prepare_rigged_warrior import (
     prepare_character,
     publish_outputs,
     read_glb,
+    sample_track,
     world_matrix,
 )
 
@@ -104,26 +104,6 @@ def decode_animation(document, binary):
     if not timeline or not all(math.isfinite(time) and time >= 0 for time in timeline):
         raise ValueError('source animation has no finite nonnegative timeline')
     return tracks, sorted(timeline)
-
-
-def sample_track(track, time, rotation):
-    times, values, interpolation = track
-    after = bisect.bisect_right(times, time)
-    if after == 0:
-        return values[0]
-    if after == len(times) or interpolation == 'STEP':
-        return values[after - 1]
-    before = after - 1
-    amount = (time - times[before]) / (times[after] - times[before])
-    start, end = values[before], values[after]
-    if rotation:
-        a = Quaternion((start[3], *start[:3]))
-        b = Quaternion((end[3], *end[:3]))
-        a.normalize()
-        b.normalize()
-        result = a.slerp(b, amount)
-        return (result.x, result.y, result.z, result.w)
-    return tuple(a + (b - a) * amount for a, b in zip(start, end))
 
 
 def sampled_local(node, index, tracks, time):
@@ -303,6 +283,10 @@ def validate_finger_calibration(character):
             review['target_grip_sha256'] != character['grip_source']['source_sha256'] or
             review['grip_time_seconds'] != character['grip_source'].get('time_seconds', 2.117)):
         raise ValueError('finger calibration requires review for the selected rig/grip source: ' + character['id'])
+    grip_digest = hashlib.sha256(json.dumps(character.get('grip_frame'),
+                                           sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    if review['grip_frame_sha256'] != grip_digest:
+        raise ValueError('finger calibration requires review for the selected weapon mount: ' + character['id'])
     path = HERE / review['calibration_file']
     if hashlib.sha256(path.read_bytes()).hexdigest() != review['calibration_sha256']:
         raise ValueError('reviewed finger calibration file changed')
@@ -314,6 +298,35 @@ def validate_finger_calibration(character):
         raise ValueError('finger offsets differ from the reviewed candidate: ' + character['id'])
 
 
+def validate_offhand_calibration(character):
+    config = character.get('offhand_rotation_envelope')
+    review = character.get('offhand_rotation_review')
+    if not config and not review:
+        return
+    if not config or not review:
+        raise ValueError('offhand envelope requires its reviewed source binding: ' + character['id'])
+    finger_review = character.get('finger_rotation_review')
+    finger_digest = hashlib.sha256(json.dumps(character.get('finger_rotation_offsets'),
+                                               sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    if (review['target_rig_sha256'] != character['source_sha256'] or
+            review['target_grip_sha256'] != character['grip_source']['source_sha256'] or
+            review['grip_time_seconds'] != character['grip_source'].get('time_seconds', 2.117) or
+            not finger_review or
+            review['finger_reviewed_candidate_sha256'] != finger_review['reviewed_candidate_asset_sha256'] or
+            review['finger_rotation_offsets_sha256'] != finger_digest or
+            review['reviewed_source_asset_sha256'] != finger_review['reviewed_candidate_asset_sha256']):
+        raise ValueError('offhand envelope requires review for the selected rig/grip/finger correction: ' + character['id'])
+    path = HERE / review['calibration_file']
+    if hashlib.sha256(path.read_bytes()).hexdigest() != review['calibration_sha256']:
+        raise ValueError('reviewed offhand calibration file changed')
+    approved = json.loads(path.read_text())
+    row = next((entry for entry in approved['characters'] if entry['id'] == character['id']), None)
+    if (approved['sample_rate_hz'] != 60 or row is None or row['window_seconds'] != config['window_seconds'] or
+            row['rotations'] != config['rotations'] or row['source_sha256'] != review['reviewed_source_asset_sha256'] or
+            row['candidate_sha256'] != review['reviewed_candidate_asset_sha256']):
+        raise ValueError('offhand envelope differs from the reviewed candidate: ' + character['id'])
+
+
 def build_library(manifest_path):
     manifest = json.loads(manifest_path.read_text())
     characters = manifest['characters']
@@ -323,6 +336,7 @@ def build_library(manifest_path):
         raise ValueError('characters must have distinct output files')
     for character in characters:
         validate_finger_calibration(character)
+        validate_offhand_calibration(character)
     _, motion_rig, _ = pinned_source(manifest['motion_source'])
     clips = manifest['motion_source']['clips']
     clip_names = [clip['name'] for clip in clips]
@@ -368,13 +382,16 @@ def build_library(manifest_path):
                                    library / (stem + '_alignment.json'),
                                    height=character.get('height_metres', 1.78),
                                    grip_frame=character.get('grip_frame'),
-                                   finger_rotation_offsets=character.get('finger_rotation_offsets'))
+                                   finger_rotation_offsets=character.get('finger_rotation_offsets'),
+                                   offhand_rotation_envelope=character.get('offhand_rotation_envelope'))
         record['id'] = character['id']
         record['name'] = character['name']
         record['retargeting'] = records
         record['grip_source'] = character['grip_source']
         if character.get('finger_rotation_review'):
             record['finger_rotation_review'] = copy.deepcopy(character['finger_rotation_review'])
+        if character.get('offhand_rotation_review'):
+            record['offhand_rotation_review'] = copy.deepcopy(character['offhand_rotation_review'])
         metadata = (json.dumps(record, ensure_ascii=False, indent=2) + '\n').encode()
         publish_outputs(((library / (stem + '_alignment.json'), metadata),))
         summaries.append({'id': character['id'], 'name': character['name'],
@@ -382,6 +399,10 @@ def build_library(manifest_path):
                           'joint_count': record['joint_count'], 'outputs': record['outputs']})
     index = (json.dumps({'characters': summaries}, ensure_ascii=False, indent=2) + '\n').encode()
     publish_outputs(((library / 'characters.json', index),))
+    runtime = HERE.parent.parent / 'app/src/main/assets/models/opponents'
+    runtime.mkdir(parents=True, exist_ok=True)
+    publish_outputs(tuple((runtime / row['output'], (library / row['output']).read_bytes())
+                          for row in summaries))
     print(json.dumps({'characters': summaries}, ensure_ascii=False))
 
 

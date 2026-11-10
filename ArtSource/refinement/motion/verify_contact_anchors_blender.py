@@ -2,6 +2,9 @@
 
 import json
 import math
+import argparse
+import hashlib
+import sys
 from pathlib import Path
 
 import bpy
@@ -11,12 +14,21 @@ from mathutils import Vector
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[2]
 report = json.loads((HERE / "proxy_alignment_profiles.json").read_text())
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--actor", choices=("base", "indigo", "veteran"))
+arguments = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+args = parser.parse_args(arguments)
 results = []
 for actor in report["actors"]:
+    if args.actor and actor["actor"] != args.actor:
+        continue
+    source = ROOT / actor["source"]
+    if hashlib.sha256(source.read_bytes()).hexdigest() != actor["sha256"]:
+        raise RuntimeError("source hash differs from measured profile: " + actor["actor"])
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scene = bpy.context.scene
     scene.render.fps = 30
-    bpy.ops.import_scene.gltf(filepath=str(ROOT / actor["source"]))
+    bpy.ops.import_scene.gltf(filepath=str(source))
     armature = next(obj for obj in scene.objects if obj.type == "ARMATURE")
     root = scene.objects.get("TripoWarrior_Root")
     if root is None:
@@ -60,14 +72,30 @@ for actor in report["actors"]:
             expected = proxy["root_position_metres"]
             error = math.sqrt(sum((a - b) ** 2 for a, b in zip(point_gltf, expected)))
             maximum_error = max(maximum_error, error)
-    results.append({"actor": actor["actor"], "maximum_proxy_position_error_metres": maximum_error})
+    results.append({"actor": actor["actor"], "source_sha256": actor["sha256"],
+                    "verified_proxy_points": sum(len(key["proxies"]) for key in actor["keyposes"]),
+                    "maximum_proxy_position_error_metres": maximum_error})
     print(results[-1])
+
+retained_sources = []
+if args.actor:
+    previous = json.loads((HERE / "blender_crosscheck.json").read_text())
+    replacement = results[0]
+    results = [replacement if item["actor"] == args.actor else item for item in previous["results"]]
+    retained_sources = [{"actor": actor["actor"], "profile_source_sha256": actor["sha256"],
+                         "verification_source_sha256": next(
+                             (item.get("source_sha256") for item in previous["results"]
+                              if item["actor"] == actor["actor"]), None),
+                         "status": "Prior numerical result retained; this actor was not rechecked."}
+                        for actor in report["actors"] if actor["actor"] != args.actor]
 
 output = {"blender_version": bpy.app.version_string, "source_evaluator": "measure_contact_anchors.py",
           "comparison": "all seven slash keyposes, three independently calibrated bone-local points per actor",
           "frame_mapping": "strip.frame_start + (sourceSeconds * fps - strip.action_frame_start) * strip.scale",
           "bone_basis": "calibrate local points in imported idle@1.0 bone matrices; imported bone bases differ from glTF joint bases",
           "diagnostic_tolerance_metres": 0.001,
+          "rechecked_actors": [args.actor] if args.actor else [actor["actor"] for actor in report["actors"]],
+          "retained_prior_result_sources": retained_sources,
           "passed": all(item["maximum_proxy_position_error_metres"] <= 0.001 for item in results),
           "results": results}
 (HERE / "blender_crosscheck.json").write_text(json.dumps(output, indent=2) + "\n")

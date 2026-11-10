@@ -535,8 +535,8 @@ internal class ArenaSession(
             kind == CombatFeedback.SKILL -> CombatImpactKind.SKILL
             kind == CombatFeedback.EXECUTION -> CombatImpactKind.EXECUTION
             guarded -> CombatImpactKind.GUARDED_HIT
-            kind == CombatFeedback.HEADSHOT -> CombatImpactKind.HARD_HIT
-            else -> CombatImpactKind.SOFT_HIT
+            kind == CombatFeedback.HEADSHOT -> CombatImpactKind.SOFT_HIT
+            else -> arenaOpponents[roundNumber - 1].bodyImpact
         }
         val strength = when (impactKind) {
             CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> 1.0
@@ -553,7 +553,7 @@ internal class ArenaSession(
         check(nextImpactId < Long.MAX_VALUE) { "impact id overflow" }
         events += CombatImpact(nextImpactId++, kind, contact.point, contact.normal, strength, hand, combat.simulationNanos)
         val stop = when (kind) {
-            CombatImpactKind.SOFT_HIT -> 60_000_000L
+            CombatImpactKind.SOFT_HIT -> if (contact.zone == HitZone.HEAD) 80_000_000L else 60_000_000L
             CombatImpactKind.HARD_HIT -> 80_000_000L
             CombatImpactKind.GUARDED_HIT, CombatImpactKind.BLOCK -> 35_000_000L
             CombatImpactKind.PARRY -> 90_000_000L

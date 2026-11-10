@@ -1,0 +1,63 @@
+{
+  "characters": [
+    {
+      "id": "base",
+      "source": "ArtSource/tripo-warrior/library/base.glb",
+      "source_sha256": "5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f",
+      "candidate": "ArtSource/refinement/grip/hero60k/candidates/base.glb",
+      "candidate_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+      "local_finger_offsets": {
+        "R_Thumb1": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Thumb2": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Index2": {
+          "x_degrees": 3.0,
+          "z_degrees": 0.0
+        },
+        "R_Ring1": {
+          "x_degrees": 0.0,
+          "z_degrees": -1.5
+        },
+        "R_Mid1": {
+          "x_degrees": 0.0,
+          "z_degrees": -1.5
+        },
+        "R_Thumb3": {
+          "x_degrees": -3.0,
+          "z_degrees": -3.0
+        },
+        "R_Index1": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        },
+        "R_Pinky1": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        }
+      },
+      "grip_frame": [
+        -0.16072334349155426,
+        -0.5248600840568542,
+        0.025034062564373016,
+        0.0,
+        -0.46255403757095337,
+        0.12890203297138214,
+        -0.26714247465133667,
+        0.0,
+        0.24929668009281158,
+        -0.09921175241470337,
+        -0.47952595353126526,
+        0.0,
+        0.013535577803850174,
+        0.046395160257816315,
+        -0.0215284563601017,
+        1.0
+      ]
+    }
+  ]
+}

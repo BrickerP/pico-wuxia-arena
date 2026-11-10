@@ -2,16 +2,21 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
+import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.math.Vector3
 import kotlin.math.cos
 import kotlin.math.sin
 
-internal data class ArenaOpponent(val name: String, val asset: String)
+internal data class ArenaOpponent(
+    val name: String,
+    val asset: String,
+    val bodyImpact: CombatImpactKind = CombatImpactKind.SOFT_HIT,
+)
 
 internal val arenaOpponents = listOf(
     ArenaOpponent("试刀客", "asset://models/opponents/base.glb"),
     ArenaOpponent("青衫护院", "asset://models/opponents/indigo.glb"),
-    ArenaOpponent("玄甲守擂", "asset://models/opponents/veteran.glb"),
+    ArenaOpponent("玄甲守擂", "asset://models/opponents/veteran.glb", CombatImpactKind.HARD_HIT),
 )
 
 /**
@@ -83,46 +88,46 @@ private val STANDING_CONTACT_POSE = EnemyContactPose(
 
 private data class ContactPoseKey(val sourceSeconds: Double, val pose: EnemyContactPose)
 
-// base source SHA-256 a649f6927cd0e77af40509b68763e18355048873d09ab67e2123f616b631c889
+// base source SHA-256 53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641
 private val BASE_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
-        head = Vector3(0.095559, 1.555521, 0.292081),
-        bodyBottom = Vector3(-0.131995, 0.550007, -0.018246),
-        bodyTop = Vector3(0.035583, 1.312311, 0.237109),
+        head = Vector3(0.101406, 1.576134, 0.402927),
+        bodyBottom = Vector3(-0.119745, 0.552233, 0.089208),
+        bodyTop = Vector3(0.044612, 1.325292, 0.352443),
     )),
     ContactPoseKey(1.85, EnemyContactPose(
-        head = Vector3(-0.010912, 1.549367, 0.348419),
-        bodyBottom = Vector3(-0.112868, 0.564425, -0.057571),
-        bodyTop = Vector3(-0.040929, 1.309154, 0.240071),
+        head = Vector3(0.018629, 1.557500, 0.429973),
+        bodyBottom = Vector3(-0.079141, 0.565062, 0.017890),
+        bodyTop = Vector3(-0.013227, 1.318174, 0.322099),
     )),
     ContactPoseKey(2.067, EnemyContactPose(
-        head = Vector3(-0.189642, 1.259428, 0.499436),
-        bodyBottom = Vector3(-0.086567, 0.563721, -0.185537),
-        bodyTop = Vector3(-0.147835, 1.146985, 0.294820),
+        head = Vector3(-0.124829, 1.279570, 0.430015),
+        bodyBottom = Vector3(-0.016513, 0.567948, -0.269600),
+        bodyTop = Vector3(-0.082459, 1.161940, 0.225511),
     )),
     ContactPoseKey(2.117, EnemyContactPose(
-        head = Vector3(-0.232791, 1.162464, 0.522462),
-        bodyBottom = Vector3(-0.075892, 0.564914, -0.220174),
-        bodyTop = Vector3(-0.170364, 1.109603, 0.311216),
+        head = Vector3(-0.153947, 1.190712, 0.422753),
+        bodyBottom = Vector3(0.005768, 0.571016, -0.340545),
+        bodyTop = Vector3(-0.093046, 1.125134, 0.209637),
     )),
     ContactPoseKey(2.167, EnemyContactPose(
-        head = Vector3(-0.291286, 1.034164, 0.551952),
-        bodyBottom = Vector3(-0.041675, 0.573685, -0.257946),
-        bodyTop = Vector3(-0.207414, 1.053422, 0.333927),
+        head = Vector3(-0.196727, 1.068120, 0.429588),
+        bodyBottom = Vector3(0.054861, 0.580817, -0.407622),
+        bodyTop = Vector3(-0.117289, 1.067601, 0.205517),
     )),
     ContactPoseKey(2.6, EnemyContactPose(
-        head = Vector3(-0.297826, 1.084276, 0.532417),
-        bodyBottom = Vector3(-0.028247, 0.577441, -0.251384),
-        bodyTop = Vector3(-0.212106, 1.099389, 0.324382),
+        head = Vector3(-0.226023, 1.119148, 0.403605),
+        bodyBottom = Vector3(0.046133, 0.583402, -0.401502),
+        bodyTop = Vector3(-0.143797, 1.112621, 0.192952),
     )),
     ContactPoseKey(3.4, EnemyContactPose(
-        head = Vector3(-0.274455, 1.401726, 0.328841),
-        bodyBottom = Vector3(-0.059324, 0.537284, -0.126396),
-        bodyTop = Vector3(-0.177906, 1.284370, 0.148776),
+        head = Vector3(-0.252663, 1.433920, 0.192765),
+        bodyBottom = Vector3(-0.043096, 0.540623, -0.267459),
+        bodyTop = Vector3(-0.164794, 1.299919, 0.019700),
     )),
 )
 
-// indigo source SHA-256 e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe
+// indigo source SHA-256 7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6
 private val INDIGO_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
         head = Vector3(0.071524, 1.573468, 0.270420),
@@ -161,7 +166,7 @@ private val INDIGO_CONTACT_KEYS = listOf(
     )),
 )
 
-// veteran source SHA-256 6085e905e68c22f67249b5c8e3e35e334bbee0185d479667f4ca97f87777a0ea
+// veteran source SHA-256 03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7
 private val VETERAN_CONTACT_KEYS = listOf(
     ContactPoseKey(1.55, EnemyContactPose(
         head = Vector3(0.080244, 1.573472, 0.296548),

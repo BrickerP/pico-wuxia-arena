@@ -1,0 +1,228 @@
+{
+  "scope": "offline actual source clip review",
+  "source": {
+    "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/slash60k/model.glb",
+    "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+    "yaw_degrees": -90.0,
+    "uniform_scale": 1.819876295818631,
+    "translation_metres": [
+      -2.711826994072908e-07,
+      -1.3559135148000223e-08,
+      7.948513029987225e-07
+    ],
+    "normalized_bounds_metres": [
+      [
+        -0.814239501953125,
+        -0.17948462069034576,
+        0.0
+      ],
+      [
+        0.814239501953125,
+        0.17948462069034576,
+        1.78000009059906
+      ]
+    ],
+    "rest_pose": false,
+    "normalization_pose": "REST",
+    "mesh_names": [
+      "tripo_node_78aef961-efe3-4f9f-a9e2-d501bb808dac"
+    ]
+  },
+  "clip": "slash",
+  "source_time_range_seconds": [
+    0.03333333507180214,
+    6.599999904632568
+  ],
+  "duration_seconds": 6.566666569560766,
+  "fps": 30,
+  "nla": [
+    {
+      "object": "Armature",
+      "tracks": [
+        {
+          "name": "slash",
+          "action": "slash",
+          "action_frames": [
+            1.0,
+            198.0
+          ],
+          "source_seconds": [
+            0.03333333333333333,
+            6.6
+          ]
+        }
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "fraction": 0,
+      "source_seconds": 0.03333333507180214,
+      "scene_frame": 1.0000000521540642,
+      "whole_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/pose_00.png",
+      "hand_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/hand_00.png",
+      "head_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/head_00.png",
+      "head_target": [
+        0.16674059629440308,
+        -0.25669896602630615,
+        1.4770936965942383
+      ],
+      "right_hand_world_metres": [
+        -0.12074875086545944,
+        -0.021967994049191475,
+        0.8911370635032654
+      ],
+      "animated_bounds_metres": [
+        [
+          -0.20732566714286804,
+          -0.35824015736579895,
+          -0.010911500081419945
+        ],
+        [
+          0.4614478349685669,
+          0.2102346122264862,
+          1.6897941827774048
+        ]
+      ]
+    },
+    {
+      "fraction": 0.25,
+      "source_seconds": 1.6749999774619937,
+      "scene_frame": 50.24999932385981,
+      "whole_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/pose_01.png",
+      "hand_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/hand_01.png",
+      "head_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/head_01.png",
+      "head_target": [
+        0.2766130864620209,
+        -0.2971460819244385,
+        1.4971572160720825
+      ],
+      "right_hand_world_metres": [
+        0.400424599647522,
+        -0.4041045606136322,
+        1.4609999656677246
+      ],
+      "animated_bounds_metres": [
+        [
+          -0.20215237140655518,
+          -0.5420946478843689,
+          0.009333301335573196
+        ],
+        [
+          0.6681522727012634,
+          0.1873551905155182,
+          1.7431845664978027
+        ]
+      ]
+    },
+    {
+      "fraction": 0.5,
+      "source_seconds": 3.3166666198521852,
+      "scene_frame": 99.49999859556556,
+      "whole_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/pose_02.png",
+      "hand_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/hand_02.png",
+      "head_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/head_02.png",
+      "head_target": [
+        -0.02802901528775692,
+        -0.2905818223953247,
+        1.3763384819030762
+      ],
+      "right_hand_world_metres": [
+        -0.11962060630321503,
+        -0.033537622541189194,
+        0.9004244208335876
+      ],
+      "animated_bounds_metres": [
+        [
+          -0.2132454514503479,
+          -0.3968515396118164,
+          -0.011200228706002235
+        ],
+        [
+          0.3888384699821472,
+          0.3017316162586212,
+          1.6205294132232666
+        ]
+      ]
+    },
+    {
+      "fraction": 0.75,
+      "source_seconds": 4.958333262242377,
+      "scene_frame": 148.7499978672713,
+      "whole_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/pose_03.png",
+      "hand_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/hand_03.png",
+      "head_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/head_03.png",
+      "head_target": [
+        0.20605164766311646,
+        -0.30596011877059937,
+        1.4582644701004028
+      ],
+      "right_hand_world_metres": [
+        -0.11023563146591187,
+        -0.08767453581094742,
+        0.9152771830558777
+      ],
+      "animated_bounds_metres": [
+        [
+          -0.2067975103855133,
+          -0.40320155024528503,
+          -0.010672515258193016
+        ],
+        [
+          0.48962146043777466,
+          0.21066537499427795,
+          1.6847165822982788
+        ]
+      ]
+    },
+    {
+      "fraction": 1,
+      "source_seconds": 6.599999904632568,
+      "scene_frame": 197.99999713897705,
+      "whole_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/pose_04.png",
+      "hand_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/hand_04.png",
+      "head_image": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/head_04.png",
+      "head_target": [
+        0.16643460094928741,
+        -0.2566985487937927,
+        1.4771054983139038
+      ],
+      "right_hand_world_metres": [
+        -0.12113387137651443,
+        -0.022176897153258324,
+        0.8910590410232544
+      ],
+      "animated_bounds_metres": [
+        [
+          -0.20732584595680237,
+          -0.35824039578437805,
+          -0.010919442400336266
+        ],
+        [
+          0.46111559867858887,
+          0.21020536124706268,
+          1.6897892951965332
+        ]
+      ]
+    }
+  ],
+  "hand_bone": {
+    "object": "Armature",
+    "name": "R_Hand"
+  },
+  "head_bone": {
+    "object": "Armature",
+    "name": "Head"
+  },
+  "video": {
+    "frames": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/frames",
+    "fps": 30,
+    "frame_count": 198,
+    "first_source_second": 0.03333333507180214,
+    "last_source_second": 6.599999904632568,
+    "encoded_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/motion60k_review/native_slash60k.mp4",
+    "encoded_sha256": "949054ad65396c4ca85c347cb246b2275dd10b341227f58b58948f794a518343",
+    "encoded_bytes": 291245,
+    "encoded_duration_seconds": 6.6
+  }
+}

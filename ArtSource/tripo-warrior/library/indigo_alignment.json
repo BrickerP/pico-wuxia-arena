@@ -154,7 +154,7 @@
         "LINEAR",
         "STEP"
       ],
-      "keyframe_semantics_sha256": "c3c8719a473bac3fa7ed60462ac3d6dd281050a7350c6ba737a83356ff37e6d1",
+      "keyframe_semantics_sha256": "56103bf40a2828db3a400a90d3bb4ff75dcd6dd03513ee91934d9618f03f5ca2",
       "max_default_local_matrix_difference": 2.455851063132286e-05,
       "source_keyframe_semantics_sha256": "e91f074ff4dc1f55933b1ec5208beb589315be24d44d5ca12e805f38ba3e9a92"
     }
@@ -338,13 +338,13 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 13937492,
-      "sha256": "d219cc478c73d882a27887619a14521ce887df257653e60c327c9117666f93f5"
+      "bytes": 13942848,
+      "sha256": "f2107a37659941de116857231d2243aa3221b53b555b9b47b617aa8ff1be9c40"
     },
     {
       "file": "indigo.glb",
-      "bytes": 14808284,
-      "sha256": "e752ce8df502dfca4fe8a5aa6347454254aefbcabee52d9c1392c6b615839abe"
+      "bytes": 14813640,
+      "sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6"
     }
   ],
   "finger_rotation_calibration": {
@@ -434,6 +434,39 @@
       }
     ],
     "modified_rotation_tracks": 96
+  },
+  "offhand_rotation_calibration": {
+    "clip": "slash",
+    "application": "normalize(q(t) @ slerp(identity, local_axis_angle, raised_cosine(t)))",
+    "window_seconds": [
+      1.8,
+      2.0,
+      3.4,
+      3.6
+    ],
+    "rotations": {
+      "L_Hand": {
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "degrees": 8.0
+      }
+    },
+    "sample_rate_hz": 60,
+    "interpolation": "LINEAR",
+    "changed_tracks": [
+      {
+        "bone": "L_Hand",
+        "source_key_count": 198,
+        "candidate_key_count": 253,
+        "source_range_seconds": [
+          0.03333333507180214,
+          6.599999904632568
+        ]
+      }
+    ]
   },
   "id": "indigo",
   "name": "青衫护院",
@@ -577,6 +610,18 @@
     "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
     "grip_time_seconds": 2.117,
     "reviewed_source_asset_sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
-    "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43"
+    "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+    "grip_frame_sha256": "cc93b63c26c9f001ed7e7fda5dbfc1b88a6012339512a281594a4048c33abccf"
+  },
+  "offhand_rotation_review": {
+    "calibration_file": "../refinement/grip/offhand/calibration.json",
+    "calibration_sha256": "6fe6af751a772b372a15a26fcf1494ead318f3c227350d5cd73f1cd3a733fb16",
+    "target_rig_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+    "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+    "grip_time_seconds": 2.117,
+    "finger_reviewed_candidate_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+    "finger_rotation_offsets_sha256": "70a67f61efd943fd59da328f1a936fe0b25790a0a9ccb9fa4fd99b511edc717a",
+    "reviewed_source_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+    "reviewed_candidate_asset_sha256": "398e3aa99865c3259f155ba49c305594ba822c75f01d92e05a5201488c9cf7eb"
   }
 }

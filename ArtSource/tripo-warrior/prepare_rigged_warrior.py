@@ -5,6 +5,7 @@ bytes stay in place. The added parent frame transforms mesh and joints
 uniformly, as specified by glTF scene/skin transform rules.
 """
 
+import bisect
 import copy
 import hashlib
 import json
@@ -263,6 +264,26 @@ def append_animations(doc, binary, reference, clip_sources=None):
     return bytes(packed), records
 
 
+def sample_track(track, time, rotation):
+    times, values, interpolation = track
+    after = bisect.bisect_right(times, time)
+    if after == 0:
+        return values[0]
+    if after == len(times) or interpolation == 'STEP':
+        return values[after - 1]
+    before = after - 1
+    amount = (time - times[before]) / (times[after] - times[before])
+    start, end = values[before], values[after]
+    if rotation:
+        a = Quaternion((start[3], *start[:3]))
+        b = Quaternion((end[3], *end[:3]))
+        a.normalize()
+        b.normalize()
+        result = a.slerp(b, amount)
+        return (result.x, result.y, result.z, result.w)
+    return tuple(a + (b - a) * amount for a, b in zip(start, end))
+
+
 def apply_finger_rotation_offsets(doc, binary, offsets):
     """Apply reviewed local X/Z offsets once to freshly merged finger tracks."""
     if not offsets:
@@ -336,6 +357,119 @@ def apply_finger_rotation_offsets(doc, binary, offsets):
         'application': 'normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space',
         'offsets': copy.deepcopy(offsets), 'clips': clips,
         'modified_rotation_tracks': sum(row['modified_rotation_tracks'] for row in clips),
+    }
+
+
+def offhand_envelope_weight(time, window):
+    start, rise, fall, end = window
+    if time <= start or time >= end:
+        return 0.0
+    if time < rise:
+        return .5 - .5 * math.cos(math.pi * (time - start) / (rise - start))
+    if time <= fall:
+        return 1.0
+    return .5 + .5 * math.cos(math.pi * (time - fall) / (end - fall))
+
+
+def apply_offhand_rotation_envelope(doc, binary, config):
+    """Apply the reviewed sampled slash envelope after whole-clip finger offsets."""
+    if not config:
+        return binary, None
+    window = config['window_seconds']
+    if len(window) != 4 or not all(math.isfinite(value) for value in window):
+        raise ValueError('offhand envelope requires four finite boundary times')
+    start, rise, fall, end = window
+    if not start < rise <= fall < end:
+        raise ValueError('invalid offhand envelope window')
+    rotations = config['rotations']
+    if not rotations or not set(rotations).issubset({'L_Hand', 'L_Forearm'}):
+        raise ValueError('offhand envelope is outside reviewed wrist/forearm scope')
+    deltas = {}
+    for name, values in rotations.items():
+        axis, degrees = values['axis'], values['degrees']
+        if (len(axis) != 3 or not all(math.isfinite(value) for value in [*axis, degrees]) or
+                sum(value * value for value in axis) <= 1e-12):
+            raise ValueError('offhand rotation requires a finite nonzero axis and angle')
+        deltas[name] = Quaternion(axis, math.radians(degrees))
+    animation = next((clip for clip in doc['animations'] if clip['name'] == 'slash'), None)
+    if animation is None:
+        raise ValueError('offhand envelope requires the native slash clip')
+    packed = bytearray(binary)
+    references = {}
+    for channel in animation['channels']:
+        index = channel['sampler']
+        references[index] = references.get(index, 0) + 1
+
+    def append_accessor(rows, kind):
+        width = len(rows[0])
+        packed.extend(b'\0' * (-len(packed) % 4))
+        offset = len(packed)
+        for row in rows:
+            packed.extend(struct.pack('<' + 'f' * width, *row))
+        view = len(doc['bufferViews'])
+        doc['bufferViews'].append({'buffer': 0, 'byteOffset': offset, 'byteLength': len(rows) * width * 4})
+        index = len(doc['accessors'])
+        value = {'bufferView': view, 'componentType': 5126, 'count': len(rows), 'type': kind}
+        if kind == 'SCALAR':
+            value.update(min=[rows[0][0]], max=[rows[-1][0]])
+        doc['accessors'].append(value)
+        return index
+
+    changed = []
+    for channel in animation['channels']:
+        target = channel['target']
+        name = doc['nodes'][target['node']].get('name')
+        if target['path'] != 'rotation' or name not in rotations:
+            continue
+        if any(row['bone'] == name for row in changed):
+            raise ValueError('duplicate offhand rotation channel: ' + name)
+        sampler_index = channel['sampler']
+        sampler = animation['samplers'][sampler_index]
+        if sampler.get('interpolation', 'LINEAR') != 'LINEAR':
+            raise ValueError('offhand envelope requires a LINEAR quaternion source')
+        if doc['accessors'][sampler['input']]['type'] != 'SCALAR' or doc['accessors'][sampler['output']]['type'] != 'VEC4':
+            raise ValueError('offhand envelope requires SCALAR times and VEC4 rotations')
+        times = [row[0] for row in struct.iter_unpack('<f', accessor_bytes(doc, binary, sampler['input']))]
+        rows = list(struct.iter_unpack('<4f', accessor_bytes(doc, binary, sampler['output'])))
+        if (not times or len(times) != len(rows) or not all(math.isfinite(value) for value in times) or
+                any(b <= a for a, b in zip(times, times[1:]))):
+            raise ValueError('offhand source times must be finite and strictly increasing')
+        if any(not all(math.isfinite(value) for value in row) or sum(value * value for value in row) <= 1e-12
+               for row in rows):
+            raise ValueError('offhand source contains an invalid quaternion')
+        if start < times[0] or end > times[-1]:
+            raise ValueError('offhand envelope extends beyond the source slash track')
+        track = (times, rows, 'LINEAR')
+        extra = [start, end, *window, 1.55, 2.117, 94 / 30, 95 / 30]
+        extra += [frame / 60 for frame in range(math.floor(start * 60), math.ceil(end * 60) + 1)]
+        extra += [start + (rise - start) * value for value in (.25, .5, .75)]
+        sampled = [*times, *[time for time in extra if start <= time <= end]]
+        output_times = sorted({struct.unpack('<f', struct.pack('<f', time))[0] for time in sampled
+                               if times[0] <= time <= times[-1]})
+        output_rows = []
+        for time in output_times:
+            x, y, z, w = sample_track(track, time, True)
+            correction = Quaternion((1, 0, 0, 0)).slerp(deltas[name], offhand_envelope_weight(time, window))
+            q = (Quaternion((w, x, y, z)) @ correction).normalized()
+            row = (q.x, q.y, q.z, q.w)
+            if output_rows and sum(a * b for a, b in zip(output_rows[-1], row)) < 0:
+                row = tuple(-value for value in row)
+            output_rows.append(row)
+        if references[sampler_index] > 1:
+            sampler = copy.deepcopy(sampler)
+            channel['sampler'] = len(animation['samplers'])
+            animation['samplers'].append(sampler)
+        sampler['input'] = append_accessor([(time,) for time in output_times], 'SCALAR')
+        sampler['output'] = append_accessor(output_rows, 'VEC4')
+        changed.append({'bone': name, 'source_key_count': len(times), 'candidate_key_count': len(output_times),
+                        'source_range_seconds': [times[0], times[-1]]})
+    if {row['bone'] for row in changed} != set(rotations):
+        raise ValueError('a reviewed offhand rotation track is absent')
+    doc['buffers'][0]['byteLength'] = len(packed)
+    return bytes(packed), {
+        'clip': 'slash', 'application': 'normalize(q(t) @ slerp(identity, local_axis_angle, raised_cosine(t)))',
+        'window_seconds': list(window), 'rotations': copy.deepcopy(rotations), 'sample_rate_hz': 60,
+        'interpolation': 'LINEAR', 'changed_tracks': changed,
     }
 
 
@@ -529,7 +663,8 @@ def calibrated_mount(source, normalization, hand):
 
 
 def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_path,
-                      alignment_path, height=HEIGHT, grip_frame=None, finger_rotation_offsets=None):
+                      alignment_path, height=HEIGHT, grip_frame=None, finger_rotation_offsets=None,
+                      offhand_rotation_envelope=None):
     """Publish a body, its same-skin dao variant and their shared asset metadata."""
     source_path = Path(source_path)
     if hashlib.sha256(source_path.read_bytes()).hexdigest() != source_sha:
@@ -561,7 +696,8 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
     source_binary = binary
     binary, animation_records = append_animations(doc,binary,source,clip_sources)
     binary, finger_calibration = apply_finger_rotation_offsets(doc, binary, finger_rotation_offsets)
-    if finger_calibration is not None:
+    binary, offhand_calibration = apply_offhand_rotation_envelope(doc, binary, offhand_rotation_envelope)
+    if finger_calibration is not None or offhand_calibration is not None:
         for animation, record in zip(doc['animations'], animation_records):
             record['source_keyframe_semantics_sha256'] = record['keyframe_semantics_sha256']
             record['keyframe_semantics_sha256'] = animation_signature(doc, binary, animation)
@@ -617,6 +753,8 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
               'outputs':[body_output,weapon_output]}
     if finger_calibration is not None:
         record['finger_rotation_calibration'] = finger_calibration
+    if offhand_calibration is not None:
+        record['offhand_rotation_calibration'] = offhand_calibration
     alignment_bytes = (json.dumps(record,indent=2)+'\n').encode('utf-8')
     publish_outputs(((body_path,body_bytes), (weapon_path,weapon_bytes),
                      (alignment_path,alignment_bytes)))

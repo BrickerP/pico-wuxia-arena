@@ -1,0 +1,565 @@
+{
+  "label": "离线资产动效预演",
+  "contact_label": "裸头SOFT / 刀刃PARRY",
+  "actor_sha256_before_after": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+  "seconds": 2.75,
+  "fps": 24,
+  "frame_count": 66,
+  "image_output_seconds": 1.7916666666666667,
+  "source_mapping_formula": "targetActionFrame=action.frame_range[0]+(sourceSeconds-glTF_source_min)*sceneFPS; strip.frame_start=63-(targetActionFrame-strip.action_frame_start)*strip.scale",
+  "imported_action_mappings": {
+    "slash": {
+      "source_start_seconds": 0.03333333333333333,
+      "action_frame_start": 1.0,
+      "strip_action_frame_start": 1.0,
+      "strip_scale": 1.0
+    },
+    "hit_head": {
+      "source_start_seconds": 0.03333333507180214,
+      "action_frame_start": 1.0,
+      "strip_action_frame_start": 1.0,
+      "strip_scale": 1.0
+    },
+    "hit_side": {
+      "source_start_seconds": 0.03333333507180214,
+      "action_frame_start": 1.0,
+      "strip_action_frame_start": 1.0,
+      "strip_scale": 1.0
+    }
+  },
+  "camera_bounds_sampling": [
+    [
+      "slash",
+      1.35
+    ],
+    [
+      "slash",
+      1.85
+    ],
+    [
+      "slash",
+      2.1
+    ],
+    [
+      "hit_head",
+      0.65
+    ],
+    [
+      "hit_body",
+      0.65
+    ]
+  ],
+  "camera": {
+    "position_blender": [
+      0.34717822074890137,
+      -5.0,
+      1.330058217048645
+    ],
+    "ortho_scale": 2.273193359375,
+    "unchanged_from_first_version": true
+  },
+  "contacts": [
+    {
+      "kind": "bare_head_SOFT",
+      "material": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "onset_output_seconds": 0.75,
+      "onset_frame": 18,
+      "hitstop_seconds": 0.08,
+      "point_actor_gltf_metres": [
+        0.13871237635612488,
+        1.2949020862579346,
+        0.48925265669822693
+      ],
+      "normal_actor_gltf": [
+        0.7935519814491272,
+        0.5604286193847656,
+        0.23705482482910156
+      ],
+      "fx_asset": "soft_contact.glb",
+      "wav": "arena_hit.wav",
+      "strength": 0.7,
+      "scale": 1.042,
+      "normal_offset_metres": 0.008,
+      "recoil": {
+        "delay_seconds": 0.08,
+        "duration_seconds": 0.22,
+        "amplitude_metres": 0.0635,
+        "envelope": "4*p*(1-p)",
+        "direction_actor_gltf": [
+          -0.958161473274231,
+          0,
+          -0.2862280011177063
+        ]
+      },
+      "fx_duration_seconds": 0.62,
+      "core_duration_seconds": 0.18,
+      "core_size_multiplier": 1,
+      "fx_sha256": "df7238be6a2a8b80a941aab6c5897b2ed628a7d1adc1afa1d5362d2dd5bea002",
+      "wav_sha256": "0d1b438ab63b6b2ebdb86e4a758d3a9cfc5f341ecdc02ed7478ecab0f4aaaa4b"
+    },
+    {
+      "kind": "blade_PARRY",
+      "material": "Steel | forged body",
+      "onset_output_seconds": 1.75,
+      "onset_frame": 42,
+      "hitstop_seconds": 0.09,
+      "point_actor_gltf_metres": [
+        0.1490481048822403,
+        1.3029993772506714,
+        0.8451570272445679
+      ],
+      "normal_actor_gltf": [
+        -0.9621549248695374,
+        -0.06500560790300369,
+        0.2646361291408539
+      ],
+      "fx_asset": "metal_contact.glb",
+      "wav": "arena_parry.wav",
+      "strength": 0.7,
+      "scale": 1.042,
+      "normal_offset_metres": 0.008,
+      "recoil": {
+        "delay_seconds": 0.09,
+        "duration_seconds": 0.22,
+        "amplitude_metres": 0.0635,
+        "envelope": "4*p*(1-p)",
+        "direction_actor_gltf": [
+          -0.9641942381858826,
+          0,
+          0.2651970386505127
+        ]
+      },
+      "fx_duration_seconds": 0.54,
+      "core_duration_seconds": 0.22,
+      "core_size_multiplier": 1.3,
+      "fx_sha256": "8171c6474e1a34be5db14324f10e18b5a4575c0d910b91ffbde4364756ed23e0",
+      "wav_sha256": "73805fc955c1fd30aec2f7a489968dc0cf21995747abbb3520288e1476e174a6"
+    }
+  ],
+  "fx_clock": "wall/output seconds since onset; continues during pose hitstop",
+  "pose_holds": [
+    [
+      0.75,
+      0.83
+    ],
+    [
+      1.75,
+      1.84
+    ]
+  ],
+  "limitations": [
+    "制作切段，无NLA跨片混合",
+    "离线GLB材质与时序展示，非PICO运行验收",
+    "24fps对80/90ms停顿以相邻采样帧表现"
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "output_seconds": 0.0,
+      "clip": "slash",
+      "source_seconds": 1.35
+    },
+    {
+      "frame": 1,
+      "output_seconds": 0.041666666666666664,
+      "clip": "slash",
+      "source_seconds": 1.3916666666666668
+    },
+    {
+      "frame": 2,
+      "output_seconds": 0.08333333333333333,
+      "clip": "slash",
+      "source_seconds": 1.4333333333333333
+    },
+    {
+      "frame": 3,
+      "output_seconds": 0.125,
+      "clip": "slash",
+      "source_seconds": 1.475
+    },
+    {
+      "frame": 4,
+      "output_seconds": 0.16666666666666666,
+      "clip": "slash",
+      "source_seconds": 1.5166666666666668
+    },
+    {
+      "frame": 5,
+      "output_seconds": 0.20833333333333334,
+      "clip": "slash",
+      "source_seconds": 1.5583333333333333
+    },
+    {
+      "frame": 6,
+      "output_seconds": 0.25,
+      "clip": "slash",
+      "source_seconds": 1.6
+    },
+    {
+      "frame": 7,
+      "output_seconds": 0.2916666666666667,
+      "clip": "slash",
+      "source_seconds": 1.6416666666666668
+    },
+    {
+      "frame": 8,
+      "output_seconds": 0.3333333333333333,
+      "clip": "slash",
+      "source_seconds": 1.6833333333333333
+    },
+    {
+      "frame": 9,
+      "output_seconds": 0.375,
+      "clip": "slash",
+      "source_seconds": 1.725
+    },
+    {
+      "frame": 10,
+      "output_seconds": 0.4166666666666667,
+      "clip": "slash",
+      "source_seconds": 1.7666666666666668
+    },
+    {
+      "frame": 11,
+      "output_seconds": 0.4583333333333333,
+      "clip": "slash",
+      "source_seconds": 1.8083333333333333
+    },
+    {
+      "frame": 12,
+      "output_seconds": 0.5,
+      "clip": "slash",
+      "source_seconds": 1.85
+    },
+    {
+      "frame": 13,
+      "output_seconds": 0.5416666666666666,
+      "clip": "slash",
+      "source_seconds": 1.8916666666666666
+    },
+    {
+      "frame": 14,
+      "output_seconds": 0.5833333333333334,
+      "clip": "slash",
+      "source_seconds": 1.9333333333333336
+    },
+    {
+      "frame": 15,
+      "output_seconds": 0.625,
+      "clip": "slash",
+      "source_seconds": 1.975
+    },
+    {
+      "frame": 16,
+      "output_seconds": 0.6666666666666666,
+      "clip": "slash",
+      "source_seconds": 2.0166666666666666
+    },
+    {
+      "frame": 17,
+      "output_seconds": 0.7083333333333334,
+      "clip": "slash",
+      "source_seconds": 2.0583333333333336
+    },
+    {
+      "frame": 18,
+      "output_seconds": 0.75,
+      "clip": "slash",
+      "source_seconds": 2.1
+    },
+    {
+      "frame": 19,
+      "output_seconds": 0.7916666666666666,
+      "clip": "slash",
+      "source_seconds": 2.1
+    },
+    {
+      "frame": 20,
+      "output_seconds": 0.8333333333333334,
+      "clip": "hit_head",
+      "source_seconds": 0.05333333333333341
+    },
+    {
+      "frame": 21,
+      "output_seconds": 0.875,
+      "clip": "hit_head",
+      "source_seconds": 0.09500000000000004
+    },
+    {
+      "frame": 22,
+      "output_seconds": 0.9166666666666666,
+      "clip": "hit_head",
+      "source_seconds": 0.13666666666666666
+    },
+    {
+      "frame": 23,
+      "output_seconds": 0.9583333333333334,
+      "clip": "hit_head",
+      "source_seconds": 0.1783333333333334
+    },
+    {
+      "frame": 24,
+      "output_seconds": 1.0,
+      "clip": "hit_head",
+      "source_seconds": 0.22000000000000003
+    },
+    {
+      "frame": 25,
+      "output_seconds": 1.0416666666666667,
+      "clip": "hit_head",
+      "source_seconds": 0.26166666666666677
+    },
+    {
+      "frame": 26,
+      "output_seconds": 1.0833333333333333,
+      "clip": "hit_head",
+      "source_seconds": 0.3033333333333333
+    },
+    {
+      "frame": 27,
+      "output_seconds": 1.125,
+      "clip": "hit_head",
+      "source_seconds": 0.34500000000000003
+    },
+    {
+      "frame": 28,
+      "output_seconds": 1.1666666666666667,
+      "clip": "hit_head",
+      "source_seconds": 0.38666666666666677
+    },
+    {
+      "frame": 29,
+      "output_seconds": 1.2083333333333333,
+      "clip": "hit_head",
+      "source_seconds": 0.4283333333333333
+    },
+    {
+      "frame": 30,
+      "output_seconds": 1.25,
+      "clip": "hit_head",
+      "source_seconds": 0.47000000000000003
+    },
+    {
+      "frame": 31,
+      "output_seconds": 1.2916666666666667,
+      "clip": "hit_head",
+      "source_seconds": 0.5116666666666668
+    },
+    {
+      "frame": 32,
+      "output_seconds": 1.3333333333333333,
+      "clip": "hit_head",
+      "source_seconds": 0.5533333333333333
+    },
+    {
+      "frame": 33,
+      "output_seconds": 1.375,
+      "clip": "hit_head",
+      "source_seconds": 0.5950000000000001
+    },
+    {
+      "frame": 34,
+      "output_seconds": 1.4166666666666667,
+      "clip": "hit_head",
+      "source_seconds": 0.6366666666666668
+    },
+    {
+      "frame": 35,
+      "output_seconds": 1.4583333333333333,
+      "clip": "hit_head",
+      "source_seconds": 0.6783333333333333
+    },
+    {
+      "frame": 36,
+      "output_seconds": 1.5,
+      "clip": "slash",
+      "source_seconds": 1.85
+    },
+    {
+      "frame": 37,
+      "output_seconds": 1.5416666666666667,
+      "clip": "slash",
+      "source_seconds": 1.8916666666666666
+    },
+    {
+      "frame": 38,
+      "output_seconds": 1.5833333333333333,
+      "clip": "slash",
+      "source_seconds": 1.9333333333333336
+    },
+    {
+      "frame": 39,
+      "output_seconds": 1.625,
+      "clip": "slash",
+      "source_seconds": 1.975
+    },
+    {
+      "frame": 40,
+      "output_seconds": 1.6666666666666667,
+      "clip": "slash",
+      "source_seconds": 2.0166666666666666
+    },
+    {
+      "frame": 41,
+      "output_seconds": 1.7083333333333333,
+      "clip": "slash",
+      "source_seconds": 2.0583333333333336
+    },
+    {
+      "frame": 42,
+      "output_seconds": 1.75,
+      "clip": "slash",
+      "source_seconds": 2.1
+    },
+    {
+      "frame": 43,
+      "output_seconds": 1.7916666666666667,
+      "clip": "slash",
+      "source_seconds": 2.1
+    },
+    {
+      "frame": 44,
+      "output_seconds": 1.8333333333333333,
+      "clip": "slash",
+      "source_seconds": 2.1
+    },
+    {
+      "frame": 45,
+      "output_seconds": 1.875,
+      "clip": "hit_side",
+      "source_seconds": 0.09346153846153836
+    },
+    {
+      "frame": 46,
+      "output_seconds": 1.9166666666666667,
+      "clip": "hit_side",
+      "source_seconds": 0.14520146520146518
+    },
+    {
+      "frame": 47,
+      "output_seconds": 1.9583333333333333,
+      "clip": "hit_side",
+      "source_seconds": 0.1969413919413917
+    },
+    {
+      "frame": 48,
+      "output_seconds": 2.0,
+      "clip": "hit_side",
+      "source_seconds": 0.24868131868131854
+    },
+    {
+      "frame": 49,
+      "output_seconds": 2.0416666666666665,
+      "clip": "hit_side",
+      "source_seconds": 0.3004212454212451
+    },
+    {
+      "frame": 50,
+      "output_seconds": 2.0833333333333335,
+      "clip": "hit_side",
+      "source_seconds": 0.3521611721611722
+    },
+    {
+      "frame": 51,
+      "output_seconds": 2.125,
+      "clip": "hit_side",
+      "source_seconds": 0.4039010989010987
+    },
+    {
+      "frame": 52,
+      "output_seconds": 2.1666666666666665,
+      "clip": "hit_side",
+      "source_seconds": 0.45564102564102527
+    },
+    {
+      "frame": 53,
+      "output_seconds": 2.2083333333333335,
+      "clip": "hit_side",
+      "source_seconds": 0.5073809523809524
+    },
+    {
+      "frame": 54,
+      "output_seconds": 2.25,
+      "clip": "hit_side",
+      "source_seconds": 0.5591208791208789
+    },
+    {
+      "frame": 55,
+      "output_seconds": 2.2916666666666665,
+      "clip": "hit_side",
+      "source_seconds": 0.6108608058608055
+    },
+    {
+      "frame": 56,
+      "output_seconds": 2.3333333333333335,
+      "clip": "hit_side",
+      "source_seconds": 0.6626007326007326
+    },
+    {
+      "frame": 57,
+      "output_seconds": 2.375,
+      "clip": "hit_side",
+      "source_seconds": 0.7143406593406592
+    },
+    {
+      "frame": 58,
+      "output_seconds": 2.4166666666666665,
+      "clip": "hit_side",
+      "source_seconds": 0.7660805860805857
+    },
+    {
+      "frame": 59,
+      "output_seconds": 2.4583333333333335,
+      "clip": "hit_side",
+      "source_seconds": 0.8178205128205128
+    },
+    {
+      "frame": 60,
+      "output_seconds": 2.5,
+      "clip": "hit_side",
+      "source_seconds": 0.8695604395604394
+    },
+    {
+      "frame": 61,
+      "output_seconds": 2.5416666666666665,
+      "clip": "hit_side",
+      "source_seconds": 0.9213003663003659
+    },
+    {
+      "frame": 62,
+      "output_seconds": 2.5833333333333335,
+      "clip": "hit_side",
+      "source_seconds": 0.973040293040293
+    },
+    {
+      "frame": 63,
+      "output_seconds": 2.625,
+      "clip": "hit_side",
+      "source_seconds": 1.0247802197802196
+    },
+    {
+      "frame": 64,
+      "output_seconds": 2.6666666666666665,
+      "clip": "hit_side",
+      "source_seconds": 1.0765201465201462
+    },
+    {
+      "frame": 65,
+      "output_seconds": 2.7083333333333335,
+      "clip": "hit_side",
+      "source_seconds": 1.1282600732600732
+    }
+  ],
+  "image_frame": 43,
+  "sampled_pause_frames": {
+    "head": [
+      18,
+      19
+    ],
+    "parry": [
+      42,
+      43,
+      44
+    ]
+  }
+}

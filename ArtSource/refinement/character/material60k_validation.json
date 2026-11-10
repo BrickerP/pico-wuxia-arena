@@ -1,0 +1,229 @@
+{
+  "scope": "Blender offline PBR and generated tangent-basis validation",
+  "source": {
+    "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/mobile60k/model.glb",
+    "source_sha256": "b7a080d8f27b4ea5318d30c81bbbe222aefb17abb0a63e8dccfc355c2998ffe0",
+    "yaw_degrees": -90,
+    "uniform_scale": 1.8198762767030023,
+    "translation_metres": [
+      -0.0002714267757255584,
+      -0.00013673710054717958,
+      0.8897132873535156
+    ],
+    "normalized_bounds_metres": [
+      [
+        -0.8142387270927429,
+        -0.17948457598686218,
+        0.0
+      ],
+      [
+        0.8142387270927429,
+        0.179484561085701,
+        1.7799999713897705
+      ]
+    ],
+    "rest_pose": true,
+    "normalization_pose": "REST",
+    "mesh_names": [
+      "tripo_node_78aef961-efe3-4f9f-a9e2-d501bb808dac"
+    ]
+  },
+  "source_material_mapping": [
+    {
+      "name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "roles": {
+        "normal": {
+          "texture_index": 0,
+          "image_index": 0,
+          "mime_type": "image/jpeg"
+        },
+        "base_color": {
+          "texture_index": 1,
+          "image_index": 1,
+          "mime_type": "image/jpeg"
+        },
+        "metallic_roughness": {
+          "texture_index": 2,
+          "image_index": 2,
+          "mime_type": "image/png"
+        }
+      },
+      "occlusion_texture_present": false
+    }
+  ],
+  "source_primitive_attributes": [
+    [
+      "POSITION",
+      "NORMAL",
+      "TEXCOORD_0"
+    ]
+  ],
+  "materials": [
+    {
+      "name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "base_color": {
+        "blender_name": "tripo_model_basecolor",
+        "source_image_index": 1,
+        "sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b",
+        "dimensions": [
+          4096,
+          4096
+        ],
+        "embedded_header_dimensions": [
+          4096,
+          4096
+        ],
+        "color_space": "sRGB"
+      },
+      "normal": {
+        "blender_name": "tripo_model_normal",
+        "source_image_index": 0,
+        "sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167",
+        "dimensions": [
+          4096,
+          4096
+        ],
+        "embedded_header_dimensions": [
+          4096,
+          4096
+        ],
+        "color_space": "Non-Color"
+      },
+      "metallic_roughness": {
+        "blender_name": "tripo_model_rm",
+        "source_image_index": 2,
+        "sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd",
+        "dimensions": [
+          4096,
+          4096
+        ],
+        "embedded_header_dimensions": [
+          4096,
+          4096
+        ],
+        "color_space": "Non-Color"
+      },
+      "normal_space": "TANGENT",
+      "normal_strength": 1.0,
+      "normal_connected_to_principled": true,
+      "metallic_channel": "Blue",
+      "roughness_channel": "Green",
+      "separator_mode": "RGB",
+      "links": [
+        [
+          "Principled BSDF",
+          "BSDF",
+          "Material Output",
+          "Surface"
+        ],
+        [
+          "Image Texture",
+          "Color",
+          "Principled BSDF",
+          "Base Color"
+        ],
+        [
+          "Separate Color",
+          "Blue",
+          "Principled BSDF",
+          "Metallic"
+        ],
+        [
+          "Separate Color",
+          "Green",
+          "Principled BSDF",
+          "Roughness"
+        ],
+        [
+          "Image Texture.001",
+          "Color",
+          "Separate Color",
+          "Color"
+        ],
+        [
+          "Normal Map",
+          "Normal",
+          "Principled BSDF",
+          "Normal"
+        ],
+        [
+          "Image Texture.002",
+          "Color",
+          "Normal Map",
+          "Color"
+        ]
+      ],
+      "normal_pixel_samples": {
+        "grid": [
+          8,
+          8
+        ],
+        "sample_count": 64,
+        "max_xy_deviation_from_flat": 0.07254904508590698,
+        "rgb_min": [
+          0.4784314036369324,
+          0.46666669845581055,
+          0.988235354423523
+        ],
+        "rgb_max": [
+          0.572549045085907,
+          0.5529412031173706,
+          1.0
+        ],
+        "non_flat_sample_found": true,
+        "python_pixel_count_read": 192
+      },
+      "checks": {
+        "normal_image_mapping": true,
+        "base_color_image_mapping": true,
+        "mr_image_mapping": true,
+        "normal_dimensions": true,
+        "base_color_dimensions": true,
+        "mr_dimensions": true,
+        "normal_tangent_space": true,
+        "normal_strength_positive": true,
+        "normal_non_color": true,
+        "mr_non_color": true,
+        "base_color_srgb": true,
+        "metallic_blue": true,
+        "roughness_green": true,
+        "normal_not_all_flat": true
+      }
+    }
+  ],
+  "tangent_bases": [
+    {
+      "mesh": "tripo_mesh_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "uv_map": "",
+      "loop_count": 180018,
+      "max_orthogonality_error": 0.8703256249427795,
+      "tangent_length_range": [
+        0.9999998304992771,
+        1.0000001639127598
+      ],
+      "checks": {
+        "finite_tangents_and_normals": true,
+        "orthogonal": false,
+        "unit_tangents": true,
+        "valid_bitangent_signs": true
+      }
+    }
+  ],
+  "all_material_and_tangent_checks_passed": false,
+  "debug_variant": "normal_off disconnects only the Principled Normal input; MR links remain connected",
+  "source_sha256_after_render": "b7a080d8f27b4ea5318d30c81bbbe222aefb17abb0a63e8dccfc355c2998ffe0",
+  "source_bytes_preserved": true,
+  "renders": {
+    "normal_on": {
+      "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_on_head.png",
+      "right_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_on_right_hand_top.png",
+      "left_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_on_left_hand_top.png"
+    },
+    "normal_off": {
+      "head": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_off_head.png",
+      "right_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_off_right_hand_top.png",
+      "left_hand_top": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/material60k_review/normal_off_left_hand_top.png"
+    }
+  },
+  "sdk_tangent_basis_and_material_playback": "pending main validation"
+}

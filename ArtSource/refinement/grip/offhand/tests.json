@@ -1,0 +1,18 @@
+{
+  "deterministic_replays": [
+    "indigo",
+    "veteran"
+  ],
+  "boundary_rejections": [
+    "indigo:right-hand-scope",
+    "indigo:outside-native-time-range",
+    "veteran:right-hand-scope",
+    "veteran:outside-native-time-range",
+    "empty-rise-window",
+    "source-hash-drift"
+  ],
+  "envelope_checks": [
+    "indigo",
+    "veteran"
+  ]
+}

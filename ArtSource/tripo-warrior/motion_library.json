@@ -44,65 +44,76 @@
     {
       "id": "base",
       "name": "试刀客",
-      "source": "tripo-out/f2a5c5b3-rig-bb23cd4c/model.glb",
-      "source_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
+      "source": "refined-base60k/rig.glb",
+      "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
       "grip_source": {
-        "source": "tripo-out/bb23cd4c-retarget-a65f688a/model.glb",
-        "source_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+        "source": "refined-base60k/slash.glb",
+        "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
         "time_seconds": 2.117
       },
       "height_metres": 1.78,
       "output": "base.glb",
+      "grip_frame": [
+        -0.16072334349155426,
+        -0.5248600840568542,
+        0.025034062564373016,
+        0.0,
+        -0.46255403757095337,
+        0.12890203297138214,
+        -0.26714247465133667,
+        0.0,
+        0.24929668009281158,
+        -0.09921175241470337,
+        -0.47952595353126526,
+        0.0,
+        0.013535577803850174,
+        0.046395160257816315,
+        -0.0215284563601017,
+        1.0
+      ],
       "finger_rotation_offsets": {
-        "R_Ring2": {
-          "x_degrees": -4.5,
+        "R_Thumb1": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Thumb2": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Index2": {
+          "x_degrees": 3.0,
           "z_degrees": 0.0
         },
         "R_Ring1": {
-          "x_degrees": 1.5,
+          "x_degrees": 0.0,
           "z_degrees": -1.5
         },
-        "R_Mid3": {
-          "x_degrees": 3.0,
-          "z_degrees": 7.5
-        },
-        "R_Mid2": {
-          "x_degrees": 4.5,
-          "z_degrees": 6.0
-        },
-        "R_Thumb1": {
+        "R_Mid1": {
           "x_degrees": 0.0,
-          "z_degrees": 6.0
+          "z_degrees": -1.5
         },
-        "R_Index2": {
-          "x_degrees": 0.0,
-          "z_degrees": 1.5
+        "R_Thumb3": {
+          "x_degrees": -3.0,
+          "z_degrees": -3.0
         },
         "R_Index1": {
-          "x_degrees": -7.5,
-          "z_degrees": 3.0
-        },
-        "R_Pinky3": {
           "x_degrees": -1.5,
-          "z_degrees": 1.5
-        },
-        "R_Pinky2": {
-          "x_degrees": 0.0,
-          "z_degrees": 1.5
+          "z_degrees": 0.0
         },
         "R_Pinky1": {
-          "x_degrees": -6.0,
+          "x_degrees": -1.5,
           "z_degrees": 0.0
         }
       },
       "finger_rotation_review": {
-        "calibration_file": "../refinement/grip/calibration.json",
-        "calibration_sha256": "59bad1a57c6ae1e659cc8fd8731181b1a45021d86c2d7c5f9076b6000b0c6ed3",
-        "target_rig_sha256": "6e2ddd38982a5dc3baee45f7db8f545988e493ba994c29c40fb4ee1cff7cb3c9",
-        "target_grip_sha256": "21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0",
+        "calibration_file": "../refinement/grip/hero60k/producer_calibration.json",
+        "calibration_sha256": "0d03bef2185606a334a2cee466537884b8ee7ef8d4aead7f5b4c12bff8f0c1b2",
+        "target_rig_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+        "target_grip_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
         "grip_time_seconds": 2.117,
-        "reviewed_source_asset_sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
-        "reviewed_candidate_asset_sha256": "7fe40c92c431300f641fbf46437bd793f84d8455864299a6e3580e673d19300c"
+        "reviewed_source_asset_sha256": "5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f",
+        "reviewed_candidate_asset_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+        "grip_frame_sha256": "3a573d20de4b9eab1926ffddfc964ad61ece3b31934e6260ca69286fc4f8ebcf"
       }
     },
     {
@@ -192,7 +203,37 @@
         "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
         "grip_time_seconds": 2.117,
         "reviewed_source_asset_sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
-        "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43"
+        "reviewed_candidate_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+        "grip_frame_sha256": "cc93b63c26c9f001ed7e7fda5dbfc1b88a6012339512a281594a4048c33abccf"
+      },
+      "offhand_rotation_envelope": {
+        "window_seconds": [
+          1.8,
+          2.0,
+          3.4,
+          3.6
+        ],
+        "rotations": {
+          "L_Hand": {
+            "axis": [
+              1,
+              0,
+              0
+            ],
+            "degrees": 8.0
+          }
+        }
+      },
+      "offhand_rotation_review": {
+        "calibration_file": "../refinement/grip/offhand/calibration.json",
+        "calibration_sha256": "6fe6af751a772b372a15a26fcf1494ead318f3c227350d5cd73f1cd3a733fb16",
+        "target_rig_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+        "target_grip_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+        "grip_time_seconds": 2.117,
+        "finger_reviewed_candidate_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+        "finger_rotation_offsets_sha256": "70a67f61efd943fd59da328f1a936fe0b25790a0a9ccb9fa4fd99b511edc717a",
+        "reviewed_source_asset_sha256": "4516458ab2d44d986046d36c8349a5901ef20452e60e6570f56c6540d172ee43",
+        "reviewed_candidate_asset_sha256": "398e3aa99865c3259f155ba49c305594ba822c75f01d92e05a5201488c9cf7eb"
       }
     },
     {
@@ -266,7 +307,37 @@
         "target_grip_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
         "grip_time_seconds": 2.117,
         "reviewed_source_asset_sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
-        "reviewed_candidate_asset_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3"
+        "reviewed_candidate_asset_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3",
+        "grip_frame_sha256": "233842a533c42966c68f0471b4caabc221ea930bbfd0259580662566f1920726"
+      },
+      "offhand_rotation_envelope": {
+        "window_seconds": [
+          1.5,
+          1.55,
+          1.72,
+          1.95
+        ],
+        "rotations": {
+          "L_Forearm": {
+            "axis": [
+              0,
+              0,
+              1
+            ],
+            "degrees": 4.0
+          }
+        }
+      },
+      "offhand_rotation_review": {
+        "calibration_file": "../refinement/grip/offhand/calibration.json",
+        "calibration_sha256": "6fe6af751a772b372a15a26fcf1494ead318f3c227350d5cd73f1cd3a733fb16",
+        "target_rig_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+        "target_grip_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+        "grip_time_seconds": 2.117,
+        "finger_reviewed_candidate_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3",
+        "finger_rotation_offsets_sha256": "e3885e153e695fde904e89049c9fe3b4b8ce09a44d474ce3e2036628421f0e62",
+        "reviewed_source_asset_sha256": "010e80a08573d0b165692b30a06fcc93f6f0394181fa138b198aa09049b934a3",
+        "reviewed_candidate_asset_sha256": "6379628c7a83b4036dc53245ad6ec9612e9aa6e8d6b758864c8a8e348ec9c7ba"
       }
     }
   ]

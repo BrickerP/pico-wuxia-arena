@@ -20,6 +20,8 @@
 
 首轮只打磨一个主展示角色，主控doctor已通过，余额4465、冻结0。首轮人物生产预算上限200credits，先完成一个主展示角色高精与移动端候选。预算内已核实的标准链先dry-run后可直接执行，无需再等用户批准。实验mesh_edit费用未估，先提交计划和模型空间bbox，待主控另行决定。普通rig使用v3.0／tripo以保持78骨与手指细节，再对本角色生成原生slash和握指依据。
 
+质量review追加100credits用于同一PBR源的一次60k convert对比，总上限300credits。complex convert费率未公开，先dry-run核路由，单次按真实账单回填，超过追加额度后停止额外绑定。该授权保留20k候选作对照。
+
 ## 质量与交付
 
 - 输出高精源、移动端候选、PBR、绑定与动作适配身份，保持原始源可追溯。
@@ -33,32 +35,63 @@
 
 使用已安装 `/Users/yupeng/.npm/_npx/f5a4b36c43527c00/node_modules/tripo-cli/dist/cli.js`，Node22路径为 `/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node`。每次设置TRIPO_CLIENT_APP=codex、TRIPO_REGION=ov、HTTPS_PROXY=http://127.0.0.1:7897、HTTP_PROXY=http://127.0.0.1:7897。主控维持本轮临时网络通路到任务结束，你不改全局网络或账号profile。
 
-## 本阶段实施与review材料（2026-11-10）
+## 阶段交付与验收（2026-11-10）
 
-本阶段执行高精几何打样，候选与生产依据均在 `ArtSource/refinement/character/`。canonical来源为本节唯一TripoCLI源任务，制作使用本文件批准的200credits预算。
+### 阶段结论
 
-- 几何dry-run通过，归一化模型 `v3.1-20260211`，显式 `geometry_quality=detailed`、`smart_low_poly=false`、`texture=false`。唯一任务 `89f78fc8-53b0-4e6b-ada3-7277e8606007` 已成功，实际30credits。原始预览为 `geometry_preview.webp`，生成参考为 `generation_reference.jpeg`。
-- 原现役身体为18,833三角、10,734顶点、78骨，高精源为1,489,123三角、762,070顶点、78骨。来源与统计在 `asset_comparison.json`，当前低模面部、指节和领口层次损失较大。
-- 新候选已具备完整头顶、面部、交领厚度和束带轮廓。手指间隙需完成原始高模近景检查，PBR与烘焙的收费步骤依赖这一质量检查。
-- `texture_plan.json` 离线通过，显式 `v3.5-20260815`、`extreme`、`pbr=true`、`delight=true`。CLI将此后处理费用标记为未估价，官方价表核实为30credits。完整标准链预计130credits，见 `production_plan.json`。
-- `render_review.py` 统一1.78米、脚底归零、相机与灯光，支持真实源材质和同材质几何对比。全部展示变换独立于GLB源文件。
+**第一阶段结束，等待review。主控已复核高精头部、交领与双手五指，review通过。**
 
-新高模已完整下载并通过GLB长度校验，53,996,800字节，1,900,024三角、974,844顶点，SHA256为 `a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132`。旧watch已停止，当前只进行离线同机位近景与转台渲染。下载恢复始终沿用同一成功任务，没有重复生成。阶段结论将在此节补齐。
+**第二阶段结束，等待review。20k烘焙、绑定与原生slash已完成，主控要求提高近景几何密度，20k保留对照。**
 
-### 第一阶段结束与review结果
+**第三阶段结束，等待review。60k转换、78骨绑定与原生slash已完成，源GLB已冻结，主控已接管正式集成。**
 
-**第一阶段结束，等待review。主控随后已逐张复核面部与双手俯视近景，几何门槛通过，授权沿标准链继续第二阶段。**
+主控逐张复核60k同机位真实PBR与clay近景，确认唇线、鼻翼和指尖轮廓改善，选择60k作为主展示候选方向。本会话交付范围为 `ArtSource/refinement/character/`，正式发布与设备验收由主控继续。
 
-- 本地完整源为 `high_geometry/model.glb`。双手俯视在 `review_top/after_right_hand_top.png`、`review_top/after_left_hand_top.png`，可见五指分离。头部与交领在 `review/after_head.png`、`review/after_collar.png`。
-- `review/` 为现役身体与新高模的同材质、同相机、同灯光对比。`review/comparison_turntable.mp4` 为左右对照转台，1536×768、12fps、2秒，用于静态几何检查。
-- 验证已完成GLB长度、来源哈希、统计、Blender实际渲染、视频时长与分辨率、JSON解析、脚本语法及文档差异检查。
-- 第二阶段PBR唯一任务 `d2ca3080-2179-47b4-8b61-4da73b37e4de`，输入为几何任务 `89f78fc8-53b0-4e6b-ada3-7277e8606007`。已完成实际扣费30credits，PBR预计30credits，提交记录为 `texture_submission.json`。
-- 第二阶段待完成PBR材料核验、2万三角烘焙及指间/袖口复检、78骨实测、原生slash与握指来源。候选当前仍处于源制作阶段。
+### 来源与费用
 
-### 第二阶段进行中
+全部远端任务成功，实际合计 **175credits**，总授权上限300，余125。逐项账单、源文件字节数和完整SHA256在 `review_handoff.json`，各目录的 `task.json` 与 `download_receipt.json` 保留成功身份与下载校验。
 
-PBR任务 `d2ca3080-2179-47b4-8b61-4da73b37e4de` 已成功，实际30credits。`high_pbr/preview.webp` 可见黑灰布衣、棕色皮带、黄铜扣与靛蓝裤的分区。高精PBR源76,726,496字节，正在使用同任务断点恢复下载。
+| 步骤 | 唯一task_id | 实际credits | 源文件 |
+| --- | --- | --- | --- |
+| H3.1详细几何 | 89f78fc8-53b0-4e6b-ada3-7277e8606007 | 30 | high_geometry/model.glb |
+| v3.5 extreme PBR | d2ca3080-2179-47b4-8b61-4da73b37e4de | 30 | high_pbr/model.glb |
+| v3.0 baked 20k | f2fd1fd6-b436-4312-9ba2-172602653810 | 35 | mobile/model.glb |
+| 20k v3／tripo rig | b465d763-a04a-45a9-906a-96bb85b4aa9c | 25 | rig/model.glb |
+| 20k native slash | 1e5d9538-e3e5-435a-a05c-c7ba8df05752 | 10 | slash/model.glb |
+| 独立60k convert | 78aef961-efe3-4f9f-a9e2-d501bb808dac | 10 | mobile60k/model.glb |
+| 60k v3／tripo rig | 584470a3-9b9a-4636-a9dc-0b1ffb4171eb | 25 | rig60k/model.glb |
+| 60k native slash | 5c6edff0-2cf7-4c6b-8885-749b33ec8a62 | 10 | slash60k/model.glb |
 
-2万三角烘焙任务 `f2fd1fd6-b436-4312-9ba2-172602653810` 已成功，实际35credits。参数为 `model=v3.0`、`face_limit=20000`、`bake=true`、`quad=false`。正在下载到 `mobile/`。基于已成功的远端输出并行启动原生绑定，交付前完成低模指间与袖口复检。当前累计实际95credits。
+生成显式使用 `tripo-v3.1`、`geometry_quality=detailed`、`smart_low_poly=false`。PBR使用 `v3.5`、`extreme`、`pbr=true`、`delight=true`。60k转换沿同一PBR源执行 `format=GLTF`、`face_limit=60000`、`bake=false`、`with_animation=true`。转换实际为60,006三角。原始高精、20k与60k分别保留。
 
-`download_task.py` 只读取既有成功任务，按准确字节区间恢复下载，核对206、Content-Range、ETag、完整GLB长度和SHA256。签名下载URL仅在内存，落盘记录脱敏。输出目录使用单写锁，下载失败沿同一task_id恢复。
+### 最终60k来源
+
+- `rig60k/model.glb` 为18,480,880字节、60,006三角、35,308顶点、78关节，SHA256为 `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`。
+- `slash60k/model.glb` 为18,660,564字节、60,006三角、35,325顶点、78关节，SHA256为 `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a`。含原生 `slash` 的234个通道，源时间0.033333至6.6秒。
+- 全部绑定顶点权重合法，最大归一化误差约1.08e-7，逆绑定矩阵全有限。三个PBR图片与转换源逐张SHA一致，见 `rig60k_validation.json`。
+- Retarget重导出增加17个顶点，按关节名核对的逆绑定矩阵最大变化约1.94e-6。三张PBR图按材质角色与rig源逐张一致，见 `slash60k_validation.json`。后续动画包装应核对实际skin／rest。
+
+### 评审入口
+
+- `density60k_review/` 对照20k与60k的真实PBR，包含全身、面部、双手俯视和交领。`density60k_clay_review/` 为同相机、同灯光、同中性材质的形体对比，两个目录均有源哈希与展示变换manifest。
+- `motion60k_review/native_slash60k.mp4` 为640²、30fps、6.6秒的连续原生动作。该目录保留五个真实时间点的全身、头部与右手近景，`motion_manifest.json` 记录精确时间、NLA、源哈希与骨骼位置。
+- `material60k_review/` 有法线开关对照和后腰、后靴、左手的局部PBR／红边定位图，`material60k_validation.json` 与 `tangent_anomalies.json` 记录实际材质及局部边界。
+
+### 已核实与保留项
+
+- Normal、BaseColor、MR均为4096²。Normal与MR为Non-Color，BaseColor为sRGB。MR正确连接B到Metallic、G到Roughness。当前材质未声明occlusionTexture。转换将原8k BaseColor降为4k，实际数据已回填。
+- NormalMap使用TANGENT空间、强度1，已连入Principled Normal。源含NORMAL／UV0，未写TANGENT。Blender生成的切线已实测，SDK材质与TBN实现由主控验收。glTF建议缺失切线时按MikkTSpace生成。[Khronos glTF规范](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#meshes)
+- 7个极小非零面积补片的UV面积为0，Mikk返回默认切线。对应21个异常loop，占0.0116655%，分布为右后腰2面、左后靴2面、左手3面。严格全TBN检查保留失败状态。主控确认这些局部微小问题不阻塞候选制作，定位图已交付，设备观感继续核对。
+- 高精PBR的顶点／索引顺序存在重排，坐标及保留绕序的三角面多重集完全相同，表面几何等价。全文件multipart ETag与服务端一致，证据在 `high_pbr/geometry_integrity.json`。
+- 下载曾发生截断及旧下载器实例重叠，已停止旧writer并恢复安全前缀，最终源通过完整校验。下载器仅读取既有成功任务，使用准确Range、单写锁、ETag及GLB长度／SHA校验，签名URL不落盘。
+- P2局部编辑保留 `mesh_edit_plan.json` 草案，费用 `not_estimated`，bbox解剖位置仍需叠图复核，未执行实验任务。
+
+### 验证
+
+4项下载回归测试通过，覆盖完整拼接、无preview成功任务、重复跳过、短响应补尾、非法任务及区间边界。全部Python脚本语法、JSON解析及文档差异检查通过。GLB、预览、材质开关与动作均经实际离线渲染，最终源保持冻结。
+
+## 主控60k候选接入与下一轮
+
+主控已接受60k静态几何与真实PBR近景，并取得对应78骨与原生slash。正式原始源复制至ArtSource/tripo-warrior/refined-base60k，source.json记录输入身份与文件SHA。旧base校准已从当前manifest清理，现由唯一producer生成8动作、同皮肤DAO、索引和app副本。
+
+当前base带刀22,881,080字节、SHA5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f。02继续做此角色握持近景适配，01重算自身头／躯干动作代理，旧角色配置分别保留。7个微小UV退化三角继续保留局部材质边界，设备观感由主控后续阶段核对。

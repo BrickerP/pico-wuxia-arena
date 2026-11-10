@@ -6,9 +6,9 @@
 
 ## 复查入口
 
-`python3 ArtSource/refinement/motion/measure_contact_anchors.py` 生成三角色数据。
+`python3 ArtSource/refinement/motion/measure_contact_anchors.py --actor base` 仅更新当前base，保留另外两角色的已有数据。省略 `--actor` 时按既有入口重算三角色。
 
-用项目现有 Blender 4.5.15 background 执行 `verify_contact_anchors_blender.py`，对导入的 NLA 和代理骨局部点独立交叉验证。
+用项目现有 Blender 4.5.15 background 执行 `verify_contact_anchors_blender.py -- --actor base`，只独立复核当前base的NLA及代理骨局部点。核对结果记录源SHA，其他角色的既有结果及原身份单独保留。
 
 源秒为 1.55、1.85、2.067、2.117、2.167、2.6、3.4。角色坐标为 TripoWarrior_Root 局部米制，+Y向上、+Z为角色正面。
 
@@ -24,7 +24,7 @@
 
 初次核对发现两种导入差异，已在验证脚本中明确处理。Blender会重定向每根骨的局部轴，因此需在Blender内独立反求代理局部点。导入NLA从scene/action frame1开始，而glTF时间零对应action frame0，时间换算需扣除action_frame_start。
 
-修正后，21组姿态、63个代理点与直接glTF求值的最大差分别为base 0.000000363m、indigo 0.000000876m、veteran 0.000000463m。具体结果在blender_crosscheck.json。此结果仅验证离线源数据求值一致性。
+2026-11-10本轮新base正式装配源为22,881,080字节，SHA-256 `5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f`。其7组姿态、21个代理点经独立Blender核对，最大差为 `5.834325802543299e-7 m`（约0.583微米）。indigo和veteran保留原有数据与核对结果，本轮未重算。具体范围与源身份在blender_crosscheck.json。此结果仅验证离线关键源姿态求值一致性。
 
 ## 最小接线片段
 
@@ -32,13 +32,13 @@
 
 ```kotlin
 val baseContactPoseKeys = listOf(
-    ContactPoseKey(1.55, Vector3(0.095559, -0.064479, 0.292081), Vector3(-0.131995, 0.000007, -0.018246), Vector3(0.035583, -0.087689, 0.237109)),
-    ContactPoseKey(1.85, Vector3(-0.010912, -0.070633, 0.348419), Vector3(-0.112868, 0.014425, -0.057571), Vector3(-0.040929, -0.090846, 0.240071)),
-    ContactPoseKey(2.067, Vector3(-0.189642, -0.360572, 0.499436), Vector3(-0.086567, 0.013721, -0.185537), Vector3(-0.147835, -0.253015, 0.294820)),
-    ContactPoseKey(2.117, Vector3(-0.232791, -0.457536, 0.522462), Vector3(-0.075892, 0.014914, -0.220174), Vector3(-0.170364, -0.290397, 0.311216)),
-    ContactPoseKey(2.167, Vector3(-0.291286, -0.585836, 0.551952), Vector3(-0.041675, 0.023685, -0.257946), Vector3(-0.207414, -0.346578, 0.333927)),
-    ContactPoseKey(2.6, Vector3(-0.297826, -0.535724, 0.532417), Vector3(-0.028247, 0.027441, -0.251384), Vector3(-0.212106, -0.300611, 0.324382)),
-    ContactPoseKey(3.4, Vector3(-0.274455, -0.218274, 0.328841), Vector3(-0.059324, -0.012716, -0.126396), Vector3(-0.177906, -0.115630, 0.148776)),
+    ContactPoseKey(1.55, Vector3(0.101406, -0.043866, 0.402927), Vector3(-0.119745, 0.002233, 0.089208), Vector3(0.044612, -0.074708, 0.352443)),
+    ContactPoseKey(1.85, Vector3(0.018629, -0.062500, 0.429973), Vector3(-0.079141, 0.015062, 0.017890), Vector3(-0.013227, -0.081826, 0.322099)),
+    ContactPoseKey(2.067, Vector3(-0.124829, -0.340430, 0.430015), Vector3(-0.016513, 0.017948, -0.269600), Vector3(-0.082459, -0.238060, 0.225511)),
+    ContactPoseKey(2.117, Vector3(-0.153947, -0.429288, 0.422753), Vector3(0.005768, 0.021016, -0.340545), Vector3(-0.093046, -0.274866, 0.209637)),
+    ContactPoseKey(2.167, Vector3(-0.196727, -0.551880, 0.429588), Vector3(0.054861, 0.030817, -0.407622), Vector3(-0.117289, -0.332399, 0.205517)),
+    ContactPoseKey(2.6, Vector3(-0.226023, -0.500852, 0.403605), Vector3(0.046133, 0.033402, -0.401502), Vector3(-0.143797, -0.287379, 0.192952)),
+    ContactPoseKey(3.4, Vector3(-0.252663, -0.186080, 0.192765), Vector3(-0.043096, -0.009377, -0.267459), Vector3(-0.164794, -0.100081, 0.019700)),
 )
 
 val indigoContactPoseKeys = listOf(

@@ -1,0 +1,60 @@
+{
+  "status": "draft_bbox_review_required_not_submitted",
+  "source_task_id": "89f78fc8-53b0-4e6b-ada3-7277e8606007",
+  "source_model": "v3.1-20260211",
+  "source_sha256": "a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132",
+  "processor_model": "P2-20260801",
+  "estimated_credits": "not_estimated",
+  "coordinate_space": "Original source mesh node-local coordinates, identity node. Y up, +X front, +Z anatomical right. Before display normalization.",
+  "source_bounds": [
+    [
+      -0.09868348389863968,
+      -0.4888300895690918,
+      -0.447401762008667
+    ],
+    [
+      0.09850380569696426,
+      0.4891515374183655,
+      0.4472843408584595
+    ]
+  ],
+  "candidate_region": "Provisional right-hand region. Thumb-base/web identity still requires original-space bbox overlay inspection.",
+  "bbox": [
+    [
+      0.015,
+      0.14,
+      0.335
+    ],
+    [
+      0.085,
+      0.245,
+      0.405
+    ]
+  ],
+  "vertices_inside_bbox": 1711,
+  "selected_vertices_actual_bounds": [
+    [
+      0.015075849369168282,
+      0.2325797826051712,
+      0.35956406593322754
+    ],
+    [
+      0.049304429441690445,
+      0.24499447643756866,
+      0.39574745297431946
+    ]
+  ],
+  "scope": "One local region only. Keep separated thumb/index and wrist continuity.",
+  "retention_conditions": {
+    "local_cli_claim": "Mesh outside box retained",
+    "unverified": [
+      "Boundary stitching",
+      "Topology and vertex order",
+      "UV and PBR retention",
+      "Skin and animation retention",
+      "Exact outside-box byte preservation"
+    ]
+  },
+  "admission": "Main must approve unknown cost and verify bbox overlay against original model before execution. Use pure H3 source input if approved. No experimental task submitted.",
+  "necessity": "Current five-finger geometry gate passed. A local edit is optional and requires an actual defect identified in review."
+}

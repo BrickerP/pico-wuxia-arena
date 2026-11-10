@@ -2,6 +2,7 @@
 
 import json
 import math
+import hashlib
 from pathlib import Path
 
 import matplotlib
@@ -14,6 +15,14 @@ from matplotlib.patches import Circle, Polygon
 HERE = Path(__file__).resolve().parent
 data = json.loads((HERE / "proxy_alignment_profiles.json").read_text())
 base = next(actor for actor in data["actors"] if actor["actor"] == "base")
+source = HERE.parents[2] / base["source"]
+if hashlib.sha256(source.read_bytes()).hexdigest() != base["sha256"]:
+    raise ValueError("base chart source differs from the measured runtime asset")
+crosscheck = json.loads((HERE / "blender_crosscheck.json").read_text())
+base_check = next(actor for actor in crosscheck["results"] if actor["actor"] == "base")
+if base_check.get("source_sha256") != base["sha256"]:
+    raise ValueError("base chart requires an independent check of the measured source hash")
+maximum_error_micrometres = base_check["maximum_proxy_position_error_metres"] * 1_000_000.0
 legacy = base["calibration"]["legacy_points_metres"]
 slash = next(key for key in base["keyposes"] if key["source_seconds"] == 2.167)
 current = {role: value["root_position_metres"] for role, value in slash["proxies"].items()}
@@ -51,7 +60,7 @@ for ax, points, title in zip(axes, (legacy, current), ("idle @ 1.000 s", "slash 
     ax.set_facecolor("white")
     ax.set_title(title, loc="left", fontsize=16, fontweight="bold", pad=14)
     ax.set_aspect("equal", adjustable="box")
-    ax.set_xlim(-.65, 1.05)
+    ax.set_xlim(-.75, 1.05)
     ax.set_ylim(0, 2.05)
     ax.set_xticks([-.5, 0, .5, 1.0])
     ax.set_yticks([0, .5, 1.0, 1.5, 2.0])
@@ -82,7 +91,7 @@ fig.text(.07, .095, "H = Head   T = body top / Spine02   B = body bottom / Hip. 
          fontsize=9.5, color="#334155")
 fig.text(.07, .062, "Offline source bone-derived anchors. YZ projection omits X motion. Not a game screenshot or a skin-surface outline.",
          fontsize=9.5, color="#334155")
-fig.text(.07, .029, "Source base.glb SHA-256 a0122103a6bc…   |   glTF / Blender keypose cross-check < 0.9 micrometres.",
+fig.text(.07, .029, f"Source base.glb SHA-256 {base['sha256'][:16]}…   |   glTF / Blender keypose max error {maximum_error_micrometres:.3f} micrometres.",
          fontsize=9, color="#64748b")
 fig.subplots_adjust(left=.075, right=.965, top=.84, bottom=.18, wspace=.12)
 for suffix in ("svg", "png"):

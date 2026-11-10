@@ -1,0 +1,26 @@
+{
+  "task_id": "5c6edff0-2cf7-4c6b-8885-749b33ec8a62",
+  "source_rig_task_id": "584470a3-9b9a-4636-a9dc-0b1ffb4171eb",
+  "file": "slash60k/model.glb",
+  "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+  "bytes": 18660564,
+  "joint_counts": [
+    78
+  ],
+  "vertex_count": 35325,
+  "triangles": 60006,
+  "clips": [
+    {
+      "name": "slash",
+      "channels": 234,
+      "time_seconds": [
+        0.03333333333333333,
+        6.6
+      ]
+    }
+  ],
+  "joint_name_sets_equal_rig": true,
+  "inverse_bind_max_abs_delta_vs_rig": 1.9371509552001953e-06,
+  "pbr_images_equal_rig_by_role": true,
+  "reexport_note": "Native retarget reexports mesh vertices and skin matrices. Do not infer byte identity from shared source; use native clip skin/rest validation for integration."
+}

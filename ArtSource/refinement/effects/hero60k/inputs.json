@@ -1,0 +1,136 @@
+{
+  "label": "离线资产动效预演",
+  "actor": {
+    "path": "app/src/main/assets/models/opponents/base.glb",
+    "sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+    "bytes": 23000580
+  },
+  "actor_clips": [
+    {
+      "name": "idle",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 15.366666793823242
+    },
+    {
+      "name": "walk",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 2.366666555404663
+    },
+    {
+      "name": "fall",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 3.0333333015441895
+    },
+    {
+      "name": "turn",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 3.866666555404663
+    },
+    {
+      "name": "hit_body",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 1.2999999523162842
+    },
+    {
+      "name": "hit_head",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 1.8666666746139526
+    },
+    {
+      "name": "hit_side",
+      "source_start_seconds": 0.03333333507180214,
+      "source_end_seconds": 1.2666666507720947
+    },
+    {
+      "name": "slash",
+      "source_start_seconds": 0.03333333333333333,
+      "source_end_seconds": 6.6
+    }
+  ],
+  "effects": [
+    {
+      "path": "app/src/main/assets/models/effects/force_contact.glb",
+      "sha256": "6e27c305132c9bebd617d47446dbd9466667179d9119b4f3ae8d8509503d57c1",
+      "bytes": 31340
+    },
+    {
+      "path": "app/src/main/assets/models/effects/ground_dust.glb",
+      "sha256": "b4cf766d59c8be99dc32c690b55c72cda3ea9c5a440b6b9125d0ea85588b8c95",
+      "bytes": 13432
+    },
+    {
+      "path": "app/src/main/assets/models/effects/metal_contact.glb",
+      "sha256": "8171c6474e1a34be5db14324f10e18b5a4575c0d910b91ffbde4364756ed23e0",
+      "bytes": 12688
+    },
+    {
+      "path": "app/src/main/assets/models/effects/soft_contact.glb",
+      "sha256": "df7238be6a2a8b80a941aab6c5897b2ed628a7d1adc1afa1d5362d2dd5bea002",
+      "bytes": 16128
+    }
+  ],
+  "audio": [
+    {
+      "path": "app/src/main/res/raw/arena_block.wav",
+      "sha256": "8bf1793dc442ddc070d6ecc62e2db58a65f2a586974b6aafc914cc6b95211c65",
+      "bytes": 52844
+    },
+    {
+      "path": "app/src/main/res/raw/arena_defeat.wav",
+      "sha256": "fa13474fce00cf23f1aae5253217b761ac14432f1636999600d5866f81669561",
+      "bytes": 74924
+    },
+    {
+      "path": "app/src/main/res/raw/arena_execution.wav",
+      "sha256": "525c949c60c81554e046c8abc319af33a5714cc31753fad71b94e08a5c40a4d1",
+      "bytes": 84524
+    },
+    {
+      "path": "app/src/main/res/raw/arena_guarded_hit.wav",
+      "sha256": "1b83260548a64a81f4dc257f5ba0401400ca9af0921b2c49fc803e1396bc9f55",
+      "bytes": 39404
+    },
+    {
+      "path": "app/src/main/res/raw/arena_hard_hit.wav",
+      "sha256": "99af71f373f1f4bdacb618727fa8ddb966bfc47bd3ebda7793b2a422b7afdae0",
+      "bytes": 46124
+    },
+    {
+      "path": "app/src/main/res/raw/arena_hit.wav",
+      "sha256": "0d1b438ab63b6b2ebdb86e4a758d3a9cfc5f341ecdc02ed7478ecab0f4aaaa4b",
+      "bytes": 30764
+    },
+    {
+      "path": "app/src/main/res/raw/arena_hurt.wav",
+      "sha256": "9a3e7b65d017a0a65cc219626260bef95e45d5f58eb05661ce34f4b49ddd6d46",
+      "bytes": 34604
+    },
+    {
+      "path": "app/src/main/res/raw/arena_parry.wav",
+      "sha256": "73805fc955c1fd30aec2f7a489968dc0cf21995747abbb3520288e1476e174a6",
+      "bytes": 69164
+    },
+    {
+      "path": "app/src/main/res/raw/arena_skill.wav",
+      "sha256": "f4ca4d642e792df795df70846a3aa98baeb648c37fdec9d9a1f91e83db02ae4b",
+      "bytes": 67244
+    },
+    {
+      "path": "app/src/main/res/raw/arena_victory.wav",
+      "sha256": "c713b0364c4b0bb88cfde071e3f7c1e5b5ce9615a8696bbe7494339ddf67e08d",
+      "bytes": 91244
+    },
+    {
+      "path": "app/src/main/res/raw/arena_whoosh.wav",
+      "sha256": "14fa22fd5b8a4df64a6dfeee44f7ee719bcf75c535de3a7cb90f3263a763273a",
+      "bytes": 26924
+    }
+  ],
+  "constraints": [
+    "固定机位",
+    "正式actor与生产FX/WAV只读",
+    "无设备或SDK运行验证",
+    "制作段的源秒映射见timeline.json"
+  ],
+  "capture_time_utc": "2026-11-10T08:13:45.628391+00:00"
+}

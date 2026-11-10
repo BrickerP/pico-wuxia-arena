@@ -96,3 +96,34 @@ CombatImpact的id在ArenaSession生命周期内递增，三轮与重开均不复
 - 本阶段先保留现有三角色源曲线。下一轮对通过角色review的新rig／slash独立量取代理并适配握持，发布身份与源哈希同步。hurt／fall与跨片段混合对齐仍待专项制作核对。
 
 整合版已编译，末项反冲修正后由主控再次增量打包。新增专项测试尚未运行，现场动作观感仍待验收。
+
+## 新 base60k 源适配交付（2026-11-10）
+
+**阶段结束，交主控 review，本回合结束。** 已按Root正式发布的新base运行GLB重算自身曲线，源码修改只涉及ArenaOpponents.kt的 `BASE_CONTACT_KEYS` 与base source SHA注释。以任务开始时文件为对照，该区块外的前缀、后缀逐字校验一致，包含现有bodyImpact字段、helper和另外两角色规则。
+
+### 发布身份与实际数据
+
+| 来源 | SHA-256 |
+| --- | --- |
+| 运行 `app/src/main/assets/models/opponents/base.glb`，22,881,080字节，78关节/8动作 | `5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f` |
+| `ArtSource/tripo-warrior/refined-base60k/rig.glb` | `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6` |
+| `ArtSource/tripo-warrior/refined-base60k/slash.glb` | `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a` |
+
+继续在该角色idle源1.0s反求Head/Spine02/Hip局部校准点，按既有7个slash时点 `1.55/1.85/2.067/2.117/2.167/2.6/3.4` 取样。头半径0.16m、身体半径0.24m及phase映射保持原值。以下为新base源2.167s的角色根局部米制三点。
+
+| 代理 | X | Y | Z |
+| --- | --- | --- | --- |
+| head | -0.196727 | 1.068120 | 0.429588 |
+| bodyBottom | 0.054861 | 0.580817 | -0.407622 |
+| bodyTop | -0.117289 | 1.067601 | 0.205517 |
+
+完整21点已写入BASE_CONTACT_KEYS和 `proxy_alignment_profiles.json` 的base对象。indigo/veteran的曲线、校准及来源字段前后deep-equal，本轮仅重算base。
+
+### 离线验证与证据更新
+
+- Blender 4.5.15独立核对新base的7姿态×3代理，共21点，最大差 `5.834325802543299e-7 m`，约0.583微米。结果记录包含本次运行源哈希，另外两角色明确标为保留既有结果。
+- Kotlin六位小数与全精度JSON逐点比对通过，最大向量舍入差 `6.685209215278777e-7 m`。时点、半径、区块外内容及Python语法检查通过，负责文件的 `git diff --check` 通过。
+- 已更新 `slash_contact_anchors.json`、`proxy_alignment_profiles.json`、`blender_crosscheck.json`、README及现有测量/Blender/绘图脚本。测量和核对脚本增加最小 `--actor base` 入口，后续可仅重算base。
+- 新PNG/SVG已生成并目视核对。绘图脚本从当前base数据和实际核对结果读取SHA与误差，旧base SHA硬编码已移除，SVG逐行trim whitespace检查通过。[离线前后对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/motion/proxy_alignment_sideview.png)
+
+本轮未修改模型、library/app资产、Main、HomeStage、ArenaSession或生产helper/manifest，未构建、游戏测试、设备操作、提交或产生收费。运行时蒙皮、crossfade与关键点间插值仍待主控专项核对，当前证据仅覆盖所列源身份与关键姿态。

@@ -1,0 +1,35 @@
+{
+  "source_model": "tripo-v3.1",
+  "region": "ov",
+  "refinement": "H3 detailed geometry, v3.5 extreme PBR, 60000 face convert, v3 tripo rig, native slash",
+  "artifacts": {
+    "rig": {
+      "source_file": "ArtSource/refinement/character/rig60k/model.glb",
+      "file": "rig.glb",
+      "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "bytes": 18480880,
+      "task": {
+        "task_id": "584470a3-9b9a-4636-a9dc-0b1ffb4171eb",
+        "type": "animate_rig",
+        "status": "success",
+        "credits_consumed": 25,
+        "created_at": "2026-11-10T07:21:19.445578Z",
+        "completed_at": "2026-11-10T07:21:44.305340Z"
+      }
+    },
+    "slash": {
+      "source_file": "ArtSource/refinement/character/slash60k/model.glb",
+      "file": "slash.glb",
+      "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+      "bytes": 18660564,
+      "task": {
+        "task_id": "5c6edff0-2cf7-4c6b-8885-749b33ec8a62",
+        "type": "animate_retarget",
+        "status": "success",
+        "credits_consumed": 10,
+        "created_at": "2026-11-10T07:29:23.551468Z",
+        "completed_at": "2026-11-10T07:29:37.443869Z"
+      }
+    }
+  }
+}

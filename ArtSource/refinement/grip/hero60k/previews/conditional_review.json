@@ -1,0 +1,13 @@
+{
+  "status": "conditional_review",
+  "reason": "auditor found new left-thumb/blade crossings at these times",
+  "candidate_sha256": "52f5ab67f8761dbb2b442367f245cf6ec669a497566295886072aaf3e6bba545",
+  "source_times_seconds": [
+    1.3666666666666667,
+    3.9
+  ],
+  "evidence": [
+    "base_left_side_slash_1367_before_after.png",
+    "base_left_side_slash_3900_before_after.png"
+  ]
+}

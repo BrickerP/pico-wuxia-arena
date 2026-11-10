@@ -1,0 +1,13 @@
+{
+  "capture": "Actual PICO emulator Full Stage screenshot",
+  "device": "emulator-5554",
+  "target_type": "emulator",
+  "model": "swan_arm64",
+  "capture_mode": "pico-cli ordinary display capture; spatial option unsupported by guest screencap",
+  "width": 2160,
+  "height": 2158,
+  "apk_sha256": "37873e1c0a25e3d28fc87d722e13cf67acb5b7e655f09bbb32887aee59e7c05f",
+  "actor_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+  "screenshot_sha256": "32f4ffcd61e81c3aec87e72590b998cf6b1c590c6d1651f62d4ba71b3879977b",
+  "scope": "Build, install, launch and ready-state model display. Combat gameplay and hardware performance remain pending."
+}

@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "frozen_waiting_review",
+  "selected_direction": "60k convert candidate approved by main static review",
+  "budget_credits": 300,
+  "credits_consumed": 175,
+  "remaining_budget_credits": 125,
+  "selected_candidate": {
+    "rig": "rig60k/model.glb",
+    "native_slash": "slash60k/model.glb",
+    "source_pbr": "high_pbr/model.glb",
+    "source_geometry": "high_geometry/model.glb"
+  },
+  "task_ledger": [
+    {
+      "step": "geometry",
+      "task_id": "89f78fc8-53b0-4e6b-ada3-7277e8606007",
+      "credits_consumed": 30,
+      "task_record": "geometry_task.json",
+      "model": "high_geometry/model.glb",
+      "bytes": 53996800,
+      "sha256": "a72eb8ee5fbf172d59f32351f6b86d293dd7afa90af29c1b858f72dd4cfa1132",
+      "triangles": 1900024,
+      "vertices": 974844,
+      "joint_counts": []
+    },
+    {
+      "step": "pbr",
+      "task_id": "d2ca3080-2179-47b4-8b61-4da73b37e4de",
+      "credits_consumed": 30,
+      "task_record": "high_pbr/task.json",
+      "model": "high_pbr/model.glb",
+      "bytes": 76726496,
+      "sha256": "9c336b4ab7469532b28a5550ee8ac53839aba0b53f00ca3beb89288a23108103",
+      "triangles": 1900024,
+      "vertices": 974844,
+      "joint_counts": []
+    },
+    {
+      "step": "baked20k",
+      "task_id": "f2fd1fd6-b436-4312-9ba2-172602653810",
+      "credits_consumed": 35,
+      "task_record": "mobile/task.json",
+      "model": "mobile/model.glb",
+      "bytes": 26539168,
+      "sha256": "8c4effee95c0c3619bb2cf8023cf8543caf1e67d6163e30882a05bb84639812a",
+      "triangles": 18955,
+      "vertices": 21052,
+      "joint_counts": []
+    },
+    {
+      "step": "rig20k",
+      "task_id": "b465d763-a04a-45a9-906a-96bb85b4aa9c",
+      "credits_consumed": 25,
+      "task_record": "rig/task.json",
+      "model": "rig/model.glb",
+      "bytes": 26984692,
+      "sha256": "a29557eb06868957e6bb20581fe53eead0425e0b000da37ac635b8e6ebf06b6c",
+      "triangles": 18955,
+      "vertices": 21057,
+      "joint_counts": [
+        78
+      ]
+    },
+    {
+      "step": "slash20k",
+      "task_id": "1e5d9538-e3e5-435a-a05c-c7ba8df05752",
+      "credits_consumed": 10,
+      "task_record": "slash/task.json",
+      "model": "slash/model.glb",
+      "bytes": 27166668,
+      "sha256": "7573cc9983d49eb48918892ddd2d588721dc30e8ce42d3e34a2bff524baff77f",
+      "triangles": 18955,
+      "vertices": 21098,
+      "joint_counts": [
+        78
+      ]
+    },
+    {
+      "step": "convert60k",
+      "task_id": "78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "credits_consumed": 10,
+      "task_record": "mobile60k/task.json",
+      "model": "mobile60k/model.glb",
+      "bytes": 17749816,
+      "sha256": "b7a080d8f27b4ea5318d30c81bbbe222aefb17abb0a63e8dccfc355c2998ffe0",
+      "triangles": 60006,
+      "vertices": 35308,
+      "joint_counts": []
+    },
+    {
+      "step": "rig60k",
+      "task_id": "584470a3-9b9a-4636-a9dc-0b1ffb4171eb",
+      "credits_consumed": 25,
+      "task_record": "rig60k/task.json",
+      "model": "rig60k/model.glb",
+      "bytes": 18480880,
+      "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "triangles": 60006,
+      "vertices": 35308,
+      "joint_counts": [
+        78
+      ]
+    },
+    {
+      "step": "slash60k",
+      "task_id": "5c6edff0-2cf7-4c6b-8885-749b33ec8a62",
+      "credits_consumed": 10,
+      "task_record": "slash60k/task.json",
+      "model": "slash60k/model.glb",
+      "bytes": 18660564,
+      "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+      "triangles": 60006,
+      "vertices": 35325,
+      "joint_counts": [
+        78
+      ]
+    }
+  ],
+  "known_limitations": [
+    "Seven UV-degenerate micro triangles retained, at rear waist/rear boot/left hand. Strict TBN check has 21 exceptional loops (0.0116655%). Main accepted this localized limitation for candidate integration.",
+    "Native retarget reexports mesh vertices (35308 to 35325) and inverse binds (max per-joint delta 1.93715e-6). Three PBR image bytes match by material role.",
+    "DAO grip, eight-clip integration, proxies and SDK/device acceptance are owned by main."
+  ],
+  "review_evidence": {
+    "density_pbr": "density60k_review/render_manifest.json",
+    "density_clay": "density60k_clay_review/render_manifest.json",
+    "materials": "material60k_validation.json",
+    "micro_triangles": "material60k_review/tangent_anomalies.json",
+    "micro_triangle_images": "material60k_review/anomaly_render_manifest.json",
+    "rig": "rig60k_validation.json",
+    "slash": "slash60k_validation.json",
+    "motion": "motion60k_review/motion_manifest.json",
+    "motion_video": "motion60k_review/native_slash60k.mp4"
+  },
+  "source_policy": "Candidate source GLBs are frozen. No additional paid tasks are queued.",
+  "credits_consumed_total": 175
+}

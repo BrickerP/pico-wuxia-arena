@@ -5,11 +5,30 @@
   "frame_mapping": "strip.frame_start + (sourceSeconds * fps - strip.action_frame_start) * strip.scale",
   "bone_basis": "calibrate local points in imported idle@1.0 bone matrices; imported bone bases differ from glTF joint bases",
   "diagnostic_tolerance_metres": 0.001,
+  "rechecked_actors": [
+    "base"
+  ],
+  "retained_prior_result_sources": [
+    {
+      "actor": "indigo",
+      "profile_source_sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6",
+      "verification_source_sha256": null,
+      "status": "Prior numerical result retained; this actor was not rechecked."
+    },
+    {
+      "actor": "veteran",
+      "profile_source_sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7",
+      "verification_source_sha256": null,
+      "status": "Prior numerical result retained; this actor was not rechecked."
+    }
+  ],
   "passed": true,
   "results": [
     {
       "actor": "base",
-      "maximum_proxy_position_error_metres": 3.6299991199189395e-07
+      "source_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+      "verified_proxy_points": 21,
+      "maximum_proxy_position_error_metres": 5.834325802543299e-07
     },
     {
       "actor": "indigo",
