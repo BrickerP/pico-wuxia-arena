@@ -2,7 +2,25 @@
 
 ## 当前交付状态
 
-[当前开发节点与下载](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10) · [后续里程碑](https://github.com/BrickerP/pico-wuxia-arena/milestone/1) · [全部待办](https://github.com/BrickerP/pico-wuxia-arena/issues)
+[上次打包发布](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10) · [后续里程碑](https://github.com/BrickerP/pico-wuxia-arena/milestone/1) · [全部待办](https://github.com/BrickerP/pico-wuxia-arena/issues)
+
+### 本轮反馈开发节点
+
+制作目标、八类反馈选择、四路后续与数值依据见[动作与打击反馈规格](combat-polish-spec.md)。以下为2026-11-10本轮实际完成范围。
+
+- [x] 同次CombatImpact关联实际伤害、命中部位和致命标记，供下游统一消费。
+- [x] 修复长tick在首次正常呈现前吃完短停，接触反冲按非冻结时间推进。
+- [x] 身体70ms、要害90ms、甲片85ms、弹反95ms、致命150ms短停，真实头手持续实时跟踪。
+- [x] 致命死亡动作0.35倍220ms，180ms平滑恢复，暂停／失去输入／场景不可用时冻结，换轮清理。
+- [x] 角色独占象牙白闪28ms／致命40ms，身体槽与DAO槽分开，原PBR在隐藏／暂停／释放时恢复。
+- [x] 实际刀根／刀尖65ms动态轨迹，复用原识别器静止状态与连续性代次，异常位置和旧历史断开。
+- [x] 要害／致命分层进入声音音调、触觉、接触灯和FX。旧FX无限排队移除，普通金属核心65ms、弹反90ms，scar缩至100ms。
+- [x] 最新代码静态复审通过，调试包构建成功，57项所选回归0失败／0跳过。包含旧ArenaSession正常流程回归，三项旧用例已补齐原先漏走的3秒倒计时。
+- [ ] 新白闪、动态刀光、致命慢动作的实际命中画面与真实Space Pro触觉验收。
+- [ ] 世界空间伤害跳字、独立飞溅粒子与精修动作／人物／环境的正式组合。
+- [ ] 真实桌面键到虚拟头手、共享判定与扣血的完整证明，三轮流程与Space Pro性能验收。
+
+本轮最新本地APK为artifacts/combat-polish/wuxia-arena-feedback-debug.apk，SHA-256为365e7749c7649311712ff321c0e7c7186b451ff7121595708592e0f6e7a87aec。首版启动图first-build-ready.png对应此前60649300…APK，只证明模型／场景与新呈现器初始化，图中没有触发命中特效。当前角色仍为正式53b80e71…基线，新动作与局部网格候选继续由Root组合审核。整局自玩按用户要求后置。
 
 主题为中式写实PVE刀术短竞技场，手感优先、视觉其次，终端为Space Pro／OS6，技术栈为Kotlin + PICO Spatial SDK6.1.9。当前精修沿同一酒馆院落和三轮试炼推进，集中在人物近景、握持穿插、动作接触、特效与声音触觉。
 

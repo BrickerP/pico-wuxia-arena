@@ -9,6 +9,7 @@ import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.OpacityControllerComponent
@@ -17,6 +18,15 @@ import com.pico.spatial.core.math.Quat
 import kotlin.math.cos
 import kotlin.math.sin
 import com.pico.spatial.core.math.Vector3 as SpatialVector3
+
+/** Keep transient visuals on the contact beat, including after a delayed frame. */
+internal fun currentContactImpacts(impacts: List<CombatImpact>, simulationNanos: Long): List<CombatImpact> =
+    impacts.filter { impact ->
+        impact.atNanos >= 0L && impact.atNanos <= simulationNanos &&
+            simulationNanos - impact.atNanos <= 120_000_000L &&
+            impact.point.isFinite() && impact.normal.normalizedOrNull() != null && impact.strength.isFinite()
+    }.sortedWith(compareByDescending<CombatImpact> { it.fatal }
+        .thenByDescending { it.kind == CombatImpactKind.PARRY }.thenByDescending { it.id })
 
 /** Main-thread contact presentation. Static GLB layers need no imported animation clips. */
 internal class CombatEffects private constructor(
@@ -60,16 +70,21 @@ internal class CombatEffects private constructor(
             if (seconds >= duration) return hide()
             val progress = seconds / duration
             try {
-                // A brief contact core, expanding material fragments, and a longer thin cut.
+                // The core marks contact. Fragments outlive it without hiding the next move.
                 val coreSize = (0.7f + seconds * 3f) * if (parry) 1.3f else 1f
-                val coreDuration = if (parry) 0.22f else 0.18f
+                val coreDuration = when {
+                    parry -> 0.09f
+                    kind == Kind.METAL -> 0.065f
+                    kind == Kind.SOFT -> 0.05f
+                    else -> 0.12f
+                }
                 layer(core, coreSize, coreSize,
                     (1f - seconds / coreDuration).coerceIn(0f, 1f), 0f, 0f)
                 val spread = 0.22f + progress * 1.1f
                 layer(debris, spread, spread, (1f - progress) * (1f - progress),
                     -0.32f * seconds * seconds, 0.14f * seconds)
-                val cutAlpha = ((duration - seconds) / 0.24f).coerceIn(0f, 1f)
-                val cutWidth = ((duration - seconds) / 0.30f).coerceIn(0.08f, 1f)
+                val cutAlpha = (1f - seconds / 0.10f).coerceIn(0f, 1f)
+                val cutWidth = cutAlpha.coerceAtLeast(0.08f)
                 layer(scar, 1f, cutWidth, cutAlpha, 0f, 0.004f)
             } catch (error: Exception) {
                 failed = true
@@ -99,7 +114,6 @@ internal class CombatEffects private constructor(
     private val allSlots = slots.values.flatten()
     private var round = Long.MIN_VALUE
     private val seenImpacts = mutableSetOf<Long>()
-    private val pending = ArrayDeque<CombatImpact>()
     private val unavailableKinds = mutableSetOf<Kind>()
     private var lastStepTravel = 0.0
     private var stepSide = 1.0
@@ -122,29 +136,22 @@ internal class CombatEffects private constructor(
             return
         }
         allSlots.forEach { it.update(now) }
-        for (impact in impacts) {
-            if (impact.point.isFinite() && impact.normal.normalizedOrNull() != null && impact.strength.isFinite()) {
-                pending.addLast(impact)
-            } else {
-                Log.w(TAG, "Invalid contact presentation id=${impact.id}")
-            }
-        }
-        // Busy slots queue contacts instead of overwriting another contact from the same batch.
-        repeat(pending.size) {
-            val impact = pending.removeFirst()
+        val usedSlots = mutableSetOf<Slot>()
+        for (impact in currentContactImpacts(impacts, state.simulationNanos)) {
             val kind = kindFor(impact.kind)
             val pool = slots.getValue(kind)
             if (pool.none { !it.failed && it.anchor.valid }) {
                 if (unavailableKinds.add(kind)) Log.w(TAG, "No valid contact slots for $kind")
             } else {
-                val slot = pool.firstOrNull { !it.failed && it.anchor.valid && it.startedAt == null }
-                if (slot == null) {
-                    pending.addLast(impact)
-                } else {
+                // Recycle the oldest visual. A new core must never wait behind old debris.
+                val slot = pool.filter { !it.failed && it.anchor.valid && it !in usedSlots }
+                    .minWithOrNull(compareBy<Slot> { it.startedAt != null }.thenBy { it.startedAt ?: Long.MIN_VALUE })
+                if (slot != null) {
+                    usedSlots.add(slot)
                     val normal = checkNotNull(impact.normal.normalizedOrNull())
-                    val strength = impact.strength.coerceIn(0.0, 1.0)
-                    val scale = (0.72 + 0.46 * strength).toFloat()
-                    val age = (state.simulationNanos - impact.atNanos).coerceAtLeast(0L).coerceAtMost(80_000_000L)
+                    val accent = CombatFeedbackProfile.accent(impact)
+                    val scale = (0.72 + 0.46 * accent.strength).toFloat() * accent.visualScale
+                    val age = state.simulationNanos - impact.atNanos
                     slot.impactKind = impact.kind
                     emit(slot, impact.point + normal * 0.008, contactRotation(normal, impact.hand), scale, now, age)
                 }
@@ -202,7 +209,6 @@ internal class CombatEffects private constructor(
 
     private fun clear() {
         allSlots.forEach { it.hide() }
-        pending.clear()
         deathDustPending = false
     }
 

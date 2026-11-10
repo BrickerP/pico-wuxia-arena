@@ -93,6 +93,9 @@ internal data class ArenaViewState(
     val motionReleaseRequired: Boolean = false,
     val enemyHitZone: HitZone? = null,
     val enemyRecoilOffset: Vector3 = Vector3(0.0, 0.0, 0.0),
+    val playerBladeTipSpeed: Double = 0.0,
+    val playerBladeAtRest: Boolean = true,
+    val playerMotionGeneration: Long = 0L,
 )
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
@@ -126,9 +129,10 @@ internal class ArenaSession(
     private var intermissionNanos = 0L
     private var executionActive = false
     private var hitStopNanos = 0L
+    private var hitStopAwaitingPresentation = false
+    private var deathHitStopNanos = 0L
     private var nextImpactId = 1L
-    private var recoilStartedAt = 0L
-    private var recoilDelayNanos = 0L
+    private var recoilElapsedNanos = 0L
     private var recoilVector = Vector3(0.0, 0.0, 0.0)
     private var heldEnemyContactOffsets: EnemyContactPose? = null
     private var staggerUntil = 0L
@@ -227,7 +231,11 @@ internal class ArenaSession(
                 hitStop = hitStopNanos > 0L,
                 executionAvailable = result == TrialResult.FIGHTING && combat.health in 1..executionThreshold(),
                 executing = executionActive,
-                deathElapsedSeconds = ((intermissionNanos - 110_000_000L).coerceAtLeast(0L) / 1_000_000_000.0).toFloat(),
+                deathElapsedSeconds = if (combat.phase == EnemyPhase.DEAD) {
+                    (CombatFeedbackProfile.deathElapsedNanos(
+                        (intermissionNanos - deathHitStopNanos).coerceAtLeast(0L),
+                    ) / 1_000_000_000.0).toFloat()
+                } else 0f,
                 dominantHand = snapshot?.dominantHand ?: Hand.RIGHT,
                 enemyName = arenaOpponents[roundNumber - 1].name,
                 enemyTravelMeters = enemyTravelMeters,
@@ -236,6 +244,9 @@ internal class ArenaSession(
                 motionCharge = if (motionReady && !releaseRequired) latestMotion?.chargeProgress ?: 0f else 0f,
                 playerBladeBase = latestMotion?.bladeBase,
                 playerBladeTip = latestMotion?.bladeTip,
+                playerBladeTipSpeed = latestMotion?.bladeTipSpeed ?: 0.0,
+                playerBladeAtRest = latestMotion?.bladeAtRest ?: true,
+                playerMotionGeneration = latestMotion?.motionGeneration ?: motion.motionGeneration,
                 playerHeadPosition = snapshot?.head?.pose?.position,
                 motionReleaseRequired = releaseRequired,
                 enemyHitZone = if (combat.phase == EnemyPhase.HIT) enemyHitZone else null,
@@ -278,7 +289,8 @@ internal class ArenaSession(
         val targetInRange = currentTargetInRange()
         val terminal = result == TrialResult.VICTORY || result == TrialResult.DEFEAT
         val canAdvance = if (result == TrialResult.ROUND_CLEAR) {
-            combat.pauseReason != PauseReason.USER
+            val state = viewState
+            combat.pauseReason == null && state.inputReady && state.sceneReady
         } else {
             targetInRange != null && combat.pauseReason == null && viewState.actionReady
         }
@@ -316,7 +328,10 @@ internal class ArenaSession(
                     }
                 }
                 TrialResult.ROUND_CLEAR -> {
-                    hitStopNanos = (hitStopNanos - step).coerceAtLeast(0L)
+                    if (hitStopAwaitingPresentation) continue
+                    val frozen = minOf(hitStopNanos, step)
+                    hitStopNanos -= frozen
+                    recoilElapsedNanos = (recoilElapsedNanos + step - frozen).coerceAtMost(RECOIL_DURATION)
                     intermissionNanos += step
                     if (intermissionNanos >= intermissionDuration()) {
                         if (roundNumber == arenaOpponents.size) {
@@ -357,8 +372,10 @@ internal class ArenaSession(
             advanceEnemy(offset - advanced, events, deferEndContact = true)
             advanced = offset
             if (result != TrialResult.FIGHTING) break
-            applyPlayerMotion(frame, events)
-            resolveEnemyContact(events)
+            if (hitStopNanos == 0L) {
+                applyPlayerMotion(frame, events)
+                resolveEnemyContact(events)
+            }
         }
         if (result == TrialResult.FIGHTING) advanceEnemy(interval - advanced, events, deferEndContact = false)
         if (result == TrialResult.FIGHTING && matchNanos >= MATCH_DURATION) finishDefeat(CombatFeedback.TIMEOUT, events)
@@ -367,6 +384,8 @@ internal class ArenaSession(
     private fun advanceEnemy(delta: Long, events: MutableList<EnemyCombatEvent>, deferEndContact: Boolean) {
         var remaining = delta
         while (remaining > 0L && result == TrialResult.FIGHTING && combat.pauseReason == null) {
+            // Normal presentation receives the contact before a later tick consumes its hold.
+            if (hitStopAwaitingPresentation) return
             val frozen = minOf(remaining, hitStopNanos)
             hitStopNanos -= frozen
             remaining -= frozen
@@ -386,6 +405,7 @@ internal class ArenaSession(
                 continue
             }
             collect(combat.advanceBy(interval, currentTargetInRange() == true, AttackDirection.OVERHEAD), events)
+            recoilElapsedNanos = (recoilElapsedNanos + interval).coerceAtMost(RECOIL_DURATION)
             remaining -= interval
             if (contactDue() && (remaining > 0L || !deferEndContact)) resolveEnemyContact(events)
             if (result == TrialResult.FIGHTING) {
@@ -410,7 +430,7 @@ internal class ArenaSession(
     }
 
     private fun resolveEnemyContact(events: MutableList<EnemyCombatEvent>) {
-        if (!contactDue()) return
+        if (hitStopNanos > 0L || !contactDue()) return
         val id = checkNotNull(combat.currentAttackId)
         val target = enemyPosition ?: return
         val frame = latestMotion
@@ -528,7 +548,8 @@ internal class ArenaSession(
                 if (away != null) enemyPosition = enemy + away * 0.35
             }
         }
-        val guarded = outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().any { it.guarded }
+        val damageResult = outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+        val guarded = damageResult.guarded
         notifyFeedback(if (normal && guarded) CombatFeedback.GUARDED_HIT else kind)
         collect(outcome, events)
         val impactKind = when {
@@ -543,40 +564,35 @@ internal class ArenaSession(
             else -> (outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().sumOf { it.appliedDamage } / 40.0)
                 .coerceIn(0.25, 1.0)
         }
-        emitImpact(impactKind, contact, strength, hand, events)
+        emitImpact(impactKind, contact, strength, hand, events,
+            damageResult.appliedDamage, zone, damageResult.healthAfter == 0)
     }
 
     private fun emitImpact(
         kind: CombatImpactKind, contact: MotionContact, strength: Double, hand: Hand,
         events: MutableList<EnemyCombatEvent>,
+        appliedDamage: Int = 0, zone: HitZone? = null, fatal: Boolean = false,
     ) {
         check(nextImpactId < Long.MAX_VALUE) { "impact id overflow" }
-        events += CombatImpact(nextImpactId++, kind, contact.point, contact.normal, strength, hand, combat.simulationNanos)
-        val stop = when (kind) {
-            CombatImpactKind.SOFT_HIT -> if (contact.zone == HitZone.HEAD) 80_000_000L else 60_000_000L
-            CombatImpactKind.HARD_HIT -> 80_000_000L
-            CombatImpactKind.GUARDED_HIT, CombatImpactKind.BLOCK -> 35_000_000L
-            CombatImpactKind.PARRY -> 90_000_000L
-            CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> 110_000_000L
-            CombatImpactKind.PLAYER_HIT -> 0L
-        }
+        val impact = CombatImpact(nextImpactId++, kind, contact.point, contact.normal, strength, hand,
+            combat.simulationNanos, appliedDamage, zone, fatal)
+        events += impact
+        val stop = CombatFeedbackProfile.hitStopNanos(impact)
         hitStopNanos = maxOf(hitStopNanos, stop)
+        if (stop > 0L) hitStopAwaitingPresentation = true
+        if (fatal) deathHitStopNanos = hitStopNanos
         if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK) return
         val away = if (kind == CombatImpactKind.PARRY) contact.normal else contact.normal * -1.0
         val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }
         val direction = Vector3(away.x, 0.0, away.z).normalizedOrNull()
             ?: awayFromPlayer?.let { Vector3(it.x, 0.0, it.z).normalizedOrNull() }
             ?: Vector3(-kotlin.math.sin(enemyYaw.toDouble()), 0.0, -kotlin.math.cos(enemyYaw.toDouble()))
-        recoilStartedAt = matchNanos
-        recoilDelayNanos = hitStopNanos
+        recoilElapsedNanos = 0L
         recoilVector = direction * (0.025 + strength * 0.055)
     }
 
     private fun currentRecoilOffset(): Vector3 {
-        val presentationNanos = matchNanos + if (result == TrialResult.ROUND_CLEAR) intermissionNanos else 0L
-        val elapsed = presentationNanos - recoilStartedAt - recoilDelayNanos
-        if (elapsed <= 0L) return Vector3(0.0, 0.0, 0.0)
-        val progress = (elapsed / 220_000_000.0).coerceIn(0.0, 1.0)
+        val progress = recoilElapsedNanos.toDouble() / RECOIL_DURATION
         return recoilVector * (4.0 * progress * (1.0 - progress))
     }
 
@@ -645,7 +661,7 @@ internal class ArenaSession(
         enemyMoveDirection = 0f
         val head = latestTrackingSnapshot?.head?.pose?.position ?: return
         val enemy = enemyPosition ?: return
-        if (combat.phase != EnemyPhase.IDLE) return
+        if (hitStopNanos > 0L || combat.phase != EnemyPhase.IDLE) return
         val toward = Vector3(head.x - enemy.x, 0.0, head.z - enemy.z)
         val distance = toward.length()
         if (distance > 0.01) enemyYaw = atan2(toward.x, toward.z).toFloat()
@@ -677,6 +693,10 @@ internal class ArenaSession(
         enemyMoveDirection = 0f
         executionActive = false
         hitStopNanos = 0L
+        hitStopAwaitingPresentation = false
+        deathHitStopNanos = 0L
+        intermissionNanos = 0L
+        recoilElapsedNanos = 0L
         recoilVector = Vector3(0.0, 0.0, 0.0)
         heldEnemyContactOffsets = null
         playerHealth = (playerHealth + 20).coerceAtMost(100)
@@ -697,7 +717,9 @@ internal class ArenaSession(
     }
 
     private fun executionThreshold(): Int = maxOf(25, initialHealth / 4)
-    private fun intermissionDuration(): Long = if (executionActive) 5_000_000_000L else 3_200_000_000L
+    private fun intermissionDuration(): Long =
+        (if (executionActive) 5_000_000_000L else 3_200_000_000L) +
+            deathHitStopNanos + CombatFeedbackProfile.DEATH_SLOWDOWN_DELAY_NANOS
 
     private fun clearMotion() {
         motion.reset()
@@ -715,6 +737,7 @@ internal class ArenaSession(
         const val MATCH_DURATION = 180L * SECOND
         const val COUNTDOWN_DURATION = 3L * SECOND
         const val COMBO_WINDOW = 1_600_000_000L
+        const val RECOIL_DURATION = 220_000_000L
     }
 
     fun setPlayerHandPresenter(presenter: HandPosePresenter?) {
@@ -782,6 +805,9 @@ internal class ArenaSession(
                 intermissionNanos = 0L
                 executionActive = false
                 hitStopNanos = 0L
+                hitStopAwaitingPresentation = false
+                deathHitStopNanos = 0L
+                recoilElapsedNanos = 0L
                 recoilVector = Vector3(0.0, 0.0, 0.0)
                 heldEnemyContactOffsets = null
                 staggerUntil = 0L
@@ -946,12 +972,13 @@ internal class ArenaSession(
     }
 
     private fun publish(events: List<EnemyCombatEvent> = emptyList()) {
-        val presenter = arenaPresenter ?: return
-        val state = viewState
         try {
-            presenter(state, events.toList())
+            arenaPresenter?.invoke(viewState, events.toList())
         } catch (error: Exception) {
             logFailure("Arena presentation failed", error)
+        } finally {
+            // Presentation failure must not leave combat permanently waiting for a callback.
+            hitStopAwaitingPresentation = false
         }
     }
 }

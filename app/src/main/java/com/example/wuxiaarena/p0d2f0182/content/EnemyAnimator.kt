@@ -171,7 +171,7 @@ internal class EnemyAnimator(enemy: Entity) {
 
         val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
             !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT ||
-            clip == "walk" || state.phase == EnemyPhase.HIT && state.guarding
+            clip == "walk" || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
         if (paused && !active.isPaused()) active.pause()
         if (!paused && active.isPaused()) active.resume()
         if (lastPhase != state.phase || lastPaused != paused) {

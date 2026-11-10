@@ -30,6 +30,7 @@ import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
@@ -73,7 +74,9 @@ private class SceneOwner(
     var enemyModel: Entity? = null
     val enemies = mutableListOf<Entity>()
     val animators = mutableListOf<EnemyAnimator>()
+    val hitFlashes = mutableListOf<EnemyHitFlash>()
     var effects: CombatEffects? = null
+    var bladeTrail: PlayerBladeTrail? = null
     var contactLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
     var enemyWorldPosition: TrackingVector3? = null
@@ -89,7 +92,10 @@ private class SceneOwner(
             enemies.forEachIndexed { candidate, entity ->
                 val visible = candidate == index
                 if (entity.valid && entity.enabled != visible) {
-                    if (!visible) animators[candidate].suspend()
+                    if (!visible) {
+                        animators[candidate].suspend()
+                        hitFlashes[candidate].suspend()
+                    }
                     entity.enabled = visible
                 }
             }
@@ -111,7 +117,9 @@ private class SceneOwner(
         }
         presentImpactLight(state, events)
         enemyAnimator?.present(state, events)
+        hitFlashes[state.roundNumber - 1].present(state, events)
         effects?.present(state, events)
+        bladeTrail?.present(state)
     }
 
     private fun presentImpactLight(state: ArenaViewState, events: List<EnemyCombatEvent>) {
@@ -123,21 +131,23 @@ private class SceneOwner(
             lastImpact = Long.MIN_VALUE
             pulseUntil = 0L
         }
-        for (impact in events.filterIsInstance<CombatImpact>()) {
-            if (impact.id <= lastImpact) continue
-            lastImpact = impact.id
-            if (!impact.point.isFinite() || !impact.strength.isFinite()) continue
-            val strength = impact.strength.coerceIn(0.0, 1.0).toFloat()
+        val fresh = events.filterIsInstance<CombatImpact>().filter { it.id > lastImpact }
+        if (fresh.isNotEmpty()) lastImpact = fresh.maxOf { it.id }
+        val impact = currentContactImpacts(fresh, state.simulationNanos).firstOrNull()
+        if (impact != null) {
+            val accent = CombatFeedbackProfile.accent(impact)
+            val strength = accent.strength.toFloat()
             val direction = impact.normal.normalizedOrNull() ?: TrackingVector3(0.0, 0.0, 1.0)
             val point = impact.point + direction * 0.035
             val position = Vector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat())
-            if (!position.x.isFinite() || !position.y.isFinite() || !position.z.isFinite()) continue
-            val hard = impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
-                impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY
-            val color = if (hard) Color4(1f, 0.82f, 0.46f, 1f) else Color4(1f, 0.91f, 0.78f, 1f)
-            light.components.set(PointLightComponent(color, 110f + 180f * strength, 0.60f))
-            checkNotNull(light.components[TransformComponent::class.java]).setPosition(parent.convertPositionFrom(position, null))
-            pulseUntil = now + 140_000_000L
+            if (position.x.isFinite() && position.y.isFinite() && position.z.isFinite()) {
+                val hard = impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
+                    impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY
+                val color = if (hard) Color4(1f, 0.82f, 0.46f, 1f) else Color4(1f, 0.91f, 0.78f, 1f)
+                light.components.set(PointLightComponent(color, 110f + 180f * strength, 0.60f))
+                checkNotNull(light.components[TransformComponent::class.java]).setPosition(parent.convertPositionFrom(position, null))
+                pulseUntil = now + accent.lightDurationNanos
+            }
         }
         val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
         val available = state.sceneReady && (terminal || (state.pauseReason == null && state.inputReady))
@@ -203,6 +213,14 @@ private class SceneOwner(
                 }
             }
             animators.clear()
+            for (flash in hitFlashes) {
+                try {
+                    flash.close()
+                } catch (error: Exception) {
+                    Log.w(TAG, "Enemy flash cleanup failed", error)
+                }
+            }
+            hitFlashes.clear()
             enemies.clear()
             try {
                 effects?.close()
@@ -210,6 +228,12 @@ private class SceneOwner(
                 Log.w(TAG, "Combat effect cleanup failed", error)
             }
             effects = null
+            try {
+                bladeTrail?.close()
+            } catch (error: Exception) {
+                Log.w(TAG, "Blade trail cleanup failed", error)
+            }
+            bladeTrail = null
         } finally {
             try {
                 onEnemyGeometry(null, 0.0)
@@ -358,6 +382,7 @@ internal fun HomeStage(
                 bindGroundShadow(enemy, casts = true, receives = false, label = opponent.name)
                 // The three rounds reuse loaded opponents. Only the current fighter is visible.
                 owner.animators += EnemyAnimator(enemy)
+                owner.hitFlashes += EnemyHitFlash(enemy)
                 enemy.enabled = index == 0
             }
             owner.enemyModel = owner.enemies.first()
@@ -370,6 +395,7 @@ internal fun HomeStage(
                 return@SpatialView
             }
             owner.effects = effects
+            owner.bladeTrail = PlayerBladeTrail(root)
 
             playerWeapon = Entity.loadSuspend(PLAYER_DAO_ASSET)
             if (owner.root !== root) {

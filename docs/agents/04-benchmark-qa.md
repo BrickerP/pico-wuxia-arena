@@ -1,8 +1,24 @@
 # 04 · PICO端内人物配光与接地影
 
+## 最新用户目标与执行队列
+
+完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，材质、环境光与打击特效为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+
+当前连续PBR／IBL阶段先收口，随后优先ArtSource/refinement/effects/contact-polish的金属星芒和湿衣物飞溅实物，再补弹反、闪避近地尘与落地效果。沿用静态分层GLB＋Entity/Opacity正式运行路径，可给独立水滴／火星子层供Root按真实轨迹驱动，Root控制事件和SDK呈现源码。首试湿衣6至10滴、金属8至14火星，普通星芒约65ms、弹反90ms，事件点／法线／真实切向驱动。与现有build_contact_effects逻辑复用并交唯一制作入口，候选不得覆盖app。动画、真实伤害、致命标识、短停、白闪、刀光和UI由Root接线，不再通过长时间排队晚播旧接触。
+
+四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
+
 ## 当前状态
 
 **阶段3执行中。** 首版配光已由Root构建安装并取得Full Stage画面，原六primitive材质候选因分片高光拒绝。当前制作单primitive连续材质贴图补丁与IBL KTX候选。
+
+### Root阶段3收件与反馈呈现接线
+
+Root已查看连续MR脸／领口前后图。三角硬切高光问题已消除，连续mask与单primitive组合方法接受。当前可见提升仍较轻，材质候选继续保留审校用途，先按顶部队列推进接触特效实物。实际生成的HDR KTX与标准头候选已收件，PICO加载和环境光互操作交Root专项接入。
+
+Root在HomeStage增加角色独占白闪与实际刀尖动态ribbon的所有权／生命周期接线，并统一接触灯的要害／致命层次。旧HomeStage整文件409400aa哈希属于首版配光输入，当前Root已修改该文件；原主光／补光／接地影配置保持其已审核参数。04候选不需回写Root的共享源码，原输入快照继续保留各自阶段身份。
+
+反馈事件现在携带appliedDamage、zone和fatal，音频／触觉／接触灯／FX共同消费CombatFeedbackProfile.accent。FX已删除长期等待队列，120ms内的当前接触按fatal／parry优先占槽，核心普通金属65ms、弹反90ms，scar缩到100ms。新效果实物以此时序制作，避免再把旧整组长闪光烘入模型。独立飞溅子层与真实切向接口随候选交Root统一接入。
 
 ## 上一轮成果与Root review
 
@@ -168,3 +184,68 @@ Root已查看同机位PBR前后图。脸颊与额头的分片高光、腰部碎�
 3. 保留原POSITION、NORMAL、UV、JOINTS、WEIGHTS、骨架、动画及原源文件。补丁供Root组合02／03产物。公共制作脚本、正式库、Git与设备仍由Root独占。
 
 交阶段结束报告后，若Root正在集成，可继续独立准备当前场景灯笼／湿石／木构的材质问题近景与最小修复候选，限定原有场景和图层，不增加新场景或模式。
+
+## 阶段3回报 · 连续MR补丁与实际IBL KTX候选
+
+**阶段结束，交Root review。** 首项实物在30分钟内落盘，后续独立验证与交接已收束。本阶段只写 `ArtSource/refinement/lighting/stage3/` 和本文件；固定版工具仅下载解包到用户缓存。HomeStage仍为409400aa…38df4、raw仍为43a34e3a…2b81e6、正式base仍为53b80e71…00641，身份见 [阶段3输入清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/inputs.json)。
+
+### 原单primitive连续MR候选
+
+已交 [raw候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/pbr_candidate_raw.glb)，SHA为 `93c668050575225d455bd22f8fbf4753983044d4d78d5d408aba8e8a587264d3`。原meshes、单primitive、indices、attributes、materials／factor、nodes、skin、动画、baseColor／normal均保持。仅在原BIN后追加PNG，将image2指向新MR，原BIN完整前缀保持。
+
+- [脸／领口同机位同灯图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/face_collar_before_after.png)、[腰带／靴面同机位同灯图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/belt_boots_before_after.png)。
+- [原MR／候选／差图／连续mask板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/mr_mask_review.png)，以及mr_source.png、mr_candidate.png、mask_editable／feather／protected和各部位mask。
+- [参数补丁](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/pbr_patch.json)、[面／像素覆盖](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/face_pixel_masks.json)、[生成与组合说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/pbr/README.md)。
+
+未沿用阶段2碎片face材质标签。此次以真实REST内侧ROI构造连续空间场，按原UV三角像素中心重心插值，分217个保守UV chart。chart边界在内侧12像素smoothstep退回源值，跨chart覆盖冲突为0。眼眶、额头、未确认扣具、边界及其余不确定区保持源值，未将20面金属seed扩大成铜区。
+
+源MR为4096² RGB，R恒255、原无A。仅G／B变化469,197像素，允许区域471,394像素，约为整图2.81%。皮肤G目标为原值×0.90，布×1.05，皮革×0.94，各区域B目标为0，通过连续alpha与原值混合。对应原face覆盖为皮肤222、布2172、皮革326面。
+
+[独立结构／像素验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/verification.json)通过。已实际解码原／候选和三类mask，确认R／A、mask外和保护区不变，原属性／骨架／权重／贴图0与1、单primitive与indices均一致。三项验证器用例通过，覆盖合法内侧变化、保护／mask外拒绝、R／A变更拒绝。[独立校验器](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/verify_stage3.py)
+
+已目视四部位同灯图，未再见阶段2明显三角硬切亮斑；但相对原MR的总体可见收益仍较轻，当前不确认正式观感通过。最小原因是可编辑区域和参数保守，非零alpha均为连续中间值，较多原响应仍被保护。当前候选继续保留审校用途，暂不建议直接发布。[视觉审校结论](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/visual_review.json)
+
+Root组合02／03已批准目标时，只替换MR图片数据，保留目标已有POSITION／NORMAL／JOINTS／WEIGHTS等delta；核对UV和拓扑身份，新增面或chart变化需要重新映射。raw候选仍无动画，正式8clip合成继续由Root的producer验证。
+
+### 实际工具安装、预滤与KTX候选
+
+已在 `/Users/yupeng/Library/Caches/pico-wuxia-arena/filament/v1.80.0/` 下载解包固定官方工具。归档SHA与官方 `b514ec6dc8d6026e70f6e0dc9673b1c5748060a4be5137aea8502a46d740fb6b` 一致，host和cmgen均为arm64。实际help／license与生成命令执行成功，使用阶段2原创CC0 HDR，输出SH与roughness预滤四级128／64／32／16。工具归档和二进制留在用户缓存。
+
+[工具来源、完整命令与候选接线](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/ibl/README.md)与同目录tool_provenance、generation_manifest／output保留完整证据。原始 [generated_ibl.ktx](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/ibl/generated/generated_ibl.ktx)、generated_skybox.ktx和sh.txt已生成。
+
+实际发现原始KTX头存在规范差异，glType／glTypeSize／glBaseInternalFormat为0x8c3a／1／0x8c3a，原始严格校验失败。保留原件及失败证据后，依据Khronos规范另交 [标准头容器候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/ibl/candidate_standard_header.ktx)。仅修正三个头字段为0x8c3b／4／RGB，glInternalFormat仍为0x8c3a。64字节后SH元数据与预滤payload完全相同，实际差异字节为16、20、32、33。[重封装记录](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/ibl/header_repack_manifest.json)
+
+标准头候选为522,604字节，SHA `c2f8f6997f800340cd47bb33e75dd0111c0fc8c670ab2dffe5aae113f01629bd`。严格校验和独立读取通过，六面128²、四mip、全部HDR通道有限、峰值8.125，SH含27系数。[独立KTX验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/stage3/verification_ibl.json)
+
+当前结果证明容器与实际HDR预滤payload，PICO的SH／粗糙度布局互操作、纹理加载与Stage IBL生效仍待Root专项验证。没有改app资产、HomeStage、公共依赖或设备，候选接线仅作为Root集成说明。
+
+**本轮阶段3结束。** 已交原单primitive连续MR实物和像素保护证据、四部位同灯对照、真实生成KTX及规范容器候选。MR可见收益尚待认可，PICO IBL互操作尚待验证；失败与限制均保留，交Root统一决定后续组合与发布。
+
+## 接触精修阶段回报 · 独立火星与湿衣物颗粒
+
+**本阶段实物已交Root review，按顶部队列继续地面效果。** 首批GLB在14:44前落盘，三栏预览在14:50生成。本阶段只写 `ArtSource/refinement/effects/contact-polish/` 与本文件，SDK消费、事件、白闪、刀光和UI由Root维护。409400aa仅保留为旧配光输入快照，当前HomeStage由Root维护。
+
+### 唯一制作入口与候选
+
+[build_contact_polish.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/build_contact_polish.py)为本批唯一制作入口，复用已有Layer／Effect／GLB编码，仅import旧制作模块，候选输出限定新目录。入口在同目录临时构建后逐文件原子发布，已实际复建并核对哈希一致，候选没有覆盖app。
+
+- [金属候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/metal/metal_contact_polish.glb)，14,624字节，SHA `dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce`。core_star与spark_00至11共13个独立mesh，32三角，无动画。核心直径70mm，普通65ms、弹反90ms；12条火星长约12至28mm、宽2.0至2.8mm，寿命180至290ms。
+- [湿衣物候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/wet/wet_cloth_contact.glb)，19,448字节，SHA `9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af`。8滴水与2条纤维共10个独立mesh，196三角，无动画。水滴真实外包直径2至3.9mm，寿命180至320ms，材质为普通PBR透明高光近似。
+
+水滴、火星逐节点运动，包含各自初速、寿命与opacity_keys。湿衣物需Root确认真实湿衣料目标，裸头或普通SOFT标签本身不触发水滴。金属素材用于真实金属接触，当前代码接入由Root按实际材质选择。
+
+### 轨迹与Root接口
+
+[driver_contract.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/driver_contract.json)与两目录motion.json给出局部T／B／N基、每个子节点及单位。N为真实法线，T为实际刀路切向在接触面的归一化投影，B=N×T。共享表面偏移8mm由Root锚点只加一次，粒子local初始偏移另列。
+
+参考 [contact_motion.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/contact_motion.py)直接在Stage积分初速和重力(0,−9.81,0)，重力不随接触法线旋转。按真实呈现年龄无状态采样，出生前／寿命结束后为空，不能把过期粒子重启为新接触；没有待播接触队列。Root负责事件新鲜度、致命／弹反优先级和预算。
+
+当前CombatImpact具有point／normal／伤害／fatal，但尚无切向字段。Root需在真实接触生产或消费时保留对应刀尖相邻采样的切向，不能把一批事件都套最终state方向。切向不可用或平行法线时参考函数拒绝，Root控制核心与粒子的发射策略。本阶段没有声称已接真实SDK轨迹。
+
+### 可见实物与验证范围
+
+已交 [三栏分时板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_timeline.png)、[0.5秒预演](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_polish_preview.mp4)与[67ms帧](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_02.png)。1280×720、30fps、15帧，含10cm标尺，明确标为示例T=Stage+X／B=+Y／N=+Z的离线素材预演。67ms时普通65ms核心已灭，弹反90ms核心仍亮。湿滴按真实毫米尺度呈细小点，缩图下较弱，近身可见性待端内取图。
+
+唯一入口复建、GLB节点／尺寸／寿命及脚本语法检查通过。四项参考轨迹测试实际通过，覆盖TBN与Stage重力、法线旋转后重力保持、无效切向拒绝以及过期／未出生采样。[独立检查结果](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/verification.json)
+
+**独立金属／湿布素材阶段结束。** 真实粒子接入、透明排序、场景光下可见性和帧预算由Root统一验证；本会话继续授权队列的闪避近地尘与落地素材。

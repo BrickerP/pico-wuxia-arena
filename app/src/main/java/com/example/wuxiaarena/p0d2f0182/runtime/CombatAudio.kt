@@ -32,6 +32,7 @@ internal class CombatAudio(context: Context) {
         val cue: Cue,
         val volume: Float,
         val pan: Float,
+        val rate: Float,
         val enqueuedAtNanos: Long,
     )
 
@@ -143,11 +144,11 @@ internal class CombatAudio(context: Context) {
         } else {
             1.0
         }
-        val strength = impact.strength.coerceIn(0.0, 1.0)
-        val volume = ((0.34 + 0.38 * strength) * distanceGain).toFloat()
+        val accent = CombatFeedbackProfile.accent(impact)
+        val volume = ((0.34 + 0.38 * accent.strength) * distanceGain).toFloat()
         val pan = if (impact.hand == Hand.LEFT) -0.12f else 0.12f
         val sample = soundIds[cue] ?: return
-        if (sample !in failedIds) pendingImpacts += PendingImpact(cue, volume, pan, System.nanoTime())
+        if (sample !in failedIds) pendingImpacts += PendingImpact(cue, volume, pan, accent.soundRate, System.nanoTime())
     }
 
     private fun playReadyImpacts() {
@@ -160,13 +161,13 @@ internal class CombatAudio(context: Context) {
                 iterator.remove()
             } else if (sample in readyIds) {
                 iterator.remove()
-                play(pending.cue, pending.volume, pending.pan)
+                play(pending.cue, pending.volume, pending.pan, pending.rate)
             }
         }
     }
 
     /** Caller holds gate, preventing release between availability checks and play. */
-    private fun play(cue: Cue, volume: Float, pan: Float = 0f) {
+    private fun play(cue: Cue, volume: Float, pan: Float = 0f, rate: Float = 1f) {
         val output = pool ?: return
         val sample = soundIds[cue] ?: return
         if (sample !in readyIds) return
@@ -175,9 +176,9 @@ internal class CombatAudio(context: Context) {
             streams.removeAll { it.expiresAtNanos <= now }
             val left = volume * (1f - maxOf(0f, pan))
             val right = volume * (1f + minOf(0f, pan))
-            val id = output.play(sample, left, right, 1, 0, 1f)
+            val id = output.play(sample, left, right, 1, 0, rate)
             if (id != 0) {
-                val lifetime = ((cue.durationSeconds + 0.25) * 1_000_000_000.0).toLong()
+                val lifetime = ((cue.durationSeconds / rate + 0.25) * 1_000_000_000.0).toLong()
                 streams += Stream(id, now + lifetime)
             }
         } catch (error: RuntimeException) {

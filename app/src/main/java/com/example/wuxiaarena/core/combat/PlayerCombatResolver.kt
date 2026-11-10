@@ -44,6 +44,8 @@ data class PlayerMotionFrame(
     val releaseRequired: Boolean = false,
     val hand: Hand = Hand.RIGHT,
     val targetPose: EnemyContactPose? = null,
+    val bladeAtRest: Boolean = true,
+    val motionGeneration: Long = 0L,
 )
 
 /**
@@ -52,6 +54,10 @@ data class PlayerMotionFrame(
  * They describe the trial's contact rules independently of the rendered skin.
  */
 class PlayerCombatResolver {
+    /** Changes whenever motion history is discarded or a new baseline is established. */
+    var motionGeneration: Long = 0L
+        private set
+
     private data class Identity(
         val hand: Hand,
         val epoch: Long,
@@ -193,7 +199,8 @@ class PlayerCombatResolver {
         }
         val frame = PlayerMotionFrame(sample.stamp.receivedAtNanos, base, tip, tipDistance / elapsed,
             if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress,
-            releaseRequired = skillLatched, hand = snapshot.dominantHand, targetPose = contactPose)
+            releaseRequired = skillLatched, hand = snapshot.dominantHand, targetPose = contactPose,
+            bladeAtRest = speed <= REST_SPEED, motionGeneration = motionGeneration)
         latestFrame = frame
         return frame
     }
@@ -251,6 +258,8 @@ class PlayerCombatResolver {
     }
 
     fun reset() {
+        check(motionGeneration < Long.MAX_VALUE) { "motion generation overflow" }
+        motionGeneration++
         identity = null
         previous = null
         latestFrame = null
@@ -280,11 +289,14 @@ class PlayerCombatResolver {
     }
 
     private fun establish(sample: BladeSample, head: Vector3, enemy: Vector3, contactPose: EnemyContactPose): PlayerMotionFrame {
+        check(motionGeneration < Long.MAX_VALUE) { "motion generation overflow" }
+        motionGeneration++
         previous = sample
         startStroke(sample)
         updateGuard(sample, head, enemy, 0.0, false)
         return PlayerMotionFrame(sample.stamp.receivedAtNanos, sample.base, sample.tip, 0.0, null, false, head, currentGuard,
-            hand = checkNotNull(identity).hand, targetPose = contactPose)
+            hand = checkNotNull(identity).hand, targetPose = contactPose,
+            bladeAtRest = true, motionGeneration = motionGeneration)
             .also { latestFrame = it }
     }
 

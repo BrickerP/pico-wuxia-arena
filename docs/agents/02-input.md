@@ -1,5 +1,15 @@
 # 02 · 部位分区与衣物蒙皮修复
 
+## 最新用户目标与执行队列
+
+完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，袖口、刀具与握持为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+
+当前袖口候选按原合同继续，交付后转ArtSource/refinement/weapon做现有dao局部精修。重点是刃／脊几何分工、护手厚度、握柄缠绕、磨损与金属反射。米制长度、握点、现有手指接触为共同约束，逐角色给三视角与持刀近景。复用ArtSource/dao现有制作逻辑，首轮候选写独立目录，禁止覆盖正式dao／角色源。新刀形影响挂点或表面时交Root统一重签校准及重新组合，不以外观精修破坏实际刀路。
+
+四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
+
+Root已接角色实例身体白闪，按实际tripo_身体材质名识别，保留Steel／Brass／Grip刀具槽。刀具候选继续保留明确部件材质名和米制握持身份，原身体材质改名或拆分需在交付中给映射。身体与DAO仍共用蒙皮ModelComponent，正式合成由Root处理。
+
 ## 当前状态
 
 **阶段4执行中。** 三轮权重候选均未通过，正式源保持。Root接受当前衣摆有自然凸面与折层这一事实，停止围绕该凸面追逐应变数字，转到袖口与腕部可见细节制作。
@@ -161,3 +171,25 @@ Root已查看同面跟踪与bind／native PBR图。该处存在源衣物折层�
 3. 输出机读delta、来源SHA、raw body-only GLB和成对素模／PBR图，保留原材质。30分钟内交第一项可见实物，后续离线专项检查覆盖原slash和walk的袖口／手腕关系。Root负责与03领口、04材质组合及正式发布。
 
 其他会话共享仓库，保持其编辑。公共producer、manifest、正式library/app、Git、共享构建和设备不在本会话范围。阶段交付后若Root正在集成，可独立测量另一侧袖口并给同规格候选，避免等待。
+
+## 阶段4袖口首项交付
+
+**本袖口阶段结束，交 Root review；按最新队列继续现有 dao，不等待重复批准。** 本次实物与完整限制见 [cuff-refinement 说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/README.md)。当前只交左侧近端灰色外棱局部径向收细，**未完成 12 mm 袖口退腕、新开口及布／皮完整重制**。
+
+输入为原 raw rig `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`，01 已审 raw 曲线 `43e0ca0b0501f4be4dc066e045d1b60092e3bd65aea228bc3a2a32405f826391`，同 ID 预览 `34ced4fb666e17fa066e75c83baffbf8c3e37d5e6cfb15f49549a9bca6c98896`。01 raw 有 35,325 顶点，原 body 为 35,308，已避免误用 ID，实际袖口姿态使用 approved preview。
+
+### 首项候选和实际图
+
+- [raw body-only 候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/candidate_rig.glb)，SHA `9ccd0717ca850196accd8351dd4f8bf6f139957a9b86f4fbcbd4505c1910f5d4`。
+- [机读局部 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/vertex_delta.json)，184 个 POSITION、277 个 NORMAL；最大模型空间径向收细 1.499966 mm，轴向位移近零。只按 delta 与其他会话合成，不整文件覆盖领口／材质。
+- [REST A 面 PBR](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/previews/rest_left_A_pbr_before_after.png)、[REST B 面素模](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/previews/rest_left_B_clay_before_after.png)、[guard 1.367 秒 B 面 PBR](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/previews/guard_1367_left_B_pbr_before_after.png)均同机位，共八张左侧对照。径向变化细微，B 角度较清楚，尚待 Root 判断是否接受为局部组件。
+
+[独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/verification.json)通过，所有权重／UV／拓扑／rig/rest/IBM／原材质与已存在的 01 曲线保持；严格手／皮肤保护集合的 POSITION／NORMAL 未改。REST、guard 1.367／2.117 秒与 walk 四姿态无新增三角反向、零面积或衣物—保护面确认交叉。最近保护集合表面间距约 12.343 mm，这不是袖壁厚度或裸腕长度。完整补间及设备观感尚待后续。
+
+### 退腕结构限制与后续最小范围
+
+[measurement.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/measurement.json)定位到左侧布／皮肤过渡面 58422、58454、58485、58487、58488、58489、58522、58573、58615、58676。Hand 参考后 12 mm 截面穿 66 面、66 段，周长约 241.622 mm，是身体参考截面而非独立袖口。焊接开边为 0，但这个数字本身不能证明没有封闭衣壳或必需重拓扑。
+
+当前保护集合包含所有 Hand/finger 影响，强于实际手语义，677 个左侧灰缠腕点因保守策略未动。后续应先通过实际材质、颜色和结构确认手与衣物；若有独立衣物环，验证同拓扑退移；若确认融合，则给袖侧环复制／重索引及最小内腕、布壁和局部 UV 方案，原手顶点保持。当前没有冒充实现真实 12 mm 开口，右侧候选与窄布／薄皮材料分工仍待后续。
+
+本轮费用 0，实际发布由 Root 统一处理。当前有效阶段已收口，继续 `ArtSource/refinement/weapon/` 的独立 dao 候选。

@@ -1,8 +1,18 @@
 # 01 · 按动作与手别精修手姿
 
+## 最新用户目标与执行队列
+
+完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，动作与对砍为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+
+当前正劈阶段按原合同继续。完成后依次制作左右斩、防御支撑、弹反卸力、受击与回守，再做行走／转身。每项给raw曲线、刀尖轨迹、实际脚底和接触代理所需骨锚；源时间与650／250／200／650ms现有正劈阶段对应。原生slash与新正劈的旧身体前倾和接触标记分别保留来源，禁止旧代理套新动作。左右攻击在当前正常循环尚未使用，Root将与对应clip和代理一起接通。先交完整一招短片，随后扩已有能力。公共producer保持冻结，Root发布。
+
+四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
+
+Root已经接入70ms普通接触、90ms要害、95ms弹反和150ms致命短停。死亡动作由运行时统一接0.35倍220ms及180ms恢复，raw动作保留正常源时标，避免制作曲线与运行时重复减速。DEAD动画按同一死亡视觉时钟手动seek。新正劈仍需Root重新标定动作源段与接触代理后发布。
+
 ## 当前状态
 
-**阶段3收尾，阶段4已续派。** 按clip空手姿态及原生slash左手避刀方向通过Root可见审阅，五关键姿态仍需战斗站姿与完整动力链。当前制作同一记正劈的连续动作候选，正式接入由Root统一完成。
+**阶段5左右斩制作中。** 阶段4宽战斗站姿、连续正劈、正侧短片及补间刀面检查已交Root review。按最新授权队列继续左右方向动作，正式接入由Root统一完成。
 
 ## 上一轮成果与Root review
 
@@ -216,3 +226,49 @@ Root已查看五姿态三视角最终板。接受收敛腰颈前倾、明确上�
 - [姿态参数](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/candidate/keypose_parameters.json)与[渲染身份及采样](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/review/render_manifest.json)，每姿态另有独立三视角图。
 
 最终图地面高度为约8.1e-9m，框景限定实际TripoBody_Mesh，脚圈投影在地面上方8mm用于可读标注。随势已按真实1.10000002384秒之后求值，图中刀尖向下，右腕高1.08m。
+
+## 阶段4回报
+
+**阶段结束，等待Root review。** 已交v2五姿态板与同一记OVERHEAD完整连续候选。首张可见v2板约22:25完成，超出30分钟目标约4分钟，阶段中追加了真实鞋跟／前掌放平。按最新队列授权继续左右斩制作。
+
+### 候选与raw／baked
+
+- v2审阅板为 `hand-poses/attack-keyposes/stage4/candidate/overhead_v2_keyposes_preview.glb`，SHA-256 `94dfd60fadf62101df18a5a6886f2219fce1252f3c5578b5ba59daf80fa32d11`，5键STEP，仅作姿态审阅。
+- 正式待审动作源为 `stage4/candidate/overhead_raw.glb`，SHA-256 `7ea4a924bc3e730d597a6d7261056746890167e09e18252bda57272260e1b991`，已写身体／脚／腕曲线，右指校正UNBAKED。
+- 带刀预览为 `stage4/candidate/overhead_preview.glb`，19,753,452字节，SHA-256 `1cb7a1ab744968af4d72fb8ff4c77b047626e0c1cfa894ac81350f13d2213789`。clip为 `overhead`，106个60Hz采样，标准LINEAR TRS，源0至1.75秒。原8项右指修正一次，末姿态严格回到守势。
+- 原rest、骨长、mesh、skin、weights、IBM与材质保持。公共producer SHA仍冻结，全部候选只在stage4目录。
+
+### 站姿与身体带动
+
+足底中心为L(.16,0,.12)、R(-.16,0,-.12)m，横向32cm、前后24cm。骨盆五键高度为.870／.865／.860／.855／.870m，Hip绝对yaw为-8／-12／4／8／-8°，肩部Spine02绝对yaw为-16／-26／12／20／-16°。腰背前倾维持5／8／12／14／5°。双膝屈曲最小约19.97°，头持续看对手，空手护身。引刀采用减速、挥出加速、随势减速与回守过渡，身体与腕刀分相采样。
+
+原idle只有前掌低点近地，鞋跟曾悬空36／72mm。本阶段按真实鞋面ROI放平后再解腿和逐帧落地，heel/front近等高。全鞋最低点接地，曲面鞋底使左heel/front仍高约4.84／4.86mm、右约7.42／7.42mm。实际几何PCA鞋轴约左+5.37°／右-1.23°，骨轴±8°只作制作初值。
+
+### 源时间与游戏阶段
+
+| 游戏阶段 | 现有OVERHEAD时长 | 新源区间 |
+| --- | --- | --- |
+| PREPARING | 650ms | 0至.65秒 |
+| STARTUP | 250ms | .65至.90秒 |
+| ACTIVE | 200ms | .90至1.10秒 |
+| RECOVERING | 650ms | 1.10至1.75秒 |
+
+接触仍取真实Steel刃面点(-.09006450,1.36361861,.90)m。新骨锚见 [joint_anchors.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/audit/joint_anchors.json)，含106实际key的Head／Spine02／Hip／双Foot／ToeBase原点与世界旋转及真实刀根／尖，坐标在游戏实体变换之前。Root使用该源重新绑定代理局部锚与现半径／阈值，旧native前倾曲线保留各自来源。stage4 metadata的 `feet_world_gltf_m` 实际是足底中心，真实踝骨位置以此导出的 `bone_anchors` 为准。
+
+### 验证、短片与限制
+
+16项失败回归实际通过。raw→preview重建一次右校正的全部234轨、原native右15指、骨架及蒙皮保持、首尾守势闭合均已核对。独立审查通过。非根T/S存在约1.49e-8／5.96e-8浮点差，当前仅作标准采样曲线交付。
+
+实际表面检查覆盖106个源key及105个相邻key中点，共211时刻。左手／头颈对DAO均为0 BVH候选、0对已确认非共面三角面交叉，最小间距分别197.717／24.502mm。固定足底低带最大水平位移为左1.054／右0.706mm，全鞋鞋帮混合权重点可约8／7mm；不能以足迹中心稳定声明整鞋零滑。补间最大鞋面下探约0.021mm。见[可复跑审计与完整数据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/audit/overhead_surface_review.json)。
+
+- [v2五姿态三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/review/overhead_v2_three_view_board.png)，已目视15视图，宽站距、屈膝及转体可见。
+- [连续正侧短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/review/overhead_v2_front_side_continuous.mp4)，真实源0至1.75秒，22帧／12fps／960×572，显示1.833秒。
+- [全段mosaic 1](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/review/overhead_v2_motion_mosaic_01.png)、[mosaic 2](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/review/overhead_v2_motion_mosaic_02.png)，已覆盖全部22个正侧采样，未见出画或明显姿态跳变。
+
+当前提供C0采样曲线及有限补间检查。C1连续性、未采样时刻穿插、实际卡肉手感及PICO运行性能待后续验证。Root负责动作选择、代理与最终发布接线。
+
+## 当前阶段5执行项
+
+责任增加 `hand-poses/attack-keyposes/stage5/`，冻结已交阶段4与公共代码。沿用战斗站姿和原右手抓握，分别制作角色视角向左／向右的横斩。prepared+X为角色左，接口名为slash_to_left／slash_to_right，左右转体、引刀、空手护身和刃向分别制作。切向由±Y转轴与实际刀轴叉乘确定。接触点从各动作真实Steel刀面重取，代理骨锚随各源输出。
+
+源五阶段保持0／.65／.90／1.10／1.75秒。现有LEFT／RIGHT游戏时长为550／180／200／600ms，Root按阶段区间映射，角色与玩家视角的方向语义在接线时明确核对。正常循环尚未调用这些方向动作，Root与各自clip、代理一起接通。

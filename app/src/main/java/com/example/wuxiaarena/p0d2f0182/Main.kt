@@ -13,6 +13,7 @@ import com.example.wuxiaarena.p0d2f0182.content.HomeStage
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ObserveTracking
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaSession
+import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
 import com.example.wuxiaarena.p0d2f0182.runtime.InputControlResult
 import com.example.wuxiaarena.p0d2f0182.runtime.TrackingControls
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatAudio
@@ -28,7 +29,6 @@ import com.pico.spatial.ui.platform.HandControllerHapticType
 import com.pico.spatial.ui.design.PicoTheme
 import com.pico.spatial.ui.foundation.dsl.DefaultStage
 import com.pico.spatial.ui.foundation.dsl.SpatialAppScope
-import kotlin.math.roundToInt
 
 private enum class PendingControlKind { PAUSE, RESTART }
 
@@ -70,6 +70,9 @@ fun mainApp(scope: SpatialAppScope) =
                             enemyMoveDirection = previous.enemyMoveDirection,
                             playerBladeBase = previous.playerBladeBase,
                             playerBladeTip = previous.playerBladeTip,
+                            playerBladeTipSpeed = previous.playerBladeTipSpeed,
+                            playerBladeAtRest = previous.playerBladeAtRest,
+                            playerMotionGeneration = previous.playerMotionGeneration,
                             playerHeadPosition = previous.playerHeadPosition,
                             enemyRecoilOffset = previous.enemyRecoilOffset,
                         )
@@ -98,18 +101,10 @@ fun mainApp(scope: SpatialAppScope) =
                             if (state.inputOrigin != InputOrigin.PICO || !state.sceneReady ||
                                 (!terminal && (!state.inputReady || state.pauseReason != null)) || !impact.strength.isFinite()
                             ) continue
-                            val (peak, frequency, duration) = when (impact.kind) {
-                                CombatImpactKind.SOFT_HIT -> Triple(145, 90, 30)
-                                CombatImpactKind.HARD_HIT -> Triple(195, 220, 16)
-                                CombatImpactKind.GUARDED_HIT -> Triple(170, 170, 24)
-                                CombatImpactKind.BLOCK -> Triple(190, 150, 28)
-                                CombatImpactKind.PARRY -> Triple(235, 280, 18)
-                                CombatImpactKind.PLAYER_HIT -> Triple(180, 80, 42)
-                                CombatImpactKind.SKILL -> Triple(195, 125, 46)
-                                CombatImpactKind.EXECUTION -> Triple(235, 75, 64)
-                            }
-                            val level = (impact.strength.coerceIn(0.0, 1.0) * peak).roundToInt()
-                            val type = HandControllerHapticType.custom(level, frequency, duration)
+                            val accent = CombatFeedbackProfile.accent(impact)
+                            val type = HandControllerHapticType.custom(
+                                accent.hapticLevel, accent.hapticFrequency, accent.hapticDurationMillis,
+                            )
                             val dominant = if (impact.hand == Hand.LEFT) HandController.Left else HandController.Right
                             try {
                                 haptics.value.feedback(type, dominant)

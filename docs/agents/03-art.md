@@ -1,8 +1,18 @@
 # 03 · 人物设计母版与Tripo输入质量
 
+## 最新用户目标与执行队列
+
+完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，领襟、扣具与现有场景为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+
+Root对阶段3小片领襟的review已经写在本文件，立即按阶段4整段前襟合同继续，不等待再次批准。随后制作古铜环扣／暗钩候选。人物阶段交付后转ArtSource/refinement/environment，精修当前酒馆／庭院的石路、排水、积水、木柱脚、门槛、瓦檐与灯笼。先选玩家面向对手时最常见的一段路面和门楼，给同机位真实3D前后图。湿润有空间原因，建筑层次与材质尺度可读。原有场景沿用同一来源，候选不覆盖app，Root统一接地与配光。
+
+四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
+
+Root已取得本轮启动实图artifacts/combat-polish/first-build-ready.png。环境阶段以此实际机位评审石板尺寸／黑缝深度、门口木构与墙面材质尺度、阴雨远景层次。主体人物仍需先完成当前领襟与扣具。UI面板遮挡和文字大小由Root处理，美术源保持真实场景内容。
+
 ## 当前状态
 
-**阶段3收尾，阶段4已续派。** 二维统一设计方向已接受，小片领口凸脊作为制作样例保留。当前向整段可见前襟的连续轮廓精修推进，真实网格候选与二维目标分开验收。
+**阶段3结束，等待Root review。** 已交真实领襟局部GLB、顶点位移和52张素模／PBR及专项姿态对照。
 
 ## 上一轮成果与Root review
 
@@ -97,3 +107,15 @@ Root已查看rest_overlap_detail的前后PBR近景及geometry_measurement。18�
 交真正raw body-only候选、可组合delta或拓扑补丁，以及同灯正／斜侧PBR与素模前后图。必须让整体领边改善在胸部正常取景中可见，细节放大另附。转头和抬臂专项制作检查继续，实际厚度与表面凸起分别量测。Root负责与02袖口、04材质组合，源文件不覆盖。30分钟先交路径与第一版轮廓实物。
 
 其后可独立制作已确定的古铜环扣／暗钩独立几何并按腰带装配尺寸留候选，无需等Root答复。公共producer、manifest、library/app、Git、共享构建与设备由Root独占，保持其他会话编辑。
+
+## 阶段3回报
+
+**阶段结束，等待review。真实GLB已冻结，Tripo扣费0。**
+
+- 实物为 `ArtSource/refinement/character/design/collar-refinement/candidate_body.glb`，SHA为 `7d7a8d5c3bd813351cadf8cf79780b7b2a100df336819266ab9e96587df312bc`。来源raw rig SHA为 `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`。
+- 大V领跨越内外襟，本轮保拓扑最小方案只改善一段约48mm长、14mm宽的外襟表面起伏。固定邻面拟合基准下，crest由0.9648mm到3.9967mm，拟合RMS为0.2587mm。该指标为单表面relief，独立双层shell厚度尚未建立。
+- 18个POSITION及36个邻接NORMAL改变，最大规范位移3.5961mm。原60,006三角、35,308顶点、78骨、vertex ID、UV、权重、索引、rest、逆绑定及贴图保持，其他BIN字节一致；UV拆点同位移动。43个相关三角无塌陷或翻面，最小面积比0.6804、最大面法线转角19.05度。区域位于中央前襟，避开左腋与手部。
+- `prepare_collar.py` 可复建，`vertex_delta.json` 给逐顶点raw／规范位移，`geometry_measurement.json` 保存截面与平面数据。重建SHA一致，错误source SHA拒绝测试及独立二进制复核通过。
+- `renders/` 交48张PBR／clay正、严格侧及斜侧前后对照，包含REST、前伸60度、转头正负45度；`renders/detail/` 另交4张8cm局部近景。每组同相机、尺度与姿态，源骨架和skin先行核对。`comparison_detail_clay.png`／`comparison_detail_pbr.png` 左源右候选，保持实际渲染像素。
+- 总览变化较细，局部可辨起伏改变。原source前伸姿态的肩胸折陷前后均存在，继续交01／02复验。当前只交单处最小候选，整圈领襟及实体壳厚未完成。
+- 首个GLB约21:18落盘，处于30分钟首实物目标内，完整对照与独立复核随后完成。`stage3_review.json` 记录冻结身份与限制，下一步由Root审图并将vertex delta接入唯一producer，正式source／library／app发布归Root。

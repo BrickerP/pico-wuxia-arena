@@ -16,4 +16,13 @@ data class CombatImpact(
     val strength: Double,
     val hand: Hand,
     override val atNanos: Long,
-) : EnemyCombatEvent
+    /** Actual enemy health removed by this contact, after guard and remaining health. */
+    val appliedDamage: Int = 0,
+    val zone: HitZone? = null,
+    val fatal: Boolean = false,
+) : EnemyCombatEvent {
+    init {
+        require(appliedDamage >= 0) { "applied damage must be non-negative" }
+        require(!fatal || appliedDamage > 0) { "a fatal enemy contact must apply damage" }
+    }
+}

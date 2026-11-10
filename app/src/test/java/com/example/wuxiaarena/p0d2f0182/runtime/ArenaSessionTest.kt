@@ -124,9 +124,18 @@ class ArenaSessionTest {
         session.setArenaPresenter { view, events -> presentations += view to events }
         assertTrue(session.startTrial())
         assertTrue(session.viewState.trialStarted)
+        assertEquals(TrialResult.COUNTDOWN, session.viewState.result)
         session.onTick(3_000_000_000L)
         assertEquals(0L, session.viewState.simulationNanos)
         session.onTick(3_800_000_000L)
+        assertEquals(TrialResult.COUNTDOWN, session.viewState.result)
+        assertEquals(0L, session.viewState.simulationNanos)
+        assertEquals(null, session.viewState.attackId)
+        session.onTick(6_000_000_000L)
+        assertEquals(TrialResult.FIGHTING, session.viewState.result)
+        assertEquals(0L, session.viewState.simulationNanos)
+        val attackStartedAt = 6_800_000_000L
+        session.onTick(attackStartedAt)
         val preparing = session.viewState
         val attackId = requireNotNull(preparing.attackId)
         assertEquals(EnemyPhase.PREPARING, preparing.phase)
@@ -149,7 +158,7 @@ class ArenaSessionTest {
         session.setArenaPresenter { view, events -> replay += view to events }
         assertEquals(preparing, replay.single().first)
         assertTrue(replay.single().second.isEmpty())
-        session.onTick(3_800_000_000L + AttackDirection.OVERHEAD.preparationNanos)
+        session.onTick(attackStartedAt + AttackDirection.OVERHEAD.preparationNanos)
         assertEquals(EnemyPhase.STARTUP, replay.last().first.phase)
         assertEquals(attackId, replay.last().first.attackId)
         assertEquals(
@@ -176,13 +185,16 @@ class ArenaSessionTest {
         session.setArenaPresenter { _, batch -> events.addAll(batch) }
         assertTrue(session.startTrial())
         session.onTick(1_000_000_000L)
-        session.onTick(1_800_000_000L)
-        session.onTick(1_900_000_000L)
+        session.onTick(4_000_000_000L)
+        assertEquals(TrialResult.FIGHTING, session.viewState.result)
+        assertEquals(0L, session.viewState.simulationNanos)
+        session.onTick(4_800_000_000L)
+        session.onTick(4_900_000_000L)
         val beforePause = session.viewState
         assertEquals(EnemyPhase.PREPARING, beforePause.phase)
 
         val pause = TrackingEvent.Discontinuity(
-            ObservationStamp(2, 1_900_000_001L, 1, InputOrigin.PICO),
+            ObservationStamp(2, 4_900_000_001L, 1, InputOrigin.PICO),
             TrackingTarget.ALL,
             DiscontinuityReason.USER_PAUSED,
         )
@@ -294,7 +306,10 @@ class ArenaSessionTest {
         }
         assertTrue(session.startTrial())
         session.onTick(1_000_000_000L)
-        session.onTick(1_800_000_000L)
+        session.onTick(4_000_000_000L)
+        assertEquals(TrialResult.FIGHTING, session.viewState.result)
+        assertEquals(0L, session.viewState.simulationNanos)
+        session.onTick(4_800_000_000L)
         assertEquals(EnemyPhase.PREPARING, session.viewState.phase)
         assertEquals(800_000_000L, session.viewState.simulationNanos)
         assertEquals(generationBeforeReset + 1, session.viewState.roundGeneration)
