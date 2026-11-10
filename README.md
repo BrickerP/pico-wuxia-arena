@@ -107,6 +107,8 @@ WASD、Q/E及右键保留模拟器的移动、升降和转向控制。应用内�
 
 ## 本地构建
 
+PICO CLI 的通用做法在 [开发手册](docs/agent-start.md)。那份文档覆盖环境检查、三种空间模板、模拟器、真机、安装和日志，不限于本仓库的刀术 Demo。Agent 进仓库后先读它，再读下面的本项目构建。
+
 配置JDK 21、PICO SDK 6.1与Android SDK，并设置 `JAVA_HOME`、`PICO_HOME`、`ANDROID_HOME`。本机SDK路径留在未纳入版本控制的 `local.properties`。
 
 ```bash
@@ -134,6 +136,7 @@ API凭据由CLI的标准本机配置管理。仓库排除本地凭据上下文�
 
 ## 交付与验收
 
+- [PICO CLI 开发手册](docs/agent-start.md)
 - [当前验收清单](docs/acceptance.md)
 - [战斗交接](docs/agents/01-combat.md)
 - [输入交接](docs/agents/02-input.md)
