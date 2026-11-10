@@ -86,6 +86,8 @@ internal data class ArenaViewState(
     val playerBladeBase: Vector3? = null,
     val playerBladeTip: Vector3? = null,
     val playerHeadPosition: Vector3? = null,
+    val motionReleaseRequired: Boolean = false,
+    val enemyHitZone: HitZone? = null,
 )
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
@@ -121,6 +123,7 @@ internal class ArenaSession(
     private var hitStopNanos = 0L
     private var staggerUntil = 0L
     private var feedback: CombatFeedback? = null
+    private var enemyHitZone: HitZone? = null
     private var feedbackUntil = 0L
     private var feedbackSequence = 0L
     private var sceneAvailable = false
@@ -166,6 +169,8 @@ internal class ArenaSession(
             val actionReady = sceneReady && inputReady && actionBaseline != null &&
                 actionBaseline == snapshot?.actionIdentity()
             val targetInRange = currentTargetInRange()
+            val motionReady = result == TrialResult.FIGHTING && combat.pauseReason == null && actionReady
+            val releaseRequired = motionReady && latestMotion?.releaseRequired == true
             return ArenaViewState(
                 roundGeneration = roundGeneration,
                 trialStarted = trialStarted,
@@ -218,10 +223,12 @@ internal class ArenaSession(
                 enemyTravelMeters = enemyTravelMeters,
                 enemyGaitMeters = enemyGaitMeters,
                 enemyMoveDirection = enemyMoveDirection,
-                motionCharge = if (result == TrialResult.FIGHTING && combat.pauseReason == null) latestMotion?.chargeProgress ?: 0f else 0f,
+                motionCharge = if (motionReady && !releaseRequired) latestMotion?.chargeProgress ?: 0f else 0f,
                 playerBladeBase = latestMotion?.bladeBase,
                 playerBladeTip = latestMotion?.bladeTip,
                 playerHeadPosition = snapshot?.head?.pose?.position,
+                motionReleaseRequired = releaseRequired,
+                enemyHitZone = if (combat.phase == EnemyPhase.HIT) enemyHitZone else null,
             )
         }
 
@@ -248,6 +255,7 @@ internal class ArenaSession(
         if (state.pauseId != pauseId || !state.resumeReady) return false
         val events = combat.tryResume(state.inputReady, state.actionReady, pauseId)
         if (combat.pauseReason != null) return false
+        if (combat.phase != EnemyPhase.HIT) enemyHitZone = null
         clearMotion()
         lastTickTime = null
         publish(events)
@@ -459,15 +467,25 @@ internal class ArenaSession(
         val headshot = strike.zone == HitZone.HEAD
         val base = if (headshot) 30.0 else 25.0
         val damage = (base * strike.power * (1.0 + (combo - 1) * 0.10)).roundToInt()
-        val kind = if (combat.guarding) CombatFeedback.GUARDED_HIT else if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
-        dealDamage(damage, headshot && combo >= 3, kind, (if (headshot) 15 else 10) * combo, events)
+        val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
+        dealDamage(damage, headshot && combo >= 3, kind, (if (headshot) 15 else 10) * combo, events, zone = strike.zone)
         focus = (focus + 12.0).coerceAtMost(100.0)
     }
 
-    private fun dealDamage(damage: Int, breakGuard: Boolean, kind: CombatFeedback, points: Int, events: MutableList<EnemyCombatEvent>) {
-        val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT || kind == CombatFeedback.GUARDED_HIT
+    private fun dealDamage(
+        damage: Int,
+        breakGuard: Boolean,
+        kind: CombatFeedback,
+        points: Int,
+        events: MutableList<EnemyCombatEvent>,
+        zone: HitZone = HitZone.BODY,
+    ) {
+        val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT
         val outcome = combat.receivePlayerHit(damage, breakGuard, armGuard = normal && combo >= 2 && !breakGuard)
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
+        if (outcome.any { it is EnemyCombatEvent.HitReactionStarted && it.reaction == HitReaction.PLAYER_HIT }) {
+            enemyHitZone = zone
+        }
         score += points
         hitStopNanos = if (kind == CombatFeedback.SKILL || kind == CombatFeedback.EXECUTION) 110_000_000L else 45_000_000L
         if (kind == CombatFeedback.SKILL) {
@@ -499,13 +517,19 @@ internal class ArenaSession(
                     if (feedback != CombatFeedback.GUARD_BREAK) notifyFeedback(CombatFeedback.PLAYER_HIT)
                     if (playerHealth == 0) finishDefeat(CombatFeedback.PLAYER_HIT, events)
                 }
-                is EnemyCombatEvent.PhaseChanged -> if (event.current == EnemyPhase.DEAD && result == TrialResult.FIGHTING) {
-                    result = TrialResult.ROUND_CLEAR
-                    intermissionNanos = 0L
-                    combo = 0
-                    pendingMotion.clear()
-                    DesktopCombatInput.reset()
-                    score += 100
+                is EnemyCombatEvent.HitReactionStarted -> if (event.reaction == HitReaction.PARRIED) {
+                    enemyHitZone = null
+                }
+                is EnemyCombatEvent.PhaseChanged -> {
+                    if (event.current != EnemyPhase.HIT) enemyHitZone = null
+                    if (event.current == EnemyPhase.DEAD && result == TrialResult.FIGHTING) {
+                        result = TrialResult.ROUND_CLEAR
+                        intermissionNanos = 0L
+                        combo = 0
+                        pendingMotion.clear()
+                        DesktopCombatInput.reset()
+                        score += 100
+                    }
                 }
                 else -> Unit
             }
@@ -549,6 +573,7 @@ internal class ArenaSession(
         roundGeneration++
         initialHealth = 100 + (roundNumber - 1) * 25
         combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L)
+        enemyHitZone = null
         enemyPosition = enemySpawn
         enemyYaw = 0f
         enemyTravelMeters = 0.0
@@ -643,6 +668,7 @@ internal class ArenaSession(
                 roundGeneration++
                 trialStarted = false
                 combat = EnemyCombatStateMachine()
+                enemyHitZone = null
                 initialHealth = combat.health
                 events += combat.resetRound()
                 result = TrialResult.READY

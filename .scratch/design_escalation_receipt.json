@@ -5,7 +5,7 @@
   "visual_asset_present": false,
   "gate_required": true,
   "status": "current_revision_verification_deferred",
-  "currentRevision": 15,
+  "currentRevision": 16,
   "lastVerifiedRevision": 10,
   "currentVerification": {
     "compile": "passed_by_root_assembleDebug_offline",
@@ -73,5 +73,5 @@
       "runtimeReadabilityEvidence": "/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/runtime/hud-animation-first.png"
     }
   },
-  "note": "当前revision15完善刀术要诀、真实角色名、阶段攻防提示和双手蓄势指示。用户要求先开发，当前编译由主控统一执行，运行与视觉验证延期。旧revision10仅为历史证据。"
+  "note": "当前revision16接入真实前推锁存后的中性收刀复位提示，蓄势与收势分开呈现。当前源码交主控编译，设计与运行验证按用户要求继续延期。"
 }

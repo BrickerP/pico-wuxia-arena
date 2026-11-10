@@ -4,7 +4,7 @@
   "metadata": {
     "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 15
+    "revision": 16
   },
   "experience": {
     "subject": "写实中式刀术试炼的场边状态与轮次控制",
@@ -523,7 +523,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -562,7 +563,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -587,21 +589,22 @@
             "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
-            "phaseLabel": "蓄势",
-            "enemyFraction": 0.72,
+            "phaseLabel": "受击",
+            "enemyFraction": 0.17,
             "playerFraction": 0.8,
             "staminaFraction": 0.64,
-            "focusFraction": 1.0,
-            "attackDirection": "up",
-            "feedbackLabel": "弹反成功 · 反击良机",
+            "focusFraction": 0,
+            "attackDirection": "none",
+            "feedbackLabel": "破势已出",
             "enemyName": "酒馆刀客",
-            "phaseHint": "观察刀路 · 举刀准备迎锋",
+            "phaseHint": "对手失衡 · 追刀后留神反击",
             "motionCharge": 0,
-            "chargeLabel": "",
-            "enemyAmount": "72 / 100",
+            "chargeLabel": "收刀复位 · 再起下一式",
+            "enemyAmount": "17 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "0 / 100",
+            "motionReleaseRequired": true
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -613,7 +616,7 @@
             "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false,
+            "skillEnabled": true,
             "desktop": false
           }
         },
@@ -640,7 +643,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -679,7 +683,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -718,7 +723,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -757,7 +763,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -796,7 +803,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -835,7 +843,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -878,7 +887,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -917,7 +927,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -956,7 +967,8 @@
             "enemyAmount": "72 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -995,7 +1007,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1034,7 +1047,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1073,7 +1087,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1112,7 +1127,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1151,7 +1167,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1190,7 +1207,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1233,7 +1251,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1272,7 +1291,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1311,7 +1331,8 @@
             "enemyAmount": "72 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1350,7 +1371,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1389,7 +1411,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1428,7 +1451,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1467,7 +1491,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1506,7 +1531,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -1545,7 +1571,8 @@
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -2667,7 +2694,7 @@
         "content": "combat.phaseHint"
       },
       "props": {
-        "hideWhileCharging": true
+        "hideWhileGestureHint": true
       }
     },
     {
@@ -2683,7 +2710,7 @@
         "motion-charge-progress"
       ],
       "props": {
-        "chargingOnly": true
+        "gestureHintOnly": true
       }
     },
     {
@@ -2705,7 +2732,8 @@
       "component": "sui-linear-progress",
       "props": {
         "value": 0,
-        "height": 4
+        "height": 4,
+        "hideWhileReleaseRequired": true
       },
       "bindings": {
         "value": "combat.motionCharge"

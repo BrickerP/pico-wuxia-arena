@@ -407,7 +407,8 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     AttackDirectionSeal(state.attackDirection)
                 }
                 if (state.result == TrialResult.FIGHTING && state.pauseReason == null &&
-                    state.inputReady && state.motionCharge.isFinite() && state.motionCharge > 0f
+                    state.inputReady && (state.motionReleaseRequired ||
+                        state.motionCharge.isFinite() && state.motionCharge > 0f)
                 ) {
                     MotionChargeHint(state)
                 } else {
@@ -480,6 +481,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
 private fun MotionChargeHint(state: ArenaViewState) {
     val progress = state.motionCharge.coerceIn(0f, 1f)
     val label = when {
+        state.motionReleaseRequired -> stringResource(R.string.arena_charge_release)
         progress < 1f -> stringResource(R.string.arena_charge_progress, (progress * 100f).toInt())
         state.executionAvailable -> stringResource(R.string.arena_charge_execution)
         state.focus >= 100 -> stringResource(R.string.arena_charge_skill)
@@ -492,15 +494,17 @@ private fun MotionChargeHint(state: ArenaViewState) {
             color = ArenaPanelText,
             maxLines = 1,
         )
-        LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier.fillMaxWidth().height(4.dp),
-            colors = LinearProgressDefaults.linearProgressColors(
-                indicatorColor = PicoTheme.colorScheme.interaction,
-                backgroundColor = ArenaPanelControl,
-            ),
-            height = LinearProgressDefaults.linearProgressHeight(4.dp),
-        )
+        if (!state.motionReleaseRequired) {
+            LinearProgressIndicator(
+                progress = { progress },
+                modifier = Modifier.fillMaxWidth().height(4.dp),
+                colors = LinearProgressDefaults.linearProgressColors(
+                    indicatorColor = PicoTheme.colorScheme.interaction,
+                    backgroundColor = ArenaPanelControl,
+                ),
+                height = LinearProgressDefaults.linearProgressHeight(4.dp),
+            )
+        }
     }
 }
 

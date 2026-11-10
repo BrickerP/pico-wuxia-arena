@@ -51,8 +51,8 @@
         },
         {
           "file": "indigo.glb",
-          "bytes": 14625948,
-          "sha256": "7cf06c1227869552155ba11f1ae99e6f9d961e2921ab308ac5dc322e3c706063"
+          "bytes": 14625912,
+          "sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d"
         }
       ]
     },
@@ -79,8 +79,8 @@
         },
         {
           "file": "veteran.glb",
-          "bytes": 14183252,
-          "sha256": "95b29e999e469a9869768d63dffa5372eff9041a4f01ed1942be1e71ff850405"
+          "bytes": 14183244,
+          "sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39"
         }
       ]
     }

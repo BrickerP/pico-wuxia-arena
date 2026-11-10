@@ -527,7 +527,7 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
                                             'max':[max((normalization@Vector((x,y,z)))[i] for x in (low.x,high.x) for y in (low.y,high.y) for z in (low.z,high.z)) for i in range(3)]},
               'weapon_subtree':'Weapon_Root','grip_node':'HandGrip_R','grip_parent':'R_Hand',
               'grip_local_matrix_gltf':matrix_values(mount),'grip_world_metres':list(target),
-              'grip_pose':'reviewed curled-hand frame transferred through normalized wrist rest frame' if grip_frame is None else 'fixed conservative curled-hand calibration B',
+              'grip_pose':'reviewed curled-hand frame transferred through normalized wrist rest frame' if grip_frame is None else 'per-character reviewed grip-frame calibration',
               'grip_source_metres':list(source_target),'weapon_binding':weapon_binding,
               'anchor_nodes_role':'bind/source anchors; SDK dynamic markers require joint-pose support',
               'weapon_bind_forward_vector_gltf':list(((hand_world@mount).to_3x3()@Vector((0,1,0))).normalized()),

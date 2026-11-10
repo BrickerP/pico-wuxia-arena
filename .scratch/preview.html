@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="pico-design-revision" content="15">
+  <meta name="pico-design-revision" content="16">
   <title>PICO SpatialUI Preview</title>
   <style>
     * { box-sizing: border-box; }
@@ -3741,7 +3741,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
   "metadata": {
     "projectName": "酒馆试炼 HUD",
     "sourceMode": "product_doc",
-    "revision": 15
+    "revision": 16
   },
   "experience": {
     "subject": "写实中式刀术试炼的场边状态与轮次控制",
@@ -4260,7 +4260,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4299,7 +4300,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4324,21 +4326,22 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "contextLabel": "连胜三场 · 读招、架刀、反击"
           },
           "combat": {
-            "phaseLabel": "蓄势",
-            "enemyFraction": 0.72,
+            "phaseLabel": "受击",
+            "enemyFraction": 0.17,
             "playerFraction": 0.8,
             "staminaFraction": 0.64,
-            "focusFraction": 1.0,
-            "attackDirection": "up",
-            "feedbackLabel": "弹反成功 · 反击良机",
+            "focusFraction": 0,
+            "attackDirection": "none",
+            "feedbackLabel": "破势已出",
             "enemyName": "酒馆刀客",
-            "phaseHint": "观察刀路 · 举刀准备迎锋",
+            "phaseHint": "对手失衡 · 追刀后留神反击",
             "motionCharge": 0,
-            "chargeLabel": "",
-            "enemyAmount": "72 / 100",
+            "chargeLabel": "收刀复位 · 再起下一式",
+            "enemyAmount": "17 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "0 / 100",
+            "motionReleaseRequired": true
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4350,7 +4353,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "sourceLabel": "设备追踪 · 头手动作 · 头手观察已就绪",
             "keyboardHelp": "1/J斩击 · 4/K刺击 · 5/V架刀\n8/Z左闪 · 9/X右闪 · C蹲\nG破势 / 虚弱时自动处决",
             "previewEnabled": false,
-            "skillEnabled": false,
+            "skillEnabled": true,
             "desktop": false
           }
         },
@@ -4377,7 +4380,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4416,7 +4420,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4455,7 +4460,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4494,7 +4500,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4533,7 +4540,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4572,7 +4580,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4615,7 +4624,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4654,7 +4664,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4693,7 +4704,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "72 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4732,7 +4744,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4771,7 +4784,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4810,7 +4824,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4849,7 +4864,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4888,7 +4904,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4927,7 +4944,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -4970,7 +4988,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5009,7 +5028,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5048,7 +5068,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "72 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5087,7 +5108,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5126,7 +5148,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5165,7 +5188,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5204,7 +5228,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5243,7 +5268,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -5282,7 +5308,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
             "enemyAmount": "100 / 100",
             "playerAmount": "80 / 100",
             "staminaAmount": "64 / 100",
-            "focusAmount": "100 / 100"
+            "focusAmount": "100 / 100",
+            "motionReleaseRequired": false
           },
           "match": {
             "roundTime": "第 1/3 场 · 2:35",
@@ -6404,7 +6431,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
         "content": "combat.phaseHint"
       },
       "props": {
-        "hideWhileCharging": true
+        "hideWhileGestureHint": true
       }
     },
     {
@@ -6420,7 +6447,7 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
         "motion-charge-progress"
       ],
       "props": {
-        "chargingOnly": true
+        "gestureHintOnly": true
       }
     },
     {
@@ -6442,7 +6469,8 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
       "component": "sui-linear-progress",
       "props": {
         "value": 0,
-        "height": 4
+        "height": 4,
+        "hideWhileReleaseRequired": true
       },
       "bindings": {
         "value": "combat.motionCharge"
@@ -6667,8 +6695,11 @@ window.SUI_COMPONENTS = ["sui-text","sui-icon","sui-button","sui-icon-button","s
         if (!node || (node.visibleInStates && !node.visibleInStates.includes(stateId))) return null;
         if (node.props?.desktopOnly && !data.input?.desktop) return null;
         const charging = stateId === 'fighting' && Number(data.combat?.motionCharge) > 0;
-        if (node.props?.chargingOnly && !charging) return null;
-        if (node.props?.hideWhileCharging && charging) return null;
+        const releasing = stateId === 'fighting' && Boolean(data.combat?.motionReleaseRequired);
+        const gestureHint = charging || releasing;
+        if (node.props?.gestureHintOnly && !gestureHint) return null;
+        if (node.props?.hideWhileGestureHint && gestureHint) return null;
+        if (node.props?.hideWhileReleaseRequired && releasing) return null;
         let element;
         if (node.kind === 'layout') {
           element = document.createElement('div');

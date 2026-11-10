@@ -26,6 +26,7 @@ data class PlayerMotionFrame(
     val headPosition: Vector3,
     val guardDirection: AttackDirection? = null,
     val chargeProgress: Float = 0f,
+    val releaseRequired: Boolean = false,
 )
 
 /**
@@ -170,7 +171,8 @@ class PlayerCombatResolver {
             else -> 0f
         }
         val frame = PlayerMotionFrame(sample.stamp.receivedAtNanos, base, tip, tipDistance / elapsed,
-            if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress)
+            if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress,
+            releaseRequired = skillLatched)
         latestFrame = frame
         return frame
     }

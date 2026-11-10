@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.pico.spatial.core.ecs.Entity
@@ -21,7 +21,7 @@ internal class EnemyAnimator(enemy: Entity) {
 
     private val target = enemy.findSkeletonRootEntity().single()
     private val importedResources = enemy.findSkinnedMeshEntity().single().getAnimationResources()
-    private val importedClips = importedResources.associateBy { it.getName() }
+    private val importedClips = mutableMapOf<String, AnimationResource>()
     private val playbackClips = mutableMapOf<String, AnimationResource>()
     private var controller: AnimationPlaybackController? = null
     private var playbackKey: PlaybackKey? = null
@@ -29,18 +29,25 @@ internal class EnemyAnimator(enemy: Entity) {
     private var lastPaused: Boolean? = null
 
     init {
-        check(importedClips.keys.containsAll(listOf("idle", "walk", "slash", "hit_body", "hit_head", "hit_side", "fall"))) {
-            "Missing enemy animation clips: ${importedClips.keys}"
-        }
         try {
+            for (resource in importedResources) {
+                importedClips[resource.getName()] = resource
+            }
+            check(importedClips.keys.containsAll(listOf("idle", "walk", "slash", "hit_body", "hit_head", "hit_side", "fall"))) {
+                "Missing enemy animation clips: ${importedClips.keys}"
+            }
             for (name in importedClips.keys) {
                 playbackClips[name] = importedClips.getValue(name).repeat(if (name == "idle" || name == "walk") -1 else 0)
             }
+            Log.i(TAG, "Bound one skeleton with clips=${importedClips.keys}")
         } catch (error: Exception) {
-            playbackClips.values.forEach { it.close() }
+            try {
+                close()
+            } catch (cleanup: Exception) {
+                if (cleanup !== error) error.addSuppressed(cleanup)
+            }
             throw error
         }
-        Log.i(TAG, "Bound one skeleton with clips=${importedClips.keys}")
     }
 
     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
@@ -51,7 +58,7 @@ internal class EnemyAnimator(enemy: Entity) {
             EnemyPhase.HIT -> when {
                 state.guarding -> "slash"
                 state.hitReaction == HitReaction.PARRIED -> "hit_side"
-                state.feedback == CombatFeedback.HEADSHOT -> "hit_head"
+                state.enemyHitZone == HitZone.HEAD -> "hit_head"
                 else -> "hit_body"
             }
             EnemyPhase.DEAD -> if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
@@ -84,7 +91,8 @@ internal class EnemyAnimator(enemy: Entity) {
             EnemyPhase.PREPARING -> seekPhase(active, state, 1.55f, 1.85f)
             EnemyPhase.STARTUP -> seekPhase(active, state, 1.85f, 2.067f)
             EnemyPhase.ACTIVE -> seekPhase(active, state, 2.067f, 2.167f)
-            EnemyPhase.RECOVERING -> seekPhase(active, state, 2.167f, 3.0f)
+            // Include the native return from the forward bend before crossfading to idle.
+            EnemyPhase.RECOVERING -> seekPhase(active, state, 2.167f, 3.4f)
             EnemyPhase.HIT -> {
                 if (state.guarding) {
                     active.setTime(1.55f.coerceAtMost(active.getDuration()))
@@ -164,7 +172,11 @@ internal class EnemyAnimator(enemy: Entity) {
             try {
                 resource.close()
             } catch (error: Exception) {
-                if (failure == null) failure = error else failure.addSuppressed(error)
+                if (failure == null) {
+                    failure = error
+                } else if (failure !== error) {
+                    failure.addSuppressed(error)
+                }
             }
         }
         failure?.let { throw it }

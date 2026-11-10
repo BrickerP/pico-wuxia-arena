@@ -342,7 +342,8 @@ def build_library(manifest_path):
         record = prepare_character(source_path, character['source_sha256'], packed_clips,
                                    library / (stem + '_body.glb'), library / output_name,
                                    library / (stem + '_alignment.json'),
-                                   height=character.get('height_metres', 1.78))
+                                   height=character.get('height_metres', 1.78),
+                                   grip_frame=character.get('grip_frame'))
         record['id'] = character['id']
         record['name'] = character['name']
         record['retargeting'] = records

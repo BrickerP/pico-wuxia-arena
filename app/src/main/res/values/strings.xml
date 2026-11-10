@@ -123,6 +123,7 @@
     <string name="arena_hint_victory">三场尽破 · 可再挑战磨练刀术</string>
     <string name="arena_hint_defeat">调整架势与节奏，再战一局</string>
     <string name="arena_charge_progress">收刀蓄势 · %1$d%%</string>
+    <string name="arena_charge_release">收刀复位 · 再起下一式</string>
     <string name="arena_charge_skill">蓄势已足 · 向前推刀破势</string>
     <string name="arena_charge_execution">蓄势已足 · 向前推刀处决</string>
     <string name="arena_charge_low_focus">气势未满 · 进刀与防御可积蓄气势</string>
