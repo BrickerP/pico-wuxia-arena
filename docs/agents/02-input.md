@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-**阶段3执行中。** 前两轮权重候选因可见改善不足与跨姿态风险退回，当前重新定位可见目标、编辑域及语义骨影响。
+**阶段4执行中。** 三轮权重候选均未通过，正式源保持。Root接受当前衣摆有自然凸面与折层这一事实，停止围绕该凸面追逐应变数字，转到袖口与腕部可见细节制作。
 
 ## 上一轮成果与Root review
 
@@ -120,6 +120,44 @@ Root以派生rig加01手姿统一重建。新target SHA触发旧校准时由Root
 
 本阶段保留三个有限试验并结束。下一步应先把实际可见目标纳入经确认的连续衣物内部、重新定义锁定边界，再做区域多姿态求解，并区分源网格／纹理折痕与蒙皮变形。本会话费用 0，公共代码、library、app 和其他会话产物由各自负责人维护。
 
+## 阶段3回报
+
+**阶段结束，交 Root review，本回合直接结束。** 完整产物与边界见 [stage3 说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/README.md)。实际图像光线拾取、目标内圈证明、最多三个新支持集候选和 bind 几何证据已交付，三个候选均保持 **BLOCKED**。
+
+### 实际图像拾取与目标修改
+
+[target.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/target.json)固定当前 final `53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641` 与 raw `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`。侧视像素 `(400,320)` 实际命中灰衣面 **43900**、顶点 **31463／32012／30406**，重投影误差低于 1 像素；旧边 **34287／34481** 也已纳入核心。新 ROI 为 513 组／667 顶点，五个目标均在可编辑核心且 fade=1，锁边移到外圈，冲突为 0。
+
+本轮只生成 [contra_half、pelvis_025、pelvis_045 三个候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/candidates.json)，分别减弱对侧腿跟随、转移 25%／45% 双腿质量到 Pelvis／Waist。它们是衣物支持集实验，未把跨腿影响自动定性为错误。新增 Waist 仍在原 78 骨内，每顶点最多四影响、归一化，手部语义权重改动 0。每个目录提供 raw body-only rig、同权重的原动画预览及新增／移除影响、部位和 pose 依据的 `weight_changes.json`。
+
+三个候选实际改 316／466／466 顶点，全部五个要求目标都已变。主面三个顶点分别移动约 **2–4／34–38／62–68 mm**，已排除上轮“目标本身没改”的情况。
+
+### 动态失败与轮廓覆盖仍不足
+
+[独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/verification.json)覆盖每个候选 179 姿态，结构、原 rest／IBM／UV／拓扑、合法新支持集、手部与接缝检查通过。区域平均 RMS 为 **1.966→2.021／2.550／4.168 mm**，平均 P95 为 **4.223→4.573／5.411／8.299 mm**，最大新增伸长为 **5.345／7.421／38.546 mm**。法线相对反向峰值为 11／24／45，存在显著面积缩小，不能因命中面已经移动就宣布改善。
+
+补充轮廓拾取发现，实际外沿像素 455／456 对应灰衣面 **26875／25779**，控制点 **35019／34731／35089／34795** 在三个候选均未改，原因是位于主面 0.18 m 图距离外或锁边。第 320 行右侧轮廓均为 **457→457**。因此当前尝试尚未覆盖完整的轮廓控制面，不能把它解释成权重方法原则上无法改变该轮廓。
+
+### 已定位的 bind 几何与最小后续范围
+
+已交付真正 bind 与原生姿态的 [clay 同面板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/previews/bind_vs_native_clay_targets.png)、[PBR 板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/previews/bind_vs_native_pbr_targets.png)、[wire 板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/previews/bind_vs_native_wire_targets.png)及[跟踪主面近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/stage3/previews/side_bulge_tracked_bind_vs_native.png)。Bind 已关闭 NLA 并将骨骼 basis 归零，非 idle 帧；同面邻域凸起在 bind 已有 **9.521 mm**，slash 为 **6.787 mm**。静止几何本身确有凸面，不能简单当作错误权重，艺术形状是否需改仍由 Root 判断。
+
+若要改变 bind 凸面，最小新增范围是：按实际轮廓面 26875／25779 与主面 43900 重新选连续衣片，先测衣物／腿的间隙，再以同拓扑局部 POSITION 修形或姿态形状修正处理，保留 seam 组一致并重核 NORMAL／TANGENT、多姿态碰撞。此几何修改本轮未实施，需另派明确范围。若继续权重实验，则必须先完整覆盖轮廓控制面，再评审边界和骨影响，避免重复只移动内部点。
+
+纹理／空间独立核查已排除蓝裤控制点，bind 的 pinch 面还存在约 14.95 mm 叠层遮挡，均记录于 target。其他 14 区未追加全面重扫。当前三个候选只保留研究证据，费用 0，公共代码、library、app 及其他会话产物未由本会话改动。
+
 ## 当前阶段3执行项
 
 责任目录为deformation/stage3。由实际缺陷视图拾取face／vertex，主要目标应在编辑内圈，锁边不能把目标本身冻结。允许衣物ROI在现有78骨中改变合理vertex支持集合，新增／移除影响给部位与pose依据，max4归一化，骨架rest／IBM／UV／拓扑保持，手部语义权重改动0。最多三个定向候选，以真实可见改善和跨姿态风险共同判断，必要时明确几何／动作根因。
+
+## Root阶段3 review与阶段4续派
+
+Root已查看同面跟踪与bind／native PBR图。该处存在源衣物折层及自然凸面，三轮权重修改均没有足够可见收益，全部BLOCKED保持。当前不将此处普通布料体积作为必须抹平的缺陷，结束该目标的权重实验。
+
+阶段4责任目录为deformation/cuff-refinement，独立于03的前领几何。围绕已接受的设计板落实袖口退腕与布／皮护腕边界，先交真实模型近景与量测，再做最小同拓扑几何修整。
+
+1. 读取原raw rig与01已审slash_guard_raw曲线，在REST、slash 1.367／2.117秒及walk姿态查看左右袖口、裸露腕部与护腕。交同机位近景、原face／vertex ID和实际缝隙、厚度与腕褶位置。明确区分有意贴合与可见穿插，不用单纯边伸长替代画面问题。
+2. 以窄布缠腕、薄旧皮固定带和袖口退腕12mm设计为方向，选择一个证据明确且能局部修复的袖口轮廓。允许局部POSITION／NORMAL修改，优先保原拓扑、UV与所有权重，手部语义顶点和权重保持。不得改骨架rest、IBM或01曲线。若源融合几何不支持该目标，交出具体面范围与最小拓扑修改提案，先完成可独立修正的一处。
+3. 输出机读delta、来源SHA、raw body-only GLB和成对素模／PBR图，保留原材质。30分钟内交第一项可见实物，后续离线专项检查覆盖原slash和walk的袖口／手腕关系。Root负责与03领口、04材质组合及正式发布。
+
+其他会话共享仓库，保持其编辑。公共producer、manifest、正式library/app、Git、共享构建和设备不在本会话范围。阶段交付后若Root正在集成，可独立测量另一侧袖口并给同规格候选，避免等待。

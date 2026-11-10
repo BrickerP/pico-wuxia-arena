@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-**阶段3执行中。** 阶段1按clip空手姿态与阶段2原生slash左手修整已收件并经Root看图接受，当前制作近身正劈五关键姿态。正式组合与发布由Root处理。
+**阶段3收尾，阶段4已续派。** 按clip空手姿态及原生slash左手避刀方向通过Root可见审阅，五关键姿态仍需战斗站姿与完整动力链。当前制作同一记正劈的连续动作候选，正式接入由Root统一完成。
 
 ## 上一轮成果与Root review
 
@@ -160,3 +160,59 @@ Root负责同步迁移manifest与底层校正配置。新的按clip空手姿态�
 ## 当前阶段3执行项
 
 责任目录增加hand-poses/attack-keyposes，已交公共源码冻结。以现有78骨制作守势、引刀、接触、随势、回守五关键姿态，标实际DAO刀尖、目标守位高度／距离、脚接触和头部朝向。先评审可见姿态，再细化完整clip。Root负责接入动作映射与代理。若Root在集成，可独立测现有idle／walk／turn的脚滑与收势基线。
+
+## 阶段3回报
+
+**阶段结束，等待Root review，本回合结束。** 五关键姿态GLB、三视角图与专项验证已完成并目视核对。图像地面已由错误的-1m校正到真实LBS足底约0m，完整三视角重新渲染。本阶段超过30分钟，追加修正覆盖引刀护手近头、近似接触点、STEP求值及图像地面偏低。
+
+### 身份与制作参数
+
+输入为原78骨raw rig、首阶段78骨idle@1.0、阶段2slash与固定native slash@2.117抓握参考。完整源SHA见 `hand-poses/attack-keyposes/candidate/metadata.json`。骨架rest、骨长、skin、weights、IBM、材质及DAO原尺寸保持。actor标定1.78m，prepared glTF为+Y向上、+Z向前、+X角色左，骨盆水平移到原点。
+
+- raw为 `candidate/overhead_keyposes_raw.glb`，SHA-256 `d6e3da9550aa1c5a8c5ca197736e92ea04104f061464c2a60b0f30d496e3ce61`。右15指保持native抓握，右校正UNBAKED。
+- preview为 `candidate/overhead_keyposes_preview.glb`，19,423,568字节，SHA-256 `e77307bfb139e8df291194ebf10e48e741d7c86164797beca6ce6bf9024b9eb0`。原8项右指修正执行一次。
+- 全部234条轨为STEP，只有五个独立关键姿态hold。刀尖虚线连接表达五点间弦线。
+
+| 姿态 | 建议秒 | 腰颈前倾 | 右腕目标(x,y,z)m | 实际刀尖(x,y,z)m |
+| --- | --- | --- | --- | --- |
+| 守势 | 0.00 | 5° | (-.13,1.27,.27) | (-.160,1.968,.786) |
+| 引刀 | 0.65 | 8° | (-.13,1.60,.14) | (-.160,2.060,-.596) |
+| 触目标守位 | 0.90 | 12° | (-.06,1.43,.33) | (-.090,1.285,1.186) |
+| 随势 | 1.10 | 14° | (-.10,1.08,.28) | (-.130,.574,.985) |
+| 回守 | 1.75 | 5° | (-.13,1.27,.27) | (-.160,1.968,.786) |
+
+建议沿用OVERHEAD预650／起250／有200／收650ms。头朝对手眼位(0,1.58,1.05)，空手位于角色左胸前外侧。肩肘腕用两骨解析IK求解，刀轴及实际DAO source+X刃向分别约束。原native有效段前倾约59至69°，本轮五姿态为5至14°。
+
+实际守位接触是 `Steel | sharpened edge` 表面点 `(-.09006450,1.36361861,.90)`，高度约1.364m、前向距离0.90m、水平距离约0.9045m。原刀根至刀尖弦线交点偏离表面约4.505mm，已独立标为approx。红标记采用真实刀面点。守位框是空间参考，尚未绑定对手实体。
+
+### 验证与修正
+
+`build_keyposes.py`、`verify_keyposes.py` 已实际运行通过，12项无效输入回归通过，覆盖源身份、无效／重复时刻、不可达IK、退化方向及非法参数。右指T/S直接取原native采样，preview从raw重建一次右校正后全部234轨匹配。源和校正配置未改共享文件。
+
+腰颈角、Head相对rest的真实注视向、刀轴与刃向均实测核对，双腕误差小于1微米。下肢轨跨五姿态同值，脚关节位移0。真实LBS左足底约0m、右足底约4.564mm。非指T/S相对idle最大浮点差约3.576e-7，本轮保留该数值边界。
+
+原引刀护手距头部仅1.266mm，右腕向角色右侧外移3cm后，最终间距约30.318mm。五姿态左手及头颈对实际整刀均为0个BVH候选、0对已确认三角面交叉，左手最小采样间距约197.717mm。见 [表面检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/candidate/surface_review.json)和[专项验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/candidate/verification.json)。
+
+STEP使用实际float32关键时刻。名义1.1秒存储为1.10000002384秒，渲染在实际key之后微移1e-5秒，避免误取接触姿态。
+
+### 待review边界
+
+本轮自行选择表中腕位、刃向、前倾和建议时点。连续过渡、速度、完整动力链、重心转移、脚底滑移及设备表现待完整clip验证。下肢当前沿用idle窄站距，右足底约4.56mm离地，均需参与下一轮姿态review。Root审过五姿态后再细化动作与同步映射／代理。
+
+## Root阶段3 review与阶段4续派
+
+Root已查看五姿态三视角最终板。接受收敛腰颈前倾、明确上方引刀、开放护身掌和真实刀面接触标记。当前只能作为姿态草案，下肢窄站距且全程固定，重心与肩腰几乎没有出刀过程，动作仍显僵硬。STEP资源保留制作审阅用途。
+
+阶段4在attack-keyposes/stage4制作同一记正劈的连续动作候选。先把五姿态修成可用的战斗站姿，合理前后脚及横向间距、屈膝、骨盆与肩部先后带动，双脚实际足底落地。保持身高、刀长、握点和原rest／IBM，落脚依据真实蒙皮足底。上身已有刀面方向与护手离头距离继续维持。站距和转体幅度先以自然可见性决定并记录，不用微小IK误差替代动作表达。
+
+交v2三视角板并做离线自审后可独立继续完整clip，无需等待Root回复。连续片段保留约650／250／200／650ms的四阶段建议，明确刀尖轨迹和接触点，做引刀减速、挥出加速、随势减速与回守过渡。使用标准可加载TRS曲线和采样，移除五姿态STEP播放的正式用途。交raw单clip、一次右指校正的带刀预览及正／侧短片，标明身体动力链、脚底接触、源时间到游戏阶段的映射。相邻关键姿态之间必须检查实际左手／头颈与DAO关系，补间不能只凭端点通过。
+
+先收口当前阶段报告与文件，随后执行阶段4。公共producer当前交付保持冻结，正式动作接线与战斗代理由Root统一整合。其他会话并行，保留其编辑。新动作只服务既有OVERHEAD能力。30分钟交第一项可见进展，阶段完成后可独立量测idle／walk／turn脚滑，不空等Root。
+
+### 视觉交付
+
+- [五关键姿态三视角总板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/review/overhead_keyposes_three_view_board.png)，已目视五姿态全部15个视图，统一世界相机与比例，地面0.25m网格。
+- [真实刀尖五点弦线图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/review/actual_blade_tip_keypose_chords.png)，侧面／正面／顶面投影，标真实刀刃接触点。
+- [姿态参数](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/candidate/keypose_parameters.json)与[渲染身份及采样](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/review/render_manifest.json)，每姿态另有独立三视角图。
+
+最终图地面高度为约8.1e-9m，框景限定实际TripoBody_Mesh，脚圈投影在地面上方8mm用于可读标注。随势已按真实1.10000002384秒之后求值，图中刀尖向下，右腕高1.08m。
