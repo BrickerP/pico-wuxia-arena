@@ -20,7 +20,7 @@
 - [ ] 世界空间伤害跳字、独立飞溅粒子与精修动作／人物／环境的正式组合。
 - [ ] 真实桌面键到虚拟头手、共享判定与扣血的完整证明，三轮流程与Space Pro性能验收。
 
-本轮最新本地APK为artifacts/combat-polish/wuxia-arena-feedback-debug.apk，SHA-256为365e7749c7649311712ff321c0e7c7186b451ff7121595708592e0f6e7a87aec。首版启动图first-build-ready.png对应此前60649300…APK，只证明模型／场景与新呈现器初始化，图中没有触发命中特效。当前角色仍为正式53b80e71…基线，新动作与局部网格候选继续由Root组合审核。整局自玩按用户要求后置。
+本轮最新本地APK为artifacts/combat-polish/wuxia-arena-feedback-debug.apk，SHA-256为365e7749c7649311712ff321c0e7c7186b451ff7121595708592e0f6e7a87aec，已安装启动到emulator-5554。单次90秒上限观察记录场景／角色加载，未见应用FATAL EXCEPTION。[最新实际画面](../ArtSource/refinement/presentation/combat-feedback-outcome.png)取图时处于第2轮失败结算，属于现场状态；它没有记录一次受控命中，不能据此验收白闪、刀光或慢动作。[构建与取图身份](../ArtSource/refinement/presentation/combat-feedback-verification.json)保留SHA与边界。首版first-build-ready.png属于此前60649300…APK。首轮人物仍为正式53b80e71…基线，新动作与局部网格候选继续由Root组合审核。整局自玩按用户要求后置。
 
 主题为中式写实PVE刀术短竞技场，手感优先、视觉其次，终端为Space Pro／OS6，技术栈为Kotlin + PICO Spatial SDK6.1.9。当前精修沿同一酒馆院落和三轮试炼推进，集中在人物近景、握持穿插、动作接触、特效与声音触觉。
 

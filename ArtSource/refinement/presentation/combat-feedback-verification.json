@@ -1,0 +1,14 @@
+{
+  "apk_sha256": "365e7749c7649311712ff321c0e7c7186b451ff7121595708592e0f6e7a87aec",
+  "target": "emulator-5554",
+  "scene_attached": true,
+  "fatal_exception_seen": false,
+  "unit_tests": 57,
+  "failures": 0,
+  "skipped": 0,
+  "capture": "combat-feedback-outcome.png",
+  "controlled_feedback_capture": false,
+  "observed_state": "DEFEAT",
+  "observed_round": 2,
+  "source_commit": "c363f2e14bfe046b2a3c1d1b2014c7681df58e71"
+}
