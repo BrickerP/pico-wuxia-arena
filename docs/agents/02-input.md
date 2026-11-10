@@ -1,5 +1,11 @@
 # 输入与动作反馈交付
 
+## GitHub任务入口
+
+[V1 #3](https://github.com/BrickerP/pico-wuxia-arena/issues/3) · [V3 #5](https://github.com/BrickerP/pico-wuxia-arena/issues/5)
+
+任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+
 ## 当前范围与职责
 
 输入继续共用 `TrackingEventBuffer → TrackingState → ArenaSession → PlayerCombatResolver`。设备动作与桌面预演进入同一判定器，主控统一整合、编译和后续设备验收。技术栈为Kotlin + PICO Spatial SDK6.1.9，Space Pro／OS6，桌面入口为PICO模拟器。
@@ -51,4 +57,4 @@ WASD、Q/E和右键保留模拟器相机操作。设备模式的攻击、格挡�
 - 按主控与01协调，新增enemyHitZone，只在实际PLAYER_HIT新反应时记录本次strike.zone。护身受击不覆盖已有部位，弹反清空，离开HIT、重开和下一轮清空；纯用户暂停保留冻结中的真实反应，追踪恢复改回IDLE时清空。该字段供01动作选择消费。
 - 设计IR与内嵌预览同步到revision16，展示前推后气势为0且待复位的真实状态组合，receipt继续标记当前编译和验证待主控整合。
 
-本轮已做代码条件与生命周期的静态复审，未运行编译、测试、浏览器、模拟器或设备。主控后续重点复核同一tick头部命中后提示覆盖、技能释放后收势提示、暂停恢复与旧锁存撤销。源码交付完成，由主控继续审核合入。
+本轮已做代码条件与生命周期的静态复审，未运行编译、测试、浏览器、模拟器或设备。主控后续重点复核同一tick头部命中后提示覆盖、技能释放后收势提示、暂停恢复与旧锁存撤销。源码已完成主控复审、编译与合入。

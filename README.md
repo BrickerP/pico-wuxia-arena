@@ -2,7 +2,35 @@
 
 面向 PICO Space Pro／OS 6 的中式 PvE 刀术竞技场 Demo，采用 Kotlin + PICO Spatial SDK 6.1.9。体验围绕酒馆院落、一把刀与三名依次上场的刀客展开，单次试炼连续三轮，共用180秒战斗时限。
 
-本轮已补齐游戏链路的代码实现。主控已完成 `:app:assembleDebug --offline` 编译打包，按用户要求，本轮未运行自测、测试套件、模拟器操作或真机验收。运行完成度与手感仍需后续验收，详见[验收清单](docs/acceptance.md)。
+## 当前开发节点
+
+当前开发预发行节点为 `checkpoint-2026-11-10`，提供安装包、角色动作短片与院落制作图。代码基线为 `8020076`，APK已编译打包，约71.7MiB。[下载开发节点](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/checkpoint-2026-11-10) · [源码基线](https://github.com/BrickerP/pico-wuxia-arena/commit/80200763013ffd5c020185ee016c3ae74d60f9f9)
+
+| 工作节点 | 当前交付 |
+| --- | --- |
+| 玩法实现 | 三轮交战、玩家资源、攻防判定、胜负与重开已接入代码 |
+| 人物动作 | 三名78骨刀客，每人8份资源，其中7份用于当前播放，已接入步法、分部位受击与两段处决 |
+| 场景与呈现 | 六个院落细节模块、四类节点特效与HUD revision16已集成 |
+| 精修与review | 已修正受击部位覆盖、收势提示、破防反馈和腕后漂浮，仍有局部手指交叠与足底接触待优化 |
+| 运行验收 | 真实键盘、Full Stage画面、三轮现场操作及Space Pro体验待后续阶段完成 |
+
+当前节点完成静态review、离线资产制作核对和编译打包。附带图片及动作视频为离线制作展示，实际游戏运行结果记录在[验收清单](docs/acceptance.md)。
+
+## 当前节点之后的待办
+
+[M1 · 可验收短 Demo](https://github.com/BrickerP/pico-wuxia-arena/milestone/1)统一跟踪以下7项剩余工作。任务状态、完成条件和依赖维护在各Issue，验收事实维护在[验收清单](docs/acceptance.md)，四份[工程交接](#交付与验收)维护实现与review细节。
+
+当前先推进D1、D2开发精修，V1–V4进入运行验收阶段后执行，R1在验收通过后交付。
+
+| 编号 | 阶段 | 优先级 | 任务入口 | 前置 |
+| --- | --- | --- | --- | --- |
+| D1 | 当前开发 | P1 | [精修三角色手指握持、非持刀手与局部穿插](https://github.com/BrickerP/pico-wuxia-arena/issues/1) | 当前资产基线 |
+| D2 | 当前开发 | P1 | [完善转身、停步、足底接触与处决收势编排](https://github.com/BrickerP/pico-wuxia-arena/issues/2) | 当前资产基线 |
+| V1 | 后续验收 | P0 | [验收模拟器真实键盘到虚拟头手及共享战斗判定](https://github.com/BrickerP/pico-wuxia-arena/issues/3) | #1、#2 |
+| V2 | 后续验收 | P0 | [验收Full Stage三角色、节点特效、HUD及移动画面](https://github.com/BrickerP/pico-wuxia-arena/issues/4) | #3 |
+| V3 | 后续验收 | P0 | [跑通三轮胜负、暂停恢复、重开与生命周期](https://github.com/BrickerP/pico-wuxia-arena/issues/5) | #3、#4 |
+| V4 | 后续验收 | P1 | [完成Space Pro手感、舒适度与性能校准](https://github.com/BrickerP/pico-wuxia-arena/issues/6) | #5 |
+| R1 | 验收后交付 | P1 | [发布可验收候选包与PICO参赛提交材料](https://github.com/BrickerP/pico-wuxia-arena/issues/7) | #5、#6 |
 
 ## 产品立场与主题
 

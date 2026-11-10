@@ -1,5 +1,11 @@
 # 当前实现与后续验收交付
 
+## GitHub任务入口
+
+[V1 #3](https://github.com/BrickerP/pico-wuxia-arena/issues/3) · [V2 #4](https://github.com/BrickerP/pico-wuxia-arena/issues/4) · [V3 #5](https://github.com/BrickerP/pico-wuxia-arena/issues/5) · [V4 #6](https://github.com/BrickerP/pico-wuxia-arena/issues/6) · [R1 #7](https://github.com/BrickerP/pico-wuxia-arena/issues/7)
+
+任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+
 ## 当前范围与职责
 
 本轮用户要求扩充可用人物、场景、UI、动作和特效，尤其提高动作精细程度。主控负责唯一仓库审核与合入，协作者交付后结束。按用户要求，本轮专注开发与必要编译，设备操作、游戏自测和测试套件保持待验收。
@@ -64,7 +70,7 @@
 
 ## 当前轮源码复审结论
 
-01／02实现已完成独立只读复审，静态结论为APPROVE。主控统一完成后续编译与合入。
+01／02实现已完成独立只读复审，静态结论为APPROVE。主控已完成统一编译与合入。
 
 - 真实新受击反应在Session保存enemyHitZone，守护命中不覆盖，弹反、离开HIT与各类清局按状态撤销。Animator使用守势、弹反、稳定部位的优先级。
 - 动画校验与repeat创建处于同一清理边界，初始化失败时释放导入资源与派生资源，保留原始异常。

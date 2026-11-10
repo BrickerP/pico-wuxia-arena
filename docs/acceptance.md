@@ -2,6 +2,8 @@
 
 ## 当前交付状态
 
+[当前开发节点与下载](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/checkpoint-2026-11-10) · [后续里程碑](https://github.com/BrickerP/pico-wuxia-arena/milestone/1) · [全部待办](https://github.com/BrickerP/pico-wuxia-arena/issues)
+
 主题为中式写实PVE刀术短竞技场，手感优先、视觉其次，终端为Space Pro／OS6，技术栈为Kotlin + PICO Spatial SDK6.1.9。本轮按用户要求扩充可用人物、场景、UI、动作与特效，仍围绕同一酒馆院落和三轮试炼。
 
 以下勾选表示资产和代码已接入。主控已完成包含玄甲头部修订模型的整合版编译打包。本轮没有运行游戏自测、测试套件、模拟器或真机验收。

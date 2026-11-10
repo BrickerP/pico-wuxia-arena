@@ -1,5 +1,11 @@
 # 战斗与动作交付
 
+## GitHub任务入口
+
+[D2 #2](https://github.com/BrickerP/pico-wuxia-arena/issues/2) · [V3 #5](https://github.com/BrickerP/pico-wuxia-arena/issues/5)
+
+任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+
 ## 当前范围与职责
 
 主控负责唯一仓库 `/Users/yupeng/projects/personal/pico-wuxia-arena` 的审核与合入。目标为Kotlin + PICO Spatial SDK6.1.9、Space Pro／OS6的中式PVE短竞技场。本轮扩充三名顺序对手的动作表现，三轮、单刀与同一套攻防规则继续承担主流程。
@@ -38,7 +44,7 @@
 
 ## 本轮新增交付与review
 
-当前阶段已完成，交主控统一整合。实现范围仅 `content/EnemyAnimator.kt` 与本交接文件。
+当前阶段已由主控审核、编译并合入。实现范围仅 `content/EnemyAnimator.kt` 与本交接文件。
 
 - 受击片段改为读取状态层按真实受击事件锁定的 `enemyHitZone`。头部命中保持 `hit_head`，LOW_STAMINA、LOW_FOCUS等瞬时提示独立于受击选择显示。新的 `HitReactionStarted`继续重启相应反应，护身守势与PARRIED仍读取真实状态。
 - 此字段由02阶段在 `ArenaSession` 投影。普通真实受击记录本次strike.zone，技能采用BODY，守护伤害保留当前反应，离开HIT和清局撤销。Animator沿同一状态来源选择片段，迟注册和暂停恢复直接使用当前锁定值。

@@ -1,5 +1,11 @@
 # 角色、场景与特效交付
 
+## GitHub任务入口
+
+[D1 #1](https://github.com/BrickerP/pico-wuxia-arena/issues/1) · [D2 #2](https://github.com/BrickerP/pico-wuxia-arena/issues/2) · [V2 #4](https://github.com/BrickerP/pico-wuxia-arena/issues/4)
+
+任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+
 ## 当前范围与职责
 
 中式写实酒馆院落、一把DAO与三名依次上场的刀客构成本轮内容。角色使用ov区域Tripo CLI与 `tripo-v3.1` 来源，角色整理围绕米制、轴向、原点、握点、重定向和DAO对齐，主控统一审核、发布与合入。技术栈为Kotlin + PICO Spatial SDK6.1.9，终端为Space Pro／OS6。
@@ -72,4 +78,4 @@
 
 数值源为 `review/grip_refinement.json`，含逐姿态、全段刀尖及最终运行副本身份。生产入口为 `refine_character_grips.py`，校准发布继续使用 `prepare_character_library.py`。`review/indigo_grip_before.png`与`indigo_grip_after.png`、`veteran_grip_before.png`与`veteran_grip_after.png`为同机位实际GLB离线近景。根场景中的握持、近身视觉接触和剩余穿插继续待游戏及Space Pro验收。
 
-本阶段已结束，交主控复审与合入。本轮完成离线资产生产及发布，游戏自测、测试套件与设备验收均待主控后续执行。
+本阶段已完成主控复审与合入。本轮完成离线资产生产及发布，游戏自测、测试套件与设备验收均待主控后续执行。
