@@ -1,137 +1,162 @@
-# 精修攻击动作与命中接触
+# 01 · 按动作与手别精修手姿
 
-## 本轮目标
+## 当前状态
 
-解决攻击接触发飘、命中短停和受击反应弱的问题，围绕现有短竞技场做定向修复。主控统一设备、构建、审核和合入。
+**阶段3执行中。** 阶段1按clip空手姿态与阶段2原生slash左手修整已收件并经Root看图接受，当前制作近身正劈五关键姿态。正式组合与发布由Root处理。
 
-## 责任与文件
+## 上一轮成果与Root review
 
-本会话负责 PlayerCombatResolver.kt、ArenaSession.kt、EnemyAnimator.kt、ArenaOpponents.kt、ArtSource/refinement/motion/ 和本文件。Main.kt与HomeStage.kt由主控集成。其它会话正在并行，不回退其改动。
+已发布60k主角、8份动作资源、接触姿态短停／反冲与角色代理。上一轮数学转移和数据校验充分，但七段重定向资源统一锁定双手30根指骨为slash@2.117秒，待机／行走／受击时空手也保持抓握。这是本轮首先移除的旧机制。
 
-## 共享接触合同
+## 文件所有权
 
-主控已建立 core/combat/CombatImpact.kt，继承EnemyCombatEvent。字段包括id、kind、Stage米制point、normal、0到1的strength、hand和atNanos。物理呈现按此独立事件消费，UI反馈继续承担提示。
+负责ArtSource/tripo-warrior/prepare_character_library.py中手姿采样／重定向逻辑、ArtSource/refinement/hand-poses/和本文件。prepare_rigged_warrior.py、motion_library.json、正式library/app模型与全部Kotlin运行代码由Root维护。02会话只做分区蒙皮候选，04只做场景配光。
 
-- 只对已接受的真实命中、防御、弹反、技能、处决和玩家受击产生一次事件，包含同一批处理中的全部接触。
-- 接触位置取对应的输入帧与判定几何，法线与方向保持可复现。低气势、距离不足等提示继续作为UI结果。
-- 现有特效读取单个最终feedback会丢掉同帧接触，需移除该依赖；普通击中当前只显示手边刀弧，需要补充真正接触点信息。
-- 保留动作识别阈值和既有三轮规则。增加呈现强度、可读的敌人受击短停和反冲，保持玩家头手实时追踪。
-- 核对固定躯干／头部代理与前俯动作之间的偏差。优先给出制作数据和最小修正，避免只扩大碰撞范围。
+## 本轮任务
 
-## 交付与审核
+1. 冻结并记录当前base输入，输出现有idle、walk、hit、slash的双手基线近景与明确缺陷。
+2. 将手姿按手别及实际clip组织。右手围绕DAO保留稳定抓握；空手左手制作放松、护身或受击对应姿态，动作意图先在关键姿态图中表达。
+3. 优先完成idle、walk和受击的空手改善，保持现有body轨迹、rest、骨长和出招时标。必要的新数据直接服务这些clip，移除统一双手锁姿路径，不叠加旧／新兼容机制。
+4. 在独立候选目录生成8clip角色，禁止调用会覆盖全局library/app的build_library入口。可以复用retarget_clip和底层prepare_character，输出路径全部指向hand-poses。
+5. 原生slash有需要时另列局部修正及前后姿态，源接触标记变化交Root同步运行映射。先把已确认的空手问题做完整。
 
-交付可编译源码、接触字段说明、关键姿态与前后片段、剩余边界。先做单次接触的专项观感核对，完整游戏与真机验收继续分开记录。设备与视口操作由主控独占。
+## 审核产物
 
-30分钟内交付一个阶段。阶段结束写明已完成文件和剩余事项并结束，由主控直接取产物复审。只在主仓库工作，不提交或推送，不创建副本，不进行无限等待或日志轮询。
+一个候选GLB、按clip／手别的姿态数据、前后同机位双手图和短片、源时标／骨架／非目标轨迹检查。新的手姿逻辑补正常路径和无效输入边界的离线专项验证。明确仍有的穿插和手形问题，实际图片参与验收。
 
-## 本轮接口进展
+## 下游
 
-当前主链已把MotionStrike的接触见证随输入帧保留。命中点来自该次扫掠采样的既有头/躯干胶囊表面，法线为代理轴指向刀的单位方向。技能与处决沿既有范围裁定，点位定义为该动作输入帧到目标身体胶囊的投影。防御沿既有guard规则取该帧刀线上的接刀点，玩家受击取当前头代理朝向来袭方向的表面点。UI提示继续更新feedback，独立CombatImpact进入同一事件批次。
+02的首阶段只修肩腋、袖口、腰胯和衣摆相关区域，手部权重先诊断。Root整合新蒙皮后，由本会话再复核手柄接触；本阶段使用当前固定基线独立完成。
 
-新增只读呈现字段 `ArenaViewState.enemyRecoilOffset: Vector3` 为Stage米制反冲偏移，主控在HomeStage将其与enemyPosition合成后呈现。当前为短停结束后220ms的平滑反冲回落，最大幅度0.08m，使用试炼时间因而随主动暂停冻结。玩家手presenter继续使用实时观察，不进入NPC短停。
+## 共同执行约束
 
-CombatImpact的id在ArenaSession生命周期内递增，三轮与重开均不复用。atNanos沿用状态机模拟时钟，strength按已接受伤害/技能强度归一化到0至1，hand取原动作帧持刀手。特效、声音和触觉各自按id消费全部事件，不能再以最终feedback替代物理接触。
+唯一工作仓库为 /Users/yupeng/projects/personal/pico-wuxia-arena。当前模型基线为main的cc12bf1，base.glb SHA为53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641。运行栈为Kotlin + PICO Spatial SDK6.1.9，终端Space Pro／OS6。
 
-## 第一阶段交付
+其他会话正在同一仓库并行。各自只修改责任范围，保留其他人的编辑。Git提交、分支、合入、共享构建、设备操作、实际截图与正式模型发布由Root统一负责。候选输出留在各自目录，library、app角色与公共manifest由Root发布。
 
-**阶段结束，交主控 review，本回合结束。** 本轮产物已直接保留于主仓库，未提交或推送。按主控调度，统一编译、测试和单次接触的实际画面由主控随后执行。
+本轮允许离线资产生成、渲染及专项制作检查。游戏整局自测继续后置。30分钟内交付首阶段实物，写明“阶段结束”、输入SHA、文件、效果、剩余问题与下一步建议后结束当前回合。遇到阻塞先交已做出的部分并写明具体阻塞，继续能独立完成的工作。用当前模型和已安装依赖推进，不为等审批或等待其他线程维持空转。
 
-| 文件 | 本轮成果 |
-| --- | --- |
-| `core/combat/PlayerCombatResolver.kt` | MotionStrike携带独立MotionContact，保留原命中分区/去重和识别阈值，PlayerMotionFrame保留真实手别与该帧目标代理姿态 |
-| `runtime/ArenaSession.kt` | 仅已接受动作生成CombatImpact，拒绝提示不发物理事件，同批保留全部接触，独立NPC短停与Stage反冲，玩家手位持续按输入更新 |
-| `content/EnemyAnimator.kt` | 命中/防御短停期间先保留当前控制器姿态，延后受击/倒地clip切换，结束后消费保留的受击重启意图，强命中受击过渡25至55ms |
-| `runtime/ArenaOpponents.kt` | 三角色独立slash代理曲线，phase到源秒映射与Animator一致，三轮名称、资源及规则保持原值 |
-| `ArtSource/refinement/motion/` | 源姿态数据、63点Blender独立核对、可复查脚本和离线代理前后对照 |
-| 两个新增专项测试文件 | 7项覆盖表面见证/单位法线/手别、重复与过期输入、指定姿态移动代理、无效几何拒绝、同批UI提示覆盖及拒绝动作不发Impact |
+## 阶段回报
 
-### 短停与代理时标
+**阶段结束，等待Root review，本回合结束。** 本轮已交实际8clip候选及同机位双手前后图、真实walk短片，未覆盖正式library/app角色。
 
-命中前读取当前NPC阶段对应的代理姿态，接受命中后将该姿态的角色根相对三点锁存于短停区间。Animator在同一hitStop区间暂停现有控制器，结束后再进入新受击动作。反冲偏移在短停结束后起效，代理与显示均叠加同一enemyRecoilOffset。主控已在HomeStage合成展示位置，并在Main的HUD差异比较中排除该帧级偏移。
+### 固定输入与候选
 
-普通命中短停60ms、头部强命中80ms，防御35ms、弹反90ms、技能和处决110ms。修改属于NPC呈现停顿，识别速度、行程、冷却、气势/体力、伤害和三轮规则保持原值。新接触产生的短停会在同一推进循环中立即消费，避免先跨过接触再等待下一帧。
+- 固定输入为 `app/src/main/assets/models/opponents/base.glb`，SHA-256 `53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641`，阶段末再次核对相同。
+- 主候选为 `ArtSource/refinement/hand-poses/candidate/base_hand_poses.glb`，23,000,772字节，SHA-256 `df08f96a25b34d0f499489f8c40767c9a626ce466786fa8b178339e5fe0ced12`。中间retarget片段与身体版本均留在同一候选目录，Root以该主候选及metadata取产物。
+- 修改了 `prepare_character_library.py` 的手姿路径，移除 `fixed_grip_pose` 的统一双手锁姿入口。新路径先取native参考，再逐clip给右15指保留抓握、左15指独立旋转包络。其它身体重定向分支保持原逻辑。
 
-### 前俯最小修正与实际证据
+### 按clip与手别的制作结果
 
-原固定头代理在base slash源2.167s仍为 `(0,1.62,0)`，校准骨锚点为约 `(-.291286,1.034164,.551952)`。当前保持头半径0.16m、身体半径0.24m，仅按三个角色自己的关键姿态移动头、躯干上下端，并按NPC yaw转到Stage。短停沿用命中前代理，护刀HIT采用Animator同一slash准备姿态。
+| clip | 左手 | 右手 |
+| --- | --- | --- |
+| idle | 轻松微屈，curl权重0.18→0.22→0.18 | 保留已审native抓握 |
+| walk | 自然随臂，0.22→0.30→0.22 | 保留已审native抓握 |
+| turn | 稍屈护身，0.20→0.28→0.20 | 保留已审native抓握 |
+| hit_body | 展开护胸并回落，0.18→0.52→0.32→0.18 | 保留已审native抓握 |
+| hit_head | 更开放的护头掌，0.18→0.10→0.16→0.18 | 保留已审native抓握 |
+| hit_side | 柔和护身，0.18→0.38→0.26→0.18 | 保留已审native抓握 |
+| fall | 空手逐步松开，0.18→0.12→0.04 | 本阶段继续保留抓握 |
+| slash | 保留原生曲线与时标，另列剩余局部问题 | 保留原生及已审修正 |
 
-初次离线交叉核对暴露Blender骨局部轴重定向及NLA一帧偏置，脚本已修正后重新验证。三角色7姿态×3代理共63点最大差为base `3.63e-7m`、indigo `8.76e-7m`、veteran `4.63e-7m`。这是源骨锚点求值一致性证据，骨锚点不是蒙皮表面，七点间线性插值也没有全区间误差上界。
+左指从本角色rest旋转向本角色native curl插值，拇指混合系数为表中权重的0.55。参数、各关键比例及源SHA见 `candidate/hand_pose_policies.json`。idle/walk近景显示左手从虚握拳改为放松下垂，hit_body左手由拳形改为展开护胸，右手与DAO接触保持原基线。
 
-### 静态核对与剩余验收
+### 正常与边界验证
 
-本轮所有负责源码与新增测试的 `git diff --check` 通过，源数据和Blender复核实际执行。新增7项测试尚未由本会话运行，需主控统一执行。Arena协调测试含明确标注的反射夹具，只验证事件批次契约。
+已在Blender Python中实际执行 `build_candidate.py` 与 `verify_candidate.py`，只调用现有retarget与底层prepare_character，全部输出指向hand-poses，未调用全局build_library。
 
-尚待主控核对单次接触的实际短停/受击过渡、NPC反冲幅度、前俯代理与SDK运行姿态，以及音效/特效/触觉对每个Impact的一次消费。hurt/fall和跨clip混合的代理仍沿原有基准，当前只修正已有slash前俯主链。技能/处决点为既有范围动作的投影，不能解释为刀刃扫掠碰撞点。当前静态角色曲线不自动适用于换资源或新增动作，资源哈希改变时须重新量测。本轮未新增收费任务，60credits额外动作预算未使用。
+- 8clip名称、输入时标、采样数量与基线相同。七段动作各15条左指rotation改变，其它动画轨迹逐通道最大差为0，含身体/手腕、右指和左指translation/scale。原生slash全部轨迹最大差为0。
+- rest节点、骨长、skin/IBM、原mesh属性、weights及indices均与基线相同。
+- 11项无效输入检查实际拒绝，覆盖unknown clip、NaN/越界progress、缺指、奇异矩阵、target缺必要指骨、无效native采样时刻及输入SHA改变。变更SHA的失败路径没有写入候选。
+- 初版出现左指scale重分解的约1e-7舍入差，已改为直接沿用原native translation/scale并重新构建。最终版本的非目标轨迹严格同值。
 
-## 本轮额外动作预算
+完整结果见 `candidate/verification.json`。这是离线数据验证，皮肤穿插及游戏内表现仍由视觉和后续设备验收确认。
 
-当前已取得的Tripo动作库优先使用。确需更适合刀战的预置身体动作时，收费上限60credits，显式原rig task、原地动画、GLB，先dry-run后可在预算内执行。v1身体动作需重定向至各目标78骨并保持目标原生握持，不能以41骨替换最终角色。不要生成新模型或切换账号；网络参数与03合同一致，由主控统一维持。
+### 图像与短片验收
 
-## 主控接管后的 review 回应
+已目视核对idle、walk、hit_body和slash的双手近景，总图按每行同clip/源秒、前左/后左/前右/后右排列。每对冻结同一相机、光照、材质和尺寸，图及render_manifest均携带当前输入/候选身份。曾被衣摆/左手遮挡的idle与slash右手，已成对调整机位重渲以看清DAO柄。
 
-**文档更新阶段结束，本回合结束。** 主控已接管本阶段源码，后续源码、统一构建及专项验收由主控负责。本轮仅更新本文件。
+- [双手前后总图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/review/hands_before_after_contact_sheet.png)
+- [idle近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/review/idle_hands_before_after.png)
+- [hit_body近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/review/hit_body_hands_before_after.png)
+- [walk连续短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/review/walk_left_before_after.mp4)，源0.3至1.4秒，12帧、10fps、1.2秒、640×380，实际clip采样。另有GIF及明确标注为关键姿态翻页的reel。
 
-### HIGH 旧接触代理复用问题
+### raw／baked与合入边界
 
-主控发现 `resolveEnemyContact` 的BLOCK/PARRY分支在 `captureContactOffsets()` 之前设置了新的 `hitStopNanos`。此时 `enemyContactPose()` 已进入短停分支，而 `heldEnemyContactOffsets` 还可能保存上一击的数据，导致新接触错误锁存旧姿态。我此前的静态复审漏掉了这个跨击状态顺序问题。
+制作从manifest指定的raw rig和raw native slash重建。`candidate/retargeted` 七片段尚未应用旧finger/offhand校正。最终主候选已在八clip各执行一次原base的8项右指修正，共64条rotation轨，base没有offhand envelope。原生slash也只包含这一次原有右指修正。完整offset、clip与次数由alignment及hand_pose_policies交叉核对，Root不能再向最终候选叠同一校正。
 
-主控已删除这两处分支内的旧短停赋值，统一由 `emitImpact` 在当前代理采样及动作接受之后设置短停。我已只读核对当前源码的该顺序。预防规则为先采样本次未被新短停影响的姿态，再锁存并开启短停，不能用新短停标志选择尚未更新的held数据。后续针对回归应覆盖上一击held值仍存在、短停已结束、NPC姿态改变后再次BLOCK/PARRY的情况，检查锁存来自本击。
+Root正式迁移应仍从raw源制作，按clip分配已有校正，原生slash的必要校正保留一次。本轮只评审pinned base，另外两角色的旧左指offset与新姿态组合尚未评审。
 
-### 下一轮规划边界
+### 剩余问题与下一步
 
-下一轮等待主角色rig与slash运行资源稳定，再按该角色自身重新量测代理并交握持适配。已有三角色曲线继续以其源哈希为适用身份。
+原生slash约2.117秒仍有左手环握/贴近右腕的局部姿态，当前原生曲线与接触时标未改。右手已有的掌柄交叠沿基线保留，本轮未作全表面穿插证明。Root合并02分区蒙皮候选后，需要重看袖口、掌指与DAO接触及片段切换。本轮无新模型、收费、正式发布、游戏构建或设备操作，新增制作脚本及负责文件静态检查通过。
 
-1. 先记录最终运行GLB、rig及slash的哈希，核对身体叶节点、骨名/父链、蒙皮关系、归一化矩阵和实际clip时段。
-2. 用同一角色的idle校准头/躯干三点，在该角色自己的slash关键时段重新取样，沿现有求值脚本与Blender独立核对。代理数据、Animator源秒映射和运行GLB保持同一身份。
-3. 核对右手骨到 `HandGrip_R/Weapon_Root/Grip` 的完整变换及尺度，按现有握点和刀刃标记交适配数据。运行实体中的握持和源骨锚点仍需主控单次动作画面确认。
-4. 继续沿既有接触与三轮规则，保持判定阈值和玩家实时追踪。当前不引入新机制、收费任务或额外动作采买。
+## Root合入前审查补充
 
-本轮只确认主控修复的源码顺序，修复后的统一测试及实际接触画面结果由主控补充。
+新姿态的数据必须声明是否已经包含旧指姿／包络校正。正式重建以原始rig与原生slash采样为起点，每项校正只应用一次。主角本阶段可保留现有已审右手抓握，通过raw姿态加一次已审右手修正达成。
 
-## 主控合入review与下一轮
+Root负责同步迁移manifest与底层校正配置。新的按clip空手姿态取代对应旧的统一左手锁定／校正。原生slash当前仍需的修正保留一次，其数据与重定向片段分别组织。01先交候选和所需接口，正式输入以raw源重建。
 
-- 删除BLOCK／PARRY在采样接触姿态前设置hitStop的重复赋值，统一在emitImpact设置，修正下一次防御误用上一击锁存代理的问题。
-- 反冲取试炼时间加当前清场时间，致死命中与处决进入ROUND_CLEAR后仍能完成220ms回落，主动暂停继续冻结。
-- Main已接入逐Impact材质触觉，HomeStage已合成同一反冲偏移并增加接触点短脉冲灯光。
-- 本阶段先保留现有三角色源曲线。下一轮对通过角色review的新rig／slash独立量取代理并适配握持，发布身份与源哈希同步。hurt／fall与跨片段混合对齐仍待专项制作核对。
+## Root首阶段review与续派
 
-整合版已编译，末项反冲修正后由主控再次增量打包。新增专项测试尚未运行，现场动作观感仍待验收。
+已查看idle和hit_body双手前后图，接受本阶段空手改善，正式发布交Root迁移校准。阶段2执行原生slash左手护身意图与必要腕／前臂局部修整，raw曲线为源，保留右手／刀路和出招时标。交raw单clip与带刀预览，覆盖当前播放段及完整源中已知交叉，不以裁段替代修复。阶段2交付结果见下方回报。
 
-## 新 base60k 源适配交付（2026-11-10）
+## 阶段2范围与输入冻结
 
-**阶段结束，交主控 review，本回合结束。** 已按Root正式发布的新base运行GLB重算自身曲线，源码修改只涉及ArenaOpponents.kt的 `BASE_CONTACT_KEYS` 与base source SHA注释。以任务开始时文件为对照，该区块外的前缀、后缀逐字校验一致，包含现有bodyImpact字段、helper和另外两角色规则。
+本阶段责任增加 `ArtSource/refinement/slash-refinement/`，首阶段producer代码冻结在SHA-256 `76c0c9f5bb3cbdf1bea41d31b1291804e38b3d32f975778f4fdec80625160ec9`。原始slash仍取 `refined-base60k/slash.glb`，SHA-256 `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a`。带刀对照基线为首阶段候选 `df08f96a25b34d0f499489f8c40767c9a626ce466786fa8b178339e5fe0ced12`，其中slash与正式基线同值。
 
-### 发布身份与实际数据
+完整源0.033至6.6秒按30Hz检查实际刀面，在1.258至1.45秒及3.833至4秒加密到60Hz。固定基线出现26个离散刀面交叉姿态，最多61对三角面交叉。早段以左拇指并包含掌部为主，晚段以左小指为主。原数据见 `slash-refinement/surface_before.json`。
 
-| 来源 | SHA-256 |
-| --- | --- |
-| 运行 `app/src/main/assets/models/opponents/base.glb`，22,881,080字节，78关节/8动作 | `5ff55210dfbe9e10fbad1bf0d182424ae298bf009f9b845e9d307543302e0f3f` |
-| `ArtSource/tripo-warrior/refined-base60k/rig.glb` | `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6` |
-| `ArtSource/tripo-warrior/refined-base60k/slash.glb` | `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a` |
+## 阶段2回报
 
-继续在该角色idle源1.0s反求Head/Spine02/Hip局部校准点，按既有7个slash时点 `1.55/1.85/2.067/2.117/2.167/2.6/3.4` 取样。头半径0.16m、身体半径0.24m及phase映射保持原值。以下为新base源2.167s的角色根局部米制三点。
+**阶段结束，等待Root review，本回合结束。** 本轮完成原生slash的左手意图修整，完整源0.033333335至6.599999905秒保留。出招时标及接触映射沿用原值。
 
-| 代理 | X | Y | Z |
-| --- | --- | --- | --- |
-| head | -0.196727 | 1.068120 | 0.429588 |
-| bodyBottom | 0.054861 | 0.580817 | -0.407622 |
-| bodyTop | -0.117289 | 1.067601 | 0.205517 |
+### 交付与身份
 
-完整21点已写入BASE_CONTACT_KEYS和 `proxy_alignment_profiles.json` 的base对象。indigo/veteran的曲线、校准及来源字段前后deep-equal，本轮仅重算base。
+| 产物 | 字节数 | SHA-256 |
+| --- | --- | --- |
+| `slash-refinement/candidate/slash_guard_raw.glb` | 18,714,904 | `43e0ca0b0501f4be4dc066e045d1b60092e3bd65aea228bc3a2a32405f826391` |
+| `slash-refinement/candidate/slash_guard_preview.glb` | 19,537,320 | `34ced4fb666e17fa066e75c83baffbf8c3e37d5e6cfb15f49549a9bca6c98896` |
 
-### 离线验证与证据更新
+派生源已写入15条左指旋转和左前臂局部曲线，右指校正为UNBAKED。带刀预览从固定raw rig与该单clip派生源制作，原base的8项右指校正执行一次。左前臂修整已经包含在派生源内，合入时直接消费该曲线。完整记录见 [制作元数据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/candidate/slash_guard_metadata.json)，其中区分raw与preview、校正次数、输入快照和完成状态。
 
-- Blender 4.5.15独立核对新base的7姿态×3代理，共21点，最大差 `5.834325802543299e-7 m`，约0.583微米。结果记录包含本次运行源哈希，另外两角色明确标为保留既有结果。
-- Kotlin六位小数与全精度JSON逐点比对通过，最大向量舍入差 `6.685209215278777e-7 m`。时点、半径、区块外内容及Python语法检查通过，负责文件的 `git diff --check` 通过。
-- 已更新 `slash_contact_anchors.json`、`proxy_alignment_profiles.json`、`blender_crosscheck.json`、README及现有测量/Blender/绘图脚本。测量和核对脚本增加最小 `--actor base` 入口，后续可仅重算base。
-- 新PNG/SVG已生成并目视核对。绘图脚本从当前base数据和实际核对结果读取SHA与误差，旧base SHA硬编码已移除，SVG逐行trim whitespace检查通过。[离线前后对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/motion/proxy_alignment_sideview.png)
+### 姿态与局部修整
 
-本轮未修改模型、library/app资产、Main、HomeStage、ArenaSession或生产helper/manifest，未构建、游戏测试、设备操作、提交或产生收费。运行时蒙皮、crossfade与关键点间插值仍待主控专项核对，当前证据仅覆盖所列源身份与关键姿态。
+左指沿原生每帧curl与本角色rest旋转制作，权重在0.18至0.26间平滑变化，拇指乘0.55。准备、挥击和回收时空手保持开放护身掌，原2.117秒环状虚握已舒展。全部198个原始指轨采样时刻保留。
 
-## 参考流程review后的动作精修提案
+最初只改左指时，刀面交叉由26个姿态降至10个，晚段3.833至4秒已消除，早段掌部仍穿过刀面。随后只给 `L_Forearm` 加局部+Z6°，窗口为1.12／1.27／1.46／1.62秒，复用现有raised-cosine包络。方向试验中+4°已有零交叉，但最小采样间距约2.36mm；本轮选择+6°，最小约9.05mm。未增加L_Hand修整。配置见 `candidate/slash_wrist_policy.json`。
 
-整体依据见03的Kensei参考流程review。本地审计发现七段重定向资源把双手30根指骨固定为原生slash在2.117秒的同一握姿。这会将空手左手的意图一并固定，是下一轮要移除的统一锁姿机制。
+### 数据与失败回归
 
-手姿建议按手别和片段制作。持刀手围绕实际刀柄保持接触，空手在待机、移动、引刀和受击时有对应的放松或护身姿态。先在现有骨架上评审守势、引刀、击中、随势、收式五类关键姿态，再完成插值与衔接。
+实际执行 `refine_slash.py`、`verify_slash.py` 与 `audit_slash.py`，并独立复核最终文件的逐轨字节及SHA。
 
-制作数据包含脚底接触区间滑移、循环首尾差、最低点、重心变化和关节拉伸。制作pose检查与实际VR输入判定分别记录。源动作或接触时标发生变化时，由主控同步动画映射和动作代理，以同一来源数据发布。
+- raw与原始slash、preview与首阶段slash对比均只有15条左指rotation及1条左前臂rotation变化。其余218条轨逐字节相同，其中102条右侧轨相同。身体主轨迹、右手和同skin DAO轨迹保持原值。
+- 原始所有采样时刻及首尾范围保留。仅左前臂rotation从198增至220个采样，额外点服务短时平滑包络。指曲线与前臂公式最大分量误差均为0。
+- 节点rest、mesh、skin、weights、IBM、材质、纹理及刀绑定同值。正式base和首阶段producer SHA已再次核对。
+- 13项失败回归通过，覆盖错误源SHA、重复派生raw／baked、重复左指／前臂处理、重复曲线时刻、非有限时间／强度、越界强度、错误端点及空腕部配置。正常局部包络的内存回归通过。构建开始即清除旧验证结果，以in_progress／complete与产物SHA标识完整交付。
+- 固定源没有共享sampler，该隔离分支已做源码review。报告不将它计为实测回归。
+
+结果见 [专项验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/candidate/verification.json)。
+
+### 实际刀面与全源可见检查
+
+实际左手蒙皮对实际DAO三角面扫描覆盖完整源30Hz、两段已知交叉区间60Hz及指定关键时刻，共217个离散姿态。最终刀面和护手均为0个BVH交叉候选、0对已确认非共面三角面交叉，全部采样中左手顶点至刀表面最近间距约9.04967mm，出现在1.366667秒。各采样时刻没有交叉对数回归。见 [刀面对照数据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/surface_comparison.json)。
+
+已目视8个关键时刻的双视角同机位对照，以及全源54时刻的三张双视角mosaic。左手由虚握改为开放掌，早段拇指与晚段小指离开刀面。右手握柄与刀路视觉一致，采样中未见新增明显手形跳变。
+
+- [关键时刻双视角前后图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_contact_before_after.png)
+- [完整源双视角前后短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_full_source_before_after.mp4)，8fps、54帧、6.75秒，源0.033333335至6.599999905秒，保留最终端点。
+- [全源mosaic 1](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_full_source_before_after_mosaic_01.png)、[mosaic 2](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_full_source_before_after_mosaic_02.png)、[mosaic 3](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_full_source_before_after_mosaic_03.png)，覆盖全54个时刻。
+- [渲染方法与限制](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/slash-refinement/review/slash_visual_review.json)，记录相机、输入SHA、采样及近景刀尖出画等限制。旧partial与临时progress已清理。
+
+### 交Root的最小接口提案
+
+角色的 `grip_source` 继续绑定原raw native slash及2.117秒手姿参考。另设明确的 `slash_source` 绑定攻击播放源，base指向本轮派生raw与对应SHA，其它角色显式绑定各自原生源。库制作的slash打包改从 `slash_source` 取片段，七段重定向仍从 `grip_source` 采手姿。这样精修攻击左手不会改变其它clip的curl参考。manifest与底层迁移由Root执行。
+
+### 待review与验证边界
+
+本轮选择+6°前臂幅度及0.18至0.26的左指curl权重，动作意图与掌形交Root视觉review。刀面扫描和8fps图像均为离散源资产证据，连续时刻的全表面穿插及PICO运行时尚未验证。02新蒙皮合入后，需用同一动作重新核对袖口、手掌和刀面。正式发布、manifest迁移及运行构建交Root整合。
+
+## 当前阶段3执行项
+
+责任目录增加hand-poses/attack-keyposes，已交公共源码冻结。以现有78骨制作守势、引刀、接触、随势、回守五关键姿态，标实际DAO刀尖、目标守位高度／距离、脚接触和头部朝向。先评审可见姿态，再细化完整clip。Root负责接入动作映射与代理。若Root在集成，可独立测现有idle／walk／turn的脚滑与收势基线。

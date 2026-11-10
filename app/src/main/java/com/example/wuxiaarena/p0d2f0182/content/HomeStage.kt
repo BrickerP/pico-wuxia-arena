@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pico.spatial.core.ecs.AttachmentPanelComponent
 import com.pico.spatial.core.ecs.DirectionalLightComponent
+import com.pico.spatial.core.ecs.GroundShadowComponent
+import com.pico.spatial.core.ecs.ModelComponent
 import com.pico.spatial.core.ecs.PointLightComponent
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.TransformComponent
@@ -49,7 +51,16 @@ private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
 private const val HUD_WORLD_SCALE = 1.4f
 private const val ENEMY_STAGE_Z = -2.4f
-private val KEY_LIGHT_COLOR = Color4(0.82f, 0.88f, 1f, 1f)
+private val KEY_LIGHT_COLOR = Color4(0.92f, 0.95f, 1f, 1f)
+private const val KEY_LIGHT_LUX = 1100f
+// Local -Z travels down and into the arena: Stage ray (0.5014, -0.6217, -0.6017).
+private val KEY_LIGHT_ROTATION = Quat(-0.347382f, -0.280147f, 0f, 0.894899f)
+private val WARM_FILL_POSITION = Vector3(-1.30f, 1.80f, -1.10f)
+private const val WARM_FILL_LUMENS = 2300f
+private const val WARM_FILL_RADIUS_METERS = 4.2f
+private val COOL_FILL_POSITION = Vector3(1.25f, 1.65f, -1.55f)
+private const val COOL_FILL_LUMENS = 1300f
+private const val COOL_FILL_RADIUS_METERS = 4.0f
 
 private class SceneOwner(
     private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
@@ -172,10 +183,18 @@ private class SceneOwner(
         enemyModel = null
         contactLight = null
         panelAnchors.clear()
-        onPlayerHandPresenter(null)
-        onEnemyPresenter(null)
         enemyAnimator = null
         try {
+            try {
+                onPlayerHandPresenter(null)
+            } catch (error: Exception) {
+                Log.w(TAG, "Player presenter cleanup failed", error)
+            }
+            try {
+                onEnemyPresenter(null)
+            } catch (error: Exception) {
+                Log.w(TAG, "Arena presenter cleanup failed", error)
+            }
             for (animator in animators) {
                 try {
                     animator.close()
@@ -192,8 +211,11 @@ private class SceneOwner(
             }
             effects = null
         } finally {
-            onEnemyGeometry(null, 0.0)
-            if (current.valid) current.destroy()
+            try {
+                onEnemyGeometry(null, 0.0)
+            } finally {
+                if (current.valid) current.destroy()
+            }
         }
     }
 }
@@ -283,6 +305,10 @@ internal fun HomeStage(
             }
             transform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
             transform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+            bindGroundShadow(
+                checkNotNull(model.findEntity("Paving")) { "Tavern paving mesh is unavailable" },
+                casts = false, receives = true, label = "tavern paving",
+            )
 
             forecourt = Entity.loadSuspend(FORECOURT_ASSET)
             if (owner.root !== root) {
@@ -294,6 +320,10 @@ internal fun HomeStage(
             val pavingTransform = checkNotNull(forecourt.components[TransformComponent::class.java])
             pavingTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
             pavingTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+            bindGroundShadow(
+                checkNotNull(forecourt.findEntity("Paving")) { "Forecourt paving mesh is unavailable" },
+                casts = false, receives = true, label = "forecourt paving",
+            )
 
             details = Entity.loadSuspend(COURTYARD_DETAILS_ASSET)
             if (owner.root !== root) {
@@ -305,6 +335,10 @@ internal fun HomeStage(
             val detailsTransform = checkNotNull(details.components[TransformComponent::class.java])
             detailsTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, 0f), null))
             detailsTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+            bindGroundShadow(
+                checkNotNull(details.findEntity("SidePaving_Geometry")) { "Side paving mesh is unavailable" },
+                casts = false, receives = true, label = "side paving",
+            )
 
             for ((index, opponent) in arenaOpponents.withIndex()) {
                 enemyAttached = false
@@ -321,6 +355,7 @@ internal fun HomeStage(
                 }
                 enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, ENEMY_STAGE_Z), null))
                 enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
+                bindGroundShadow(enemy, casts = true, receives = false, label = opponent.name)
                 // The three rounds reuse loaded opponents. Only the current fighter is visible.
                 owner.animators += EnemyAnimator(enemy)
                 enemy.enabled = index == 0
@@ -349,31 +384,24 @@ internal fun HomeStage(
             Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
 
             light = Entity()
-            light.components.set(DirectionalLightComponent(KEY_LIGHT_COLOR, 750f))
+            check(root.addChild(light)) { "Could not attach scene light" }
+            lightAttached = true
+            light.components.set(DirectionalLightComponent(KEY_LIGHT_COLOR, KEY_LIGHT_LUX, castsShadowEnabled = false))
             val lightTransform = checkNotNull(light.components[TransformComponent::class.java]) {
                 "Scene light has no transform"
             }
-            lightTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
-            check(root.addChild(light)) { "Could not attach scene light" }
-            lightAttached = true
-            val contactLight = Entity()
-            if (!root.addChild(contactLight)) {
-                contactLight.destroy()
-                error("Could not attach contact light")
-            }
-            contactLight.components.set(PointLightComponent(Color4(1f, 0.9f, 0.7f, 1f), 0f, 0.60f))
-            contactLight.enabled = false
-            owner.contactLight = contactLight
-            for (side in listOf(-1f, 1f)) {
-                val lantern = Entity()
-                if (!root.addChild(lantern)) {
-                    lantern.destroy()
-                    error("Could not attach lantern light")
-                }
-                lantern.components.set(PointLightComponent(Color4(1f, 0.61f, 0.30f, 1f), 450f, 3f))
-                val lanternTransform = checkNotNull(lantern.components[TransformComponent::class.java])
-                lanternTransform.setPosition(root.convertPositionFrom(Vector3(side * 2.72f, 2.12f, -1.22f), null))
-            }
+            lightTransform.setQuaternion(root.convertRotationFrom(KEY_LIGHT_ROTATION, null))
+            owner.contactLight = addPointLight(
+                root, Vector3(0f, 0f, 0f), Color4(1f, 0.9f, 0.7f, 1f), 0f, 0.60f, enabled = false,
+            )
+            addPointLight(
+                root, WARM_FILL_POSITION, Color4(1f, 0.72f, 0.46f, 1f),
+                WARM_FILL_LUMENS, WARM_FILL_RADIUS_METERS,
+            )
+            addPointLight(
+                root, COOL_FILL_POSITION, Color4(0.58f, 0.74f, 1f, 1f),
+                COOL_FILL_LUMENS, COOL_FILL_RADIUS_METERS,
+            )
             try {
                 val bounds = model.getVisualBounds(null)
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
@@ -393,16 +421,75 @@ internal fun HomeStage(
             }
             onEnemyPresenter(owner::presentArena)
         } catch (error: Exception) {
-            if (!modelAttached) model?.destroy()
-            if (!forecourtAttached) forecourt?.destroy()
-            if (!detailsAttached) details?.destroy()
-            if (!enemyAttached) enemy?.destroy()
-            if (!playerWeaponAttached) playerWeapon?.destroy()
-            if (!lightAttached) light?.destroy()
-            if (owner.root === root) owner.release()
+            for ((entity, attached) in listOf(
+                model to modelAttached,
+                forecourt to forecourtAttached,
+                details to detailsAttached,
+                enemy to enemyAttached,
+                playerWeapon to playerWeaponAttached,
+                light to lightAttached,
+            )) {
+                if (!attached) {
+                    try {
+                        if (entity?.valid == true) entity.destroy()
+                    } catch (cleanup: Exception) {
+                        error.addSuppressed(cleanup)
+                    }
+                }
+            }
+            if (owner.root === root) {
+                try {
+                    owner.release()
+                } catch (cleanup: Exception) {
+                    error.addSuppressed(cleanup)
+                }
+            }
             if (error is CancellationException) throw error
             Log.e(TAG, "Unable to load the tavern scene", error)
         }
+    }
+}
+
+/** GroundShadow does not inherit; bind each actual mesh inside the selected subtree. */
+private fun bindGroundShadow(entity: Entity, casts: Boolean, receives: Boolean, label: String) {
+    val pending = ArrayDeque<Entity>()
+    pending.addLast(entity)
+    var meshes = 0
+    while (pending.isNotEmpty()) {
+        val current = pending.removeFirst()
+        if (current.components[ModelComponent::class.java] != null) {
+            current.components.set(GroundShadowComponent(castsShadowEnabled = casts, receivesShadowEnabled = receives))
+            meshes++
+        }
+        current.getChildren().forEach { pending.addLast(it) }
+    }
+    check(meshes > 0) { "Ground shadow has no render mesh for $label" }
+    Log.i(TAG, "GroundShadow bound label=$label meshes=$meshes casts=$casts receives=$receives")
+}
+
+/** Root ownership releases all lights, including partial initialization failures. */
+private fun addPointLight(
+    root: Entity,
+    position: Vector3,
+    color: Color4,
+    lumens: Float,
+    radiusMeters: Float,
+    enabled: Boolean = true,
+): Entity {
+    val light = Entity()
+    try {
+        check(root.addChild(light)) { "Could not attach point light" }
+        light.components.set(PointLightComponent(color, lumens, radiusMeters))
+        checkNotNull(light.components[TransformComponent::class.java]).setPosition(root.convertPositionFrom(position, null))
+        light.enabled = enabled
+        return light
+    } catch (error: Exception) {
+        try {
+            if (light.valid) light.destroy()
+        } catch (cleanup: Exception) {
+            error.addSuppressed(cleanup)
+        }
+        throw error
     }
 }
 

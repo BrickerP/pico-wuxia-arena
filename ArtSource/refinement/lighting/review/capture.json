@@ -1,0 +1,9 @@
+{
+  "actor_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+  "device": "emulator-5554",
+  "baseline_apk_sha256": "37873e1c0a25e3d28fc87d722e13cf67acb5b7e655f09bbb32887aee59e7c05f",
+  "candidate_apk_sha256": "3c008c61801a9b053905f463d7f3e29712da1da1d483456f5254e4312d599821",
+  "capture": "Actual emulator Full Stage",
+  "strict_same_camera_pose": false,
+  "limitation": "Camera framing and idle phase differed; visible review only, not quantitative A/B or hardware performance proof."
+}

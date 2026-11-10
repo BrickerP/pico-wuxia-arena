@@ -1,0 +1,89 @@
+{
+  "evidence": "Offline source/geometry check; PICO rendering remains unverified",
+  "homeStageSha256": "409400aad752611ffbd948aa62426c6ea14504bde3d35bacbaf0056d49538df4",
+  "keyLux": 1100.0,
+  "keyStageRay": [
+    0.501406131291971,
+    -0.6217431016590129,
+    -0.6016871338513474
+  ],
+  "shadowMode": "GroundShadow",
+  "directionalShadowEnabled": false,
+  "fills": [
+    {
+      "name": "WARM",
+      "stagePositionMeters": [
+        -1.3,
+        1.8,
+        -1.1
+      ],
+      "lumens": 2300.0,
+      "radiusMeters": 4.2,
+      "initialProbeDistanceMeters": {
+        "face": 1.849324200890693,
+        "torso": 1.9672315572906
+      }
+    },
+    {
+      "name": "COOL",
+      "stagePositionMeters": [
+        1.25,
+        1.65,
+        -1.55
+      ],
+      "lumens": 1300.0,
+      "radiusMeters": 4.0,
+      "initialProbeDistanceMeters": {
+        "face": 1.5124483462254172,
+        "torso": 1.608570794214541
+      }
+    }
+  ],
+  "groundShadowCasters": [
+    {
+      "asset": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+      "meshes": [
+        "TripoBody_Mesh"
+      ]
+    },
+    {
+      "asset": "app/src/main/assets/models/opponents/indigo.glb",
+      "sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6",
+      "meshes": [
+        "TripoBody_Mesh"
+      ]
+    },
+    {
+      "asset": "app/src/main/assets/models/opponents/veteran.glb",
+      "sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7",
+      "meshes": [
+        "TripoBody_Mesh"
+      ]
+    }
+  ],
+  "groundShadowReceivers": [
+    {
+      "asset": "app/src/main/assets/models/tavern_slice.glb",
+      "target": "Paving",
+      "meshes": [
+        "Paving"
+      ]
+    },
+    {
+      "asset": "app/src/main/assets/models/forecourt.glb",
+      "target": "Paving",
+      "meshes": [
+        "Paving"
+      ]
+    },
+    {
+      "asset": "app/src/main/assets/models/courtyard_details.glb",
+      "target": "SidePaving_Geometry",
+      "meshes": [
+        "SidePaving_Geometry"
+      ]
+    }
+  ],
+  "ibl": "No explicit IBL texture bound; no verified licensed IBL KTX available"
+}

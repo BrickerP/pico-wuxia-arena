@@ -1,171 +1,111 @@
-# 精修命中特效、声音与触觉呈现
+# 04 · PICO端内人物配光与接地影
 
-## 本轮目标
+## 当前状态
 
-让软目标命中、硬目标／护甲接触、格挡、弹反、破势与处决都有清晰可见、可听、可感知的局部反馈。
+**阶段2执行中。** 首版配光已编译安装并取得实际画面，当前制作IBL资源路径与部位PBR候选；严格同机位对照由Root继续完成。
 
-## 责任与文件
+## 上一轮成果与Root review
 
-本轮职责切换为呈现生产。负责 CombatEffects.kt、CombatAudio.kt、ArtSource/refinement/effects/、现有effects与audio生产资产及本文件。Main.kt和HomeStage.kt由主控集成，ArenaSession与接触事件生产由01会话负责。其它会话正在并行，不回退其改动。
+CombatImpact、分层FX、11段音效、触觉与离线预演已交付。正式PICO准备态已显示新刀客。离线棚灯和端内条件差异明显，当前方向光接近正视顺光，侧灯接近人物3m衰减边界。代码没有显式接入IBL，SDK默认贡献仍需通过实际画面对照。
 
-## 共享接触合同
+## 文件所有权
 
-主控已建立 core/combat/CombatImpact.kt，继承EnemyCombatEvent。按id、kind、point、normal、strength、hand、atNanos驱动呈现。point为Stage米制，strength为0到1。同一批中的多个事件须被完整消费，UI低气势／距离提示继续作为界面信息。
+阶段2当前仅写 `ArtSource/refinement/lighting/stage2/` 与本文件，HomeStage及正式资源均冻结。阶段2任务为HDR→IBL KTX生成链核对与raw rig部位PBR审校，以下HomeStage修改范围为上一阶段合同。
 
-## 本轮工作
+负责app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt中照明、阴影接线及对应资源生命周期，ArtSource/refinement/lighting/、必要的app照明资源和本文件。保留现有角色／手部presenter、战斗位置、面板布局与CombatImpact接口。Main、战斗内核、角色GLB、producer和manifest由Root维护。
 
-- 移除以最后一条state.feedback代替真实接触的路径，按CombatImpact消费。声音、特效各自去重，主控再把同一事件接到触觉与局部光反馈。
-- 调查目前导入动画为空即禁用的实际可见性问题。依据6.1.9公开API选择单一可靠的最终表现路径，清理过时导入依赖。
-- 肉体／衣物击中需要接触点冲击核心、少量布尘或碎屑与短暂刀痕，金属／格挡／弹反需要明确火星及材质差别。刃光只辅助表达挥动方向。
-- 提高近身效果的可见保持时间、材质与层次，保留中式写实尺度。表现与接触点、法线、强度和角色动作同步。
-- 精修现有短音效的瞬态、低频主体和材质差异。触觉参数与API依据交主控统一接入Main，保持实际追踪连续。
-- 可制作离线效果小片段。实际PICO视口与单次命中的专项观感由主控独占操作，完整游戏验收另列。
+## 本轮任务
 
-## 交付与审核
+1. 读既有场景和已安装6.1官方文档，交叉核对6.1.9公开类型，按代码所属场景使用适用的Spatial场景技能。当前固定主角SHA见共同约束。
+2. 在原场景建立有体积感的主光方向和有效补光，确保初始人物确实位于有效照明区域，保留酒馆冷暖气氛。
+3. 用已公开的GroundShadowComponent配置实际渲染mesh和接收地面，核对不向children传播的边界；方向／聚光阴影使用确切公开能力。
+4. 核对StageEnvironmentLightingComponent、ImageBasedLightSource与.ktx资源路径。已有可复用且来源清楚的资源时纳入同一最终场景；资产工具受阻时先交已完成配光和接地影，不为等待HDR转换拖住阶段。
+5. 资源与场景一起释放，加载中断、初始化失败和重入保持一致。新增SDK调用先查文档与类型，不凭记忆猜接口。全局曝光能力与Editor预览设置分开。
 
-给可编译源码、效果资产、各事件映射和前后可视对比，不能只交文件数量或日志尺寸。查对应版本官方文档再用新增SDK API，不猜私有接口。30分钟内交付一个阶段并结束，主控取产物审核构建。
+## 审核产物
 
-只在主仓库工作，不创建副本、不提交推送、不抢设备、不进行无限logcat或wait_threads零等待轮询。
+HomeStage可编译修改、资源和来源、主光／补光位置与有效范围、阴影caster／receiver绑定说明、若有IBL则给资源与强度说明、静态生命周期自审。Root统一构建、安装并以相同机位／角色／姿态取实际Full Stage前后图。
 
-## 本阶段生产接口
+## 下游
 
-已采用静态GLB分层网格加Entity变换与透明度的单一运行路径。`CombatEffects` 保留 `load(root)`、`present(state, events)` 与 `close()`，移除导入动画资源、播放控制器及 `state.feedback` 接触推断。四份生产GLB均无animations，接触核心、碎屑／火星、短刀痕由命名层 `core/debris/scar` 驱动。
+01／02／03本阶段不覆盖正式app模型，本会话按固定模型独立完成。保留已交付FX／音频语义，光照改进以脸、衣褶、材质反射与脚底关系可读为门槛。
 
-音效新入口为 `CombatAudio.present(state: ArenaViewState, events: List<EnemyCombatEvent>)`。声音和特效各持本轮事件ID集合，按每个 `CombatImpact` 消费，首批和切轮首批继续处理。主控现已在Main传入同一批 `events`，并接入逐事件触觉及HomeStage接触点局部光。实际视口、头显声音与触觉由主控专项验收。
+## 共同执行约束
 
-| 接触kind | 视觉资源与层次 | 独立接触声音 |
-| --- | --- | --- |
-| SOFT_HIT | soft_contact，暖色冲击核、布尘、短暗亮刀痕 | arena_hit |
-| PLAYER_HIT | soft_contact，实际接触点局部冲击 | arena_hurt |
-| HARD_HIT | metal_contact，白热核心、细长金属火星、擦痕 | arena_hard_hit |
-| GUARDED_HIT | metal_contact，护甲接触火星 | arena_guarded_hit |
-| BLOCK | metal_contact，刀刃碰撞火星 | arena_block |
-| PARRY | metal_contact，核心放大1.3倍，闪核0.22秒、整体0.54秒 | arena_parry |
-| SKILL | force_contact，断续冲击环、碎屑与短痕 | arena_skill |
-| EXECUTION | force_contact，终结接触的局部冲击 | arena_execution |
+唯一工作仓库为 /Users/yupeng/projects/personal/pico-wuxia-arena。当前模型基线为main的cc12bf1，base.glb SHA为53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641。运行栈为Kotlin + PICO Spatial SDK6.1.9，终端Space Pro／OS6。
 
-当前合同没有单列GUARD_BREAK，破势暂按主控的SKILL接触事件呈现。保留脚步和倒地尘作为动作附属效果，使用ground_dust；命中反馈由真实接触事件产生。
+其他会话正在同一仓库并行。各自只修改责任范围，保留其他人的编辑。Git提交、分支、合入、共享构建、设备操作、实际截图与正式模型发布由Root统一负责。候选输出留在各自目录，library、app角色与公共manifest由Root发布。
 
-普通软接触保持0.62秒、金属0.44秒、破势／处决0.72秒。强度映射到0.72至1.18倍局部尺寸，法线定位沿表面外偏8毫米，手别给短刀痕轻微方向差异。事件atNanos与当前模拟时间计算初始视觉年龄，上限80毫秒。每类预载6槽，忙槽接触排队，不覆盖同批的前一接触。场景失效时清空活动层与待播接触。普通非终局暂停或观察失效也清空；VICTORY／DEFEAT在场景仍有效时继续呈现本批新接触，事件ID去重与轮次门槛继续生效。关闭时递归销毁池。
+本轮允许离线资产生成、渲染及专项制作检查。游戏整局自测继续后置。30分钟内交付首阶段实物，写明“阶段结束”、输入SHA、文件、效果、剩余问题与下一步建议后结束当前回合。遇到阻塞先交已做出的部分并写明具体阻塞，继续能独立完成的工作。用当前模型和已安装依赖推进，不为等审批或等待其他线程维持空转。
 
-SoundPool加载完成前的接触先排队，记录System.nanoTime入队时间，后续present排空已就绪样本。超过120毫秒的待播项直接移除，已失败的样本记录后移除待播项。非终局暂停、切轮和close清空待播及流句柄。保留现有SoundPool与12路并发上限，关闭时解除监听并release。音量受事件强度和接触距离影响，左右手使用轻微声像差异。
+## 阶段回报
 
-## 已交付效果实物
+**本阶段结束，交Root统一review、构建和端内取图。** 已完成HomeStage配光、实际mesh接地影和相关生命周期修改。输入base.glb制作前后SHA保持 `53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641`。本阶段在30分钟内交付，正式角色和生产资产均按共同约束保持只读。
 
-- [同米制峰值对比图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_comparison.png)与[0.833秒离线短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_preview.mp4)直接导入实际GLB，按运行包络驱动。左列展示旧刃光资源的理论峰值，右三列为软接触、金属和破势／处决。旧图像列的范围为离线资源对比。
-- [267毫秒尾段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_267ms.png)中刀痕、布尘及余火星可辨；[467毫秒尾段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_467ms.png)中软目标刀痕和破势环继续保持，普通金属按0.44秒结束。已逐张目视核对。
-- [12.06秒音色前后试听](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/material_contact_comparison.wav)配有[时间顺序](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/comparison_cues.json)和[波形总览](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/waveform_overview.svg)。软目标突出低频主体与布料瞬态，硬接触突出高频金属瞬态，弹反增加较长清亮尾音，破势和处决各有独立声层。
+### 生产源码与配光
 
-四份静态运行GLB总计73,588字节，三角数分别为软228、金属132、破势636、地尘182。每份3个mesh层，24个预载实例合计7,068三角。旧运行目录的blade_arc、metal_sparks、break_ring和foot_dust动画GLB已移除，原制作源保留作离线对比。实际资源与制作源字节一致，尺寸和哈希见 [contact_effects_manifest.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_effects_manifest.json)。
+修改位于 [HomeStage.kt](/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt:54)。原主光沿默认−Z正面照射；原两侧点光到初始脸／躯干约3.010／3.135米，超过3米衰减半径。现采用斜向方向主光，加两盏进入初始人物有效范围的点补光，沿用原有光源数量与接触脉冲。
 
-声音为11份48kHz／16-bit／单声道WAV，8种接触加刀风和胜负提示。逐份解码检查通过，零削波、首尾零采样、峰值约−4.437dBFS，最长单段解码91,200字节。Cue时长与实际帧数逐项吻合。软命中低于300Hz能量约81.7%，硬接触高于3kHz约48.6%，弹反约48.3%，差异来源为实际PCM测量。旧arena_clash和arena_dry已清理。[测量结果](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/audio_measurements.json)
+| 光源 | Stage位置或发射方向 | 强度及范围 | 颜色RGB |
+| --- | --- | --- | --- |
+| 主光 | 方向(0.5014, −0.6217, −0.6017)，由前左上方照入 | 1100 lux，动态投影关闭 | (0.92, 0.95, 1.00) |
+| 暖补光 | (−1.30, 1.80, −1.10)米 | 2300 lumen，半径4.2米 | (1.00, 0.72, 0.46) |
+| 冷补光 | (1.25, 1.65, −1.55)米 | 1300 lumen，半径4.0米 | (0.58, 0.74, 1.00) |
 
-## 官方依据与触觉建议
+方向光四元数为 `Quat(−0.347382f, −0.280147f, 0f, 0.894899f)`，按官方光源局部−Z发射轴验算，并保留Stage到场景根局部的公有转换。暖补光距初始脸／躯干1.849／1.967米，冷补光1.512／1.609米，均小于各自半径的一半。lux与lumen按各自单位使用。点补光提供冷暖照明，方向主光承担斜向塑形。接触点140ms脉冲、角色／手部presenter、战斗位置和面板布局继续沿用现有入口。
 
-项目BOM为6.1.9。本会话无可调用的Context7或PICO知识查询工具，按主控约定读取本机SDK6.1官方文档，并与已安装6.1.9公开类型交叉核对。`Entity.loadSuspend`返回模型层级，`findEntity`定位命名层；`TransformComponent`在主线程改变位置、旋转和缩放，`OpacityControllerComponent`逐层控制透明度，关闭时递归销毁。三个透明层各自淡出，父根不重复乘淡出系数。[模型加载](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_ecs_create-entities.md)、[命名查找](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/api-reference/com.pico.spatial.core.ecs.md:1729)、[透明度控制](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_rendering_opacity-control.md)
+### 实际mesh与地面接地影
 
-以下为strength等于1时的首轮触觉调音候选，由主控统一采用或调整。level按事件strength线性缩放并约束至0至255，按事件hand选择左右控制器。
+GroundShadowComponent逐个绑定实际ModelComponent实体，遍历子树；公开合同明确该组件不向children传播。三份正式角色GLB各包含一个 `TripoBody_Mesh`，角色及同mesh的DAO材质部分设 `castsShadowEnabled=true, receivesShadowEnabled=false`。地面接收目标为以下已从活动GLB场景核对的实体，逐mesh设 `false, true`。
 
-| kind | level | frequency Hz | duration ms |
-| --- | ---: | ---: | ---: |
-| SOFT_HIT | 145 | 90 | 30 |
-| HARD_HIT | 195 | 220 | 16 |
-| GUARDED_HIT | 170 | 170 | 24 |
-| BLOCK | 190 | 150 | 28 |
-| PARRY | 235 | 280 | 18 |
-| PLAYER_HIT | 180 | 80 | 42 |
-| SKILL | 195 | 125 | 46 |
-| EXECUTION | 235 | 75 | 64 |
+| 场景资产 | 接收子树 | 源mesh数 |
+| --- | --- | ---: |
+| tavern_slice.glb | Paving | 1 |
+| forecourt.glb | Paving | 1 |
+| courtyard_details.glb | SidePaving_Geometry | 1 |
 
-官方参数范围为level 0至255、frequency 40至500Hz、duration 0至1000ms，Press预设为240／127／15。主控使用既有LocalHandControllerHaptic与公开 `HandControllerHapticType.custom`，保持当前追踪生命周期。触觉只在控制器交互模式生效，表中材质分层参数尚待真机调音。[官方触觉说明](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_interaction_controller-haptic-feedback.md:19)
+初始化日志会输出 `GroundShadow bound label=… meshes=… casts=… receives=…`。源层级已核对，实际SDK加载数量由Root结合日志确认。本阶段采用GroundShadow顶投接地影作为单一阴影基准，主方向光设 `castsShadowEnabled=false`。骨骼动作后的阴影形状、深浅与帧开销仍待端内验收。[官方接地影说明](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_rendering_dynamic-shadowing.md)、[不传播与公有构造](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/api-reference/com.pico.spatial.core.ecs.md:2696)、[光源方向与动态阴影](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_rendering_dynamic-lighting.md)
 
-## 阶段检查与交付边界
+### IBL与曝光核对
 
-已完成源码差异检查、制作脚本语法检查、GLB头／索引／有限值／三层命名／无动画／源与运行一致性验证，以及11份WAV格式／时长／削波／边界采样验证。独立只读复核确认首批、切轮、多事件去重与排队、加载中途释放及close幂等路径。法线旋转以轴向及100个方向离线验算，最大误差约1.03e−15。
+本阶段没有合格、来源许可明确的IBL-ready KTX可直接纳入运行。库存仅发现官方模板的museum_day_ibl.exr源图，缺少可确认的官方转换工具，模板内也未找到独立资源许可。已交付 [IBL资源与接口核对](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/ibl/README.md)，其中记录源路径、SHA、Cube／ENV_LIGHTING配置要求及6.1.9公开接口。
 
-本阶段生产修改为CombatEffects.kt、CombatAudio.kt及对应效果／音频资产和可复现制作源。图与短片是离线素材观感，PICO实际透明混合、近身遮挡、保持时间、密集接触排队时延、混音与触觉感受待主控专项视口验收。统一编译及运行结果由主控回填。
+因此本阶段交付已完成的配光和接地影，保留既有环境贡献。SDK默认IBL贡献需要Root同机位画面对照。StageEnvironmentLightingComponent强度为2的intensityExponent次方，示例8f对应乘256。Editor的Environment Preview Exposure仅用于Editor预览；已查官方6.1公有资料中未找到现有Full Stage的全局曝光／tone-mapper曲线setter。Unlit材质参与tone mapping的开关维持其材质含义。
 
-**本阶段呈现生产结束，交主控review。** 已交付真实源码、静态分层GLB、分材质WAV、前后对比实物与触觉建议，当前回合结束。
+后续IBL接入需要先取得可复用许可与经过官方处理、格式验证的HDR cubemap KTX，再由Root统一加入最终场景。本阶段未添加新app纹理、曝光配置或额外依赖。
 
-## 主控review最小返修交付
+### 生命周期与专项检查
 
-- CombatEffects已与Audio对齐终局例外。场景有效时，VICTORY／DEFEAT同批的新CombatImpact可继续入队和呈现，避免最后一击被结算的USER暂停清空。sceneReady门槛、本轮ID去重及旧轮拒绝仍生效；普通非终局暂停与追踪失效仍清空。
-- CombatAudio的PendingImpact已记录System.nanoTime入队时间，playReadyImpacts每次统一取当前时间，先移除超过120毫秒的接触，再检查样本ready并播放。恰好120毫秒仍可播放，加载在时效外完成时该接触已过期。
+灯实体由当前场景根拥有，root销毁时一起释放。addPointLight挂载或初始化失败会销毁自身；外层初始化失败分别尝试清理未挂实体，cleanup异常保留在原异常的suppressed中，然后独立尝试owner.release。取消继续抛出原CancellationException。SceneOwner释放时分别隔离presenter撤销错误，几何回调与root销毁由finally保证顺序。异步加载后的root身份检查继续保护加载中断与重入。
 
-静态差异检查通过。已核对终局／非终局、场景有效／失效、暂停与输入门槛组合，以及120毫秒前1纳秒、正好120毫秒和后1纳秒的ready／未ready边界。本轮仅修改CombatEffects.kt、CombatAudio.kt与本文件，素材保持上一阶段交付。
+已完成正确性、可维护性、界面／文案与变更范围自审，并经独立只读复核通过。新增SDK调用先读取官方6.1文档，再与安装的6.1.9公有构造与setter交叉核对。静态差异检查通过，未改Main、战斗内核、正式GLB、producer、manifest或构建配置。
 
-**本轮最小返修阶段结束，交主控review。** 编译与设备验证按主控要求交统一增量构建及专项验收，本会话已结束当前回合。
+新增 [verify_lighting.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/verify_lighting.py) 读取实际Kotlin常量及活动GLB场景，验证主光方向、补光覆盖、源mesh目标与模型SHA，输出 [lighting_profile.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lighting/lighting_profile.json)。四项离线校验器用例实际通过，覆盖有效子mesh、缺失／空receiver、有效补光、半径边界和非有限参数。该结果为源码／几何检查，运行亮度与SDK阴影仍待Root统一构建和实际截图。
 
-## 补充正式角色近身接触对比
+### Root下一步取图出口
 
-已交付 [同机位before／after躯干接触图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/torso_contact_before_after.png)，1440×960，使用实际soft_contact与metal_contact生产GLB。正式角色取自 `HomeStage → arenaOpponents.first()` 的 `app/src/main/assets/models/opponents/base.glb`，SHA-256为 `a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22`。
+统一构建后，以同一机位、53b80e…00641角色及相同准备态取Full Stage前后图。先核对六条caster／receiver绑定日志，再观察脸部明暗分区、衣褶、DAO反射与脚底接地；确认移动及换轮后仍使用当前角色实际mesh。IBL阻塞和曝光核对边界按上节保留，实际性能与Space Pro表现分别记录。
 
-姿态为该资源真实slash动作的2.117秒，效果为55毫秒，strength为0.65，整体尺寸比例1.019。软核心约10.2厘米，金属核心约7.9厘米。软接触落在衣料躯干，金属接触落在正式钢刀的 `Steel | forged body` 材质表面。两处接触点与法线均由实际变形网格三角面取得，锚点沿面法线外移8毫米。
+**本轮首阶段配光与接地影生产结束。** 交付HomeStage源码、离线校验器／参数剖面与IBL证据说明，Root负责统一编译、安装、实际画面对照与后续续派，本会话结束当前回合。
 
-| 离线接触 | actor-local glTF米制点 | actor-local法线 |
-| --- | --- | --- |
-| 衣料躯干 | (0.169846, 0.765666, 0.172864) | (−0.563872, 0.413012, 0.715171) |
-| 正式钢刀 | (0.056216, 0.868370, 0.742738) | (−0.913685, −0.200563, 0.353489) |
+### Root收口选择回应
 
-表中为离线角色局部坐标，运行接口继续使用CombatImpact的Stage米制点和法线。已目视确认同机位下衣料冲击与金属火星可辨，保留角色及刀刃的真实遮挡。图明确标为离线制作预览，PICO运行观感待主控专项验收。可复现脚本为 [render_torso_contact.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/render_torso_contact.py)，角色与生产素材均只读，本次补图仅新增该图与脚本。
+按Root只读review，本阶段以GroundShadow稳定接地基准为最终阴影路径。已关闭主方向光动态投影，保留斜向key与冷暖补光塑形。双影／脚底过暗属于尚待现场验证的叠加风险，本次收口用于取得单一基准；后续真实方向影由Root另行对照后决定替换。
 
-**本轮最小返修与补图阶段结束，交主控review。** 两项源码返修、静态边界检查和正式角色离线对比均已交付，统一增量编译及设备验收由主控完成。
+已同步离线校验器和lighting_profile.json，明确记录 `shadowMode=GroundShadow`、`directionalShadowEnabled=false`，并校验实际源码开关。四项离线用例、场景参数与mesh绑定检查及静态差异检查通过。角色输入SHA仍为53b80e…00641，真实画面与编译由Root统一验证。
 
-## 主控整合review与下一轮
+**本轮GroundShadow收口阶段结束。** 源码与阶段回报已交Root立即构建／截图，本会话结束当前回合。
 
-两项返修的独立复审结论为接受。Main、HomeStage、CombatEffects与CombatAudio共同保留终局当前批次接触，声音等待边界为120ms。已采用本文件材质触觉候选并按strength缩放，加入140ms接触点灯光。主控整合增量构建通过，仍未运行游戏流程、测试套件或Space Pro验收。
+## Root初版review决定
 
-主控已查看torso_contact_before_after.png，软衣料冲击与钢刀火星的近身比例通过离线制作初审。下一轮在通过角色review的新主刀客上重看接触遮挡、短停后反冲与音画时序，保留实际视口验证边界。
+实际mesh绑定、Stage坐标转换与生命周期初审通过。GroundShadow与方向动态影叠加存在双影／过暗风险，当前还未经现场对照。本阶段选择单套GroundShadow接地基准，斜向主光负责塑形并关闭该主光的动态投影。下一步由Root构建取图，按可见结果审校。
 
-## 命中材质语义复审
+## 当前阶段2执行项
 
-主控将普通身体命中按现役衣料／护甲映射。试刀客和青衫身体走软接触，玄甲护甲身体走金属硬接触；裸露头部命中走软接触，伤害强度继续控制包络，头部80ms短停保留。格挡、弹反和护身仍走已接受的防御接触。该修正避免把所有头部强命中解释为金属火星。
+HomeStage冻结在409400aad752611ffbd948aa62426c6ea14504bde3d35bacbaf0056d49538df4，由Root合入。责任目录为lighting/stage2。核对可复现HDR到IBL KTX工具链，给有效资源／接线或确切缺件；工具受阻时继续现raw rig部位PBR候选，皮肤／眼／发／布／皮／铜的分色区域、材质参数和面分组作为可组合补丁。POSITION／UV／骨架／权重／动作保持，使用现有贴图及已支持的普通PBR。
 
-## 冻结60k主刀客最终展示一阶段
+## Root首版运行review
 
-已交付 [近身接触图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/hero60k_contact.png)与[2.75秒离线资产动效预演](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/hero60k_preview.mp4)。画面固定机位，包含头部、双手和刀尖，全片标注“离线资产动效预演”及制作切段。角色、FX与声音均来自正式生产资产。
+12秒编译成功，APK SHA3c008c61801a9b053905f463d7f3e29712da1da1d483456f5254e4312d599821，已安装启动。观察到三处receiver与三角色caster绑定，场景最终加载完成。实际图能看见脸、衣褶和脚底投影，接受为可见基准。首次45秒启动观察未到场景完成，后续单次快照确认就绪。
 
-正式角色为 `app/src/main/assets/models/opponents/base.glb`，制作前后SHA-256均为 `53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641`。四份正式FX与11份WAV的输入路径、SHA和字节数记录在 [inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/inputs.json)，实际使用的接触素材及逐帧源秒记录在 [timeline.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/timeline.json)。
-
-| 制作段输出采样秒 | 正式clip | 实际源采样秒 |
-| --- | --- | --- |
-| 0.000至0.792 | slash | 1.350至2.100，含头部接触停顿 |
-| 0.833至1.458 | hit_head | 0.053至0.678 |
-| 1.500至1.833 | slash | 1.850至2.100，制作切段及刀刃接触停顿 |
-| 1.875至2.708 | hit_side | 0.093至1.128 |
-
-按本轮主控复审，当前无甲主刀客采用“裸头SOFT / 刀刃PARRY”。0.75秒裸头接触使用soft_contact与arena_hit，保持80毫秒短停；1.75秒接触取自真实DAO钢刀表面，使用metal_contact与arena_parry，保持90毫秒短停后转入hit_side。两次接触strength为0.7、整体尺寸倍率1.042，停顿后均有220毫秒反冲，峰值0.0635米、包络4p(1−p)。PARRY使用0.54秒总包络、0.22秒核心及1.3倍核心尺寸，水平反冲沿接触法线。FX按独立输出时钟继续，声音对齐第18和42帧。24fps以相邻采样帧表达80／90毫秒停顿。
-
-修正版短片为960×640、24fps、66帧，H.264与48kHz单声道AAC。原先身体HARD段已撤回，当前静帧为第43帧、1.791667秒的刀刃PARRY峰值。为同步全片字幕，同机位重渲了66帧；首36帧源秒摘要、首触点参数、机位及灯光均与已通过版本一致，真实遮挡保留。
-
-可复现制作脚本为 [render_hero60k.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/hero60k/render_hero60k.py)。片中clip以制作切段衔接，未做跨clip混合，来源秒和NLA映射均留在timeline。该交付用于正式资产、接触遮挡及短停反冲音画时序的离线review，PICO运行表现继续待主控专项验收。
-
-**本阶段最终展示制作结束，交主控review。** 本次仅新增hero60k目录产物与更新本文件，runtime、正式角色及生产FX／WAV均保持只读，当前回合结束。
-
-### 本轮材质语义返修定版
-
-第二触点取自当前正式DAO的 `Steel | forged body` 变形网格面。actor-local glTF米制点为 (0.149048, 1.302999, 0.845157)，法线为 (−0.962155, −0.065006, 0.264636)，锚点沿该法线外移8毫米。PARRY水平反冲方向为 (−0.964194, 0, 0.265197)，90毫秒短停后执行220毫秒、峰值0.0635米的反冲。
-
-图、片、字幕与timeline已统一为“裸头SOFT / 刀刃PARRY”。PARRY使用正式arena_parry.wav，0.54秒总包络、0.22秒核心及1.3倍核心尺寸。保留首段80毫秒头部短停和原接触源秒。相机边界仍沿用首次采样以固定机位，其中hit_body仅为边界测量项；成片逐帧动作由slash、hit_head与hit_side构成。
-
-已目视最终PARRY峰值图，核对片长、视频／音轨、两次接触帧、材质名及实际FX／WAV哈希。正式actor与全部输入哈希保持一致，首36帧源秒摘要一致，脚本语法及静态差异检查通过。PARRY核心紧邻头部与刀身，保留实际几何遮挡，仍属于离线资产动效预演，PICO运行观感由主控验收。
-
-**本轮材质语义返修阶段结束，交主控review与统一提交。** 当前hero60k图、片、脚本和timeline为修正版，runtime、正式actor、生产FX／WAV及inputs.json均保持只读，当前回合结束。
-
-## 主控最终review与本轮收口
-
-主控已核对960×640／24fps／2.75秒H264＋AAC成片，并抽看1.833秒弹反峰值。第二触点已从布衣躯干修正为实际钢刀PARRY，正式素材、声效、90ms短停与hit_side语义对齐，接受本轮离线制作产物。
-
-主控另已完成当前APK构建、安装启动和实际Full Stage准备态截图，场景／人物／HUD可见。真实输入触发的战斗特效、混音／触觉、整局与Space Pro体验仍在后续验收。下一轮先收紧主角残余拇指交叠与源段外交叉，再做动作收势／步法和UI细化，维持现有三轮短竞技场。
-
-## 参考流程review后的端内呈现方案
-
-整体对照见03的Kensei参考流程review。本地最终GLB的人体为普通opaque PBR，皮肤、眼、发、衣物共用一套全身4K图集。MR图支持像素级差异，部位造型、纹理分配和表面响应仍需独立审校。
-
-当前HomeStage方向光设world identity，官方定义沿本地-Z照射，初始视角接近顺光。两侧暖点光在(±2.72,2.12,-1.22)，衰减半径3m，位于初始人物的半径边缘。代码没有显式接入IBL；SDK默认环境贡献尚未量测。离线棚灯与端内场景的品质分别审核。
-
-已核对本机6.1官方文档和6.1.9公开类型。StageEnvironmentLightingComponent可接全场IBL，HDR cubemap输入使用.ktx。方向光／聚光具有阴影入口，GroundShadowComponent需要分别设置实际渲染mesh与接收地面，其属性不向children传播。PointLight不投影。全局曝光／tone mapper控制未在本机公开接口中检出，Editor预览设置与运行时能力分别记录。
-
-下一轮先用同一角色、机位、姿态和分辨率建立实际PICO基准，调整主光方向、有效补光／IBL和脚底投影。随后按皮肤、眼、发、布、皮革、金属审校PBR响应，结合画面和端侧开销决定材质组织。验收以实际Full Stage前后图与动作片段为主，离线图保留来源和条件标记。
-
-官方依据为spatial-sdk_rendering_image-based-lighting.md、core.ecs.md中的StageEnvironmentLightingComponent、DirectionalLightComponent、PointLightComponent与GroundShadowComponent。实现阶段查对应公开接口和样例，再进入代码。
+前后实际取景位置和idle时刻不完全一致，当前不能作严格定量A/B；IBL、动作和换轮后的阴影以及Space Pro性能继续待验收。正式角色输入仍为53b80e71…00641。
