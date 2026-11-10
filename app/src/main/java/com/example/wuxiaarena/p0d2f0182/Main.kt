@@ -16,7 +16,9 @@ import com.example.wuxiaarena.p0d2f0182.runtime.ArenaSession
 import com.example.wuxiaarena.p0d2f0182.runtime.InputControlResult
 import com.example.wuxiaarena.p0d2f0182.runtime.TrackingControls
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatAudio
-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+import com.example.wuxiaarena.core.combat.CombatImpact
+import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.Hand
@@ -26,6 +28,7 @@ import com.pico.spatial.ui.platform.HandControllerHapticType
 import com.pico.spatial.ui.design.PicoTheme
 import com.pico.spatial.ui.foundation.dsl.DefaultStage
 import com.pico.spatial.ui.foundation.dsl.SpatialAppScope
+import kotlin.math.roundToInt
 
 private enum class PendingControlKind { PAUSE, RESTART }
 
@@ -43,7 +46,8 @@ fun mainApp(scope: SpatialAppScope) =
                 val arena = remember { ArenaSession(savedBestScore = preferences.getInt("best_score", 0)) }
                 val audio = remember(context) { CombatAudio(context) }
                 val haptics = rememberUpdatedState(LocalHandControllerHaptic.current)
-                val hapticSequence = remember { mutableStateOf<Long?>(null) }
+                val hapticRound = remember { mutableStateOf(-1L) }
+                val hapticImpact = remember { mutableStateOf(Long.MIN_VALUE) }
                 val viewState = remember { mutableStateOf(arena.viewState) }
                 val trackingControls = remember { mutableStateOf<TrackingControls?>(null) }
                 val enemyPresenter = remember { mutableStateOf<ArenaPresenter?>(null) }
@@ -67,6 +71,7 @@ fun mainApp(scope: SpatialAppScope) =
                             playerBladeBase = previous.playerBladeBase,
                             playerBladeTip = previous.playerBladeTip,
                             playerHeadPosition = previous.playerHeadPosition,
+                            enemyRecoilOffset = previous.enemyRecoilOffset,
                         )
                         if (hudComparable != previous) viewState.value = state
                         val pending = pendingControl.value
@@ -76,27 +81,43 @@ fun mainApp(scope: SpatialAppScope) =
                             null -> false
                         }
                         if (completed) pendingControl.value = null
-                        enemyPresenter.value?.invoke(state, events)
-                        audio.present(state)
-                        val oldSequence = hapticSequence.value
-                        hapticSequence.value = state.feedbackSequence
-                        if (oldSequence != null && oldSequence != state.feedbackSequence &&
-                            state.inputOrigin == InputOrigin.PICO && state.pauseReason == null && state.feedback != null
-                        ) {
-                            val type = when (state.feedback) {
-                                CombatFeedback.HIT, CombatFeedback.HEADSHOT, CombatFeedback.GUARDED_HIT,
-                                CombatFeedback.BLOCK, CombatFeedback.PARRY, CombatFeedback.PLAYER_HIT,
-                                CombatFeedback.GUARD_BREAK, CombatFeedback.SKILL, CombatFeedback.EXECUTION -> HandControllerHapticType.Press
-                                CombatFeedback.DODGE -> HandControllerHapticType.Step
-                                else -> HandControllerHapticType.None
+                        try {
+                            enemyPresenter.value?.invoke(state, events)
+                        } catch (error: Exception) {
+                            Log.w("ArenaFeedback", "Scene presentation is unavailable", error)
+                        }
+                        audio.present(state, events)
+                        if (hapticRound.value != state.roundGeneration) {
+                            hapticRound.value = state.roundGeneration
+                            hapticImpact.value = Long.MIN_VALUE
+                        }
+                        val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
+                        for (impact in events.filterIsInstance<CombatImpact>()) {
+                            if (impact.id <= hapticImpact.value) continue
+                            hapticImpact.value = impact.id
+                            if (state.inputOrigin != InputOrigin.PICO || !state.sceneReady ||
+                                (!terminal && (!state.inputReady || state.pauseReason != null)) || !impact.strength.isFinite()
+                            ) continue
+                            val (peak, frequency, duration) = when (impact.kind) {
+                                CombatImpactKind.SOFT_HIT -> Triple(145, 90, 30)
+                                CombatImpactKind.HARD_HIT -> Triple(195, 220, 16)
+                                CombatImpactKind.GUARDED_HIT -> Triple(170, 170, 24)
+                                CombatImpactKind.BLOCK -> Triple(190, 150, 28)
+                                CombatImpactKind.PARRY -> Triple(235, 280, 18)
+                                CombatImpactKind.PLAYER_HIT -> Triple(180, 80, 42)
+                                CombatImpactKind.SKILL -> Triple(195, 125, 46)
+                                CombatImpactKind.EXECUTION -> Triple(235, 75, 64)
                             }
+                            val level = (impact.strength.coerceIn(0.0, 1.0) * peak).roundToInt()
+                            val type = HandControllerHapticType.custom(level, frequency, duration)
+                            val dominant = if (impact.hand == Hand.LEFT) HandController.Left else HandController.Right
                             try {
-                                haptics.value.feedback(type, if (state.dominantHand == Hand.LEFT) HandController.Left else HandController.Right)
-                                if (state.feedback == CombatFeedback.SKILL || state.feedback == CombatFeedback.EXECUTION) {
-                                    haptics.value.feedback(type, if (state.dominantHand == Hand.LEFT) HandController.Right else HandController.Left)
+                                haptics.value.feedback(type, dominant)
+                                if (impact.kind == CombatImpactKind.SKILL || impact.kind == CombatImpactKind.EXECUTION) {
+                                    haptics.value.feedback(type, if (impact.hand == Hand.LEFT) HandController.Right else HandController.Left)
                                 }
                             } catch (error: Exception) {
-                                Log.w("ArenaFeedback", "Controller feedback is unavailable", error)
+                                Log.w("ArenaFeedback", "Controller impact feedback is unavailable", error)
                             }
                         }
                         if (state.bestScore > preferences.getInt("best_score", 0)) {

@@ -1,51 +1,52 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import android.util.Log
+import com.example.wuxiaarena.core.combat.CombatImpact
+import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
+import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.pico.spatial.core.ecs.Entity
+import com.pico.spatial.core.ecs.OpacityControllerComponent
 import com.pico.spatial.core.ecs.TransformComponent
-import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
-import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
-import com.pico.spatial.core.ecs.resource.AnimationResource
 import com.pico.spatial.core.math.Quat
-import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 import com.pico.spatial.core.math.Vector3 as SpatialVector3
 
-/** Small pooled effects. Every position supplied here is in Stage metres. */
+/** Main-thread contact presentation. Static GLB layers need no imported animation clips. */
 internal class CombatEffects private constructor(
     private val root: Entity,
-    private val slots: Map<Kind, Slot>,
+    private val slots: Map<Kind, List<Slot>>,
 ) : AutoCloseable {
-    private enum class Kind(val asset: String, val clip: String, val seconds: Float) {
-        SPARKS("metal_sparks", "metal_sparks_burst", 0.24f),
-        ARC("blade_arc", "blade_arc_cut", 0.18f),
-        RING("break_ring", "break_ring_release", 0.44f),
-        DUST("foot_dust", "foot_dust_settle", 0.52f),
+    private enum class Kind(val asset: String, val seconds: Float) {
+        SOFT("soft_contact", 0.62f),
+        METAL("metal_contact", 0.44f),
+        FORCE("force_contact", 0.72f),
+        DUST("ground_dust", 0.65f),
     }
 
     private class Slot(
         val kind: Kind,
         val anchor: Entity,
-        val resources: List<AnimationResource>,
-        val repeated: List<AnimationResource>,
-        val controllers: List<AnimationPlaybackController>,
+        val core: Entity,
+        val debris: Entity,
+        val scar: Entity,
     ) {
         var startedAt: Long? = null
-        var failed = controllers.isEmpty()
+        var failed = false
+        var impactKind: CombatImpactKind? = null
 
         fun hide() {
             startedAt = null
             try {
                 if (anchor.valid) anchor.enabled = false
             } catch (error: Exception) {
+                failed = true
                 Log.w(TAG, "Unable to hide ${kind.asset}", error)
             }
         }
@@ -54,69 +55,100 @@ internal class CombatEffects private constructor(
             val start = startedAt ?: return
             if (failed || !anchor.valid) return hide()
             val seconds = ((now - start).coerceAtLeast(0L) / 1_000_000_000.0).toFloat()
-            if (seconds >= kind.seconds) return hide()
+            val parry = impactKind == CombatImpactKind.PARRY
+            val duration = kind.seconds + if (parry) 0.10f else 0f
+            if (seconds >= duration) return hide()
+            val progress = seconds / duration
             try {
-                for (controller in controllers) {
-                    check(controller.valid) { "Effect playback controller became unavailable" }
-                    controller.setTime(seconds.coerceAtMost(controller.getDuration()))
-                }
+                // A brief contact core, expanding material fragments, and a longer thin cut.
+                val coreSize = (0.7f + seconds * 3f) * if (parry) 1.3f else 1f
+                val coreDuration = if (parry) 0.22f else 0.18f
+                layer(core, coreSize, coreSize,
+                    (1f - seconds / coreDuration).coerceIn(0f, 1f), 0f, 0f)
+                val spread = 0.22f + progress * 1.1f
+                layer(debris, spread, spread, (1f - progress) * (1f - progress),
+                    -0.32f * seconds * seconds, 0.14f * seconds)
+                val cutAlpha = ((duration - seconds) / 0.24f).coerceIn(0f, 1f)
+                val cutWidth = ((duration - seconds) / 0.30f).coerceIn(0.08f, 1f)
+                layer(scar, 1f, cutWidth, cutAlpha, 0f, 0.004f)
             } catch (error: Exception) {
                 failed = true
-                Log.w(TAG, "Effect ${kind.asset} disabled after presentation failure", error)
+                Log.w(TAG, "Contact layer ${kind.asset} became unavailable", error)
                 hide()
             }
         }
 
         fun close() {
             hide()
-            controllers.forEach { release(it, kind.asset) }
-            repeated.forEach { release(it, kind.asset) }
-            resources.forEach { release(it, kind.asset) }
             try {
                 if (anchor.valid) anchor.destroy()
             } catch (error: Exception) {
                 Log.w(TAG, "Unable to destroy ${kind.asset}", error)
             }
         }
+
+        private fun layer(entity: Entity, width: Float, height: Float, opacity: Float, y: Float, z: Float) {
+            entity.enabled = opacity > 0.005f
+            transform(entity).setScaleVector(SpatialVector3(width, height, 1f))
+            transform(entity).setPosition(SpatialVector3(0f, y, z))
+            checkNotNull(entity.components[OpacityControllerComponent::class.java]).opacity = opacity
+        }
     }
 
     private var closed = false
+    private val allSlots = slots.values.flatten()
     private var round = Long.MIN_VALUE
-    private var lastFeedback = Long.MIN_VALUE
+    private val seenImpacts = mutableSetOf<Long>()
+    private val pending = ArrayDeque<CombatImpact>()
+    private val unavailableKinds = mutableSetOf<Kind>()
     private var lastStepTravel = 0.0
     private var stepSide = 1.0
-    private var previousBladeTip: Vector3? = null
-    private var sweepDirection: Vector3? = null
     private var deathDustPending = false
 
     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
-        if (closed || !root.valid) return
+        if (closed || !root.valid || state.roundGeneration < round) return
         val now = System.nanoTime()
         if (state.roundGeneration != round) {
             clear()
+            seenImpacts.clear()
             round = state.roundGeneration
-            lastFeedback = state.feedbackSequence
             lastStepTravel = state.enemyTravelMeters
-            return
         }
-        val active = state.result == TrialResult.FIGHTING || state.result == TrialResult.ROUND_CLEAR
-        if (!active || state.pauseReason != null || !state.inputReady || !state.sceneReady) {
+        val impacts = events.filterIsInstance<CombatImpact>().filter { seenImpacts.add(it.id) }
+        val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
+        if (!state.sceneReady || (!terminal && (state.pauseReason != null || !state.inputReady))) {
             clear()
-            lastFeedback = state.feedbackSequence
             lastStepTravel = state.enemyTravelMeters
             return
         }
-        val tip = state.playerBladeTip?.takeIf { it.isFinite() }
-        val oldTip = previousBladeTip
-        if (tip != null && oldTip != null && tip.distanceTo(oldTip) > 0.003) {
-            sweepDirection = (tip - oldTip).normalizedOrNull()
+        allSlots.forEach { it.update(now) }
+        for (impact in impacts) {
+            if (impact.point.isFinite() && impact.normal.normalizedOrNull() != null && impact.strength.isFinite()) {
+                pending.addLast(impact)
+            } else {
+                Log.w(TAG, "Invalid contact presentation id=${impact.id}")
+            }
         }
-        previousBladeTip = tip
-
-        slots.values.forEach { it.update(now) }
-        if (state.feedbackSequence > lastFeedback) {
-            lastFeedback = state.feedbackSequence
-            feedback(state, now)
+        // Busy slots queue contacts instead of overwriting another contact from the same batch.
+        repeat(pending.size) {
+            val impact = pending.removeFirst()
+            val kind = kindFor(impact.kind)
+            val pool = slots.getValue(kind)
+            if (pool.none { !it.failed && it.anchor.valid }) {
+                if (unavailableKinds.add(kind)) Log.w(TAG, "No valid contact slots for $kind")
+            } else {
+                val slot = pool.firstOrNull { !it.failed && it.anchor.valid && it.startedAt == null }
+                if (slot == null) {
+                    pending.addLast(impact)
+                } else {
+                    val normal = checkNotNull(impact.normal.normalizedOrNull())
+                    val strength = impact.strength.coerceIn(0.0, 1.0)
+                    val scale = (0.72 + 0.46 * strength).toFloat()
+                    val age = (state.simulationNanos - impact.atNanos).coerceAtLeast(0L).coerceAtMost(80_000_000L)
+                    slot.impactKind = impact.kind
+                    emit(slot, impact.point + normal * 0.008, contactRotation(normal, impact.hand), scale, now, age)
+                }
+            }
         }
         if (state.result == TrialResult.FIGHTING && state.enemyMoveDirection != 0f &&
             state.enemyTravelMeters.isFinite() && state.enemyTravelMeters - lastStepTravel >= 0.5
@@ -125,7 +157,7 @@ internal class CombatEffects private constructor(
             state.enemyPosition?.let { enemy ->
                 val foot = enemy + Vector3(cos(state.enemyYawRadians.toDouble()) * 0.09 * stepSide,
                     0.0, -sin(state.enemyYawRadians.toDouble()) * 0.09 * stepSide)
-                emit(Kind.DUST, foot, Quaternion(0.0, 0.0, 0.0, 1.0), 0.55f, now)
+                dust(foot, 0.55f, now)
                 stepSide = -stepSide
             }
         }
@@ -135,87 +167,42 @@ internal class CombatEffects private constructor(
         val floorImpact = if (state.executing) 2.35f else 1.6f
         if (deathDustPending && state.phase == EnemyPhase.DEAD && state.deathElapsedSeconds >= floorImpact) {
             deathDustPending = false
-            state.enemyPosition?.let { emit(Kind.DUST, it, identity(), 1f, now) }
+            state.enemyPosition?.let { dust(it, 1f, now) }
         }
     }
 
-    private fun feedback(state: ArenaViewState, now: Long) {
-        val enemy = state.enemyPosition ?: return
-        val enemyFacing = yaw(state.enemyYawRadians.toDouble())
-        val body = enemy + Vector3(0.0, if (state.feedback == CombatFeedback.HEADSHOT) 1.60 else 1.15, 0.0)
-        val base = state.playerBladeBase
-        val tip = state.playerBladeTip
-        val target = if (state.feedback == CombatFeedback.BLOCK || state.feedback == CombatFeedback.PARRY) {
-            val head = state.playerHeadPosition ?: return
-            val forward = Vector3(enemy.x - head.x, 0.0, enemy.z - head.z).normalizedOrNull() ?: return
-            head + forward * 0.32 + Vector3(0.0, 0.05, 0.0)
-        } else body
-        val contact = if (base != null && tip != null && base.isFinite() && tip.isFinite()) {
-            val blade = tip - base
-            val squared = blade.dot(blade)
-            if (squared > 1e-8) base + blade * (((target - base).dot(blade) / squared).coerceIn(0.0, 1.0)) else target
-        } else target
-        val arcRotation = bladeRotation(base, tip, enemyFacing)
-        when (state.feedback) {
-            CombatFeedback.HIT, CombatFeedback.HEADSHOT -> {
-                emit(Kind.ARC, base ?: contact, arcRotation, 1f, now)
-            }
-            CombatFeedback.GUARDED_HIT, CombatFeedback.BLOCK, CombatFeedback.PARRY -> {
-                emit(Kind.SPARKS, contact, enemyFacing, if (state.feedback == CombatFeedback.PARRY) 0.85f else 0.60f, now)
-            }
-            CombatFeedback.SKILL, CombatFeedback.EXECUTION -> {
-                emit(Kind.RING, enemy, identity(), if (state.executing) 0.90f else 1.15f, now)
-                emit(Kind.ARC, base ?: contact, arcRotation, 1.25f, now)
-            }
-            CombatFeedback.DODGE, CombatFeedback.GUARD_BREAK -> {
-                state.playerHeadPosition?.let { head ->
-                    emit(Kind.DUST, Vector3(head.x, enemy.y, head.z), identity(), 0.65f, now)
-                }
-            }
-            else -> Unit
-        }
+    private fun dust(position: Vector3, scale: Float, now: Long) {
+        val slot = slots.getValue(Kind.DUST).firstOrNull { !it.failed && it.anchor.valid && it.startedAt == null } ?: return
+        slot.impactKind = null
+        // Dust is authored in XY; rotate its outward axis onto Stage +Y at the floor.
+        emit(slot, position, Quaternion(-sin(Math.PI / 4), 0.0, 0.0, cos(Math.PI / 4)), scale, now, 0L)
     }
 
-    private fun bladeRotation(base: Vector3?, tip: Vector3?, default: Quaternion): Quaternion {
-        val axis = if (base != null && tip != null) (tip - base).normalizedOrNull() else null
-        val motion = sweepDirection
-        val normal = if (axis != null && motion != null) axis.cross(motion).normalizedOrNull() else null
-        if (axis == null || normal == null) return default
-        val turn = Quaternion(-normal.y, normal.x, 0.0, 1.0 + normal.z).normalizedOrNull()
-            ?: Quaternion(0.0, 1.0, 0.0, 0.0)
-        val right = checkNotNull(turn.rotate(Vector3(1.0, 0.0, 0.0)))
-        val angle = atan2(normal.dot(right.cross(axis)), right.dot(axis))
-        val half = angle / 2.0
-        return Quaternion(normal.x * sin(half), normal.y * sin(half), normal.z * sin(half), cos(half)) * turn
-    }
-
-    private fun emit(kind: Kind, position: Vector3, rotation: Quaternion, size: Float, now: Long) {
-        if (!position.isFinite()) return
-        val slot = slots.getValue(kind)
-        if (slot.failed || !slot.anchor.valid) return
+    private fun emit(slot: Slot, position: Vector3, rotation: Quaternion, scale: Float, now: Long, age: Long) {
         val point = SpatialVector3(position.x.toFloat(), position.y.toFloat(), position.z.toFloat())
-        if (!point.x.isFinite() || !point.y.isFinite() || !point.z.isFinite()) return
+        if (!point.x.isFinite() || !point.y.isFinite() || !point.z.isFinite()) {
+            Log.w(TAG, "Contact position exceeds Stage presentation range")
+            return
+        }
+        val orientation = rotation.normalizedOrNull() ?: return
         try {
-            val orientation = checkNotNull(rotation.normalizedOrNull())
             transform(slot.anchor).setPosition(root.convertPositionFrom(point, null))
             transform(slot.anchor).setQuaternion(root.convertRotationFrom(
                 Quat(orientation.x.toFloat(), orientation.y.toFloat(), orientation.z.toFloat(), orientation.w.toFloat()), null))
-            transform(slot.anchor).setScaleVector(SpatialVector3(size, size, size))
-            slot.startedAt = now
-            for (controller in slot.controllers) controller.setTime(0f)
+            transform(slot.anchor).setScaleVector(SpatialVector3(scale, scale, scale))
+            slot.startedAt = now - age
             slot.anchor.enabled = true
             slot.update(now)
         } catch (error: Exception) {
             slot.failed = true
-            Log.w(TAG, "Unable to present ${kind.asset}", error)
+            Log.w(TAG, "Unable to present ${slot.kind.asset}", error)
             slot.hide()
         }
     }
 
     private fun clear() {
-        slots.values.forEach { it.hide() }
-        previousBladeTip = null
-        sweepDirection = null
+        allSlots.forEach { it.hide() }
+        pending.clear()
         deathDustPending = false
     }
 
@@ -223,86 +210,76 @@ internal class CombatEffects private constructor(
         if (closed) return
         closed = true
         clear()
-        slots.values.forEach { it.close() }
+        allSlots.forEach { it.close() }
+        seenImpacts.clear()
     }
 
     companion object {
         private const val TAG = "ArenaEffects"
+        private const val SLOTS_PER_KIND = 6
 
-        /** Caller owns the returned pool and closes it before destroying the scene root. */
+        /** Main-thread owner closes the pool before destroying its scene root. */
         suspend fun load(root: Entity): CombatEffects {
-            val loaded = mutableMapOf<Kind, Slot>()
+            val loaded = mutableMapOf<Kind, List<Slot>>()
+            val owned = mutableListOf<Slot>()
             try {
-                for (kind in Kind.entries) loaded[kind] = loadSlot(root, kind)
+                for (kind in Kind.entries) {
+                    val pool = mutableListOf<Slot>()
+                    repeat(SLOTS_PER_KIND) {
+                        val slot = loadSlot(root, kind)
+                        owned.add(slot)
+                        pool.add(slot)
+                    }
+                    loaded[kind] = pool
+                }
                 return CombatEffects(root, loaded)
             } catch (error: Exception) {
-                loaded.values.forEach { it.close() }
-                Log.w(TAG, "Unable to load combat effects", error)
+                owned.forEach { it.close() }
+                Log.w(TAG, "Unable to load static contact layers", error)
                 throw error
             }
         }
 
         private suspend fun loadSlot(root: Entity, kind: Kind): Slot {
-            var model: Entity? = null
+            val model = Entity.loadSuspend("asset://models/effects/${kind.asset}.glb")
             var anchor: Entity? = null
-            var modelAttached = false
-            val resources = mutableListOf<AnimationResource>()
-            val repeated = mutableListOf<AnimationResource>()
-            val controllers = mutableListOf<AnimationPlaybackController>()
+            var attached = false
             try {
-                model = Entity.loadSuspend("asset://models/effects/${kind.asset}.glb")
                 check(root.valid) { "Effect scene root was released during loading" }
                 val parent = Entity()
                 anchor = parent
                 parent.enabled = false
                 check(root.addChild(parent)) { "Unable to attach effect anchor" }
-                check(parent.addChild(model)) { "Unable to attach effect model" }
-                modelAttached = true
-                val pending = ArrayDeque<Entity>()
-                pending.addLast(model)
-                while (pending.isNotEmpty()) {
-                    val owner = pending.removeFirst()
-                    for (resource in owner.getAnimationResources()) {
-                        resources += resource
-                        if (resource.getName() == kind.clip) {
-                            val single = resource.repeat(0)
-                            repeated += single
-                            val controller = owner.playAnimation(single, AnimationPlayConfig(transitionDuration = 0f))
-                            controllers += controller
-                            controller.pause()
-                            controller.setTime(0f)
-                        }
+                check(parent.addChild(model)) { "Unable to attach static effect model" }
+                attached = true
+                val layers = listOf("core", "debris", "scar").map { name ->
+                    checkNotNull(model.findEntity(name)) { "Missing contact layer $name in ${kind.asset}" }.also {
+                        it.components.set(OpacityControllerComponent(1f))
                     }
-                    owner.getChildren().forEach { pending.addLast(it) }
                 }
-                if (controllers.isEmpty()) {
-                    Log.w(TAG, "Effect ${kind.asset} disabled because its authored animation was not imported")
-                }
-                return Slot(kind, parent, resources, repeated, controllers)
+                return Slot(kind, parent, layers[0], layers[1], layers[2])
             } catch (error: Exception) {
-                controllers.forEach { release(it, kind.asset) }
-                repeated.forEach { release(it, kind.asset) }
-                resources.forEach { release(it, kind.asset) }
-                if (!modelAttached) {
-                    try { model?.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
-                }
+                if (!attached) try { model.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
                 try { anchor?.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
                 throw error
             }
         }
 
-        private fun transform(entity: Entity): TransformComponent =
-            checkNotNull(entity.components[TransformComponent::class.java]) { "Effect transform is unavailable" }
-
-        private fun release(resource: AutoCloseable, label: String) {
-            try {
-                resource.close()
-            } catch (error: Exception) {
-                Log.w(TAG, "Unable to release effect resource $label", error)
-            }
+        private fun kindFor(kind: CombatImpactKind): Kind = when (kind) {
+            CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> Kind.SOFT
+            CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
+            CombatImpactKind.BLOCK, CombatImpactKind.PARRY -> Kind.METAL
+            CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> Kind.FORCE
         }
 
-        private fun identity() = Quaternion(0.0, 0.0, 0.0, 1.0)
-        private fun yaw(angle: Double) = Quaternion(0.0, sin(angle / 2.0), 0.0, cos(angle / 2.0))
+        private fun contactRotation(normal: Vector3, hand: Hand): Quaternion {
+            val facing = Quaternion(-normal.y, normal.x, 0.0, 1.0 + normal.z).normalizedOrNull()
+                ?: Quaternion(0.0, 1.0, 0.0, 0.0)
+            val roll = if (hand == Hand.LEFT) -0.30 else 0.30
+            return facing * Quaternion(0.0, 0.0, sin(roll / 2), cos(roll / 2))
+        }
+
+        private fun transform(entity: Entity): TransformComponent =
+            checkNotNull(entity.components[TransformComponent::class.java]) { "Effect transform is unavailable" }
     }
 }

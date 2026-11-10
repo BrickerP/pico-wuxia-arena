@@ -14,7 +14,22 @@ import kotlin.math.sin
 
 enum class HitZone { BODY, HEAD }
 
-data class MotionStrike(val id: Long, val zone: HitZone, val power: Double)
+data class MotionContact(val zone: HitZone, val point: Vector3, val normal: Vector3)
+
+data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val bodyTop: Vector3) {
+    fun isFinite(): Boolean = head.isFinite() && bodyBottom.isFinite() && bodyTop.isFinite()
+    fun translated(offset: Vector3) = EnemyContactPose(head + offset, bodyBottom + offset, bodyTop + offset)
+
+    companion object {
+        fun standing(origin: Vector3) = EnemyContactPose(
+            origin + Vector3(0.0, 1.62, 0.0),
+            origin + Vector3(0.0, 0.55, 0.0),
+            origin + Vector3(0.0, 1.40, 0.0),
+        )
+    }
+}
+
+data class MotionStrike(val id: Long, val zone: HitZone, val power: Double, val contact: MotionContact)
 
 data class PlayerMotionFrame(
     val receivedAtNanos: Long,
@@ -27,6 +42,8 @@ data class PlayerMotionFrame(
     val guardDirection: AttackDirection? = null,
     val chargeProgress: Float = 0f,
     val releaseRequired: Boolean = false,
+    val hand: Hand = Hand.RIGHT,
+    val targetPose: EnemyContactPose? = null,
 )
 
 /**
@@ -79,8 +96,12 @@ class PlayerCombatResolver {
     private var skillHandContinuity: Long? = null
 
     /** First samples and duplicate hand observations cannot produce a strike. */
-    fun observe(snapshot: TrackingSnapshot, enemyPosition: Vector3): PlayerMotionFrame? {
-        if (!snapshot.hasRequiredObservations || !enemyPosition.isFinite()) return clearUnavailable()
+    fun observe(
+        snapshot: TrackingSnapshot,
+        enemyPosition: Vector3,
+        contactPose: EnemyContactPose = EnemyContactPose.standing(enemyPosition),
+    ): PlayerMotionFrame? {
+        if (!snapshot.hasRequiredObservations || !enemyPosition.isFinite() || !contactPose.isFinite()) return clearUnavailable()
         val head = snapshot.head ?: return clearUnavailable()
         val hand = (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right)
             ?: return clearUnavailable()
@@ -115,9 +136,9 @@ class PlayerCombatResolver {
         }
         val sample = BladeSample(hand.stamp, base, tip, rotation)
         val old = previous
-        if (old == null) return establish(sample, headPosition, enemyPosition)
+        if (old == null) return establish(sample, headPosition, enemyPosition, contactPose)
         if (sample.stamp.sequence == old.stamp.sequence) {
-            val frame = latestFrame?.copy(headPosition = headPosition, strike = null, skillGesture = false)
+            val frame = latestFrame?.copy(headPosition = headPosition, strike = null, skillGesture = false, targetPose = contactPose)
             latestFrame = frame
             return frame
         }
@@ -127,7 +148,7 @@ class PlayerCombatResolver {
             reset()
             identity = currentIdentity
             lastHeadStamp = head.stamp
-            return establish(sample, headPosition, enemyPosition)
+            return establish(sample, headPosition, enemyPosition, contactPose)
         }
 
         val tipMovement = tip - old.tip
@@ -141,21 +162,21 @@ class PlayerCombatResolver {
             reset()
             identity = currentIdentity
             lastHeadStamp = head.stamp
-            return establish(sample, headPosition, enemyPosition)
+            return establish(sample, headPosition, enemyPosition, contactPose)
         }
-        val zone = contactZone(sample, old, enemyPosition)
-        val inside = contactZone(sample, null, enemyPosition) != null
+        val contact = contactZone(sample, old, contactPose)
+        val inside = contactZone(sample, null, contactPose) != null
         val direction = movement.normalizedOrNull()
         updateStroke(sample, speed, direction, inside)
         strokeTravel += distance
         val displacement = strokeOrigin?.let { maxOf(it.tip.distanceTo(tip), it.base.distanceTo(base)) } ?: 0.0
-        val strike = if (!strokeHasHit && zone != null && speed >= MIN_STRIKE_SPEED &&
+        val strike = if (!strokeHasHit && contact != null && speed >= MIN_STRIKE_SPEED &&
             strokeTravel >= MIN_STRIKE_TRAVEL && displacement >= MIN_STRIKE_DISPLACEMENT &&
             elapsedSince(sample.stamp.receivedAtNanos, lastStrikeAt) >= STRIKE_COOLDOWN &&
             nextStrikeId < Long.MAX_VALUE) {
             strokeHasHit = true
             lastStrikeAt = sample.stamp.receivedAtNanos
-            MotionStrike(nextStrikeId++, zone, (speed / 2.2).coerceIn(1.0, 1.4))
+            MotionStrike(nextStrikeId++, contact.zone, (speed / 2.2).coerceIn(1.0, 1.4), contact)
         } else {
             null
         }
@@ -172,7 +193,7 @@ class PlayerCombatResolver {
         }
         val frame = PlayerMotionFrame(sample.stamp.receivedAtNanos, base, tip, tipDistance / elapsed,
             if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress,
-            releaseRequired = skillLatched)
+            releaseRequired = skillLatched, hand = snapshot.dominantHand, targetPose = contactPose)
         latestFrame = frame
         return frame
     }
@@ -182,6 +203,29 @@ class PlayerCombatResolver {
         this.attackId = attackId
         attackHeadBaseline = headPosition.takeIf { it.isFinite() }
         resolvedAttackId = null
+    }
+
+    /** Surface witness on the same gameplay capsule used by the accepted action. */
+    fun targetContact(frame: PlayerMotionFrame, enemyPosition: Vector3, zone: HitZone): MotionContact {
+        val pose = frame.targetPose ?: EnemyContactPose.standing(enemyPosition)
+        val start = if (zone == HitZone.HEAD) pose.head else pose.bodyBottom
+        val end = if (zone == HitZone.HEAD) start else pose.bodyTop
+        return surfaceContact(frame.bladeBase, frame.bladeTip, start, end,
+            if (zone == HitZone.HEAD) HEAD_RADIUS else BODY_RADIUS, zone, frame.headPosition - enemyPosition)
+    }
+
+    /** The defense rules use the guard blade or the player's current head proxy. */
+    fun defenseContact(outcome: AttackOutcome, enemyPosition: Vector3, observedHead: Vector3?): MotionContact? {
+        val frame = latestFrame
+        val head = frame?.headPosition ?: observedHead ?: return null
+        val towardEnemy = horizontal(enemyPosition - head).normalizedOrNull() ?: UP
+        val point = if (outcome == AttackOutcome.HIT_PLAYER) {
+            head + towardEnemy * HEAD_RADIUS
+        } else {
+            if (frame == null) return null
+            closestPoint(head + towardEnemy * 0.32, frame.bladeBase, frame.bladeTip)
+        }
+        return MotionContact(HitZone.HEAD, point, towardEnemy)
     }
 
     /** The caller resolves at the current attack's contact point, before advancing past ACTIVE. */
@@ -235,11 +279,12 @@ class PlayerCombatResolver {
         return null
     }
 
-    private fun establish(sample: BladeSample, head: Vector3, enemy: Vector3): PlayerMotionFrame {
+    private fun establish(sample: BladeSample, head: Vector3, enemy: Vector3, contactPose: EnemyContactPose): PlayerMotionFrame {
         previous = sample
         startStroke(sample)
         updateGuard(sample, head, enemy, 0.0, false)
-        return PlayerMotionFrame(sample.stamp.receivedAtNanos, sample.base, sample.tip, 0.0, null, false, head, currentGuard)
+        return PlayerMotionFrame(sample.stamp.receivedAtNanos, sample.base, sample.tip, 0.0, null, false, head, currentGuard,
+            hand = checkNotNull(identity).hand, targetPose = contactPose)
             .also { latestFrame = it }
     }
 
@@ -372,17 +417,17 @@ class PlayerCombatResolver {
         previousHandsAt = null
     }
 
-    private fun contactZone(current: BladeSample, old: BladeSample?, enemy: Vector3): HitZone? {
-        val head = enemy + Vector3(0.0, 1.62, 0.0)
-        val bottom = enemy + Vector3(0.0, 0.55, 0.0)
-        val top = enemy + Vector3(0.0, 1.40, 0.0)
+    private fun contactZone(current: BladeSample, old: BladeSample?, pose: EnemyContactPose): MotionContact? {
+        val head = pose.head
+        val bottom = pose.bodyBottom
+        val top = pose.bodyTop
         val origin = old ?: current
         val travel = maxOf(origin.base.distanceTo(current.base), origin.tip.distanceTo(current.tip))
         val steps = ceil(maxOf(travel / 0.06, rotationDistance(origin.rotation, current.rotation) / 0.10))
             .toInt().coerceIn(1, 160)
         val oldHand = origin.base - checkNotNull(origin.rotation.rotate(BLADE_BASE))
         val currentHand = current.base - checkNotNull(current.rotation.rotate(BLADE_BASE))
-        var bodyContact = false
+        var bodyContact: MotionContact? = null
         // Reconstruct intermediate rigid blades so the rotating blade's middle also sweeps the target.
         for (index in 0..steps) {
             val fraction = index.toDouble() / steps
@@ -390,12 +435,24 @@ class PlayerCombatResolver {
             val hand = oldHand + (currentHand - oldHand) * fraction
             val base = hand + checkNotNull(rotation.rotate(BLADE_BASE))
             val tip = hand + checkNotNull(rotation.rotate(BLADE_TIP))
-            if (segmentDistance(base, tip, head, head) <= HEAD_RADIUS + BLADE_RADIUS) return HitZone.HEAD
-            if (!bodyContact && segmentDistance(base, tip, bottom, top) <= BODY_RADIUS + BLADE_RADIUS) {
-                bodyContact = true
+            val fallback = origin.tip - current.tip
+            if (segmentDistance(base, tip, head, head) <= HEAD_RADIUS + BLADE_RADIUS) {
+                return surfaceContact(base, tip, head, head, HEAD_RADIUS, HitZone.HEAD, fallback)
+            }
+            if (bodyContact == null && segmentDistance(base, tip, bottom, top) <= BODY_RADIUS + BLADE_RADIUS) {
+                bodyContact = surfaceContact(base, tip, bottom, top, BODY_RADIUS, HitZone.BODY, fallback)
             }
         }
-        return if (bodyContact) HitZone.BODY else null
+        return bodyContact
+    }
+
+    private fun surfaceContact(
+        base: Vector3, tip: Vector3, start: Vector3, end: Vector3,
+        radius: Double, zone: HitZone, fallback: Vector3,
+    ): MotionContact {
+        val (bladePoint, axisPoint) = checkNotNull(closestSegmentPoints(base, tip, start, end))
+        val normal = (bladePoint - axisPoint).normalizedOrNull() ?: fallback.normalizedOrNull() ?: UP
+        return MotionContact(zone, axisPoint + normal * radius, normal)
     }
 
     private fun interpolateRotation(from: Quaternion, to: Quaternion, fraction: Double): Quaternion {
@@ -437,6 +494,11 @@ class PlayerCombatResolver {
 
     /** Closest distance between finite segments, including point and parallel cases. */
     private fun segmentDistance(a0: Vector3, a1: Vector3, b0: Vector3, b1: Vector3): Double {
+        val (a, b) = closestSegmentPoints(a0, a1, b0, b1) ?: return Double.POSITIVE_INFINITY
+        return a.distanceTo(b).takeIf { it.isFinite() } ?: Double.POSITIVE_INFINITY
+    }
+
+    private fun closestSegmentPoints(a0: Vector3, a1: Vector3, b0: Vector3, b1: Vector3): Pair<Vector3, Vector3>? {
         val a = a1 - a0
         val b = b1 - b0
         val offset = a0 - b0
@@ -445,10 +507,10 @@ class PlayerCombatResolver {
         val ab = a.dot(b)
         val ao = a.dot(offset)
         val bo = b.dot(offset)
-        if (!listOf(aa, bb, ab, ao, bo).all { it.isFinite() }) return Double.POSITIVE_INFINITY
-        if (aa <= GEOMETRY_EPSILON && bb <= GEOMETRY_EPSILON) return a0.distanceTo(b0)
-        if (aa <= GEOMETRY_EPSILON) return a0.distanceTo(closestPoint(a0, b0, b1))
-        if (bb <= GEOMETRY_EPSILON) return b0.distanceTo(closestPoint(b0, a0, a1))
+        if (!listOf(aa, bb, ab, ao, bo).all { it.isFinite() }) return null
+        if (aa <= GEOMETRY_EPSILON && bb <= GEOMETRY_EPSILON) return a0 to b0
+        if (aa <= GEOMETRY_EPSILON) return a0 to closestPoint(a0, b0, b1)
+        if (bb <= GEOMETRY_EPSILON) return closestPoint(b0, a0, a1) to b0
         val denominator = aa * bb - ab * ab
         var alongA = if (denominator > GEOMETRY_EPSILON) {
             ((ab * bo - ao * bb) / denominator).coerceIn(0.0, 1.0)
@@ -463,8 +525,7 @@ class PlayerCombatResolver {
             alongB = 1.0
             alongA = ((ab - ao) / aa).coerceIn(0.0, 1.0)
         }
-        return ((a0 + a * alongA) - (b0 + b * alongB)).length().takeIf { it.isFinite() }
-            ?: Double.POSITIVE_INFINITY
+        return (a0 + a * alongA) to (b0 + b * alongB)
     }
 
     private companion object {

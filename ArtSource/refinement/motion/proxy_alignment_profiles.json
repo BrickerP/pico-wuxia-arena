@@ -1,0 +1,1094 @@
+{
+  "schema": "wuxia.calibrated-proxy-keyposes/v1",
+  "measured_on": "2026-11-10",
+  "coordinate_frame": {
+    "relative_to": "TripoWarrior_Root",
+    "units": "metres",
+    "up": "+Y",
+    "prepared_forward": "+Z"
+  },
+  "calibration": "localPoint = inverse(ownerMatrixAtIdleOne) * legacyProxyPoint; currentPoint = ownerMatrixAtSlashTime * localPoint",
+  "actors": [
+    {
+      "actor": "base",
+      "source": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22",
+      "calibration": {
+        "clip": "idle",
+        "source_seconds": 1.0,
+        "formula": "localPoint = inverse(ownerMatrixAtIdleOne) * legacyProxyPoint; currentPoint = ownerMatrixAtSlashTime * localPoint",
+        "local_points_metres": {
+          "head": [
+            0.09484568454097198,
+            0.01476831442771609,
+            0.10670619158170414
+          ],
+          "body_top": [
+            0.007126787431843029,
+            0.06848222473498977,
+            0.1396344376030233
+          ],
+          "body_bottom": [
+            -0.04262619537160682,
+            -0.20473258939011868,
+            0.137252881932843
+          ]
+        },
+        "legacy_points_metres": {
+          "head": [
+            0.0,
+            1.62,
+            0.0
+          ],
+          "body_top": [
+            0.0,
+            1.4,
+            0.0
+          ],
+          "body_bottom": [
+            0.0,
+            0.55,
+            0.0
+          ]
+        },
+        "unchanged_radii_metres": {
+          "head": 0.16,
+          "body": 0.24
+        }
+      },
+      "keyposes": [
+        {
+          "source_seconds": 1.55,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                0.09555918930313156,
+                1.5555209063946063,
+                0.2920813568695448
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.09555918930313156,
+                -0.06447909360539383,
+                0.2920813568695448
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                0.035583065122006374,
+                1.312310799314747,
+                0.23710948196111917
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.035583065122006374,
+                -0.08768920068525299,
+                0.23710948196111917
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.131994580928794,
+                0.5500066654878858,
+                -0.018245663975556575
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.131994580928794,
+                6.665487885748611e-06,
+                -0.018245663975556575
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 1.85,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.010911925204220407,
+                1.5493670312302257,
+                0.3484190002470486
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.010911925204220407,
+                -0.07063296876977443,
+                0.3484190002470486
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.04092927066106358,
+                1.3091535997955037,
+                0.24007085968547448
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.04092927066106358,
+                -0.09084640020449619,
+                0.24007085968547448
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.11286758808634251,
+                0.5644247665888595,
+                -0.05757081367755932
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.11286758808634251,
+                0.014424766588859494,
+                -0.05757081367755932
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.067,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.18964151515122674,
+                1.2594276835166904,
+                0.4994357693446835
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.18964151515122674,
+                -0.3605723164833097,
+                0.4994357693446835
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.14783481072996485,
+                1.14698546368799,
+                0.29482032928019564
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.14783481072996485,
+                -0.25301453631201,
+                0.29482032928019564
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.08656732587918417,
+                0.5637212847149373,
+                -0.18553668357840886
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.08656732587918417,
+                0.013721284714937276,
+                -0.18553668357840886
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.117,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.23279098569126846,
+                1.1624640752568154,
+                0.5224619266134981
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.23279098569126846,
+                -0.4575359247431847,
+                0.5224619266134981
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.17036440837894296,
+                1.1096030977666609,
+                0.3112158884620483
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.17036440837894296,
+                -0.290396902233339,
+                0.3112158884620483
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.07589240976906814,
+                0.5649142303179555,
+                -0.22017446714468225
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.07589240976906814,
+                0.014914230317955468,
+                -0.22017446714468225
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.167,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.29128585484480707,
+                1.0341639786672039,
+                0.5519522733829143
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.29128585484480707,
+                -0.5858360213327962,
+                0.5519522733829143
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.20741410698466028,
+                1.0534219182757805,
+                0.3339269442927617
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.20741410698466028,
+                -0.34657808172421944,
+                0.3339269442927617
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.04167512427850903,
+                0.5736845590463672,
+                -0.2579457166841901
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.04167512427850903,
+                0.023684559046367126,
+                -0.2579457166841901
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.6,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2978262061129884,
+                1.0842761075467964,
+                0.5324169882014922
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2978262061129884,
+                -0.5357238924532037,
+                0.5324169882014922
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.212105728297343,
+                1.0993891359442194,
+                0.32438153217737553
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.212105728297343,
+                -0.3006108640557805,
+                0.32438153217737553
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.02824745500094214,
+                0.5774410995918782,
+                -0.2513842097708755
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.02824745500094214,
+                0.027441099591878126,
+                -0.2513842097708755
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 3.4,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.27445513656385423,
+                1.4017261499127827,
+                0.3288413898577912
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.27445513656385423,
+                -0.21827385008721745,
+                0.3288413898577912
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.17790646232148727,
+                1.2843703105223736,
+                0.14877648491940088
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.17790646232148727,
+                -0.11562968947762631,
+                0.14877648491940088
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.05932378582224826,
+                0.5372840246555917,
+                -0.12639602215029605
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.05932378582224826,
+                -0.012715975344408381,
+                -0.12639602215029605
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "actor": "indigo",
+      "source": "app/src/main/assets/models/opponents/indigo.glb",
+      "sha256": "6cce517bce2cb1ffa7d2eb022c7ff7711a4844582cb4ebaa6cab1d6e7c9b4c8d",
+      "calibration": {
+        "clip": "idle",
+        "source_seconds": 1.0,
+        "formula": "localPoint = inverse(ownerMatrixAtIdleOne) * legacyProxyPoint; currentPoint = ownerMatrixAtSlashTime * localPoint",
+        "local_points_metres": {
+          "head": [
+            0.07594538392484762,
+            0.026408034871954644,
+            0.120157135589129
+          ],
+          "body_top": [
+            0.0003977156834292228,
+            0.04066882053522647,
+            0.13445372316581658
+          ],
+          "body_bottom": [
+            -0.047548703473082134,
+            -0.20570322438747618,
+            0.13394702949571802
+          ]
+        },
+        "legacy_points_metres": {
+          "head": [
+            0.0,
+            1.62,
+            0.0
+          ],
+          "body_top": [
+            0.0,
+            1.4,
+            0.0
+          ],
+          "body_bottom": [
+            0.0,
+            0.55,
+            0.0
+          ]
+        },
+        "unchanged_radii_metres": {
+          "head": 0.16,
+          "body": 0.24
+        }
+      },
+      "keyposes": [
+        {
+          "source_seconds": 1.55,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                0.07152441042486105,
+                1.5734682921048757,
+                0.27041994903279565
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.07152441042486105,
+                -0.0465317078951244,
+                0.27041994903279565
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                0.012356907011981277,
+                1.328624341998733,
+                0.21897355009731453
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.012356907011981277,
+                -0.071375658001267,
+                0.21897355009731453
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.14177171183070322,
+                0.5517997111369222,
+                -0.016522530770293142
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.14177171183070322,
+                0.001799711136922122,
+                -0.016522530770293142
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 1.85,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.023469700551402628,
+                1.561543225986563,
+                0.32946696346498394
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.023469700551402628,
+                -0.058456774013437185,
+                0.32946696346498394
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.055626610676132254,
+                1.3227705457097114,
+                0.22135313991085423
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.055626610676132254,
+                -0.07722945429028849,
+                0.22135313991085423
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.12158591874841798,
+                0.5653309536457732,
+                -0.05631719894067824
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.12158591874841798,
+                0.015330953645773193,
+                -0.05631719894067824
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.067,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.18857463340289665,
+                1.2991298960458273,
+                0.48108327525119987
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.18857463340289665,
+                -0.3208701039541728,
+                0.48108327525119987
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.1473668316270918,
+                1.1847604539328207,
+                0.2773782320636617
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.1473668316270918,
+                -0.2152395460671792,
+                0.2773782320636617
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.09341904034337806,
+                0.5691764565493507,
+                -0.18478621673894846
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.09341904034337806,
+                0.01917645654935063,
+                -0.18478621673894846
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.117,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.22651237232448887,
+                1.213050245053528,
+                0.5079571073966245
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.22651237232448887,
+                -0.406949754946472,
+                0.5079571073966245
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.16555010834015843,
+                1.153518638644359,
+                0.2980803791615231
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.16555010834015843,
+                -0.24648136135564092,
+                0.2980803791615231
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.08199144086266863,
+                0.5723362705266091,
+                -0.21951943283159167
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.08199144086266863,
+                0.022336270526609026,
+                -0.21951943283159167
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.167,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2834708123384349,
+                1.0960437876892788,
+                0.5432123806932181
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2834708123384349,
+                -0.5239562123107213,
+                0.5432123806932181
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.20234410204693154,
+                1.1033849359733898,
+                0.32591769856471925
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.20234410204693154,
+                -0.2966150640266101,
+                0.32591769856471925
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.0469399541518324,
+                0.583011545520395,
+                -0.2571338480214955
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.0469399541518324,
+                0.03301154552039498,
+                -0.2571338480214955
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.6,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2924273967289943,
+                1.1409746031822239,
+                0.5187829073298602
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2924273967289943,
+                -0.47902539681777623,
+                0.5187829073298602
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.2085113734017895,
+                1.1434887140353858,
+                0.3137470642741621
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2085113734017895,
+                -0.25651128596461414,
+                0.3137470642741621
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.03337172993133726,
+                0.5856408580558123,
+                -0.2504275947615696
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.03337172993133726,
+                0.0356408580558123,
+                -0.2504275947615696
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 3.4,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2613013026468515,
+                1.432132669770052,
+                0.30317350847435076
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2613013026468515,
+                -0.18786733022994806,
+                0.30317350847435076
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.16931961971155046,
+                1.308160061122153,
+                0.13068035341545797
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.16931961971155046,
+                -0.0918399388778468,
+                0.13068035341545797
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.06446420248242124,
+                0.5403056485878033,
+                -0.12518530151815624
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.06446420248242124,
+                -0.009694351412196767,
+                -0.12518530151815624
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "actor": "veteran",
+      "source": "app/src/main/assets/models/opponents/veteran.glb",
+      "sha256": "f0debfdf27b8f35a591b0354df714b201d977444b506d0441c19190fe5ca9e39",
+      "calibration": {
+        "clip": "idle",
+        "source_seconds": 1.0,
+        "formula": "localPoint = inverse(ownerMatrixAtIdleOne) * legacyProxyPoint; currentPoint = ownerMatrixAtSlashTime * localPoint",
+        "local_points_metres": {
+          "head": [
+            0.063677236464527,
+            0.05105437806945329,
+            0.13058725380748193
+          ],
+          "body_top": [
+            0.0003006575853346932,
+            0.07001030953446263,
+            0.13486119837527305
+          ],
+          "body_bottom": [
+            0.010044427640858174,
+            -0.17474010905637866,
+            0.13935856143215314
+          ]
+        },
+        "legacy_points_metres": {
+          "head": [
+            0.0,
+            1.62,
+            0.0
+          ],
+          "body_top": [
+            0.0,
+            1.4,
+            0.0
+          ],
+          "body_bottom": [
+            0.0,
+            0.55,
+            0.0
+          ]
+        },
+        "unchanged_radii_metres": {
+          "head": 0.16,
+          "body": 0.24
+        }
+      },
+      "keyposes": [
+        {
+          "source_seconds": 1.55,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                0.08024422370570539,
+                1.5734724822047874,
+                0.2965484414883509
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.08024422370570539,
+                -0.04652751779521269,
+                0.2965484414883509
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                0.025350151646449992,
+                1.3164507555810017,
+                0.25399916408706574
+              ],
+              "delta_from_legacy_proxy_metres": [
+                0.025350151646449992,
+                -0.08354924441899825,
+                0.25399916408706574
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.14305657722653647,
+                0.551755799048101,
+                -0.0083314975216787
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.14305657722653647,
+                0.00175579904810097,
+                -0.0083314975216787
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 1.85,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.022488296002754676,
+                1.5489073627924443,
+                0.36345793169430507
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.022488296002754676,
+                -0.07109263720755576,
+                0.36345793169430507
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.05831350993167428,
+                1.310035604684791,
+                0.2567689534777702
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.05831350993167428,
+                -0.08996439531520894,
+                0.2567689534777702
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.1281490709757055,
+                0.5628504330364477,
+                -0.04719657393819175
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.1281490709757055,
+                0.012850433036447617,
+                -0.04719657393819175
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.067,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.21299283537203031,
+                1.267171744419912,
+                0.5278200920609066
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.21299283537203031,
+                -0.3528282555800881,
+                0.5278200920609066
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.1717235403760319,
+                1.144162916887555,
+                0.3245163136612903
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.1717235403760319,
+                -0.255837083112445,
+                0.3245163136612903
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.10634404705066694,
+                0.5627117498640188,
+                -0.16786995963262186
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.10634404705066694,
+                0.012711749864018795,
+                -0.16786995963262186
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.117,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2542877003398127,
+                1.1843598975359448,
+                0.554788232813034
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2542877003398127,
+                -0.43564010246405527,
+                0.554788232813034
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.1961356258699044,
+                1.1055943028088433,
+                0.3429468031036112
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.1961356258699044,
+                -0.2944056971911566,
+                0.3429468031036112
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.0967314817634148,
+                0.5654444199651429,
+                -0.20137722431325925
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.0967314817634148,
+                0.015444419965142897,
+                -0.20137722431325925
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.167,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.3118360278158437,
+                1.068003177071682,
+                0.5910935772053025
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.3118360278158437,
+                -0.5519968229283181,
+                0.5910935772053025
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.23753314012884286,
+                1.0462112031042943,
+                0.3663046023828597
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.23753314012884286,
+                -0.35378879689570564,
+                0.3663046023828597
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.06603529321396229,
+                0.5737362582108065,
+                -0.2378673859051098
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.06603529321396229,
+                0.023736258210806493,
+                -0.2378673859051098
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 2.6,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.32207165200733306,
+                1.1205897963659326,
+                0.561536199882472
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.32207165200733306,
+                -0.4994102036340675,
+                0.561536199882472
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.24307849642816207,
+                1.091947669367878,
+                0.3544697921548042
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.24307849642816207,
+                -0.3080523306321219,
+                0.3544697921548042
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.05406136599922512,
+                0.5760783337277784,
+                -0.23292733235744498
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.05406136599922512,
+                0.026078333727778347,
+                -0.23292733235744498
+              ]
+            }
+          }
+        },
+        {
+          "source_seconds": 3.4,
+          "proxies": {
+            "head": {
+              "owner_bone": "Head",
+              "root_position_metres": [
+                -0.2853048355117883,
+                1.4347392505196088,
+                0.3244415528494282
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.2853048355117883,
+                -0.18526074948039128,
+                0.3244415528494282
+              ]
+            },
+            "body_top": {
+              "owner_bone": "Spine02",
+              "root_position_metres": [
+                -0.20527944696979092,
+                1.287135712465507,
+                0.16305287563828247
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.20527944696979092,
+                -0.11286428753449296,
+                0.16305287563828247
+              ]
+            },
+            "body_bottom": {
+              "owner_bone": "Hip",
+              "root_position_metres": [
+                -0.08125279704382773,
+                0.5399543730723497,
+                -0.12356773158341616
+              ],
+              "delta_from_legacy_proxy_metres": [
+                -0.08125279704382773,
+                -0.01004562692765032,
+                -0.12356773158341616
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Bone origins are anchors, not skin surface or hitbox centres.",
+    "Source evaluation does not prove the SDK's runtime joint transform or crossfade output.",
+    "Seven key poses do not bound the entire slash trajectory.",
+    "Proxy calibration preserves the legacy idle@1.0 centres; it does not prove those centres fit the rendered skin.",
+    "No gameplay thresholds, capsule radii, state timings or three-round rules were changed."
+  ]
+}

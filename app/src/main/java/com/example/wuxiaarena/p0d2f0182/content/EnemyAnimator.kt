@@ -1,6 +1,8 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import android.util.Log
+import com.example.wuxiaarena.core.combat.CombatImpact
+import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
@@ -17,7 +19,13 @@ private const val TAG = "ArenaAnimation"
 
 /** Plays this opponent's native slash and rest-pose-retargeted movement and reactions. */
 internal class EnemyAnimator(enemy: Entity) {
-    private data class PlaybackKey(val clip: String, val round: Long, val attackId: Long?, val reacting: Boolean)
+    private data class PlaybackKey(
+        val clip: String,
+        val round: Long,
+        val opponentRound: Int,
+        val attackId: Long?,
+        val reacting: Boolean,
+    )
 
     private val target = enemy.findSkeletonRootEntity().single()
     private val importedResources = enemy.findSkinnedMeshEntity().single().getAnimationResources()
@@ -27,6 +35,11 @@ internal class EnemyAnimator(enemy: Entity) {
     private var playbackKey: PlaybackKey? = null
     private var lastPhase: EnemyPhase? = null
     private var lastPaused: Boolean? = null
+    private var closed = false
+    private var lastImpactId = Long.MIN_VALUE
+    private var holdingImpactPose = false
+    private var pendingHitRestart = false
+    private var reactionStrength = 0f
 
     init {
         try {
@@ -51,7 +64,44 @@ internal class EnemyAnimator(enemy: Entity) {
     }
 
     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
-        if (!target.valid) return
+        if (closed || !target.valid) return
+        val roundChanged = playbackKey?.let {
+            it.round != state.roundGeneration || it.opponentRound != state.roundNumber
+        } ?: true
+        if (roundChanged) {
+            lastImpactId = Long.MIN_VALUE
+            holdingImpactPose = false
+            pendingHitRestart = false
+            reactionStrength = 0f
+        }
+        val impacts = events.filterIsInstance<CombatImpact>()
+        val impact = impacts
+            .filter { it.id > lastImpactId && it.kind.affectsEnemyPose() }
+            .maxByOrNull { it.strength }
+        if (impact != null) {
+            lastImpactId = impacts.maxOf { it.id }
+            reactionStrength = impact.strength.takeIf { it.isFinite() }?.coerceIn(0.0, 1.0)?.toFloat() ?: 0f
+        }
+        val hitReactionStarted = state.phase == EnemyPhase.HIT &&
+            events.any { it is EnemyCombatEvent.HitReactionStarted }
+        pendingHitRestart = pendingHitRestart || hitReactionStarted
+        val existing = controller?.takeIf { it.valid }
+        if (!roundChanged && existing != null && state.hitStop && (impact != null || holdingImpactPose)) {
+            // Keep the pose that was visible at contact. Switching or seeking first would
+            // freeze the beginning of the hurt clip instead of the actual impact pose.
+            holdingImpactPose = true
+            if (!existing.isPaused()) existing.pause()
+            lastPaused = true
+            return
+        }
+        holdingImpactPose = false
+        if (!roundChanged && existing != null &&
+            ((state.pauseReason != null && state.result != TrialResult.VICTORY) || !state.inputReady || !state.sceneReady)
+        ) {
+            if (!existing.isPaused()) existing.pause()
+            lastPaused = true
+            return
+        }
         val clip = when (state.phase) {
             EnemyPhase.IDLE -> if (state.enemyMoveDirection != 0f) "walk" else "idle"
             EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> "slash"
@@ -63,15 +113,16 @@ internal class EnemyAnimator(enemy: Entity) {
             }
             EnemyPhase.DEAD -> if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
         }
-        val key = PlaybackKey(clip, state.roundGeneration, state.attackId, state.phase == EnemyPhase.HIT)
-        val restartHit = state.phase == EnemyPhase.HIT && events.any { it is EnemyCombatEvent.HitReactionStarted }
+        val key = PlaybackKey(clip, state.roundGeneration, state.roundNumber, state.attackId, state.phase == EnemyPhase.HIT)
+        val restartHit = state.phase == EnemyPhase.HIT && pendingHitRestart
+        pendingHitRestart = false
         if (key != playbackKey || restartHit) {
             val resource = playbackClips.getValue(clip)
             val previous = controller
             val next = target.playAnimation(
                 resource,
                 AnimationPlayConfig(
-                    transitionDuration = if (state.phase == EnemyPhase.HIT) 0.055f else 0.12f,
+                    transitionDuration = if (state.phase == EnemyPhase.HIT) 0.055f - 0.03f * reactionStrength else 0.12f,
                     transitionMode = AnimationTransitionMode.STOP_AND_CROSSFADE,
                 ),
             )
@@ -152,6 +203,12 @@ internal class EnemyAnimator(enemy: Entity) {
         controller?.takeIf { it.valid && !it.isPaused() }?.pause()
     }
 
+    private fun CombatImpactKind.affectsEnemyPose(): Boolean = when (this) {
+        CombatImpactKind.SOFT_HIT, CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
+        CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> true
+        CombatImpactKind.PLAYER_HIT -> false
+    }
+
     private companion object {
         const val WALK_STRIDE_METERS = 1.45
         const val WALK_LOOP_START = 1f / 3f
@@ -160,12 +217,16 @@ internal class EnemyAnimator(enemy: Entity) {
     }
 
     fun close() {
+        if (closed) return
+        closed = true
         val resources = buildList<AutoCloseable> {
             controller?.let(::add)
             addAll(playbackClips.values)
             addAll(importedResources)
         }
         controller = null
+        holdingImpactPose = false
+        pendingHitRestart = false
         playbackClips.clear()
         var failure: Exception? = null
         for (resource in resources) {

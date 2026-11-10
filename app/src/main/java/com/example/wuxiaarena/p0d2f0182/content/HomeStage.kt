@@ -28,7 +28,9 @@ import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+import com.example.wuxiaarena.core.combat.CombatImpact
+import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import java.util.concurrent.CancellationException
@@ -61,13 +63,13 @@ private class SceneOwner(
     val enemies = mutableListOf<Entity>()
     val animators = mutableListOf<EnemyAnimator>()
     var effects: CombatEffects? = null
-    var keyLight: Entity? = null
+    var contactLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
     var enemyWorldPosition: TrackingVector3? = null
     var statusPanelY = 2.15f
-    private var lastFeedback = -1L
+    private var impactRound = -1L
+    private var lastImpact = Long.MIN_VALUE
     private var pulseUntil = 0L
-    private var pulseLit = false
 
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
@@ -86,29 +88,50 @@ private class SceneOwner(
         val enemy = enemyModel ?: return
         if (!parent.valid || !enemy.valid) return
         state.enemyPosition?.let { position ->
-            enemyWorldPosition = position
+            val displayPosition = position + state.enemyRecoilOffset
+            enemyWorldPosition = displayPosition
             val transform = checkNotNull(enemy.components[TransformComponent::class.java])
-            transform.setPosition(parent.convertPositionFrom(Vector3(position.x.toFloat(), position.y.toFloat(), position.z.toFloat()), null))
+            transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))
             val halfYaw = state.enemyYawRadians / 2f
             transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
             panelAnchors[STATUS_PANEL_ID]?.let { anchor ->
                 placeAttachment(parent, anchor, Vector3(position.x.toFloat(), statusPanelY, position.z.toFloat()), Quat.identity())
             }
         }
-        if (lastFeedback != state.feedbackSequence) {
-            lastFeedback = state.feedbackSequence
-            if (state.feedback in listOf(CombatFeedback.HIT, CombatFeedback.HEADSHOT, CombatFeedback.PARRY,
-                    CombatFeedback.SKILL, CombatFeedback.EXECUTION)) {
-                pulseUntil = System.nanoTime() + 100_000_000L
-            }
-        }
-        val illuminated = System.nanoTime() < pulseUntil
-        if (illuminated != pulseLit) {
-            keyLight?.takeIf { it.valid }?.components?.set(DirectionalLightComponent(KEY_LIGHT_COLOR, if (illuminated) 950f else 750f))
-            pulseLit = illuminated
-        }
+        presentImpactLight(state, events)
         enemyAnimator?.present(state, events)
         effects?.present(state, events)
+    }
+
+    private fun presentImpactLight(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+        val parent = root ?: return
+        val light = contactLight?.takeIf { it.valid } ?: return
+        val now = System.nanoTime()
+        if (impactRound != state.roundGeneration) {
+            impactRound = state.roundGeneration
+            lastImpact = Long.MIN_VALUE
+            pulseUntil = 0L
+        }
+        for (impact in events.filterIsInstance<CombatImpact>()) {
+            if (impact.id <= lastImpact) continue
+            lastImpact = impact.id
+            if (!impact.point.isFinite() || !impact.strength.isFinite()) continue
+            val strength = impact.strength.coerceIn(0.0, 1.0).toFloat()
+            val direction = impact.normal.normalizedOrNull() ?: TrackingVector3(0.0, 0.0, 1.0)
+            val point = impact.point + direction * 0.035
+            val position = Vector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat())
+            if (!position.x.isFinite() || !position.y.isFinite() || !position.z.isFinite()) continue
+            val hard = impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
+                impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY
+            val color = if (hard) Color4(1f, 0.82f, 0.46f, 1f) else Color4(1f, 0.91f, 0.78f, 1f)
+            light.components.set(PointLightComponent(color, 110f + 180f * strength, 0.60f))
+            checkNotNull(light.components[TransformComponent::class.java]).setPosition(parent.convertPositionFrom(position, null))
+            pulseUntil = now + 140_000_000L
+        }
+        val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
+        val visible = now < pulseUntil && state.sceneReady &&
+            (terminal || (state.pauseReason == null && state.inputReady))
+        if (light.enabled != visible) light.enabled = visible
     }
 
     fun presentPlayerHand(pose: ObservedPose?) {
@@ -146,7 +169,7 @@ private class SceneOwner(
         root = null
         playerWeapon = null
         enemyModel = null
-        keyLight = null
+        contactLight = null
         panelAnchors.clear()
         onPlayerHandPresenter(null)
         onEnemyPresenter(null)
@@ -332,7 +355,14 @@ internal fun HomeStage(
             lightTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
             check(root.addChild(light)) { "Could not attach scene light" }
             lightAttached = true
-            owner.keyLight = light
+            val contactLight = Entity()
+            if (!root.addChild(contactLight)) {
+                contactLight.destroy()
+                error("Could not attach contact light")
+            }
+            contactLight.components.set(PointLightComponent(Color4(1f, 0.9f, 0.7f, 1f), 0f, 0.60f))
+            contactLight.enabled = false
+            owner.contactLight = contactLight
             for (side in listOf(-1f, 1f)) {
                 val lantern = Entity()
                 if (!root.addChild(lantern)) {

@@ -1,0 +1,123 @@
+[
+  {
+    "name": "arena_hit",
+    "seconds": 0.32,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -23.530632270466604,
+    "clipped_samples": 0,
+    "decoded_bytes": 30720
+  },
+  {
+    "name": "arena_hard_hit",
+    "seconds": 0.48,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -26.69057905324069,
+    "clipped_samples": 0,
+    "decoded_bytes": 46080
+  },
+  {
+    "name": "arena_guarded_hit",
+    "seconds": 0.41,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -23.694410128599714,
+    "clipped_samples": 0,
+    "decoded_bytes": 39360
+  },
+  {
+    "name": "arena_block",
+    "seconds": 0.55,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -26.01600667974584,
+    "clipped_samples": 0,
+    "decoded_bytes": 52800
+  },
+  {
+    "name": "arena_parry",
+    "seconds": 0.72,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -27.648469678154402,
+    "clipped_samples": 0,
+    "decoded_bytes": 69120
+  },
+  {
+    "name": "arena_hurt",
+    "seconds": 0.36,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -20.556722446397586,
+    "clipped_samples": 0,
+    "decoded_bytes": 34560
+  },
+  {
+    "name": "arena_skill",
+    "seconds": 0.7,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -25.967996622193105,
+    "clipped_samples": 0,
+    "decoded_bytes": 67200
+  },
+  {
+    "name": "arena_execution",
+    "seconds": 0.88,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -24.99694603167849,
+    "clipped_samples": 0,
+    "decoded_bytes": 84480
+  },
+  {
+    "name": "arena_whoosh",
+    "seconds": 0.28,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -16.436722609121755,
+    "clipped_samples": 0,
+    "decoded_bytes": 26880
+  },
+  {
+    "name": "arena_victory",
+    "seconds": 0.95,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -16.443166988806112,
+    "clipped_samples": 0,
+    "decoded_bytes": 91200
+  },
+  {
+    "name": "arena_defeat",
+    "seconds": 0.78,
+    "sample_rate": 48000,
+    "channels": 1,
+    "bits": 16,
+    "peak_dbfs": -4.437328429272022,
+    "rms_dbfs": -15.91564288704394,
+    "clipped_samples": 0,
+    "decoded_bytes": 74880
+  }
+]

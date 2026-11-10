@@ -1,0 +1,52 @@
+[
+  {
+    "label": "before_soft_hit",
+    "start_seconds": 0.35,
+    "duration_seconds": 0.2
+  },
+  {
+    "label": "after_soft_hit",
+    "start_seconds": 1.25,
+    "duration_seconds": 0.32
+  },
+  {
+    "label": "before_metal",
+    "start_seconds": 2.27,
+    "duration_seconds": 0.44
+  },
+  {
+    "label": "after_hard_hit",
+    "start_seconds": 3.41,
+    "duration_seconds": 0.48
+  },
+  {
+    "label": "guarded_hit",
+    "start_seconds": 4.59,
+    "duration_seconds": 0.41
+  },
+  {
+    "label": "block",
+    "start_seconds": 5.7,
+    "duration_seconds": 0.55
+  },
+  {
+    "label": "parry",
+    "start_seconds": 6.95,
+    "duration_seconds": 0.72
+  },
+  {
+    "label": "player_hit",
+    "start_seconds": 8.37,
+    "duration_seconds": 0.36
+  },
+  {
+    "label": "skill_guard_break",
+    "start_seconds": 9.43,
+    "duration_seconds": 0.7
+  },
+  {
+    "label": "execution",
+    "start_seconds": 10.83,
+    "duration_seconds": 0.88
+  }
+]

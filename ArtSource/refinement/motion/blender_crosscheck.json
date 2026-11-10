@@ -1,0 +1,23 @@
+{
+  "blender_version": "4.5.15 LTS",
+  "source_evaluator": "measure_contact_anchors.py",
+  "comparison": "all seven slash keyposes, three independently calibrated bone-local points per actor",
+  "frame_mapping": "strip.frame_start + (sourceSeconds * fps - strip.action_frame_start) * strip.scale",
+  "bone_basis": "calibrate local points in imported idle@1.0 bone matrices; imported bone bases differ from glTF joint bases",
+  "diagnostic_tolerance_metres": 0.001,
+  "passed": true,
+  "results": [
+    {
+      "actor": "base",
+      "maximum_proxy_position_error_metres": 3.6299991199189395e-07
+    },
+    {
+      "actor": "indigo",
+      "maximum_proxy_position_error_metres": 8.761977686423149e-07
+    },
+    {
+      "actor": "veteran",
+      "maximum_proxy_position_error_metres": 4.6325318298349707e-07
+    }
+  ]
+}

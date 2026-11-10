@@ -56,3 +56,9 @@ ArtSource/tripo-warrior/expanded/base/tripo-out/e7df779b-retarget-3-f3ba1d89/mod
 ArtSource/tripo-warrior/expanded/veteran-refined/tripo-out/adult-chinese-male-martial-artis-3-baf40635/model.glb
 ArtSource/tripo-warrior/expanded/veteran/tripo-out/005ca746-retarget-49bd972f/model.glb
 ArtSource/tripo-warrior/expanded/veteran/tripo-out/5f78dd12-rig-005ca746/model.glb
+
+# High-detail Tripo sources and rebuildable refinement render intermediates stay local.
+ArtSource/refinement/character/high_geometry/
+ArtSource/refinement/character/high_pbr/
+ArtSource/refinement/character/**/**_turntable/
+ArtSource/refinement/grip/previews/*/

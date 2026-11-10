@@ -1,81 +1,118 @@
-# 当前实现与后续验收交付
+# 精修命中特效、声音与触觉呈现
 
-## GitHub任务入口
+## 本轮目标
 
-[V1 #3](https://github.com/BrickerP/pico-wuxia-arena/issues/3) · [V2 #4](https://github.com/BrickerP/pico-wuxia-arena/issues/4) · [V3 #5](https://github.com/BrickerP/pico-wuxia-arena/issues/5) · [V4 #6](https://github.com/BrickerP/pico-wuxia-arena/issues/6) · [R1 #7](https://github.com/BrickerP/pico-wuxia-arena/issues/7)
+让软目标命中、硬目标／护甲接触、格挡、弹反、破势与处决都有清晰可见、可听、可感知的局部反馈。
 
-任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+## 责任与文件
 
-## 当前范围与职责
+本轮职责切换为呈现生产。负责 CombatEffects.kt、CombatAudio.kt、ArtSource/refinement/effects/、现有effects与audio生产资产及本文件。Main.kt和HomeStage.kt由主控集成，ArenaSession与接触事件生产由01会话负责。其它会话正在并行，不回退其改动。
 
-本轮用户要求扩充可用人物、场景、UI、动作和特效，尤其提高动作精细程度。主控负责唯一仓库审核与合入，协作者交付后结束。按用户要求，本轮专注开发与必要编译，设备操作、游戏自测和测试套件保持待验收。
+## 共享接触合同
 
-## 上一轮进展
+主控已建立 core/combat/CombatImpact.kt，继承EnemyCombatEvent。按id、kind、point、normal、strength、hand、atNanos驱动呈现。point为Stage米制，strength为0到1。同一批中的多个事件须被完整消费，UI低气势／距离提示继续作为界面信息。
 
-游戏代码已覆盖准备、倒计时、三轮交战、补给、胜负与重开，头手动作进入同一战斗判定。上一轮已接入步法、站立受击和两段处决资源。本轮集中修正反应信息、收势提示与握点贴合。历史84项测试和旧截图只证明原版本。
+## 本轮工作
 
-## 功能与资产集成基线
+- 移除以最后一条state.feedback代替真实接触的路径，按CombatImpact消费。声音、特效各自去重，主控再把同一事件接到触觉与局部光反馈。
+- 调查目前导入动画为空即禁用的实际可见性问题。依据6.1.9公开API选择单一可靠的最终表现路径，清理过时导入依赖。
+- 肉体／衣物击中需要接触点冲击核心、少量布尘或碎屑与短暂刀痕，金属／格挡／弹反需要明确火星及材质差别。刃光只辅助表达挥动方向。
+- 提高近身效果的可见保持时间、材质与层次，保留中式写实尺度。表现与接触点、法线、强度和角色动作同步。
+- 精修现有短音效的瞬态、低频主体和材质差异。触觉参数与API依据交主控统一接入Main，保持实际追踪连续。
+- 可制作离线效果小片段。实际PICO视口与单次命中的专项观感由主控独占操作，完整游戏验收另列。
 
-- 三角色目录和切换路径已接入，玄甲头部修订已发布，最终身份由manifest、角色索引和alignment锁定。
-- 每角色78骨8动作，保留本角色原生slash，转移身体动作并采样30指骨握刀姿态。
-- 有符号步态距离连续推进前后步，站立受击、头部受击和弹反后仰分开选择，处决为受创后倒地两段。
-- review已修正方向反转造成的步态相位跳变，以及格挡／弹反火星偏向敌人身体的定位。
-- 六个院落细节模块、冷暖灯、四种节点动画特效和HUD revision16已接线。UI包含实际角色名、阶段与蓄力提示。
-- 主控已完成整合版编译。最终修订资产、完整APK与来源索引由主控统一发布，本轮未做游戏自测或设备验收。
+## 交付与审核
 
-## 后续质量与运行验收条件
+给可编译源码、效果资产、各事件映射和前后可视对比，不能只交文件数量或日志尺寸。查对应版本官方文档再用新增SDK API，不猜私有接口。30分钟内交付一个阶段并结束，主控取产物审核构建。
 
-| 路径 | 实际验收条件 |
-| --- | --- |
-| 开始与三轮 | 角色顺序、逐轮生命与节奏、补给、下一轮及第三轮结算对应当前场次 |
-| 玩家攻防 | 快斩、前刺、贴刀、架刀、迎刀弹反与身体闪避的结果符合真实动作意图，消费一次 |
-| 人物与握点 | 三体型的头颅、束发、手指握刀、刀随骨骼、服装变形与各部位受击清晰自然 |
-| 步法与接触 | 前后步切换连续，停步、脚尘和足底接触合理，原生斩击视觉接触与2.117秒标记一致 |
-| 技能与处决 | 气势与虚弱条件选择正确，蓄势提示、前推、受创和倒地衔接明确，玩家头手保持实际追踪 |
-| 生命周期 | 暂停、失效、重开与离场撤销旧动作、特效和反馈，隐藏角色停止播放 |
-| UI | 当前角色、蓄力、敌招阶段、处决、末轮清场、终局和输入异常状态可读 |
-| 特效 | 四类节点动画实际导入，火星接触点、刀弧平面与落步／倒地尘灰时刻正确 |
-| 场景与材质 | 中央净空、侧面家具与水景、近景PBR及冷暖光一致，历史蓝色覆盖现象复核 |
-| 终端表现 | Space Pro上记录纹理／模型内存、帧耗时、持续运行、声音与触觉及舒适度 |
+只在主仓库工作，不创建副本、不提交推送、不抢设备、不进行无限logcat或wait_threads零等待轮询。
 
-专用双人配对处决、足底IK和体型握点细修继续列为质量工作。离线制作图用于查看资产和动作时刻，实际游戏画面及终端体验单列验收。结果统一进入 `docs/acceptance.md`。
+## 本阶段生产接口
 
-## 迭代 benchmark 与方向判断
+已采用静态GLB分层网格加Entity变换与透明度的单一运行路径。`CombatEffects` 保留 `load(root)`、`present(state, events)` 与 `close()`，移除导入动画资源、播放控制器及 `state.feedback` 接触推断。四份生产GLB均无animations，接触核心、碎屑／火星、短刀痕由命名层 `core/debris/scar` 驱动。
 
-游戏项目的benchmark同时包含参考体验、技术基线和玩家行为。这里以Blade & Sorcery的手部动作与命中确定感、For Honor的读招和攻防节奏作为交互参照，以黑神话悟空、影之刃零的中式材质、空间层次和冷暖用光作为视觉参照。每轮围绕同一场地、同一把刀及同一角色场次比较，固定构建和设备后再改变一个影响手感的参数。
+音效新入口为 `CombatAudio.present(state: ArenaViewState, events: List<EnemyCombatEvent>)`。声音和特效各持本轮事件ID集合，按每个 `CombatImpact` 消费，首批和切轮首批继续处理。主控现已在Main传入同一批 `events`，并接入逐事件触觉及HomeStage接触点局部光。实际视口、头显声音与触觉由主控专项验收。
 
-下表是后续验收目标，本轮没有执行或产生测量结果。
+| 接触kind | 视觉资源与层次 | 独立接触声音 |
+| --- | --- | --- |
+| SOFT_HIT | soft_contact，暖色冲击核、布尘、短暗亮刀痕 | arena_hit |
+| PLAYER_HIT | soft_contact，实际接触点局部冲击 | arena_hurt |
+| HARD_HIT | metal_contact，白热核心、细长金属火星、擦痕 | arena_hard_hit |
+| GUARDED_HIT | metal_contact，护甲接触火星 | arena_guarded_hit |
+| BLOCK | metal_contact，刀刃碰撞火星 | arena_block |
+| PARRY | metal_contact，核心放大1.3倍，闪核0.22秒、整体0.54秒 | arena_parry |
+| SKILL | force_contact，断续冲击环、碎屑与短痕 | arena_skill |
+| EXECUTION | force_contact，终结接触的局部冲击 | arena_execution |
 
-| 维度 | 同条件比较方式与目标 |
-| --- | --- |
-| 完整流程 | 三轮胜利、生命归零、超时、暂停恢复、重开各实际完成3次，入口至结果无阻塞，重开无残留伤害或旧输入 |
-| 动作确定性 | 同一玩家各做10次明确斩击、架刀和闪避，预期动作识别至少9次，同一挥击及同一敌招只消费一次，静止贴刀无追加伤害 |
-| 攻防节奏 | 固定敌人阶段与生命，比较每轮格挡、弹反、闪避、受击和击杀时间，核对持续进攻、持续防御与反击三种策略都具备可读的收益和代价 |
-| 主观手感 | 至少5名首次体验者分别评价命中确定感、读招清晰度、反馈和舒适度，5分制各项中位数达到4，至少4人愿意再玩一局 |
-| 视觉 | 同机位比较近景角色、刀握点、脚下接触、材质和HUD，清除悬空、明显穿插、覆盖视线和主要文字裁切，再评估装饰细节 |
-| 终端预算 | 以Space Pro实际显示刷新率f计算每帧预算1000/f毫秒，记录帧耗时分位数、掉帧、峰值内存与热稳定性，连续三局无崩溃或资源持续增长 |
+当前合同没有单列GUARD_BREAK，破势暂按主控的SKILL接触事件呈现。保留脚步和倒地尘作为动作附属效果，使用ground_dust；命中反馈由真实接触事件产生。
 
-方向判断优先看动作确定性、完整流程和重玩意愿。比较结果若只提高静态画面评分，命中或攻防理解评分下降，应回到动作时序、距离与反馈调参。后续扩展继续以当前短试炼的动作确定性、近景品质和完整流程为评审依据。
+普通软接触保持0.62秒、金属0.44秒、破势／处决0.72秒。强度映射到0.72至1.18倍局部尺寸，法线定位沿表面外偏8毫米，手别给短刀痕轻微方向差异。事件atNanos与当前模拟时间计算初始视觉年龄，上限80毫秒。每类预载6槽，忙槽接触排队，不覆盖同批的前一接触。场景失效时清空活动层与待播接触。普通非终局暂停或观察失效也清空；VICTORY／DEFEAT在场景仍有效时继续呈现本批新接触，事件ID去重与轮次门槛继续生效。关闭时递归销毁池。
 
-## 当前轮静态评审任务
+SoundPool加载完成前的接触先排队，记录System.nanoTime入队时间，后续present排空已就绪样本。超过120毫秒的待播项直接移除，已失败的样本记录后移除待播项。非终局暂停、切轮和close清空待播及流句柄。保留现有SoundPool与12路并发上限，关闭时解除监听并release。音量受事件强度和接触距离影响，左右手使用轻微声像差异。
 
-本轮由主控续派有限阶段任务，重点是受击衔接锁定、手势收势提示和三角色握点。实施范围为本交接文件，只读核对当前生产代码及其他三份任务合同。
+## 已交付效果实物
 
-- 从真实入口核对动作事件、场景播放、界面提示和资源生命周期，给出正确性、维护性、界面表达与变更范围四方面的具体发现。
-- 区分已经合入的开发实现、离线资产制作结果和仍待运行的验收项，保持原有benchmark口径。
-- 给出下一轮审核必须核对的边界，明确实际问题与证据，交主控统一处理。
-- 当前不执行测试套件、游戏操作、模拟器、设备、logcat轮询或持续等待。
+- [同米制峰值对比图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_comparison.png)与[0.833秒离线短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_preview.mp4)直接导入实际GLB，按运行包络驱动。左列展示旧刃光资源的理论峰值，右三列为软接触、金属和破势／处决。旧图像列的范围为离线资源对比。
+- [267毫秒尾段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_267ms.png)中刀痕、布尘及余火星可辨；[467毫秒尾段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_materials_467ms.png)中软目标刀痕和破势环继续保持，普通金属按0.44秒结束。已逐张目视核对。
+- [12.06秒音色前后试听](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/material_contact_comparison.wav)配有[时间顺序](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/comparison_cues.json)和[波形总览](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/waveform_overview.svg)。软目标突出低频主体与布料瞬态，硬接触突出高频金属瞬态，弹反增加较长清亮尾音，破势和处决各有独立声层。
 
-一次性交付后结束，主控收到实现后再安排针对性复审。
+四份静态运行GLB总计73,588字节，三角数分别为软228、金属132、破势636、地尘182。每份3个mesh层，24个预载实例合计7,068三角。旧运行目录的blade_arc、metal_sparks、break_ring和foot_dust动画GLB已移除，原制作源保留作离线对比。实际资源与制作源字节一致，尺寸和哈希见 [contact_effects_manifest.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact_effects_manifest.json)。
 
-## 当前轮源码复审结论
+声音为11份48kHz／16-bit／单声道WAV，8种接触加刀风和胜负提示。逐份解码检查通过，零削波、首尾零采样、峰值约−4.437dBFS，最长单段解码91,200字节。Cue时长与实际帧数逐项吻合。软命中低于300Hz能量约81.7%，硬接触高于3kHz约48.6%，弹反约48.3%，差异来源为实际PCM测量。旧arena_clash和arena_dry已清理。[测量结果](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/audio/audio_measurements.json)
 
-01／02实现已完成独立只读复审，静态结论为APPROVE。主控已完成统一编译与合入。
+## 官方依据与触觉建议
 
-- 真实新受击反应在Session保存enemyHitZone，守护命中不覆盖，弹反、离开HIT与各类清局按状态撤销。Animator使用守势、弹反、稳定部位的优先级。
-- 动画校验与repeat创建处于同一清理边界，初始化失败时释放导入资源与派生资源，保留原始异常。
-- 收势源片段延至3.4秒，游戏恢复时长和2.117秒接触标记继续沿原合同。
-- 前推动作锁存投影为中性收势提示，蓄力条收起，实际技能结果继续由独立feedback显示。暂停、失效与重开撤销旧提示。
-- 普通攻击按最终EnemyDamaged.guarded选择护身反馈，修正破防后仍误报护身的问题。
+项目BOM为6.1.9。本会话无可调用的Context7或PICO知识查询工具，按主控约定读取本机SDK6.1官方文档，并与已安装6.1.9公开类型交叉核对。`Entity.loadSuspend`返回模型层级，`findEntity`定位命名层；`TransformComponent`在主线程改变位置、旋转和缩放，`OpacityControllerComponent`逐层控制透明度，关闭时递归销毁。三个透明层各自淡出，父根不重复乘淡出系数。[模型加载](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_ecs_create-entities.md)、[命名查找](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/api-reference/com.pico.spatial.core.ecs.md:1729)、[透明度控制](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_rendering_opacity-control.md)
 
-03握点已完成最终发布模型与运行副本的独立一致性复审，静态结论为APPROVE。青衫与玄甲的腕后漂浮已按各自掌指位置校准，基准刀客保留原握点。实际刀路平移72.28mm／40.62mm、残余峰值径向代理9.79mm／7.47mm和更深样本增多的取舍均已记录，后续继续检查局部交叠。当前未执行游戏自测、测试套件或设备验收，静态结论分别记录。
+以下为strength等于1时的首轮触觉调音候选，由主控统一采用或调整。level按事件strength线性缩放并约束至0至255，按事件hand选择左右控制器。
+
+| kind | level | frequency Hz | duration ms |
+| --- | ---: | ---: | ---: |
+| SOFT_HIT | 145 | 90 | 30 |
+| HARD_HIT | 195 | 220 | 16 |
+| GUARDED_HIT | 170 | 170 | 24 |
+| BLOCK | 190 | 150 | 28 |
+| PARRY | 235 | 280 | 18 |
+| PLAYER_HIT | 180 | 80 | 42 |
+| SKILL | 195 | 125 | 46 |
+| EXECUTION | 235 | 75 | 64 |
+
+官方参数范围为level 0至255、frequency 40至500Hz、duration 0至1000ms，Press预设为240／127／15。主控使用既有LocalHandControllerHaptic与公开 `HandControllerHapticType.custom`，保持当前追踪生命周期。触觉只在控制器交互模式生效，表中材质分层参数尚待真机调音。[官方触觉说明](/Users/yupeng/Library/PICO/sdk/6.1/agent-vault/spatial/documentation/spatial-sdk_interaction_controller-haptic-feedback.md:19)
+
+## 阶段检查与交付边界
+
+已完成源码差异检查、制作脚本语法检查、GLB头／索引／有限值／三层命名／无动画／源与运行一致性验证，以及11份WAV格式／时长／削波／边界采样验证。独立只读复核确认首批、切轮、多事件去重与排队、加载中途释放及close幂等路径。法线旋转以轴向及100个方向离线验算，最大误差约1.03e−15。
+
+本阶段生产修改为CombatEffects.kt、CombatAudio.kt及对应效果／音频资产和可复现制作源。图与短片是离线素材观感，PICO实际透明混合、近身遮挡、保持时间、密集接触排队时延、混音与触觉感受待主控专项视口验收。统一编译及运行结果由主控回填。
+
+**本阶段呈现生产结束，交主控review。** 已交付真实源码、静态分层GLB、分材质WAV、前后对比实物与触觉建议，当前回合结束。
+
+## 主控review最小返修交付
+
+- CombatEffects已与Audio对齐终局例外。场景有效时，VICTORY／DEFEAT同批的新CombatImpact可继续入队和呈现，避免最后一击被结算的USER暂停清空。sceneReady门槛、本轮ID去重及旧轮拒绝仍生效；普通非终局暂停与追踪失效仍清空。
+- CombatAudio的PendingImpact已记录System.nanoTime入队时间，playReadyImpacts每次统一取当前时间，先移除超过120毫秒的接触，再检查样本ready并播放。恰好120毫秒仍可播放，加载在时效外完成时该接触已过期。
+
+静态差异检查通过。已核对终局／非终局、场景有效／失效、暂停与输入门槛组合，以及120毫秒前1纳秒、正好120毫秒和后1纳秒的ready／未ready边界。本轮仅修改CombatEffects.kt、CombatAudio.kt与本文件，素材保持上一阶段交付。
+
+**本轮最小返修阶段结束，交主控review。** 编译与设备验证按主控要求交统一增量构建及专项验收，本会话已结束当前回合。
+
+## 补充正式角色近身接触对比
+
+已交付 [同机位before／after躯干接触图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/torso_contact_before_after.png)，1440×960，使用实际soft_contact与metal_contact生产GLB。正式角色取自 `HomeStage → arenaOpponents.first()` 的 `app/src/main/assets/models/opponents/base.glb`，SHA-256为 `a0122103a6bc11b6612d87cb839202b2d19fdcb12260f14fb8e6416442070b22`。
+
+姿态为该资源真实slash动作的2.117秒，效果为55毫秒，strength为0.65，整体尺寸比例1.019。软核心约10.2厘米，金属核心约7.9厘米。软接触落在衣料躯干，金属接触落在正式钢刀的 `Steel | forged body` 材质表面。两处接触点与法线均由实际变形网格三角面取得，锚点沿面法线外移8毫米。
+
+| 离线接触 | actor-local glTF米制点 | actor-local法线 |
+| --- | --- | --- |
+| 衣料躯干 | (0.169846, 0.765666, 0.172864) | (−0.563872, 0.413012, 0.715171) |
+| 正式钢刀 | (0.056216, 0.868370, 0.742738) | (−0.913685, −0.200563, 0.353489) |
+
+表中为离线角色局部坐标，运行接口继续使用CombatImpact的Stage米制点和法线。已目视确认同机位下衣料冲击与金属火星可辨，保留角色及刀刃的真实遮挡。图明确标为离线制作预览，PICO运行观感待主控专项验收。可复现脚本为 [render_torso_contact.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/render_torso_contact.py)，角色与生产素材均只读，本次补图仅新增该图与脚本。
+
+**本轮最小返修与补图阶段结束，交主控review。** 两项源码返修、静态边界检查和正式角色离线对比均已交付，统一增量编译及设备验收由主控完成。
+
+## 主控整合review与下一轮
+
+两项返修的独立复审结论为接受。Main、HomeStage、CombatEffects与CombatAudio共同保留终局当前批次接触，声音等待边界为120ms。已采用本文件材质触觉候选并按strength缩放，加入140ms接触点灯光。主控整合增量构建通过，仍未运行游戏流程、测试套件或Space Pro验收。
+
+主控已查看torso_contact_before_after.png，软衣料冲击与钢刀火星的近身比例通过离线制作初审。下一轮在通过角色review的新主刀客上重看接触遮挡、短停后反冲与音画时序，保留实际视口验证边界。

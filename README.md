@@ -10,7 +10,7 @@
 | --- | --- |
 | 玩法实现 | 三轮交战、玩家资源、攻防判定、胜负与重开已接入代码 |
 | 人物动作 | 三名78骨刀客，每人8份资源，其中7份用于当前播放，已接入步法、分部位受击与两段处决 |
-| 场景与呈现 | 六个院落细节模块、四类节点特效与HUD revision16已集成 |
+| 场景与呈现 | 六个院落细节模块、四类接触特效与HUD revision16已集成 |
 | 精修与review | 已修正受击部位覆盖、收势提示、破防反馈和腕后漂浮，仍有局部手指交叠与足底接触待优化 |
 | 运行验收 | 真实键盘、Full Stage画面、三轮现场操作及Space Pro体验待后续阶段完成 |
 
@@ -18,16 +18,18 @@
 
 ## 当前节点之后的待办
 
-[M1 · 可验收短 Demo](https://github.com/BrickerP/pico-wuxia-arena/milestone/1)统一跟踪以下7项剩余工作。任务状态、完成条件和依赖维护在各Issue，验收事实维护在[验收清单](docs/acceptance.md)，四份[工程交接](#交付与验收)维护实现与review细节。
+[M1 · 可验收短 Demo](https://github.com/BrickerP/pico-wuxia-arena/milestone/1)统一跟踪当前开发精修及后续验收。任务状态、完成条件和依赖维护在各Issue，验收事实维护在[验收清单](docs/acceptance.md)，四份[工程交接](#交付与验收)维护实现与review细节。
 
-当前先推进D1、D2开发精修，V1–V4进入运行验收阶段后执行，R1在验收通过后交付。
+当前四个会话并行推进人物PBR、握持穿插、动作接触和命中特效。D1、D2、D3、D4的review及实现详见四份工程交接，V1–V4在运行验收阶段执行。
 
 | 编号 | 阶段 | 优先级 | 任务入口 | 前置 |
 | --- | --- | --- | --- | --- |
-| D1 | 当前开发 | P1 | [精修三角色手指握持、非持刀手与局部穿插](https://github.com/BrickerP/pico-wuxia-arena/issues/1) | 当前资产基线 |
-| D2 | 当前开发 | P1 | [完善转身、停步、足底接触与处决收势编排](https://github.com/BrickerP/pico-wuxia-arena/issues/2) | 当前资产基线 |
+| D1 | 当前精修 | P0 | [精修三角色手指握持、非持刀手与局部穿插](https://github.com/BrickerP/pico-wuxia-arena/issues/1) | 当前资产基线 |
+| D2 | 当前精修 | P0 | [完善转身、停步、足底接触与处决收势编排](https://github.com/BrickerP/pico-wuxia-arena/issues/2) | 当前资产基线 |
+| D3 | 当前精修 | P0 | [Tripo高精人物与PBR打样](https://github.com/BrickerP/pico-wuxia-arena/issues/8) | 高模近景→烘焙→78骨→原生动作 |
+| D4 | 当前精修 | P0 | [真实接触驱动卡肉、特效与声音触觉](https://github.com/BrickerP/pico-wuxia-arena/issues/9) | 同批接触事件与呈现接线 |
 | V1 | 后续验收 | P0 | [验收模拟器真实键盘到虚拟头手及共享战斗判定](https://github.com/BrickerP/pico-wuxia-arena/issues/3) | #1、#2 |
-| V2 | 后续验收 | P0 | [验收Full Stage三角色、节点特效、HUD及移动画面](https://github.com/BrickerP/pico-wuxia-arena/issues/4) | #3 |
+| V2 | 后续验收 | P0 | [验收Full Stage三角色、分层特效、HUD及移动画面](https://github.com/BrickerP/pico-wuxia-arena/issues/4) | #3 |
 | V3 | 后续验收 | P0 | [跑通三轮胜负、暂停恢复、重开与生命周期](https://github.com/BrickerP/pico-wuxia-arena/issues/5) | #3、#4 |
 | V4 | 后续验收 | P1 | [完成Space Pro手感、舒适度与性能校准](https://github.com/BrickerP/pico-wuxia-arena/issues/6) | #5 |
 | R1 | 验收后交付 | P1 | [发布可验收候选包与PICO参赛提交材料](https://github.com/BrickerP/pico-wuxia-arena/issues/7) | #5、#6 |
@@ -97,7 +99,7 @@ WASD、Q/E及右键保留模拟器的移动、升降和转向控制。应用内�
 
 酒馆、灯笼和石铺地之外，`courtyard_details.glb`增加茶桌酒具、矮凳、封口酒坛组、双侧挂灯木栏、荷叶石盆和侧铺地。新增六模块共29,378三角，沿用木石与灯笼PBR，并增加陶釉、青瓷、封口布的512px贴图。中央交战区保持净空，运行场景接入冷色主光和两侧暖灯。
 
-四份短促特效共796三角，覆盖金属火星、窄刃光、破势环和脚尘。`CombatEffects`复用各自实体，按真实反馈、刀段与步法定位，播放普通glTF节点动画。缺少相应导入动画时该项记录警告并禁用，加载或SDK创建异常按场景失败清理路径处理。
+当前精修将特效更新为软接触、金属、破势和地尘四份静态GLB，共1,178三角。接触核、碎屑和短痕由Entity变换与透明度驱动，使用CombatImpact的Stage接触点、法线、强度与手别。声音、局部接触灯和控制器触觉消费相同事件批次。普通命中、硬接触、护身、格挡、弹反、玩家受击、技能和处决各有独立声音。实际终端观感继续列为待验收。
 
 两块HUD维持400×400dp与500×260dp。revision16补充四条刀术要诀、敌招阶段提示、当前角色名与实际双手蓄力进度，处决、局间和终局提示按状态优先显示。得分与最佳成绩集中于结算。
 

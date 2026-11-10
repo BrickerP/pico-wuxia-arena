@@ -11,6 +11,10 @@ import com.example.wuxiaarena.core.combat.AttackOutcome
 import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
+import com.example.wuxiaarena.core.combat.CombatImpact
+import com.example.wuxiaarena.core.combat.CombatImpactKind
+import com.example.wuxiaarena.core.combat.MotionContact
+import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.InputOrigin
@@ -88,6 +92,7 @@ internal data class ArenaViewState(
     val playerHeadPosition: Vector3? = null,
     val motionReleaseRequired: Boolean = false,
     val enemyHitZone: HitZone? = null,
+    val enemyRecoilOffset: Vector3 = Vector3(0.0, 0.0, 0.0),
 )
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
@@ -121,6 +126,11 @@ internal class ArenaSession(
     private var intermissionNanos = 0L
     private var executionActive = false
     private var hitStopNanos = 0L
+    private var nextImpactId = 1L
+    private var recoilStartedAt = 0L
+    private var recoilDelayNanos = 0L
+    private var recoilVector = Vector3(0.0, 0.0, 0.0)
+    private var heldEnemyContactOffsets: EnemyContactPose? = null
     private var staggerUntil = 0L
     private var feedback: CombatFeedback? = null
     private var enemyHitZone: HitZone? = null
@@ -229,6 +239,7 @@ internal class ArenaSession(
                 playerHeadPosition = snapshot?.head?.pose?.position,
                 motionReleaseRequired = releaseRequired,
                 enemyHitZone = if (combat.phase == EnemyPhase.HIT) enemyHitZone else null,
+                enemyRecoilOffset = currentRecoilOffset(),
             )
         }
 
@@ -355,13 +366,15 @@ internal class ArenaSession(
 
     private fun advanceEnemy(delta: Long, events: MutableList<EnemyCombatEvent>, deferEndContact: Boolean) {
         var remaining = delta
-        val frozen = minOf(remaining, hitStopNanos)
-        hitStopNanos -= frozen
-        remaining -= frozen
         while (remaining > 0L && result == TrialResult.FIGHTING && combat.pauseReason == null) {
+            val frozen = minOf(remaining, hitStopNanos)
+            hitStopNanos -= frozen
+            remaining -= frozen
+            if (remaining == 0L) break
             synchronizeAttackBaseline()
             if (contactDue()) resolveEnemyContact(events)
             if (result != TrialResult.FIGHTING || combat.pauseReason != null) break
+            if (hitStopNanos > 0L) continue
             val untilContact = if (combat.phase == EnemyPhase.ACTIVE && resolvedContactId != combat.currentAttackId) {
                 (checkNotNull(combat.currentAttackDirection).activeNanos / 2L - combat.phaseElapsedNanos).coerceAtLeast(0L)
             } else {
@@ -421,7 +434,6 @@ internal class ArenaSession(
                 focus = (focus + 10.0).coerceAtMost(100.0)
                 score += 5
                 notifyFeedback(CombatFeedback.BLOCK)
-                hitStopNanos = 35_000_000L
             } else {
                 stamina = 0.0
                 staggerUntil = matchNanos + 700_000_000L
@@ -433,9 +445,23 @@ internal class ArenaSession(
             focus = (focus + 30.0).coerceAtMost(100.0)
             score += 30
             notifyFeedback(CombatFeedback.PARRY)
-            hitStopNanos = 90_000_000L
         }
-        collect(combat.resolveActiveAttack(id, outcome), events)
+        val contactOffsets = captureContactOffsets()
+        val resolved = combat.resolveActiveAttack(id, outcome)
+        collect(resolved, events)
+        if (resolved.any { it is EnemyCombatEvent.AttackResolved && it.attackId == id }) {
+            if (outcome == AttackOutcome.BLOCKED || outcome == AttackOutcome.PARRIED) heldEnemyContactOffsets = contactOffsets
+            val kind = when (outcome) {
+                AttackOutcome.BLOCKED -> CombatImpactKind.BLOCK
+                AttackOutcome.PARRIED -> CombatImpactKind.PARRY
+                AttackOutcome.HIT_PLAYER -> CombatImpactKind.PLAYER_HIT
+                AttackOutcome.MISSED -> return
+            }
+            val contact = motion.defenseContact(outcome, target, latestTrackingSnapshot?.head?.pose?.position)
+            if (contact != null) emitImpact(kind, contact,
+                if (outcome == AttackOutcome.PARRIED) 1.0 else 0.65,
+                frame?.hand ?: latestTrackingSnapshot?.dominantHand ?: Hand.RIGHT, events)
+        }
     }
 
     private fun applyPlayerMotion(frame: PlayerMotionFrame, events: MutableList<EnemyCombatEvent>) {
@@ -447,10 +473,12 @@ internal class ArenaSession(
                 notifyFeedback(CombatFeedback.OUT_OF_RANGE)
             } else if (combat.health <= executionThreshold()) {
                 executionActive = true
-                dealDamage(combat.health, true, CombatFeedback.EXECUTION, 80, events)
+                dealDamage(combat.health, true, CombatFeedback.EXECUTION, 80, events,
+                    motion.targetContact(frame, enemy, HitZone.BODY), frame.hand)
             } else if (focus >= 100.0) {
                 focus = 0.0
-                dealDamage(55, true, CombatFeedback.SKILL, 35, events)
+                dealDamage(55, true, CombatFeedback.SKILL, 35, events,
+                    motion.targetContact(frame, enemy, HitZone.BODY), frame.hand)
             } else {
                 notifyFeedback(CombatFeedback.LOW_FOCUS)
             }
@@ -468,7 +496,8 @@ internal class ArenaSession(
         val base = if (headshot) 30.0 else 25.0
         val damage = (base * strike.power * (1.0 + (combo - 1) * 0.10)).roundToInt()
         val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
-        dealDamage(damage, headshot && combo >= 3, kind, (if (headshot) 15 else 10) * combo, events, zone = strike.zone)
+        dealDamage(damage, headshot && combo >= 3, kind, (if (headshot) 15 else 10) * combo,
+            events, strike.contact, frame.hand, zone = strike.zone)
         focus = (focus + 12.0).coerceAtMost(100.0)
     }
 
@@ -478,16 +507,19 @@ internal class ArenaSession(
         kind: CombatFeedback,
         points: Int,
         events: MutableList<EnemyCombatEvent>,
+        contact: MotionContact,
+        hand: Hand,
         zone: HitZone = HitZone.BODY,
     ) {
         val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT
+        val contactOffsets = captureContactOffsets()
         val outcome = combat.receivePlayerHit(damage, breakGuard, armGuard = normal && combo >= 2 && !breakGuard)
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
+        heldEnemyContactOffsets = contactOffsets
         if (outcome.any { it is EnemyCombatEvent.HitReactionStarted && it.reaction == HitReaction.PLAYER_HIT }) {
             enemyHitZone = zone
         }
         score += points
-        hitStopNanos = if (kind == CombatFeedback.SKILL || kind == CombatFeedback.EXECUTION) 110_000_000L else 45_000_000L
         if (kind == CombatFeedback.SKILL) {
             val enemy = enemyPosition
             val head = latestTrackingSnapshot?.head?.pose?.position
@@ -499,6 +531,70 @@ internal class ArenaSession(
         val guarded = outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().any { it.guarded }
         notifyFeedback(if (normal && guarded) CombatFeedback.GUARDED_HIT else kind)
         collect(outcome, events)
+        val impactKind = when {
+            kind == CombatFeedback.SKILL -> CombatImpactKind.SKILL
+            kind == CombatFeedback.EXECUTION -> CombatImpactKind.EXECUTION
+            guarded -> CombatImpactKind.GUARDED_HIT
+            kind == CombatFeedback.HEADSHOT -> CombatImpactKind.HARD_HIT
+            else -> CombatImpactKind.SOFT_HIT
+        }
+        val strength = when (impactKind) {
+            CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> 1.0
+            else -> (outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().sumOf { it.appliedDamage } / 40.0)
+                .coerceIn(0.25, 1.0)
+        }
+        emitImpact(impactKind, contact, strength, hand, events)
+    }
+
+    private fun emitImpact(
+        kind: CombatImpactKind, contact: MotionContact, strength: Double, hand: Hand,
+        events: MutableList<EnemyCombatEvent>,
+    ) {
+        check(nextImpactId < Long.MAX_VALUE) { "impact id overflow" }
+        events += CombatImpact(nextImpactId++, kind, contact.point, contact.normal, strength, hand, combat.simulationNanos)
+        val stop = when (kind) {
+            CombatImpactKind.SOFT_HIT -> 60_000_000L
+            CombatImpactKind.HARD_HIT -> 80_000_000L
+            CombatImpactKind.GUARDED_HIT, CombatImpactKind.BLOCK -> 35_000_000L
+            CombatImpactKind.PARRY -> 90_000_000L
+            CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> 110_000_000L
+            CombatImpactKind.PLAYER_HIT -> 0L
+        }
+        hitStopNanos = maxOf(hitStopNanos, stop)
+        if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK) return
+        val away = if (kind == CombatImpactKind.PARRY) contact.normal else contact.normal * -1.0
+        val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }
+        val direction = Vector3(away.x, 0.0, away.z).normalizedOrNull()
+            ?: awayFromPlayer?.let { Vector3(it.x, 0.0, it.z).normalizedOrNull() }
+            ?: Vector3(-kotlin.math.sin(enemyYaw.toDouble()), 0.0, -kotlin.math.cos(enemyYaw.toDouble()))
+        recoilStartedAt = matchNanos
+        recoilDelayNanos = hitStopNanos
+        recoilVector = direction * (0.025 + strength * 0.055)
+    }
+
+    private fun currentRecoilOffset(): Vector3 {
+        val presentationNanos = matchNanos + if (result == TrialResult.ROUND_CLEAR) intermissionNanos else 0L
+        val elapsed = presentationNanos - recoilStartedAt - recoilDelayNanos
+        if (elapsed <= 0L) return Vector3(0.0, 0.0, 0.0)
+        val progress = (elapsed / 220_000_000.0).coerceIn(0.0, 1.0)
+        return recoilVector * (4.0 * progress * (1.0 - progress))
+    }
+
+    private fun enemyContactPose(): EnemyContactPose? {
+        val origin = enemyPosition?.plus(currentRecoilOffset()) ?: return null
+        val held = heldEnemyContactOffsets
+        if (hitStopNanos > 0L && held != null) return held.translated(origin)
+        val guardingPose = combat.phase == EnemyPhase.HIT && combat.guarding
+        return arenaOpponents[roundNumber - 1].contactPose(
+            if (guardingPose) EnemyPhase.PREPARING else combat.phase,
+            if (guardingPose) 0L else combat.phaseElapsedNanos,
+            combat.nanosUntilPhaseTransition, origin, enemyYaw,
+        )
+    }
+
+    private fun captureContactOffsets(): EnemyContactPose? {
+        val origin = enemyPosition?.plus(currentRecoilOffset()) ?: return null
+        return enemyContactPose()?.translated(origin * -1.0)
     }
 
     private fun collect(incoming: List<EnemyCombatEvent>, events: MutableList<EnemyCombatEvent>) {
@@ -581,6 +677,8 @@ internal class ArenaSession(
         enemyMoveDirection = 0f
         executionActive = false
         hitStopNanos = 0L
+        recoilVector = Vector3(0.0, 0.0, 0.0)
+        heldEnemyContactOffsets = null
         playerHealth = (playerHealth + 20).coerceAtMost(100)
         stamina = (stamina + 35.0).coerceAtMost(100.0)
         focus = (focus + 20.0).coerceAtMost(100.0)
@@ -684,6 +782,8 @@ internal class ArenaSession(
                 intermissionNanos = 0L
                 executionActive = false
                 hitStopNanos = 0L
+                recoilVector = Vector3(0.0, 0.0, 0.0)
+                heldEnemyContactOffsets = null
                 staggerUntil = 0L
                 feedback = null
                 enemyPosition = enemySpawn
@@ -743,7 +843,7 @@ internal class ArenaSession(
         presentHand(handPose)
         val target = enemyPosition
         if (sceneAvailable && target != null && viewState.actionReady) {
-            val frame = motion.observe(snapshot, target)
+            val frame = motion.observe(snapshot, target, checkNotNull(enemyContactPose()))
             latestMotion = frame
             if (frame != null && result == TrialResult.FIGHTING && combat.pauseReason == null) {
                 val strikeIsNew = frame.strike?.id?.let { it > queuedStrikeId } == true

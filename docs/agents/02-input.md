@@ -1,60 +1,74 @@
-# 输入与动作反馈交付
+# 精修手部握持与角色穿插
 
-## GitHub任务入口
+## 本轮目标
 
-[V1 #3](https://github.com/BrickerP/pico-wuxia-arena/issues/3) · [V3 #5](https://github.com/BrickerP/pico-wuxia-arena/issues/5)
+解决真实角色手指、非持刀手与刀柄／护手之间的明显穿插，进一步改善原生Tripo姿态的握持自然度。
 
-任务状态与完成条件维护在上述Issue，当前文件提供实现合同和review依据。主控按阶段分派，开发精修、运行验收和参赛交付分别推进。
+## 责任与文件
 
-## 当前范围与职责
+本会话负责 ArtSource/refinement/grip/ 候选生产脚本、校准数据和制作近景，以及本文件。现有 prepare_character_library.py、motion_library.json、library 与app运行模型由主控统一发布，避免与人物精修会话同时覆盖。
 
-输入继续共用 `TrackingEventBuffer → TrackingState → ArenaSession → PlayerCombatResolver`。设备动作与桌面预演进入同一判定器，主控统一整合、编译和后续设备验收。技术栈为Kotlin + PICO Spatial SDK6.1.9，Space Pro／OS6，桌面入口为PICO模拟器。
+## 已有基线
 
-## 上一轮进展
+三名角色各有78骨、8动作资源。青衫与玄甲已完成握点平移，仍有约9.79mm／7.47mm的残余峰值径向代理，平均深度与深样本增多的取舍已有报告。只移动刀柄不足以完成手指适配。
 
-已实现连续桌面头手轨迹、SDK设备观察、continuity／coordinateEpoch、暂停、显式恢复和重开控制。攻击、防御、闪避与双手蓄推由姿态产出结果。历史日志与测试只覆盖当时版本，新的实际键盘通路和设备手感仍需运行验收。
+## 本轮工作
 
-## 功能与资产集成基线
+- 以最终实际蒙皮模型做指面、刀柄、护手和非持刀手检查，覆盖native slash1.55–3.4秒、2.117秒接触以及步法／受击姿态。
+- 利用各角色自己的Tripo骨架与原生姿态，在握持对齐范围内产生可复建的局部指姿校正候选，保持手腕与刀路时标可追踪。
+- 保留原始Tripo输出。人物网格、骨长与蒙皮权重继续沿原源，必要的绑定质量缺陷先量化并提交主控选择Tripo重绑方案。
+- 同时评估接触覆盖、悬空间隙、径向交叠和视觉自然度。提供同机位before／after近景及动作小片段。
+- 使用当前三角色做候选，新的高精角色就绪后由主控安排适配。当前不提交收费任务。
 
-- `PlayerMotionFrame.chargeProgress`由实际双手蓄势状态产生，`ArenaViewState.motionCharge`仅在交战且未暂停时投影到HUD。
-- 当前角色名、头位与刀段进入同一场景呈现出口。纯动画位移与刀段变化从HUD比较字段中剔除，蓄力进度按真实变化更新。
-- 玩家刀继续由实际手部观察驱动。敌人30指骨的握刀采样属于资产动作数据。
-- UI补充四条刀术要诀，蓄力时显示进度、前推条件及气势状态，正常VR交战优先显示试炼与攻防信息。
-- 特效使用当前刀段和头前守势代理定位接触。review已修正格挡／弹反火星偏向敌人身体的问题。
-- 暂停、追踪失效、重开和离场继续清理动作、蓄力、特效与旧反馈上下文。
+## 交付与审核
 
-| 键位 | 预演动作 |
-| --- | --- |
-| 1 / J，2，3 | 斩击、左斩、右斩 |
-| 4 / K | 前刺 |
-| 5 / V，6 / B，7 / N | 上架刀、左架刀、右架刀 |
-| 8 / Z，9 / X | 左闪、右闪 |
-| C | 下蹲 |
-| G | 破势／虚弱时自动处决 |
+输出候选目录与清楚的发布步骤，原始与派生姿态可复建。只在主仓库工作，不动其他会话文件，不提交或推送，不创建副本。制作可用Blender离线处理，设备与实际视口由主控统一操作。
 
-WASD、Q/E和右键保留模拟器相机操作。设备模式的攻击、格挡、弹反和闪避使用实际头手动作，桌面预演保持DESKTOP／UNKNOWN来源语义。
+30分钟内交付一个阶段，遇到骨架或原生姿态的真实限制写清证据，不用持续等待维持状态。
 
-## 后续质量与运行验收条件
+## 本阶段交付
 
-本轮按用户要求未做游戏自测、按键现场操作或设备验收。后续核对实际键盘、预演按钮和Space Pro动作的输入到结果链路，再确认蓄势起止、前推释放、暂停恢复和重开均撤销旧动作。关注头手质量、控制代次和同一输入的去重，结果统一进入 `docs/acceptance.md`。
+**阶段结束，等待主控 review。本回合完成后直接结束。** 已在 `ArtSource/refinement/grip/` 交付三角色可复建候选、校准数据、实际蒙皮审计和同机位制作近景。发布仍由主控统一执行。本轮费用 0，原始 Tripo、公共 prepare 脚本、library 和 app 资源保持本会话接入时的内容。
 
-## 本轮任务范围
+候选采用本轮批准的局部指骨旋转方案，每节校正向量上限 18 度。最终保留每角色 78 骨、8 动作，原节点/rest transforms、骨长、蒙皮权重、逆绑定、网格、材质、原 buffer 和关键帧时间输入均受验证。65 个源姿态中，非指骨世界矩阵分量最大差为 0，手腕与刚性刀具原有时标保持。修正数据仅追加至指骨旋转输出。
 
-本轮修正双手动作教学与真实输入阶段之间的误导。主控已批准以下文件范围。实施范围为 `core/combat/PlayerCombatResolver.kt`、`runtime/ArenaSession.kt`、`content/ArenaHud.kt`、`res/values/strings.xml`、现有 `.scratch` 设计产物与本交接文件。
+### 审核实物与复建
 
-- 把蓄势、前推已触发后待收势、解除手势三个实际阶段投影到界面，沿同一输入结果产生提示。
-- 前推触发后，在回收动作完成前提示收刀复位，避免继续显示满蓄力或以气势不足覆盖已经成功的释放反馈。
-- 暂停、重开、失效与恢复基线撤销提示，保持原有动作识别门槛、消耗、伤害、按键含义和同帧择一规则。
-- 仅投影当前真实动作数据，继续使用现有两面板与PicoTheme控件。设计验证保持deferred，主控统一编译，当前不进行游戏自测或设备操作。
+- [候选、方法与发布步骤](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/README.md)
+- [三角色校准与固定哈希](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/calibration.json)
+- [65 姿态右手测量](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/report.json)与[实际刀身／左手审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/left_weapon_audit.json)
+- [近景相机、原生时间与最终 GLB 哈希清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/render_manifest.json)
 
-单阶段交付后结束，由主控复审与合入。
+| 角色 | 候选 | slash 原生 2.117 秒的峰值径向代理前→后 | 同机位右手近景 |
+| --- | --- | --- | --- |
+| 试刀客 | [base.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/candidates/base.glb) | 2.407→0.162 mm | [对比图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/base_right_before_after.png) |
+| 青衫护院 | [indigo.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/candidates/indigo.glb) | 9.793→1.569 mm | [对比图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/indigo_right_before_after.png) |
+| 玄甲守擂 | [veteran.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/candidates/veteran.glb) | 7.467→6.475 mm | [对比图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/veteran_right_before_after.png) |
 
-## 本轮新增交付
+三角色平均径向深度均下降，大于 2 mm 的顶点数量分别为 1→0、44→0、37→37。表面 3 mm 内样本分别为 10→16、77→74、64→81。青衫近距覆盖代理保留约 96.1%，需要结合图中握持自然度审核。以上是椭圆柄核与表面顶点的采样代理，样本数并非接触面积。
 
-- PlayerMotionFrame新增默认false的releaseRequired，直接投影已有skillLatched。原有识别门槛、锁存复位条件、伤害与同帧择一规则继续沿原入口消费。
-- ArenaViewState新增motionReleaseRequired。仅交战、未暂停且动作基线有效时投影，锁存后motionCharge为0，回收复位后恢复正常阶段提示。
-- HUD优先显示中性“收刀复位 · 再起下一式”并收起蓄势条。锁存不表示技能成功，既有feedback继续显示实际破势、气势或距离结果。
-- 按主控与01协调，新增enemyHitZone，只在实际PLAYER_HIT新反应时记录本次strike.zone。护身受击不覆盖已有部位，弹反清空，离开HIT、重开和下一轮清空；纯用户暂停保留冻结中的真实反应，追踪恢复改回IDLE时清空。该字段供01动作选择消费。
-- 设计IR与内嵌预览同步到revision16，展示前推后气势为0且待复位的真实状态组合，receipt继续标记当前编译和验证待主控整合。
+### 非持刀手与明确残余
 
-本轮已做代码条件与生命周期的静态复审，未运行编译、测试、浏览器、模拟器或设备。主控后续重点复核同一tick头部命中后提示覆盖、技能释放后收势提示、暂停恢复与旧锁存撤销。源码已完成主控复审、编译与合入。
+实际刀身检查发现，柄核之外存在后段小指穿过刀身的情况。青衫新增 `L_Ring2` 局部 X -9 度，玄甲新增 `L_Pinky1` 局部 Z -18 度，两项均已写入最终 GLB 的全部 8 条对应动作轨道。65 个离散采样姿态均未增加左手确认交叉或 3 mm 近距样本。
+
+| 角色 | 跨 65 姿态累计确认三角形交叉对前→后 | 单姿态峰值前→后 | 仍需审核的画面 |
+| --- | --- | --- | --- |
+| 试刀客 | 0→0 | 0→0 | 本次采样范围内左手未见确认交叉 |
+| 青衫 | 299→275 | 43→33 | [3.133 秒残余小指](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/indigo_left_slash_3133_before_after.png)、[3.167 秒局部改善](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/indigo_left_slash_3167_before_after.png) |
+| 玄甲 | 72→23 | 23→23 | [1.833 秒小指解除](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/veteran_left_slash_1833_before_after.png)、[1.55 秒掌部残余](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/veteran_left_slash_1550_before_after.png) |
+
+玄甲 1.55 秒残余涉及 `L_Hand` 主导的蒙皮表面，当前限定指姿候选仍留交叉。进一步改变手掌与刀身关系或选择原生重绑方案需主控审核。当前结果不证明整段连续时间均无穿插，共面交叉也不在确认计数范围。握持自然度、掌指过渡和新的高精角色适配继续待审。
+
+### 动作与验证
+
+已交付 44 张 before、44 张 after、11 张近景对比、3 张六姿态板和 3 个九帧 slash 对比 GIF，帧源时间覆盖 1.55–3.4 秒，另包含 walk 与受击。可直接查看[试刀客片段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/base_slash_before_after.gif)、[青衫片段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/indigo_slash_before_after.gif)、[玄甲片段](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/grip/previews/veteran_slash_before_after.gif)。最终图片清单与最终候选哈希一致，已离线目检关键左右手画面。
+
+实际执行 `verify_grip_candidates.py`，3 个正常路径和 21 个负向拒绝通过。独立验证每条修改输出等于 `normalize(source_q @ Qx @ Qz)`，以及输出类型、有限值、归一化、关键帧数量、追加引用和精确左手关节范围。青衫与玄甲完成最终哈希锁定回放。独立代码复审发现的回放哈希锁与旋转输出验证问题已修复，复审通过。Blender 渲染、脚本语法及差异检查通过。
+
+所有产物均为离线候选，实际应用发布与设备观感由主控统一验收。本会话按阶段交付结束，主控可依据上述实物选择接受局部改善，或另派剩余掌部／小指与绑定关系的后续修正。
+
+## 主控review与下一阶段
+
+主控已查看持刀手同机位图和玄甲1.833秒、青衫3.133秒残余图，接受本阶段指姿的局部改善接入正式producer。指标代表离散代理与交叉采样，掌指自然度和残余刀面穿插继续待修。
+
+下一阶段仅在offhand子目录制作slash的非持刀侧局部腕／必要前臂与手指修正，优先青衫3.133／3.167秒与玄甲1.55秒，采用平滑起止和完整关键姿态检查。右手与刀具轨迹继续固定，原rest、骨长与skin保持。新候选独立评审后由主控统一接入现有制作入口。
