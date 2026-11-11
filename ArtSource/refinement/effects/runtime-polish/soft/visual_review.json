@@ -1,0 +1,19 @@
+{
+  "candidate_sha256": "19384ff327d9080048ad485422c64b679242281b2b8d7eb77f9f7d6319fce534",
+  "observed_images": [
+    "review/soft_normal_distance_033ms.png",
+    "review/soft_0.8m_100ms_after.png"
+  ],
+  "visual_observations": [
+    "33ms: the 0.8m candidate core is visibly wider than the current soft-contact core while staying local to the contact surface.",
+    "33ms: 1.5m retains a localized warm contact cue. At 3m both old and candidate cues occupy a small part of the frame.",
+    "100ms: the core has expired and dry debris remains below/to the cutting side of the original contact, rather than a scaled radial debris mesh."
+  ],
+  "limitations": [
+    "Offline current actor, actual GLBs and synthetic tangent; no actual game input or SDK capture.",
+    "Camera FOV80deg and raw candidate motion sampling; final consumer growth/accent multipliers are excluded.",
+    "No claim of Space Pro readability, frame budget, particle opacity hierarchy or transparency sorting."
+  ],
+  "tests": "6 independent source/mesh/motion checks passed",
+  "scope": "candidate review; Root owns publication and device acceptance"
+}

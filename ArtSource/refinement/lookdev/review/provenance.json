@@ -1,0 +1,1089 @@
+{
+  "scope": "OFFLINE Blender actual app models, controlled lighting comparison; not PICO validation",
+  "source_git_sha": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "source_bytes_preserved": true,
+  "assets": [
+    {
+      "label": "tavern_slice",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/assets/models/tavern_slice.glb",
+      "source_sha256": "af3adf8b15bb5aa6f34a9a5240e18bc2534bc977db4a05089a0c3a1ee1bbdc69",
+      "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/tavern_slice_active.glb",
+      "derived_sha256": "d7cbda7998f2a0b784719cda7d9f091bd23c091e298ba34b7a7251603218dc18",
+      "stage_position_metres": [
+        0,
+        0,
+        -4
+      ],
+      "selection": {
+        "original_active_scene": 0,
+        "active_source_nodes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "retained_source_nodes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "orphan_source_nodes_excluded": [],
+        "selected_roots": [],
+        "excluded_roots": []
+      },
+      "instance_matrix_stage": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "active_scene_bounds": {
+        "min_stage": [
+          -2.1600000858306885,
+          -0.12399999797344208,
+          -4.300000190734863
+        ],
+        "max_stage": [
+          2.1851837635040283,
+          3.303999900817871,
+          -1.2000000476837158
+        ]
+      },
+      "mesh_object_count": 5
+    },
+    {
+      "label": "forecourt",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/assets/models/forecourt.glb",
+      "source_sha256": "fde7def5888232f0b20fd5959fac4a5edbae1ee51261a88b97e6216ce741477e",
+      "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/forecourt_active.glb",
+      "derived_sha256": "37cda15b346af9587d4461608b4d122da592e218dea62fa7ae340372a4ead8b2",
+      "stage_position_metres": [
+        0,
+        0,
+        -4
+      ],
+      "selection": {
+        "original_active_scene": 0,
+        "active_source_nodes": [
+          6,
+          7,
+          10,
+          11
+        ],
+        "retained_source_nodes": [
+          6,
+          7,
+          10,
+          11
+        ],
+        "orphan_source_nodes_excluded": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        "selected_roots": [],
+        "excluded_roots": []
+      },
+      "instance_matrix_stage": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          -4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "active_scene_bounds": {
+        "min_stage": [
+          -2.125,
+          -0.12399999797344208,
+          -1.2000000476837158
+        ],
+        "max_stage": [
+          2.1851837635040283,
+          0.027939803898334503,
+          1.8199999332427979
+        ]
+      },
+      "mesh_object_count": 1
+    },
+    {
+      "label": "courtyard_details",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/assets/models/courtyard_details.glb",
+      "source_sha256": "d2bdf0806ef972fe8fc533066aa96830d23c97e7f617ebca26b808c548f53d3e",
+      "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/courtyard_details_active.glb",
+      "derived_sha256": "f7df9752d5a7dbc6b445cc7d6055025b5fc68d2d42530bf71370eacb4cf1a4d8",
+      "stage_position_metres": [
+        0,
+        0,
+        0
+      ],
+      "selection": {
+        "original_active_scene": 0,
+        "active_source_nodes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "retained_source_nodes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "orphan_source_nodes_excluded": [],
+        "selected_roots": [],
+        "excluded_roots": []
+      },
+      "instance_matrix_stage": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "active_scene_bounds": {
+        "min_stage": [
+          -3.049999952316284,
+          -0.10000000149011612,
+          -4.265999794006348
+        ],
+        "max_stage": [
+          3.049999952316284,
+          2.2680001258850098,
+          0.3700000047683716
+        ]
+      },
+      "mesh_object_count": 6
+    }
+  ],
+  "fighter": {
+    "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/assets/models/opponents/base.glb",
+    "source_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+    "stage_position_metres": [
+      0,
+      0.028,
+      -2.4
+    ],
+    "rotation": "unchanged source",
+    "uniform_scale": 1.0,
+    "clip": "idle",
+    "source_seconds": 1.0,
+    "nla_tracks": [
+      "idle"
+    ],
+    "mesh_names": [
+      "TripoBody_Mesh"
+    ]
+  },
+  "cameras": {
+    "player": {
+      "position_stage": [
+        0,
+        1.6,
+        0
+      ],
+      "target_stage": [
+        0,
+        1.32,
+        -2.4
+      ],
+      "lens_mm": 24
+    },
+    "fighter_1_5m": {
+      "position_stage": [
+        0,
+        1.6,
+        -0.9
+      ],
+      "target_stage": [
+        0,
+        1.46,
+        -2.4
+      ],
+      "lens_mm": 24
+    }
+  },
+  "profiles": {
+    "current": {
+      "world_color_linear": [
+        0.025,
+        0.025,
+        0.025
+      ],
+      "world_strength": 0.35,
+      "sun": {
+        "name": "Current broad white key",
+        "lux": 1100.0,
+        "color": [
+          0.92,
+          0.95,
+          1
+        ],
+        "ray_stage": [
+          0.501406,
+          -0.621743,
+          -0.601687
+        ]
+      },
+      "points": [
+        {
+          "name": "Current warm front fill",
+          "stage_position": [
+            -1.3,
+            1.8,
+            -1.1
+          ],
+          "color": [
+            1,
+            0.72,
+            0.46
+          ],
+          "lumens": 2300,
+          "radius_m": 4.2
+        },
+        {
+          "name": "Current cool front fill",
+          "stage_position": [
+            1.25,
+            1.65,
+            -1.55
+          ],
+          "color": [
+            0.58,
+            0.74,
+            1
+          ],
+          "lumens": 1300,
+          "radius_m": 4.0
+        }
+      ]
+    },
+    "target": {
+      "world_color_linear": [
+        0.025,
+        0.04,
+        0.07
+      ],
+      "world_strength": 0.5,
+      "sun": {
+        "name": "Moon cool diagonal key",
+        "lux": 650.0,
+        "color": [
+          0.57,
+          0.73,
+          1
+        ],
+        "ray_stage": [
+          0.501406,
+          -0.621743,
+          -0.601687
+        ]
+      },
+      "points": [
+        {
+          "name": "Lantern practical",
+          "stage_position": [
+            -1.43,
+            2.86,
+            -3.58
+          ],
+          "color": [
+            1,
+            0.49,
+            0.2
+          ],
+          "lumens": 1500,
+          "radius_m": 3.2
+        },
+        {
+          "name": "Warm bounce for face",
+          "stage_position": [
+            -1.8,
+            1.55,
+            -1.1
+          ],
+          "color": [
+            1,
+            0.69,
+            0.4
+          ],
+          "lumens": 900,
+          "radius_m": 2.6
+        },
+        {
+          "name": "Cool rear edge",
+          "stage_position": [
+            1.9,
+            2.5,
+            -3.4
+          ],
+          "color": [
+            0.38,
+            0.65,
+            1
+          ],
+          "lumens": 900,
+          "radius_m": 3.0
+        }
+      ]
+    }
+  },
+  "blender_version": "4.5.15 LTS",
+  "engine": "CYCLES",
+  "samples": 8,
+  "threads": 4,
+  "resolution": [
+    960,
+    960
+  ],
+  "view_transform": "AgX",
+  "exposure": 0.0,
+  "coordinate_contract": "PICO Stage(x,y,z) -> Blender(x,-z,y)",
+  "transfer": {
+    "type": "explicit artistic approximation, no equivalent SDK exposure is claimed",
+    "point_lumens_per_blender_watt": 25.0,
+    "lux_per_blender_sun_energy": 683.0,
+    "point_source_radius_m": 0.18,
+    "physical_light_shadows": "All light shadows disabled in both profiles to match native directional cast flag and non-shadowing point lights; SDK GroundShadow is not reproduced",
+    "ibl": "world-color approximation; no KTX/PICO proof",
+    "radius": "PICO cutoff radii recorded but not emulated in Blender inverse-square falloff"
+  },
+  "renders": {
+    "current": {
+      "player": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/offline_current_player.png",
+        "sha256": "be1f37d296be5b16950d18c2e00d9ea724d313602776371ab46b53135ae39a58"
+      },
+      "fighter_1_5m": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/offline_current_fighter_1_5m.png",
+        "sha256": "f18ceaebbb5eebd611db2e64a0fcfe98e493300b9bb88a860c2bcf63f5fb61d6"
+      }
+    },
+    "target": {
+      "player": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/offline_target_player.png",
+        "sha256": "f3918e8006c8e3eb151793afeac51a951af70597d686a880c443a99d184b141e"
+      },
+      "fighter_1_5m": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/offline_target_fighter_1_5m.png",
+        "sha256": "b687e7c8f2293b59849e30c3d13abbcdd446a9800b13a9545d7f8583fcb9e7e3"
+      }
+    }
+  },
+  "integrated_weather": {
+    "scope": "Separate offline integration of delivered analytic GLB mesh rain, side strips and sky; not volumetric fog or native particles",
+    "time_nanos": 600000000,
+    "assets": [
+      {
+        "label": "weather_rain_0_0",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_0_0_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          -2.7,
+          2.5600000000000005,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            2.559999942779541
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            -3.5974831581115723,
+            2.578909158706665,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            -1.8192657232284546,
+            4.555840969085693,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_rain_0_1",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_0_1_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          -2.7,
+          -1.4399999999999995,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -1.440000057220459
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            -3.5974831581115723,
+            -1.421090841293335,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            -1.8192657232284546,
+            0.5558409690856934,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_rain_0_2",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_0_2_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          -2.7,
+          0.5600000000000005,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.5600000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            -3.5974831581115723,
+            0.578909158706665,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            -1.8192657232284546,
+            2.5558409690856934,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_rain_1_0",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_1_0_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          2.7,
+          2.5600000000000005,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            2.559999942779541
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            1.8025168180465698,
+            2.578909158706665,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            3.5807342529296875,
+            4.555840969085693,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_rain_1_1",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_1_1_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          2.7,
+          -1.4399999999999995,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            -1.440000057220459
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            1.8025168180465698,
+            -1.421090841293335,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            3.5807342529296875,
+            0.5558409690856934,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_rain_1_2",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_tile.glb",
+        "source_sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_rain_1_2_active.glb",
+        "derived_sha256": "e20e81372d40a18443c6d34f0e20f0461735c5797914595876378e54bd11add4",
+        "stage_position_metres": [
+          2.7,
+          0.5600000000000005,
+          -2.8
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            2.700000047683716
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.5600000023841858
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -2.799999952316284
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            1.8025168180465698,
+            0.578909158706665,
+            -4.74204683303833
+          ],
+          "max_stage": [
+            3.5807342529296875,
+            2.5558409690856934,
+            -0.9071182012557983
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_haze_0",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/side_haze.glb",
+        "source_sha256": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_haze_0_active.glb",
+        "derived_sha256": "62310a49a0450f6d15547375572fe6e7a2d96bae7065b072e39a9d6f884f5203",
+        "stage_position_metres": [
+          -2.988707002401778,
+          0,
+          -4.4
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            -2.9887070655822754
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -4.400000095367432
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            -4.488707065582275,
+            0.0,
+            -4.400000095367432
+          ],
+          "max_stage": [
+            -1.4887070655822754,
+            0.699999988079071,
+            -4.349999904632568
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_haze_1",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/side_haze.glb",
+        "source_sha256": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_haze_1_active.glb",
+        "derived_sha256": "62310a49a0450f6d15547375572fe6e7a2d96bae7065b072e39a9d6f884f5203",
+        "stage_position_metres": [
+          2.988707002401778,
+          0,
+          -4.4
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            2.9887070655822754
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            -4.400000095367432
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            1.4887070655822754,
+            0.0,
+            -4.400000095367432
+          ],
+          "max_stage": [
+            4.488707065582275,
+            0.699999988079071,
+            -4.349999904632568
+          ]
+        },
+        "mesh_object_count": 1
+      },
+      {
+        "label": "weather_sky",
+        "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/weather/rain_night_sky.glb",
+        "source_sha256": "11b80a1337b4d0574fd524a08619a43edab1f30ff6f86284c82d49cf35e12017",
+        "derived_active_scene_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/inputs/weather_sky_active.glb",
+        "derived_sha256": "6681b3bd4ab8c8f4921ad61f6c20ff682230b39f00596c905277ed56efdb9366",
+        "stage_position_metres": [
+          0,
+          0,
+          0
+        ],
+        "selection": {
+          "original_active_scene": 0,
+          "active_source_nodes": [
+            0,
+            1
+          ],
+          "retained_source_nodes": [
+            0,
+            1
+          ],
+          "orphan_source_nodes_excluded": [],
+          "selected_roots": [],
+          "excluded_roots": []
+        },
+        "instance_matrix_stage": [
+          [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "active_scene_bounds": {
+          "min_stage": [
+            -30.0,
+            -30.0,
+            -30.0
+          ],
+          "max_stage": [
+            30.0,
+            30.0,
+            30.0
+          ]
+        },
+        "mesh_object_count": 1
+      }
+    ],
+    "weather_contract_sha256": "48f219b07797425651eaa36ebb989e8ea56ba209370c0fa7cee3a4d1ae3d2562",
+    "sky_gi": "All weather is hidden from diffuse/glossy/transmission/shadow/volume paths to avoid accidental Blender emission lighting",
+    "render": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/offline_target_with_mesh_weather_player.png",
+      "sha256": "56d0620b0f076fa21fba5f935fbe208d667fb37054f27fcbdc7581423769967b"
+    }
+  },
+  "contact_sheets": {
+    "player": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/lighting_compare_player.png",
+      "sha256": "a7df6393d7ef611100564e59fb28061efba144d603b5bd600bdc724acc14ff29"
+    },
+    "fighter_1_5m": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/review/lighting_compare_fighter_1_5m.png",
+      "sha256": "26060fd8b74561bb560bea6c24a38558aca13207afb49c0e0a6049e46e11e14f"
+    }
+  },
+  "all_source_and_candidate_bytes_preserved_after_render": true
+}

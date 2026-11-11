@@ -1,0 +1,40 @@
+{
+  "status": "MATERIAL_ALPHA_ONLY_SOURCE_CHECKS_PASS",
+  "visual_status": "Root actual GLB frame review pending",
+  "assets": [
+    {
+      "asset": "dodge_ground_polish.glb",
+      "source_sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2",
+      "candidate_sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
+      "original_binary_prefix_unchanged": true,
+      "geometry_streams_compared": 16,
+      "zero_alpha_edge_vertices_preserved": 192,
+      "changed_alpha_vertices": 16,
+      "all_rgb_unchanged": true,
+      "only_color_alpha_and_base_color_changed": true,
+      "all_nonopacity_motion_fields_unchanged": true,
+      "source_max_vertex_alpha": 0.699999988079071,
+      "candidate_max_vertex_alpha": 0.6499999761581421,
+      "source_center_effective_peak_alpha": 0.10779999816417696,
+      "candidate_center_effective_peak_alpha": 0.5524999797344208,
+      "center_effective_alpha_ratio": 5.125231810235987
+    },
+    {
+      "asset": "landing_ground_polish.glb",
+      "source_sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae",
+      "candidate_sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b",
+      "original_binary_prefix_unchanged": true,
+      "geometry_streams_compared": 16,
+      "zero_alpha_edge_vertices_preserved": 192,
+      "changed_alpha_vertices": 16,
+      "all_rgb_unchanged": true,
+      "only_color_alpha_and_base_color_changed": true,
+      "all_nonopacity_motion_fields_unchanged": true,
+      "source_max_vertex_alpha": 0.699999988079071,
+      "candidate_max_vertex_alpha": 0.6499999761581421,
+      "source_center_effective_peak_alpha": 0.12543999786376955,
+      "candidate_center_effective_peak_alpha": 0.5524999797344208,
+      "center_effective_alpha_ratio": 4.404496086921552
+    }
+  ]
+}

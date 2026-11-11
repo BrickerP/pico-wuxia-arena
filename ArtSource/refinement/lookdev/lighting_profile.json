@@ -1,0 +1,195 @@
+{
+  "profile": "rain-night-courtyard-hero-v4-NATIVE-SPOT-READABILITY",
+  "source_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "coordinate_space": "Stage metres, +Y up, forward -Z; no scaling",
+  "directional": {
+    "name": "moon",
+    "color_linear_rgb": [
+      0.57,
+      0.73,
+      1
+    ],
+    "lux": 650,
+    "rotation_xyzw": [
+      -0.347382,
+      -0.280147,
+      0,
+      0.894899
+    ],
+    "ray_direction": [
+      0.5014,
+      -0.6217,
+      -0.6017
+    ],
+    "casts_shadow": false
+  },
+  "points": [
+    {
+      "name": "EH_Light_Lantern_01",
+      "position": [
+        -2.15,
+        2.7,
+        -4.7
+      ],
+      "color_linear_rgb": [
+        1,
+        0.49,
+        0.2
+      ],
+      "lumens": 1500,
+      "attenuation_radius_m": 3.8
+    },
+    {
+      "name": "EH_Light_Lantern_02",
+      "position": [
+        2.15,
+        2.7,
+        -4.7
+      ],
+      "color_linear_rgb": [
+        1,
+        0.49,
+        0.2
+      ],
+      "lumens": 1500,
+      "attenuation_radius_m": 3.8
+    },
+    {
+      "name": "EH_Light_Lantern_03",
+      "position": [
+        -4.03,
+        2.25,
+        0.56
+      ],
+      "color_linear_rgb": [
+        1,
+        0.49,
+        0.2
+      ],
+      "lumens": 1100,
+      "attenuation_radius_m": 3.4
+    },
+    {
+      "name": "EH_Light_Lantern_04",
+      "position": [
+        4.03,
+        2.25,
+        -1.32
+      ],
+      "color_linear_rgb": [
+        1,
+        0.49,
+        0.2
+      ],
+      "lumens": 1100,
+      "attenuation_radius_m": 3.4
+    },
+    {
+      "name": "cool_edge",
+      "position": [
+        1.9,
+        2.5,
+        -3.4
+      ],
+      "color_linear_rgb": [
+        0.38,
+        0.65,
+        1
+      ],
+      "lumens": 900,
+      "attenuation_radius_m": 4.5
+    },
+    {
+      "name": "blade_fill",
+      "position": [
+        1.15,
+        1.65,
+        0.25
+      ],
+      "color_linear_rgb": [
+        0.72,
+        0.85,
+        1
+      ],
+      "lumens": 12000,
+      "attenuation_radius_m": 4.2
+    }
+  ],
+  "layer_intent": {
+    "face": "Warm near cheek, cool opposite rim; both eyes remain readable at 1.5-3 m",
+    "blade": "Cold edge reflection separated from dark outfit; no white emissive blade",
+    "gate": "Localized amber lantern pool, no global orange fill",
+    "paving": "Cold grazing light with a localized warm pool; GroundShadow per actual mesh",
+    "distance": "Dark blue silhouettes with restrained mesh haze; no black void and no veil over fighter"
+  },
+  "ibl_candidate": {
+    "path": "ArtSource/refinement/lookdev/ibl/candidate_standard_header.ktx",
+    "sha256": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+    "intensity_exponent": 4,
+    "runtime_status": "da33 KTX loads in Root actualAPK; v4 exponent4 awaits deployment/visualverification"
+  },
+  "api_boundaries": {
+    "point_shadow": "unsupported",
+    "ground_shadow": "separate top-down approximation, non-inherited, existing HomeStage mesh binding retained",
+    "particles": "cannot construct ParticleComponent at runtime; Editor-authored AssetBundle required",
+    "fog": "no verified global volumetric fog API; any delivered haze is explicit translucent GLB geometry",
+    "exposure_ssr": "no verified public scene exposure or SSR setter used"
+  },
+  "runtime_status": "v3 dac9f5e5 relight-ready-scene readability failed; v4 native spotlight group awaits Root rebuild",
+  "environment": {
+    "path": "ArtSource/refinement/environment-hero/courtyard_hero.glb",
+    "sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+    "placement_stage": [
+      0,
+      0,
+      0
+    ],
+    "rotation": "identity",
+    "scale": 1
+  },
+  "offline_comparison_status": "review/ images show v1 with old tavern only. v2 native anchor/range changes are not visually verified; Root integrating actual courtyard.",
+  "native_evidence": {
+    "before": "artifacts/integrated-polish/ready-scene.png",
+    "apk_prefix": "8ebe75ac",
+    "observed_issue": "face/hands/foreground blade too dark while facade white walls dominate",
+    "v3_changes": "forward neutral-warm face key, front cool blade fill, IBL x4; practical anchors and moon unchanged",
+    "v3_after": "artifacts/integrated-polish/relight-ready-scene.png",
+    "v3_apk_prefix": "dac9f5e5",
+    "v4_changes": "replace diffuse front point with 20000lm spot; blade point12000lm; IBL exponent4; stagecoldwarm practicals unchanged"
+  },
+  "release_contract": "close marks closing immediately; keep owner until isReleased; IO pending cleanup and failures remain retained",
+  "spot": {
+    "name": "face_key",
+    "position": [
+      -0.35,
+      2.1,
+      0.45
+    ],
+    "target_stage": [
+      0,
+      1.3,
+      -1.75
+    ],
+    "color_linear_rgb": [
+      1,
+      0.91,
+      0.82
+    ],
+    "lumens": 20000,
+    "attenuation_radius_m": 4.8,
+    "inner_angle_degrees": 45,
+    "outer_angle_degrees": 75,
+    "rotation_xyzw": [
+      -0.17205445,
+      -0.07527382,
+      0,
+      0.98220727
+    ],
+    "ray_direction": [
+      0.14786899178904483,
+      -0.3379862669463882,
+      -0.9294622341025677
+    ],
+    "casts_shadow": false
+  }
+}

@@ -20,6 +20,8 @@ data class CombatImpact(
     val appliedDamage: Int = 0,
     val zone: HitZone? = null,
     val fatal: Boolean = false,
+    /** Real cutting direction at this contact in Stage space; absent for a resting/unknown blade. */
+    val tangent: Vector3? = null,
 ) : EnemyCombatEvent {
     init {
         require(appliedDamage >= 0) { "applied damage must be non-negative" }

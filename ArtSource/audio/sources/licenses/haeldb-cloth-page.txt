@@ -1,0 +1,7 @@
+Source: https://opengameart.org/content/footsteps-leather-cloth-armor
+Author: HaelDB https://opengameart.org/users/haeldb
+Date: 2011-12-02
+Licenses offered: OGA-BY 3.0 or CC0. Selected license CC0 https://creativecommons.org/publicdomain/zero/1.0/
+Verified: 2026-11-11 via chrome-use
+Description: 4 steps each wearing leather, cloth and armor. Very quick and subtle. Author comment 2011-12-02 states cloth and leather recordings have very low noise floor, suitable for normalization/compression.
+Not claimed to be wet stone footfall recordings.

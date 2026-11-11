@@ -1,0 +1,50 @@
+{
+  "status": "GENERATED",
+  "command": [
+    "/Users/yupeng/Library/Caches/pico-wuxia-arena/filament/v1.80.0/filament/bin/cmgen",
+    "--format=ktx",
+    "--size=128",
+    "--ibl-samples=1024",
+    "--ibl-ld=/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/ibl/generated",
+    "--deploy=/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/ibl/generated",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/lookdev/ibl/rain_night_latlong.hdr"
+  ],
+  "cwd": "/Users/yupeng/projects/personal/pico-wuxia-arena",
+  "started_utc": "2026-11-11T05:34:28.232230+00:00",
+  "ended_utc": "2026-11-11T05:34:28.719485+00:00",
+  "exit_code": 0,
+  "source_sha256": "4d55e3d8b0160952ea131c440a6feac89009ca7bbc0f747d43808d9dfa8175e0",
+  "tool": {
+    "tool_release": "Filament v1.80.0",
+    "release_url": "https://github.com/google/filament/releases/tag/v1.80.0",
+    "archive_url": "https://github.com/google/filament/releases/download/v1.80.0/filament-v1.80.0-mac.tgz",
+    "archive_sha256": "b514ec6dc8d6026e70f6e0dc9673b1c5748060a4be5137aea8502a46d740fb6b",
+    "archive_bytes": 45445964,
+    "binary_cache_path": "/Users/yupeng/Library/Caches/pico-wuxia-arena/filament/v1.80.0/filament/bin/cmgen",
+    "binary_sha256": "6e2da8e6b92d4fbb3bc5977ec6650eabc25c9f58cb6a06886d55845786e27037",
+    "host": "Darwin arm64",
+    "binary_file": "/Users/yupeng/Library/Caches/pico-wuxia-arena/filament/v1.80.0/filament/bin/cmgen: Mach-O 64-bit executable arm64",
+    "checked_at_utc": "2026-11-10T13:54:45.397152+00:00",
+    "signature_changes": "none"
+  },
+  "tool_binary_sha256_checked": "6e2da8e6b92d4fbb3bc5977ec6650eabc25c9f58cb6a06886d55845786e27037",
+  "output_files": [
+    {
+      "path": "generated/generated_ibl.ktx",
+      "bytes": 522604,
+      "sha256": "1ec5ca44d0243da9252de5bfc0d34c0374a28d2d9c6c5118c53c3b0c9d9b3e1f"
+    },
+    {
+      "path": "generated/generated_skybox.ktx",
+      "bytes": 393284,
+      "sha256": "8f657d3c09adf55a42436dd6e693da21434deb7e1bde629d71b06bf2900dce84"
+    },
+    {
+      "path": "generated/sh.txt",
+      "bytes": 885,
+      "sha256": "4e0c0d7bad6fb9cdcc1e71449c9b6de8ede4bd47b746bbf0ea317163292256b3"
+    }
+  ],
+  "orientation_boundary": "cmgen default mirroring is enabled (no --no-mirror). Source/Filament/PICO reflected azimuth equivalence remains untested.",
+  "pico_interoperability": "UNTESTED; structure and generation do not prove runtime compatibility"
+}

@@ -1,0 +1,19 @@
+{
+  "status": "SHARED_MATERIAL_CONFIRMED_RENDERER_ISOLATION_REQUIRED",
+  "asset": "dodge_ground_polish.glb",
+  "mesh_count": 8,
+  "material_slots": 8,
+  "unique_imported_materials": [
+    "Damp courtyard | low grey silt"
+  ],
+  "all_meshes_share_one_material": true,
+  "source_data_validity": "Material sharing is valid GLB data; per-entity opacity must remain instance-local.",
+  "observed_old_renderer": "alpha_controls added an independent MULTIPLY node for every mesh to the same material Alpha chain without material.copy().",
+  "example_shared_control_product": {
+    "individual_opacity": 0.6,
+    "count": 8,
+    "product": 0.016796159999999994
+  },
+  "required_offline_correction": "Copy material into each object slot before adding one local opacity factor; keep source GLB unchanged.",
+  "visibility_assessment": "Old v1/v2 image readability is not a valid per-entity-opacity reference until the renderer is corrected."
+}

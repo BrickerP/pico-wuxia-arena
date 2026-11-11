@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-2026-11-11会话已接手，实际工程与源SHA核对通过。正在制作独立成熟头脸高精源，并准备保留原78骨rest与身体流的候选装配工具。仅改本路目录与本文件，未动正式producer／manifest／library／app。
+2026-11-11已按Root补充要求完成本轮候选：面部裂缝修复、旧颈部皮肤尖片清理、完整闭合眼球／透明角膜与眼睑开口。46项检查及完整本地复建通过，正式资源仍未发布。Root已接受成年骨相与发束方向，下一项为原生光影与实际动作下审核新SHA。
 
 ## 目标
 
@@ -40,10 +40,69 @@
 
 ## 阶段交付
 
-### 首轮制作中
+### 当前交付（以此块为准）
 
-- 已读取设计母版 `ArtSource/refinement/character/design/concept/unified_board_v2_final.png` 与真实基线 `baseline/face.png`，二维目标与实际模型分开。
-- 实际问题：原模型只有一个头身材质／primitive；R_Eye和L_Eye骨没有顶点权重，眼球仍粘在头脸网格。Head影响6634顶点。头UV跨整个4K atlas，不能矩形裁脸。
-- Tripo已使用本机已安装0.11.2，ov doctor通过，余额4290，冻结0。显式 `tripo-v3.1`、detailed几何、extreme贴图、PBR预检60credits，无warnings；本轮250credits上限内已提交**唯一一次**头部源任务 `a834e461-fbc6-40db-9ce6-447b0c3dbc9b`。见本路 `cli/head_dry_run.json`、`cli/head_progress.log`。不重提、不用@last。
-- 当前产物为制作请求与本地装配代码，尚未宣称3D完成、已入APK或头显验收。下一步查看生成实物，做三视角／0.8m、1.5m、3m同机位对比与颈部接缝评审。
+- 可组合头部：`ArtSource/refinement/hero-face/head-component.glb`，SHA `25f32a2e2d4618de7cebe0b8359d9e5722387cab01f958d8970e4eaa40c7f1cb`。
+- 原78骨完整身体候选：`ArtSource/refinement/hero-face/hero-face-candidate.glb`，SHA **`5954552f451efbc4df764d2cfacf5e6b0b03084049140a7f3fc9fc2dbf267d35`**，约39.0MB。候选待Root正式集成，未发布。
+- 正常视距同机位前后：`review/normal-distance-comparison.png`（0.8m／1.5m／3m，60°透视，每帧原始960px）；单张 `review/first-visible-upgrade.png`。
+- 正／侧／斜前后：`review/detail-comparison.png`；单图 `review/after_front.png`、`after_right.png`、`after_oblique.png`。全部为真实GLB离线渲染，未修图；细节正交机位只作补充。
+- 来源与最终SHA：`candidate-summary.json`。原身体面映射、材质和蒙皮分工：`graft-report.json`。眼区初分件与原眼骨坐标：`eye-report.json`；完整眼球／角膜、开口与材质证据：`ocular-report.json`。
 
+### 可见结果与接线
+
+眉弓／眼窝更有体积，鼻翼、唇线与颌骨更明确；新头为独立4K PBR atlas，发际线与多层束发已进入真实网格。重回高精源焊接后减面，首版脸颊／额头的几何裂缝已消除。左右各有一个真实闭合球形眼球（每只2208面）与独立角膜壳（每只1488面）。原眼区中央已开孔，剩余20／27面作为Head绑定眼睑边缘；只有眼球／角膜绑定既有L_Eye／R_Eye。眼球使用原atlas棕色虹膜，角膜使用无白色漫反射的低alpha PBR，已目视排除早期灰白角膜遮挡。
+
+最终模型为50401个保留身体三角形 + 47288个新头／眼球／角膜三角形，8个primitive。原身体双手、78骨rest、原材质与原图像、7条原accessor流保持字节／JSON一致；删除旧Head区域并额外去掉55个原颈部皮肤三角形以消除下颌下的旧皮肤尖片。领口按实际原basecolor语义保护，白／灰衣物不进入皮肤清理。颈段只延伸实际下颌以下（raw Y<.815），原下颌不被拉长。
+
+Root接入点是本路的**raw body-only候选**，frame与原rig完全相同（+Y up、+X front、原mesh-local单位）。可把它作为正式producer的body source，沿原规范化、握持、动作与角色变体合成流程接入；不重新rig、不替换78骨rest。所有新增主体／眼区材质均有`tripo_`前缀，供现有独占白闪识别。Main、HomeStage和manifest最终接线仍由Root维护。
+
+### 来源与费用
+
+| 来源 | task_id／SHA | 实耗 |
+| --- | --- | --- |
+| 原raw身体 | `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6` | 既有 |
+| 高精头：ov、显式tripo-v3.1、detailed几何、extreme、PBR | `a834e461-fbc6-40db-9ce6-447b0c3dbc9b` | 60 credits |
+| 颜色／PBR修正：texture v3.5、extreme、明确肤色／黑发指导 | `165609e9-dce0-45e3-8994-0c7486a87814` | 30 credits |
+
+本路合计**90／250 credits**，没有重roll、额外rig或新动作收费。高精源 `source/head-high-source.glb` SHA `fc44714e8f12a739570a110c881133d057344d8f9fad45a46b0703f1ecc196ab`；彩色源 `source/head-textured-source.glb` SHA `ba0086a8cf7a94c050f65fdd705138ae2238886004557e361b6a86743a5d8f88`。已保存prompt、doctor、dry-run与脱敏task记录，无API Key或授权URL。
+
+### 复建与验证
+
+从唯一工程根目录运行：
+
+```sh
+python3 ArtSource/refinement/hero-face/build_candidate.py --render
+```
+
+已完整执行成功，日志为`review/rebuild.log`。只读本地不可变源，校验source SHA，依次焊接／减面、贴图分工、raw对齐、颈段、眼睑开口／闭合眼球／透明角膜、原身体合成与旧颈皮肤清理，然后渲染前后对照。不会调用付费服务、正式producer、共享Gradle、设备或Git写操作。`BLENDER`可指向本机Blender4.5；同一时刻只启动一个本路Blender。
+
+**46项测试全部通过**：原binary／流／rest保留，语义切口与整数权重，仿射与颈部normal／tangent，左右眼映射和刚性绑定、闭合眼球拓扑／绕序／法线、角膜边界与眼睑开口、皮肤与白灰衣领区分，错误来源与空选区拒绝。完整本地复建与导出的实际GLB渲染均通过；没有用这些证明设备画质或VR手感。
+
+### 真实限制与Root下一项
+
+1. 这是成熟骨相与发束的可组合升级候选，皮肤仍较平滑，尚不等同目标游戏的最终写实皮肤层次。保留了生成normal与UV，未做专用高低模normal重烘焙。
+2. 完整球形眼球与透明角膜壳已完成；角膜是普通alphaBLEND、无折射的PBR近似，不能当作物理折射已通过。真实PICO透明排序仍待Root验证。保持原眼骨rest，因此球心与原Eye枢轴X差约.0032 raw（约6mm实际尺度），自由眼转和实际动作下的眼睑边界需要Root验收。
+3. 颈领静态轮廓已收口，但颈部内侧采用覆盖装配，未做拓扑焊接。V领深处仍有细小色调／边缘差异；动态大角度头转、现三方向完整动作及03的新衣领组合尚未验收。
+4. 4K新头贴图的端侧内存、真实PICO原生光照、白闪材质、Space Pro性能和整体1.5m／3m战斗画面，均待Root的共享安装与同机位端内验证。
+
+### 阶段轨迹（已被当前交付取代）
+
+- 首轮查明原R_Eye／L_Eye无任何顶点权重、没有独立眼球，Head影响6634点；UV跨整张atlas，不能矩形裁脸。
+- 首次高精任务成功但basecolor接近灰泥塑。旧灰色候选已清理，`review/after-v1_*`保留为结构检查，不可发布；后续30credits贴图修正后得到彩色源。
+- 首次直接减面导致UV岛边界实际开裂：高精源按位置焊接后仅11条边界，旧40k仍25582条。最终使用高精源先焊接，再减面，复用已验证同布局的彩色材质；没有再生成付费任务。
+- 早期颜色候选与颈部前移实验已废弃，旧文中的`8e4c37…`等SHA不再指向当前交付。当前唯一审核入口为本页顶部完整SHA与`candidate-summary.json`。
+
+
+### Root追加审核后的眼球／角膜收口
+
+Root接受骨相／发束方向后，本路继续制作真实球体和角膜，无新增收费。`build_eyes.py`在眼睑中央开孔，生成封闭眼球（边界0、非流形0、零面积0、Euler=2），独立角膜保留预期48边圆周。完整旧body原始7条stream、skin、nodes/rest、material/images仍一致，原78骨不变。
+
+白色alpha=.08角膜的实际渲染出现灰色遮罩，已用无角膜对照定位为漫反射薄层而非UV／眼球几何问题；当前固定采用RGB0、alpha=.025、roughness=.04的无折射透明近似。`review/eyes-preview_*`是失败旧角膜检查；`review/eyes-clear-cornea_*`为修正专项检查；最终统一正常视距与三视角以`review/after_*`和本页顶部SHA为准。
+
+最终代码与静态实物复核无阻断问题；已清理失败／过时的GLB候选，只保留当前复建链与必要不可变源。历史诊断图／JSON仍可审计。验收依据为46项测试、完整复建、文件身份与目视检查。
+
+## Root本轮组合审核与续派（2026-11-11）
+
+审核：正常视距的成年骨相、发束、闭合眼球方向接受；5954552候选在prepared idle出现真实颈部黑口和皮肤锯齿，未进入正式app。
+
+下一步：以实际组合姿态修连续颈部几何／权重，重交SHA与同机位图。禁止以加黑材质遮开口；透明角膜还需避免opaque受击白片。

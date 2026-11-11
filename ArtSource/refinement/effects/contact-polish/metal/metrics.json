@@ -1,0 +1,96 @@
+{
+  "file": "metal_contact_polish.glb",
+  "bytes": 14624,
+  "sha256": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce",
+  "node_names": [
+    "metal_contact_polish",
+    "core_star",
+    "spark_00",
+    "spark_01",
+    "spark_02",
+    "spark_03",
+    "spark_04",
+    "spark_05",
+    "spark_06",
+    "spark_07",
+    "spark_08",
+    "spark_09",
+    "spark_10",
+    "spark_11"
+  ],
+  "mesh_count": 13,
+  "particle_count": 12,
+  "triangles": 32,
+  "animation_count": 0,
+  "materials": "PBR emissive, vertex alpha, BLEND, double-sided; no extensions",
+  "core_max_diameter_m": 0.07,
+  "normal_core_lifetime_s": 0.065,
+  "parry_core_lifetime_s": 0.09,
+  "particle_dimensions": [
+    {
+      "node": "spark_00",
+      "length_m": 0.021661600425199386,
+      "width_m": 0.002547494723393515
+    },
+    {
+      "node": "spark_01",
+      "length_m": 0.014694151534243938,
+      "width_m": 0.0027118644570956816
+    },
+    {
+      "node": "spark_02",
+      "length_m": 0.024772898043483472,
+      "width_m": 0.00211088122840505
+    },
+    {
+      "node": "spark_03",
+      "length_m": 0.018682680878581225,
+      "width_m": 0.0026317512435681282
+    },
+    {
+      "node": "spark_04",
+      "length_m": 0.025850632143922362,
+      "width_m": 0.0022478919886966663
+    },
+    {
+      "node": "spark_05",
+      "length_m": 0.012228793898165273,
+      "width_m": 0.00224344657323179
+    },
+    {
+      "node": "spark_06",
+      "length_m": 0.017463057367250238,
+      "width_m": 0.002789901594724141
+    },
+    {
+      "node": "spark_07",
+      "length_m": 0.01761368534842325,
+      "width_m": 0.0026534640067740036
+    },
+    {
+      "node": "spark_08",
+      "length_m": 0.015358237557125572,
+      "width_m": 0.0020098252368886084
+    },
+    {
+      "node": "spark_09",
+      "length_m": 0.012315716866431728,
+      "width_m": 0.002079797567407834
+    },
+    {
+      "node": "spark_10",
+      "length_m": 0.02798159246249784,
+      "width_m": 0.002047731607837502
+    },
+    {
+      "node": "spark_11",
+      "length_m": 0.017939065509626474,
+      "width_m": 0.0020202002665049884
+    }
+  ],
+  "lifetime_range_s": [
+    0.18,
+    0.29
+  ],
+  "source": "Original project-authored independent streaks and small star; no remote generation"
+}

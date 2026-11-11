@@ -1,0 +1,120 @@
+{
+  "production_entry": "build_contact_polish.py",
+  "assets": [
+    {
+      "family": "metal",
+      "builder": "metal/build_metal.py",
+      "files": [
+        "metal_contact_polish.glb",
+        "metrics.json",
+        "motion.json"
+      ]
+    },
+    {
+      "family": "wet",
+      "builder": "wet/build_wet.py",
+      "files": [
+        "metrics.json",
+        "motion.json",
+        "wet_cloth_contact.glb"
+      ]
+    },
+    {
+      "family": "ground",
+      "builder": "ground/build_ground.py",
+      "files": [
+        "dodge_ground_polish.glb",
+        "dodge_motion.json",
+        "landing_ground_polish.glb",
+        "landing_motion.json",
+        "metrics.json"
+      ]
+    },
+    {
+      "family": "ground/visibility-v2",
+      "builder": "ground/visibility-v2/build_visibility.py",
+      "files": [
+        "dodge_ground_polish.glb",
+        "dodge_motion.json",
+        "landing_ground_polish.glb",
+        "landing_motion.json",
+        "metrics.json",
+        "visibility_patch.json"
+      ]
+    },
+    {
+      "family": "visibility-v3/metal",
+      "builder": "visibility-v3/metal/build_metal_v3.py",
+      "files": [
+        "metal_hero_v3.glb",
+        "metrics.json",
+        "motion.json"
+      ]
+    },
+    {
+      "family": "visibility-v3/wet",
+      "builder": "visibility-v3/wet/build_wet_v3.py",
+      "files": [
+        "metrics.json",
+        "motion.json",
+        "wet_cloth_contact.glb"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "path": "ground/dodge_ground_polish.glb",
+      "bytes": 17980,
+      "sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2"
+    },
+    {
+      "path": "ground/landing_ground_polish.glb",
+      "bytes": 18072,
+      "sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae"
+    },
+    {
+      "path": "ground/visibility-v2/dodge_ground_polish.glb",
+      "bytes": 22332,
+      "sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c"
+    },
+    {
+      "path": "ground/visibility-v2/landing_ground_polish.glb",
+      "bytes": 22424,
+      "sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b"
+    },
+    {
+      "path": "metal/metal_contact_polish.glb",
+      "bytes": 14624,
+      "sha256": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce"
+    },
+    {
+      "path": "visibility-v3/metal/metal_hero_v3.glb",
+      "bytes": 45396,
+      "sha256": "71502f591b19c3e067772fa1648cc78d10c2c37aac3b4e36102e3027964f6525"
+    },
+    {
+      "path": "visibility-v3/wet/wet_cloth_contact.glb",
+      "bytes": 48128,
+      "sha256": "a96623710d43a5e952a559153ce7cf1d0e75ca68636d5e9e98ff492040f15077"
+    },
+    {
+      "path": "wet/wet_cloth_contact.glb",
+      "bytes": 19448,
+      "sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af"
+    }
+  ],
+  "runtime_integration": "Root-owned Entity/Opacity driver",
+  "contact_review": {
+    "baseline": [
+      "metal/",
+      "wet/"
+    ],
+    "visibility_candidate": "visibility-v3/",
+    "motion_schema": "contact-particle-motion/v2"
+  },
+  "ground_review": {
+    "baseline": "ground/",
+    "visibility_candidate": "ground/visibility-v2/"
+  },
+  "publication": "Review candidates only; Root selects the final runtime assets"
+}

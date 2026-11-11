@@ -11,23 +11,59 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.p0d2f0182.R
 
-/** Short material contacts consumed from the arena's resolved event batch. */
-internal class CombatAudio(context: Context) {
-    private enum class Cue(val resource: Int, val durationSeconds: Double) {
-        SOFT_HIT(R.raw.arena_hit, 0.32),
-        HARD_HIT(R.raw.arena_hard_hit, 0.48),
-        GUARDED_HIT(R.raw.arena_guarded_hit, 0.41),
-        BLOCK(R.raw.arena_block, 0.55),
-        PARRY(R.raw.arena_parry, 0.72),
-        WHOOSH(R.raw.arena_whoosh, 0.28),
-        PLAYER_HIT(R.raw.arena_hurt, 0.36),
-        SKILL(R.raw.arena_skill, 0.70),
-        EXECUTION(R.raw.arena_execution, 0.88),
-        VICTORY(R.raw.arena_victory, 0.95),
-        DEFEAT(R.raw.arena_defeat, 0.78),
+/** The small output boundary also allows the event/lifecycle policy to run without an Android device. */
+internal interface CombatAudioOutput {
+    fun onLoad(listener: ((Int, Int) -> Unit)?)
+    fun load(resource: Int): Int
+    fun play(sample: Int, left: Float, right: Float, priority: Int, loop: Int, rate: Float): Int
+    fun volume(stream: Int, left: Float, right: Float)
+    fun stop(stream: Int)
+    fun release()
+}
+
+private class SoundPoolOutput(context: Context) : CombatAudioOutput {
+    private val application = context.applicationContext
+    private val pool = SoundPool.Builder().setMaxStreams(12).setAudioAttributes(
+        AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build(),
+    ).build()
+
+    override fun onLoad(listener: ((Int, Int) -> Unit)?) {
+        if (listener == null) pool.setOnLoadCompleteListener(null)
+        else pool.setOnLoadCompleteListener { _, sample, status -> listener(sample, status) }
+    }
+    override fun load(resource: Int) = pool.load(application, resource, 1)
+    override fun play(sample: Int, left: Float, right: Float, priority: Int, loop: Int, rate: Float) =
+        pool.play(sample, left, right, priority, loop, rate)
+    override fun volume(stream: Int, left: Float, right: Float) = pool.setVolume(stream, left, right)
+    override fun stop(stream: Int) = pool.stop(stream)
+    override fun release() = pool.release()
+}
+
+/** Short material contacts consumed from the arena's resolved event batch. No HRTF is claimed. */
+internal class CombatAudio(
+    private val pool: CombatAudioOutput?,
+    private val logWarning: (String) -> Unit = { message -> Log.w(TAG, message) },
+    private val nanoTime: () -> Long = System::nanoTime,
+) {
+    constructor(context: Context) : this(createOutput(context))
+    private enum class Cue(val resource: Int, val durationSeconds: Double, val priority: Int = 3) {
+        SOFT_HIT(R.raw.arena_hit, 0.38),
+        HARD_HIT(R.raw.arena_hard_hit, 0.56),
+        GUARDED_HIT(R.raw.arena_guarded_hit, 0.42),
+        BLOCK(R.raw.arena_block, 0.62, 4),
+        PARRY(R.raw.arena_parry, 0.80, 5),
+        WHOOSH(R.raw.arena_whoosh, 0.28, 1),
+        PLAYER_HIT(R.raw.arena_hurt, 0.36, 4),
+        SKILL(R.raw.arena_skill, 0.70, 5),
+        EXECUTION(R.raw.arena_execution, 0.88, 6),
+        VICTORY(R.raw.arena_victory, 0.95, 2),
+        DEFEAT(R.raw.arena_defeat, 0.78, 2),
+        STEP(R.raw.arena_step, 0.32, 1),
+        RAIN(R.raw.arena_rain, 8.0, 0),
     }
 
-    private data class Stream(val id: Int, val expiresAtNanos: Long)
+    private data class Stream(val id: Int, val expiresAtNanos: Long, val priority: Int)
     private data class PendingImpact(
         val cue: Cue,
         val volume: Float,
@@ -50,40 +86,34 @@ internal class CombatAudio(context: Context) {
     private var lastResult = TrialResult.READY
     private var lastAttackId: Long? = null
     private var lastPhase = EnemyPhase.IDLE
-    private val pool = try {
-        SoundPool.Builder()
-            .setMaxStreams(12)
-            .setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_GAME)
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .build(),
-            )
-            .build()
-    } catch (error: RuntimeException) {
-        Log.e(TAG, "Unable to create arena sound output", error)
-        null
-    }
+    private var playerMotionGeneration = -1L
+    private var swingArmed = false
+    private var lastPlayerSwing = Long.MIN_VALUE
+    private var previousGait: Double? = null
+    private var stepDistance = 0.0
+    private var stepIndex = 0
+    private var rainStream = 0
+    private var rainGain = -1f
+    private var duckUntilNanos = 0L
 
     init {
         pool?.let { output ->
-            output.setOnLoadCompleteListener { _, sampleId, status ->
+            output.onLoad { sampleId, status ->
                 synchronized(gate) {
                     if (!closed && status == 0) readyIds += sampleId
                     if (!closed && status != 0) {
                         failedIds += sampleId
-                        Log.w(TAG, "Arena sound load failed sample=$sampleId status=$status")
+                        logWarning("Arena sound load failed sample=$sampleId status=$status")
                     }
                 }
             }
-            val application = context.applicationContext
             for (cue in Cue.entries) {
                 try {
-                    val id = output.load(application, cue.resource, 1)
+                    val id = output.load(cue.resource)
                     if (id != 0) {
                         soundIds[cue] = id
                     } else {
-                        Log.w(TAG, "Arena sound load rejected ${cue.name}")
+                        logWarning("Arena sound load rejected ${cue.name}")
                     }
                 } catch (error: RuntimeException) {
                     Log.e(TAG, "Unable to load arena sound ${cue.name}", error)
@@ -98,7 +128,17 @@ internal class CombatAudio(context: Context) {
             val changedRound = !initialized || state.roundGeneration != roundGeneration
             val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
             val shouldMute = !state.sceneReady || (!terminal && (state.pauseReason != null || !state.inputReady))
+            val now = nanoTime()
             if (changedRound || (shouldMute && !muted)) stopStreams()
+            val resetMotion = changedRound || shouldMute || muted ||
+                state.playerMotionGeneration != playerMotionGeneration
+            if (resetMotion) {
+                swingArmed = false
+                lastPlayerSwing = Long.MIN_VALUE
+                previousGait = null
+                stepDistance = 0.0
+            }
+            playerMotionGeneration = state.playerMotionGeneration
             if (changedRound) seenImpactIds.clear()
             val terminalChange = initialized && !changedRound && state.result != lastResult && terminal
             val newSwing = initialized && !changedRound && state.phase == EnemyPhase.STARTUP &&
@@ -119,7 +159,16 @@ internal class CombatAudio(context: Context) {
             if (muted) return
             playReadyImpacts()
             if (terminalChange) play(if (state.result == TrialResult.VICTORY) Cue.VICTORY else Cue.DEFEAT, volume = 0.45f)
-            if (newSwing) play(Cue.WHOOSH, volume = 0.28f)
+            if (state.result == TrialResult.FIGHTING) {
+                if (newSwing) play(Cue.WHOOSH, volume = 0.24f)
+                presentPlayerSwing(state, now)
+                presentSteps(state)
+                presentRain(now)
+            } else {
+                stopRain()
+                previousGait = null
+                swingArmed = false
+            }
         }
     }
 
@@ -145,19 +194,39 @@ internal class CombatAudio(context: Context) {
             1.0
         }
         val accent = CombatFeedbackProfile.accent(impact)
-        val volume = ((0.34 + 0.38 * accent.strength) * distanceGain).toFloat()
+        val damageGain = if (impact.appliedDamage > 0) {
+            0.85 + 0.15 * (impact.appliedDamage / 40.0).coerceIn(0.0, 1.0)
+        } else 1.0
+        val volume = ((0.34 + 0.38 * accent.strength) * distanceGain * damageGain).toFloat()
         val pan = if (impact.hand == Hand.LEFT) -0.12f else 0.12f
+        val variation = ((impact.id % 7L).toInt() - 3) * 0.008f
+        enqueue(cue, volume, pan, accent.soundRate + variation)
+        // Preserve the resolved material; the lethal low/cloth layer adds weight over that contact.
+        if (impact.fatal && impact.appliedDamage > 0 && cue != Cue.EXECUTION) {
+            enqueue(Cue.EXECUTION, volume * 0.52f, pan, 0.90f)
+        }
+    }
+
+    private fun enqueue(cue: Cue, volume: Float, pan: Float, rate: Float) {
         val sample = soundIds[cue] ?: return
-        if (sample !in failedIds) pendingImpacts += PendingImpact(cue, volume, pan, accent.soundRate, System.nanoTime())
+        if (sample in failedIds) return
+        val now = nanoTime()
+        pendingImpacts.removeAll { now - it.enqueuedAtNanos > IMPACT_FRESHNESS_NANOS }
+        if (pendingImpacts.size >= MAX_PENDING_IMPACTS) {
+            val lowest = pendingImpacts.minBy { it.cue.priority }
+            if (lowest.cue.priority > cue.priority) return
+            pendingImpacts.remove(lowest)
+        }
+        pendingImpacts += PendingImpact(cue, volume, pan, rate, now)
     }
 
     private fun playReadyImpacts() {
-        val now = System.nanoTime()
+        val now = nanoTime()
         val iterator = pendingImpacts.iterator()
         while (iterator.hasNext()) {
             val pending = iterator.next()
             val sample = soundIds[pending.cue]
-            if (now - pending.enqueuedAtNanos > 120_000_000L || sample == null || sample in failedIds) {
+            if (now - pending.enqueuedAtNanos > IMPACT_FRESHNESS_NANOS || sample == null || sample in failedIds) {
                 iterator.remove()
             } else if (sample in readyIds) {
                 iterator.remove()
@@ -166,36 +235,98 @@ internal class CombatAudio(context: Context) {
         }
     }
 
+    private fun presentPlayerSwing(state: ArenaViewState, now: Long) {
+        val speed = state.playerBladeTipSpeed
+        if (!speed.isFinite() || state.playerBladeTip?.isFinite() != true) {
+            swingArmed = false
+            return
+        }
+        if (state.playerBladeAtRest || speed < 0.70) swingArmed = true
+        val cooled = lastPlayerSwing == Long.MIN_VALUE || now - lastPlayerSwing >= 180_000_000L
+        if (swingArmed && cooled && speed >= 1.45 && !state.playerBladeAtRest) {
+            play(Cue.WHOOSH, (0.18 + speed.coerceAtMost(5.0) * 0.045).toFloat(),
+                if (state.dominantHand == Hand.LEFT) -0.16f else 0.16f,
+                (0.90 + speed.coerceAtMost(5.0) * 0.035).toFloat())
+            lastPlayerSwing = now
+            swingArmed = false
+        }
+    }
+
+    private fun presentSteps(state: ArenaViewState) {
+        val gait = state.enemyGaitMeters
+        val previous = previousGait
+        previousGait = gait.takeIf { it.isFinite() }
+        if (previous == null || !gait.isFinite()) return
+        val delta = kotlin.math.abs(gait - previous)
+        // A teleport/reset is not a footstep and must not replay a backlog.
+        if (delta > 0.75) { stepDistance = 0.0; return }
+        stepDistance += delta
+        // EnemyAnimator uses a 1.45m full gait cycle, with two foot contacts.
+        if (stepDistance >= 0.725) {
+            stepDistance %= 0.725
+            stepIndex++
+            play(Cue.STEP, 0.16f, if (stepIndex % 2 == 0) -0.07f else 0.07f,
+                if (stepIndex % 2 == 0) 0.96f else 1.03f)
+        }
+    }
+
+    private fun presentRain(now: Long) {
+        if (rainStream == 0) rainStream = play(Cue.RAIN, 0.10f, loop = -1)
+        val gain = if (now < duckUntilNanos) 0.045f else 0.10f
+        if (rainStream != 0 && gain != rainGain) {
+            try { pool?.volume(rainStream, gain, gain); rainGain = gain }
+            catch (error: RuntimeException) { Log.w(TAG, "Unable to set rain level", error) }
+        }
+    }
+
+    private fun stopRain() {
+        if (rainStream != 0) {
+            try { pool?.stop(rainStream) }
+            catch (error: RuntimeException) { Log.w(TAG, "Unable to stop rain", error) }
+        }
+        rainStream = 0
+        rainGain = -1f
+    }
+
     /** Caller holds gate, preventing release between availability checks and play. */
-    private fun play(cue: Cue, volume: Float, pan: Float = 0f, rate: Float = 1f) {
-        val output = pool ?: return
-        val sample = soundIds[cue] ?: return
-        if (sample !in readyIds) return
+    private fun play(cue: Cue, volume: Float, pan: Float = 0f, rate: Float = 1f, loop: Int = 0): Int {
+        val output = pool ?: return 0
+        val sample = soundIds[cue] ?: return 0
+        if (sample !in readyIds) return 0
         try {
-            val now = System.nanoTime()
+            val now = nanoTime()
             streams.removeAll { it.expiresAtNanos <= now }
+            // Reserve a voice for rain. SoundPool does not notify us when it steals a stream.
+            if (loop == 0 && streams.size >= MAX_SHORT_STREAMS) {
+                val oldestLow = streams.minBy { it.priority }
+                if (oldestLow.priority > cue.priority) return 0
+                output.stop(oldestLow.id)
+                streams.remove(oldestLow)
+            }
             val left = volume * (1f - maxOf(0f, pan))
             val right = volume * (1f + minOf(0f, pan))
-            val id = output.play(sample, left, right, 1, 0, rate)
+            val id = output.play(sample, left, right, cue.priority, loop, rate)
             if (id != 0) {
                 val lifetime = ((cue.durationSeconds / rate + 0.25) * 1_000_000_000.0).toLong()
-                streams += Stream(id, now + lifetime)
+                if (loop == 0) streams += Stream(id, now + lifetime, cue.priority)
+                if (cue.priority >= 3) duckUntilNanos = now + 180_000_000L
             }
+            return id
         } catch (error: RuntimeException) {
             Log.e(TAG, "Unable to play arena sound ${cue.name}", error)
+            return 0
         }
     }
 
     private fun stopStreams() {
         pendingImpacts.clear()
-        val output = pool ?: return
-        try {
-            output.autoPause()
-            streams.forEach { output.stop(it.id) }
-        } catch (error: RuntimeException) {
-            Log.e(TAG, "Unable to stop arena sound streams", error)
+        stopRain()
+        streams.forEach { stream ->
+            try { pool?.stop(stream.id) }
+            catch (error: RuntimeException) { Log.e(TAG, "Unable to stop arena sound stream", error) }
         }
         streams.clear()
+        duckUntilNanos = 0L
     }
 
     fun close() {
@@ -209,7 +340,7 @@ internal class CombatAudio(context: Context) {
             seenImpactIds.clear()
         }
         try {
-            pool?.setOnLoadCompleteListener(null)
+            pool?.onLoad(null)
         } catch (error: RuntimeException) {
             Log.e(TAG, "Unable to detach arena sound listener", error)
         }
@@ -222,5 +353,15 @@ internal class CombatAudio(context: Context) {
 
     private companion object {
         const val TAG = "ArenaAudio"
+        const val MAX_PENDING_IMPACTS = 24
+        const val MAX_SHORT_STREAMS = 10
+        const val IMPACT_FRESHNESS_NANOS = 120_000_000L
+
+        fun createOutput(context: Context): CombatAudioOutput? = try {
+            SoundPoolOutput(context)
+        } catch (error: RuntimeException) {
+            Log.e(TAG, "Unable to create arena sound output", error)
+            null
+        }
     }
 }

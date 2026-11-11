@@ -1,0 +1,12 @@
+{
+  "scope": "isolated candidate compile and pure motion tests; no app build or device proof",
+  "sdk": "6.1.9",
+  "compiler": "2.1.20",
+  "compile_exit_code": 0,
+  "source_sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneLighting.kt": "8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneWeather.kt": "d180d23d7d64c80024a436f03f84057326173050dc9ab993ad3a09a9fdbba253",
+    "ArtSource/refinement/lookdev/tests/SceneWeatherMotionTest.kt": "9c551f989330007e291a0421908e49dfb9dc9f55bff05a319316712d5587132c"
+  },
+  "test_exit_code": 0
+}

@@ -6,9 +6,13 @@
 
 最新一轮不能只改roughness和金属factor。制作有实际倒角与截面的刀脊／刃口、刀尖过渡、护手铸造边、柄绳编织、端帽与有因果磨损。保持公共刀长和握点语义，握持接触区优先保护，确需变化给明确映射和可见对照，由Root重签。正常游戏视距的刀身反射和轮廓必须有可辨改进。现袖口微小候选与限制交03，继续武器队列，不等待其回复。
 
+Root已开发接收 stage2 实体刀槽／刃脊方向，公共 producer 候选与新刀身份 pin 由 Root 统一处理。当前续项为右手握持 147／55／85 个既有相交手面的实际可见程度与柄核穿透深度，允许只交局部原指骨增量或手部接触几何修正。正常距离、近景、原始 IDs 与真实深度共同验收，保护当前三方向左手与 05 头脸／03 服装组合。
+
 ## 当前状态
 
-**袖口首项与刀具首轮材质候选已交付，等待 Root review。** 三轮权重候选均未通过。Root接受当前衣摆有自然凸面与折层这一事实，停止该目标的权重实验。袖口局部收细和刀具材质响应已形成独立实物，完整退腕、刀具几何与握持接触继续按最新队列评审。
+**右手柄核接触修复进行中。** 最新十段动作三角色与新刀为冻结输入。实际闭合柄核量测已定位 base／veteran 约 11.5 mm 拇指穿入、indigo 约 2.9 mm 小指穿入，已开始有限静态指骨增量与局部接触几何候选。上一阶段刀形和十段库适配的实物、18 张对照与左手无新增交叉结果保留。
+
+袖口结构后续交 03。[袖口现有实物及限制](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/README.md)和[机读 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/deformation/cuff-refinement/vertex_delta.json)可作为局部组件，当前只完成左侧灰棱约 1.5 mm 径向收细。12 mm 退腕、真实开口和布／皮边界仍待服装结构制作，保护集合也需要按实际手部语义细化。
 
 ## 上一轮成果与Root review
 
@@ -20,19 +24,19 @@
 
 ## 本轮任务
 
-1. 输入采用refined-base60k/rig.glb和当前最终base动画作为姿态依据，记录完整SHA与坐标变换。
-2. 建立头、躯干、左右臂／手、左右腿、衣领、袖口、腰带、衣摆等语义区域。输出前后分色图，face／vertex映射绑定模型SHA，颜色和空间共同复核。
-3. 查抬臂、前伸、转头、左右迈步及当前slash关键姿态的拉伸、接缝和错误骨骼影响，定位最差顶点。
-4. 首阶段优先肩腋／袖口或腰胯／衣摆中一个最明显问题，保留现有78骨rest和骨长，做局部权重修复候选。手部权重本阶段只诊断，避免与01的手姿同时改基线。
-5. 连续皮肤与衣物结构分别判断。合并、拆边和权重平滑依据结构执行；UV／法线缝的重复顶点保持合理一致的变形。禁止把整手刚性到Hand的示例直接套入本模型。
+1. 冻结 `current-bank` 新刀三角色、alignment、profiles 与原始 SHA。核验当前右指校准已单次烘焙，后续只使用明确增量。
+2. 对真实闭合 `Handle core` 做内外分类与最近三角面深度，包含顶点、边中点和面心，报告最坏姿态、原 face／vertex IDs、骨支持与实际截面。开放缠绳单独记录表面交叉。
+3. 优先每角色独立静态右指骨旋转，统一作用十段动作。若小范围残留来自接触表面，可试同拓扑局部 POSITION／NORMAL 修正，并保留完整 seam 组及机读 delta。
+4. 复核真实柄核深度、各指残留、外绳或相邻指的自然贴靠、非邻接指面自交和可见闭合，保护左手／刀路／腕／挂点及非手部数据。
+5. 交正常距离与手部正侧近景前后、柄轴截面、局部修正候选和独立验证。原 producer、正式资源及最终合成由 Root 维护。
 
 ## 审核产物
 
-语义分区数据与正背图、pose缺陷清单、一个派生rig GLB、可复建修复脚本、前后相同pose／相机渲染、最大拉伸边与接缝量化。验证body／骨架／权重合法性及正常和边界输入。数据改善与可见改善分别陈述。
+真实几何与纹理候选、正常视距和持刀近景、来源 SHA、部件和材质映射、玩家 Grip 入口、三角色装配及接触检查。量测区分结构合法、表面接触与实际可见收益，运行时观感由 Root 统一验收。
 
 ## 下游
 
-派生rig保留原始源，Root评审后作为唯一producer的新target输入。01当前使用固定旧权重完成独立手姿，本阶段交付后再做整合复核，不等待01才能开工。
+Root 审核后统一更新刀具输入、装配身份和挂点校准，再组合 01 动作、03 服装、05 头脸与 07 光照。候选保留各自来源，按部件和数据映射交付。
 
 ## 共同执行约束
 
@@ -215,3 +219,61 @@ Root已查看同面跟踪与bind／native PBR图。该处存在源衣物折层�
 [独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/verification.json)已实际运行，NPC／玩家／三角色五个入口的完整 BIN 与非材质 JSON 一致性通过，涵盖几何、UV、节点、锚点、skin、rest 与动作。正常候选及锚点／网格／源 BIN 变更拒绝通过，生成器四类非法材质更新拒绝通过。当前验证支持有限材质补丁交付，现有手部接触问题仍需解决。
 
 后续刀形与握持联合精修继续使用米制长度、Grip 和真实手表面约束。Root负责新文件身份复审、校准重签、正式组合与发布。玩家帧当前已验证结构与材质，独立玩家帧渲染仍待制作。现有低采样离线图适合首轮方向审查，PICO 实时加载、游戏 IBL、实际持刀输入、连续补间、完整三轮与 Space Pro 性能尚待验证。本阶段费用 0。
+
+## 刀具第二轮真实几何与表面交付
+
+**阶段结束，等待 Root review。结构 PASS，接触审核待修。** 完整实物、来源、装配、验证与限制见 [stage2 说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/README.md)。本轮已交可见实体刀槽和截面分光，新增左手相交范围须继续处理。
+
+### 实物和可见变化
+
+- [NPC 候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/dao_refined.glb)，SHA `4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452`，源为 `0855a39e9851222a8976f36b2722fdde8d1f2e42cb2e813cf4057dc1257ef616`。
+- [玩家候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/dao_grip_refined.glb)，SHA `a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637`。另交 [可编辑 Blender 源](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/dao_refined.blend)及几何、表面生成脚本。
+- 刀身细化为 66 轴向站位、21 点截面，原窄条改为约 5–7 mm 实体槽并向刀尖收束。护手铸造压边和端帽凹面已重建，总三角 3,722→8,702，13 部件、8 材质，NPC 约 2.889 MB。26 张实际 PBR 制作图中 18 张嵌入 GLB，涵盖打磨／磨痕、氧化、柄绳织纹和皮革压痕，部分磨损仍属部件／UV 假设。
+- [刀槽近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/dao_blade_oblique_before_after.png)、[2.2 m 刀具](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/dao_normal_distance_before_after.png)、[玩家帧](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/player_grip_held_frame_before_after.png)、[base 斜角](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/base_normal_oblique_before_after.png)、[veteran 右侧握柄](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/veteran_grip_back_before_after.png)。共 25 张成对板，900²／24 samples，正常视距透视约 2.2 m，所有机位与来源 SHA 已固定。独立刀具的槽与反光可辨，角色当前正面刀面偏暗，正式场景可读性仍待与 07 光照共同评审。
+
+### 三角色与真实接触门槛
+
+[三角色清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/actor_manifest.json)使用当前正式 base／indigo／veteran 冻结输入，各含原八段动作。候选保留三人各自 `HandGrip_R` 与刚性蒙皮装配，身体／权重／skin/rest/IBM／动作保真通过，15 个刀 primitive 与 canonical 装配吻合，独立最大 POSITION 差约 0.000101 mm。原握柄保护表面位置差 0，重导 cord NORMAL 最大差约 0.000615，映射已记录。
+
+[结构验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/verification.json)双入口及三角色通过，三类几何与六类装配边界拒绝通过，实际 GLB 导入通过。原材质名和身体 `tripo_` 白闪命名合同满足。GLB 具有有效 NORMAL／UV，无 TANGENT，客户端 MikkTSpace 生成和 PICO 法线显示待 Root 端内验收。
+
+[接触审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/contact_audit.json)覆盖每角色 13 离散姿态、前后和左右手。右手握柄指标沿原结果，既有指柄相交仍存在。2.117 秒左手三人均无交叉，但早段原生左手穿刀仍在，候选增加部分受影响面，因此 `contact_clearance_accepted=false`。
+
+- base 1.3167 秒相交手面 17→19，完整受影响手面面积 1019.314→1113.313 mm²，新增 58792／58823。
+- veteran 1.367 秒 30→32，3303.844→3489.241 mm²，新增 19607／19789。1.5 秒 43→45，3460.628→3582.143 mm²，新增 15568／15569。
+- [base 风险实图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/base_risk_1317_left_front_before_after.png)、[veteran 风险实图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/previews/veteran_risk_1500_left_front_before_after.png)及反面均已补齐。源与候选均可见穿刀，新增面证据仍保留。面积是完整手三角面之和，穿透深度及真实重叠面积尚未量化。
+
+下一项先修左手接触扩张，结合 01 最新动作核对早段空手与刀面，再交正常场景高光与连续补间。Root负责正式 producer、挂点身份重签、模型组合和发布。袖口结构已交 03 的现有实物与限制入口。实际输入、PICO 实时加载、Space Pro 观感与性能仍待验证，本轮费用 0。
+
+
+## 当前十段动作库适配
+
+**阶段结束，等待 Root review。** Root 在几何阶段收口时发布 `attack_overhead/attack_left/attack_right` 三方向，正式角色由八段变为十段。本会话继续完成新库装配、检查和实图，完整说明见 [current-bank 交付](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/README.md)。旧阶段接触限制和来源保留，新库结果独立记录。
+
+### 最新输入、输出与接入
+
+[actor_manifest.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/actor_manifest.json)记录当前十段动作输入、私有 profiles、各自 `HandGrip_R`、新刀部件和完整 SHA。
+
+- base 源 `0c2a4801aaa6b89866303a9c783b524a88b6440633f0c9348041a6239af7d48a`，候选 `e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc`。
+- indigo 源 `c980b18ef19190bf682604a43b730c3a0188829db8ea1c7c9e5d819d1959fed2`，候选 `448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3`。
+- veteran 源 `63b92ac8edda1ab7ad56e2d3196522788fec8a43a04c0d665deef08028d82e83`，候选 `0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2`。
+
+独立新刀仍为 NPC `4834a555…`／玩家 `a09ba1f7…`。复用同一装配入口的 `--output` 参数，十段动作、身体、skin/rest/IBM、权重、各人挂点和原身体白闪材质保真通过。实际 GLB 导入通过。profiles 冻结并核验原模型签名，候选发布身份需 Root 重新生成／重签。
+
+### 三方向接触与实图
+
+[结构验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/verification.json)通过。[接触审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/contact_audit.json)按实际 0–1.75 秒键域采样，每方向 9 个等距离时刻及关键 .65／.9／1／1.1 秒，共 13 姿态，再加 walk 中点，每角色每版本 40 姿态。
+
+三角色左手全部无确认交叉、无新增受影响手面，最近间距约 106.455／90.375／54.947 mm。右手握柄相关指标前后相同，既存受影响面峰值 147／55／85。整体握持仍保留人工验收状态，连续补间与实际穿透深度尚待验证。
+
+最终交 18 张三方向成对板、36 张单图，包括约 2.2 m／20 mm 正常视距与握柄近景。[base 正劈](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/previews/base_attack_overhead_normal_oblique_before_after.png)可见刀槽和截面分光，[indigo 左斩](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/previews/indigo_attack_left_normal_oblique_before_after.png)的侧缘材质变化较小，[veteran 右斩握柄](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/previews/veteran_attack_right_grip_back_before_after.png)可复核原指面与新柄、护手、端帽关系。全部同机位与输入／图像 SHA 已核对。
+
+离线预览器已修正新短动作的 NLA 完整区间平移及 0 秒起键采样，三角色×三方向 1 秒 R_Hand 对纯 GLTF 最大差约 0.000897 mm，首批偏差图已重出。旧长 slash 三组另外核对，最大差约 0.01604 mm，旧 25 图的标注时刻继续有效。[姿态验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/pose_validation.json)与[旧库校验](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/legacy_pose_validation.json)均留实际数值。
+
+[相机投影验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/current-bank/camera_validation.json)覆盖实际蒙皮后全身和刀具顶点，18 张正常距离单图均有至少 1.5% 留白，头、靴及刀尖完整。PICO MikkTSpace、法线显示、正式 IBL、动态高光、真机画质与性能仍待验收。下一项为 Root 复审部件与新库装配后重签模型／profile 身份，再结合 07 光照核正常交锋可读性。本轮费用 0。
+
+## Root本轮组合审核与续派（2026-11-11）
+
+审核：实体刀槽／刃脊与护手方向通过开发集成审核；weapon-only正式发布已执行，三角色动作和proxy坐标保持，玩家Grip一并替换。
+
+下一步：量测右手真实可见穿透深度并交局部修正；现有面交叉计数不能代表实际深度，保护新三攻左手。

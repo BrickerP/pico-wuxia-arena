@@ -1,0 +1,17 @@
+<resources>
+    <string name="arena_ui_seal">试</string>
+    <string name="arena_ui_damage_fatal">致命</string>
+    <string name="arena_ui_damage_head">要害</string>
+    <string name="arena_ui_damage_guarded">护身</string>
+    <string name="arena_ui_enemy_health">对手气血</string>
+    <string name="arena_ui_score">本局得分</string>
+    <string name="arena_ui_best">最佳 %1$d</string>
+    <string name="arena_ui_score_value">%1$d</string>
+    <string name="arena_ui_technique_page">%1$d / %2$d</string>
+    <string name="arena_ui_technique_previous">上一式</string>
+    <string name="arena_ui_technique_next">下一式</string>
+    <string name="arena_ui_keys_strike">1/J 斩击 · 4/K 前刺</string>
+    <string name="arena_ui_keys_guard">5/V 架刀</string>
+    <string name="arena_ui_keys_dodge">8/Z 左闪 · 9/X 右闪 · C 下蹲</string>
+    <string name="arena_ui_keys_skill">G 破势 / 处决</string>
+</resources>

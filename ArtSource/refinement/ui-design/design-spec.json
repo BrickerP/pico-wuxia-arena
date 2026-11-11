@@ -1,0 +1,2370 @@
+{
+  "schemaVersion": "1.0",
+  "metadata": {
+    "projectName": "酒馆试炼 · 试刀印",
+    "sourceMode": "hybrid",
+    "revision": 9
+  },
+  "experience": {
+    "subject": "中式刀术竞技场的场边HUD与空间引导",
+    "user": "站立佩戴PICO Space Pro的单人玩家",
+    "context": "Full Stage、既有Attachment保持；中央视线为对手与刀路",
+    "singleJob": "扫视即知来势与资源，转向场边即可开始、暂停或再战",
+    "space": "full",
+    "form": "stage_full",
+    "signature": "朱砂正文字方印“试”与纸墨双态"
+  },
+  "theme": {
+    "scheme": "vibrant",
+    "colorScheme": {
+      "fillPrimary": {
+        "source": "vibrant",
+        "role": "fillPrimary"
+      },
+      "fillSecondary": {
+        "source": "vibrant",
+        "role": "fillSecondary"
+      },
+      "fillTertiary": {
+        "source": "vibrant",
+        "role": "fillTertiary"
+      },
+      "fillLight": {
+        "source": "vibrant",
+        "role": "fillLight"
+      },
+      "labelPrimaryLight": {
+        "source": "vibrant",
+        "role": "labelPrimaryLight"
+      },
+      "labelPrimary": {
+        "source": "vibrant",
+        "role": "labelPrimary"
+      },
+      "labelSecondary": {
+        "source": "vibrant",
+        "role": "labelSecondary"
+      },
+      "labelTertiary": {
+        "source": "vibrant",
+        "role": "labelTertiary"
+      },
+      "labelQuaternary": {
+        "source": "vibrant",
+        "role": "labelQuaternary"
+      },
+      "lightenHover": {
+        "source": "vibrant",
+        "role": "lightenHover"
+      },
+      "lightenPressed": {
+        "source": "vibrant",
+        "role": "lightenPressed"
+      },
+      "error": {
+        "source": "vibrant",
+        "role": "error"
+      },
+      "alert": {
+        "source": "vibrant",
+        "role": "alert"
+      },
+      "passable": {
+        "source": "vibrant",
+        "role": "passable"
+      },
+      "interaction": {
+        "source": "vibrant",
+        "role": "interaction"
+      },
+      "dividerLine": {
+        "source": "vibrant",
+        "role": "dividerLine"
+      }
+    },
+    "brandColors": {
+      "paperIvory": "#F3EBDD",
+      "inkBlack": "#201C18",
+      "inkVeil": "#201C18E6",
+      "cinnabar": "#A6382E",
+      "antiqueGold": "#B99A5D",
+      "mutedInk": "#786A56",
+      "paleAsh": "#D1C4AD",
+      "jade": "#8FAE9E",
+      "ember": "#F18B78"
+    },
+    "typography": {
+      "display": {
+        "family": "serif",
+        "sizeDp": 28,
+        "lineHeightDp": 34,
+        "weight": 600
+      },
+      "title": {
+        "family": "serif",
+        "sizeDp": 24,
+        "lineHeightDp": 32,
+        "weight": 600
+      },
+      "body": {
+        "family": "sans-serif",
+        "sizeDp": 18,
+        "lineHeightDp": 26,
+        "weight": 400
+      },
+      "label": {
+        "family": "sans-serif",
+        "sizeDp": 14,
+        "lineHeightDp": 18,
+        "weight": 500
+      },
+      "number": {
+        "family": "serif",
+        "sizeDp": 44,
+        "lineHeightDp": 52,
+        "weight": 700
+      },
+      "state": {
+        "family": "sans-serif",
+        "sizeDp": 24,
+        "lineHeightDp": 28,
+        "weight": 400
+      },
+      "compact": {
+        "family": "serif",
+        "sizeDp": 20,
+        "lineHeightDp": 24,
+        "weight": 600
+      },
+      "phase": {
+        "family": "sans-serif",
+        "sizeDp": 22,
+        "lineHeightDp": 26,
+        "weight": 600
+      },
+      "hint": {
+        "family": "sans-serif",
+        "sizeDp": 16,
+        "lineHeightDp": 20,
+        "weight": 400
+      },
+      "damage-number": {
+        "family": "sans-serif",
+        "sizeDp": 44,
+        "lineHeightDp": 48,
+        "weight": 700
+      },
+      "damage-label": {
+        "family": "sans-serif",
+        "sizeDp": 18,
+        "lineHeightDp": 22,
+        "weight": 600
+      },
+      "teaching-title": {
+        "family": "sans-serif",
+        "sizeDp": 20,
+        "lineHeightDp": 24,
+        "weight": 600
+      },
+      "teaching-detail": {
+        "family": "sans-serif",
+        "sizeDp": 16,
+        "lineHeightDp": 22,
+        "weight": 400
+      },
+      "teaching-caption": {
+        "family": "sans-serif",
+        "sizeDp": 14,
+        "lineHeightDp": 18,
+        "weight": 500
+      }
+    },
+    "spacing": {
+      "small": 8,
+      "regular": 16,
+      "medium": 24,
+      "large": 32
+    }
+  },
+  "surfaces": [
+    {
+      "id": "trial-control",
+      "type": "planar",
+      "defaultSize": {
+        "width": 400,
+        "height": 400,
+        "unit": "dp"
+      },
+      "minSize": {
+        "width": 400,
+        "height": 160,
+        "unit": "dp"
+      },
+      "maxSize": {
+        "width": 400,
+        "height": 400,
+        "unit": "dp"
+      },
+      "rootNodeId": "control-attachment",
+      "placement": {
+        "attachment": "arena-root",
+        "positionMeters": {
+          "x": -0.8,
+          "y": 1.08,
+          "z": -1.9
+        },
+        "previewColumn": 0,
+        "existingAttachment": true
+      }
+    },
+    {
+      "id": "combat-status",
+      "type": "planar",
+      "defaultSize": {
+        "width": 500,
+        "height": 260,
+        "unit": "dp"
+      },
+      "minSize": {
+        "width": 500,
+        "height": 260,
+        "unit": "dp"
+      },
+      "maxSize": {
+        "width": 500,
+        "height": 260,
+        "unit": "dp"
+      },
+      "rootNodeId": "status-attachment",
+      "placement": {
+        "attachment": "arena-root",
+        "positionMeters": {
+          "x": 0,
+          "y": 2.1,
+          "z": -2.4
+        },
+        "previewColumn": 1,
+        "existingAttachment": true
+      }
+    },
+    {
+      "id": "damage-popup",
+      "type": "planar",
+      "defaultSize": {
+        "width": 128,
+        "height": 80,
+        "unit": "dp"
+      },
+      "minSize": {
+        "width": 128,
+        "height": 80,
+        "unit": "dp"
+      },
+      "maxSize": {
+        "width": 128,
+        "height": 80,
+        "unit": "dp"
+      },
+      "rootNodeId": "damage-attachment",
+      "placement": {
+        "existingAttachment": true,
+        "role": "damage-popup-static-sample",
+        "runtimeSlots": 4,
+        "runtimeLifetimeMs": 600,
+        "runtimeRiseMeters": 0.08
+      }
+    }
+  ],
+  "initialStateId": "ready",
+  "states": [
+    {
+      "id": "ready",
+      "surfaceRoots": {
+        "trial-control": "control-attachment",
+        "combat-status": "status-attachment",
+        "damage-popup": "damage-attachment"
+      }
+    },
+    {
+      "id": "fighting",
+      "surfaceRoots": {
+        "trial-control": "control-attachment",
+        "combat-status": "status-attachment",
+        "damage-popup": "damage-attachment"
+      },
+      "entryAction": "fight-sample"
+    },
+    {
+      "id": "paused",
+      "surfaceRoots": {
+        "trial-control": "control-attachment",
+        "combat-status": "status-attachment",
+        "damage-popup": "damage-attachment"
+      }
+    },
+    {
+      "id": "round-clear",
+      "surfaceRoots": {
+        "trial-control": "control-attachment",
+        "combat-status": "status-attachment",
+        "damage-popup": "damage-attachment"
+      },
+      "entryAction": "round-sample"
+    },
+    {
+      "id": "victory",
+      "surfaceRoots": {
+        "trial-control": "control-attachment",
+        "combat-status": "status-attachment",
+        "damage-popup": "damage-attachment"
+      }
+    }
+  ],
+  "transitions": [
+    {
+      "id": "start",
+      "from": "ready",
+      "to": "fighting",
+      "trigger": {
+        "nodeId": "start",
+        "event": "click-action"
+      }
+    },
+    {
+      "id": "pause",
+      "from": "fighting",
+      "to": "paused",
+      "trigger": {
+        "nodeId": "pause",
+        "event": "click-action"
+      }
+    },
+    {
+      "id": "resume",
+      "from": "paused",
+      "to": "fighting",
+      "trigger": {
+        "nodeId": "resume",
+        "event": "click-action"
+      }
+    },
+    {
+      "id": "restart",
+      "from": "fighting",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "restart",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "本次连战进度将清除，双方回到初始状态。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "保留当前状态"
+      }
+    },
+    {
+      "id": "restart-paused",
+      "from": "paused",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "restart-paper",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "本次连战进度将清除，双方回到初始状态。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "保留当前状态"
+      }
+    },
+    {
+      "id": "restart-round",
+      "from": "round-clear",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "restart",
+        "event": "click-action"
+      },
+      "confirmation": {
+        "title": "重新开局？",
+        "body": "本次连战进度将清除，双方回到初始状态。",
+        "confirmLabel": "重新开局",
+        "cancelLabel": "保留当前状态"
+      }
+    },
+    {
+      "id": "retry",
+      "from": "victory",
+      "to": "ready",
+      "trigger": {
+        "nodeId": "retry",
+        "event": "click-action"
+      }
+    },
+    {
+      "id": "round",
+      "from": "fighting",
+      "to": "round-clear",
+      "trigger": {
+        "nodeId": "status-surface",
+        "event": "sample-round-complete"
+      }
+    },
+    {
+      "id": "victory",
+      "from": "round-clear",
+      "to": "victory",
+      "trigger": {
+        "nodeId": "status-surface",
+        "event": "sample-trial-complete"
+      }
+    },
+    {
+      "id": "pause-round",
+      "from": "round-clear",
+      "to": "paused",
+      "trigger": {
+        "nodeId": "pause",
+        "event": "click-action"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "id": "start-action",
+      "type": "transition",
+      "purpose": "使用既有试炼控制回调；Web仅演示状态",
+      "transitionId": "start"
+    },
+    {
+      "id": "pause-action",
+      "type": "custom",
+      "purpose": "使用既有试炼控制回调；Web仅演示状态",
+      "payload": {
+        "triggerNodeIds": [
+          "pause"
+        ]
+      }
+    },
+    {
+      "id": "resume-action",
+      "type": "transition",
+      "purpose": "使用既有试炼控制回调；Web仅演示状态",
+      "transitionId": "resume"
+    },
+    {
+      "id": "retry-action",
+      "type": "transition",
+      "purpose": "使用既有试炼控制回调；Web仅演示状态",
+      "transitionId": "retry"
+    },
+    {
+      "id": "restart-action",
+      "type": "custom",
+      "purpose": "根据当前状态选择既有重新开局确认",
+      "payload": {
+        "triggerEvent": "click-action",
+        "triggerNodeIds": [
+          "restart",
+          "restart-paper"
+        ]
+      }
+    },
+    {
+      "id": "fight-sample",
+      "type": "custom",
+      "purpose": "Web展示样本的自动换轮；不替代真实战斗判定",
+      "payload": {
+        "delayMs": 7000,
+        "event": "sample-round-complete"
+      }
+    },
+    {
+      "id": "round-sample",
+      "type": "custom",
+      "purpose": "Web展示最终轮结算样本；真实计时仍来自ArenaSession",
+      "payload": {
+        "delayMs": 3500,
+        "event": "sample-trial-complete"
+      }
+    },
+    {
+      "id": "technique-previous-action",
+      "type": "increment",
+      "purpose": "仅切换上一步技法，正文滚回顶部；不发送战斗动作",
+      "binding": "techniqueGuide.index",
+      "value": -1
+    },
+    {
+      "id": "technique-next-action",
+      "type": "increment",
+      "purpose": "仅切换下一步技法，正文滚回顶部；不发送战斗动作",
+      "binding": "techniqueGuide.index",
+      "value": 1
+    }
+  ],
+  "dataCases": {
+    "normal": {
+      "stateSamples": {
+        "ready": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 1 / 3 场",
+          "clock": "第 1/3 场 · 03:00",
+          "enemyAmount": "对手 100 / 100",
+          "enemyFraction": 1,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": false,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼未启",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "候招",
+          "feedback": "先读起手，再迎刀反击",
+          "phaseHint": "先读起手，再迎刀反击",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "fighting": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": false,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼进行中",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "起势",
+          "feedback": "气势已满 · 可双手收刀前推破势",
+          "phaseHint": "快速架刀或闪身",
+          "bestScore": "最佳 1200",
+          "incomingVisible": true
+        },
+        "paused": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": false,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼已暂停",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "已暂停",
+          "feedback": "战斗时钟已停止",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "round-clear": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": false,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "此轮已破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "此局已定 · 收刀待结算",
+          "phaseHint": "收刀待下一场",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "victory": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": false,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "三场尽破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "连胜三场 · 可再挑战",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false,
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+        }
+      },
+      "damageSamples": {
+        "normal": {
+          "amount": 12,
+          "fatal": false,
+          "guarded": false,
+          "headHit": false,
+          "label": "",
+          "hasLabel": false,
+          "accent": "paperIvory"
+        },
+        "head": {
+          "amount": 24,
+          "fatal": false,
+          "guarded": false,
+          "headHit": true,
+          "label": "要害",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        },
+        "guarded": {
+          "amount": 7,
+          "fatal": false,
+          "guarded": true,
+          "headHit": true,
+          "label": "护身",
+          "hasLabel": true,
+          "accent": "paleAsh"
+        },
+        "fatal": {
+          "amount": 38,
+          "fatal": true,
+          "guarded": true,
+          "headHit": true,
+          "label": "致命",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        }
+      },
+      "settlementSamples": {
+        "victory": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 3 / 3 场",
+            "clock": "第 3/3 场 · 02:15",
+            "enemyAmount": "对手 0 / 100",
+            "enemyFraction": 0,
+            "playerAmount": "生命 72 / 100",
+            "playerFraction": 0.72,
+            "staminaAmount": "体力 64 / 100",
+            "staminaFraction": 0.64,
+            "focusAmount": "气势 100 / 100",
+            "focusFraction": 1,
+            "controlsDisabled": false,
+            "settlement": "860",
+            "settlementDetail": "连战 3/3 场 · 余血 72",
+            "controlTitle": "三场尽破",
+            "controlHint": "连胜三场 · 读招、架刀、反击",
+            "phase": "此局已定",
+            "feedback": "连胜三场 · 可再挑战",
+            "phaseHint": "刀势暂歇，继续后再接来锋",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "VICTORY",
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          }
+        },
+        "defeat": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 01:12",
+            "enemyAmount": "对手 52 / 100",
+            "enemyFraction": 0.52,
+            "playerAmount": "生命 0 / 100",
+            "playerFraction": 0,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "420",
+            "settlementDetail": "连战 2/3 场 · 余血 0",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "调整架势与节奏，再战一局。",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "PLAYER_HIT"
+          }
+        },
+        "defeat-timeout": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 00:00",
+            "enemyAmount": "对手 24 / 100",
+            "enemyFraction": 0.24,
+            "playerAmount": "生命 18 / 100",
+            "playerFraction": 0.18,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "310",
+            "settlementDetail": "连战 2/3 场 · 余血 18",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "试炼时间已尽",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "TIMEOUT"
+          }
+        }
+      },
+      "techniqueGuide": {
+        "initialIndex": 0,
+        "initialInputMode": "desktop",
+        "inputModes": {
+          "desktop": {
+            "showKeys": true
+          },
+          "native": {
+            "showKeys": false
+          }
+        },
+        "pageLabelFormat": "%1$d / %2$d",
+        "steps": [
+          {
+            "title": "进刀",
+            "detail": "抬手蓄刀，挥斩或前刺，让刀锋切过对手。",
+            "keys": "1/J 斩击 · 4/K 前刺"
+          },
+          {
+            "title": "架刀",
+            "detail": "横刀护在头前。来锋将至时迅速成架，可迎刀弹反。",
+            "keys": "5/V 架刀"
+          },
+          {
+            "title": "避锋",
+            "detail": "看见起势后侧移或下蹲，让开原本头部位置。",
+            "keys": "8/Z 左闪 · 9/X 右闪 · C 下蹲"
+          },
+          {
+            "title": "破势",
+            "detail": "双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。",
+            "keys": "G 破势 / 处决"
+          }
+        ]
+      }
+    },
+    "fallback": {
+      "stateSamples": {
+        "ready": {
+          "enemyName": "刀客",
+          "roundLabel": "第 1 / 3 场",
+          "clock": "第 1/3 场 · 03:00",
+          "enemyAmount": "对手 100 / 100",
+          "enemyFraction": 1,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼未启",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "候招",
+          "feedback": "等待头手观察",
+          "phaseHint": "先读起手，再迎刀反击",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "fighting": {
+          "enemyName": "刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼进行中",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "起势",
+          "feedback": "气势已满 · 可双手收刀前推破势",
+          "phaseHint": "快速架刀或闪身",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "paused": {
+          "enemyName": "刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼已暂停",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "已暂停",
+          "feedback": "等待头手观察",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "round-clear": {
+          "enemyName": "刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "此轮已破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "等待头手观察",
+          "phaseHint": "收刀待下一场",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "victory": {
+          "enemyName": "刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "三场尽破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "等待头手观察",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false,
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+        }
+      },
+      "damageSamples": {
+        "normal": {
+          "amount": 12,
+          "fatal": false,
+          "guarded": false,
+          "headHit": false,
+          "label": "",
+          "hasLabel": false,
+          "accent": "paperIvory"
+        },
+        "head": {
+          "amount": 24,
+          "fatal": false,
+          "guarded": false,
+          "headHit": true,
+          "label": "要害",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        },
+        "guarded": {
+          "amount": 7,
+          "fatal": false,
+          "guarded": true,
+          "headHit": true,
+          "label": "护身",
+          "hasLabel": true,
+          "accent": "paleAsh"
+        },
+        "fatal": {
+          "amount": 38,
+          "fatal": true,
+          "guarded": true,
+          "headHit": true,
+          "label": "致命",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        }
+      },
+      "settlementSamples": {
+        "victory": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "刀客",
+            "roundLabel": "第 3 / 3 场",
+            "clock": "第 3/3 场 · 02:15",
+            "enemyAmount": "对手 0 / 100",
+            "enemyFraction": 0,
+            "playerAmount": "生命 72 / 100",
+            "playerFraction": 0.72,
+            "staminaAmount": "体力 64 / 100",
+            "staminaFraction": 0.64,
+            "focusAmount": "气势 100 / 100",
+            "focusFraction": 1,
+            "controlsDisabled": true,
+            "settlement": "860",
+            "settlementDetail": "连战 3/3 场 · 余血 72",
+            "controlTitle": "三场尽破",
+            "controlHint": "连胜三场 · 读招、架刀、反击",
+            "phase": "此局已定",
+            "feedback": "等待头手观察",
+            "phaseHint": "刀势暂歇，继续后再接来锋",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "VICTORY",
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          }
+        },
+        "defeat": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 01:12",
+            "enemyAmount": "对手 52 / 100",
+            "enemyFraction": 0.52,
+            "playerAmount": "生命 0 / 100",
+            "playerFraction": 0,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "420",
+            "settlementDetail": "连战 2/3 场 · 余血 0",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "调整架势与节奏，再战一局。",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "PLAYER_HIT"
+          }
+        },
+        "defeat-timeout": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 00:00",
+            "enemyAmount": "对手 24 / 100",
+            "enemyFraction": 0.24,
+            "playerAmount": "生命 18 / 100",
+            "playerFraction": 0.18,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "310",
+            "settlementDetail": "连战 2/3 场 · 余血 18",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "试炼时间已尽",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "TIMEOUT"
+          }
+        }
+      }
+    },
+    "error": {
+      "stateSamples": {
+        "ready": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 1 / 3 场",
+          "clock": "第 1/3 场 · 03:00",
+          "enemyAmount": "对手 100 / 100",
+          "enemyFraction": 1,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼未启",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "候招",
+          "feedback": "战斗时钟已停止",
+          "phaseHint": "先读起手，再迎刀反击",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "fighting": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼进行中",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "起势",
+          "feedback": "气势已满 · 可双手收刀前推破势",
+          "phaseHint": "快速架刀或闪身",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "paused": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 38 / 100",
+          "enemyFraction": 0.38,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "试炼已暂停",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "已暂停",
+          "feedback": "战斗时钟已停止",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "round-clear": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "此轮已破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "战斗时钟已停止",
+          "phaseHint": "收刀待下一场",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false
+        },
+        "victory": {
+          "enemyName": "酒馆刀客",
+          "roundLabel": "第 3 / 3 场",
+          "clock": "第 3/3 场 · 02:15",
+          "enemyAmount": "对手 0 / 100",
+          "enemyFraction": 0,
+          "playerAmount": "生命 72 / 100",
+          "playerFraction": 0.72,
+          "staminaAmount": "体力 64 / 100",
+          "staminaFraction": 0.64,
+          "focusAmount": "气势 100 / 100",
+          "focusFraction": 1,
+          "controlsDisabled": true,
+          "settlement": "860",
+          "settlementDetail": "连战 3/3 场 · 余血 72",
+          "controlTitle": "三场尽破",
+          "controlHint": "连胜三场 · 读招、架刀、反击",
+          "phase": "此局已定",
+          "feedback": "战斗时钟已停止",
+          "phaseHint": "刀势暂歇，继续后再接来锋",
+          "bestScore": "最佳 1200",
+          "incomingVisible": false,
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+        }
+      },
+      "damageSamples": {
+        "normal": {
+          "amount": 12,
+          "fatal": false,
+          "guarded": false,
+          "headHit": false,
+          "label": "",
+          "hasLabel": false,
+          "accent": "paperIvory"
+        },
+        "head": {
+          "amount": 24,
+          "fatal": false,
+          "guarded": false,
+          "headHit": true,
+          "label": "要害",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        },
+        "guarded": {
+          "amount": 7,
+          "fatal": false,
+          "guarded": true,
+          "headHit": true,
+          "label": "护身",
+          "hasLabel": true,
+          "accent": "paleAsh"
+        },
+        "fatal": {
+          "amount": 38,
+          "fatal": true,
+          "guarded": true,
+          "headHit": true,
+          "label": "致命",
+          "hasLabel": true,
+          "accent": "antiqueGold"
+        }
+      },
+      "settlementSamples": {
+        "victory": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 3 / 3 场",
+            "clock": "第 3/3 场 · 02:15",
+            "enemyAmount": "对手 0 / 100",
+            "enemyFraction": 0,
+            "playerAmount": "生命 72 / 100",
+            "playerFraction": 0.72,
+            "staminaAmount": "体力 64 / 100",
+            "staminaFraction": 0.64,
+            "focusAmount": "气势 100 / 100",
+            "focusFraction": 1,
+            "controlsDisabled": true,
+            "settlement": "860",
+            "settlementDetail": "连战 3/3 场 · 余血 72",
+            "controlTitle": "三场尽破",
+            "controlHint": "连胜三场 · 读招、架刀、反击",
+            "phase": "此局已定",
+            "feedback": "战斗时钟已停止",
+            "phaseHint": "刀势暂歇，继续后再接来锋",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "VICTORY",
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          }
+        },
+        "defeat": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 01:12",
+            "enemyAmount": "对手 52 / 100",
+            "enemyFraction": 0.52,
+            "playerAmount": "生命 0 / 100",
+            "playerFraction": 0,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "420",
+            "settlementDetail": "连战 2/3 场 · 余血 0",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "调整架势与节奏，再战一局。",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "PLAYER_HIT"
+          }
+        },
+        "defeat-timeout": {
+          "stateId": "victory",
+          "data": {
+            "enemyName": "酒馆刀客",
+            "roundLabel": "第 2 / 3 场",
+            "clock": "第 2/3 场 · 00:00",
+            "enemyAmount": "对手 24 / 100",
+            "enemyFraction": 0.24,
+            "playerAmount": "生命 18 / 100",
+            "playerFraction": 0.18,
+            "staminaAmount": "体力 24 / 100",
+            "staminaFraction": 0.24,
+            "focusAmount": "气势 60 / 100",
+            "focusFraction": 0.6,
+            "controlsDisabled": false,
+            "settlement": "310",
+            "settlementDetail": "连战 2/3 场 · 余血 18",
+            "controlTitle": "本次落败",
+            "controlHint": "本局已结 · 可再挑战",
+            "phase": "本次落败",
+            "feedback": "试炼时间已尽",
+            "phaseHint": "调整架势与节奏，再战一局",
+            "bestScore": "最佳 1200",
+            "incomingVisible": false,
+            "result": "DEFEAT",
+            "settlementClosing": "调整架势与节奏，再战一局。",
+            "feedbackEnum": "TIMEOUT"
+          }
+        }
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "seal",
+      "kind": "spatialui",
+      "layout": {
+        "mode": "column",
+        "widthDp": 40,
+        "heightDp": 40,
+        "align": "center",
+        "justify": "center"
+      },
+      "accessibilityLabel": "试炼方印，装饰文字",
+      "component": "sui-badge",
+      "props": {
+        "size": "regular",
+        "text": "试",
+        "backgroundColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      }
+    },
+    {
+      "id": "eyebrow",
+      "kind": "text",
+      "content": "酒馆试炼",
+      "textStyle": {
+        "typography": "display",
+        "color": "inkBlack"
+      }
+    },
+    {
+      "id": "round",
+      "kind": "text",
+      "content": "第 1 / 3 场",
+      "textStyle": {
+        "typography": "label",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "roundLabel"
+      }
+    },
+    {
+      "id": "paper-header",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "space-between",
+        "heightDp": 40
+      },
+      "children": [
+        "seal",
+        "eyebrow",
+        "round"
+      ]
+    },
+    {
+      "id": "paper-state",
+      "kind": "text",
+      "content": "请君试刀",
+      "textStyle": {
+        "typography": "state",
+        "color": "inkBlack"
+      },
+      "bindings": {
+        "content": "controlTitle"
+      }
+    },
+    {
+      "id": "paper-subtitle",
+      "kind": "text",
+      "content": "读招 · 架刀 · 反击",
+      "textStyle": {
+        "typography": "label",
+        "color": "mutedInk",
+        "maxLines": 1
+      },
+      "bindings": {
+        "content": "controlHint"
+      }
+    },
+    {
+      "id": "start",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "开始试炼",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "start-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      },
+      "visibleInStates": [
+        "ready"
+      ]
+    },
+    {
+      "id": "resume",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "继续试炼",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "resume-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      },
+      "visibleInStates": [
+        "paused"
+      ]
+    },
+    {
+      "id": "retry",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "再挑战",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "retry-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      },
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "restart-paper",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "重新开局",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "restart-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      },
+      "visibleInStates": [
+        "paused"
+      ]
+    },
+    {
+      "id": "settlement",
+      "kind": "text",
+      "content": "得分 860 · 最佳 1200",
+      "textStyle": {
+        "typography": "number",
+        "color": "inkBlack"
+      },
+      "bindings": {
+        "content": "settlement"
+      },
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "settlement-detail",
+      "kind": "text",
+      "content": "连战 3/3 场 · 余血 72",
+      "textStyle": {
+        "typography": "body",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "settlementDetail"
+      },
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "paper-actions",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center"
+      },
+      "children": [
+        "start",
+        "resume",
+        "restart-paper",
+        "retry"
+      ]
+    },
+    {
+      "id": "paper-content",
+      "kind": "text",
+      "content": "",
+      "textStyle": {
+        "typography": "label",
+        "color": "inkBlack"
+      },
+      "layout": {
+        "mode": "column",
+        "gapDp": 8,
+        "grow": 1
+      },
+      "children": [
+        "paper-header",
+        "paper-state",
+        "paper-subtitle",
+        "paper-actions",
+        "technique-guide",
+        "settlement-body"
+      ],
+      "visibleInStates": [
+        "ready",
+        "paused",
+        "victory"
+      ]
+    },
+    {
+      "id": "compact-title",
+      "kind": "text",
+      "content": "酒馆试炼",
+      "textStyle": {
+        "typography": "compact",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "controlTitle"
+      }
+    },
+    {
+      "id": "compact-round",
+      "kind": "text",
+      "content": "第 1 / 3 场",
+      "textStyle": {
+        "typography": "label",
+        "color": "paleAsh"
+      },
+      "bindings": {
+        "content": "roundLabel"
+      }
+    },
+    {
+      "id": "compact-header",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "compact-title",
+        "compact-round"
+      ]
+    },
+    {
+      "id": "compact-state",
+      "kind": "text",
+      "content": "迎锋反击",
+      "textStyle": {
+        "typography": "label",
+        "color": "paleAsh"
+      },
+      "bindings": {
+        "content": "controlHint"
+      }
+    },
+    {
+      "id": "pause",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "暂停",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "pause-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      }
+    },
+    {
+      "id": "restart",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "重新开局",
+        "size": "regular",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "events": {
+        "click-action": "restart-action"
+      },
+      "bindings": {
+        "disabled": "controlsDisabled"
+      }
+    },
+    {
+      "id": "compact-actions",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center"
+      },
+      "children": [
+        "pause",
+        "restart"
+      ]
+    },
+    {
+      "id": "compact-content",
+      "kind": "text",
+      "content": "",
+      "textStyle": {
+        "typography": "label",
+        "color": "inkBlack"
+      },
+      "layout": {
+        "mode": "column",
+        "gapDp": 8
+      },
+      "children": [
+        "compact-header",
+        "compact-state",
+        "compact-actions"
+      ],
+      "visibleInStates": [
+        "fighting",
+        "round-clear"
+      ]
+    },
+    {
+      "id": "enemy-name",
+      "kind": "text",
+      "content": "酒馆刀客",
+      "textStyle": {
+        "typography": "title",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "enemyName"
+      }
+    },
+    {
+      "id": "clock",
+      "kind": "text",
+      "content": "03:00",
+      "textStyle": {
+        "typography": "hint",
+        "color": "paleAsh"
+      },
+      "bindings": {
+        "content": "clock"
+      }
+    },
+    {
+      "id": "enemy-header",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "enemy-name",
+        "clock"
+      ]
+    },
+    {
+      "id": "phase",
+      "kind": "text",
+      "content": "尚未进入攻防",
+      "textStyle": {
+        "typography": "phase",
+        "color": "ember"
+      },
+      "bindings": {
+        "content": "phase"
+      },
+      "props": {
+        "stateColor": {
+          "ready": "paperIvory",
+          "paused": "paperIvory",
+          "round-clear": "paperIvory",
+          "victory": "paperIvory"
+        }
+      }
+    },
+    {
+      "id": "enemy-amount",
+      "kind": "text",
+      "content": "对手 100 / 100",
+      "textStyle": {
+        "typography": "label",
+        "color": "paleAsh"
+      },
+      "bindings": {
+        "content": "enemyAmount"
+      }
+    },
+    {
+      "id": "enemy-health",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "size": "regular",
+        "progressColorToken": "ember",
+        "trackColorToken": "mutedInk"
+      },
+      "bindings": {
+        "value": "enemyFraction"
+      },
+      "accessibilityLabel": "对手生命值"
+    },
+    {
+      "id": "player-label",
+      "kind": "text",
+      "content": "生命",
+      "textStyle": {
+        "typography": "label",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "playerAmount"
+      }
+    },
+    {
+      "id": "player-bar",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "size": "small",
+        "progressColorToken": "paperIvory",
+        "trackColorToken": "mutedInk"
+      },
+      "bindings": {
+        "value": "playerFraction"
+      }
+    },
+    {
+      "id": "player-resource",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 4,
+        "grow": 1
+      },
+      "children": [
+        "player-label",
+        "player-bar"
+      ]
+    },
+    {
+      "id": "stamina-label",
+      "kind": "text",
+      "content": "体力",
+      "textStyle": {
+        "typography": "label",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "staminaAmount"
+      }
+    },
+    {
+      "id": "stamina-bar",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "size": "small",
+        "progressColorToken": "jade",
+        "trackColorToken": "mutedInk"
+      },
+      "bindings": {
+        "value": "staminaFraction"
+      }
+    },
+    {
+      "id": "stamina-resource",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 4,
+        "grow": 1
+      },
+      "children": [
+        "stamina-label",
+        "stamina-bar"
+      ]
+    },
+    {
+      "id": "focus-label",
+      "kind": "text",
+      "content": "气势",
+      "textStyle": {
+        "typography": "label",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "focusAmount"
+      }
+    },
+    {
+      "id": "focus-bar",
+      "kind": "spatialui",
+      "component": "sui-linear-progress",
+      "props": {
+        "size": "small",
+        "progressColorToken": "antiqueGold",
+        "trackColorToken": "mutedInk"
+      },
+      "bindings": {
+        "value": "focusFraction"
+      }
+    },
+    {
+      "id": "focus-resource",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 4,
+        "grow": 1
+      },
+      "children": [
+        "focus-label",
+        "focus-bar"
+      ]
+    },
+    {
+      "id": "player-resources",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 16,
+        "align": "center"
+      },
+      "children": [
+        "player-resource",
+        "stamina-resource",
+        "focus-resource"
+      ]
+    },
+    {
+      "id": "feedback",
+      "kind": "text",
+      "content": "先读起手，再迎刀反击",
+      "textStyle": {
+        "typography": "hint",
+        "color": "paperIvory"
+      },
+      "bindings": {
+        "content": "feedback"
+      },
+      "props": {
+        "simulationScale": {
+          "clock": "existing simulation phase elapsed; no new animation clock",
+          "elapsedBinding": "phaseElapsedNanos",
+          "previewPresentation": "static-final",
+          "previewScale": 1.0,
+          "phaseRules": {
+            "HIT": {
+              "from": 1.04,
+              "to": 1.0,
+              "durationMs": 160,
+              "progress": "clamp(phaseElapsedNanos / 160000000, 0, 1)"
+            }
+          },
+          "otherPhases": {
+            "scale": 1.0
+          },
+          "paused": {
+            "scale": 1.0
+          },
+          "combatTimingMutation": false,
+          "allowedFeedback": [
+            "HIT",
+            "HEADSHOT",
+            "GUARDED_HIT",
+            "PARRY"
+          ],
+          "when": {
+            "result": "FIGHTING",
+            "pauseReason": null,
+            "inputReady": true,
+            "phase": "HIT"
+          },
+          "otherwiseScale": 1.0
+        }
+      }
+    },
+    {
+      "id": "status-surface",
+      "kind": "text",
+      "content": "",
+      "textStyle": {
+        "typography": "label",
+        "color": "inkBlack"
+      },
+      "appearance": {
+        "fill": "inkVeil",
+        "radiusDp": 8
+      },
+      "layout": {
+        "mode": "column",
+        "widthDp": 492,
+        "paddingDp": 16,
+        "gapDp": 4
+      },
+      "children": [
+        "enemy-header",
+        "enemy-amount",
+        "enemy-health",
+        "phase-heading",
+        "phase-hint",
+        "player-resources",
+        "feedback"
+      ]
+    },
+    {
+      "id": "status-attachment",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "heightDp": 260,
+        "paddingDp": 4
+      },
+      "children": [
+        "status-surface"
+      ]
+    },
+    {
+      "id": "control-surface",
+      "kind": "text",
+      "content": "",
+      "textStyle": {
+        "typography": "label",
+        "color": "inkBlack"
+      },
+      "appearance": {
+        "fill": "paperIvory",
+        "radiusDp": 8
+      },
+      "layout": {
+        "mode": "column",
+        "widthDp": 392,
+        "heightDp": 392,
+        "paddingDp": 16,
+        "gapDp": 8
+      },
+      "props": {
+        "stateAppearance": {
+          "fighting": {
+            "fill": "inkVeil"
+          },
+          "round-clear": {
+            "fill": "inkVeil"
+          }
+        },
+        "stateLayout": {
+          "fighting": {
+            "mode": "column",
+            "heightDp": 152,
+            "paddingDp": 12
+          },
+          "round-clear": {
+            "mode": "column",
+            "heightDp": 152,
+            "paddingDp": 12
+          }
+        }
+      },
+      "children": [
+        "paper-content",
+        "compact-content"
+      ]
+    },
+    {
+      "id": "control-attachment",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "gapDp": 8,
+        "paddingDp": 4
+      },
+      "children": [
+        "control-surface"
+      ]
+    },
+    {
+      "id": "phase-hint",
+      "kind": "text",
+      "content": "快速架刀或闪身",
+      "textStyle": {
+        "typography": "hint",
+        "color": "paleAsh"
+      },
+      "bindings": {
+        "content": "phaseHint"
+      }
+    },
+    {
+      "id": "direction-label",
+      "kind": "spatialui",
+      "visibleInStates": [
+        "fighting"
+      ],
+      "layout": {
+        "mode": "column",
+        "widthDp": 42,
+        "heightDp": 34,
+        "align": "center",
+        "justify": "center"
+      },
+      "component": "sui-badge",
+      "props": {
+        "size": "regular",
+        "text": "上",
+        "backgroundColorToken": "cinnabar",
+        "contentColorToken": "paperIvory",
+        "simulationScale": {
+          "clock": "existing simulation phase elapsed; no new animation clock",
+          "elapsedBinding": "phaseElapsedNanos",
+          "previewPresentation": "static-final",
+          "previewScale": 1.0,
+          "phaseRules": {
+            "PREPARING": {
+              "from": 0.94,
+              "to": 1.0,
+              "durationBinding": "preparationNanos",
+              "progress": "clamp(phaseElapsedNanos / preparationNanos, 0, 1)"
+            },
+            "STARTUP": {
+              "scale": 1.0
+            },
+            "ACTIVE": {
+              "scale": 1.0
+            }
+          },
+          "paused": {
+            "visible": false
+          },
+          "combatTimingMutation": false
+        }
+      },
+      "bindings": {
+        "visible": "incomingVisible"
+      }
+    },
+    {
+      "id": "phase-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "align": "center",
+        "justify": "space-between"
+      },
+      "children": [
+        "phase",
+        "direction-label"
+      ]
+    },
+    {
+      "id": "settlement-label",
+      "kind": "text",
+      "content": "本局得分",
+      "textStyle": {
+        "typography": "label",
+        "color": "mutedInk"
+      },
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "best-score",
+      "kind": "text",
+      "content": "最佳 1200",
+      "textStyle": {
+        "typography": "hint",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "bestScore"
+      },
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "score-row",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 16,
+        "align": "baseline"
+      },
+      "children": [
+        "settlement",
+        "best-score"
+      ],
+      "visibleInStates": [
+        "victory"
+      ]
+    },
+    {
+      "id": "damage-attachment",
+      "kind": "layout",
+      "layout": {
+        "mode": "column",
+        "widthDp": 128,
+        "heightDp": 80,
+        "justify": "center",
+        "align": "center"
+      },
+      "children": [
+        "damage-number",
+        "damage-label"
+      ],
+      "visibleInStates": [
+        "fighting"
+      ]
+    },
+    {
+      "id": "damage-number",
+      "kind": "text",
+      "content": "24",
+      "textStyle": {
+        "typography": "damage-number",
+        "color": "antiqueGold",
+        "align": "center"
+      },
+      "bindings": {
+        "content": "damage.amount",
+        "color": "damage.accent"
+      },
+      "props": {
+        "shadow": {
+          "colorToken": "inkBlack",
+          "offsetX": 0,
+          "offsetY": 2,
+          "blur": 4
+        }
+      }
+    },
+    {
+      "id": "damage-label",
+      "kind": "text",
+      "content": "要害",
+      "textStyle": {
+        "typography": "damage-label",
+        "color": "antiqueGold",
+        "align": "center"
+      },
+      "bindings": {
+        "content": "damage.label",
+        "color": "damage.accent",
+        "visible": "damage.hasLabel"
+      },
+      "props": {
+        "shadow": {
+          "colorToken": "inkBlack",
+          "offsetX": 0,
+          "offsetY": 1,
+          "blur": 3
+        }
+      }
+    },
+    {
+      "id": "settlement-body",
+      "kind": "layout",
+      "visibleInStates": [
+        "victory"
+      ],
+      "layout": {
+        "mode": "scroll",
+        "gapDp": 8,
+        "grow": 1,
+        "minHeightDp": 0,
+        "overflow": "scroll"
+      },
+      "children": [
+        "settlement-label",
+        "score-row",
+        "settlement-detail",
+        "settlement-closing"
+      ]
+    },
+    {
+      "id": "settlement-closing",
+      "kind": "text",
+      "content": "调整架势与节奏，再战一局。",
+      "textStyle": {
+        "typography": "hint",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "settlementClosing"
+      }
+    },
+    {
+      "id": "technique-guide",
+      "kind": "layout",
+      "visibleInStates": [
+        "ready",
+        "paused"
+      ],
+      "layout": {
+        "mode": "column",
+        "gapDp": 8,
+        "grow": 1,
+        "minHeightDp": 0
+      },
+      "children": [
+        "technique-heading",
+        "technique-body",
+        "technique-navigation"
+      ]
+    },
+    {
+      "id": "technique-heading",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "gapDp": 8,
+        "heightDp": 24,
+        "align": "center",
+        "justify": "space-between",
+        "minHeightDp": 24
+      },
+      "children": [
+        "technique-caption",
+        "technique-title",
+        "technique-page"
+      ]
+    },
+    {
+      "id": "technique-caption",
+      "kind": "text",
+      "content": "刀术要诀",
+      "textStyle": {
+        "typography": "teaching-caption",
+        "color": "mutedInk"
+      }
+    },
+    {
+      "id": "technique-title",
+      "kind": "text",
+      "content": "进刀",
+      "textStyle": {
+        "typography": "teaching-title",
+        "color": "inkBlack"
+      },
+      "bindings": {
+        "content": "guide.current.title"
+      }
+    },
+    {
+      "id": "technique-page",
+      "kind": "text",
+      "content": "1 / 4",
+      "textStyle": {
+        "typography": "teaching-caption",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "guide.pageLabel"
+      }
+    },
+    {
+      "id": "technique-body",
+      "kind": "layout",
+      "layout": {
+        "mode": "scroll",
+        "gapDp": 8,
+        "grow": 1,
+        "minHeightDp": 0,
+        "overflow": "scroll"
+      },
+      "children": [
+        "technique-detail",
+        "technique-keys"
+      ],
+      "props": {
+        "scrollResetOnPageChange": true
+      }
+    },
+    {
+      "id": "technique-detail",
+      "kind": "text",
+      "content": "抬手蓄刀，挥斩或前刺，让刀锋切过对手。",
+      "textStyle": {
+        "typography": "teaching-detail",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "guide.current.detail"
+      }
+    },
+    {
+      "id": "technique-keys",
+      "kind": "text",
+      "content": "1/J 斩击 · 4/K 前刺",
+      "textStyle": {
+        "typography": "teaching-caption",
+        "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "guide.current.keys",
+        "visible": "guide.showKeys"
+      }
+    },
+    {
+      "id": "technique-navigation",
+      "kind": "layout",
+      "layout": {
+        "mode": "row",
+        "heightDp": 40,
+        "align": "center",
+        "justify": "space-between",
+        "gapDp": 8,
+        "minHeightDp": 40
+      },
+      "children": [
+        "technique-previous",
+        "technique-next"
+      ]
+    },
+    {
+      "id": "technique-previous",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "上一式",
+        "size": "small",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "bindings": {
+        "disabled": "guide.previousDisabled"
+      },
+      "events": {
+        "click-action": "technique-previous-action"
+      }
+    },
+    {
+      "id": "technique-next",
+      "kind": "spatialui",
+      "component": "sui-button",
+      "props": {
+        "text": "下一式",
+        "size": "small",
+        "containerColorToken": "cinnabar",
+        "contentColorToken": "paperIvory"
+      },
+      "bindings": {
+        "disabled": "guide.nextDisabled"
+      },
+      "events": {
+        "click-action": "technique-next-action"
+      }
+    }
+  ],
+  "responsiveRules": [],
+  "assets": []
+}

@@ -1,0 +1,14 @@
+{
+  "scope": "Actual SceneLighting lifecycle with native doubles; no SDK compatibility/rendering/device proof",
+  "compiler": "2.1.20",
+  "coroutines": "1.9.0",
+  "source_sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneLighting.kt": "8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e",
+    "ArtSource/refinement/lookdev/tests/SceneLightingLifecycleTest.kt": "c2d581a02f253915abb20c4707ae2fafe208757478dba66960a62e4880a0ebca",
+    "ArtSource/refinement/lookdev/tests/lifecycle-stubs/Ecs.kt": "a3c93692cc63ae8b87d4e0a90ffc1de5b0a3a9682323e92a8e34a56eaae8635a",
+    "ArtSource/refinement/lookdev/tests/lifecycle-stubs/Math.kt": "7289eecd2614d3a73bfe74e308c605c6f472e8ade11cdcbbfed59af447941530",
+    "ArtSource/refinement/lookdev/tests/lifecycle-stubs/Texture.kt": "af1c88693fd8f6b49364de4a9331938662271fe81090aab35e0aacecfdfbb8bd"
+  },
+  "compile_exit_code": 0,
+  "test_exit_code": 0
+}

@@ -1,0 +1,37 @@
+{
+  "fields": [
+    {
+      "name": "glType",
+      "offset": 16,
+      "from": 35898,
+      "to": 35899
+    },
+    {
+      "name": "glTypeSize",
+      "offset": 20,
+      "from": 1,
+      "to": 4
+    },
+    {
+      "name": "glBaseInternalFormat",
+      "offset": 32,
+      "from": 35898,
+      "to": 6407
+    }
+  ],
+  "changed_byte_offsets": [
+    16,
+    20,
+    32,
+    33
+  ],
+  "all_bytes_after_64_identical": true,
+  "metadata_and_prefilter_payload_sha256": "7077898b3cc9ea0aeb7d7a4cbf75d74a1c11ed21bd4cca57b4e255796be49baf",
+  "source": "generated/generated_ibl.ktx",
+  "source_sha256": "1ec5ca44d0243da9252de5bfc0d34c0374a28d2d9c6c5118c53c3b0c9d9b3e1f",
+  "output": "candidate_standard_header.ktx",
+  "output_sha256": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+  "bytes": 522604,
+  "status": "THREE_HEADER_FIELDS_ONLY; source unchanged",
+  "pico_interoperability": "UNTESTED"
+}

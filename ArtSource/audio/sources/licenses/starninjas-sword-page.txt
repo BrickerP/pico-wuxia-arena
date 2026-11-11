@@ -1,0 +1,7 @@
+Source: https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes
+Author: StarNinjas https://opengameart.org/users/starninjas
+Updated: 2021-03-06
+License: CC0 https://creativecommons.org/publicdomain/zero/1.0/
+Verified: 2026-11-11 via chrome-use
+Description: Ten sword attacks and ten sword clashes, also for shield blocks. Author explicitly says made by moving two knives against each other and editing in Audacity.
+Attribution request: appreciated, link OGA profile; not mandatory under CC0.

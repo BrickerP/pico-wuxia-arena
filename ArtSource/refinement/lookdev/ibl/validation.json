@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "date": "2026-11-11",
+  "tests_passed": 7,
+  "test_duration_seconds": 4.01,
+  "test_command": "python3 -B -m unittest discover -s ArtSource/refinement/lookdev/ibl -p 'test_*.py' -v",
+  "source_environment": {
+    "candidate": "courtyard_hero",
+    "sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+    "capture_origin_stage_m": [
+      0,
+      1.5,
+      -2.4
+    ],
+    "front_lantern_anchors_stage_m": [
+      [
+        -2.15,
+        2.7,
+        -4.7
+      ],
+      [
+        2.15,
+        2.7,
+        -4.7
+      ]
+    ],
+    "side_lantern_anchors_stage_m": [
+      [
+        -4.03,
+        2.25,
+        0.56
+      ],
+      [
+        4.03,
+        2.25,
+        -1.32
+      ]
+    ],
+    "side_lobes": "not included; front pair supplies the authored warm lobes"
+  },
+  "checks": [
+    "All512x256 analytic and independently decoded RGBE texels positive and finite",
+    "Warm lobe normals point toward actual front lantern anchors",
+    "Real cmgen roughness prefilter provenance and fixed tool SHA",
+    "Six faces and four mip levels128/64/32/16",
+    "27 finite SH coefficients and all stored HDR channels finite",
+    "Strict raw header rejection retained; separate canonical candidate passes",
+    "Exactly three header fields changed; every metadata/payload byte after64 identical",
+    "Truncation and nonfinite packedHDR injection rejected",
+    "All source/tool/output manifest hashes match files"
+  ],
+  "source_sha256": "4d55e3d8b0160952ea131c440a6feac89009ca7bbc0f747d43808d9dfa8175e0",
+  "raw_sha256": "1ec5ca44d0243da9252de5bfc0d34c0374a28d2d9c6c5118c53c3b0c9d9b3e1f",
+  "candidate_sha256": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+  "candidate_bytes": 522604,
+  "decoded_hdr_peak": 4.0625,
+  "raw_strict_header_valid": false,
+  "candidate_strict_header_valid": true,
+  "metadata_and_payload_bytes_unchanged": true,
+  "pico_runtime_status": "UNTESTED: cmgen default mirroring direction and PICO environment layout/runtime load remain unproven",
+  "preview_visual_review": "Source preview inspected: two localized warm lobes plus cool moon/rear lobes against dark blue ambient. It is a radiance source preview, not an in-game screenshot.",
+  "source_and_test_hashes": {
+    "generate_ibl.py": "735150e0b7952e9ec3f590cbc46b0cc53fc9b04301d4fdfc043ca1f886f848e9",
+    "test_ibl.py": "2dad199ae6ca08eec39165604e525a4a1726efd874fa4009c23e370a5f22c664"
+  }
+}

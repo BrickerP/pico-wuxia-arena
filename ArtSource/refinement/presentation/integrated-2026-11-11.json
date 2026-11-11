@@ -1,0 +1,22 @@
+{
+  "apk": "artifacts/integrated-polish/wuxia-arena-integrated-debug.apk",
+  "sha256": "8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede",
+  "bytes": 99113182,
+  "tests": 261,
+  "failures": 0,
+  "skipped": 0,
+  "native_scene_loaded": true,
+  "native_opponents_loaded": 1,
+  "animations": 10,
+  "scene": "courtyard_hero",
+  "capture": "reviewed-foreground-scene.png",
+  "capture_sha256": "c23a267ed6b634a07d22b7193211f05d8420770b1f281830df4ea59216b33f6d",
+  "startup_logs": [
+    "reviewed-startup.log",
+    "foreground-startup.log"
+  ],
+  "keyboard_combat_chain": false,
+  "controlled_hit": false,
+  "space_pro": false,
+  "new_head_published": false
+}

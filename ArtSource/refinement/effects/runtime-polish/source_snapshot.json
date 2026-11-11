@@ -1,0 +1,9 @@
+{
+  "head": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt": "633dfd0e209301ebbfd8b0ce92f091d35ca9ee23156fdc60e85b9bb4c8bb6145",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerBladeTrail.kt": "08bf96b6daa5e2b053359d334db924cd5fad6fe33a63e6d1d8893627a1319444",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometry.kt": "254e07210bce7da487519009aab074031945e38074e7753b5be7dbc84f9e8a21",
+    "ArtSource/refinement/effects/contact-polish/metal/motion.json": "4c8afcd1c83682ea2f8a3650aa28086e9a69a02c7dfb973a05f53291935713c3"
+  }
+}

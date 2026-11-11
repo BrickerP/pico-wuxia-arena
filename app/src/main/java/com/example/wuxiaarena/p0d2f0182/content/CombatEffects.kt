@@ -4,9 +4,6 @@ import android.util.Log
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
-import com.example.wuxiaarena.core.combat.EnemyPhase
-import com.example.wuxiaarena.core.input.Hand
-import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
@@ -15,8 +12,6 @@ import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.OpacityControllerComponent
 import com.pico.spatial.core.ecs.TransformComponent
 import com.pico.spatial.core.math.Quat
-import kotlin.math.cos
-import kotlin.math.sin
 import com.pico.spatial.core.math.Vector3 as SpatialVector3
 
 /** Keep transient visuals on the contact beat, including after a delayed frame. */
@@ -28,78 +23,29 @@ internal fun currentContactImpacts(impacts: List<CombatImpact>, simulationNanos:
     }.sortedWith(compareByDescending<CombatImpact> { it.fatal }
         .thenByDescending { it.kind == CombatImpactKind.PARRY }.thenByDescending { it.id })
 
-/** Main-thread contact presentation. Static GLB layers need no imported animation clips. */
+/** Contact events use independent meshes. Force layers remain the authored skill envelope. */
 internal class CombatEffects private constructor(
     private val root: Entity,
-    private val slots: Map<Kind, List<Slot>>,
+    private val particles: ContactParticleEmitter,
+    private val forceSlots: List<ForceSlot>,
 ) : AutoCloseable {
-    private enum class Kind(val asset: String, val seconds: Float) {
-        SOFT("soft_contact", 0.62f),
-        METAL("metal_contact", 0.44f),
-        FORCE("force_contact", 0.72f),
-        DUST("ground_dust", 0.65f),
-    }
-
-    private class Slot(
-        val kind: Kind,
-        val anchor: Entity,
-        val core: Entity,
-        val debris: Entity,
-        val scar: Entity,
-    ) {
-        var startedAt: Long? = null
+    private class ForceSlot(val anchor: Entity, val core: Entity, val debris: Entity, val scar: Entity) {
+        var start: Long? = null
+        var directional = false
         var failed = false
-        var impactKind: CombatImpactKind? = null
 
-        fun hide() {
-            startedAt = null
-            try {
-                if (anchor.valid) anchor.enabled = false
-            } catch (error: Exception) {
-                failed = true
-                Log.w(TAG, "Unable to hide ${kind.asset}", error)
-            }
-        }
+        fun hide() { start = null; if (anchor.valid) anchor.enabled = false }
 
         fun update(now: Long) {
-            val start = startedAt ?: return
-            if (failed || !anchor.valid) return hide()
-            val seconds = ((now - start).coerceAtLeast(0L) / 1_000_000_000.0).toFloat()
-            val parry = impactKind == CombatImpactKind.PARRY
-            val duration = kind.seconds + if (parry) 0.10f else 0f
-            if (seconds >= duration) return hide()
-            val progress = seconds / duration
-            try {
-                // The core marks contact. Fragments outlive it without hiding the next move.
-                val coreSize = (0.7f + seconds * 3f) * if (parry) 1.3f else 1f
-                val coreDuration = when {
-                    parry -> 0.09f
-                    kind == Kind.METAL -> 0.065f
-                    kind == Kind.SOFT -> 0.05f
-                    else -> 0.12f
-                }
-                layer(core, coreSize, coreSize,
-                    (1f - seconds / coreDuration).coerceIn(0f, 1f), 0f, 0f)
-                val spread = 0.22f + progress * 1.1f
-                layer(debris, spread, spread, (1f - progress) * (1f - progress),
-                    -0.32f * seconds * seconds, 0.14f * seconds)
-                val cutAlpha = (1f - seconds / 0.10f).coerceIn(0f, 1f)
-                val cutWidth = cutAlpha.coerceAtLeast(0.08f)
-                layer(scar, 1f, cutWidth, cutAlpha, 0f, 0.004f)
-            } catch (error: Exception) {
-                failed = true
-                Log.w(TAG, "Contact layer ${kind.asset} became unavailable", error)
-                hide()
-            }
-        }
-
-        fun close() {
-            hide()
-            try {
-                if (anchor.valid) anchor.destroy()
-            } catch (error: Exception) {
-                Log.w(TAG, "Unable to destroy ${kind.asset}", error)
-            }
+            val began = start ?: return
+            val age = ((now.toDouble() - began.toDouble()) / 1_000_000_000.0).toFloat()
+            if (!anchor.valid || failed || age >= 0.72f) return hide()
+            val progress = age / 0.72f
+            layer(core, 0.9f + age * 3f, 0.9f + age * 3f, (1f - age / 0.12f).coerceIn(0f, 1f), 0f, 0f)
+            val spread = 0.22f + progress * 1.1f
+            layer(debris, spread, spread, (1f - progress) * (1f - progress), -0.32f * age * age, 0.14f * age)
+            val alpha = if (directional) (1f - age / 0.10f).coerceIn(0f, 1f) else 0f
+            layer(scar, 1f, alpha.coerceAtLeast(0.08f), alpha, 0f, 0.004f)
         }
 
         private fun layer(entity: Entity, width: Float, height: Float, opacity: Float, y: Float, z: Float) {
@@ -111,13 +57,10 @@ internal class CombatEffects private constructor(
     }
 
     private var closed = false
-    private val allSlots = slots.values.flatten()
     private var round = Long.MIN_VALUE
     private val seenImpacts = mutableSetOf<Long>()
-    private val unavailableKinds = mutableSetOf<Kind>()
-    private var lastStepTravel = 0.0
-    private var stepSide = 1.0
-    private var deathDustPending = false
+    private val surfaceEvents = ResolvedSurfaceEventGate()
+    private var surfaceContactsAllowed = false
 
     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         if (closed || !root.valid || state.roundGeneration < round) return
@@ -125,145 +68,122 @@ internal class CombatEffects private constructor(
         if (state.roundGeneration != round) {
             clear()
             seenImpacts.clear()
+            surfaceEvents.reset(state.roundGeneration)
             round = state.roundGeneration
-            lastStepTravel = state.enemyTravelMeters
         }
+        // Consume while paused as well, so a resumed frame cannot replay a queued core.
         val impacts = events.filterIsInstance<CombatImpact>().filter { seenImpacts.add(it.id) }
         val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
         if (!state.sceneReady || (!terminal && (state.pauseReason != null || !state.inputReady))) {
             clear()
-            lastStepTravel = state.enemyTravelMeters
             return
         }
-        allSlots.forEach { it.update(now) }
-        val usedSlots = mutableSetOf<Slot>()
+        surfaceContactsAllowed = true
+        particles.update(now)
+        forceSlots.forEach { slot -> safely(slot) { slot.update(now) } }
+        val reservedForce = mutableSetOf<ForceSlot>()
         for (impact in currentContactImpacts(impacts, state.simulationNanos)) {
-            val kind = kindFor(impact.kind)
-            val pool = slots.getValue(kind)
-            if (pool.none { !it.failed && it.anchor.valid }) {
-                if (unavailableKinds.add(kind)) Log.w(TAG, "No valid contact slots for $kind")
+            val accent = CombatFeedbackProfile.accent(impact)
+            val scale = ((0.72 + 0.46 * accent.strength).toFloat() * accent.visualScale).coerceIn(0.75f, 1.5f)
+            val age = state.simulationNanos - impact.atNanos
+            if (impact.kind == CombatImpactKind.SKILL || impact.kind == CombatImpactKind.EXECUTION) {
+                val slot = forceSlots.filter { !it.failed && it.anchor.valid && it !in reservedForce }
+                    .minWithOrNull(compareBy<ForceSlot> { it.start != null }.thenBy { it.start ?: Long.MIN_VALUE }) ?: continue
+                reservedForce.add(slot)
+                emitForce(slot, impact, scale, now, age)
             } else {
-                // Recycle the oldest visual. A new core must never wait behind old debris.
-                val slot = pool.filter { !it.failed && it.anchor.valid && it !in usedSlots }
-                    .minWithOrNull(compareBy<Slot> { it.startedAt != null }.thenBy { it.startedAt ?: Long.MIN_VALUE })
-                if (slot != null) {
-                    usedSlots.add(slot)
-                    val normal = checkNotNull(impact.normal.normalizedOrNull())
-                    val accent = CombatFeedbackProfile.accent(impact)
-                    val scale = (0.72 + 0.46 * accent.strength).toFloat() * accent.visualScale
-                    val age = state.simulationNanos - impact.atNanos
-                    slot.impactKind = impact.kind
-                    emit(slot, impact.point + normal * 0.008, contactRotation(normal, impact.hand), scale, now, age)
+                val family = when (impact.kind) {
+                    CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> ContactEffectFamily.SOFT
+                    else -> ContactEffectFamily.METAL
                 }
+                particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,
+                    parry = impact.kind == CombatImpactKind.PARRY, size = scale)
             }
-        }
-        if (state.result == TrialResult.FIGHTING && state.enemyMoveDirection != 0f &&
-            state.enemyTravelMeters.isFinite() && state.enemyTravelMeters - lastStepTravel >= 0.5
-        ) {
-            lastStepTravel = state.enemyTravelMeters
-            state.enemyPosition?.let { enemy ->
-                val foot = enemy + Vector3(cos(state.enemyYawRadians.toDouble()) * 0.09 * stepSide,
-                    0.0, -sin(state.enemyYawRadians.toDouble()) * 0.09 * stepSide)
-                dust(foot, 0.55f, now)
-                stepSide = -stepSide
-            }
-        }
-        if (events.any { it is EnemyCombatEvent.PhaseChanged && it.current == EnemyPhase.DEAD }) {
-            deathDustPending = true
-        }
-        val floorImpact = if (state.executing) 2.35f else 1.6f
-        if (deathDustPending && state.phase == EnemyPhase.DEAD && state.deathElapsedSeconds >= floorImpact) {
-            deathDustPending = false
-            state.enemyPosition?.let { dust(it, 1f, now) }
         }
     }
 
-    private fun dust(position: Vector3, scale: Float, now: Long) {
-        val slot = slots.getValue(Kind.DUST).firstOrNull { !it.failed && it.anchor.valid && it.startedAt == null } ?: return
-        slot.impactKind = null
-        // Dust is authored in XY; rotate its outward axis onto Stage +Y at the floor.
-        emit(slot, position, Quaternion(-sin(Math.PI / 4), 0.0, 0.0, cos(Math.PI / 4)), scale, now, 0L)
+    /** Explicit material/ground witnesses only. SOFT or DEAD timers never imply these events. */
+    fun presentResolvedSurface(
+        eventId: Long, roundGeneration: Long, family: ContactEffectFamily, point: Vector3, normal: Vector3, tangent: Vector3,
+        atNanos: Long, simulationNanos: Long,
+    ): Boolean {
+        if (closed || family == ContactEffectFamily.SOFT || family == ContactEffectFamily.METAL) return false
+        if (!surfaceEvents.consume(eventId, roundGeneration, family, atNanos, simulationNanos, surfaceContactsAllowed)) return false
+        return particles.emit(family, point, normal, tangent, System.nanoTime(), simulationNanos - atNanos)
     }
 
-    private fun emit(slot: Slot, position: Vector3, rotation: Quaternion, scale: Float, now: Long, age: Long) {
-        val point = SpatialVector3(position.x.toFloat(), position.y.toFloat(), position.z.toFloat())
-        if (!point.x.isFinite() || !point.y.isFinite() || !point.z.isFinite()) {
-            Log.w(TAG, "Contact position exceeds Stage presentation range")
-            return
-        }
-        val orientation = rotation.normalizedOrNull() ?: return
-        try {
-            transform(slot.anchor).setPosition(root.convertPositionFrom(point, null))
+    private fun emitForce(slot: ForceSlot, impact: CombatImpact, scale: Float, now: Long, age: Long) {
+        val normal = impact.normal.normalizedOrNull() ?: return
+        val basis = ContactBasis.from(normal, impact.tangent)
+        val rotation = basis?.rotation() ?: normalFacingRotation(normal) ?: return
+        val point = impact.point + normal * 0.008
+        val stagePoint = SpatialVector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat())
+        if (!stagePoint.x.isFinite() || !stagePoint.y.isFinite() || !stagePoint.z.isFinite()) return
+        safely(slot) {
+            transform(slot.anchor).setPosition(root.convertPositionFrom(stagePoint, null))
             transform(slot.anchor).setQuaternion(root.convertRotationFrom(
-                Quat(orientation.x.toFloat(), orientation.y.toFloat(), orientation.z.toFloat(), orientation.w.toFloat()), null))
+                Quat(rotation.x.toFloat(), rotation.y.toFloat(), rotation.z.toFloat(), rotation.w.toFloat()), null))
             transform(slot.anchor).setScaleVector(SpatialVector3(scale, scale, scale))
-            slot.startedAt = now - age
+            slot.directional = basis != null
+            slot.start = now - age
             slot.anchor.enabled = true
             slot.update(now)
-        } catch (error: Exception) {
-            slot.failed = true
-            Log.w(TAG, "Unable to present ${slot.kind.asset}", error)
-            slot.hide()
         }
     }
 
     private fun clear() {
-        allSlots.forEach { it.hide() }
-        deathDustPending = false
+        surfaceContactsAllowed = false
+        particles.clear()
+        forceSlots.forEach { slot -> safely(slot) { slot.hide() } }
+    }
+
+    private fun safely(slot: ForceSlot, block: () -> Unit) {
+        try { block() } catch (error: Exception) {
+            slot.failed = true
+            slot.start = null
+            try { if (slot.anchor.valid) slot.anchor.enabled = false } catch (_: Exception) { }
+            Log.w(TAG, "Force slot became unavailable", error)
+        }
     }
 
     override fun close() {
         if (closed) return
         closed = true
-        clear()
-        allSlots.forEach { it.close() }
-        seenImpacts.clear()
+        particles.close()
+        forceSlots.forEach { slot -> safely(slot) { if (slot.anchor.valid) slot.anchor.destroy() } }
     }
 
     companion object {
         private const val TAG = "ArenaEffects"
-        private const val SLOTS_PER_KIND = 6
-
-        /** Main-thread owner closes the pool before destroying its scene root. */
         suspend fun load(root: Entity): CombatEffects {
-            val loaded = mutableMapOf<Kind, List<Slot>>()
-            val owned = mutableListOf<Slot>()
+            val particles = ContactParticleEmitter.load(root)
+            val force = mutableListOf<ForceSlot>()
             try {
-                for (kind in Kind.entries) {
-                    val pool = mutableListOf<Slot>()
-                    repeat(SLOTS_PER_KIND) {
-                        val slot = loadSlot(root, kind)
-                        owned.add(slot)
-                        pool.add(slot)
-                    }
-                    loaded[kind] = pool
-                }
-                return CombatEffects(root, loaded)
+                repeat(2) { force.add(loadForce(root)) }
+                return CombatEffects(root, particles, force)
             } catch (error: Exception) {
-                owned.forEach { it.close() }
-                Log.w(TAG, "Unable to load static contact layers", error)
+                particles.close()
+                force.forEach { try { it.anchor.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) } }
                 throw error
             }
         }
 
-        private suspend fun loadSlot(root: Entity, kind: Kind): Slot {
-            val model = Entity.loadSuspend("asset://models/effects/${kind.asset}.glb")
+        private suspend fun loadForce(root: Entity): ForceSlot {
+            val model = Entity.loadSuspend("asset://models/effects/force_contact.glb")
             var anchor: Entity? = null
             var attached = false
             try {
-                check(root.valid) { "Effect scene root was released during loading" }
+                check(root.valid)
                 val parent = Entity()
                 anchor = parent
                 parent.enabled = false
-                check(root.addChild(parent)) { "Unable to attach effect anchor" }
-                check(parent.addChild(model)) { "Unable to attach static effect model" }
+                check(root.addChild(parent))
+                check(parent.addChild(model))
                 attached = true
                 val layers = listOf("core", "debris", "scar").map { name ->
-                    checkNotNull(model.findEntity(name)) { "Missing contact layer $name in ${kind.asset}" }.also {
-                        it.components.set(OpacityControllerComponent(1f))
-                    }
+                    checkNotNull(model.findEntity(name)).also { it.components.set(OpacityControllerComponent(1f)) }
                 }
-                return Slot(kind, parent, layers[0], layers[1], layers[2])
+                return ForceSlot(parent, layers[0], layers[1], layers[2])
             } catch (error: Exception) {
                 if (!attached) try { model.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
                 try { anchor?.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
@@ -271,21 +191,6 @@ internal class CombatEffects private constructor(
             }
         }
 
-        private fun kindFor(kind: CombatImpactKind): Kind = when (kind) {
-            CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> Kind.SOFT
-            CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
-            CombatImpactKind.BLOCK, CombatImpactKind.PARRY -> Kind.METAL
-            CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> Kind.FORCE
-        }
-
-        private fun contactRotation(normal: Vector3, hand: Hand): Quaternion {
-            val facing = Quaternion(-normal.y, normal.x, 0.0, 1.0 + normal.z).normalizedOrNull()
-                ?: Quaternion(0.0, 1.0, 0.0, 0.0)
-            val roll = if (hand == Hand.LEFT) -0.30 else 0.30
-            return facing * Quaternion(0.0, 0.0, sin(roll / 2), cos(roll / 2))
-        }
-
-        private fun transform(entity: Entity): TransformComponent =
-            checkNotNull(entity.components[TransformComponent::class.java]) { "Effect transform is unavailable" }
+        private fun transform(entity: Entity): TransformComponent = checkNotNull(entity.components[TransformComponent::class.java])
     }
 }

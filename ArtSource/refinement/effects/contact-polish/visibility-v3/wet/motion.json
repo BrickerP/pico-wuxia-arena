@@ -1,0 +1,1067 @@
+{
+  "schema": "contact-particle-motion/v2",
+  "asset": "wet_cloth_contact.glb",
+  "version": "wet-visibility-v3",
+  "units": "metres / seconds",
+  "basis": {
+    "x": "normalized real cut tangent projected onto contact plane",
+    "y": "normal cross tangent",
+    "z": "normalized real outward contact normal"
+  },
+  "gravity_stage_mps2": [
+    0.0,
+    -9.81,
+    0.0
+  ],
+  "anchor_normal_offset_m": 0.008,
+  "clock": "presentation seconds since fresh contact, continues during NPC pose hitstop",
+  "transform_equation": "p=point+normal*anchorOffset+basis*p0+basis*v0*t+0.5*gravityStage*t*t",
+  "opacity_interpolation": "linear opacity_keys; zero before birth and at/after lifetime",
+  "contact_semantics": "Only Root/08-confirmed wet cloth. Bare head and generic SOFT classification do not identify wet cloth.",
+  "tangent_requirement": "08 supplies real blade-tip sweep tangent; data is not a synthetic input implementation.",
+  "view_target_m": [
+    1.5,
+    2.5
+  ],
+  "material_approximation": "Ordinary PBR alpha highlight; three materials, no emissive, transmission or shader extensions.",
+  "particles": [
+    {
+      "node": "drop_00",
+      "type": "droplet",
+      "tier": "hero",
+      "shape": "round",
+      "priority": 100,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.006,
+        -0.003,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        1.55,
+        0.28,
+        0.62
+      ],
+      "lifetime_s": 0.18,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.054,
+          0.7448
+        ],
+        [
+          0.18,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00774,
+      "diameter_m": 0.009
+    },
+    {
+      "node": "drop_01",
+      "type": "droplet",
+      "tier": "hero",
+      "shape": "round",
+      "priority": 100,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.003,
+        -0.001,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        1.32,
+        -0.24,
+        0.56
+      ],
+      "lifetime_s": 0.22,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.066,
+          0.7448
+        ],
+        [
+          0.22,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00731,
+      "diameter_m": 0.0085
+    },
+    {
+      "node": "drop_02",
+      "type": "droplet",
+      "tier": "main",
+      "shape": "round",
+      "priority": 85,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.0,
+        0.001,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        1.1,
+        0.38,
+        0.47
+      ],
+      "lifetime_s": 0.24,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.072,
+          0.7448
+        ],
+        [
+          0.24,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00602,
+      "diameter_m": 0.007
+    },
+    {
+      "node": "drop_03",
+      "type": "droplet",
+      "tier": "main",
+      "shape": "round",
+      "priority": 85,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.003,
+        0.003,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        1.28,
+        -0.35,
+        0.53
+      ],
+      "lifetime_s": 0.23,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.069,
+          0.7448
+        ],
+        [
+          0.23,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00559,
+      "diameter_m": 0.0065
+    },
+    {
+      "node": "drop_04",
+      "type": "droplet",
+      "tier": "main",
+      "shape": "round",
+      "priority": 85,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.006,
+        -0.003,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.96,
+        0.12,
+        0.44
+      ],
+      "lifetime_s": 0.27,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.081,
+          0.7448
+        ],
+        [
+          0.27,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00516,
+      "diameter_m": 0.006
+    },
+    {
+      "node": "drop_05",
+      "type": "droplet",
+      "tier": "main",
+      "shape": "round",
+      "priority": 85,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.006,
+        -0.001,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        1.17,
+        -0.16,
+        0.37
+      ],
+      "lifetime_s": 0.25,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.075,
+          0.7448
+        ],
+        [
+          0.25,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00473,
+      "diameter_m": 0.0055
+    },
+    {
+      "node": "drop_06",
+      "type": "droplet",
+      "tier": "stretched",
+      "shape": "stretched",
+      "priority": 80,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.003,
+        0.001,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        1.64,
+        0.18,
+        0.48
+      ],
+      "lifetime_s": 0.24,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.072,
+          0.7448
+        ],
+        [
+          0.24,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.0036,
+      "length_m": 0.012
+    },
+    {
+      "node": "drop_07",
+      "type": "droplet",
+      "tier": "stretched",
+      "shape": "stretched",
+      "priority": 80,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.0,
+        0.003,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        1.46,
+        -0.3,
+        0.52
+      ],
+      "lifetime_s": 0.26,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.078,
+          0.7448
+        ],
+        [
+          0.26,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.0042,
+      "length_m": 0.015
+    },
+    {
+      "node": "drop_08",
+      "type": "droplet",
+      "tier": "stretched",
+      "shape": "stretched",
+      "priority": 80,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.003,
+        -0.003,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        1.3,
+        0.32,
+        0.4
+      ],
+      "lifetime_s": 0.28,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.084,
+          0.7448
+        ],
+        [
+          0.28,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.0045,
+      "length_m": 0.018
+    },
+    {
+      "node": "drop_09",
+      "type": "droplet",
+      "tier": "stretched",
+      "shape": "stretched",
+      "priority": 80,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.006,
+        -0.001,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        1.08,
+        -0.22,
+        0.35
+      ],
+      "lifetime_s": 0.3,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.98
+        ],
+        [
+          0.09,
+          0.7448
+        ],
+        [
+          0.3,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.0038,
+      "length_m": 0.01
+    },
+    {
+      "node": "drop_10",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.006,
+        0.001,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.45,
+        0.19,
+        0.2
+      ],
+      "lifetime_s": 0.25,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.1,
+          0.6536
+        ],
+        [
+          0.25,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00258,
+      "diameter_m": 0.003
+    },
+    {
+      "node": "drop_11",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.003,
+        0.003,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        0.72,
+        -0.14,
+        0.28
+      ],
+      "lifetime_s": 0.28,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.112,
+          0.6536
+        ],
+        [
+          0.28,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00301,
+      "diameter_m": 0.0035
+    },
+    {
+      "node": "drop_12",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.0,
+        -0.003,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.58,
+        0.34,
+        0.25
+      ],
+      "lifetime_s": 0.32,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.128,
+          0.6536
+        ],
+        [
+          0.32,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00344,
+      "diameter_m": 0.004
+    },
+    {
+      "node": "drop_13",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.003,
+        -0.001,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.87,
+        -0.27,
+        0.32
+      ],
+      "lifetime_s": 0.34,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.136,
+          0.6536
+        ],
+        [
+          0.34,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00387,
+      "diameter_m": 0.0045
+    },
+    {
+      "node": "drop_14",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.006,
+        0.001,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        0.64,
+        0.08,
+        0.22
+      ],
+      "lifetime_s": 0.36,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.144,
+          0.6536
+        ],
+        [
+          0.36,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00275,
+      "diameter_m": 0.0032
+    },
+    {
+      "node": "drop_15",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.006,
+        0.003,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.38,
+        -0.32,
+        0.18
+      ],
+      "lifetime_s": 0.31,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.124,
+          0.6536
+        ],
+        [
+          0.31,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00327,
+      "diameter_m": 0.0038
+    },
+    {
+      "node": "drop_16",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        -0.003,
+        -0.003,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.79,
+        0.26,
+        0.3
+      ],
+      "lifetime_s": 0.29,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.116,
+          0.6536
+        ],
+        [
+          0.29,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00361,
+      "diameter_m": 0.0042
+    },
+    {
+      "node": "drop_17",
+      "type": "droplet",
+      "tier": "fine",
+      "shape": "round",
+      "priority": 45,
+      "orientation_axis_local": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "initial_position_local_m": [
+        0.0,
+        -0.001,
+        0.005
+      ],
+      "initial_velocity_local_mps": [
+        0.52,
+        -0.06,
+        0.24
+      ],
+      "lifetime_s": 0.33,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.86
+        ],
+        [
+          0.132,
+          0.6536
+        ],
+        [
+          0.33,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "Y",
+      "orientation_policy": "source TBN; optional velocity alignment by 08",
+      "cross_section_diameter_m": 0.00292,
+      "diameter_m": 0.0034
+    },
+    {
+      "node": "fiber_00",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "priority": 55,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 0.008,
+      "width_m": 0.0012,
+      "initial_position_local_m": [
+        -0.004,
+        -0.0015,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.72,
+        0.24,
+        0.18
+      ],
+      "lifetime_s": 0.29,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.88
+        ],
+        [
+          0.1508,
+          0.6688000000000001
+        ],
+        [
+          0.29,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08"
+    },
+    {
+      "node": "fiber_01",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "priority": 55,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 0.01,
+      "width_m": 0.0015,
+      "initial_position_local_m": [
+        -0.002,
+        0.0015,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.61,
+        -0.2,
+        0.22
+      ],
+      "lifetime_s": 0.33,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.88
+        ],
+        [
+          0.1716,
+          0.6688000000000001
+        ],
+        [
+          0.33,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08"
+    },
+    {
+      "node": "fiber_02",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "priority": 55,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 0.012,
+      "width_m": 0.0017,
+      "initial_position_local_m": [
+        0.0,
+        -0.0015,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.52,
+        0.12,
+        0.16
+      ],
+      "lifetime_s": 0.36,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.88
+        ],
+        [
+          0.1872,
+          0.6688000000000001
+        ],
+        [
+          0.36,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08"
+    },
+    {
+      "node": "fiber_03",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "priority": 55,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 0.014,
+      "width_m": 0.002,
+      "initial_position_local_m": [
+        0.002,
+        0.0015,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.44,
+        -0.28,
+        0.19
+      ],
+      "lifetime_s": 0.4,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.88
+        ],
+        [
+          0.208,
+          0.6688000000000001
+        ],
+        [
+          0.4,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08"
+    },
+    {
+      "node": "fiber_04",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "priority": 55,
+      "orientation_axis_local": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "length_m": 0.015,
+      "width_m": 0.0022,
+      "initial_position_local_m": [
+        0.004,
+        -0.0015,
+        0.003
+      ],
+      "initial_velocity_local_mps": [
+        0.68,
+        0.31,
+        0.25
+      ],
+      "lifetime_s": 0.38,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.88
+        ],
+        [
+          0.1976,
+          0.6688000000000001
+        ],
+        [
+          0.38,
+          0.0
+        ]
+      ],
+      "geometry_long_axis_local": "X",
+      "orientation_policy": "source TBN; optional velocity alignment by 08"
+    }
+  ],
+  "cores": [],
+  "accents": [],
+  "source": "Project-original deterministic procedural source using existing Effect/Layer writer"
+}

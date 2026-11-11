@@ -1,36 +1,63 @@
-# 战斗材质音效
+# 刀战foley与触觉候选
 
-`generate_combat_audio.py` 使用Python标准库与固定随机种子制作本项目原创PCM短音效。生产资源统一为48 kHz、单声道、16-bit WAV。11个资源的时长为0.28到0.95秒，最长解码体积91,200字节。
+2026-11-11本路把接触素材从纯正弦/噪声合成改为许可可追溯的foley混音。运行入口仍是Main现有 `audio.present(state, events)`；Main、容器与SDK版本无需新接线。正式声音资源由本路明确负责，角色与场景发布仍归Root。
 
-| CombatImpactKind | 生产资源 | 材质层次 |
-| --- | --- | --- |
-| SOFT_HIT | arena_hit | 布料撕擦瞬态、软组织低频冲击、延迟布尘尾声 |
-| HARD_HIT | arena_hard_hit | 硬质短敲击、非整数倍金属共振、明亮短噪声 |
-| GUARDED_HIT | arena_guarded_hit | 被衣物包裹的护甲闷击、低频主体、短促低调金属颤音 |
-| BLOCK | arena_block | 重格挡低频碰撞、宽频钢铁瞬态、短二次金属振动 |
-| PARRY | arena_parry | 高频清脆瞬态、较高音域钢铁余鸣、少量低频重量 |
-| PLAYER_HIT | arena_hurt | 较低身体闷击、短促空气与衣物震动 |
-| SKILL | arena_skill | 破势双段脆响、金属断裂颗粒、低频冲击 |
-| EXECUTION | arena_execution | 较重软目标冲击、延迟刀切与布料摩擦、克制低频尾声 |
+## 试听与重建
 
-现有合同没有GUARD_BREAK枚举，本轮SKILL按破势音色制作。`arena_whoosh`仅配合真实敌人STARTUP阶段切换。`arena_victory`与`arena_defeat`用于实际结算切换。旧`arena_clash`与`arena_dry`已从生产目录移除，低体力／低气势／距离提示由界面承担。
-
-## 生成与试听
-
-从唯一主仓库运行以下命令。
+- [19.48秒旧/新接触试听](../refinement/audio/contact_before_after.wav)：普通命中、格挡、弹反、硬材质、护甲、挥刀、处决依次A/B，起始时间见同名JSON。
+- [普通/致命/处决速度对照](../refinement/audio/fatal_normal_vs_slow.wav)：致命播放0.90×，保留材质并叠低重音。敌人动画0.35×期间，声音仍走真实时间。
+- [9秒雨夜交战混音](../refinement/audio/combat_rain_sequence.wav)：离线编排，供音色与层次review，不作为端内同步证明。
 
 ```sh
 python3 ArtSource/audio/generate_combat_audio.py
+python3 -m unittest discover -s ArtSource/audio -p test_combat_audio.py -v
+python3 ArtSource/audio/run_audio_tests.py --audio-only
 ```
 
-[12.06秒前后试听合辑](../refinement/effects/audio/material_contact_comparison.wav)按软目标旧／新、金属旧／新、护甲、格挡、弹反、玩家受击、破势、处决排序，各段之间留有静音。[试听时间表](../refinement/effects/audio/comparison_cues.json)记录每一段的起始时间。[PCM测量结果](../refinement/effects/audio/audio_measurements.json)由写出的16-bit PCM重新读取计算。
+生成器只用标准库混音与现有ffmpeg解码，不新增Gradle或Python依赖。旧版11种PCM冻结在 `ArtSource/refinement/audio/before/`，来源节点 `562449af40ee984ddd8ef61be5c339ac9bea2de5`。当前生产资源、生成器和原始媒体SHA在 `production_manifest.json`。原胜负旋律保留，没有用目标游戏声音。
 
-`before_soft_hit.wav`和`before_metal.wav`是本轮修改前冻结的两个参考声音，仅供离线对比。
+## 来源与派生
 
-## 呈现接线
+完整来源、作者、逐文件SHA256、原包SHA和许可证据页在 [sources.json](sources/sources.json)。四套均选择CC0，允许派生处理。
 
-主控在同一呈现回调使用 `audio.present(state, events)`，释放时调用 `audio.close()`。`CombatAudio`完整遍历CombatImpact批次，以当前roundGeneration内的ID集合去重，支持首批、切轮首批与同批非顺序ID。切轮清空去重集合并停止旧声音。暂停／追踪失效期间的接触会被消费，恢复后保持当前时刻语义。
+| 来源 | 已证明范围 | 使用 |
+| --- | --- | --- |
+| [StarNinjas – 20 Sword Sound Effects](https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes) | 作者说明两把刀实物录制后用Audacity编辑 | clashes 2/5作刀刃接触，attack 4作挥刀 |
+| [HaelDB – Footsteps Leather, Cloth, Armor](https://opengameart.org/content/footsteps-leather-cloth-armor) | 作者评论确认布料/皮革录音，提供CC0选项 | step_cloth1/2作衣料层 |
+| [Ylmir – Rain (loopable)](https://opengameart.org/content/rain-loopable) | 窗边麦克风录制再加工 | 8秒雨循环、步声水层 |
+| [Kenney – Impact Sounds](https://kenney.nl/assets/impact-sounds) | 官方impact/foley，未说明逐项录制方法 | punch/plate与concrete脚步 |
 
-强度决定音量，Stage接触点与头部距离提供轻度衰减，hand提供轻微左右声道偏置。SoundPool输出为双声道音量控制，当前未使用SDK空间音频。全批事件均进入消费流程，池上限12路同时发声，超出后由SoundPool按优先级与年龄回收。资源尚在加载的接触先进入小型pending队列，后续present逐项播放已经ready的样本。已报告加载失败或load返回0的样本不会留在队列中等待；暂停、切轮和close清空待播接触，恢复后保持当前时刻语义。
+处理顺序：48kHz单声道解码→去无声前导→轻微速率调整→低切/高切→多个实物声瞬态与延迟余响→0.5ms起始/15ms尾部淡化→去DC→峰值与RMS上限控制→16bit PCM。雨用连续录音的两段8秒等功率拼接，循环边界回到同一录音时刻。普通接触最大峰值−6.38dBFS，雨−12.40dBFS；所有PCM与试听均无削波，最长声音解码768,000字节。
 
-Android35本地官方SoundPool源码说明其短声音预解码上限为每段1MB，并公开load、play、setOnLoadCompleteListener和release。实际声压、头显扬声器音色及命中时序交主控PICO专项验收。本轮完成生产素材、PCM检查和离线试听产物，未启动设备或游戏。
+湿石脚步是concrete与实录雨水的合成候选，未取得独立实录湿石素材，不声称它是湿石实录。场景声是单声道雨床和声音层次；左右声道仅作轻微hand偏置，没有HRTF或真实三维声源定位。
+
+## 事件与生命周期
+
+材质kind选择主声；真实appliedDamage仅作有限音量强调；有伤害的HEAD把音调提到1.08×；fatal用0.90×并在原材质上叠0.52相对音量的处决重音，EXECUTION不双叠。各事件ID只在当前roundGeneration内消费一次，首批与乱序ID均能消费。全部暂存最多24个，超过120ms不补播。
+
+短音最多10路，另保留一路雨。声音按优先级主动回收：雨0、脚步/挥刀1、胜负2、材质3、格挡/受伤4、弹反/SKILL5、处决6。这样低优先级声音不会偷掉弹反或致命；雨声也不会被SoundPool无通知回收后永远停播。
+
+玩家挥刀使用真实刀尖速度：先观察低于0.70m/s或rest，再跨1.45m/s触发，最短180ms间隔；暂停、切轮或motionGeneration改变后须重新观察低速。敌人起手沿既有STARTUP入口。敌人步声使用现有累计步距，瞬移不补播步声。雨只在FIGHTING、场景/输入可用时播放，接触后180ms从0.10降至0.045，恢复后回到0.10。
+
+暂停、场景丢失、重开与close停止并清空；终局DEFEAT与USER暂停同批时保留末击，但不继续雨/脚步/挥刀。SKILL是实际SKILL事件，不能等同于没有CombatImpact枚举的GUARD_BREAK。
+
+## 触觉交接
+
+仅调整 `CombatFeedbackProfile.accent` 数值，hitStop、死亡时钟、视觉和局部光完全保持。下表level为strength=1时的基准，HEAD在有真实伤害时强调，fatal固定level245/72ms。实际SDK调用与同帧触觉优先级由Root接线。
+
+| 接触 | level | frequency | duration ms |
+| --- | ---: | ---: | ---: |
+| SOFT_HIT | 160 | 100 | 26 |
+| HARD_HIT | 205 | 240 | 12 |
+| GUARDED_HIT | 165 | 165 | 20 |
+| BLOCK | 190 | 150 | 28 |
+| PARRY | 245 | 300 | 14 |
+| PLAYER_HIT | 185 | 85 | 40 |
+| SKILL | 210 | 140 | 42 |
+| EXECUTION | 240 | 75 | 58 |
+
+## 验证边界
+
+专项使用注入的输出记录器运行真实CombatAudio与CombatFeedbackProfile，不调用Android声卡或PICO触觉。资源检查读取最终PCM、许可清单与SHA。`run_audio_tests.py`默认还运行共享CombatFeedbackTimingTest，并保留独立结果；`--audio-only`将本路证据另存到 `build/audio-jvm-tests/audio-only/`，不会覆盖共享回归失败记录。
+
+完整最新结果与Root待办见 [11-audio-haptics.md](../../docs/agents/11-audio-haptics.md)。整包构建、设备播放同步、实际声压、Space Pro频率/力度与长时间舒适度均未由本路验证。

@@ -1,0 +1,34 @@
+{
+  "status": "OFFLINE_ASSET_AND_TRAJECTORY_PASS",
+  "runtime_status": "Root integration and PICO verification required",
+  "assets": [
+    {
+      "asset": "metal/metal_contact_polish.glb",
+      "sha256": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce",
+      "mesh_nodes": 13,
+      "particles": 12,
+      "animations": 0
+    },
+    {
+      "asset": "wet/wet_cloth_contact.glb",
+      "sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+      "mesh_nodes": 10,
+      "particles": 10,
+      "animations": 0
+    },
+    {
+      "asset": "ground/dodge_ground_polish.glb",
+      "sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2",
+      "mesh_nodes": 8,
+      "particles": 8,
+      "animations": 0
+    },
+    {
+      "asset": "ground/landing_ground_polish.glb",
+      "sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae",
+      "mesh_nodes": 8,
+      "particles": 8,
+      "animations": 0
+    }
+  ]
+}

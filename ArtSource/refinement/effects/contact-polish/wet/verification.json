@@ -1,0 +1,23 @@
+{
+  "status": "OFFLINE_SOURCE_CHECKS_PASS",
+  "runtime": "Root SDK and headset validation pending",
+  "sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+  "bytes": 19448,
+  "particles": 10,
+  "droplets": 8,
+  "fibers": 2,
+  "independent_meshes": 10,
+  "triangles": 196,
+  "measured_droplet_diameter_m": [
+    0.0020000000949949026,
+    0.0038999998942017555
+  ],
+  "lifetime_range_s": [
+    0.18,
+    0.32
+  ],
+  "normal_and_winding_checks": "PASS",
+  "opacity_before_birth_and_at_death": "PASS",
+  "gravity_coordinate_space": "Stage",
+  "paid_asset_tasks": 0
+}

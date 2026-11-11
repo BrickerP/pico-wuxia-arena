@@ -8,6 +8,8 @@ internal class BladeTrailGeometry {
         val positions: List<Vector3>,
         val triangleIndices: List<Int>,
         val alphas: List<Float>,
+        /** Tail vertices precede this offset; the short hot edge follows it in the same mesh. */
+        val coreVertexOffset: Int,
     )
 
     private data class Sample(
@@ -71,25 +73,47 @@ internal class BladeTrailGeometry {
         val positions = mutableListOf<Vector3>()
         val indices = mutableListOf<Int>()
         val alphas = mutableListOf<Float>()
-        for (index in 1 until samples.size) {
-            val before = samples[index - 1]
-            val after = samples[index]
-            val firstTriangle = hasArea(before.near, before.far, after.near)
-            val secondTriangle = hasArea(after.near, before.far, after.far)
-            if (!firstTriangle && !secondTriangle) continue
+        fun append(before: Sample, after: Sample, hotCore: Boolean) {
+            // The hot edge occupies the outer half of the sampled blade, never a preset arc.
+            val beforeNear = if (hotCore) before.near + (before.far - before.near) * 0.5 else before.near
+            val afterNear = if (hotCore) after.near + (after.far - after.near) * 0.5 else after.near
+            val firstTriangle = hasArea(beforeNear, before.far, afterNear)
+            val secondTriangle = hasArea(afterNear, before.far, after.far)
+            if (!firstTriangle && !secondTriangle) return
             val offset = positions.size
-            positions.addAll(listOf(before.near, before.far, after.near, after.far))
-            val beforeAlpha = alpha(before, nowNanos)
-            val afterAlpha = alpha(after, nowNanos)
+            positions.addAll(listOf(beforeNear, before.far, afterNear, after.far))
+            val lifetime = if (hotCore) CORE_NANOS else HISTORY_NANOS
+            val beforeAlpha = alpha(before, nowNanos, lifetime)
+            val afterAlpha = alpha(after, nowNanos, lifetime)
             alphas.addAll(listOf(beforeAlpha, beforeAlpha, afterAlpha, afterAlpha))
             if (firstTriangle) indices.addAll(listOf(offset, offset + 1, offset + 2))
             if (secondTriangle) indices.addAll(listOf(offset + 2, offset + 1, offset + 3))
         }
-        return if (indices.isEmpty()) null else Ribbon(positions, indices, alphas)
+        for (index in 1 until samples.size) append(samples[index - 1], samples[index], hotCore = false)
+        val coreVertexOffset = positions.size
+        for (index in 1 until samples.size) {
+            val before = samples[index - 1]
+            val after = samples[index]
+            val afterAge = ageNanos(after.atNanos, nowNanos)
+            if (afterAge >= CORE_NANOS) continue
+            val beforeAge = ageNanos(before.atNanos, nowNanos)
+            val clipped = if (beforeAge > CORE_NANOS) {
+                // Clip along the measured segment at the hot-edge age, including sparse frames.
+                val fraction = (beforeAge - CORE_NANOS).toDouble() / (beforeAge - afterAge)
+                Sample(
+                    before.near + (after.near - before.near) * fraction,
+                    before.far + (after.far - before.far) * fraction,
+                    nowNanos - CORE_NANOS,
+                    before.intensity + (after.intensity - before.intensity) * fraction,
+                )
+            } else before
+            append(clipped, after, hotCore = true)
+        }
+        return if (indices.isEmpty()) null else Ribbon(positions, indices, alphas, coreVertexOffset)
     }
 
-    private fun alpha(sample: Sample, nowNanos: Long): Float =
-        ((1.0 - ageNanos(sample.atNanos, nowNanos).toDouble() / HISTORY_NANOS)
+    private fun alpha(sample: Sample, nowNanos: Long, lifetimeNanos: Long): Float =
+        ((1.0 - ageNanos(sample.atNanos, nowNanos).toDouble() / lifetimeNanos)
             .coerceIn(0.0, 1.0) * sample.intensity).toFloat()
 
     private fun hasArea(a: Vector3, b: Vector3, c: Vector3): Boolean {
@@ -102,6 +126,7 @@ internal class BladeTrailGeometry {
 
     private companion object {
         const val HISTORY_NANOS = 65_000_000L
+        const val CORE_NANOS = 12_000_000L
         const val MAX_SAMPLES = 8
         const val GEOMETRY_EPSILON = 1e-12
     }

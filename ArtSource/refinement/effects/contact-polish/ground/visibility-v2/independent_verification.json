@@ -1,0 +1,18 @@
+[
+  {
+    "source_sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2",
+    "candidate_sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
+    "geometry_and_kinematics_identical": true,
+    "transparent_edges_preserved": true,
+    "emission_unchanged": true,
+    "runtime_status": "Root review and integration required"
+  },
+  {
+    "source_sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae",
+    "candidate_sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b",
+    "geometry_and_kinematics_identical": true,
+    "transparent_edges_preserved": true,
+    "emission_unchanged": true,
+    "runtime_status": "Root review and integration required"
+  }
+]

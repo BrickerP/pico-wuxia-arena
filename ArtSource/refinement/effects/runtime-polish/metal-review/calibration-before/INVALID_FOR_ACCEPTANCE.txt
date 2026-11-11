@@ -1,0 +1,1 @@
+Calibration-before: early ordinary metal core readability did not pass. Retained as true prior visual evidence. Source/render parameters and observed limitation are preserved in this directory.

@@ -8,7 +8,7 @@
 
 ## 当前状态
 
-**阶段6防御支撑与破势卸力收尾。** 三攻击bank已冻结交Root，当前两类敌人状态曲线和姿态板已产，正在完成最终依赖身份与连续短片核对。正式接入由Root统一完成。
+**阶段6／7源动作已结束，等待review；阶段8受击画面核对中。** 三攻击raw继续冻结。源动作及正常视距观感由01制作，正式bank／正常循环／代理由09承接，公共producer与发布由Root维护。
 
 ## 上一轮成果与Root review
 
@@ -329,7 +329,7 @@ Root已查看阶段4的v2三视角板，接受更宽战斗站姿、屈膝、上�
 
 ## 阶段6回报
 
-两类敌人状态候选与数据验证已完成，最终短片及审计按新依赖身份收尾。首版两姿态板约00:45可见，超过30分钟首图目标约3分钟；后续补齐依赖闭包后重建，12个GLB的字节与SHA均保持相同。
+**阶段结束，等待Root／09 review。** 两类敌人状态候选、最终短片及审计均已完成。首版两姿态板约00:45可见，超过30分钟首图目标约3分钟；后续补齐依赖闭包后重建，12个GLB的字节与SHA均保持相同。
 
 ### 语义、产物与事件源
 
@@ -356,3 +356,40 @@ Root已查看阶段4的v2三视角板，接受更宽战斗站姿、屈膝、上�
 - [正劈被弹反卸力三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/parried_recoil/parried_recoil_three_view_board.png)
 
 已目视全部30视图，支撑抬刀与卸力侧摆可区分，刀尖和脚底均入画。有限过渡采样不证明C1或无限连续无穿插，实际游戏触发、各状态映射、三角色适配与设备画面仍待Root整合。左右入口补齐及受击动作接续队列执行。
+
+- [支撑连续正侧短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/guard_brace/guard_brace_front_side_continuous.mp4)、[破势卸力连续正侧短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/parried_recoil/parried_recoil_front_side_continuous.mp4)，11／12个实际时刻均已目视。
+- [渲染方法与末帧修正](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/defense_visual_review.json)，LINEAR末帧在duration之前10微秒取样，避免Blender NLA端点回到入口；模型自身末key已逐值证明为guard。
+- [支撑表面审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/audit/guard_brace_surface_review.json)、[破势表面审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/audit/parried_recoil_surface_review.json)，已按最终metadata与29项实际依赖闭包fresh复跑，骨锚在同audit目录。
+
+## 阶段7回报
+
+**阶段结束，等待Root／09 review。** 左右攻击被弹反的入口源已补齐。三攻击raw未修改，新角色语义是敌人的左／右攻击被玩家弹开后卸力。
+
+| clip | raw SHA-256 | preview SHA-256 |
+| --- | --- | --- |
+| parried_recoil_left | `3619bd24c4d25ac6d183e0b9cc2ab1a950a52a437aa37005a9a3cfbed122609b` | `8fde4d6ba500e029d3b2baca807458599169c232a6dca54f66d3dc0d26818257` |
+| parried_recoil_right | `22f0879fecbbebc2b2313229551e17838a1efcd76900c5cfaa09ecb7f92f4802` | `ca482d661da4cab6a3868ad636a4d311b7015abed99c32bab17409cc176c4970` |
+
+文件位于 `hand-poses/attack-keyposes/stage7/candidate`，每源.85秒／55键LINEAR，另有五姿态STEP板。raw原右手抓握未校正，preview原8项右指校正一次。源0的234条raw／preview TRS分别精确匹配最终slash_to_left／right源1.00秒接触帧，末canonical guard。左入口顺角色+X卸刀，源0／.18／.26刀尖X约-.067／+.356／+.708m；右入口顺-X，约-.063／-.413／-.726m。中段护手、腕位与肩腰参数由本轮制作记录。
+
+### 验证与可见交付
+
+四份候选各19项拒绝回归通过。两完整源各55key与54中点共109时刻，左手／头颈对实际DAO均0个BVH候选、0对已确认交叉。左入口最小间距158.221／151.687mm，右入口123.608／58.597mm。足底低带最大水平位移约.721mm、最深下探约.071mm。36项依赖及六项错误源／入口／数学依赖拒绝回归通过，各55行7骨与刀端点由audit统一导出。
+
+- 三视角板 [左入口](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/review/parried_recoil_left/parried_recoil_left_three_view_board.png)、[右入口](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/review/parried_recoil_right/parried_recoil_right_three_view_board.png)。
+- 连续正侧片 [左入口](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/review/parried_recoil_left/parried_recoil_left_front_side_continuous.mp4)、[右入口](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/review/parried_recoil_right/parried_recoil_right_front_side_continuous.mp4)。
+- [可复跑审计](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/audit_parry_entries.py)与同audit目录两表面报告／骨锚，[渲染方法与骨锚校验](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage7/review/parry_entries_visual_review.json)。
+
+本轮交图延后，原01:45首图目标未达到，最终图在11日中午收口。渲染改为单一直接Action＋action_slot求值，取消NLA路线与STEP端点补丁，源0至.85秒精确覆盖。入口、出口及内部抽样6骨数值校验最大约6.338e-7m，全部30静图及24视频采样已目视。动作源、有限采样与渲染证据未证明设备手感、C1或无限连续无穿插。550ms破势如何映.85秒源及状态选择由09接入。
+
+## 当前阶段8与新版分工
+
+已读12路制作入口与新版文件所有权。当前制作hit_body／hit_head源，保持现消费者.05至.72秒映普通HIT300ms或实际扩展时长；hit_head同时覆盖执行前段.10至.595秒。源正常时钟不烘焙短停或死亡慢动作。0／.05／.72严格canonical guard，实际front mesh标记与骨锚已产，正常1.5m视距前后图及300ms播放还在制作。
+
+本路后续重点为可见重心、蓄势、支撑、卸力和转身，三攻击stage5源保持冻结。与09共享源时点和入口语义，应用接线由09与Root维护；服装跨动作穿插由01／03交换源姿态处理。遵循新版每路最多1个Blender进程，避免并行制作争用。
+
+## Root本轮组合审核与续派（2026-11-11）
+
+审核：三方向攻击、guard支撑、三向被弹反和受击源已收件，当前正式库已用三方向10clip。
+
+下一步：最高优先完成canonical guarded walk，关闭旧walk/newguard约0.25m祖先差；原78骨、原右指未烘焙、真实gait时钟和足底支撑须可追溯。

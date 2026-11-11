@@ -1,0 +1,55 @@
+{
+  "images_verified": 9,
+  "frame_size": [
+    800,
+    600
+  ],
+  "distinct_opacity_materials": 29,
+  "unchanged_before_after_input_keys": [
+    "actor_sha256",
+    "baseline_sha256",
+    "candidate_sha256",
+    "motion_sha256",
+    "contact_point_blender_m",
+    "actual_surface_normal_blender",
+    "distance_m",
+    "horizontal_fov_degrees",
+    "basis_stage",
+    "stage_gravity_mps2",
+    "normal_particle_scale",
+    "parry_particle_scale",
+    "parry_velocity_extra",
+    "core_seconds"
+  ],
+  "only_parameter_change": "Core multiplier ordinary 1.9 / parry 2.6",
+  "core_opacity_at_samples": {
+    "33ms": {
+      "normal": 0.5257861635220127,
+      "parry": 0.7398148148148147
+    },
+    "67ms": {
+      "normal": 0,
+      "parry": 0.3046296296296296
+    },
+    "167ms": {
+      "normal": 0,
+      "parry": 0
+    }
+  },
+  "core_diameter_m_at_samples": {
+    "33ms": {
+      "normal": 0.12875065,
+      "parry": 0.1761851
+    },
+    "67ms": {
+      "normal": 0,
+      "parry": 0.1947309
+    },
+    "167ms": {
+      "normal": 0,
+      "parry": 0
+    }
+  },
+  "previous_calibration": "calibration-before/; early ordinary metal readability did not pass",
+  "scope": "Actual offline frames and stateless timing/numeric verification; not SDK/Space Pro acceptance"
+}

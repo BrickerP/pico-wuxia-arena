@@ -1,0 +1,30 @@
+[
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.core/core/6.1.9/64386a1efbef81d62460d26299c27529a6c19039/core-6.1.9.aar",
+    "sha256": "cec67e906bbe06515df3af189b12812da4d84e3e90b2125a668784665745d041"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.foundation/foundation/6.1.9/575e242376dc119b8cc9caf8830981d466776b44/foundation-6.1.9.aar",
+    "sha256": "57e247d6d1d54b5bae8434fa6289084c88564e2047eb035259ff5ecb9a83f734"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.sense/sense/6.1.9/606264de4f69f3d79202e88d2d332a86873e07be/sense-6.1.9.aar",
+    "sha256": "c1f074f95be3c86e939023e7410fe4fd10f0ddc83a73affbdffd61042817bda0"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.tracking/tracking/6.1.9/f3e31a7de643a59ba41996f7d99c8ac92fd38417/tracking-6.1.9.aar",
+    "sha256": "19c827d15b91e2ca33e9933f96548a7ecd708408352a9c656c2d7634765596f1"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.ui/design/6.1.9/b72d0869cbdcee6597bf1c635b357b02a3ff3e91/design-6.1.9.aar",
+    "sha256": "2a762b2aa8497ea70e0d5667a508694b19d9bb4a636e469807dd2410f80e61f1"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.ui/foundation/6.1.9/4564487fda8f5ea93bf01c40fab9a36d50efd87e/foundation-6.1.9.aar",
+    "sha256": "63c9c7bfd9ef6e7642e23fc142054a833c358f915ec0e9b9a31dace7596243c9"
+  },
+  {
+    "aar": "/Users/yupeng/.gradle/caches/modules-2/files-2.1/com.pico.spatial.ui/platform/6.1.9/2e6abb2c3e3fcefd1ba68e34c5cd97a9f303e859/platform-6.1.9.aar",
+    "sha256": "7d523958da25075cfa85d1dcdd15cf439503d746da8778a5eb918ae6c48d4a0f"
+  }
+]

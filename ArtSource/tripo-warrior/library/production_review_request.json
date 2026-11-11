@@ -1,0 +1,577 @@
+{
+  "schema_version": 1,
+  "status": "approved_for_development_integration",
+  "binding": {
+    "schema_version": 2,
+    "motion_source": {
+      "source": "expanded/base/tripo-out/461fea24-rig-e7df779b/model.glb",
+      "source_sha256": "b25da49650aa6ff9cdaf09053c1e891a38a1c8297d03ee3630eccbf1eb85e8d6",
+      "clips": [
+        {
+          "name": "idle",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-e011ab58/model.glb",
+          "source_sha256": "9a2c2c951c13eed0891fe462455ec09c8a7593a3ff7cedd7d025b8cd5c9a6bc9"
+        },
+        {
+          "name": "walk",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-2-7ddf98ee/model.glb",
+          "source_sha256": "38bfc0f00c6d3d635d7eb18c2aab1232a2c1f0d0361806a568f3c540f9ecc8d6"
+        },
+        {
+          "name": "fall",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
+          "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c"
+        },
+        {
+          "name": "turn",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-5-b35c205e/model.glb",
+          "source_sha256": "3a4f7f12934f87cebf2d8fed59602f69fcb5eafb7b9ba203652116478c694a26"
+        },
+        {
+          "name": "hit_body",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-6-8b0a1035/model.glb",
+          "source_sha256": "f8f16bb8f5ae4369134e61b5662fe891a80dca122c8ed77cb999aef6fb7b860c"
+        },
+        {
+          "name": "hit_head",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-7-a03d8662/model.glb",
+          "source_sha256": "b152df4679efc20e29e218cd382d8b52d694cb767ec4dcb7f415a855e0f4b026"
+        },
+        {
+          "name": "hit_side",
+          "source": "expanded/base/tripo-out/e7df779b-retarget-8-68546cb4/model.glb",
+          "source_sha256": "a27a5a3a1ea1bd68774d10740a7a55aee5549a0be70669327fd8679c2443120c"
+        }
+      ],
+      "contract": "motion41"
+    },
+    "attack_source": {
+      "contract": "attack78",
+      "source": "refined-base60k/rig.glb",
+      "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "authoring_manifest": {
+        "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/attack_bank_inputs.json",
+        "source_sha256": "70882dead0ea0e006e113a23f90098aea6ec777cd2c1d9cb3084a1285808ae24"
+      },
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.9,
+        "active_end": 1.1,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "clips": [
+        {
+          "name": "attack_overhead",
+          "direction": "OVERHEAD",
+          "incoming_guard_side": "OVERHEAD",
+          "actor_travel_side": "DOWN",
+          "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb",
+          "source_sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
+          "stage": "authored_raw",
+          "right_calibration_baked": false
+        },
+        {
+          "name": "attack_left",
+          "direction": "LEFT",
+          "incoming_guard_side": "LEFT",
+          "actor_travel_side": "LEFT",
+          "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
+          "source_sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+          "stage": "authored_raw",
+          "right_calibration_baked": false
+        },
+        {
+          "name": "attack_right",
+          "direction": "RIGHT",
+          "incoming_guard_side": "RIGHT",
+          "actor_travel_side": "RIGHT",
+          "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
+          "source_sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+          "stage": "authored_raw",
+          "right_calibration_baked": false
+        }
+      ]
+    },
+    "hand_policy": {
+      "version": 1,
+      "right": "target native grip sample, then right-only offsets once",
+      "movement_left": {
+        "idle": [
+          "relaxed",
+          [
+            [
+              0.0,
+              0.18
+            ],
+            [
+              0.5,
+              0.22
+            ],
+            [
+              1.0,
+              0.18
+            ]
+          ]
+        ],
+        "walk": [
+          "loose moving guard",
+          [
+            [
+              0.0,
+              0.22
+            ],
+            [
+              0.5,
+              0.3
+            ],
+            [
+              1.0,
+              0.22
+            ]
+          ]
+        ],
+        "turn": [
+          "loose turning guard",
+          [
+            [
+              0.0,
+              0.2
+            ],
+            [
+              0.5,
+              0.28
+            ],
+            [
+              1.0,
+              0.2
+            ]
+          ]
+        ],
+        "hit_body": [
+          "protect the body",
+          [
+            [
+              0.0,
+              0.18
+            ],
+            [
+              0.22,
+              0.52
+            ],
+            [
+              0.6,
+              0.32
+            ],
+            [
+              1.0,
+              0.18
+            ]
+          ]
+        ],
+        "hit_head": [
+          "open protective palm",
+          [
+            [
+              0.0,
+              0.18
+            ],
+            [
+              0.22,
+              0.1
+            ],
+            [
+              0.55,
+              0.16
+            ],
+            [
+              1.0,
+              0.18
+            ]
+          ]
+        ],
+        "hit_side": [
+          "soft protective curl",
+          [
+            [
+              0.0,
+              0.18
+            ],
+            [
+              0.22,
+              0.38
+            ],
+            [
+              0.6,
+              0.26
+            ],
+            [
+              1.0,
+              0.18
+            ]
+          ]
+        ],
+        "fall": [
+          "release the empty hand",
+          [
+            [
+              0.0,
+              0.18
+            ],
+            [
+              0.4,
+              0.12
+            ],
+            [
+              1.0,
+              0.04
+            ]
+          ]
+        ]
+      },
+      "movement_left_thumb_multiplier": 0.55,
+      "attack_left": "authored dynamic source transferred by world-rest delta"
+    },
+    "attack_root_grounding": {
+      "version": 1,
+      "method": "prepared +Y whole BoneRoot translation at unchanged source keys",
+      "target_plane_metres": -0.028,
+      "region": "body vertices with total same-side Foot/Toe skin weight greater than 0.5",
+      "midpoint_tolerance_metres": 0.001,
+      "scope": "three attacks only; no per-foot IK or horizontal slip correction"
+    },
+    "weapon_source": {
+      "source": "../refinement/weapon/stage2/dao_refined.glb",
+      "source_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452"
+    },
+    "characters": [
+      {
+        "id": "base",
+        "name": "试刀客",
+        "source": "refined-base60k/rig.glb",
+        "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+        "grip_source": {
+          "source": "refined-base60k/slash.glb",
+          "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+          "time_seconds": 2.117
+        },
+        "height_metres": 1.78,
+        "output": "base.glb",
+        "grip_frame": [
+          -0.16072334349155426,
+          -0.5248600840568542,
+          0.025034062564373016,
+          0.0,
+          -0.46255403757095337,
+          0.12890203297138214,
+          -0.26714247465133667,
+          0.0,
+          0.24929668009281158,
+          -0.09921175241470337,
+          -0.47952595353126526,
+          0.0,
+          0.013535577803850174,
+          0.046395160257816315,
+          -0.0215284563601017,
+          1.0
+        ],
+        "finger_rotation_offsets": {
+          "R_Thumb1": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Index2": {
+            "x_degrees": 3.0,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Thumb3": {
+            "x_degrees": -3.0,
+            "z_degrees": -3.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        }
+      },
+      {
+        "id": "indigo",
+        "name": "青衫护院",
+        "source": "expanded/indigo/tripo-out/0f073f22-rig-bc292084/model.glb",
+        "source_sha256": "a625806909836c5f9cbbeeeb805c95d46afc55df2ff5635a69aa0b50a752d495",
+        "grip_source": {
+          "source": "expanded/indigo/tripo-out/bc292084-retarget-12bbb9fd/model.glb",
+          "source_sha256": "bc7749706590f19e1e513617a1089114c3ddedab8c3b72dc89fde8b05fc07835",
+          "time_seconds": 2.117
+        },
+        "height_metres": 1.78,
+        "output": "indigo.glb",
+        "grip_frame": [
+          -0.03886540234088898,
+          -0.5554472208023071,
+          0.07472897320985794,
+          0.0,
+          -0.5517919659614563,
+          0.05104069784283638,
+          0.09239812940359116,
+          0.0,
+          -0.0981430634856224,
+          -0.06700600683689117,
+          -0.5490856170654297,
+          0.0,
+          -0.01884925179183483,
+          0.06671556085348129,
+          -0.019212497398257256,
+          1.0
+        ],
+        "finger_rotation_offsets": {
+          "R_Ring2": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": -7.5,
+            "z_degrees": 3.0
+          },
+          "R_Mid2": {
+            "x_degrees": 0.0,
+            "z_degrees": 6.0
+          },
+          "R_Thumb3": {
+            "x_degrees": -1.5,
+            "z_degrees": -3.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 1.5,
+            "z_degrees": 1.5
+          },
+          "R_Thumb1": {
+            "x_degrees": 1.5,
+            "z_degrees": 1.5
+          },
+          "R_Index3": {
+            "x_degrees": 1.5,
+            "z_degrees": 3.0
+          },
+          "R_Index2": {
+            "x_degrees": -1.5,
+            "z_degrees": 6.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky2": {
+            "x_degrees": 1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -4.5,
+            "z_degrees": 12.0
+          }
+        }
+      },
+      {
+        "id": "veteran",
+        "name": "玄甲守擂",
+        "source": "expanded/veteran-refined/model.glb",
+        "source_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+        "grip_source": {
+          "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
+          "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+          "time_seconds": 2.117
+        },
+        "height_metres": 1.78,
+        "output": "veteran.glb",
+        "grip_frame": [
+          -0.10662046819925308,
+          -0.5376186370849609,
+          0.05461851507425308,
+          0.0,
+          -0.5248810052871704,
+          0.0897907242178917,
+          -0.14079207181930542,
+          0.0,
+          0.12851785123348236,
+          -0.07930147647857666,
+          -0.5296974182128906,
+          0.0,
+          0.001936654094606638,
+          0.04748240113258362,
+          -0.026754900813102722,
+          1.0
+        ],
+        "finger_rotation_offsets": {
+          "R_Ring2": {
+            "x_degrees": -3.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 1.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb3": {
+            "x_degrees": -6.0,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 7.5,
+            "z_degrees": 1.5
+          },
+          "R_Index2": {
+            "x_degrees": -1.5,
+            "z_degrees": 3.0
+          },
+          "R_Index1": {
+            "x_degrees": -4.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky2": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        }
+      }
+    ]
+  },
+  "binding_sha256": "7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff",
+  "characters": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 23255016,
+          "sha256": "02cf4208ab4c75dc7e4eba486a99152a0b7d3b655f94c38f77f1b048f78a5469"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 26348104,
+          "sha256": "e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "151c6da028d3d38eb891c6ffc871e527f168644683a7f52b07ad579b801ad4b8",
+        "walk": "3482c00c637b640f737c0ac97a9f27762385885a63170dbf17855868039199fa",
+        "fall": "78685f595f1a908ff2c4058f86eb59f9202b9dd09852c7457988e0e2be353b2d",
+        "turn": "789722f3ba0ef0d0d6ce764fceed4db7ceaba6c313c3d69f6f2cab6c936a3481",
+        "hit_body": "dc5712b758e91e91fdac396623cff59e6c5e0d70b59c815e8f34a59f65452407",
+        "hit_head": "3936b7148d4eaf6c8d31964ee342a82018a815674bbe0143f8faf1550ea17202",
+        "hit_side": "40e78a04f7fafc753b8562228b18c6027db14f8cb46d322f96fa7714d921405a",
+        "attack_overhead": "76c1ccf2ef99b5f92fdbc4df7df5063ecd8f72ecb84d8c465d3cf83b9126ab36",
+        "attack_left": "ddb91ebed8d3acf21ddc2db4f89a27ad58fe07e8a41f7ce987d35004bb46fcff",
+        "attack_right": "417866746999269b128226147e801f290e83c03b9d6462b88372d59ae391886a"
+      },
+      "clip_semantic_signatures": {
+        "idle": "eb6a6a3d91ef7ca29b80becdcb7f89879449c6a45b7625a73dca5cdf3dbe75bc",
+        "walk": "8e5a6bb0341fa916389e0c86c4d20500814c4c3abd6a8a2efc53dd45975781e7",
+        "fall": "0a6f735a64698233e5c603041ee9b5da1a58ff4d4aa27606112fcc0fc1b58a7f",
+        "turn": "8ac92fc6ee199f0f86c723e0adfa34a6da1a2c74c72c15ffac40ca91035d5f8e",
+        "hit_body": "384800005498b6027f13a520451b2264375102012137644b9badcd2ce4117e6c",
+        "hit_head": "dbce47a86883548065fdb9f6cb2ddf816464ed8d95bd230f2487404e48df3c83",
+        "hit_side": "912f6912ca65b3bd6c336668103fa36bef6648cef1ad055a8e5feed3460ef571",
+        "attack_overhead": "30780a0c9cef5001ee860c9af069b2651ffa34c8e45d5cd0bf665a990f8a5668",
+        "attack_left": "9e10fb1e5297cceadedf782c22d2ba5d93817629cea76f170bf9397d9671ca4c",
+        "attack_right": "09e33f643757ea596789d53a4273d7c1a2c86876ffa9c850c79cdf1531085889"
+      },
+      "attack_profiles_sha256": "f4b2d918bdb63cfd9436708822dc262df9c5e94ec357f1dc6b5a0ee01a114450"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 15059092,
+          "sha256": "99227ef404ebfe53cde0181bdf1e5bea2f0af77f709e0a3f295504cccd133063"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 18152160,
+          "sha256": "448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "d73a093bfd30cfaff3371c6845543c863512897ba7d82ec4ca591800da2248ac",
+        "walk": "0fd49f60564c94a48ae2d5bcd54891d0face3c7229b9a21b84148582f0719351",
+        "fall": "678c951a7a4c200b9da26dfa73629cae2e75a81d14c5cb932d009a8f3299772a",
+        "turn": "2f2a0ba2670c64cc8c76bbd9baf898b7a086352cb87526633a10a5198b3f523b",
+        "hit_body": "f8decf4ae0ac3a5d02c53605af27896ddb36942bb258d79870b1b7a16a6f4d9e",
+        "hit_head": "6e70d5810e96ffc8694760093ea716a2539c6f708cd20c9275abcb2cd4473be7",
+        "hit_side": "cf5ca4c7aec46bd0eb37094ff8c09a43c6eef123896ef1f2264c95736260c313",
+        "attack_overhead": "2d5938e581534674e00485c3c444754c296718e340790dce9039f9f36c7d6604",
+        "attack_left": "b65ab722e221794711d124771cac70c5eb74af95ff5b0a795adccb7f4213b632",
+        "attack_right": "dd0235a47adf36889d819aabda5c83fe45cb375beae0a2ebb339b7579261c63e"
+      },
+      "clip_semantic_signatures": {
+        "idle": "848ef346e65d3d5df9c59d5dfa9ecd8270b46f79099b38f5f5eaf143d7a4a314",
+        "walk": "84a196e03e09ddf8a761a820a645529a1181a298e03f244b0281ebd94658c683",
+        "fall": "a5d517785e9e6b55294b21bd5ec962eede6c89cc7824a6ecac32acbaafacfbe6",
+        "turn": "f6ab6f5c6cace4f68b79e62960780445ff9c0ff2eb07be430ee6a09daf2e06e9",
+        "hit_body": "1dbd09c06b68be1a96c6474ce4a4ad089c61495ef9f1f4dbd597de650b004515",
+        "hit_head": "b0614d028b26c8b12ce9baf6d5f63668e1eb664b8fd8d155dbe6e384dd5bcb53",
+        "hit_side": "288b55657c8915a7cbf17b3d90a6e60bf738648fbf807e600f8d79804f8af33e",
+        "attack_overhead": "2879c47662dc8d4a06a9ca0f55e8442900aa7d0b7a6dae0b3a6eec9b9de94f2b",
+        "attack_left": "11a402082e6a942ebd995eea597a6d66f1365d64c98db4412f206829e25a21b2",
+        "attack_right": "975caded608c052c6504e962cd922bb9148a2973dce08acf6585738803ca4b49"
+      },
+      "attack_profiles_sha256": "4633e2a7e3d8173f09e2c1e7ff98e713b11cacb6b01979055dbe4ba469d44a3a"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 14536920,
+          "sha256": "6cb873f8cbe8ca772ccb76eb819cf9575e47a43142da3eff34689a887e848848"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 17630000,
+          "sha256": "0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "9b264c43195a815608c88b938f73227978ce75b35c2ed8dda9220bcd3a812503",
+        "walk": "3b8d85facc5309b385946f04c98b6111fecfe1219e7542b621389fd208d94c2d",
+        "fall": "1d3fd6e5829c65e2e5cda9a21d1645ef3f40cc25b870f376bbf790723b107d39",
+        "turn": "80500081f625d4c2734c0c31b12660d70974e49408af1fa83a89d244b77f5c60",
+        "hit_body": "74a0c6810dcd65aac5241d4a0572abe3bad7a7fd9bcc01afab639a111bc6428f",
+        "hit_head": "df5c3736db5599d646e72349393bf0b938a855cecf2ba9297e89b63068235765",
+        "hit_side": "216891d13116c10771f15ce29bdec286caee84f845d9bc3501b3f78d91d682b5",
+        "attack_overhead": "69019a91c321975fb0268487f6733c743641cf3a49dd2f5dd4d195552269175c",
+        "attack_left": "0016e0e5f7d0e5cd47de605d9ff151c8305fab4d5e802ad1d95f6a6f69692bcb",
+        "attack_right": "669f41fdb281bfa45778743679f6f223137ec0b58dc94b4e9e9ffe4da1b06a67"
+      },
+      "clip_semantic_signatures": {
+        "idle": "ece932164181d11ea94bf99f53dcde56ad2f9641b0451f97aa885e1ad40eca85",
+        "walk": "6102046b86892d6447e0eacff74c0e830e6386c0576610cf67e4bfcdcabf3795",
+        "fall": "a42b9e4569800a4771dc40dab098fb3a599ac82f65136086e3d8c068d2bcc22e",
+        "turn": "58f49cdaf1ba8b655b7d751e9522881812a59cf8f41f7b722c89838a80914bf0",
+        "hit_body": "c1fbf003cfcaf8ad8414a9d4689a0454d4e4787ba28d4ebeaf45f2cfc01ba6db",
+        "hit_head": "b69306b9c8f4732898de382f8cbc50b52fcd6c2b9f118877ae4303c9994b8633",
+        "hit_side": "81fdcbded061419c843b5f4dbf2902ca96f11a874a481b7ba9204a3b8eb98c1b",
+        "attack_overhead": "4079ce2be4eb06b331708bb002ea66b46ef5449ade20f3b15d1519d5e000fe2d",
+        "attack_left": "02fd2634dc8b27e41691fdc5a02228a2a1b812e1f6786e9a227e09e8ffe8a9f4",
+        "attack_right": "3e1549e851fe2f6a6d2cfc6f8039fe0aed6f2a8e3c6d153f4804015182434b04"
+      },
+      "attack_profiles_sha256": "c6822e9f07ca94af850ded93c7a2d175bd10df4a4cb73be4f08d024cc9dd2c88"
+    }
+  ]
+}

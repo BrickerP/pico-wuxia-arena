@@ -1,0 +1,126 @@
+{
+  "scope": "web_design_validation_only",
+  "revision": 9,
+  "sourceSha": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "schema": "PASS",
+  "embeddedJsonParity": "PASS",
+  "allReferencesResolve": "PASS",
+  "fiveStateScreenshots": "PASS",
+  "browserObserved": [
+    "start→fighting",
+    "pause→paused",
+    "resume→fighting",
+    "sample-round-complete→round-clear",
+    "sample-trial-complete→victory",
+    "retry→ready",
+    "restart confirmation cancel→fighting",
+    "restart confirmation accept→ready",
+    "fallback controls disabled",
+    "error controls disabled"
+  ],
+  "registeredComponents": [
+    "sui-button",
+    "sui-badge",
+    "sui-linear-progress",
+    "sui-alert-dialog (observed live confirmation)"
+  ],
+  "computedBodyBackground": "rgb(218, 214, 211)",
+  "computedBodyBackgroundImage": "none",
+  "surfaceCheck": "PASS 0 errors 0 warnings; 2 app surfaces / 65 nodes",
+  "browserLimitation": "chrome-use 对Shadow DOM控件出现错误遮挡报告，测试使用工具明确提供的--allow-dom，事件为isTrusted=false。证明Web组件事件和状态可达；不证明真实VR手柄、hover或haptics。",
+  "unverified": [
+    "PICO compile/install/runtime",
+    "Space Pro physical readability at 0.8m/1.5m/3m",
+    "head-motion stability",
+    "occlusion against real scene",
+    "native font rasterization",
+    "controller hover/haptics",
+    "PREPARING direction 0.94→1.0 and HIT feedback 1.04→1.0 dynamic emphasis on device"
+  ],
+  "damageSamples": "ordinary no label; head gold; guarded+head paleAsh guarded; fatal+guarded+head gold fatal",
+  "sealGapDp": 8,
+  "headerHeightDp": 40,
+  "screenshotRevision": 5,
+  "motionDesignFacts": "direction-label.props.simulationScale and feedback.props.simulationScale",
+  "motionPreviewPresentation": "static-final scale 1.0 only; dynamic emphasis not rendered or verified in Web",
+  "newScreenshotsThisRevision": true,
+  "feedbackScaleActivation": {
+    "allowedFeedback": [
+      "HIT",
+      "HEADSHOT",
+      "GUARDED_HIT",
+      "PARRY"
+    ],
+    "when": {
+      "result": "FIGHTING",
+      "pauseReason": null,
+      "inputReady": true,
+      "phase": "HIT"
+    },
+    "otherwiseScale": 1.0
+  },
+  "upstreamRuntimeValidation": {
+    "reportedBy": "UI执行负责人",
+    "result": "Kotlin + Compose 及24 tests全部通过",
+    "independentlyRerunHere": false
+  },
+  "settlementSamples": {
+    "layoutStateId": "victory",
+    "result": "DEFEAT",
+    "samples": [
+      "defeat",
+      "defeat-timeout"
+    ],
+    "qaHook": "window.__arenaPreview.setSettlementSample(sampleId)",
+    "browserObserved": [
+      "normal defeat title, closing, score and resources from JSON",
+      "timeout defeat feedback: 试炼时间已尽",
+      "retry returns ready"
+    ],
+    "contentClientHeight": 194,
+    "contentScrollHeight": 194,
+    "screenshots": [
+      "defeat-preview.png",
+      "defeat-timeout-preview.png"
+    ],
+    "scope": "Web capacity validation only; not headset evidence"
+  },
+  "frozenFields": "palette, all surface dimensions, direction-label/feedback simulationScale remain unchanged",
+  "teachingQa": {
+    "scope": "Web layout capacity only",
+    "fixedSurfaceCssDp": [
+      400,
+      400
+    ],
+    "guideHeightDp": 194,
+    "headingHeightDp": 24,
+    "bodyClientHeightDp": 114,
+    "bodyScrollHeightDp": 114,
+    "navigationHeightDp": 40,
+    "navigationBottomInsetDp": 20,
+    "desktopPagesObserved": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "nativePageObserved": 4,
+    "pausedDesktopPageObserved": 4,
+    "firstPreviousDisabled": true,
+    "lastNextDisabled": true,
+    "previousActionObserved": "4→3",
+    "bodyScrollTopAfterPaging": 0,
+    "nativeKeysPresent": false,
+    "dataSource": "dataCases.normal.techniqueGuide",
+    "qaHook": "__arenaPreview.setInputMode(desktop|native)",
+    "screenshots": [
+      "teaching-desktop-1.png",
+      "teaching-desktop-2.png",
+      "teaching-desktop-3.png",
+      "teaching-desktop-4.png",
+      "teaching-native-4.png",
+      "teaching-paused-desktop-4.png"
+    ]
+  },
+  "teachingSourceSha": "380dd46b1cfa6aaf54ef54bc44535b5af330b62d"
+}

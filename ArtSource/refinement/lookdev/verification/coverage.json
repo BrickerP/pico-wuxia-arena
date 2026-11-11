@@ -1,0 +1,15 @@
+{
+  "scope": "native units and geometric scope checked; exact angle/range attenuation and visualbrightness remain Rootruntime proof",
+  "profile": "rain-night-courtyard-hero-v4-NATIVE-SPOT-READABILITY",
+  "face_hand_max_axis_angle_degrees": 26.002042970359955,
+  "conservative_outer_half_angle_degrees": 37.5,
+  "face_hand_max_radius_fraction": 0.6696709650185596,
+  "point_5200lm_ideal_normal_lux_at3_112m_before_attenuation": 42.72615921930076,
+  "rear_facade_z_separation_m": 5.15,
+  "rear_facade_beyond_key_radius": true,
+  "spot_intensity_lumens": 20000,
+  "blade_fill_lumens": 12000,
+  "ibl_exponent": 4,
+  "ibl_multiplier": 16,
+  "unit_evidence": "SDK6.1 publicDirectionalLux/PointLumens/SpotLumens; Spot forward local-Z, angle degrees. No exact PICO cone formula inferred."
+}

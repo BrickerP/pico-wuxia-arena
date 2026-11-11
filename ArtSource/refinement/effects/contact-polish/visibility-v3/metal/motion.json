@@ -1,0 +1,1549 @@
+{
+  "schema": "contact-particle-motion/v2",
+  "mesh_coverage_policy": "Every mesh must occur exactly once in particles/cores/accents; unknown or undriven layers must reject emission",
+  "units": "metres_seconds",
+  "asset": "metal_hero_v3.glb",
+  "basis": {
+    "local_x": "real_tangent",
+    "local_y": "binormal",
+    "local_z": "outward_normal"
+  },
+  "gravity_stage_mps2": [
+    0,
+    -9.81,
+    0
+  ],
+  "anchor_normal_offset_m": 0.008,
+  "runtime_tangent_required": "08 must supply actual projected blade-tip delta. Offline fixed basis is only a source viewing example.",
+  "orientation": "Each spark long axis follows instantaneous Stage velocity; gravity stays Stage -Y",
+  "particles": [
+    {
+      "node": "spark_00",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.177204141064753,
+        -0.44890426353470936,
+        0.2138888139787573
+      ],
+      "length_m": 0.06064261959129217,
+      "width_m": 0.007716715219073533,
+      "lifetime_s": 0.23600477474861417,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.15340310358659923,
+          0.64
+        ],
+        [
+          0.23600477474861417,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_01",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.9841781950558981,
+        0.31721394794619084,
+        0.43482420378067255
+      ],
+      "length_m": 0.06446389555821044,
+      "width_m": 0.00788971903888912,
+      "lifetime_s": 0.25354876090598727,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.16480669458889174,
+          0.64
+        ],
+        [
+          0.25354876090598727,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_02",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.5268107940145716,
+        0.6333080086009493,
+        0.32920854466409866
+      ],
+      "length_m": 0.07809977311931472,
+      "width_m": 0.0056748807696416674,
+      "lifetime_s": 0.20699998622354335,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.13454999104530319,
+          0.64
+        ],
+        [
+          0.20699998622354335,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_03",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.4587378106297673,
+        -0.442782585646483,
+        0.28164584184262265
+      ],
+      "length_m": 0.07084708303947176,
+      "width_m": 0.005723200155314601,
+      "lifetime_s": 0.23529120208756482,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.15293928135691714,
+          0.64
+        ],
+        [
+          0.23529120208756482,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_04",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        -0.5012212802030168,
+        -0.6268020010706523,
+        0.5059248277471723
+      ],
+      "length_m": 0.06449043848959006,
+      "width_m": 0.00641735736715542,
+      "lifetime_s": 0.2361032171419712,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.15346709114228127,
+          0.64
+        ],
+        [
+          0.2361032171419712,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_05",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.8512794501588066,
+        -0.2537208503936901,
+        0.17716364421840158
+      ],
+      "length_m": 0.08134080257105936,
+      "width_m": 0.005373159522125106,
+      "lifetime_s": 0.21011025072287115,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.13657166296986625,
+          0.64
+        ],
+        [
+          0.21011025072287115,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_06",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.01901498780089,
+        -0.6968961265579388,
+        0.17352505424222628
+      ],
+      "length_m": 0.07087704877571396,
+      "width_m": 0.007512078058624368,
+      "lifetime_s": 0.2591962956511793,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.16847759217326655,
+          0.64
+        ],
+        [
+          0.2591962956511793,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_07",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.5692026492267357,
+        -0.1758976348432798,
+        0.30980242294001537
+      ],
+      "length_m": 0.0647815709379774,
+      "width_m": 0.00796083491383593,
+      "lifetime_s": 0.19157983166846904,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.12452689058450488,
+          0.64
+        ],
+        [
+          0.19157983166846904,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_08",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.5815015781316515,
+        -0.5536326600706859,
+        0.22787678465351024
+      ],
+      "length_m": 0.07065714690121164,
+      "width_m": 0.006974185233195983,
+      "lifetime_s": 0.1981961469033448,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.12882749548717412,
+          0.64
+        ],
+        [
+          0.1981961469033448,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_09",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        -0.41528716199317267,
+        -0.18023979614666563,
+        0.18292403255271011
+      ],
+      "length_m": 0.09545721374240426,
+      "width_m": 0.005661537943315125,
+      "lifetime_s": 0.2519218406782073,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.16374919644083474,
+          0.64
+        ],
+        [
+          0.2519218406782073,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_10",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.2817609326138226,
+        -0.4228267170224782,
+        0.4684643246022573
+      ],
+      "length_m": 0.09694491379364975,
+      "width_m": 0.00785011771067767,
+      "lifetime_s": 0.18695036214931038,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.12151773539705175,
+          0.64
+        ],
+        [
+          0.18695036214931038,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_11",
+      "type": "metal_spark",
+      "tier": "hot_near",
+      "priority": 3,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.8562845210497878,
+        -0.6398090545837241,
+        0.26294827921687286
+      ],
+      "length_m": 0.07238752833269246,
+      "width_m": 0.006250215394852877,
+      "lifetime_s": 0.1847322082592764,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.12007593536852966,
+          0.64
+        ],
+        [
+          0.1847322082592764,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_12",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.6655734242957824,
+        0.15791962827699146,
+        0.5038446408963945
+      ],
+      "length_m": 0.04566631295372421,
+      "width_m": 0.00568076867181294,
+      "lifetime_s": 0.2464764169423354,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.160209671012518,
+          0.64
+        ],
+        [
+          0.2464764169423354,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_13",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.6322900069948669,
+        -0.3052682864610293,
+        0.5015903832874865
+      ],
+      "length_m": 0.058404079742608916,
+      "width_m": 0.004257486172726853,
+      "lifetime_s": 0.31608309302477455,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.20545401046610345,
+          0.64
+        ],
+        [
+          0.31608309302477455,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_14",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.8863981828489605,
+        -0.28472177992991465,
+        0.2494438866049668
+      ],
+      "length_m": 0.0692745294554082,
+      "width_m": 0.005415036689010627,
+      "lifetime_s": 0.282880664056743,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.18387243163688297,
+          0.64
+        ],
+        [
+          0.282880664056743,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_15",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.9897507171895814,
+        -0.2897598280869209,
+        0.2809056876089815
+      ],
+      "length_m": 0.06777830948156946,
+      "width_m": 0.004106131235242843,
+      "lifetime_s": 0.26014200975135837,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.16909230633838296,
+          0.64
+        ],
+        [
+          0.26014200975135837,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_16",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        -0.19387850282219796,
+        0.21927925320493769,
+        0.16659049700184186
+      ],
+      "length_m": 0.04019197199590125,
+      "width_m": 0.005146636678334698,
+      "lifetime_s": 0.2451297218135023,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1593343191787765,
+          0.64
+        ],
+        [
+          0.2451297218135023,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_17",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.135192688319824,
+        0.6053580376076058,
+        0.1824024981416216
+      ],
+      "length_m": 0.05501450757255182,
+      "width_m": 0.005589299396454649,
+      "lifetime_s": 0.27383314952504584,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1779915471912798,
+          0.64
+        ],
+        [
+          0.27383314952504584,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_18",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.8773239841221593,
+        0.2579154528644825,
+        0.47462742742273434
+      ],
+      "length_m": 0.04730887805749241,
+      "width_m": 0.005958956369883561,
+      "lifetime_s": 0.25089136077928603,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.16307938450653592,
+          0.64
+        ],
+        [
+          0.25089136077928603,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_19",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.9625149104949122,
+        0.0030721431935973875,
+        0.33401826708178184
+      ],
+      "length_m": 0.06380709678637121,
+      "width_m": 0.004280934841230195,
+      "lifetime_s": 0.24464223433138085,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.15901745231539757,
+          0.64
+        ],
+        [
+          0.24464223433138085,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_20",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.0092044681738166,
+        0.16653601958437592,
+        0.28221784346413004
+      ],
+      "length_m": 0.055235269027576854,
+      "width_m": 0.003797712586894224,
+      "lifetime_s": 0.2854737307269804,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.18555792497253726,
+          0.64
+        ],
+        [
+          0.2854737307269804,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_21",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        -0.47396998396706647,
+        0.5527281639008907,
+        0.3435154021808894
+      ],
+      "length_m": 0.057937336354995636,
+      "width_m": 0.005407685508038427,
+      "lifetime_s": 0.27281332535526825,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.17732866148092438,
+          0.64
+        ],
+        [
+          0.27281332535526825,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_22",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.5828031514854393,
+        0.5701424921076763,
+        0.4340427758855807
+      ],
+      "length_m": 0.04949782411192598,
+      "width_m": 0.005166671760223736,
+      "lifetime_s": 0.2534918765425386,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1647697197526501,
+          0.64
+        ],
+        [
+          0.2534918765425386,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_23",
+      "type": "metal_spark",
+      "tier": "warm_mid",
+      "priority": 2,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.7656769247404889,
+        0.129448265339269,
+        0.2697601401040831
+      ],
+      "length_m": 0.06951641970130779,
+      "width_m": 0.005290018532138726,
+      "lifetime_s": 0.23791401414629046,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1546441091950888,
+          0.64
+        ],
+        [
+          0.23791401414629046,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_24",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.7737828544877843,
+        0.7817699200734332,
+        0.16061282458044132
+      ],
+      "length_m": 0.042989383064821,
+      "width_m": 0.003162661911800374,
+      "lifetime_s": 0.27439954557113766,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.17835970462123948,
+          0.64
+        ],
+        [
+          0.27439954557113766,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_25",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.6028538334510721,
+        0.600548025911873,
+        0.39634770539257025
+      ],
+      "length_m": 0.043471715130585176,
+      "width_m": 0.004088617797218368,
+      "lifetime_s": 0.333656997348593,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.21687704827658547,
+          0.64
+        ],
+        [
+          0.333656997348593,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_26",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.1316339937033848,
+        0.29375277641878816,
+        0.29922965922536293
+      ],
+      "length_m": 0.02445577843454741,
+      "width_m": 0.004730444748890835,
+      "lifetime_s": 0.27554217106359274,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1791024111913353,
+          0.64
+        ],
+        [
+          0.27554217106359274,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_27",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.0950832775811148,
+        0.48172454668207276,
+        0.4227528899455373
+      ],
+      "length_m": 0.04059762279037088,
+      "width_m": 0.0033157844590515975,
+      "lifetime_s": 0.37213452792824425,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.24188744315335878,
+          0.64
+        ],
+        [
+          0.37213452792824425,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_28",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        -0.37366189010371315,
+        0.07225106811436144,
+        0.3843283737028439
+      ],
+      "length_m": 0.03834135108071281,
+      "width_m": 0.004979704475422612,
+      "lifetime_s": 0.29613156274487784,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.1924855157841706,
+          0.64
+        ],
+        [
+          0.29613156274487784,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_29",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.0322573833272661,
+        0.8212323183367536,
+        0.5377265143184965
+      ],
+      "length_m": 0.03307486698215084,
+      "width_m": 0.004912288978886303,
+      "lifetime_s": 0.3557414452111769,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.231231939387265,
+          0.64
+        ],
+        [
+          0.3557414452111769,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_30",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.9685456844074254,
+        0.38234263438884075,
+        0.28750278179375177
+      ],
+      "length_m": 0.029093950569447434,
+      "width_m": 0.004655999825906853,
+      "lifetime_s": 0.30766877858657726,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.19998470608127522,
+          0.64
+        ],
+        [
+          0.30766877858657726,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "spark_31",
+      "type": "metal_spark",
+      "tier": "cool_ember",
+      "priority": 1,
+      "shape": "streak",
+      "orientation_axis_local": [
+        1,
+        0,
+        0
+      ],
+      "orientation_policy": "velocity",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        1.1875583502036404,
+        -0.2533003092749556,
+        0.37715310199649255
+      ],
+      "length_m": 0.04427862161850398,
+      "width_m": 0.0036665823792844383,
+      "lifetime_s": 0.34927898472305674,
+      "opacity_keys": [
+        [
+          0,
+          1
+        ],
+        [
+          0.035,
+          0.97
+        ],
+        [
+          0.22703134006998688,
+          0.64
+        ],
+        [
+          0.34927898472305674,
+          0
+        ]
+      ]
+    }
+  ],
+  "accents": [
+    {
+      "node": "arc_00",
+      "type": "contact_arc",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.0015
+      ],
+      "lifetime_s": 0.11,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.025,
+          0.9
+        ],
+        [
+          0.11,
+          0
+        ]
+      ],
+      "requires_real_tangent": true,
+      "scope": "Short static contact accent oriented by the real tangent; not blade-tip history or runtime ribbon"
+    },
+    {
+      "node": "arc_01",
+      "type": "contact_arc",
+      "initial_position_local_m": [
+        0,
+        0,
+        0.0015
+      ],
+      "lifetime_s": 0.085,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.025,
+          0.9
+        ],
+        [
+          0.085,
+          0
+        ]
+      ],
+      "requires_real_tangent": true,
+      "scope": "Short static contact accent oriented by the real tangent; not blade-tip history or runtime ribbon"
+    }
+  ],
+  "cores": [
+    {
+      "node": "core_star",
+      "diameter_m": 0.14,
+      "opaque_center_diagonal_m": 0.014,
+      "requires_real_tangent": false,
+      "initial_position_local_m": [
+        0,
+        0,
+        0.001
+      ],
+      "normal": {
+        "lifetime_s": 0.065,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.012,
+            0.96
+          ],
+          [
+            0.065,
+            0
+          ]
+        ]
+      },
+      "parry": {
+        "lifetime_s": 0.09,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.02,
+            1
+          ],
+          [
+            0.09,
+            0
+          ]
+        ]
+      },
+      "fatal": {
+        "lifetime_s": 0.15,
+        "scale": 1.12,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.035,
+            1
+          ],
+          [
+            0.15,
+            0
+          ]
+        ],
+        "clock_owner": "Root/08 select fatal profile and control event/presentation clock"
+      }
+    }
+  ]
+}

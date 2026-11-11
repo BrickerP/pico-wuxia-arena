@@ -1,0 +1,69 @@
+{
+  "kind": "09 source delivery identity; not the formal character release manifest",
+  "git_head": "380dd46b1cfa6aaf54ef54bc44535b5af330b62d",
+  "attack_bank_binding_sha256": "6f23259d67f504ce58630b2dc7ba61fa290b50beaa7109de772f4f46dd7b2c72",
+  "focused_tests": 39,
+  "all_core_tests": 111,
+  "all_core_failures": [
+    "EnemyCombatStateMachineTest.deathIsTerminalUntilRoundReset (existing interruptTracking/death expectation mismatch)"
+  ],
+  "release_blocker": "old walk to canonical guard proxy/visual crossfade remains unaligned; Root/01 final target locomotion profiles required",
+  "files": [
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt",
+      "sha256": "3d2980281ebc6dfd15dda4fa7d4c46a264e2d2f0e3494442c6c6602c04722225"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt",
+      "sha256": "e55ae089b9201fe1ff6892c8eebe1fe3ba3681bdb87f14396cb72e07e713de1c"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+      "sha256": "388eb254d9dcdf30f9fdb1d1464c5446e2fb2d742f257dda9d719ebcb776b003"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt",
+      "sha256": "31129fca5abec05726c38e5fa064fba40c9bdb65095350c0543657eb0eed34a3"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt",
+      "sha256": "2fbcc7a39258bad3168e1edd3da32376f893628c2fd203eca223be30f349bd09"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+      "sha256": "bf269e9c4ba16520cafaf9c6a4271e60d5ca8a557f61986c438c98338719b719"
+    },
+    {
+      "path": "app/src/test/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachineTest.kt",
+      "sha256": "a0da34df1368e51a66375befa2be0c0c0ef141de36c96530b3b0b6a73f865005"
+    },
+    {
+      "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaAttackDirectionTest.kt",
+      "sha256": "769d598eec4fa84eebf624d6f6a5cc851e5b6b9a71399f1f2066d3ca006337c7"
+    },
+    {
+      "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfilesTest.kt",
+      "sha256": "eb6ceb959aa73f2eac99a566bb02bcce1a28c7d06bd4cec13119ae29b039c065"
+    },
+    {
+      "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackTimingTest.kt",
+      "sha256": "67d540e9130a61459332171bf11c61317cec5f5ef7da75f74a18816ebec90bcd"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py",
+      "sha256": "6ff721098c21502ef0a86a3adb4e567b5eaeea647bc3d7276fd102e695ac5d61"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/test_generate_attack_bank_profiles.py",
+      "sha256": "a699d1ddf8f027889fe747386590a6c97a158fb69cf8cde4ea076f243d2c7c43"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/run_isolated_tests.py",
+      "sha256": "b65d0dc318f51398023942852ccc6a8cf22c986dcdec6397c0973e4b1fdf3a13"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/reaction_sources.json",
+      "sha256": "39fd6abc5cc9a608f79289e3b07ce72cf20c4a1300eb691446ea95a81b998637"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "source_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "date": "2026-11-11",
+  "license": "CC0-1.0; original analytic rain-night lighting functions in generate_ibl.py",
+  "source": "rain_night_latlong.hdr",
+  "sha256": "4d55e3d8b0160952ea131c440a6feac89009ca7bbc0f747d43808d9dfa8175e0",
+  "bytes": 529504,
+  "width": 512,
+  "height": 256,
+  "format": "Radiance RGBE per-channel scanline RLE",
+  "projection": "2:1 latlong, PICO +Y up; phi=0 at +Z; positive phi toward +X",
+  "linear_color": "Positive scene-linear RGB; arbitrary radiance units, not calibrated lux or lumens",
+  "ambient_top": [
+    0.015,
+    0.027,
+    0.055
+  ],
+  "ambient_horizon": [
+    0.025,
+    0.04,
+    0.07
+  ],
+  "ambient_lower": [
+    0.012,
+    0.016,
+    0.02
+  ],
+  "light_patches": [
+    {
+      "name": "front_lantern_left",
+      "direction": [
+        -0.6381058183833975,
+        0.3561520846791057,
+        -0.6826248289682859
+      ],
+      "color": [
+        1,
+        0.49,
+        0.2
+      ],
+      "peak": 4,
+      "exponent": 64
+    },
+    {
+      "name": "front_lantern_right",
+      "direction": [
+        0.6381058183833975,
+        0.3561520846791057,
+        -0.6826248289682859
+      ],
+      "color": [
+        1,
+        0.49,
+        0.2
+      ],
+      "peak": 4,
+      "exponent": 64
+    },
+    {
+      "name": "moon",
+      "direction": [
+        -0.5014110963503446,
+        0.621713758677721,
+        0.6017133160630284
+      ],
+      "color": [
+        0.57,
+        0.73,
+        1
+      ],
+      "peak": 3,
+      "exponent": 32
+    },
+    {
+      "name": "rear",
+      "direction": [
+        0.8021806287494233,
+        0.4222003309207491,
+        -0.4222003309207491
+      ],
+      "color": [
+        0.38,
+        0.65,
+        1
+      ],
+      "peak": 1.2,
+      "exponent": 48
+    }
+  ],
+  "environment_source": {
+    "candidate": "courtyard_hero",
+    "sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+    "capture_origin_stage_m": [
+      0,
+      1.5,
+      -2.4
+    ],
+    "front_lantern_anchors_stage_m": [
+      [
+        -2.15,
+        2.7,
+        -4.7
+      ],
+      [
+        2.15,
+        2.7,
+        -4.7
+      ]
+    ],
+    "side_lantern_anchors_stage_m": [
+      [
+        -4.03,
+        2.25,
+        0.56
+      ],
+      [
+        4.03,
+        2.25,
+        -1.32
+      ]
+    ],
+    "side_lobes": "not included; front pair supplies the authored warm lobes"
+  },
+  "all_analytic_texels_finite_and_positive": true,
+  "minimum_linear_channel": 0.012000244721326186,
+  "maximum_linear_channel": 4.060942351885626,
+  "generator_sha256": "735150e0b7952e9ec3f590cbc46b0cc53fc9b04301d4fdfc043ca1f886f848e9",
+  "reused_writer": "ArtSource/refinement/lighting/stage2/ibl/generate_source_hdr.py",
+  "reused_writer_sha256": "99f941752325ed400c493b3f5948fcbe135552d009b6324c59fbcfd560879285",
+  "preview": {
+    "path": "source_preview.png",
+    "sha256": "e9facf722400de7de867a08e5e97abce5da0ec4b512ee1dc13fe0bdddbab9e1b",
+    "mapping": "Reinhard value/(1+value), gamma1/2.2; source inspection only"
+  },
+  "orientation_boundary": "cmgen default mirroring is enabled (no --no-mirror). Source/Filament/PICO reflected azimuth equivalence remains untested.",
+  "status": "HDR source generated; downstream conversion tracked separately"
+}

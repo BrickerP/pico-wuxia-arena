@@ -1,0 +1,503 @@
+{
+  "schema": "contact-particle-motion/v1",
+  "units": "metres_seconds",
+  "asset": "soft_contact_polish.glb",
+  "basis": {
+    "local_x": "projected actual cutting tangent",
+    "local_y": "normal cross tangent",
+    "local_z": "outward normal"
+  },
+  "gravity_stage_mps2": [
+    0,
+    -9.81,
+    0
+  ],
+  "normal_offset_owner": "Root anchor applies shared 8mm normal offset once; p0 does not include it",
+  "orientation": "Keep source particle contact-plane orientation; positions move independently in Stage gravity",
+  "contact_semantics": "Generic dry SOFT presentation only; no water, blood, or inferred wetness",
+  "freshness": "Sample actual presentation age; unborn or expired particles are hidden, never restarted",
+  "particles": [
+    {
+      "node": "chip_00",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.0018870650838997052,
+        0.006321640559336979,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.5560642299327523,
+        0.21937354520379065,
+        0.21105334504860224
+      ],
+      "lifetime_s": 0.18,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.09,
+          0.68
+        ],
+        [
+          0.18,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_01",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.0017278695711328458,
+        0.005668054192870324,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.9998398081599473,
+        -0.09678986164099704,
+        0.1281712187825146
+      ],
+      "lifetime_s": 0.19,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.095,
+          0.68
+        ],
+        [
+          0.19,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_02",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.004882414485082325,
+        0.004862705003098272,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.5013892122333174,
+        0.42295571748263944,
+        0.21491673724547622
+      ],
+      "lifetime_s": 0.19999999999999998,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.09999999999999999,
+          0.68
+        ],
+        [
+          0.19999999999999998,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_03",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.006425108457898535,
+        -0.005491212192274261,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.7634156330949875,
+        0.1993289417721406,
+        0.3025560165098947
+      ],
+      "lifetime_s": 0.21,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.105,
+          0.68
+        ],
+        [
+          0.21,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_04",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.004478079571720145,
+        -0.00039210977093820897,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        1.2148796472351566,
+        0.22975928138106644,
+        0.311039963005686
+      ],
+      "lifetime_s": 0.22,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.11,
+          0.68
+        ],
+        [
+          0.22,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_05",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.004621678099285573,
+        0.0022970509446146956,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.5722956644972726,
+        0.3549798480743392,
+        0.17419183350823772
+      ],
+      "lifetime_s": 0.22999999999999998,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.11499999999999999,
+          0.68
+        ],
+        [
+          0.22999999999999998,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_06",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.004334815379142369,
+        -0.006769076027622967,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.8538665696886742,
+        0.1792097441048916,
+        0.1366360625183231
+      ],
+      "lifetime_s": 0.24,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.12,
+          0.68
+        ],
+        [
+          0.24,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_07",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.00014487747044055962,
+        0.0015247384973110442,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.5484931477167776,
+        -0.09063093940710229,
+        0.12071454543994731
+      ],
+      "lifetime_s": 0.25,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.125,
+          0.68
+        ],
+        [
+          0.25,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_08",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.004320101821607476,
+        -0.006062320115684926,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        1.1560411404263697,
+        0.14981787056491885,
+        0.13695759112963315
+      ],
+      "lifetime_s": 0.26,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.13,
+          0.68
+        ],
+        [
+          0.26,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_09",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.006057142008553762,
+        -0.0019280946285345785,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.7718827687986056,
+        0.1025436123166027,
+        0.1291509298687992
+      ],
+      "lifetime_s": 0.27,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.135,
+          0.68
+        ],
+        [
+          0.27,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_10",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        0.003011985603654385,
+        -0.0016024071732388592,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        0.7385013485862761,
+        -0.19472360500266395,
+        0.26927856943067907
+      ],
+      "lifetime_s": 0.28,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.14,
+          0.68
+        ],
+        [
+          0.28,
+          0
+        ]
+      ]
+    },
+    {
+      "node": "chip_11",
+      "type": "dry_soft_debris",
+      "initial_position_local_m": [
+        -0.0013131144652346353,
+        -0.0023080743070319105,
+        0.004
+      ],
+      "initial_velocity_local_mps": [
+        1.0248582632848298,
+        -0.23611955618292974,
+        0.24661834805187965
+      ],
+      "lifetime_s": 0.29,
+      "opacity_keys": [
+        [
+          0,
+          0.95
+        ],
+        [
+          0.018,
+          1
+        ],
+        [
+          0.145,
+          0.68
+        ],
+        [
+          0.29,
+          0
+        ]
+      ]
+    }
+  ],
+  "cores": [
+    {
+      "node": "core",
+      "initial_position_local_m": [
+        0,
+        0,
+        0
+      ],
+      "normal": {
+        "lifetime_s": 0.065,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.012,
+            0.9
+          ],
+          [
+            0.065,
+            0
+          ]
+        ]
+      },
+      "parry": {
+        "lifetime_s": 0.065,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.012,
+            0.9
+          ],
+          [
+            0.065,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "node": "scar",
+      "initial_position_local_m": [
+        0,
+        0,
+        0
+      ],
+      "normal": {
+        "lifetime_s": 0.085,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.012,
+            0.9
+          ],
+          [
+            0.085,
+            0
+          ]
+        ]
+      },
+      "parry": {
+        "lifetime_s": 0.085,
+        "opacity_keys": [
+          [
+            0,
+            1
+          ],
+          [
+            0.012,
+            0.9
+          ],
+          [
+            0.085,
+            0
+          ]
+        ]
+      }
+    }
+  ]
+}

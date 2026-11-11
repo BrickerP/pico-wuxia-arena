@@ -27,14 +27,14 @@ internal object CombatFeedbackProfile {
     /** Material chooses the contact texture. Anatomical and lethal results add emphasis. */
     fun accent(impact: CombatImpact): ImpactAccent {
         val (peak, frequency, duration) = when (impact.kind) {
-            CombatImpactKind.SOFT_HIT -> Triple(145, 90, 30)
-            CombatImpactKind.HARD_HIT -> Triple(195, 220, 16)
-            CombatImpactKind.GUARDED_HIT -> Triple(170, 170, 24)
+            CombatImpactKind.SOFT_HIT -> Triple(160, 100, 26)
+            CombatImpactKind.HARD_HIT -> Triple(205, 240, 12)
+            CombatImpactKind.GUARDED_HIT -> Triple(165, 165, 20)
             CombatImpactKind.BLOCK -> Triple(190, 150, 28)
-            CombatImpactKind.PARRY -> Triple(235, 280, 18)
-            CombatImpactKind.PLAYER_HIT -> Triple(180, 80, 42)
-            CombatImpactKind.SKILL -> Triple(195, 125, 46)
-            CombatImpactKind.EXECUTION -> Triple(235, 75, 64)
+            CombatImpactKind.PARRY -> Triple(245, 300, 14)
+            CombatImpactKind.PLAYER_HIT -> Triple(185, 85, 40)
+            CombatImpactKind.SKILL -> Triple(210, 140, 42)
+            CombatImpactKind.EXECUTION -> Triple(240, 75, 58)
         }
         val headHit = impact.appliedDamage > 0 && impact.zone == HitZone.HEAD
         val strength = if (impact.strength.isFinite()) impact.strength.coerceIn(0.0, 1.0) else 0.0
@@ -45,7 +45,7 @@ internal object CombatFeedbackProfile {
         }
         val soundRate = when {
             impact.fatal -> 0.90f
-            headHit -> 1.12f
+            headHit -> 1.08f
             else -> 1f
         }
         val visualScale = when {
@@ -64,8 +64,8 @@ internal object CombatFeedbackProfile {
             if (impact.fatal) 245 else (emphasizedStrength * peak).roundToInt(),
             if (headHit && !impact.fatal) frequency + 20 else frequency,
             when {
-                impact.fatal -> 80
-                headHit -> maxOf(duration, 40)
+                impact.fatal -> 72
+                headHit -> maxOf(duration, 38)
                 else -> duration
             },
         )

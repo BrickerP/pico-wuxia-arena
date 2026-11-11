@@ -43,6 +43,8 @@ class CombatImpactEventTest {
         assertEquals(Hand.LEFT, impact.hand)
         assertEquals(strike.contact.point, impact.point)
         assertEquals(strike.contact.normal, impact.normal)
+        assertTrue(strike.contact.tangent != null)
+        assertEquals(strike.contact.tangent, impact.tangent)
         assertTrue(impact.strength in 0.0..1.0)
         assertEquals(1, events.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().size)
 

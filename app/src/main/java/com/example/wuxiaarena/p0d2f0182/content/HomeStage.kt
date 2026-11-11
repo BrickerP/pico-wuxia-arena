@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pico.spatial.core.ecs.AttachmentPanelComponent
-import com.pico.spatial.core.ecs.DirectionalLightComponent
 import com.pico.spatial.core.ecs.GroundShadowComponent
 import com.pico.spatial.core.ecs.ModelComponent
 import com.pico.spatial.core.ecs.LookAtComponent
@@ -39,6 +39,16 @@ import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import java.util.concurrent.CancellationException
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeout
 import kotlin.math.abs
 import kotlin.math.hypot
 import kotlin.math.sin
@@ -46,9 +56,7 @@ import kotlin.math.cos
 import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 
 private const val TAG = "TavernScene"
-private const val TAVERN_ASSET = "asset://models/tavern_slice.glb"
-private const val FORECOURT_ASSET = "asset://models/forecourt.glb"
-private const val COURTYARD_DETAILS_ASSET = "asset://models/courtyard_details.glb"
+private const val COURTYARD_ASSET = "asset://models/courtyard_hero.glb"
 private const val PLAYER_DAO_ASSET = "asset://models/dao_grip.glb"
 private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
@@ -56,30 +64,46 @@ private const val HUD_WORLD_SCALE = 1.4f
 private const val STATUS_WORLD_SCALE = 1.65f
 private val DAMAGE_PANEL_IDS = List(DamagePopupTimeline.SLOT_COUNT) { "contact-damage-$it" }
 private const val ENEMY_STAGE_Z = -2.4f
-private val KEY_LIGHT_COLOR = Color4(0.92f, 0.95f, 1f, 1f)
-private const val KEY_LIGHT_LUX = 1100f
-// Local -Z travels down and into the arena: Stage ray (0.5014, -0.6217, -0.6017).
-private val KEY_LIGHT_ROTATION = Quat(-0.347382f, -0.280147f, 0f, 0.894899f)
-private val WARM_FILL_POSITION = Vector3(-1.30f, 1.80f, -1.10f)
-private const val WARM_FILL_LUMENS = 2300f
-private const val WARM_FILL_RADIUS_METERS = 4.2f
-private val COOL_FILL_POSITION = Vector3(1.25f, 1.65f, -1.55f)
-private const val COOL_FILL_LUMENS = 1300f
-private const val COOL_FILL_RADIUS_METERS = 4.0f
 
 private class SceneOwner(
     private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
+    private val onOpponentChange: (Long, Int) -> Boolean,
+    private val sceneScope: CoroutineScope,
     private val onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
     private val onEnemyPresenter: (ArenaPresenter?) -> Unit,
     private val damageTextStates: List<DamagePopupTextState>,
 ) {
     var root: Entity? = null
     var playerWeapon: Entity? = null
-    var enemyAnimator: EnemyAnimator? = null
-    var enemyModel: Entity? = null
-    val enemies = mutableListOf<Entity>()
-    val animators = mutableListOf<EnemyAnimator>()
-    val hitFlashes = mutableListOf<EnemyHitFlash>()
+    private data class OpponentRequest(val generation: Long, val roundNumber: Int)
+
+    private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
+        var animator: EnemyAnimator? = null
+        var flash: EnemyHitFlash? = null
+        var ready = false
+
+        fun close() {
+            ready = false
+            // Keep each failed owner for an explicit retry instead of loading over it.
+            flash?.close()
+            flash = null
+            animator?.close()
+            animator = null
+            if (entity.valid) check(entity.destroy()) { "Could not destroy the previous opponent" }
+        }
+    }
+
+    private var opponent: LoadedOpponent? = null
+    private var opponentRequest: OpponentRequest? = null
+    private var failedOpponentRequest: OpponentRequest? = null
+    private var opponentJob: Job? = null
+    private var opponentCompletion: CompletableDeferred<Unit>? = null
+    var lighting: SceneLighting? = null
+    var weather: SceneWeather? = null
+    private var teardownRoot: Entity? = null
+    val teardownPending: Boolean
+        get() = teardownRoot != null || lighting != null || weather != null || opponent != null ||
+            opponentCompletion?.isCompleted == false
     var effects: CombatEffects? = null
     var bladeTrail: PlayerBladeTrail? = null
     var contactLight: Entity? = null
@@ -97,23 +121,16 @@ private class SceneOwner(
 
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
-        if (enemies.isNotEmpty()) {
-            val index = state.roundNumber - 1
-            enemies.forEachIndexed { candidate, entity ->
-                val visible = candidate == index
-                if (entity.valid && entity.enabled != visible) {
-                    if (!visible) {
-                        animators[candidate].suspend()
-                        hitFlashes[candidate].suspend()
-                    }
-                    entity.enabled = visible
-                }
-            }
-            enemyModel = enemies[index]
-            enemyAnimator = animators[index]
-        }
-        val enemy = enemyModel ?: return
-        if (!parent.valid || !enemy.valid) return
+        if (!parent.valid) return
+        requestOpponent(state, parent)
+        weather?.update(System.nanoTime(), state.sceneReady)
+        presentImpactLight(state, events)
+        effects?.present(state, events)
+        bladeTrail?.present(state)
+        presentDamagePopups(state, events)
+        val loaded = opponent?.takeIf { it.ready && it.roundNumber == state.roundNumber } ?: return
+        val enemy = loaded.entity
+        if (!enemy.valid) return
         state.enemyPosition?.let { position ->
             val displayPosition = position + state.enemyRecoilOffset
             val transform = checkNotNull(enemy.components[TransformComponent::class.java])
@@ -130,12 +147,92 @@ private class SceneOwner(
                 placeAttachment(parent, anchor, location, rotation, STATUS_WORLD_SCALE)
             }
         }
-        presentImpactLight(state, events)
-        enemyAnimator?.present(state, events)
-        hitFlashes[state.roundNumber - 1].present(state, events)
-        effects?.present(state, events)
-        bladeTrail?.present(state)
-        presentDamagePopups(state, events)
+        loaded.animator?.present(state, events)
+        loaded.flash?.present(state, events)
+    }
+
+    private fun requestOpponent(state: ArenaViewState, parent: Entity) {
+        val request = OpponentRequest(state.roundGeneration, state.roundNumber)
+        val previous = opponentRequest
+        if (previous != null && request.generation < previous.generation) return
+        check(state.roundNumber in 1..arenaOpponents.size) { "Unknown opponent round ${state.roundNumber}" }
+        opponentRequest = request
+        // Hide before dispatch: a new round must never render the previous opponent for one frame.
+        opponent?.takeIf { it.roundNumber != request.roundNumber }?.let { previousOpponent ->
+            previousOpponent.ready = false
+            if (previousOpponent.entity.valid) previousOpponent.entity.enabled = false
+        }
+        if (opponent?.let { it.ready && it.roundNumber == request.roundNumber } == true ||
+            failedOpponentRequest == request || opponentJob?.isActive == true) return
+        val completion = CompletableDeferred<Unit>()
+        opponentCompletion = completion
+        val job = sceneScope.launch(start = CoroutineStart.LAZY) {
+            var attempted: OpponentRequest? = null
+            try {
+                // Requests are serialized. A newer round replaces a pending target, never overlaps its load.
+                while (root === parent && parent.valid) {
+                    val target = opponentRequest ?: break
+                    attempted = target
+                    if (opponent?.let { it.ready && it.roundNumber == target.roundNumber } == true) break
+                    if (!onOpponentChange(target.generation, target.roundNumber)) {
+                        failedOpponentRequest = target
+                        break
+                    }
+                    closeOpponent()
+                    val definition = arenaOpponents[target.roundNumber - 1]
+                    // Native load returns an Entity handle. Finish acquisition even on disposal so it can be destroyed.
+                    val entity = withContext(NonCancellable) { Entity.loadSuspend(definition.asset) }
+                    val loaded = LoadedOpponent(target.roundNumber, entity)
+                    opponent = loaded
+                    currentCoroutineContext().ensureActive()
+                    if (root !== parent || !parent.valid || opponentRequest != target) {
+                        closeOpponent()
+                        continue
+                    }
+                    entity.enabled = false
+                    check(parent.addChild(entity)) { "Could not attach ${definition.name}" }
+                    val transform = checkNotNull(entity.components[TransformComponent::class.java]) {
+                        "Tripo enemy has no transform"
+                    }
+                    transform.setPosition(parent.convertPositionFrom(Vector3(0f, 0.028f, ENEMY_STAGE_Z), null))
+                    transform.setQuaternion(parent.convertRotationFrom(Quat.identity(), null))
+                    bindGroundShadow(entity, casts = true, receives = false, label = definition.name)
+                    loaded.animator = EnemyAnimator(entity)
+                    loaded.flash = EnemyHitFlash(entity)
+                    val origin = entity.convertPositionTo(Vector3(0f, 0f, 0f), null)
+                    val bounds = entity.getVisualBounds(entity)
+                    val reachX = abs(bounds.center.x) + bounds.size.x / 2f
+                    val reachZ = abs(bounds.center.z) + bounds.size.z / 2f
+                    loaded.ready = true
+                    entity.enabled = true
+                    failedOpponentRequest = null
+                    Log.i(TAG, "Tripo enemy attached; round=${target.roundNumber}, generation=${target.generation}, " +
+                        "local bounds center=${bounds.center}, size=${bounds.size}; stage origin=$origin")
+                    onEnemyGeometry(
+                        TrackingVector3(origin.x.toDouble(), origin.y.toDouble(), origin.z.toDouble()),
+                        hypot(reachX.toDouble(), reachZ.toDouble()),
+                    )
+                    if (opponentRequest == target) break
+                }
+            } catch (error: Exception) {
+                try { closeOpponent() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
+                if (error is CancellationException) throw error
+                failedOpponentRequest = attempted
+                Log.e(TAG, "Unable to load the current opponent", error)
+            } finally {
+                opponentJob = null
+            }
+        }
+        opponentJob = job
+        // Also completes when the composition scope was cancelled before a lazy job could start.
+        job.invokeOnCompletion { completion.complete(Unit) }
+        job.start()
+    }
+
+    private fun closeOpponent() {
+        val current = opponent ?: return
+        current.close()
+        opponent = null
     }
 
     private fun presentDamagePopups(state: ArenaViewState, events: List<EnemyCombatEvent>) {
@@ -253,18 +350,25 @@ private class SceneOwner(
     }
 
     fun release() {
-        val current = root ?: return
+        opponentRequest = null
+        failedOpponentRequest = null
+        opponentJob?.cancel()
+        val current = root ?: teardownRoot
+        if (current == null) {
+            try { closeOpponent() } catch (error: Exception) { Log.w(TAG, "Opponent cleanup will be retried", error) }
+            closeAtmosphere()
+            return
+        }
         clearDamagePopups()
         damageAnchors.clear()
         damageUnavailable = false
         statusWorldPosition = null
         statusWorldRotation = Quat.identity()
+        teardownRoot = current
         root = null
         playerWeapon = null
-        enemyModel = null
         contactLight = null
         panelAnchors.clear()
-        enemyAnimator = null
         try {
             try {
                 onPlayerHandPresenter(null)
@@ -276,23 +380,11 @@ private class SceneOwner(
             } catch (error: Exception) {
                 Log.w(TAG, "Arena presenter cleanup failed", error)
             }
-            for (animator in animators) {
-                try {
-                    animator.close()
-                } catch (error: Exception) {
-                    Log.w(TAG, "Enemy animation cleanup failed", error)
-                }
+            try {
+                closeOpponent()
+            } catch (error: Exception) {
+                Log.w(TAG, "Opponent cleanup will be retried", error)
             }
-            animators.clear()
-            for (flash in hitFlashes) {
-                try {
-                    flash.close()
-                } catch (error: Exception) {
-                    Log.w(TAG, "Enemy flash cleanup failed", error)
-                }
-            }
-            hitFlashes.clear()
-            enemies.clear()
             try {
                 effects?.close()
             } catch (error: Exception) {
@@ -305,19 +397,54 @@ private class SceneOwner(
                 Log.w(TAG, "Blade trail cleanup failed", error)
             }
             bladeTrail = null
+            closeAtmosphere()
         } finally {
             try {
                 onEnemyGeometry(null, 0.0)
             } finally {
-                if (current.valid) current.destroy()
+                try {
+                    if (current.valid) check(current.destroy()) { "Unable to destroy scene root" }
+                    teardownRoot = null
+                } catch (error: Exception) {
+                    Log.w(TAG, "Scene root cleanup will be retried", error)
+                } finally {
+                    // A failed child close can finish after its parent releases native users.
+                    closeAtmosphere()
+                }
             }
         }
+    }
+
+    private fun closeAtmosphere() {
+        try {
+            weather?.close()
+            weather = null
+        } catch (error: Exception) {
+            Log.w(TAG, "Weather cleanup failed", error)
+        }
+        try {
+            val currentLighting = lighting
+            currentLighting?.close()
+            if (currentLighting?.isReleased != false) lighting = null
+        } catch (error: Exception) {
+            Log.w(TAG, "Lighting cleanup failed", error)
+        }
+    }
+
+    suspend fun releasePreviousScene() {
+        release()
+        // The same builder continues after old IO; returning early would leave an empty scene.
+        opponentCompletion?.await()
+        lighting?.awaitRelease()
+        release()
+        check(!teardownPending) { "Previous scene still owns native resources" }
     }
 }
 
 @Composable
 internal fun HomeStage(
     onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
+    onOpponentChange: (Long, Int) -> Boolean,
     onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
     onEnemyPresenter: (ArenaPresenter?) -> Unit,
     controlsHeightDp: Int,
@@ -325,7 +452,9 @@ internal fun HomeStage(
     statusPanel: @Composable () -> Unit,
 ) {
     val damageTextStates = remember { List(DamagePopupTimeline.SLOT_COUNT) { DamagePopupTextState() } }
-    val owner = remember { SceneOwner(onEnemyGeometry, onPlayerHandPresenter, onEnemyPresenter, damageTextStates) }
+    val sceneScope = rememberCoroutineScope()
+    val owner = remember { SceneOwner(onEnemyGeometry, onOpponentChange, sceneScope,
+        onPlayerHandPresenter, onEnemyPresenter, damageTextStates) }
     val currentControls = rememberUpdatedState(controlsPanel)
     val currentStatus = rememberUpdatedState(statusPanel)
     val currentControlHeight = rememberUpdatedState(controlsHeightDp)
@@ -339,7 +468,7 @@ internal fun HomeStage(
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 400.dp, height = currentControlHeight.value.dp)) {
+                Box(Modifier.size(width = 400.dp, height = currentControlHeight.value.dp).attachmentKeyboardProbe("controls")) {
                     currentControls.value()
                 }
             }
@@ -370,21 +499,20 @@ internal fun HomeStage(
             }
         },
     ) { content, attachments ->
-        owner.release()
+        try {
+            withTimeout(15_000L) { owner.releasePreviousScene() }
+        } catch (error: Exception) {
+            Log.e(TAG, "Previous scene release failed; scene is unavailable", error)
+            onEnemyGeometry(null, 0.0)
+            if (error is CancellationException) throw error
+            return@SpatialView
+        }
         val root = Entity()
         owner.root = root
         var model: Entity? = null
         var modelAttached = false
-        var forecourt: Entity? = null
-        var forecourtAttached = false
-        var details: Entity? = null
-        var detailsAttached = false
-        var enemy: Entity? = null
-        var enemyAttached = false
         var playerWeapon: Entity? = null
         var playerWeaponAttached = false
-        var light: Entity? = null
-        var lightAttached = false
 
         try {
             content.addEntity(root)
@@ -419,78 +547,24 @@ internal fun HomeStage(
             }
             placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
             placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity(), STATUS_WORLD_SCALE)
-            model = Entity.loadSuspend(TAVERN_ASSET)
+            model = Entity.loadSuspend(COURTYARD_ASSET)
             if (owner.root !== root) {
                 model.destroy()
                 return@SpatialView
             }
-
-            check(root.addChild(model)) { "Could not attach tavern model" }
+            check(root.addChild(model)) { "Could not attach courtyard model" }
             modelAttached = true
             val transform = checkNotNull(model.components[TransformComponent::class.java]) {
-                "Tavern model has no transform"
+                "Courtyard model has no transform"
             }
-            transform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
+            transform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, 0f), null))
             transform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
-            bindGroundShadow(
-                checkNotNull(model.findEntity("Paving")) { "Tavern paving mesh is unavailable" },
-                casts = false, receives = true, label = "tavern paving",
-            )
-
-            forecourt = Entity.loadSuspend(FORECOURT_ASSET)
-            if (owner.root !== root) {
-                forecourt.destroy()
-                return@SpatialView
+            for (name in listOf("EH_GroundReceiver", "EH_MortarAndDrain")) {
+                bindGroundShadow(
+                    checkNotNull(model.findEntity(name)) { "Courtyard receiver is unavailable: $name" },
+                    casts = false, receives = true, label = name,
+                )
             }
-            check(root.addChild(forecourt)) { "Could not attach forecourt paving" }
-            forecourtAttached = true
-            val pavingTransform = checkNotNull(forecourt.components[TransformComponent::class.java])
-            pavingTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, -4f), null))
-            pavingTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
-            bindGroundShadow(
-                checkNotNull(forecourt.findEntity("Paving")) { "Forecourt paving mesh is unavailable" },
-                casts = false, receives = true, label = "forecourt paving",
-            )
-
-            details = Entity.loadSuspend(COURTYARD_DETAILS_ASSET)
-            if (owner.root !== root) {
-                details.destroy()
-                return@SpatialView
-            }
-            check(root.addChild(details)) { "Could not attach courtyard details" }
-            detailsAttached = true
-            val detailsTransform = checkNotNull(details.components[TransformComponent::class.java])
-            detailsTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0f, 0f), null))
-            detailsTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
-            bindGroundShadow(
-                checkNotNull(details.findEntity("SidePaving_Geometry")) { "Side paving mesh is unavailable" },
-                casts = false, receives = true, label = "side paving",
-            )
-
-            for ((index, opponent) in arenaOpponents.withIndex()) {
-                enemyAttached = false
-                enemy = Entity.loadSuspend(opponent.asset)
-                if (owner.root !== root) {
-                    enemy.destroy()
-                    return@SpatialView
-                }
-                check(root.addChild(enemy)) { "Could not attach ${opponent.name}" }
-                enemyAttached = true
-                owner.enemies += enemy
-                val enemyTransform = checkNotNull(enemy.components[TransformComponent::class.java]) {
-                    "Tripo enemy has no transform"
-                }
-                enemyTransform.setPosition(root.convertPositionFrom(Vector3(0f, 0.028f, ENEMY_STAGE_Z), null))
-                enemyTransform.setQuaternion(root.convertRotationFrom(Quat.identity(), null))
-                bindGroundShadow(enemy, casts = true, receives = false, label = opponent.name)
-                // The three rounds reuse loaded opponents. Only the current fighter is visible.
-                owner.animators += EnemyAnimator(enemy)
-                owner.hitFlashes += EnemyHitFlash(enemy)
-                enemy.enabled = index == 0
-            }
-            owner.enemyModel = owner.enemies.first()
-            owner.enemyAnimator = owner.animators.first()
-            val firstEnemy = owner.enemies.first()
 
             val effects = CombatEffects.load(root)
             if (owner.root !== root) {
@@ -512,39 +586,43 @@ internal fun HomeStage(
             onPlayerHandPresenter(owner::presentPlayerHand)
             Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
 
-            light = Entity()
-            check(root.addChild(light)) { "Could not attach scene light" }
-            lightAttached = true
-            light.components.set(DirectionalLightComponent(KEY_LIGHT_COLOR, KEY_LIGHT_LUX, castsShadowEnabled = false))
-            val lightTransform = checkNotNull(light.components[TransformComponent::class.java]) {
-                "Scene light has no transform"
+            val lighting = SceneLighting.attach(root)
+            owner.lighting = lighting
+            try {
+                lighting.loadEnvironment("textures/rain_night_ibl.ktx") {
+                    owner.root === root && owner.lighting === lighting
+                }
+            } catch (error: Exception) {
+                try {
+                    lighting.close()
+                    if (owner.lighting === lighting) owner.lighting = null
+                } catch (cleanup: Exception) {
+                    error.addSuppressed(cleanup)
+                }
+                throw error
             }
-            lightTransform.setQuaternion(root.convertRotationFrom(KEY_LIGHT_ROTATION, null))
+            if (owner.root !== root) {
+                lighting.close()
+                return@SpatialView
+            }
+            val weather = SceneWeather.load(
+                root,
+                "asset://models/weather/rain_tile.glb",
+                "asset://models/weather/side_haze.glb",
+                "asset://models/weather/rain_night_sky.glb",
+            )
+            if (owner.root !== root) {
+                weather.close()
+                return@SpatialView
+            }
+            owner.weather = weather
+            weather.update(System.nanoTime(), true)
             owner.contactLight = addPointLight(
                 root, Vector3(0f, 0f, 0f), Color4(1f, 0.9f, 0.7f, 1f), 0f, 0.60f, enabled = false,
-            )
-            addPointLight(
-                root, WARM_FILL_POSITION, Color4(1f, 0.72f, 0.46f, 1f),
-                WARM_FILL_LUMENS, WARM_FILL_RADIUS_METERS,
-            )
-            addPointLight(
-                root, COOL_FILL_POSITION, Color4(0.58f, 0.74f, 1f, 1f),
-                COOL_FILL_LUMENS, COOL_FILL_RADIUS_METERS,
             )
             try {
                 val bounds = model.getVisualBounds(null)
                 Log.i(TAG, "Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}")
-                val enemyBounds = firstEnemy.getVisualBounds(null)
-                Log.i(TAG, "Tripo enemy attached; stage bounds center=${enemyBounds.center}, size=${enemyBounds.size}")
-                val origin = firstEnemy.convertPositionTo(Vector3(0f, 0f, 0f), null)
-                val localBounds = firstEnemy.getVisualBounds(firstEnemy)
-                val reachX = abs(localBounds.center.x) + localBounds.size.x / 2f
-                val reachZ = abs(localBounds.center.z) + localBounds.size.z / 2f
-                Log.i(TAG, "Enemy local bounds center=${localBounds.center}, size=${localBounds.size}; stage origin=$origin")
-                onEnemyGeometry(
-                    TrackingVector3(origin.x.toDouble(), origin.y.toDouble(), origin.z.toDouble()),
-                    hypot(reachX.toDouble(), reachZ.toDouble()),
-                )
             } catch (error: Exception) {
                 Log.w(TAG, "Tavern attached but visual bounds are unavailable", error)
             }
@@ -552,11 +630,7 @@ internal fun HomeStage(
         } catch (error: Exception) {
             for ((entity, attached) in listOf(
                 model to modelAttached,
-                forecourt to forecourtAttached,
-                details to detailsAttached,
-                enemy to enemyAttached,
                 playerWeapon to playerWeaponAttached,
-                light to lightAttached,
             )) {
                 if (!attached) {
                     try {

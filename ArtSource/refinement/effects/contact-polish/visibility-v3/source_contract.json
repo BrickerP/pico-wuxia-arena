@@ -1,0 +1,28 @@
+{
+  "schema": "contact-particle-motion/v2",
+  "scope": "04 source assets; 08 converts and drives; Root publishes app assets",
+  "units": "metres, seconds, Stage gravity",
+  "arrays": {
+    "particles": "Independent moving mesh nodes, initial position/velocity in [T,B,N], lifetime and opacity_keys",
+    "cores": "Independent contact-core nodes, normal/parry/fatal profile selected by the actual event",
+    "accents": "Short contact-only mesh arcs; requires_real_tangent and a finite lifetime; distinct from runtime blade-tip ribbons"
+  },
+  "required_node_coverage": "Every mesh-bearing GLB node belongs to exactly one of particles, cores or accents. Unknown or duplicate visible layers are a generation error.",
+  "initial_visibility": "08 hides all managed nodes at load/reset; inactive, expired, budget-rejected or invalid-direction layers stay hidden.",
+  "direction": "N=normalize(actual normal); T=normalize(actual cut tangent - N*dot(actual cut tangent,N)); B=cross(N,T)",
+  "missing_tangent": "Only an explicitly symmetric core may show. Moving particles and directional arcs remain hidden.",
+  "orientation": "Read per-particle orientation_axis_local/shape. Do not assume all long axes are X or that every type follows the same velocity alignment.",
+  "core_proposal_seconds": {"normal": 0.065, "parry": 0.09, "fatal": 0.15},
+  "clock_owner": "Root/08 select the actual event profile and presentation clock. No authored animation or contact replay queue.",
+  "tiers": "tier/priority describe hot-near, warm-main, cold-ember, hero-drop/main/fine/fiber budgets. Explicitly hide budget-rejected nodes.",
+  "source_jobs": {
+    "METAL": "ArtSource/refinement/effects/contact-polish/visibility-v3/metal/motion.json",
+    "WET": "ArtSource/refinement/effects/contact-polish/visibility-v3/wet/motion.json"
+  },
+  "consumer_changes": [
+    "08 changes generator source paths and regenerates handoff/Kotlin/app candidates.",
+    "08 explicitly maps accents.directional, fatal core profiles, local orientation axes and priority tiers.",
+    "08 compares all GLB mesh node names with the complete generated definition before app publication."
+  ],
+  "preview": "Fixed perspective FOV60 at 1.5m/2.5m, corrected per-object material opacity; offline source preview, PICO runtime evidence remains Root-owned."
+}

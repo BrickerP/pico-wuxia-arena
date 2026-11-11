@@ -1,0 +1,26 @@
+{
+  "status": "OFFLINE_SOURCE_AND_REFERENCE_MOTION_PASS",
+  "runtime": "Root actual ground event / SDK integration and device validation pending",
+  "assets": [
+    {
+      "asset": "dodge_ground_polish.glb",
+      "sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2",
+      "particles": 8,
+      "triangles": 192,
+      "geometry_local_z_nonnegative": true,
+      "tested_ground_normals": 3,
+      "minimum_base_clearance_m": -1.8735013540549517e-16,
+      "maximum_live_horizontal_bbox_diagonal_m": 0.22207129511859006
+    },
+    {
+      "asset": "landing_ground_polish.glb",
+      "sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae",
+      "particles": 8,
+      "triangles": 192,
+      "geometry_local_z_nonnegative": true,
+      "tested_ground_normals": 3,
+      "minimum_base_clearance_m": -1.8735013540549517e-16,
+      "maximum_live_horizontal_bbox_diagonal_m": 0.328538474845776
+    }
+  ]
+}

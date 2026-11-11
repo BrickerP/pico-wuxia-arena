@@ -1,0 +1,49 @@
+{
+  "status": "offline source candidate",
+  "assets": {
+    "dodge": {
+      "file": "dodge_ground_polish.glb",
+      "bytes": 17980,
+      "sha256": "ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2",
+      "asset": "dodge_ground_polish.glb",
+      "motion": "dodge_motion.json",
+      "particles": 8,
+      "mesh_nodes": 8,
+      "triangles": 192,
+      "animations": 0,
+      "mesh_height_m": [
+        0.02,
+        0.028
+      ],
+      "lifetime_s": [
+        0.26,
+        0.38
+      ],
+      "minimum_geometry_local_z_m": 0.0
+    },
+    "landing": {
+      "file": "landing_ground_polish.glb",
+      "bytes": 18072,
+      "sha256": "b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae",
+      "asset": "landing_ground_polish.glb",
+      "motion": "landing_motion.json",
+      "particles": 8,
+      "mesh_nodes": 8,
+      "triangles": 192,
+      "animations": 0,
+      "mesh_height_m": [
+        0.02,
+        0.028
+      ],
+      "lifetime_s": [
+        0.3,
+        0.42
+      ],
+      "minimum_geometry_local_z_m": 0.0
+    }
+  },
+  "ground_frame": "local [T,B,N], Stage normal and tangent supplied by Root",
+  "anchor_normal_offset_m": 0.002,
+  "particle_orientation": "fixed TBN",
+  "source": "Project-original procedural geometry, no paid service"
+}

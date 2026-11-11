@@ -209,6 +209,72 @@ class EnemyCombatStateMachineTest {
     }
 
     @Test
+    fun anArmedIdleGuardStartsExactlyOneCounterInTheSuppliedDirection() {
+        for (direction in AttackDirection.entries) {
+            val machine = EnemyCombatStateMachine()
+            val events = machine.receivePlayerHit(armGuard = true, counterDirection = direction)
+            val started = events.filterIsInstance<EnemyCombatEvent.AttackStarted>().single()
+
+            assertEquals(direction, started.direction)
+            assertTrue(started.counterattack)
+            assertEquals(0L, started.atNanos)
+            assertEquals(direction, machine.currentAttackDirection)
+            assertEquals(EnemyPhase.PREPARING, machine.phase)
+            assertEquals(90, machine.health)
+            assertTrue(machine.guarding)
+
+            val repeated = machine.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.OVERHEAD)
+            assertTrue(repeated.none { it is EnemyCombatEvent.AttackStarted })
+            assertEquals(started.attackId, machine.currentAttackId)
+            assertEquals(direction, machine.currentAttackDirection)
+        }
+    }
+
+    @Test
+    fun delayedGuardCounterUsesTheDirectionAtTheHitBoundary() {
+        val machine = EnemyCombatStateMachine()
+        machine.receivePlayerHit()
+        machine.advanceBy(ms(100), true)
+        machine.receivePlayerHit(counterDirection = AttackDirection.LEFT)
+
+        val beforeBoundary = machine.advanceBy(ms(200) - 1, true, AttackDirection.LEFT)
+        assertTrue(beforeBoundary.none { it is EnemyCombatEvent.AttackStarted })
+        assertEquals(EnemyPhase.HIT, machine.phase)
+        val boundary = machine.advanceBy(1, true, AttackDirection.RIGHT)
+            .filterIsInstance<EnemyCombatEvent.AttackStarted>().single()
+
+        assertEquals(AttackDirection.RIGHT, boundary.direction)
+        assertTrue(boundary.counterattack)
+        assertEquals(ms(300), boundary.atNanos)
+    }
+
+    @Test
+    fun aLethalOrPausedArmedGuardDoesNotStartACounterattack() {
+        val lethal = EnemyCombatStateMachine(initialHealth = 10)
+        val death = lethal.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.RIGHT)
+        assertEquals(EnemyPhase.DEAD, lethal.phase)
+        assertNull(lethal.currentAttackDirection)
+        assertTrue(death.none { it is EnemyCombatEvent.AttackStarted })
+
+        val paused = EnemyCombatStateMachine()
+        paused.pauseByPlayer()
+        assertTrue(paused.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.RIGHT).isEmpty())
+        assertEquals(100, paused.health)
+        assertFalse(paused.guarding)
+        assertNull(paused.currentAttackId)
+    }
+
+    @Test
+    fun anArmedIdleGuardKeepsTheExistingDefaultCounterDirection() {
+        val machine = EnemyCombatStateMachine()
+        val started = machine.receivePlayerHit(armGuard = true)
+            .filterIsInstance<EnemyCombatEvent.AttackStarted>().single()
+
+        assertEquals(AttackDirection.OVERHEAD, started.direction)
+        assertTrue(started.counterattack)
+    }
+
+    @Test
     fun guardDoesNotPreventDeathOrAllowACancelledCounterattackToContinue() {
         val machine = EnemyCombatStateMachine(initialHealth = 55)
         machine.receivePlayerHit()
@@ -348,13 +414,21 @@ class EnemyCombatStateMachineTest {
     }
 
     @Test
-    fun deathIsTerminalUntilRoundReset() {
+    fun deathRemainsTerminalAcrossTrackingPauseUntilRoundReset() {
         val machine = EnemyCombatStateMachine(initialHealth = 25)
         start(machine)
         machine.receivePlayerHit()
         assertEquals(EnemyPhase.DEAD, machine.phase)
-        assertTrue(machine.interruptTracking().isEmpty())
-        assertTrue(machine.tryResume(true, true, 1L).isEmpty())
+        val stoppedAt = machine.simulationNanos
+        val pause = machine.interruptTracking().filterIsInstance<EnemyCombatEvent.PauseChanged>().single()
+        assertEquals(PauseReason.TRACKING_INTERRUPTION, pause.current)
+        assertEquals(EnemyPhase.DEAD, machine.phase)
+        assertTrue(machine.advanceBy(1_000_000_000L, true).isEmpty())
+        val resumed = machine.tryResume(true, true, pause.pauseId)
+            .filterIsInstance<EnemyCombatEvent.PauseChanged>().single()
+        assertNull(resumed.current)
+        assertEquals(stoppedAt, machine.simulationNanos)
+        assertEquals(0, machine.health)
         assertTrue(machine.receivePlayerHit().isEmpty())
         assertEquals(EnemyPhase.DEAD, machine.phase)
 

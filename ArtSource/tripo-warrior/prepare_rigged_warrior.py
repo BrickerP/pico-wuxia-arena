@@ -473,9 +473,13 @@ def apply_offhand_rotation_envelope(doc, binary, config):
     }
 
 
-def append_dao(doc, binary, hand, mount):
+def append_dao(doc, binary, hand, mount, source_path=None, source_sha=None):
     """Bake the dao into body bind space and rigidly skin it to R_Hand."""
-    dao, original_binary = read_glb(DAO_SOURCE)
+    source_path = Path(source_path) if source_path is not None else DAO_SOURCE
+    digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
+    if source_sha is not None and digest != source_sha:
+        raise ValueError('approved dao source hash changed')
+    dao, original_binary = read_glb(source_path)
     if dao.get('skins') or dao.get('animations') or dao.get('extensionsRequired'):
         raise ValueError('dao source contract changed')
     skin = doc['skins'][0]
@@ -540,6 +544,11 @@ def append_dao(doc, binary, hand, mount):
             attributes = primitive['attributes']
             if 'TANGENT' in attributes or 'JOINTS_0' in attributes or 'WEIGHTS_0' in attributes:
                 raise ValueError('dao attribute contract changed')
+            normal_texture = dao['materials'][primitive['material']].get('normalTexture')
+            if normal_texture is not None:
+                uv = 'TEXCOORD_' + str(normal_texture.get('texCoord', 0))
+                if 'NORMAL' not in attributes or uv not in attributes:
+                    raise ValueError('normal-mapped dao primitive lacks its normal/UV basis')
             for attribute in ('POSITION','NORMAL'):
                 index = attributes[attribute]
                 if index in owners and owners[index] != node_index:
@@ -607,6 +616,7 @@ def append_dao(doc, binary, hand, mount):
     combined = binary + bytes(packed_dao)
     doc['buffers'][0]['byteLength'] = len(combined)
     return combined,anchor_index,{'method':'same-skin rigid vertices','skin':0,
+                                 'source_glb':os.path.relpath(source_path, HERE),'source_sha256':digest,
                                  'joint_name':doc['nodes'][hand]['name'],'joint_palette_index':palette,
                                  'body_primitive_indices':body_indices,
                                  'weapon_primitive_indices':weapon_indices,
@@ -664,7 +674,7 @@ def calibrated_mount(source, normalization, hand):
 
 def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_path,
                       alignment_path, height=HEIGHT, grip_frame=None, finger_rotation_offsets=None,
-                      offhand_rotation_envelope=None):
+                      attack_grounding_clips=None, weapon_source=None):
     """Publish a body, its same-skin dao variant and their shared asset metadata."""
     source_path = Path(source_path)
     if hashlib.sha256(source_path.read_bytes()).hexdigest() != source_sha:
@@ -696,8 +706,11 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
     source_binary = binary
     binary, animation_records = append_animations(doc,binary,source,clip_sources)
     binary, finger_calibration = apply_finger_rotation_offsets(doc, binary, finger_rotation_offsets)
-    binary, offhand_calibration = apply_offhand_rotation_envelope(doc, binary, offhand_rotation_envelope)
-    if finger_calibration is not None or offhand_calibration is not None:
+    grounding = None
+    if attack_grounding_clips is not None:
+        from attack_grounding import ground_attack_feet
+        binary, grounding = ground_attack_feet(doc, binary, attack_grounding_clips)
+    if finger_calibration is not None or grounding is not None:
         for animation, record in zip(doc['animations'], animation_records):
             record['source_keyframe_semantics_sha256'] = record['keyframe_semantics_sha256']
             record['keyframe_semantics_sha256'] = animation_signature(doc, binary, animation)
@@ -718,7 +731,9 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
     location = mount.translation
     target = (hand_world @ mount).translation
     source_target = world_matrix(source['nodes'],hand) @ location
-    combined,weapon_index,weapon_binding = append_dao(doc,binary,hand,mount)
+    dao_arguments = {} if weapon_source is None else {
+        'source_path': HERE / weapon_source['source'], 'source_sha': weapon_source['source_sha256']}
+    combined,weapon_index,weapon_binding = append_dao(doc,binary,hand,mount,**dao_arguments)
     grip_index = len(doc['nodes'])
     doc['nodes'].append({'name':'HandGrip_R','matrix':matrix_values(mount),'children':[weapon_index]})
     doc['nodes'][hand].setdefault('children',[]).append(grip_index)
@@ -753,8 +768,8 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
               'outputs':[body_output,weapon_output]}
     if finger_calibration is not None:
         record['finger_rotation_calibration'] = finger_calibration
-    if offhand_calibration is not None:
-        record['offhand_rotation_calibration'] = offhand_calibration
+    if grounding is not None:
+        record['attack_root_grounding'] = grounding
     alignment_bytes = (json.dumps(record,indent=2)+'\n').encode('utf-8')
     publish_outputs(((body_path,body_bytes), (weapon_path,weapon_bytes),
                      (alignment_path,alignment_bytes)))

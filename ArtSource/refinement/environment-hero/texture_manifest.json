@@ -1,0 +1,40 @@
+{
+  "status": "complete",
+  "source_scans": "Poly Haven CC0, see ArtSource/tavern/README.md",
+  "procedural_original": [
+    "roof",
+    "plaster",
+    "moss"
+  ],
+  "authored_uv": {
+    "stone_repeat_m": 0.65,
+    "wood_longitudinal_repeat_m": 1.25,
+    "wood_transverse_repeat_m": 0.35,
+    "roof_pan": "one U repeat per .21m clay pan; V follows the overlapping row",
+    "plaster_repeat_m": [
+      2.5,
+      5.5
+    ],
+    "moss_repeat_m": 0.65
+  },
+  "maps": {
+    "moss_color.png": "03f7806b49c4bc4aa7d7c36d35f683fc5e2d971ac524eabe54fb2b7467d1f3f0",
+    "moss_normal.png": "87e71a19d12d93e958fc10f4659ea26a5e98d9f3b12d597202ba853108692f89",
+    "moss_rough.png": "1d00e5c354222fa1325843cbe62cdc091909e4db0c6ae0e849be6077eda45899",
+    "plaster_color.png": "0e23653fd88596d6b0f080104995744110ebb5ca8be4dc0e81fd0d20453ee01a",
+    "plaster_normal.png": "653929d320af24e9bd75604a7d2f94b7259f2484da6fa3b8ca2c8cd3795abd43",
+    "plaster_rough.png": "c69d87415b3a525aeeed283a83fd537d1faa05e074aff8dd2a72cbf122c7db98",
+    "roof_color.png": "62862675b96bcae4a2619b5e916eb4336707cc3e768c1cab1bcd7f3ecde27397",
+    "roof_normal.png": "dfb237fe824b0a32261cd489f45da524b4104bf8bd58d0c3c5e3d3586bb784be",
+    "roof_rough.png": "c26826a3d75f2b8d31ed4b5d8b0f2fcebcf23949a664854c99fdebebcdad2f8f",
+    "stone_color.png": "8ce697542f7fb03d4e3a9587036297ac65f443155cc1b146eba6cb09ff364a04",
+    "stone_normal.png": "70d28807950a554cd42608336a3f3816d63b61f0ca1394ab1f09ca7f3b32c2df",
+    "stone_rough.png": "67508515a7f000639304e3a74d9ac2c8de6b3fc8f2acf8c3d08d4f468c957a52",
+    "stone_wet_color.png": "b7abe1ea1432f2b7b3f2440b700c6439102ad62647ce8e86c09b00c3225b8b12",
+    "stone_wet_normal.png": "70d28807950a554cd42608336a3f3816d63b61f0ca1394ab1f09ca7f3b32c2df",
+    "stone_wet_rough.png": "c77a9f422f7e6a0de2090aeb1f99cde3c32802d4e5f5e12fc061203cc4a15bc2",
+    "wood_color.png": "73010779875203488c014dbd2d54e0067d55e749b7f2b91c259e098b51d0e788",
+    "wood_normal.png": "125a1ba3f7c7daa5cbb1f2bd8ffa25f470486a1d0da0331ad15ba6ea8ea43fb5",
+    "wood_rough.png": "89b32ff62f5b9af4c1ac55dbf4558646a39b2cfd706fc9e3dce8c43d18bb0a11"
+  }
+}

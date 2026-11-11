@@ -184,8 +184,16 @@ class EnemyCombatStateMachine(
         return events
     }
 
-    /** Accepts one already-deduplicated, valid player hit; it does not detect contact. */
-    fun receivePlayerHit(damage: Int = NORMAL_DAMAGE, breakGuard: Boolean = false, armGuard: Boolean = false): List<EnemyCombatEvent> {
+    /**
+     * Accepts one already-deduplicated player hit; it does not detect contact. The caller
+     * selects any newly armed counterattack's direction without redirecting an existing attack.
+     */
+    fun receivePlayerHit(
+        damage: Int = NORMAL_DAMAGE,
+        breakGuard: Boolean = false,
+        armGuard: Boolean = false,
+        counterDirection: AttackDirection = AttackDirection.OVERHEAD,
+    ): List<EnemyCombatEvent> {
         require(damage > 0) { "damage must be positive" }
         if (pauseReason != null || phase == EnemyPhase.DEAD) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
@@ -205,7 +213,7 @@ class EnemyCombatStateMachine(
             hitReaction = null
             changePhase(EnemyPhase.DEAD, events)
         } else if (guarding && phase == EnemyPhase.IDLE && armGuard) {
-            startAttack(AttackDirection.OVERHEAD, true, events)
+            startAttack(counterDirection, true, events)
         } else if (!guarding) {
             val remainingParry = if (phase == EnemyPhase.HIT && hitReaction == HitReaction.PARRIED) {
                 hitDurationNanos - phaseElapsedNanos

@@ -1,0 +1,1064 @@
+{
+  "schema": "weapon_surfaces_v1",
+  "source": {
+    "path": "ArtSource/dao/dao_study.glb",
+    "sha256": "0855a39e9851222a8976f36b2722fdde8d1f2e42cb2e813cf4057dc1257ef616"
+  },
+  "seed": 20261111,
+  "resolution": 1024,
+  "uv_convention": {
+    "origin": "upper-left; row0 is glTF V0",
+    "coord": "TEXCOORD_0",
+    "blade_y_metres": "0.735−0.720*V",
+    "blade_tip_V": 0,
+    "blade_guard_V": 1
+  },
+  "normal_convention": {
+    "encoding": "OpenGL/glTF tangent +X red, +Y green(up), +Z blue; linearRGB",
+    "height_to_normal": "R=−dH/dU; G=+dH/dimageV(down); B=+1, normalized",
+    "green_flip": false,
+    "height_units": "metres",
+    "cord_height_amplitude_m": 3.5e-05,
+    "leather_indent_amplitude_m": 4.5e-05
+  },
+  "metallic_roughness_channels": {
+    "R": "1; neutral occlusion if used",
+    "G": "absolute roughness",
+    "B": "absolute metallic"
+  },
+  "materials": {
+    "Steel | forged body": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Blade",
+          "mesh": "Blade_mesh",
+          "world_bounds_metres": [
+            [
+              -0.023000000044703484,
+              0.014999999664723873,
+              -0.0031999999191612005
+            ],
+            [
+              0.05307599902153015,
+              0.7350000143051147,
+              0.0031999999191612005
+            ]
+          ],
+          "UV0": [
+            [
+              0.023529410362243652,
+              0.0
+            ],
+            [
+              0.9185411930084229,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.08501896816461647,
+            0.7200033828860521
+          ]
+        }
+      ],
+      "cause_regions": [
+        "V>.935 corresponds last46.8mm near guard; dark oxidized transition",
+        "longitudinal grinding roughness along V",
+        "22 sparse cross-scuff strokes7–19mm",
+        "no painted bright fuller band"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Steel | sharpened edge": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Blade",
+          "mesh": "Blade_mesh",
+          "world_bounds_metres": [
+            [
+              0.008980000391602516,
+              0.014999999664723873,
+              -0.0031999999191612005
+            ],
+            [
+              0.057999998331069946,
+              0.7350000143051147,
+              0.0031999999191612005
+            ]
+          ],
+          "UV0": [
+            [
+              0.3997647166252136,
+              0.0
+            ],
+            [
+              0.9764705896377563,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.08619021435657362,
+            0.7200267320319323
+          ]
+        }
+      ],
+      "cause_regions": [
+        "existing sharpened-edge material geometry; clean finer polishing, guard-end oxide"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Steel | dark spine": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Blade",
+          "mesh": "Blade_mesh",
+          "world_bounds_metres": [
+            [
+              -0.023000000044703484,
+              0.014999999664723873,
+              -0.0031999999191612005
+            ],
+            [
+              0.052799999713897705,
+              0.7350000143051147,
+              0.0031999999191612005
+            ]
+          ],
+          "UV0": [
+            [
+              0.023529410362243652,
+              0.0
+            ],
+            [
+              0.9152941107749939,
+              1.0
+            ]
+          ],
+          "uv_metric_status": "UV triangles degenerate; no finite texel density inferred"
+        },
+        {
+          "node": "Blade | shallow fuller",
+          "mesh": "Blade | shallow fuller_mesh",
+          "world_bounds_metres": [
+            [
+              -0.012799999676644802,
+              0.054999999701976776,
+              0.001497418968938291
+            ],
+            [
+              0.02542000077664852,
+              0.6800000071525574,
+              0.002693583955988288
+            ]
+          ],
+          "UV0": "missing; assign UV0 before binding these images"
+        }
+      ],
+      "cause_regions": [
+        "dark spine and actual fuller geometry floor; source fuller mesh lacks UV0 and requires geometry-agent UV assignment"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Steel | uneven wear": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Blade | asymmetric wear",
+          "mesh": "Blade | asymmetric wear_mesh",
+          "world_bounds_metres": [
+            [
+              -0.011950179003179073,
+              0.06985678523778915,
+              0.0020126972813159227
+            ],
+            [
+              0.01810818538069725,
+              0.5732336044311523,
+              0.0029651676304638386
+            ]
+          ],
+          "UV0": "missing; assign UV0 before binding these images"
+        }
+      ],
+      "cause_regions": [
+        "existing physical scar meshes only; source scar mesh lacks UV0"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Grip | worn cord": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "normal": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_normal.png",
+          "color_space": "linear",
+          "texCoord": 0,
+          "scale": 0.65
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Grip | cord wrap",
+          "mesh": "Grip | cord wrap_mesh",
+          "world_bounds_metres": [
+            [
+              -0.01746889017522335,
+              -0.21162866055965424,
+              -0.01344914361834526
+            ],
+            [
+              0.01747771166265011,
+              -0.024548238143324852,
+              0.013488478027284145
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              -11.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.008540980113524662,
+            0.1399883505840566
+          ]
+        }
+      ],
+      "cause_regions": [
+        "6by24 periodic interlaced yarn cells per original UV tile",
+        "raised cord crown wear hypothesis u≈.5; actual hand contact not baked",
+        "source helical UV V−11..1 repeats12tiles; low-contrast fibers, no high-frequency pixel noise"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Brass | aged": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Blade collar",
+          "mesh": "Blade collar_mesh",
+          "world_bounds_metres": [
+            [
+              -0.023000000044703484,
+              0.0020000000949949026,
+              -0.008999999612569809
+            ],
+            [
+              0.023000000044703484,
+              0.020999999716877937,
+              0.008999999612569809
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.10348867793439642,
+            0.020027757757793724
+          ]
+        },
+        {
+          "node": "Guard | flared oval",
+          "mesh": "Guard | flared oval_mesh",
+          "world_bounds_metres": [
+            [
+              -0.04500000178813934,
+              -0.014000000432133675,
+              -0.01899999938905239
+            ],
+            [
+              0.04500000178813934,
+              0.004000000189989805,
+              0.01899999938905239
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.1757390500758665,
+            0.029058446177644325
+          ]
+        },
+        {
+          "node": "Pommel | brass",
+          "mesh": "Pommel | brass_mesh",
+          "world_bounds_metres": [
+            [
+              -0.017999999225139618,
+              -0.23199999332427979,
+              -0.014000000432133675
+            ],
+            [
+              0.017999999225139618,
+              -0.21400000154972076,
+              0.014000000432133675
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.0870133440330296,
+            0.019804565738971863
+          ]
+        }
+      ],
+      "cause_regions": [
+        "cast base/recess material assignment distinguishes oxidized areas; mottling is not a curvature/AO bake",
+        "large soft oxidation patches retain restrained brass colour"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Brass | polished ridges": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Grip ferrule",
+          "mesh": "Grip ferrule_mesh",
+          "world_bounds_metres": [
+            [
+              -0.015799999237060547,
+              -0.02500000037252903,
+              -0.012199999764561653
+            ],
+            [
+              0.015799999237060547,
+              -0.020999999716877937,
+              0.012199999764561653
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.08715871004920472,
+            0.004088675974170158
+          ]
+        },
+        {
+          "node": "Guard pin 1",
+          "mesh": "Sphere",
+          "world_bounds_metres": [
+            [
+              -0.029700000770390034,
+              -0.008700000122189522,
+              0.015500000910833478
+            ],
+            [
+              -0.02430000063031912,
+              -0.0032999999821186066,
+              0.01850000093691051
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.9999999403953552
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.00865342563346341,
+            0.00801520793306806
+          ]
+        },
+        {
+          "node": "Guard pin 2",
+          "mesh": "Sphere.001",
+          "world_bounds_metres": [
+            [
+              0.02430000063031912,
+              -0.008700000122189522,
+              0.015500000910833478
+            ],
+            [
+              0.029700000770390034,
+              -0.0032999999821186066,
+              0.01850000093691051
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              0.9999999403953552
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.00865342563346341,
+            0.00801520793306806
+          ]
+        },
+        {
+          "node": "Guard | outer rim",
+          "mesh": "Guard | outer rim_mesh",
+          "world_bounds_metres": [
+            [
+              -0.04600000008940697,
+              -0.007499999832361937,
+              -0.019500000402331352
+            ],
+            [
+              0.04600000008940697,
+              -0.003000000026077032,
+              0.019500000402331352
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.21130260564516162,
+            0.006820278269167686
+          ]
+        },
+        {
+          "node": "Pommel ring",
+          "mesh": "Pommel ring_mesh",
+          "world_bounds_metres": [
+            [
+              -0.017500000074505806,
+              -0.22100000083446503,
+              -0.013500000350177288
+            ],
+            [
+              0.017500000074505806,
+              -0.21699999272823334,
+              0.013500000350177288
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.0965024797258009,
+            0.00410845049491867
+          ]
+        }
+      ],
+      "cause_regions": [
+        "existing convex ridge/ring material assignment supplies actual raised-contact causal region"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    },
+    "Grip | dark oxblood leather": {
+      "textures": {
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_basecolor.png",
+          "color_space": "sRGB",
+          "texCoord": 0
+        },
+        "roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_roughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_metallicRoughness.png",
+          "color_space": "linear",
+          "texCoord": 0
+        },
+        "normal": {
+          "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_normal.png",
+          "color_space": "linear",
+          "texCoord": 0,
+          "scale": 0.45
+        }
+      },
+      "uv_observed": [
+        {
+          "node": "Handle core",
+          "mesh": "Handle core_mesh",
+          "world_bounds_metres": [
+            [
+              -0.017000000923871994,
+              -0.21799999475479126,
+              -0.013000000268220901
+            ],
+            [
+              0.017000000923871994,
+              -0.01600000075995922,
+              0.013000000268220901
+            ]
+          ],
+          "UV0": [
+            [
+              0.0,
+              0.0
+            ],
+            [
+              1.0,
+              1.0
+            ]
+          ],
+          "median_metres_per_uv_tile": [
+            0.08289123174687182,
+            0.2021095735282015
+          ]
+        }
+      ],
+      "cause_regions": [
+        "Vends each~11.1mm of202mm handle core receive dry end wear",
+        "8 broad compressed longitudinal leather crease bands; no baked lighting"
+      ],
+      "pbr_factors_when_binding_absolute_maps": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 1,
+        "roughnessFactor": 1
+      },
+      "sampler": {
+        "wrapS": "REPEAT",
+        "wrapT": "REPEAT"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "ae4cbf0327c87c28548e19b510a9a4e90ce12e35a5e555640638dc250c72933a",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_forged_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "892977a34ff1dff4f07f0c7435a0d6de4e4c857089d0b2c71c917643314ad31f",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_edge_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "beb2410ffc75f1e41ef125aceed333673327ca4a18f8d445dca52245aa343fea",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_spine_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "72b865d9833c1dfd98645eb7b770806670c37e4252a7231c43894a62076c8675",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/steel_wear_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "4fe0240c26e02b7af0c0b57c3d4c0d1db61813d170780184ee1f3cdaea2d00ee",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/cord_weave_normal.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "normal",
+      "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "93925ad06c92818c3fda40dfac02e2ac66854ccbb56d7e4257dbddd45c20dca9",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_aged_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "84aed75187b544ebd3327dfba619b1fae1b1ecabfc517a479fd22099e31680b3",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/brass_contact_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_basecolor.png",
+      "color_space": "sRGB",
+      "texCoord": 0,
+      "role": "base_color",
+      "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_roughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "roughness",
+      "sha256": "51e305d76e698cb9f013264d21fe23f0230034e9a16ef4317341b8e59ca16af4",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_metallicRoughness.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "metallic_roughness",
+      "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3",
+      "resolution": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/weapon/stage2/surfaces/leather_pressed_normal.png",
+      "color_space": "linear",
+      "texCoord": 0,
+      "role": "normal",
+      "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb",
+      "resolution": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "scope": "procedurally authored PNG assets only; actual groove remains geometry; oxidation/contact masks partly material-level hypotheses requiring integrated visual review"
+}

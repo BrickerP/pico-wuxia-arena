@@ -2,6 +2,7 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 
 import android.content.pm.ApplicationInfo
 import android.os.Build
+import android.os.Process
 import android.util.Log
 import androidx.annotation.MainThread
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.example.wuxiaarena.p0d2f0182.input.PicoTrackingAdapter
 import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
 import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatAction
 import com.pico.spatial.tracking.DataProvider
+import com.pico.spatial.tracking.controller.ControllerActionData
 import com.pico.spatial.tracking.controller.ControllerTrackingProvider
 import com.pico.spatial.tracking.hmd.HMDTrackingProvider
 import kotlinx.coroutines.isActive
@@ -38,6 +40,9 @@ private const val STATUS_POLL_NANOS = 100_000_000L
 private const val STOP_ATTEMPTS = 4
 private const val ACTION_QUEUE_CAPACITY = 64
 private const val ACTION_MAX_AGE_NANOS = 250_000_000L
+private const val ACTION_PROBE_TAG = "ArenaActionProbe"
+private const val ACTION_PROBE_CAPACITY = 16
+private const val ACTION_PROBE_HEARTBEAT_NANOS = 1_000_000_000L
 
 internal data class ControllerActionObservation(
     val generation: Long,
@@ -166,6 +171,13 @@ private class TrackingSession(
     private var controllerActionsAvailable = false
     private var controllerActionsPaused = false
     private var lastControllerActionLog: Triple<Long, Boolean, Boolean>? = null
+    private val actionProbeGate = Any()
+    private val actionProbeChanges = ArrayDeque<ActionProbeSnapshot>()
+    private var actionProbeGeneration: Long? = null
+    private var actionProbeLatest: ActionProbeSnapshot? = null
+    private var actionProbeLastValues: ControllerActionData? = null
+    private var actionProbeDropped = 0L
+    private var lastActionProbeHeartbeat: Long? = null
     private var lastHeadStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var lastControllerStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var newestHeadObservation: TrackingEvent.Head? = null
@@ -179,6 +191,13 @@ private class TrackingSession(
     private var controlInProgress = false
     private var stopRequested = false
     private var stopInProgress = false
+
+    private data class ActionProbeSnapshot(
+        val generation: Long,
+        val values: ControllerActionData,
+        val count: Long,
+        val receivedAtNanos: Long,
+    )
 
     fun start() {
         if (active) return
@@ -480,10 +499,34 @@ private class TrackingSession(
         controllerActionsAvailable = false
         controllerActionsPaused = false
         lastControllerActionLog = null
+        synchronized(actionProbeGate) {
+            actionProbeGeneration = token
+            actionProbeLatest = null
+            actionProbeLastValues = null
+            actionProbeChanges.clear()
+            actionProbeDropped = 0L
+        }
+        lastActionProbeHeartbeat = null
         lastHeadStatus = null
         lastControllerStatus = null
         val listener = ControllerTrackingProvider.ControllerActionListener { action ->
-            actionQueue.offer(token, action.right.aButtonPressed, System.nanoTime())
+            val receivedAt = System.nanoTime()
+            actionQueue.offer(token, action.right.aButtonPressed, receivedAt)
+            if (diagnosticsEnabled) synchronized(actionProbeGate) {
+                if (actionProbeGeneration == token) {
+                    val snapshot = ActionProbeSnapshot(token, action,
+                        (actionProbeLatest?.count ?: 0L) + 1L, receivedAt)
+                    actionProbeLatest = snapshot
+                    if (action != actionProbeLastValues) {
+                        actionProbeLastValues = action
+                        if (actionProbeChanges.size == ACTION_PROBE_CAPACITY) {
+                            actionProbeChanges.removeFirst()
+                            actionProbeDropped++
+                        }
+                        actionProbeChanges.addLast(snapshot)
+                    }
+                }
+            }
         }
         // Retain the listener after partial registration so stop can remove it.
         actionListener = listener
@@ -496,6 +539,14 @@ private class TrackingSession(
         controllerActionsAvailable = false
         controllerActionsPaused = true
         lastControllerActionLog = null
+        synchronized(actionProbeGate) {
+            actionProbeGeneration = null
+            actionProbeLatest = null
+            actionProbeLastValues = null
+            actionProbeChanges.clear()
+            actionProbeDropped = 0L
+        }
+        lastActionProbeHeartbeat = null
         val listener = actionListener ?: return
         try {
             controllerProvider.removeControllerActionListener(listener)
@@ -530,11 +581,35 @@ private class TrackingSession(
                 }
             }
             if (batch.droppedChanges > 0L) Log.w(TAG, "Controller action gap; droppedChanges=${batch.droppedChanges}")
+            logControllerActionProbe(nowNanos, usable)
         }
         for (press in batch.presses) {
             DesktopCombatInput.trigger(DesktopCombatAction.SLASH)
             Log.i(TAG, "Controller rightA rising edge -> DESKTOP SLASH; generation=${press.generation}, " +
                 "callbackCount=${press.count}, receivedAtNanos=${press.receivedAtNanos}")
+        }
+    }
+
+    private fun logControllerActionProbe(nowNanos: Long, usable: Boolean) {
+        val (changes, latest, dropped) = synchronized(actionProbeGate) {
+            val result = Triple(actionProbeChanges.toList(), actionProbeLatest, actionProbeDropped)
+            actionProbeChanges.clear()
+            actionProbeDropped = 0L
+            result
+        }
+        for (snapshot in changes) {
+            Log.i(ACTION_PROBE_TAG, "snapshot generation=${snapshot.generation} count=${snapshot.count} " +
+                "receivedAtNanos=${snapshot.receivedAtNanos} " +
+                "left=${snapshot.values.left} right=${snapshot.values.right}")
+        }
+        if (dropped > 0L) Log.w(ACTION_PROBE_TAG, "snapshot gap dropped=$dropped")
+        val previous = lastActionProbeHeartbeat
+        if (previous == null || nowNanos < previous || nowNanos - previous >= ACTION_PROBE_HEARTBEAT_NANOS) {
+            lastActionProbeHeartbeat = nowNanos
+            Log.i(ACTION_PROBE_TAG, "heartbeat pid=${Process.myPid()} nowNanos=$nowNanos " +
+                "generation=${latest?.generation} callbackCount=${latest?.count ?: 0L} " +
+                "lastReceiptNanos=${latest?.receivedAtNanos} available=$controllerActionsAvailable " +
+                "paused=$controllerActionsPaused observedReady=$observedReady usable=$usable")
         }
     }
 

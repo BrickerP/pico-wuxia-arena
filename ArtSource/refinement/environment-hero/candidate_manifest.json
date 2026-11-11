@@ -1,0 +1,230 @@
+{
+  "status": "complete",
+  "candidate": "courtyard_hero.glb",
+  "sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+  "source_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "source_tavern_sha256": "af3adf8b15bb5aa6f34a9a5240e18bc2534bc977db4a05089a0c3a1ee1bbdc69",
+  "producer_sha256": "14f77c3292d95abe27f95dd2775455dea1850755fad515899dd0cf38d13971b1",
+  "coordinates": "SDK metres, +Y up, -Z forward",
+  "load_position_stage_m": [
+    0,
+    0,
+    0
+  ],
+  "load_rotation": "identity",
+  "load_scale": [
+    1,
+    1,
+    1
+  ],
+  "bounds_stage_m": {
+    "min": [
+      -10.866999626159668,
+      -0.11999999731779099,
+      -13.217499732971191
+    ],
+    "max": [
+      11.1850004196167,
+      11.177310943603516,
+      2.9170000553131104
+    ]
+  },
+  "ground_top_stage_y_m": 0,
+  "replace_assets": [
+    "tavern_slice.glb",
+    "forecourt.glb",
+    "courtyard_details.glb"
+  ],
+  "ground_receivers": [
+    "EH_GroundReceiver",
+    "EH_MortarAndDrain"
+  ],
+  "modules": {
+    "EH_GroundReceiver": {
+      "vertices": 7776,
+      "triangles": 14256
+    },
+    "EH_MortarAndDrain": {
+      "vertices": 728,
+      "triangles": 1092
+    },
+    "EH_TavernTimber": {
+      "vertices": 1032,
+      "triangles": 1892
+    },
+    "EH_TavernWalls": {
+      "vertices": 400,
+      "triangles": 748
+    },
+    "EH_EntryDoorsWindows": {
+      "vertices": 4384,
+      "triangles": 8048
+    },
+    "EH_TavernMainRoof_Rafters": {
+      "vertices": 5568,
+      "triangles": 10208
+    },
+    "EH_TavernMainRoof": {
+      "vertices": 13772,
+      "triangles": 11162
+    },
+    "EH_TavernPorchRoof_Rafters": {
+      "vertices": 5376,
+      "triangles": 9856
+    },
+    "EH_TavernPorchRoof": {
+      "vertices": 13546,
+      "triangles": 10982
+    },
+    "EH_WestRoof_Rafters": {
+      "vertices": 3840,
+      "triangles": 7040
+    },
+    "EH_WestRoof": {
+      "vertices": 9494,
+      "triangles": 7750
+    },
+    "EH_EastRoof_Rafters": {
+      "vertices": 3840,
+      "triangles": 7040
+    },
+    "EH_EastRoof": {
+      "vertices": 9494,
+      "triangles": 7750
+    },
+    "EH_SideGalleryTimber": {
+      "vertices": 1360,
+      "triangles": 2552
+    },
+    "EH_SideGalleryWalls": {
+      "vertices": 384,
+      "triangles": 704
+    },
+    "EH_SideGalleryWindows": {
+      "vertices": 2688,
+      "triangles": 4928
+    },
+    "EH_CourtyardLife": {
+      "vertices": 1224,
+      "triangles": 2244
+    },
+    "EH_StonePond": {
+      "vertices": 336,
+      "triangles": 616
+    },
+    "EH_PondAndPuddles": {
+      "vertices": 104,
+      "triangles": 96
+    },
+    "EH_Reuse_StoneLotusBasin_Geometry": {
+      "vertices": 2266,
+      "triangles": 1158
+    },
+    "EH_Reuse_Stool_Geometry": {
+      "vertices": 1728,
+      "triangles": 864
+    },
+    "EH_Reuse_TeaTable_Geometry": {
+      "vertices": 6885,
+      "triangles": 5736
+    },
+    "EH_Reuse_WineJars_Geometry": {
+      "vertices": 7965,
+      "triangles": 10316
+    },
+    "EH_LanternFittings": {
+      "vertices": 4464,
+      "triangles": 6880
+    },
+    "EH_LanternPaper": {
+      "vertices": 1056,
+      "triangles": 1920
+    },
+    "EH_TownRoof_1": {
+      "vertices": 4308,
+      "triangles": 3616
+    },
+    "EH_TownLowerEave_1": {
+      "vertices": 4534,
+      "triangles": 3796
+    },
+    "EH_TownRoof_2": {
+      "vertices": 4756,
+      "triangles": 3974
+    },
+    "EH_TownLowerEave_2": {
+      "vertices": 4982,
+      "triangles": 4154
+    },
+    "EH_DistantTownWalls": {
+      "vertices": 144,
+      "triangles": 216
+    }
+  },
+  "anchors": {
+    "EH_ReceiverOrigin": {
+      "stage_m": [
+        0,
+        0,
+        0
+      ],
+      "role": "ground receiver reference, SDK Y=0"
+    },
+    "EH_Light_Lantern_01": {
+      "stage_m": [
+        -2.15,
+        2.7,
+        -4.7
+      ],
+      "role": "warm point light; 07 sets intensity/range"
+    },
+    "EH_Light_Lantern_02": {
+      "stage_m": [
+        2.15,
+        2.7,
+        -4.7
+      ],
+      "role": "warm point light; 07 sets intensity/range"
+    },
+    "EH_Light_Lantern_03": {
+      "stage_m": [
+        -4.03,
+        2.25,
+        0.5599999999999999
+      ],
+      "role": "warm point light; 07 sets intensity/range"
+    },
+    "EH_Light_Lantern_04": {
+      "stage_m": [
+        4.03,
+        2.25,
+        -1.3199999999999998
+      ],
+      "role": "warm point light; 07 sets intensity/range"
+    },
+    "EH_Light_CourtMoon": {
+      "stage_m": [
+        -4,
+        7,
+        -2
+      ],
+      "role": "cool overhead key position for 07"
+    },
+    "EH_CombatClearCenter": {
+      "stage_m": [
+        0,
+        0,
+        -2.4
+      ],
+      "role": "clear combat reference; Y=0 floor"
+    }
+  },
+  "portable_maps": "texture_manifest.json",
+  "limitations": [
+    "Not installed in PICO; Root owns build/device/integration",
+    "Offline lamps are review lights; 07 must recreate native lights from anchors",
+    "Opaque non-transmissive water avoids unsupported refraction; reflection needs native IBL",
+    "No collision/navmesh; existing fixed combat controls retained",
+    "Enemy old foot Y=.028 requires Root choose Y=0 or document .028 clearance"
+  ]
+}

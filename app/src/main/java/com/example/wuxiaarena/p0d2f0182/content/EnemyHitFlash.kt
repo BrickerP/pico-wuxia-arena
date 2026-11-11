@@ -37,7 +37,7 @@ internal class EnemyHitFlash(enemy: Entity) : AutoCloseable {
                 val model = entity.components[ModelComponent::class.java] ?: continue
                 for (index in 0 until model.materials.size) {
                     val original = model.materials[index] as? PhysicallyBasedMaterial ?: continue
-                    if (!original.getName().startsWith("tripo_", ignoreCase = true)) continue
+                    if (!isFlashableBodyMaterial(original.getName())) continue
                     // The mesh and DAO share a ModelComponent. Only the named body slots change.
                     val retained = flashes[original]
                     if (retained != null) {

@@ -1,0 +1,374 @@
+{
+  "asset": "wet_cloth_contact.glb",
+  "units": "metres / seconds",
+  "basis": {
+    "x": "normalized actual cut tangent projected onto contact plane",
+    "z": "normalized actual contact outward normal",
+    "y": "z cross x"
+  },
+  "gravity_stage_mps2": [
+    0.0,
+    -9.81,
+    0.0
+  ],
+  "anchor_normal_offset_m": 0.008,
+  "clock": "presentation seconds since accepted fresh contact; continues through NPC pose hitstop",
+  "transform_equation": "pStage(t)=pointStage+normalStage*anchorNormalOffset+basis*p0Local+basis*v0Local*t+0.5*gravityStage*t*t",
+  "opacity_interpolation": "linear between opacity_keys; zero before birth and at/after lifetime",
+  "contact_semantics": "Only Root-confirmed wet cloth; bare head and generic soft contact do not imply water.",
+  "tangent_requirement": "Root supplies actual sampled blade-tip sweep tangent. CombatImpact currently has no tangent field.",
+  "material_approximation": "Ordinary alpha-blended PBR highlight, no transmission or refraction extension.",
+  "particles": [
+    {
+      "node": "drop_00",
+      "type": "droplet",
+      "diameter_m": 0.0022,
+      "initial_position_local_m": [
+        -0.0035,
+        0.0007,
+        0.001
+      ],
+      "initial_velocity_local_mps": [
+        0.32,
+        0.15,
+        0.19
+      ],
+      "lifetime_s": 0.18,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0612,
+          0.7176
+        ],
+        [
+          0.18,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_01",
+      "type": "droplet",
+      "diameter_m": 0.0034,
+      "initial_position_local_m": [
+        -0.0025,
+        -0.0007,
+        0.0015
+      ],
+      "initial_velocity_local_mps": [
+        0.72,
+        0.2,
+        0.28
+      ],
+      "lifetime_s": 0.24,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0816,
+          0.7176
+        ],
+        [
+          0.24,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_02",
+      "type": "droplet",
+      "diameter_m": 0.0028,
+      "initial_position_local_m": [
+        -0.0015,
+        0.0007,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.46,
+        -0.08,
+        0.16
+      ],
+      "lifetime_s": 0.22,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0748,
+          0.7176
+        ],
+        [
+          0.22,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_03",
+      "type": "droplet",
+      "diameter_m": 0.0039,
+      "initial_position_local_m": [
+        -0.0005,
+        -0.0007,
+        0.001
+      ],
+      "initial_velocity_local_mps": [
+        0.9,
+        0.12,
+        0.33
+      ],
+      "lifetime_s": 0.3,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.102,
+          0.7176
+        ],
+        [
+          0.3,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_04",
+      "type": "droplet",
+      "diameter_m": 0.0025,
+      "initial_position_local_m": [
+        0.0005,
+        0.0007,
+        0.0015
+      ],
+      "initial_velocity_local_mps": [
+        0.56,
+        0.27,
+        0.23
+      ],
+      "lifetime_s": 0.26,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0884,
+          0.7176
+        ],
+        [
+          0.26,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_05",
+      "type": "droplet",
+      "diameter_m": 0.0031,
+      "initial_position_local_m": [
+        0.0015,
+        -0.0007,
+        0.002
+      ],
+      "initial_velocity_local_mps": [
+        0.8,
+        -0.12,
+        0.31
+      ],
+      "lifetime_s": 0.32,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.1088,
+          0.7176
+        ],
+        [
+          0.32,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_06",
+      "type": "droplet",
+      "diameter_m": 0.0036,
+      "initial_position_local_m": [
+        0.0025,
+        0.0007,
+        0.001
+      ],
+      "initial_velocity_local_mps": [
+        0.63,
+        0.04,
+        0.25
+      ],
+      "lifetime_s": 0.28,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0952,
+          0.7176
+        ],
+        [
+          0.28,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "drop_07",
+      "type": "droplet",
+      "diameter_m": 0.002,
+      "initial_position_local_m": [
+        0.0035,
+        -0.0007,
+        0.0015
+      ],
+      "initial_velocity_local_mps": [
+        0.4,
+        -0.2,
+        0.14
+      ],
+      "lifetime_s": 0.21,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.92
+        ],
+        [
+          0.0714,
+          0.7176
+        ],
+        [
+          0.21,
+          0.0
+        ]
+      ],
+      "mesh_orientation": "Source local +Y tear axis; renderer may align to velocity"
+    },
+    {
+      "node": "fiber_00",
+      "type": "fiber",
+      "length_m": 0.0038,
+      "width_m": 0.00038,
+      "initial_position_local_m": [
+        -0.001,
+        0.0004,
+        0.001
+      ],
+      "initial_velocity_local_mps": [
+        0.45,
+        0.16,
+        0.13
+      ],
+      "lifetime_s": 0.24,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.78
+        ],
+        [
+          0.0816,
+          0.6084
+        ],
+        [
+          0.24,
+          0.0
+        ]
+      ]
+    },
+    {
+      "node": "fiber_01",
+      "type": "fiber",
+      "length_m": 0.0034,
+      "width_m": 0.00044,
+      "initial_position_local_m": [
+        0.001,
+        0.0004,
+        0.001
+      ],
+      "initial_velocity_local_mps": [
+        0.66,
+        -0.06,
+        0.2
+      ],
+      "lifetime_s": 0.29,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.008,
+          0.78
+        ],
+        [
+          0.0986,
+          0.6084
+        ],
+        [
+          0.29,
+          0.0
+        ]
+      ]
+    }
+  ],
+  "source": "Original procedural geometry, deterministic sizes and motion. No external texture or paid service."
+}

@@ -1,0 +1,41 @@
+{
+  "sources": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometry.kt": "254e07210bce7da487519009aab074031945e38074e7753b5be7dbc84f9e8a21",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometryTest.kt": "4d08db37f29cb5413b79492718c22ddbbfdf6ec83265255c3822369bda77ee42"
+  },
+  "compile": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4ef56b3316798316bfac7a0ae443391c9e900ea1/kotlin-compiler-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/2.1.20/f7c623d7f7bdb01f5ccd6b437bc0a937fcd7c57e/kotlin-script-runtime-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.6.10/1cbe9c92c12a94eea200d23c2bbaedaf3daf5132/kotlin-reflect-1.6.10.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/2.1.20/95670fce77befd02a70a0bc3abe8ee4533521334/kotlin-daemon-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20200330/3afb14d5f9ceb459d724e907a21145e8ff394f02/trove4j-1.0.20200330.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.0/ac1dc37a30a93150b704022f8d895ee1bd3a36b3/kotlinx-coroutines-core-jvm-1.8.0.jar",
+      "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler",
+      "-no-stdlib",
+      "-no-reflect",
+      "-jvm-target",
+      "11",
+      "-classpath",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "-d",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/runtime-polish/testing/trail/classes-d5wf5h5h",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometry.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometryTest.kt"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "tests": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/runtime-polish/testing/trail/classes-d5wf5h5h:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "org.junit.runner.JUnitCore",
+      "com.example.wuxiaarena.p0d2f0182.content.BladeTrailGeometryTest"
+    ],
+    "returncode": 0,
+    "stdout": "JUnit version 4.13.2\n...............\nTime: 0.038\n\nOK (15 tests)\n\n",
+    "stderr": ""
+  }
+}

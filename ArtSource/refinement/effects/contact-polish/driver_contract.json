@@ -1,0 +1,49 @@
+{
+  "coordinate_units": "metres, seconds",
+  "asset_frame": {
+    "X": "projected real cutting tangent",
+    "Y": "normal cross tangent",
+    "Z": "surface outward normal"
+  },
+  "required_inputs": [
+    "per-contact point",
+    "per-contact normal",
+    "per-contact actual cutting tangent",
+    "current presentation age"
+  ],
+  "contact_basis": "N=normalize(normal); T=normalize(tangent-N*dot(tangent,N)); B=cross(N,T)",
+  "invalid_tangent_policy": "Do not invent a tangent or restart an expired particle; Root owns emission selection.",
+  "position_formula": "anchor + T*(p0.x+v0.x*t) + B*(p0.y+v0.y*t) + N*(p0.z+v0.z*t) + 0.5*gravityStage*t*t",
+  "gravity_stage_mps2": [
+    0,
+    -9.81,
+    0
+  ],
+  "core_seconds": {
+    "ordinary_metal": 0.065,
+    "parry": 0.09
+  },
+  "clock": "Root supplies presentation age. Particle/core sampling continues during NPC hitstop.",
+  "freshness": "Stateless sampling at true age, no pending-contact replay queue. Root handles current event budgets/priority.",
+  "material_selection": {
+    "metal": "confirmed metal contact",
+    "wet": "confirmed wet clothing contact, excluding bare head"
+  },
+  "current_runtime_gap": "CombatImpact has point/normal but no tangent. Root must preserve the actual contact's sweep tangent when producing or consuming the event.",
+  "offline_preview": "Example contact basis is labelled and is not a real game input or SDK runtime capture.",
+  "particle_types": [
+    "metal_spark",
+    "droplet",
+    "fiber"
+  ],
+  "anchor": "Root offsets the actual contact point once: anchor=point+0.008*N. Particle p0 does not include that shared offset.",
+  "reference_function_point": "contact_motion.sample_particle point argument is the already-offset Stage anchor.",
+  "ground": {
+    "anchor_normal_offset_m": 0.002,
+    "constraint": "base height along real ground normal is at least zero relative to the already-offset anchor",
+    "orientation": "fixed TBN; local +Z remains the surface normal",
+    "dodge_tangent": "real projected player ground displacement",
+    "landing_trigger": "Root-resolved actual fall/body-ground contact, synchronized to fall presentation clock",
+    "no_guessed_trigger": "UI dodge feedback and fixed DEAD elapsed are not physical ground contacts"
+  }
+}

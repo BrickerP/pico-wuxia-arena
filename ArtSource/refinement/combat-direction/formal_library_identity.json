@@ -1,0 +1,143 @@
+{
+  "kind": "09 formal library consumption identity; not the Root character release manifest",
+  "date": "2026-11-11",
+  "git_head": "380dd46b1cfa6aaf54ef54bc44535b5af330b62d",
+  "default_bank": "ArtSource/tripo-warrior/library",
+  "binding_sha256": "7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff",
+  "prior_generated_binding_sha256": "6f23259d67f504ce58630b2dc7ba61fa290b50beaa7109de772f4f46dd7b2c72",
+  "coordinates_and_body_unchanged": {
+    "base": {
+      "all_profile_fields_except_model_sha_equal": true,
+      "profile_without_model_sha256": "1ab0d4420cc2988ad3336cfa9b1ca4e56fbfea6bb1904358067a32d986592fa0",
+      "body_bytes_identical": true
+    },
+    "indigo": {
+      "all_profile_fields_except_model_sha_equal": true,
+      "profile_without_model_sha256": "8f3091e48e0f1017482cacaea39357ee25ccba5e196ff515d4cd0c76d5e859b5",
+      "body_bytes_identical": true
+    },
+    "veteran": {
+      "all_profile_fields_except_model_sha_equal": true,
+      "profile_without_model_sha256": "e5ce4a82e384ad6d842fb022cbba38c68b7fdd75060d620a19ae3023936f4713",
+      "body_bytes_identical": true
+    }
+  },
+  "sample_arrays_sha256": "1ba346a14d6a5d7b83eadee65f51263945823a373792857feaaf0d9d4d072f07",
+  "sample_arrays_equal_to_prior_generated_data": true,
+  "frozen_logic_sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt": "3d2980281ebc6dfd15dda4fa7d4c46a264e2d2f0e3494442c6c6602c04722225",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt": "e55ae089b9201fe1ff6892c8eebe1fe3ba3681bdb87f14396cb72e07e713de1c",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt": "4258ff96536bbb7cff87cb12dd5d84ad2c92c5df13f8302adb1a5bc076607446",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt": "31129fca5abec05726c38e5fa064fba40c9bdb65095350c0543657eb0eed34a3",
+    "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt": "bf269e9c4ba16520cafaf9c6a4271e60d5ca8a557f61986c438c98338719b719"
+  },
+  "logic_files_unchanged_during_this_update": true,
+  "characters": [
+    {
+      "id": "base",
+      "model_sha256": "e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc",
+      "profile_sha256": "f4b2d918bdb63cfd9436708822dc262df9c5e94ec357f1dc6b5a0ee01a114450",
+      "body_sha256": "02cf4208ab4c75dc7e4eba486a99152a0b7d3b655f94c38f77f1b048f78a5469",
+      "clip_names": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
+      ],
+      "attack_semantics": {
+        "OVERHEAD": "30780a0c9cef5001ee860c9af069b2651ffa34c8e45d5cd0bf665a990f8a5668",
+        "LEFT": "9e10fb1e5297cceadedf782c22d2ba5d93817629cea76f170bf9397d9671ca4c",
+        "RIGHT": "09e33f643757ea596789d53a4273d7c1a2c86876ffa9c850c79cdf1531085889"
+      }
+    },
+    {
+      "id": "indigo",
+      "model_sha256": "448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3",
+      "profile_sha256": "4633e2a7e3d8173f09e2c1e7ff98e713b11cacb6b01979055dbe4ba469d44a3a",
+      "body_sha256": "99227ef404ebfe53cde0181bdf1e5bea2f0af77f709e0a3f295504cccd133063",
+      "clip_names": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
+      ],
+      "attack_semantics": {
+        "OVERHEAD": "2879c47662dc8d4a06a9ca0f55e8442900aa7d0b7a6dae0b3a6eec9b9de94f2b",
+        "LEFT": "11a402082e6a942ebd995eea597a6d66f1365d64c98db4412f206829e25a21b2",
+        "RIGHT": "975caded608c052c6504e962cd922bb9148a2973dce08acf6585738803ca4b49"
+      }
+    },
+    {
+      "id": "veteran",
+      "model_sha256": "0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2",
+      "profile_sha256": "c6822e9f07ca94af850ded93c7a2d175bd10df4a4cb73be4f08d024cc9dd2c88",
+      "body_sha256": "6cb873f8cbe8ca772ccb76eb819cf9575e47a43142da3eff34689a887e848848",
+      "clip_names": [
+        "idle",
+        "walk",
+        "fall",
+        "turn",
+        "hit_body",
+        "hit_head",
+        "hit_side",
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
+      ],
+      "attack_semantics": {
+        "OVERHEAD": "4079ce2be4eb06b331708bb002ea66b46ef5449ade20f3b15d1519d5e000fe2d",
+        "LEFT": "02fd2634dc8b27e41691fdc5a02228a2a1b812e1f6786e9a227e09e8ffe8a9f4",
+        "RIGHT": "3e1549e851fe2f6a6d2cfc6f8039fe0aed6f2a8e3c6d153f4804015182434b04"
+      }
+    }
+  ],
+  "files": [
+    {
+      "path": "ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py",
+      "sha256": "74aefbf80361ab0e4b15fd85b5094723d02e7b991ebfc27d634ace39e2ea5976"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/test_generate_attack_bank_profiles.py",
+      "sha256": "0c2cc153ad0515298feb6bdf950a1011a073df80956665d339c424dbbd87b5d4"
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/reaction_sources.json",
+      "sha256": "336195042cfa9adc410e27b4707423cc617eef6c3a802f27d8d081cef5c2c127"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt",
+      "sha256": "922c728568cb5edeb164a374fe9bd4fa6d5e22efb77a6fe995bbb5777007f525"
+    },
+    {
+      "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfilesTest.kt",
+      "sha256": "510e3efba021570f8bebe0ad21b196c1775e3685cc5a86612c92f5821a822fce"
+    }
+  ],
+  "release_blocker": "locomotion HIGH remains open; weapon identity publication does not repair old walk/canonical guard transition",
+  "verification": {
+    "generator_tests": {
+      "passed": 3,
+      "total": 3
+    },
+    "isolated_pico_6_1_9_tests": {
+      "passed": 40,
+      "total": 40
+    },
+    "exact_regeneration": true,
+    "shared_gradle_used": false,
+    "device_tested": false
+  },
+  "frozen_for_root_shared_gradle": true
+}

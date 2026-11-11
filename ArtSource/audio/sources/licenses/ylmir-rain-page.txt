@@ -1,0 +1,6 @@
+Source: https://opengameart.org/content/rain-loopable
+Author: Ylmir
+Date: 2016-03-28
+License: CC0 https://creativecommons.org/publicdomain/zero/1.0/
+Verified: 2026-11-11 via chrome-use
+Description: Four loopable rain SFX, length 25-45 seconds. Author states recorded at their window with a single mono mic and processed to sound stereo. Available MP3 192kbps and OGG 160kbps; downloaded OGG.

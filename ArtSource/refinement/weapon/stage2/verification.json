@@ -1,0 +1,2432 @@
+{
+  "scope": "Independent finite offline structural geometry and actor preservation audit; contact in contact_audit.json",
+  "weapons": {
+    "npc": {
+      "source_sha256": "0855a39e9851222a8976f36b2722fdde8d1f2e42cb2e813cf4057dc1257ef616",
+      "candidate_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+      "health": {
+        "accessors_finite": true,
+        "indices_valid": true,
+        "nondegenerate_triangles": true,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3076,
+            "triangles": 1560,
+            "minimum_triangle_area_mesh_local_units_squared": 5.341662921643331e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 1087,
+            "triangles": 541,
+            "minimum_triangle_area_mesh_local_units_squared": 6.061137404966225e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 168,
+            "triangles": 151,
+            "minimum_triangle_area_mesh_local_units_squared": 8.107913328019709e-07
+          },
+          {
+            "mesh": 1,
+            "primitive": 0,
+            "vertices": 196,
+            "triangles": 252,
+            "minimum_triangle_area_mesh_local_units_squared": 5.510442946873861e-07
+          },
+          {
+            "mesh": 2,
+            "primitive": 0,
+            "vertices": 162,
+            "triangles": 54,
+            "minimum_triangle_area_mesh_local_units_squared": 1.0435147481503599e-08
+          },
+          {
+            "mesh": 3,
+            "primitive": 0,
+            "vertices": 1040,
+            "triangles": 520,
+            "minimum_triangle_area_mesh_local_units_squared": 7.606506366941585e-08
+          },
+          {
+            "mesh": 4,
+            "primitive": 0,
+            "vertices": 163,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 6.798753255689294e-07
+          },
+          {
+            "mesh": 5,
+            "primitive": 0,
+            "vertices": 1442,
+            "triangles": 1440,
+            "minimum_triangle_area_mesh_local_units_squared": 7.098955142601163e-06
+          },
+          {
+            "mesh": 6,
+            "primitive": 0,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 0.06486016959276115
+          },
+          {
+            "mesh": 7,
+            "primitive": 0,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 0.06486016959276115
+          },
+          {
+            "mesh": 8,
+            "primitive": 0,
+            "vertices": 704,
+            "triangles": 1404,
+            "minimum_triangle_area_mesh_local_units_squared": 1.3498530841661235e-07
+          },
+          {
+            "mesh": 9,
+            "primitive": 0,
+            "vertices": 384,
+            "triangles": 764,
+            "minimum_triangle_area_mesh_local_units_squared": 3.568138923406433e-07
+          },
+          {
+            "mesh": 10,
+            "primitive": 0,
+            "vertices": 276,
+            "triangles": 380,
+            "minimum_triangle_area_mesh_local_units_squared": 4.0484762943004265e-07
+          },
+          {
+            "mesh": 11,
+            "primitive": 0,
+            "vertices": 169,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 8.332673727112078e-07
+          },
+          {
+            "mesh": 12,
+            "primitive": 0,
+            "vertices": 512,
+            "triangles": 1020,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6873137857460838e-08
+          }
+        ],
+        "embedded_images": [
+          {
+            "index": 0,
+            "name": "steel_forged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217"
+          },
+          {
+            "index": 1,
+            "name": "steel_forged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+          },
+          {
+            "index": 2,
+            "name": "steel_edge_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d"
+          },
+          {
+            "index": 3,
+            "name": "steel_edge_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856"
+          },
+          {
+            "index": 4,
+            "name": "steel_spine_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11"
+          },
+          {
+            "index": 5,
+            "name": "steel_spine_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70"
+          },
+          {
+            "index": 6,
+            "name": "brass_aged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8"
+          },
+          {
+            "index": 7,
+            "name": "brass_aged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213"
+          },
+          {
+            "index": 8,
+            "name": "steel_wear_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee"
+          },
+          {
+            "index": 9,
+            "name": "steel_wear_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b"
+          },
+          {
+            "index": 10,
+            "name": "brass_contact_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b"
+          },
+          {
+            "index": 11,
+            "name": "brass_contact_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1"
+          },
+          {
+            "index": 12,
+            "name": "cord_weave_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6"
+          },
+          {
+            "index": 13,
+            "name": "cord_weave_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba"
+          },
+          {
+            "index": 14,
+            "name": "cord_weave_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc"
+          },
+          {
+            "index": 15,
+            "name": "leather_pressed_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb"
+          },
+          {
+            "index": 16,
+            "name": "leather_pressed_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a"
+          },
+          {
+            "index": 17,
+            "name": "leather_pressed_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3"
+          }
+        ]
+      },
+      "anchors_retained": {
+        "Grip": [
+          0.0,
+          -0.11400000005960464,
+          0.0
+        ],
+        "Blade_Base": [
+          0.02199999988079071,
+          0.014999999664723873,
+          0.0
+        ],
+        "Blade_Tip": [
+          0.053199999034404755,
+          0.7350000143051147,
+          0.0
+        ]
+      },
+      "all_node_world_transforms_retained": true,
+      "blade_marker_length_mm": 720.6756975431796,
+      "bounds_metres": [
+        [
+          -0.04600000008940697,
+          -0.23199999332427979,
+          -0.019500000402331352
+        ],
+        [
+          0.057999998331069946,
+          0.7350000143051147,
+          0.019500000402331352
+        ]
+      ],
+      "original_grip_contact_components": {
+        "Grip ferrule": {
+          "source_vertices": 163,
+          "candidate_vertices": 163,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip | cord wrap": {
+          "source_vertices": 1442,
+          "candidate_vertices": 1442,
+          "source_triangles": 1440,
+          "candidate_triangles": 1440,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0006148599554756107,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Handle core": {
+          "source_vertices": 262,
+          "candidate_vertices": 276,
+          "source_triangles": 380,
+          "candidate_triangles": 380,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00039999114067038836,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Pommel ring": {
+          "source_vertices": 163,
+          "candidate_vertices": 169,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00010000294915824618,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        }
+      },
+      "all_protected_components": {
+        "Blade collar": {
+          "source_vertices": 196,
+          "candidate_vertices": 196,
+          "source_triangles": 252,
+          "candidate_triangles": 252,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0001782656351802525,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip ferrule": {
+          "source_vertices": 163,
+          "candidate_vertices": 163,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip | cord wrap": {
+          "source_vertices": 1442,
+          "candidate_vertices": 1442,
+          "source_triangles": 1440,
+          "candidate_triangles": 1440,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0006148599554756107,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Guard pin 1": {
+          "source_vertices": 264,
+          "candidate_vertices": 264,
+          "source_triangles": 120,
+          "candidate_triangles": 120,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Guard pin 2": {
+          "source_vertices": 264,
+          "candidate_vertices": 264,
+          "source_triangles": 120,
+          "candidate_triangles": 120,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Handle core": {
+          "source_vertices": 262,
+          "candidate_vertices": 276,
+          "source_triangles": 380,
+          "candidate_triangles": 380,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00039999114067038836,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Pommel ring": {
+          "source_vertices": 163,
+          "candidate_vertices": 169,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00010000294915824618,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        }
+      },
+      "protected_tolerance_mm": 0.0011,
+      "normal_texture_runtime_status": "offline NORMAL/UV/image checks only; SDK tangent generation, MikkTSpace handedness and actual shading unverified",
+      "integrated_surfaces": {
+        "source_manifest": "ArtSource/refinement/weapon/stage2/surfaces/surface_manifest.json",
+        "material_roles": [
+          {
+            "material": "Steel | forged body",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 0,
+                "image_index": 0,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 1,
+                "image_index": 1,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | sharpened edge",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 2,
+                "image_index": 2,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 3,
+                "image_index": 3,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | dark spine",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 4,
+                "image_index": 4,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 5,
+                "image_index": 5,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Brass | aged",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 6,
+                "image_index": 6,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 7,
+                "image_index": 7,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | uneven wear",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 8,
+                "image_index": 8,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 9,
+                "image_index": 9,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Brass | polished ridges",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 10,
+                "image_index": 10,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 11,
+                "image_index": 11,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Grip | worn cord",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 13,
+                "image_index": 13,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 14,
+                "image_index": 14,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "normal": {
+                "texture_index": 12,
+                "image_index": 12,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Grip | dark oxblood leather",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 16,
+                "image_index": 16,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 17,
+                "image_index": 17,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "normal": {
+                "texture_index": 15,
+                "image_index": 15,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          }
+        ],
+        "channel_contract": "baseColor sRGB; MR G=roughness B=metallic and normal RGB linear by glTF slot semantics; encoded pixels match manifest maps",
+        "runtime_unverified": "SDK-generated tangents/MikkTSpace compatibility, normal handedness and PICO appearance not executed"
+      }
+    },
+    "player": {
+      "source_sha256": "a2a5eae94ef6f577697d6c91a5cd4d7fe22e09e2f8b8e4411cd53768751739fc",
+      "candidate_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+      "health": {
+        "accessors_finite": true,
+        "indices_valid": true,
+        "nondegenerate_triangles": true,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3076,
+            "triangles": 1560,
+            "minimum_triangle_area_mesh_local_units_squared": 5.341662921643331e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 1087,
+            "triangles": 541,
+            "minimum_triangle_area_mesh_local_units_squared": 6.061137404966225e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 168,
+            "triangles": 151,
+            "minimum_triangle_area_mesh_local_units_squared": 8.107913328019709e-07
+          },
+          {
+            "mesh": 1,
+            "primitive": 0,
+            "vertices": 196,
+            "triangles": 252,
+            "minimum_triangle_area_mesh_local_units_squared": 5.510442946873861e-07
+          },
+          {
+            "mesh": 2,
+            "primitive": 0,
+            "vertices": 162,
+            "triangles": 54,
+            "minimum_triangle_area_mesh_local_units_squared": 1.0435147481503599e-08
+          },
+          {
+            "mesh": 3,
+            "primitive": 0,
+            "vertices": 1040,
+            "triangles": 520,
+            "minimum_triangle_area_mesh_local_units_squared": 7.606506366941585e-08
+          },
+          {
+            "mesh": 4,
+            "primitive": 0,
+            "vertices": 163,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 6.798753255689294e-07
+          },
+          {
+            "mesh": 5,
+            "primitive": 0,
+            "vertices": 1442,
+            "triangles": 1440,
+            "minimum_triangle_area_mesh_local_units_squared": 7.098955142601163e-06
+          },
+          {
+            "mesh": 6,
+            "primitive": 0,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 0.06486016959276115
+          },
+          {
+            "mesh": 7,
+            "primitive": 0,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 0.06486016959276115
+          },
+          {
+            "mesh": 8,
+            "primitive": 0,
+            "vertices": 704,
+            "triangles": 1404,
+            "minimum_triangle_area_mesh_local_units_squared": 1.3498530841661235e-07
+          },
+          {
+            "mesh": 9,
+            "primitive": 0,
+            "vertices": 384,
+            "triangles": 764,
+            "minimum_triangle_area_mesh_local_units_squared": 3.568138923406433e-07
+          },
+          {
+            "mesh": 10,
+            "primitive": 0,
+            "vertices": 276,
+            "triangles": 380,
+            "minimum_triangle_area_mesh_local_units_squared": 4.0484762943004265e-07
+          },
+          {
+            "mesh": 11,
+            "primitive": 0,
+            "vertices": 169,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 8.332673727112078e-07
+          },
+          {
+            "mesh": 12,
+            "primitive": 0,
+            "vertices": 512,
+            "triangles": 1020,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6873137857460838e-08
+          }
+        ],
+        "embedded_images": [
+          {
+            "index": 0,
+            "name": "steel_forged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217"
+          },
+          {
+            "index": 1,
+            "name": "steel_forged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+          },
+          {
+            "index": 2,
+            "name": "steel_edge_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d"
+          },
+          {
+            "index": 3,
+            "name": "steel_edge_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856"
+          },
+          {
+            "index": 4,
+            "name": "steel_spine_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11"
+          },
+          {
+            "index": 5,
+            "name": "steel_spine_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70"
+          },
+          {
+            "index": 6,
+            "name": "brass_aged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8"
+          },
+          {
+            "index": 7,
+            "name": "brass_aged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213"
+          },
+          {
+            "index": 8,
+            "name": "steel_wear_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee"
+          },
+          {
+            "index": 9,
+            "name": "steel_wear_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b"
+          },
+          {
+            "index": 10,
+            "name": "brass_contact_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b"
+          },
+          {
+            "index": 11,
+            "name": "brass_contact_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1"
+          },
+          {
+            "index": 12,
+            "name": "cord_weave_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6"
+          },
+          {
+            "index": 13,
+            "name": "cord_weave_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba"
+          },
+          {
+            "index": 14,
+            "name": "cord_weave_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc"
+          },
+          {
+            "index": 15,
+            "name": "leather_pressed_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb"
+          },
+          {
+            "index": 16,
+            "name": "leather_pressed_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a"
+          },
+          {
+            "index": 17,
+            "name": "leather_pressed_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3"
+          }
+        ]
+      },
+      "anchors_retained": {
+        "Grip": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "Blade_Base": [
+          0.02199999988079071,
+          0.0,
+          -0.12899999972432852
+        ],
+        "Blade_Tip": [
+          0.053199999034404755,
+          0.0,
+          -0.8490000143647194
+        ]
+      },
+      "all_node_world_transforms_retained": true,
+      "blade_marker_length_mm": 720.6756975431796,
+      "bounds_metres": [
+        [
+          -0.04600000008940697,
+          -0.019500000402331356,
+          -0.8490000143647195
+        ],
+        [
+          0.057999998331069946,
+          0.019500000402331356,
+          0.1179999932646752
+        ]
+      ],
+      "original_grip_contact_components": {
+        "Grip ferrule": {
+          "source_vertices": 163,
+          "candidate_vertices": 163,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip | cord wrap": {
+          "source_vertices": 1442,
+          "candidate_vertices": 1442,
+          "source_triangles": 1440,
+          "candidate_triangles": 1440,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0006148599554756107,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Handle core": {
+          "source_vertices": 262,
+          "candidate_vertices": 276,
+          "source_triangles": 380,
+          "candidate_triangles": 380,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.0003999911406703883,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Pommel ring": {
+          "source_vertices": 163,
+          "candidate_vertices": 169,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00010000294915824615,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        }
+      },
+      "all_protected_components": {
+        "Blade collar": {
+          "source_vertices": 196,
+          "candidate_vertices": 196,
+          "source_triangles": 252,
+          "candidate_triangles": 252,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.00017826563518030802,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip ferrule": {
+          "source_vertices": 163,
+          "candidate_vertices": 163,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Grip | cord wrap": {
+          "source_vertices": 1442,
+          "candidate_vertices": 1442,
+          "source_triangles": 1440,
+          "candidate_triangles": 1440,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0006148599554756107,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Guard pin 1": {
+          "source_vertices": 264,
+          "candidate_vertices": 264,
+          "source_triangles": 120,
+          "candidate_triangles": 120,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Guard pin 2": {
+          "source_vertices": 264,
+          "candidate_vertices": 264,
+          "source_triangles": 120,
+          "candidate_triangles": 120,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": true,
+          "normal_max_component_error": 0.0,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Handle core": {
+          "source_vertices": 262,
+          "candidate_vertices": 276,
+          "source_triangles": 380,
+          "candidate_triangles": 380,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.0003999911406703883,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        },
+        "Pommel ring": {
+          "source_vertices": 163,
+          "candidate_vertices": 169,
+          "source_triangles": 188,
+          "candidate_triangles": 188,
+          "symmetric_vertex_gap_mm": 0.0,
+          "symmetric_triangle_centroid_gap_mm": 0.0,
+          "position_uv_oriented_triangle_multiset_preserved": true,
+          "ordered_position_uv_indices_exact": false,
+          "normal_max_component_error": 0.00010000294915824615,
+          "normal_tolerance": 0.001,
+          "mapping": "one-to-one oriented triangle-corner POSITION/UV signatures at 1e-8 units; export vertex splitting allowed, winding retained"
+        }
+      },
+      "protected_tolerance_mm": 0.0011,
+      "normal_texture_runtime_status": "offline NORMAL/UV/image checks only; SDK tangent generation, MikkTSpace handedness and actual shading unverified",
+      "integrated_surfaces": {
+        "source_manifest": "ArtSource/refinement/weapon/stage2/surfaces/surface_manifest.json",
+        "material_roles": [
+          {
+            "material": "Steel | forged body",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 0,
+                "image_index": 0,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 1,
+                "image_index": 1,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | sharpened edge",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 2,
+                "image_index": 2,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 3,
+                "image_index": 3,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | dark spine",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 4,
+                "image_index": 4,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 5,
+                "image_index": 5,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Brass | aged",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 6,
+                "image_index": 6,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 7,
+                "image_index": 7,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Steel | uneven wear",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 8,
+                "image_index": 8,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 9,
+                "image_index": 9,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Brass | polished ridges",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 10,
+                "image_index": 10,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 11,
+                "image_index": 11,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Grip | worn cord",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 13,
+                "image_index": 13,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 14,
+                "image_index": 14,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "normal": {
+                "texture_index": 12,
+                "image_index": 12,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          },
+          {
+            "material": "Grip | dark oxblood leather",
+            "absolute_factors_all_one": true,
+            "roles": {
+              "base_color": {
+                "texture_index": 16,
+                "image_index": 16,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "metallic_roughness": {
+                "texture_index": 17,
+                "image_index": 17,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              },
+              "normal": {
+                "texture_index": 15,
+                "image_index": 15,
+                "pixel_exact_to_declared_map": true,
+                "size": [
+                  1024,
+                  1024
+                ]
+              }
+            }
+          }
+        ],
+        "channel_contract": "baseColor sRGB; MR G=roughness B=metallic and normal RGB linear by glTF slot semantics; encoded pixels match manifest maps",
+        "runtime_unverified": "SDK-generated tangents/MikkTSpace compatibility, normal handedness and PICO appearance not executed"
+      },
+      "same_canonical_geometry_and_embedded_material_resources_as_npc": true
+    }
+  },
+  "actors": [
+    {
+      "id": "base",
+      "weapon_canonical_bake_validation": {
+        "canonical_weapon_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+        "primitive_count": 15,
+        "all_primitive_geometry_indices_uv_materials_matched": true,
+        "bake_independently_derived_from_actual_inverse_bind_mount_and_Grip": true,
+        "maximum_position_component_error_mm": 6.62910789595017e-05,
+        "maximum_normal_component_error": 1.7140577968088877e-07
+      },
+      "body_attributes_and_indices_byte_exact": true,
+      "all_weights_byte_exact": true,
+      "nodes_rest_anchors_exact": true,
+      "skin_and_inverse_bind_exact": true,
+      "all_animation_times_values_and_interpolation_exact": true,
+      "body_material_exact": true,
+      "body_embedded_images_exact": true,
+      "weapon_rigid_R_Hand_palette": 60,
+      "weapon_primitive_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "body_primitive_indices": [
+        0
+      ],
+      "offline_candidate_health": {
+        "accessors_finite": true,
+        "indices_valid": true,
+        "nondegenerate_triangles": true,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 35308,
+            "triangles": 60006,
+            "minimum_triangle_area_mesh_local_units_squared": 5.8765597470529455e-09
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 3076,
+            "triangles": 1560,
+            "minimum_triangle_area_mesh_local_units_squared": 1.614916958205607e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 1087,
+            "triangles": 541,
+            "minimum_triangle_area_mesh_local_units_squared": 1.8238898302104455e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 168,
+            "triangles": 151,
+            "minimum_triangle_area_mesh_local_units_squared": 2.448272298245034e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 196,
+            "triangles": 252,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6630415390929215e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 162,
+            "triangles": 54,
+            "minimum_triangle_area_mesh_local_units_squared": 3.1198453955194396e-09
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 1040,
+            "triangles": 520,
+            "minimum_triangle_area_mesh_local_units_squared": 2.2941901124457465e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 163,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.0522234235064094e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 1442,
+            "triangles": 1440,
+            "minimum_triangle_area_mesh_local_units_squared": 2.14341522889909e-06
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 7.97369959685498e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 10,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 7.97369959685498e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 11,
+            "vertices": 704,
+            "triangles": 1404,
+            "minimum_triangle_area_mesh_local_units_squared": 4.0735295945943564e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 12,
+            "vertices": 384,
+            "triangles": 764,
+            "minimum_triangle_area_mesh_local_units_squared": 1.076566459414228e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 13,
+            "vertices": 276,
+            "triangles": 380,
+            "minimum_triangle_area_mesh_local_units_squared": 1.222071001449805e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 14,
+            "vertices": 169,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.5154168488259685e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 15,
+            "vertices": 512,
+            "triangles": 1020,
+            "minimum_triangle_area_mesh_local_units_squared": 5.084296638735937e-09
+          }
+        ],
+        "embedded_images": [
+          {
+            "index": 0,
+            "name": "tripo_model_normal",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167"
+          },
+          {
+            "index": 1,
+            "name": "tripo_model_basecolor",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b"
+          },
+          {
+            "index": 2,
+            "name": "tripo_model_rm",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd"
+          },
+          {
+            "index": 3,
+            "name": "steel_forged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217"
+          },
+          {
+            "index": 4,
+            "name": "steel_forged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+          },
+          {
+            "index": 5,
+            "name": "steel_edge_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d"
+          },
+          {
+            "index": 6,
+            "name": "steel_edge_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856"
+          },
+          {
+            "index": 7,
+            "name": "steel_spine_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11"
+          },
+          {
+            "index": 8,
+            "name": "steel_spine_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70"
+          },
+          {
+            "index": 9,
+            "name": "brass_aged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8"
+          },
+          {
+            "index": 10,
+            "name": "brass_aged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213"
+          },
+          {
+            "index": 11,
+            "name": "steel_wear_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee"
+          },
+          {
+            "index": 12,
+            "name": "steel_wear_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b"
+          },
+          {
+            "index": 13,
+            "name": "brass_contact_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b"
+          },
+          {
+            "index": 14,
+            "name": "brass_contact_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1"
+          },
+          {
+            "index": 15,
+            "name": "cord_weave_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6"
+          },
+          {
+            "index": 16,
+            "name": "cord_weave_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba"
+          },
+          {
+            "index": 17,
+            "name": "cord_weave_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc"
+          },
+          {
+            "index": 18,
+            "name": "leather_pressed_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb"
+          },
+          {
+            "index": 19,
+            "name": "leather_pressed_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a"
+          },
+          {
+            "index": 20,
+            "name": "leather_pressed_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3"
+          }
+        ]
+      },
+      "source_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+      "candidate_sha256": "682ce11352b2e49bdc0d0d79996cca2d8fb379bb7322aa3f55db8ec0fd7535ea",
+      "passed": true
+    },
+    {
+      "id": "indigo",
+      "weapon_canonical_bake_validation": {
+        "canonical_weapon_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+        "primitive_count": 15,
+        "all_primitive_geometry_indices_uv_materials_matched": true,
+        "bake_independently_derived_from_actual_inverse_bind_mount_and_Grip": true,
+        "maximum_position_component_error_mm": 9.593542849017922e-05,
+        "maximum_normal_component_error": 1.4505778633822075e-07
+      },
+      "body_attributes_and_indices_byte_exact": true,
+      "all_weights_byte_exact": true,
+      "nodes_rest_anchors_exact": true,
+      "skin_and_inverse_bind_exact": true,
+      "all_animation_times_values_and_interpolation_exact": true,
+      "body_material_exact": true,
+      "body_embedded_images_exact": true,
+      "weapon_rigid_R_Hand_palette": 60,
+      "weapon_primitive_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "body_primitive_indices": [
+        0
+      ],
+      "offline_candidate_health": {
+        "accessors_finite": true,
+        "indices_valid": true,
+        "nondegenerate_triangles": true,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 28849,
+            "triangles": 27515,
+            "minimum_triangle_area_mesh_local_units_squared": 1.914748168019287e-06
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 3076,
+            "triangles": 1560,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6798767600156753e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 1087,
+            "triangles": 541,
+            "minimum_triangle_area_mesh_local_units_squared": 1.8995234676319783e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 168,
+            "triangles": 151,
+            "minimum_triangle_area_mesh_local_units_squared": 2.560045452473099e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 196,
+            "triangles": 252,
+            "minimum_triangle_area_mesh_local_units_squared": 1.7383148066336657e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 162,
+            "triangles": 54,
+            "minimum_triangle_area_mesh_local_units_squared": 3.313666312602911e-09
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 1040,
+            "triangles": 520,
+            "minimum_triangle_area_mesh_local_units_squared": 2.4005915320481668e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 163,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.1452000730005665e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 1442,
+            "triangles": 1440,
+            "minimum_triangle_area_mesh_local_units_squared": 2.240500228521926e-06
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 8.334784669389563e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 10,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 8.334784669389563e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 11,
+            "vertices": 704,
+            "triangles": 1404,
+            "minimum_triangle_area_mesh_local_units_squared": 4.2582455835335985e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 12,
+            "vertices": 384,
+            "triangles": 764,
+            "minimum_triangle_area_mesh_local_units_squared": 1.1258027617910467e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 13,
+            "vertices": 276,
+            "triangles": 380,
+            "minimum_triangle_area_mesh_local_units_squared": 1.2773533497672231e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 14,
+            "vertices": 169,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.6293873974868065e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 15,
+            "vertices": 512,
+            "triangles": 1020,
+            "minimum_triangle_area_mesh_local_units_squared": 5.3153791805008136e-09
+          }
+        ],
+        "embedded_images": [
+          {
+            "index": 0,
+            "name": "NormalGL_0f073f22-4788-4b8d-bcb7-5943b0a83420",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "7c5b9ef5071a6f99b8d412c272d0ce650a7ef1e4314ff80395cadf55e32ef3b3"
+          },
+          {
+            "index": 1,
+            "name": "Color_0f073f22-4788-4b8d-bcb7-5943b0a83420",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "36cd866f82a12cc6b774c99d0a2ae735957b6c26f86d632156093e13178d5806"
+          },
+          {
+            "index": 2,
+            "name": "ORM_0f073f22-4788-4b8d-bcb7-5943b0a83420",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "1f3d48edb24e5044980677d52c6c7a19f49b371fc7458903027566f9e1b3f7c0"
+          },
+          {
+            "index": 3,
+            "name": "steel_forged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217"
+          },
+          {
+            "index": 4,
+            "name": "steel_forged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+          },
+          {
+            "index": 5,
+            "name": "steel_edge_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d"
+          },
+          {
+            "index": 6,
+            "name": "steel_edge_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856"
+          },
+          {
+            "index": 7,
+            "name": "steel_spine_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11"
+          },
+          {
+            "index": 8,
+            "name": "steel_spine_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70"
+          },
+          {
+            "index": 9,
+            "name": "brass_aged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8"
+          },
+          {
+            "index": 10,
+            "name": "brass_aged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213"
+          },
+          {
+            "index": 11,
+            "name": "steel_wear_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee"
+          },
+          {
+            "index": 12,
+            "name": "steel_wear_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b"
+          },
+          {
+            "index": 13,
+            "name": "brass_contact_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b"
+          },
+          {
+            "index": 14,
+            "name": "brass_contact_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1"
+          },
+          {
+            "index": 15,
+            "name": "cord_weave_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6"
+          },
+          {
+            "index": 16,
+            "name": "cord_weave_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba"
+          },
+          {
+            "index": 17,
+            "name": "cord_weave_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc"
+          },
+          {
+            "index": 18,
+            "name": "leather_pressed_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb"
+          },
+          {
+            "index": 19,
+            "name": "leather_pressed_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a"
+          },
+          {
+            "index": 20,
+            "name": "leather_pressed_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3"
+          }
+        ]
+      },
+      "source_sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6",
+      "candidate_sha256": "5025729bb8361bfd4a2b8fe7ffcaeafaac61bcbcff16743e936d72ad97dab5fd",
+      "passed": true
+    },
+    {
+      "id": "veteran",
+      "weapon_canonical_bake_validation": {
+        "canonical_weapon_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+        "primitive_count": 15,
+        "all_primitive_geometry_indices_uv_materials_matched": true,
+        "bake_independently_derived_from_actual_inverse_bind_mount_and_Grip": true,
+        "maximum_position_component_error_mm": 0.00010063966460194251,
+        "maximum_normal_component_error": 1.3527053743800366e-07
+      },
+      "body_attributes_and_indices_byte_exact": true,
+      "all_weights_byte_exact": true,
+      "nodes_rest_anchors_exact": true,
+      "skin_and_inverse_bind_exact": true,
+      "all_animation_times_values_and_interpolation_exact": true,
+      "body_material_exact": true,
+      "body_embedded_images_exact": true,
+      "weapon_rigid_R_Hand_palette": 60,
+      "weapon_primitive_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "body_primitive_indices": [
+        0
+      ],
+      "offline_candidate_health": {
+        "accessors_finite": true,
+        "indices_valid": true,
+        "nondegenerate_triangles": true,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 33011,
+            "triangles": 25113,
+            "minimum_triangle_area_mesh_local_units_squared": 1.8982445014644395e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 3076,
+            "triangles": 1560,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6174143070897087e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 1087,
+            "triangles": 541,
+            "minimum_triangle_area_mesh_local_units_squared": 1.8244785109203098e-10
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 168,
+            "triangles": 151,
+            "minimum_triangle_area_mesh_local_units_squared": 2.4596217708274953e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 196,
+            "triangles": 252,
+            "minimum_triangle_area_mesh_local_units_squared": 1.6711533329880452e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 162,
+            "triangles": 54,
+            "minimum_triangle_area_mesh_local_units_squared": 3.181886688388962e-09
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 1040,
+            "triangles": 520,
+            "minimum_triangle_area_mesh_local_units_squared": 2.307131575194616e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 163,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.0617926149874166e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 1442,
+            "triangles": 1440,
+            "minimum_triangle_area_mesh_local_units_squared": 2.1536733958985105e-06
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 8.010661822375301e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 10,
+            "vertices": 264,
+            "triangles": 120,
+            "minimum_triangle_area_mesh_local_units_squared": 8.010661822375301e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 11,
+            "vertices": 704,
+            "triangles": 1404,
+            "minimum_triangle_area_mesh_local_units_squared": 4.0916624242463487e-08
+          },
+          {
+            "mesh": 0,
+            "primitive": 12,
+            "vertices": 384,
+            "triangles": 764,
+            "minimum_triangle_area_mesh_local_units_squared": 1.0821179267181492e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 13,
+            "vertices": 276,
+            "triangles": 380,
+            "minimum_triangle_area_mesh_local_units_squared": 1.227907212446924e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 14,
+            "vertices": 169,
+            "triangles": 188,
+            "minimum_triangle_area_mesh_local_units_squared": 2.5273645355629066e-07
+          },
+          {
+            "mesh": 0,
+            "primitive": 15,
+            "vertices": 512,
+            "triangles": 1020,
+            "minimum_triangle_area_mesh_local_units_squared": 5.107697394478797e-09
+          }
+        ],
+        "embedded_images": [
+          {
+            "index": 0,
+            "name": "NormalGL_d077622d-e63a-48d6-964b-8c388d5934ae",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "fd2bf4c84c45e71f00dbbe7f737841ae8699b1d807d3eb9f09067d71a32a7842"
+          },
+          {
+            "index": 1,
+            "name": "Color_d077622d-e63a-48d6-964b-8c388d5934ae",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "ae4c6f398815410f80bef1f1634ddc246147d8b9c99543c61e896938300a7684"
+          },
+          {
+            "index": 2,
+            "name": "ORM_d077622d-e63a-48d6-964b-8c388d5934ae",
+            "size": [
+              4096,
+              4096
+            ],
+            "sha256": "f5088c8934670ac1f427007ec0db78c3a46e1cee87a1e3e5aebcd3b710fa7432"
+          },
+          {
+            "index": 3,
+            "name": "steel_forged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217"
+          },
+          {
+            "index": 4,
+            "name": "steel_forged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+          },
+          {
+            "index": 5,
+            "name": "steel_edge_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d"
+          },
+          {
+            "index": 6,
+            "name": "steel_edge_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856"
+          },
+          {
+            "index": 7,
+            "name": "steel_spine_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11"
+          },
+          {
+            "index": 8,
+            "name": "steel_spine_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70"
+          },
+          {
+            "index": 9,
+            "name": "brass_aged_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8"
+          },
+          {
+            "index": 10,
+            "name": "brass_aged_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213"
+          },
+          {
+            "index": 11,
+            "name": "steel_wear_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee"
+          },
+          {
+            "index": 12,
+            "name": "steel_wear_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b"
+          },
+          {
+            "index": 13,
+            "name": "brass_contact_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b"
+          },
+          {
+            "index": 14,
+            "name": "brass_contact_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1"
+          },
+          {
+            "index": 15,
+            "name": "cord_weave_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6"
+          },
+          {
+            "index": 16,
+            "name": "cord_weave_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba"
+          },
+          {
+            "index": 17,
+            "name": "cord_weave_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc"
+          },
+          {
+            "index": 18,
+            "name": "leather_pressed_normal",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb"
+          },
+          {
+            "index": 19,
+            "name": "leather_pressed_basecolor",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a"
+          },
+          {
+            "index": 20,
+            "name": "leather_pressed_metallicRoughness",
+            "size": [
+              1024,
+              1024
+            ],
+            "sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3"
+          }
+        ]
+      },
+      "source_sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7",
+      "candidate_sha256": "b6d185f416984178148a876a83b42cd95da114e3025c43cedb175f4b92c49722",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "geometry_manifest_source_pin": true,
+  "integrated_surface_manifest": "ArtSource/refinement/weapon/stage2/surfaces/surface_manifest.json",
+  "failure_tests": {
+    "normal_candidate_passed": true,
+    "mutations_rejected": [
+      "anchor_translation_1mm",
+      "nonfinite_position",
+      "out_of_range_triangle_index"
+    ]
+  },
+  "stable_input_snapshot": true,
+  "passed": true,
+  "triangle_area_units_note": "Primitive health areas are measured before node transforms, in mesh-local coordinate units squared; nonuniform/scaled nodes mean these values must not be read as world square metres. Contact distances and affected hand-face areas are separately measured after actual LBS world transforms."
+}

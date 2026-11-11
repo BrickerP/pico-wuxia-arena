@@ -1,0 +1,34 @@
+{
+  "images_verified": 9,
+  "frame_size": [
+    800,
+    600
+  ],
+  "distinct_opacity_materials": 29,
+  "core_opacity_at_samples": {
+    "33ms": {
+      "normal": 0.5257861635220127,
+      "parry": 0.7398148148148147
+    },
+    "67ms": {
+      "normal": 0,
+      "parry": 0.3046296296296296
+    },
+    "167ms": {
+      "normal": 0,
+      "parry": 0
+    }
+  },
+  "visual_review": {
+    "observed": [
+      "metal_1_5m_timeline.png",
+      "metal_033ms_parry.png"
+    ],
+    "observations": [
+      "At 33ms the old wide radial core/debris reads as a larger cluster than the new thin ordinary star. The ordinary candidate is not proven as a stronger early-contact flash.",
+      "Parry retains its small hot star at 67ms while the ordinary core is already hidden.",
+      "At 167ms the new ordinary and parry sparks have moved independently down/to the cutting side; parry is visibly more spread than ordinary."
+    ],
+    "limits": "Offline synthetic basis and actual actor only; no claim of SDK visibility, physical trigger, or Space Pro quality acceptance."
+  }
+}

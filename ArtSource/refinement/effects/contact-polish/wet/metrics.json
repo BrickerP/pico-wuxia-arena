@@ -1,0 +1,33 @@
+{
+  "file": "wet_cloth_contact.glb",
+  "bytes": 19448,
+  "sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+  "asset": "wet_cloth_contact.glb",
+  "motion": "motion.json",
+  "animations": 0,
+  "triangles": 196,
+  "mesh_nodes": 10,
+  "droplets": 8,
+  "fibers": 2,
+  "droplet_diameter_m": [
+    0.002,
+    0.0039
+  ],
+  "lifetime_s": [
+    0.18,
+    0.32
+  ],
+  "gravity_space": "Stage",
+  "default_pose_bounds_m": {
+    "min": [
+      -0.0043360000000000004,
+      -0.00265,
+      -0.0002834496484085381
+    ],
+    "max": [
+      0.00426,
+      0.0025,
+      0.003020177925658069
+    ]
+  }
+}

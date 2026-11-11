@@ -1,0 +1,305 @@
+{
+  "scope": "OFFLINE actual actor and GLBs; labelled synthetic contact basis; not SDK evidence",
+  "actor": "app/src/main/assets/models/opponents/base.glb",
+  "actor_sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641",
+  "baseline_sha256": "8171c6474e1a34be5db14324f10e18b5a4575c0d910b91ffbde4364756ed23e0",
+  "candidate_sha256": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce",
+  "motion_sha256": "4c8afcd1c83682ea2f8a3650aa28086e9a69a02c7dfb973a05f53291935713c3",
+  "contact_point_blender_m": [
+    0.332758367061615,
+    -0.4791901707649231,
+    0.9075103998184204
+  ],
+  "actual_surface_normal_blender": [
+    -0.8299754858016968,
+    -0.5030509829521179,
+    0.24099884927272797
+  ],
+  "material": "Steel | sharpened edge",
+  "basis_stage": {
+    "T": [
+      1,
+      0,
+      0
+    ],
+    "B": [
+      0,
+      1,
+      0
+    ],
+    "N": [
+      0,
+      0,
+      1
+    ]
+  },
+  "basis_policy": "Explicit synthetic basis; actual surface normal recorded only, not claimed to match this example.",
+  "distance_m": 1.5,
+  "horizontal_fov_degrees": 80,
+  "stage_gravity_mps2": [
+    0,
+    -9.81,
+    0
+  ],
+  "normal_core_scale": "(.85 + min(age,.09)*3)*1.019*1.15",
+  "parry_core_extra": 1.7,
+  "normal_particle_scale": 1.27375,
+  "parry_particle_scale": 1.6813499999999997,
+  "parry_velocity_extra": 1.8,
+  "scale_gravity": false,
+  "core_seconds": {
+    "normal": 0.065,
+    "parry": 0.09
+  },
+  "images": [
+    "metal_033ms_old.png",
+    "metal_033ms_normal.png",
+    "metal_033ms_parry.png",
+    "metal_067ms_old.png",
+    "metal_067ms_normal.png",
+    "metal_067ms_parry.png",
+    "metal_167ms_old.png",
+    "metal_167ms_normal.png",
+    "metal_167ms_parry.png"
+  ],
+  "opacity_ownership": {
+    "object_count": 29,
+    "slot_count": 29,
+    "distinct_material_count": 29,
+    "slots": [
+      {
+        "object": "core",
+        "mesh_identity": 43497954312,
+        "material_identity": 43378425864,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "debris",
+        "mesh_identity": 43497956104,
+        "material_identity": 43378427656,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "scar",
+        "mesh_identity": 43497957896,
+        "material_identity": 43378430792,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "core_star",
+        "mesh_identity": 43512472328,
+        "material_identity": 43378874504,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_00",
+        "mesh_identity": 43512474120,
+        "material_identity": 43378874056,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_01",
+        "mesh_identity": 43512872968,
+        "material_identity": 43378877192,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_02",
+        "mesh_identity": 43512874760,
+        "material_identity": 43378877640,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_03",
+        "mesh_identity": 43512876552,
+        "material_identity": 43378878088,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_04",
+        "mesh_identity": 43512878344,
+        "material_identity": 43378878536,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_05",
+        "mesh_identity": 43512880136,
+        "material_identity": 43378878984,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_06",
+        "mesh_identity": 43512881928,
+        "material_identity": 43378879432,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_07",
+        "mesh_identity": 43512883720,
+        "material_identity": 43378879880,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_08",
+        "mesh_identity": 43512885512,
+        "material_identity": 43378880328,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_09",
+        "mesh_identity": 43512887304,
+        "material_identity": 43378880776,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_10",
+        "mesh_identity": 43512922120,
+        "material_identity": 43378881224,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_11",
+        "mesh_identity": 43512923912,
+        "material_identity": 43378881672,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "core_star.001",
+        "mesh_identity": 43513455368,
+        "material_identity": 43380132936,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_00.001",
+        "mesh_identity": 43513457160,
+        "material_identity": 43380129800,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_01.001",
+        "mesh_identity": 43513458952,
+        "material_identity": 43380130248,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_02.001",
+        "mesh_identity": 43513460744,
+        "material_identity": 43380133832,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_03.001",
+        "mesh_identity": 43514150920,
+        "material_identity": 43380136968,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_04.001",
+        "mesh_identity": 43514152712,
+        "material_identity": 43380140104,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_05.001",
+        "mesh_identity": 43514154504,
+        "material_identity": 43380140552,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_06.001",
+        "mesh_identity": 43514156296,
+        "material_identity": 43380141000,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_07.001",
+        "mesh_identity": 43514158088,
+        "material_identity": 43380141448,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_08.001",
+        "mesh_identity": 43514159880,
+        "material_identity": 43380141896,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_09.001",
+        "mesh_identity": 43514161672,
+        "material_identity": 43380142344,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_10.001",
+        "mesh_identity": 43514163464,
+        "material_identity": 43380142792,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      },
+      {
+        "object": "spark_11.001",
+        "mesh_identity": 43514165256,
+        "material_identity": 43380143240,
+        "material_users": 1,
+        "slot_link": "OBJECT",
+        "independent_alpha_multiplier_count": 1
+      }
+    ],
+    "semantics": "Each object uses its own material and one factor; no per-particle alpha product"
+  }
+}

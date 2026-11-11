@@ -14,7 +14,13 @@ import kotlin.math.sin
 
 enum class HitZone { BODY, HEAD }
 
-data class MotionContact(val zone: HitZone, val point: Vector3, val normal: Vector3)
+data class MotionContact(
+    val zone: HitZone,
+    val point: Vector3,
+    val normal: Vector3,
+    /** Unit Stage direction of the blade at the contact witness, before surface-plane projection. */
+    val tangent: Vector3? = null,
+)
 
 data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val bodyTop: Vector3) {
     fun isFinite(): Boolean = head.isFinite() && bodyBottom.isFinite() && bodyTop.isFinite()
@@ -46,6 +52,9 @@ data class PlayerMotionFrame(
     val targetPose: EnemyContactPose? = null,
     val bladeAtRest: Boolean = true,
     val motionGeneration: Long = 0L,
+    /** Endpoint displacements from this frame's accepted observation interval, in Stage metres. */
+    val bladeBaseDelta: Vector3? = null,
+    val bladeTipDelta: Vector3? = null,
 )
 
 /**
@@ -200,7 +209,9 @@ class PlayerCombatResolver {
         val frame = PlayerMotionFrame(sample.stamp.receivedAtNanos, base, tip, tipDistance / elapsed,
             if (channeling) null else strike, skill, headPosition, currentGuard, chargeProgress,
             releaseRequired = skillLatched, hand = snapshot.dominantHand, targetPose = contactPose,
-            bladeAtRest = speed <= REST_SPEED, motionGeneration = motionGeneration)
+            bladeAtRest = speed <= REST_SPEED, motionGeneration = motionGeneration,
+            bladeBaseDelta = baseMovement.takeIf { speed > REST_SPEED },
+            bladeTipDelta = tipMovement.takeIf { speed > REST_SPEED })
         latestFrame = frame
         return frame
     }
@@ -218,7 +229,8 @@ class PlayerCombatResolver {
         val start = if (zone == HitZone.HEAD) pose.head else pose.bodyBottom
         val end = if (zone == HitZone.HEAD) start else pose.bodyTop
         return surfaceContact(frame.bladeBase, frame.bladeTip, start, end,
-            if (zone == HitZone.HEAD) HEAD_RADIUS else BODY_RADIUS, zone, frame.headPosition - enemyPosition)
+            if (zone == HitZone.HEAD) HEAD_RADIUS else BODY_RADIUS, zone, frame.headPosition - enemyPosition,
+            frame.bladeBaseDelta.takeUnless { frame.bladeAtRest }, frame.bladeTipDelta.takeUnless { frame.bladeAtRest })
     }
 
     /** The defense rules use the guard blade or the player's current head proxy. */
@@ -232,7 +244,10 @@ class PlayerCombatResolver {
             if (frame == null) return null
             closestPoint(head + towardEnemy * 0.32, frame.bladeBase, frame.bladeTip)
         }
-        return MotionContact(HitZone.HEAD, point, towardEnemy)
+        // The player's blade cannot describe the enemy's incoming blade on an unguarded body hit.
+        val tangent = if (outcome == AttackOutcome.HIT_PLAYER || frame == null || frame.bladeAtRest) null else
+            bladeTangent(point, frame.bladeBase, frame.bladeTip, frame.bladeBaseDelta, frame.bladeTipDelta)
+        return MotionContact(HitZone.HEAD, point, towardEnemy, tangent)
     }
 
     /** The caller resolves at the current attack's contact point, before advancing past ACTIVE. */
@@ -440,6 +455,8 @@ class PlayerCombatResolver {
         val oldHand = origin.base - checkNotNull(origin.rotation.rotate(BLADE_BASE))
         val currentHand = current.base - checkNotNull(current.rotation.rotate(BLADE_BASE))
         var bodyContact: MotionContact? = null
+        var previousBase: Vector3? = null
+        var previousTip: Vector3? = null
         // Reconstruct intermediate rigid blades so the rotating blade's middle also sweeps the target.
         for (index in 0..steps) {
             val fraction = index.toDouble() / steps
@@ -447,12 +464,31 @@ class PlayerCombatResolver {
             val hand = oldHand + (currentHand - oldHand) * fraction
             val base = hand + checkNotNull(rotation.rotate(BLADE_BASE))
             val tip = hand + checkNotNull(rotation.rotate(BLADE_TIP))
+            // At the first sweep point use the next substep; elsewhere use the preceding one.
+            // Both endpoints describe the same short rigid-blade interval as this contact.
+            val baseDelta: Vector3?
+            val tipDelta: Vector3?
+            if (old == null) {
+                baseDelta = null
+                tipDelta = null
+            } else if (index == 0) {
+                val nextFraction = 1.0 / steps
+                val nextRotation = interpolateRotation(origin.rotation, current.rotation, nextFraction)
+                val nextHand = oldHand + (currentHand - oldHand) * nextFraction
+                baseDelta = nextHand + checkNotNull(nextRotation.rotate(BLADE_BASE)) - base
+                tipDelta = nextHand + checkNotNull(nextRotation.rotate(BLADE_TIP)) - tip
+            } else {
+                baseDelta = base - checkNotNull(previousBase)
+                tipDelta = tip - checkNotNull(previousTip)
+            }
+            previousBase = base
+            previousTip = tip
             val fallback = origin.tip - current.tip
             if (segmentDistance(base, tip, head, head) <= HEAD_RADIUS + BLADE_RADIUS) {
-                return surfaceContact(base, tip, head, head, HEAD_RADIUS, HitZone.HEAD, fallback)
+                return surfaceContact(base, tip, head, head, HEAD_RADIUS, HitZone.HEAD, fallback, baseDelta, tipDelta)
             }
             if (bodyContact == null && segmentDistance(base, tip, bottom, top) <= BODY_RADIUS + BLADE_RADIUS) {
-                bodyContact = surfaceContact(base, tip, bottom, top, BODY_RADIUS, HitZone.BODY, fallback)
+                bodyContact = surfaceContact(base, tip, bottom, top, BODY_RADIUS, HitZone.BODY, fallback, baseDelta, tipDelta)
             }
         }
         return bodyContact
@@ -461,10 +497,25 @@ class PlayerCombatResolver {
     private fun surfaceContact(
         base: Vector3, tip: Vector3, start: Vector3, end: Vector3,
         radius: Double, zone: HitZone, fallback: Vector3,
+        baseDelta: Vector3? = null, tipDelta: Vector3? = null,
     ): MotionContact {
         val (bladePoint, axisPoint) = checkNotNull(closestSegmentPoints(base, tip, start, end))
         val normal = (bladePoint - axisPoint).normalizedOrNull() ?: fallback.normalizedOrNull() ?: UP
-        return MotionContact(zone, axisPoint + normal * radius, normal)
+        return MotionContact(zone, axisPoint + normal * radius, normal,
+            bladeTangent(bladePoint, base, tip, baseDelta, tipDelta))
+    }
+
+    private fun bladeTangent(
+        point: Vector3, base: Vector3, tip: Vector3, baseDelta: Vector3?, tipDelta: Vector3?,
+    ): Vector3? {
+        if (baseDelta == null || tipDelta == null || !baseDelta.isFinite() || !tipDelta.isFinite()) return null
+        val axis = tip - base
+        val lengthSquared = axis.dot(axis)
+        if (!lengthSquared.isFinite() || lengthSquared <= GEOMETRY_EPSILON) return null
+        val along = ((point - base).dot(axis) / lengthSquared).coerceIn(0.0, 1.0)
+        val displacement = baseDelta + (tipDelta - baseDelta) * along
+        if (displacement.dot(displacement) <= GEOMETRY_EPSILON) return null
+        return displacement.normalizedOrNull()
     }
 
     private fun interpolateRotation(from: Quaternion, to: Quaternion, fraction: Double): Quaternion {

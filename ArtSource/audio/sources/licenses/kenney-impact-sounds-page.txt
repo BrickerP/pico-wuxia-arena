@@ -1,0 +1,12 @@
+Source page: https://kenney.nl/assets/impact-sounds
+Verified by chrome-use 2026-11-11.
+Title: Impact Sounds
+Tags: impact, foley
+Category: Audio
+Files: 130
+License: Creative Commons CC0
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+Updates: 1.0 Released in 2019
+Creation date from bundled License.txt: 19-12-2019
+Author: Kenney (www.kenney.nl)
+Publisher does not state recording technique; do not claim confirmed field recordings.

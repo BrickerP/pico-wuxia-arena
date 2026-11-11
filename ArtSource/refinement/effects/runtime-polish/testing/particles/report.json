@@ -1,0 +1,43 @@
+{
+  "sources": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt": "9102c7d98a4fe7148759336fb5d72a8880a62539541214e0767348dabc51c878",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt": "4067b57db2cd0d045d8826cef14de53d135b6a69727b93e7ff37d3afac68b334"
+  },
+  "compile": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4ef56b3316798316bfac7a0ae443391c9e900ea1/kotlin-compiler-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/2.1.20/f7c623d7f7bdb01f5ccd6b437bc0a937fcd7c57e/kotlin-script-runtime-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.6.10/1cbe9c92c12a94eea200d23c2bbaedaf3daf5132/kotlin-reflect-1.6.10.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/2.1.20/95670fce77befd02a70a0bc3abe8ee4533521334/kotlin-daemon-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20200330/3afb14d5f9ceb459d724e907a21145e8ff394f02/trove4j-1.0.20200330.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.0/ac1dc37a30a93150b704022f8d895ee1bd3a36b3/kotlinx-coroutines-core-jvm-1.8.0.jar",
+      "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler",
+      "-no-stdlib",
+      "-no-reflect",
+      "-jvm-target",
+      "11",
+      "-classpath",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "-d",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/runtime-polish/testing/particles/classes-74sy73dd",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "tests": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/runtime-polish/testing/particles/classes-74sy73dd:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "org.junit.runner.JUnitCore",
+      "com.example.wuxiaarena.p0d2f0182.content.ContactParticleMotionTest"
+    ],
+    "returncode": 0,
+    "stdout": "JUnit version 4.13.2\n........\nTime: 0.028\n\nOK (8 tests)\n\n",
+    "stderr": ""
+  }
+}

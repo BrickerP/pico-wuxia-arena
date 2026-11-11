@@ -1,0 +1,262 @@
+{
+  "file": "metal_hero_v3.glb",
+  "bytes": 45396,
+  "sha256": "71502f591b19c3e067772fa1648cc78d10c2c37aac3b4e36102e3027964f6525",
+  "particle_count": 32,
+  "mesh_count": 35,
+  "triangles": 258,
+  "textures": 0,
+  "animations": 0,
+  "extensions": 0,
+  "core_span_m": 0.14,
+  "normal_core_lifetime_s": 0.065,
+  "parry_core_lifetime_s": 0.09,
+  "tiers": [
+    {
+      "name": "hot_near",
+      "count": 12,
+      "length_range_m": [
+        0.06,
+        0.1
+      ],
+      "width_range_m": [
+        0.005,
+        0.008
+      ],
+      "life_range_s": [
+        0.18,
+        0.26
+      ]
+    },
+    {
+      "name": "warm_mid",
+      "count": 12,
+      "length_range_m": [
+        0.04,
+        0.07
+      ],
+      "width_range_m": [
+        0.0035,
+        0.006
+      ],
+      "life_range_s": [
+        0.23,
+        0.32
+      ]
+    },
+    {
+      "name": "cool_ember",
+      "count": 8,
+      "length_range_m": [
+        0.02,
+        0.045
+      ],
+      "width_range_m": [
+        0.003,
+        0.005
+      ],
+      "life_range_s": [
+        0.27,
+        0.4
+      ]
+    }
+  ],
+  "particle_dimensions": [
+    {
+      "node": "spark_00",
+      "tier": "hot_near",
+      "length_m": 0.06064261959129217,
+      "width_m": 0.007716715219073533
+    },
+    {
+      "node": "spark_01",
+      "tier": "hot_near",
+      "length_m": 0.06446389555821044,
+      "width_m": 0.00788971903888912
+    },
+    {
+      "node": "spark_02",
+      "tier": "hot_near",
+      "length_m": 0.07809977311931472,
+      "width_m": 0.0056748807696416674
+    },
+    {
+      "node": "spark_03",
+      "tier": "hot_near",
+      "length_m": 0.07084708303947176,
+      "width_m": 0.005723200155314601
+    },
+    {
+      "node": "spark_04",
+      "tier": "hot_near",
+      "length_m": 0.06449043848959006,
+      "width_m": 0.00641735736715542
+    },
+    {
+      "node": "spark_05",
+      "tier": "hot_near",
+      "length_m": 0.08134080257105936,
+      "width_m": 0.005373159522125106
+    },
+    {
+      "node": "spark_06",
+      "tier": "hot_near",
+      "length_m": 0.07087704877571396,
+      "width_m": 0.007512078058624368
+    },
+    {
+      "node": "spark_07",
+      "tier": "hot_near",
+      "length_m": 0.0647815709379774,
+      "width_m": 0.00796083491383593
+    },
+    {
+      "node": "spark_08",
+      "tier": "hot_near",
+      "length_m": 0.07065714690121164,
+      "width_m": 0.006974185233195983
+    },
+    {
+      "node": "spark_09",
+      "tier": "hot_near",
+      "length_m": 0.09545721374240426,
+      "width_m": 0.005661537943315125
+    },
+    {
+      "node": "spark_10",
+      "tier": "hot_near",
+      "length_m": 0.09694491379364975,
+      "width_m": 0.00785011771067767
+    },
+    {
+      "node": "spark_11",
+      "tier": "hot_near",
+      "length_m": 0.07238752833269246,
+      "width_m": 0.006250215394852877
+    },
+    {
+      "node": "spark_12",
+      "tier": "warm_mid",
+      "length_m": 0.04566631295372421,
+      "width_m": 0.00568076867181294
+    },
+    {
+      "node": "spark_13",
+      "tier": "warm_mid",
+      "length_m": 0.058404079742608916,
+      "width_m": 0.004257486172726853
+    },
+    {
+      "node": "spark_14",
+      "tier": "warm_mid",
+      "length_m": 0.0692745294554082,
+      "width_m": 0.005415036689010627
+    },
+    {
+      "node": "spark_15",
+      "tier": "warm_mid",
+      "length_m": 0.06777830948156946,
+      "width_m": 0.004106131235242843
+    },
+    {
+      "node": "spark_16",
+      "tier": "warm_mid",
+      "length_m": 0.04019197199590125,
+      "width_m": 0.005146636678334698
+    },
+    {
+      "node": "spark_17",
+      "tier": "warm_mid",
+      "length_m": 0.05501450757255182,
+      "width_m": 0.005589299396454649
+    },
+    {
+      "node": "spark_18",
+      "tier": "warm_mid",
+      "length_m": 0.04730887805749241,
+      "width_m": 0.005958956369883561
+    },
+    {
+      "node": "spark_19",
+      "tier": "warm_mid",
+      "length_m": 0.06380709678637121,
+      "width_m": 0.004280934841230195
+    },
+    {
+      "node": "spark_20",
+      "tier": "warm_mid",
+      "length_m": 0.055235269027576854,
+      "width_m": 0.003797712586894224
+    },
+    {
+      "node": "spark_21",
+      "tier": "warm_mid",
+      "length_m": 0.057937336354995636,
+      "width_m": 0.005407685508038427
+    },
+    {
+      "node": "spark_22",
+      "tier": "warm_mid",
+      "length_m": 0.04949782411192598,
+      "width_m": 0.005166671760223736
+    },
+    {
+      "node": "spark_23",
+      "tier": "warm_mid",
+      "length_m": 0.06951641970130779,
+      "width_m": 0.005290018532138726
+    },
+    {
+      "node": "spark_24",
+      "tier": "cool_ember",
+      "length_m": 0.042989383064821,
+      "width_m": 0.003162661911800374
+    },
+    {
+      "node": "spark_25",
+      "tier": "cool_ember",
+      "length_m": 0.043471715130585176,
+      "width_m": 0.004088617797218368
+    },
+    {
+      "node": "spark_26",
+      "tier": "cool_ember",
+      "length_m": 0.02445577843454741,
+      "width_m": 0.004730444748890835
+    },
+    {
+      "node": "spark_27",
+      "tier": "cool_ember",
+      "length_m": 0.04059762279037088,
+      "width_m": 0.0033157844590515975
+    },
+    {
+      "node": "spark_28",
+      "tier": "cool_ember",
+      "length_m": 0.03834135108071281,
+      "width_m": 0.004979704475422612
+    },
+    {
+      "node": "spark_29",
+      "tier": "cool_ember",
+      "length_m": 0.03307486698215084,
+      "width_m": 0.004912288978886303
+    },
+    {
+      "node": "spark_30",
+      "tier": "cool_ember",
+      "length_m": 0.029093950569447434,
+      "width_m": 0.004655999825906853
+    },
+    {
+      "node": "spark_31",
+      "tier": "cool_ember",
+      "length_m": 0.04427862161850398,
+      "width_m": 0.0036665823792844383
+    }
+  ],
+  "contact_arc_count": 2,
+  "maximum_entity_count_per_contact": 35,
+  "budget_note": "35 individually faded mesh Entities per full contact. 08 must enforce simultaneous-contact/particle budgets; source geometry budget alone does not prove XR performance.",
+  "source": "Original procedural static geometry; no paid generation, no runtime/source overwrite"
+}

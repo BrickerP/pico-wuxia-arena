@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "kind": "09 reaction-source consumption review",
+  "current_attack_bank_binding_sha256": "7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff",
+  "formal_asset_owner": "Root",
+  "entries": [
+    {
+      "clip": "guard_brace",
+      "incoming_attack_direction": null,
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.8,
+      "event_source_seconds": 0.26,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/guard_brace_raw.glb",
+          "sha256": "c2b80547b2c2e3199caf9713ba9e39c641d595b0f1f5b9ac0377786ca4f263cc"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/guard_brace_preview.glb",
+          "sha256": "8937250292c06364b08f5fb29d1f7df25daf31c80a4a642b1b4cbd1032399248"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/guard_brace_metadata.json",
+          "sha256": "2ee100a601548a6eb9ab0ddb91ff9d541a16574f10f798de530e452a96f503cf"
+        }
+      },
+      "consumer": {
+        "event": "guarded HIT only; do not replace an in-progress PREPARING/STARTUP attack",
+        "brace_source_seconds": 0.26,
+        "requires": "final prepared guard_brace clip and same-pose body/blade profile; current runtime uses canonical guard attack@0"
+      }
+    },
+    {
+      "clip": "parried_recoil",
+      "incoming_attack_direction": "OVERHEAD",
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.85,
+      "event_source_seconds": 0,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/parried_recoil_raw.glb",
+          "sha256": "f3eb395277dd8df673fa74836e6e1c568552bbe4d30710f19d1162a3490e3691"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/parried_recoil_preview.glb",
+          "sha256": "eb3dd3946352aedb32aeeeb9335e1ee0fd420c63e1a31433ae72034e38c746c2"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/parried_recoil_metadata.json",
+          "sha256": "aa9b28032678adf7bc897c688ad471c7a7b62aeaef240e209170d79b0b907033"
+        }
+      },
+      "entry_source": {
+        "clip": "overhead",
+        "source_seconds": 1.0,
+        "raw_sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9"
+      },
+      "consumer": {
+        "event": "HitReactionStarted(PARRIED)",
+        "game_duration_ms": 550,
+        "source_seconds": [
+          0.0,
+          0.85
+        ],
+        "requires": "retain resolved AttackDirection before resolveActiveAttack clears current attack; retarget and generate final actor profiles first"
+      }
+    },
+    {
+      "clip": "parried_recoil_left",
+      "incoming_attack_direction": "LEFT",
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.85,
+      "event_source_seconds": 0,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_left_raw.glb",
+          "sha256": "3619bd24c4d25ac6d183e0b9cc2ab1a950a52a437aa37005a9a3cfbed122609b"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_left_preview.glb",
+          "sha256": "8fde4d6ba500e029d3b2baca807458599169c232a6dca54f66d3dc0d26818257"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_left_metadata.json",
+          "sha256": "4b16943a40010305f631ce241c890d90b56ef13be0f5841cb7992cae989a8502"
+        }
+      },
+      "entry_source": {
+        "clip": "slash_to_left",
+        "source_seconds": 1.0,
+        "raw_sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+        "preview_sha256": "4c0d898a4078b3c3b9651f3fcba91b5acfd6a519b7757003a28715aa22b3fb21"
+      },
+      "consumer": {
+        "event": "HitReactionStarted(PARRIED)",
+        "game_duration_ms": 550,
+        "source_seconds": [
+          0.0,
+          0.85
+        ],
+        "requires": "retain resolved AttackDirection before resolveActiveAttack clears current attack; retarget and generate final actor profiles first"
+      }
+    },
+    {
+      "clip": "parried_recoil_right",
+      "incoming_attack_direction": "RIGHT",
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.85,
+      "event_source_seconds": 0,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_right_raw.glb",
+          "sha256": "22f0879fecbbebc2b2313229551e17838a1efcd76900c5cfaa09ecb7f92f4802"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_right_preview.glb",
+          "sha256": "ca482d661da4cab6a3868ad636a4d311b7015abed99c32bab17409cc176c4970"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage7/candidate/parried_recoil_right_metadata.json",
+          "sha256": "a6227ae149073b07ef3b6708d936cc7d11474f041bb240f3846b1104d77cad01"
+        }
+      },
+      "entry_source": {
+        "clip": "slash_to_right",
+        "source_seconds": 1.0,
+        "raw_sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+        "preview_sha256": "149340854a45e8191c277819d304a64ed202c45a4ab7794da894ef9c84e47ae2"
+      },
+      "consumer": {
+        "event": "HitReactionStarted(PARRIED)",
+        "game_duration_ms": 550,
+        "source_seconds": [
+          0.0,
+          0.85
+        ],
+        "requires": "retain resolved AttackDirection before resolveActiveAttack clears current attack; retarget and generate final actor profiles first"
+      }
+    },
+    {
+      "clip": "hit_body",
+      "incoming_attack_direction": null,
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.72,
+      "event_source_seconds": 0.05,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_body_raw.glb",
+          "sha256": "8213e52e9dacb9885db17c72326444dbb4db2545d57f15e264552e0cfbdaab0b"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_body_preview.glb",
+          "sha256": "74d0ad940352944f86e192dc711aad372086d6081af2f7250ba959fe00c2f139"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_body_metadata.json",
+          "sha256": "0e5884da2b339edf4f5949929887670bb48d46367b172ac09c1f56bfa3bd85ab"
+        }
+      },
+      "consumer": {
+        "source_seconds": [
+          0.05,
+          0.72
+        ],
+        "reference_game_ms": 300,
+        "duration_policy": "map by actual total HIT duration; remaining parry stagger may extend this duration",
+        "entry_crossfade_ms": [
+          25,
+          55
+        ],
+        "exit_crossfade_ms": 120,
+        "hitstop": "runtime freezes HIT clock; source uses normal time"
+      },
+      "execution_prefix_consumer": null,
+      "requires": "Root replaces native hit clip and generates final actor proxies before claiming reaction/body alignment"
+    },
+    {
+      "clip": "hit_head",
+      "incoming_attack_direction": null,
+      "status": "authored_source_only_not_in_current_10clip_bank",
+      "duration_seconds": 0.72,
+      "event_source_seconds": 0.05,
+      "raw_right_calibration": "unbaked; prepared producer applies target grip once",
+      "preview_right_calibration": "base eight finger corrections baked once; preview is not a producer raw input",
+      "files": {
+        "raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_head_raw.glb",
+          "sha256": "16e4f5a8e4d0fd186addee366798494eb89d6e8b9429c51af9595967b72e9a42"
+        },
+        "preview": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_head_preview.glb",
+          "sha256": "910732b624578ab77ac503d8a7cda5205365f5e3212f56c1b3bdf629ddde304f"
+        },
+        "metadata": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage8/candidate/hit_head_metadata.json",
+          "sha256": "63a4fb4acd18ad0419f4d24e54ebd4ad020802e3c34e903e2b8ed9db240144bf"
+        }
+      },
+      "consumer": {
+        "source_seconds": [
+          0.05,
+          0.72
+        ],
+        "reference_game_ms": 300,
+        "duration_policy": "map by actual total HIT duration; remaining parry stagger may extend this duration",
+        "entry_crossfade_ms": [
+          25,
+          55
+        ],
+        "exit_crossfade_ms": 120,
+        "hitstop": "runtime freezes HIT clock; source uses normal time"
+      },
+      "execution_prefix_consumer": {
+        "source_seconds": [
+          0.1,
+          0.595
+        ],
+        "visual_clock_seconds": 0.45,
+        "source_rate": 1.1,
+        "death_clock_policy": "runtime owns fatal slow clock; source is authored at normal time"
+      },
+      "requires": "Root replaces native hit clip and generates final actor proxies before claiming reaction/body alignment"
+    }
+  ]
+}

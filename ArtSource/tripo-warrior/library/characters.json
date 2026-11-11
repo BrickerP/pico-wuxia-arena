@@ -12,21 +12,27 @@
         "hit_body",
         "hit_head",
         "hit_side",
-        "slash"
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
       ],
       "joint_count": 78,
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 22129764,
-          "sha256": "65c0702e348627c539b1e33d7f95e044a037e22caf851d0a93a085860525ae55"
+          "bytes": 23255016,
+          "sha256": "02cf4208ab4c75dc7e4eba486a99152a0b7d3b655f94c38f77f1b048f78a5469"
         },
         {
           "file": "base.glb",
-          "bytes": 23000580,
-          "sha256": "53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641"
+          "bytes": 26348104,
+          "sha256": "e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc"
         }
-      ]
+      ],
+      "attack_profiles": {
+        "file": "base_attack_profiles.json",
+        "sha256": "f4b2d918bdb63cfd9436708822dc262df9c5e94ec357f1dc6b5a0ee01a114450"
+      }
     },
     {
       "id": "indigo",
@@ -40,21 +46,27 @@
         "hit_body",
         "hit_head",
         "hit_side",
-        "slash"
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
       ],
       "joint_count": 78,
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 13942848,
-          "sha256": "f2107a37659941de116857231d2243aa3221b53b555b9b47b617aa8ff1be9c40"
+          "bytes": 15059092,
+          "sha256": "99227ef404ebfe53cde0181bdf1e5bea2f0af77f709e0a3f295504cccd133063"
         },
         {
           "file": "indigo.glb",
-          "bytes": 14813640,
-          "sha256": "7c79d70cbe6bea4eae58759e1faab04f57609a6851b532a24c98a54e90d2b1c6"
+          "bytes": 18152160,
+          "sha256": "448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3"
         }
-      ]
+      ],
+      "attack_profiles": {
+        "file": "indigo_attack_profiles.json",
+        "sha256": "4633e2a7e3d8173f09e2c1e7ff98e713b11cacb6b01979055dbe4ba469d44a3a"
+      }
     },
     {
       "id": "veteran",
@@ -68,21 +80,27 @@
         "hit_body",
         "hit_head",
         "hit_side",
-        "slash"
+        "attack_overhead",
+        "attack_left",
+        "attack_right"
       ],
       "joint_count": 78,
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 13439684,
-          "sha256": "ddb42aafae421eebe852a75b7a2bf54ae576446b1ddd9f7647a96a6f085b7053"
+          "bytes": 14536920,
+          "sha256": "6cb873f8cbe8ca772ccb76eb819cf9575e47a43142da3eff34689a887e848848"
         },
         {
           "file": "veteran.glb",
-          "bytes": 14310484,
-          "sha256": "03e02d53470d41f94355b27e765e86579a02879e2ad30d40c1444bc764ec50a7"
+          "bytes": 17630000,
+          "sha256": "0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2"
         }
-      ]
+      ],
+      "attack_profiles": {
+        "file": "veteran_attack_profiles.json",
+        "sha256": "c6822e9f07ca94af850ded93c7a2d175bd10df4a4cb73be4f08d024cc9dd2c88"
+      }
     }
   ]
 }

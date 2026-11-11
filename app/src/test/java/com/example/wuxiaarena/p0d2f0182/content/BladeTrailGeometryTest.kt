@@ -14,7 +14,7 @@ class BladeTrailGeometryTest {
         assertNull(sample(0.0, 0L))
         val ribbon = requireNotNull(sample(0.1, 10_000_000L))
 
-        assertEquals(listOf(0, 1, 2, 2, 1, 3), ribbon.triangleIndices)
+        assertEquals(listOf(0, 1, 2, 2, 1, 3), ribbon.triangleIndices.take(6))
         assertEquals(Vector3(0.0, 1.0, -0.35), ribbon.positions[0])
         assertEquals(Vector3(0.0, 1.0, -0.98), ribbon.positions[1])
         assertEquals(Vector3(0.1, 1.0, -0.35), ribbon.positions[2])
@@ -31,9 +31,10 @@ class BladeTrailGeometryTest {
         val first = requireNotNull(sample(0.1, 10_000_000L))
         val fading = requireNotNull(sample(0.1, 20_000_000L))
 
-        assertEquals(first.positions, fading.positions)
-        assertEquals(first.triangleIndices, fading.triangleIndices)
-        assertTrue(fading.alphas.last() < first.alphas.last())
+        assertEquals(first.positions.take(first.coreVertexOffset), fading.positions.take(fading.coreVertexOffset))
+        assertEquals(first.triangleIndices.filter { it < first.coreVertexOffset },
+            fading.triangleIndices.filter { it < fading.coreVertexOffset })
+        assertTrue(fading.alphas[fading.coreVertexOffset - 1] < first.alphas[first.coreVertexOffset - 1])
         assertNull(sample(0.1, 75_000_000L))
         assertNull(sample(0.1, 85_000_000L))
     }
@@ -44,7 +45,7 @@ class BladeTrailGeometryTest {
         assertNull(sample(0.2, 10_000_000L))
         val ribbon = requireNotNull(sample(0.2, 20_000_000L))
 
-        assertEquals(4, ribbon.positions.size)
+        assertEquals(4, ribbon.coreVertexOffset)
         assertNonDegenerate(ribbon)
     }
 
@@ -64,7 +65,7 @@ class BladeTrailGeometryTest {
         assertNull(sample(0.2, 100_000_000L))
         requireNotNull(sample(0.3, 110_000_000L))
         assertNull(sample(0.4, 1L))
-        assertEquals(4, requireNotNull(sample(0.5, 2L)).positions.size)
+        assertEquals(4, requireNotNull(sample(0.5, 2L)).coreVertexOffset)
     }
 
     @Test
@@ -85,7 +86,8 @@ class BladeTrailGeometryTest {
         var ribbon: BladeTrailGeometry.Ribbon? = null
         repeat(20) { index -> ribbon = sample(index * 0.01, index * 1_000_000L) }
 
-        assertEquals(7 * 4, requireNotNull(ribbon).positions.size)
+        assertEquals(7 * 4, requireNotNull(ribbon).coreVertexOffset)
+        assertTrue(requireNotNull(ribbon).positions.size <= 7 * 8)
         assertTrue(requireNotNull(ribbon).triangleIndices.all { it < requireNotNull(ribbon).positions.size })
         geometry.clear()
         assertNull(sample(0.3, 21_000_000L))
@@ -133,7 +135,7 @@ class BladeTrailGeometryTest {
         val ribbon = requireNotNull(geometry.sample(Vector3(10.1, 1.0, 0.0), Vector3(10.1, 1.0, -1.0),
             30_000_000L, 2.0, false, 2L))
 
-        assertEquals(4, ribbon.positions.size)
+        assertEquals(4, ribbon.coreVertexOffset)
         assertTrue(ribbon.positions.all { it.x >= 10.0 })
     }
 
@@ -152,6 +154,52 @@ class BladeTrailGeometryTest {
         val ribbon = requireNotNull(geometry.sample(Vector3(0.1, 1.0, 0.0), Vector3(0.1, 1.0, -1.0),
             10L, 0.0, false, 1L))
         assertTrue(ribbon.alphas.all { it == 0f })
+    }
+
+    @Test
+    fun hotCoreClipsToTwelveMillisecondsOfTheActualSweep() {
+        sample(0.0, 0L)
+        val ribbon = requireNotNull(sample(0.3, 30_000_000L))
+        val core = ribbon.positions.drop(ribbon.coreVertexOffset)
+        val coreAlpha = ribbon.alphas.drop(ribbon.coreVertexOffset)
+
+        // The leading edge starts 60% through this real 30ms sweep, at x=0.18m.
+        assertEquals(4, core.size)
+        assertEquals(0.18, core[0].x, 1e-12)
+        assertEquals(-0.665, core[0].z, 1e-12)
+        assertEquals(0.3, core[2].x, 1e-12)
+        assertEquals(0f, coreAlpha[0], 0f)
+        assertEquals((2.0 / 3.0).toFloat(), coreAlpha[2], 0f)
+        assertNonDegenerate(ribbon)
+    }
+
+    @Test
+    fun hotCoreExpiresWhileTheMeasuredTailKeepsFading() {
+        sample(0.0, 0L)
+        val contact = requireNotNull(sample(0.1, 10_000_000L))
+        assertTrue(contact.positions.size > contact.coreVertexOffset)
+        val afterCore = requireNotNull(sample(0.1, 22_000_000L))
+
+        assertEquals(afterCore.coreVertexOffset, afterCore.positions.size)
+        assertTrue(afterCore.alphas.any { it > 0f })
+        assertEquals(contact.positions.take(contact.coreVertexOffset), afterCore.positions)
+    }
+
+    @Test
+    fun hotCoreFollowsAChangedBladeOrientationWithoutInventingAnArc() {
+        geometry.sample(Vector3(0.0, 1.0, 0.0), Vector3(0.0, 1.0, -1.0), 0L, 2.0, false, 1L)
+        val ribbon = requireNotNull(geometry.sample(
+            Vector3(0.2, 1.1, 0.0), Vector3(0.8, 1.9, 0.0), 30_000_000L, 2.0, false, 1L))
+        val core = ribbon.positions.drop(ribbon.coreVertexOffset)
+
+        assertEquals(0.599, core[2].x, 1e-12)
+        assertEquals(1.632, core[2].y, 1e-12)
+        assertEquals(0.0, core[2].z, 0.0)
+        assertEquals(0.788, core[3].x, 1e-12)
+        assertEquals(1.884, core[3].y, 1e-12)
+        assertEquals(0.0, core[3].z, 0.0)
+        assertTrue(core.all { it.isFinite() })
+        assertNonDegenerate(ribbon)
     }
 
     private fun sample(x: Double, atNanos: Long): BladeTrailGeometry.Ribbon? =

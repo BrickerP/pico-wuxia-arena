@@ -1,0 +1,138 @@
+{
+  "baseline_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "source_hashes": {
+    "app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+    "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt": "bf269e9c4ba16520cafaf9c6a4271e60d5ca8a557f61986c438c98338719b719",
+    "app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt": "133e0c0a50b2458fe90946d6a4edc624c490c88b423dcf7672ebca459ad71099",
+    "app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c",
+    "app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt": "094ecca433d9e36633f3f4e8f95604b5f41d815b058a99567fb8549d6ebfdaaf",
+    "app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99",
+    "app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometry.kt": "254e07210bce7da487519009aab074031945e38074e7753b5be7dbc84f9e8a21",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/input/DesktopCombatInput.kt": "8af0c89f3ae92cd6546c7e0c1a965ca5f7e63c6cf57847f4f690779c014708ff",
+    "ArtSource/refinement/effects/runtime-polish/trail-review/BaselineBladeTrailGeometry.kt": "07d574b6e595f40ce251fe767984ad9bfecda54e5fed590c49bc703633c64c56",
+    "ArtSource/refinement/effects/runtime-polish/trail-review/ExportTrail.kt": "c7d561806e3b156274eae2ce09bc9f3486c71605ce75f6a6f07489edb5ef34f1",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerBladeTrail.kt": "08bf96b6daa5e2b053359d334db924cd5fad6fe33a63e6d1d8893627a1319444",
+    "ArtSource/refinement/effects/runtime-polish/trail-review/build_review.py": "1ebeafd809e59c3f52240c6cdb60c358f003d81bef407498e1051433a18a2f4a"
+  },
+  "fixture": "production DesktopCombatInput.LEFT_SLASH -> TrackingState -> PlayerCombatResolver; desktop synthetic input, not device recording",
+  "fixture_file": "meshes.json",
+  "fixture_sha256": "de7870d97f7ec1f905cec790356d94871ccd34b72bedd40c7757e1dfdb2c7310",
+  "sample_hz": 90,
+  "capture_index": 24,
+  "capture_age_ms": 266.666664,
+  "tail_vertices": 20,
+  "candidate_vertices": 28,
+  "before_triangles": 10,
+  "candidate_triangles": 14,
+  "verification": {
+    "baseline_equals_candidate_tail_geometry_and_alpha": true,
+    "finite_nondegenerate_triangles_and_valid_indices": true,
+    "same_camera_for_before_after": true
+  },
+  "images": [
+    {
+      "file": "trail_compare_0.8m.png",
+      "sha256": "d74ac5c8cea17e55d5e29fec9bea22dbaa65aa96d346f08beb139d6332066140",
+      "distance_m": 0.8,
+      "camera": [
+        [
+          0.0824889902116131,
+          1.5348809926190128,
+          -0.2538882228887519
+        ],
+        [
+          0.30019992580764626,
+          -0.23698582240236718,
+          -0.9239684651141279
+        ],
+        [
+          0.9510612435731053,
+          -0.0,
+          0.30900244493074575
+        ],
+        [
+          0.07322919853625495,
+          0.971513108496367,
+          -0.2253880309631904
+        ],
+        [
+          0.3226489308577301,
+          1.345292334697119,
+          -0.9930629949800542
+        ]
+      ]
+    },
+    {
+      "file": "trail_compare_1.5m.png",
+      "sha256": "65924e4026c534145ecef7d4ff70f2135f41e6bf14c2deddf2701787c29da5c9",
+      "distance_m": 1.5,
+      "camera": [
+        [
+          -0.1276509578537393,
+          1.7007710683006698,
+          0.39288970269113754
+        ],
+        [
+          0.30019992580764626,
+          -0.23698582240236718,
+          -0.9239684651141279
+        ],
+        [
+          0.9510612435731053,
+          -0.0,
+          0.30900244493074575
+        ],
+        [
+          0.07322919853625495,
+          0.971513108496367,
+          -0.2253880309631904
+        ],
+        [
+          0.3226489308577301,
+          1.345292334697119,
+          -0.9930629949800542
+        ]
+      ]
+    },
+    {
+      "file": "trail_compare_3.0m.png",
+      "sha256": "83ce2f73a6b7ab47cb671a97d0962c3170e092325a30c219e37eb647690eab15",
+      "distance_m": 3.0,
+      "camera": [
+        [
+          -0.5779508465652088,
+          2.0562498019042206,
+          1.7788424003623293
+        ],
+        [
+          0.30019992580764626,
+          -0.23698582240236718,
+          -0.9239684651141279
+        ],
+        [
+          0.9510612435731053,
+          -0.0,
+          0.30900244493074575
+        ],
+        [
+          0.07322919853625495,
+          0.971513108496367,
+          -0.2253880309631904
+        ],
+        [
+          0.3226489308577301,
+          1.345292334697119,
+          -0.9930629949800542
+        ]
+      ]
+    }
+  ],
+  "limitations": [
+    "Offline software alpha projection, not SDK or device capture.",
+    "Production desktop synthetic poses, not real controller recording.",
+    "No scene occlusion, bloom, exposure or SDK tone mapping; color values mapped directly to display RGB.",
+    "Distance is camera-to-tail-bounds-centre; camera direction is head-to-target, fixed per comparison.",
+    "No normal-distance VR readability or timing acceptance claim."
+  ]
+}

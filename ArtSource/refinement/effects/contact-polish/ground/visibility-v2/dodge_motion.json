@@ -1,0 +1,332 @@
+{
+  "asset": "dodge_ground_polish.glb",
+  "units": "metres / seconds",
+  "basis": {
+    "x": "actual player ground-displacement tangent",
+    "z": "actual ground outward normal",
+    "y": "z cross x"
+  },
+  "gravity_stage_mps2": [
+    0.0,
+    -9.81,
+    0.0
+  ],
+  "anchor_normal_offset_m": 0.002,
+  "mesh_origin": "particle base",
+  "ground_constraint": "particle base >= anchor plane",
+  "orientation_policy": "fixed TBN; optional rotation only around N",
+  "clock": "presentation seconds since a fresh resolved ground event",
+  "transform_equation": "q=p0Local+v0Local*t+0.5*(basisTranspose*gravityStage)*t*t; q.z=max(q.z,0); pStage=pointStage+normalStage*0.002+basis*q",
+  "opacity_interpolation": "linear opacity_keys; zero before birth and at/after lifetime",
+  "trigger_requirement": "Root-resolved successful dodge with actual near-ground player displacement",
+  "surface_requirement": "Existing courtyard paving with small loose grit; actual point, normal and material are supplied by Root",
+  "visual_approximation": "Low-opacity upright cross-card silt, no volumetric shader or external texture",
+  "particles": [
+    {
+      "node": "dust_00",
+      "type": "ground_dust",
+      "width_m": 0.045,
+      "height_m": 0.02,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.04,
+        0.015,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.04,
+        0.045,
+        0.16
+      ],
+      "lifetime_s": 0.28,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.1008,
+          0.595
+        ],
+        [
+          0.28,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_01",
+      "type": "ground_dust",
+      "width_m": 0.06,
+      "height_m": 0.024,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.051000000000000004,
+        -0.025,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.06,
+        -0.065,
+        0.19
+      ],
+      "lifetime_s": 0.34,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.1224,
+          0.595
+        ],
+        [
+          0.34,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_02",
+      "type": "ground_dust",
+      "width_m": 0.052,
+      "height_m": 0.022,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.062,
+        0.035,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.08,
+        0.08499999999999999,
+        0.22
+      ],
+      "lifetime_s": 0.3,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.108,
+          0.595
+        ],
+        [
+          0.3,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_03",
+      "type": "ground_dust",
+      "width_m": 0.068,
+      "height_m": 0.028,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.07300000000000001,
+        -0.015,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.1,
+        -0.045,
+        0.25
+      ],
+      "lifetime_s": 0.38,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.1368,
+          0.595
+        ],
+        [
+          0.38,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_04",
+      "type": "ground_dust",
+      "width_m": 0.048,
+      "height_m": 0.021,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.08399999999999999,
+        0.025,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.04,
+        0.065,
+        0.16
+      ],
+      "lifetime_s": 0.26,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.0936,
+          0.595
+        ],
+        [
+          0.26,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_05",
+      "type": "ground_dust",
+      "width_m": 0.064,
+      "height_m": 0.026,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.095,
+        -0.035,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.06,
+        -0.08499999999999999,
+        0.19
+      ],
+      "lifetime_s": 0.36,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.1296,
+          0.595
+        ],
+        [
+          0.36,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_06",
+      "type": "ground_dust",
+      "width_m": 0.055,
+      "height_m": 0.023,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.10600000000000001,
+        0.015,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.08,
+        0.045,
+        0.22
+      ],
+      "lifetime_s": 0.32,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.1152,
+          0.595
+        ],
+        [
+          0.32,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    },
+    {
+      "node": "dust_07",
+      "type": "ground_dust",
+      "width_m": 0.058,
+      "height_m": 0.025,
+      "mesh_origin": "base",
+      "minimum_geometry_local_z_m": 0.0,
+      "initial_position_local_m": [
+        -0.11699999999999999,
+        -0.025,
+        0.0
+      ],
+      "initial_velocity_local_mps": [
+        -0.1,
+        -0.065,
+        0.25
+      ],
+      "lifetime_s": 0.35,
+      "opacity_keys": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.025,
+          0.85
+        ],
+        [
+          0.126,
+          0.595
+        ],
+        [
+          0.35,
+          0.0
+        ]
+      ],
+      "orientation_policy": "fixed TBN; optional rotation only around N"
+    }
+  ],
+  "waves": [],
+  "source": "Original deterministic procedural mesh; project static GLB helpers"
+}

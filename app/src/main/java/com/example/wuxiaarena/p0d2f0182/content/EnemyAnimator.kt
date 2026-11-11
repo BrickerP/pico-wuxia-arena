@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import android.util.Log
+import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
@@ -9,6 +10,8 @@ import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
+import com.example.wuxiaarena.p0d2f0182.runtime.attackProfile
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
 import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
@@ -27,8 +30,8 @@ internal class EnemyAnimator(enemy: Entity) {
         val reacting: Boolean,
     )
 
-    private val target = enemy.findSkeletonRootEntity().single()
-    private val importedResources = enemy.findSkinnedMeshEntity().single().getAnimationResources()
+    private val target = enemy.findSkeletonRootEntity(includeDisabled = true).single()
+    private val importedResources = enemy.findSkinnedMeshEntity(includeDisabled = true).single().getAnimationResources()
     private val importedClips = mutableMapOf<String, AnimationResource>()
     private val playbackClips = mutableMapOf<String, AnimationResource>()
     private var controller: AnimationPlaybackController? = null
@@ -46,7 +49,7 @@ internal class EnemyAnimator(enemy: Entity) {
             for (resource in importedResources) {
                 importedClips[resource.getName()] = resource
             }
-            check(importedClips.keys.containsAll(listOf("idle", "walk", "slash", "hit_body", "hit_head", "hit_side", "fall"))) {
+            check(importedClips.keys.containsAll(listOf("idle", "walk", "attack_overhead", "attack_left", "attack_right", "hit_body", "hit_head", "hit_side", "fall"))) {
                 "Missing enemy animation clips: ${importedClips.keys}"
             }
             for (name in importedClips.keys) {
@@ -102,11 +105,13 @@ internal class EnemyAnimator(enemy: Entity) {
             lastPaused = true
             return
         }
+        val attackProfile = arenaOpponents[state.roundNumber - 1]
+            .attackProfile(state.attackDirection ?: AttackDirection.OVERHEAD)
         val clip = when (state.phase) {
-            EnemyPhase.IDLE -> if (state.enemyMoveDirection != 0f) "walk" else "idle"
-            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> "slash"
+            EnemyPhase.IDLE -> if (state.enemyMoveDirection != 0f) "walk" else attackProfile.clip
+            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> attackProfile.clip
             EnemyPhase.HIT -> when {
-                state.guarding -> "slash"
+                state.guarding -> attackProfile.clip
                 state.hitReaction == HitReaction.PARRIED -> "hit_side"
                 state.enemyHitZone == HitZone.HEAD -> "hit_head"
                 else -> "hit_body"
@@ -122,7 +127,11 @@ internal class EnemyAnimator(enemy: Entity) {
             val next = target.playAnimation(
                 resource,
                 AnimationPlayConfig(
-                    transitionDuration = if (state.phase == EnemyPhase.HIT) 0.055f - 0.03f * reactionStrength else 0.12f,
+                    transitionDuration = when {
+                        state.phase == EnemyPhase.HIT -> 0.055f - 0.03f * reactionStrength
+                        clip == "walk" || playbackKey?.clip == "walk" -> 0.18f
+                        else -> 0.12f
+                    },
                     transitionMode = AnimationTransitionMode.STOP_AND_CROSSFADE,
                 ),
             )
@@ -138,15 +147,15 @@ internal class EnemyAnimator(enemy: Entity) {
         val active = controller ?: return
         if (!active.valid) return
         when (state.phase) {
-            // Source frames 39-45 touch the off-hand. The selected preparation starts later.
-            EnemyPhase.PREPARING -> seekPhase(active, state, 1.55f, 1.85f)
-            EnemyPhase.STARTUP -> seekPhase(active, state, 1.85f, 2.067f)
-            EnemyPhase.ACTIVE -> seekPhase(active, state, 2.067f, 2.167f)
-            // Include the native return from the forward bend before crossfading to idle.
-            EnemyPhase.RECOVERING -> seekPhase(active, state, 2.167f, 3.4f)
+            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> {
+                // The contact proxy and blade markers sample this exact source clock.
+                active.setTime(attackProfile.sourceSeconds(
+                    state.phase, state.phaseElapsedNanos, state.phaseRemainingNanos, state.enemyRecoveryFromContact,
+                ).toFloat().coerceAtMost(active.getDuration()))
+            }
             EnemyPhase.HIT -> {
                 if (state.guarding) {
-                    active.setTime(1.55f.coerceAtMost(active.getDuration()))
+                    active.setTime(attackProfile.sourcePhaseSeconds.first().toFloat().coerceAtMost(active.getDuration()))
                 } else {
                     val end = if (state.hitReaction == HitReaction.PARRIED) 1.18f else 0.72f
                     seekPhase(active, state, 0.05f, end)
@@ -166,12 +175,14 @@ internal class EnemyAnimator(enemy: Entity) {
                 val phase = ((state.enemyGaitMeters / WALK_STRIDE_METERS % 1.0 + 1.0) % 1.0).toFloat()
                 active.setTime((WALK_LOOP_START + phase * WALK_LOOP_DURATION).coerceIn(0f, duration))
                 active.setSpeed((0.65 / WALK_STRIDE_METERS * WALK_LOOP_DURATION).toFloat())
+            } else {
+                active.setTime(attackProfile.sourcePhaseSeconds.first().toFloat())
             }
         }
 
         val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
             !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT ||
-            clip == "walk" || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
+            clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
         if (paused && !active.isPaused()) active.pause()
         if (!paused && active.isPaused()) active.resume()
         if (lastPhase != state.phase || lastPaused != paused) {

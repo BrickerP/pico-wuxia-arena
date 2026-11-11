@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "date": "2026-11-11",
+  "source_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "test_command": "python3 -B -m unittest discover -s ArtSource/refinement/lookdev/weather -p 'test_*.py' -v",
+  "tests_passed": 7,
+  "checks": [
+    "Deterministic rain layout and alpha-zero tips",
+    "Rain combat lane >=1.6m clear half-width",
+    "Haze alpha-zero borders and static >=1.5m clear half-width",
+    "Closed inward-facing radius30m sky, every edge has two incident faces",
+    "GLB round-trip, required unlit, doubleSided, alpha modes",
+    "Exact float32 POSITION accessor bounds",
+    "Truncated BIN/JSON/header reject",
+    "Invalid/nonfinite positions, colors and indices reject",
+    "Accessor overrun reject"
+  ],
+  "scope": "Local GLB structure and analytic geometry only; no SDK rendering, app build or device operation",
+  "runtime_status": "UNTESTED on PICO 6.1.9: vertex color/alpha, alpha sorting and sky cull must be visually reviewed by Root",
+  "haze_motion_note": "At the specified Stage x +/-3m instance centers, static clear half-width=1.5m. Runtime +/-0.12m horizontal drift lowers minimum clear half-width to1.38m.",
+  "asset_sha256": {
+    "rain_night_sky.glb": "11b80a1337b4d0574fd524a08619a43edab1f30ff6f86284c82d49cf35e12017",
+    "rain_tile.glb": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+    "side_haze.glb": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9"
+  },
+  "source_sha256": {
+    "generate_weather.py": "ecf178fc88f48ab58531395cf50ec1747e488cd91c73b06b4089ecf05b9ae5df",
+    "test_weather.py": "3d76dcd9a3ab8f89b9c055e2b166bad90b050768c2163834698bca3651a88394"
+  }
+}

@@ -17,16 +17,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.key
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import com.example.wuxiaarena.p0d2f0182.ui.ArenaUiPalette
+import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsIncomingStrike
+import com.example.wuxiaarena.p0d2f0182.ui.arenaIncomingSealScale
+import com.example.wuxiaarena.p0d2f0182.ui.arenaHitFeedbackScale
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
@@ -48,12 +58,6 @@ import com.pico.spatial.ui.design.LinearProgressIndicator
 import com.pico.spatial.ui.design.PicoTheme
 import com.pico.spatial.ui.design.Text
 import com.pico.spatial.ui.design.windows.AlertDialog
-
-// Panel-owned colors keep Stage content readable without changing the system palette.
-private val ArenaPanelSurface = Color(0xFF101010) // design-style: fixed-figma-color .scratch/design-spec.json theme.brandColors
-private val ArenaPanelControl = Color(0xFF49443F) // design-style: fixed-figma-color .scratch/design-spec.json theme.brandColors
-private val ArenaPanelText = Color(0xFFF6F0E6) // design-style: fixed-figma-color .scratch/design-spec.json theme.brandColors
-private val ArenaPanelSecondary = Color(0xFFD3CDC4) // design-style: fixed-figma-color .scratch/design-spec.json theme.brandColors
 
 internal fun arenaControlsAreCompact(result: TrialResult, pauseReason: PauseReason?): Boolean =
     pauseReason == null && when (result) {
@@ -109,55 +113,69 @@ private fun ArenaControlPanelContent(
     val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
     val compact = arenaControlsAreCompact(state.result, state.pauseReason)
     val desktop = DesktopCombatInput.enabled || state.inputOrigin == InputOrigin.DESKTOP
+    val surfaceText = if (compact) ArenaUiPalette.paperIvory else ArenaUiPalette.inkBlack
+    val secondaryText = if (compact) ArenaUiPalette.paleAsh else ArenaUiPalette.mutedInk
     val buttonColors = ButtonDefaults.buttonColors(
-        containerColor = ArenaPanelControl,
-        contentColor = ArenaPanelText,
+        containerColor = ArenaUiPalette.cinnabar,
+        contentColor = ArenaUiPalette.paperIvory,
     )
 
     Box(
         modifier = Modifier
-            .size(width = 400.dp, height = arenaControlPanelHeightDp(state.result, state.pauseReason, desktop).dp)
-            .clip(RoundedCornerShape(32.dp))
-            // design-style: design-surface control-surface
-            .background(ArenaPanelSurface),
+            .size(width = 400.dp, height = arenaControlPanelHeightDp(state.result, state.pauseReason, desktop).dp),
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
+            modifier = Modifier.fillMaxSize().padding(4.dp)
+                .clip(RoundedCornerShape(8.dp))
+                // design-style: design-surface control-surface
+                .background(if (compact) ArenaUiPalette.inkVeil else ArenaUiPalette.paperIvory)
+                .padding(if (compact) 12.dp else 16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(
-                    text = stringResource(R.string.arena_control_title),
-                    style = PicoTheme.typography.bodyLarge,
-                    color = ArenaPanelText,
-                    maxLines = 1,
-                )
+                Row(modifier = Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+                    if (!compact) TrialSeal()
+                    Text(
+                        text = if (compact) controlStateLabel(state) else stringResource(R.string.arena_control_title),
+                        modifier = Modifier.weight(1f),
+                        style = PicoTheme.typography.titleSmall.copy(
+                            fontSize = if (compact) 20.sp else 28.sp,
+                            lineHeight = if (compact) 24.sp else 34.sp,
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.SemiBold,
+                        ),
+                        color = surfaceText,
+                        maxLines = 1,
+                    )
+                }
                 Text(
                     text = stringResource(R.string.arena_control_round, state.roundNumber, state.roundCount),
-                    style = PicoTheme.typography.labelSmall,
-                    color = ArenaPanelSecondary,
+                    style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                    color = secondaryText,
+                    maxLines = 1,
+                )
+            }
+            if (!compact) {
+                Text(
+                    text = controlStateLabel(state),
+                    style = PicoTheme.typography.bodyLarge.copy(fontSize = 24.sp, lineHeight = 28.sp),
+                    color = surfaceText,
                     maxLines = 1,
                 )
             }
             Text(
-                text = controlStateLabel(state),
-                style = PicoTheme.typography.bodyLarge,
-                color = ArenaPanelText,
-                maxLines = 1,
-            )
-            Text(
                 text = when {
                     controlPending -> stringResource(R.string.arena_control_processing)
                     terminal -> stringResource(R.string.arena_trial_finished)
-                    desktop || !state.inputReady || state.pauseReason == PauseReason.TRACKING_INTERRUPTION -> inputSummary(state)
+                    !state.inputReady || state.pauseReason == PauseReason.TRACKING_INTERRUPTION -> inputSummary(state)
                     else -> stringResource(R.string.arena_trial_objective)
                 },
-                style = PicoTheme.typography.labelSmall,
-                color = ArenaPanelSecondary,
+                style = PicoTheme.typography.labelSmall.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                color = secondaryText,
                 maxLines = 1,
             )
             Row(
@@ -222,36 +240,15 @@ private fun ArenaControlPanelContent(
                 )
             }
             if (!compact) {
-                Column(
-                    modifier = Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
-                    verticalArrangement = Arrangement.spacedBy(6.dp),
-                ) {
-                    if (terminal) {
+                if (terminal) {
+                    Column(
+                        modifier = Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
                         MatchSummary(state)
-                    } else if (desktop) {
-                        Text(
-                            text = stringResource(R.string.arena_preview_instruction),
-                            style = PicoTheme.typography.labelSmall,
-                            color = ArenaPanelSecondary,
-                            maxLines = 2,
-                        )
                     }
-                    if (desktop && !terminal) {
-                        DesktopActions(
-                            state = state,
-                            enabled = controlsEnabled && state.pauseReason == null &&
-                                state.result == TrialResult.FIGHTING && state.inputReady && state.actionReady,
-                            colors = buttonColors,
-                            onAction = onDesktopAction,
-                        )
-                        Text(
-                            text = stringResource(R.string.arena_keyboard_help),
-                            style = PicoTheme.typography.labelSmall,
-                            color = ArenaPanelSecondary,
-                            maxLines = 3,
-                        )
-                    }
-                    if (!terminal) TechniqueGuide()
+                } else {
+                    TechniqueGuide(desktop = desktop, modifier = Modifier.weight(1f).fillMaxWidth())
                 }
             }
         }
@@ -270,69 +267,124 @@ private fun ArenaControlPanelContent(
 }
 
 @Composable
-private fun TechniqueGuide() {
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(
-            text = stringResource(R.string.arena_technique_title),
-            style = PicoTheme.typography.bodyLarge,
-            color = ArenaPanelText,
-            maxLines = 1,
+private fun TechniqueGuide(desktop: Boolean, modifier: Modifier = Modifier) {
+    val lessons = remember {
+        listOf(
+            Triple(R.string.arena_technique_strike, R.string.arena_technique_strike_detail, R.string.arena_ui_keys_strike),
+            Triple(R.string.arena_technique_guard, R.string.arena_technique_guard_detail, R.string.arena_ui_keys_guard),
+            Triple(R.string.arena_technique_dodge, R.string.arena_technique_dodge_detail, R.string.arena_ui_keys_dodge),
+            Triple(R.string.arena_technique_skill, R.string.arena_technique_skill_detail, R.string.arena_ui_keys_skill),
         )
-        TechniqueLesson(R.string.arena_technique_strike, R.string.arena_technique_strike_detail)
-        TechniqueLesson(R.string.arena_technique_guard, R.string.arena_technique_guard_detail)
-        TechniqueLesson(R.string.arena_technique_dodge, R.string.arena_technique_dodge_detail)
-        TechniqueLesson(R.string.arena_technique_skill, R.string.arena_technique_skill_detail)
     }
-}
-
-@Composable
-private fun TechniqueLesson(title: Int, description: Int) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        Text(
-            text = stringResource(title),
-            modifier = Modifier.weight(0.22f),
-            style = PicoTheme.typography.labelMedium,
-            color = ArenaPanelText,
-            maxLines = 1,
-        )
-        Text(
-            text = stringResource(description),
-            modifier = Modifier.weight(0.78f),
-            style = PicoTheme.typography.labelSmall,
-            color = ArenaPanelSecondary,
-            maxLines = 3,
-        )
+    var selectedLesson by rememberSaveable { mutableStateOf(0) }
+    val page = selectedLesson.coerceIn(lessons.indices)
+    val (title, description, keyboardHelp) = lessons[page]
+    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = stringResource(R.string.arena_technique_title),
+                style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                color = ArenaUiPalette.mutedInk,
+                maxLines = 1,
+            )
+            Text(
+                text = stringResource(title),
+                modifier = Modifier.weight(1f),
+                style = PicoTheme.typography.titleSmall.copy(fontSize = 20.sp, lineHeight = 24.sp),
+                color = ArenaUiPalette.inkBlack,
+                maxLines = 1,
+            )
+            Text(
+                text = stringResource(R.string.arena_ui_technique_page, page + 1, lessons.size),
+                style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                color = ArenaUiPalette.mutedInk,
+                maxLines = 1,
+            )
+        }
+        // Only the current lesson body scrolls. Start/resume and lesson navigation stay visible.
+        // A fresh key also resets a long lesson's scroll position when changing pages.
+        key(page) {
+            Column(
+                modifier = Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Text(
+                    text = stringResource(description),
+                    style = PicoTheme.typography.bodyMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
+                    color = ArenaUiPalette.inkBlack,
+                )
+                if (desktop) {
+                    Text(
+                        text = stringResource(keyboardHelp),
+                        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                        color = ArenaUiPalette.mutedInk,
+                    )
+                }
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            val colors = ButtonDefaults.buttonColors(
+                containerColor = ArenaUiPalette.cinnabar,
+                contentColor = ArenaUiPalette.paperIvory,
+            )
+            Button(
+                onClick = { selectedLesson = (page - 1).coerceAtLeast(0) },
+                modifier = Modifier.weight(1f),
+                enabled = page > 0,
+                size = ButtonDefaults.Small,
+                colors = colors,
+            ) {
+                Text(text = stringResource(R.string.arena_ui_technique_previous))
+            }
+            Button(
+                onClick = { selectedLesson = (page + 1).coerceAtMost(lessons.lastIndex) },
+                modifier = Modifier.weight(1f),
+                enabled = page < lessons.lastIndex,
+                size = ButtonDefaults.Small,
+                colors = colors,
+            ) {
+                Text(text = stringResource(R.string.arena_ui_technique_next))
+            }
+        }
     }
 }
 
 @Composable
 private fun MatchSummary(state: ArenaViewState) {
     Text(
-        text = stringResource(R.string.arena_settlement_score, state.score, state.bestScore),
-        style = PicoTheme.typography.bodyLarge,
-        color = ArenaPanelText,
+        text = stringResource(R.string.arena_ui_score),
+        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+        color = ArenaUiPalette.mutedInk,
+    )
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.Bottom) {
+        Text(text = stringResource(R.string.arena_ui_score_value, state.score),
+            style = PicoTheme.typography.displaySmall.copy(fontSize = 44.sp, lineHeight = 48.sp,
+                fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Serif),
+            color = ArenaUiPalette.inkBlack, maxLines = 1)
+        Text(text = stringResource(R.string.arena_ui_best, state.bestScore),
+            style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 24.sp),
+            color = ArenaUiPalette.mutedInk, maxLines = 1)
+    }
+    Text(
+        text = stringResource(R.string.arena_settlement_detail,
+            state.roundNumber.coerceIn(1, state.roundCount.coerceAtLeast(1)), state.roundCount,
+            state.playerHealth.coerceAtLeast(0)),
+        style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
+        color = ArenaUiPalette.mutedInk,
         maxLines = 2,
     )
     Text(
-        text = stringResource(
-            R.string.arena_settlement_detail,
-            state.roundNumber.coerceIn(1, state.roundCount.coerceAtLeast(1)),
-            state.roundCount,
-            state.playerHealth.coerceAtLeast(0),
-        ),
-        style = PicoTheme.typography.labelMedium,
-        color = ArenaPanelSecondary,
-        maxLines = 2,
-    )
-    Text(
-        text = stringResource(
-            if (state.result == TrialResult.VICTORY) R.string.arena_victory_detail else R.string.arena_defeat_detail,
-        ),
-        style = PicoTheme.typography.labelMedium,
-        color = ArenaPanelText,
+        text = stringResource(if (state.result == TrialResult.VICTORY) R.string.arena_victory_detail else R.string.arena_defeat_detail),
+        style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
+        color = ArenaUiPalette.inkBlack,
         maxLines = 3,
     )
 }
@@ -382,15 +434,14 @@ private fun DesktopActions(
 @Composable
 internal fun ArenaStatusPanel(state: ArenaViewState) {
     PicoTheme {
-        Box(
-            modifier = Modifier
-                .size(width = 500.dp, height = 260.dp)
-                .clip(RoundedCornerShape(32.dp))
-                // design-style: design-surface status-surface
-                .background(ArenaPanelSurface),
-        ) {
+        // The Attachment remains 500 x 260; its outer region stays transparent.
+        Box(modifier = Modifier.size(width = 500.dp, height = 260.dp)) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(12.dp),
+                modifier = Modifier.fillMaxWidth().padding(4.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    // design-style: design-surface status-surface
+                    .background(ArenaUiPalette.inkVeil)
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Row(
@@ -400,23 +451,26 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                 ) {
                     Text(
                         text = state.enemyName,
-                        style = PicoTheme.typography.titleSmall,
-                        color = ArenaPanelSecondary,
+                        modifier = Modifier.weight(1f),
+                        style = PicoTheme.typography.titleSmall.copy(fontSize = 24.sp, lineHeight = 28.sp, fontFamily = FontFamily.Serif),
+                        color = ArenaUiPalette.paperIvory,
                         maxLines = 1,
                     )
                     Text(
-                        text = stringResource(
-                            R.string.arena_round_time,
-                            state.roundNumber,
-                            state.roundCount,
-                            state.remainingSeconds.coerceAtLeast(0) / 60,
-                            state.remainingSeconds.coerceAtLeast(0) % 60,
-                        ),
-                        style = PicoTheme.typography.labelLarge,
-                        color = ArenaPanelText,
+                        text = stringResource(R.string.arena_round_time, state.roundNumber, state.roundCount,
+                            state.remainingSeconds.coerceAtLeast(0) / 60, state.remainingSeconds.coerceAtLeast(0) % 60),
+                        style = PicoTheme.typography.labelLarge.copy(fontSize = 16.sp, lineHeight = 20.sp),
+                        color = ArenaUiPalette.paleAsh,
                         maxLines = 1,
                     )
                 }
+                ResourceMeter(
+                    label = stringResource(R.string.arena_ui_enemy_health),
+                    value = state.health,
+                    maximum = state.initialHealth,
+                    color = ArenaUiPalette.ember,
+                    modifier = Modifier.fillMaxWidth(),
+                )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -424,80 +478,75 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                 ) {
                     Text(
                         text = phaseLabel(state),
-                        style = PicoTheme.typography.titleSmall,
-                        color = ArenaPanelText,
+                        style = PicoTheme.typography.titleSmall.copy(fontSize = 22.sp, lineHeight = 26.sp),
+                        color = if (arenaShowsIncomingStrike(state.result, state.pauseReason, state.inputReady, state.phase))
+                            ArenaUiPalette.ember else ArenaUiPalette.paperIvory,
                         maxLines = 1,
                     )
-                    AttackDirectionSeal(state.attackDirection)
+                    if (arenaShowsIncomingStrike(state.result, state.pauseReason, state.inputReady, state.phase)) {
+                        AttackDirectionSeal(
+                            state.attackDirection,
+                            arenaIncomingSealScale(state.phase, state.phaseElapsedNanos,
+                                state.attackDirection?.preparationNanos ?: 0L),
+                        )
+                    }
                 }
-                if (state.result == TrialResult.FIGHTING && state.pauseReason == null &&
-                    state.inputReady && (state.motionReleaseRequired ||
-                        state.motionCharge.isFinite() && state.motionCharge > 0f)
-                ) {
+                if (state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
+                    (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
                 } else {
-                    Text(
-                        text = phaseHint(state),
-                        style = PicoTheme.typography.labelMedium,
-                        color = ArenaPanelSecondary,
-                        maxLines = 1,
-                    )
+                    Text(text = phaseHint(state), style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp),
+                        color = ArenaUiPalette.paleAsh, maxLines = 1)
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    ResourceMeter(
-                        label = stringResource(R.string.arena_resource_enemy),
-                        value = state.health,
-                        maximum = state.initialHealth,
-                        color = PicoTheme.colorScheme.interaction,
-                        modifier = Modifier.weight(1f),
-                    )
-                    ResourceMeter(
-                        label = stringResource(R.string.arena_resource_player),
-                        value = state.playerHealth,
-                        maximum = 100,
-                        color = PicoTheme.colorScheme.passable,
-                        modifier = Modifier.weight(1f),
-                    )
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    ResourceMeter(stringResource(R.string.arena_resource_player), state.playerHealth, 100,
+                        if (state.playerHealth <= 25) ArenaUiPalette.ember else ArenaUiPalette.paperIvory, Modifier.weight(1f))
+                    ResourceMeter(stringResource(R.string.arena_resource_stamina), state.playerStamina, 100,
+                        ArenaUiPalette.jade, Modifier.weight(1f))
+                    ResourceMeter(stringResource(R.string.arena_resource_focus), state.focus, 100,
+                        ArenaUiPalette.antiqueGold, Modifier.weight(1f))
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    ResourceMeter(
-                        label = stringResource(R.string.arena_resource_stamina),
-                        value = state.playerStamina,
-                        maximum = 100,
-                        color = PicoTheme.colorScheme.alert,
-                        modifier = Modifier.weight(1f),
-                    )
-                    ResourceMeter(
-                        label = stringResource(R.string.arena_resource_focus),
-                        value = state.focus,
-                        maximum = 100,
-                        color = PicoTheme.colorScheme.interaction,
-                        modifier = Modifier.weight(1f),
-                    )
-                }
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = feedbackLabel(state),
-                        modifier = Modifier.weight(1f),
-                        style = PicoTheme.typography.labelLarge,
-                        color = ArenaPanelText,
-                        maxLines = 1,
+                        modifier = Modifier.weight(1f).graphicsLayer {
+                            val emphasis = if (state.result == TrialResult.FIGHTING &&
+                                state.pauseReason == null && state.inputReady) {
+                                arenaHitFeedbackScale(state.phase, state.phaseElapsedNanos, state.feedback)
+                            } else 1f
+                            scaleX = emphasis
+                            scaleY = emphasis
+                        },
+                        style = PicoTheme.typography.labelLarge.copy(fontSize = 16.sp, lineHeight = 20.sp),
+                        color = when (state.feedback) {
+                            CombatFeedback.PARRY, CombatFeedback.EXECUTION, CombatFeedback.HEADSHOT -> ArenaUiPalette.antiqueGold
+                            CombatFeedback.PLAYER_HIT, CombatFeedback.GUARD_BREAK, CombatFeedback.LOW_STAMINA -> ArenaUiPalette.ember
+                            else -> ArenaUiPalette.paperIvory
+                        }, maxLines = 2,
                     )
                     if (state.combo >= 2) {
-                        Text(
-                            text = stringResource(R.string.arena_combo, state.combo),
-                            style = PicoTheme.typography.labelMedium,
-                            color = ArenaPanelSecondary,
-                            maxLines = 1,
-                        )
+                        Text(text = stringResource(R.string.arena_combo, state.combo),
+                            style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp),
+                            color = ArenaUiPalette.antiqueGold, maxLines = 1)
                     }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun TrialSeal() {
+    Badge(
+        modifier = Modifier.size(40.dp),
+        badgeColor = BadgeDefaults.badgeColors(backgroundColor = ArenaUiPalette.cinnabar, contentColor = ArenaUiPalette.paperIvory),
+        badgeSize = BadgeDefaults.badgeSize(width = 40.dp, height = 40.dp),
+        radius = 3.dp,
+        contentPadding = PaddingValues(0.dp),
+    ) {
+        Text(text = stringResource(R.string.arena_ui_seal),
+            style = PicoTheme.typography.titleSmall.copy(fontFamily = FontFamily.Serif, fontSize = 24.sp))
     }
 }
 
@@ -514,8 +563,8 @@ private fun MotionChargeHint(state: ArenaViewState) {
     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
         Text(
             text = label,
-            style = PicoTheme.typography.labelSmall,
-            color = ArenaPanelText,
+            style = PicoTheme.typography.labelSmall.copy(fontSize = 16.sp, lineHeight = 20.sp),
+            color = ArenaUiPalette.paperIvory,
             maxLines = 1,
         )
         if (!state.motionReleaseRequired) {
@@ -523,8 +572,8 @@ private fun MotionChargeHint(state: ArenaViewState) {
                 progress = { progress },
                 modifier = Modifier.fillMaxWidth().height(4.dp),
                 colors = LinearProgressDefaults.linearProgressColors(
-                    indicatorColor = PicoTheme.colorScheme.interaction,
-                    backgroundColor = ArenaPanelControl,
+                    indicatorColor = ArenaUiPalette.antiqueGold,
+                    backgroundColor = ArenaUiPalette.mutedInk,
                 ),
                 height = LinearProgressDefaults.linearProgressHeight(4.dp),
             )
@@ -548,14 +597,14 @@ private fun ResourceMeter(
         ) {
             Text(
                 text = label,
-                style = PicoTheme.typography.labelMedium,
-                color = ArenaPanelSecondary,
+                style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                color = ArenaUiPalette.paleAsh,
                 maxLines = 1,
             )
             Text(
                 text = stringResource(R.string.arena_resource_amount, value.coerceAtLeast(0), maximum.coerceAtLeast(0)),
-                style = PicoTheme.typography.labelMedium,
-                color = ArenaPanelText,
+                style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                color = ArenaUiPalette.paperIvory,
                 maxLines = 1,
             )
         }
@@ -564,7 +613,7 @@ private fun ResourceMeter(
             modifier = Modifier.fillMaxWidth().height(6.dp),
             colors = LinearProgressDefaults.linearProgressColors(
                 indicatorColor = color,
-                backgroundColor = ArenaPanelControl,
+                backgroundColor = ArenaUiPalette.mutedInk,
             ),
             height = LinearProgressDefaults.linearProgressHeight(6.dp),
         )
@@ -605,7 +654,7 @@ private fun RestartConfirmationDialog(
 }
 
 @Composable
-private fun AttackDirectionSeal(direction: AttackDirection?) {
+private fun AttackDirectionSeal(direction: AttackDirection?, scale: Float) {
     if (direction == null) return
     val label = stringResource(when (direction) {
         AttackDirection.LEFT -> R.string.arena_direction_left
@@ -614,16 +663,16 @@ private fun AttackDirectionSeal(direction: AttackDirection?) {
     })
     val description = stringResource(R.string.arena_direction_active_description, label)
     Badge(
-        modifier = Modifier.size(30.dp).semantics { contentDescription = description },
+        modifier = Modifier.size(width = 42.dp, height = 34.dp).graphicsLayer { scaleX = scale; scaleY = scale }.semantics { contentDescription = description },
         badgeColor = BadgeDefaults.badgeColors(
-            backgroundColor = PicoTheme.colorScheme.interaction,
-            contentColor = ArenaPanelText,
+            backgroundColor = ArenaUiPalette.cinnabar,
+            contentColor = ArenaUiPalette.paperIvory,
         ),
-        badgeSize = BadgeDefaults.badgeSize(width = 30.dp, height = 30.dp),
-        radius = 14.dp,
+        badgeSize = BadgeDefaults.badgeSize(width = 42.dp, height = 34.dp),
+        radius = 3.dp,
         contentPadding = PaddingValues(0.dp),
     ) {
-        Text(text = label, style = PicoTheme.typography.labelSmall, maxLines = 1)
+        Text(text = label, style = PicoTheme.typography.labelLarge.copy(fontSize = 20.sp), maxLines = 1)
     }
 }
 

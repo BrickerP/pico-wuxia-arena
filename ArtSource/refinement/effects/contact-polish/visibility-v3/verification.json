@@ -1,0 +1,36 @@
+{
+  "status": "SOURCE_CONTRACT_PASS",
+  "runtime_integration_status": "08 must regenerate v2 definitions and Root publishes assets together",
+  "normal_distance_review": "See review images; offline is not SDK evidence",
+  "sources": [
+    {
+      "family": "metal",
+      "asset": "metal/metal_hero_v3.glb",
+      "sha256": "71502f591b19c3e067772fa1648cc78d10c2c37aac3b4e36102e3027964f6525",
+      "motion_sha256": "4c0226c325efbe967255579c0c6ce53da4366f2c8bdd383d9c2335fb1ce7ca14",
+      "mesh_nodes": 35,
+      "moving_particles": 32,
+      "cores": 1,
+      "accents": 2,
+      "types": {
+        "metal_spark": 32
+      },
+      "all_visible_meshes_covered": true
+    },
+    {
+      "family": "wet",
+      "asset": "wet/wet_cloth_contact.glb",
+      "sha256": "a96623710d43a5e952a559153ce7cf1d0e75ca68636d5e9e98ff492040f15077",
+      "motion_sha256": "910d9f355dfa39895ff40b61a96f0aabaa322f75961048d48561ec61c0c1acf4",
+      "mesh_nodes": 23,
+      "moving_particles": 23,
+      "cores": 0,
+      "accents": 0,
+      "types": {
+        "droplet": 18,
+        "fiber": 5
+      },
+      "all_visible_meshes_covered": true
+    }
+  ]
+}

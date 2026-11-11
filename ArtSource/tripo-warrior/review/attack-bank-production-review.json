@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "decision": "approved",
+  "review_scope": "development_integration",
+  "quality_complete": false,
+  "binding_sha256": "6f23259d67f504ce58630b2dc7ba61fa290b50beaa7109de772f4f46dd7b2c72",
+  "characters": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 23255016,
+          "sha256": "02cf4208ab4c75dc7e4eba486a99152a0b7d3b655f94c38f77f1b048f78a5469"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 24125832,
+          "sha256": "0c2a4801aaa6b89866303a9c783b524a88b6440633f0c9348041a6239af7d48a"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "151c6da028d3d38eb891c6ffc871e527f168644683a7f52b07ad579b801ad4b8",
+        "walk": "3482c00c637b640f737c0ac97a9f27762385885a63170dbf17855868039199fa",
+        "fall": "78685f595f1a908ff2c4058f86eb59f9202b9dd09852c7457988e0e2be353b2d",
+        "turn": "789722f3ba0ef0d0d6ce764fceed4db7ceaba6c313c3d69f6f2cab6c936a3481",
+        "hit_body": "dc5712b758e91e91fdac396623cff59e6c5e0d70b59c815e8f34a59f65452407",
+        "hit_head": "3936b7148d4eaf6c8d31964ee342a82018a815674bbe0143f8faf1550ea17202",
+        "hit_side": "40e78a04f7fafc753b8562228b18c6027db14f8cb46d322f96fa7714d921405a",
+        "attack_overhead": "76c1ccf2ef99b5f92fdbc4df7df5063ecd8f72ecb84d8c465d3cf83b9126ab36",
+        "attack_left": "ddb91ebed8d3acf21ddc2db4f89a27ad58fe07e8a41f7ce987d35004bb46fcff",
+        "attack_right": "417866746999269b128226147e801f290e83c03b9d6462b88372d59ae391886a"
+      },
+      "clip_semantic_signatures": {
+        "idle": "eb6a6a3d91ef7ca29b80becdcb7f89879449c6a45b7625a73dca5cdf3dbe75bc",
+        "walk": "8e5a6bb0341fa916389e0c86c4d20500814c4c3abd6a8a2efc53dd45975781e7",
+        "fall": "0a6f735a64698233e5c603041ee9b5da1a58ff4d4aa27606112fcc0fc1b58a7f",
+        "turn": "8ac92fc6ee199f0f86c723e0adfa34a6da1a2c74c72c15ffac40ca91035d5f8e",
+        "hit_body": "384800005498b6027f13a520451b2264375102012137644b9badcd2ce4117e6c",
+        "hit_head": "dbce47a86883548065fdb9f6cb2ddf816464ed8d95bd230f2487404e48df3c83",
+        "hit_side": "912f6912ca65b3bd6c336668103fa36bef6648cef1ad055a8e5feed3460ef571",
+        "attack_overhead": "30780a0c9cef5001ee860c9af069b2651ffa34c8e45d5cd0bf665a990f8a5668",
+        "attack_left": "9e10fb1e5297cceadedf782c22d2ba5d93817629cea76f170bf9397d9671ca4c",
+        "attack_right": "09e33f643757ea596789d53a4273d7c1a2c86876ffa9c850c79cdf1531085889"
+      },
+      "attack_profiles_sha256": "ee2335d51cd3bd948476b840b9f1ac7583e6419c05e1bada7604e9142a790f5f"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 15059092,
+          "sha256": "99227ef404ebfe53cde0181bdf1e5bea2f0af77f709e0a3f295504cccd133063"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 15929884,
+          "sha256": "c980b18ef19190bf682604a43b730c3a0188829db8ea1c7c9e5d819d1959fed2"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "d73a093bfd30cfaff3371c6845543c863512897ba7d82ec4ca591800da2248ac",
+        "walk": "0fd49f60564c94a48ae2d5bcd54891d0face3c7229b9a21b84148582f0719351",
+        "fall": "678c951a7a4c200b9da26dfa73629cae2e75a81d14c5cb932d009a8f3299772a",
+        "turn": "2f2a0ba2670c64cc8c76bbd9baf898b7a086352cb87526633a10a5198b3f523b",
+        "hit_body": "f8decf4ae0ac3a5d02c53605af27896ddb36942bb258d79870b1b7a16a6f4d9e",
+        "hit_head": "6e70d5810e96ffc8694760093ea716a2539c6f708cd20c9275abcb2cd4473be7",
+        "hit_side": "cf5ca4c7aec46bd0eb37094ff8c09a43c6eef123896ef1f2264c95736260c313",
+        "attack_overhead": "2d5938e581534674e00485c3c444754c296718e340790dce9039f9f36c7d6604",
+        "attack_left": "b65ab722e221794711d124771cac70c5eb74af95ff5b0a795adccb7f4213b632",
+        "attack_right": "dd0235a47adf36889d819aabda5c83fe45cb375beae0a2ebb339b7579261c63e"
+      },
+      "clip_semantic_signatures": {
+        "idle": "848ef346e65d3d5df9c59d5dfa9ecd8270b46f79099b38f5f5eaf143d7a4a314",
+        "walk": "84a196e03e09ddf8a761a820a645529a1181a298e03f244b0281ebd94658c683",
+        "fall": "a5d517785e9e6b55294b21bd5ec962eede6c89cc7824a6ecac32acbaafacfbe6",
+        "turn": "f6ab6f5c6cace4f68b79e62960780445ff9c0ff2eb07be430ee6a09daf2e06e9",
+        "hit_body": "1dbd09c06b68be1a96c6474ce4a4ad089c61495ef9f1f4dbd597de650b004515",
+        "hit_head": "b0614d028b26c8b12ce9baf6d5f63668e1eb664b8fd8d155dbe6e384dd5bcb53",
+        "hit_side": "288b55657c8915a7cbf17b3d90a6e60bf738648fbf807e600f8d79804f8af33e",
+        "attack_overhead": "2879c47662dc8d4a06a9ca0f55e8442900aa7d0b7a6dae0b3a6eec9b9de94f2b",
+        "attack_left": "11a402082e6a942ebd995eea597a6d66f1365d64c98db4412f206829e25a21b2",
+        "attack_right": "975caded608c052c6504e962cd922bb9148a2973dce08acf6585738803ca4b49"
+      },
+      "attack_profiles_sha256": "66aaaf374b23e3766f26f26fc0df71fe5259931301c2200c26d80cb3e02a6851"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 14536920,
+          "sha256": "6cb873f8cbe8ca772ccb76eb819cf9575e47a43142da3eff34689a887e848848"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 15407724,
+          "sha256": "63b92ac8edda1ab7ad56e2d3196522788fec8a43a04c0d665deef08028d82e83"
+        }
+      ],
+      "hand_track_signatures": {
+        "idle": "9b264c43195a815608c88b938f73227978ce75b35c2ed8dda9220bcd3a812503",
+        "walk": "3b8d85facc5309b385946f04c98b6111fecfe1219e7542b621389fd208d94c2d",
+        "fall": "1d3fd6e5829c65e2e5cda9a21d1645ef3f40cc25b870f376bbf790723b107d39",
+        "turn": "80500081f625d4c2734c0c31b12660d70974e49408af1fa83a89d244b77f5c60",
+        "hit_body": "74a0c6810dcd65aac5241d4a0572abe3bad7a7fd9bcc01afab639a111bc6428f",
+        "hit_head": "df5c3736db5599d646e72349393bf0b938a855cecf2ba9297e89b63068235765",
+        "hit_side": "216891d13116c10771f15ce29bdec286caee84f845d9bc3501b3f78d91d682b5",
+        "attack_overhead": "69019a91c321975fb0268487f6733c743641cf3a49dd2f5dd4d195552269175c",
+        "attack_left": "0016e0e5f7d0e5cd47de605d9ff151c8305fab4d5e802ad1d95f6a6f69692bcb",
+        "attack_right": "669f41fdb281bfa45778743679f6f223137ec0b58dc94b4e9e9ffe4da1b06a67"
+      },
+      "clip_semantic_signatures": {
+        "idle": "ece932164181d11ea94bf99f53dcde56ad2f9641b0451f97aa885e1ad40eca85",
+        "walk": "6102046b86892d6447e0eacff74c0e830e6386c0576610cf67e4bfcdcabf3795",
+        "fall": "a42b9e4569800a4771dc40dab098fb3a599ac82f65136086e3d8c068d2bcc22e",
+        "turn": "58f49cdaf1ba8b655b7d751e9522881812a59cf8f41f7b722c89838a80914bf0",
+        "hit_body": "c1fbf003cfcaf8ad8414a9d4689a0454d4e4787ba28d4ebeaf45f2cfc01ba6db",
+        "hit_head": "b69306b9c8f4732898de382f8cbc50b52fcd6c2b9f118877ae4303c9994b8633",
+        "hit_side": "81fdcbded061419c843b5f4dbf2902ca96f11a874a481b7ba9204a3b8eb98c1b",
+        "attack_overhead": "4079ce2be4eb06b331708bb002ea66b46ef5449ade20f3b15d1519d5e000fe2d",
+        "attack_left": "02fd2634dc8b27e41691fdc5a02228a2a1b812e1f6786e9a227e09e8ffe8a9f4",
+        "attack_right": "3e1549e851fe2f6a6d2cfc6f8039fe0aed6f2a8e3c6d153f4804015182434b04"
+      },
+      "attack_profiles_sha256": "6b6cef951e7446245243fc7ebfef589a35fef8dd8d37a76cc3c02ef999a83e36"
+    }
+  ],
+  "reviewer": "Root",
+  "evidence": [
+    "review/attack-bank-candidate/review/base_contact_board.png",
+    "review/attack-bank-candidate/review/indigo_contact_board.png",
+    "review/attack-bank-candidate/review/veteran_contact_board.png",
+    "review/attack-bank-candidate/review/grounding_audit.json"
+  ],
+  "review_observations": [
+    "Three incoming directions and right-hand mount inspected on actual candidate renders.",
+    "Root-only vertical grounding verified independently on key and midpoint foot samples."
+  ],
+  "remaining_requirements": [
+    "Canonical guard locomotion and its profiles must close the approximately 0.25m old-walk transition mismatch.",
+    "Indigo/veteran opposite sole retains approximately 16-20mm clearance.",
+    "New guard/recoil/hit sources still require final target preparation.",
+    "Actual host-input, timed feedback, whole trial and Space Pro evidence are incomplete."
+  ]
+}

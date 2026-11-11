@@ -1,0 +1,285 @@
+{
+  "status": "OFFLINE_SOURCE_CHECKS_PASS",
+  "visual_status": "Root normal-distance renderer and PICO review pending",
+  "sha256": "a96623710d43a5e952a559153ce7cf1d0e75ca68636d5e9e98ff492040f15077",
+  "bytes": 48128,
+  "schema": "contact-particle-motion/v2",
+  "droplets": 18,
+  "fibers": 5,
+  "driven_mesh_nodes": 23,
+  "triangles": 596,
+  "materials": 3,
+  "all_meshes_driven_exactly_once": true,
+  "normals_and_closed_drop_winding": "PASS",
+  "measurement": [
+    {
+      "node": "drop_00",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "hero",
+      "bbox_extent_m": [
+        0.007739999797195196,
+        0.008999999612569809,
+        0.007739999797195196
+      ]
+    },
+    {
+      "node": "drop_01",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "hero",
+      "bbox_extent_m": [
+        0.007309999782592058,
+        0.008500000461935997,
+        0.007309999782592058
+      ]
+    },
+    {
+      "node": "drop_02",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "main",
+      "bbox_extent_m": [
+        0.006020000204443932,
+        0.007000000216066837,
+        0.006020000204443932
+      ]
+    },
+    {
+      "node": "drop_03",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "main",
+      "bbox_extent_m": [
+        0.005590000189840794,
+        0.006500000134110451,
+        0.005590000189840794
+      ]
+    },
+    {
+      "node": "drop_04",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "main",
+      "bbox_extent_m": [
+        0.005160000175237656,
+        0.006000000052154064,
+        0.005160000175237656
+      ]
+    },
+    {
+      "node": "drop_05",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "main",
+      "bbox_extent_m": [
+        0.004730000160634518,
+        0.005499999970197678,
+        0.004730000160634518
+      ]
+    },
+    {
+      "node": "drop_06",
+      "type": "droplet",
+      "shape": "stretched",
+      "tier": "stretched",
+      "bbox_extent_m": [
+        0.012000000104308128,
+        0.003599999938160181,
+        0.003599999938160181
+      ]
+    },
+    {
+      "node": "drop_07",
+      "type": "droplet",
+      "shape": "stretched",
+      "tier": "stretched",
+      "bbox_extent_m": [
+        0.014999999664723873,
+        0.00419999985024333,
+        0.00419999985024333
+      ]
+    },
+    {
+      "node": "drop_08",
+      "type": "droplet",
+      "shape": "stretched",
+      "tier": "stretched",
+      "bbox_extent_m": [
+        0.017999999225139618,
+        0.0044999998062849045,
+        0.0044999998062849045
+      ]
+    },
+    {
+      "node": "drop_09",
+      "type": "droplet",
+      "shape": "stretched",
+      "tier": "stretched",
+      "bbox_extent_m": [
+        0.009999999776482582,
+        0.003800000064074993,
+        0.003800000064074993
+      ]
+    },
+    {
+      "node": "drop_10",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.002580000087618828,
+        0.003000000026077032,
+        0.002580000087618828
+      ]
+    },
+    {
+      "node": "drop_11",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.003010000102221966,
+        0.0035000001080334187,
+        0.003010000102221966
+      ]
+    },
+    {
+      "node": "drop_12",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.00343999988399446,
+        0.004000000189989805,
+        0.00343999988399446
+      ]
+    },
+    {
+      "node": "drop_13",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.003869999898597598,
+        0.0044999998062849045,
+        0.003869999898597598
+      ]
+    },
+    {
+      "node": "drop_14",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.002749999985098839,
+        0.0031999999191612005,
+        0.002749999985098839
+      ]
+    },
+    {
+      "node": "drop_15",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.003269999986514449,
+        0.003800000064074993,
+        0.003269999986514449
+      ]
+    },
+    {
+      "node": "drop_16",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.0036100000143051147,
+        0.00419999985024333,
+        0.0036100000143051147
+      ]
+    },
+    {
+      "node": "drop_17",
+      "type": "droplet",
+      "shape": "round",
+      "tier": "fine",
+      "bbox_extent_m": [
+        0.0029200001154094934,
+        0.0034000000450760126,
+        0.0029200001154094934
+      ]
+    },
+    {
+      "node": "fiber_00",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "bbox_extent_m": [
+        0.00800000037997961,
+        0.0012000000569969416,
+        0.0012000000569969416
+      ]
+    },
+    {
+      "node": "fiber_01",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "bbox_extent_m": [
+        0.009999999776482582,
+        0.001500000013038516,
+        0.001500000013038516
+      ]
+    },
+    {
+      "node": "fiber_02",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "bbox_extent_m": [
+        0.012000000104308128,
+        0.0017000000225380063,
+        0.0017000000225380063
+      ]
+    },
+    {
+      "node": "fiber_03",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "bbox_extent_m": [
+        0.014000000432133675,
+        0.0020000000949949026,
+        0.0020000000949949026
+      ]
+    },
+    {
+      "node": "fiber_04",
+      "type": "fiber",
+      "shape": "ribbon_cross",
+      "tier": "trailing_fiber",
+      "bbox_extent_m": [
+        0.014999999664723873,
+        0.002199999988079071,
+        0.002199999988079071
+      ]
+    }
+  ],
+  "projected_on_axis_budget_1280px_hfov60": {
+    "1.5": {
+      "hero9mm_px": 6.65107510106449,
+      "main7mm_px": 5.173058411939048,
+      "fine3mm_px": 2.2170250336881634,
+      "stretched18mm_length_px": 13.30215020212898,
+      "stretched4_5mm_width_px": 3.325537550532245
+    },
+    "2.5": {
+      "hero9mm_px": 3.990645060638694,
+      "main7mm_px": 3.1038350471634293,
+      "fine3mm_px": 1.3302150202128982,
+      "stretched18mm_length_px": 7.981290121277388,
+      "stretched4_5mm_width_px": 1.995322530319347
+    }
+  }
+}

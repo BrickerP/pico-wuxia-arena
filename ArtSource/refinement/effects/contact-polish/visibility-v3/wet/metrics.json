@@ -1,0 +1,390 @@
+{
+  "file": "wet_cloth_contact.glb",
+  "bytes": 48128,
+  "sha256": "a96623710d43a5e952a559153ce7cf1d0e75ca68636d5e9e98ff492040f15077",
+  "asset": "wet_cloth_contact.glb",
+  "motion": "motion.json",
+  "droplets": 18,
+  "fibers": 5,
+  "mesh_nodes": 23,
+  "triangles": 596,
+  "materials": 3,
+  "animations": 0,
+  "round_drop_diameter_range_m": [
+    0.003,
+    0.009
+  ],
+  "hero_drops": 2,
+  "stretched_drop_cross_section_range_m": [
+    0.0036,
+    0.0045
+  ],
+  "stretched_drop_length_range_m": [
+    0.01,
+    0.018
+  ],
+  "fiber_length_range_m": [
+    0.008,
+    0.015
+  ],
+  "fiber_width_range_m": [
+    0.0012,
+    0.0022
+  ],
+  "lifetime_range_s": [
+    0.18,
+    0.4
+  ],
+  "geometry": [
+    {
+      "node": "drop_00",
+      "triangles": 32,
+      "tier": "hero",
+      "bounds_min_m": [
+        -0.00387,
+        -0.0045,
+        -0.00387
+      ],
+      "bounds_max_m": [
+        0.00387,
+        0.0045,
+        0.00387
+      ]
+    },
+    {
+      "node": "drop_01",
+      "triangles": 32,
+      "tier": "hero",
+      "bounds_min_m": [
+        -0.003655,
+        -0.00425,
+        -0.003655
+      ],
+      "bounds_max_m": [
+        0.003655,
+        0.00425,
+        0.003655
+      ]
+    },
+    {
+      "node": "drop_02",
+      "triangles": 32,
+      "tier": "main",
+      "bounds_min_m": [
+        -0.00301,
+        -0.0035,
+        -0.00301
+      ],
+      "bounds_max_m": [
+        0.00301,
+        0.0035,
+        0.00301
+      ]
+    },
+    {
+      "node": "drop_03",
+      "triangles": 32,
+      "tier": "main",
+      "bounds_min_m": [
+        -0.002795,
+        -0.00325,
+        -0.002795
+      ],
+      "bounds_max_m": [
+        0.002795,
+        0.00325,
+        0.002795
+      ]
+    },
+    {
+      "node": "drop_04",
+      "triangles": 32,
+      "tier": "main",
+      "bounds_min_m": [
+        -0.00258,
+        -0.003,
+        -0.00258
+      ],
+      "bounds_max_m": [
+        0.00258,
+        0.003,
+        0.00258
+      ]
+    },
+    {
+      "node": "drop_05",
+      "triangles": 32,
+      "tier": "main",
+      "bounds_min_m": [
+        -0.002365,
+        -0.00275,
+        -0.002365
+      ],
+      "bounds_max_m": [
+        0.002365,
+        0.00275,
+        0.002365
+      ]
+    },
+    {
+      "node": "drop_06",
+      "triangles": 32,
+      "tier": "stretched",
+      "bounds_min_m": [
+        -0.006,
+        -0.0018,
+        -0.0018
+      ],
+      "bounds_max_m": [
+        0.006,
+        0.0018,
+        0.0018
+      ]
+    },
+    {
+      "node": "drop_07",
+      "triangles": 32,
+      "tier": "stretched",
+      "bounds_min_m": [
+        -0.0075,
+        -0.0021,
+        -0.0021
+      ],
+      "bounds_max_m": [
+        0.0075,
+        0.0021,
+        0.0021
+      ]
+    },
+    {
+      "node": "drop_08",
+      "triangles": 32,
+      "tier": "stretched",
+      "bounds_min_m": [
+        -0.009,
+        -0.00225,
+        -0.00225
+      ],
+      "bounds_max_m": [
+        0.009,
+        0.00225,
+        0.00225
+      ]
+    },
+    {
+      "node": "drop_09",
+      "triangles": 32,
+      "tier": "stretched",
+      "bounds_min_m": [
+        -0.005,
+        -0.0019,
+        -0.0019
+      ],
+      "bounds_max_m": [
+        0.005,
+        0.0019,
+        0.0019
+      ]
+    },
+    {
+      "node": "drop_10",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.00129,
+        -0.0015,
+        -0.00129
+      ],
+      "bounds_max_m": [
+        0.00129,
+        0.0015,
+        0.00129
+      ]
+    },
+    {
+      "node": "drop_11",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.001505,
+        -0.00175,
+        -0.001505
+      ],
+      "bounds_max_m": [
+        0.001505,
+        0.00175,
+        0.001505
+      ]
+    },
+    {
+      "node": "drop_12",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.00172,
+        -0.002,
+        -0.00172
+      ],
+      "bounds_max_m": [
+        0.00172,
+        0.002,
+        0.00172
+      ]
+    },
+    {
+      "node": "drop_13",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.001935,
+        -0.00225,
+        -0.001935
+      ],
+      "bounds_max_m": [
+        0.001935,
+        0.00225,
+        0.001935
+      ]
+    },
+    {
+      "node": "drop_14",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.001375,
+        -0.0016,
+        -0.001375
+      ],
+      "bounds_max_m": [
+        0.001375,
+        0.0016,
+        0.001375
+      ]
+    },
+    {
+      "node": "drop_15",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.001635,
+        -0.0019,
+        -0.001635
+      ],
+      "bounds_max_m": [
+        0.001635,
+        0.0019,
+        0.001635
+      ]
+    },
+    {
+      "node": "drop_16",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.001805,
+        -0.0021,
+        -0.001805
+      ],
+      "bounds_max_m": [
+        0.001805,
+        0.0021,
+        0.001805
+      ]
+    },
+    {
+      "node": "drop_17",
+      "triangles": 32,
+      "tier": "fine",
+      "bounds_min_m": [
+        -0.00146,
+        -0.0017,
+        -0.00146
+      ],
+      "bounds_max_m": [
+        0.00146,
+        0.0017,
+        0.00146
+      ]
+    },
+    {
+      "node": "fiber_00",
+      "triangles": 4,
+      "tier": "trailing_fiber",
+      "bounds_min_m": [
+        -0.004,
+        -0.0006,
+        -0.0006
+      ],
+      "bounds_max_m": [
+        0.004,
+        0.0006,
+        0.0006
+      ]
+    },
+    {
+      "node": "fiber_01",
+      "triangles": 4,
+      "tier": "trailing_fiber",
+      "bounds_min_m": [
+        -0.005,
+        -0.00075,
+        -0.00075
+      ],
+      "bounds_max_m": [
+        0.005,
+        0.00075,
+        0.00075
+      ]
+    },
+    {
+      "node": "fiber_02",
+      "triangles": 4,
+      "tier": "trailing_fiber",
+      "bounds_min_m": [
+        -0.006,
+        -0.00085,
+        -0.00085
+      ],
+      "bounds_max_m": [
+        0.006,
+        0.00085,
+        0.00085
+      ]
+    },
+    {
+      "node": "fiber_03",
+      "triangles": 4,
+      "tier": "trailing_fiber",
+      "bounds_min_m": [
+        -0.007,
+        -0.001,
+        -0.001
+      ],
+      "bounds_max_m": [
+        0.007,
+        0.001,
+        0.001
+      ]
+    },
+    {
+      "node": "fiber_04",
+      "triangles": 4,
+      "tier": "trailing_fiber",
+      "bounds_min_m": [
+        -0.0075,
+        -0.0011,
+        -0.0011
+      ],
+      "bounds_max_m": [
+        0.0075,
+        0.0011,
+        0.0011
+      ]
+    }
+  ],
+  "view_target_m": [
+    1.5,
+    2.5
+  ],
+  "runtime_validation": "08 / Root integration and headset review pending"
+}

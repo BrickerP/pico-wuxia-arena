@@ -336,7 +336,8 @@ class CombatFeedbackTimingTest {
         fun observe(at: Long, handZ: Double) {
             accept(TrackingEvent.Head(stamp(at), ObservedPose(Vector3(0.0, 1.6, 0.0), rotation)))
             accept(TrackingEvent.Controllers(stamp(at + 1L),
-                ObservedPose(Vector3(0.0, 0.95, handZ), rotation),
+                // Aim through the new canonical guard torso, authored about 0.25 m left of the legacy idle proxy.
+                ObservedPose(Vector3(-0.25, 0.95, handZ), rotation),
                 ObservedPose(Vector3(0.7, 1.2, 0.0), rotation)))
         }
 

@@ -16,7 +16,7 @@ import com.pico.spatial.core.ecs.resource.UnlitMaterial
 import com.pico.spatial.core.math.Color4
 import com.pico.spatial.core.math.Vector3
 
-/** A single small dynamic ribbon built from the actual Stage-space blade samples. */
+/** A translucent 65ms wake and a 12ms hot edge swept by the actual Stage-space blade samples. */
 internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
     private val history = BladeTrailGeometry()
     private var entity: ModelEntity? = null
@@ -65,7 +65,10 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
             val model = MeshModel(
                 positions = positions,
                 triangleIndices = ribbon.triangleIndices,
-                colors = ribbon.alphas.map { alpha -> Color4(0.78f, 0.82f, 0.75f, alpha * 0.28f) },
+                colors = ribbon.alphas.mapIndexed { index, alpha ->
+                    if (index < ribbon.coreVertexOffset) Color4(0.70f, 0.79f, 0.83f, alpha * 0.38f)
+                    else Color4(1.0f, 0.94f, 0.76f, alpha * 0.82f)
+                },
             )
             val bounds = boundsOf(positions)
             val existing = mesh

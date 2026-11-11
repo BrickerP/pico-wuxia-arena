@@ -1,0 +1,154 @@
+{
+  "status": "FROZEN_V4_NATIVE_SPOT_AND_AWAIT_RELEASE_READY_FOR_ROOT_BUILD",
+  "source_commit": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "environment_sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+  "assets_and_sources": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneLighting.kt": {
+      "sha256": "8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e",
+      "bytes": 9357
+    },
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneWeather.kt": {
+      "sha256": "d180d23d7d64c80024a436f03f84057326173050dc9ab993ad3a09a9fdbba253",
+      "bytes": 4840
+    },
+    "ArtSource/refinement/lookdev/lighting_profile.json": {
+      "sha256": "15bac3125b083894923b9f6b9cf37fb0aee5eaf33a25c919f78f615dbc7f19e5",
+      "bytes": 5126
+    },
+    "ArtSource/refinement/lookdev/weather/rain_tile.glb": {
+      "sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+      "bytes": 10160
+    },
+    "ArtSource/refinement/lookdev/weather/side_haze.glb": {
+      "sha256": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9",
+      "bytes": 5656
+    },
+    "ArtSource/refinement/lookdev/weather/rain_night_sky.glb": {
+      "sha256": "11b80a1337b4d0574fd524a08619a43edab1f30ff6f86284c82d49cf35e12017",
+      "bytes": 37692
+    }
+  },
+  "native_compile": "SDK6.1.9/Kotlin2.1.20 passed",
+  "tests": {
+    "motion": 4,
+    "weather_geometry": 7,
+    "anchor_face_hand_coverage": 5,
+    "ibl": 7,
+    "actual_lighting_source_lifecycle_with_sdk_doubles": 11
+  },
+  "integration": "SceneLighting.attach(root) replaces oldlights; SceneWeather.load(root,rainAsset,hazeAsset,skyAsset), then owner root identity guard; update(now,true) in scene update; close before scene root destroys",
+  "scope": "No HomeStage/Main/formal app assets/Gradle/device/Git edits by07",
+  "visual_status": "dac9f5e5 actual v3 remains too dark; V4 controlled group awaits Root actualsamecamera capture",
+  "ibl_candidate": {
+    "path": "ArtSource/refinement/lookdev/ibl/candidate_standard_header.ktx",
+    "sha256": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+    "runtime_status": "UNTESTED; native load, mirroring, reflection requireRoot"
+  },
+  "load_environment_api": "suspend lighting.loadEnvironment(assetsRelativeKtx) { owner.root === root && owner.lighting === lighting }; only TextureResource.load on IO, component on scene thread",
+  "root_fixes": [
+    "four courtyard_hero anchors",
+    "bounce radius4.2m/edge4.5m; corridor checked",
+    "IO texture loading + cancellation/stale owner guard",
+    "failed texture.close retains retryable handle",
+    "signed nanoTime floorMod includingLong.MIN/-1/MAX"
+  ],
+  "publication_audit": {
+    "weather_glbs": "all three match frozen candidates",
+    "published_ibl_at_audit": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+    "expected_ibl": "da33c8cde84d6e2da04125760190d50c6b26521eedd0457c7b726c73d8ff0980",
+    "root_owned_followups": [
+      "retain teardown lighting untilisReleased",
+      "rebuild actualAPK with v3 source and same da33KTX",
+      "samecamera screenshot: facebrighterthanbackdoor,hands/bladeedgevisible,coldwarmdepthpreserved"
+    ]
+  },
+  "recheck": "isolated SDK compile and21 targeted tests passed; no runtime source edits",
+  "isReleased_contract": "Main scene thread only: closing && !loadingEnvironment && environment==null && !rig.valid. close marks closing immediately; keep pending teardown owner until isReleased, including after successful close whileIOinflight.",
+  "before_image": {
+    "path": "artifacts/integrated-polish/ready-scene.png",
+    "sha256": "c5a7a7d23c9f99b66fc418bffe01d8fcdc00a8e87a674d723905bbd0cb40186c",
+    "apk_prefix": "8ebe75ac"
+  },
+  "lighting_v3": {
+    "face_key": {
+      "position_stage": [
+        -0.75,
+        1.9,
+        0.6
+      ],
+      "linear_rgb": [
+        1,
+        0.86,
+        0.7
+      ],
+      "lumens": 5200,
+      "radius_m": 4.8
+    },
+    "blade_fill": {
+      "position_stage": [
+        1.15,
+        1.65,
+        0.25
+      ],
+      "linear_rgb": [
+        0.72,
+        0.85,
+        1
+      ],
+      "lumens": 1800,
+      "radius_m": 4.2
+    },
+    "ibl_exponent": 2,
+    "ibl_multiplier": 4,
+    "unchanged": "moon650lux,4lanternanchors/intensities,cool_edge900lm,weatherassets,motion"
+  },
+  "root_owned_followups": [
+    "reuse existing awaitRelease/isReleased integration",
+    "unifiedbuild newdao plus v4 source; no newcallsite needed",
+    "verify actualface/hands/bladeedge/whitewallbalance before accept"
+  ],
+  "await_release_contract": "suspend awaitRelease(): closing=true; await independent per-load completion once; caller cancellation check; close once; check isReleased. load finally clears loading only after pending cleanup then completes Unit even on oldload cancellation. Root timeout and subsequent owner.release/root identity guard remain.",
+  "lighting_v4": {
+    "face_key": {
+      "type": "SpotLightComponent",
+      "position_stage": [
+        -0.35,
+        2.1,
+        0.45
+      ],
+      "rotation_xyzw": [
+        -0.17205445,
+        -0.07527382,
+        0,
+        0.98220727
+      ],
+      "linear_rgb": [
+        1,
+        0.91,
+        0.82
+      ],
+      "lumens": 20000,
+      "radius_m": 4.8,
+      "inner_degrees": 45,
+      "outer_degrees": 75,
+      "casts_shadow": false
+    },
+    "blade_fill": {
+      "type": "PointLightComponent",
+      "lumens": 12000,
+      "radius_m": 4.2,
+      "position_stage": [
+        1.15,
+        1.65,
+        0.25
+      ],
+      "linear_rgb": [
+        0.72,
+        0.85,
+        1
+      ]
+    },
+    "ibl_exponent": 4,
+    "ibl_multiplier": 16
+  }
+}

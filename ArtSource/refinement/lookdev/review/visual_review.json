@@ -1,0 +1,20 @@
+{
+  "status": "OFFLINE_DIRECTION_ONLY_RUNTIME_UNOBSERVED",
+  "source_git_sha": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "final_warm_bounce_lumens": 900,
+  "same_model_pose_camera_exposure_verified": true,
+  "source_and_weather_sha_checks": "PASS",
+  "blender_process": "5 PNGs completed in one final process, exit 0",
+  "views": {
+    "player": "Actual fighter at Stage Z -2.4m; face, belt, broad dao silhouette readable. Local amber light on left gate, cool right wall, blue background separate scene layers.",
+    "fighter_1_5m": "Both eyes, cheek volumes and warm/cool separation remain visible; dark outfit stays below face brightness.",
+    "integrated_weather": "Actual mesh rain is visible in side lanes. Central fighter remains unobscured. Low side haze is subtle from this front view; not a volumetric claim."
+  },
+  "limitations": [
+    "PICO runtime and headset exposure are unobserved.",
+    "Native GroundShadow is not reproduced; all Blender light cast shadows disabled.",
+    "Sky is explicitly hidden from indirect Cycles light paths; this is not IBL validation.",
+    "Current dao has a dark broad blade. This lighting gives silhouette readability but does not prove a cold steel reflection; Root must verify with actual IBL and weapon candidate.",
+    "Translucent weather sorting and unlit/vertex alpha are verified only by Blender rendering, not by PICO."
+  ]
+}

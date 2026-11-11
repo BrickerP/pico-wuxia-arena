@@ -1,0 +1,25 @@
+{
+  "status": "single material/alpha visibility candidate",
+  "assets": {
+    "dodge": {
+      "file": "dodge_ground_polish.glb",
+      "bytes": 22332,
+      "sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c"
+    },
+    "landing": {
+      "file": "landing_ground_polish.glb",
+      "bytes": 22424,
+      "sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b"
+    }
+  },
+  "base_color_factor": [
+    0.35,
+    0.32,
+    0.28,
+    1.0
+  ],
+  "vertex_alpha_multiplier": 1.8,
+  "vertex_alpha_cap": 0.65,
+  "motion_peak": 0.85,
+  "geometry_and_trajectory_changes": false
+}

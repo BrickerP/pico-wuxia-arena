@@ -8,7 +8,7 @@
 
 ## 当前状态
 
-**本轮有效阶段已收口，等待Root review。** 领襟分支未通过正常胸部PBR可见性门槛并冻结；古铜环扣和石路／门口真实GLB候选已完成专项及同机位检查。
+**新分工执行中。** 03集中连续领襟折返带、12mm袖口结构与古铜扣具，环境旧产物交06、头脸由05制作。本轮45分钟先交服装可组合实物与正常视距对照。
 
 ## 上一轮成果与Root review
 
@@ -147,3 +147,21 @@ Root已查看rest_overlap_detail的前后PBR近景及geometry_measurement。18�
 最终唯一入口为 `ArtSource/refinement/environment/environment_handoff.json`。铺地bc9a与门口v2的4f0b来源已统一，`review/render_evidence.json`／`assembly_validation.json` 均指向此入口。before与after_v2各三图，玩家／近地／门槛柱脚的相机和光照逐组相同。旧v1只作历史，遮挡的旧局部图已剔除。
 
 独立快审确认所有铺地UV三角非退化、水片向上；门套14个砂浆床未侵入±0.925m净门洞、过梁净空及0.16m门槛。来源图像复用，门口4项测试通过。当前候选已冻结，Root继续正式producer／app摆放、接地、配光与设备验收；瓦檐、灯笼和阴雨远景属于后续环境模块。
+
+# 新12路服装制作阶段
+
+**新分工执行中。** 03集中连续领襟折返带、12mm袖口结构与古铜扣具，环境旧产物交06、头脸由05制作。本轮45分钟先交服装可组合实物与正常视距对照。
+
+06接收既有 `ArtSource/refinement/environment/environment_handoff.json`，三组同机位图为 `review/before/` 与 `review/after_v2/`。铺地bc9a与门口v2的4f0b均已冻结，来源、尺寸和限制详见 `design/coordination/environment_to_06.md`。后续环境方向归06。
+
+05负责头脸、皮肤与发束；03负责衣料前襟。共同raw SHA为 `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`。03先避开规范Y>1.48m及头脸皮肤，领边实际路径至Y1.46m。源面与顶点保护范围见 `design/coordination/neck_boundary_05.json`，此为供05／Root确认的边界提案。
+
+本轮结构方案在 `design/collar-shell/`，制作可尺量闭合扁折返带，实体厚度与邻面凸高分别记录。原面删除、覆盖接缝、新顶点UV／权重插值均提供映射。旧单表面relief和细分分支保留未过视觉门槛的结论。
+
+02旧袖口数据只读接收，新的12mm结构候选在 `design/cuff-structure/`。退腕距离按可见皮肤／布边界核对，Hand骨原点不足以证明腕纹位置。每路仅运行一个Blender进程，构建与渲染串行排程。公共producer、正式模型与发布继续由Root维护。
+
+## Root本轮组合审核与续派（2026-11-11）
+
+审核：旧小凸脊和细分方案仍未达到整体领襟视觉门槛，环扣仅独立实物；新连续折返带／袖口由本路制作。
+
+下一步：交正常视距可见的领襟实体带、袖口开口及可组合映射；与05动态颈部修复共享边界，不以无损复建代替观感。

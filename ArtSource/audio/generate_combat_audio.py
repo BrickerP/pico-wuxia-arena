@@ -1,254 +1,227 @@
-"""Build original, deterministic material-contact PCM and an offline A/B reel."""
+"""Rebuild CC0 foley composites and their frozen-baseline A/B reels (no synth oscillators).
 
+Run in the sole arena repository. ffmpeg only decodes licensed source audio; all
+mixing, filters, envelopes and measurements use Python's standard library.
+"""
+import hashlib
 import json
 import math
-import random
 import struct
+import subprocess
 import wave
+from functools import lru_cache
 from pathlib import Path
-
 
 SAMPLE_RATE = 48000
 ROOT = Path(__file__).resolve().parents[2]
-OUTPUT = ROOT / "app/src/main/res/raw"
-REVIEW = ROOT / "ArtSource/refinement/effects/audio"
+OUTPUT = ROOT / 'app/src/main/res/raw'
+REVIEW = ROOT / 'ArtSource/refinement/audio'
+SOURCES = ROOT / 'ArtSource/audio/sources'
+KENNEY = SOURCES / 'kenney-impact-sounds/Audio'
+BEFORE = REVIEW / 'before'
 
 
-def blank(duration):
-    return [0.0] * round(duration * SAMPLE_RATE)
+def blank(seconds):
+    return [0.0] * round(seconds * SAMPLE_RATE)
 
 
-def add(destination, source, gain=1.0, delay=0.0):
+@lru_cache(maxsize=None)
+def decode(path):
+    raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', str(path),
+                                   '-ac', '1', '-ar', str(SAMPLE_RATE), '-f', 's16le', '-'])
+    return [x / 32768 for x in struct.unpack(f'<{len(raw) // 2}h', raw)]
+
+
+def rate_shift(samples, rate):
+    if rate == 1: return list(samples)
+    size = max(1, int(len(samples) / rate))
+    result = []
+    for i in range(size):
+        pos = i * rate
+        lower = min(int(pos), len(samples) - 1)
+        upper = min(lower + 1, len(samples) - 1)
+        result.append(samples[lower] * (1 - (pos - lower)) + samples[upper] * (pos - lower))
+    return result
+
+
+def filtered(samples, low=55, high=12000):
+    """One-pole low/high cut keeps mic rumble and brittle highs below the contact."""
+    a = 1 - math.exp(-math.tau * low / SAMPLE_RATE)
+    b = 1 - math.exp(-math.tau * high / SAMPLE_RATE)
+    lo = hi = 0.0
+    out = []
+    for x in samples:
+        lo += a * (x - lo)
+        hi += b * (x - hi)
+        out.append(hi - lo)
+    return out
+
+
+def trim_onset(samples):
+    peak = max(map(abs, samples), default=0)
+    threshold = max(0.002, peak * 0.025)
+    start = next((i for i, x in enumerate(samples) if abs(x) >= threshold), 0)
+    return samples[max(0, start - 24):]
+
+
+def recorded(path, rate=1, low=55, high=12000):
+    samples = filtered(rate_shift(trim_onset(decode(path)), rate), low, high)
+    peak = max(map(abs, samples), default=0)
+    if peak < 0.001: raise ValueError(f'Empty/silent foley source: {path}')
+    return [x * 0.7 / peak for x in samples]
+
+
+def source(name, rate=1, low=55, high=12000):
+    return recorded(KENNEY / name, rate, low, high)
+
+
+def add(destination, samples, gain=1, delay=0):
     offset = round(delay * SAMPLE_RATE)
-    for index, value in enumerate(source[:max(0, len(destination) - offset)]):
-        destination[index + offset] += value * gain
+    for i, x in enumerate(samples[:max(0, len(destination) - offset)]):
+        destination[i + offset] += x * gain
 
 
-def thump(duration, start_hz, end_hz, decay):
-    result = blank(duration)
-    phase = 0.0
-    for index in range(len(result)):
-        time = index / SAMPLE_RATE
-        frequency = end_hz + (start_hz - end_hz) * math.exp(-time * 38)
-        phase += math.tau * frequency / SAMPLE_RATE
-        result[index] = math.sin(phase) * math.exp(-time * decay)
-    return result
-
-
-def grain(duration, seed, low_hz, high_hz, decay, attack=0.0008):
-    result = blank(duration)
-    rng = random.Random(seed)
-    lower = 0.0
-    upper = 0.0
-    low_alpha = 1.0 - math.exp(-math.tau * low_hz / SAMPLE_RATE)
-    high_alpha = 1.0 - math.exp(-math.tau * high_hz / SAMPLE_RATE)
-    for index in range(len(result)):
-        time = index / SAMPLE_RATE
-        raw = rng.uniform(-1.0, 1.0)
-        lower += low_alpha * (raw - lower)
-        upper += high_alpha * (raw - upper)
-        envelope = min(1.0, time / attack) * math.exp(-time * decay)
-        result[index] = (upper - lower) * envelope
-    return result
-
-
-def ring(duration, fundamental, decay, gain=1.0):
-    result = blank(duration)
-    modes = ((1.0, 0.45), (1.47, 0.32), (2.09, 0.22), (3.13, 0.16), (4.71, 0.10))
-    for index in range(len(result)):
-        time = index / SAMPLE_RATE
-        envelope = min(1.0, time / 0.0015)
-        result[index] = gain * envelope * sum(
-            weight * math.sin(math.tau * fundamental * ratio * time) *
-            math.exp(-time * decay * (1.0 + ratio * 0.18))
-            for ratio, weight in modes
-        )
-    return result
-
-
-def soft_hit(seed=210):
-    result = blank(0.32)
-    add(result, thump(0.26, 142, 68, 21), 0.85)
-    add(result, grain(0.13, seed, 180, 1600, 35), 1.4)
-    add(result, grain(0.16, seed + 1, 1400, 7000, 37), 1.1)
-    add(result, grain(0.15, seed + 2, 700, 3200, 28), 0.35, 0.024)
-    return result
-
-
-def hard_hit():
-    result = blank(0.48)
-    add(result, thump(0.22, 260, 105, 28), 0.32)
-    add(result, grain(0.10, 220, 1900, 12500, 57), 2.0)
-    add(result, ring(0.48, 870, 12), 0.68)
-    return result
-
-
-def guarded_hit():
-    result = blank(0.41)
-    add(result, thump(0.30, 118, 59, 18), 0.85)
-    add(result, grain(0.18, 230, 160, 2100, 25), 1.7)
-    add(result, ring(0.35, 590, 19), 0.34)
-    add(result, grain(0.15, 231, 900, 4300, 37), 0.38, 0.017)
-    return result
-
-
-def block():
-    result = blank(0.55)
-    add(result, thump(0.25, 180, 74, 23), 0.72)
-    add(result, grain(0.12, 240, 1400, 10500, 46), 1.7)
-    add(result, ring(0.52, 660, 8.5), 0.72)
-    add(result, ring(0.26, 930, 20), 0.19, 0.036)
-    return result
-
-
-def parry():
-    result = blank(0.72)
-    add(result, grain(0.11, 250, 3500, 17000, 65), 2.5)
-    add(result, ring(0.70, 1390, 6), 0.65)
-    add(result, ring(0.48, 2030, 12), 0.20, 0.018)
-    add(result, thump(0.14, 170, 90, 35), 0.25)
-    return result
-
-
-def player_hit():
-    result = blank(0.36)
-    add(result, thump(0.33, 103, 48, 15), 1.0)
-    add(result, grain(0.20, 260, 120, 1900, 25), 1.8)
-    add(result, grain(0.24, 261, 600, 3600, 21), 0.42, 0.025)
-    return result
-
-
-def skill():
-    result = blank(0.70)
-    add(result, thump(0.42, 138, 47, 13), 0.88)
-    add(result, grain(0.15, 270, 1000, 12000, 39), 1.9)
-    add(result, ring(0.50, 720, 12), 0.37)
-    add(result, grain(0.22, 271, 2000, 14500, 23), 0.9, 0.045)
-    add(result, ring(0.43, 470, 14), 0.30, 0.063)
-    return result
-
-
-def execution():
-    result = blank(0.88)
-    add(result, soft_hit(280), 0.70)
-    add(result, thump(0.64, 110, 39, 9), 0.74)
-    add(result, grain(0.26, 283, 350, 3600, 18), 0.70, 0.07)
-    add(result, grain(0.15, 284, 1800, 9000, 27), 0.55, 0.125)
-    add(result, ring(0.45, 510, 15), 0.18, 0.13)
-    return result
-
-
-def whoosh():
-    result = grain(0.28, 290, 600, 8000, 5, attack=0.07)
-    for index in range(len(result)):
-        time = index / SAMPLE_RATE
-        result[index] *= math.sin(math.pi * min(1.0, time / 0.28)) ** 1.2
-    return result
-
-
-def ending(notes, duration):
-    result = blank(duration)
-    for index in range(len(result)):
-        time = index / SAMPLE_RATE
-        for start, frequency in notes:
-            elapsed = time - start
-            if elapsed >= 0:
-                result[index] += (math.sin(math.tau * frequency * elapsed) +
-                                  0.25 * math.sin(math.tau * frequency * 2.01 * elapsed)) * math.exp(-elapsed * 5)
-    return result
-
-
-def write_pcm(path, samples, sample_rate=SAMPLE_RATE):
-    pcm = b"".join(struct.pack("<h", round(value * 32767)) for value in samples)
-    with wave.open(str(path), "wb") as file:
-        file.setnchannels(1)
-        file.setsampwidth(2)
-        file.setframerate(sample_rate)
-        file.writeframes(pcm)
-
-
-def master(samples):
+def master(samples, peak=0.48, rms_limit=0.16, loop=False):
     mean = sum(samples) / len(samples)
-    samples = [value - mean for value in samples]
-    for index in range(len(samples)):
-        time = index / SAMPLE_RATE
-        remaining = (len(samples) - 1 - index) / SAMPLE_RATE
-        samples[index] *= min(1.0, time / 0.0006, remaining / 0.012)
-    peak = max(abs(value) for value in samples)
-    return [value * 0.60 / peak for value in samples]
+    samples = [x - mean for x in samples]
+    if not loop:
+        for i in range(len(samples)):
+            samples[i] *= min(1, i / 24, (len(samples) - 1 - i) / 720)
+    top = max(map(abs, samples), default=0)
+    rms = math.sqrt(sum(x * x for x in samples) / len(samples))
+    gain = min(peak / max(top, 1e-9), rms_limit / max(rms, 1e-9))
+    return [x * gain for x in samples]
 
 
-def read_mono(path):
-    with wave.open(str(path), "rb") as file:
-        rate = file.getframerate()
-        count = file.getnframes()
-        raw = struct.unpack(f"<{count}h", file.readframes(count))
-    values = [value / 32768.0 for value in raw]
-    if rate == SAMPLE_RATE:
-        return values
-    # Linear interpolation is sufficient for the frozen low-rate comparison clips.
-    resampled = blank(len(values) / rate)
-    for index in range(len(resampled)):
-        position = index * rate / SAMPLE_RATE
-        lower = min(int(position), len(values) - 1)
-        upper = min(lower + 1, len(values) - 1)
-        fraction = position - lower
-        resampled[index] = values[lower] * (1.0 - fraction) + values[upper] * fraction
-    return resampled
+def write_pcm(path, samples):
+    pcm = struct.pack(f'<{len(samples)}h', *(round(max(-1, min(1, x)) * 32767) for x in samples))
+    with wave.open(str(path), 'wb') as f:
+        f.setnchannels(1); f.setsampwidth(2); f.setframerate(SAMPLE_RATE); f.writeframes(pcm)
+
+
+def compose(duration, *layers):
+    result = blank(duration)
+    for samples, gain, delay in layers: add(result, samples, gain, delay)
+    return result
+
+
+def rain_loop():
+    rain = filtered(decode(SOURCES / 'ylmir-rain/1.ogg'), 180, 8200)
+    # Split one continuous 16s take into two 8s halves. Equal-power crossfade
+    # makes both boundaries the same point in the field recording.
+    length = 8 * SAMPLE_RATE
+    first = rain[5 * SAMPLE_RATE:13 * SAMPLE_RATE]
+    second = rain[13 * SAMPLE_RATE:21 * SAMPLE_RATE]
+    return [a * math.sin(math.pi * i / (2 * (length - 1))) +
+            b * math.cos(math.pi * i / (2 * (length - 1)))
+            for i, (a, b) in enumerate(zip(first, second))]
+
+
+def build_material():
+    punch = source('impactPunch_heavy_001.ogg', 0.87, 55, 4500)
+    cloth = recorded(SOURCES / 'haeldb-cloth/footsteps/step_cloth2.ogg', 1.08, 300, 7500)
+    metal = recorded(SOURCES / 'starninjas-sword/clashes/sword_clash.2.ogg', 0.93, 180, 11000)
+    plate = source('impactPlate_medium_001.ogg', 1.08, 550, 12000)
+    bright = recorded(SOURCES / 'starninjas-sword/clashes/sword_clash.5.ogg', 1.08, 1200, 14000)
+    soft = compose(0.38, (punch, 0.85, 0), (cloth, 0.50, 0.012))
+    hard = compose(0.56, (metal, 0.85, 0), (plate, 0.26, 0.008))
+    block = compose(0.62, (metal, 0.80, 0), (source('impactPlate_heavy_000.ogg', 0.92), 0.36, 0.021))
+    parry = compose(0.80, (bright, 1.0, 0), (plate, 0.42, 0.007), (punch, 0.13, 0))
+    guarded = compose(0.42, (recorded(SOURCES / 'haeldb-cloth/footsteps/step_cloth1.ogg', 0.9, 90, 3300), 0.8, 0),
+                      (metal, 0.22, 0.006))
+    hurt = compose(0.36, (punch, 0.95, 0), (cloth, 0.37, 0.021))
+    skill = compose(0.70, (block, 0.8, 0), (bright, 0.38, 0.038), (cloth, 0.40, 0.08))
+    execution = compose(0.88, (rate_shift(punch, 0.74), 0.82, 0), (cloth, 0.65, 0.055),
+                        (rate_shift(cloth, 0.80), 0.32, 0.14))
+    swish = recorded(SOURCES / 'starninjas-sword/attacks/sword - StarNinjas/sword.4.ogg', 1.25, 650, 10500)
+    whoosh = compose(0.28, (swish, 0.85, 0))
+    rain = rain_loop()
+    water = decode(SOURCES / 'ylmir-rain/1.ogg')[6 * SAMPLE_RATE:6 * SAMPLE_RATE + round(0.20 * SAMPLE_RATE)]
+    water = filtered(water, 1700, 8500)
+    for i in range(len(water)): water[i] *= math.exp(-i / (0.035 * SAMPLE_RATE))
+    step = compose(0.32, (source('footstep_concrete_003.ogg', 0.95, 70, 9000), 0.8, 0), (water, 0.9, 0.015))
+    return {'arena_hit': soft, 'arena_hard_hit': hard, 'arena_guarded_hit': guarded,
+            'arena_block': block, 'arena_parry': parry, 'arena_hurt': hurt,
+            'arena_skill': skill, 'arena_execution': execution, 'arena_whoosh': whoosh,
+            'arena_step': step, 'arena_rain': rain}
+
+
+def measure(path):
+    with wave.open(str(path), 'rb') as f:
+        assert (f.getnchannels(), f.getsampwidth(), f.getframerate()) == (1, 2, SAMPLE_RATE)
+        pcm = struct.unpack(f'<{f.getnframes()}h', f.readframes(f.getnframes()))
+    samples = [x / 32768 for x in pcm]
+    peak = max(map(abs, samples)); rms = math.sqrt(sum(x*x for x in samples)/len(samples))
+    return {'name': path.stem, 'seconds': len(samples) / SAMPLE_RATE, 'sample_rate': SAMPLE_RATE,
+            'channels': 1, 'bits': 16, 'peak_dbfs': 20*math.log10(peak),
+            'rms_dbfs': 20*math.log10(rms), 'clipped_samples': sum(abs(x) >= 32767 for x in pcm),
+            'decoded_bytes': len(pcm)*2, 'max_sample_step': max(abs(a-b) for a,b in zip(samples,samples[1:])),
+            'edge_step': abs(samples[-1]-samples[0]), 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+
+
+def comparison_reel(name, labels):
+    result = []; cue_sheet = []
+    for label, path, rate, gain in labels:
+        result.extend(blank(0.4))
+        samples = rate_shift(decode(path), rate)
+        cue_sheet.append({'label': label, 'start_seconds': len(result)/SAMPLE_RATE,
+                          'duration_seconds': len(samples)/SAMPLE_RATE, 'rate': rate, 'gain': gain})
+        result.extend(x * gain for x in samples)
+        result.extend(blank(0.45))
+    write_pcm(REVIEW / f'{name}.wav', result)
+    (REVIEW / f'{name}.json').write_text(json.dumps(cue_sheet, indent=2)+'\n')
+    return len(result)/SAMPLE_RATE
 
 
 def main():
-    OUTPUT.mkdir(parents=True, exist_ok=True)
-    REVIEW.mkdir(parents=True, exist_ok=True)
-    material = {
-        "arena_hit": soft_hit(), "arena_hard_hit": hard_hit(),
-        "arena_guarded_hit": guarded_hit(), "arena_block": block(), "arena_parry": parry(),
-        "arena_hurt": player_hit(), "arena_skill": skill(), "arena_execution": execution(),
-        "arena_whoosh": whoosh(),
-        "arena_victory": ending(((0.0, 523.25), (0.13, 659.25), (0.27, 783.99)), 0.95),
-        "arena_defeat": ending(((0.0, 311.13), (0.17, 233.08), (0.31, 155.56)), 0.78),
-    }
-    metrics = []
-    for name, samples in material.items():
-        samples = master(samples)
-        write_pcm(OUTPUT / f"{name}.wav", samples)
-        with wave.open(str(OUTPUT / f"{name}.wav"), "rb") as file:
-            pcm = struct.unpack(f"<{file.getnframes()}h", file.readframes(file.getnframes()))
-        measured = [value / 32768.0 for value in pcm]
-        rms = math.sqrt(sum(value * value for value in measured) / len(measured))
-        metrics.append({"name": name, "seconds": len(measured) / SAMPLE_RATE,
-                        "sample_rate": SAMPLE_RATE, "channels": 1, "bits": 16,
-                        "peak_dbfs": 20 * math.log10(max(abs(value) for value in measured)),
-                        "rms_dbfs": 20 * math.log10(rms),
-                        "clipped_samples": sum(abs(value) >= 32767 for value in pcm),
-                        "decoded_bytes": len(pcm) * 2})
-    (REVIEW / "audio_measurements.json").write_text(json.dumps(metrics, indent=2) + "\n")
-    clips = [
-        ("before_soft_hit", REVIEW / "before_soft_hit.wav"),
-        ("after_soft_hit", OUTPUT / "arena_hit.wav"),
-        ("before_metal", REVIEW / "before_metal.wav"),
-        ("after_hard_hit", OUTPUT / "arena_hard_hit.wav"),
-        ("guarded_hit", OUTPUT / "arena_guarded_hit.wav"),
-        ("block", OUTPUT / "arena_block.wav"),
-        ("parry", OUTPUT / "arena_parry.wav"),
-        ("player_hit", OUTPUT / "arena_hurt.wav"),
-        ("skill_guard_break", OUTPUT / "arena_skill.wav"),
-        ("execution", OUTPUT / "arena_execution.wav"),
-    ]
-    reel = []
-    cue_sheet = []
-    for label, path in clips:
-        reel.extend(blank(0.35))
-        start = len(reel) / SAMPLE_RATE
-        samples = read_mono(path)
-        reel.extend(samples)
-        reel.extend(blank(0.35))
-        cue_sheet.append({"label": label, "start_seconds": start, "duration_seconds": len(samples) / SAMPLE_RATE})
-    write_pcm(REVIEW / "material_contact_comparison.wav", reel)
-    (REVIEW / "comparison_cues.json").write_text(json.dumps(cue_sheet, indent=2) + "\n")
-    print(json.dumps({"production_cues": len(material), "reel_seconds": len(reel) / SAMPLE_RATE,
-                      "max_decoded_bytes": max(item["decoded_bytes"] for item in metrics)}, indent=2))
+    OUTPUT.mkdir(parents=True, exist_ok=True); REVIEW.mkdir(parents=True, exist_ok=True)
+    cues = build_material()
+    for name, samples in cues.items():
+        samples = master(samples, 0.24 if name == 'arena_rain' else 0.48,
+                         0.065 if name == 'arena_rain' else 0.16, loop=name == 'arena_rain')
+        write_pcm(OUTPUT / f'{name}.wav', samples)
+    # Outcome cues remain the frozen original composition, independent of combat foley.
+    for name in ['arena_victory', 'arena_defeat']:
+        (OUTPUT / f'{name}.wav').write_bytes((BEFORE / f'{name}.wav').read_bytes())
+    metrics = [measure(p) for p in sorted(OUTPUT.glob('arena_*.wav'))]
+    (REVIEW/'audio_measurements.json').write_text(json.dumps(metrics,indent=2)+'\n')
+    comparisons = []
+    for name in ['hit','block','parry','hard_hit','guarded_hit','whoosh','execution']:
+        comparisons += [(f'before_{name}', BEFORE / f'arena_{name}.wav', 1, 0.72),
+                        (f'after_{name}', OUTPUT / f'arena_{name}.wav', 1, 0.72)]
+    reel = comparison_reel('contact_before_after', comparisons)
+    lethal = compose(1.1, (rate_shift(decode(OUTPUT/'arena_hit.wav'),0.90),0.72,0),
+                     (rate_shift(decode(OUTPUT/'arena_execution.wav'),0.90),0.37,0))
+    write_pcm(REVIEW/'fatal_composite.wav',lethal)
+    comparison_reel('fatal_normal_vs_slow', [
+        ('before_fatal_at_0.90', BEFORE/'arena_hit.wav',0.90,0.72),
+        ('after_ordinary_at_1x',OUTPUT/'arena_hit.wav',1,0.72),
+        ('after_fatal_material_and_accent_at_0.90',REVIEW/'fatal_composite.wav',1,1),
+        ('execution_at_1x',OUTPUT/'arena_execution.wav',1,0.72),
+        ('execution_at_0.90',OUTPUT/'arena_execution.wav',0.90,0.72)])
+    # Real-world playback is not globally slowed with the enemy animation. The reel models that policy.
+    demo = blank(9)
+    rain = decode(OUTPUT/'arena_rain.wav')
+    for i in range(len(demo)): demo[i] = rain[i % len(rain)] * 0.10
+    for at,name,gain,rate in [(0.8,'whoosh',0.28,1),(1.02,'hit',0.65,1),(2.5,'block',0.70,1),
+                              (3.9,'parry',0.72,1),(5.6,'step',0.16,1),(6.2,'whoosh',0.28,1),
+                              (6.4,'hard_hit',0.72,0.90),(6.4,'execution',0.37,0.90)]:
+        add(demo,rate_shift(decode(OUTPUT/f'arena_{name}.wav'),rate),gain,at)
+    write_pcm(REVIEW/'combat_rain_sequence.wav',demo)
+    source_files = sorted({str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+                           for p in SOURCES.rglob('*') if p.suffix == '.ogg'}.items())
+    (REVIEW/'production_manifest.json').write_text(json.dumps({
+        'baseline_git_head': json.loads((BEFORE/'baseline.json').read_text())['git_head'],
+        'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'source_sha256': dict(source_files), 'outputs': metrics,
+        'runtime': {'pending_limit':24,'short_voices':10,'ambience_voices':1,'freshness_ms':120,
+                    'contact_gain_range':[0.34,0.72],'rain_gain':0.10,'ducked_rain_gain':0.045,
+                    'priority':{'rain':0,'step_and_swing':1,'result':2,'material':3,'block_and_hurt':4,
+                                'parry_and_skill':5,'execution':6}},
+    },indent=2)+'\n')
+    assert all(x['clipped_samples'] == 0 and x['decoded_bytes'] < 1_000_000 for x in metrics)
+    print(json.dumps({'production_cues':len(metrics),'ab_reel_seconds':reel,
+                      'max_decoded_bytes':max(x['decoded_bytes'] for x in metrics)},indent=2))
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__': main()

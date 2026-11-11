@@ -8,7 +8,7 @@
 
 ## 当前状态
 
-**本批独立接触素材、地面候选与离线制图器修正已交付。** 连续MR方法接受但收益较轻，KTX规范候选已收件、PICO互操作由Root处理。本批按顶部队列交金属／湿布／闪避尘／落地GLB与运动合同。共享材质Alpha串乘已在离线renderer修正，旧弱可见性结论撤回，以最新独占材质的同条件图为准。
+**visibility-v3阶段结束，等待review。** 已交更强的金属与湿布源资产、1.5／2.5m同条件前后图和短片，统一复建、节点／曲线检查及渲染输入SHA核对通过。金属在两种距离有清楚提升，2.5m湿布仍细；08／Root的运行接入与端内观感尚待验证。交付与下一项见文末，旧lighting阶段记录属于历史，后续全局lookdev归07。
 
 ### Root阶段3收件与反馈呈现接线
 
@@ -26,7 +26,7 @@ CombatImpact、分层FX、11段音效、触觉与离线预演已交付。正式P
 
 负责 ArtSource/refinement/effects/contact-polish/ 及后续效果源资产与本文件。HomeStage、照明、音频、共享CombatEffects运行文件由Root／07／08／11分工维护。
 
-## 本轮任务
+## 历史配光阶段任务（已完成）
 
 1. 读既有场景和已安装6.1官方文档，交叉核对6.1.9公开类型，按代码所属场景使用适用的Spatial场景技能。当前固定主角SHA见共同约束。
 2. 在原场景建立有体积感的主光方向和有效补光，确保初始人物确实位于有效照明区域，保留酒馆冷暖气氛。
@@ -44,11 +44,11 @@ HomeStage可编译修改、资源和来源、主光／补光位置与有效范�
 
 ## 共同执行约束
 
-唯一工作仓库为 /Users/yupeng/projects/personal/pico-wuxia-arena。当前模型基线为main的cc12bf1，base.glb SHA为53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641。运行栈为Kotlin + PICO Spatial SDK6.1.9，终端Space Pro／OS6。
+唯一工作仓库为 /Users/yupeng/projects/personal/pico-wuxia-arena。历史配光输入为main的cc12bf1、base.glb SHA为53b80e71fbc986fc6021ac910a57fe11ba2d60d521ee371796ea1fb8b2d00641；该快照不代表后续Root发布的正式模型，本阶段实际参考输入以文末及render_manifest为准。运行栈为Kotlin + PICO Spatial SDK6.1.9，终端Space Pro／OS6。
 
 其他会话正在同一仓库并行。各自只修改责任范围，保留其他人的编辑。Git提交、分支、合入、共享构建、设备操作、实际截图与正式模型发布由Root统一负责。候选输出留在各自目录，library、app角色与公共manifest由Root发布。
 
-本轮允许离线资产生成、渲染及专项制作检查。游戏整局自测继续后置。30分钟内交付首阶段实物，写明“阶段结束”、输入SHA、文件、效果、剩余问题与下一步建议后结束当前回合。遇到阻塞先交已做出的部分并写明具体阻塞，继续能独立完成的工作。用当前模型和已安装依赖推进，不为等审批或等待其他线程维持空转。
+本轮允许离线资产生成、渲染及专项制作检查。游戏整局自测继续后置。12路升级首轮45分钟内交付实物，写明“阶段结束，等待review”、输入SHA、文件、效果、剩余问题与下一项。对应review返回后再进入下一轮；已明确授权的独立检查继续完成。遇阻塞先交已有实物与具体阻塞，Root负责共享接入和设备验收。
 
 ## 阶段回报
 
@@ -112,7 +112,7 @@ GroundShadowComponent逐个绑定实际ModelComponent实体，遍历子树；公
 
 实际mesh绑定、Stage坐标转换与生命周期初审通过。GroundShadow与方向动态影叠加存在双影／过暗风险，当前还未经现场对照。本阶段选择单套GroundShadow接地基准，斜向主光负责塑形并关闭该主光的动态投影。下一步由Root构建取图，按可见结果审校。
 
-## 当前阶段2执行项
+## 历史阶段2执行项
 
 HomeStage冻结在409400aad752611ffbd948aa62426c6ea14504bde3d35bacbaf0056d49538df4，由Root合入。责任目录为lighting/stage2。核对可复现HDR到IBL KTX工具链，给有效资源／接线或确切缺件；工具受阻时继续现raw rig部位PBR候选，皮肤／眼／发／布／皮／铜的分色区域、材质参数和面分组作为可组合补丁。POSITION／UV／骨架／权重／动作保持，使用现有贴图及已支持的普通PBR。
 
@@ -309,3 +309,63 @@ Blender真实回归覆盖两个对象共用同一mesh／源材质，确认0.5和
 Root需按真实接触点／法线／切向、真实成功闪避及骨骼落地触发驱动；湿布需真实材质语义，过期事件不重启。SDK透明排序、实际场景浓度与性能由Root验证，白闪／刀光／逐击UI和运行源码继续归Root。原HomeStage409400aa是历史输入快照，本轮未回写任何共享运行文件。
 
 **独立接触与地面候选本批制作结束。** 已交实际GLB、运动代码／合同、修正后的同条件图与重渲片、错误证据归档。授权队列本批候选齐备，Root统一决定正式选择、接入、构建、设备和Git，本会话结束当前回合。
+
+## 12路升级首轮 · visibility-v3制作与08接口
+
+当前按最新队列集中独立源资产，候选目录为 `ArtSource/refinement/effects/contact-polish/visibility-v3/`。07接管旧lighting/stage3的原创HDR、工具记录及标准头KTX候选，PICO互操作仍由07／Root验证；11维护声音／触觉。本轮不改HomeStage、共享FX运行代码、音频或正式app资产。
+
+已制作金属32独立火星、core_star和arc_00／01，共35个mesh；湿布18滴加5纤维，共23个mesh。前者以热近／暖主层／冷余烬分层，后者以hero／main／stretched／fine／fiber分层。正常1.5／2.5m视距、固定FOV60的前后图／片正在制作，范围与强度通过实际资产变化表达。
+
+### 给08的v2数据契约
+
+新源明确使用 [source_contract.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/source_contract.json) 中的 `contact-particle-motion/v2`。新arc仅为真实接触切向定向的短辅弧，Root实际刀尖历史ribbon保持其运行职责。每个可见mesh必须恰好被particles、cores或accents覆盖一次，缺失／重复层应在生成阶段报错，不能默认为常亮。
+
+本轮起始核对时，08的generate_presets.py仍取旧metal／wet motion路径，只解析particles／cores，忽略accents、fatal、tier／priority及方向轴；directional还按scar名称判定。若直接换入新GLB，arc层会未受控可见。08需切到v3 source_jobs、完整吸收上述字段并重新生成handoff／Kotlin，在发布前核对全部mesh覆盖与初始隐藏；后续完成状态以08实际生成结果为准。当前源不自动替换运行资产。
+
+现池无每次12粒子的硬限制。按METAL三槽，新源35mesh对应105个常驻受控mesh，WET一槽对应23mesh，另有锚点／模型根。先按这一实际预算由08选择热近／暖主／余烬层级，预算拒绝必须隐藏对应节点，事件过期仍不排队重播。
+
+普通／弹反核心提案为65／90ms；fatal核心提案按规格对齐150ms，具体事件及呈现时钟由Root／08选择。水滴形状和orientation_axis_local明确区分圆滴、拉伸滴与纤维，避免把所有长轴硬编码为X。接触选择继续依真实材质，裸头SOFT不自动触发湿布飞溅。
+
+## visibility-v3阶段交付 · 正常视距接触源
+
+**阶段结束，等待review。** 2026-11-11 05:04:42 UTC开始，湿布首实物05:12:58落盘，首批正常视距图约05:30交出；最终公平性与来源复核于05:56收尾。首实物在45分钟内完成，最终复核收尾超过该时间窗。本阶段只写04源目录与本文件，08／Root接运行和发布。
+
+### 实际资产与变化
+
+| 候选 | 变化 | 成本与时序 |
+| --- | --- | --- |
+| [metal_hero_v3.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/metal/metal_hero_v3.glb) | 火星12→32，12热近／12暖主／8冷余烬，另加2条短接触辅弧；细星芒跨度70→140mm，实心中心对角仅14mm | 45,396字节，35mesh，258三角，3材质；普通／弹反／致命核心65／90／150ms |
+| [wet_cloth_contact.glb](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/wet/wet_cloth_contact.glb) | 8滴＋2纤维→18滴＋5纤维，含2颗8.5／9mm主滴、4颗主滴、4颗拉伸滴、8颗细滴和5条拖尾纤维 | 48,128字节，23mesh，596三角，3材质；分层寿命180–400ms |
+
+金属热近层长60–100mm、宽5–8mm，暖主与余烬依次缩短、变冷。湿布圆滴3–9mm，拉伸滴长10–18mm、截面3.6–4.5mm；纤维长8–15mm。两份均为项目原创程序几何，无纹理、动画或材质扩展。金属沿用普通PBR emissiveFactor范围0–1；湿布没有自发光、折射或bloom。短辅弧不是实际刀尖历史ribbon。
+
+最终统一入口输出SHA如下，GLB和motion须成对取用。
+
+- 金属GLB：`71502f591b19c3e067772fa1648cc78d10c2c37aac3b4e36102e3027964f6525`；motion：`4c0226c325efbe967255579c0c6ce53da4366f2c8bdd383d9c2335fb1ce7ca14`。
+- 湿布GLB：`a96623710d43a5e952a559153ce7cf1d0e75ca68636d5e9e98ff492040f15077`；motion：`910d9f355dfa39895ff40b61a96f0aabaa322f75961048d48561ec61c0c1acf4`。
+
+### 正常视距前后证据
+
+已交 [1.5m普通图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/normal_distance_150cm.png)、[2.5m普通图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/normal_distance_250cm.png)、[1.5m弹反图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/parry_distance_150cm.png)、[2.5m弹反图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/parry_distance_250cm.png)，以及 [1.5m短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/distance_150cm.mp4)、[2.5m短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/distance_250cm.mp4)。
+
+每栏原图640×480、水平FOV60、相机到接触点1.5／2.5m，0.5m标尺，不放大特效；同一idle源1.0s姿态和固定灯光。四栏依次旧金属／新金属／旧湿布／新湿布，旧新湿布都固定源TBN。普通取40ms、弹反取50ms；短片2560×610、24fps、21帧、0.875秒，示例两次发射，最后采样第二次年龄433ms，全部层过期，可核 [消失末帧](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/expiry_clear.png)。致命150ms本轮只验源曲线，未演示实际致命事件。
+
+参考角色为渲染时Root当前 `app/src/main/assets/models/opponents/base.glb`，SHA `0c2a4801aaa6b89866303a9c783b524a88b6440633f0c9348041a6239af7d48a`，仅作比例背景。本轮未写该模型。基准金属／湿布仍为dfa1ab15…514ce／9d8990c4…c27af，完整八项源输入SHA见 [render_manifest.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/review/render_manifest.json)。
+
+目视两种距离的新金属热芯与火星更清楚；湿布1.5m亮滴与纤维更易辨认，2.5m仍呈少量细点，不能据此判定端内可读性通过。所有图仅是固定T=Stage+X、N=+Z示例预演；实际切向、场景光、透明排序、头显表现和手感继续由08／Root验收。
+
+### 检查、修复与接入出口
+
+唯一 [build_contact_polish.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/build_contact_polish.py) 已实际串行复建六项制作job、八份GLB；原基准／地尘v2与新GLB哈希保持。新源恰好覆盖35／23个可见节点，明确方向轴、tier／priority、核心及accents。6项轨迹回归、3项湿布正常／边界测试通过；漏节点、GLB重名、重复驱动和错误核心末时四种负例均被拒绝。[源检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/verification.json)及[湿布几何检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/visibility-v3/wet/verification.json)通过。
+
+离线81对象对应81独占材质／单Alpha控制，无共享串乘。独立复核发现并修正了旧湿布朝向不公平、重复名称被字典吞掉及核心曲线未检查三处问题。复建曾因wet JSON键插入顺序不同触发SHA拒绝；重排可精确复现旧cda0e66b…，字段值及轨迹完全一致。最终仍从统一入口的910d9f35…重新渲染，渲染起止锁定所有源哈希，最终八项输入与参考角色均实际复核一致，没有替换旧渲染的SHA充数。
+
+08接入继续按上节v2合同完成：切换source_jobs、完整生成particles／cores／accents、初始及过期隐藏、真实切向与Stage重力、湿布真实材质判定。完整金属三槽为105受控mesh、湿布一槽23，实际Entity／透明性能由08／Root检查。全局光照／IBL交07、声音触觉交11，正式选择与设备验证由Root收口。
+
+**本轮visibility-v3制作与离线专项验证结束，等待对应review。** 收到本轮review后继续04范围内的修正与下一阶段地尘／落地或技能／致命源制作；实际VR观感、运行接入及性能尚未验证。
+
+## Root本轮组合审核与续派（2026-11-11）
+
+审核：软／金属／湿布／闪避／落地5资源已由Root发布，08负责运行独立粒子。
+
+下一步：保持接触材质差异与真实地面事件约束；湿布与近地事件没有真实生产者时不能按固定时间伪造，后续据实际受控命中图再修粒子。
