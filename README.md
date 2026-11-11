@@ -66,6 +66,8 @@
 
 应用还接入官方虚拟手柄右A的边沿事件。模拟器原生设置当前显示Space对应右A，但实际主机Space至该事件仍缺证据。W属于模拟器移动控制，其效果依赖当前模拟器输入模式。切换模式和按键测试统一由Root操作同一实例。
 
+浏览器代理原型的桌面试玩入口见[`prototype/web-v0.13/index.html`](prototype/web-v0.13/index.html)。它是单文件Three.js页面，用鼠标左右键代理双手持握，用来提前验证兵器架、连招衔接与跑跳语义；不是PICO安装包，也不消费上面的模拟器键位。该目录的实测结论只适用于自身，回真机必须重新接线。
+
 ## 人物、动作与场景
 
 三轮分别加载 `app/src/main/assets/models/opponents/` 下的 `base.glb`、`indigo.glb`、`veteran.glb`，对应试刀客、青衫护院和玄甲守擂。角色由ov区域Tripo CLI生成，约1.78m、78骨，与R_Hand绑定的dao共用骨架。
