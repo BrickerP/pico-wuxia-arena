@@ -1,18 +1,14 @@
-# 03 · 人物设计母版与Tripo输入质量
+# 03 · 服装结构与装配精修
 
 ## 最新用户目标与执行队列
 
-完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，领襟、扣具与现有场景为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你集中做整段领襟、交领层次、真实袖口／护腕、布／皮分工、腰带铜扣、衣摆开衩和服装局部重拓，要求正常胸部／全身视距有可见变化。
 
-Root对阶段3小片领襟的review已经写在本文件，立即按阶段4整段前襟合同继续，不等待再次批准。随后制作古铜环扣／暗钩候选。人物阶段交付后转ArtSource/refinement/environment，精修当前酒馆／庭院的石路、排水、积水、木柱脚、门槛、瓦檐与灯笼。先选玩家面向对手时最常见的一段路面和门楼，给同机位真实3D前后图。湿润有空间原因，建筑层次与材质尺度可读。原有场景沿用同一来源，候选不覆盖app，Root统一接地与配光。
-
-四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
-
-Root已取得本轮启动实图artifacts/combat-polish/first-build-ready.png。环境阶段以此实际机位评审石板尺寸／黑缝深度、门口木构与墙面材质尺度、阴雨远景层次。主体人物仍需先完成当前领襟与扣具。UI面板遮挡和文字大小由Root处理，美术源保持真实场景内容。
+06主导整套雨后庭院与建筑，07主导照明，05主导头脸与发束。你已经产出的environment候选和测量直接写清路径交06，环境后续从你的执行队列移交。继续完整领边折返带与铜扣，并接02尚未完成的12mm袖口结构。保持原78骨rest、手部和动作来源可追溯，新拓扑给原面／顶点／UV／权重映射。与05约定颈部边界，不整只覆盖对方成果。
 
 ## 当前状态
 
-**阶段3结束，等待Root review。** 已交真实领襟局部GLB、顶点位移和52张素模／PBR及专项姿态对照。
+**本轮有效阶段已收口，等待Root review。** 领襟分支未通过正常胸部PBR可见性门槛并冻结；古铜环扣和石路／门口真实GLB候选已完成专项及同机位检查。
 
 ## 上一轮成果与Root review
 
@@ -22,7 +18,7 @@ Root已取得本轮启动实图artifacts/combat-polish/first-build-ready.png。�
 
 ## 文件所有权
 
-负责ArtSource/refinement/character/design/与本文件。其他character源目录、原始rig／slash、公共producer、manifest、library和app成品交Root维护。02做分区蒙皮，01做按clip手姿，04做端内配光。
+负责 ArtSource/refinement/character/design/ 的服装设计／领襟／扣具候选，以及接收02袖口数据后的独立服装补丁与本文件。environment旧产物只交接，之后由06负责环境新方向。
 
 ## 本轮任务
 
@@ -119,3 +115,35 @@ Root已查看rest_overlap_detail的前后PBR近景及geometry_measurement。18�
 - `renders/` 交48张PBR／clay正、严格侧及斜侧前后对照，包含REST、前伸60度、转头正负45度；`renders/detail/` 另交4张8cm局部近景。每组同相机、尺度与姿态，源骨架和skin先行核对。`comparison_detail_clay.png`／`comparison_detail_pbr.png` 左源右候选，保持实际渲染像素。
 - 总览变化较细，局部可辨起伏改变。原source前伸姿态的肩胸折陷前后均存在，继续交01／02复验。当前只交单处最小候选，整圈领襟及实体壳厚未完成。
 - 首个GLB约21:18落盘，处于30分钟首实物目标内，完整对照与独立复核随后完成。`stage3_review.json` 记录冻结身份与限制，下一步由Root审图并将vertex delta接入唯一producer，正式source／library／app发布归Root。
+
+## 阶段4领襟分支收口
+
+**阶段结束，结果为blocked_visual_target。**
+
+实际领边已追踪71个源face截面点、19组原顶点连接，覆盖约363mm。同拓扑v1／v2保持原数据，但正常胸部PBR改善不足。局部自适应细分v3／v3b保留35,308旧ID前缀，新增3,969个原face重心映射点，39,277顶点／67,686三角，替换773个原面。共享边与UV同位拆点同步、新UV和最多4骨权重插值、78骨／IBM／贴图及4项重复测试均通过。
+
+最终技术分支为 `design/collar-refinement/stage4/retopo/candidate_v3b.glb`，SHA `6dae6360a1ecf7463ad439dd16189da4cf8e285315aa59de1b6be9d5093caa5d`。旧领边实际位移最高约0.282mm，正常胸部8图仍无明确整体PBR改善，因此不作为整段领襟精修通过。各版冻结，停止小参数试错。实图和判定在 `retopo/renders_v3b/visual_review.json`，技术证据在 `retopo/validation_v3b.json` 与 `test_retopo.py`。Root可据此另定折返带结构重建与材质组合方案。
+
+## 古铜环扣独立实物
+
+**阶段结束，尺寸与几何专项通过，待Root装配review。** `design/buckle-candidate/buckle.glb` SHA为 `cc3aa1264736c273e59e30ee5e298fc793f2ad7bf82bb72acabf3690a6d85360`。外径30mm／内径22mm／圆截面4mm，后置J形暗钩含0.30mm真倒角和1mm轴向间隙，共3468三角、2个闭合solid，深古铜metallic1／roughness0.45。中心253条射线检查通孔，重新导入尺寸和拓扑通过。
+
+真实前侧背及暗钩图在 `buckle-candidate/renders/`。源腰带高86.48±2.81mm，旧方扣仍需先移除，建议装配中心规范坐标[0,1.052539,0.168722]m来自曲面拟合外推，需装配复核。皮耳、细微锈色、绑骨和角色接入留待后续，不能直接把环扣叠在旧方扣上。
+
+## 环境首套实物（2026-11-11）
+
+**阶段结束，等待review。实际离线PBR可见改善通过内部专项，等待Root审图与端内验证。** 本轮Tripo费用0。
+
+来源为当前 `ArtSource/tavern/tavern_slice.glb`，SHA `af3adf8b15bb5aa6f34a9a5240e18bc2534bc977db4a05089a0c3a1ee1bbdc69`；前庭为同Paving平移复用。已查看Root真实端内 `artifacts/combat-polish/first-build-ready.png`，围绕大黑缝石板、木纹尺度和门口层次制作。原producer／source／app资产保持各自发布权，由Root统一接入。
+
+- 铺地为 `ArtSource/refinement/environment/paving/paving_candidate.glb`，SHA `bc9a7d0e4a5dc463ca2a73f4936f253e56efc6a87363c74c14b0a95f9e75d3fb`。137块约350×280mm错缝石板，10mm浅缝，填缝低5.35–7.94mm，2.4–3.6mm几何倒角，共6092三角。原Paving_Root／Paving名称、坐标、整体bounds保持；中央Y0.02535–0.02794m，两侧排水坡2%最大12mm，低侧与窄缝湿润／积水有明确分区。
+- 石材三通道沿同一CC0源166px净石面裁窗对齐，去除照片自带5×5假缝；UV按米制投影，侧面UV已修。独立重新导入核925条接地射线，导出高度误差0。`paving_measurements.json`、`groundheight_mapping.json` 与 `validation.json` 给出来源、尺寸和高度。
+- 门口最终为 `environment/entry/structure_entry_v2.glb`，SHA `4f0b4ce49034ba938a574cddd377c3454e26c449d5eaefe404116641c8dfcfa7`，4392三角，只含Structure_Root与Structure，整体bounds同源。门套分6层石块／6mm真缝，门槛三块及6–9mm倒角／2mm鼻口磨耗，柱脚分层，木构顺长轴米制UV，湿润限底缘。14处退入砂浆床封住贯穿空缝，4项测试通过，见 `entry_changes_v2.json`。
+- 实际对照在 `environment/review/before/` 与 `environment/review/after_v2/`，玩家、近地斜视、门槛柱脚机位固定；离线同灯PBR不标成SDK截图。两段铺地继承原前庭+3.02m平移，BBox拼接间隙0，活动前庭仅一个Paving，无重复门楼。
+- 当前明确改善是细缝路面与门口层次。雨后湿润的端内反射、接地、瓦檐与阴雨远景层次仍需后续制作／Root配光验证。原有大UI与战斗反馈由Root维护。本套首候选超过最初30分钟目标，源图和最终专项检查已如实交付。
+
+### 环境最终冻结补充
+
+最终唯一入口为 `ArtSource/refinement/environment/environment_handoff.json`。铺地bc9a与门口v2的4f0b来源已统一，`review/render_evidence.json`／`assembly_validation.json` 均指向此入口。before与after_v2各三图，玩家／近地／门槛柱脚的相机和光照逐组相同。旧v1只作历史，遮挡的旧局部图已剔除。
+
+独立快审确认所有铺地UV三角非退化、水片向上；门套14个砂浆床未侵入±0.925m净门洞、过梁净空及0.16m门槛。来源图像复用，门口4项测试通过。当前候选已冻结，Root继续正式producer／app摆放、接地、配光与设备验收；瓦檐、灯笼和阴雨远景属于后续环境模块。

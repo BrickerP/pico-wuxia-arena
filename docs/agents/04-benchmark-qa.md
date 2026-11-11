@@ -1,16 +1,14 @@
-# 04 · PICO端内人物配光与接地影
+# 04 · 独立接触与地面特效资产
 
 ## 最新用户目标与执行队列
 
-完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，材质、环境光与打击特效为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你集中做独立火星、湿布、纤维、闪避近地尘、落地、技能与致命特效源资产。08接运行时发射／真实切向／轨迹与可复用池，07接全局lookdev，11接声音触觉。
 
-当前连续PBR／IBL阶段先收口，随后优先ArtSource/refinement/effects/contact-polish的金属星芒和湿衣物飞溅实物，再补弹反、闪避近地尘与落地效果。沿用静态分层GLB＋Entity/Opacity正式运行路径，可给独立水滴／火星子层供Root按真实轨迹驱动，Root控制事件和SDK呈现源码。首试湿衣6至10滴、金属8至14火星，普通星芒约65ms、弹反90ms，事件点／法线／真实切向驱动。与现有build_contact_effects逻辑复用并交唯一制作入口，候选不得覆盖app。动画、真实伤害、致命标识、短停、白闪、刀光和UI由Root接线，不再通过长时间排队晚播旧接触。
-
-四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
+当前微小星火和水滴在正常视距仍偏弱，按可见性明确调整热芯、数量、宽度、明暗层次与短寿命包络，交实际比例前后短片并与08对齐，维持材质差异和不遮来刀。既有motion.json／TBN／Stage重力接口作为共同数据。旧lighting候选、HDR/KTX来源与限制交07，global配光后续移出本会话。不要用固定DEAD秒数或HUD提示冒充真实落地。
 
 ## 当前状态
 
-**阶段3执行中。** 首版配光已由Root构建安装并取得Full Stage画面，原六primitive材质候选因分片高光拒绝。当前制作单primitive连续材质贴图补丁与IBL KTX候选。
+**本批独立接触素材、地面候选与离线制图器修正已交付。** 连续MR方法接受但收益较轻，KTX规范候选已收件、PICO互操作由Root处理。本批按顶部队列交金属／湿布／闪避尘／落地GLB与运动合同。共享材质Alpha串乘已在离线renderer修正，旧弱可见性结论撤回，以最新独占材质的同条件图为准。
 
 ### Root阶段3收件与反馈呈现接线
 
@@ -26,9 +24,7 @@ CombatImpact、分层FX、11段音效、触觉与离线预演已交付。正式P
 
 ## 文件所有权
 
-阶段2当前仅写 `ArtSource/refinement/lighting/stage2/` 与本文件，HomeStage及正式资源均冻结。阶段2任务为HDR→IBL KTX生成链核对与raw rig部位PBR审校，以下HomeStage修改范围为上一阶段合同。
-
-负责app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt中照明、阴影接线及对应资源生命周期，ArtSource/refinement/lighting/、必要的app照明资源和本文件。保留现有角色／手部presenter、战斗位置、面板布局与CombatImpact接口。Main、战斗内核、角色GLB、producer和manifest由Root维护。
+负责 ArtSource/refinement/effects/contact-polish/ 及后续效果源资产与本文件。HomeStage、照明、音频、共享CombatEffects运行文件由Root／07／08／11分工维护。
 
 ## 本轮任务
 
@@ -249,3 +245,67 @@ Root组合02／03已批准目标时，只替换MR图片数据，保留目标已�
 唯一入口复建、GLB节点／尺寸／寿命及脚本语法检查通过。四项参考轨迹测试实际通过，覆盖TBN与Stage重力、法线旋转后重力保持、无效切向拒绝以及过期／未出生采样。[独立检查结果](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/verification.json)
 
 **独立金属／湿布素材阶段结束。** 真实粒子接入、透明排序、场景光下可见性和帧预算由Root统一验证；本会话继续授权队列的闪避近地尘与落地素材。
+
+## 地面效果阶段回报 · 闪避近地尘与落地候选
+
+**本轮结构与制作实物结束，观感未通过，继续一次材质修正。** 首批两份GLB在15:21落盘，实际Paving对照图／片已交；最终说明和复核收尾超过30分钟。当前候选没有覆盖app。
+
+- [闪避近地尘](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/dodge_ground_polish.glb)，17,980字节，SHA `ebbdaad332022ea017f7207956f3963a675adf3770dd287553076714a352ddf2`。
+- [落地低尘](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/landing_ground_polish.glb)，18,072字节，SHA `b29a5d67fee5343e12a318ed7dab8afb4eb55c6d0b98a9e785a0afb3723d55ae`。
+
+每种8个独立cross-card mesh、192三角，无动画。几何原点在体积底面，localZ从0到约2至2.8cm，水平动态包络对角约22.2／32.9cm。闪避寿命260至380ms，落地300至420ms。姿态固定TBN，Stage重力保持−Y，锚点沿真实地面法线外移2mm，底部投影约束在锚点平面以上。
+
+统一制作入口已扩至ground并实际复建，前阶段金属／湿布hash保持。参考采样器新增sample_ground_particle，6项正常／边界测试与独立GLB检查通过；ground自身验证覆盖3种地面法线、非零高度、底部、法线、索引和寿命，最小平面偏差仅浮点−1.87e−16m。[地面说明与检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/README.md)
+
+### 真实承载材质对照与失败
+
+原 [100ms错误渲染证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/review/invalid_shared_alpha/ground_compare_100ms.png)、[300ms错误渲染证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/review/invalid_shared_alpha/ground_compare_300ms.png)与[0.7秒错误渲染短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/review/invalid_shared_alpha/ground_preview.mp4)，1920×544、30fps、21帧。来源为正式forecourt.glb的实际Paving原材质，输入SHA为 `fde7def5888232f0b20fd5959fac4a5edbae1ee51261a88b97e6216ce741477e`。最高水平石面作示例锚点，30cm尺、固定机位／灯光，旧栏注明资源理论包络。
+
+此前目视两图标记FAIL_READABILITY。现已查明离线renderer给8个共用material的mesh各串接一次Alpha multiplier，最终得到8个opacity的乘积；该结论混入制图故障，已撤回对素材本身可见强度的判断。原图仅保留为错误渲染证据。SDK独立Entity／Opacity的实际语义需要每个离线对象独占材质后重新模拟。visibility-v2材质试验已生成，但当前停止调参，先修正制图器并重做v1／v2同条件比较。
+
+### 触发与剩余接口
+
+闪避T应来自实际玩家地面位移，落地应由当前pose与地面真实接触解析，Root提供点／法线／材质。UI闪避提示和固定DEAD秒数不能作为接地事件。参考base-clamp保证传入局部平面的底部关系，实际不平石面、触发同步、致命慢时钟和SDK消费由Root接入。
+
+**地面候选v1结构阶段结束，原视觉判断待修正复核。** 当前优先处理独立颗粒的离线材质所有权，保留错误图与v2试验，不再以错误基准调高素材浓度。
+
+### 独立粒子离线Alpha所有权故障
+
+2026-11-11已用Blender实际导入复现，8个dust对象有8个material slot，但共用同一material。旧alpha_controls循环修改共享Principled Alpha链，造成所有对象读取opacity乘积，例如0.6的8次方约0.0168；原100ms样本约0.0264。共享GLB材质本身合法，本次修复限定离线对象材质副本与单一Alpha控制，原GLB、几何和运动轨迹保持。
+
+将同步检查金属／湿布独立粒子renderer，修正后重出同机位图。此前普通65ms／弹反90ms核心的时长语义仍按数值核对，独立火星、水滴与地尘的亮度判断以修正制图器后的结果为准。当前没有将该离线故障称为SDK实际呈现故障。
+
+## 地尘材质试验与离线Alpha根因修正回报
+
+**本批阶段结束，交Root统一review与接入。** 本轮诊断和制图器统一修复收尾超过30分钟目标，未把错误图当成源素材观感通过或失败的证据。保留原始候选、材质v2试验及无效图归档。
+
+### v2实际素材变化
+
+v2从原独立地尘派生，几何、POSITION／NORMAL／indices、节点变换、尺寸、初始位置／速度、Stage重力、生命周期及opacity关键帧时间完全相同。改变限定为候选实际GLB材质／颜色Alpha和motion的透明度取值。
+
+- [v2闪避GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/visibility-v2/dodge_ground_polish.glb)，22,332字节，SHA `cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c`。
+- [v2落地GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/visibility-v2/landing_ground_polish.glb)，22,424字节，SHA `f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b`。
+
+baseColorFactor采用暗湿泥色(0.35,0.32,0.28,1)，材质Alpha由0.28改为1；顶点Alpha×1.8并限制到0.65，原中心0.7会被上限下调，透明边缘0保持。motion峰值由原约0.55／0.64改为0.85。没有新增自发光，参数见visibility_patch.json。[独立几何／轨迹／透明边缘核验](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/visibility-v2/independent_verification.json)通过。
+
+### 已修正的唯一离线透明控制
+
+[offline_opacity.py](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/offline_opacity.py)使用公有MaterialSlot的OBJECT链接与material.copy，为每个对象材质槽建立独占材质，每slot只增加一个Alpha因子。contact-polish、ground、visibility-v2三个有效renderer均已使用该helper，重复配置会显式拒绝。
+
+Blender真实回归覆盖两个对象共用同一mesh／源材质，确认0.5和0.8透明度独立、原mesh／shader不变；实际渲染所有权为金属／湿滴36对象对应36材质，ground入口19／19，v2比较24／24。[helper回归证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/opacity_helper_verification.json)
+
+旧金属／湿滴和ground错误图片、短片已归档到各自review/invalid_shared_alpha，明确作废。GLB合法共享材质保持，无需为了离线故障把源素材拆成更多材质。SDK的逐Entity Opacity由Root接入，本阶段仅修正离线模拟它的实例所有权。
+
+### 修正后的实物与判断
+
+已目视 [正确100ms地面比较](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/visibility-v2/review/visibility_v2_100ms.png)与[正确300ms比较](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/ground/visibility-v2/review/visibility_v2_300ms.png)。同一正式Paving、相机、灯光和尺度下，v1原材质呈弱浅尘，v2的低矮尘团更清楚，随后依实际寿命衰减。当前可作为Root专项接入／浓度审校候选，尚不代表PICO观感或写实程度通过。
+
+金属／湿布 [67ms帧](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_02.png)、[时序板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_timeline.png)及[0.5秒片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/contact-polish/review/contact_polish_preview.mp4)均已用独立Opacity重出。普通65ms核心已结束，弹反90ms核心仍在，火星与毫米水滴各自透明变化。原ground 0.7秒错误片已作废，本轮交正确100／300ms图，避免混用旧片。
+
+### 一键复建与剩余项
+
+唯一build_contact_polish.py已纳入金属、湿布、ground基准及v2材质试验，实际复建的6份GLB哈希与交付一致，catalog明确均为审校候选。6项轨迹／边界用例、GLB尺寸／寿命及v2同几何核验通过，脚本语法与静态差异检查通过。
+
+Root需按真实接触点／法线／切向、真实成功闪避及骨骼落地触发驱动；湿布需真实材质语义，过期事件不重启。SDK透明排序、实际场景浓度与性能由Root验证，白闪／刀光／逐击UI和运行源码继续归Root。原HomeStage409400aa是历史输入快照，本轮未回写任何共享运行文件。
+
+**独立接触与地面候选本批制作结束。** 已交实际GLB、运动代码／合同、修正后的同条件图与重渲片、错误证据归档。授权队列本批候选齐备，Root统一决定正式选择、接入、构建、设备和Git，本会话结束当前回合。

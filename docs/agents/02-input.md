@@ -1,18 +1,14 @@
-# 02 · 部位分区与衣物蒙皮修复
+# 02 · 刀具造型材质与握持
 
 ## 最新用户目标与执行队列
 
-完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，袖口、刀具与握持为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你主责现有dao的明显几何与材质升级及三角色握持。03收服装结构，05收头脸，08接实际攻击特效。
 
-当前袖口候选按原合同继续，交付后转ArtSource/refinement/weapon做现有dao局部精修。重点是刃／脊几何分工、护手厚度、握柄缠绕、磨损与金属反射。米制长度、握点、现有手指接触为共同约束，逐角色给三视角与持刀近景。复用ArtSource/dao现有制作逻辑，首轮候选写独立目录，禁止覆盖正式dao／角色源。新刀形影响挂点或表面时交Root统一重签校准及重新组合，不以外观精修破坏实际刀路。
-
-四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
-
-Root已接角色实例身体白闪，按实际tripo_身体材质名识别，保留Steel／Brass／Grip刀具槽。刀具候选继续保留明确部件材质名和米制握持身份，原身体材质改名或拆分需在交付中给映射。身体与DAO仍共用蒙皮ModelComponent，正式合成由Root处理。
+最新一轮不能只改roughness和金属factor。制作有实际倒角与截面的刀脊／刃口、刀尖过渡、护手铸造边、柄绳编织、端帽与有因果磨损。保持公共刀长和握点语义，握持接触区优先保护，确需变化给明确映射和可见对照，由Root重签。正常游戏视距的刀身反射和轮廓必须有可辨改进。现袖口微小候选与限制交03，继续武器队列，不等待其回复。
 
 ## 当前状态
 
-**阶段4执行中。** 三轮权重候选均未通过，正式源保持。Root接受当前衣摆有自然凸面与折层这一事实，停止围绕该凸面追逐应变数字，转到袖口与腕部可见细节制作。
+**袖口首项与刀具首轮材质候选已交付，等待 Root review。** 三轮权重候选均未通过。Root接受当前衣摆有自然凸面与折层这一事实，停止该目标的权重实验。袖口局部收细和刀具材质响应已形成独立实物，完整退腕、刀具几何与握持接触继续按最新队列评审。
 
 ## 上一轮成果与Root review
 
@@ -20,7 +16,7 @@ Root已接角色实例身体白闪，按实际tripo_身体材质名识别，保�
 
 ## 文件所有权
 
-负责ArtSource/refinement/deformation/与本文件。原始Tripo、prepare_character_library.py、prepare_rigged_warrior.py、motion_library.json、library和app模型由Root或01维护，不直接覆盖。01同期制作手姿，04同期修光照。
+负责 ArtSource/refinement/weapon/、现有ArtSource/dao内你明确新增的候选制作源与本文件。正式dao资源、角色producer与挂点校准由Root统一维护。衣物、头脸和其它会话目录保持。
 
 ## 本轮任务
 
@@ -193,3 +189,29 @@ Root已查看同面跟踪与bind／native PBR图。该处存在源衣物折层�
 当前保护集合包含所有 Hand/finger 影响，强于实际手语义，677 个左侧灰缠腕点因保守策略未动。后续应先通过实际材质、颜色和结构确认手与衣物；若有独立衣物环，验证同拓扑退移；若确认融合，则给袖侧环复制／重索引及最小内腕、布壁和局部 UV 方案，原手顶点保持。当前没有冒充实现真实 12 mm 开口，右侧候选与窄布／薄皮材料分工仍待后续。
 
 本轮费用 0，实际发布由 Root 统一处理。当前有效阶段已收口，继续 `ArtSource/refinement/weapon/` 的独立 dao 候选。
+
+## 刀具首轮材质响应交付
+
+**本阶段结束，等待 Root review，当前回合结束。** 完整产物、固定 SHA、参数和限制见 [weapon 说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/README.md)。本轮完成材质响应候选及几何量测基线，整体刀具精修仍有后续工作。后续按本文件顶部最新队列继续，避免因等待重复批准而空转。
+
+### 双入口实物与三角色制作副本
+
+- [NPC 刀具候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/dao_response.glb)，源 SHA `0855a39e9851222a8976f36b2722fdde8d1f2e42cb2e813cf4057dc1257ef616`，候选 SHA `ed06ec82a709ce2e21d867e6d8d3cfd95557b92e58b9d8dc553e8fad9463496a`。
+- [玩家 Grip 候选](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/dao_grip_response.glb)，源 SHA `a2a5eae94ef6f577697d6c91a5cd4d7fe22e09e2f8b8e4411cd53768751739fc`，候选 SHA `a579748a3edd4b378b896cd6c387c222f11bd107c2a740e1630600437f7cb48f`。玩家入口为 Grip identity、+Y 向上、−Z 刀轴。
+- [机读材质 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/material_delta.json)记录七个粗糙度字段及刃口金属度。刃口粗糙度约 0.27→0.19、刀脊 0.40→0.45、旧黄铜 0.48→0.55，其他值见完整表。八个部件槽具明确原名，可供 Root 继续区分身体白闪与刀具。
+- [三角色私有清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/actor_manifest.json)提供 base／indigo／veteran 前后 GLB。base 采用 01 已审 guard 预览 `34ced4fb666e17fa066e75c83baffbf8c3e37d5e6cfb15f49549a9bca6c98896`，尚待 Root 与领襟、袖口和其他材质组合。
+
+### 实际图与效果边界
+
+独立刀具两套固定灯光各有正／斜／背及护手柄近景，三角色各有正／侧／背及持刀近景，共 20 张前后板。
+
+- [常规灯光正面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/standalone/front_before_after.png)、[反射灯斜面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/reflection_test/oblique_before_after.png)、[反射灯护手柄近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/reflection_test/guard_grip_before_after.png)。常规灯下刀面偏暗，反射灯下亮面趋白，前后差异均较轻微，视觉收益待 Root 判断。
+- [base 持刀](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/actors/base_before_after.png)、[indigo 持刀](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/actors/indigo_before_after.png)、[veteran 持刀](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/previews/actors/veteran_before_after.png)，全身三视图见 weapon 说明。头、靴与刀尖完整入画，部分刀面呈侧缘或被身体遮挡，前景空手也遮住部分刀柄。完整接触面与既有穿插仍需专项处理。
+
+### 量测、验证与下一步
+
+[实际量测](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/source_measurements.json)记录 13 mesh、3,722 面、8 材质，全刀约 104×967×39 mm、标记刀段 720.676 mm、护手轴向厚 18 mm、缠柄约 18 圈及五处刃／脊截面。本轮几何 delta 为零，新增倒角、护手减薄、缠绕造型及局部接触磨损继续作为后续制作项。
+
+[独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/verification.json)已实际运行，NPC／玩家／三角色五个入口的完整 BIN 与非材质 JSON 一致性通过，涵盖几何、UV、节点、锚点、skin、rest 与动作。正常候选及锚点／网格／源 BIN 变更拒绝通过，生成器四类非法材质更新拒绝通过。当前验证支持有限材质补丁交付，现有手部接触问题仍需解决。
+
+后续刀形与握持联合精修继续使用米制长度、Grip 和真实手表面约束。Root负责新文件身份复审、校准重签、正式组合与发布。玩家帧当前已验证结构与材质，独立玩家帧渲染仍待制作。现有低采样离线图适合首轮方向审查，PICO 实时加载、游戏 IBL、实际持刀输入、连续补间、完整三轮与 Space Pro 性能尚待验证。本阶段费用 0。

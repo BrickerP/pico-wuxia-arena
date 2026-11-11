@@ -1,18 +1,14 @@
-# 01 · 按动作与手别精修手姿
+# 01 · 动作源与战斗姿态
 
 ## 最新用户目标与执行队列
 
-完整制作规格见[动作与打击反馈规格](../combat-polish-spec.md)。本队列承接2026-11-10用户最新的动作、特效、UI、环境与数值要求，动作与对砍为本会话后续责任。当前已产出的有效阶段先收口，再按队列继续，不因等Root回复而停住。
+2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你继续负责动作源与正常视距可见的站姿、引刀、随势、防御支撑、弹反卸力、受击与行走转身。09接正式bank／正常循环／动画与代理，05接头脸，Root统一producer和发布。
 
-当前正劈阶段按原合同继续。完成后依次制作左右斩、防御支撑、弹反卸力、受击与回守，再做行走／转身。每项给raw曲线、刀尖轨迹、实际脚底和接触代理所需骨锚；源时间与650／250／200／650ms现有正劈阶段对应。原生slash与新正劈的旧身体前倾和接触标记分别保留来源，禁止旧代理套新动作。左右攻击在当前正常循环尚未使用，Root将与对应clip和代理一起接通。先交完整一招短片，随后扩已有能力。公共producer保持冻结，Root发布。
-
-四会话共享仓库，请保留他人编辑。Root维护真实命中事件、最终UI与SDK接线、公共角色producer、正式发布、共享构建、设备和Git。先开发与专项制作检查，整局自玩后置。每阶段交GLB／代码、前后图或短片、来源与明确限制，30分钟先交第一项可见进展。
-
-Root已经接入70ms普通接触、90ms要害、95ms弹反和150ms致命短停。死亡动作由运行时统一接0.35倍220ms及180ms恢复，raw动作保留正常源时标，避免制作曲线与运行时重复减速。DEAD动画按同一死亡视觉时钟手动seek。新正劈仍需Root重新标定动作源段与接触代理后发布。
+三攻击stage5 raw保持冻结，继续既有后续队列。把动作力度和人体重心作为重点，避免只用细微角度与误差小数作为完成证明。每项交原生曲线、真实刀尖轨迹、源时间、足底与双手可见图／短片。与09交换来刀侧和接触标记，与03交换服装动作穿插。公共prepare_character_library和prepare_rigged_warrior由Root内部生产线维护，你不再编辑它们。
 
 ## 当前状态
 
-**阶段5左右斩制作中。** 阶段4宽战斗站姿、连续正劈、正侧短片及补间刀面检查已交Root review。按最新授权队列继续左右方向动作，正式接入由Root统一完成。
+**阶段6防御支撑与破势卸力收尾。** 三攻击bank已冻结交Root，当前两类敌人状态曲线和姿态板已产，正在完成最终依赖身份与连续短片核对。正式接入由Root统一完成。
 
 ## 上一轮成果与Root review
 
@@ -20,7 +16,7 @@ Root已经接入70ms普通接触、90ms要害、95ms弹反和150ms致命短停�
 
 ## 文件所有权
 
-负责ArtSource/tripo-warrior/prepare_character_library.py中手姿采样／重定向逻辑、ArtSource/refinement/hand-poses/和本文件。prepare_rigged_warrior.py、motion_library.json、正式library/app模型与全部Kotlin运行代码由Root维护。02会话只做分区蒙皮候选，04只做场景配光。
+负责 ArtSource/refinement/hand-poses/、ArtSource/refinement/slash-refinement/ 的动作制作源、候选与本文件。公共producer、manifest、正式库、Kotlin runtime与Git归Root及指定运行会话。
 
 ## 本轮任务
 
@@ -253,6 +249,8 @@ Root已查看五姿态三视角最终板。接受收敛腰颈前倾、明确上�
 | ACTIVE | 200ms | .90至1.10秒 |
 | RECOVERING | 650ms | 1.10至1.75秒 |
 
+**Root合入前需校正接触时点。** 阶段5审查确认当前裁决contactDue位于ACTIVE中点100ms，阶段4正劈接触key在源.90秒，会在线性阶段映射下提前100ms。阶段4资产保持冻结，Root须在正式接入前统一正劈源接触与裁决时点。阶段5已将左右斩接触key移到源1.00秒，ACTIVE仍为.90至1.10秒，已加100ms断言。
+
 接触仍取真实Steel刃面点(-.09006450,1.36361861,.90)m。新骨锚见 [joint_anchors.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage4/audit/joint_anchors.json)，含106实际key的Head／Spine02／Hip／双Foot／ToeBase原点与世界旋转及真实刀根／尖，坐标在游戏实体变换之前。Root使用该源重新绑定代理局部锚与现半径／阈值，旧native前倾曲线保留各自来源。stage4 metadata的 `feet_world_gltf_m` 实际是足底中心，真实踝骨位置以此导出的 `bone_anchors` 为准。
 
 ### 验证、短片与限制
@@ -269,6 +267,92 @@ Root已查看五姿态三视角最终板。接受收敛腰颈前倾、明确上�
 
 ## 当前阶段5执行项
 
+### Root动作bank合入review
+
+Root已查看阶段4的v2三视角板，接受更宽战斗站姿、屈膝、上方引刀、肩腰带动及开放护身手方向。原生旧slash的前倾曲线将从正式攻击播放路径移出，native grip_source保留每角色抓握参考。
+
+接触时序作为合入闸门。当前规则在ACTIVE中点裁决，OVERHEAD对应游戏有效段开始后100ms。新源三招统一使用1.00秒的真实Steel接触key，阶段区间仍为0／.65／.90／1.10／1.75。已冻结阶段4原件保留，在stage5候选目录输出overhead_aligned_raw及对应预览、metadata与骨锚，避免覆盖既有来源身份。左右斩按同一规则收口。Root接入后由同一数据导出播放相位与接触代理。
+
+请先冻结这三招的raw／右指一次校正预览、实际接触点与每帧骨锚，逐文件写完整SHA和校正次数。方向名是角色视角，另给源.90／1.00／1.10秒刀尖X坐标和切向，Root按玩家视角的来刀侧映射LEFT／RIGHT。三个最终文件冻结后，可继续已授权防御／弹反／受击，公共源码与正式库仍由Root维护。
+
 责任增加 `hand-poses/attack-keyposes/stage5/`，冻结已交阶段4与公共代码。沿用战斗站姿和原右手抓握，分别制作角色视角向左／向右的横斩。prepared+X为角色左，接口名为slash_to_left／slash_to_right，左右转体、引刀、空手护身和刃向分别制作。切向由±Y转轴与实际刀轴叉乘确定。接触点从各动作真实Steel刀面重取，代理骨锚随各源输出。
 
-源五阶段保持0／.65／.90／1.10／1.75秒。现有LEFT／RIGHT游戏时长为550／180／200／600ms，Root按阶段区间映射，角色与玩家视角的方向语义在接线时明确核对。正常循环尚未调用这些方向动作，Root与各自clip、代理一起接通。
+源阶段边界保持0／.65／.90／1.10／1.75秒，真实接触key为1.00秒。现有LEFT／RIGHT游戏时长为550／180／200／600ms，Root按阶段区间映射，角色与玩家视角的方向语义在接线时明确核对。正常循环尚未调用这些方向动作，Root与各自clip、代理一起接通。
+
+## 阶段5回报与三攻击bank冻结
+
+**阶段结束，等待Root review。** 左右斩与校时正劈的三份完整raw现已冻结，供Root动作bank合入。统一输入为 [attack_bank_inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/attack_bank_inputs.json)，SHA-256 `70882dead0ea0e006e113a23f90098aea6ec777cd2c1d9cb3084a1285808ae24`。完整路径、预览SHA、实际接触面、校正次数、时序和切向均在清单内。
+
+### 三份冻结源
+
+| clip | raw文件 | raw SHA-256 |
+| --- | --- | --- |
+| overhead | overhead_aligned_raw.glb | `377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9` |
+| slash_to_left | slash_to_left_raw.glb | `d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65` |
+| slash_to_right | slash_to_right_raw.glb | `a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a` |
+
+文件均在stage5/candidate。raw包含已制作身体／脚／腕／左指曲线，右指校正UNBAKED。每个preview原base的8项右指校正执行一次。独立逐轨重算确认每招8条旋转匹配一次校正，其余226轨数值相等，最大校正重算分量差8.55e-8。当前制作基准为base78骨，其他角色握持与曲线适配由Root统一处理。
+
+三preview完整SHA分别为 `4bf8057da353c4f1ee5037de7c5fe87910887910a9589b44d39105a5a55c7bd9`、`4c0d898a4078b3c3b9651f3fcba91b5acfd6a519b7757003a28715aa22b3fb21`、`149340854a45e8191c277819d304a64ed202c45a4ab7794da894ef9c84e47ae2`。早期左右.90秒接触版已被本次1.00秒版取代。旧stage4保持冻结，仅用于来源追溯。
+
+### 接触与方向
+
+三招106个60Hz LINEAR采样、源0至1.75秒，接触统一在1.00秒，对应ACTIVE中点100ms。正劈以冻结stage4完整TRS分段重时标，新0／.65／1／1.1／1.75映旧0／.65／.9／1.1／1.75，重采后腕位最大差约.046mm、鞋面中心约.058mm。
+
+| clip | 刀尖X@.90s(m) | X@1.00s(m) | X@1.10s(m) | 实际主切向 |
+| --- | --- | --- | --- | --- |
+| overhead | -.125650 | -.090107 | -.130107 | 向下−Y |
+| slash_to_left | -.682599 | -.067192 | +.752867 | 角色左+X |
+| slash_to_right | +.498293 | -.063109 | -.961526 | 角色右−X |
+
+清单逐时刻另给真实刀尖XYZ、source+X刃切向及h=1/120源秒中心差分速度，单位为m/source-second。上述.90至1.10大窗口差分仅用于方向核对，不与小窗口瞬时速度混用。contact处重时标两侧速度可不同。
+
+现enum定义为玩家来刀侧。实际左斩从玩家左侧进入并向玩家右扫，对应LEFT；右斩从玩家右侧进入并向左扫，对应RIGHT。依据是实际入射轨迹与防守side规则。prepared+X是角色左侧，也是正面玩家画面右侧，源名描述角色切向。左右游戏时长550／180／200／600ms需逐阶段映源区间，正劈650／250／200／650ms各阶段速率为1。
+
+左右真实Steel接触点分别为(-.104616,1.293127,.90)、(-.025353,1.343339,.90)m，来自各自刀面；正劈为(-.090065,1.363619,.90)m。源1.00秒实际三角面到记录点误差均低于.001mm。每招106帧骨锚见stage5/audit的各自joint_anchors文件，Root据同源生成新代理与播放相位。
+
+### 制作、验证与限制
+
+右斩初版出现15个离散时刻空手穿刀，调整引刀护手至(.34,1.48,-.05)、触刀护手至(.24,1.38,.05)后消除。右持刀目标保持，原抓握未镜像。首尾234轨均与冻结overhead守势相同。
+
+三完整候选各16项拒绝回归及100ms时序断言通过，左右pose板各16项通过。实际刀面审计每招覆盖106个key与105个补间中点，共211时刻，左手／头颈均0个BVH候选、0对已确认交叉。正劈最小手／头间距197.717／24.502mm，左斩112.526／168.027mm，右斩97.428／94.012mm。可复跑脚本与报告在stage5/audit，明确各最终SHA。
+
+鞋底曲面余量沿用原制作基准。新时标下最大足底低带水平滑移约1.404mm，补间最深下探约.128mm，保持实测披露。有限采样不证明无限连续无穿插或C1。PICO运行、三角色适配、正常循环入口、实际判定同步及FX接线由Root整合验证。
+
+### 可见产物
+
+- [左斩三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/slash_to_left/slash_to_left_three_view_board.png)、[右斩三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/slash_to_right/slash_to_right_three_view_board.png)，已目视全部30视图，接触图为源1.00秒。
+- [最终左斩短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/video_bank/slash_to_left/slash_to_left_front_side_continuous.mp4)、[最终右斩短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/video_bank/slash_to_right/slash_to_right_front_side_continuous.mp4)、[校时正劈短片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/video_bank/overhead/overhead_front_side_continuous.mp4)，各22个12fps真实源采样。最终三视频统一3.3m正交比例与世界相机，覆盖正劈补间最高刀尖，旧尺度短片已清理。
+- [最终渲染方法与限制](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage5/review/directional_visual_review.json)，记录三招全66个连续时刻与统一机位身份。
+
+本阶段超出30分钟，追加了实际补间穿插修正、ACTIVE中点校时及三攻击输入收口。按已授权队列，三raw冻结后接续防御支撑／被弹反卸力／受击制作。
+
+## 阶段6回报
+
+两类敌人状态候选与数据验证已完成，最终短片及审计按新依赖身份收尾。首版两姿态板约00:45可见，超过30分钟首图目标约3分钟；后续补齐依赖闭包后重建，12个GLB的字节与SHA均保持相同。
+
+### 语义、产物与事件源
+
+| clip | 角色语义 | 连续源 | raw SHA-256 | preview SHA-256 |
+| --- | --- | --- | --- | --- |
+| guard_brace | 敌方举刀承载、稳住支撑 | .80秒／52键 | `c2b80547b2c2e3199caf9713ba9e39c641d595b0f1f5b9ac0377786ca4f263cc` | `8937250292c06364b08f5fb29d1f7df25daf31c80a4a642b1b4cbd1032399248` |
+| parried_recoil | 敌刀被玩家弹开后的卸力破势 | .85秒／55键 | `f3eb395277dd8df673fa74836e6e1c568552bbe4d30710f19d1162a3490e3691` | `eb3dd3946352aedb32aeeeb9335e1ee0fd420c63e1a31433ae72034e38c746c2` |
+
+文件在 `hand-poses/attack-keyposes/stage6/candidate`，连续源均标准LINEAR TRS，另有五姿态STEP审阅板。raw右指校正UNBAKED，preview原8项右指校正一次。原rest、骨长、mesh、skin、weights、IBM及刀长保留。
+
+支撑事件／建议持姿时刻为源.26秒，Steel面点(-.128084,1.829010,.45)m。破势事件为源0秒，入口raw与preview全部234轨分别精确匹配冻结overhead_aligned源1.00秒接触帧，末帧回到canonical guard。其钢面点为(-.090065,1.363618,.90)m。该入口当前只证明OVERHEAD被弹反，左右斩入口尚未覆盖。
+
+本轮选择支撑抬刀、躯干约2.5cm后移与小幅下沉；破势右腕侧后撤、肩腰向角色右侧卸力后回守。具体中间姿态、刃向和时点由本轮制作补齐，均在各parameters与metadata。现有550ms敌破势时长如何映.85秒源由Root接线决定，本轮保留正常源时标。
+
+### 实测与依赖修正
+
+支撑每份15项、破势每份17项拒绝回归fresh通过，覆盖来源、入口、重复／无效参数及依赖漂移。左右原握持、一次校正和入口／出口逐值核对通过。两类曲线按实际蒙皮检查52+51／55+54个key及中点，左手／头颈均0个BVH候选和0对已确认交叉。最小间距分别为支撑276.191／181.461mm、破势268.318／83.460mm。足底低带最大水平位移约支撑.132mm、破势.768mm，最深补间鞋面下探约.076mm。
+
+共享producer由Root并行更新。原loader先后因整文件身份和decoder实际变化拒绝复跑，已检查当前API，补齐stage3脚本的stance.SOURCE_PINS、几何accessor及实际静态依赖。Root helper去除未使用offhand分支、decoder增加重复目标拒绝，合法曲线语义保持。用当前依赖重新构建，12个raw／body／preview逐字节相等。证明见 [dependency_rebuild_report.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/candidate/dependency_rebuild_report.json)。公共及旧阶段源文件保持各自所有者维护。
+
+### 已见姿态与限制
+
+- [支撑五姿态三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/guard_brace/guard_brace_three_view_board.png)
+- [正劈被弹反卸力三视角板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage6/review/parried_recoil/parried_recoil_three_view_board.png)
+
+已目视全部30视图，支撑抬刀与卸力侧摆可区分，刀尖和脚底均入画。有限过渡采样不证明C1或无限连续无穿插，实际游戏触发、各状态映射、三角色适配与设备画面仍待Root整合。左右入口补齐及受击动作接续队列执行。
