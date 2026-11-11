@@ -39,6 +39,8 @@ object DesktopCombatInput {
     private val pressedKeys = mutableSetOf<Int>()
     private var entryPose: LocalPose? = null
     private var lastLocalPose: LocalPose? = null
+    private var frameGeneration = 0L
+    private var actionStartedInFrame = -1L
 
     private data class HandPose(val position: Vector3, val rotation: Quaternion)
     private data class LocalPose(
@@ -94,16 +96,26 @@ object DesktopCombatInput {
             val offset = checkNotNull(sourceRotation.rotate(hand.position))
             return ObservedPose(headPosition + offset, (sourceRotation * hand.rotation).normalizedOrNull(), TrackingQuality.UNKNOWN)
         }
-        DesktopPoseFrame(
+        val result = DesktopPoseFrame(
             ObservedPose(headPosition, sourceRotation, TrackingQuality.UNKNOWN),
             observe(local.left),
             observe(local.right),
         )
+        frameGeneration++
+        result
     }
 
     private fun startAction(requested: DesktopCombatAction, now: Long, held: Boolean) {
+        if (action == requested && actionStartedInFrame == frameGeneration) {
+            if (held) {
+                guardHeld = true
+                guardReleasedAtNanos = null
+            }
+            return
+        }
         entryPose = lastLocalPose ?: rest()
         action = requested
+        actionStartedInFrame = frameGeneration
         startedAtNanos = now
         guardHeld = held
         guardReleasedAtNanos = null
@@ -117,6 +129,8 @@ object DesktopCombatInput {
         pressedKeys.clear()
         entryPose = null
         lastLocalPose = null
+        frameGeneration = 0L
+        actionStartedInFrame = -1L
     }
 
     private fun rest() = LocalPose(zero, restingLeft, restingRight)

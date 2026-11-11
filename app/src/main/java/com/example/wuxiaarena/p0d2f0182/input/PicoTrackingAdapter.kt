@@ -155,10 +155,9 @@ class PicoTrackingAdapter(
             }
             hmdStartAttempted = true
             lastHmdStartResult = hmd.start()
-            if (!emulatorPreview) {
-                controllerStartAttempted = true
-                lastControllerStartResult = controllers.start()
-            }
+            // Preview consumes controller actions, while its poses stay HMD-derived.
+            controllerStartAttempted = true
+            lastControllerStartResult = controllers.start()
             pollAvailability()
         } catch (error: Exception) {
             try {

@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.wuxiaarena.p0d2f0182.content.ArenaControlPanel
 import com.example.wuxiaarena.p0d2f0182.content.ArenaStatusPanel
 import com.example.wuxiaarena.p0d2f0182.content.HomeStage
+import com.example.wuxiaarena.p0d2f0182.content.arenaControlPanelHeightDp
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ObserveTracking
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaSession
@@ -142,6 +143,10 @@ fun mainApp(scope: SpatialAppScope) =
                         enemyPresenter.value = presenter
                         presenter?.invoke(arena.viewState, emptyList())
                     },
+                    controlsHeightDp = arenaControlPanelHeightDp(
+                        viewState.value.result, viewState.value.pauseReason,
+                        DesktopCombatInput.enabled || viewState.value.inputOrigin == InputOrigin.DESKTOP,
+                    ),
                     controlsPanel = {
                         ArenaControlPanel(
                             state = viewState.value,

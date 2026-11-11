@@ -1,4 +1,9 @@
 <resources>
+    <string name="arena_damage_value">%1$d</string>
+    <string name="arena_damage_description">造成%1$d点伤害</string>
+    <string name="arena_damage_head_description">要害命中，造成%1$d点伤害</string>
+    <string name="arena_damage_guarded_description">对手护身，实际造成%1$d点伤害</string>
+    <string name="arena_damage_fatal_description">致命一击，造成%1$d点伤害</string>
     <string name="app_name">酒馆试炼</string>
     <string name="hello">Hello, Spatial SDK！</string>
 

@@ -24,6 +24,7 @@ import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingTarget
 import com.example.wuxiaarena.p0d2f0182.input.PicoTrackingAdapter
 import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
+import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatAction
 import com.pico.spatial.tracking.DataProvider
 import com.pico.spatial.tracking.controller.ControllerTrackingProvider
 import com.pico.spatial.tracking.hmd.HMDTrackingProvider
@@ -35,7 +36,99 @@ private const val TAG = "ArenaTracking"
 private const val BUFFER_CAPACITY = 256
 private const val STATUS_POLL_NANOS = 100_000_000L
 private const val STOP_ATTEMPTS = 4
-private const val ACTION_DIAGNOSTIC_CAPACITY = 64
+private const val ACTION_QUEUE_CAPACITY = 64
+private const val ACTION_MAX_AGE_NANOS = 250_000_000L
+
+internal data class ControllerActionObservation(
+    val generation: Long,
+    val rightA: Boolean,
+    val count: Long,
+    val receivedAtNanos: Long,
+)
+
+internal data class ControllerActionBatch(
+    val changes: List<ControllerActionObservation>,
+    val presses: List<ControllerActionObservation>,
+    val droppedChanges: Long,
+)
+
+/** SDK callbacks cache snapshots here. Only the Stage thread drains and acts on edges. */
+internal class ControllerActionQueue(private val capacity: Int = ACTION_QUEUE_CAPACITY) {
+    init { require(capacity > 0) }
+
+    private val gate = Any()
+    private val changes = ArrayDeque<ControllerActionObservation>()
+    private var accepting = false
+    private var generation = 0L
+    private var callbacks = 0L
+    private var dropped = 0L
+    private var lastQueuedRightA: Boolean? = null
+    private var previousRightA: Boolean? = null
+    private var previousReceipt: Long? = null
+
+    fun start(): Long = synchronized(gate) {
+        generation++
+        accepting = true
+        callbacks = 0L
+        clearHistory()
+        generation
+    }
+
+    fun stop() = synchronized(gate) {
+        accepting = false
+        generation++
+        clearHistory()
+    }
+
+    fun reset() = synchronized(gate) { clearHistory() }
+
+    fun offer(token: Long, rightA: Boolean, receivedAtNanos: Long) = synchronized(gate) {
+        if (!accepting || token != generation) return
+        callbacks++
+        if (lastQueuedRightA == rightA) return
+        if (changes.size == capacity) {
+            val lost = changes.size + 1L
+            clearHistory()
+            dropped += lost
+            return
+        }
+        changes.addLast(ControllerActionObservation(token, rightA, callbacks, receivedAtNanos))
+        lastQueuedRightA = rightA
+    }
+
+    fun drain(nowNanos: Long, enabled: Boolean): ControllerActionBatch = synchronized(gate) {
+        val batch = changes.toList()
+        val lost = dropped
+        changes.clear()
+        dropped = 0L
+        if (!accepting || !enabled) {
+            clearHistory()
+            return ControllerActionBatch(batch, emptyList(), lost)
+        }
+        val presses = mutableListOf<ControllerActionObservation>()
+        for (observation in batch) {
+            val age = nowNanos - observation.receivedAtNanos
+            val previous = previousReceipt
+            if (observation.generation != generation || age < 0L || age > ACTION_MAX_AGE_NANOS ||
+                previous != null && observation.receivedAtNanos < previous) {
+                clearHistory()
+                return ControllerActionBatch(batch, emptyList(), lost + batch.size)
+            }
+            if (previousRightA == false && observation.rightA) presses += observation
+            previousRightA = observation.rightA
+            previousReceipt = observation.receivedAtNanos
+        }
+        ControllerActionBatch(batch, presses, lost)
+    }
+
+    private fun clearHistory() {
+        changes.clear()
+        dropped = 0L
+        lastQueuedRightA = null
+        previousRightA = null
+        previousReceipt = null
+    }
+}
 
 enum class InputControlResult { APPLIED, PENDING, UNAVAILABLE }
 
@@ -68,14 +161,11 @@ private class TrackingSession(
     private var sawControllers = false
     private var reportedFailure: Throwable? = null
     private var pendingControlRecovery = false
-    private val actionGate = Any()
-    private val actionChanges = ArrayDeque<ActionObservation>()
+    private val actionQueue = ControllerActionQueue()
     private var actionListener: ControllerTrackingProvider.ControllerActionListener? = null
-    private var actionGeneration = 0L
-    private var acceptingActions = false
-    private var actionCallbacks = 0L
-    private var droppedActionChanges = 0L
-    private var lastActionValues: ActionValues? = null
+    private var controllerActionsAvailable = false
+    private var controllerActionsPaused = false
+    private var lastControllerActionLog: Triple<Long, Boolean, Boolean>? = null
     private var lastHeadStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var lastControllerStatus: Pair<DataProvider.State, DataProvider.SupportState>? = null
     private var newestHeadObservation: TrackingEvent.Head? = null
@@ -90,16 +180,6 @@ private class TrackingSession(
     private var stopRequested = false
     private var stopInProgress = false
 
-    private data class ActionValues(
-        val leftX: Float,
-        val leftY: Float,
-        val rightX: Float,
-        val rightY: Float,
-        val rightA: Boolean,
-    )
-
-    private data class ActionObservation(val values: ActionValues, val count: Long, val receivedAtNanos: Long)
-
     fun start() {
         if (active) return
         if (attempted || stopRequested) stop()
@@ -109,14 +189,7 @@ private class TrackingSession(
             if (diagnosticsEnabled) {
                 Log.i(TAG, "Input source mode=${if (emulatorPreview) "HMD_DERIVED_DESKTOP_PREVIEW" else "PICO_HARDWARE"}")
             }
-            if (diagnosticsEnabled) {
-                try {
-                    if (!emulatorPreview) startActionDiagnostics()
-                } catch (error: Exception) {
-                    Log.w(TAG, "Unable to register controller action diagnostics", error)
-                    stopActionDiagnostics()
-                }
-            }
+            if (emulatorPreview) startControllerActions()
             adapter.start()
             if (diagnosticsEnabled) {
                 Log.i(TAG, "Provider start results head=${adapter.lastHmdStartResult}, controllers=${adapter.lastControllerStartResult}, receivedAtNanos=${System.nanoTime()}")
@@ -138,8 +211,8 @@ private class TrackingSession(
             if (diagnosticsEnabled) {
                 Log.i(TAG, "Provider start interrupted head=${adapter.lastHmdStartResult}, controllers=${adapter.lastControllerStartResult}, receivedAtNanos=${System.nanoTime()}")
                 logProviderStatus()
-                stopActionDiagnostics()
             }
+            stopControllerActions()
             Log.e(TAG, "Unable to start tracking", error)
         }
     }
@@ -154,13 +227,16 @@ private class TrackingSession(
             val pollDue = previous == null || frameNanos < previous || frameNanos - previous >= STATUS_POLL_NANOS
             if (pollDue) {
                 adapter.pollAvailability()
+                if (emulatorPreview) refreshControllerActionAvailability()
                 if (diagnosticsEnabled) logProviderStatus()
                 lastPollFrame = frameNanos
             }
+            val receiptNow = System.nanoTime()
+            if (emulatorPreview) drainControllerActions(receiptNow)
+            // trigger() timestamps its path while draining, so sample after those triggers.
             adapter.pollDesktopPreview(System.nanoTime())
             drain()
             if (diagnosticsEnabled) {
-                drainActionDiagnostics()
                 if (pollDue) {
                     logObservedHeadMovement()
                     if (emulatorPreview) logObservedPreviewHands()
@@ -186,6 +262,8 @@ private class TrackingSession(
 
     fun stop() {
         active = false
+        controllerActionsPaused = true
+        actionQueue.reset()
         revokeControls()
         stopRequested = true
         if (controlInProgress || stopInProgress) return
@@ -214,11 +292,11 @@ private class TrackingSession(
             }
         }
         if (!attempted) {
-            if (diagnosticsEnabled) stopActionDiagnostics()
+            stopControllerActions()
             stopRequested = false
             return
         }
-        if (diagnosticsEnabled) stopActionDiagnostics()
+        stopControllerActions()
         if (observedReady) {
             observedReady = false
             Log.i(TAG, "Required observations present=false; tracking stopped")
@@ -299,6 +377,10 @@ private class TrackingSession(
         }
         if (controlInProgress) return InputControlResult.UNAVAILABLE
         pendingControl = request
+        if (emulatorPreview) {
+            actionQueue.reset()
+            controllerActionsPaused = request == PendingControl.PAUSE
+        }
         pendingControlEnqueued = false
         return try {
             val completed = finishPendingControl()
@@ -367,6 +449,11 @@ private class TrackingSession(
                     if (!controlsAreCurrent(token)) return false
                     // An unready/stale confirmation is returned immediately and is never stored.
                     val resumed = onResumeRequested(confirmedPauseId)
+                    if (resumed && emulatorPreview) {
+                        actionQueue.reset()
+                        DesktopCombatInput.reset()
+                        controllerActionsPaused = false
+                    }
                     return controlsAreCurrent(token) && resumed
                 }
             }
@@ -386,74 +473,69 @@ private class TrackingSession(
         processor.process(batch, ::onEvent)
     }
 
-    private fun startActionDiagnostics() {
-        if (actionListener != null) stopActionDiagnostics()
-        check(actionListener == null) { "controller action listener removal must finish before restarting diagnostics" }
-        val token = synchronized(actionGate) {
-            actionGeneration++
-            acceptingActions = true
-            actionCallbacks = 0
-            droppedActionChanges = 0
-            lastActionValues = null
-            actionChanges.clear()
-            actionGeneration
-        }
+    private fun startControllerActions() {
+        if (actionListener != null) stopControllerActions()
+        check(actionListener == null) { "controller action listener removal must finish before restarting" }
+        val token = actionQueue.start()
+        controllerActionsAvailable = false
+        controllerActionsPaused = false
+        lastControllerActionLog = null
         lastHeadStatus = null
         lastControllerStatus = null
         val listener = ControllerTrackingProvider.ControllerActionListener { action ->
-            synchronized(actionGate) {
-                if (!acceptingActions || actionGeneration != token) return@ControllerActionListener
-                actionCallbacks++
-                val values = ActionValues(
-                    action.left.thumbstickValue.x, action.left.thumbstickValue.y,
-                    action.right.thumbstickValue.x, action.right.thumbstickValue.y,
-                    action.right.aButtonPressed,
-                )
-                if (values != lastActionValues) {
-                    lastActionValues = values
-                    if (actionChanges.size < ACTION_DIAGNOSTIC_CAPACITY) {
-                        actionChanges.addLast(ActionObservation(values, actionCallbacks, System.nanoTime()))
-                    } else {
-                        droppedActionChanges++
-                    }
-                }
-            }
+            actionQueue.offer(token, action.right.aButtonPressed, System.nanoTime())
         }
-        // Keep the reference even if SDK registration fails partway, for paired cleanup.
+        // Retain the listener after partial registration so stop can remove it.
         actionListener = listener
         controllerProvider.addControllerActionListener(listener)
-        Log.i(TAG, "Controller action diagnostics registered; callbackCount=0, receivedAtNanos=${System.nanoTime()}")
+        Log.i(TAG, "Controller preview actions registered; generation=$token")
     }
 
-    private fun stopActionDiagnostics() {
+    private fun stopControllerActions() {
+        actionQueue.stop()
+        controllerActionsAvailable = false
+        controllerActionsPaused = true
+        lastControllerActionLog = null
         val listener = actionListener ?: return
-        synchronized(actionGate) {
-            acceptingActions = false
-            actionGeneration++
-        }
         try {
             controllerProvider.removeControllerActionListener(listener)
             actionListener = null
         } catch (error: Exception) {
-            Log.w(TAG, "Unable to remove controller action diagnostic listener", error)
+            Log.w(TAG, "Unable to remove controller action listener", error)
         }
-        drainActionDiagnostics()
-        val count = synchronized(actionGate) { actionCallbacks }
-        Log.i(TAG, "Controller action diagnostics stopped; callbackCount=$count, receivedAtNanos=${System.nanoTime()}")
     }
 
-    private fun drainActionDiagnostics() {
-        val (changes, dropped) = synchronized(actionGate) {
-            val result = actionChanges.toList() to droppedActionChanges
-            actionChanges.clear()
-            droppedActionChanges = 0
-            result
+    private fun refreshControllerActionAvailability() {
+        controllerActionsAvailable = try {
+            controllerProvider.state == DataProvider.State.STARTED &&
+                controllerProvider.supportState == DataProvider.SupportState.SUPPORTED
+        } catch (error: Exception) {
+            Log.w(TAG, "Unable to read controller action availability", error)
+            false
         }
-        for (observation in changes) {
-            val values = observation.values
-            Log.i(TAG, "Controller action left=(${values.leftX},${values.leftY}), right=(${values.rightX},${values.rightY}), rightA=${values.rightA}, callbackCount=${observation.count}, receivedAtNanos=${observation.receivedAtNanos}")
+        if (!controllerActionsAvailable) actionQueue.reset()
+    }
+
+    private fun drainControllerActions(nowNanos: Long) {
+        val usable = active && observedReady && controllerActionsAvailable && !controllerActionsPaused &&
+            pendingControl == null && !pendingControlRecovery && DesktopCombatInput.enabled
+        val batch = actionQueue.drain(nowNanos, usable)
+        if (diagnosticsEnabled) {
+            for (observation in batch.changes) {
+                val identity = Triple(observation.generation, observation.rightA, usable)
+                if (identity != lastControllerActionLog) {
+                    lastControllerActionLog = identity
+                    Log.i(TAG, "Controller action generation=${observation.generation}, rightA=${observation.rightA}, " +
+                        "callbackCount=${observation.count}, receivedAtNanos=${observation.receivedAtNanos}, usable=$usable")
+                }
+            }
+            if (batch.droppedChanges > 0L) Log.w(TAG, "Controller action gap; droppedChanges=${batch.droppedChanges}")
         }
-        if (dropped > 0) Log.w(TAG, "Controller action diagnostic gap; droppedChanges=$dropped, receivedAtNanos=${System.nanoTime()}")
+        for (press in batch.presses) {
+            DesktopCombatInput.trigger(DesktopCombatAction.SLASH)
+            Log.i(TAG, "Controller rightA rising edge -> DESKTOP SLASH; generation=${press.generation}, " +
+                "callbackCount=${press.count}, receivedAtNanos=${press.receivedAtNanos}")
+        }
     }
 
     private fun logProviderStatus() {
@@ -482,7 +564,12 @@ private class TrackingSession(
             newestControllerObservation = event
         }
         if (accepted && event is TrackingEvent.Discontinuity) {
-            if (emulatorPreview) DesktopCombatInput.reset()
+            if (emulatorPreview) {
+                actionQueue.reset()
+                DesktopCombatInput.reset()
+                if (event.reason == DiscontinuityReason.ROUND_RESET) controllerActionsPaused = false
+                else if (observedReady || event.reason == DiscontinuityReason.USER_PAUSED) controllerActionsPaused = true
+            }
             Log.i(TAG, "Tracking discontinuity: target=${event.target}, reason=${event.reason}")
         }
         if (accepted && event is TrackingEvent.Head && !sawHead) {
@@ -494,6 +581,12 @@ private class TrackingSession(
             Log.i(TAG, "First controller snapshot observed; left=${event.left != null}, right=${event.right != null}, origin=${event.stamp.origin}, synthetic=$emulatorPreview")
         }
         if (snapshot.hasRequiredObservations != observedReady) {
+            if (emulatorPreview && !snapshot.hasRequiredObservations) {
+                actionQueue.reset()
+                if (event !is TrackingEvent.Discontinuity || event.reason != DiscontinuityReason.ROUND_RESET) {
+                    controllerActionsPaused = true
+                }
+            }
             observedReady = snapshot.hasRequiredObservations
             Log.i(TAG, "Required observations present=$observedReady; hardware tracking quality remains unknown")
         }

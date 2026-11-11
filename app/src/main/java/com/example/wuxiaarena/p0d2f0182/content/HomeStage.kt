@@ -14,6 +14,8 @@ import com.pico.spatial.core.ecs.AttachmentPanelComponent
 import com.pico.spatial.core.ecs.DirectionalLightComponent
 import com.pico.spatial.core.ecs.GroundShadowComponent
 import com.pico.spatial.core.ecs.ModelComponent
+import com.pico.spatial.core.ecs.LookAtComponent
+import com.pico.spatial.core.ecs.LookAtForwardDirection
 import com.pico.spatial.core.ecs.PointLightComponent
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.TransformComponent
@@ -51,6 +53,8 @@ private const val PLAYER_DAO_ASSET = "asset://models/dao_grip.glb"
 private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
 private const val HUD_WORLD_SCALE = 1.4f
+private const val STATUS_WORLD_SCALE = 1.65f
+private val DAMAGE_PANEL_IDS = List(DamagePopupTimeline.SLOT_COUNT) { "contact-damage-$it" }
 private const val ENEMY_STAGE_Z = -2.4f
 private val KEY_LIGHT_COLOR = Color4(0.92f, 0.95f, 1f, 1f)
 private const val KEY_LIGHT_LUX = 1100f
@@ -67,6 +71,7 @@ private class SceneOwner(
     private val onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
     private val onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
     private val onEnemyPresenter: (ArenaPresenter?) -> Unit,
+    private val damageTextStates: List<DamagePopupTextState>,
 ) {
     var root: Entity? = null
     var playerWeapon: Entity? = null
@@ -79,7 +84,12 @@ private class SceneOwner(
     var bladeTrail: PlayerBladeTrail? = null
     var contactLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
-    var enemyWorldPosition: TrackingVector3? = null
+    val damageAnchors = mutableListOf<Entity>()
+    private val damageTimeline = DamagePopupTimeline()
+    private var damageUnavailable = false
+    var damageWorldScale = 1f
+    var statusWorldPosition: Vector3? = null
+    var statusWorldRotation: Quat = Quat.identity()
     var statusPanelY = 2.15f
     private var impactRound = -1L
     private var lastImpact = Long.MIN_VALUE
@@ -106,13 +116,18 @@ private class SceneOwner(
         if (!parent.valid || !enemy.valid) return
         state.enemyPosition?.let { position ->
             val displayPosition = position + state.enemyRecoilOffset
-            enemyWorldPosition = displayPosition
             val transform = checkNotNull(enemy.components[TransformComponent::class.java])
             transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))
             val halfYaw = state.enemyYawRadians / 2f
             transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
             panelAnchors[STATUS_PANEL_ID]?.let { anchor ->
-                placeAttachment(parent, anchor, Vector3(position.x.toFloat(), statusPanelY, position.z.toFloat()), Quat.identity())
+                val readablePosition = readableStatusPosition(position, state.playerHeadPosition, statusPanelY.toDouble())
+                val location = Vector3(readablePosition.x.toFloat(), readablePosition.y.toFloat(), readablePosition.z.toFloat())
+                val facing = readableStatusRotation(readablePosition, state.playerHeadPosition)
+                val rotation = Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())
+                statusWorldPosition = location
+                statusWorldRotation = rotation
+                placeAttachment(parent, anchor, location, rotation, STATUS_WORLD_SCALE)
             }
         }
         presentImpactLight(state, events)
@@ -120,6 +135,57 @@ private class SceneOwner(
         hitFlashes[state.roundNumber - 1].present(state, events)
         effects?.present(state, events)
         bladeTrail?.present(state)
+        presentDamagePopups(state, events)
+    }
+
+    private fun presentDamagePopups(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+        if (damageUnavailable) return
+        val parent = root ?: return
+        try {
+            val active = state.sceneReady && state.inputReady && state.pauseReason == null &&
+                (state.result == TrialResult.FIGHTING || state.result == TrialResult.ROUND_CLEAR)
+            val frames = damageTimeline.update(state.roundGeneration, state.roundNumber, active,
+                state.simulationNanos, System.nanoTime(), state.playerHeadPosition, events)
+            for ((index, anchor) in damageAnchors.withIndex()) {
+                val frame = frames.firstOrNull { it.slot == index }
+                val text = damageTextStates[index]
+                text.content = frame?.content
+                text.opacity = frame?.opacity ?: 0f
+                if (!anchor.valid) continue
+                if (frame == null) {
+                    anchor.enabled = false
+                    continue
+                }
+                val point = Vector3(frame.position.x.toFloat(), frame.position.y.toFloat(), frame.position.z.toFloat())
+                check(point.x.isFinite() && point.y.isFinite() && point.z.isFinite()) {
+                    "Damage contact exceeds the Stage presentation range"
+                }
+                val transform = checkNotNull(anchor.components[TransformComponent::class.java])
+                transform.setPosition(parent.convertPositionFrom(point, null))
+                val scale = damageWorldScale * frame.scale
+                transform.setScaleVector(Vector3(scale, scale, scale))
+                anchor.enabled = true
+            }
+        } catch (error: Exception) {
+            damageUnavailable = true
+            clearDamagePopups()
+            Log.w(TAG, "Damage readouts became unavailable", error)
+        }
+    }
+
+    private fun clearDamagePopups() {
+        damageTimeline.clear()
+        damageTextStates.forEach {
+            it.content = null
+            it.opacity = 0f
+        }
+        for (anchor in damageAnchors) {
+            try {
+                if (anchor.valid) anchor.enabled = false
+            } catch (error: Exception) {
+                Log.w(TAG, "Unable to hide damage readout", error)
+            }
+        }
     }
 
     private fun presentImpactLight(state: ArenaViewState, events: List<EnemyCombatEvent>) {
@@ -188,6 +254,11 @@ private class SceneOwner(
 
     fun release() {
         val current = root ?: return
+        clearDamagePopups()
+        damageAnchors.clear()
+        damageUnavailable = false
+        statusWorldPosition = null
+        statusWorldRotation = Quat.identity()
         root = null
         playerWeapon = null
         enemyModel = null
@@ -249,25 +320,36 @@ internal fun HomeStage(
     onEnemyGeometry: (TrackingVector3?, Double) -> Unit,
     onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
     onEnemyPresenter: (ArenaPresenter?) -> Unit,
+    controlsHeightDp: Int,
     controlsPanel: @Composable () -> Unit,
     statusPanel: @Composable () -> Unit,
 ) {
-    val owner = remember { SceneOwner(onEnemyGeometry, onPlayerHandPresenter, onEnemyPresenter) }
+    val damageTextStates = remember { List(DamagePopupTimeline.SLOT_COUNT) { DamagePopupTextState() } }
+    val owner = remember { SceneOwner(onEnemyGeometry, onPlayerHandPresenter, onEnemyPresenter, damageTextStates) }
     val currentControls = rememberUpdatedState(controlsPanel)
     val currentStatus = rememberUpdatedState(statusPanel)
+    val currentControlHeight = rememberUpdatedState(controlsHeightDp)
     val converter = LocalPhysicalLengthConverter.current
-    val statusHeightMeters = converter.dpToLength(260.dp, LengthUnit.Meters) * HUD_WORLD_SCALE
+    val statusHeightMeters = converter.dpToLength(260.dp, LengthUnit.Meters) * STATUS_WORLD_SCALE
     val statusPosition = Vector3(0f, maxOf(2.15f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
     owner.statusPanelY = statusPosition.y
+    owner.damageWorldScale = 0.18f / converter.dpToLength(128.dp, LengthUnit.Meters)
     val controlPosition = remember { Vector3(-0.85f, 1.15f, -1.45f) }
     val controlRotation = remember { Quat(0f, 0.2923717f, 0f, 0.9563048f) }
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 400.dp, height = 400.dp)) { currentControls.value() }
+                Box(Modifier.size(width = 400.dp, height = currentControlHeight.value.dp)) {
+                    currentControls.value()
+                }
             }
             AttachmentPanel(STATUS_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
                 Box(Modifier.size(width = 500.dp, height = 260.dp)) { currentStatus.value() }
+            }
+            for ((index, id) in DAMAGE_PANEL_IDS.withIndex()) {
+                AttachmentPanel(id, alignment = AttachmentPanelComponent.Alignment.CENTER) {
+                    DamagePopupText(damageTextStates[index])
+                }
             }
         }
     }
@@ -283,9 +365,8 @@ internal fun HomeStage(
             val root = owner.root
             if (root != null && root.valid) {
                 placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
-                val enemy = owner.enemyWorldPosition
-                val location = if (enemy == null) statusPosition else Vector3(enemy.x.toFloat(), statusPosition.y, enemy.z.toFloat())
-                placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), location, Quat.identity())
+                val location = owner.statusWorldPosition ?: statusPosition
+                placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), location, owner.statusWorldRotation, STATUS_WORLD_SCALE)
             }
         },
     ) { content, attachments ->
@@ -314,8 +395,30 @@ internal fun HomeStage(
                 owner.panelAnchors[id] = anchor
                 check(anchor.addChild(panel)) { "Could not attach $id" }
             }
+            for (id in DAMAGE_PANEL_IDS) {
+                val panel = checkNotNull(attachments.entity(id)) { "Missing attachment $id" }
+                val anchor = Entity()
+                try {
+                    check(root.addChild(anchor)) { "Could not attach damage anchor $id" }
+                    owner.damageAnchors += anchor
+                    anchor.enabled = false
+                    check(anchor.addChild(panel)) { "Could not attach damage label $id" }
+                    anchor.components.set(LookAtComponent().apply {
+                        alignLocalUpToWorldUp = true
+                        lookAtForwardDirection = LookAtForwardDirection.POSITIVE_Z
+                        setViewerAsTarget()
+                    })
+                } catch (error: Exception) {
+                    try {
+                        if (anchor.valid) anchor.destroy()
+                    } catch (cleanup: Exception) {
+                        error.addSuppressed(cleanup)
+                    }
+                    throw error
+                }
+            }
             placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
-            placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity())
+            placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity(), STATUS_WORLD_SCALE)
             model = Entity.loadSuspend(TAVERN_ASSET)
             if (owner.root !== root) {
                 model.destroy()
@@ -524,10 +627,11 @@ private fun placeAttachment(
     panel: Entity,
     position: Vector3,
     rotation: Quat,
+    scale: Float = HUD_WORLD_SCALE,
 ) {
     if (!panel.valid) return
     val transform = checkNotNull(panel.components[TransformComponent::class.java])
     transform.setPosition(root.convertPositionFrom(position, null))
     transform.setQuaternion(root.convertRotationFrom(rotation, null))
-    transform.setScaleVector(Vector3(HUD_WORLD_SCALE, HUD_WORLD_SCALE, HUD_WORLD_SCALE))
+    transform.setScaleVector(Vector3(scale, scale, scale))
 }

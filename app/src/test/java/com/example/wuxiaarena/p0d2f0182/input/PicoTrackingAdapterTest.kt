@@ -129,6 +129,8 @@ class PicoTrackingAdapterTest {
         val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
         val state = TrackingState(Hand.RIGHT)
         adapter.start()
+        assertEquals(1, controllers.starts)
+        assertTrue(controllers.listeners.isEmpty())
         buffer.drain().events.forEach(state::accept)
 
         controllers.emit(hands(left = controller(-9f), right = controller(9f)))
@@ -136,6 +138,7 @@ class PicoTrackingAdapterTest {
         assertFalse(state.snapshot.hasRequiredObservations)
 
         hmd.emit(head())
+        adapter.pollDesktopPreview(1L)
         val pair = buffer.drain().events
         assertEquals(2, pair.size)
         val headEvent = pair[0] as TrackingEvent.Head
@@ -159,6 +162,7 @@ class PicoTrackingAdapterTest {
         controllers.emit(hands())
         assertTrue(buffer.drain().events.isEmpty())
         adapter.stop()
+        assertEquals(1, controllers.stops)
     }
 
     @Test
@@ -173,6 +177,7 @@ class PicoTrackingAdapterTest {
         adapter.start()
         buffer.drain().events.forEach(state::accept)
         hmd.emit(sample)
+        adapter.pollDesktopPreview(1L)
         val oldPair = buffer.drain().events
         assertEquals(2, oldPair.size)
         oldPair.forEach { assertTrue(state.accept(it)) }
@@ -213,6 +218,7 @@ class PicoTrackingAdapterTest {
         val beforeRecovery = state.snapshot
 
         hmd.emit(sample)
+        adapter.pollDesktopPreview(2L)
         val newPair = buffer.drain().events
         assertEquals(2, newPair.size)
         assertTrue(newPair.first().stamp.sequence > loss.stamp.sequence)
@@ -228,6 +234,32 @@ class PicoTrackingAdapterTest {
         assertEquals(beforeRecovery.leftContinuity, state.snapshot.leftContinuity)
         assertEquals(beforeRecovery.rightContinuity, state.snapshot.rightContinuity)
         adapter.stop()
+    }
+
+    @Test
+    fun pendingPreviewControllerStartStillKeepsOnlyHmdDerivedPoses() {
+        val clock = AtomicLong(0L)
+        val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>().apply { result = DataProvider.StartResult.PENDING }
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
+        try {
+            adapter.start()
+            assertEquals(DataProvider.StartResult.PENDING, adapter.lastControllerStartResult)
+            assertEquals(1, controllers.starts)
+            assertTrue(controllers.listeners.isEmpty())
+            buffer.drain()
+            hmd.emit(head())
+            adapter.pollDesktopPreview(1L)
+            val poses = buffer.drain().events
+            assertEquals(2, poses.size)
+            assertTrue(poses.all { it.stamp.origin == InputOrigin.DESKTOP })
+            controllers.emit(hands())
+            assertTrue(buffer.drain().events.isEmpty())
+        } finally {
+            adapter.stop()
+        }
+        assertEquals(1, controllers.stops)
     }
 
     @Test
