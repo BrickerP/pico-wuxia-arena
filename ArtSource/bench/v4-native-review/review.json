@@ -1,0 +1,46 @@
+{
+  "reviewed_local": "2026-11-11T16:06:19.817292+08:00",
+  "source": "ArtSource/refinement/presentation/integrated-2026-11-11.png",
+  "source_sha256": "c23a267ed6b634a07d22b7193211f05d8420770b1f281830df4ea59216b33f6d",
+  "receipt": "ArtSource/refinement/presentation/integrated-2026-11-11.json",
+  "receipt_sha256": "27d9b051defde5a26b5ecf8f78d1c8d9b62c24007a57a6050f75af1218498018",
+  "apk_sha256": "8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede",
+  "source_commit_from_root": "6b407acc4507812b99d1315e58c8a2c588719fd0",
+  "tests_from_root_receipt": {
+    "tests": 261,
+    "failures": 0,
+    "rerun_by_12": false
+  },
+  "distance_metres": null,
+  "native_opponents_loaded": 1,
+  "animations": 10,
+  "new_head_published": false,
+  "decisions": [
+    {
+      "id": 1,
+      "state": "accepted_visible_improvement",
+      "owner": "07",
+      "result": "v4 face, hands, collar, cuffs, waist and legs readable; prior subject-too-dark rejection superseded"
+    },
+    {
+      "id": 2,
+      "state": "next_visual_priority",
+      "owner": "06 + 07",
+      "result": "repeated flat window-paper blocks, black timber layers, weak lantern-to-building warm-light connection"
+    },
+    {
+      "id": 3,
+      "state": "blade_material_unverified_at_this_view",
+      "owner": "02 + 07; Root capture",
+      "result": "blade nearly edge-on / foreground dark-side view; obtain same-light three-quarter steel-face exposure before PBR judgement"
+    }
+  ],
+  "limits": {
+    "single_round_startup_only": true,
+    "keyboard_combat_chain": false,
+    "controlled_hit": false,
+    "space_pro": false,
+    "no_runtime_or_game_assets_modified": true
+  },
+  "independent_review": "scene_visual_audit agreed after viewing unique current native image"
+}
