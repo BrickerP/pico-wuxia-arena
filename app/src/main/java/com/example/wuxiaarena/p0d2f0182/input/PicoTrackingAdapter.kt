@@ -1,5 +1,6 @@
 package com.example.wuxiaarena.p0d2f0182.input
 
+import android.util.Log
 import androidx.annotation.MainThread
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.InputOrigin
@@ -28,11 +29,14 @@ class PicoTrackingAdapter(
     private val buffer: TrackingEventBuffer,
     private val hmd: DataProvider<HMDTrackingData> = HMDTrackingProvider(),
     private val controllers: DataProvider<ControllerTrackingData> = ControllerTrackingProvider(),
-    // The runtime owner enables this only for an explicit debug/ranchu preview.
-    private val emulatorPreview: Boolean = false,
+    private val inputOrigin: InputOrigin = InputOrigin.PICO,
+    diagnosticsEnabled: Boolean = false,
+    private val nativePoseProbeLog: (String) -> Unit = { Log.i("NativeControllerPoseProbe", it) },
 ) {
-    private val inputOrigin = if (emulatorPreview) InputOrigin.DESKTOP else InputOrigin.PICO
-    private val headTarget = if (emulatorPreview) TrackingTarget.ALL else TrackingTarget.HEAD
+    init {
+        require(inputOrigin == InputOrigin.PICO || inputOrigin == InputOrigin.DESKTOP)
+    }
+
     private val gate = Any()
     private var active = false
     private var generation = 0L
@@ -60,8 +64,7 @@ class PicoTrackingAdapter(
     private var pendingUserPause = false
     private var pendingProviderControl: PendingProviderControl? = null
     private var skippedCallbacks = 0L
-    private var previewHead: ObservedPose? = null
-    private var lastPreviewFrameNanos: Long? = null
+    private val nativePoseProbe = if (diagnosticsEnabled) NativeControllerPoseProbeCache() else null
 
     var lastHmdStartResult: DataProvider.StartResult? = null
         private set
@@ -124,10 +127,7 @@ class PicoTrackingAdapter(
             }
             active = true
             generation++
-            previewHead = null
-            lastPreviewFrameNanos = null
-            DesktopCombatInput.configure(emulatorPreview)
-            DesktopCombatInput.reset()
+            nativePoseProbe?.start(generation)
             clearHeadComponents()
             clearControllerComponents()
             providerFailure = null
@@ -149,13 +149,10 @@ class PicoTrackingAdapter(
         try {
             hmdRegistered = true
             hmd.addListener(headListener)
-            if (!emulatorPreview) {
-                controllerRegistered = true
-                controllers.addListener(handsListener)
-            }
+            controllerRegistered = true
+            controllers.addListener(handsListener)
             hmdStartAttempted = true
             lastHmdStartResult = hmd.start()
-            // Preview consumes controller actions, while its poses stay HMD-derived.
             controllerStartAttempted = true
             lastControllerStartResult = controllers.start()
             pollAvailability()
@@ -182,11 +179,11 @@ class PicoTrackingAdapter(
             generation
         }
         val headStatus = readAvailability(hmd)
-        val handsStatus = if (emulatorPreview) null else readAvailability(controllers)
+        val handsStatus = readAvailability(controllers)
         synchronized(gate) {
             if (!active || token != generation || controlFaulted) return
             headStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.HEAD, it) }
-            handsStatus?.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.BOTH_HANDS, it) }
+            handsStatus.error?.let { providerFailure = PicoProviderFailure(TrackingTarget.BOTH_HANDS, it) }
             hmdStatusKnown = true
             controllerStatusKnown = true
             try {
@@ -195,7 +192,7 @@ class PicoTrackingAdapter(
                 return
             }
             try {
-                if (handsStatus != null) updateControllerAvailability(handsStatus.reason)
+                updateControllerAvailability(handsStatus.reason)
             } catch (_: TrackingControlOverflowException) {
                 return
             }
@@ -223,7 +220,6 @@ class PicoTrackingAdapter(
 
     @MainThread
     fun markUserPause() = synchronized(gate) {
-        if (emulatorPreview) DesktopCombatInput.reset()
         if (active || pendingUserPause) {
             if (controlFaulted && (!pendingUserPause || pendingProviderControl != null)) {
                 pendingUserPause = true
@@ -240,21 +236,10 @@ class PicoTrackingAdapter(
         }
     }
 
-    /** The active Stage frame loop emits exactly one synthetic pair per frame. */
+    /** Drains passive raw-callback and gate diagnostics; never creates input samples. */
     @MainThread
-    fun pollDesktopPreview(nowNanos: Long) = synchronized(gate) {
-        if (!emulatorPreview || !active || controlFaulted || !hmdStatusKnown || hmdUnavailable != null) return
-        val previousFrame = lastPreviewFrameNanos
-        if (previousFrame != null && nowNanos <= previousFrame) return
-        val sourceHead = previewHead ?: return
-        val frame = DesktopCombatInput.frame(sourceHead, nowNanos)
-        try {
-            buffer.offerHead(inputOrigin, frame?.head ?: sourceHead)
-            offerControllerPoses(frame?.left, frame?.right)
-            lastPreviewFrameNanos = nowNanos
-        } catch (_: TrackingControlOverflowException) {
-            // The existing control recovery path owns any rejected barrier.
-        }
+    fun pollDiagnostics(nowNanos: Long) = synchronized(gate) {
+        nativePoseProbe?.poll(nowNanos)?.let { nativePoseProbeLog(it.message()) }
     }
 
     private fun onHead(token: Long, data: HMDTrackingData) {
@@ -275,7 +260,7 @@ class PicoTrackingAdapter(
     private fun captureHead(data: HMDTrackingData) {
         if (!hmdStatusKnown) {
             if (!hmdPreStatusGap) {
-                emitProviderControl(headTarget, DiscontinuityReason.QUEUE_GAP)
+                emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.QUEUE_GAP)
                 hmdPreStatusGap = true
             }
             return
@@ -285,48 +270,51 @@ class PicoTrackingAdapter(
         val position = pose.position != null
         val rotation = pose.rotation != null
         if ((headPosition && !position) || (headRotation && !rotation)) {
-            emitProviderControl(headTarget, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+            emitProviderControl(TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
         }
         headPosition = position
         headRotation = rotation
-        if (emulatorPreview) {
-            previewHead = pose
-            if (!position || !rotation) DesktopCombatInput.reset()
-        } else {
-            buffer.offerHead(inputOrigin, pose)
-        }
+        buffer.offerHead(inputOrigin, pose)
     }
 
     private fun onControllers(token: Long, data: ControllerTrackingData) {
         synchronized(gate) {
-            if (!active || token != generation || emulatorPreview) return
+            if (!active || token != generation) return
+            val receivedAtNanos = System.nanoTime()
+            val left = data.left?.toObservation()
+            val right = data.right?.toObservation()
+            nativePoseProbe?.recordRaw(token, left, right, receivedAtNanos)
             if (controlFaulted) {
                 skippedCallbacks++
+                nativePoseProbe?.recordOutcome(token, NativeControllerPoseProbeOutcome.CONTROL_FAULT)
                 return
             }
-            try {
-                captureControllers(data)
+            val outcome = try {
+                captureControllers(left, right)
             } catch (_: TrackingControlOverflowException) {
-                return
+                NativeControllerPoseProbeOutcome.CONTROL_FAULT
             }
+            nativePoseProbe?.recordOutcome(token, outcome)
         }
     }
 
-    private fun captureControllers(data: ControllerTrackingData) {
+    private fun captureControllers(left: ObservedPose?, right: ObservedPose?): NativeControllerPoseProbeOutcome {
         if (!controllerStatusKnown) {
             if (!controllerPreStatusGap) {
                 emitProviderControl(TrackingTarget.BOTH_HANDS, DiscontinuityReason.QUEUE_GAP)
                 controllerPreStatusGap = true
             }
-            return
+            return NativeControllerPoseProbeOutcome.STATUS_UNKNOWN
         }
-        if (controllersUnavailable != null) return
-        val left = data.left?.toObservation()
-        val right = data.right?.toObservation()
-        offerControllerPoses(left, right)
+        if (controllersUnavailable != null) return NativeControllerPoseProbeOutcome.UNAVAILABLE
+        return if (offerControllerPoses(left, right)) {
+            NativeControllerPoseProbeOutcome.ACCEPTED_TO_BUFFER
+        } else {
+            NativeControllerPoseProbeOutcome.BUFFER_REJECTED
+        }
     }
 
-    private fun offerControllerPoses(left: ObservedPose?, right: ObservedPose?) {
+    private fun offerControllerPoses(left: ObservedPose?, right: ObservedPose?): Boolean {
         val leftPos = left?.position != null
         val leftRot = left?.rotation != null
         val rightPos = right?.position != null
@@ -341,20 +329,14 @@ class PicoTrackingAdapter(
         leftRotation = leftRot
         rightPosition = rightPos
         rightRotation = rightRot
-        buffer.offerControllers(inputOrigin, left, right)
+        return buffer.offerControllers(inputOrigin, left, right)
     }
 
     private fun updateHeadAvailability(reason: DiscontinuityReason?) {
         if (reason != hmdUnavailable) {
             if (reason != null) {
-                emitProviderControl(headTarget, reason)
+                emitProviderControl(TrackingTarget.HEAD, reason)
                 clearHeadComponents()
-                if (emulatorPreview) {
-                    previewHead = null
-                    lastPreviewFrameNanos = null
-                    DesktopCombatInput.reset()
-                    clearControllerComponents()
-                }
             }
             hmdUnavailable = reason
         }
@@ -381,11 +363,7 @@ class PicoTrackingAdapter(
         }
         active = false
         generation++
-        if (emulatorPreview) {
-            previewHead = null
-            lastPreviewFrameNanos = null
-            DesktopCombatInput.configure(false)
-        }
+        nativePoseProbe?.clear()
         try {
             if (pendingProviderControl != null || pendingUserPause) throw TrackingControlOverflowException()
             buffer.discontinuity(inputOrigin, TrackingTarget.ALL, reason)
@@ -410,7 +388,6 @@ class PicoTrackingAdapter(
     }
 
     private fun recordControlFault(target: TrackingTarget, error: TrackingControlOverflowException) {
-        if (emulatorPreview) DesktopCombatInput.reset()
         controlFaulted = true
         providerFailure = PicoProviderFailure(target, error)
     }

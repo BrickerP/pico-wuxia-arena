@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "map_count": 8,
+  "maps": {
+    "paper_atlas_basecolor.png": {
+      "sha256": "4158d3b928b35981c87ef5a624c2a197391625f294de9b36a09387ff4b503bf9",
+      "size_px": [
+        2048,
+        2048
+      ],
+      "channels": "RGB"
+    },
+    "paper_atlas_normal.png": {
+      "sha256": "0fbe7baba4c9dc17aa5f585d3b9d14dd02100a4099df763686e16426338651da",
+      "size_px": [
+        2048,
+        2048
+      ],
+      "channels": "RGB",
+      "max_decoded_unit_normal_error": 0.0017976921100162357
+    },
+    "paper_atlas_roughness.png": {
+      "sha256": "74862461cffa612fec661d6bf03dcb6b1b8d907b414b02b102d4b161e1c9e3d0",
+      "size_px": [
+        2048,
+        2048
+      ],
+      "channels": "L"
+    },
+    "paper_atlas_emissive.png": {
+      "sha256": "bf3392adb411d85035689cdbec2f7b4b6686c838b217216c5838170f67b6919d",
+      "size_px": [
+        2048,
+        2048
+      ],
+      "channels": "RGB",
+      "mean_rgb_srgb": 0.5186280506109101,
+      "peak_rgb_srgb": 0.9098039215686274,
+      "fraction_red_above_point85": 0.010877609252929688
+    },
+    "lantern_basecolor.png": {
+      "sha256": "8cce9207c27bc4cf9ea92a040283f8428f9bad82143195cbc5dc7823b6d01b1d",
+      "size_px": [
+        1024,
+        512
+      ],
+      "channels": "RGB"
+    },
+    "lantern_normal.png": {
+      "sha256": "0f862e40b8ab428537b6ab4a5dc6400c69f98756ef45ba62000c406e2e270a83",
+      "size_px": [
+        1024,
+        512
+      ],
+      "channels": "RGB",
+      "max_decoded_unit_normal_error": 0.0003843936332625919
+    },
+    "lantern_roughness.png": {
+      "sha256": "ec2ab2979986785f331116359ea2534173d550409607da2cdcc0a4c7ae5cdedd",
+      "size_px": [
+        1024,
+        512
+      ],
+      "channels": "L"
+    },
+    "lantern_emissive.png": {
+      "sha256": "42438e73f6391fcf1e0dd38a47242553f6a6f031e85f97aaa00922db27d89743",
+      "size_px": [
+        1024,
+        512
+      ],
+      "channels": "RGB"
+    }
+  },
+  "paper_atlas_gutters": true,
+  "lantern_u_periodic": true,
+  "physical_transmission_claimed": false,
+  "frozen_inputs_unchanged": {
+    "ArtSource/refinement/environment-hero/courtyard_hero.glb": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+    "app/src/main/assets/models/courtyard_hero.glb": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+    "ArtSource/refinement/environment-hero/build_environment.py": "14f77c3292d95abe27f95dd2775455dea1850755fad515899dd0cf38d13971b1"
+  }
+}

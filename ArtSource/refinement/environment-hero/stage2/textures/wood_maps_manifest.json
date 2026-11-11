@@ -1,0 +1,26 @@
+{
+  "status": "complete",
+  "source": "Frozen stage1 wood maps derived from Poly Haven CC0 Fine Grained Wood",
+  "source_color_sha256": "73010779875203488c014dbd2d54e0067d55e749b7f2b91c259e098b51d0e788",
+  "wood_uv_m_per_tile": {
+    "U": 0.35,
+    "V": 1.25
+  },
+  "endgrain_face_m": [
+    0.33,
+    0.11
+  ],
+  "color_space": {
+    "basecolor": "sRGB",
+    "normal": "linear OpenGL +Y",
+    "roughness": "linear"
+  },
+  "maps": {
+    "wood_basecolor.png": "7e436811ec8640664f455a56e4b0fd07d064c834c0a9531cb4f8830fa67c7e95",
+    "wood_normal.png": "71bc344e42e56c66196ee058bdeacc515720d3b58c70725678d1452f57b4f71a",
+    "wood_roughness.png": "79ceafbd3372e7cd1c5d41278eed2a2b78a1be801afe26f86e2fd98c880f7c03",
+    "endgrain_basecolor.png": "608d250b07d73d1f4142fbfd48977a4120927cc5f8a566e0a515b961e7706c0a",
+    "endgrain_normal.png": "ba24de639e05c656bddb9f70383a1f4f38d69f4fcd770fcbdafd66be8c08d713",
+    "endgrain_roughness.png": "a14ec10dd1f552a678b0867d75f2f8ced2c72daf299cab3fd1812328ac9401ce"
+  }
+}

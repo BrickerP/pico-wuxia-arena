@@ -36,31 +36,14 @@ class AttackBankProfilesTest {
     ) = AttackProfile(clip, times, contact, samples)
 
     @Test
-    fun generatedDataMatchesThePublishedWeaponBankIdentity() {
-        assertEquals(
-            "7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff",
-            AttackBankProfileData.bindingSha256,
-        )
-        val expected = mapOf(
-            "asset://models/opponents/base.glb" to (
-                "e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc" to
-                    "f4b2d918bdb63cfd9436708822dc262df9c5e94ec357f1dc6b5a0ee01a114450"
-                ),
-            "asset://models/opponents/indigo.glb" to (
-                "448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3" to
-                    "4633e2a7e3d8173f09e2c1e7ff98e713b11cacb6b01979055dbe4ba469d44a3a"
-                ),
-            "asset://models/opponents/veteran.glb" to (
-                "0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2" to
-                    "c6822e9f07ca94af850ded93c7a2d175bd10df4a4cb73be4f08d024cc9dd2c88"
-                ),
-        )
-        assertEquals(expected.keys, AttackBankProfileData.characters.keys)
-        for ((asset, hashes) in expected) {
-            val character = AttackBankProfileData.characters.getValue(asset)
-            assertEquals("Model identity for $asset", hashes.first, character.modelSha256)
-            assertEquals("Profile identity for $asset", hashes.second, character.profileSha256)
-        }
+    fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
+        assertEquals("b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f", AttackBankProfileData.bindingSha256)
+        assertEquals("722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("df8a8531a4e94ef3651f8b9d889688e418a8b5e07a7685587300fa6899da657e", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -244,7 +227,7 @@ class AttackBankProfilesTest {
             val origin = Vector3(0.15, 0.028, -1.3)
             val opponent = arenaOpponents.single { it.asset == asset }
             val recovered = requireNotNull(opponent.attackPose(EnemyPhase.RECOVERING, 0L, direction.recoveryNanos,
-                origin, 0.5f, direction, guarding = false, recoveryFromContact = true))
+                origin, 0.5f, direction, guarding = false, recoveryFromContact = true, gaitMeters = 0.0))
             assertEquals(profile.sample(1.0).inStage(origin, 0.5f), recovered)
         }
     }
@@ -254,11 +237,12 @@ class AttackBankProfilesTest {
         val origin = Vector3(0.0, 0.028, -1.3)
         for (opponent in arenaOpponents) for (direction in AttackDirection.entries) {
             val profile = opponent.attackProfile(direction)
-            val guard = profile.sample(0.0).inStage(origin, 0.3f)
-            assertEquals(guard.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null, origin, 0.3f, direction, false))
-            assertEquals(guard.contact, opponent.contactPose(EnemyPhase.HIT, ms(200), ms(100), origin, 0.3f, direction, true))
-            assertEquals(EnemyContactPose.standing(origin), opponent.contactPose(EnemyPhase.IDLE, 0L, null,
-                origin, 0.3f, direction, false, moving = true))
+            val guard = opponent.locomotionProfile().sample(false, 0.0).inStage(origin, 0.3f)
+            assertEquals(guard.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null, origin, 0.3f, direction, false, gaitMeters = 0.0))
+            assertEquals(guard.contact, opponent.contactPose(EnemyPhase.HIT, ms(200), ms(100), origin, 0.3f, direction, true, gaitMeters = 0.0))
+            val walk = opponent.locomotionProfile().sample(true, 0.4).inStage(origin, 0.3f)
+            assertEquals(walk.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null,
+                origin, 0.3f, direction, false, moving = true, gaitMeters = 0.4))
             if (direction != AttackDirection.OVERHEAD) {
                 val delta = profile.sample(1.1).bladeTip.x - profile.sample(0.9).bladeTip.x
                 assertTrue(if (direction == AttackDirection.LEFT) delta > 0.0 else delta < 0.0)
@@ -274,6 +258,52 @@ class AttackBankProfilesTest {
         assertEquals(sample.bladeTip, sample.nearestBladePoint(Vector3(100.0, 100.0, 100.0)))
         val collapsed = sample.copy(bladeTip = sample.bladeBase)
         assertEquals(sample.bladeBase, collapsed.nearestBladePoint(Vector3(0.0, 0.0, 0.0)))
+    }
+
+    @Test
+    fun finalLocomotionProfilesDriveActualIdleWalkAndAllProxyConsumers() {
+        val origin = Vector3(0.2, 0.028, -1.3) + Vector3(-0.03, 0.0, -0.04)
+        for (opponent in arenaOpponents) {
+            val locomotion = opponent.locomotionProfile()
+            assertEquals(185, locomotion.idle.samples.size)
+            assertEquals(369, locomotion.walk.samples.size)
+            assertEquals(6, locomotion.stepEvents.size)
+            assertEquals(1.45, locomotion.strideMeters, 0.0)
+            for (moving in listOf(false, true)) for (gait in listOf(-2.9, -0.4, 0.0, 0.4, 1.45, 2.9)) {
+                val frame = requireNotNull(opponent.poseFrame(EnemyPhase.IDLE, 0L, null,
+                    AttackDirection.OVERHEAD, false, moving, false, gait))
+                val expected = locomotion.sample(moving, gait)
+                assertEquals(if (moving) "walk" else "idle", frame.clip)
+                assertEquals(expected, frame.pose)
+                val actual = requireNotNull(opponent.attackPose(EnemyPhase.IDLE, 0L, null,
+                    origin, 0.7f, AttackDirection.OVERHEAD, false, moving = moving, gaitMeters = gait))
+                assertEquals(expected.inStage(origin, 0.7f), actual)
+                assertEquals(actual.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null,
+                    origin, 0.7f, AttackDirection.OVERHEAD, false, moving = moving, gaitMeters = gait))
+            }
+        }
+    }
+
+    @Test
+    fun actualCanonicalIdleWalkAndAttackEntriesShareTheFinalCalibratedBodyAndBlade() {
+        for (opponent in arenaOpponents) {
+            val locomotion = opponent.locomotionProfile()
+            val idle = locomotion.sample(false, 0.0)
+            for (gait in listOf(-0.4, 0.0, 0.4, 1.45)) {
+                val walk = locomotion.sample(true, gait)
+                assertEquals(idle.contact, walk.contact)
+                assertEquals(idle.bladeBase, walk.bladeBase)
+                assertEquals(idle.bladeTip, walk.bladeTip)
+            }
+            for (direction in AttackDirection.entries) {
+                val attack = opponent.attackProfile(direction).sample(0.0)
+                assertPoint(idle.contact.head, attack.contact.head, 1e-6)
+                assertPoint(idle.contact.bodyBottom, attack.contact.bodyBottom, 1e-6)
+                assertPoint(idle.contact.bodyTop, attack.contact.bodyTop, 1e-6)
+                assertPoint(idle.bladeBase, attack.bladeBase, 1e-6)
+                assertPoint(idle.bladeTip, attack.bladeTip, 1e-6)
+            }
+        }
     }
 
     private fun assertPoint(expected: Vector3, actual: Vector3, tolerance: Double = 1e-12) {

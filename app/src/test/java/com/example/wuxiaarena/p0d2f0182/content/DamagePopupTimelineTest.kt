@@ -126,15 +126,19 @@ class DamagePopupTimelineTest {
     }
 
     @Test
-    fun controlLayoutKeepsPreparationAndPausedGuidesAndDesktopFightActions() {
-        assertFalse(arenaControlsAreCompact(TrialResult.READY, null))
-        assertFalse(arenaControlsAreCompact(TrialResult.FIGHTING, PauseReason.USER))
-        assertFalse(arenaControlsAreCompact(TrialResult.FIGHTING, PauseReason.TRACKING_INTERRUPTION))
-        assertTrue(arenaControlsAreCompact(TrialResult.FIGHTING, null))
-        assertTrue(arenaControlsAreCompact(TrialResult.ROUND_CLEAR, null))
-        assertEquals(160, arenaControlPanelHeightDp(TrialResult.FIGHTING, null, false))
-        assertEquals(240, arenaControlPanelHeightDp(TrialResult.FIGHTING, null, true))
-        assertEquals(400, arenaControlPanelHeightDp(TrialResult.FIGHTING, PauseReason.USER, true))
+    fun controlLayoutUsesOneCompactHeightAndKeepsGuidesAndSettlement() {
+        for (result in listOf(TrialResult.COUNTDOWN, TrialResult.FIGHTING, TrialResult.ROUND_CLEAR)) {
+            assertTrue(arenaControlsAreCompact(result, null))
+            assertEquals(160, arenaControlPanelHeightDp(result, null))
+        }
+        for (result in listOf(TrialResult.READY, TrialResult.VICTORY, TrialResult.DEFEAT)) {
+            assertFalse(arenaControlsAreCompact(result, null))
+            assertEquals(400, arenaControlPanelHeightDp(result, null))
+        }
+        for (reason in PauseReason.entries) {
+            assertFalse(arenaControlsAreCompact(TrialResult.FIGHTING, reason))
+            assertEquals(400, arenaControlPanelHeightDp(TrialResult.FIGHTING, reason))
+        }
     }
 
     @Test

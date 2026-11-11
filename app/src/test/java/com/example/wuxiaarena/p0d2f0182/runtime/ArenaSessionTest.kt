@@ -27,6 +27,75 @@ class ArenaSessionTest {
     private val handEvent = TrackingEvent.Controllers(ObservationStamp(1, 20, 1, InputOrigin.PICO), leftPose, rightPose)
 
     @Test
+    fun nativeDesktopMotionLogsRealResolverOutputOnlyForThrottledPoseChanges() {
+        val state = TrackingState(Hand.RIGHT)
+        val messages = mutableListOf<String>()
+        val session = ArenaSession(logMessage = messages::add)
+        session.setEnemyGeometry(Vector3(0.0, 0.0, -1.0), 2.0)
+        fun deliver(event: TrackingEvent) {
+            val accepted = state.accept(event)
+            assertTrue(accepted)
+            session.onTrackingEvent(event, accepted, state.snapshot)
+        }
+        deliver(headEvent.copy(stamp = headEvent.stamp.copy(origin = InputOrigin.DESKTOP)))
+        deliver(handEvent.copy(stamp = handEvent.stamp.copy(origin = InputOrigin.DESKTOP)))
+        val baseline = messages.single { it.startsWith("Native motion observed") }
+        assertTrue(baseline.contains("source=SDK_NATIVE origin=DESKTOP sequence=1"))
+        assertTrue(baseline.contains("motionResult={frameAvailable=true receivedAtNanos=20"))
+        assertTrue(baseline.contains("bladeTipSpeed=0.0 strike=null"))
+
+        val movedRight = rightPose.copy(position = Vector3(0.25, 1.21, -0.35))
+        deliver(TrackingEvent.Controllers(ObservationStamp(2, 100_000_020L, 1, InputOrigin.DESKTOP), leftPose, movedRight))
+        assertEquals(1, messages.count { it.startsWith("Native motion observed") })
+        val latestRight = movedRight.copy(position = Vector3(0.25, 1.22, -0.35))
+        deliver(TrackingEvent.Controllers(ObservationStamp(3, 200_000_020L, 1, InputOrigin.DESKTOP), leftPose, latestRight))
+        val changed = messages.last { it.startsWith("Native motion observed") }
+        assertEquals(2, messages.count { it.startsWith("Native motion observed") })
+        assertTrue(changed.contains("sequence=3 coordinateEpoch=1 receivedAtNanos=200000020"))
+        assertTrue(changed.contains("left=$leftPose right=$latestRight"))
+        assertTrue(changed.contains("motionResult={frameAvailable=true"))
+        assertFalse(changed.contains("bladeBase=null"))
+        assertFalse(changed.contains("bladeTip=null"))
+        assertTrue(changed.contains("strike=null"))
+        assertEquals(TrialResult.READY, session.viewState.result)
+        assertEquals(100, session.viewState.playerHealth)
+
+        deliver(TrackingEvent.Controllers(ObservationStamp(4, 400_000_020L, 1, InputOrigin.DESKTOP), leftPose, latestRight))
+        assertEquals(2, messages.count { it.startsWith("Native motion observed") })
+    }
+
+    @Test
+    fun nativeMotionDiagnosticsWaitForRequiredInputAndClearOnCancellation() {
+        val state = TrackingState(Hand.RIGHT)
+        val messages = mutableListOf<String>()
+        val session = ArenaSession(logMessage = messages::add)
+        session.setEnemyGeometry(Vector3(0.0, 0.0, -1.0), 2.0)
+        fun deliver(event: TrackingEvent) {
+            val accepted = state.accept(event)
+            assertTrue(accepted)
+            session.onTrackingEvent(event, accepted, state.snapshot)
+        }
+        deliver(headEvent.copy(stamp = headEvent.stamp.copy(origin = InputOrigin.DESKTOP)))
+        assertTrue(messages.none { it.startsWith("Native motion observed") })
+        deliver(handEvent.copy(stamp = handEvent.stamp.copy(origin = InputOrigin.DESKTOP)))
+        assertEquals(1, messages.count { it.startsWith("Native motion observed") })
+
+        deliver(TrackingEvent.Discontinuity(
+            ObservationStamp(2, 30, 1, InputOrigin.DESKTOP), TrackingTarget.ALL, DiscontinuityReason.USER_PAUSED,
+        ))
+        assertFalse(session.viewState.inputReady)
+        deliver(handEvent.copy(stamp = ObservationStamp(3, 40, 1, InputOrigin.DESKTOP)))
+        assertEquals(1, messages.count { it.startsWith("Native motion observed") })
+        deliver(headEvent.copy(stamp = ObservationStamp(4, 50, 1, InputOrigin.DESKTOP)))
+        assertTrue(session.viewState.inputReady)
+        assertEquals(2, messages.count { it.startsWith("Native motion observed") })
+        val restored = messages.last { it.startsWith("Native motion observed") }
+        assertTrue(restored.contains("sequence=4 coordinateEpoch=1 receivedAtNanos=50"))
+        assertTrue(restored.contains("motionResult={frameAvailable=true receivedAtNanos=40"))
+        assertTrue(restored.contains("bladeTipSpeed=0.0 strike=null"))
+    }
+
+    @Test
     fun latePresenterImmediatelyReceivesCurrentDominantHandPose() {
         val state = TrackingState(Hand.LEFT)
         val session = ArenaSession(logMessage = {})

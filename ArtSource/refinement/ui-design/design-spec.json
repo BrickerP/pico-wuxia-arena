@@ -3,7 +3,7 @@
   "metadata": {
     "projectName": "酒馆试炼 · 试刀印",
     "sourceMode": "hybrid",
-    "revision": 9
+    "revision": 11
   },
   "experience": {
     "subject": "中式刀术竞技场的场边HUD与空间引导",
@@ -214,7 +214,34 @@
           "z": -1.9
         },
         "previewColumn": 0,
-        "existingAttachment": true
+        "existingAttachment": true,
+        "stateSizeDp": {
+          "ready": {
+            "width": 400,
+            "height": 400,
+            "unit": "dp"
+          },
+          "fighting": {
+            "width": 400,
+            "height": 160,
+            "unit": "dp"
+          },
+          "paused": {
+            "width": 400,
+            "height": 400,
+            "unit": "dp"
+          },
+          "round-clear": {
+            "width": 400,
+            "height": 160,
+            "unit": "dp"
+          },
+          "victory": {
+            "width": 400,
+            "height": 400,
+            "unit": "dp"
+          }
+        }
       }
     },
     {
@@ -528,7 +555,8 @@
           "feedback": "先读起手，再迎刀反击",
           "phaseHint": "先读起手，再迎刀反击",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "READY"
         },
         "fighting": {
           "enemyName": "酒馆刀客",
@@ -551,7 +579,8 @@
           "feedback": "气势已满 · 可双手收刀前推破势",
           "phaseHint": "快速架刀或闪身",
           "bestScore": "最佳 1200",
-          "incomingVisible": true
+          "incomingVisible": true,
+          "result": "FIGHTING"
         },
         "paused": {
           "enemyName": "酒馆刀客",
@@ -574,7 +603,8 @@
           "feedback": "战斗时钟已停止",
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "FIGHTING"
         },
         "round-clear": {
           "enemyName": "酒馆刀客",
@@ -597,7 +627,8 @@
           "feedback": "此局已定 · 收刀待结算",
           "phaseHint": "收刀待下一场",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "ROUND_CLEAR"
         },
         "victory": {
           "enemyName": "酒馆刀客",
@@ -621,7 +652,9 @@
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
           "incomingVisible": false,
-          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+          "result": "VICTORY",
+          "comboVisible": false
         }
       },
       "damageSamples": {
@@ -688,7 +721,8 @@
             "bestScore": "最佳 1200",
             "incomingVisible": false,
             "result": "VICTORY",
-            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+            "comboVisible": false
           }
         },
         "defeat": {
@@ -717,7 +751,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "PLAYER_HIT"
+            "feedbackEnum": "PLAYER_HIT",
+            "comboVisible": false
           }
         },
         "defeat-timeout": {
@@ -746,7 +781,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "TIMEOUT"
+            "feedbackEnum": "TIMEOUT",
+            "comboVisible": false
           }
         }
       },
@@ -755,35 +791,56 @@
         "initialInputMode": "desktop",
         "inputModes": {
           "desktop": {
-            "showKeys": true
+            "inputOrigin": "DESKTOP",
+            "caption": "模拟器操作",
+            "steps": [
+              {
+                "title": "控制模式",
+                "detail": "右下选择 RightControllerMode。\n开启 ControllerButtonMode。\n关闭 Keyboard 文本模式。"
+              },
+              {
+                "title": "移动虚拟手",
+                "detail": "按住 Shift+W/A/S/D/Q/E 平移右手。\n用鼠标转腕或瞄准，左键确认。"
+              },
+              {
+                "title": "动作识别",
+                "detail": "虚拟手柄的连续位姿用于出刀和架刀。\n让刀锋实际经过对手；迎锋时转腕成架。\n动作仍由位姿识别。"
+              },
+              {
+                "title": "头手分开",
+                "detail": "头部移动用于视角和身体闪避。\nShift 组合键平移虚拟手柄。\n单按 W 不执行预制挥刀。\nVR 请使用实际头部和手柄动作。"
+              }
+            ]
           },
           "native": {
-            "showKeys": false
+            "inputOrigin": "PICO",
+            "caption": "刀术要诀",
+            "steps": [
+              {
+                "title": "进刀",
+                "detail": "抬手蓄刀，挥斩或前刺，让刀锋切过对手。"
+              },
+              {
+                "title": "架刀",
+                "detail": "横刀护在头前。来锋将至时迅速成架，可迎刀弹反。"
+              },
+              {
+                "title": "避锋",
+                "detail": "看见起势后侧移或下蹲，让开原本头部位置。"
+              },
+              {
+                "title": "破势",
+                "detail": "双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。"
+              }
+            ]
           }
         },
         "pageLabelFormat": "%1$d / %2$d",
-        "steps": [
-          {
-            "title": "进刀",
-            "detail": "抬手蓄刀，挥斩或前刺，让刀锋切过对手。",
-            "keys": "1/J 斩击 · 4/K 前刺"
-          },
-          {
-            "title": "架刀",
-            "detail": "横刀护在头前。来锋将至时迅速成架，可迎刀弹反。",
-            "keys": "5/V 架刀"
-          },
-          {
-            "title": "避锋",
-            "detail": "看见起势后侧移或下蹲，让开原本头部位置。",
-            "keys": "8/Z 左闪 · 9/X 右闪 · C 下蹲"
-          },
-          {
-            "title": "破势",
-            "detail": "双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。",
-            "keys": "G 破势 / 处决"
-          }
-        ]
+        "desktopInputBinding": "state.inputOrigin == DESKTOP",
+        "sourceResourceSha256": {
+          "app/src/main/res/values/strings.xml": "b1cdab95aa2fe0ac0e24cdaebf1a1872de237872508bf5f8d15f6016ab2e10eb",
+          "app/src/main/res/values/arena_ui_art.xml": "4e3023dcd6a2ae28a77fc982efeee9001980d125b3b30f20e8c1e5323f08a583"
+        }
       }
     },
     "fallback": {
@@ -809,7 +866,8 @@
           "feedback": "等待头手观察",
           "phaseHint": "先读起手，再迎刀反击",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "READY"
         },
         "fighting": {
           "enemyName": "刀客",
@@ -832,7 +890,8 @@
           "feedback": "气势已满 · 可双手收刀前推破势",
           "phaseHint": "快速架刀或闪身",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "FIGHTING"
         },
         "paused": {
           "enemyName": "刀客",
@@ -855,7 +914,8 @@
           "feedback": "等待头手观察",
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "FIGHTING"
         },
         "round-clear": {
           "enemyName": "刀客",
@@ -878,7 +938,8 @@
           "feedback": "等待头手观察",
           "phaseHint": "收刀待下一场",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "ROUND_CLEAR"
         },
         "victory": {
           "enemyName": "刀客",
@@ -902,7 +963,9 @@
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
           "incomingVisible": false,
-          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+          "result": "VICTORY",
+          "comboVisible": false
         }
       },
       "damageSamples": {
@@ -969,7 +1032,8 @@
             "bestScore": "最佳 1200",
             "incomingVisible": false,
             "result": "VICTORY",
-            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+            "comboVisible": false
           }
         },
         "defeat": {
@@ -998,7 +1062,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "PLAYER_HIT"
+            "feedbackEnum": "PLAYER_HIT",
+            "comboVisible": false
           }
         },
         "defeat-timeout": {
@@ -1027,7 +1092,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "TIMEOUT"
+            "feedbackEnum": "TIMEOUT",
+            "comboVisible": false
           }
         }
       }
@@ -1055,7 +1121,8 @@
           "feedback": "战斗时钟已停止",
           "phaseHint": "先读起手，再迎刀反击",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "READY"
         },
         "fighting": {
           "enemyName": "酒馆刀客",
@@ -1078,7 +1145,8 @@
           "feedback": "气势已满 · 可双手收刀前推破势",
           "phaseHint": "快速架刀或闪身",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "FIGHTING"
         },
         "paused": {
           "enemyName": "酒馆刀客",
@@ -1101,7 +1169,8 @@
           "feedback": "战斗时钟已停止",
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "FIGHTING"
         },
         "round-clear": {
           "enemyName": "酒馆刀客",
@@ -1124,7 +1193,8 @@
           "feedback": "战斗时钟已停止",
           "phaseHint": "收刀待下一场",
           "bestScore": "最佳 1200",
-          "incomingVisible": false
+          "incomingVisible": false,
+          "result": "ROUND_CLEAR"
         },
         "victory": {
           "enemyName": "酒馆刀客",
@@ -1148,7 +1218,9 @@
           "phaseHint": "刀势暂歇，继续后再接来锋",
           "bestScore": "最佳 1200",
           "incomingVisible": false,
-          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+          "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+          "result": "VICTORY",
+          "comboVisible": false
         }
       },
       "damageSamples": {
@@ -1215,7 +1287,8 @@
             "bestScore": "最佳 1200",
             "incomingVisible": false,
             "result": "VICTORY",
-            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。"
+            "settlementClosing": "试炼尽破，刀势已成。可再挑战刷新得分。",
+            "comboVisible": false
           }
         },
         "defeat": {
@@ -1244,7 +1317,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "PLAYER_HIT"
+            "feedbackEnum": "PLAYER_HIT",
+            "comboVisible": false
           }
         },
         "defeat-timeout": {
@@ -1273,7 +1347,8 @@
             "incomingVisible": false,
             "result": "DEFEAT",
             "settlementClosing": "调整架势与节奏，再战一局。",
-            "feedbackEnum": "TIMEOUT"
+            "feedbackEnum": "TIMEOUT",
+            "comboVisible": false
           }
         }
       }
@@ -1918,7 +1993,17 @@
         "phase-hint",
         "player-resources",
         "feedback"
-      ]
+      ],
+      "props": {
+        "comboVisibility": {
+          "minimumInclusive": 2,
+          "hiddenResults": [
+            "VICTORY",
+            "DEFEAT"
+          ],
+          "preserveScoreBestAndHistory": true
+        }
+      }
     },
     {
       "id": "status-attachment",
@@ -2245,6 +2330,9 @@
       "textStyle": {
         "typography": "teaching-caption",
         "color": "mutedInk"
+      },
+      "bindings": {
+        "content": "guide.caption"
       }
     },
     {
@@ -2282,8 +2370,7 @@
         "overflow": "scroll"
       },
       "children": [
-        "technique-detail",
-        "technique-keys"
+        "technique-detail"
       ],
       "props": {
         "scrollResetOnPageChange": true
@@ -2299,19 +2386,6 @@
       },
       "bindings": {
         "content": "guide.current.detail"
-      }
-    },
-    {
-      "id": "technique-keys",
-      "kind": "text",
-      "content": "1/J 斩击 · 4/K 前刺",
-      "textStyle": {
-        "typography": "teaching-caption",
-        "color": "mutedInk"
-      },
-      "bindings": {
-        "content": "guide.current.keys",
-        "visible": "guide.showKeys"
       }
     },
     {

@@ -4,16 +4,6 @@
     "source_sha256": "b25da49650aa6ff9cdaf09053c1e891a38a1c8297d03ee3630eccbf1eb85e8d6",
     "clips": [
       {
-        "name": "idle",
-        "source": "expanded/base/tripo-out/e7df779b-retarget-e011ab58/model.glb",
-        "source_sha256": "9a2c2c951c13eed0891fe462455ec09c8a7593a3ff7cedd7d025b8cd5c9a6bc9"
-      },
-      {
-        "name": "walk",
-        "source": "expanded/base/tripo-out/e7df779b-retarget-2-7ddf98ee/model.glb",
-        "source_sha256": "38bfc0f00c6d3d635d7eb18c2aab1232a2c1f0d0361806a568f3c540f9ecc8d6"
-      },
-      {
         "name": "fall",
         "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
         "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c"
@@ -45,8 +35,8 @@
     {
       "id": "base",
       "name": "试刀客",
-      "source": "refined-base60k/rig.glb",
-      "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "source": "../refinement/hero-face/neck-continuous/candidate-raw.glb",
+      "source_sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
       "grip_source": {
         "source": "refined-base60k/slash.glb",
         "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
@@ -246,7 +236,7 @@
       }
     }
   ],
-  "schema_version": 2,
+  "schema_version": 3,
   "attack_source": {
     "contract": "attack78",
     "source": "refined-base60k/rig.glb",
@@ -296,12 +286,98 @@
       }
     ]
   },
-  "production_review": {
-    "source": "review/weapon-production-review.json",
-    "source_sha256": "f9b4cac6c2b7a05bdaeee88f9b37f147f3737fa2fa6c161a8093112c258c61da"
-  },
   "weapon_source": {
     "source": "../refinement/weapon/stage2/dao_refined.glb",
     "source_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452"
+  },
+  "locomotion_source": {
+    "contract": "locomotion78",
+    "source": "refined-base60k/rig.glb",
+    "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+    "authoring_manifest": {
+      "source": "../refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json",
+      "source_sha256": "3a3090ba4181f84169df9e8d7374505ddab5ff4cf3948d183800b116143feab6"
+    },
+    "clips": [
+      {
+        "name": "idle",
+        "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_raw.glb",
+        "source_sha256": "f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1",
+        "stage": "authored_raw",
+        "right_calibration_baked": false
+      },
+      {
+        "name": "walk",
+        "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
+        "source_sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
+        "stage": "authored_raw",
+        "right_calibration_baked": false
+      }
+    ]
+  },
+  "body_coverage_calibration": {
+    "source": "review/locomotion-v3-candidate/body_vertical_coverage_calibration.json",
+    "source_sha256": "eb6530df0419564bab3009f012854ba28912b11a3be650a287b630bdf2656433"
+  },
+  "production_review": {
+    "source": "review/locomotion-v3-ktx-production-review.json",
+    "source_sha256": "d531692751a9e1c309eb2815c05a6eb51bd3b5c55cad5d43c3d42e12e5df3b6c"
+  },
+  "runtime_texture_encoding": {
+    "format": "KHR_texture_basisu",
+    "settings": {
+      "codec": "uastc",
+      "uastc_quality": 3,
+      "threads": 2,
+      "zstd": 18,
+      "mipmap_filter": "lanczos4",
+      "full_mips": true,
+      "normal_mode": false,
+      "normalize": false,
+      "rdo": false,
+      "orientation": "top-left",
+      "pixel_resize": false,
+      "mip_source": {
+        "same_axis": "ktx-cli-generate-mipmap",
+        "different_axes": "explicit-axis-lanczos4-v1"
+      },
+      "axis_mips": {
+        "version": 1,
+        "precision": "float64",
+        "support": 4,
+        "centers": "half-pixel",
+        "antialias": "support-scaled-by-source/target",
+        "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+        "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+        "alpha_filter": "linear-straight",
+        "quantization": "clip-0-1-round-half-up-uint8",
+        "top": "original-decoded-pixels"
+      }
+    },
+    "helper": {
+      "source": "../refinement/pbr-compression/compress_pbr.py",
+      "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+    },
+    "encoder": {
+      "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+      "source_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+      "version": "ktx version: v4.4.2",
+      "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+    },
+    "release_identity": {
+      "source": "../refinement/pbr-compression/tooling/download-identity.json",
+      "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
+    },
+    "host_python": {
+      "source": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+      "source_sha256": "bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e",
+      "version": "3.9.6",
+      "pillow_version": "11.3.0",
+      "numpy_version": "2.0.2"
+    }
+  },
+  "player_weapon_source": {
+    "source": "../refinement/weapon/stage2/dao_grip_refined.glb",
+    "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
   }
 }

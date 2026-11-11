@@ -1,0 +1,549 @@
+{
+  "input_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+  "candidate_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "measurement": "full-resolution top-mip decoded UASTC vs original decoded PNG/JPEG, per-channel code-value error",
+  "psnr_null_means_exact_channel": true,
+  "native_visual_acceptance": "pending; these metrics have no automatic visual pass threshold",
+  "images": [
+    {
+      "image": 0,
+      "name": "steel_forged_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 64.36157388429191,
+          "mean_absolute_error_0_255": 0.023805618286132812,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 65.41845406731895,
+          "mean_absolute_error_0_255": 0.018660545349121094,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 64.21858617712446,
+          "mean_absolute_error_0_255": 0.0245819091796875,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 1,
+      "name": "steel_forged_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 58.21062360273629,
+          "mean_absolute_error_0_255": 0.09695625305175781,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "B",
+          "psnr_db": 66.43993491554563,
+          "mean_absolute_error_0_255": 0.014674186706542969,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 2,
+      "name": "steel_edge_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 69.53438498252054,
+          "mean_absolute_error_0_255": 0.007236480712890625,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 69.08419764628098,
+          "mean_absolute_error_0_255": 0.008008003234863281,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 70.60991919465393,
+          "mean_absolute_error_0_255": 0.005648612976074219,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 3,
+      "name": "steel_edge_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 66.09509922458352,
+          "mean_absolute_error_0_255": 0.015674591064453125,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "B",
+          "psnr_db": 68.78955483168471,
+          "mean_absolute_error_0_255": 0.008584976196289062,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 4,
+      "name": "steel_spine_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 72.17625079170948,
+          "mean_absolute_error_0_255": 0.003939628601074219,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "G",
+          "psnr_db": 68.69703664150929,
+          "mean_absolute_error_0_255": 0.008777618408203125,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "B",
+          "psnr_db": 70.14399627175054,
+          "mean_absolute_error_0_255": 0.006290435791015625,
+          "max_absolute_error_0_255": 1
+        }
+      ]
+    },
+    {
+      "image": 5,
+      "name": "steel_spine_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 58.838561900233024,
+          "mean_absolute_error_0_255": 0.053353309631347656,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "B",
+          "psnr_db": 54.334393988932284,
+          "mean_absolute_error_0_255": 0.13787841796875,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 6,
+      "name": "brass_aged_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 61.17910844370067,
+          "mean_absolute_error_0_255": 0.04940605163574219,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 61.64577338627542,
+          "mean_absolute_error_0_255": 0.044196128845214844,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 64.76202820008636,
+          "mean_absolute_error_0_255": 0.02146148681640625,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 7,
+      "name": "brass_aged_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 60.57407786196681,
+          "mean_absolute_error_0_255": 0.054619789123535156,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "B",
+          "psnr_db": 59.88532603314195,
+          "mean_absolute_error_0_255": 0.0607147216796875,
+          "max_absolute_error_0_255": 3
+        }
+      ]
+    },
+    {
+      "image": 8,
+      "name": "steel_wear_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 65.5595648538508,
+          "mean_absolute_error_0_255": 0.01806926727294922,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 62.014660118974696,
+          "mean_absolute_error_0_255": 0.040889739990234375,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "B",
+          "psnr_db": 66.62802766871954,
+          "mean_absolute_error_0_255": 0.014128684997558594,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 9,
+      "name": "steel_wear_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 55.47044195431116,
+          "mean_absolute_error_0_255": 0.14526939392089844,
+          "max_absolute_error_0_255": 4
+        },
+        {
+          "channel": "B",
+          "psnr_db": 52.6298792530849,
+          "mean_absolute_error_0_255": 0.143524169921875,
+          "max_absolute_error_0_255": 3
+        }
+      ]
+    },
+    {
+      "image": 10,
+      "name": "brass_contact_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 62.00464388788444,
+          "mean_absolute_error_0_255": 0.040984153747558594,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "G",
+          "psnr_db": 58.662118634730696,
+          "mean_absolute_error_0_255": 0.08391475677490234,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 57.00020035739457,
+          "mean_absolute_error_0_255": 0.12973403930664062,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 11,
+      "name": "brass_contact_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 80.19432678415613,
+          "mean_absolute_error_0_255": 0.000621795654296875,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "B",
+          "psnr_db": 50.451385985305,
+          "mean_absolute_error_0_255": 0.5860595703125,
+          "max_absolute_error_0_255": 1
+        }
+      ]
+    },
+    {
+      "image": 12,
+      "name": "cord_weave_normal",
+      "roles": [
+        "normal"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 60.0147803050093,
+          "mean_absolute_error_0_255": 0.0549774169921875,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "G",
+          "psnr_db": 61.44193825783287,
+          "mean_absolute_error_0_255": 0.03676605224609375,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 65.22350321843741,
+          "mean_absolute_error_0_255": 0.01953125,
+          "max_absolute_error_0_255": 1
+        }
+      ]
+    },
+    {
+      "image": 13,
+      "name": "cord_weave_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 59.818473242876074,
+          "mean_absolute_error_0_255": 0.06743049621582031,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 59.37297375436863,
+          "mean_absolute_error_0_255": 0.07479095458984375,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": 58.11879257678921,
+          "mean_absolute_error_0_255": 0.10024070739746094,
+          "max_absolute_error_0_255": 2
+        }
+      ]
+    },
+    {
+      "image": 14,
+      "name": "cord_weave_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 61.20223333473965,
+          "mean_absolute_error_0_255": 0.0493011474609375,
+          "max_absolute_error_0_255": 1
+        },
+        {
+          "channel": "B",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        }
+      ]
+    },
+    {
+      "image": 15,
+      "name": "leather_pressed_normal",
+      "roles": [
+        "normal"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 67.13633079794494,
+          "mean_absolute_error_0_255": 0.008697509765625,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 62.36863338231943,
+          "mean_absolute_error_0_255": 0.031829833984375,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        }
+      ]
+    },
+    {
+      "image": 16,
+      "name": "leather_pressed_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": 59.79720591199711,
+          "mean_absolute_error_0_255": 0.06805133819580078,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "G",
+          "psnr_db": 61.251234126806,
+          "mean_absolute_error_0_255": 0.048503875732421875,
+          "max_absolute_error_0_255": 3
+        },
+        {
+          "channel": "B",
+          "psnr_db": 58.9270085499249,
+          "mean_absolute_error_0_255": 0.08290576934814453,
+          "max_absolute_error_0_255": 3
+        }
+      ]
+    },
+    {
+      "image": 17,
+      "name": "leather_pressed_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "channels": [
+        {
+          "channel": "R",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        },
+        {
+          "channel": "G",
+          "psnr_db": 59.18819023511751,
+          "mean_absolute_error_0_255": 0.07836532592773438,
+          "max_absolute_error_0_255": 2
+        },
+        {
+          "channel": "B",
+          "psnr_db": null,
+          "mean_absolute_error_0_255": 0.0,
+          "max_absolute_error_0_255": 0
+        }
+      ]
+    }
+  ]
+}

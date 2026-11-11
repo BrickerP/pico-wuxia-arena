@@ -1,0 +1,49 @@
+{
+  "git_head": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
+  "files": [
+    {
+      "path": "ArtSource/refinement/audio/before/arena_block.wav",
+      "sha256": "8bf1793dc442ddc070d6ecc62e2db58a65f2a586974b6aafc914cc6b95211c65"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_defeat.wav",
+      "sha256": "fa13474fce00cf23f1aae5253217b761ac14432f1636999600d5866f81669561"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_execution.wav",
+      "sha256": "525c949c60c81554e046c8abc319af33a5714cc31753fad71b94e08a5c40a4d1"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_guarded_hit.wav",
+      "sha256": "1b83260548a64a81f4dc257f5ba0401400ca9af0921b2c49fc803e1396bc9f55"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_hard_hit.wav",
+      "sha256": "99af71f373f1f4bdacb618727fa8ddb966bfc47bd3ebda7793b2a422b7afdae0"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_hit.wav",
+      "sha256": "0d1b438ab63b6b2ebdb86e4a758d3a9cfc5f341ecdc02ed7478ecab0f4aaaa4b"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_hurt.wav",
+      "sha256": "9a3e7b65d017a0a65cc219626260bef95e45d5f58eb05661ce34f4b49ddd6d46"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_parry.wav",
+      "sha256": "73805fc955c1fd30aec2f7a489968dc0cf21995747abbb3520288e1476e174a6"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_skill.wav",
+      "sha256": "f4ca4d642e792df795df70846a3aa98baeb648c37fdec9d9a1f91e83db02ae4b"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_victory.wav",
+      "sha256": "c713b0364c4b0bb88cfde071e3f7c1e5b5ce9615a8696bbe7494339ddf67e08d"
+    },
+    {
+      "path": "ArtSource/refinement/audio/before/arena_whoosh.wav",
+      "sha256": "14fa22fd5b8a4df64a6dfeee44f7ee719bcf75c535de3a7cb90f3263a763273a"
+    }
+  ]
+}

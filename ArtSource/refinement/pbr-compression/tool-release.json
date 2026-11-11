@@ -1,0 +1,21 @@
+{
+  "release": "v4.4.2",
+  "html_url": "https://github.com/KhronosGroup/KTX-Software/releases/tag/v4.4.2",
+  "assets": [
+    {
+      "name": "KTX-Software-4.4.2-Darwin-arm64.pkg",
+      "url": "https://github.com/KhronosGroup/KTX-Software/releases/download/v4.4.2/KTX-Software-4.4.2-Darwin-arm64.pkg",
+      "digest": "sha256:500bd8f9d63358c3f3a0d83b724c8574436a72c37dc0e4bad90ec1ca38032c3c"
+    },
+    {
+      "name": "KTX-Software-4.4.2-Darwin-x86_64.pkg",
+      "url": "https://github.com/KhronosGroup/KTX-Software/releases/download/v4.4.2/KTX-Software-4.4.2-Darwin-x86_64.pkg",
+      "digest": "sha256:efecc685ab891a6e119a9fdc8cbe038e135f9a367eb2f5d8a059553f947f1fea"
+    },
+    {
+      "name": "pyktx-4.4.2-cp313-cp313-macosx_15_0_arm64.whl",
+      "url": "https://github.com/KhronosGroup/KTX-Software/releases/download/v4.4.2/pyktx-4.4.2-cp313-cp313-macosx_15_0_arm64.whl",
+      "digest": "sha256:eed083f4d95e0f826882877d4388f5c859e0e99b29642b59071bbc5ea6000ebb"
+    }
+  ]
+}

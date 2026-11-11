@@ -1,3 +1,4 @@
+import copy
 import json
 import unittest
 from unittest.mock import patch
@@ -5,24 +6,23 @@ from unittest.mock import patch
 import generate_attack_bank_profiles as generator
 
 
-PUBLISHED_BINDING = '7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff'
-PUBLISHED_MODELS = {
-    'base': 'e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc',
-    'indigo': '448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3',
-    'veteran': '0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2',
-}
+BOUND_BINDING = 'b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f'
+BOUND_MODELS = {'base': '722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e', 'indigo': '94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e', 'veteran': 'cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5'}
 
 
 class GenerateAttackBankProfilesTest(unittest.TestCase):
-    def test_formal_library_identity_exactly_regenerates_runtime_data(self):
+    def test_published_schema3_library_exactly_regenerates_runtime_data(self):
         self.assertEqual(generator.REPO / 'ArtSource/tripo-warrior/library', generator.DEFAULT_BANK)
-        review = json.loads((generator.DEFAULT_BANK / 'production_review_request.json').read_text())
-        self.assertEqual(PUBLISHED_BINDING, review['binding_sha256'])
-        self.assertEqual(generator.generate(generator.DEFAULT_BANK), generator.DEFAULT_OUTPUT.read_text())
-        data = generator.load_bank(generator.DEFAULT_BANK)
+        self.assertIn('// Prepared source: ArtSource/tripo-warrior/library\n', generator.DEFAULT_OUTPUT.read_text())
+        bank = generator.DEFAULT_BANK
+        review = json.loads((bank / 'production_review_request.json').read_text())
+        self.assertEqual(BOUND_BINDING, review['binding_sha256'])
+        self.assertEqual(generator.generate(bank), generator.DEFAULT_OUTPUT.read_text())
+        data = generator.load_bank(bank)
         self.assertEqual(len(data), 3)
-        self.assertEqual(PUBLISHED_MODELS, {c['id']: profile['model_sha256'] for c, profile, _ in data})
+        self.assertEqual(BOUND_MODELS, {c['id']: profile['model_sha256'] for c, profile, _ in data})
         self.assertEqual(sum(len(p['attacks'][d]['samples']) for _, p, _ in data for d in generator.DIRECTIONS), 954)
+        self.assertEqual(sum(len(p['locomotion'][name]['samples']) for _, p, _ in data for name in ['idle', 'walk']), 1662)
 
     def test_profile_identity_drift_is_rejected_before_export(self):
         with patch.object(generator, 'sha256', return_value='0' * 64):
@@ -34,6 +34,37 @@ class GenerateAttackBankProfilesTest(unittest.TestCase):
         with patch.object(generator, 'sha256', side_effect=lambda path: '0' * 64 if path.suffix == '.glb' else actual_sha256(path)):
             with self.assertRaisesRegex(ValueError, 'Prepared model identity differs'):
                 generator.load_bank(generator.DEFAULT_BANK)
+
+    def test_old_two_step_or_misaligned_contact_contract_is_rejected(self):
+        bank = generator.DEFAULT_BANK
+        character = json.loads((bank / 'characters.json').read_text())['characters'][0]
+        profile = json.loads((bank / character['attack_profiles']['file']).read_text())
+        self.assertEqual(6, len(generator.gait_step_events(profile)))
+        two_steps = copy.deepcopy(profile)
+        two_steps['source_contract']['steps_per_loop'] = 2
+        with self.assertRaisesRegex(ValueError, 'six-step'):
+            generator.gait_step_events(two_steps)
+        shifted = copy.deepcopy(profile)
+        shifted['source_contract']['contact_phases']['R_'][0][0] += 0.01
+        with self.assertRaisesRegex(ValueError, 'support entry'):
+            generator.gait_step_events(shifted)
+
+    def test_cross_clip_canonical_drift_is_rejected(self):
+        bank = generator.DEFAULT_BANK
+        character = json.loads((bank / 'characters.json').read_text())['characters'][0]
+        profile = json.loads((bank / character['attack_profiles']['file']).read_text())
+        generator.validate_canonical_boundaries(profile)
+        bad_walk = copy.deepcopy(profile)
+        for sample in bad_walk['locomotion']['walk']['samples']:
+            sample['head'][0] += 0.001
+        with self.assertRaisesRegex(ValueError, 'idle and walk canonical boundary'):
+            generator.validate_canonical_boundaries(bad_walk)
+        for direction in generator.DIRECTIONS:
+            for endpoint in [0, -1]:
+                drifted = copy.deepcopy(profile)
+                drifted['attacks'][direction]['samples'][endpoint]['blade_tip'][0] += 0.001
+                with self.assertRaisesRegex(ValueError, 'attack canonical boundary'):
+                    generator.validate_canonical_boundaries(drifted)
 
 
 if __name__ == '__main__':

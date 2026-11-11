@@ -36,14 +36,15 @@ def main():
     sources = sorted((source / 'core').rglob('*.kt'))
     sources += [source / 'p0d2f0182/runtime' / name for name in [
         'ArenaSession.kt', 'ArenaOpponents.kt', 'CombatFeedbackProfile.kt',
-        'AttackBankProfiles.kt', 'AttackBankProfileData.kt',
+        'AttackBankProfiles.kt', 'AttackBankProfileData.kt', 'LocomotionProfiles.kt',
     ]]
-    sources += [source / 'p0d2f0182/input/DesktopCombatInput.kt', source / 'p0d2f0182/content/EnemyAnimator.kt']
+    sources += [source / 'p0d2f0182/content/EnemyAnimator.kt']
     tests = REPO / 'app/src/test/java/com/example/wuxiaarena'
     test_sources = sorted((tests / 'core').rglob('*.kt'))
     test_sources += [tests / 'p0d2f0182/runtime' / name for name in [
         'ArenaSessionTest.kt', 'ArenaAttackDirectionTest.kt', 'AttackBankProfilesTest.kt',
         'CombatFeedbackTimingTest.kt', 'CombatImpactEventTest.kt',
+        'LocomotionProfilesTest.kt', 'EnemyPoseSelectionTest.kt',
     ]]
     classes = OUT / 'classes'
     classes.mkdir(exist_ok=True)

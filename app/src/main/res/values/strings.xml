@@ -19,7 +19,7 @@
     <string name="arena_state_tracking_resume_ready">追踪已恢复</string>
     <string name="arena_control_processing">正在处理控制请求</string>
 
-    <string name="arena_input_desktop">桌面预演 · 合成头手轨迹</string>
+    <string name="arena_input_desktop">模拟器虚拟手柄</string>
     <string name="arena_input_pico">设备追踪 · 头手动作</string>
     <string name="arena_input_synthetic">合成输入 · 非设备追踪</string>
     <string name="arena_input_unknown">输入来源待确认</string>
@@ -72,12 +72,6 @@
     <string name="arena_technique_dodge_detail">看见起势后侧移或下蹲，让开原本头部位置。</string>
     <string name="arena_technique_skill">破势</string>
     <string name="arena_technique_skill_detail">双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。</string>
-    <string name="arena_keyboard_help">1/J 斩击 · 4/K 刺击 · 5/V 架刀\n8/Z 左闪 · 9/X 右闪 · C 蹲\nG 破势 / 虚弱时自动处决</string>
-    <string name="arena_preview_slash">斩击</string>
-    <string name="arena_preview_thrust">前刺</string>
-    <string name="arena_preview_guard">架刀</string>
-    <string name="arena_preview_dodge">侧闪</string>
-    <string name="arena_preview_skill">破势 / 处决</string>
     <string name="arena_settlement_score">得分 %1$d · 最佳 %2$d</string>
     <string name="arena_settlement_detail">连战 %1$d/%2$d 场 · 余血 %3$d</string>
     <string name="arena_victory_detail">试炼尽破，刀势已成。可再挑战刷新得分。</string>
@@ -111,7 +105,6 @@
     <string name="arena_status_enemy_guard">对手护身 · 先弹反或破势</string>
     <string name="arena_status_countdown">调整站位与架势</string>
     <string name="arena_status_round_transition">下一场即将开始</string>
-    <string name="arena_preview_instruction">动作预演会生成头手轨迹，复用体感判定。</string>
     <string name="arena_hint_ready">先读起手，再迎刀反击</string>
     <string name="arena_hint_countdown">稳住身位 · 等候刀客起势</string>
     <string name="arena_hint_idle">刀客接近 · 举刀护住头部</string>

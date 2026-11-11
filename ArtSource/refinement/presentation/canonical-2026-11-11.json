@@ -1,0 +1,30 @@
+{
+  "type": "native_emulator_2d_screenshot",
+  "source": "artifacts/canonical-native/forward-controls-loaded.png",
+  "image_sha256": "530fcc425a1d0a9cb4477e3cab54fc6c705198cb2444209ad042d78303e39bd7",
+  "image_bytes": 2811386,
+  "apk_sha256": "7e1368fed7423fa5b3d9ea2f567cc1e786fa0bbfa85ebd6409a714369fbfc17e",
+  "apk_bytes": 242709448,
+  "model_binding_sha256": "b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f",
+  "environment_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "capture_tool": "pico-cli capture screenshot, flat emulator image",
+  "displayed_state": "READY, scene loaded; complete preparation panel inside forward field of view",
+  "control_panel_stage_position_metres": [
+    -0.6,
+    1.2,
+    -1.75
+  ],
+  "control_panel_yaw_degrees": 20,
+  "automated_tests": {
+    "tests": 311,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "full shared tests before the two-line attachment pose correction; correction compiled and visually checked"
+  },
+  "open_gates": [
+    "new APK full combat and three-round victory",
+    "native skinned KTX pressure/round-swap proof",
+    "Space Pro hardware comfort and performance"
+  ]
+}

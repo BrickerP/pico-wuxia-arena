@@ -1,0 +1,18 @@
+{
+  "decision": "approved_for_development_integration",
+  "quality_complete": false,
+  "candidate_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "published_asset": "app/src/main/assets/models/courtyard_hero.glb",
+  "visible_review": [
+    "Root inspected actual before/after comparison_player.png",
+    "Root inspected actual before/after comparison_lantern_joinery.png"
+  ],
+  "findings": [
+    "Paper warm spot and directional wood structure visibly improved",
+    "Lantern paper belly gradient replaces solid flat red appearance"
+  ],
+  "native_open": [
+    "Native emissive/normal response and actor hierarchy",
+    "Memory, performance and light pool relationship"
+  ]
+}

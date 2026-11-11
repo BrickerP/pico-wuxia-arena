@@ -1,0 +1,5 @@
+__pycache__/
+cache/
+tooling/*.pkg
+tooling/extracted/
+tooling/gltf-validator/node_modules/

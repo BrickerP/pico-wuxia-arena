@@ -8,7 +8,7 @@
 
 空间价值来自位置与方向：敌人状态留在对手上方，操作入口留在左侧场边。二维反事实是在屏幕四角贴 HUD；若直接照搬到 VR，会把同样内容硬塞到中央视野，夺走对手轮廓与手部动作。既有两个 Attachment 的位置和朝向保持，不增加浮窗、腕部跟随、深度动画或需玩家转头寻找的新入口。
 
-假设：既有 Attachment 距离与 500×260/400×160/240/400 协议继续有效（高置信；Root 才能改接线）。实体 PICO 字体会回退到系统中文 Serif/Sans（中置信，需端内验字形）。16sp 提示、14sp 资源在当前位置可读（待验证，不能以本 Web 图证明）。
+假设：既有 Attachment 距离与 500×260/400×160/400 协议继续有效（高置信；Root 才能改接线）。实体 PICO 字体会回退到系统中文 Serif/Sans（中置信，需端内验字形）。16sp 提示、14sp 资源在当前位置可读（待验证，不能以本 Web 图证明）。
 
 ## Explore 与选择
 
@@ -111,10 +111,24 @@ Web renderer 只呈现静态最终尺度1.0，未模拟或验收这两段动态�
 
 本次先读真实 `artifacts/integrated-polish/ready-scene.png`：桌面 READY 中，预演说明、两排禁用动作和三行键位挤占了教学空间，实际画面底部只剩被裁切的“刀术要诀”。该图是 Root 的端内基线；本目录新图全部是 Web 布局容量证据，不能充当修复后的 VR 截图。
 
-400×400 协议、上方40dp标题行、状态、summary与主操作固定；READY/PAUSED 删除独立预演说明和非战斗动作块，已就绪 summary 统一现有 objective。教学区共194dp：顶行24dp，caption“刀术要诀”14sp、当前招名20sp/24sp、右侧x/4为14sp/18sp；底部两个标准Small40dp按钮固定；上下间隔各8dp，正文区域114dp。正文16sp/22sp，桌面键位14sp/18sp；不设maxLines，正文可内滚动。页面切换重建正文节点，scrollTop回0。首步上一式disabled，末步下一式disabled。
+400×400 协议、上方40dp标题行、状态、summary与主操作固定；READY/PAUSED 删除独立预演说明和非战斗动作块，已就绪 summary 统一现有 objective。教学区共194dp：顶行24dp，caption14sp、当前页标题20sp/24sp、右侧x/4为14sp/18sp；底部两个标准Small40dp按钮固定；上下间隔各8dp，正文区域114dp。正文只一段16sp/22sp说明，不另设键位小字块；不设maxLines，正文可内滚动。页面切换重建正文节点，scrollTop回0。首步上一式disabled，末步下一式disabled。
 
-技法四步完整detail逐字取 `strings.xml`：进刀、架刀、避锋、破势。对应桌面键位为“1/J 斩击 · 4/K 前刺”“5/V 架刀”“8/Z 左闪 · 9/X 右闪 · C 下蹲”“G 破势 / 处决”。原4行精简说明与废弃节点已从JSON移除；所有页面数据在 `dataCases.normal.techniqueGuide`，本地翻页action只改变index，不调用战斗动作。native隐藏键位块，没有可见模式调试开关；QA使用 `__arenaPreview.setInputMode('desktop'|'native')`。
+技法四步完整detail逐字取 `strings.xml`：进刀、架刀、避锋、破势。桌面操作提示已在revision 10改为官方虚拟手柄的模式设置、Shift右手平移、鼠标转腕/瞄准和左键确认；不提供单键战斗宏。原4行精简说明与废弃节点已从JSON移除；所有页面数据在 `dataCases.normal.techniqueGuide`，本地翻页action只改变index，不调用战斗动作。native隐藏桌面操作提示块，没有可见模式调试开关；QA使用 `__arenaPreview.setInputMode('desktop'|'native')`。
 
 浏览器以真实400×400 CSS面板测量：教学区194、正文clientHeight=scrollHeight=114；默认首屏完整，破势最长正文在当前字体下为两行，desktop与native均无滚动需求；导航底边距外面板底边20px，完全位于面板内。已通过标准sui-button实际翻页1→2→3→4、末步disabled、上一式4→3以及正文scrollTop=0；PAUSED共用教学版式同样不裁切。截图 `teaching-desktop-1.png` 至 `teaching-desktop-4.png`、`teaching-native-4.png`、`teaching-paused-desktop-4.png`；图片按浏览器device pixel ratio输出，CSS面板固定400×400，不能据图像像素推算VR物理尺寸。
 
 约束与未验：Web系统字体换到PICO字体时可能增加行数，内滚动只保护极端容量，不代替默认首屏检查；真实VR的翻页射线点击、hover/触觉、距离、头动、教学导航是否被武器遮住仍由Root复测。FIGHTING、结算数据、所有surface尺寸、palette与两处simulationScale字段均保持。本次只编辑设计目录，未触碰runtime/res/test/Main/HomeStage/build/device。
+
+
+## 官方虚拟手柄输入约定（revision 10）
+
+本轮仅修改设计数据与HTML快照，接口冻结，不为图片延迟。战斗控制对native/desktop统一400×160；准备、暂停、结算400×400。paper/ink、原有四步导航及尺寸层次保持，不新增控件或窗口。JSON没有DesktopActions、onDesktopAction、DesktopCombatInput或预制战斗动作入口。
+
+桌面提示沿官方虚拟手柄：右下RightControllerMode，ControllerButtonMode开，Keyboard文本模式关；Shift+W/A/S/D/Q/E仅平移虚拟右手，鼠标转腕/瞄准，左键确认。头部移动与手柄移动明确区分，VR仍以实体动作识别。native保留四招完整技法detail；desktop采用独立的四页模拟器操作，caption为“模拟器操作”。desktop仅由注入样本的inputOrigin==DESKTOP判定，原setInputMode仅为无可见调试控件的QA样本注入器。终局VICTORY/DEFEAT的comboVisible固定false，score/best/history不清零，显示门槛另记在status-surface.props.comboVisibility。
+
+本轮只跑schema、精确JSON快照与surface门，未跑浏览器/Native图。旧teaching-desktop截图记录revision 9的旧按键文案，不能作为当前输入说明或验收图；本轮不刷新这些历史图。Web进度组件的240px固有轨道适配仍保留，它不代表战斗面板高度。
+
+
+### revision 11 · 与已收敛XML精确同步
+
+直接读取当前 `strings.xml` 与 `arena_ui_art.xml`：desktop四页为控制模式、移动虚拟手、动作识别、头手分开，caption“模拟器操作”；native仍为进刀、架刀、避锋、破势，caption“刀术要诀”。每页只有title/detail，detail16sp、22sp行高；删除第三块desktopHint/键位小字。说明中的Android字符串换行已转为JSON真实换行。两种模式数据分别位于 `dataCases.normal.techniqueGuide.inputModes`，来源XML SHA随JSON记录。其余冻结约定保持，本轮仍未运行浏览器或Native截图。

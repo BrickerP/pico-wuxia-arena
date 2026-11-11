@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "space": "prepared actor root",
+  "policy": "preserve existing body vertical coverage relative to the same target Hip/Spine02 anchors; actual final LBS supplies XZ",
+  "characters": {
+    "base": {
+      "source_profile": {
+        "path": "ArtSource/tripo-warrior/library/base_attack_profiles.json",
+        "sha256": "f4b2d918bdb63cfd9436708822dc262df9c5e94ec357f1dc6b5a0ee01a114450",
+        "model_sha256": "e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc"
+      },
+      "space": "prepared actor root",
+      "idle_centres_metres": {
+        "body_bottom": [
+          0.0,
+          0.550000011920929,
+          0.0
+        ],
+        "body_top": [
+          0.0,
+          1.399999976158142,
+          0.0
+        ]
+      },
+      "idle_reference": {
+        "hip": [
+          0.23926785588264465,
+          0.9051286578178406,
+          0.011141314171254635
+        ],
+        "spine02": [
+          0.24234718084335327,
+          1.2796032428741455,
+          -0.010732552967965603
+        ]
+      }
+    },
+    "indigo": {
+      "source_profile": {
+        "path": "ArtSource/tripo-warrior/library/indigo_attack_profiles.json",
+        "sha256": "4633e2a7e3d8173f09e2c1e7ff98e713b11cacb6b01979055dbe4ba469d44a3a",
+        "model_sha256": "448d46394743018aff3165e0e49e5c07480b617664c072c14ab6ae186cc87ef3"
+      },
+      "space": "prepared actor root",
+      "idle_centres_metres": {
+        "body_bottom": [
+          0.0,
+          0.550000011920929,
+          0.0
+        ],
+        "body_top": [
+          0.0,
+          1.399999976158142,
+          0.0
+        ]
+      },
+      "idle_reference": {
+        "hip": [
+          0.23344597220420837,
+          0.9287304878234863,
+          0.011978492140769958
+        ],
+        "spine02": [
+          0.23382285237312317,
+          1.3134127855300903,
+          -0.018659161403775215
+        ]
+      }
+    },
+    "veteran": {
+      "source_profile": {
+        "path": "ArtSource/tripo-warrior/library/veteran_attack_profiles.json",
+        "sha256": "c6822e9f07ca94af850ded93c7a2d175bd10df4a4cb73be4f08d024cc9dd2c88",
+        "model_sha256": "0c0b57a4f3684a25603a6875b2fd9188096755dc4b3688d921a7de8776f1e9c2"
+      },
+      "space": "prepared actor root",
+      "idle_centres_metres": {
+        "body_bottom": [
+          0.0,
+          0.550000011920929,
+          0.0
+        ],
+        "body_top": [
+          0.0,
+          1.399999976158142,
+          0.0
+        ]
+      },
+      "idle_reference": {
+        "hip": [
+          0.23704978823661804,
+          0.879838764667511,
+          -0.0022242977283895016
+        ],
+        "spine02": [
+          0.23593781888484955,
+          1.2580386400222778,
+          -0.01688772439956665
+        ]
+      }
+    }
+  }
+}

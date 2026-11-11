@@ -248,40 +248,323 @@ class CombatAudioTest {
     }
 
     @Test
-    fun footstepsUseTravelDistanceAndDoNotAccumulateTeleports() {
+    fun forwardWalkBindsAtZeroSilentlyAndEntersTheRightStanceAtTheFirstMarker() {
         val f = Fixture()
-        f.present()
-        for (gait in listOf(0.20, 0.724)) f.present(f.state.copy(enemyGaitMeters = gait))
-        assertEquals(0, f.output.count(R.raw.arena_step))
-        f.present(f.state.copy(enemyGaitMeters = 0.725))
-        assertEquals(1, f.output.count(R.raw.arena_step))
-        f.present(f.state.copy(enemyGaitMeters = 8.0))
-        f.present(f.state.copy(enemyGaitMeters = 8.2))
-        assertEquals(1, f.output.count(R.raw.arena_step))
-        f.present(f.state.copy(enemyGaitMeters = 8.73))
-        assertEquals(2, f.output.count(R.raw.arena_step))
+        f.walk(0.0)
+        f.walk(f.stepMeters(1) - 0.001)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(1))
+        assertStepFeet(f, EnemyFoot.RIGHT)
+        f.walk(f.stepMeters(1))
+        assertStepFeet(f, EnemyFoot.RIGHT)
     }
 
     @Test
-    fun resumedFootstepsDoNotCatchUpTheDistanceTravelledWhileMuted() {
+    fun reverseWalkBindsAtZeroSilentlyAndEntersTheLeftStanceFirst() {
         val f = Fixture()
-        f.present()
-        f.present(f.state.copy(enemyGaitMeters = 0.3))
-        f.present(f.state.copy(pauseReason = PauseReason.USER, enemyGaitMeters = 0.6))
-        f.present(f.state.copy(enemyGaitMeters = 1.0))
-        assertEquals(0, f.output.count(R.raw.arena_step))
-        f.present(f.state.copy(enemyGaitMeters = 1.73))
-        assertEquals(1, f.output.count(R.raw.arena_step))
+        f.walk(0.0, direction = -1f)
+        f.walk(-0.001, direction = -1f)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(5) - f.profile.strideMeters - 0.001, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
     }
 
     @Test
-    fun unloadedFootstepsAreNotQueuedForLaterPlayback() {
+    fun oneForwardLoopConsumesAllSixPreparedMarkersInTheirFootOrder() {
+        val f = Fixture()
+        f.walk(0.0)
+        for (event in f.profile.stepEvents.drop(1)) f.walk(event.phase * f.profile.strideMeters + 0.001)
+        f.walk(f.profile.strideMeters + 0.001)
+        assertStepFeet(f, EnemyFoot.RIGHT, EnemyFoot.LEFT, EnemyFoot.RIGHT, EnemyFoot.LEFT, EnemyFoot.RIGHT, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun negativeGaitTraversesSixReverseMarkersAcrossTheNegativeLoopSeam() {
+        val f = Fixture()
+        f.walk(0.0, direction = -1f)
+        for (event in f.profile.stepEvents.drop(1).reversed()) {
+            f.walk((event.phase - 1.0) * f.profile.strideMeters - 0.001, direction = -1f)
+        }
+        f.walk(-f.profile.strideMeters - 0.001, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT, EnemyFoot.RIGHT, EnemyFoot.LEFT, EnemyFoot.RIGHT, EnemyFoot.LEFT, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun repeatingAnExactLoopSeamDoesNotDuplicateTheFootContact() {
+        val f = Fixture()
+        val seam = f.profile.strideMeters
+        f.walk(seam - 0.01)
+        f.walk(seam)
+        f.walk(seam)
+        f.walk(seam + 0.01)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun forwardArrivalAtExactPositiveAndNegativeSeventhLoopSeamsPlaysOnlyOneLeftStep() {
+        for (cycle in listOf(-7, 7)) {
+            val f = Fixture()
+            val seam = f.profile.strideMeters * cycle
+            f.walk(seam - 0.01)
+            f.walk(seam)
+            f.walk(seam)
+            f.walk(seam + 0.001)
+            assertStepFeet(f, EnemyFoot.LEFT)
+        }
+    }
+
+    @Test
+    fun reverseArrivalAtExactPositiveAndNegativeSeventhLoopSeamsPlaysOnlyOneRightStep() {
+        for (cycle in listOf(-7, 7)) {
+            val f = Fixture()
+            val seam = f.profile.strideMeters * cycle
+            f.walk(seam + 0.01, direction = -1f)
+            f.walk(seam, direction = -1f)
+            f.walk(seam, direction = -1f)
+            f.walk(seam - 0.001, direction = -1f)
+            assertStepFeet(f, EnemyFoot.RIGHT)
+        }
+    }
+
+    @Test
+    fun tinyPositiveStrideSelectsTheLatestSharedClockStanceWithoutRecoveringAnOverflowingCycle() {
+        val base = Fixture().profile
+        val profile = LocomotionProfile(base.idle, base.walk, base.loopStartSeconds, base.loopEndSeconds,
+            1e-200, base.stepEvents)
+        assertEquals(EnemyFoot.LEFT, latestAudioFootfall(profile, 0.0, 0.1))
+        assertEquals(profile.stepEvents[2].reverseFoot, latestAudioFootfall(profile, 0.0, -0.1))
+    }
+
+    @Test
+    fun minimumPositiveStrideUsesTheSharedClockSeamInBothDirections() {
+        val base = Fixture().profile
+        val profile = LocomotionProfile(base.idle, base.walk, base.loopStartSeconds, base.loopEndSeconds,
+            Double.MIN_VALUE, base.stepEvents)
+        assertEquals(EnemyFoot.LEFT, latestAudioFootfall(profile, 0.0, 0.1))
+        assertEquals(profile.stepEvents.first().reverseFoot, latestAudioFootfall(profile, 0.0, -0.1))
+    }
+
+    @Test
+    fun exactFullLoopReverseArrivalIncludesTheSignedNegativeFirstMarker() {
+        val base = Fixture().profile
+        val profile = LocomotionProfile(base.idle, base.walk, base.loopStartSeconds, base.loopEndSeconds,
+            0.1, base.stepEvents)
+        val current = profile.strideMeters * (profile.stepEvents[1].phase - 1.0)
+        assertEquals(profile.stepEvents[1].reverseFoot,
+            latestAudioFootfall(profile, current + profile.strideMeters, current))
+    }
+
+    @Test
+    fun exactFullLoopForwardArrivalIncludesTheSignedPositiveSecondMarker() {
+        val base = Fixture().profile
+        val profile = LocomotionProfile(base.idle, base.walk, base.loopStartSeconds, base.loopEndSeconds,
+            0.1, base.stepEvents)
+        val current = profile.strideMeters * (1.0 + profile.stepEvents[2].phase)
+        assertEquals(profile.stepEvents[2].forwardFoot,
+            latestAudioFootfall(profile, current - profile.strideMeters, current))
+    }
+
+    @Test
+    fun reverseArrivalIncludesAnExactMarkerButDepartureAndRepeatedSamplesExcludeIt() {
+        val f = Fixture()
+        val marker = f.stepMeters(1)
+        f.walk(marker + 0.01, direction = -1f)
+        f.walk(marker, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
+        f.walk(marker, direction = -1f)
+        f.walk(marker - 0.01, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun reverseArrivalIncludesTheExactNegativeCycleFirstMarkerWithoutRepeatingIt() {
+        val f = Fixture()
+        val marker = f.profile.strideMeters * (f.profile.stepEvents[1].phase - 1.0)
+        f.walk(marker + 0.01, direction = -1f)
+        f.walk(marker, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
+        f.walk(marker, direction = -1f)
+        f.walk(marker - 0.001, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun forwardDepartureExcludesTheExactNegativeCycleSecondMarker() {
+        val f = Fixture()
+        val marker = f.profile.strideMeters * (f.profile.stepEvents[2].phase - 1.0)
+        f.walk(marker)
+        f.walk(marker + 0.001)
+        f.walk(marker + 0.001)
+        f.walk(marker + 0.01)
+        assertTrue("The initial marker was already the binding position, so departure must not replay it", f.output.steps.isEmpty())
+    }
+
+    @Test
+    fun reverseCrossingZeroUsesTheSeamMarkerAndDoesNotReplayItOnDeparture() {
+        val f = Fixture()
+        f.walk(0.01, direction = -1f)
+        f.walk(0.0, direction = -1f)
+        f.walk(0.0, direction = -1f)
+        f.walk(-0.01, direction = -1f)
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun firstBindingAtAnArbitraryMarkerIsSilentAndOnlyTheNextMarkerPlays() {
+        val f = Fixture()
+        f.walk(f.stepMeters(2))
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(3) + 0.001)
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun stoppingAtAnArbitraryPhaseAdvancesTheCursorWithoutInventingSteps() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.walk(f.stepMeters(2) + 0.01, direction = 0f)
+        f.walk(f.stepMeters(2) + 0.01)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(3) + 0.001)
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun attackPhasesAdvanceTheGaitCursorButDoNotSoundOrReplaySkippedSteps() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.walk(f.stepMeters(2) + 0.01, phase = EnemyPhase.STARTUP)
+        f.walk(f.stepMeters(3) + 0.01, phase = EnemyPhase.ACTIVE)
+        f.walk(f.stepMeters(3) + 0.02)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(4) + 0.001)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun changingPlayerMotionGenerationDoesNotResetTheEnemyGaitClock() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.present(f.walking(f.stepMeters(1) + 0.01).copy(playerMotionGeneration = 2))
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun pausedWalkingRebindsOnTheFirstResumedFrameWithoutCatchup() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.present(f.walking(f.stepMeters(2) + 0.01).copy(pauseReason = PauseReason.USER))
+        f.walk(f.stepMeters(3) + 0.01)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(4) + 0.001)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun restoredSceneRebindsWithoutReplayingTheDistanceWhileItWasUnavailable() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.present(f.walking(f.stepMeters(2) + 0.01).copy(sceneReady = false))
+        f.walk(f.stepMeters(3) + 0.01)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(4) + 0.001)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun newRoundRebindsItsFirstGaitFrameWithoutAnOldContact() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        f.present(f.walking(f.stepMeters(2) + 0.01).copy(roundGeneration = 2))
+        assertTrue(f.output.steps.isEmpty())
+        f.present(f.walking(f.stepMeters(3) + 0.001).copy(roundGeneration = 2))
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun changingOpponentRebindsEvenWhenItsPreparedLoopHasTheSameNumbers() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        val next = arenaOpponents[1].locomotionProfile()
+        val bind = f.walking(next.strideMeters * next.stepEvents[2].phase + 0.01).copy(roundNumber = 2)
+        f.present(bind)
+        assertTrue(f.output.steps.isEmpty())
+        f.present(bind.copy(enemyGaitMeters = next.strideMeters * next.stepEvents[3].phase + 0.001))
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun nonFiniteGaitClearsTheCursorAndCannotCauseAFutureCatchupContact() {
+        for (bad in listOf(Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY)) {
+            val f = Fixture()
+            f.walk(f.stepMeters(1) - 0.01)
+            f.walk(bad)
+            f.walk(f.stepMeters(2) + 0.01)
+            assertTrue(f.output.steps.isEmpty())
+            f.walk(f.stepMeters(3) + 0.001)
+            assertStepFeet(f, EnemyFoot.RIGHT)
+        }
+    }
+
+    @Test
+    fun nonFiniteMovementDirectionIsSilentAndStillAdvancesTheCursor() {
+        for (bad in listOf(Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY)) {
+            val f = Fixture()
+            f.walk(f.stepMeters(1) - 0.01)
+            f.walk(f.stepMeters(2) + 0.01, direction = bad)
+            f.walk(f.stepMeters(2) + 0.02)
+            assertTrue(f.output.steps.isEmpty())
+            f.walk(f.stepMeters(3) + 0.001)
+            assertStepFeet(f, EnemyFoot.RIGHT)
+        }
+    }
+
+    @Test
+    fun teleportDiscardsAllSkippedMarkersAndRebindsAtTheDestination() {
+        val f = Fixture()
+        f.walk(0.0)
+        val destination = 5 * f.profile.strideMeters + f.stepMeters(2) + 0.01
+        f.walk(destination)
+        f.walk(destination)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(5 * f.profile.strideMeters + f.stepMeters(3) + 0.001)
+        assertStepFeet(f, EnemyFoot.RIGHT)
+    }
+
+    @Test
+    fun oneFrameCrossingMultipleMarkersPlaysOnlyTheMostRecentForwardContact() {
+        val f = Fixture()
+        f.walk(f.stepMeters(1) - 0.01)
+        val destination = f.stepMeters(2) + 0.001
+        f.walk(destination)
+        assertStepFeet(f, EnemyFoot.LEFT)
+        f.walk(destination)
+        f.walk(destination + 0.01)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun oneFrameCrossingMultipleReverseMarkersUsesTheLastReverseStance() {
+        val f = Fixture()
+        f.walk(f.stepMeters(4) + 0.01, direction = -1f)
+        val destination = f.stepMeters(3) - 0.001
+        f.walk(destination, direction = -1f)
+        f.walk(destination, direction = -1f)
+        assertStepFeet(f, EnemyFoot.LEFT)
+    }
+
+    @Test
+    fun unloadedStepIsDroppedAndNeverQueuedAfterTheSampleBecomesReady() {
         val f = Fixture(ready = false)
-        f.present()
-        f.present(f.state.copy(enemyGaitMeters = 0.73))
+        f.walk(0.0)
+        val marker = f.stepMeters(1) + 0.001
+        f.walk(marker)
         f.output.readyAll()
-        f.present(f.state.copy(enemyGaitMeters = 0.73))
-        assertEquals(0, f.output.count(R.raw.arena_step))
+        f.walk(marker)
+        f.walk(marker + 0.01)
+        assertTrue(f.output.steps.isEmpty())
+        f.walk(f.stepMeters(2) + 0.001)
+        assertStepFeet(f, EnemyFoot.LEFT)
     }
 
     @Test
@@ -375,6 +658,13 @@ class CombatAudioTest {
 
         init { if (ready) output.readyAll() }
 
+        val profile get() = arenaOpponents[state.roundNumber - 1].locomotionProfile()
+        fun stepMeters(index: Int) = profile.stepEvents[index].phase * profile.strideMeters
+        fun walking(gait: Double, direction: Float = 1f, phase: EnemyPhase = EnemyPhase.IDLE) =
+            state.copy(enemyGaitMeters = gait, enemyMoveDirection = direction, phase = phase)
+        fun walk(gait: Double, direction: Float = 1f, phase: EnemyPhase = EnemyPhase.IDLE) =
+            present(walking(gait, direction, phase))
+
         fun present(state: ArenaViewState = this.state, events: List<EnemyCombatEvent> = emptyList()) =
             audio.present(state, events)
     }
@@ -397,6 +687,7 @@ class CombatAudioTest {
         var releases = 0
         private var nextStream = 1
         val contacts get() = plays.filter { it.priority >= 3 }
+        val steps get() = plays.filter { it.sample == R.raw.arena_step }
 
         override fun onLoad(listener: ((Int, Int) -> Unit)?) { this.listener = listener }
         override fun load(resource: Int): Int { loaded += resource; return resource }
@@ -415,6 +706,17 @@ class CombatAudioTest {
     }
 
     private companion object {
+        fun assertStepFeet(f: Fixture, vararg feet: EnemyFoot) {
+            val played = f.output.steps
+            assertEquals("One sound per crossed support-entry marker, without backlog", feet.size, played.size)
+            for ((index, foot) in feet.withIndex()) {
+                assertEquals("Prepared stance foot at step $index", if (foot == EnemyFoot.LEFT) 0.96f else 1.03f,
+                    played[index].rate, 0f)
+                assertTrue("Stereo accent follows the prepared stance foot at step $index",
+                    if (foot == EnemyFoot.LEFT) played[index].left > played[index].right else played[index].right > played[index].left)
+            }
+        }
+
         fun contact(id: Long, kind: CombatImpactKind = CombatImpactKind.SOFT_HIT) = CombatImpact(
             id, kind, Vector3(0.0, 1.0, -1.0), Vector3(0.0, 0.0, 1.0), 0.7, Hand.RIGHT, 0L,
         )

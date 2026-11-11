@@ -121,145 +121,203 @@ class PicoTrackingAdapterTest {
     }
 
     @Test
-    fun emulatorPreviewPairsDesktopHeadAndHandsAndIgnoresRealControllers() {
+    fun nativeDesktopSamplesPreserveSdkPositionsAndIndependentHands() {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
         val hmd = FakeProvider<HMDTrackingData>()
         val controllers = FakeProvider<ControllerTrackingData>()
-        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, inputOrigin = InputOrigin.DESKTOP,
+            diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
         val state = TrackingState(Hand.RIGHT)
         adapter.start()
-        assertEquals(1, controllers.starts)
-        assertTrue(controllers.listeners.isEmpty())
+        assertEquals(1, hmd.listeners.size)
+        assertEquals(1, controllers.listeners.size)
         buffer.drain().events.forEach(state::accept)
 
-        controllers.emit(hands(left = controller(-9f), right = controller(9f)))
-        assertTrue(buffer.drain().events.isEmpty())
-        assertFalse(state.snapshot.hasRequiredObservations)
-
         hmd.emit(head())
-        adapter.pollDesktopPreview(1L)
-        val pair = buffer.drain().events
-        assertEquals(2, pair.size)
-        val headEvent = pair[0] as TrackingEvent.Head
-        val handEvent = pair[1] as TrackingEvent.Controllers
+        val headEvent = buffer.drain().events.single() as TrackingEvent.Head
         assertEquals(InputOrigin.DESKTOP, headEvent.stamp.origin)
-        assertEquals(InputOrigin.DESKTOP, handEvent.stamp.origin)
-        assertEquals(headEvent.stamp.sequence + 1, handEvent.stamp.sequence)
-        assertEquals(headEvent.stamp.coordinateEpoch, handEvent.stamp.coordinateEpoch)
-        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(headEvent.pose).quality)
-        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(handEvent.left).quality)
-        assertEquals(TrackingQuality.UNKNOWN, requireNotNull(handEvent.right).quality)
-
         assertTrue(state.accept(headEvent))
         assertFalse(state.snapshot.hasRequiredObservations)
-        assertTrue(state.accept(handEvent))
-        assertTrue(state.snapshot.hasRequiredObservations)
-        assertEquals(headEvent.stamp, state.snapshot.head?.stamp)
-        assertEquals(handEvent.stamp, state.snapshot.left?.stamp)
-        assertEquals(handEvent.stamp, state.snapshot.right?.stamp)
-
-        controllers.emit(hands())
+        adapter.pollDiagnostics(1L)
         assertTrue(buffer.drain().events.isEmpty())
+
+        controllers.emit(hands(left = controller(-9f), right = controller(9f)))
+        val firstHands = buffer.drain().events.single() as TrackingEvent.Controllers
+        assertEquals(InputOrigin.DESKTOP, firstHands.stamp.origin)
+        assertEquals(-9.0, requireNotNull(firstHands.left?.position).x, 0.0)
+        assertEquals(9.0, requireNotNull(firstHands.right?.position).x, 0.0)
+        assertEquals(TrackingQuality.UNKNOWN, firstHands.left?.quality)
+        assertEquals(TrackingQuality.UNKNOWN, firstHands.right?.quality)
+        assertTrue(state.accept(firstHands))
+        assertTrue(state.snapshot.hasRequiredObservations)
+
+        controllers.emit(hands(left = controller(-9f), right = controller(9.5f)))
+        val moved = buffer.drain().events.single() as TrackingEvent.Controllers
+        assertEquals(firstHands.left, moved.left)
+        assertEquals(9.5, requireNotNull(moved.right?.position).x, 0.0)
+        assertTrue(state.accept(moved))
+        adapter.pollDiagnostics(200_000_001L)
+        assertTrue(buffer.drain().events.isEmpty())
+        assertTrue(probeLogs.last().contains("rawCallbacks=2"))
+        assertTrue(probeLogs.last().contains("acceptedToBuffer=2"))
+        assertTrue(probeLogs.last().contains("quality=UNKNOWN"))
+        assertEquals(9.5, state.snapshot.right?.pose?.position?.x)
         adapter.stop()
         assertEquals(1, controllers.stops)
+        assertTrue(controllers.listeners.isEmpty())
     }
 
     @Test
-    fun emulatorPreviewLossClearsThePairAndRecoveryRequiresNewObservations() {
+    fun nativeDesktopControllerLossInvalidatesHandsAndRequiresNewObservations() {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
         val hmd = FakeProvider<HMDTrackingData>()
         val controllers = FakeProvider<ControllerTrackingData>()
-        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
+        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, inputOrigin = InputOrigin.DESKTOP)
         val state = TrackingState(Hand.RIGHT)
-        val sample = head()
         adapter.start()
         buffer.drain().events.forEach(state::accept)
-        hmd.emit(sample)
-        adapter.pollDesktopPreview(1L)
-        val oldPair = buffer.drain().events
-        assertEquals(2, oldPair.size)
-        oldPair.forEach { assertTrue(state.accept(it)) }
+        hmd.emit(head())
+        controllers.emit(hands())
+        val baseline = buffer.drain().events
+        baseline.forEach { assertTrue(state.accept(it)) }
         assertTrue(state.snapshot.hasRequiredObservations)
         val beforeLoss = state.snapshot
 
-        hmd.state = DataProvider.State.PENDING
-        hmd.supportState = DataProvider.SupportState.DEVICE_NOT_SUPPORTED
+        controllers.state = DataProvider.State.PENDING
+        controllers.supportState = DataProvider.SupportState.DEVICE_NOT_SUPPORTED
         adapter.pollAvailability()
         adapter.pollAvailability()
         val loss = buffer.drain().events.single() as TrackingEvent.Discontinuity
         assertEquals(InputOrigin.DESKTOP, loss.stamp.origin)
-        assertEquals(TrackingTarget.ALL, loss.target)
+        assertEquals(TrackingTarget.BOTH_HANDS, loss.target)
         assertEquals(DiscontinuityReason.PROVIDER_UNAVAILABLE, loss.reason)
         assertTrue(state.accept(loss))
         assertFalse(state.snapshot.hasRequiredObservations)
-        assertNull(state.snapshot.head)
+        assertEquals(beforeLoss.head, state.snapshot.head)
         assertNull(state.snapshot.left)
         assertNull(state.snapshot.right)
-        assertEquals(beforeLoss.headContinuity + 1, state.snapshot.headContinuity)
+        assertEquals(beforeLoss.headContinuity, state.snapshot.headContinuity)
         assertEquals(beforeLoss.leftContinuity + 1, state.snapshot.leftContinuity)
         assertEquals(beforeLoss.rightContinuity + 1, state.snapshot.rightContinuity)
 
-        hmd.emit(sample)
         controllers.emit(hands())
         assertTrue(buffer.drain().events.isEmpty())
-        assertFalse(state.snapshot.hasRequiredObservations)
-
-        hmd.state = DataProvider.State.STARTED
-        hmd.supportState = DataProvider.SupportState.SUPPORTED
+        controllers.state = DataProvider.State.STARTED
+        controllers.supportState = DataProvider.SupportState.SUPPORTED
         adapter.pollAvailability()
         assertTrue(buffer.drain().events.isEmpty())
         assertFalse(state.snapshot.hasRequiredObservations)
-        oldPair.forEach {
-            assertFalse(state.accept(it))
-            assertFalse(state.snapshot.hasRequiredObservations)
-        }
-        val beforeRecovery = state.snapshot
-
-        hmd.emit(sample)
-        adapter.pollDesktopPreview(2L)
-        val newPair = buffer.drain().events
-        assertEquals(2, newPair.size)
-        assertTrue(newPair.first().stamp.sequence > loss.stamp.sequence)
-        assertEquals(loss.stamp.coordinateEpoch, newPair.first().stamp.coordinateEpoch)
-        assertTrue(state.accept(newPair[0]))
+        assertFalse(state.accept(baseline.last()))
+        hmd.emit(head())
+        assertTrue(state.accept(buffer.drain().events.single()))
         assertFalse(state.snapshot.hasRequiredObservations)
-        assertTrue(state.accept(newPair[1]))
+        controllers.emit(hands())
+        assertTrue(state.accept(buffer.drain().events.single()))
         assertTrue(state.snapshot.hasRequiredObservations)
-        assertEquals(newPair[0].stamp, state.snapshot.head?.stamp)
-        assertEquals(newPair[1].stamp, state.snapshot.left?.stamp)
-        assertEquals(newPair[1].stamp, state.snapshot.right?.stamp)
-        assertEquals(beforeRecovery.headContinuity, state.snapshot.headContinuity)
-        assertEquals(beforeRecovery.leftContinuity, state.snapshot.leftContinuity)
-        assertEquals(beforeRecovery.rightContinuity, state.snapshot.rightContinuity)
         adapter.stop()
     }
 
     @Test
-    fun pendingPreviewControllerStartStillKeepsOnlyHmdDerivedPoses() {
+    fun pendingDesktopControllerStartDoesNotGenerateHandsFromHmd() {
         val clock = AtomicLong(0L)
         val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
         val hmd = FakeProvider<HMDTrackingData>()
         val controllers = FakeProvider<ControllerTrackingData>().apply { result = DataProvider.StartResult.PENDING }
-        val adapter = PicoTrackingAdapter(buffer, hmd, controllers, emulatorPreview = true)
-        try {
-            adapter.start()
-            assertEquals(DataProvider.StartResult.PENDING, adapter.lastControllerStartResult)
-            assertEquals(1, controllers.starts)
-            assertTrue(controllers.listeners.isEmpty())
-            buffer.drain()
-            hmd.emit(head())
-            adapter.pollDesktopPreview(1L)
-            val poses = buffer.drain().events
-            assertEquals(2, poses.size)
-            assertTrue(poses.all { it.stamp.origin == InputOrigin.DESKTOP })
-            controllers.emit(hands())
-            assertTrue(buffer.drain().events.isEmpty())
-        } finally {
-            adapter.stop()
-        }
-        assertEquals(1, controllers.stops)
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, inputOrigin = InputOrigin.DESKTOP,
+            diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
+        val state = TrackingState(Hand.RIGHT)
+        adapter.start()
+        assertEquals(DataProvider.StartResult.PENDING, adapter.lastControllerStartResult)
+        val unavailable = buffer.drain().events.single() as TrackingEvent.Discontinuity
+        assertEquals(TrackingTarget.BOTH_HANDS, unavailable.target)
+        assertTrue(state.accept(unavailable))
+        hmd.emit(head())
+        val observation = buffer.drain().events.single()
+        assertTrue(observation is TrackingEvent.Head)
+        assertEquals(InputOrigin.DESKTOP, observation.stamp.origin)
+        assertTrue(state.accept(observation))
+        controllers.emit(hands())
+        adapter.pollDiagnostics(1L)
+        assertTrue(probeLogs.single().contains("rawCallbacks=1"))
+        assertTrue(probeLogs.single().contains("acceptedToBuffer=0"))
+        assertTrue(probeLogs.single().contains("droppedUnavailable=1"))
+        assertTrue(probeLogs.single().contains("lastOutcome=UNAVAILABLE"))
+        assertTrue(probeLogs.single().contains("rawRight={available=true"))
+        assertTrue(buffer.drain().events.isEmpty())
+        assertFalse(state.snapshot.hasRequiredObservations)
+        assertNull(state.snapshot.right)
+        adapter.stop()
+    }
+
+    @Test
+    fun nativeDesktopProbeDoesNotInventHmdAndRejectsRetiredListener() {
+        val clock = AtomicLong(0L)
+        val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, inputOrigin = InputOrigin.DESKTOP,
+            diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
+        adapter.start()
+        val retiredListener = controllers.listeners.single()
+        buffer.drain()
+        controllers.emit(hands())
+        adapter.pollDiagnostics(1L)
+        assertTrue(probeLogs.single().contains("rawCallbacks=1"))
+        assertTrue(probeLogs.single().contains("acceptedToBuffer=1"))
+        assertTrue(buffer.drain().events.single() is TrackingEvent.Controllers)
+        adapter.stop()
+        buffer.drain()
+        retiredListener.onProvideData(hands())
+        adapter.pollDiagnostics(1_000_000_001L)
+        assertEquals(1, probeLogs.size)
+        assertTrue(buffer.drain().events.isEmpty())
+
+        adapter.start()
+        buffer.drain()
+        retiredListener.onProvideData(hands())
+        adapter.pollDiagnostics(2_000_000_001L)
+        assertTrue(probeLogs.last().contains("rawCallbacks=0"))
+        assertTrue(probeLogs.last().contains("acceptedToBuffer=0"))
+        assertTrue(probeLogs.last().contains("rawReceivedAtNanos=null"))
+        assertTrue(buffer.drain().events.isEmpty())
+        adapter.stop()
+    }
+
+    @Test
+    fun nativeProbeSeparatesRawFromAcceptedAndRetainsLatestRawPoseOnBufferRejection() {
+        val clock = AtomicLong(0L)
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>()
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, inputOrigin = InputOrigin.DESKTOP,
+            diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
+        adapter.start()
+        buffer.drain()
+        controllers.emit(hands(right = controller(1f)))
+        controllers.emit(hands(right = controller(2f)))
+        val gap = buffer.drain().events.single() as TrackingEvent.Discontinuity
+        assertEquals(DiscontinuityReason.QUEUE_GAP, gap.reason)
+        adapter.pollDiagnostics(1L)
+        assertTrue(probeLogs.single().contains("rawCallbacks=2"))
+        assertTrue(probeLogs.single().contains("acceptedToBuffer=1"))
+        assertTrue(probeLogs.single().contains("droppedBufferRejected=1"))
+        assertTrue(probeLogs.single().contains("lastOutcome=BUFFER_REJECTED"))
+        assertTrue(probeLogs.single().contains("x=2.0"))
+        adapter.stop()
     }
 
     @Test
@@ -497,6 +555,31 @@ class PicoTrackingAdapterTest {
     }
 
     @Test
+    fun nativeProbeClassifiesControllerCallbackBeforeInitialAvailability() {
+        val clock = AtomicLong(0)
+        val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
+        val hmd = FakeProvider<HMDTrackingData>()
+        val controllers = FakeProvider<ControllerTrackingData>().apply { emitOnStart = hands() }
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
+        adapter.start()
+        val gap = buffer.drain().events.single() as TrackingEvent.Discontinuity
+        assertEquals(TrackingTarget.BOTH_HANDS, gap.target)
+        assertEquals(DiscontinuityReason.QUEUE_GAP, gap.reason)
+        adapter.pollDiagnostics(1L)
+        assertTrue(probeLogs.single().contains("rawCallbacks=1"))
+        assertTrue(probeLogs.single().contains("acceptedToBuffer=0"))
+        assertTrue(probeLogs.single().contains("droppedStatusUnknown=1"))
+        assertTrue(probeLogs.single().contains("droppedControlFault=0"))
+        assertTrue(probeLogs.single().contains("lastOutcome=STATUS_UNKNOWN"))
+        assertTrue(probeLogs.single().contains("rawRight={available=true"))
+        assertTrue(buffer.drain().events.isEmpty())
+        adapter.stop()
+    }
+
+    @Test
     fun dominantHandLossExplicitlyInvalidatesTheRequiredObservation() {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(16) { clock.getAndIncrement() }
@@ -542,7 +625,10 @@ class PicoTrackingAdapterTest {
         val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
         val hmd = FakeProvider<HMDTrackingData>()
         val controllers = FakeProvider<ControllerTrackingData>()
-        val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
+        val probeLogs = mutableListOf<String>()
+        val adapter = PicoTrackingAdapter(
+            buffer, hmd, controllers, diagnosticsEnabled = true, nativePoseProbeLog = probeLogs::add,
+        )
         adapter.start()
         controllers.emit(hands())
         controllers.emit(hands())
@@ -553,7 +639,14 @@ class PicoTrackingAdapterTest {
         assertEquals(TrackingTarget.RIGHT_HAND, adapter.lastProviderFailure?.target)
         assertFalse(adapter.recoverControlOverflow())
         hmd.emit(head())
-        assertEquals(1, adapter.droppedCallbacksDuringControlFault)
+        controllers.emit(hands(right = null))
+        assertEquals(2, adapter.droppedCallbacksDuringControlFault)
+        adapter.pollDiagnostics(1L)
+        assertTrue(probeLogs.single().contains("rawCallbacks=4"))
+        assertTrue(probeLogs.single().contains("acceptedToBuffer=1"))
+        assertTrue(probeLogs.single().contains("droppedControlFault=2"))
+        assertTrue(probeLogs.single().contains("droppedBufferRejected=1"))
+        assertTrue(probeLogs.single().contains("lastOutcome=CONTROL_FAULT"))
         val first = buffer.drain().events
         assertTrue(first.none { it is TrackingEvent.Head })
         assertEquals(DiscontinuityReason.ROUND_RESET, (first[1] as TrackingEvent.Discontinuity).reason)

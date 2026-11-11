@@ -25,7 +25,6 @@ import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingTarget
 import com.example.wuxiaarena.core.math.Vector3
-import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
 import kotlin.math.atan2
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -164,6 +163,8 @@ internal class ArenaSession(
     private var lastReportedHead: Vector3? = null
     private var lastReportedHand: Vector3? = null
     private var lastReportedEligibility: Boolean? = null
+    private var lastNativeMotionLogNanos: Long? = null
+    private var lastNativeMotionPoses: Triple<ObservedPose?, ObservedPose?, ObservedPose?>? = null
     private var hadReadyInput = false
     private var reportedWaiting = false
     private var playerHandPresenter: HandPosePresenter? = null
@@ -631,6 +632,7 @@ internal class ArenaSession(
             guarding = combat.guarding,
             moving = enemyMoveDirection != 0f,
             recoveryFromContact = enemyRecoveryFromContact,
+            gaitMeters = enemyGaitMeters,
         )
     }
 
@@ -642,6 +644,7 @@ internal class ArenaSession(
             combat.phase, combat.phaseElapsedNanos, combat.nanosUntilPhaseTransition,
             origin, enemyYaw, combat.currentAttackDirection ?: AttackDirection.OVERHEAD,
             combat.guarding, enemyMoveDirection != 0f, enemyRecoveryFromContact,
+            gaitMeters = enemyGaitMeters,
         )
     }
 
@@ -692,7 +695,6 @@ internal class ArenaSession(
                         intermissionNanos = 0L
                         combo = 0
                         pendingMotion.clear()
-                        DesktopCombatInput.reset()
                         score += 100
                     }
                 }
@@ -704,7 +706,6 @@ internal class ArenaSession(
     private fun finishDefeat(kind: CombatFeedback, events: MutableList<EnemyCombatEvent>) {
         result = TrialResult.DEFEAT
         pendingMotion.clear()
-        DesktopCombatInput.reset()
         events += combat.pauseByPlayer()
         bestScore = maxOf(bestScore, score)
         notifyFeedback(kind)
@@ -941,6 +942,7 @@ internal class ArenaSession(
         val target = enemyPosition
         if (sceneAvailable && target != null && viewState.actionReady) {
             val frame = motion.observe(snapshot, target, checkNotNull(enemyContactPose()))
+            logNativeMotion(event, snapshot, frame)
             latestMotion = frame
             if (frame != null && result == TrialResult.FIGHTING && combat.pauseReason == null) {
                 val strikeIsNew = frame.strike?.id?.let { it > queuedStrikeId } == true
@@ -979,7 +981,8 @@ internal class ArenaSession(
         actionRequiredAfterSequence = maxOf(actionRequiredAfterSequence, sequence)
         lastTickTime = null
         clearMotion()
-        DesktopCombatInput.reset()
+        lastNativeMotionLogNanos = null
+        lastNativeMotionPoses = null
         combo = 0
         lastHitAt = -1L
     }
@@ -1032,6 +1035,30 @@ internal class ArenaSession(
                     "targetInRange=$targetInRange, canStartAttack=$canStartAttack, phase=${combat.phase}",
             )
         }
+    }
+
+    /** Observe the resolver's real output without authoring or changing any motion. */
+    private fun logNativeMotion(event: TrackingEvent, snapshot: TrackingSnapshot, frame: PlayerMotionFrame?) {
+        if (event.stamp.origin != InputOrigin.DESKTOP) return
+        val poses = Triple(snapshot.head?.pose, snapshot.left?.pose, snapshot.right?.pose)
+        if (poses == lastNativeMotionPoses) return
+        val now = event.stamp.receivedAtNanos
+        val previous = lastNativeMotionLogNanos
+        if (previous != null && now - previous < 200_000_000L) return
+        lastNativeMotionLogNanos = now
+        lastNativeMotionPoses = poses
+        logMessage(
+            "Native motion observed source=SDK_NATIVE origin=${event.stamp.origin} " +
+                "sequence=${event.stamp.sequence} coordinateEpoch=${event.stamp.coordinateEpoch} " +
+                "receivedAtNanos=$now roundGeneration=$roundGeneration " +
+                "headSequence=${snapshot.head?.stamp?.sequence} leftSequence=${snapshot.left?.stamp?.sequence} " +
+                "rightSequence=${snapshot.right?.stamp?.sequence} " +
+                "head=${poses.first} left=${poses.second} right=${poses.third} " +
+                "motionResult={frameAvailable=${frame != null} receivedAtNanos=${frame?.receivedAtNanos} " +
+                "bladeBase=${frame?.bladeBase} bladeTip=${frame?.bladeTip} bladeTipSpeed=${frame?.bladeTipSpeed} " +
+                "strike=${frame?.strike} guard=${frame?.guardDirection} skill=${frame?.skillGesture} " +
+                "release=${frame?.releaseRequired} motionGeneration=${frame?.motionGeneration}}",
+        )
     }
 
     private fun presentHand(pose: ObservedPose?) {

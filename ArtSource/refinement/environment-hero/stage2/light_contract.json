@@ -1,0 +1,55 @@
+{
+  "native_source": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneLighting.kt",
+  "native_source_sha256": "8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e",
+  "candidate_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "anchors_unchanged": true,
+  "linear_rgb": [
+    1,
+    0.49,
+    0.2
+  ],
+  "points": [
+    {
+      "anchor": "EH_Light_Lantern_01",
+      "stage_m": [
+        -2.15,
+        2.7,
+        -4.7
+      ],
+      "lumens": 1500,
+      "radius_m": 3.8
+    },
+    {
+      "anchor": "EH_Light_Lantern_02",
+      "stage_m": [
+        2.15,
+        2.7,
+        -4.7
+      ],
+      "lumens": 1500,
+      "radius_m": 3.8
+    },
+    {
+      "anchor": "EH_Light_Lantern_03",
+      "stage_m": [
+        -4.03,
+        2.25,
+        0.56
+      ],
+      "lumens": 1100,
+      "radius_m": 3.4
+    },
+    {
+      "anchor": "EH_Light_Lantern_04",
+      "stage_m": [
+        4.03,
+        2.25,
+        -1.32
+      ],
+      "lumens": 1100,
+      "radius_m": 3.4
+    }
+  ],
+  "contract": "07/Root owns native illumination. Paper-shell art emission is not lumens or physical transmission. No fake projected light pools or runtime lights are embedded.",
+  "layer_priority": "Opponent face/hand silhouette above large door paper area. Verify using same actual PICO view after native integration."
+}

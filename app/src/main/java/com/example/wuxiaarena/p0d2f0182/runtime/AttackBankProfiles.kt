@@ -45,6 +45,28 @@ internal data class AttackPoseSample(
     }
 }
 
+internal fun samplePose(samples: List<AttackPoseSample>, sourceSeconds: Double): AttackPoseSample {
+    require(sourceSeconds.isFinite()) { "Requested pose sample time must be finite" }
+    if (sourceSeconds <= samples.first().sourceSeconds) return samples.first()
+    if (sourceSeconds >= samples.last().sourceSeconds) return samples.last()
+    val index = samples.binarySearchBy(sourceSeconds) { it.sourceSeconds }
+    if (index >= 0) return samples[index]
+    val after = samples[-index - 1]
+    val before = samples[-index - 2]
+    val progress = (sourceSeconds - before.sourceSeconds) / (after.sourceSeconds - before.sourceSeconds)
+    fun point(start: Vector3, end: Vector3) = start * (1.0 - progress) + end * progress
+    return AttackPoseSample(
+        sourceSeconds,
+        EnemyContactPose(
+            point(before.contact.head, after.contact.head),
+            point(before.contact.bodyBottom, after.contact.bodyBottom),
+            point(before.contact.bodyTop, after.contact.bodyTop),
+        ),
+        point(before.bladeBase, after.bladeBase),
+        point(before.bladeTip, after.bladeTip),
+    )
+}
+
 /** A single source of phase timing for both clip playback and contact geometry. */
 internal class AttackProfile(
     val clip: String,
@@ -110,27 +132,7 @@ internal class AttackProfile(
         }
     }
 
-    fun sample(sourceSeconds: Double): AttackPoseSample {
-        require(sourceSeconds.isFinite()) { "Requested attack sample time must be finite" }
-        if (sourceSeconds <= samples.first().sourceSeconds) return samples.first()
-        if (sourceSeconds >= samples.last().sourceSeconds) return samples.last()
-        val index = samples.binarySearchBy(sourceSeconds) { it.sourceSeconds }
-        if (index >= 0) return samples[index]
-        val after = samples[-index - 1]
-        val before = samples[-index - 2]
-        val progress = (sourceSeconds - before.sourceSeconds) / (after.sourceSeconds - before.sourceSeconds)
-        fun point(start: Vector3, end: Vector3) = start * (1.0 - progress) + end * progress
-        return AttackPoseSample(
-            sourceSeconds,
-            EnemyContactPose(
-                point(before.contact.head, after.contact.head),
-                point(before.contact.bodyBottom, after.contact.bodyBottom),
-                point(before.contact.bodyTop, after.contact.bodyTop),
-            ),
-            point(before.bladeBase, after.bladeBase),
-            point(before.bladeTip, after.bladeTip),
-        )
-    }
+    fun sample(sourceSeconds: Double): AttackPoseSample = samplePose(samples, sourceSeconds)
 
     private fun interpolate(start: Double, end: Double, progress: Double): Double = when (progress) {
         0.0 -> start
@@ -143,9 +145,13 @@ internal data class CharacterAttackProfiles(
     val modelSha256: String,
     val profileSha256: String,
     val attacks: Map<AttackDirection, AttackProfile>,
+    val locomotion: LocomotionProfile,
 )
 
 internal object AttackBankProfiles {
+    fun locomotionForAsset(asset: String): LocomotionProfile =
+        AttackBankProfileData.characters.getValue(asset).locomotion
+
     fun forAsset(asset: String, direction: AttackDirection): AttackProfile =
         AttackBankProfileData.characters.getValue(asset).attacks.getValue(direction)
 }

@@ -1,80 +1,152 @@
-"""Offline LBS checks on the private bank candidates. No asset publication."""
+"""Small LBS invariants for the one canonical guard grounding frame."""
 
 import copy
-import hashlib
+import math
+import struct
 import sys
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from attack_grounding import GROUNDING_POLICY, ground_attack_feet
+from attack_grounding import CANONICAL_CLIPS, GROUNDING_POLICY, ground_canonical_guard_feet
 from attack_profiles import animation_tracks, hierarchy, pose_world
-from prepare_rigged_warrior import animation_signature, accessor_bytes, read_glb
+from prepare_rigged_warrior import accessor_bytes, animation_signature
 
 
-HERE = Path(__file__).resolve().parent
-BANK = ['attack_overhead', 'attack_left', 'attack_right']
+def fixture(animate_parent=False):
+    """Two real weighted sole surfaces, different key grids and a nonunit parent."""
+    document = {
+        'nodes': [{'name': 'Actor', 'children': [1, 5]},
+                  {'name': 'Armature', 'scale': [.5, .5, .5], 'children': [2]},
+                  {'name': 'BoneRoot', 'children': [3, 4]},
+                  {'name': 'L_Foot'}, {'name': 'R_Foot'}, {'name': 'Body', 'mesh': 0, 'skin': 0}],
+        'scenes': [{'nodes': [0]}], 'scene': 0,
+        'skins': [{'joints': [2, 3, 4]}], 'meshes': [{'primitives': []}],
+        'accessors': [], 'bufferViews': [], 'buffers': [{'byteLength': 0}], 'animations': [],
+    }
+    binary = bytearray()
+
+    def accessor(rows, kind):
+        binary.extend(b'\0' * (-len(binary) % 4))
+        start = len(binary)
+        for row in rows:
+            binary.extend(struct.pack('<' + 'f' * len(row), *row))
+        view = len(document['bufferViews'])
+        document['bufferViews'].append({'buffer': 0, 'byteOffset': start, 'byteLength': len(binary) - start})
+        index = len(document['accessors'])
+        document['accessors'].append({'bufferView': view, 'componentType': 5126, 'type': kind, 'count': len(rows)})
+        return index
+
+    positions = accessor([[-.1, 0, 0], [-.1, .02, .1], [.1, 0, 0], [.1, .02, .1]], 'VEC3')
+    palettes = accessor([[1, 0, 0, 0], [1, 0, 0, 0], [2, 0, 0, 0], [2, 0, 0, 0]], 'VEC4')
+    weights = accessor([[1, 0, 0, 0]] * 4, 'VEC4')
+    identity = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+    document['skins'][0]['inverseBindMatrices'] = accessor([identity] * 3, 'MAT4')
+    document['meshes'][0]['primitives'].append({'attributes': {
+        'POSITION': positions, 'JOINTS_0': palettes, 'WEIGHTS_0': weights}})
+    for name in CANONICAL_CLIPS:
+        if name == 'idle':
+            times = [frame / 60 for frame in range(91)]
+        elif name == 'walk':
+            times = sorted({*[frame / 120 for frame in range(181)], 19 / 36, 26 / 36, 40 / 36, 47 / 36})
+        else:
+            times = [frame / 60 for frame in range(106)]
+        values = [(0, .1 if name in {'idle', 'walk'} else .1 + .04 * math.sin(math.pi * time / 1.75), 0)
+                  for time in times]
+        document['animations'].append({'name': name,
+            'samplers': [{'input': accessor([(time,) for time in times], 'SCALAR'),
+                          'output': accessor(values, 'VEC3'),
+                          'interpolation': 'STEP' if name in {'idle', 'walk'} else 'LINEAR'}],
+            'channels': [{'sampler': 0, 'target': {'node': 2, 'path': 'translation'}}]})
+        animation = document['animations'][-1]
+        animation['samplers'].append({'input': animation['samplers'][0]['input'],
+            'output': accessor([(0, 0, 0, 1)] * len(times), 'VEC4'), 'interpolation': 'STEP'})
+        animation['channels'].append({'sampler': 1, 'target': {'node': 3, 'path': 'rotation'}})
+        if animate_parent and name == 'idle':
+            animation['samplers'].append({'input': animation['samplers'][0]['input'],
+                'output': accessor([(1 + time * .01, 1, 1) for time in times], 'VEC3'), 'interpolation': 'LINEAR'})
+            animation['channels'].append({'sampler': 2, 'target': {'node': 1, 'path': 'scale'}})
+    untouched_clip = copy.deepcopy(document['animations'][-1])
+    untouched_clip['name'] = 'turn'
+    document['animations'].append(untouched_clip)
+    document['buffers'][0]['byteLength'] = len(binary)
+    return document, bytes(binary)
 
 
-class AttackGroundingTests(unittest.TestCase):
-    def test_three_targets_keep_other_curves_and_ground_keys_and_midpoints(self):
-        for actor in ('base', 'indigo', 'veteran'):
-            path = HERE / 'review/attack-bank-candidate' / (actor + '.glb')
-            file_hash = hashlib.sha256(path.read_bytes()).hexdigest()
-            document, binary = read_glb(path)
-            original = copy.deepcopy(document)
-            before = {clip['name']: animation_signature(document, binary, clip)
-                      for clip in document['animations']}
-            result, report = ground_attack_feet(document, binary, BANK)
-            self.assertEqual(report['policy'], GROUNDING_POLICY)
-            self.assertEqual(result[:len(binary)], binary)
-            self.assertEqual(document['nodes'], original['nodes'])
-            self.assertEqual(document['meshes'], original['meshes'])
-            self.assertEqual(document['skins'], original['skins'])
-            root = next(index for index, node in enumerate(document['nodes']) if node['name'] == 'BoneRoot')
-            for old_clip, clip in zip(original['animations'], document['animations']):
-                if clip['name'] not in BANK:
-                    self.assertEqual(animation_signature(document, result, clip), before[clip['name']])
-                    continue
-                for old_channel, channel in zip(old_clip['channels'], clip['channels']):
-                    self.assertEqual(channel, old_channel)
-                    old_sampler = old_clip['samplers'][old_channel['sampler']]
-                    sampler = clip['samplers'][channel['sampler']]
-                    self.assertEqual(accessor_bytes(document, result, sampler['input']),
-                                     accessor_bytes(original, binary, old_sampler['input']))
-                    if channel['target'] != {'node': root, 'path': 'translation'}:
-                        self.assertEqual(accessor_bytes(document, result, sampler['output']),
-                                         accessor_bytes(original, binary, old_sampler['output']))
-                old_tracks, _ = animation_tracks(original, binary, old_clip)
-                tracks, _ = animation_tracks(document, result, clip)
-                _, parents, order = hierarchy(document)
-                for time in (0, .65, 1, 1.1, 1.75):
-                    old_world = pose_world(original, old_tracks, time, parents, order)
-                    world = pose_world(document, tracks, time, parents, order)
-                    hand = next(index for index, node in enumerate(document['nodes']) if node['name'] == 'R_Hand')
-                    self.assertAlmostEqual(world[hand].translation.x, old_world[hand].translation.x, places=5)
-                    self.assertAlmostEqual(world[hand].translation.z, old_world[hand].translation.z, places=5)
-                    self.assertLess(world[hand].to_quaternion().rotation_difference(old_world[hand].to_quaternion()).angle, 1e-4)
-            for clip in report['clips']:
-                self.assertEqual(clip['key_count'], 106)
-                self.assertEqual(clip['midpoint_count'], 105)
-                self.assertEqual(len(clip['samples']), 211)
-                self.assertLess(clip['maximum_plane_error_metres'], .001)
-                for sample in clip['samples']:
-                    if sample['source_key']:
-                        self.assertAlmostEqual(min(sample['after_foot_min_metres'].values()), -.028, places=6)
-            self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), file_hash)
+class CanonicalGroundingTests(unittest.TestCase):
+    def test_one_shift_preserves_clocks_curves_and_authored_residuals(self):
+        document, binary = fixture()
+        original = copy.deepcopy(document)
+        result, report = ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+        self.assertEqual(report['policy'], GROUNDING_POLICY)
+        self.assertEqual(result[:len(binary)], binary)
+        for field in ('nodes', 'meshes', 'skins', 'scenes'):
+            self.assertEqual(document[field], original[field])
+        self.assertAlmostEqual(report['constant_world_root_shift_metres'], -.078, places=6)
+        self.assertAlmostEqual(report['constant_local_root_shift'][1], -.156, places=6)
+        _, parents, order = hierarchy(document)
+        self.assertEqual(animation_signature(original, binary, original['animations'][-1]),
+                         animation_signature(document, result, document['animations'][-1]))
+        for before, after, clip_report in zip(original['animations'], document['animations'], report['clips']):
+            self.assertEqual(before['channels'], after['channels'])
+            self.assertEqual(before['samplers'][0]['interpolation'], after['samplers'][0]['interpolation'])
+            self.assertEqual(accessor_bytes(original, binary, before['samplers'][1]['output']),
+                             accessor_bytes(document, result, after['samplers'][1]['output']))
+            self.assertEqual(before['samplers'][1], after['samplers'][1])
+            self.assertEqual(accessor_bytes(original, binary, before['samplers'][0]['input']),
+                             accessor_bytes(document, result, after['samplers'][0]['input']))
+            old_tracks, _ = animation_tracks(original, binary, before, require_attack_range=False)
+            tracks, _ = animation_tracks(document, result, after, require_attack_range=False)
+            for sample in clip_report['samples']:
+                time = sample['source_seconds']
+                old_world = pose_world(original, old_tracks, time, parents, order)
+                world = pose_world(document, tracks, time, parents, order)
+                for index in (2, 3, 4):
+                    difference = world[index].translation - old_world[index].translation
+                    self.assertAlmostEqual(difference.x, 0, places=6)
+                    self.assertAlmostEqual(difference.y, report['constant_world_root_shift_metres'], places=6)
+                    self.assertAlmostEqual(difference.z, 0, places=6)
+                self.assertAlmostEqual(sample['root_shift_metres'], report['constant_world_root_shift_metres'], places=6)
+            expected_count = {'idle': 91, 'walk': 185}.get(after['name'], 106)
+            self.assertEqual(clip_report['key_count'], expected_count)
+            self.assertEqual(len(clip_report['samples']), 2 * expected_count - 1)
+            # Authored attack lift survives; no per-frame plane clamp is permitted.
+            if after['name'].startswith('attack'):
+                self.assertGreater(clip_report['maximum_plane_error_metres'], .019)
+            else:
+                self.assertLess(clip_report['maximum_plane_error_metres'], 1e-6)
+            self.assertEqual(clip_report['before_semantics_sha256'], animation_signature(original, binary, before))
+            self.assertEqual(clip_report['after_semantics_sha256'], animation_signature(document, result, after))
 
-    def test_missing_foot_surface_and_duplicate_clips_fail(self):
-        document, binary = read_glb(HERE / 'review/attack-bank-candidate/base.glb')
-        with self.assertRaisesRegex(ValueError, 'three distinct'):
-            ground_attack_feet(copy.deepcopy(document), binary, [BANK[0]] * 3)
-        for node in document['nodes']:
-            if node.get('name', '').startswith(('R_Foot', 'R_Toe')):
-                node['name'] = 'Renamed_' + node['name']
+    def test_requires_five_distinct_clips_and_measured_both_feet(self):
+        document, binary = fixture()
+        for bad_names in (CANONICAL_CLIPS[2:], ['idle'] * 5):
+            with self.assertRaisesRegex(ValueError, 'five distinct'):
+                ground_canonical_guard_feet(copy.deepcopy(document), binary, bad_names)
+        document['nodes'][4]['name'] = 'MissingFoot'
         with self.assertRaisesRegex(ValueError, 'both feet'):
-            ground_attack_feet(document, binary, BANK)
+            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+
+    def test_refuses_animated_root_parent_frame(self):
+        document, binary = fixture(animate_parent=True)
+        with self.assertRaisesRegex(ValueError, 'fixed root parent frame'):
+            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+
+    def test_refuses_old_timeline_or_changed_root_interpolation(self):
+        for clip_name in ('idle', 'walk', 'attack_overhead'):
+            document, binary = fixture()
+            clip = next(row for row in document['animations'] if row['name'] == clip_name)
+            clip['samplers'][0]['interpolation'] = 'LINEAR' if clip_name in {'idle', 'walk'} else 'STEP'
+            with self.assertRaisesRegex(ValueError, 'unchanged .* root keys'):
+                ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+        document, binary = fixture()
+        clip = document['animations'][0]
+        document['accessors'][clip['samplers'][0]['input']]['count'] -= 1
+        for sampler in clip['samplers']:
+            document['accessors'][sampler['output']]['count'] -= 1
+        with self.assertRaisesRegex(ValueError, 'frozen source timeline'):
+            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
 
 
 if __name__ == '__main__':

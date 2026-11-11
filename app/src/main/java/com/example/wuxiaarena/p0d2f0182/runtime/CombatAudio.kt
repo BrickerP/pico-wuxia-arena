@@ -90,8 +90,7 @@ internal class CombatAudio(
     private var swingArmed = false
     private var lastPlayerSwing = Long.MIN_VALUE
     private var previousGait: Double? = null
-    private var stepDistance = 0.0
-    private var stepIndex = 0
+    private var previousLocomotion: LocomotionProfile? = null
     private var rainStream = 0
     private var rainGain = -1f
     private var duckUntilNanos = 0L
@@ -130,13 +129,14 @@ internal class CombatAudio(
             val shouldMute = !state.sceneReady || (!terminal && (state.pauseReason != null || !state.inputReady))
             val now = nanoTime()
             if (changedRound || (shouldMute && !muted)) stopStreams()
-            val resetMotion = changedRound || shouldMute || muted ||
-                state.playerMotionGeneration != playerMotionGeneration
-            if (resetMotion) {
+            val resetPresentation = changedRound || shouldMute || muted
+            if (resetPresentation || state.playerMotionGeneration != playerMotionGeneration) {
                 swingArmed = false
                 lastPlayerSwing = Long.MIN_VALUE
+            }
+            if (resetPresentation) {
                 previousGait = null
-                stepDistance = 0.0
+                previousLocomotion = null
             }
             playerMotionGeneration = state.playerMotionGeneration
             if (changedRound) seenImpactIds.clear()
@@ -167,6 +167,7 @@ internal class CombatAudio(
             } else {
                 stopRain()
                 previousGait = null
+                previousLocomotion = null
                 swingArmed = false
             }
         }
@@ -253,21 +254,22 @@ internal class CombatAudio(
     }
 
     private fun presentSteps(state: ArenaViewState) {
+        val profile = arenaOpponents.getOrNull(state.roundNumber - 1)?.locomotionProfile()
         val gait = state.enemyGaitMeters
         val previous = previousGait
+        val sameProfile = profile === previousLocomotion
+        // Advance even for a stopped actor or a failed/unready sound. Never queue missed footfalls.
         previousGait = gait.takeIf { it.isFinite() }
-        if (previous == null || !gait.isFinite()) return
-        val delta = kotlin.math.abs(gait - previous)
-        // A teleport/reset is not a footstep and must not replay a backlog.
-        if (delta > 0.75) { stepDistance = 0.0; return }
-        stepDistance += delta
-        // EnemyAnimator uses a 1.45m full gait cycle, with two foot contacts.
-        if (stepDistance >= 0.725) {
-            stepDistance %= 0.725
-            stepIndex++
-            play(Cue.STEP, 0.16f, if (stepIndex % 2 == 0) -0.07f else 0.07f,
-                if (stepIndex % 2 == 0) 0.96f else 1.03f)
-        }
+        previousLocomotion = profile
+        if (profile == null || !sameProfile || previous == null || !gait.isFinite()) return
+        if (state.phase != EnemyPhase.IDLE || !state.enemyMoveDirection.isFinite() || state.enemyMoveDirection == 0f) return
+        val delta = gait - previous
+        // Preserve the existing audio discontinuity guard; this is not a walk-clock constant.
+        if (!delta.isFinite() || kotlin.math.abs(delta) > 0.75 || delta == 0.0) return
+
+        val foot = latestAudioFootfall(profile, previous, gait) ?: return
+        val left = foot == EnemyFoot.LEFT
+        play(Cue.STEP, 0.16f, if (left) -0.07f else 0.07f, if (left) 0.96f else 1.03f)
     }
 
     private fun presentRain(now: Long) {
@@ -364,4 +366,42 @@ internal class CombatAudio(
             null
         }
     }
+}
+
+/** Latest support entry consumed by Audio. Phase belongs exclusively to the shared profile clock. */
+internal fun latestAudioFootfall(profile: LocomotionProfile, previousGait: Double, gait: Double): EnemyFoot? {
+    val delta = gait - previousGait
+    if (!previousGait.isFinite() || !gait.isFinite() || delta == 0.0) return null
+    val source = profile.sourceSeconds(moving = true, gaitMeters = gait)
+    val phase = (source - profile.loopStartSeconds) / (profile.loopEndSeconds - profile.loopStartSeconds)
+    val forward = delta > 0.0
+    val cycle = kotlin.math.round(gait / profile.strideMeters - phase)
+    // If even one step fraction is below the cycle's representable precision, use the shared
+    // wrapped clock instead. Distinct marker distances cannot be expressed in this numeric range.
+    if (!cycle.isFinite() || cycle + profile.stepEvents[1].phase == cycle) {
+        val latest = if (forward) {
+            profile.stepEvents.lastOrNull { it.phase <= phase } ?: profile.stepEvents.last()
+        } else {
+            profile.stepEvents.firstOrNull { it.phase >= phase } ?: profile.stepEvents.first()
+        }
+        return if (forward) latest.forwardFoot else latest.reverseFoot
+    }
+    // Recover only the integer loop number. Compare markers in signed gait, since reconstructing
+    // marker source seconds can differ from sourceSeconds() by an ULP at an exact negative boundary.
+    var latest: GaitStepEvent? = null
+    var latestDistance = if (forward) Double.NEGATIVE_INFINITY else Double.POSITIVE_INFINITY
+    // A rounded seam may map to the previous loop. Exact predicates exclude future/departed markers.
+    for (offset in -1..1) {
+        for (step in profile.stepEvents) {
+            val distance = profile.strideMeters * (cycle + offset + step.phase)
+            val crossed = if (forward) distance > previousGait && distance <= gait
+                else distance >= gait && distance < previousGait
+            if (crossed && if (forward) distance > latestDistance else distance < latestDistance) {
+                latest = step
+                latestDistance = distance
+            }
+        }
+    }
+    val crossing = latest ?: return null
+    return if (forward) crossing.forwardFoot else crossing.reverseFoot
 }

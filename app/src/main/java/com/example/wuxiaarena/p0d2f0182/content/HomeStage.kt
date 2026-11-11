@@ -463,12 +463,12 @@ internal fun HomeStage(
     val statusPosition = Vector3(0f, maxOf(2.15f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
     owner.statusPanelY = statusPosition.y
     owner.damageWorldScale = 0.18f / converter.dpToLength(128.dp, LengthUnit.Meters)
-    val controlPosition = remember { Vector3(-0.85f, 1.15f, -1.45f) }
-    val controlRotation = remember { Quat(0f, 0.2923717f, 0f, 0.9563048f) }
+    val controlPosition = remember { Vector3(-0.6f, 1.2f, -1.75f) }
+    val controlRotation = remember { Quat(0f, 0.17364818f, 0f, 0.98480775f) }
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 400.dp, height = currentControlHeight.value.dp).attachmentKeyboardProbe("controls")) {
+                Box(Modifier.size(width = 400.dp, height = currentControlHeight.value.dp)) {
                     currentControls.value()
                 }
             }

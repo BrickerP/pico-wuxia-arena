@@ -12,7 +12,9 @@ import copy
 import hashlib
 import json
 import math
+import os
 import struct
+import subprocess
 import tempfile
 import sys
 from pathlib import Path
@@ -122,6 +124,7 @@ def sampled_local(node, index, tracks, time):
     if rotation_track is not None:
         x, y, z, w = sample_track(rotation_track, time, True)
         rotation = Quaternion((w, x, y, z))
+        rotation.normalize()
     if scale_track is not None:
         scale = Vector(sample_track(scale_track, time, False))
     return Matrix.LocRotScale(location, rotation, scale)
@@ -149,8 +152,6 @@ def require_same_rest(source, reference):
 
 
 LEFT_HAND_POSES = {
-    'idle': ('relaxed', ((0.0, 0.18), (0.5, 0.22), (1.0, 0.18))),
-    'walk': ('loose moving guard', ((0.0, 0.22), (0.5, 0.30), (1.0, 0.22))),
     'turn': ('loose turning guard', ((0.0, 0.20), (0.5, 0.28), (1.0, 0.20))),
     'hit_body': ('protect the body', ((0.0, 0.18), (0.22, 0.52), (0.6, 0.32), (1.0, 0.18))),
     'hit_head': ('open protective palm', ((0.0, 0.18), (0.22, 0.10), (0.55, 0.16), (1.0, 0.18))),
@@ -218,7 +219,7 @@ def hand_pose_for_clip(target, native_hands, name, progress):
 
 def retarget_clip(source, source_binary, motion_rig, target, target_binary, native_hands, name,
                   source_contract='motion41'):
-    if source_contract not in {'motion41', 'attack78'}:
+    if source_contract not in {'motion41', 'attack78', 'locomotion78'}:
         raise ValueError('unknown motion source contract: ' + str(source_contract))
     if source_contract == 'motion41' and name not in LEFT_HAND_POSES:
         raise ValueError('retarget clip has no hand-pose policy: ' + str(name))
@@ -234,7 +235,7 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
             raise ValueError('motion41 requires the original 41-joint Root rig')
         mapping[target_joints['BoneRoot']] = source_joints['Root']
     elif source_joints.keys() != target_joints.keys() or len(source_joints) != 78:
-        raise ValueError('attack78 requires the complete same-name 78-joint rig')
+        raise ValueError(source_contract + ' requires the complete same-name 78-joint rig')
     if len(mapping) != len(source_joints):
         raise ValueError('source joint mapping is incomplete')
     source_parents, source_order = node_order(source)
@@ -336,9 +337,21 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
     animation = {'name': name, 'samplers': [], 'channels': []}
     for index, channels in curves.items():
         for path, rows in channels.items():
+            interpolation = 'LINEAR'
+            if source_contract == 'locomotion78':
+                source_track = tracks[mapping[index], path]
+                interpolation = source_track[2]
+                if interpolation == 'STEP':
+                    # A locked source TRS remains exact after world-rest transfer.
+                    # Remove only float roundoff from repeated matrix decomposition.
+                    if max(abs(value - rows[0][axis]) for row in rows
+                           for axis, value in enumerate(row)) > 1e-5:
+                        raise ValueError('locked locomotion track changed under retarget: ' +
+                                         target['nodes'][index]['name'] + '/' + path)
+                    rows = [rows[0]] * len(rows)
             accessor = append_accessor(rows, 'VEC4' if path == 'rotation' else 'VEC3')
             sampler = len(animation['samplers'])
-            animation['samplers'].append({'input': time_accessor, 'output': accessor, 'interpolation': 'LINEAR'})
+            animation['samplers'].append({'input': time_accessor, 'output': accessor, 'interpolation': interpolation})
             animation['channels'].append({'sampler': sampler, 'target': {'node': index, 'path': path}})
     result['animations'] = [animation]
     result['buffers'][0]['byteLength'] = len(packed)
@@ -350,6 +363,12 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
                                    'thumb_curl_multiplier': 0.55} if source_contract == 'motion41' else 'authored source curves',
               'sample_count': len(timeline), 'time_range_seconds': [timeline[0], timeline[-1]],
               'translation_scale': translation_scale,
+              'target_rest_sha256': canonical_hash(target['nodes']),
+              'target_skin_sha256': canonical_hash(target['skins']),
+              'target_inverse_binds_sha256': canonical_hash(inverse_bind_values(target, target_binary)),
+              'target_mesh_sha256': canonical_hash(target['meshes']),
+              'interpolation_policy': 'preserved locked STEP and six moving leg LINEAR rotations'
+                                      if source_contract == 'locomotion78' else 'LINEAR',
               'maximum_quaternion_step_radians': maximum_rotation_step}
     return encode_glb(result, bytes(packed)), record
 
@@ -357,9 +376,26 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
 ATTACK_CLIPS = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': 'attack_right'}
 ATTACK_PHASES = {'start': 0.0, 'preparation_end': .65, 'startup_end': .90,
                  'active_end': 1.10, 'recovery_end': 1.75, 'contact': 1.0}
+MOTION_CLIPS = {'fall', 'turn', 'hit_body', 'hit_head', 'hit_side'}
+LOCOMOTION_CLIPS = {'idle', 'walk'}
+MOVING_LEGS = {side + bone for side in ('L_', 'R_') for bone in ('Thigh', 'Calf', 'Foot')}
 HAND_POLICY = {'version': 1, 'right': 'target native grip sample, then right-only offsets once',
                'movement_left': LEFT_HAND_POSES, 'movement_left_thumb_multiplier': .55,
-               'attack_left': 'authored dynamic source transferred by world-rest delta'}
+               'attack_left': 'authored dynamic source transferred by world-rest delta',
+               'locomotion_left': 'frozen canonical source transferred by world-rest delta'}
+TEXTURE_SETTINGS = {'codec': 'uastc', 'uastc_quality': 3, 'threads': 2,
+                    'zstd': 18, 'mipmap_filter': 'lanczos4', 'full_mips': True,
+                    'normal_mode': False, 'normalize': False, 'rdo': False,
+                    'orientation': 'top-left', 'pixel_resize': False,
+                    'mip_source': {'same_axis': 'ktx-cli-generate-mipmap', 'different_axes': 'explicit-axis-lanczos4-v1'},
+                    'axis_mips': {'version': 1, 'precision': 'float64', 'support': 4,
+                                  'centers': 'half-pixel', 'antialias': 'support-scaled-by-source/target',
+                                  'sequence': 'S-then-T-recursive-unquantized-clipped-linear',
+                                  'color_filter': 'IEC-sRGB-EOTF-linear-filter-OETF', 'alpha_filter': 'linear-straight',
+                                  'quantization': 'clip-0-1-round-half-up-uint8', 'top': 'original-decoded-pixels'}}
+ENCODER_SHA = 'abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37'
+LIBKTX_SHA = 'bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947'
+TEXTURE_HELPER_SHA = 'ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4'
 
 
 def canonical_hash(value):
@@ -382,10 +418,76 @@ def inverse_bind_values(document, binary):
     return values
 
 
-def validate_source_clip(document, binary, rig, rig_binary, contract):
+def host_python_command(config, arguments):
+    environment = dict(os.environ)
+    for key in ('PYTHONHOME', 'PYTHONPATH'):
+        environment.pop(key, None)
+    result = subprocess.run([str(HERE / config['host_python']['source']), *map(str, arguments)],
+                            cwd=HERE.parent.parent, env=environment, text=True, capture_output=True)
+    if result.returncode:
+        raise ValueError('host texture encoding failed:\n' + result.stdout + '\n' + result.stderr)
+    return result.stdout
+
+
+def validate_texture_encoding(config):
+    if (not isinstance(config, dict) or config.get('format') != 'KHR_texture_basisu' or
+            config.get('settings') != TEXTURE_SETTINGS):
+        raise ValueError('schema 3 requires fixed full-resolution UASTC3/Zstd18 runtime_texture_encoding')
+    for field in ('helper', 'encoder', 'release_identity', 'host_python'):
+        entry = config.get(field)
+        if not isinstance(entry, dict) or not {'source', 'source_sha256'}.issubset(entry):
+            raise ValueError('texture encoding requires explicit pinned ' + field)
+        if hashlib.sha256((HERE / entry['source']).read_bytes()).hexdigest() != entry['source_sha256']:
+            raise ValueError('texture encoding tool identity changed: ' + field)
+    if (config['encoder']['source_sha256'] != ENCODER_SHA or
+            config['encoder'].get('version') != 'ktx version: v4.4.2' or
+            config['encoder'].get('libktx_sha256') != LIBKTX_SHA):
+        raise ValueError('runtime encoding requires the verified official KTX-Software 4.4.2 binaries')
+    if config['helper']['source_sha256'] != TEXTURE_HELPER_SHA:
+        raise ValueError('runtime encoding requires the reviewed image-only preservation helper')
+    identity = json.loads(host_python_command(config, ['-c',
+        'import json,sys,PIL,numpy; print(json.dumps({"version":sys.version.split()[0],"pillow_version":PIL.__version__,"numpy_version":numpy.__version__}))']))
+    if any(identity[field] != config['host_python'].get(field) for field in ('version', 'pillow_version', 'numpy_version')):
+        raise ValueError('host Python/Pillow/NumPy identity differs from runtime encoding contract')
+
+
+def encode_runtime_glb(source, output, config):
+    """Use the pinned host encoder; geometry authors retain the original PNG GLB."""
+    raw_sha = hashlib.sha256(source.read_bytes()).hexdigest()
+    print('ENCODING', source.name, '->', output.name, flush=True)
+    host_python_command(config, [HERE / config['helper']['source'], '--input', source,
+        '--sha256', raw_sha, '--output', output, '--encoder', HERE / config['encoder']['source']])
+    report_path = output.with_suffix('.manifest.json')
+    report = json.loads(report_path.read_text())
+    encoded_sha = hashlib.sha256(output.read_bytes()).hexdigest()
+    if (report['input']['sha256'] != raw_sha or report['output']['sha256'] != encoded_sha or
+            report['settings'] != TEXTURE_SETTINGS or report['encoder']['sha256'] != ENCODER_SHA or
+            report['encoder']['libktx_sha256'] != LIBKTX_SHA or
+            report['preservation']['non_image_json_semantics_identical'] is not True):
+        raise ValueError('encoded GLB does not match the source, tool or preservation contract')
+    before, raw = read_glb(source)
+    after, encoded = read_glb(output)
+    for field in ('nodes', 'skins', 'meshes', 'accessors', 'animations', 'scenes', 'scene', 'materials', 'samplers'):
+        if before.get(field) != after.get(field):
+            raise ValueError('runtime image encoding changed non-image GLB field: ' + field)
+    before_clips = {clip['name']: animation_signature(before, raw, clip) for clip in before.get('animations', [])}
+    after_clips = {clip['name']: animation_signature(after, encoded, clip) for clip in after.get('animations', [])}
+    if before_clips != after_clips:
+        raise ValueError('runtime image encoding changed animation geometry semantics')
+    report['input']['path'] = source.name
+    report['output']['path'] = output.name
+    report['host_python'] = copy.deepcopy(config['host_python'])
+    report['helper'] = copy.deepcopy(config['helper'])
+    report['release_identity'] = copy.deepcopy(config['release_identity'])
+    report['animation_semantic_signatures'] = after_clips
+    print('ENCODED', output.name, raw_sha, encoded_sha, flush=True)
+    return report
+
+
+def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=None):
     require_same_rest(document, rig)
     source_joints = joint_nodes(document)
-    expected_count = {'motion41': 41, 'attack78': 78}[contract]
+    expected_count = {'motion41': 41, 'attack78': 78, 'locomotion78': 78}[contract]
     if len(source_joints) != expected_count:
         raise ValueError('source joint count differs from its explicit contract')
     source_binds, rig_binds = inverse_bind_values(document, binary), inverse_bind_values(rig, rig_binary)
@@ -402,11 +504,17 @@ def validate_source_clip(document, binary, rig, rig_binary, contract):
     expected = {(index, path) for index in source_joints.values() for path in ('translation', 'rotation', 'scale')}
     if set(tracks) != expected:
         raise ValueError('source requires one complete TRS track per joint')
-    if contract == 'attack78':
-        if len(times) != 106 or abs(times[0]) > 1e-7 or abs(times[-1] - 1.75) > 1e-6:
+    if contract in {'attack78', 'locomotion78'}:
+        if contract == 'attack78' and (len(times) != 106 or abs(times[0]) > 1e-7 or abs(times[-1] - 1.75) > 1e-6):
             raise ValueError('attack78 requires the frozen 106-key 0..1.75s raw source')
-        if any(len(track[0]) != 106 or track[0] != times for track in tracks.values()):
-            raise ValueError('attack78 joint tracks must share the source time grid')
+        if contract == 'locomotion78':
+            if clip_name not in LOCOMOTION_CLIPS:
+                raise ValueError('locomotion78 requires an explicit idle/walk alias')
+            count = 91 if clip_name == 'idle' else 185
+            if len(times) != count or times[0] != 0 or abs(times[-1] - 1.5) > 1e-7:
+                raise ValueError('locomotion78 requires its frozen 91/185-key 0..1.5s raw source')
+        if any(track[0] != times for track in tracks.values()):
+            raise ValueError(contract + ' joint tracks must share the source time grid')
         for name, index in source_joints.items():
             location, _, scale = local_matrix(document['nodes'][index]).decompose()
             for path, rest in (('translation', location), ('scale', scale)):
@@ -414,15 +522,27 @@ def validate_source_clip(document, binary, rig, rig_binary, contract):
                     continue
                 if any(abs(value - rest[axis]) > 1e-5
                        for row in tracks[index, path][1] for axis, value in enumerate(row)):
-                    raise ValueError('attack78 contains authored non-root translation/scale outside its contract: ' + name)
+                    raise ValueError(contract + ' contains authored non-root translation/scale outside its contract: ' + name)
+            if contract == 'locomotion78':
+                for path in ('translation', 'rotation', 'scale'):
+                    _, values, interpolation = tracks[index, path]
+                    moving = clip_name == 'walk' and path == 'rotation' and name in MOVING_LEGS
+                    if interpolation != ('LINEAR' if moving else 'STEP'):
+                        raise ValueError('locomotion78 interpolation differs from frozen locked/leg semantics: ' + name)
+                    if not moving and any(row != values[0] for row in values):
+                        raise ValueError('locomotion78 locked track varies: ' + name + '/' + path)
     return tracks
 
 
 def production_binding(manifest):
     from attack_grounding import GROUNDING_POLICY
-    return {'schema_version': 2, 'motion_source': manifest['motion_source'],
+    return {'schema_version': 3, 'motion_source': manifest['motion_source'],
+            'locomotion_source': manifest['locomotion_source'],
+            'body_coverage_calibration': manifest['body_coverage_calibration'],
+            'runtime_texture_encoding': manifest['runtime_texture_encoding'],
+            'player_weapon_source': manifest['player_weapon_source'],
             'attack_source': manifest['attack_source'], 'hand_policy': HAND_POLICY,
-            'attack_root_grounding': GROUNDING_POLICY,
+            'canonical_root_grounding': GROUNDING_POLICY,
             'weapon_source': manifest['weapon_source'],
             'characters': [{key: character.get(key) for key in
                             ('id', 'name', 'source', 'source_sha256', 'grip_source',
@@ -430,9 +550,54 @@ def production_binding(manifest):
                            for character in manifest['characters']]}
 
 
+def canonical_source_evidence(sources, frozen_locomotion):
+    """Check the pinned raw family's exact guard markers and locked ancestor TRS."""
+    by_name = {entry['name']: (document, binary) for entry, document, binary, _, _ in sources}
+    reference, reference_binary = by_name['attack_overhead']
+    reference_tracks, _ = decode_animation(reference, reference_binary)
+    reference_names = {node['name']: index for index, node in enumerate(reference['nodes'])}
+    reports = {}
+    for profile in frozen_locomotion['profiles']:
+        name = profile['clip_alias']
+        document, binary = by_name[name]
+        tracks, times = decode_animation(document, binary)
+        names = {node['name']: index for index, node in enumerate(document['nodes'])}
+        markers = [min(times, key=lambda value: abs(value - marker)) for marker in (0, 1/3, 1.5)]
+        for joint in joint_nodes(document):
+            for path in ('translation', 'rotation', 'scale'):
+                expected = reference_tracks[reference_names[joint], path][1][0]
+                if any(tuple(tracks[names[joint], path][1][times.index(time)]) != tuple(expected)
+                       for time in markers):
+                    raise ValueError('locomotion raw guard marker differs from canonical attack: ' + name + '/' + joint)
+        sample_times = sorted([*times, *((a+b)/2 for a, b in zip(times, times[1:]))])
+        for joint in profile['locked_head_ancestor_chain']:
+            for path in ('translation', 'rotation', 'scale'):
+                key = names[joint], path
+                reference_key = reference_names[joint], path
+                if key not in tracks:
+                    if local_matrix(document['nodes'][names[joint]]) != local_matrix(reference['nodes'][reference_names[joint]]):
+                        raise ValueError('locomotion raw static ancestor differs from canonical guard: ' + joint)
+                    continue
+                expected = reference_tracks[reference_key][1][0]
+                if any(tuple(sample_track(tracks[key], time, path == 'rotation')) != tuple(expected)
+                       for time in sample_times):
+                    raise ValueError('locomotion raw ancestor differs from canonical guard: ' + name + '/' + joint)
+        reports[name] = {'canonical_clip': 'attack_overhead', 'canonical_source_seconds': 0,
+                         'canonical_234_trs_markers_exact': True, 'marker_source_seconds': markers,
+                         'locked_ancestor_local_trs_exact': True,
+                         'locked_ancestor_chain': profile['locked_head_ancestor_chain'],
+                         'source_key_count': len(times), 'key_and_midpoint_count': len(sample_times)}
+    return reports
+
+
 def validate_manifest(manifest):
-    if manifest.get('schema_version') != 2:
-        raise ValueError('the ten-clip bank requires manifest schema_version 2')
+    if manifest.get('schema_version') != 3:
+        raise ValueError('the canonical ten-clip bank requires manifest schema_version 3; v2 is retired')
+    validate_texture_encoding(manifest.get('runtime_texture_encoding'))
+    player_weapon = manifest.get('player_weapon_source')
+    if (not isinstance(player_weapon, dict) or set(player_weapon) != {'source', 'source_sha256'} or
+            player_weapon['source_sha256'] != 'a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637'):
+        raise ValueError('schema 3 requires the explicit reviewed player_weapon_source grip GLB')
     weapon = manifest.get('weapon_source')
     if (not isinstance(weapon, dict) or set(weapon) != {'source', 'source_sha256'} or
             not isinstance(weapon['source'], str) or not weapon['source'] or
@@ -445,15 +610,54 @@ def validate_manifest(manifest):
     outputs = [c['output'] for c in characters]
     if len(set(outputs)) != len(outputs) or any(Path(name).name != name or not name.endswith('.glb') for name in outputs):
         raise ValueError('characters require distinct local GLB output names')
+    if 'dao_grip.glb' in outputs:
+        raise ValueError('character output collides with the explicit player weapon')
+    coverage_entry = manifest.get('body_coverage_calibration')
+    if not isinstance(coverage_entry, dict) or set(coverage_entry) != {'source', 'source_sha256'}:
+        raise ValueError('schema 3 requires an explicit frozen body coverage calibration JSON')
+    coverage_path = HERE / coverage_entry['source']
+    if hashlib.sha256(coverage_path.read_bytes()).hexdigest() != coverage_entry['source_sha256']:
+        raise ValueError('frozen body coverage calibration hash changed')
+    coverage = json.loads(coverage_path.read_text())
+    if (coverage.get('schema_version') != 1 or coverage.get('space') != 'prepared actor root' or
+            set(coverage.get('characters', {})) != {row['id'] for row in characters}):
+        raise ValueError('body coverage calibration requires the same explicit targets and prepared actor frame')
     movement = manifest['motion_source']
+    locomotion = manifest.get('locomotion_source')
     attacks = manifest.get('attack_source')
     if not attacks:
         raise ValueError('three frozen authored_raw attack descriptors are required before candidate generation')
-    if movement['contract'] != 'motion41' or attacks['contract'] != 'attack78':
-        raise ValueError('motion and attack rigs require explicit motion41/attack78 contracts')
+    if (movement['contract'] != 'motion41' or attacks['contract'] != 'attack78' or
+            not locomotion or locomotion['contract'] != 'locomotion78'):
+        raise ValueError('motion/locomotion/attack require explicit motion41/locomotion78/attack78 contracts')
     names = [clip['name'] for clip in movement['clips']]
-    if len(names) != 7 or set(names) != set(LEFT_HAND_POSES):
-        raise ValueError('movement bank requires exactly the seven authored motion/reaction clips')
+    if len(names) != 5 or set(names) != MOTION_CLIPS:
+        raise ValueError('motion41 bank requires exactly the five reaction/turn/fall clips')
+    loco_rows = locomotion['clips']
+    if len(loco_rows) != 2 or {row['name'] for row in loco_rows} != LOCOMOTION_CLIPS:
+        raise ValueError('locomotion78 requires exactly idle and walk')
+    for row in loco_rows:
+        if row.get('stage') != 'authored_raw' or row.get('right_calibration_baked') is not False:
+            raise ValueError('locomotion sources must explicitly identify unbaked authored raw curves')
+    loco_authoring = locomotion['authoring_manifest']
+    loco_path = HERE / loco_authoring['source']
+    if hashlib.sha256(loco_path.read_bytes()).hexdigest() != loco_authoring['source_sha256']:
+        raise ValueError('frozen locomotion input manifest hash changed')
+    frozen_locomotion = json.loads(loco_path.read_text())
+    if (frozen_locomotion.get('source_assets_frozen') is not True or
+            frozen_locomotion['source_rig']['sha256'] != locomotion['source_sha256'] or
+            frozen_locomotion['source_rig']['skin_joint_count'] != 78):
+        raise ValueError('locomotion raw rig differs from its frozen 78-joint authoring rig')
+    frozen_rows = {row['clip_alias']: row for row in frozen_locomotion['profiles']}
+    if set(frozen_rows) != LOCOMOTION_CLIPS or any(
+            frozen_rows[row['name']]['raw']['sha256'] != row['source_sha256'] or
+            frozen_rows[row['name']]['raw']['right_finger_calibration_baked'] is not False
+            for row in loco_rows):
+        raise ValueError('locomotion bank differs from frozen unbaked source identities')
+    runtime = frozen_locomotion['runtime_contract']
+    if (runtime['WALK_LOOP_START'] != 1/3 or runtime['WALK_LOOP_DURATION'] != 7/6 or
+            runtime['WALK_STRIDE_METERS'] != 1.45 or runtime['physical_steps_per_loop'] != 6):
+        raise ValueError('locomotion requires the six-step 1.45m canonical loop contract')
     rows = attacks['clips']
     if len(rows) != 3 or {row['direction'] for row in rows} != set(ATTACK_CLIPS):
         raise ValueError('attack bank requires exactly OVERHEAD/LEFT/RIGHT sources')
@@ -484,6 +688,7 @@ def validate_manifest(manifest):
                    for segment in (1, 2, 3)}
         if not set(character.get('finger_rotation_offsets', {})).issubset(allowed):
             raise ValueError('the bank permits reviewed right-finger offsets only')
+    return frozen_locomotion, coverage['characters']
 
 
 def hand_track_signatures(document, binary):
@@ -511,12 +716,14 @@ def validate_production_review(manifest, request):
         raise ValueError('production review does not approve the current sources and hand policy')
     if review.get('characters') != request['characters']:
         raise ValueError('production review differs from final outputs, hand tracks or attack profiles')
+    if review.get('player_weapon') != request.get('player_weapon'):
+        raise ValueError('production review differs from the encoded player weapon')
 
 
 def build_library(manifest_path, candidate_dir=None):
     from attack_profiles import export_attack_profiles
     manifest = json.loads(manifest_path.read_text())
-    validate_manifest(manifest)
+    frozen_locomotion, body_coverage = validate_manifest(manifest)
     formal = HERE / 'library'
     runtime = HERE.parent.parent / 'app/src/main/assets/models/opponents'
     destination = Path(candidate_dir).resolve() if candidate_dir is not None else formal
@@ -526,16 +733,23 @@ def build_library(manifest_path, candidate_dir=None):
     if candidate_dir is None and not manifest.get('production_review'):
         raise ValueError('create a private --candidate-dir and obtain Root production_review first')
     movement = manifest['motion_source']
+    locomotion = manifest['locomotion_source']
     attacks = manifest['attack_source']
     weapon_source = manifest['weapon_source']
+    texture_encoding = manifest['runtime_texture_encoding']
+    player_weapon_source = manifest['player_weapon_source']
     pinned_source(weapon_source)
+    player_source_path, _, _ = pinned_source(player_weapon_source)
     _, motion_rig, motion_binary = pinned_source(movement)
+    _, locomotion_rig, locomotion_binary = pinned_source(locomotion)
     _, attack_rig, attack_binary = pinned_source(attacks)
     sources = []
-    for family, rig, rig_binary in ((movement, motion_rig, motion_binary), (attacks, attack_rig, attack_binary)):
+    for family, rig, rig_binary in ((movement, motion_rig, motion_binary),
+                                   (locomotion, locomotion_rig, locomotion_binary),
+                                   (attacks, attack_rig, attack_binary)):
         for entry in family['clips']:
             _, document, binary = pinned_source(entry)
-            validate_source_clip(document, binary, rig, rig_binary, family['contract'])
+            validate_source_clip(document, binary, rig, rig_binary, family['contract'], entry['name'])
             sources.append((entry, document, binary, rig, family['contract']))
     targets = []
     for character in manifest['characters']:
@@ -546,12 +760,28 @@ def build_library(manifest_path, candidate_dir=None):
         targets.append((character, source_path, target, binary, native_hands))
     binding = production_binding(manifest)
     request = {'schema_version': 1, 'status': 'pending_root_review', 'binding': binding,
-               'binding_sha256': canonical_hash(binding), 'characters': []}
+               'binding_sha256': canonical_hash(binding),
+               'source_contract_evidence': canonical_source_evidence(sources, frozen_locomotion),
+               'characters': []}
     with tempfile.TemporaryDirectory(prefix='.attack-bank-', dir=HERE) as temporary:
         stage = Path(temporary)
         output_folder = stage / 'outputs'
         output_folder.mkdir()
         files, summaries = [], []
+        player_path = output_folder / 'dao_grip.glb'
+        player_encoding = encode_runtime_glb(player_source_path, player_path, texture_encoding)
+        player_encoding_bytes = (json.dumps(player_encoding, ensure_ascii=False, indent=2) + '\n').encode()
+        player_manifest = {'schema_version': 1, 'source': player_weapon_source,
+                           'runtime_texture_encoding': texture_encoding,
+                           'output': {'file': player_path.name, 'bytes': player_path.stat().st_size,
+                                      'sha256': hashlib.sha256(player_path.read_bytes()).hexdigest()},
+                           'texture_encoding_manifest': {'file': 'dao_grip_texture_encoding.json',
+                               'sha256': hashlib.sha256(player_encoding_bytes).hexdigest()}}
+        player_manifest_bytes = (json.dumps(player_manifest, ensure_ascii=False, indent=2) + '\n').encode()
+        request['player_weapon'] = {**player_manifest, 'manifest_sha256': hashlib.sha256(player_manifest_bytes).hexdigest()}
+        files.extend((('dao_grip.glb', player_path.read_bytes()),
+                      ('dao_grip_texture_encoding.json', player_encoding_bytes),
+                      ('player_weapon_manifest.json', player_manifest_bytes)))
         for character, source_path, target, target_binary, native_hands in targets:
             packed_clips, retargeting = [], []
             clip_folder = stage / character['id']
@@ -566,12 +796,13 @@ def build_library(manifest_path, candidate_dir=None):
                 retargeting.append({'name': entry['name'], 'source': entry['source'],
                                     'source_sha256': entry['source_sha256'], 'retargeted_clip_sha256': digest, **details})
             stem = Path(character['output']).stem
+            prepared_png = output_folder / (stem + '_prepared_png.glb')
             record = prepare_character(source_path, character['source_sha256'], packed_clips,
-                                       output_folder / (stem + '_body.glb'), output_folder / character['output'],
+                                       output_folder / (stem + '_body.glb'), prepared_png,
                                        output_folder / (stem + '_alignment.json'),
                                        height=character['height_metres'], grip_frame=character.get('grip_frame'),
                                        finger_rotation_offsets=character.get('finger_rotation_offsets'),
-                                       attack_grounding_clips=list(ATTACK_CLIPS.values()),
+                                       canonical_grounding_clips=['idle', 'walk', *ATTACK_CLIPS.values()],
                                        weapon_source=weapon_source)
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']
@@ -580,8 +811,18 @@ def build_library(manifest_path, candidate_dir=None):
             record.update(id=character['id'], name=character['name'], retargeting=retargeting,
                           grip_source=character['grip_source'], hand_policy=HAND_POLICY)
             model_path = output_folder / character['output']
+            encoding = encode_runtime_glb(prepared_png, model_path, texture_encoding)
+            encoding_bytes = (json.dumps(encoding, ensure_ascii=False, indent=2) + '\n').encode()
+            record['prepared_png'] = record['outputs'][-1]
+            record['outputs'].append({'file': character['output'], 'bytes': model_path.stat().st_size,
+                                      'sha256': hashlib.sha256(model_path.read_bytes()).hexdigest()})
+            record['runtime_texture_encoding'] = {'file': stem + '_texture_encoding.json',
+                'sha256': hashlib.sha256(encoding_bytes).hexdigest(),
+                'prepared_png_sha256': encoding['input']['sha256'],
+                'encoded_sha256': encoding['output']['sha256'], 'preservation': encoding['preservation']}
             document, binary = read_glb(model_path)
-            profiles = export_attack_profiles(document, binary, ATTACK_CLIPS)
+            profiles = export_attack_profiles(document, binary, ATTACK_CLIPS, frozen_locomotion,
+                                              body_coverage[character['id']])
             profiles.update(character_id=character['id'], model_sha256=record['outputs'][-1]['sha256'],
                             directions={entry['direction']: {key: entry[key] for key in
                                          ('incoming_guard_side', 'actor_travel_side', 'source_sha256')}
@@ -591,30 +832,36 @@ def build_library(manifest_path, candidate_dir=None):
             record['attack_profiles'] = {'file': profile_name, 'sha256': hashlib.sha256(profile_bytes).hexdigest()}
             metadata = (json.dumps(record, ensure_ascii=False, indent=2) + '\n').encode()
             files.extend(((stem + '_body.glb', (output_folder / (stem + '_body.glb')).read_bytes()),
+                          (prepared_png.name, prepared_png.read_bytes()),
                           (character['output'], model_path.read_bytes()),
-                          (stem + '_alignment.json', metadata), (profile_name, profile_bytes)))
+                          (stem + '_alignment.json', metadata), (profile_name, profile_bytes),
+                          (stem + '_texture_encoding.json', encoding_bytes)))
             signatures = hand_track_signatures(document, binary)
             request['characters'].append({'id': character['id'], 'outputs': record['outputs'],
                                            'hand_track_signatures': signatures,
                                            'clip_semantic_signatures': {clip['name']: animation_signature(document, binary, clip)
                                                                         for clip in document['animations']},
+                                           'texture_encoding_manifest_sha256': record['runtime_texture_encoding']['sha256'],
                                            'attack_profiles_sha256': record['attack_profiles']['sha256']})
             summaries.append({'id': character['id'], 'name': character['name'], 'output': character['output'],
                               'animations': [clip['name'] for clip in document['animations']],
                               'joint_count': record['joint_count'], 'outputs': record['outputs'],
+                              'runtime_texture_encoding': record['runtime_texture_encoding'],
                               'attack_profiles': record['attack_profiles']})
         if candidate_dir is None:
             validate_production_review(manifest, request)
             request['status'] = 'approved_for_development_integration'
         request_bytes = (json.dumps(request, ensure_ascii=False, indent=2) + '\n').encode()
-        files.extend((('characters.json', (json.dumps({'characters': summaries}, ensure_ascii=False, indent=2) + '\n').encode()),
+        files.extend((('characters.json', (json.dumps({'characters': summaries, 'player_weapon': request['player_weapon']}, ensure_ascii=False, indent=2) + '\n').encode()),
                       ('production_review_request.json', request_bytes)))
         destination.mkdir(parents=True, exist_ok=True)
-        publish_outputs(tuple((destination / name, data) for name, data in files))
+        publication = [(destination / name, data) for name, data in files]
         if candidate_dir is None:
             runtime.mkdir(parents=True, exist_ok=True)
-            publish_outputs(tuple((runtime / name, data) for name, data in files
-                                  if name in {row['output'] for row in summaries} or name.endswith('_attack_profiles.json')))
+            publication.extend((runtime / name, data) for name, data in files
+                               if name in {row['output'] for row in summaries} or name.endswith('_attack_profiles.json'))
+            publication.append((runtime.parent / 'dao_grip.glb', player_path.read_bytes()))
+        publish_outputs(tuple(publication))
     print(json.dumps({'output_dir': str(destination), 'status': request['status'],
                       'binding_sha256': request['binding_sha256'], 'characters': summaries}, ensure_ascii=False))
     return request

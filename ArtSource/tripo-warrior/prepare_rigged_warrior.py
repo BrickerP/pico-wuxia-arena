@@ -7,6 +7,7 @@ uniformly, as specified by glTF scene/skin transform rules.
 
 import bisect
 import copy
+from contextlib import ExitStack
 import hashlib
 import json
 import math
@@ -29,12 +30,6 @@ GRIP_LOCAL_FRAME = (
     -.2715799926541686, .12781040670100427, -.4735967545530686, 0,
     .4550594249261904, -.1364917456044495, -.2977851575238925, 0,
     .019713686436414718, .02435691554099322, -.02339721978455782, 1,
-)
-CLIP_SOURCES = (
-    ('idle', 'bb23cd4c-retarget-2-43bfb8da', 'b4d92356d0c74e066d9301b7bf2bf6ef58f0ce209c821765b96610e5e2985645'),
-    ('slash', 'bb23cd4c-retarget-a65f688a', '21fe0e6fd26e744308227b7e7d0d55cbef22346128753c44174a12320fe209b0'),
-    ('hurt', 'bb23cd4c-retarget-3-221c8495', '4a664278fcbd244956898172606baefd19e216c146f47cdbac377594300dce08'),
-    ('fall', 'bb23cd4c-retarget-4-44c8eae0', '542852badb502f3706b6b3e1932094522aee00db9991bea021c021cd0cf720c9'),
 )
 
 
@@ -69,20 +64,25 @@ def output_info(path, output):
 
 
 def publish_outputs(outputs):
-    """Stage the complete generation, restoring old files on publication error."""
-    folder = outputs[0][0].parent
-    if any(path.parent != folder for path, data in outputs):
-        raise ValueError('grouped outputs must share one directory')
-    with tempfile.TemporaryDirectory(prefix='.rigged-stage-', dir=folder) as temporary:
-        stage = Path(temporary)
+    """Stage one generation beside each destination and restore it on any error."""
+    outputs = [(Path(path).resolve(), data) for path, data in outputs]
+    if not outputs or len({path for path, _ in outputs}) != len(outputs):
+        raise ValueError('grouped publication requires distinct output paths')
+    with ExitStack() as cleanup:
+        stages = {}
+        for folder in {path.parent for path, _ in outputs}:
+            folder.mkdir(parents=True, exist_ok=True)
+            stages[folder] = Path(cleanup.enter_context(
+                tempfile.TemporaryDirectory(prefix='.rigged-stage-', dir=folder)))
         pending, previous = {}, {}
-        for path, data in outputs:
-            staged = stage / path.name
+        for index, (path, data) in enumerate(outputs):
+            stage = stages[path.parent]
+            staged = stage / str(index)
             staged.write_bytes(data)
             pending[path] = staged
             previous[path] = None
             if path.exists():
-                backup = stage / (path.name + '.previous')
+                backup = stage / (str(index) + '.previous')
                 os.link(path, backup)
                 previous[path] = backup
         published = []
@@ -170,7 +170,7 @@ def animation_signature(doc, binary, animation):
     return hashlib.sha256(json.dumps(rows, separators=(',', ':')).encode()).hexdigest()
 
 
-def append_animations(doc, binary, reference, clip_sources=None):
+def append_animations(doc, binary, reference, clip_sources):
     """Copy only referenced curves into the existing body and joint nodes."""
     target_nodes = {node.get('name'): index for index,node in enumerate(doc['nodes'])}
     reference_nodes = {node.get('name'): index for index,node in enumerate(reference['nodes'])}
@@ -190,8 +190,7 @@ def append_animations(doc, binary, reference, clip_sources=None):
             index = parents[index]
 
     if clip_sources is None:
-        clip_sources = [(name, HERE / 'tripo-out' / folder / 'model.glb', digest)
-                        for name, folder, digest in CLIP_SOURCES]
+        raise ValueError('explicit clip sources are required; use prepare_character_library.py --manifest')
     names = [name for name, path, digest in clip_sources]
     if not names or len(names) != len(set(names)):
         raise ValueError('animation names must be nonempty and unique')
@@ -674,7 +673,7 @@ def calibrated_mount(source, normalization, hand):
 
 def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_path,
                       alignment_path, height=HEIGHT, grip_frame=None, finger_rotation_offsets=None,
-                      attack_grounding_clips=None, weapon_source=None):
+                      canonical_grounding_clips=None, weapon_source=None):
     """Publish a body, its same-skin dao variant and their shared asset metadata."""
     source_path = Path(source_path)
     if hashlib.sha256(source_path.read_bytes()).hexdigest() != source_sha:
@@ -707,9 +706,9 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
     binary, animation_records = append_animations(doc,binary,source,clip_sources)
     binary, finger_calibration = apply_finger_rotation_offsets(doc, binary, finger_rotation_offsets)
     grounding = None
-    if attack_grounding_clips is not None:
-        from attack_grounding import ground_attack_feet
-        binary, grounding = ground_attack_feet(doc, binary, attack_grounding_clips)
+    if canonical_grounding_clips is not None:
+        from attack_grounding import ground_canonical_guard_feet
+        binary, grounding = ground_canonical_guard_feet(doc, binary, canonical_grounding_clips)
     if finger_calibration is not None or grounding is not None:
         for animation, record in zip(doc['animations'], animation_records):
             record['source_keyframe_semantics_sha256'] = record['keyframe_semantics_sha256']
@@ -769,20 +768,12 @@ def prepare_character(source_path, source_sha, clip_sources, body_path, weapon_p
     if finger_calibration is not None:
         record['finger_rotation_calibration'] = finger_calibration
     if grounding is not None:
-        record['attack_root_grounding'] = grounding
+        record['canonical_root_grounding'] = grounding
     alignment_bytes = (json.dumps(record,indent=2)+'\n').encode('utf-8')
     publish_outputs(((body_path,body_bytes), (weapon_path,weapon_bytes),
                      (alignment_path,alignment_bytes)))
     return record
 
 
-def main():
-    record = prepare_character(SOURCE, SOURCE_SHA, None,
-                               HERE / 'tripo_warrior_rigged.glb',
-                               HERE / 'tripo_warrior_rigged_with_dao.glb',
-                               HERE / 'rigged_alignment.json', grip_frame=GRIP_LOCAL_FRAME)
-    print('PREPARED', json.dumps(record))
-
-
 if __name__ == '__main__':
-    main()
+    raise SystemExit('Standalone preparation is retired; use prepare_character_library.py --manifest')

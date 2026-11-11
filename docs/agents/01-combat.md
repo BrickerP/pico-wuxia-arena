@@ -8,7 +8,7 @@
 
 ## 当前状态
 
-**阶段6／7源动作已结束，等待review；阶段8受击画面核对中。** 三攻击raw继续冻结。源动作及正常视距观感由01制作，正式bank／正常循环／代理由09承接，公共producer与发布由Root维护。
+**阶段10结束，等待Root／09 review。** 锁定核心链的idle／六步walk源、完整输入清单、足底与骨锚审计、正常1.5m连续walk→停步guard及三关键帧均已交付。三攻击、支撑、卸力与受击源冻结。正式接线和绝对代理校准由09／Root验收。
 
 ## 上一轮成果与Root review
 
@@ -40,7 +40,7 @@
 
 其他会话正在同一仓库并行。各自只修改责任范围，保留其他人的编辑。Git提交、分支、合入、共享构建、设备操作、实际截图与正式模型发布由Root统一负责。候选输出留在各自目录，library、app角色与公共manifest由Root发布。
 
-本轮允许离线资产生成、渲染及专项制作检查。游戏整局自测继续后置。30分钟内交付首阶段实物，写明“阶段结束”、输入SHA、文件、效果、剩余问题与下一步建议后结束当前回合。遇到阻塞先交已做出的部分并写明具体阻塞，继续能独立完成的工作。用当前模型和已安装依赖推进，不为等审批或等待其他线程维持空转。
+本轮允许离线资产生成、渲染及专项制作检查，运行／设备由Root统筹。新版12路合同为45分钟先交首项可见实物，阶段回报写明“阶段结束”、输入SHA、文件、效果、限制与下一项，按已授权队列继续。旧阶段的30分钟目标与实际延误保留历史记录。每路最多1个Blender进程，本路统一经 `ArtSource/refinement/hand-poses/run_blender.py` 宿主锁串行，构建、审计、渲染可入队；无Blender工作并行。Root已实测运行中持锁、退出释放及后台模式拒绝边界。遇到阻塞先交已完成部分并继续能独立完成的工作。
 
 ## 阶段回报
 
@@ -388,8 +388,96 @@ Root已查看阶段4的v2三视角板，接受更宽战斗站姿、屈膝、上�
 
 本路后续重点为可见重心、蓄势、支撑、卸力和转身，三攻击stage5源保持冻结。与09共享源时点和入口语义，应用接线由09与Root维护；服装跨动作穿插由01／03交换源姿态处理。遵循新版每路最多1个Blender进程，避免并行制作争用。
 
+## 阶段8收件回报
+
+**技术首版阶段结束，等待review；表现仍需加强。** Root已收件并要求先冻结，当前优先级让位于canonical locomotion HIGH。
+
+| clip | raw SHA-256 | preview SHA-256 |
+| --- | --- | --- |
+| hit_body | `8213e52e9dacb9885db17c72326444dbb4db2545d57f15e264552e0cfbdaab0b` | `74d0ad940352944f86e192dc711aad372086d6081af2f7250ba959fe00c2f139` |
+| hit_head | `16e4f5a8e4d0fd186addee366798494eb89d6e8b9429c51af9595967b72e9a42` | `910732b624578ab77ac503d8a7cda5205365f5e3212f56c1b3bdf629ddde304f` |
+
+源在stage8/candidate，每段0至.72秒／48键LINEAR。raw右握UNBAKED，preview原8项修正一次；源0／.05／.72的234轨分别精确canonical guard。正常HIT继续使用.05至.72源映300ms或实际扩展HIT时长，入场跨姿态仍由既有25至55ms crossfade处理。hit_head保留处决读取.10至.595源，450ms×1.1源速闭合；头峰值后仰12°、.595仍约8°。正常源时标未烘焙短停或死亡慢时钟。
+
+四份源／审阅板各16项失败回归通过。两源各95个key及中点无左手／头颈穿DAO，执行前段额外65时刻通过。源.05真实身体前表面点为(0,1.25,.130143)、头部为(-.001364,1.542499,.128832)m，均来自实际body primitive0、tripo_mat；骨原点和Steel标记均被负例检查拒绝。每源48行7骨与刀端点在stage8/audit。足底最大低带位移约.166mm、下探约.048mm。
+
+[1.5m身体受击首张对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage8/review/hit_body_1p5m_pain_before_after.png)已出，eye1.62／aim1.05／vFOV75°，源.23对应正常HIT约80.6ms。脚底与守势衔接改善，但新躯干、视线和手臂仍接近招架轮廓，正常视距痛感偏弱。初图旧基线取idle锚还有约6至8cm水平recenter局限，不能作为最终严格对齐画面通过证据。正常300ms与450ms执行片尚未完成。限制见[首项方法记录](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage8/review/hit_reactions_visual_review.json)。后续应明确压身、头部回避、刀臂失去完整防线与收拢护腹，按正常视距再审；当前源冻结。
+
+## 阶段9收件回报
+
+**阶段结束，等待Root／09 review。** 原同源步态版已交完整数据与正常视距对照，保留来源；Root随后要求全周期核心锁定，正式优先候选改在stage10制作，本版不冒称符合最新锁链合同。
+
+输入为 [canonical_locomotion_inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/candidate/canonical_locomotion_inputs.json)，SHA-256 `812142fcfa1a14c1841fd084619ac8e0d6eb73c5d791f5c80861cb07291a53fb`。
+
+| 源 | raw SHA-256 | preview SHA-256 |
+| --- | --- | --- |
+| guard_idle（idle） | `77a132d6b956933118a829b8f421e37c04ee75d5e7c7d7ecf12dbb64180ba292` | `3d3ee7fdf5ed6eaef45152cd4650a14f787882e18c6bc763b13ec40e0587da1f` |
+| guard_walk（walk） | `6fcc10d4e5743bb0d57d37d92e8b7bee0c51d6b7f24b495a460811c8f37b14f5` | `a5622eb12d06d2893be4595771ccf7e041a6f18d984b583584d21f259e2aa66c` |
+
+97键待机1.6秒、49键行走.8秒，均新78骨源，右指未烘焙／预览一次8项修正。首尾raw／preview234轨精确同stage5 canonical。行走是新造的两骨IK与真实鞋面轨迹，周期.52m、载体.65m/s；摆脚前移.26m加载体.26m，单脚一步世界距离.52m。source后摆与世界支撑分列，加入载体后L／R支撑低带位移.149／.076mm，实际离地峰50.0002mm。
+
+193／97个key及中点检查无左手／头颈穿刀。97／49行锚包含完整列主序W矩阵、scale、骨原点、同帧校准centre、Blade与足相。对canonical旧offset的相对中心变化，idle约1.4mm、walk约8.5mm；原输入显式记录这类bob。该相对闭合不等于Runtime绝对贴合。
+
+- [正常守势图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/review/guard_idle_normal_before_after.png)、[载体步态五时刻图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/review/guard_walk_source_carrier_keyframes.png)。
+- [步态前后连续片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/review/guard_walk_carrier_normal_before_after.mp4)，24帧／30fps／精确.8秒，固定相机距初始2.02m至结束1.50m，世界载体+.65t。
+- [待机连续片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/review/guard_idle_carrier_normal_before_after.mp4)、[方法与消费者边界](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/review/guard_locomotion_visual_review.json)。已看五时刻图和守势图，团队覆盖72编码时刻。旧idle是资产基线，旧walk保留历史consumer映射，.8s窗口只走旧周期35.86%，两者并非同旧循环边界。
+
+### 独立HIGH与09接入点
+
+[runtime_alignment_findings.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage9/audit/runtime_alignment_findings.json)已用正式app同SHA的base GLB `0c2a4801…9af7d48a` 和profile `ee2335d5…90f5f` 实测。attack_overhead源0真实Head网格bbox中心x=-.005025，旧idle局部offset算出的head proxy x=-.247932，横差.242907m，总距.243101m；body主要横差约.232m。body Y覆盖语义与ROI不同，仅列数据。
+
+当前moving IDLE仍取standing常量、stationary取attack首帧，两分支原中心跳差约25.4cm。统一Stage O与Ry均只一次，profile已烘-.028m、entity另+.028m，未发现专属X补偿。新raw闭合只能解决源姿态一致性，**HIGH仍需09／Root重标新canonical实际网格对应的bone_local_offsets并统一moving分支**，不能以骨原点或源循环闭合宣称Runtime已关。实际W×offset需保留scale。
+
+本版.8／.52协议不能直接复用旧start1/3、duration7/6、stride1.45；stage10将保留旧窗口与总距，作为最新优先输入。Rootproducer还需同组处理idle／walk／三攻击的target grounding，entity+.028一次。三角色target、实际180ms淡入与SDK效果由09／Root验证。
+
+## 当前阶段10优先执行项
+
+依Root最新要求，所有Head至scene root的真实祖先（含Armature／BoneRoot／Hip／Waist／Spine／Neck／Head）全周期local T/R/S逐值同canonical，实际只重作六条腿旋转，非在旧walk上遮上身。常量轨STEP、腿LINEAR是标准混合采样，原骨／mesh／rest／IBM保持。
+
+为同时保旧loop[1/3,1.5]、stride1.45及真实腿可达性，采用一个loop三对／六步，每对.483333m、每半步载体推进.241667m。实际游戏.65m/s时whole loop2.230769秒，旧source rate约.5229885保持。原双步1.45尝试需腿根至踝.999038m而真腿长.741414m，已拒绝，无伸骨／降Hip。六步范围接近原canonical足位，可达实证后才输出。
+
+15:50首个合法6步模型已产；腿120Hz为本轮唯一加密，锁链和旧消费窗口不变。最终raw／metadata／完整SHA、同帧W骨锚与足底样本已冻结，正常1.5m可见片与三帧图已完成。三攻击stage5以及已收件支撑／卸力／受击保持冻结，不编辑public producer、正式库或09源码。
+
+## 阶段10源交付
+
+**首张新源实图已落盘。** [锁链步态中步图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage10/review/locked_guard_walk_midstep_before_after.png)，目前文件虽含before_after命名，内容仅新源after，不能当作前后通过证据。源.916667秒／游戏1.115秒／载体前进.725m，头、刀、脚全入画。1.5m连续walk→停步guard与三关键帧正在优先输出，raw保持冻结。
+
+**阶段结束，等待Root／09 review。** 源、独立审计与正常视距可见交付已完成。唯一优先输入为 [locked_locomotion_inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json)，最终SHA-256 `3a3090ba4181f84169df9e8d7374505ddab5ff4cf3948d183800b116143feab6`，已回填最终骨锚与审计身份。本清单替代阶段9对运行常量的修改建议，旧来源保留。
+
+| alias | raw SHA-256 | preview SHA-256 |
+| --- | --- | --- |
+| idle | `f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1` | `79a93fc6bf2185e1367ceac1e1dc3374f129971cf07267d5d33879f00ddb8c4b` |
+| walk | `0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e` | `f9bebc74195b577e1e875edc80be4602bb08f96f6332f085c13b84fcf6ad7b82` |
+
+对应文件在stage10/candidate，为locked_guard_idle／walk_raw.glb及preview.glb。91／185个实际源key，原78骨rig／mesh／rest／IBM保持。raw右指UNBAKED，preview原8项右指校正一次。所有上身及根链常量STEP、六条腿旋转LINEAR，属于标准混合采样；没有以五pose STEP替代连续腿运动。
+
+### 完整锁链与旧节奏兼容
+
+从Head沿实际parent至scene root枚举，raw9个祖先、preview加两层外Root共11个祖先。全部key及中点local T/R/S逐值与canonical存储值相同，Head／Hip／Spine02／RHand世界矩阵及旧offset相对守势proxy差为0。源0、loopstart1/3、末1.5的raw／preview全部234轨同canonical；prefix所有234采样也已实测相同。
+
+保留旧WALK_LOOP_START=1/3、DURATION=7/6、STRIDE=1.45。一个loop为三对／六步，每对世界.483333m、每半步载体.241667m，实际carrier.65m/s下完整游戏周期2.230769秒、旧source速率约.5229885。1.45m是六步总前进距离，未伪称双步幅度。原两步设计末支撑需.999038m，超真腿长.741414m，已拒绝；正式六步全部可达，没有降Hip或伸骨。
+
+### 足底与同帧数据
+
+[独立审计脚本](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage10/audit_locked_locomotion.py)已实际复跑，idle181／walk369个key和中点均无左手／头颈穿DAO。六段支撑分别应用carrier并重置参考，左最大低带位移.164mm、右.065mm；六次摆脚世界步距约.483333m，离地49.899至50mm。source carrier1.242857m/source-second乘旧rate得到游戏.65m/s，禁止把两种时钟混用。最深离散鞋底下探.146mm，仅为制作数据，不是运行标准或C1证明。
+
+同audit目录包含91／185帧8骨锚，给Head／Spine02／Hip／RHand／双Foot／ToeBase完整列主序W、scale、原点及旋转，另列Blade、载体与足相。清单已写骨锚完整SHA和鞋样本路径。七项源／依赖／采样模式／外Root误移／旧stride／carrier单位错误拒绝回归通过。
+
+### 09／Root集成边界
+
+本源关闭的是核心姿态变化这一层。源相对锁定不能消除旧profile的绝对偏差，阶段9已实测头.243m与body主要X.232m错位。Root／09仍需基于新canonical真实mesh重标局部offset，统一moving／stationary代理分支，完成同组target grounding与entity+.028一次应用，随后在实际发布模型与SDK180ms交叉淡入中验收。三角色target适配、任意步相起停、转向、SDK混合采样加载及PICO观感尚未验。当前不宣称Runtime HIGH已关闭。
+
 ## Root本轮组合审核与续派（2026-11-11）
 
-审核：三方向攻击、guard支撑、三向被弹反和受击源已收件，当前正式库已用三方向10clip。
+审核：stage10 idle／walk源和369个key／中点的锁链与足底报告已收件；原始rig、一次右指校正、guard共同端点保留。stride1.45为六步总距离，不能再以旧两步音步消费。Root已看1.5m tracking三关键帧，步态／停步守势进入开发组合；最终三target绝对代理与native连续性仍待验。
 
-下一步：最高优先完成canonical guarded walk，关闭旧walk/newguard约0.25m祖先差；原78骨、原右指未烘焙、真实gait时钟和足底支撑须可追溯。
+下一步：当前raw与图冻结。Root唯一producer按schema3接locomotion78，并消费05冻结34ce；09复用同源时钟/actual profile、11同步六步音频。未完成三target绝对body代理与native画面前，absolute HIGH保留。
+
+### 阶段10最终可见交付
+
+- [1.5m行走→停步守势连续片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage10/review/locked_walk_tracking_stop_1p5m.mp4)，79帧／30fps／2.633333秒，离线actor-relative跟拍，eye1.62m、vFOV90°。
+- [起步／中步／停稳三关键帧](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/attack-keyposes/stage10/review/locked_walk_tracking_triptych.png)，已目视全部三帧。最终f9bebc74源及现有原rig／刀／握持未改。
+
+六步按.65m/s载体前进1.45m，约2.230769秒完成。随后停止载体，源准确钳在1.50秒／Action frame45，实际再渲染12帧canonical guard保持.4秒；相机水平距始终1.50m，停步后cameraZ=2.95。末帧没有复用较早的source1.484步态帧。实际静守与核心链稳定可见，脚下世界网格保持固定。
+
+本轮按Root最新优先交新源after-only，原先旧资产完整前后对照尚未作为最终证据交付。FOV90°看胸构图里刀尖部分贴近／超出上边，头、双手、脚与完整停稳动作可见，限制需随片保留。此片示范整循环结束后保持同canonical pose，并未运行SDK两controller的180ms过渡或任意步相停步。15:50首模型在45分钟窗口内出现，完整可见交付明显延后，已保留实际时间与限制，未用数值代替画面结论。

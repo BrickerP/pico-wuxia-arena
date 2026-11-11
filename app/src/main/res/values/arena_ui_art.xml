@@ -10,8 +10,13 @@
     <string name="arena_ui_technique_page">%1$d / %2$d</string>
     <string name="arena_ui_technique_previous">上一式</string>
     <string name="arena_ui_technique_next">下一式</string>
-    <string name="arena_ui_keys_strike">1/J 斩击 · 4/K 前刺</string>
-    <string name="arena_ui_keys_guard">5/V 架刀</string>
-    <string name="arena_ui_keys_dodge">8/Z 左闪 · 9/X 右闪 · C 下蹲</string>
-    <string name="arena_ui_keys_skill">G 破势 / 处决</string>
+    <string name="arena_ui_emulator_guide">模拟器操作</string>
+    <string name="arena_ui_emulator_setup_title">控制模式</string>
+    <string name="arena_ui_emulator_setup_detail">右下选择 Right Controller。\n启用 Controller Button Mode。\n关闭 Keyboard 文本模式。\n按住 Shift 配合 W/A/S/D/Q/E 移动虚拟手。</string>
+    <string name="arena_ui_emulator_hand_title">移动虚拟手</string>
+    <string name="arena_ui_emulator_hand_detail">按住 Shift+W/A/S/D/Q/E 平移右手。\n用鼠标转腕或瞄准，左键确认。</string>
+    <string name="arena_ui_emulator_motion_title">动作识别</string>
+    <string name="arena_ui_emulator_motion_detail">虚拟手柄的连续位姿用于出刀和架刀。\n让刀锋实际经过对手；迎锋时转腕成架。\n动作仍由位姿识别。</string>
+    <string name="arena_ui_emulator_head_title">头手分开</string>
+    <string name="arena_ui_emulator_head_detail">头部移动用于视角和身体闪避。\nShift 组合键平移虚拟手柄。\n单按 W 不执行预制挥刀。\nVR 请使用实际头部和手柄动作。</string>
 </resources>

@@ -1,10 +1,17 @@
 """Asset acceptance checks: actual PCM, load budget, timing and provenance."""
 import hashlib
+import contextlib
+import io
 import json
+import shutil
 import struct
+import tempfile
 import unittest
 import wave
 from pathlib import Path
+from unittest.mock import patch
+
+import generate_combat_audio as generator
 
 ROOT = Path(__file__).resolve().parents[2]
 RAW = ROOT / 'app/src/main/res/raw'
@@ -69,20 +76,87 @@ class CombatAudioAssetsTest(unittest.TestCase):
         manifest = ROOT / 'ArtSource/audio/sources/sources.json'
         self.assertTrue(manifest.is_file())
         data = manifest.read_text()
-        for item in json.loads(data)['sources']:
+        sources = json.loads(data)['sources']
+        self.assertEqual(4, len(sources))
+        recorded_files = set()
+        for item in sources:
             self.assertEqual('CC0-1.0', item['license'])
-            packages = item.get('packages', [item] if 'package' in item else [])
-            for package_item in packages:
-                package = manifest.parent / package_item['package']
-                self.assertEqual(package_item['package_sha256'], hashlib.sha256(package.read_bytes()).hexdigest())
-            for archive in item.get('archives', []):
-                self.assertEqual(archive['sha256'], hashlib.sha256((manifest.parent / archive['path']).read_bytes()).hexdigest())
+            self.assertEqual('CC0-1.0', item['selected_license'])
+            self.assertTrue((manifest.parent / item['license_evidence']).is_file())
+            if 'license_file' in item:
+                self.assertTrue((manifest.parent / item['license_file']).is_file())
+            # Original archive URLs/checksums are provenance, not local build inputs.
+            for archive in item['upstream_archives']:
+                self.assertTrue(archive['url'].startswith('https://'))
+                self.assertRegex(archive['sha256'], r'^[0-9a-f]{64}$')
             for media in item['files']:
+                self.assertNotIn(media['path'], recorded_files)
+                recorded_files.add(media['path'])
                 self.assertEqual(media['sha256'], hashlib.sha256((manifest.parent / media['path']).read_bytes()).hexdigest())
+        self.assertEqual(set(generator.SOURCE_FILES), recorded_files)
         for creator in ['Kenney', 'Ylmir', 'StarNinjas', 'HaelDB']:
             self.assertIn(creator.lower(), data.lower())
         for page in ['kenney-impact-sounds-page.txt', 'ylmir-rain-page.txt', 'starninjas-sword-page.txt', 'haeldb-cloth-page.txt']:
             self.assertTrue((manifest.parent / 'licenses' / page).is_file(), page)
+
+    def test_minimal_sources_without_archives_rebuild_all_thirteen_published_wavs(self):
+        """Run the actual generator with only its declared sources, never formal output."""
+        fixture_parent = ROOT / 'build/audio-minimal-sources'
+        fixture_parent.mkdir(parents=True, exist_ok=True)
+        formal_hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                         for p in RAW.glob('arena_*.wav')}
+        with tempfile.TemporaryDirectory(prefix='fixture-', dir=fixture_parent) as directory:
+            fixture = Path(directory)
+            sources = fixture / 'ArtSource/audio/sources'
+            review = fixture / 'ArtSource/refinement/audio'
+            before = review / 'before'
+            output = fixture / 'app/src/main/res/raw'
+            for name in generator.SOURCE_FILES:
+                target = sources / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(generator.SOURCES / name, target)
+            before.mkdir(parents=True)
+            shutil.copyfile(REVIEW / 'before/baseline.json', before / 'baseline.json')
+            baseline_names = (*generator.OUTCOME_CUES,
+                              *(f'arena_{name}' for name in generator.COMPARISON_CUES))
+            for name in baseline_names:
+                shutil.copyfile(REVIEW / f'before/{name}.wav', before / f'{name}.wav')
+            self.assertEqual(10, len(list(sources.rglob('*.ogg'))))
+            self.assertEqual([], list(fixture.rglob('*.zip')))
+            self.assertEqual(9, len(list(before.glob('*.wav'))))
+            decoded_sources = set()
+            decode = generator.decode
+
+            def traced_decode(path):
+                path = Path(path)
+                if path.suffix == '.ogg':
+                    decoded_sources.add(str(path.relative_to(sources)))
+                return decode(path)
+
+            decode.cache_clear()
+            try:
+                with patch.multiple(generator, ROOT=fixture, SOURCES=sources,
+                                    KENNEY=sources / 'kenney-impact-sounds/Audio',
+                                    OUTPUT=output, REVIEW=review, BEFORE=before), \
+                     patch.object(generator, 'decode', side_effect=traced_decode), \
+                     contextlib.redirect_stdout(io.StringIO()):
+                    generator.main()
+                self.assertEqual(set(generator.SOURCE_FILES), decoded_sources)
+                rebuilt = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                           for p in output.glob('*.wav')}
+                self.assertEqual(formal_hashes, rebuilt)
+                generated_manifest = json.loads((review / 'production_manifest.json').read_text())
+                self.assertEqual(hashlib.sha256(Path(generator.__file__).read_bytes()).hexdigest(),
+                                 generated_manifest['generator_sha256'])
+                self.assertEqual({str(Path('ArtSource/audio/sources') / name)
+                                  for name in generator.SOURCE_FILES},
+                                 set(generated_manifest['source_sha256']))
+                published = json.loads((REVIEW / 'production_manifest.json').read_text())
+                self.assertEqual(published, generated_manifest)
+            finally:
+                decode.cache_clear()
+        self.assertEqual(formal_hashes, {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                                        for p in RAW.glob('arena_*.wav')})
 
 
 if __name__ == '__main__': unittest.main()

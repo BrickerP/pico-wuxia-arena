@@ -11,7 +11,7 @@ import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
-import com.example.wuxiaarena.p0d2f0182.runtime.attackProfile
+import com.example.wuxiaarena.p0d2f0182.runtime.poseFrame
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
 import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
@@ -105,13 +105,16 @@ internal class EnemyAnimator(enemy: Entity) {
             lastPaused = true
             return
         }
-        val attackProfile = arenaOpponents[state.roundNumber - 1]
-            .attackProfile(state.attackDirection ?: AttackDirection.OVERHEAD)
+        val poseFrame = arenaOpponents[state.roundNumber - 1].poseFrame(
+            state.phase, state.phaseElapsedNanos, state.phaseRemainingNanos,
+            state.attackDirection ?: AttackDirection.OVERHEAD, state.guarding,
+            state.enemyMoveDirection != 0f, state.enemyRecoveryFromContact, state.enemyGaitMeters,
+        )
         val clip = when (state.phase) {
-            EnemyPhase.IDLE -> if (state.enemyMoveDirection != 0f) "walk" else attackProfile.clip
-            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> attackProfile.clip
+            EnemyPhase.IDLE -> checkNotNull(poseFrame).clip
+            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> checkNotNull(poseFrame).clip
             EnemyPhase.HIT -> when {
-                state.guarding -> attackProfile.clip
+                state.guarding -> checkNotNull(poseFrame).clip
                 state.hitReaction == HitReaction.PARRIED -> "hit_side"
                 state.enemyHitZone == HitZone.HEAD -> "hit_head"
                 else -> "hit_body"
@@ -149,13 +152,11 @@ internal class EnemyAnimator(enemy: Entity) {
         when (state.phase) {
             EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> {
                 // The contact proxy and blade markers sample this exact source clock.
-                active.setTime(attackProfile.sourceSeconds(
-                    state.phase, state.phaseElapsedNanos, state.phaseRemainingNanos, state.enemyRecoveryFromContact,
-                ).toFloat().coerceAtMost(active.getDuration()))
+                active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
             }
             EnemyPhase.HIT -> {
                 if (state.guarding) {
-                    active.setTime(attackProfile.sourcePhaseSeconds.first().toFloat().coerceAtMost(active.getDuration()))
+                    active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
                 } else {
                     val end = if (state.hitReaction == HitReaction.PARRIED) 1.18f else 0.72f
                     seekPhase(active, state, 0.05f, end)
@@ -170,19 +171,13 @@ internal class EnemyAnimator(enemy: Entity) {
                 }
                 active.setTime(sourceTime.coerceAtMost(active.getDuration()))
             }
-            EnemyPhase.IDLE -> if (clip == "walk") {
-                val duration = active.getDuration()
-                val phase = ((state.enemyGaitMeters / WALK_STRIDE_METERS % 1.0 + 1.0) % 1.0).toFloat()
-                active.setTime((WALK_LOOP_START + phase * WALK_LOOP_DURATION).coerceIn(0f, duration))
-                active.setSpeed((0.65 / WALK_STRIDE_METERS * WALK_LOOP_DURATION).toFloat())
-            } else {
-                active.setTime(attackProfile.sourcePhaseSeconds.first().toFloat())
-            }
+            // locked idle is constant STEP; walking is sampled from the same signed gait as its proxies.
+            EnemyPhase.IDLE -> active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
         }
 
         val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
             !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT ||
-            clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
+            clip == "idle" || clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
         if (paused && !active.isPaused()) active.pause()
         if (!paused && active.isPaused()) active.resume()
         if (lastPhase != state.phase || lastPaused != paused) {
@@ -221,9 +216,6 @@ internal class EnemyAnimator(enemy: Entity) {
     }
 
     private companion object {
-        const val WALK_STRIDE_METERS = 1.45
-        const val WALK_LOOP_START = 1f / 3f
-        const val WALK_LOOP_DURATION = 7f / 6f
         const val EXECUTION_RECOIL_SECONDS = 0.45f
     }
 

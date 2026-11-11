@@ -2,7 +2,13 @@
 
 ## 当前状态
 
-Root实图准备页裁切已回修：开始主动作固定，教学改四步，只有当前说明正文内滚动；160/240/400协议不变。候选编译及24项回归、带设计JSON样式门通过。最新回修范围、SHA和验证边界见文末；Root需重建后取同机位ready图验证。
+最新pose：Root已自行采用Position=(-0.6,1.2,-1.75)、yaw20°/Quat=(0,0.17364818,0,0.98480775)并重构建native。本路只读核对未见明确HIGH，原A/B只作未采用备选，不应再自动替换Root当前值；物理尺寸与400/160保持，等待同机位复拍确认完整性和刀路。
+
+最新最小修复已实现，SOURCE FROZEN，Root可立即共享构建：Main只传`isRanchuHost = Build.HARDWARE == "ranchu"`展示提示；helper仅在DESKTOP或“来源未知且明确ranchu”时显示模拟器配置教程。ArenaViewState/ArenaSession、所有ready/quality/Unsupported与触觉/刀轨来源均未改，Start receipt和按钮gate保留。Main+UI隔离编译与33项回归已通过。源指纹在`ArtSource/refinement/ui-review/ranchu-help/handoff.json`；不等待新截图或额外UI改动。
+
+原生输入UI源码已冻结（来源fd58c04）：`ArenaControlPanel(state, controlsAvailable, controlPending, onStart, onPause, onResume, onRestart)`已移除`onDesktopAction`；`arenaControlPanelHeightDp(result, pauseReason)`已改两参数，compact统一160，其余400。UI候选编译与27项定向回归通过。Main高度调用的第三个desktop实参由Root删除，本路未编辑Main。UI只按`state.inputOrigin == DESKTOP`选择模拟器教学；最终ArenaHud SHA为`8899445473ce1f2cb73dc262e64b85418e36a04528333f1e017dbb64429464ca`。
+
+终局连击修复继续保留：VICTORY/DEFEAT隐藏徽记，保留计分、最佳与历史combo。旧公开身份与历史宿主图不重写；本轮未运行共享Gradle或部署，新接口的隔离图更新后置，不阻塞Root接线和构建。
 
 ## 目标
 
@@ -175,10 +181,181 @@ Root已接收`relight-ready-scene.png`（报告APK dac9f5e5、250项回归通过
 
 新增`ArtSource/refinement/ui-review/combat-settlement/`：源绑定8个实际Compose布局样本、`palette-readability.json`和`review.md`。发现超时终局可残留combo>=2的暗金连击，已保留到timeout样本；本轮未改代码，待Root看图续派。
 
-实际Compose宿主隔离图取证正在`ArtSource/refinement/ui-native-preview/`进行：本机缺layoutlib实现及原生图形引擎，正在独立目录有界补齐Robolectric Native Graphics，不触碰项目根Gradle/生产依赖/设备。此阶段没有以Web或仿绘图片声称Compose图已生成。
+实际Compose宿主隔离图取证已在`ArtSource/refinement/ui-native-preview/`完成：独立补齐Robolectric Native Graphics后，直接调用冻结正式Compose出图，不触碰项目根Gradle/生产依赖/设备。图片没有使用Web或仿绘替代。
+
+### 2026-11-11 · 交战/结算实际Compose隔离图交付
+
+运行源码、配色、资源保持冻结，六项当前SHA与源绑定样本完全一致。8例×两个现有面板，共16张PNG，均直接调用冻结正式ArenaHud的ArenaControlPanel/ArenaStatusPanel，经Robolectric4.17 Native Graphics、Android35、mdpi在ComposeView中绘制。没有重写UI、修改正式app、启动设备或运行项目根Gradle。
+
+优先review/Root触发对应端内状态：
+- [原生交战状态牌](../../ArtSource/refinement/ui-native-preview/images/fighting-native-ArenaStatusPanel.png)
+- [桌面交战控制](../../ArtSource/refinement/ui-native-preview/images/fighting-desktop-ArenaControlPanel.png)
+- [蓄势与处决就绪](../../ArtSource/refinement/ui-native-preview/images/fighting-charge-execution-ready-ArenaStatusPanel.png)
+- [弹反首帧](../../ArtSource/refinement/ui-native-preview/images/fighting-parry-ArenaStatusPanel.png)
+- [通关结算](../../ArtSource/refinement/ui-native-preview/images/victory-ArenaControlPanel.png)
+- [超时落败状态牌](../../ArtSource/refinement/ui-native-preview/images/defeat-timeout-ArenaStatusPanel.png)
+
+真实执行：Native Bitmap像素断言PASS，实际Compose八例绘制PASS；两个fixture方法均按JUnit真实wasSuccessful结果通过，driver退出码0，无下载或renderer JVM遗留。最初运行包下载受限，最终只补缺段并通过完整ZIP CRC及官方Maven checksum校验；当前报告已替代早期未出图的调查结果，不把旧Stub错误归因PICO。
+
+主agent目视8张、独立ui_review目视5张；16张全部核验尺寸、alpha、多色内容与SHA。原生160/桌面240按钮、长中文提示、三资源当前/最大值、结算44sp得分/最佳/余血均未见裁切或重叠。弹反1.04强调略偏统一左线，仍在墨色区域内。纸墨层级与留白可用于当前Root实图对照，本轮未追加装饰或功能。
+
+一处已证实问题：超时状态牌同时显示“试炼时间已尽”与暗金“连击5”。finishDefeat(TIMEOUT)保留combo，状态牌仅以combo>=2显示；本轮保留现行为出图、没有修改运行源码，建议Root下一次定向隐藏终局连击。
+
+证据与复现：
+- `ArtSource/refinement/ui-native-preview/renderer-report.json`：完整执行、16图、输入二进制与各SHA，最终SHA `fd6341de73b56a3f7d812127895ebb0446f67b63e7b5ad7bc1f231d5473983c8`。
+- `ui-native-preview/README.md`、`ActualComposeFixture.kt`、`run_actual_fixture.py`：实际调用入口、复现与限制。冻结输入app-classes SHA `97d1a12c3a320d033ab529208a2ecd41c439130eb4257bc6e44826e7b9e03af2`，真实R.jar SHA `86116f4a6966aece45cf3b43a3f7de52a9b8fc40874f37e57d33b3ca2746e2f1`，资源APK SHA `dcb753e4aa1189e37848b1baa2262b58288aeb6e7d605d19bb736d4e776b0cb7`。
+- `ArtSource/refinement/ui-review/combat-settlement/render-review.json`：最终图像指纹、主agent/独立目视范围与结论；`review.md`提供阅读审核、颜色边界与官方工具资料；`snapshot-cases.json`提供8个源码绑定样本。
+
+范围限制：这是非空间Android宿主的实际Compose输出，使用宿主Android字体、人工ViewState与no-op回调，背景不含FullStage。它证明组件边界与中文排版，不能证明PICO合成、正常0.8m/1.5m/3m视距、挥刀/脸部遮挡、真实翻页点击或hover/haptics。Root可以据这些隔离图触发对应FIGHTING/VICTORY/DEFEAT状态，继续场景帧与输入probe。下载依赖/冻结APK/缓存已由候选目录局部gitignore排除，Root正式发布只需挑选实际所需产物，不引入生产依赖。
+
+### 2026-11-11 · 终局连击徽记修复候选（Root直接授权）
+
+基线为公开节点`193d0f6dcc859168b8f7c00669c185a3863e1a8d`及原生APK `8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede`。本轮是下一轮候选，不重写已发布身份，不把候选图/测试结果标作已部署验收。
+
+实际改动仅三个责任文件：
+- `ui/ArenaPresentation.kt`：新增纯展示函数`arenaShowsCombo(result, combo)`，条件为combo>=2且结果不是VICTORY/DEFEAT。
+- `content/ArenaHud.kt`：状态牌唯一连击显示条件调用上述函数；整段终局连击Text节点移除，反馈可使用释放的宽度。
+- `ui/ArenaPresentationTest.kt`：新增3项回归，正常FIGHTING连击2/5与ROUND_CLEAR5保留，两终局的0/1/2/5/Int.MAX_VALUE全部隐藏，各结果的combo<2均隐藏。
+
+运行时combo、计分、最佳分、暂停、反馈、输入、资源与所有尺寸协议保持。Main/HomeStage、正式资产、manifest、Gradle和Git均未操作。
+
+验证：
+- Kotlin/Compose隔离候选编译通过，定向JUnit **27项通过**，源码SHA与当前文件匹配；样式门仍0 error/0 warning。证据单独复制至`ArtSource/refinement/ui-review/terminal-combo-fix/`，含`candidate.patch`、`unit-validation.json`、编译/JUnit/样式日志与`candidate.json`。
+- 在独立`ui-native-preview/terminal-combo-candidate/`用公开8d1e456e的真实R/APK和冻结classes为底，Kotlin/Compose编译本轮两源overlay，优先加载候选UI。NativeBitmap与ActualCompose测试均通过，driver退出0；3例共5张实际候选PNG，无残留进程。
+- [交战combo5仍显示](../../ArtSource/refinement/ui-native-preview/terminal-combo-candidate/images/fighting-combo5-ArenaStatusPanel.png)、[超时落败不显示连击](../../ArtSource/refinement/ui-native-preview/terminal-combo-candidate/images/defeat-timeout-combo5-ArenaStatusPanel.png)、[胜利不显示连击](../../ArtSource/refinement/ui-native-preview/terminal-combo-candidate/images/victory-combo5-ArenaStatusPanel.png)。两张纸色结算控制图得分310/860、最佳1200保持，渲染日志中的输入combo始终仍为5。
+- 修后timeout与旧实际图仅416像素变化，差异框`[435,195,480,212]`正是原暗金连击区域；两张纸色结算控制图与旧图逐像素一致。主agent目视5图，独立复审3张状态牌，未见裁切或版式回归。
+- 原16张宿主图、原renderer-report和原输入身份SHA逐项未变；候选另存，没有覆盖历史证据。独立四项review确认只读展示判断，无状态写入、依赖或配置漂移。
+
+候选渲染报告：`ArtSource/refinement/ui-native-preview/terminal-combo-candidate/candidate-report.json`，SHA `ebf38ef525244d65440d16065fbb3099453132b01e17aa1e95a2b2a920a94eba`。修后超时PNG SHA `621967fdfbe0959e1ad32aa9212a09306b03350477348d6eab8f6a4144076db6`。
+
+本轮源文件SHA-256：
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `ArenaHud.kt` | `7339febc548ee20249e5953d110df96e857f9fffe78d9e22959c1b48a70340fb` |
+| `ui/ArenaPresentation.kt` | `5af112df8201a27a7297419f33b247bab39d8c687b3bff5bff58da5d8f938bb2` |
+| `ui/ArenaPresentationTest.kt` | `86cd4a89a09ddc5390a4552dcecd404cb7ea7209f3a4a50ca2d90d47ddeb193d` |
+
+尚未验证：Root下一轮共享Gradle/整体回归、安装后的真实TIMEOUT/VICTORY帧与FullStage阅读。本轮没有运行根Gradle、安装或操作设备；由Root按此三文件候选进入下一轮集成。
 
 ## Root本轮组合审核与续派（2026-11-11）
 
 审核：dac9f5e5实际图首式教学、键位与上下式完整，准备页裁切回修开发接收。
 
 下一步：交战/结算沿现控制语义做视觉节奏，先交现Compose实际隔离图；Root已修HUD phase时钟过滤导致印记/反馈冻结的缺陷。
+
+### 2026-11-11 · 原生输入UI收敛完成与接口冻结
+
+来源节点：`fd58c04f9b8bc8a0999f633d149fb2897164e53f`。Root已经通过真实Shift+E观测SDK右手Y独立变化0.01m（`artifacts/input-native/right-shift-e.*`），输入侧统一模拟器/硬件原生头手通路。UI按这条已授权路径收敛，不添加替代动作或输入判定。
+
+冻结接口：
+- `ArenaControlPanel(state, controlsAvailable, controlPending, onStart, onPause, onResume, onRestart)`：只有四个试炼控制回调，已删除onDesktopAction公开/私有参数及转发。
+- `arenaControlPanelHeightDp(result, pauseReason)`：两个参数，无暂停的COUNTDOWN/FIGHTING/ROUND_CLEAR统一160；READY/VICTORY/DEFEAT或暂停400。
+- ArenaHud已删除DesktopActions五按钮、DesktopCombatAction/DesktopCombatInput依赖；desktop仅为`state.inputOrigin == InputOrigin.DESKTOP`。它只选择教学文案，不生成动作，不按Build硬件或全局预演开关推断。
+- Main已由输入侧移除onDesktopAction。本路确认时高度调用尚留第三个Build.HARDWARE/desktop参数，Root明确接手删除。只需把该调用改为两参数；本路未编辑Main/HomeStage或其他输入worker文件。
+
+教学保持原有四页和分页控件，无新窗口/控件：来源未就绪或原生VR仍显示四条通用实体动作说明；DESKTOP改为四页“模拟器操作”：控制模式、移动虚拟手、动作识别、头手分开。模式指引按Root实证要求：右下RightControllerMode、ControllerButtonMode开启、Keyboard文本模式关闭；Shift+W/A/S/D/Q/E平移右手、鼠标转腕或瞄准、左键确认。头部用于视角与身体闪避，虚拟手柄位姿用于出刀与架刀；单按W不执行预制挥刀。每页只有完整16sp/22行高正文，不再叠第三个旧keys提示块；`key(desktop,page)`在来源或页码改变时重置正文滚动。关键主操作与翻页footer固定。
+
+资源清理：移除四个arena_ui_keys_*与旧arena_keyboard_help、五个arena_preview_*动作label、arena_preview_instruction；arena_input_desktop改“模拟器虚拟手柄”。终局combo纯展示修复、分数/最佳/历史combo、全部ready/pending/resume gate与开始/暂停/恢复/重开动作保留，战斗规则未改。
+
+检查结果：
+- 真实资源aapt2/javac与Kotlin/Compose隔离编译通过；27项定向JUnit通过。更新后的DamagePopupTimelineTest源码已纳入候选编译，覆盖三类compact160、三类非compact400以及两种暂停400，不再用旧二进制的240预期。
+- 独立四项review无控制/资源/漂移问题；来源切换滚动复位边界已收口；责任源码`git diff --check`通过。样式门0 error/0 warning，两个有界surface及原配色保持。
+- 最小设计包revision11已同步实际XML、独立四页desktop、native四招、160/400和终局combo隐藏；schema、内嵌JSON一致性、surface门0 error/0 warning。没有浏览器/Native新截图，原16图和终局5图保留为旧接口历史容量证据，不能标作本轮新布局验收。
+- 独立证据在 `ArtSource/refinement/ui-review/native-input-convergence/`：handoff.json、unit-validation.json、编译/JUnit/样式日志；源快照和当前SHA匹配。
+
+Root下一步：按冻结两参数高度调用接线并共享构建/整体回归；本路不运行根Gradle、不操作设备、不改正式asset或Git。真实头手输入与Attachment点击沿Root输入probe验收；新接口原生隔离图后置，不为图延迟构建。
+
+最终文件SHA-256：
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt` | `8899445473ce1f2cb73dc262e64b85418e36a04528333f1e017dbb64429464ca` |
+| `app/src/main/res/values/strings.xml` | `b1cdab95aa2fe0ac0e24cdaebf1a1872de237872508bf5f8d15f6016ab2e10eb` |
+| `app/src/main/res/values/arena_ui_art.xml` | `4e3023dcd6a2ae28a77fc982efeee9001980d125b3b30f20e8c1e5323f08a583` |
+| `app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/DamagePopupTimelineTest.kt` | `2d7d774b9d175322d1cd2ce4cb4e2ada63580eab9aa2565c989b078a1b35936a` |
+| `ArtSource/refinement/ui-design/design-spec.json` | `41a271ac60071255ca7143b7112fedb413282e501495370ec0a433a8e27201f3` |
+| `ArtSource/refinement/ui-design/preview.html` | `4e4f46dd6b02e06669b2e8f2a07cdcc08eee39009df713ad349630161392da51` |
+
+### 2026-11-11 · 未就绪时模拟器配置帮助方案（仅文档，代码继续冻结）
+
+Root实测边界：冷启233原生输入包场景正常，Controller provider返回PENDING/DEVICE_NOT_SUPPORTED、尚无hand数据；head已观测到DESKTOP。当前GUI“输入来源待确认”后只显示VR通用教学，用户难以知道如何启用虚拟控制器。本轮不改代码、资源、设计包、测试或安全门，只给待Root数据定位后选择的方案。
+
+源码原因已核对：ArenaSession.viewState的inputOrigin取dominantHand.stamp.origin；head存在而hand缺失时该值为null。ArenaHud只以state.inputOrigin==DESKTOP选择模拟器教学。因此这次需要分开“帮助的宿主/来源上下文”和“已收到可用于动作的完整观察”，不能等inputReady才提供配置帮助。
+
+推荐A：Root把已接受的head DESKTOP来源提前传到现有state.inputOrigin。
+- 仍优先当前snapshot中真实dominant-hand origin；hand缺失时，才使用同一快照、当前epoch/generation内已接受head的DESKTOP来源。不要从未接受的原始日志、旧generation缓存或场景已加载推断。
+- 先限定DESKTOP补全，解决当前“模拟器head已到、hand未到”情形；不能将head存在解释为手柄已连接或有效。
+- UI可以沿现有单一state.inputOrigin分支显示配置页，避免新增一条动作输入路径或全局预演开关。inputReady仍由snapshot.hasRequiredObservations，actionReady仍由原baseline与scene条件产生，resumeReady和SDK能力门保持。
+- 若全部观察清空，来源回到未知；不能为保留帮助复用旧观察。明确hand来源不能被head/宿主覆盖，混合来源的诊断和原有安全判定保留。
+- 该字段也被CombatHapticContacts与PlayerBladeTrail消费，并非纯UI专用。Root落地前应复核：DESKTOP不会触发硬件haptic；来源变化可清trail但不能在inputReady=false时采样或绘制新刀轨。不能笼统称“只改展示字段就没有其他影响”。
+
+方案B：状态接口暂时冻结时，已明确ranchu的宿主上下文只选择配置帮助。
+- 仅在缺少明确观察来源、且Root已确认宿主为ranchu时，允许显示“模拟器配置 · 等待手柄数据”。它是帮助上下文，不写state.inputOrigin，不赋值inputReady/actionReady/resumeReady，也不宣称硬件已就绪。
+- 复用Root已有的宿主判定，不恢复DesktopCombatInput或HMD-derived宏，不用虚拟手几何可见性替代SDK观察。未知宿主仍保留通用实体动作说明；明确PICO/hand来源优先，不靠宿主判断抹平冲突。
+- 优点是全部追踪丢失时仍有配置入口；代价是教学选择多一项宿主上下文，需与数据来源标签分清。Root若采用A即已解决当前head先到的情况，可先不引入B；是否补足“零观察但明确ranchu”的帮助入口另由Root选定。
+
+共同UI表现与边界：
+- PENDING或DEVICE_NOT_SUPPORTED且已知模拟器时，配置帮助仍可见；标题可为“模拟器配置”，状态文案用“等待虚拟手柄数据”。不要写“手柄已连接”“已启用”或承诺打开选项即可解除能力不支持。
+- 首配置页包含右下RightControllerMode、ControllerButtonMode开、Keyboard文本模式关；后续页为Shift+W/A/S/D/Q/E平移虚拟右手、鼠标转腕/瞄准/左键确认与头手分工。来源确认DESKTOP后应从配置页开始并重置正文滚动，避免沿用通用教学的末页。
+- 下一式/上一式等本地帮助操作不应依赖输入就绪；开始/恢复继续沿原gate，不能通过“已读教程”或宿主提示放行。
+- 保留PENDING与DEVICE_NOT_SUPPORTED各自真实诊断。显示帮助不等于SDK能力已恢复；不新增手数据、不调整Unsupported处理、不绕过baseline或原生动作识别。
+
+最小待验矩阵：
+
+| 当前观察/宿主 | 帮助/来源预期 | 必须保持 |
+| --- | --- | --- |
+| accepted head DESKTOP、无hand、PENDING | A显示模拟器配置；B仅明确ranchu时显示 | inputReady/actionReady不变，开始禁用 |
+| 同上、DEVICE_NOT_SUPPORTED | 帮助仍可见，保留能力失败诊断 | Unsupported不放宽 |
+| 无head/hand、明确ranchu | A来源未知；B可显示配置帮助且不冒充来源 | 所有ready不恢复 |
+| 无观察、宿主未知 | 通用动作说明，不断言是模拟器或硬件 | 开始禁用 |
+| 完整DESKTOP head/hand | 模拟器教材、实际DESKTOP来源 | 仅原判定决定就绪 |
+| 完整PICO head/hand | 实体VR四招、PICO来源 | 硬件流程不变 |
+| hand明确来源与head/宿主不一致 | hand优先，保留冲突诊断 | 不用展示选择改数据判定 |
+| 中断先清hand后清全部观察 | A按当前快照退回未知；B可保留已知宿主帮助 | 不复用旧epoch，不恢复ready |
+
+每例一起记录head/hand的origin与epoch/generation、界面教材、provider状态、inputReady/actionReady/resumeReady以及开始按钮；单看教程出现不能算输入接通。
+
+本轮执行范围：只更新10文档并做只读源码核对/独立方案审查。ArenaHud冻结SHA仍为8899445473ce1f2cb73dc262e64b85418e36a04528333f1e017dbb64429464ca，其余UI源/资源/测试指纹同上一阶段；未运行编译、测试、设备或新渲染。等Root完成本轮数据/输入gate定位再指定实现路径。
+
+### 2026-11-11 · ranchu等待态配置帮助最小实现（SOURCE FROZEN）
+
+Root已选方案B。本轮Main只加Build import和isRanchuHost展示参数；ArenaControlPanel透传后仅用于arenaShowsEmulatorGuide(inputOrigin,isRanchuHost)选择教材。规则：明确DESKTOP始终显示；仅来源null可由ranchu补足；PICO/SYNTHETIC不被宿主覆盖；null且非ranchu仍用通用说明。帮助切换重置页码/正文滚动。控制模式首屏明确Right Controller、Controller Button Mode启用、Keyboard文本关闭和Shift组合键移动虚拟手。
+
+数据来源标签仍可显示“输入来源待确认”，输入未就绪时开始/恢复继续禁用。没有修改ArenaViewState、ArenaSession、inputReady、actionReady、quality、Unsupported、触觉或刀轨来源，Main Start receipt及其余接线保留；黑点瞄准无receipt或Start浅粉问题不通过放宽UI gate处理。
+
+4项新用例覆盖null+ranchu正常路径、DESKTOP两种宿主、PICO/SYNTHETIC不可覆盖边界、null+未知宿主边界。既有隔离专项现一并编译Main和UI：Kotlin/Compose通过，33项JUnit通过，样式0 error/0 warning，源快照匹配，独立四项review无新增问题。本地专项补全了已缓存的同名Spatial DSL/UI foundation classpath，没有改项目依赖或运行共享Gradle。
+
+证据：ArtSource/refinement/ui-review/ranchu-help/ 下handoff.json、unit-validation.json和编译/JUnit/样式日志。冻结Main SHA e689c605837775e27fd2a008f3d1cb4ba7fc16c1c32a8e5fdc5f8399e66bb727；ArenaHud SHA e9711f73a6578fbfe9c3cf413dfe43257dcdadb7814b3db475eae6fc30ba6a12。Root可立即在下一APK纳入此展示修复；未跑设备、共享Gradle或Git，未更新截图集，实际waiting界面与Attachment点击由Root新包观察。
+
+### 2026-11-11 · 767bc0af控制牌安全区：只读pose建议
+
+已目视 `artifacts/canonical-native/full-stage-settled.png`（2160×2158）与 `reset-controller-view.png`（模拟器窗口）。前者纸面左边缘及文字出界，后者完整且位置相对更右；两图的视点/取景范围未对齐，不能据此默认是SDK故障。
+
+实际HomeStage：controlPosition=(-0.85,1.15,-1.45)，controlRotation=(0,0.2923717,0,0.9563048)，即yaw约+34°；HUD_WORLD_SCALE=1.4。Attachment为CENTER，准备/暂停/结算400×400、交战400×160，中心与朝向不随高度改变，宽度始终400。因此160紧凑态只收上下边，不会消除横向出界；本轮不改UI尺寸或字体。
+
+A 推荐，优先边缘余量：
+Position=(-0.55,1.05,-1.85)；Quat=(0,0.1391731,0,0.9902681)，yaw +16°。
+scale=1.4保持；右收30cm、后移40cm、降低10cm，留中央脸部净空，文字角尺寸会略小。
+
+B 偏可读，降低纸面：
+Position=(-0.48,0.95,-1.60)；Quat=(0,0.1478094,0,0.9890159)，yaw +17°。
+scale=1.4保持；字更大、纸面更低，但需要更多低头，内侧边缘更接近手部活动区。
+
+这两组把名义正视横向中心角从约左30.4°收至左16.6°/16.7°，是位置方案，不是已通过的可见性证明。实际米制宽高取决于LocalPhysicalLengthConverter，当前未读取设备值，不由400dp直接假定物理尺寸。
+
+Root只需择一改既有controlPosition/controlRotation；update与首次attach已共用这两个值，不另加位置路径。建议先A，用同一正视复位机位取400dp准备页，目标左右至少留约5%画幅（2160图约108px，仅本轮观察目标），完整看见四边、首屏说明和分页；再看160dp战斗牌，内缘不要越入敌人脸/持刀的实际包围区。小幅左右转头和一段挥刀另验，不能承诺固定世界牌在所有头位/刀帧都始终无遮挡。若A字过小再比较B，不因窗口截图完整就省略FullStage复拍。
+
+本轮只读源码与看两图，未修改HomeStage、Main、教程、安全门、控件或宏，未运行构建/设备；冻结UI五项指纹与上一阶段一致。Root拥有HomeStage应用和native复验。
+
+### 2026-11-11 · Root已应用pose的只读核对（不改源码）
+
+Root当前值：Position=(-0.6,1.2,-1.75)，Quat=(0,0.17364818,0,0.98480775)，yaw +20°，HUD_WORLD_SCALE仍1.4。它优先于上一节未采用A/B；本路不再提出替换或扩大研究。
+
+核对未见明确HIGH。相对旧值，右收25cm、后移30cm、抬高5cm；名义正视中心角从左30.4°收至左18.9°，20°朝向与中心方位接近。水平距离约1.68m增至1.85m，同一实体尺寸的字角尺寸会稍小。
+
+物理尺寸本身未变：准备/暂停/结算400×400、战斗400×160、scale1.4，CENTER锚点保持；160只缩上下边，宽度仍400。绝对米宽高依赖当前PhysicalLengthConverter，本轮没有设备实值，不能把估算写成已测尺寸。
+
+剩余是待native复拍的可见性风险：400页抬高后的上缘与脸部/持刀区、当前取景左边余量、近身挥刀经过时的内侧边缘。固定世界pose不能保证所有头位和刀帧无遮挡；当前没有已证实的高风险，因此不给另一组数值打断Root构建。按同一正视复位机位先验400页完整，再验160战斗和短挥刀帧；两种截图相机不同不直接归因SDK。
+
+本路本轮只修改10交接；HomeStage由Root应用，Main/教程/安全门均未触碰，无新控件/面板/宏，无构建或设备操作。

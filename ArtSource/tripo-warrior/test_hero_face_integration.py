@@ -11,6 +11,7 @@ import json
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -23,6 +24,35 @@ WEAPON_SHA = '4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452'
 
 
 class MultiPrimitiveWeaponTests(unittest.TestCase):
+    def test_cross_directory_generation_publishes_together_and_rolls_back_on_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            library_path = root / 'library/base.glb'
+            runtime_path = root / 'app/models/opponents/base.glb'
+            player_path = root / 'app/models/dao_grip.glb'
+            for path in (library_path, runtime_path):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(b'old-generation')
+            generation = ((library_path, b'new-model'), (player_path, b'new-player'), (runtime_path, b'new-model'))
+            replace = Path.replace
+            calls = []
+
+            def fail_runtime_once(source, destination):
+                calls.append(destination)
+                if destination == runtime_path and calls.count(destination) == 1:
+                    raise OSError('injected runtime publication failure')
+                return replace(source, destination)
+
+            with patch.object(Path, 'replace', fail_runtime_once):
+                with self.assertRaisesRegex(OSError, 'injected'):
+                    producer.publish_outputs(generation)
+            self.assertEqual(library_path.read_bytes(), b'old-generation')
+            self.assertEqual(runtime_path.read_bytes(), b'old-generation')
+            self.assertFalse(player_path.exists())
+            producer.publish_outputs(generation)
+            self.assertEqual(library_path.read_bytes(), runtime_path.read_bytes())
+            self.assertEqual(player_path.read_bytes(), b'new-player')
+
     def body_and_mount(self):
         published = library.HERE / 'library'
         model, binary = producer.read_glb(published / 'base.glb')

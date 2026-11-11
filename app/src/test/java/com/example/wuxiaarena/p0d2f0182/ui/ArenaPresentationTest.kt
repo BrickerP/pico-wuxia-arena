@@ -2,6 +2,7 @@ package com.example.wuxiaarena.p0d2f0182.ui
 
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.PauseReason
+import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
 import org.junit.Assert.assertEquals
@@ -10,6 +11,55 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class ArenaPresentationTest {
+    @Test
+    fun ranchuShowsSetupHelpBeforeAnyInputSourceIsKnown() {
+        assertTrue(arenaShowsEmulatorGuide(null, isRanchuHost = true))
+    }
+
+    @Test
+    fun observedDesktopSourceShowsHelpIndependentlyOfHostHint() {
+        assertTrue(arenaShowsEmulatorGuide(InputOrigin.DESKTOP, isRanchuHost = false))
+        assertTrue(arenaShowsEmulatorGuide(InputOrigin.DESKTOP, isRanchuHost = true))
+    }
+
+    @Test
+    fun ranchuDoesNotOverrideAnExplicitHardwareOrSyntheticSource() {
+        for (origin in listOf(InputOrigin.PICO, InputOrigin.SYNTHETIC)) {
+            assertFalse(arenaShowsEmulatorGuide(origin, isRanchuHost = true))
+            assertFalse(arenaShowsEmulatorGuide(origin, isRanchuHost = false))
+        }
+    }
+
+    @Test
+    fun anUnknownSourceOnAnUnknownHostKeepsGenericHelp() {
+        assertFalse(arenaShowsEmulatorGuide(null, isRanchuHost = false))
+    }
+
+    @Test
+    fun combatCombosRemainVisibleFromTheirFirstChain() {
+        assertTrue(arenaShowsCombo(TrialResult.FIGHTING, 2))
+        assertTrue(arenaShowsCombo(TrialResult.FIGHTING, 5))
+        assertTrue(arenaShowsCombo(TrialResult.ROUND_CLEAR, 5))
+    }
+
+    @Test
+    fun terminalResultsHideRetainedComboHistory() {
+        for (result in listOf(TrialResult.VICTORY, TrialResult.DEFEAT)) {
+            for (combo in listOf(0, 1, 2, 5, Int.MAX_VALUE)) {
+                assertFalse(arenaShowsCombo(result, combo))
+            }
+        }
+    }
+
+    @Test
+    fun singleOrInvalidComboDoesNotShowAChain() {
+        for (result in TrialResult.entries) {
+            for (combo in listOf(Int.MIN_VALUE, -1, 0, 1)) {
+                assertFalse(arenaShowsCombo(result, combo))
+            }
+        }
+    }
+
     @Test
     fun incomingDirectionCoversReadableWindupThroughContact() {
         for (phase in listOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE)) {

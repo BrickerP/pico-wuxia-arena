@@ -1,6 +1,6 @@
 {
   "scope": "web_design_validation_only",
-  "revision": 9,
+  "revision": 11,
   "sourceSha": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
   "schema": "PASS",
   "embeddedJsonParity": "PASS",
@@ -26,7 +26,7 @@
   ],
   "computedBodyBackground": "rgb(218, 214, 211)",
   "computedBodyBackgroundImage": "none",
-  "surfaceCheck": "PASS 0 errors 0 warnings; 2 app surfaces / 65 nodes",
+  "surfaceCheck": "PASS 0 errors 0 warnings; 2 app surfaces / 64 nodes",
   "browserLimitation": "chrome-use 对Shadow DOM控件出现错误遮挡报告，测试使用工具明确提供的--allow-dom，事件为isTrusted=false。证明Web组件事件和状态可达；不证明真实VR手柄、hover或haptics。",
   "unverified": [
     "PICO compile/install/runtime",
@@ -43,7 +43,7 @@
   "screenshotRevision": 5,
   "motionDesignFacts": "direction-label.props.simulationScale and feedback.props.simulationScale",
   "motionPreviewPresentation": "static-final scale 1.0 only; dynamic emphasis not rendered or verified in Web",
-  "newScreenshotsThisRevision": true,
+  "newScreenshotsThisRevision": false,
   "feedbackScaleActivation": {
     "allowedFeedback": [
       "HIT",
@@ -120,7 +120,75 @@
       "teaching-desktop-4.png",
       "teaching-native-4.png",
       "teaching-paused-desktop-4.png"
-    ]
+    ],
+    "appliesToRevision": 9,
+    "currentDesktopCopyValidated": false
   },
-  "teachingSourceSha": "380dd46b1cfa6aaf54ef54bc44535b5af330b62d"
+  "teachingSourceSha": "380dd46b1cfa6aaf54ef54bc44535b5af330b62d",
+  "currentInputContract": {
+    "desktopPredicate": "state.inputOrigin == DESKTOP",
+    "combatControlDp": [
+      400,
+      160
+    ],
+    "readyPausedSettlementDp": [
+      400,
+      400
+    ],
+    "virtualControllerSetup": [
+      "RightControllerMode",
+      "ControllerButtonMode on",
+      "Keyboard text mode off"
+    ],
+    "rightHandTranslationOnly": "Shift+W/A/S/D/Q/E",
+    "mouse": "wrist rotation / aiming",
+    "leftClick": "confirm",
+    "headAndControllerMovementDistinct": true,
+    "vr": "physical motion recognition",
+    "terminalComboHiddenFor": [
+      "VICTORY",
+      "DEFEAT"
+    ],
+    "macroBattleActionsRemoved": true,
+    "teaching": {
+      "desktopCaption": "模拟器操作",
+      "desktopPages": [
+        "控制模式",
+        "移动虚拟手",
+        "动作识别",
+        "头手分开"
+      ],
+      "nativeCaption": "刀术要诀",
+      "nativePages": [
+        "进刀",
+        "架刀",
+        "避锋",
+        "破势"
+      ],
+      "pageFields": [
+        "title",
+        "detail"
+      ],
+      "detailSp": 16,
+      "detailLineHeightSp": 22,
+      "extraKeyOrHintBlock": false
+    }
+  },
+  "thisRevisionChecks": [
+    "schema",
+    "exact embedded JSON parity",
+    "surface discipline"
+  ],
+  "browserOrNativeRunThisRevision": false,
+  "historicalTeachingScreenshots": {
+    "revision": 9,
+    "validForCurrentDesktopInput": false,
+    "reason": "retired keyboard macro copy; no images regenerated under interface freeze"
+  },
+  "sourceResourceSha256": {
+    "app/src/main/res/values/strings.xml": "b1cdab95aa2fe0ac0e24cdaebf1a1872de237872508bf5f8d15f6016ab2e10eb",
+    "app/src/main/res/values/arena_ui_art.xml": "4e3023dcd6a2ae28a77fc982efeee9001980d125b3b30f20e8c1e5323f08a583"
+  },
+  "upstreamFrozenArenaHudSha256": "4d375c9ac81dd29c80376021c814b076b34ffdd439fcd2787057a000d4156a3e",
+  "upstreamFreezeReportedBy": "Root; UI candidate compile + 27 tests passed, not rerun here"
 }

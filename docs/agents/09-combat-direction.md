@@ -2,7 +2,7 @@
 
 ## 当前状态
 
-Root已收三方向代码。本轮已按Root新授权完成weapon-only正式库身份接入：生成器默认正式library，Kotlin数据和当前身份pin已更新至7373 binding，40项隔离专项与3项生成器测试通过；动作逻辑未动，locomotion HIGH原样保留。09已重新冻结源码、生成器、数据与专项，交Root共享Gradle／设备组合验证。
+Root已用唯一publisher原子发布KTX整组至正式library/app（含dao_grip），当前schema3 binding为b03f55e6。09已从DEFAULT_BANK正式library重新生成typed身份并对齐精确pin；本轮仅身份更新，运行逻辑、时钟、判定、输入、样本数组及生成器不动。64／64 focus、5／5生成器及默认来源精确重现均通过，现已重新冻结给Root共享新APK；最高画面／交互HIGH继续由Root实际验收。
 
 ## 目标
 
@@ -16,11 +16,9 @@ Root已收三方向代码。本轮已按Root新授权完成weapon-only正式库�
 
 ## 当前输入
 
-当前生产真源为 `ArtSource/tripo-warrior/library`，weapon-only正式binding `7373f5937cd19d1306b861ca0e1654e040977eafb3af6685618742e3e0716cff`，已实际落盘并完成三个GLB/profile/characters/review的身份一致核对。09生成器默认来源已收敛到正式library，Kotlin数据从该目录重新生成；旧review/attack-bank-candidate仅作历史来源比较，不作生产默认。新头未通过动态黑颈验收，本次未并入。
+唯一生产真源为`ArtSource/tripo-warrior/library`，正式KTX schema3 binding `b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f`，状态`approved_for_development_integration`。三角色library GLB、app GLB、profile内部model SHA、characters/review及Kotlin exact pin已一致；typed数据仍从DEFAULT_BANK正式library生成，私有candidate不作默认。
 
-三攻击动作仍来自冻结的stage5 `attack_bank_inputs.json`；正劈raw SHA `377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9`。来刀侧为玩家视角，LEFT对应attack_left／slash_to_left，RIGHT对应attack_right／slash_to_right。prepared +X为演员左。源phase0／.65／.90／1.10／1.75，接触1.00秒=ACTIVE中点100ms。横斩游戏550／180／200／600ms，正劈650／250／200／650ms。
-
-本次仅换新dao资产身份：三角色body、10clip清单和profile除model_sha256之外全部字段逐值相等；生成后954样本的typed数组文本SHA亦与换刀前完全相同，动作逻辑未改。当前准确模型与profile身份见文末本次正式库更新表及 `ArtSource/refinement/combat-direction/formal_library_identity.json`。locomotion HIGH未关闭。
+本轮Root严格audit已报告：除`model_sha256`外，三份profile与ff3完整JSON精确相同，全部非image GLB数据守恒；09另外验证2616个typed样本数组与本轮开始前相同。locomotion／三攻击／gait及代理规则保持。当前完整身份见文末KTX发布表与`ArtSource/refinement/combat-direction/ktx_published_locomotion_runtime_identity.json`。此前ff3与私有基准／身份快照作为历史冻结保留。
 
 ## 制作队列
 
@@ -210,3 +208,199 @@ Root明确授权本轮身份更新，暂时解除生成器、生成数据及身�
 Root报告单active实机首轮未再出现NO_MEMORY，但隐藏初始化暴露SDK查询问题：加载器先将`entity.enabled=false`，`EnemyAnimator`构造中的默认`findSkeletonRootEntity()`／`findSkinnedMeshEntity()`过滤禁用节点，line33的single因空集合失败。Root将显式传`includeDisabled=true`，让实体保持hidden完成初始化；这属于查询修复，不改动画逻辑。01／09后续集成遵守该契约，不通过提前启用角色来规避。
 
 本路仅记录Root实机发现，未自行复测或修改`EnemyAnimator`；运行源码、生成器与专项继续冻结，Root独占该修复及组合验证。
+
+
+## stage10最小接入方案（2026-11-11，仅方案）
+
+**结论：保留10clip正式别名与现有步态时钟，用stage10替换idle／walk来源；复用attack78重定向及实际蒙皮grounding基础，在三个最终目标上将idle／walk／三攻击一起校准、导出新profile与新binding。本轮不实施producer或runtime更改，Root输入probe构建不受本路影响。**
+
+### 实物、来源及已证明范围
+
+唯一优先输入是`ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json`。本次实读SHA为`3a3090ba4181f84169df9e8d7374505ddab5ff4cf3948d183800b116143feab6`；01文档旧登记的`c05ec72b...`不是本次实读身份，Root最终收件按实际清单及依赖闭包冻结。两个raw／preview以及各自metadata、verification、骨锚、独立surface audit的登记SHA已逐文件核对，全部匹配。
+
+rig为`refined-base60k/rig.glb`，SHA `43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6`，真实78骨。raw右指UNBAKED，preview校正一次；producer只消费raw。
+
+| 正式alias | stage10 raw | raw SHA-256 | 实际采样 |
+| --- | --- | --- | --- |
+| idle | `locked_guard_idle_raw.glb` | `f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1` | 91键，全常量STEP；181个key／midpoint审计 |
+| walk | `locked_guard_walk_raw.glb` | `0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e` | 185键，228条常量STEP＋6条腿rotation LINEAR；369个key／midpoint审计 |
+
+两源0→1.5s，prefix 0→1/3s全守势；循环[1/3,1.5]、时长7/6s。Head的真实9层祖先链全key／midpoint local TRS锁到canonical；raw／preview在0、loopstart与1.5的234条TRS同守势。relative canonical proxy difference=0证明相对守势稳定，清单的`absolute_proxy_high.status`仍为OPEN。
+
+绝对错位证据为stage9 `audit/runtime_alignment_findings.json`，SHA `078e616b4b6fcb2a0679516290020a23713965ba5fe9da64c4da86040b8945d0`。例如旧base实际头面bbox中心X约-.0050m，旧offset proxy X约-.2479m，差约-.2429m；这是相对锁定不能自行解决的绝对校准问题。此旧报告的模型身份是历史6f232候选，不能直接当未来三个新target的最终验收。
+
+### Root已选定的schema v3最小路径
+
+Root已审架构并选定唯一正式manifest schema v3：
+
+| 来源合同 | 唯一负责clip | rig与处理 |
+| --- | --- | --- |
+| motion41 | fall／turn／hit_body／hit_head／hit_side，共5项 | 现有真实41骨来源及原消费保持 |
+| locomotion78 | idle／walk，共2项 | stage10真实78骨来源；复用现78世界rest delta／目标骨长／握持处理 |
+| attack78 | attack_overhead／attack_left／attack_right，共3项 | 既有三攻击真实78骨来源及严格106键合同保持 |
+
+正式仍10clip、一个producer。只替换idle／walk的来源，不把其余五项同步换成新反应源；不复制retarget核心，不让新78走41校验，不设v2 fallback、旧idle／walk兜底或第二运行库。`locomotion78`与`attack78`区分来源时序合同，底层共用78骨重定向实现，不能仅把三攻击106-key校验改松后笼统接受所有78骨源。
+
+**切换时机明确：05仍在旧v2私有manifest复建颈桥；当前共享producer／manifest保持冻结。等Root收齐最终raw和连续图／audit后，再统一升schema v3并迁正式输入，既不提前破坏05复建，也不为保留v2另加兼容／fallback路径。** 本节为已定架构与数据合同，当前没有实施代码。
+
+### Root producer最小改动顺序
+
+1. **显式schema v3来源分组。** 旧motion41组移出idle／walk，仅保留五项；新`locomotion78`组绑定stage10及同一真实78骨rig／SHA，attack78仍三攻击。`validate_manifest`从v2七旧动作＋三攻击收口到v3的5＋2＋3唯一合同，`production_binding`同时纳入locomotion组、locked input SHA、grounding与proxy合同身份。移出旧idle／walk的41手姿消费，不将新源送进41-joint／Root校验；正式切换不保留v2 fallback。
+2. **分开rig与时间线约束。** `retarget_clip`接受显式`locomotion78`，复用其现有attack78的同名78骨映射、target本地骨长、native右手和作者左手核心；不复制实现。decoder已支持STEP／LINEAR，无需新播放器。`validate_source_clip`为attack78保留106键0→1.75s，为locomotion78严格核真实91／185键、0→1.5s、完整234轨、locked祖先链及六条moving腿；不能pad为106键、拉伸至1.75s、误送41或放松全部78校验。
+3. **逐角色重定向并保插值语义。** base／indigo／veteran共用78世界rest delta处理及一次右指校正，保持mesh／rest／IBM／骨长。按Root合同保留常量STEP、六条腿rotation LINEAR；现retarget统一输出LINEAR的序列化点需一并改到该明确合同，不以所有轨重采成LINEAR替代源锁定证明。最终每key／midpoint复核祖先链和世界锚，raw零差不能抄成target零差。
+4. **五段guard同基准grounding并保护锁链。** 同一target的idle／walk／三攻击五段guard根平移使用同一canonical基准，复用`attack_grounding.py`的Foot/Toe真实权重表面、LBS、parent空间换算和prepared plane Y=-.028；entity originY=+.028仍Root只加一次。现helper写死三攻击／106键／LINEAR BoneRoot，不能只把名单扩成5个就跑。推荐对同一target canonical guard求idle／walk共同竖直根校准，三攻击首尾用相同canonical根结果，攻击中段沿既有实际鞋面grounding。locked walk若每帧随最低鞋点动态补根，就不能继续声称祖先链全周期锁定；若共同静态校准在某target步态超现有plane容差，应修目标步态／制作源并重验，不增动态root fallback。保留真实source key，不叠水平carrier，不改变实体移动归属。
+5. **重绑绝对proxy并统一导出。** 复用`export_attack_profiles`的final idle参考求local offsets；新idle全程canonical，现idle@1.00可继续作参考。用新prepared idle重新算offset，再重生三攻击profile，不能继承旧idle的约.243m错位offset。导出同组idle／walk的prepared head、bodyBottom／Top、bladeBase／Tip，以及loop／stride／六个支撑边界；最终上身若经全key／midpoint验证为常量，可用profile绑定的共同canonical sample，不再手写standing曲线。绝对mesh覆盖和Y／轮廓仍须实物核对，固定旧目标中心本身不能算验收通过。
+6. **新身份闭包。** idle／walk动画和proxy校准均变了，三角色body／刀版GLB、profile、clip semantics、来源依赖、review request和binding全部重生，不能沿用weapon-only的7373身份。Root审核后一起发布正式library／app，09再从正式library重生Kotlin数据和精确pin；不从候选独立发布。
+
+### 同组最终profile的必要数据合同（仅文档）
+
+下列数据进入最终角色profile并绑定新模型SHA／新binding；是本轮最低消费需求，不是新增独立配置层。manifest升级为v3不等于profile已自动具备这些字段，Root实现时应一次对齐exporter、09生成器与消费者。
+
+| 数据 | 必须表达的语义 |
+| --- | --- |
+| 角色与来源身份 | final model SHA、profile SHA、manifest v3 binding、locomotion输入清单SHA、idle／walk clip semantics；canonical参考与最终proxy offsets的来源 |
+| idle／walk实际姿态 | 最终prepared actor-local下的head、bodyBottom／Top、bladeBase／Tip及真实source times；由新target取值，不能复制raw锚或旧站立常量 |
+| source时钟 | source范围0→1.5、prefix0→1/3、loop [1/3,1.5]、duration7/6、stride1.45m；新mode与骨架合同为locomotion78 |
+| 唯一gait时钟 | 实际signed `enemyGaitMeters`为权威，Animation／Proxy／Audio共享它的同一phase映射；无第二套累计步距或反向假时钟 |
+| 六步支撑边界 | 归一化phase k/6，k=0…5；对应source1/3+k×7/36；正播支撑脚L/R/L/R/L/R，反播相反。显式标为由stance/swing区间推导并经Root最终落脚审核后冻结，不能伪称源已自带touchdown事件 |
+| 采样／插值 | 新idle 91键、walk185键；常量STEP／六腿LINEAR的真实合同、canonical全链key／midpoint锁定证据；若最终变更采样，连同正式身份重新审核 |
+| grounding／绝对proxy | 五段guard同一target根基准、entityY=.028只一次；每target实际蒙皮绝对位置和moving分支的校准证据。relative0只作相对证据，absolute HIGH状态单独保留 |
+
+上身最终若验证为全周期同一姿态，可以让profile明确共用canonical sample；这必须是final retarget＋同组grounding＋握持之后的事实，不能预先删掉新idle／walk实际姿态证据。音频只消费共享步态合同，不从render frame的measurement flags反推脚步。
+
+### 09后续runtime接口，收到Root下一项后再改
+
+- `EnemyAnimator`静止IDLE选正式新idle，moving IDLE选新walk。现`WALK_STRIDE_METERS=1.45`、`WALK_LOOP_START=1/3`、`WALK_LOOP_DURATION=7/6`可保留，signed gait仍用现正模公式；最终profile合同必须与三常量对应。source carrier不再叠实体平移。
+- `ArenaOpponents.attackPose/contactPose`移除moving IDLE→旧`EnemyContactPose.standing`分支，idle／walk／attack guard统一取新校准profile头身刀锚；verified locked上身可共享canonical sample，但须由profile绑定，不按骨数猜测或回退旧数据。
+- `ArenaSession`维持现0.65m/s、signed `enemyGaitMeters`、生命周期边界与Root recoil单次Stage变换。本轮不加移动门控／settle timer或改攻击节奏。任意gait相位停止／转攻击的腿连续性仍需最终视频、target和SDK crossfade核对；上身锁定不等于双脚任意相位闭合。
+- hidden初始化契约继续保留：骨架／skinned查询显式includeDisabled，构造期不启用隐藏角色；Root输入probe与tangent改动不动。
+
+### 给11的脚步消费变更通知
+
+**整loop仍前进1.45m，现在六步；当前`CombatAudio.kt:255–269`仍按.725m一声，只播2声／loop，真实应6声，频率少三倍。11文档两步结论及`CombatAudioTest`旧.725专项仅属旧源，需随同组profile更新。**
+
+| 合同量 | stage10准确值 |
+| --- | --- |
+| steps／pairs per loop | 6／3 |
+| 相邻落脚载体距离 | 1.45/6 = .2416666666667m |
+| 同脚相邻落脚距离 | 1.45/3 = .4833333333333m |
+| 相邻支撑边界source间隔 | 7/36 = .1944444444444 source-second |
+| 名义.65m/s下相邻game间隔 | 29/78 = .3717948717949s |
+| whole game loop | 2.230769230769s |
+| 名义步频 | 161.3793103448次/分钟；旧.725仅53.7931034483 |
+| nominal source rate | .5229885057471；source carrier1.242857142857 × rate = game.65m/s |
+
+11应读共享locomotion profile的loop／stride／支撑边界，沿同一个有符号`enemyGaitMeters/1.45`未取模周期消费；不能只把.725换成.241667后继续另起绝对距离累计器。由stance区间推导的周期边界为`1/3+k×7/36`（k=0…5）：.3333333、.5277778、.7222222、.9166667、1.1111111、1.3055556s；正播进入支撑脚L/R/L/R/L/R，反播在同边界进入相反脚。初次绑定只建游标，起点不额外响；source1.5与下一圈1/3是同一接缝，不能双播。
+
+建议冻结去重规则：正向(previous,current]、负向[current,previous)，用整数周期＋边界索引处理跨圈与负gait，重复快照不发声，不用独立stepIndex++猜脚。沿11已有换轮／mute／resume／motionGeneration边界重新定基，不追播暂停时间。跨大位移或多边界时先推进游标到当前，仅消费本帧允许的最新事件、不把旧声排到后续帧；现每present最多一声／大跳保护可以保留，其阈值不是stage10新合同，本轮不擅改。
+
+当前stage10只有stance/swing区间，**没有独立step_events／touchdown数组**；上述六边界和脚侧属于据区间推导的消费方案。measurement float32边界flags可能both-stance／prefix_guard，不能直接以flags变化发声。Root最终profile应显式冻结六个边界及正反脚侧，再交11随新binding验收音画一致；本轮未改11代码／文档，通知合同在09交接由Root并行入口接收。
+
+### 验收闸门和本轮边界
+
+- 01最终同机位连续图／视频及最终input SHA由Root收件；当前hash核对不代替视觉审核。
+- producer专项至少拒绝78误进41、错误91／185时标、锁链漂移、重复右指校正、重复entity／carrier位移、旧两步节奏、旧offset混新clip。最终足面、祖先链、蒙皮头／躯干绝对proxy及blade markers覆盖key／midpoint，不能只列relative0。
+- runtime专项覆盖signed gait双向、跨圈、任意步态停止、IDLE→attack、命中／反击回守、暂停／追踪丢失／换轮及真实180ms crossfade；头身刀yaw／origin／recoil只一次，11六步声与可见落脚对齐。
+- **absolute proxy HIGH仍OPEN。** 最终三角色mesh／新校准proxy绝对位置、moving分支替换及SDK过渡一起通过后才关闭；raw relative0不是关闭依据。
+- 本轮仅本文件方案，未改producer、manifest、library/app、生成器、runtime、Core、测试或11代码，未运行制作／构建／设备。Root独占正式集成，09等待下一项明确源码任务。
+
+
+### 本轮架构补充后的冻结边界
+
+Root指定schema v3合同已写入方案；05的v2私有颈桥复建与共享producer当前均未被本路修改，待最终raw收件再由Root统一升级。Root报告已读到非零真实左右SDK姿态，正在修模拟器InteractionMode入口；实际按键→判定仍未通过，本路不将姿态可读等同输入验收完成。当前所有producer／app／运行源码／生成器／专项继续冻结，仅本09方案与数据合同有文档更新。
+
+
+## 09 runtime接入执行与给canonical_locomotion_pipeline的数据合同（2026-11-11）
+
+Root已授权09开始独立type／消费者与专项。ownership为`EnemyAnimator`、`AttackBankProfiles`、`ArenaOpponents`及相关测试；`ArenaSession`只允许在现两个代理调用传入`enemyGaitMeters`。Root includeDisabled、single-active、原生SDK输入、伤害／阈值／半径不动。Python producer／manifest／候选由`canonical_locomotion_pipeline`独占；09不手写最终generated arrays／pin，等候选实落盘再生成。
+
+### Python→09消费者所需的最终profile合同
+
+下列是先前消费者需求；字段布局现以文末“实际schema3字段与runtime交付”为准。实际候选已统一为`source_contract`与`locomotion.idle/walk`，未同时支持此处早期建议的clips包装，也无v2／standing兼容回退：
+
+- 顶层仍含`character_id`、最终`model_sha256`、共同canonical idle求得的`proxy_calibration`与三方向`attacks`；同组binding覆盖新idle/walk及offset。profile明确升级后的schema，不能让旧schema2 profile混入新consumer。
+- `locomotion.source_loop_seconds=[1/3,1.5]`、`stride_metres=1.45`；这是一整圈六步总距，不是单步距。
+- `locomotion.clips.idle`与`.walk`各含`clip`（正式别名idle／walk）、`animation_semantics_sha256`及实际prepared `samples`。sample字段沿用三攻击：`source_seconds`、`head`、`body_bottom`、`body_top`、`blade_base`、`blade_tip`；所有值为最终同target offsets、同grounding后的actor-local米坐标，非raw值或旧offset值。真实91／185时间线及canonical markers不可手工重造。
+- `locomotion.step_events`冻结六个`phase`（k/6，[0,1)）、`forward_foot`与`reverse_foot`（LEFT／RIGHT）。phase0正播L、反播R，此后交替；这仍须Root按最终stance审阅确认。source1.5与loopstart是一条边界，首次定基不发声，不能给0和1双事件。
+
+09类型将为`PoseClipProfile(clip,samples)`和`LocomotionProfile(idle,walk,loopStartSeconds,loopEndSeconds,strideMeters,stepEvents)`；动画／body／blade统一调用其`sourceSeconds(moving,gaitMeters)`与`sample(...)`。signed gait正模处理负距离和跨圈，不假设上身绝对恒定；即使源已锁链，也插值最终实际sample。`CharacterAttackProfiles`最终应持有mandatory locomotion数据，不以null／旧standing／old attack@0作为兼容fallback。正式数据未交前先完成可独立验证的type与选择函数，不凭空填入最终角色锚或身份。
+
+最高HIGH继续OPEN，最终实际profile、绝对mesh对齐与组合画面通过后再由Root关闭。
+
+
+## 实际schema3字段与runtime交付（2026-11-11）
+
+Root `canonical_locomotion_pipeline`私有产物实际落盘后，09读取其schema3 request／characters／三GLB／profile，按实际模型与profile SHA检查一致，才执行本路生成器。当前快照binding为`ff3ca3920261a6f5574497395f88e69284f2a66dd3166674b97fcf84c43af70c`，候选目录`ArtSource/tripo-warrior/review/locomotion-v3-candidate`；不是手填最终坐标或身份。准确完整身份见`ArtSource/refinement/combat-direction/locomotion_runtime_identity.json`。
+
+| 角色 | 候选模型SHA-256 | 候选profile SHA-256 | 实际idle／walk样本数 |
+| --- | --- | --- | --- |
+| base | `b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09` | `372d3eb4feff89f5cbbfe6695e9a34f4281cffdf9fb03a71cc84e140a099e229` | 185／369 |
+| indigo | `21fae35e61d07d1eff41eb4ca5906261ec88d70e7699e2d37c0ce750b5efaf0f` | `bdd168343cf026354aed50b05f5d0768ed68a538dc1bcb238e063c80ad9e6689` | 185／369 |
+| veteran | `3ecb6d13390b3c09df9eddaa450c29f75fd9e179ae96b49d9a87e203d9ad16e1` | `869e4db939c03297957b2bc9c59aef075940d865e6c4570a375f6671ba864eb2` | 185／369 |
+
+实际唯一JSON合同为：顶层`schema_version=3`；`source_contract`含locomotion78、loop_start/end_seconds、stride_metres=1.45、steps_per_loop=6、contact_phases；`locomotion.idle`与`.walk`各自含clip、source_range／source_loop_seconds、animation_semantics_sha256、真实prepared samples。样本head／body_bottom／body_top／blade_base／blade_tip与三攻击采用同一final-target校准。six-step event由已校验的contact_phases各stance起点推导，省略循环末尾重复接缝；不是measurement flags触发，也没有虚构源自带touchdown数组。
+
+### 已完成代码
+
+- 新`LocomotionProfiles.kt`：`PoseClipProfile`保存真实samples，`LocomotionProfile`保存mandatory idle/walk、loop、stride与六步合同。signed gait先取remainder再归一，处理正／负／跨圈并避exclusive end；新idle五锚全period恒定、walk五锚seam exact闭合、六个均匀phase与正反脚侧均强制校验。**当前idle是Root指定locked STEP常量，Animator明确seek真实首样本并pause，未虚构第二套idle时钟。** walk仍插值真实profile，不简化为手写guard。
+- `AttackBankProfiles`提取共享`samplePose`，Character必须包含LocomotionProfile，不提供null或v2默认。新的三攻击数据及idle185／walk369样本从实际schema3候选生成，共954攻击＋1662 locomotion样本；未手写arrays／pins。
+- `ArenaOpponents`用同一`EnemyPoseFrame/selectEnemyPose`选clip与source sample：静止idle、移动walk、guarded HIT canonical idle，三攻击仍逐phase。moving IDLE→旧standing分支已删除，body／刀根尖来自该同一frame；standing只保留在现native非guard HIT／DEAD尚无新reaction profile的既有范围，不作为locomotion fallback。
+- `EnemyAnimator`直接读取同一poseFrame的clip及sourceSeconds，idle／walk均manual seek+pause；删除重复旧walk时钟常量和自由速度计算。保留Root两处includeDisabled查询、hitstop接触前持姿、反应clip／死亡时钟和crossfade。Rootsingle-active加载、原生输入入口均未改。
+- `ArenaSession`本路只在两处代理调用各加`gaitMeters=enemyGaitMeters`。文件现有native输入观测、移除Desktop路径等diff属于Root工作，未回退或重写。伤害／识别阈值／半径未动。
+- 生成器只接受schema3及当前唯一字段布局，核binding／model／profile／clip semantics和六步合同；增加idle→walk exact、idle→三攻击首尾距离≤1e-6m的canonical边界拒绝验证，此容差只用于浮点重定向数据检查，不是战斗阈值。新类型不改变原三攻击phase映射、ACTIVE中点或成功恢复语义。
+
+### 验证及发布边界
+
+`run_isolated_tests.py --focus`以本机真实PICO6.1.9类型编译，**64／64通过**；包含新13项clock／data拒绝、7项中央消费者、实际三角色idle/walk/三攻击同校准、gait正反及Stage变换。新fixture是明确虚构样本，不冒充角色数据。生成器专项**5／5通过**，覆盖精确重现、身份漂移、旧两步／错phase、跨clip canonical漂移拒绝。`--bank ArtSource/tripo-warrior/review/locomotion-v3-candidate --check`精确重现，限定文件`git diff --check`通过。未跑共享Gradle、producer、Blender或设备。
+
+当前实物中idle→walk五锚exact相等，idle→三攻击首尾最大偏差小于1e-6m；只是数据与代码阶段证据，最高HIGH仍OPEN，Root实际模型／proxy／组合画面验收后才可关闭。11的consumer本路未改，需用新profile的stride、stepEvents与同signed gait；旧.725消费问题仍须11／Root接线。
+
+**发布闸门：当前generated data已用新候选，app三GLB仍旧weapon-only。不能直接把此源码打进旧GLB包称完成；Root须批准并原子发布本组模型／profile至正式library/app，再用默认正式library重新生成Kotlin数据与身份验证，最后共享构建／安装。** `DEFAULT_BANK`仍唯一正式library，不改为候选默认；本轮仅用显式--bank真实私有候选为Root组合，正式默认在旧v2库上会拒绝，不做兼容回退。
+
+独立review撤回了动态idle finding（与locked idle合同不符），确认shared clock、seam、六步、guarded HIT、hitstop/death与Root初始化保留。其提出的跨clip数据合同缺口已补生成拒绝专项；原子发布与最终画面闸门继续保留。本轮09代码／data／生成器／专项完成后重新冻结，Root接管共享构建、发布及剩余小修。
+
+
+## schema3正式发布后的最终来源收口（2026-11-11）
+
+Root已正式publisher成功，本路一次性核对正式library/app及profile/manifest一致后，实际运行默认来源：
+
+`python3 ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py`
+
+`Prepared source`已收敛到正式library。binding／三model／三profile数值与已收私有候选完全相同，因此runtime精确pin无需变造；Kotlin身份专项命名改为published canonical bank。Python专项取消按generated header动态选择私有目录，明确验证并仅消费`DEFAULT_BANK=ArtSource/tripo-warrior/library`，防止旧candidate和旧数据一起假绿。reaction清单当前binding也已更新ff3；六组reaction raw／preview／metadata本体和未进入bank的状态保持。
+
+| 角色 | 正式model SHA-256 | 正式profile SHA-256 |
+| --- | --- | --- |
+| base | `b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09` | `372d3eb4feff89f5cbbfe6695e9a34f4281cffdf9fb03a71cc84e140a099e229` |
+| indigo | `21fae35e61d07d1eff41eb4ca5906261ec88d70e7699e2d37c0ce750b5efaf0f` | `bdd168343cf026354aed50b05f5d0768ed68a538dc1bcb238e063c80ad9e6689` |
+| veteran | `3ecb6d13390b3c09df9eddaa450c29f75fd9e179ae96b49d9a87e203d9ad16e1` | `869e4db939c03297957b2bc9c59aef075940d865e6c4570a375f6671ba864eb2` |
+
+本轮五份运行逻辑文件SHA与开始时逐项相同：EnemyAnimator、ArenaOpponents、AttackBankProfiles、LocomotionProfiles、ArenaSession。全部2616个typed sample数组文本SHA仍为`781a861dfd3c30384678fbdd3685028d4cd1f56e0aee847ea78a9ce9a774f3a4`，没有动作／坐标修改。Root原生输入共享链、NativeMotion日志、onTick规则、includeDisabled／single-active保留；ArenaSession本路累计仍只有两处gait参数。
+
+本节关闭前节“candidate data对旧app资产”的身份发布gate；前节候选snapshot原样保留，不追改历史。最高画面／交互HIGH仍OPEN。Root反馈原生输入共享链257项已通过，本路未重复运行；冷启动控制器PENDING／DEVICE_NOT_SUPPORTED属于Root系统状态排查，本轮未据此更改数据或输入。
+
+本次改动清单：默认正式来源重生的`AttackBankProfileData.kt`、仅正式library的Python生成专项、Kotlin身份专项命名、reaction当前binding、此交接及`published_locomotion_runtime_identity.json`。其余runtime源码／私有基准／旧身份快照冻结。Root继续统合共享构建、设备及剩余小修。
+
+
+最终实跑：默认正式library `--check`通过；生成器5／5、PICO6.1.9实际类型隔离编译／JUnit64／64通过。Root可开始共享构建。本路数据／生成器／专项／runtime现全部重新冻结；交付不包含共享Gradle或设备操作，最高画面／交互HIGH保留给Root最终判定。
+
+
+## KTX正式整组身份收口（2026-11-11，identity-only）
+
+Root已用唯一publisher发布`b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f`整组library/app，包含dao_grip。本路实际核到正式request、三个model/profile与app副本一致后，仅执行一次DEFAULT_BANK生成：
+
+`python3 ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py`
+
+| 角色 | KTX正式model SHA-256 | KTX正式profile SHA-256 |
+| --- | --- | --- |
+| base | `722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e` | `df8a8531a4e94ef3651f8b9d889688e418a8b5e07a7685587300fa6899da657e` |
+| indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` | `ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a` |
+| veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` | `2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6` |
+
+精确Kotlin binding／三model／三profile pin与Python binding／model pin全部取实际正式metadata更新；reaction当前消费binding改为b03f55e6，六组reaction来源SHA和状态保持。`DEFAULT_BANK`仍仅正式library，未改生成器逻辑、未取私有candidate作默认。
+
+本轮前后EnemyAnimator、ArenaOpponents、AttackBankProfiles、LocomotionProfiles、ArenaSession、EnemyCombatStateMachine、生成器及隔离runner SHA逐项完全相同。typed样本数组文本SHA仍是`781a861dfd3c30384678fbdd3685028d4cd1f56e0aee847ea78a9ce9a774f3a4`。Root关于profile剥model SHA的整JSON与全部非image GLB守恒结论记录为Root audit，本路未重复审计资产。没有改动作时钟／判定／阈值／半径／输入／资产／Gradle／设备／Git。
+
+本轮身份产物为`ktx_published_locomotion_runtime_identity.json`；先前`published_locomotion_runtime_identity.json`及各私有快照保留原ff3历史身份，不追改。Root接管共享新APK与实际画面／输入验收，09只交限定身份更新与focus验证。
+
+
+KTX身份更新最终实跑：默认正式library `--check`通过，Python生成器5／5、PICO6.1.9类型隔离编译／focus JUnit64／64通过。独立只读复核确认app/library/profile内部/characters/review/Kotlin/Python/reaction全部一致，四个身份文件无旧ff3及旧model/profile pin或candidate locator残留。本路现全部重新冻结，Root可开始共享新APK。

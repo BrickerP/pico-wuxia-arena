@@ -34,7 +34,9 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import com.example.wuxiaarena.p0d2f0182.ui.ArenaUiPalette
+import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsEmulatorGuide
 import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsIncomingStrike
+import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsCombo
 import com.example.wuxiaarena.p0d2f0182.ui.arenaIncomingSealScale
 import com.example.wuxiaarena.p0d2f0182.ui.arenaHitFeedbackScale
 import com.example.wuxiaarena.core.combat.AttackDirection
@@ -43,8 +45,6 @@ import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.p0d2f0182.R
-import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatAction
-import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
@@ -65,34 +65,30 @@ internal fun arenaControlsAreCompact(result: TrialResult, pauseReason: PauseReas
         TrialResult.READY, TrialResult.VICTORY, TrialResult.DEFEAT -> false
     }
 
-internal fun arenaControlPanelHeightDp(result: TrialResult, pauseReason: PauseReason?, desktop: Boolean): Int =
-    when {
-        !arenaControlsAreCompact(result, pauseReason) -> 400
-        desktop && result == TrialResult.FIGHTING -> 240
-        else -> 160
-    }
+internal fun arenaControlPanelHeightDp(result: TrialResult, pauseReason: PauseReason?): Int =
+    if (arenaControlsAreCompact(result, pauseReason)) 160 else 400
 
 @Composable
 internal fun ArenaControlPanel(
     state: ArenaViewState,
     controlsAvailable: Boolean,
     controlPending: Boolean,
+    isRanchuHost: Boolean,
     onStart: () -> Unit,
     onPause: () -> Unit,
     onResume: () -> Unit,
     onRestart: () -> Unit,
-    onDesktopAction: (DesktopCombatAction) -> Unit = {},
 ) {
     PicoTheme {
         ArenaControlPanelContent(
             state = state,
             controlsAvailable = controlsAvailable,
             controlPending = controlPending,
+            isRanchuHost = isRanchuHost,
             onStart = onStart,
             onPause = onPause,
             onResume = onResume,
             onRestart = onRestart,
-            onDesktopAction = onDesktopAction,
         )
     }
 }
@@ -102,17 +98,17 @@ private fun ArenaControlPanelContent(
     state: ArenaViewState,
     controlsAvailable: Boolean,
     controlPending: Boolean,
+    isRanchuHost: Boolean,
     onStart: () -> Unit,
     onPause: () -> Unit,
     onResume: () -> Unit,
     onRestart: () -> Unit,
-    onDesktopAction: (DesktopCombatAction) -> Unit,
 ) {
     var showRestartConfirmation by rememberSaveable { mutableStateOf(false) }
     val controlsEnabled = controlsAvailable && !controlPending
     val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
     val compact = arenaControlsAreCompact(state.result, state.pauseReason)
-    val desktop = DesktopCombatInput.enabled || state.inputOrigin == InputOrigin.DESKTOP
+    val showEmulatorGuide = arenaShowsEmulatorGuide(state.inputOrigin, isRanchuHost)
     val surfaceText = if (compact) ArenaUiPalette.paperIvory else ArenaUiPalette.inkBlack
     val secondaryText = if (compact) ArenaUiPalette.paleAsh else ArenaUiPalette.mutedInk
     val buttonColors = ButtonDefaults.buttonColors(
@@ -122,7 +118,7 @@ private fun ArenaControlPanelContent(
 
     Box(
         modifier = Modifier
-            .size(width = 400.dp, height = arenaControlPanelHeightDp(state.result, state.pauseReason, desktop).dp),
+            .size(width = 400.dp, height = arenaControlPanelHeightDp(state.result, state.pauseReason).dp),
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(4.dp)
@@ -231,14 +227,6 @@ private fun ArenaControlPanelContent(
                     }
                 }
             }
-            if (compact && desktop && state.result == TrialResult.FIGHTING) {
-                DesktopActions(
-                    state = state,
-                    enabled = controlsEnabled && state.inputReady && state.actionReady,
-                    colors = buttonColors,
-                    onAction = onDesktopAction,
-                )
-            }
             if (!compact) {
                 if (terminal) {
                     Column(
@@ -248,7 +236,7 @@ private fun ArenaControlPanelContent(
                         MatchSummary(state)
                     }
                 } else {
-                    TechniqueGuide(desktop = desktop, modifier = Modifier.weight(1f).fillMaxWidth())
+                    TechniqueGuide(showEmulatorGuide = showEmulatorGuide, modifier = Modifier.weight(1f).fillMaxWidth())
                 }
             }
         }
@@ -267,18 +255,27 @@ private fun ArenaControlPanelContent(
 }
 
 @Composable
-private fun TechniqueGuide(desktop: Boolean, modifier: Modifier = Modifier) {
-    val lessons = remember {
-        listOf(
-            Triple(R.string.arena_technique_strike, R.string.arena_technique_strike_detail, R.string.arena_ui_keys_strike),
-            Triple(R.string.arena_technique_guard, R.string.arena_technique_guard_detail, R.string.arena_ui_keys_guard),
-            Triple(R.string.arena_technique_dodge, R.string.arena_technique_dodge_detail, R.string.arena_ui_keys_dodge),
-            Triple(R.string.arena_technique_skill, R.string.arena_technique_skill_detail, R.string.arena_ui_keys_skill),
-        )
+private fun TechniqueGuide(showEmulatorGuide: Boolean, modifier: Modifier = Modifier) {
+    val lessons = remember(showEmulatorGuide) {
+        if (showEmulatorGuide) {
+            listOf(
+                R.string.arena_ui_emulator_setup_title to R.string.arena_ui_emulator_setup_detail,
+                R.string.arena_ui_emulator_hand_title to R.string.arena_ui_emulator_hand_detail,
+                R.string.arena_ui_emulator_motion_title to R.string.arena_ui_emulator_motion_detail,
+                R.string.arena_ui_emulator_head_title to R.string.arena_ui_emulator_head_detail,
+            )
+        } else {
+            listOf(
+                R.string.arena_technique_strike to R.string.arena_technique_strike_detail,
+                R.string.arena_technique_guard to R.string.arena_technique_guard_detail,
+                R.string.arena_technique_dodge to R.string.arena_technique_dodge_detail,
+                R.string.arena_technique_skill to R.string.arena_technique_skill_detail,
+            )
+        }
     }
-    var selectedLesson by rememberSaveable { mutableStateOf(0) }
+    var selectedLesson by rememberSaveable(showEmulatorGuide) { mutableStateOf(0) }
     val page = selectedLesson.coerceIn(lessons.indices)
-    val (title, description, keyboardHelp) = lessons[page]
+    val (title, description) = lessons[page]
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -286,7 +283,7 @@ private fun TechniqueGuide(desktop: Boolean, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.arena_technique_title),
+                text = stringResource(if (showEmulatorGuide) R.string.arena_ui_emulator_guide else R.string.arena_technique_title),
                 style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
                 color = ArenaUiPalette.mutedInk,
                 maxLines = 1,
@@ -307,7 +304,7 @@ private fun TechniqueGuide(desktop: Boolean, modifier: Modifier = Modifier) {
         }
         // Only the current lesson body scrolls. Start/resume and lesson navigation stay visible.
         // A fresh key also resets a long lesson's scroll position when changing pages.
-        key(page) {
+        key(showEmulatorGuide, page) {
             Column(
                 modifier = Modifier.weight(1f).fillMaxWidth().verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -317,13 +314,7 @@ private fun TechniqueGuide(desktop: Boolean, modifier: Modifier = Modifier) {
                     style = PicoTheme.typography.bodyMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
                     color = ArenaUiPalette.inkBlack,
                 )
-                if (desktop) {
-                    Text(
-                        text = stringResource(keyboardHelp),
-                        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
-                        color = ArenaUiPalette.mutedInk,
-                    )
-                }
+
             }
         }
         Row(
@@ -387,48 +378,6 @@ private fun MatchSummary(state: ArenaViewState) {
         color = ArenaUiPalette.inkBlack,
         maxLines = 3,
     )
-}
-
-@Composable
-private fun DesktopActions(
-    state: ArenaViewState,
-    enabled: Boolean,
-    colors: ButtonColors,
-    onAction: (DesktopCombatAction) -> Unit,
-) {
-    val rows = listOf(
-        listOf(
-            DesktopCombatAction.SLASH to R.string.arena_preview_slash,
-            DesktopCombatAction.THRUST to R.string.arena_preview_thrust,
-            DesktopCombatAction.GUARD_OVERHEAD to R.string.arena_preview_guard,
-        ),
-        listOf(
-            DesktopCombatAction.DODGE_LEFT to R.string.arena_preview_dodge,
-            DesktopCombatAction.SKILL to R.string.arena_preview_skill,
-        ),
-    )
-    rows.forEach { actions ->
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            actions.forEach { (action, label) ->
-                val actionEnabled = enabled && when (action) {
-                    DesktopCombatAction.SKILL -> state.focus >= 100 || state.executionAvailable
-                    else -> true
-                }
-                Button(
-                    modifier = Modifier.weight(1f),
-                    onClick = { onAction(action) },
-                    enabled = actionEnabled,
-                    colors = colors,
-                    size = ButtonDefaults.Small,
-                ) {
-                    Text(text = stringResource(label), maxLines = 1)
-                }
-            }
-        }
-    }
 }
 
 @Composable
@@ -525,7 +474,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                             else -> ArenaUiPalette.paperIvory
                         }, maxLines = 2,
                     )
-                    if (state.combo >= 2) {
+                    if (arenaShowsCombo(state.result, state.combo)) {
                         Text(text = stringResource(R.string.arena_combo, state.combo),
                             style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp),
                             color = ArenaUiPalette.antiqueGold, maxLines = 1)

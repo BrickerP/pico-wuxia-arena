@@ -111,9 +111,8 @@ object Log {
     sources = sorted((MAIN / "com/example/wuxiaarena/core").rglob("*.kt"))
     sources += [RUNTIME / name for name in (
         "ArenaSession.kt", "ArenaOpponents.kt", "AttackBankProfiles.kt", "AttackBankProfileData.kt",
-        "CombatFeedbackProfile.kt", "CombatAudio.kt",
+        "LocomotionProfiles.kt", "CombatFeedbackProfile.kt", "CombatAudio.kt",
     )]
-    sources += [MAIN / Path(PACKAGE.replace(".", "/")) / "input/DesktopCombatInput.kt"]
     test_names = ["CombatAudioTest", "ImpactAccentTest"]
     if not args.audio_only: test_names.append("CombatFeedbackTimingTest")
     sources += [TEST / f"{name}.kt" for name in test_names]

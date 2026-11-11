@@ -18,9 +18,44 @@ internal val arenaOpponents = listOf(
     ArenaOpponent("玄甲守擂", "asset://models/opponents/veteran.glb", CombatImpactKind.HARD_HIT),
 )
 
+/** A source selection shared by native playback and actor-local body/blade consumers. */
+internal data class EnemyPoseFrame(val clip: String, val pose: AttackPoseSample)
+
+internal fun selectEnemyPose(
+    attack: AttackProfile,
+    locomotion: LocomotionProfile,
+    phase: EnemyPhase,
+    elapsedNanos: Long,
+    remainingNanos: Long?,
+    guarding: Boolean,
+    moving: Boolean,
+    gaitMeters: Double,
+    recoveryFromContact: Boolean = false,
+): EnemyPoseFrame? = when {
+    phase == EnemyPhase.IDLE -> EnemyPoseFrame(locomotion.clip(moving), locomotion.sample(moving, gaitMeters))
+    phase == EnemyPhase.HIT && guarding -> EnemyPoseFrame(locomotion.clip(false), locomotion.sample(false, gaitMeters))
+    phase in ATTACK_PHASES -> EnemyPoseFrame(attack.clip,
+        attack.sample(attack.sourceSeconds(phase, elapsedNanos, remainingNanos, recoveryFromContact)))
+    else -> null
+}
+
 /** The visual clip, body proxies and blade anchors all use the same prepared actor profile. */
 internal fun ArenaOpponent.attackProfile(direction: AttackDirection): AttackProfile =
     AttackBankProfiles.forAsset(asset, direction)
+
+internal fun ArenaOpponent.locomotionProfile(): LocomotionProfile = AttackBankProfiles.locomotionForAsset(asset)
+
+internal fun ArenaOpponent.poseFrame(
+    phase: EnemyPhase,
+    elapsedNanos: Long,
+    remainingNanos: Long?,
+    direction: AttackDirection,
+    guarding: Boolean,
+    moving: Boolean,
+    recoveryFromContact: Boolean,
+    gaitMeters: Double,
+): EnemyPoseFrame? = selectEnemyPose(attackProfile(direction), locomotionProfile(), phase,
+    elapsedNanos, remainingNanos, guarding, moving, gaitMeters, recoveryFromContact)
 
 internal fun ArenaOpponent.attackPose(
     phase: EnemyPhase,
@@ -32,16 +67,14 @@ internal fun ArenaOpponent.attackPose(
     guarding: Boolean,
     moving: Boolean = false,
     recoveryFromContact: Boolean = false,
+    gaitMeters: Double,
 ): AttackPoseSample? {
     require(origin.isFinite() && yaw.isFinite()) { "Attack pose requires a finite Stage transform" }
     require(elapsedNanos >= 0L && (remainingNanos == null || remainingNanos >= 0L)) {
         "Contact phase time must be non-negative"
     }
-    if (phase in ATTACK_PHASES || phase == EnemyPhase.HIT && guarding || phase == EnemyPhase.IDLE && !moving) {
-        val profile = attackProfile(direction)
-        return profile.sample(profile.sourceSeconds(phase, elapsedNanos, remainingNanos, recoveryFromContact)).inStage(origin, yaw)
-    }
-    return null
+    return poseFrame(phase, elapsedNanos, remainingNanos, direction, guarding, moving,
+        recoveryFromContact, gaitMeters)?.pose?.inStage(origin, yaw)
 }
 
 internal fun ArenaOpponent.contactPose(
@@ -54,7 +87,8 @@ internal fun ArenaOpponent.contactPose(
     guarding: Boolean,
     moving: Boolean = false,
     recoveryFromContact: Boolean = false,
-): EnemyContactPose = attackPose(phase, elapsedNanos, remainingNanos, origin, yaw, direction, guarding, moving, recoveryFromContact)
-    ?.contact ?: EnemyContactPose.standing(origin)
+    gaitMeters: Double,
+): EnemyContactPose = attackPose(phase, elapsedNanos, remainingNanos, origin, yaw, direction,
+    guarding, moving, recoveryFromContact, gaitMeters)?.contact ?: EnemyContactPose.standing(origin)
 
 private val ATTACK_PHASES = setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING)

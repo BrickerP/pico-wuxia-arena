@@ -19,6 +19,21 @@ REVIEW = ROOT / 'ArtSource/refinement/audio'
 SOURCES = ROOT / 'ArtSource/audio/sources'
 KENNEY = SOURCES / 'kenney-impact-sounds/Audio'
 BEFORE = REVIEW / 'before'
+# These ten recordings are the complete build input, not the downloaded packs.
+SOURCE_FILES = (
+    'kenney-impact-sounds/Audio/impactPunch_heavy_001.ogg',
+    'kenney-impact-sounds/Audio/impactPlate_medium_001.ogg',
+    'kenney-impact-sounds/Audio/impactPlate_heavy_000.ogg',
+    'kenney-impact-sounds/Audio/footstep_concrete_003.ogg',
+    'starninjas-sword/clashes/sword_clash.2.ogg',
+    'starninjas-sword/clashes/sword_clash.5.ogg',
+    'starninjas-sword/attacks/sword - StarNinjas/sword.4.ogg',
+    'haeldb-cloth/footsteps/step_cloth1.ogg',
+    'haeldb-cloth/footsteps/step_cloth2.ogg',
+    'ylmir-rain/1.ogg',
+)
+OUTCOME_CUES = ('arena_victory', 'arena_defeat')
+COMPARISON_CUES = ('hit', 'block', 'parry', 'hard_hit', 'guarded_hit', 'whoosh', 'execution')
 
 
 def blank(seconds):
@@ -173,6 +188,22 @@ def comparison_reel(name, labels):
     return len(result)/SAMPLE_RATE
 
 
+def production_manifest(metrics):
+    """Describe the current generator and exact inputs without rewriting audio."""
+    source_files = {str((SOURCES / name).relative_to(ROOT)):
+                    hashlib.sha256((SOURCES / name).read_bytes()).hexdigest()
+                    for name in sorted(SOURCE_FILES)}
+    return {
+        'baseline_git_head': json.loads((BEFORE/'baseline.json').read_text())['git_head'],
+        'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        'source_sha256': source_files, 'outputs': metrics,
+        'runtime': {'pending_limit':24,'short_voices':10,'ambience_voices':1,'freshness_ms':120,
+                    'contact_gain_range':[0.34,0.72],'rain_gain':0.10,'ducked_rain_gain':0.045,
+                    'priority':{'rain':0,'step_and_swing':1,'result':2,'material':3,'block_and_hurt':4,
+                                'parry_and_skill':5,'execution':6}},
+    }
+
+
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True); REVIEW.mkdir(parents=True, exist_ok=True)
     cues = build_material()
@@ -181,12 +212,12 @@ def main():
                          0.065 if name == 'arena_rain' else 0.16, loop=name == 'arena_rain')
         write_pcm(OUTPUT / f'{name}.wav', samples)
     # Outcome cues remain the frozen original composition, independent of combat foley.
-    for name in ['arena_victory', 'arena_defeat']:
+    for name in OUTCOME_CUES:
         (OUTPUT / f'{name}.wav').write_bytes((BEFORE / f'{name}.wav').read_bytes())
-    metrics = [measure(p) for p in sorted(OUTPUT.glob('arena_*.wav'))]
+    metrics = [measure(OUTPUT / f'{name}.wav') for name in sorted((*cues, *OUTCOME_CUES))]
     (REVIEW/'audio_measurements.json').write_text(json.dumps(metrics,indent=2)+'\n')
     comparisons = []
-    for name in ['hit','block','parry','hard_hit','guarded_hit','whoosh','execution']:
+    for name in COMPARISON_CUES:
         comparisons += [(f'before_{name}', BEFORE / f'arena_{name}.wav', 1, 0.72),
                         (f'after_{name}', OUTPUT / f'arena_{name}.wav', 1, 0.72)]
     reel = comparison_reel('contact_before_after', comparisons)
@@ -208,17 +239,7 @@ def main():
                               (6.4,'hard_hit',0.72,0.90),(6.4,'execution',0.37,0.90)]:
         add(demo,rate_shift(decode(OUTPUT/f'arena_{name}.wav'),rate),gain,at)
     write_pcm(REVIEW/'combat_rain_sequence.wav',demo)
-    source_files = sorted({str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                           for p in SOURCES.rglob('*') if p.suffix == '.ogg'}.items())
-    (REVIEW/'production_manifest.json').write_text(json.dumps({
-        'baseline_git_head': json.loads((BEFORE/'baseline.json').read_text())['git_head'],
-        'generator_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        'source_sha256': dict(source_files), 'outputs': metrics,
-        'runtime': {'pending_limit':24,'short_voices':10,'ambience_voices':1,'freshness_ms':120,
-                    'contact_gain_range':[0.34,0.72],'rain_gain':0.10,'ducked_rain_gain':0.045,
-                    'priority':{'rain':0,'step_and_swing':1,'result':2,'material':3,'block_and_hurt':4,
-                                'parry_and_skill':5,'execution':6}},
-    },indent=2)+'\n')
+    (REVIEW/'production_manifest.json').write_text(json.dumps(production_manifest(metrics),indent=2)+'\n')
     assert all(x['clipped_samples'] == 0 and x['decoded_bytes'] < 1_000_000 for x in metrics)
     print(json.dumps({'production_cues':len(metrics),'ab_reel_seconds':reel,
                       'max_decoded_bytes':max(x['decoded_bytes'] for x in metrics)},indent=2))

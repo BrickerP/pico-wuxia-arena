@@ -20,6 +20,20 @@ python3 ArtSource/audio/run_audio_tests.py --audio-only
 
 完整来源、作者、逐文件SHA256、原包SHA和许可证据页在 [sources.json](sources/sources.json)。四套均选择CC0，允许派生处理。
 
+生成器以 `SOURCE_FILES` 明确列出下列10个OGG；清单只记录实际读取的源文件，不扫描或依赖下载包里的其它素材。`upstream_archives` 的官方包URL与SHA仅保留来源证据，不要求本地ZIP存在。
+
+| 目录（相对 `sources/`） | 必需文件 |
+| --- | --- |
+| `kenney-impact-sounds/Audio/` | `impactPunch_heavy_001.ogg`、`impactPlate_medium_001.ogg`、`impactPlate_heavy_000.ogg`、`footstep_concrete_003.ogg` |
+| `starninjas-sword/clashes/` | `sword_clash.2.ogg`、`sword_clash.5.ogg` |
+| `starninjas-sword/attacks/sword - StarNinjas/` | `sword.4.ogg` |
+| `haeldb-cloth/footsteps/` | `step_cloth1.ogg`、`step_cloth2.ogg` |
+| `ylmir-rain/` | `1.ogg` |
+
+同时保留 `sources.json`、`licenses/` 的四份许可来源文本及 `kenney-impact-sounds/License.txt`。生产13条WAV依赖这10个OGG与冻结的 `before/arena_victory.wav`、`before/arena_defeat.wav`。运行完整生成器还要 `before/baseline.json` 和7条A/B旧声：`arena_hit`、`arena_block`、`arena_parry`、`arena_hard_hit`、`arena_guarded_hit`、`arena_whoosh`、`arena_execution`。验收另核对冻结基线清单中的全部11条旧WAV，包括不参与重建的 `arena_hurt`、`arena_skill`。
+
+资产专项会在 `build/audio-minimal-sources/` 下仅放10个OGG与完整生成器必需的9条旧WAV，缺省不放ZIP或其它源媒体；清空解码缓存后执行真实 `main()`，核对实际解码源集合、脚本SHA与全部13个WAV的逐字节SHA。测试不改正式音频输出。
+
 | 来源 | 已证明范围 | 使用 |
 | --- | --- | --- |
 | [StarNinjas – 20 Sword Sound Effects](https://opengameart.org/content/20-sword-sound-effects-attacks-and-clashes) | 作者说明两把刀实物录制后用Audacity编辑 | clashes 2/5作刀刃接触，attack 4作挥刀 |

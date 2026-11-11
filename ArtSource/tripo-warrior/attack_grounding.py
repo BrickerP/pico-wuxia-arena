@@ -1,4 +1,4 @@
-"""Constrain each derived attack's lowest skinned sole with one root translation."""
+"""Keep the five canonical guard clips on one measured target grounding frame."""
 
 import copy
 import struct
@@ -11,12 +11,16 @@ from prepare_rigged_warrior import animation_signature
 
 
 GROUNDING_POLICY = {
-    'version': 1,
-    'method': 'prepared +Y whole BoneRoot translation at unchanged source keys',
+    'version': 2,
+    'method': 'one constant prepared +Y BoneRoot translation from target idle at source zero',
     'target_plane_metres': -.028,
     'region': 'body vertices with total same-side Foot/Toe skin weight greater than 0.5',
-    'midpoint_tolerance_metres': .001,
-    'scope': 'three attacks only; no per-foot IK or horizontal slip correction',
+    'canonical_clip': 'idle',
+    'canonical_source_seconds': 0.0,
+    'scope': 'idle, walk and three attacks share one target guard shift; no per-frame grounding or IK',
+    'residual_policy': 'measure keys and midpoints without modifying authored relative foot heights',
+    'runtime_entity_lift_metres': .028,
+    'runtime_entity_lift_application_count': 1,
 }
 
 
@@ -99,66 +103,117 @@ def surface_heights(document, world, surface):
     return {side: float(heights[mask].min()) for side, mask in masks.items()}
 
 
-def ground_attack_feet(document, binary, clip_names):
-    """Return appended bytes and evidence, changing only attack root translation outputs.
+CANONICAL_CLIPS = ('idle', 'walk', 'attack_overhead', 'attack_left', 'attack_right')
+LOCKED_CHAIN = ('Armature', 'BoneRoot', 'Hip', 'Waist', 'Spine01', 'Spine02',
+                'NeckTwist01', 'NeckTwist02', 'Head')
 
-    The lower of the two measured foot surfaces is constrained. A raised opposite
-    foot retains its authored relative height, and horizontal foot slip is unchanged.
+
+def grounding_tracks(document, binary, animation, root):
+    name = animation['name']
+    locomotion = name in {'idle', 'walk'}
+    tracks, timeline = animation_tracks(document, binary, animation, require_attack_range=not locomotion)
+    expected_count = {'idle': 91, 'walk': 185}.get(name, 106)
+    expected_end = 1.5 if locomotion else 1.75
+    if len(timeline) != expected_count or min(timeline) != 0.0 or max(timeline) != expected_end:
+        raise ValueError('grounding requires the frozen source timeline: ' + name)
+    key = root, 'translation'
+    channels = [channel for channel in animation['channels'] if
+                (channel['target']['node'], channel['target']['path']) == key]
+    if len(channels) != 1 or key not in tracks:
+        raise ValueError('grounding requires one BoneRoot translation channel')
+    times, values, interpolation = tracks[key]
+    expected_interpolation = 'STEP' if locomotion else 'LINEAR'
+    if set(times) != timeline or interpolation != expected_interpolation:
+        raise ValueError('grounding requires unchanged ' + expected_interpolation + ' root keys: ' + name)
+    return tracks, times, values, channels[0]['sampler']
+
+
+def ground_canonical_guard_feet(document, binary, clip_names):
+    """Shift the whole canonical family by its target idle's one measured +Y offset.
+
+    Only BoneRoot translation outputs are appended. Keeping the same constant
+    shift on every source key preserves authored head locks, guard endpoints and
+    relative foot heights, including any residual from different target shapes.
     """
+    clips = {animation['name']: animation for animation in document['animations']}
+    if len(clips) != len(document['animations']):
+        raise ValueError('grounding requires unique clip names')
+    if len(clip_names) != 5 or set(clip_names) != set(CANONICAL_CLIPS) or not set(clip_names).issubset(clips):
+        raise ValueError('grounding requires the five distinct canonical guard clips')
     _, parents, order = hierarchy(document)
     roots = [index for index, node in enumerate(document['nodes']) if node.get('name') == 'BoneRoot']
     if len(roots) != 1 or roots[0] not in parents:
         raise ValueError('grounding requires one parented BoneRoot')
     root = roots[0]
     surface = foot_surface(document, binary, parents, root)
-    clips = {animation['name']: animation for animation in document['animations']}
-    if len(set(clip_names)) != 3 or not set(clip_names).issubset(clips):
-        raise ValueError('grounding requires the three distinct derived attack clips')
+    decoded = {name: grounding_tracks(document, binary, clips[name], root) for name in CANONICAL_CLIPS}
+    canonical_world = pose_world(document, decoded['idle'][0], 0.0, parents, order)
+    canonical_heights = surface_heights(document, canonical_world, surface)
+    plane = GROUNDING_POLICY['target_plane_metres']
+    shift = plane - min(canonical_heights.values())
+    parent_frame = canonical_world[parents[root]].to_3x3()
+    local_shift = parent_frame.inverted() @ Vector((0, shift, 0))
     packed = bytearray(binary)
     reports = []
-    plane = GROUNDING_POLICY['target_plane_metres']
-    for name in clip_names:
+    idle_tracks, idle_times, idle_values, _ = decoded['idle']
+    grounded_idle_tracks = copy.copy(idle_tracks)
+    grounded_idle_tracks[root, 'translation'] = (idle_times,
+        [struct.unpack('<3f', struct.pack('<3f', *(Vector(row) + local_shift))) for row in idle_values], 'STEP')
+    grounded_canonical_world = pose_world(document, grounded_idle_tracks, 0.0, parents, order)
+    chain = {node.get('name'): index for index, node in enumerate(document['nodes'])
+             if node.get('name') in LOCKED_CHAIN}
+    guard_nodes = {node.get('name'): index for index, node in enumerate(document['nodes'])
+                   if node.get('name') in {'BoneRoot', 'Hip', 'Spine02', 'Head', 'L_Hand', 'R_Hand'}}
+    for name in CANONICAL_CLIPS:
         animation = clips[name]
-        tracks, timeline = animation_tracks(document, packed, animation)
-        if len(timeline) != 106:
-            raise ValueError('grounding requires the frozen 106-key attack timeline')
-        key = (root, 'translation')
-        channels = [channel for channel in animation['channels'] if
-                    (channel['target']['node'], channel['target']['path']) == key]
-        if len(channels) != 1 or key not in tracks:
-            raise ValueError('grounding requires one BoneRoot translation channel')
-        times, original, interpolation = tracks[key]
-        if set(times) != timeline or interpolation != 'LINEAR':
-            raise ValueError('grounding requires LINEAR root translation at all source keys')
-        report = {'clip': name, 'before_semantics_sha256': animation_signature(document, packed, animation),
-                  'foot_vertex_counts': {side: int(mask.sum()) for side, mask in surface[3].items()},
-                  'key_count': len(times), 'midpoint_count': len(times) - 1, 'samples': []}
-        values, before_heights = [], {}
-        for time, location in zip(times, original):
-            world = pose_world(document, tracks, time, parents, order)
-            heights = surface_heights(document, world, surface)
-            before_heights[time] = heights
-            shift = plane - min(heights.values())
-            local_shift = world[parents[root]].to_3x3().inverted() @ Vector((0, shift, 0))
-            values.append(tuple(Vector(location) + local_shift))
+        tracks, times, original, sampler_index = decoded[name]
+        interpolation = tracks[root, 'translation'][2]
+        # Store FLOAT values before measurement so the report describes encoded curves.
+        values = [struct.unpack('<3f', struct.pack('<3f', *(Vector(location) + local_shift)))
+                  for location in original]
         corrected = copy.copy(tracks)
-        corrected[key] = (times, values, interpolation)
+        corrected[root, 'translation'] = times, values, interpolation
         samples = sorted([*times, *((a + b) / 2 for a, b in zip(times, times[1:]))])
-        max_error = 0.0
+        report = {'clip': name, 'before_semantics_sha256': animation_signature(document, binary, animation),
+                  'foot_vertex_counts': {side: int(mask.sum()) for side, mask in surface[3].items()},
+                  'key_count': len(times), 'midpoint_count': len(times) - 1,
+                  'root_interpolation': interpolation, 'constant_world_root_shift_metres': shift,
+                  'constant_local_root_shift': list(local_shift), 'samples': [], 'guard_endpoints': [],
+                  'maximum_locked_chain_difference_from_idle_guard': {joint: 0.0 for joint in chain},
+                  'maximum_grounded_locked_chain_difference_from_idle_guard': {joint: 0.0 for joint in chain}}
         for time in samples:
-            before = before_heights.get(time)
-            if before is None:
-                before = surface_heights(document, pose_world(document, tracks, time, parents, order), surface)
-            after = surface_heights(document, pose_world(document, corrected, time, parents, order), surface)
-            error = abs(min(after.values()) - plane)
-            max_error = max(max_error, error)
-            report['samples'].append({'source_seconds': time, 'source_key': time in timeline,
+            before_world = pose_world(document, tracks, time, parents, order)
+            if max(abs(before_world[parents[root]][row][col] - parent_frame[row][col])
+                   for row in range(3) for col in range(3)) > 1e-6:
+                raise ValueError('one canonical root shift requires a fixed root parent frame: ' + name)
+            after_world = pose_world(document, corrected, time, parents, order)
+            before = surface_heights(document, before_world, surface)
+            after = surface_heights(document, after_world, surface)
+            report['samples'].append({'source_seconds': time, 'source_key': time in times,
                                       'before_foot_min_metres': before, 'after_foot_min_metres': after,
+                                      'foot_plane_residual_metres': {side: height - plane for side, height in after.items()},
                                       'root_shift_metres': min(after.values()) - min(before.values()),
                                       'opposite_foot_above_plane_metres': max(after.values()) - plane})
-        if max_error > GROUNDING_POLICY['midpoint_tolerance_metres']:
-            raise ValueError('root-only grounding exceeds midpoint plane tolerance: ' + name)
-        report['maximum_plane_error_metres'] = max_error
+            for joint, index in chain.items():
+                difference = max(abs(before_world[index][row][col] - canonical_world[index][row][col])
+                                 for row in range(4) for col in range(4))
+                report['maximum_locked_chain_difference_from_idle_guard'][joint] = max(
+                    report['maximum_locked_chain_difference_from_idle_guard'][joint], difference)
+                grounded_difference = max(abs(after_world[index][row][col] - grounded_canonical_world[index][row][col])
+                                          for row in range(4) for col in range(4))
+                report['maximum_grounded_locked_chain_difference_from_idle_guard'][joint] = max(
+                    report['maximum_grounded_locked_chain_difference_from_idle_guard'][joint], grounded_difference)
+            if time == times[0] or time == times[-1]:
+                report['guard_endpoints'].append({'source_seconds': time,
+                    'before_foot_min_metres': before, 'after_foot_min_metres': after,
+                    'world_position_difference_from_idle_guard_metres': {
+                        joint: list(before_world[index].translation - canonical_world[index].translation)
+                        for joint, index in guard_nodes.items()},
+                    'grounded_world_position_difference_from_idle_guard_metres': {
+                        joint: list(after_world[index].translation - grounded_canonical_world[index].translation)
+                        for joint, index in guard_nodes.items()}})
+        report['maximum_plane_error_metres'] = max(
+            abs(min(sample['after_foot_min_metres'].values()) - plane) for sample in report['samples'])
         report['maximum_opposite_foot_height_metres'] = max(
             sample['opposite_foot_above_plane_metres'] for sample in report['samples'])
         packed.extend(b'\0' * (-len(packed) % 4))
@@ -172,8 +227,11 @@ def ground_attack_feet(document, binary, clip_names):
                                       'count': len(values),
                                       'min': [min(row[axis] for row in values) for axis in range(3)],
                                       'max': [max(row[axis] for row in values) for axis in range(3)]})
-        animation['samplers'][channels[0]['sampler']]['output'] = accessor
+        animation['samplers'][sampler_index]['output'] = accessor
         report['after_semantics_sha256'] = animation_signature(document, packed, animation)
         reports.append(report)
     document['buffers'][0]['byteLength'] = len(packed)
-    return bytes(packed), {'policy': copy.deepcopy(GROUNDING_POLICY), 'clips': reports}
+    return bytes(packed), {'policy': copy.deepcopy(GROUNDING_POLICY),
+                           'canonical_foot_min_metres_before': canonical_heights,
+                           'constant_world_root_shift_metres': shift,
+                           'constant_local_root_shift': list(local_shift), 'clips': reports}

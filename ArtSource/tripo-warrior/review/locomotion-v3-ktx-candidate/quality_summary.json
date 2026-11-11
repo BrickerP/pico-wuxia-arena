@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "status": "offline_measurement_complete",
+  "binding_sha256": "b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f",
+  "measurement_tool": {
+    "file": "ArtSource/refinement/pbr-compression/measure_quality.py",
+    "sha256": "e3cb29de80e394540a97e1e293f1f9c4d0b0b23969dcdeaf5886dab89d058280"
+  },
+  "host_python": {
+    "source": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+    "source_sha256": "bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e",
+    "version": "3.9.6",
+    "pillow_version": "11.3.0",
+    "numpy_version": "2.0.2"
+  },
+  "encoder": {
+    "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+    "source_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+    "version": "ktx version: v4.4.2",
+    "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+  },
+  "settings": {
+    "codec": "uastc",
+    "uastc_quality": 3,
+    "threads": 2,
+    "zstd": 18,
+    "mipmap_filter": "lanczos4",
+    "full_mips": true,
+    "normal_mode": false,
+    "normalize": false,
+    "rdo": false,
+    "orientation": "top-left",
+    "pixel_resize": false,
+    "mip_source": {
+      "same_axis": "ktx-cli-generate-mipmap",
+      "different_axes": "explicit-axis-lanczos4-v1"
+    },
+    "axis_mips": {
+      "version": 1,
+      "precision": "float64",
+      "support": 4,
+      "centers": "half-pixel",
+      "antialias": "support-scaled-by-source/target",
+      "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+      "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+      "alpha_filter": "linear-straight",
+      "quantization": "clip-0-1-round-half-up-uint8",
+      "top": "original-decoded-pixels"
+    }
+  },
+  "measurement": "decoded full-resolution top mip per-channel code-value error; no visual pass threshold",
+  "psnr_null_means_exact_channel": true,
+  "native_visual_acceptance": "pending",
+  "gpu_memory_or_device_validation": "not measured",
+  "outputs": [
+    {
+      "id": "base",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/base_prepared_png.glb",
+      "source_sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
+      "candidate": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/base.glb",
+      "candidate_sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
+      "encoding_manifest": "base_texture_encoding.json",
+      "encoding_manifest_sha256": "b7b9ce9af2047151b7ceadb763d7611ad4c48feb43af5c46065ddeb912dadefe",
+      "quality_report": "base.quality.json",
+      "quality_report_sha256": "0f63a216449523f91158cba1b919f1739d98630d1aacdfb217491f33ec8ef35b",
+      "image_count": 26,
+      "sampler_wrap_pairs": [
+        {
+          "wrap_s": "wrap",
+          "wrap_t": "clamp",
+          "image_count": 2
+        },
+        {
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "image_count": 24
+        }
+      ],
+      "channel_count": 78,
+      "exact_channel_count": 15,
+      "minimum_finite_psnr_db": 50.451385985305,
+      "minimum_finite_psnr_channel": {
+        "image": 19,
+        "channel": "B"
+      },
+      "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+      "maximum_absolute_error_0_255": 46,
+      "roles": {
+        "baseColor": {
+          "channel_count": 33,
+          "exact_channel_count": 0,
+          "minimum_finite_psnr_db": 51.20413708766218,
+          "minimum_finite_psnr_channel": {
+            "image": 1,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.3091931939125061,
+          "maximum_absolute_error_0_255": 26
+        },
+        "metallicRoughness": {
+          "channel_count": 33,
+          "exact_channel_count": 14,
+          "minimum_finite_psnr_db": 50.451385985305,
+          "minimum_finite_psnr_channel": {
+            "image": 19,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+          "maximum_absolute_error_0_255": 22
+        },
+        "normal": {
+          "channel_count": 12,
+          "exact_channel_count": 1,
+          "minimum_finite_psnr_db": 53.598627821559376,
+          "minimum_finite_psnr_channel": {
+            "image": 0,
+            "channel": "R"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.13806045055389404,
+          "maximum_absolute_error_0_255": 46
+        }
+      }
+    },
+    {
+      "id": "indigo",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/indigo_prepared_png.glb",
+      "source_sha256": "21fae35e61d07d1eff41eb4ca5906261ec88d70e7699e2d37c0ce750b5efaf0f",
+      "candidate": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/indigo.glb",
+      "candidate_sha256": "94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e",
+      "encoding_manifest": "indigo_texture_encoding.json",
+      "encoding_manifest_sha256": "b1a075d58041578d31df6376731aeb475c9922899a7399f1157d17a0701faec9",
+      "quality_report": "indigo.quality.json",
+      "quality_report_sha256": "4f082c46106eaddff960eef5cb33c12f9c3b6df5dead77b7006c39ec19b7c06c",
+      "image_count": 21,
+      "sampler_wrap_pairs": [
+        {
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "image_count": 21
+        }
+      ],
+      "channel_count": 63,
+      "exact_channel_count": 11,
+      "minimum_finite_psnr_db": 50.315210227465045,
+      "minimum_finite_psnr_channel": {
+        "image": 1,
+        "channel": "R"
+      },
+      "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+      "maximum_absolute_error_0_255": 59,
+      "roles": {
+        "baseColor": {
+          "channel_count": 27,
+          "exact_channel_count": 0,
+          "minimum_finite_psnr_db": 50.315210227465045,
+          "minimum_finite_psnr_channel": {
+            "image": 1,
+            "channel": "R"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.3495725989341736,
+          "maximum_absolute_error_0_255": 24
+        },
+        "metallicRoughness": {
+          "channel_count": 27,
+          "exact_channel_count": 10,
+          "minimum_finite_psnr_db": 50.451385985305,
+          "minimum_finite_psnr_channel": {
+            "image": 14,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+          "maximum_absolute_error_0_255": 22
+        },
+        "normal": {
+          "channel_count": 9,
+          "exact_channel_count": 1,
+          "minimum_finite_psnr_db": 57.97061108607597,
+          "minimum_finite_psnr_channel": {
+            "image": 0,
+            "channel": "G"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.06754487752914429,
+          "maximum_absolute_error_0_255": 59
+        }
+      }
+    },
+    {
+      "id": "veteran",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/veteran_prepared_png.glb",
+      "source_sha256": "3ecb6d13390b3c09df9eddaa450c29f75fd9e179ae96b49d9a87e203d9ad16e1",
+      "candidate": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/veteran.glb",
+      "candidate_sha256": "cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5",
+      "encoding_manifest": "veteran_texture_encoding.json",
+      "encoding_manifest_sha256": "77e56f95732c2a8d95e96255e0aec1e49c88dea2e3e5868e36b9700e275b209d",
+      "quality_report": "veteran.quality.json",
+      "quality_report_sha256": "5554c8d12d7400ecc88b56554b8a3481985d07252c55bab6dcc1908e35854a0b",
+      "image_count": 21,
+      "sampler_wrap_pairs": [
+        {
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "image_count": 21
+        }
+      ],
+      "channel_count": 63,
+      "exact_channel_count": 11,
+      "minimum_finite_psnr_db": 50.451385985305,
+      "minimum_finite_psnr_channel": {
+        "image": 14,
+        "channel": "B"
+      },
+      "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+      "maximum_absolute_error_0_255": 40,
+      "roles": {
+        "baseColor": {
+          "channel_count": 27,
+          "exact_channel_count": 0,
+          "minimum_finite_psnr_db": 51.87955909220748,
+          "minimum_finite_psnr_channel": {
+            "image": 1,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.27877533435821533,
+          "maximum_absolute_error_0_255": 19
+        },
+        "metallicRoughness": {
+          "channel_count": 27,
+          "exact_channel_count": 10,
+          "minimum_finite_psnr_db": 50.451385985305,
+          "minimum_finite_psnr_channel": {
+            "image": 14,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+          "maximum_absolute_error_0_255": 20
+        },
+        "normal": {
+          "channel_count": 9,
+          "exact_channel_count": 1,
+          "minimum_finite_psnr_db": 59.234638788470136,
+          "minimum_finite_psnr_channel": {
+            "image": 0,
+            "channel": "R"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.0549774169921875,
+          "maximum_absolute_error_0_255": 40
+        }
+      }
+    },
+    {
+      "id": "dao_grip",
+      "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/stage2/dao_grip_refined.glb",
+      "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+      "candidate": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/review/locomotion-v3-ktx-candidate/dao_grip.glb",
+      "candidate_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "encoding_manifest": "dao_grip_texture_encoding.json",
+      "encoding_manifest_sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab",
+      "quality_report": "dao_grip.quality.json",
+      "quality_report_sha256": "32bc19e2455f9ef296686da218454c0dea8b1b0251e6583611e8f30e5fdcd772",
+      "image_count": 18,
+      "sampler_wrap_pairs": [
+        {
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "image_count": 18
+        }
+      ],
+      "channel_count": 54,
+      "exact_channel_count": 11,
+      "minimum_finite_psnr_db": 50.451385985305,
+      "minimum_finite_psnr_channel": {
+        "image": 11,
+        "channel": "B"
+      },
+      "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+      "maximum_absolute_error_0_255": 4,
+      "roles": {
+        "baseColor": {
+          "channel_count": 24,
+          "exact_channel_count": 0,
+          "minimum_finite_psnr_db": 57.00020035739457,
+          "minimum_finite_psnr_channel": {
+            "image": 10,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.12973403930664062,
+          "maximum_absolute_error_0_255": 3
+        },
+        "metallicRoughness": {
+          "channel_count": 24,
+          "exact_channel_count": 10,
+          "minimum_finite_psnr_db": 50.451385985305,
+          "minimum_finite_psnr_channel": {
+            "image": 11,
+            "channel": "B"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.5860595703125,
+          "maximum_absolute_error_0_255": 4
+        },
+        "normal": {
+          "channel_count": 6,
+          "exact_channel_count": 1,
+          "minimum_finite_psnr_db": 60.0147803050093,
+          "minimum_finite_psnr_channel": {
+            "image": 12,
+            "channel": "R"
+          },
+          "maximum_channel_mean_absolute_error_0_255": 0.0549774169921875,
+          "maximum_absolute_error_0_255": 3
+        }
+      }
+    }
+  ]
+}

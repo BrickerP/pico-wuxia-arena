@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182
 
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.mutableStateOf
@@ -21,8 +22,6 @@ import com.example.wuxiaarena.p0d2f0182.runtime.InputControlResult
 import com.example.wuxiaarena.p0d2f0182.runtime.TrackingControls
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatAudio
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
-import com.example.wuxiaarena.p0d2f0182.input.DesktopCombatInput
-import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.Hand
 import com.pico.spatial.ui.platform.LocalHandControllerHaptic
 import com.pico.spatial.ui.platform.HandController
@@ -94,7 +93,6 @@ fun mainApp(scope: SpatialAppScope) =
 
                 ObserveTracking(
                     onEvent = arena::onTrackingEvent,
-                    emulatorPreview = true,
                     onControlsChanged = { controls ->
                         trackingControls.value = controls
                         if (controls == null) pendingControl.value = null
@@ -112,14 +110,22 @@ fun mainApp(scope: SpatialAppScope) =
                     },
                     controlsHeightDp = arenaControlPanelHeightDp(
                         viewState.value.result, viewState.value.pauseReason,
-                        DesktopCombatInput.enabled || viewState.value.inputOrigin == InputOrigin.DESKTOP,
                     ),
                     controlsPanel = {
                         ArenaControlPanel(
                             state = viewState.value,
                             controlsAvailable = trackingControls.value != null,
                             controlPending = pendingControl.value != null,
-                            onStart = { arena.startTrial() },
+                            isRanchuHost = Build.HARDWARE == "ranchu",
+                            onStart = {
+                                val before = arena.viewState
+                                val accepted = arena.startTrial()
+                                Log.i("ArenaControls", "Start receipt atNanos=${System.nanoTime()} " +
+                                    "generation=${before.roundGeneration} result=${before.result} " +
+                                    "sceneReady=${before.sceneReady} inputReady=${before.inputReady} " +
+                                    "actionReady=${before.actionReady} pause=${before.pauseReason} " +
+                                    "accepted=$accepted nextResult=${arena.viewState.result}")
+                            },
                             onPause = {
                                 val round = viewState.value.roundGeneration
                                 val result = trackingControls.value?.pause()
@@ -141,7 +147,6 @@ fun mainApp(scope: SpatialAppScope) =
                                     null
                                 }
                             },
-                            onDesktopAction = DesktopCombatInput::trigger,
                         )
                     },
                     statusPanel = { ArenaStatusPanel(viewState.value) },

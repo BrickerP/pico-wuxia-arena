@@ -1,0 +1,54 @@
+{
+  "status": "ready_for_root_review",
+  "candidate_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "source_sha256": "56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8",
+  "source_root_stable_commit": "6b407acc4507812b99d1315e58c8a2c588719fd0",
+  "source_code_observed_commit": "193d0f6dcc859168b8f7c00669c185a3863e1a8d",
+  "visible_changes": [
+    "23 separate paper sheets with original fibre/stains/patches and restrained interior warm spots",
+    "directional wood grain, 18 corbel endgrain caps, 12 locking keys and 3 inner door trim parts",
+    "lantern paper belly brightness gradient, darker mouths and retained geometric ribs"
+  ],
+  "correctness": [
+    "10 actual GLB checks passed",
+    "paper and lantern tangents orthonormal",
+    "keys embedded in posts",
+    "old original binary prefix/geometry/transforms/ground/anchors unchanged"
+  ],
+  "maintainability": [
+    "one private GLB patch path, no stage1 producer execution",
+    "no new dependency or SDK/runtime edit"
+  ],
+  "ux_i18n": [
+    "same formal opponent pose and camera in every before/after pair",
+    "face and hand remain focal in night review",
+    "normal .8/1.5/3m and main/exploration views included"
+  ],
+  "drift": [
+    "only stage2 private directory and own06handoff changed",
+    "no new lattice, scene, renderer or physical transmission"
+  ],
+  "independent_review": "paper tangent max orthogonality error 1.49e-7; lantern 1.19e-7; 12 keys embedded 4mm; final night images accepted for Root native comparison",
+  "materials": 29,
+  "meshes": 31,
+  "triangles": 153838,
+  "added_triangles": 2244,
+  "candidate_bytes": 31733408,
+  "native_runtime_unverified": [
+    "PICO emissive/normal response",
+    "real light pool relation",
+    "native face/background hierarchy",
+    "memory/performance"
+  ],
+  "files": {
+    "asset": "courtyard_materials_stage2.glb",
+    "identity": "candidate_manifest.json",
+    "native_lights": "light_contract.json",
+    "normal_distance": "review/distance_review.png",
+    "main": "review/comparison_player.png",
+    "paper3m": "review/comparison_paper_3m.png",
+    "lantern_joinery": "review/comparison_lantern_joinery.png",
+    "checks": "review/validation.json",
+    "image_receipt": "review/board_receipt.json"
+  }
+}

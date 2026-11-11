@@ -2,8 +2,17 @@ package com.example.wuxiaarena.p0d2f0182.ui
 
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.PauseReason
+import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+
+/** Host context selects setup help only; it never supplies tracking observations or readiness. */
+internal fun arenaShowsEmulatorGuide(inputOrigin: InputOrigin?, isRanchuHost: Boolean): Boolean =
+    inputOrigin == InputOrigin.DESKTOP || (inputOrigin == null && isRanchuHost)
+
+/** Keep combo history for scoring; terminal panels no longer present it as active combat. */
+internal fun arenaShowsCombo(result: TrialResult, combo: Int): Boolean =
+    combo >= 2 && result != TrialResult.VICTORY && result != TrialResult.DEFEAT
 
 /** A retained attack direction during recovery is history, not a new incoming strike. */
 internal fun arenaShowsIncomingStrike(result: TrialResult, pauseReason: PauseReason?, inputReady: Boolean, phase: EnemyPhase): Boolean =

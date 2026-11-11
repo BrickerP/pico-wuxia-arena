@@ -1,0 +1,416 @@
+{
+  "scope": "single formal locked canonical locomotion source family",
+  "source_assets_frozen": true,
+  "supersedes_stage9_runtime_constant_recommendation": true,
+  "source_rig": {
+    "path": "ArtSource/tripo-warrior/refined-base60k/rig.glb",
+    "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+    "skin_joint_count": 78
+  },
+  "coordinate_frame": "prepared actor glTF metres; +X actor left, +Y up, +Z forward; outer entity motion belongs to Root",
+  "canonical_ref": {
+    "clip": "overhead",
+    "source_seconds": 0,
+    "raw_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb",
+    "raw_sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
+    "preview_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_preview.glb",
+    "preview_sha256": "4bf8057da353c4f1ee5037de7c5fe87910887910a9589b44d39105a5a55c7bd9"
+  },
+  "profiles": [
+    {
+      "profile": "locked_guard_idle",
+      "clip_alias": "idle",
+      "raw": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_raw.glb",
+        "sha256": "f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1",
+        "bytes": 18816928,
+        "right_finger_calibration_baked": false
+      },
+      "preview": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_preview.glb",
+        "sha256": "79a93fc6bf2185e1367ceac1e1dc3374f129971cf07267d5d33879f00ddb8c4b",
+        "bytes": 19703968,
+        "right_finger_calibration_applications": 1
+      },
+      "source_range_seconds": [
+        0,
+        1.5
+      ],
+      "prefix_guard_seconds": [
+        0,
+        0.3333333333333333
+      ],
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667,
+      "sample_count": 91,
+      "base_sample_rate_hz": 60,
+      "extra_exact_phase_keys": true,
+      "constant_track_interpolation": "STEP",
+      "moving_leg_rotation_interpolation": null,
+      "moving_bone_rotations": [],
+      "locked_head_ancestor_chain": [
+        "Armature",
+        "BoneRoot",
+        "Hip",
+        "Waist",
+        "Spine01",
+        "Spine02",
+        "NeckTwist01",
+        "NeckTwist02",
+        "Head"
+      ],
+      "canonical_234_marker_source_seconds": [
+        0,
+        0.3333333432674408,
+        1.5
+      ],
+      "canonical_234_raw_preview_markers_exact": true,
+      "locked_ancestor_every_key_and_midpoint_exact": true,
+      "strict_sample_count_including_midpoints": 181,
+      "maximum_world_proxy_relative_canonical_difference_metres": 0.0,
+      "steps_per_loop": 0,
+      "step_pairs_per_loop": 0,
+      "whole_loop_carrier_distance_metres": 0,
+      "distance_per_pair_metres": 0,
+      "carrier_distance_per_half_step_metres": 0,
+      "game_carrier_speed_metres_per_second": 0,
+      "source_carrier_speed_metres_per_second": 0,
+      "source_speed_at_nominal_game_speed": null,
+      "game_loop_seconds": null,
+      "stance_intervals_seconds": {
+        "L_": [
+          [
+            0,
+            1.5
+          ]
+        ],
+        "R_": [
+          [
+            0,
+            1.5
+          ]
+        ]
+      },
+      "swing_intervals_seconds": {},
+      "pair_guard_source_seconds": [
+        0.3333333333333333,
+        0.7222222222222222,
+        1.1111111111111112,
+        1.5
+      ],
+      "carrier_curve": "0",
+      "source_root_forward_accumulation_metres": 0,
+      "swing_sole_clearance_metres": 0,
+      "contact_source_sampling_residual_metres": 1.7975109901230413e-07,
+      "contact_residual_scope": "finite source sampling measurement, not a Runtime collision rule",
+      "carrier_corrected_stance_low_band_horizontal_shift_metres": {
+        "L_": 0.0,
+        "R_": 0.0
+      },
+      "metadata_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_metadata.json",
+      "metadata_sha256": "9125df5548c79114ebbbfd054c895b5e1b2192597fc49de7fb2df9f39f7f111c",
+      "alignment_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_alignment.json",
+      "alignment_sha256": "4251021581af657149659cdf53554da1a3201c3c2c98b6c5e9b180e814c25990",
+      "verification_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_verification.json",
+      "verification_sha256": "b0c32a467ffed752a0c9ce57d556f5eb8dc7be829e8f82899e03f38863f80fa5",
+      "bone_anchors_audit_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/audit/locked_guard_idle_joint_anchors.json",
+      "bone_anchors_audit_state": "available",
+      "bone_anchors_audit_sha256": "186b4e2c4f8dccfb41fbcb39a6f516372a2a2b2aa371997247fce4279bd1d1e7",
+      "shoe_sample_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_metadata.json#measurements",
+      "right_finger_calibration": {
+        "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+        "offsets": {
+          "R_Thumb1": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Index2": {
+            "x_degrees": 3.0,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Thumb3": {
+            "x_degrees": -3.0,
+            "z_degrees": -3.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        },
+        "clips": [
+          {
+            "clip": "idle",
+            "modified_rotation_tracks": 8
+          }
+        ],
+        "modified_rotation_tracks": 8
+      },
+      "independent_surface_and_shoe_audit_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/audit/locked_guard_idle_surface_review.json",
+      "independent_surface_and_shoe_audit_sha256": "437bf4a0f3a97856df8c9cdbdd437518b5bf6194b6a6aca35448ac958700ce1b",
+      "independent_audit_status": "complete; final source identity and exact core lock checked"
+    },
+    {
+      "profile": "locked_guard_walk",
+      "clip_alias": "walk",
+      "raw": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
+        "sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
+        "bytes": 19110828,
+        "right_finger_calibration_baked": false
+      },
+      "preview": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_preview.glb",
+        "sha256": "f9bebc74195b577e1e875edc80be4602bb08f96f6332f085c13b84fcf6ad7b82",
+        "bytes": 20009912,
+        "right_finger_calibration_applications": 1
+      },
+      "source_range_seconds": [
+        0,
+        1.5
+      ],
+      "prefix_guard_seconds": [
+        0,
+        0.3333333333333333
+      ],
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667,
+      "sample_count": 185,
+      "base_sample_rate_hz": 120,
+      "extra_exact_phase_keys": true,
+      "constant_track_interpolation": "STEP",
+      "moving_leg_rotation_interpolation": "LINEAR",
+      "moving_bone_rotations": [
+        "L_Calf",
+        "L_Foot",
+        "L_Thigh",
+        "R_Calf",
+        "R_Foot",
+        "R_Thigh"
+      ],
+      "locked_head_ancestor_chain": [
+        "Armature",
+        "BoneRoot",
+        "Hip",
+        "Waist",
+        "Spine01",
+        "Spine02",
+        "NeckTwist01",
+        "NeckTwist02",
+        "Head"
+      ],
+      "canonical_234_marker_source_seconds": [
+        0,
+        0.3333333432674408,
+        1.5
+      ],
+      "canonical_234_raw_preview_markers_exact": true,
+      "locked_ancestor_every_key_and_midpoint_exact": true,
+      "strict_sample_count_including_midpoints": 369,
+      "maximum_world_proxy_relative_canonical_difference_metres": 0.0,
+      "steps_per_loop": 6,
+      "step_pairs_per_loop": 3,
+      "whole_loop_carrier_distance_metres": 1.45,
+      "distance_per_pair_metres": 0.48333333333333334,
+      "carrier_distance_per_half_step_metres": 0.24166666666666667,
+      "game_carrier_speed_metres_per_second": 0.65,
+      "source_carrier_speed_metres_per_second": 1.2428571428571427,
+      "source_speed_at_nominal_game_speed": 0.5229885057471265,
+      "game_loop_seconds": 2.230769230769231,
+      "stance_intervals_seconds": {
+        "L_": [
+          [
+            0.3333333333333333,
+            0.5277777777777778
+          ],
+          [
+            0.7222222222222222,
+            0.9166666666666666
+          ],
+          [
+            1.1111111111111112,
+            1.3055555555555556
+          ]
+        ],
+        "R_": [
+          [
+            0.5277777777777778,
+            0.7222222222222222
+          ],
+          [
+            0.9166666666666666,
+            1.1111111111111112
+          ],
+          [
+            1.3055555555555556,
+            1.5
+          ]
+        ]
+      },
+      "swing_intervals_seconds": {
+        "L_": [
+          [
+            0.5277777777777778,
+            0.7222222222222222
+          ],
+          [
+            0.9166666666666666,
+            1.1111111111111112
+          ],
+          [
+            1.3055555555555556,
+            1.5
+          ]
+        ],
+        "R_": [
+          [
+            0.3333333333333333,
+            0.5277777777777778
+          ],
+          [
+            0.7222222222222222,
+            0.9166666666666666
+          ],
+          [
+            1.1111111111111112,
+            1.3055555555555556
+          ]
+        ]
+      },
+      "pair_guard_source_seconds": [
+        0.3333333333333333,
+        0.7222222222222222,
+        1.1111111111111112,
+        1.5
+      ],
+      "carrier_curve": "1.45 * clamp((source_seconds - 1/3) / (7/6), 0, 1)",
+      "source_root_forward_accumulation_metres": 0,
+      "swing_sole_clearance_metres": 0.05,
+      "contact_source_sampling_residual_metres": 0.00014565882365990233,
+      "contact_residual_scope": "finite source sampling measurement, not a Runtime collision rule",
+      "carrier_corrected_stance_low_band_horizontal_shift_metres": {
+        "L_": 0.00016344813916489238,
+        "R_": 6.484432437858238e-05
+      },
+      "metadata_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_metadata.json",
+      "metadata_sha256": "55b2796fd0fd3880f075012a0eb844989a7981d330ff03b53731de5881f0a28d",
+      "alignment_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_alignment.json",
+      "alignment_sha256": "4308350652f9ebaf8d6e9215f705e59277bc61faf7647a3074d3621d8e576e31",
+      "verification_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_verification.json",
+      "verification_sha256": "c4d8f0859edf4edeeefd6ceaa737a06ae8b1d953cbbedc3be738d877e0725c89",
+      "bone_anchors_audit_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/audit/locked_guard_walk_joint_anchors.json",
+      "bone_anchors_audit_state": "available",
+      "bone_anchors_audit_sha256": "37cd7cb5daa134006976b8522139aa8180d556e31d4f9709c75ceacbd513595c",
+      "shoe_sample_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_metadata.json#measurements",
+      "right_finger_calibration": {
+        "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+        "offsets": {
+          "R_Thumb1": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Index2": {
+            "x_degrees": 3.0,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Thumb3": {
+            "x_degrees": -3.0,
+            "z_degrees": -3.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        },
+        "clips": [
+          {
+            "clip": "walk",
+            "modified_rotation_tracks": 8
+          }
+        ],
+        "modified_rotation_tracks": 8
+      },
+      "independent_surface_and_shoe_audit_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/audit/locked_guard_walk_surface_review.json",
+      "independent_surface_and_shoe_audit_sha256": "abd15b3c3d5a08bdaa66dec5d41d8aa325e0bee5dcab23057635026e9eb28688",
+      "independent_audit_status": "complete; final source identity and exact core lock checked"
+    }
+  ],
+  "runtime_contract": {
+    "WALK_STRIDE_METERS": 1.45,
+    "WALK_LOOP_START": 0.3333333333333333,
+    "WALK_LOOP_DURATION": 1.1666666666666667,
+    "constants_change_required": false,
+    "source_time_formula": "1/3 + ((enemyGaitMeters / 1.45) mod 1) * (7/6)",
+    "nominal_source_speed": 0.5229885057471265,
+    "physical_steps_per_loop": 6,
+    "physical_steps_per_minute": 161.3793103448276
+  },
+  "reachability_evidence": {
+    "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/stride_reachability.json",
+    "sha256": "c1b6d546a79ea9740b9e49b852cef099dccd9efac333353f03d1cd299f8b019a",
+    "legacy_two_steps_rejected": true,
+    "formal_six_steps_actual_leg_ik_passed": 211,
+    "hip_or_bone_length_adjustment": false
+  },
+  "producer_grouping_required": {
+    "runtime_clips": [
+      "idle",
+      "walk",
+      "attack_overhead",
+      "attack_left",
+      "attack_right"
+    ],
+    "same_canonical_target_grounding_group": true,
+    "entity_vertical_lift_metres": 0.028,
+    "entity_lift_application_count": 1,
+    "owner": "Root/09"
+  },
+  "absolute_proxy_high": {
+    "status": "OPEN",
+    "old_offset_head_mesh_x_error_metres": 0.243,
+    "required_actions": [
+      "Root/09 rebinds old idle local offsets to the canonical source family",
+      "Root/09 updates the moving-IDLE standing-constant branch to the selected calibrated policy"
+    ],
+    "source_exact_lock_is_absolute_alignment_fix": false
+  },
+  "validation_scope": "offline RAW/glTF source evaluation; SDK/PICO playback and final game contact behaviour await Root integration",
+  "independent_audit_status": "complete; final idle181/walk369 times checked"
+}
