@@ -27,7 +27,7 @@
 
 三角色正式app资源已换成十段动作，含 `attack_overhead`、`attack_left`、`attack_right`；对应profile和Kotlin数据成组发布。`courtyard_hero.glb` 替换旧三块场景运行资源。原生光影／天气、da33雨夜IBL、五份独立粒子资源、纸墨UI、伤害跳字和13份WAV已经组合。
 
-Root最新本地 `wuxia-arena-integrated-debug.apk` SHA-256为 `8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede`，99,113,182字节，261项测试通过。已在emulator-5554实际加载新场景、玩家新刀与首轮10clip敌人，并交付[本轮实图](../../ArtSource/refinement/presentation/integrated-2026-11-11.png)。源码工作节点维护于main，公开的2026-11-10预发行仍是旧安装包。
+Root最新本地 `wuxia-arena-integrated-debug.apk` SHA-256为 `8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede`，99,113,182字节，261项测试通过。已在emulator-5554实际加载新场景、玩家新刀与首轮10clip敌人，并交付[本轮实图](../../ArtSource/refinement/presentation/integrated-2026-11-11.png)。源码工作节点已同步main，已发布[本轮开发包与实图](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11)；源码6b407ac、视觉复审193d0f6。
 
 新头脸与新刀仍是候选，不属于该APK。relight版的实际画面由Root回收后交07／10／12审核，不能提前称视觉通过。完整身份和未验收项以[验收清单](../acceptance.md)为准。
 

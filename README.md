@@ -12,7 +12,7 @@
 8d1e456e027c9ac14243e65db9171f5998909dd80400189f0451f0e1d99a6ede
 ```
 
-本轮开发节点源码维护于[main](https://github.com/BrickerP/pico-wuxia-arena/tree/main)。GitHub现有的[2026-11-10预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10)保留旧安装包与旧画面，不能用来验收本版。当前事实与待验项目见[验收清单](docs/acceptance.md)。
+[下载本轮开发包、实图与身份清单](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11) · [本轮源码节点](https://github.com/BrickerP/pico-wuxia-arena/commit/6b407acc4507812b99d1315e58c8a2c588719fd0) · [最新源码](https://github.com/BrickerP/pico-wuxia-arena/tree/main)。此前2026-11-10预发行保留为历史节点。当前事实与待验项目见[验收清单](docs/acceptance.md)。
 
 | 范围 | 已接入本地集成版 | 当前缺口 |
 | --- | --- | --- |

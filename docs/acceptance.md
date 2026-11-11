@@ -13,7 +13,7 @@
 | 安装与启动 | 已安装至 `emulator-5554`，启动 `com.example.wuxiaarena.p0d2f0182/.platform.LaunchActivity` |
 | 有界启动观察 | 35秒＋15秒两段采集，PID20745；`reviewed-startup.log`／`foreground-startup.log`，场景、玩家刀、首敌及10clip完成，未见本版`NO_MEMORY` |
 | 最新画面 | [实际2160×2158 Full Stage准备态](../ArtSource/refinement/presentation/integrated-2026-11-11.png)：脸、手和服装可读性较v3明显提升，教学完整；刀刃高光、完整战斗效果仍待验收 |
-| GitHub交付 | 本轮源码维护于main；[2026-11-10预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/refinement-2026-11-10)仍为旧安装包 |
+| GitHub交付 | [2026-11-11开发预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11)已上传APK、实际画面和release-manifest；源码6b407ac，视觉复审193d0f6 |
 
 以下勾选只表示该栏声明的代码／资源或检查已完成。真实输入、完整交战画面和真机体验均单列，不能互相替代。整局自玩按当前安排后置，构建与定向制作检查继续执行。
 
