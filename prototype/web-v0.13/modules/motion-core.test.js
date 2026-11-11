@@ -1,0 +1,12 @@
+'use strict';
+const assert=require('node:assert/strict'),core=require('./motion-core.js'),d=core.createComboDriver();
+const nodes=[0,1,2,0].map((_,i)=>d.tryInput('single',i*.6,{type:'thrust',sign:1}));
+assert.deepEqual(nodes.map(n=>n.comboIndex),[0,1,2,0]);assert.deepEqual(nodes.map(n=>n.variant),[0,1,2,0]);assert(nodes.every(n=>n.accepted));
+assert.equal(d.tryInput('single',2.1,{type:'slash',sign:-1}).accepted,true);assert.equal(d.tryInput('single',2.2,{type:'bad'}).accepted,false);
+const before=d.peek('single',2.3).index;assert.equal(d.tryInput('single',2.3,{type:'down'},false).reason,'resource');assert.equal(d.peek('single',2.3).index,before);
+assert.equal(d.peek('supported',2.4).index,0);d.tryInput('supported',2.4,{type:'down'});assert.equal(d.peek('supported',5).index,0);d.reset();
+const i=core.createDirectionInput();assert.equal(i.sample(0,0,0),null);assert.equal(i.sample(0,.11,.05).type,'thrust');assert.equal(i.sample(0,.3,.09),null);i.reset();i.sample(0,0,0);assert.equal(i.sample(0,-.11,.05).type,'down');
+assert.equal(core.defenseCue('overhead','prepare',.2,.88).kind,'white');assert.equal(core.defenseCue('overhead','prepare',.75,.88).kind,'blue');assert.equal(core.defenseCue('thrust','prepare',0,.82).direction,'down');assert.equal(core.defenseCue('grab','prepare',0,1.1).blockable,false);
+assert(core.grabHits([0,0,0],[0,0,1.34],[0,0,1.34]));assert(!core.grabHits([0,0,0],[0,0,1.34],[.5,0,1.34]));assert(!core.grabHits([0,0,0],[0,0,1.34],[0,0,2]));
+let count=0;const c=core.createEventChannel(),stop=c.subscribe(e=>{assert(Object.isFrozen(e));count++;});c.publish({kind:'hit'});stop();c.publish({kind:'hit'});assert.equal(count,1);
+console.log('PASS: repeated thrust variants, mixed direction, resources/reset, small directional input, cue semantics, committed grab geometry, immutable events');
