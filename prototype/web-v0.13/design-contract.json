@@ -1,0 +1,1123 @@
+{
+  "schema_version": "6.0",
+  "task": {
+    "title": "酒馆试炼v0.13 UI、兵器架、丝滑链接与VR跑跳代理",
+    "source_text": "把真个界面，动作模组，进一步优化，对齐影之刃零的连招丝滑，以及骑马与砍杀和天国拯救的移动和交互。包括精度条的展示应该学习影之刃零和只狼。整个界面的UI设计的要学习影之刃零+只狼。地上的武器应该放在一个旁边的架子上面可以选，分开一点，还有人物移动还是太慢了，要快一点，要支持跑/跳。补充：你考虑一下PICO VR设备怎么识别跑步，跳跃等加速姿势。保留第一人称VR优先、WASD仅移动、左右鼠标键抓握而非攻击键、本地先体验不提交；不要求真人离地。",
+    "readiness_target": "review",
+    "flags": {
+      "capacity": false,
+      "handoff": true,
+      "html": true,
+      "lifecycle": true,
+      "numbers": true,
+      "persistence": false,
+      "probability": false,
+      "production": false,
+      "resources": false,
+      "scope_constraints": false
+    }
+  },
+  "authority": {
+    "allowed_changes": [],
+    "forbidden_changes": [],
+    "proposed_changes": []
+  },
+  "assumptions": [
+    {
+      "id": "ASM-INPUT",
+      "statement": "左右键仅代理抓握拾取，攻击仍短方向意图；单把主武器，未真实双持/真机接线。",
+      "impact": "high",
+      "status": "confirmed",
+      "validation": "index.html监听mousedown/up和pointermove，无键盘攻击。"
+    },
+    {
+      "id": "ASM-ART",
+      "statement": "三Boss复用旧GLB缩放、原刀；剑枪棍程序占位，动画三槽资源为空。",
+      "impact": "high",
+      "status": "confirmed",
+      "validation": "battle-core.js及index.html createWeaponVisual、enemyPose、animation slots。"
+    },
+    {
+      "id": "ASM-QUALITY",
+      "statement": "局部玩法通过，未完整三轮/小径/护手/另一模型及各武器全姿态验收，非3A或VR物理。",
+      "impact": "high",
+      "status": "confirmed",
+      "validation": "final4综合/防守/反投处决/失败重开四份真实日志；完整路径及真机未验收。"
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE-GESTURE",
+      "title": "方向与握持",
+      "definition": "新手势一招，释放65%后单缓存550ms，收势90ms后链接，链接起手120ms直连当前姿态，释放速度不变；起手收势匹配来刀可转守，实体受阻仍消费招。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-MOVE"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.gesture"
+      ]
+    },
+    {
+      "id": "RULE-PRECISION",
+      "title": "敌我精度与霸体",
+      "definition": "玩家100精度，格挡18/化劲5/受击22/抓中30，静止停止攻防.6s后恢复16/s；空条1.1s不能攻防可步行；敌空条2.2s处决机会，恢复55%。霸体不免伤，轻击不中断但累积压力，空条覆盖霸体。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-PRECISION"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.precision"
+      ]
+    },
+    {
+      "id": "RULE-WEAPON",
+      "title": "旁侧兵器架",
+      "definition": "刀剑枪棍右侧架上0.95m间隔，横向距离1.6m内指向握点55px选中拾取，单主武器、新拾旧物归架；空手敌人等待至拾武器后开战。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-MOVE"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.weapon"
+      ]
+    },
+    {
+      "id": "RULE-GRAB",
+      "title": "反投及动画槽",
+      "definition": "红投技普通挡无效，离线躲；前摇末380ms或释放前140ms内新的双手前伸合抱可反，范围1.8m/未破防/敌攻击未结算。双鼠标握持短下划代理，动画boss_grab/counter_grab/execute三互斥空槽，暂停重开终局取消。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-SLOT"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.grab"
+      ]
+    },
+    {
+      "id": "RULE-SLOW",
+      "title": "有限敌方反应慢动作",
+      "definition": "白.65倍300ms、蓝.45倍320ms、红.40倍650ms，每敌攻击/色一次；仅敌更新减速，玩家与精度计时实时、真机头追踪不减速，可关。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-SESSION"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.slow"
+      ]
+    },
+    {
+      "id": "RULE-BOSS",
+      "title": "Boss硬度与弱点",
+      "definition": "剑客180/72/.9化劲×1.6；枪卫235/100/1.25收势×1.8；巨擂300/140/1.8棍×2。体型.96/1.10/1.26，同模型占位。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-PRECISION"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.boss"
+      ]
+    },
+    {
+      "id": "RULE-CONTACT",
+      "title": "实体接触",
+      "definition": "继续薄盒旋转扫掠实体接触与受阻、格挡方向匹配；长枪身体伤害只尖端28cm、棍钝击无刃向，未成熟有限力引擎。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-MOVE"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.contact"
+      ]
+    },
+    {
+      "id": "RULE-LOOP",
+      "title": "结算恢复",
+      "definition": "玩法先一次结算，动画不能改血；处决需新攻击/窗口/距离，正常失败或Boss胜利、重开与暂停。完整三轮小径未验收。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-SESSION",
+        "SM-SLOT"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.loop"
+      ]
+    },
+    {
+      "id": "RULE-LOCO",
+      "title": "跑跳姿态代理",
+      "definition": "WASD步行前2.05/后1.35/侧1.65，加速4.8；双击W间隔.30s，持续W跑3.15，耗气14/s，松W结束。虚拟跳2.45m/s重力7.5耗12、CD.85，不给无敌帧不越墙。VR由双手6DoF自定义分类，不是真机SDK已接。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-SESSION"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.locomotion"
+      ]
+    },
+    {
+      "id": "RULE-HUD",
+      "title": "受压精度显示",
+      "definition": "精度数值保持满条健康/空条破防；UI仅用1-剩余/最大显示中央向两侧受压金条，0精度明示破防机会/撤步。生命气力左下，敌上方，方向提示收小。",
+      "priority": "P0",
+      "parameter_ids": [],
+      "state_machine_ids": [
+        "SM-SESSION"
+      ],
+      "authority_ids": [],
+      "fields": [
+        "demo.hud"
+      ]
+    }
+  ],
+  "parameters": [
+    {
+      "id": "P-PREC",
+      "name": "player_precision",
+      "value": 100,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 100,
+      "max": 100
+    },
+    {
+      "id": "P-BLOCK",
+      "name": "block_cost",
+      "value": 18,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 18,
+      "max": 18
+    },
+    {
+      "id": "P-HP",
+      "name": "player_health",
+      "value": 100,
+      "unit": "hp",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 100,
+      "max": 100
+    },
+    {
+      "id": "P-GRAB",
+      "name": "grab_damage",
+      "value": 26,
+      "unit": "hp",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 26,
+      "max": 26
+    },
+    {
+      "id": "P-DUEL",
+      "name": "duelist_precision",
+      "value": 72,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 72,
+      "max": 72
+    },
+    {
+      "id": "P-CP",
+      "name": "counter_pressure",
+      "value": 42,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 42,
+      "max": 42
+    },
+    {
+      "id": "P-HARD",
+      "name": "duelist_hardness",
+      "value": 0.9,
+      "unit": "ratio",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 0.9,
+      "max": 0.9
+    },
+    {
+      "id": "P-STAFF",
+      "name": "staff_pressure",
+      "value": 28,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 28,
+      "max": 28
+    },
+    {
+      "id": "P-DAO",
+      "name": "dao_pressure",
+      "value": 16,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 16,
+      "max": 16
+    },
+    {
+      "id": "P-WEAK",
+      "name": "juggernaut_blunt_multiplier",
+      "value": 2,
+      "unit": "ratio",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 2,
+      "max": 2
+    },
+    {
+      "id": "P-JHARD",
+      "name": "juggernaut_hardness",
+      "value": 1.8,
+      "unit": "ratio",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 1.8,
+      "max": 1.8
+    },
+    {
+      "id": "P-WHITE",
+      "name": "white_pulse",
+      "value": 0.3,
+      "unit": "s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 0.3,
+      "max": 0.3
+    },
+    {
+      "id": "P-BLUE",
+      "name": "blue_pulse",
+      "value": 0.32,
+      "unit": "s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 0.32,
+      "max": 0.32
+    },
+    {
+      "id": "P-RED",
+      "name": "red_pulse",
+      "value": 0.65,
+      "unit": "s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/battle-core.js",
+      "min": 0.65,
+      "max": 0.65
+    },
+    {
+      "id": "P-WALK",
+      "name": "walk",
+      "value": 2.05,
+      "unit": "m/s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/locomotion-core.js",
+      "min": 2.05,
+      "max": 2.05
+    },
+    {
+      "id": "P-RUN",
+      "name": "sprint",
+      "value": 3.15,
+      "unit": "m/s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/locomotion-core.js",
+      "min": 3.15,
+      "max": 3.15
+    },
+    {
+      "id": "P-JUMP",
+      "name": "jump_velocity",
+      "value": 2.45,
+      "unit": "m/s",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/locomotion-core.js",
+      "min": 2.45,
+      "max": 2.45
+    },
+    {
+      "id": "P-G",
+      "name": "gravity",
+      "value": 7.5,
+      "unit": "m/s2",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/locomotion-core.js",
+      "min": 7.5,
+      "max": 7.5
+    },
+    {
+      "id": "P-JC",
+      "name": "jump_cost",
+      "value": 12,
+      "unit": "points",
+      "source": "current_config",
+      "source_ref": "file:/Users/bytedance/.doubao/lark-chats/2026-11-10/new-chat/酒馆试炼网页原型/模组源码/locomotion-core.js",
+      "min": 12,
+      "max": 12
+    }
+  ],
+  "numeric_requirements": [
+    {
+      "id": "NUM-BLOCK",
+      "statement": "100精度不能永远格挡，第六次18消耗空条",
+      "source": "design_goal",
+      "assertion_ids": [
+        "A-BLOCK"
+      ]
+    },
+    {
+      "id": "NUM-GRAB",
+      "statement": "100生命四次26伤投技到0",
+      "source": "design_goal",
+      "assertion_ids": [
+        "A-GRAB"
+      ]
+    },
+    {
+      "id": "NUM-PRESSURE",
+      "statement": "硬度/弱点改变精度打击，剑客两反投空条",
+      "source": "design_goal",
+      "assertion_ids": [
+        "A-COUNTERS",
+        "A-STAFF",
+        "A-DAO"
+      ]
+    },
+    {
+      "id": "NUM-LOCO",
+      "statement": "跑速显著高于步行，虚拟跳低于.45m不强迫真人离地",
+      "source": "design_goal",
+      "assertion_ids": [
+        "A-SPEED",
+        "A-HEIGHT"
+      ]
+    }
+  ],
+  "numerical_assertions": [
+    {
+      "id": "A-BLOCK",
+      "scenario": "boundary",
+      "expression": "ceil(m / cost)",
+      "inputs": {
+        "m": "P-PREC",
+        "cost": "P-BLOCK"
+      },
+      "declared_value": 6,
+      "unit": "blocks",
+      "tolerance": 0,
+      "acceptance": {
+        "operator": "==",
+        "value": 6
+      }
+    },
+    {
+      "id": "A-GRAB",
+      "scenario": "boundary",
+      "expression": "ceil(h / d)",
+      "inputs": {
+        "h": "P-HP",
+        "d": "P-GRAB"
+      },
+      "declared_value": 4,
+      "unit": "hits",
+      "tolerance": 0,
+      "acceptance": {
+        "operator": "==",
+        "value": 4
+      }
+    },
+    {
+      "id": "A-COUNTERS",
+      "scenario": "normal",
+      "expression": "ceil(m / floor(p / hard + 0.5))",
+      "inputs": {
+        "m": "P-DUEL",
+        "p": "P-CP",
+        "hard": "P-HARD"
+      },
+      "declared_value": 2,
+      "unit": "counters",
+      "tolerance": 0,
+      "acceptance": {
+        "operator": "==",
+        "value": 2
+      }
+    },
+    {
+      "id": "A-STAFF",
+      "scenario": "normal",
+      "expression": "floor(p * weak / hard + 0.5)",
+      "inputs": {
+        "p": "P-STAFF",
+        "weak": "P-WEAK",
+        "hard": "P-JHARD"
+      },
+      "declared_value": 31,
+      "unit": "points",
+      "tolerance": 0,
+      "acceptance": {
+        "operator": "==",
+        "value": 31
+      }
+    },
+    {
+      "id": "A-DAO",
+      "scenario": "normal",
+      "expression": "floor(p / hard + 0.5)",
+      "inputs": {
+        "p": "P-DAO",
+        "hard": "P-JHARD"
+      },
+      "declared_value": 9,
+      "unit": "points",
+      "tolerance": 0,
+      "acceptance": {
+        "operator": "==",
+        "value": 9
+      }
+    },
+    {
+      "id": "A-SPEED",
+      "scenario": "normal",
+      "expression": "r / w",
+      "inputs": {
+        "r": "P-RUN",
+        "w": "P-WALK"
+      },
+      "declared_value": 1.5365853658536586,
+      "unit": "ratio",
+      "tolerance": 1e-06,
+      "acceptance": {
+        "operator": ">",
+        "value": 1.4
+      }
+    },
+    {
+      "id": "A-HEIGHT",
+      "scenario": "boundary",
+      "expression": "v*v/(2*g)",
+      "inputs": {
+        "v": "P-JUMP",
+        "g": "P-G"
+      },
+      "declared_value": 0.4001666666666667,
+      "unit": "m",
+      "tolerance": 1e-06,
+      "acceptance": {
+        "operator": "between",
+        "min": 0.3,
+        "max": 0.45
+      }
+    }
+  ],
+  "state_machines": [
+    {
+      "id": "SM-MOVE",
+      "initial_state": "READY",
+      "states": [
+        {
+          "id": "READY",
+          "entry": "稳定守势",
+          "exit": "新快划"
+        },
+        {
+          "id": "WIND",
+          "entry": "创建动作ID",
+          "exit": "起手到时/受阻"
+        },
+        {
+          "id": "RELEASE",
+          "entry": "有效斩击窗口",
+          "exit": "到时/命中/受阻"
+        },
+        {
+          "id": "RECOVER",
+          "entry": "命中停顿或空招收势",
+          "exit": "恢复/新缓冲"
+        },
+        {
+          "id": "RECOIL",
+          "entry": "起手或释放碰钢消费",
+          "exit": "300ms回撤完"
+        }
+      ],
+      "event_order": [
+        "gesture_intent",
+        "action_step",
+        "enemy_step",
+        "authored_sweep",
+        "contact_impulse",
+        "contact_dedup",
+        "damage",
+        "feedback",
+        "outcome"
+      ],
+      "transitions": [
+        {
+          "id": "TR-MOVE",
+          "from": "READY",
+          "event": "合法新手势",
+          "to": "WIND",
+          "effect": "创建唯一招式与代价",
+          "repeat_policy": "每手势只一次",
+          "cleanup": "消费反斩窗口"
+        },
+        {
+          "id": "TR-RELEASE",
+          "from": "WIND",
+          "event": "起手到时",
+          "to": "RELEASE",
+          "effect": "开放有效身体接触伤害",
+          "repeat_policy": "dealt一次",
+          "cleanup": "不清事件身份"
+        },
+        {
+          "id": "TR-HIT",
+          "from": "RELEASE",
+          "event": "命中或释放到时",
+          "to": "RECOVER",
+          "effect": "命中停顿、禁止重复伤害",
+          "repeat_policy": "单招单结算",
+          "cleanup": "消费本招"
+        },
+        {
+          "id": "TR-WIND-BLOCK",
+          "from": "WIND",
+          "event": "实体碰钢",
+          "to": "RECOIL",
+          "effect": "受阻回撤",
+          "repeat_policy": "同招一次",
+          "cleanup": "清队列"
+        },
+        {
+          "id": "TR-RELEASE-BLOCK",
+          "from": "RELEASE",
+          "event": "碰钢/硬面",
+          "to": "RECOIL",
+          "effect": "从真实接触处回撤",
+          "repeat_policy": "同招一次",
+          "cleanup": "dealt=true清队列"
+        },
+        {
+          "id": "TR-RECOIL-END",
+          "from": "RECOIL",
+          "event": "300ms到时",
+          "to": "READY",
+          "effect": "回到稳定守势或消费新缓冲",
+          "repeat_policy": "一次",
+          "cleanup": "旧动作清除"
+        },
+        {
+          "id": "TR-RECOVER-END",
+          "from": "RECOVER",
+          "event": "收势到时",
+          "to": "READY",
+          "effect": "稳定守势",
+          "repeat_policy": "一次",
+          "cleanup": "清动作"
+        },
+        {
+          "id": "TR-CHAIN",
+          "from": "RECOVER",
+          "event": "收势段任意合法新方向或重复同类型输入",
+          "to": "WIND",
+          "effect": "消费单个缓冲再发下一变式",
+          "repeat_policy": "先消费缓冲",
+          "cleanup": "旧动作清除"
+        }
+      ]
+    },
+    {
+      "id": "SM-SESSION",
+      "initial_state": "MENU",
+      "states": [
+        {
+          "id": "MENU",
+          "entry": "加载",
+          "exit": "开始"
+        },
+        {
+          "id": "PLAY",
+          "entry": "新局/恢复",
+          "exit": "暂停/终局"
+        },
+        {
+          "id": "PAUSE",
+          "entry": "停循环",
+          "exit": "继续"
+        },
+        {
+          "id": "RESULT",
+          "entry": "一次胜负",
+          "exit": "重开"
+        }
+      ],
+      "event_order": [
+        "input",
+        "action_step",
+        "enemy_step",
+        "sweep_contact",
+        "damage",
+        "feedback",
+        "outcome"
+      ],
+      "transitions": [
+        {
+          "id": "TR-START",
+          "from": "MENU",
+          "event": "开始模式按钮",
+          "to": "PLAY",
+          "effect": "新局初始化",
+          "repeat_policy": "单rAF",
+          "cleanup": "前局状态全清"
+        },
+        {
+          "id": "TR-PAUSE",
+          "from": "PLAY",
+          "event": "暂停/失焦",
+          "to": "PAUSE",
+          "effect": "停时",
+          "repeat_policy": "幂等",
+          "cleanup": "清抓握/队列/当前动画/合抱/化劲资格；重开重置精度和地面武器，暂停保留血与精度"
+        },
+        {
+          "id": "TR-RESUME",
+          "from": "PAUSE",
+          "event": "继续",
+          "to": "PLAY",
+          "effect": "重建指针基线",
+          "repeat_policy": "一次",
+          "cleanup": "首指针不发招"
+        },
+        {
+          "id": "TR-END",
+          "from": "PLAY",
+          "event": "胜负",
+          "to": "RESULT",
+          "effect": "一次结果",
+          "repeat_policy": "terminal保护",
+          "cleanup": "清抓握/队列/当前动画/合抱/化劲资格；重开重置精度和地面武器，暂停保留血与精度"
+        },
+        {
+          "id": "TR-RESTART",
+          "from": "RESULT",
+          "event": "模式重开",
+          "to": "PLAY",
+          "effect": "新局100生命",
+          "repeat_policy": "单rAF",
+          "cleanup": "清抓握/队列/当前动画/合抱/化劲资格；重开重置精度和地面武器，暂停保留血与精度"
+        }
+      ]
+    },
+    {
+      "id": "SM-PRECISION",
+      "initial_state": "NORMAL",
+      "states": [
+        {
+          "id": "NORMAL",
+          "entry": "NORMAL",
+          "exit": "事件"
+        },
+        {
+          "id": "BROKEN",
+          "entry": "BROKEN",
+          "exit": "事件"
+        }
+      ],
+      "event_order": [
+        "contact",
+        "dedup",
+        "precision",
+        "break",
+        "animation",
+        "outcome"
+      ],
+      "transitions": [
+        {
+          "id": "SM-PRECISION-0",
+          "from": "NORMAL",
+          "event": "消耗至0",
+          "to": "BROKEN",
+          "effect": "禁攻防或给敌处决窗口",
+          "repeat_policy": "同次身份只一次",
+          "cleanup": "清当前攻势"
+        },
+        {
+          "id": "SM-PRECISION-1",
+          "from": "BROKEN",
+          "event": "控制到时",
+          "to": "NORMAL",
+          "effect": "补55%精度",
+          "repeat_policy": "同次身份只一次",
+          "cleanup": "不延长旧控制"
+        }
+      ]
+    },
+    {
+      "id": "SM-SLOT",
+      "initial_state": "FREE",
+      "states": [
+        {
+          "id": "FREE",
+          "entry": "FREE",
+          "exit": "事件"
+        },
+        {
+          "id": "ACTIVE",
+          "entry": "ACTIVE",
+          "exit": "事件"
+        }
+      ],
+      "event_order": [
+        "contact",
+        "dedup",
+        "precision",
+        "break",
+        "animation",
+        "outcome"
+      ],
+      "transitions": [
+        {
+          "id": "SM-SLOT-0",
+          "from": "FREE",
+          "event": "合法抓/反抓/处决",
+          "to": "ACTIVE",
+          "effect": "玩法先提交一次结果，再占位",
+          "repeat_policy": "同次身份只一次",
+          "cleanup": "清新动作"
+        },
+        {
+          "id": "SM-SLOT-1",
+          "from": "ACTIVE",
+          "event": "时长到/暂停/终局/重开",
+          "to": "FREE",
+          "effect": "end或cancel",
+          "repeat_policy": "同次身份只一次",
+          "cleanup": "清槽占用"
+        }
+      ]
+    }
+  ],
+  "ledgers": {
+    "probability_pools": [],
+    "resources": [],
+    "capacity": []
+  },
+  "tests": [
+    {
+      "id": "TEST-WEAPON",
+      "type": "normal",
+      "rule_ids": [
+        "RULE-WEAPON",
+        "RULE-GESTURE"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "架上抓取刀/剑/枪/棍",
+      "expected": "四类真实换拾，刀连刺命中",
+      "status": "passed",
+      "evidence": "final4综合.json同局架拾刀R/剑L/枪R/棍L，各旧武器归架，刀3刺3击。"
+    },
+    {
+      "id": "TEST-GRAB",
+      "type": "boundary",
+      "rule_ids": [
+        "RULE-GRAB"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "末段主动双握前送",
+      "expected": "一次反投、不误出刀、槽独占",
+      "status": "passed",
+      "evidence": "final4反投处决.json，两次反投0伤0出刀进入counter_grab。"
+    },
+    {
+      "id": "TEST-EXECUTE",
+      "type": "normal",
+      "rule_ids": [
+        "RULE-PRECISION",
+        "RULE-GRAB"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "剑客两反投、新攻击处决",
+      "expected": "精度72到0，1处决及胜利",
+      "status": "passed",
+      "evidence": "final4反投处决.json 两反投72→25→0，一次break一次execute正常专项胜利。"
+    },
+    {
+      "id": "TEST-SLOW",
+      "type": "normal",
+      "rule_ids": [
+        "RULE-SLOW",
+        "RULE-CONTACT"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "白蓝方向实挡",
+      "expected": "有限反应脉冲、实体格挡耗精度",
+      "status": "passed",
+      "evidence": "final4防守.json 3block0hurt，玩家精度最低47.3333，白蓝scale .45/.65/1；final4反投红.4。化劲新版本轮未通过，候选3parry不可当final4。"
+    },
+    {
+      "id": "TEST-RECOVER",
+      "type": "recovery",
+      "rule_ids": [
+        "RULE-LOOP",
+        "RULE-GRAB"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "暂停反投动画，恢复/重开",
+      "expected": "槽与握持清空不重复结果",
+      "status": "passed",
+      "evidence": "final4综合.json暂停前后13.45不变，连招抓握清空；新版重开与Boss终局可达。"
+    },
+    {
+      "id": "TEST-ARMOR",
+      "type": "boundary",
+      "rule_ids": [
+        "RULE-PRECISION",
+        "RULE-BOSS"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "巨擂轻刺与玩家空条",
+      "expected": "承伤不取消，空条破防",
+      "status": "planned",
+      "evidence": "新版本不继承旧passed，仅保留规则。"
+    },
+    {
+      "id": "TEST-MODULE",
+      "type": "abuse",
+      "rule_ids": [
+        "RULE-PRECISION",
+        "RULE-BOSS",
+        "RULE-GRAB",
+        "RULE-SLOW"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "Node核心",
+      "expected": "静态抱姿拒绝/重复消费/恢复/取消",
+      "status": "passed",
+      "evidence": "三个独立Node模块测试退出0；HTML syntax0。"
+    },
+    {
+      "id": "TEST-ALL",
+      "type": "boundary",
+      "rule_ids": [
+        "RULE-CONTACT",
+        "RULE-LOOP"
+      ],
+      "precondition": "silk-rack-4",
+      "action": "四武器全方向/全三轮/小径/新模型",
+      "expected": "全程正常",
+      "status": "planned",
+      "evidence": "新版本不继承旧passed，仅保留规则。"
+    },
+    {
+      "id": "TEST-LOCO",
+      "type": "boundary",
+      "rule_ids": [
+        "RULE-LOCO"
+      ],
+      "precondition": "final4",
+      "action": "双握上提、双击W",
+      "expected": "虚拟跳与跑、无攻击键",
+      "status": "passed",
+      "evidence": "final4综合.json"
+    },
+    {
+      "id": "TEST-HUD",
+      "type": "normal",
+      "rule_ids": ["RULE-HUD"],
+      "precondition": "silk-rack-4",
+      "action": "观察实体挡刀与破防处决HUD",
+      "expected": "精度数值下降中央压力上升，区分敌处决与我撤步",
+      "status": "passed",
+      "evidence": "final4防守与反投处决.json实体精度，HTML视觉截图1280x960；非VR UI验收"
+    },
+    {
+      "id": "TEST-VR",
+      "type": "abuse",
+      "rule_ids": [
+        "RULE-LOCO"
+      ],
+      "precondition": "6DoF样本",
+      "action": "正常摆臂/战斗挥臂/追踪间断",
+      "expected": "自定义识别无战斗误跑，需真机校准",
+      "status": "planned",
+      "evidence": "Node纯识别过，但PICO SDK6.1.9未构建，真机未验收"
+    }
+  ],
+  "production_risks": [],
+  "prototype": {
+    "required": true,
+    "path": "index.html",
+    "ruleset_id": "wuxia-contact-v0.13",
+    "revision": "silk-rack-4",
+    "config_source": "index.html + motion-core.js + battle-core.js + locomotion-core.js",
+    "checks": {
+      "load": "passed",
+      "input": "passed",
+      "main_loop": "passed",
+      "outcome": "passed",
+      "restart": "passed"
+    },
+    "journeys": [
+      {
+        "id": "J-PRACTICE",
+        "name": "兵器架与连刺",
+        "type": "standard",
+        "steps": [
+          "走近四架拾取",
+          "旧物归架",
+          "回木桩连续三刺"
+        ],
+        "expected": "四武器真实架拾、3刺3击，链接起手.12s",
+        "status": "passed",
+        "evidence": "v0.13-final4综合.json"
+      },
+      {
+        "id": "J-TRIAL",
+        "name": "混合三轮",
+        "type": "standard",
+        "steps": [
+          "防守",
+          "反攻",
+          "三轮结果"
+        ],
+        "expected": "胜利",
+        "status": "not_run",
+        "evidence": "新版本未全程复测，不沿用历史结果。"
+      },
+      {
+        "id": "J-TRIP",
+        "name": "小径往返",
+        "type": "boundary",
+        "steps": [
+          "出院",
+          "巡路",
+          "取物",
+          "返回"
+        ],
+        "expected": "tripStage4",
+        "status": "not_run",
+        "evidence": "新版本未全程复测，不沿用历史结果。"
+      },
+      {
+        "id": "J-FAIL",
+        "name": "失败重开",
+        "type": "failure",
+        "steps": [
+          "四次投技26伤",
+          "重开"
+        ],
+        "expected": "100生命统计清零",
+        "status": "passed",
+        "evidence": "v0.13-final4失败重开.json，四抓health0正常终局，再开木桩100/统计0/槽空"
+      },
+      {
+        "id": "J-RECOVERY",
+        "name": "暂停恢复",
+        "type": "recovery",
+        "steps": [
+          "实跳实跑",
+          "暂停",
+          "等待",
+          "新局恢复"
+        ],
+        "expected": "暂停13.45s不变、状态清理",
+        "status": "passed",
+        "evidence": "v0.13-final4综合.json"
+      },
+      {
+        "id": "J-GRIP",
+        "name": "完整护手及新模型",
+        "type": "abuse",
+        "steps": [
+          "护手碰撞",
+          "受阻恢复",
+          "新模型"
+        ],
+        "expected": "一致碰撞和握持",
+        "status": "not_run",
+        "evidence": "新版本未全程复测，不沿用历史结果。"
+      },
+      {
+        "id": "J-SLOT",
+        "name": "反投破防处决",
+        "type": "standard",
+        "steps": [
+          "拾刀",
+          "剑客反投两次",
+          "新攻击",
+          "结果"
+        ],
+        "expected": "1处决及正常Boss胜利",
+        "status": "passed",
+        "evidence": "v0.13-final4反投处决.json，两反投break1execute1正常Boss终局，不是三轮"
+      },
+      {
+        "id": "J-LOCO",
+        "name": "实跑虚拟跳",
+        "type": "boundary",
+        "steps": [
+          "主动双握上提",
+          "落地",
+          "双击W跑",
+          "松W停"
+        ],
+        "expected": "1jump约.385m，峰3.15m/s，正常耗气无自动攻击",
+        "status": "passed",
+        "evidence": "v0.13-final4综合.json"
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "CLAIM-LOCAL",
+      "text": "最新局部UI兵器架三刺跑跳与反投处决可体验；完整三轮小径新模型和PICO未验收。",
+      "strength": "fact",
+      "evidence_ids": [
+        "TEST-WEAPON",
+        "TEST-GRAB",
+        "TEST-EXECUTE",
+        "TEST-LOCO"
+      ]
+    }
+  ],
+  "build_evidence": {
+    "revision": "silk-rack-4",
+    "html_sha256": "0f00601dcb6f8161479acc4f5936ef0ba9e00e6b3bdd06c315578cc073f2606d",
+    "syntax_exit_code": 0,
+    "evidence_dir": "视频参考",
+    "limits": [
+      "四武器所有方向和受阻护手",
+      "三轮小径",
+      "不同Boss全弱点平衡",
+      "新模型",
+      "真机双手姿态和握持",
+      "VR舒适度性能",
+      "专业动画资产"
+    ]
+  }
+}

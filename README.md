@@ -62,6 +62,8 @@
 
 真实主机 Shift+E → SDK原生右手pose → 共享 `PlayerCombatResolver.observe` 已在旧 `233584…` 原生输入包取证，返回了真实motion frame与刀段。该证据没有造成敌人扣血。新 `7e1368fe…` 包沿用这条输入实现，仍需实际攻防、暂停与重开的组合证明。应用不再保留按键动作宏、右A脚本斩击或HMD派生假手路径。
 
+浏览器代理原型的桌面试玩入口见[`prototype/web-v0.13/index.html`](prototype/web-v0.13/index.html)。它是单文件Three.js页面，用鼠标左右键代理双手持握，用来提前验证兵器架、连招衔接与跑跳语义；不是PICO安装包，也不消费上面的模拟器键位。该目录的实测结论只适用于自身，回真机必须重新接线。
+
 ## 人物、动作与场景
 
 正式角色为 `app/src/main/assets/models/opponents/` 下的 `base.glb`、`indigo.glb`、`veteran.glb`，对应试刀客、青衫护院和玄甲守擂。角色由ov区域Tripo CLI生成，约1.78m、78骨，与R_Hand绑定的dao共用骨架。当前正式组binding为 `b03f55e6…`，运行角色与玩家刀均为必需KTX2／BasisU材质；源贴图分辨率保留。
