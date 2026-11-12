@@ -322,11 +322,9 @@ function kbdSwing(heavy){
 function kbdDodge(){
  if(!isCombat()||terminal||waitInput||realTime<KBD.dodgeAt+ .55)return;
  const ax=(keys.has('KeyA')?-1:0)+(keys.has('KeyD')?1:0),az=(keys.has('KeyW')?-1:0)+(keys.has('KeyS')?1:0);
- const dz=az!==0?az:1,dir=V(ax,0,dz);if(dir.lengthSq()<.01)dir.set(0,0,1);
- dir.normalize();
- playerPos.addScaledVector(dir,1.05);
  KBD.dodgeAt=realTime;KBD.invulnUntil=realTime+.30;
- emit('闪身 · 避影','dodge',null);
+ if(ax!==0||az!==0){const dir=V(ax,0,az);dir.normalize();playerPos.addScaledVector(dir,.66);emit('闪身 · 避影','dodge',null);}
+ else emit('闪身 · 定影','dodge',null);
 }
 function uiTick(){
  const ld=document.getElementById('lockDot');
