@@ -9,10 +9,10 @@
 | 原生可运行包 | `artifacts/clean-coat-native/clean-coat-one-window-debug.apk`，SHA `1b905852d2c6286eaab23f6cc172fa02fcc0c4483cd3861641c88154cb6ec6a1`；共享构建及311项单元测试0失败，已安装并显示Full Stage | 完整攻防、三轮与Space Pro硬件验收 |
 | 原生人物/场景 | [实际准备态](../../ArtSource/refinement/presentation/clean-coat-one-window-2026-11-12.png)及[包与画面身份](../../ArtSource/refinement/presentation/clean-coat-one-window-2026-11-12.json)；base albedo/tangent组1b3e、单窗整景9b已接入；首敌附着阶段无NO_MEMORY和已知零切线警告 | 服装轮廓、发型、动态穿插与全部切轮仍未验收；材质清理不代表新造型完成 |
 | 真实原生开局 | 新包18:59:24.908 Start receipt为accepted=true、nextResult=COUNTDOWN | 此后4次真实拖动未得到玩家有效strike/敌人扣血；这是当前P0，不能宣称战斗闭环 |
-| 浏览器消费者 | 09已修旧967资产锁定、KTX2/UASTC解码、正式角色/单庭院/dao、启动失败显式显示与新墙体坐标；02真实手臂和dao已有实际截图 | 当前仍锁ce90旧albedo/旧窗；02左手物理轨迹、运行失败停机、旧占位分配三项MEDIUM在修；浏览器不代替PICO |
-| 公开仓库 | [唯一仓库](https://github.com/BrickerP/pico-wuxia-arena)，公开main69f3866已含原生ce90源码与既有浏览器玩法 | 最新1b3e/9b和手刀工作尚在本地待合入；[旧预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11)不是最新包；新预发行仍为草稿 |
+| 浏览器消费者 | 09已修旧967资产锁定、KTX2/UASTC解码、正式角色/单庭院/dao、启动失败显式显示与新墙体坐标；02真实手臂和dao已有实际截图 | 当前仍锁ce90旧albedo/旧窗；02三项MEDIUM修正已交冻结，限定复审中；另有新远端六敌人/替身旧加载路径需一并整合；浏览器不代替PICO |
+| 公开仓库 | [唯一仓库](https://github.com/BrickerP/pico-wuxia-arena)，公开main已到ec59b78（城堡/谈判/镜头等既有浏览器玩法），仍含原生ce90；本地已生成native f4540f0及合并节点f5d164b | 最新1b3e/9b源码推送尚未成功；APK已上传草稿但未发布；手刀正在三方合入ec59，原完整修改已安全封存于单文件stash和build/web-main-merge；[旧预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11)不是最新包；新预发行仍为草稿 |
 
-主机里名为swing-reason-probe的旧副本SHA仍为1b905；临时probe编译失败后复制到了旧APK，且reason日志为0，不能当诊断包成功或有效reason证据。临时Core源码已撤回。后续严格以构建成功、实际APK身份和reason标记三项共同确认，不重复安装旧包。
+旧swing-reason-probe副本是1b905，reason日志为0，无诊断效力。修正import后的b46d7664 probe已成功构建、核DEX标记并安装，临时Core源码已撤回；当前视窗已恢复并已取得一次真实drag的TIP_SPEED reason，详见当前收件补充；P0修复中。已停止重复轮询/重装。普通斩/弹反事件的原生画面门仍开放。
 
 ## 上轮Root审核结论
 
@@ -26,7 +26,7 @@
 
 ## 下一轮三条交付线
 
-1. **真实战斗闭环，Root负责。** 先取得一次可信的reset reason，修实际采样/时序根因，保留35m/s等安全门；随后用真实操作证明挥刀→同一判定→敌人扣血→受击反应/特效/声音。再验格挡/弹反和现有三轮，不用注入命中交卷。
+1. **真实战斗闭环，Root负责。** 快速护刀后静止导致弹反缺火花方向的窄修复已接入源码，5项新例及相关28项定向测试通过；未进入已上传1b905包、未做原生像素验收。 先取得一次可信的reset reason，修实际采样/时序根因，保留35m/s等安全门；随后用真实操作证明挥刀→同一判定→敌人扣血→受击反应/特效/声音。再验格挡/弹反和现有三轮，不用注入命中交卷。
 2. **完整刀客造型，03/05制作，12参考，Root生成与合成。** 停止继续拼参数衣筒/曲线髻。对[单人条件输入](../../ArtSource/bench/tripo-image-input-2026-11-12/front-tpose-v1.png)做一次图像条件Tripo源实验；先OV余额和dry-run，余额为0停止，未知不收费。当前代理及直连各一次有界余额查询均为NetworkError，余额未知；未提交收费生成。保原脸/眼与既有78骨动作基础；03收衣片结构，05收发根/主束/盘结。先整人1.5m灰模/实际guard，再动态、材质、原生，不凭生成图放行。
 3. **连续呈现，02/07/08负责，Root收件。** 02先闭合左持刀与故障/资源清理；07沿现有HDR做刀面IBL候选，不直接抢改02文件；08先把普通身体斩和弹反做成两个清楚、有限时、可清理的接触时序，不再增加预载未触发资源。所有效果的原生验收依赖第一条真实事件。
 
@@ -38,7 +38,7 @@
 | --- | --- | --- |
 | Root | 原生输入P0、正式整组发布、整合/构建/设备/画面/Git；不无限轮询 | 本文 |
 | 01 | canonical guarded idle/六步walk/三攻击源已收，冻结；新造型后复核动作 | [01](01-combat.md) |
-| 02 | 活跃：真实第一人称手刀三项MEDIUM修正 | [02](02-input.md) |
+| 02 | 三项MEDIUM修正已交，Root复审；独立整合会话合入新远端所有消费者 | [02](02-input.md) |
 | 03 | 已续派：停止R2路线；条件新源衣服结构审核/适配 | [03](03-art.md) |
 | 04 | 已有独立颗粒交08；冻结，不另开资源链 | [04](04-benchmark-qa.md) |
 | 05 | 已续派：直接高模首件冻结；条件新源发型审核/适配，保脸眼 | [05](05-hero-face.md) |
@@ -49,6 +49,17 @@
 | 10 | 四页教学/准备与战斗UI已接入；冻结，不先扩页 | [10](10-ui-art.md) |
 | 11 | 六步同源脚声和必要真实OGG已交；随真实事件做音画验收 | [11](11-audio-haptics.md) |
 | 12 | 条件图已交，冻结；新3D源到达后与Root审整体 | [12](12-visual-bench.md) |
+
+
+## 当前收件补充
+
+真实诊断包b46d7664已成功构建并核DEX标记，20:59:07.770—20:59:08.160的一次实际鼠标拖动留下6条TIP_SPEED：相邻采样仅37.958—151.625微秒，计算77—5793m/s而触发35m/s保护。此前55秒观察/隐藏视窗中的无reason不能替代本次；当前已恢复视窗。根因修复由native_swing_no_intent独占输入采样相关文件与测试，不降低阈值、不注入出招；尚未关闭真实命中门。
+
+02冻结531489第一人称修正已获独立限定APPROVE，旧3项MEDIUM全部关闭。合并worker正在将其与09消费者接入保留ec59城堡/谈判/镜头/性能改动，并修其六敌人/第三人称替身的旧模型加载入口。候选收件前不pop/drop单文件stash，不覆盖新版玩法。
+
+弹反来刀切向修复已实际应用：AttackBankProfiles同源相邻刀段见证点，ArenaSession在ACTIVE resolve前捕获；保法线、伤害、窗口、时钟。新增5项和相关28项定向测试通过（0失败），源码已过四遍review；它不在1b905上传包中，也尚无原生火花像素证据。08交来的0.6秒普通斩/弹反序列仍明确为离线预演。
+
+公开交付当前限制：1b905 APK及匹配新截图/manifest已成功上传GitHub草稿；直连源码push超时已终止自身helper，代理push报SSL_ERROR_SYSCALL，远端main仍ec59。f454 native源码与本地f5d整合节点尚未推送，草稿保持未发布，不能给草稿包当公开下载完成。Tripo ov代理/直连余额查询均NetworkError，余额未知、收费make为0。
 
 ## 制作与合入合同
 
