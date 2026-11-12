@@ -1420,7 +1420,242 @@ addEventListener('keydown',function(e){
 },true);
 addEventListener('pointerdown',function(e){if(TALK.on)return;if(document.pointerLockElement)return;if(!running||mode==='menu')return;try{renderer.domElement.requestPointerLock();}catch(_e){}},false);
 addEventListener('pointerdown',function(e){if(!TALK.on)return;e.preventDefault();e.stopPropagation();const row=e.target&&e.target.closest?e.target.closest('[data-i]'):null;talkStep(row?parseInt(row.getAttribute('data-i'),10)||0:0);},true);
+
+/* ================= v0.37 敌群：弓手 / 术士 / 巨兽 / 天外异物 ================= */
+const BEST={built:false,units:[],shots:[],sky:[],t:0,roarAt:8};
+function bGlow(c,i,r){return new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:i,roughness:r===undefined?.45:r,metalness:0,fog:true});}
+function bDark(c,r){return new THREE.MeshStandardMaterial({color:c,roughness:r===undefined?.96:r,metalness:.02});}
+function bAdd(m,x,y,z,g){m.position.set(x,y,z);m.castShadow=false;m.receiveShadow=false;(g||scene).add(m);return m;}
+
+function mkArcher(){
+ const g=new THREE.Group();
+ const cloth=bDark(0x2a2b26),skin=bDark(0x7d6a52),wood=bDark(0x3c2f22);
+ const legL=new THREE.Mesh(new THREE.BoxGeometry(.17,.86,.19),cloth);bAdd(legL,-.14,.43,0,g);
+ const legR=new THREE.Mesh(new THREE.BoxGeometry(.17,.86,.19),cloth);bAdd(legR,.14,.43,0,g);
+ bAdd(new THREE.Mesh(new THREE.BoxGeometry(.62,.42,.40),cloth),0,.94,0,g);   // 战裙
+ bAdd(new THREE.Mesh(new THREE.BoxGeometry(.50,.56,.32),bDark(0x35362f)),0,1.45,0,g); // 胸甲
+ bAdd(new THREE.Mesh(new THREE.SphereGeometry(.165,10,8),skin),0,1.86,0,g);
+ const hood=new THREE.Mesh(new THREE.ConeGeometry(.26,.34,8),cloth);bAdd(hood,0,1.98,-.02,g);
+ // 弓：半圆环 + 弦
+ const bow=new THREE.Mesh(new THREE.TorusGeometry(.62,.035,6,18,Math.PI),wood);
+ bow.rotation.z=Math.PI/2;bow.rotation.y=.1;bAdd(bow,.34,1.42,.16,g);
+ const str=new THREE.Mesh(new THREE.BoxGeometry(.012,.012,1.16),bDark(0x8e8a76));
+ str.rotation.x=Math.PI/2;bAdd(str,.34,1.42,.16,g);
+ const quiver=new THREE.Mesh(new THREE.CylinderGeometry(.10,.12,.62,8),wood);quiver.rotation.x=.35;bAdd(quiver,-.24,1.46,-.20,g);
+ const handR=new THREE.Object3D();handR.position.set(.34,1.42,.10);g.add(handR);
+ return {g,handR,bow};
+}
+function mkMage(){
+ const g=new THREE.Group();
+ const robe=bDark(0x242a2c);
+ const skirt=new THREE.Mesh(new THREE.ConeGeometry(.52,1.42,12),robe);bAdd(skirt,0,.71,0,g);
+ const torso=new THREE.Mesh(new THREE.CylinderGeometry(.30,.42,.70,10),robe);bAdd(torso,0,1.42,0,g);
+ const hood=new THREE.Mesh(new THREE.ConeGeometry(.30,.52,10),robe);bAdd(hood,0,1.92,0,g);
+ const face=bGlow(0x2f6f74,.35);
+ const f=new THREE.Mesh(new THREE.SphereGeometry(.13,10,8),face);bAdd(f,0,1.80,.14,g);
+ const eyeL=new THREE.Mesh(new THREE.SphereGeometry(.035,6,5),bGlow(0xbdf6ff,2.6));bAdd(eyeL,-.055,1.82,.24,g);
+ const eyeR=new THREE.Mesh(new THREE.SphereGeometry(.035,6,5),bGlow(0xbdf6ff,2.6));bAdd(eyeR,.055,1.82,.24,g);
+ const staff=new THREE.Mesh(new THREE.CylinderGeometry(.045,.055,2.2,8),bDark(0x2f2a22));bAdd(staff,.42,.95,.06,g);
+ const orb=new THREE.Mesh(new THREE.SphereGeometry(.16,10,8),bGlow(0x7fe6d8,2.2));bAdd(orb,.42,2.12,.06,g);
+ const hand=new THREE.Object3D();hand.position.set(.42,2.12,.06);g.add(hand);
+ return {g,hand,orb};
+}
+function mkBeast(){
+ const g=new THREE.Group();
+ const hide=bDark(0x1e2320),hide2=bDark(0x171b19);
+ bAdd(new THREE.Mesh(new THREE.IcosahedronGeometry(.95,1),hide),0,1.62,-1.05,g).scale.set(1.05,.86,1.15);
+ bAdd(new THREE.Mesh(new THREE.IcosahedronGeometry(.92,1),hide),0,1.55,.25,g).scale.set(.92,.80,1.25);
+ bAdd(new THREE.Mesh(new THREE.IcosahedronGeometry(.78,1),hide2),0,1.42,1.35,g).scale.set(.86,.76,1.0);
+ for(const s of [-1,1]){
+  bAdd(new THREE.Mesh(new THREE.IcosahedronGeometry(.42,1),hide),s*.78,1.95,-.90,g).scale.set(1,.9,1.1);
+ }
+ const neck=new THREE.Mesh(new THREE.BoxGeometry(.9,.95,1.1),hide2);neck.rotation.x=-.28;bAdd(neck,0,1.95,-1.75,g);
+ const head=new THREE.Mesh(new THREE.BoxGeometry(.95,.85,1.25),hide2);bAdd(head,0,1.75,-2.45,g);
+ const jaw=new THREE.Mesh(new THREE.BoxGeometry(.75,.32,.95),hide);bAdd(jaw,0,1.36,-2.60,g);
+ for(const s of [-1,1]){
+  const horn=new THREE.Mesh(new THREE.ConeGeometry(.17,.85,7),bDark(0x4a4238));
+  horn.rotation.x=-.55;horn.rotation.z=s*.34;bAdd(horn,s*.40,2.20,-2.10,g);
+  const eye=new THREE.Mesh(new THREE.SphereGeometry(.10,8,6),bGlow(0xff5a30,2.4));bAdd(eye,s*.30,1.92,-2.98,g);
+  for(let i=0;i<4;i++){
+   const leg=new THREE.Mesh(new THREE.BoxGeometry(.34,1.25,.36),hide2);
+   bAdd(leg,s*.62,.62,-1.15+i*.82,g);
+  }
+ }
+ const tail=new THREE.Mesh(new THREE.CylinderGeometry(.16,.06,2.2,6),hide2);tail.rotation.x=-1.1;bAdd(tail,0,1.75,1.95,g);
+ for(let i=0;i<5;i++){const sp=new THREE.Mesh(new THREE.ConeGeometry(.14,.52,6),bDark(0x3a342c));bAdd(sp,0,2.70+i*.02,-1.0+i*.5,g);}
+ return {g};
+}
+const SKY_ST=[[-16,40,-46],[14,46,-58],[40,34,-22],[-44,38,-16],[2,54,-84]];
+function mkSky(id){
+ const g=new THREE.Group();
+ const flesh=new THREE.MeshStandardMaterial({color:0x1c2b34,roughness:.85,metalness:.06,flatShading:true,emissive:0x0a222c,emissiveIntensity:.32,fog:true});
+ const core=new THREE.Mesh(new THREE.SphereGeometry(1.55,14,11),flesh);core.scale.set(1.25,.85,1.0);bAdd(core,0,0,0,g);
+ const sack=new THREE.Mesh(new THREE.SphereGeometry(1.15,12,9),flesh);sack.scale.set(1.0,.9,1.5);bAdd(sack,0,-.55,.7,g);
+ for(let i=0;i<7;i++){
+  const a=i/7*Math.PI*2;
+  const ten=new THREE.Mesh(new THREE.CylinderGeometry(.14,.05,3.6,6),flesh);
+  ten.position.set(Math.cos(a)*.85,-1.6,Math.sin(a)*.55);
+  ten.rotation.z=Math.cos(a)*.32;ten.rotation.x=Math.sin(a)*.28;
+  g.add(ten);
+ }
+ const eyeMat=bGlow(0xa9f2ff,2.6,.3);
+ for(const s of [-1,1]){
+  const e=new THREE.Mesh(new THREE.SphereGeometry(.24,10,8),eyeMat);bAdd(e,s*.62,.34,-1.42,g);
+ }
+ const glow=(function(){
+  const cv=document.createElement('canvas');cv.width=cv.height=128;const cx=cv.getContext('2d');
+  const rg=cx.createRadialGradient(64,64,0,64,64,64);
+  rg.addColorStop(0,'rgba(120,214,228,.34)');rg.addColorStop(.45,'rgba(80,160,180,.12)');rg.addColorStop(1,'rgba(0,0,0,0)');
+  cx.fillStyle=rg;cx.fillRect(0,0,128,128);
+  const tx=new THREE.CanvasTexture(cv);if(THREE.sRGBEncoding)tx.encoding=THREE.sRGBEncoding;
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,blending:THREE.AdditiveBlending,transparent:true,depthWrite:false,fog:false,opacity:.55}));
+  sp.scale.set(8,8,1);sp.position.set(0,0,.3);g.add(sp);return sp;
+ })();
+ const wings=[];
+ const wmat=(function(){
+  const cv=document.createElement('canvas');cv.width=128;cv.height=64;const cx=cv.getContext('2d');
+  const rg=cx.createRadialGradient(64,32,4,64,32,64);
+  rg.addColorStop(0,'rgba(255,255,255,.95)');rg.addColorStop(.55,'rgba(255,255,255,.55)');rg.addColorStop(1,'rgba(255,255,255,0)');
+  cx.fillStyle=rg;cx.beginPath();cx.ellipse(64,32,62,30,0,0,Math.PI*2);cx.fill();
+  const tx=new THREE.CanvasTexture(cv);
+  return new THREE.MeshBasicMaterial({color:0x0c1518,map:tx,transparent:true,opacity:.62,side:THREE.DoubleSide,depthWrite:false});
+ })();
+ for(const s of [-1,1]){
+  const w=new THREE.Mesh(new THREE.PlaneGeometry(7.5,2.6,1,1),wmat);
+  w.position.set(s*3.2,.30,.45);w.rotation.y=s*Math.PI/2;w.rotation.x=-.34;w.rotation.z=s*-.18;g.add(w);wings.push(w);
+ }
+ g.scale.set(1.7,1.7,1.7);
+ const shadow=new THREE.Mesh(new THREE.PlaneGeometry(13,9),
+  new THREE.MeshBasicMaterial({color:0x05090a,transparent:true,opacity:.30,depthWrite:false}));
+ shadow.rotation.x=-Math.PI/2;shadow.renderOrder=2;scene.add(shadow);
+ return {g,wings,shadow,st:SKY_ST[id%SKY_ST.length],ph:id*1.7};
+}
+function bestiaryBuild(){
+ if(BEST.built||!scene)return;
+ BEST.built=true;
+ [['archer',-16,18],['archer',17,13],['archer',-27,-6],['mage',11,4],['mage',-11,-2],['beast',3,43],['archer',-31,26],['archer',31,30],['mage',-24,-22],['beast',-18,-30]].forEach(function(d){
+  const kind=d[0];
+  let parts;
+  if(kind==='archer')parts=mkArcher();
+  else if(kind==='mage')parts=mkMage();
+  else parts=mkBeast();
+  const g=parts.g;
+  g.position.set(d[1],groundAt(d[1],d[2]),d[2]);
+  scene.add(g);
+  BEST.units.push({kind,g:g,parts:parts,x:d[1],z:d[2],yaw:Math.PI,hp:kind==='beast'?520:(kind==='mage'?180:150),max:kind==='beast'?520:(kind==='mage'?180:150),
+   cd:1.2+Math.random()*1.2,hitCd:0,charge:0,dead:0,base:groundAt(d[1],d[2]),ph:Math.random()*6});
+ });
+ for(let i=0;i<5;i++){const c=mkSky(i);c.g.position.set(c.st[0],c.st[1],c.st[2]);scene.add(c.g);BEST.sky.push(c);}
+}
+function bSpawnArrow(from,to,speed,dmg,kind){
+ const m=new THREE.Mesh(new THREE.BoxGeometry(.05,.05,1.05),bGlow(kind==='orb'?0x7fe6d8:0xdcd3b6,kind==='orb'?1.6:.35,.5));
+ if(kind==='orb')m.geometry=new THREE.SphereGeometry(.19,10,8);
+ m.position.copy(from);m.lookAt(to);scene.add(m);
+ const v=to.clone().sub(from);v.normalize().multiplyScalar(speed);
+ BEST.shots.push({m:m,v:v,life:3.2,dmg:dmg,kind:kind});
+}
+function bHitPlayer(dmg,label){
+ if(realTime<KBD.invulnUntil)return;
+ health=Math.max(1,health-dmg);stamina=Math.max(0,stamina-5);
+ stats.hurts=(stats.hurts||0)+1;
+ emit(label,'hurt',playerPos.clone());
+}
+function bestiaryTick(dt){
+ if(!BEST.built)bestiaryBuild();
+ if(!BEST.built)return;
+ BEST.t+=dt;
+ const px=playerPos.x,pz=playerPos.z,py=playerPos.y;
+ const fwd=new THREE.Vector3(-Math.sin(yaw),0,-Math.cos(yaw));
+ const bl=new THREE.Vector3(px+fwd.x*1.15,py+1.45,pz+fwd.z*1.15);
+ const swinging=!!(moveAction&&equipped);
+ const heavy=!!(moveAction&&moveAction.type==='heavy');
+ for(const u of BEST.units){
+  if(u.dead>0){u.dead-=dt;if(u.dead<=0){u.g.visible=true;u.hp=u.max;}continue;}
+  const dx=px-u.x,dz=pz-u.z,d=Math.hypot(dx,dz);
+  const toP=Math.atan2(dx,dz);
+  /* --- 弓手：保持 9~17m，拉弓放箭 --- */
+  if(u.kind==='archer'){
+   if(d>17){u.x+=dx/d*dt*1.4;u.z+=dz/d*dt*1.4;}
+   else if(d<9){u.x-=dx/d*dt*1.1;u.z-=dz/d*dt*1.1;}
+   u.cd-=dt;
+   if(d<24&&d>4&&u.cd<=0&&started){
+    u.cd=2.6+Math.random()*.8;
+    const from=new THREE.Vector3(u.x,groundAt(u.x,u.z)+1.5,u.z);
+    const to=new THREE.Vector3(px,py+1.15,pz);
+    bSpawnArrow(from,to,26,9,'arrow');
+    if(u.parts.bow)u.parts.bow.rotation.x=-.5;
+   }
+  }
+  /* --- 术士：原地悬浮，抛出法球 --- */
+  else if(u.kind==='mage'){
+   u.cd-=dt;
+   if(d<26&&u.cd<=0&&started){
+    u.cd=3.4;
+    const from=new THREE.Vector3(u.x,groundAt(u.x,u.z)+2.1,u.z);
+    const to=new THREE.Vector3(px,py+1.1,pz);
+    bSpawnArrow(from,to,13,13,'orb');
+   }
+  }
+  /* --- 巨兽：靠近就冲撞 --- */
+  else if(u.kind==='beast'){
+   if(d<13&&started){
+    u.charge=Math.min(1,u.charge+dt*.9);
+    if(d>3.6){u.x+=dx/d*dt*(2.2+u.charge*4.2);u.z+=dz/d*dt*(2.2+u.charge*4.2);}
+    else if(u.cd<=0){u.cd=2.4;u.charge=0;bHitPlayer(24,'巨兽撞身');}
+   } else u.charge=Math.max(0,u.charge-dt*.6);
+   u.cd-=dt;
+  }
+  /* 朝向 */
+  if(d<30)u.yaw+=(((toP-u.yaw+Math.PI*3)%(Math.PI*2))-Math.PI)*Math.min(1,dt*3);
+  u.hitCd-=dt;
+  /* 玩家刀锋命中 */
+  if(swinging&&u.hitCd<=0){
+   const hx=u.x,hz=u.z,hh=groundAt(u.x,u.z)+(u.kind==='beast'?1.6:1.2);
+   const dHor=Math.hypot(hx-px,hz-pz)||1;
+   const facing=((hx-px)*fwd.x+(hz-pz)*fwd.z)/dHor;
+   const reach=u.kind==='beast'?4.2:2.6;
+   if(dHor<reach&&facing>.35){
+    u.hitCd=.45;
+    const dmg=heavy?140:46;
+    u.hp-=dmg;
+    emit(heavy?'重击命中 · '+(u.kind==='beast'?'巨兽':'敌'):'命中 · 敌','hit',new THREE.Vector3(hx,hh,hz));
+    sound('hit',new THREE.Vector3(hx,hh,hz));
+    if(u.hp<=0){u.hp=0;u.dead=14;u.g.visible=false;score+=60;stats.kills=(stats.kills||0)+1;emit('击倒 · '+(u.kind==='beast'?'巨兽':'敌'),'win',null);}
+   }
+  }
+  /* 姿态更新 */
+  const gy=groundAt(u.x,u.z);
+  u.g.position.set(u.x,gy,u.z);u.g.rotation.y=u.yaw;
+  if(u.kind==='mage'){u.g.position.y=gy+.12+Math.sin(BEST.t*1.6+u.ph)*.10;if(u.parts.orb)u.parts.orb.material.emissiveIntensity=1.6+Math.sin(BEST.t*3+u.ph)*.6;}
+  if(u.kind==='beast'){const s=u.charge>.2?1:0.6;u.g.position.y=gy+Math.abs(Math.sin(BEST.t*(4*s)+u.ph))*.10;}
+  if(u.kind==='archer'&&u.parts.bow)u.parts.bow.rotation.x*=.92;
+ }
+ /* 飞行物 */
+ for(let i=BEST.shots.length-1;i>=0;i--){
+  const s=BEST.shots[i];
+  s.m.position.addScaledVector(s.v,dt);s.life-=dt;
+  const hit=Math.hypot(s.m.position.x-px,s.m.position.y-(py+1.15),s.m.position.z-pz)<.55;
+  if(hit){
+   bHitPlayer(s.dmg,s.kind==='orb'?'法球灼身':'中箭');
+   scene.remove(s.m);BEST.shots.splice(i,1);continue;
+  }
+  if(s.life<=0||s.m.position.y<groundAt(s.m.position.x,s.m.position.z)-.1){scene.remove(s.m);BEST.shots.splice(i,1);}
+ }
+ /* 天外异物 */
+ for(const c of BEST.sky){
+  /* 站位游移，不再绕圈，保证第一眼始终在天际线上 */
+  c.g.position.set(c.st[0]+Math.sin(BEST.t*.16+c.ph)*5.0, c.st[1]+Math.sin(BEST.t*.42+c.ph)*1.8, c.st[2]+Math.cos(BEST.t*.13+c.ph)*4.0);
+  c.g.rotation.y=Math.sin(BEST.t*.12+c.ph)*.5;
+  c.g.rotation.z=Math.sin(BEST.t*.3+c.ph)*.12;
+  c.wings.forEach(function(w,i){w.rotation.z=(i?1:-1)*(.35+Math.sin(BEST.t*1.1+c.ph)*.35);});
+  c.shadow.position.set(c.g.position.x,groundAt(c.g.position.x,c.g.position.z)+.08,c.g.position.z);
+  c.shadow.material.opacity=.26+Math.sin(BEST.t*.7+c.ph)*.05;
+ }
+ if(realTime>BEST.roarAt&&started){BEST.roarAt=realTime+22;emit('天外低鸣 · 有什么在云上翻身','warning',null);}
+}
+
 function update(dt){realTime+=dt;
+ try{bestiaryTick(dt);}catch(e){window.__bestErr=(e&&e.message)||String(e);}
  if(bodyG&&(!camShot||camShot.kind!=='introTP'))bodyG.visible=false;
  if(mode==='boss'&&ST.stage==='gate'&&!ST.gateTalked&&!introOn&&!camShot&&started&&enemy){ST.gateTalked=true;gateTalk();}
  /* 鼠标横向位置能带着镜头转，但键盘触发的虚拟挥砍不算：否则每按一次U，镜头就被拖走五十几度 */
