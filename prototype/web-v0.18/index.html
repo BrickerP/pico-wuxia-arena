@@ -69,7 +69,9 @@
 /* 极简按键 */
 .keyHint{opacity:.92}
 </style>
-<body><div class="lockDot" id="lockDot" style="opacity:0"></div><div class="keyHint" id="keyHint"><div class="row"><i data-k="KeyW">W</i></div><div class="row"><i data-k="KeyA">A</i><i data-k="KeyS">S</i><i data-k="KeyD">D</i></div><div class="row"><i data-k="KeyU">U</i><i data-k="KeyJ">J</i><i data-k="KeyI">I</i><i data-k="KeyK">K</i></div></div>
+<body><style id="hudV3">.dojo{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:40; background:radial-gradient(circle at 50% 45%,rgba(12,14,13,.30),rgba(8,10,9,.68))}.dojo.hidden{display:none}.dojoCard{width:min(560px,88vw);max-height:76vh;overflow:auto;padding:26px 30px 22px; background:#f2ebdc repeating-linear-gradient(0deg,rgba(150,128,92,.055) 0 1px,rgba(0,0,0,0) 1px 3px);color:#2a2723;border:1px solid #b9ab8c; box-shadow:0 0 0 4px #f2ebdc,0 0 0 5px #b9ab8c,0 24px 60px rgba(0,0,0,.45); font-family:"Songti SC","STKaiti","KaiTi",serif}.dojoCard::before{content:"";display:block;height:1px;margin:-26px -30px 20px; background:linear-gradient(90deg,transparent,#b9ab8c 12%,#b9ab8c 88%,transparent)}.dojoHead{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}.dojoHead b{font-size:26px;letter-spacing:.22em}.dojoHead span{font-size:12px;letter-spacing:.16em;color:#8a7a5e}.sk{padding:11px 13px;margin-bottom:8px;border:1px solid #d9cdb4;background:#f7f2e6;cursor:pointer; transition:border-color .16s,transform .16s}.sk:hover{border-color:#8a7a5e}.sk.own{border-color:#a8342a;background:#f6efe0}.sk.own .skTop i{color:#a8342a}.skTop{display:flex;justify-content:space-between;align-items:baseline}.skTop b{font-size:15px;letter-spacing:.10em}.skTop i{font-style:normal;font-size:11px;color:#8a7a5e;letter-spacing:.08em}.sk p{margin:4px 0 0;font-size:12px;line-height:1.5;color:#5c5241}.dojoFoot{display:flex;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid #d9cdb4}.dojoFoot button{flex:1;padding:9px 0;font-size:13px;letter-spacing:.16em;cursor:pointer; background:#f7f2e6;color:#2a2723;border:1px solid #b9ab8c;font-family:inherit}.dojoFoot button:hover{border-color:#a8342a;color:#a8342a}.seal{display:inline-block;width:26px;height:26px;line-height:26px;text-align:center;
+ font-size:15px;color:#f2ebdc;background:#a8342a;font-style:normal;box-shadow:0 0 0 1px #a8342a,0 0 0 3px #f2ebdc,0 0 0 4px #a8342a;opacity:.92}
+#mapBox{position:fixed;right:18px;top:18px;width:132px;height:132px;z-index:6; border:1px solid rgba(233,201,138,.35);background:rgba(16,20,18,.42); box-shadow:0 0 0 1px rgba(0,0,0,.3);transition:opacity .3s}#mapBox canvas{width:100%;height:100%;display:block}#mapBox .mapTag{position:absolute;left:6px;bottom:4px;font:10px/1 "Songti SC",serif; letter-spacing:.2em;color:#cfc2a6aa}@media(max-width:640px){#mapBox{width:96px;height:96px}}</style><div class="lockDot" id="lockDot" style="opacity:0"></div><div id="mapBox"><canvas id="map" width="264" height="264"></canvas><div class="mapTag">刀谱</div></div><div class="dojo hidden" id="dojo"><div class="dojoCard"><div class="dojoHead"><b>刀谱</b><i class="seal">刀</i><span id="dojoRank">点数 3</span></div><div id="dojoList"></div><div class="dojoFoot"><button id="dojoFill">点满</button><button id="dojoClose">收</button></div></div></div><div class="keyHint" id="keyHint"><div class="row"><i data-k="KeyW">W</i></div><div class="row"><i data-k="KeyA">A</i><i data-k="KeyS">S</i><i data-k="KeyD">D</i></div><div class="row"><i data-k="KeyU">U</i><i data-k="KeyJ">J</i><i data-k="KeyI">I</i><i data-k="KeyK">K</i></div></div>
 <div class="hud"><div class="brand">酒馆试炼<span class="edition">V0.13 / VR POSE PROXY</span></div><div class="goal" id="goal"></div><div class="enemyFrame"><div class="bossHeading"><span id="enemyName">刀客</span><small id="roundText">三轮试炼</small></div><div class="track enemyTrack"><div class="damageLag" id="enemyLag"></div><div class="fill" id="enemyFill"></div></div><div class="enemyVitals"><span id="enemyHP">—</span><span id="armorText"></span></div><div class="postureGauge enemyPosture"><span class="gaugeCap">敌势</span><div class="track pressureTrack"><div class="fill" id="enemyPrecisionFill"></div><i></i></div><small id="enemyPrecisionText">精度 72 / 72</small></div></div><div class="playerFrame"><div class="resourceName"><span id="healthText">生命 100</span><span class="weaponGlyph">刃</span></div><div class="track healthTrack"><div class="fill" id="healthFill"></div></div><div class="track staminaTrack"><div class="fill" id="staminaFill"></div></div><small>气力 <span id="staminaText">100</span></small></div><div class="postureGauge playerPosture"><span class="gaugeCap">我势</span><div class="track pressureTrack"><div class="fill" id="playerPrecisionFill"></div><i></i></div><small id="playerPrecisionText">精度 100 / 100</small></div><div class="event" id="event">起势</div><div class="hint" id="hint"></div><div class="stats" id="stats"></div><div class="buttons"><button id="pause">暂停</button><button id="settings">设置 / 练招</button><button id="journey">巡路</button></div></div><div class="equipmentHUD" id="equipmentHUD"></div><div class="slowLabel" id="slowLabel"></div><div class="slotNotice hidden" id="slotNotice"></div><div class="directionPad" id="directionPad" aria-label="四方向来势提示"><span class="mark" data-dir="up">上</span><span class="mark" data-dir="down">下</span><span class="mark" data-dir="left">左</span><span class="mark" data-dir="right">右</span><span class="center" id="directionCenter">刺 / 劈 / 砍</span><div class="grabCue"><svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2L28 7V18L16 30L4 18V7Z M2 2L30 30" stroke="currentColor" stroke-width="3" fill="none"/></svg><span>投技 · 不可挡</span><span>侧移 / 后退 · 双握短前送反投</span></div></div><div id="impactLabel" class="impactLabel" aria-live="polite"></div><div id="hitMarker" class="hitMarker"></div><div class="compass" id="compass">酒馆院落</div><div class="progress" id="progress"></div><div class="tell" id="tell"></div><div class="stageTip" id="stageTip"></div><div class="cursor hidden" id="cursor"></div>
 <div class="veil" id="overlay"><section class="sheet"><div class="kicker" id="kicker">LOCAL PLAYABLE SLICE / 不提交仓库</div><h1 id="title">刀起，人在。</h1><div id="body"><p>右侧兵器架分开陈列刀、剑、枪、棍。走近指向握点，用左右键分别取到左/右手；新取武器，旧武器归架。点击不是攻击。短促向上＝劈砍，向下＝捅刺，左右＝横砍。每次新手势出一招；释放后段可预输入，收势直接接下一招。重复刺也能接三种变式，不用背顺序。</p><div class="guide"><div><b>白光 / 蓝光 · 方向格挡</b>向亮起的方向短移鼠标，刀会架到该方向；白色读来势，蓝色是化劲时机。慢移只摆刀，不攻击。正确方向仍须碰到敌刀。</div><div><b>红光 · 投技不可挡</b>看见红色断盾和双箭头，按A/D侧移或S后退离开抓取线。也可在红光末段双键握持并短下划，代理双手前伸合抱反投。提前一直抱住不会自动成功。投技/反投/处决只接空动画槽。</div><div><b>一招一式 · 不考划线</b>手势只需短距离，不用划满屏、不蓄势。动作期间最多缓存一条新意图，重复刺和混合方向都可衔接，碰钢仍会停下撤刀。</div><div><b>VR优先 · 本地代理</b>跑步以摇杆前推意图为主，低位交替摆臂可选加速；双手从低位主动上提触发虚拟跳，不需要真人离地。网页双击W跑，非红光时双握短上提跳。</div></div><p class="fine">原项目模型联网加载。程序变式不是专业动捕，网页不是VR真机验收。先木桩，再方向防守，最后Boss投技。</p></div><div id="fault" class="fault hidden"></div><div class="actions"><button class="primary" id="start" disabled>进入三轮试炼</button><button id="practice" disabled>先试木桩</button><button id="explore" disabled>小径任务</button><button id="boss" disabled>先练Boss投技</button><select id="bossChoice" aria-label="Boss类型"><option value="duelist">青衣剑客 · 化劲破节奏</option><option value="lancer">赤衣枪卫 · 收势破防</option><option value="juggernaut" selected>玄甲巨擂 · 棍棒破甲</option></select><button id="resume" class="hidden">继续</button></div><div class="load" id="load">准备角色与酒馆资源…</div></section></div>
 <aside id="panel" class="panel hidden"><div class="row"><button class="primary" id="continue">继续体验</button><button id="closePanel">收起</button></div><label>守势范围 <span id="sensitivityValue">1.00</span><input id="sensitivity" type="range" min="0.7" max="1.3" value="1" step="0.05"></label><label>敌招速度 <span id="tempoValue">1.00</span><input id="tempo" type="range" min="0.7" max="1.25" value="1" step="0.05"></label><label>敌刀姿态追随响应 <span id="gripValue">28 ms</span><input id="grip" type="range" min="14" max="65" value="28" step="1"></label><label>观察线 <select id="debug"><option value="off">正常画面</option><option value="on">刀段与身体代理</option></select></label><label><span><input id="slow" type="checkbox" checked> 白蓝红反应慢动作</span></label><label>动作模组 <select id="motionPack"><option value="single">单手刀 · 游龙变式</option><option value="supported">扶柄刀 · 破阵变式</option></select></label><label>练招模式 <select id="drill"><option value="mixed">四向来刀与Boss投技</option><option value="overhead">重复上劈</option><option value="left">重复左来刀</option><option value="right">重复右来刀</option><option value="thrust">重复捅刺</option><option value="grab">重复投技（专项）</option></select></label><label><span><input id="cues" type="checkbox" checked> 显示来势提示</span></label><label><span><input id="sound" type="checkbox" checked> 接触音效</span></label><div class="row"><button id="resetParams">恢复初值</button><button id="export">导出记录</button></div><div class="log" id="log"></div><p class="fine">敌刀滑条调节可达目标的姿态追随响应；本版不是有限力VR刚体握持。玩家由固定招式与扫掠阻挡驱动，身体使用受限骨骼适配，不强拉副手。观察线显示实体刀段。第一人称无自动镜头震动，左右鼠标键代理双手抓握，攻击仍为方向手势，模型联网加载。动作素材可由独立模型适配层替换，当前关键姿态不是商业动捕。</p></aside>
@@ -259,7 +261,49 @@ const MOVESETS = Object.freeze({
    {n:'崩棍',    dmgMul:1.50,prMul:2.20,cine:'break',tag:'smash'},
    {n:'扫堂',    dmgMul:1.60,prMul:1.70,cine:'heavy',tag:'sweep'}]}}
 });
-const PROG={xp:0,rank:0,next:[0,10,26,48],combo:0,comboUntil:-10,heavyHeld:false,lastHit:-10,hudAt:-10};
+const PROG={xp:0,rank:0,next:[0,10,26,48],combo:0,comboUntil:-10,heavyHeld:false,lastHit:-10,hudAt:-10,points:0,skills:{}};
+
+const SKILLS=[
+ {id:'l3',name:'轻\u00b7三连',desc:'轻击三段，第三段收尾重击',cost:1},
+ {id:'h3',name:'重\u00b7三连',desc:'重击三段，第三段收尾重击',cost:1},
+ {id:'link',name:'轻转重',desc:'轻二之后可接重击连段',cost:1},
+ {id:'exec',name:'处决',desc:'破势之后一击贯体',cost:2},
+ {id:'dodge',name:'闪身延展',desc:'闪身无敌延长到 0.42 秒',cost:1},
+ {id:'reach',name:'长兵',desc:'长枪与棍的挥砍距离加长',cost:2}
+];
+PROG.points=3;
+function skillsReset(){PROG.skills={};PROG.points=Math.max(0,3-(PROG.rank||0));renderDojo();}
+function skillOwned(id){return !!PROG.skills[id];}
+function buySkill(id){
+ const s=SKILLS.find(k=>k.id===id);if(!s||PROG.skills[id])return;
+ if(PROG.points<s.cost)return;
+ PROG.points-=s.cost;PROG.skills[id]=true;renderDojo();
+}
+function maxSkills(){
+ for(const s of SKILLS)PROG.skills[s.id]=true;
+ PROG.points=0;PROG.rank=3;PROG.xp=PROG.next[3];
+ renderDojo();
+}
+function renderDojo(){
+ const list=document.getElementById('dojoList');if(!list)return;
+ list.innerHTML=SKILLS.map(s=>{
+  const own=PROG.skills[s.id];
+  return '<div class="sk'+(own?' own':'')+'" data-id="'+s.id+'">'
+   +'<div class="skTop"><b>'+s.name+'</b><i>'+(own?'\u5df2\u5f97':s.cost+' \u70b9')+'</i></div>'
+   +'<p>'+s.desc+'</p></div>';
+ }).join('');
+ list.querySelectorAll('.sk').forEach(el=>el.addEventListener('click',()=>buySkill(el.dataset.id)));
+ const rk=document.getElementById('dojoRank');
+ if(rk)rk.textContent='\u70b9\u6570 '+PROG.points;
+ const bt=document.getElementById('dojoFill');
+ if(bt)bt.textContent=PROG.points>0?'\u70b9\u6ee1 (\u5269 '+PROG.points+')':'\u70b9\u6ee0\u5df2\u5b8c';
+}
+function toggleDojo(force){
+ const d=document.getElementById('dojo');if(!d)return;
+ const on=force===undefined?!d.classList.contains('hidden'):force;
+ d.classList.toggle('hidden',!on);
+ if(on)renderDojo();
+}
 const RANK_CN=['一','二','三','四'];
 function rankOf(xp){let r=0;for(let i=0;i<PROG.next.length;i++)if(xp>=PROG.next[i])r=i;return r;}
 function maxCombo(){return [2,3,4,5][PROG.rank]||2;}
@@ -310,7 +354,7 @@ function bindMovesInput(){
 }
 bindMovesInput();
 /* ===== 键盘路线：WASD 移动 · U 轻击 · J 重击 · I 闪身 · K 架刀 ===== */
-const KBD={swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:'',combo:{kind:'',step:0,at:-99}};
+const KBD={swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:'',combo:{kind:'',step:0,at:-99},stuckT:0};
 function kbdSwing(heavy){
  if(!FREEHAND||!equipped||!canFight()||terminal||waitInput||(isCombat()&&(!enemy||enemy.dead))||realTime<KBD.swingCd)return;
  PROG.heavyHeld=!!heavy;
@@ -319,7 +363,7 @@ function kbdSwing(heavy){
  let step=0,link=false;
  if(KBD.combo.at>0&&now-KBD.combo.at<win){
   if(KBD.combo.kind===kind)step=KBD.combo.step>=2?0:KBD.combo.step+1;
-  else if(PROG.rank>=2&&KBD.combo.step>=1){step=0;link=true;}
+  else if((PROG.rank>=2||skillOwned('link'))&&KBD.combo.step>=1){step=0;link=true;}
  }
  KBD.combo={kind,step,at:now};
  startFreeMove();
@@ -340,10 +384,35 @@ function kbdSwing(heavy){
 function kbdDodge(){
  if(!canFight()||terminal||waitInput||realTime<KBD.dodgeAt+ .55)return;
  const ax=(keys.has('KeyA')?-1:0)+(keys.has('KeyD')?1:0),az=(keys.has('KeyW')?-1:0)+(keys.has('KeyS')?1:0);
- KBD.dodgeAt=realTime;KBD.invulnUntil=realTime+.30;
+ KBD.dodgeAt=realTime;KBD.invulnUntil=realTime+(skillOwned('dodge')?.42:.30);
  if(ax!==0||az!==0){const dir=V(ax,0,az);dir.normalize();playerPos.addScaledVector(dir,.66);emit('闪身 · 避影','dodge',null);}
  else emit('闪身 · 定影','dodge',null);
 }
+
+function drawMap(){
+ const c=document.getElementById('map');if(!c)return;
+ const g=c.getContext('2d'),W=c.width,H=c.height;
+ g.clearRect(0,0,W,H);
+ const sx=v=>((v+5.2)/10.4)*W, sz=v=>((8-v)/37)*H;
+ g.strokeStyle='rgba(207,194,166,.55)';g.lineWidth=1;
+ g.beginPath();
+ for(const [x,z,w,d] of [[-3.05,-3.7,3.7,.2],[3.05,-3.7,3.7,.2]]){
+  g.strokeRect(sx(x-w/2),sz(z+d/2),w/10.4*W,d/37*H);
+ }
+ for(const [x,z,w,d] of [[-6,-.8,2.5,7],[6,-.8,2.5,7]])g.strokeRect(sx(x-w/2),sz(z+d/2),w/10.4*W,d/37*H);
+ g.strokeStyle='rgba(207,194,166,.28)';
+ for(const c2 of colliders){g.strokeRect(sx(c2.x-c2.w/2),sz(c2.z+c2.d/2),c2.w/10.4*W,c2.d/37*H);}
+ g.fillStyle='#efe3c8';
+ for(const w of floorWeapons){if(!w.available)continue;g.beginPath();g.arc(sx(w.pos.x),sz(w.pos.z),1.6,0,7);g.fill();}
+ if(enemy&&!enemy.dead){
+  g.fillStyle='#a8342a';g.beginPath();g.arc(sx(enemy.pos.x),sz(enemy.pos.z),3.2,0,7);g.fill();
+  g.strokeStyle='#a8342a55';g.lineWidth=1;g.beginPath();g.arc(sx(enemy.pos.x),sz(enemy.pos.z),6,0,7);g.stroke();
+ }
+ g.fillStyle='#f7f2e6';g.beginPath();g.arc(sx(playerPos.x),sz(playerPos.z),3.4,0,7);g.fill();
+ g.strokeStyle='#2a2723';g.lineWidth=1.4;g.beginPath();g.arc(sx(playerPos.x),sz(playerPos.z),3.4,0,7);g.stroke();
+}
+function dojoTick(dt){drawMap();}
+var dojoOpenAt=0,dojoMapAt=0;
 function uiTick(){
  const ld=document.getElementById('lockDot');
  if(ld){
@@ -458,7 +527,25 @@ function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
 function triggerJump(source){if(jumpY>0||jumpVelocity>0||moveAction||guarding()||realTime-lastJump<Loco.config.jumpCooldown||stamina<Loco.config.jumpCost||animationSlots.read().active||realTime<playerPrecision.read().brokenUntil)return false;stamina-=Loco.config.jumpCost;jumpVelocity=Loco.config.jumpSpeed;lastJump=realTime;stats.jumps=(stats.jumps||0)+1;emit('腾步 · '+(source==='hands_lift_proxy'?'上提姿态代理':'VR意图'),'locomotion',null);return true;}
 function readVRLocomotion(frame){if(!running||terminal)return false;const move=frame?.move||{x:0,y:0},busy=!!moveAction||guarding()||enemy?.type==='grab'&&['prepare','release'].includes(enemy.phase)||!!animationSlots.read().active,intent=locomotionPose.sample({...frame,move:Math.hypot(move.x,move.y),busy,grounded:jumpY===0});vrMove={x:clamp(move.x||0,-1,1),y:clamp(move.y||0,-1,1)};vrMoveAt=realTime;if(intent.run)sprintUntil=realTime+.25;if(intent.jump)triggerJump('vr_intent');return intent;}
-function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);if(mode==='trial'){next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);}if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}travel+=next.distanceTo(playerPos);next.y=jumpY;playerPos.copy(next);const sign=Math.abs(mouse.x)>.96?Math.sign(mouse.x):0;if(sign&&sign===edgeSign)edgeTime+=dt;else{edgeTime=0;edgeSign=sign;}if(edgeTime>RULES.edgeDwell){yaw-=sign*RULES.turn*dt;}}
+function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);if(mode==='trial'){next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);}if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
+travel+=__moved;next.y=jumpY;playerPos.copy(next);
+if(__moved<1e-4&&(Math.abs(f)>.05||Math.abs(s)>.05)){
+ KBD.stuckT+=dt;
+ if(KBD.stuckT>.32){
+  let best=null,bd=1e9;
+  for(const c of colliders){
+   const ox=Math.abs(playerPos.x-c.x)-c.w/2,oz=Math.abs(playerPos.z-c.z)-c.d/2;
+   const d=Math.max(ox,oz);
+   if(d>0&&d<bd){bd=d;best=c;}
+  }
+  if(best){
+   const dx=playerPos.x-best.x,dz=playerPos.z-best.z;
+   if(Math.abs(dx)>=Math.abs(dz))playerPos.x+=Math.sign(dx||1)*.20;
+   else playerPos.z+=Math.sign(dz||1)*.20;
+  }
+  velocity.set(0,0,0);KBD.stuckT=0;
+ }
+}else KBD.stuckT=0;const sign=Math.abs(mouse.x)>.96?Math.sign(mouse.x):0;if(sign&&sign===edgeSign)edgeTime+=dt;else{edgeTime=0;edgeSign=sign;}if(edgeTime>RULES.edgeDwell){yaw-=sign*RULES.turn*dt;}}
 // ===== Enemy pose: shared rigid blade path + skeletal two-bone arm correction =====
 const animationSamplers=new Map();
 function sampleAnimation(name,t,mask=null){if(!mask)for(const [n,b]of Object.entries(bones)){const bind=boneBaseline[n];if(bind){b.position.copy(bind.p);b.quaternion.copy(bind.q);b.scale.copy(bind.s);}}const clip=actions[name]?.getClip();if(clip){let tracks=animationSamplers.get(name);if(!tracks){tracks=clip.tracks.map(track=>{const binding=THREE.PropertyBinding.create(actor,track.name);binding.bind();return {name:track.name,binding,interpolant:track.createInterpolant()};});animationSamplers.set(name,tracks);}for(const track of tracks)if(!mask||mask.test(track.name))track.binding.setValue(track.interpolant.evaluate(clamp(t,0,clip.duration)),0);}for(const [n,b]of Object.entries(bones))if(fingerGrip[n])b.quaternion.copy(fingerGrip[n]);actor.updateMatrixWorld(true);}
@@ -585,7 +672,7 @@ function updateDirectionCues(){const cue=currentCue(),pad=$('directionPad');pad.
 function guardMatches(){return guardDirection===({overhead:'up',thrust:'down',left:'right',right:'left'})[enemy?.type];}
 function draw(){if(renderer)renderer.render(scene,camera);}
 let currentP=null,currentE=null;
-function update(dt){realTime+=dt;if((!moveAction||moveAction.free)&&!guarding()&&!animationSlots.read().active&&!pointerPending){const wantYaw=Math.abs(mouse.x)>HAND.lookEdge?clamp(mouse.x,-.85,.85)*1.15:yaw,dYaw=angleDiff(wantYaw,yaw);yaw+=clamp(dYaw,-dt*3.4,dt*3.4);}const rawCue=isCombat()&&enemy&&!enemy.dead?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,true):{kind:'none'};timeScale=reactionClock.sample(enemy?.attackId||0,rawCue.kind,realTime,P.slow);timeScale=Math.min(timeScale,cineScale());time+=dt;movePlayer(dt);if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();kbdTick(dt);renderPlayer(currentP);freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:moveAction?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
+function update(dt){realTime+=dt;if((!moveAction||moveAction.free)&&!guarding()&&!animationSlots.read().active&&!pointerPending){const wantYaw=Math.abs(mouse.x)>HAND.lookEdge?clamp(mouse.x,-.85,.85)*1.15:yaw,dYaw=angleDiff(wantYaw,yaw);yaw+=clamp(dYaw,-dt*3.4,dt*3.4);}const rawCue=isCombat()&&enemy&&!enemy.dead?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,true):{kind:'none'};timeScale=reactionClock.sample(enemy?.attackId||0,rawCue.kind,realTime,P.slow);timeScale=Math.min(timeScale,cineScale());time+=dt;movePlayer(dt);if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();dojoTick(dt);kbdTick(dt);renderPlayer(currentP);freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:moveAction?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
 function loop(t){if(!running){if(timerId){clearInterval(timerId);timerId=0;}usingTimer=false;return;}lastLoopAt=performance.now();const dt=last?Math.min((t-last)/1000,.06):0;last=t;frameSamples.push(dt);if(frameSamples.length>120)frameSamples.shift();acc+=dt;let n=0;while(acc>=RULES.step&&n<8&&running){update(RULES.step);acc-=RULES.step;n++;}draw();if(running&&!usingTimer)raf=requestAnimationFrame(loop);}
 function clearParticles(){for(const p of particles){scene.remove(p.o);p.o.geometry.dispose();}for(const m of new Set(particles.map(p=>p.o.material)))m.dispose();particles=[];impactHUD=null;$('impactLabel').style.opacity=$('hitMarker').style.opacity='0';}
 function start(m){if(!loaded)return;running=false;cancelAnimationFrame(raf);started=true;terminal=false;mode=m;time=0;realTime=0;lastCombatActivity=0;lookPitch=0;slotWasActive=false;sprintUntil=-1;lastForwardDown=-10;jumpY=jumpVelocity=0;lastJump=-10;vrMove=null;locomotionPose.reset();playerPrecision.reset(0);reactionClock.reset();animationSlots.reset();resetFloorWeapons();round=m==='boss'?2:0;health=stamina=100;score=0;serial=0;strokeSerial=0;physicsEvent=null;events=[];stats={hits:0,blocks:0,parries:0,hurts:0,misses:0,attacks:0,clashes:0,moves:0,issens:0,counterCuts:0,breaks:0,bindWins:0,bindRepeats:0};moveSerial=0;aiSeed=AI.seed;aiSamples=[];playerBrokenUntil=-1;lastLightType=null;lastLightTime=-10;chainCount=0;playerPos.set(0,0,5.45);velocity.set(0,0,0);yaw=0;mouse={x:0,y:.25};hand={x:0,y:.25};travel=0;tripStage=0;tripEncounter=false;countdown=isCombat()?1.5:0;resetCine();waitInput=true;intermission=0;feedbackPriority=0;feedbackLock=-1;footClock=0;enemyVisualMaterials.forEach(m=>m.emissive?.setHex(0));clearParticles();resetInput();nextEnemy(V(0,0,4.11),m==='boss'?2:round);if(FREEHAND&&!equipped){const dw0=floorWeapons.find(x=>x.id==='dao');if(dw0)pickWeapon(dw0,'R');}if(FREEHAND)waitInput=false;PROG.combo=0;PROG.comboUntil=-10;refreshMovesHud();if(isCombat())bossIntro();resetBladeBodies(playerTarget(0));dummy.visible=m==='practice';tokenMesh.visible=false;signal.visible=true;hudTime=-1;feedbackUntil=0;currentP=playerPose(0);currentE=enemyPose(0);$('goal').textContent=m==='trial'?'三轮交锋：架开来刀，再顺势反击。':m==='boss'?'Boss专项：捡武器；红光末段双握前送反投，也可侧移。':m==='practice'?'短方向意图推进变式，不用划满屏。':'出院迎战巡路刀客，取得回廊信物，再返回酒馆。';$('hint').textContent='WASD步法 · 双击W跑 · 双握上提跳 / 千招未尽可直接接招 · 出刀前55%可紧急架刀';$('start').textContent='重新三轮试炼';$('resume').classList.add('hidden');$('load').textContent='本地切片 v0.14 · 资源已就绪';resume();sound('objective');}
@@ -595,7 +682,10 @@ function finish(win){if(terminal)return;terminal=true;animationSlots.cancel('ter
 // ===== UI, bounded input and focus recovery =====
 window.addEventListener('pointermove',e=>{if(!running||e.pointerType==='touch')return;mouse.x=clamp((e.clientX/innerWidth-.5)*2,-1,1);mouse.y=clamp((e.clientY/innerHeight-.5)*2,-1,1);lastPointer=time;$('cursor').style.left=e.clientX+'px';$('cursor').style.top=e.clientY+'px';if(pointerPending){pointerPending=false;hand={...mouse};stroke.travel=0;stroke.dir=null;stroke.speed=0;const target=playerTarget(0);lastPhysicsTarget=clonePose(target);lastPhysicsPlayer=playerPos.clone();if(!bladeBodies.player)resetBladeBodies(target);currentP=rigidPose(bladeBodies.player);renderPlayer(currentP);waitInput=false;guardWas=guarding();guardEntered=guardWas?time:-10;guardPointer={...mouse,t:realTime};directionInput.sample(mouse.x,mouse.y,realTime);gesture.samples=[{...mouse,t:time}];}else pointerIntent();});
 window.addEventListener('mousedown',e=>{if(!running||e.target!==renderer.domElement||![0,2].includes(e.button))return;e.preventDefault();const side=e.button===0?'L':'R';grips[side]=true;updateFloorWeapons();if(floorPick){pickWeapon(floorPick,side);return;}if(grips.L&&grips.R)hugProxy={y:mouse.y,t:realTime,latched:false};});window.addEventListener('mouseup',e=>{if(e.button===0)grips.L=false;if(e.button===2)grips.R=false;if(!grips.L||!grips.R)hugProxy=null;});document.addEventListener('contextmenu',e=>{if(e.target===renderer?.domElement)e.preventDefault();});$('slow').onchange=()=>P.slow=$('slow').checked;
-window.addEventListener('keydown',e=>{if(['KeyW','KeyA','KeyS','KeyD'].includes(e.code)&&running){if(e.code==='KeyW'&&!e.repeat){if(realTime-lastForwardDown<.30)sprintUntil=realTime+3600;lastForwardDown=realTime;}keys.add(e.code);e.preventDefault();}});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='KeyW')sprintUntil=-1;});window.addEventListener('blur',()=>pause());document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
+window.addEventListener('keydown',e=>{
+ if(e.code==='Tab'){e.preventDefault();toggleDojo();return;}
+ if(e.code==='Escape'){toggleDojo(false);return;}
+ if(['KeyW','KeyA','KeyS','KeyD'].includes(e.code)&&running){if(e.code==='KeyW'&&!e.repeat){if(realTime-lastForwardDown<.30)sprintUntil=realTime+3600;lastForwardDown=realTime;}keys.add(e.code);e.preventDefault();}});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='KeyW')sprintUntil=-1;});window.addEventListener('blur',()=>pause());document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
 $('boss').onclick=()=>start('boss');$('start').onclick=()=>start('trial');$('practice').onclick=()=>start('practice');$('explore').onclick=()=>start('explore');$('journey').onclick=()=>start('explore');$('pause').onclick=()=>pause();$('resume').onclick=resume;$('settings').onclick=()=>{if(!started||terminal)return;pause(false);$('panel').classList.remove('hidden');$('overlay').classList.add('hidden');};$('continue').onclick=resume;$('closePanel').onclick=resume;
 for(const id of ['sensitivity','tempo','grip'])$(id).oninput=()=>{P[id]=Number($(id).value)/(id==='grip'?1000:1);$(id+'Value').textContent=id==='grip'?$(id).value+' ms':P[id].toFixed(2);};$('sound').onchange=()=>P.sound=$('sound').checked;$('cues').onchange=()=>P.cues=$('cues').checked;$('debug').onchange=()=>{P.debug=$('debug').value==='on';if(started){currentP=playerPose(0);currentE=enemyPose(0,bladeBodies.enemy?rigidPose(bladeBodies.enemy):null);draw();}};$('motionPack').onchange=()=>{packId=$('motionPack').value;ModulePorts.reset();if(enemy){enemy.phrase=[];enemy.phase='idle';enemy.elapsed=0;enemy.hold=0;enemy.frozenClip=null;releasePose=null;heldBlade=null;bladeBodies.enemy=null;lastEnemyTarget=null;}resetInput();};$('drill').onchange=()=>P.drill=$('drill').value;$('resetParams').onclick=()=>{P.sensitivity=P.tempo=1;P.grip=.028;P.drill='mixed';P.debug=false;P.cues=true;P.sound=true;for(const id of ['sensitivity','tempo','grip']){$(id).value=id==='grip'?28:1;$(id+'Value').textContent=id==='grip'?'28 ms':'1.00';}$('drill').value='mixed';$('debug').value='off';$('cues').checked=$('sound').checked=true;};
 $('export').onclick=()=>{const record={ruleset_id:RULES.id,revision:RULES.revision,action_config:ACTION,physics_config:{...PHYS,gripTime:WEAPON.positionTime*(P.grip/.028),rotationTime:WEAPON.rotationTime*(P.grip/.028),maxForce:WEAPON.maxForce,maxTorque:WEAPON.maxTorque},weapon_config:WEAPON,flow_config:FLOW,impact_config:IMPACT,motion_pack:MotionPacks.get(packId),grip_profile:GripProfiles[MotionPacks.get(packId).grip],rig_policy:RigPolicy,enemy_drive:'kinematic_reachable_sweep',player_drive:'authored_sweep_stop',physics:physicsFrame,aiConfig:AI,mode,score,stats:{...stats},params:{...P},events:events.slice(),tripStage,note:'Mouse-pose proxy. VR comfort and 6DoF not validated.'};const u=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='酒馆试炼-v0.14-交锋记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
