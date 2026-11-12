@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "status": "source_checks_passed_awaiting_root_visual_review_and_APK_integration",
+  "clip": "attack_overhead",
+  "stage": "neck_only_v9",
+  "raw": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_raw.glb",
+    "sha256": "66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750",
+    "bytes": 19192540
+  },
+  "body": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_body.glb",
+    "sha256": "e4cfb5416619a29331d14348f529823b7081eff298845ab85d4fe4a216bd8440",
+    "bytes": 51287876
+  },
+  "preview": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_preview.glb",
+    "sha256": "84786acc2956da2fb6d7382a70bfaba906f3b93b1ea925eaf857d88c68a2d253",
+    "bytes": 54380800
+  },
+  "parent_v7_inputs": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_inputs.json",
+    "sha256": "b674501f88e5ed76fdeb12cb41ba2465f48b40d50b2b08999fc6da4fe94d63d4",
+    "bytes": 22524
+  },
+  "parent_v7": {
+    "fine_overhead_raw.glb": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_raw.glb",
+      "sha256": "87c5fd566a63bba551cbbdfaa5841f519a7ed865cbbffc7da929c65219c9ef26",
+      "bytes": 19192540
+    },
+    "fine_overhead_body.glb": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_body.glb",
+      "sha256": "f6390ce0ee6d32b7210c29bb20b38d2ccf1dd379d9875f3f5d19f383f9e2debb",
+      "bytes": 51287876
+    },
+    "fine_overhead_preview.glb": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_preview.glb",
+      "sha256": "285d3e34e94e335d2e5f3705d77483fabbe3a297ccfbdec08153bcab1b13a21c",
+      "bytes": 54380800
+    }
+  },
+  "source_policy": "Direct patch of frozen v7 files; does not apply the patch to v8. v8 remains a failed-surface-overlap artifact with its executed sources archived.",
+  "current_formal_phase_inputs": {
+    "profile": {
+      "file": "app/src/main/assets/models/opponents/base_attack_profiles.json",
+      "sha256": "04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90",
+      "bytes": 2356674
+    },
+    "model": {
+      "file": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+      "bytes": 75131720
+    },
+    "builder": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py",
+      "sha256": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+      "bytes": 19192
+    }
+  },
+  "clock": {
+    "duration_seconds": 1.75,
+    "source_range_seconds": [
+      0.0,
+      1.75
+    ],
+    "sample_count": 211,
+    "sample_rate_hz": 120,
+    "phase_markers_seconds": {
+      "start": 0.0,
+      "preparation_end": 0.65,
+      "startup_end": 0.9,
+      "active_end": 1.1,
+      "recovery_end": 1.75,
+      "contact": 1.0
+    },
+    "contact_source_seconds": 1.0,
+    "contact_active_elapsed_ms": 100,
+    "identical_to_v7": true
+  },
+  "only_changed_channels": [
+    "NeckTwist01.rotation",
+    "NeckTwist02.rotation"
+  ],
+  "unchanged": {
+    "Head_local_TRS_and_micro_motion": true,
+    "all_other_GLTF_JSON_header_binary_bytes": true,
+    "mesh_rest_skin_inverse_binds": true,
+    "raw_canonical_endpoint_float32_values": true,
+    "hip_chest_clavicles_arms_hands_fingers_feet_tracks": true,
+    "actual_blade_path_and_clock": true
+  },
+  "neck_correction": {
+    "parent": "v7",
+    "gain_at_full_weight": 0.2,
+    "NeckTwist01_increment_share": 0.45,
+    "NeckTwist02_increment_share": 0.55,
+    "C2_weight_entry_seconds": [
+      0.5,
+      0.65
+    ],
+    "full_weight_seconds": [
+      0.65,
+      1.3
+    ],
+    "C2_weight_exit_seconds": [
+      1.3,
+      1.75
+    ],
+    "Head_local_rotation_patched": false,
+    "keyframe_head_pitch": [
+      {
+        "source_seconds": 0.65,
+        "parent_guard_calibrated_pitch_degrees": -41.37986543583007,
+        "new_guard_calibrated_pitch_degrees": -8.275972765022177,
+        "parent_fixed_rest_axis_pitch_degrees": -36.93675419261427,
+        "new_fixed_rest_axis_pitch_degrees": -3.8347730813287133
+      },
+      {
+        "source_seconds": 1.0,
+        "parent_guard_calibrated_pitch_degrees": -37.36594499751262,
+        "new_guard_calibrated_pitch_degrees": -7.4731882820047755,
+        "parent_fixed_rest_axis_pitch_degrees": -32.91951421325677,
+        "new_fixed_rest_axis_pitch_degrees": -3.0282413817959903
+      },
+      {
+        "source_seconds": 1.1,
+        "parent_guard_calibrated_pitch_degrees": -30.49702911167993,
+        "new_guard_calibrated_pitch_degrees": -6.099405454661361,
+        "parent_fixed_rest_axis_pitch_degrees": -26.084708266903064,
+        "new_fixed_rest_axis_pitch_degrees": -1.6894813447941717
+      }
+    ]
+  },
+  "angle_definitions": {
+    "prepared_axes": "+Y up/+Z forward; positions metres; angles degrees",
+    "guard_calibrated": "Qg is source0 prepared Head world rotation; F_local=Qg^-1 Z, ear/right_local=Qg^-1 X, guard pitch/roll0; positive pitch up",
+    "fixed_rest_axis": "rest Head world rotation calibrates prepared+Z; equivalent to former raw+X rest anatomical forward; guard here is approximately+4.48deg, not0",
+    "anatomical_roll": "ear/right vector angle in the level-heading right and forward/world-up reference; retained by the sagittal swing",
+    "ear_line_elevation": "asin(world ear/right Y); this literal line elevation can change with pitch even when anatomical roll is retained"
+  },
+  "calibration_and_grounding": {
+    "raw_R15": "inherited unchanged original reviewed UNBAKED R15; original grip source/native2.117 per parent-v7 inputs",
+    "preview_right_finger_offset_track_count": 8,
+    "preview_right_finger_offset_application_count": 1,
+    "preview_formal_root_shift_application_count": 1,
+    "preview_root_shift_prepared_y_metres": -0.02799914504376948,
+    "bytes_inherited_unchanged": true,
+    "runtime_entity_lift_baked": false
+  },
+  "contact": {
+    "source_seconds": 1.0,
+    "active_elapsed_ms": 100,
+    "actual_steel_point_normal": {
+      "primitive": 10,
+      "triangle": 408,
+      "material": "Steel | sharpened edge",
+      "point_metres": [
+        -0.19980545698266267,
+        1.260665390860348,
+        0.9
+      ],
+      "normal": [
+        -0.9989498514630176,
+        -0.02235589301619064,
+        0.03999260318438224
+      ]
+    },
+    "coordinate_frame": "prepared glTF +Y up/+Z forward; metres; includes the one formal root shift; normal dimensionless",
+    "knife_geometry_pointwise_bit_identical_to_v7_at_all_155_scan_times": true,
+    "contact_and_binding_basis": "v7 actual authored blade path; only neck subtree differs"
+  },
+  "invariants": {
+    "three_files_key_and_midpoint_samples_each": 421,
+    "world_matrix_scope": "all nodes outside the complete NeckTwist01 descendant subtree",
+    "world_matrix_result": "bit-identical to v7",
+    "Head_local_result": "original bytes retained",
+    "full_static_and_non_target_bytes": "original bytes retained",
+    "chest_policy": "not corrected; Hip→Spine02 centreline and chest full world matrix remain v7, while Head→Hip lean can change"
+  },
+  "surface_scan": {
+    "scope": "one union scan: full 0–1.75 seconds at 60Hz, plus 240Hz keys in 0.45–0.72 seconds and the exact 0.72 boundary; all body primitives and unique vertex pools",
+    "sample_count": 155,
+    "full_60hz_sample_count": 106,
+    "focused_window_seconds": [
+      0.45,
+      0.72
+    ],
+    "focused_window_sample_count": 66,
+    "focused_240hz_grid_sample_count": 65,
+    "explicit_focused_window_endpoint_seconds": 0.72,
+    "overlap_sample_count": 0
+  },
+  "required_source_checks": {
+    "primary": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_neck_verification.json",
+      "sha256": "046eeff2585da6a1fcadfbd7ecb7a68e7228c4b6df8a90a2e307fe5b12a1f9d2",
+      "bytes": 169800
+    },
+    "host_boundary_and_execution_dependency_closure": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_neck_boundary_verification.json",
+      "sha256": "f40fffc26f6106a2cb978cc6ec4afa39b72d9985276e157a2d247ebf58aea473",
+      "bytes": 6406
+    },
+    "invalid_input_rejections": 15,
+    "metadata": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_metadata.json",
+      "sha256": "fd94f604a42d2bda55f01ba4e71ba8952124f8cb3c8cec3f6840152768241818",
+      "bytes": 207484
+    }
+  },
+  "APK_reimport": {
+    "product": "Kotlin + PICO Spatial SDK6.1.9 APK",
+    "authority": "Complete fine_overhead_raw.glb from v9, including all234 channels and the full v7-authored hip/body/arm/hand/blade trajectory plus the v9 neck correction; not a two-neck delta onto the current formal model.",
+    "target_handling": "Root retargets/imports using each target rig and calibration; do not reapply preview calibration or substitute old hand tracks",
+    "inheritance": "R_Upperarm/R_Forearm/R_Hand remain the v7 authored attack tracks unchanged; no claim that all ACTIVE wrist-local rotations are native",
+    "SDK_device_build_Git_release": "Root-owned, not performed by this source lane",
+    "formal_model_neck_delta_patch_allowed": false
+  },
+  "limits": [
+    "Before source0.50 the v7 head posture is deliberately retained so the original preparation blade arc can clear the head; the near-horizontal target is reached at0.65.",
+    "Anatomical yaw/roll are retained, including parent lateral head tilt; literal ear-line elevation can change with pitch.",
+    "C2 describes the envelope, not the complete native LINEAR animation. The150ms ingress is a fast eye/head raise; metrics are recorded in the verification.",
+    "155 discrete full/local steel-body samples do not prove collision freedom at every continuous time.",
+    "At source0.9 the inherited v7 wrist still includes lift-IK adjustment; this neck-only patch does not change that policy.",
+    "Normal-eye source/neck skin and same-time head/blade visual review, APK retargeting, SDK playback and device acceptance remain Root-owned review gates."
+  ],
+  "production_entry": {
+    "file": "ArtSource/tripo-warrior/motion_library.json",
+    "selector": "$.attack_source.clips[?(@.name==\"attack_overhead\")]",
+    "replace_fields": {
+      "source": "../refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_raw.glb",
+      "source_sha256": "66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750"
+    },
+    "retain_raw_contract": {
+      "stage": "authored_raw",
+      "right_calibration_baked": false,
+      "contract": "attack78"
+    },
+    "only_attack_source_replaced": "attack_overhead; existing attack_left and attack_right source assets stay unchanged",
+    "authoring_manifest_requirement": "Rebuild/update attack_source.authoring_manifest and its source_sha256 in the existing production attack78 contract to bind the complete v9 OVERHEAD source together with unchanged LEFT/RIGHT; do not assume this handoff JSON itself satisfies the old three-attack authoring-manifest schema.",
+    "regenerate_for_each_target": [
+      "complete retargeted attack_overhead animation",
+      "actual target weapon/contact samples",
+      "attack profiles and model/profile hashes",
+      "hand-track signatures",
+      "motion/weapon binding and binding hash"
+    ],
+    "target_count": 3,
+    "targets": [
+      "base",
+      "indigo",
+      "veteran"
+    ],
+    "calibration_requirement": "Retarget complete UNBAKED v9 raw first; retain reviewed R15 grip and apply each target right-finger calibration once and canonical root grounding once along that target production path.",
+    "public_manifest_modified_by_this_lane": false,
+    "source_scope": "Use the complete v9 raw animation as the production OVERHEAD source, not a runtime two-neck patch onto the current formal model; v9 contains the previously authored v7 full-body/right-arm/hand/blade tracks."
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "completion": "supplemental_host_checks_passed",
+  "primary_report_sha256_before_supplement": "bc7cfb3c8499d55812aca92d66777eabcb8554e31c1266ab3ced8c02bb120578",
+  "rejected_inputs": [
+    {
+      "case": "correction_weight_nan",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_inf",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_-inf",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_-0.001",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_1.751",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_True",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "correction_weight_False",
+      "exception": "ValueError",
+      "message": "neck sample must lie in finite source0\u20131.75 seconds"
+    },
+    {
+      "case": "gain_nan",
+      "exception": "ValueError",
+      "message": "invalid fixed neck gain/share"
+    },
+    {
+      "case": "gain_inf",
+      "exception": "ValueError",
+      "message": "invalid fixed neck gain/share"
+    },
+    {
+      "case": "gain_-0.1",
+      "exception": "ValueError",
+      "message": "invalid fixed neck gain/share"
+    },
+    {
+      "case": "gain_0.0",
+      "exception": "ValueError",
+      "message": "invalid fixed neck gain/share"
+    },
+    {
+      "case": "gain_1.01",
+      "exception": "ValueError",
+      "message": "invalid fixed neck gain/share"
+    },
+    {
+      "case": "missing_NeckTwist02",
+      "exception": "ValueError",
+      "message": "required neck hierarchy absent"
+    },
+    {
+      "case": "NeckTwist02_wrong_parent",
+      "exception": "ValueError",
+      "message": "unexpected neck-only isolation hierarchy"
+    },
+    {
+      "case": "Head_wrong_parent",
+      "exception": "ValueError",
+      "message": "unexpected neck-only isolation hierarchy"
+    }
+  ],
+  "frozen_v7_files_unchanged": {
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_alignment.json": "2ce9f3a80d70683651a61e02aed4bbc3ed28aa62aee3be66e9bb508fd78ee6d0",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_surface_probe.json": "af5e70ef317a714e4787463c287891d0badc4a35f9405473af0fe96ee2bc4841",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_metadata.json": "1d395763496e4d9be2c36521575eb1eea2e5ccb906867212dbeba1b5656d8241",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_verification.json": "dde6d899108a731048f1d1b5d082543e464984f70f85acc4ccf1b2080fc347c4",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/blade_roll_solution.json": "4e0637696aa8908fe0eea1d1c45d2bb2d84e478615b48a8d6746ac405aaa1691",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/blade_direction_audit.json": "fe401b832a79094c08ba692d4fbc83a6fafeaf3665cabbf7b0ae03c92ee88ba3",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_inputs.json": "b674501f88e5ed76fdeb12cb41ba2465f48b40d50b2b08999fc6da4fe94d63d4",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_preview.glb": "285d3e34e94e335d2e5f3705d77483fabbe3a297ccfbdec08153bcab1b13a21c",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_raw.glb": "87c5fd566a63bba551cbbdfaa5841f519a7ed865cbbffc7da929c65219c9ef26",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_body.glb": "f6390ce0ee6d32b7210c29bb20b38d2ccf1dd379d9875f3f5d19f383f9e2debb"
+  },
+  "host_check_source_sha256": "962ff2ebcce325ca91131b47060535f080778479ee02f4a05399e7e0428625b1",
+  "executed_scan_helper_import_closure_sha256": {
+    "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_neck_refinement.py": "a2d94163612030a06b2b16d8db682927c02efc740237b3734cffe437e8efbc80",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+    "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+    "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+    "ArtSource/tripo-warrior/refine_character_grips.py": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+    "ArtSource/tripo-warrior/prepare_character_library.py": "5bbca3256e0d54227541427ae1d46688c1a6447682864893c6757a2d7dd92940",
+    "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+    "ArtSource/refinement/hand-poses/run_blender.py": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1"
+  },
+  "dependency_roles": {
+    "main_patch": "build_neck_refinement.py directly patches frozen GLB bytes using host NumPy; does not import or invoke public producer",
+    "host_FK_verify": "verify_neck_refinement.py uses build_neck_refinement.py NumPy math",
+    "surface_scan": "verify_neck_refinement.py imports surface/steel_points from verify_fine_overhead.py; that imports build_fine_overhead.py, its dynamic stage4 stance module, build_keyposes and listed public producer/math modules",
+    "producer_usage_in_surface_scan": "Imported helper/module closure only; no producer rebuild, retarget, calibration application or publishing is invoked",
+    "capture_timing": "File identities captured after the completed primary scan; original primary verifier source identity is preserved and asserted unchanged"
+  },
+  "no_BVH_rerun": true,
+  "no_candidate_or_v7_rewrite": true
+}

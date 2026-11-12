@@ -4,28 +4,67 @@
 
 2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你继续负责动作源与正常视距可见的站姿、引刀、随势、防御支撑、弹反卸力、受击与行走转身。09接正式bank／正常循环／动画与代理，05接头脸，Root统一producer和发布。
 
-三攻击stage5 raw保持冻结，继续既有后续队列。把动作力度和人体重心作为重点，避免只用细微角度与误差小数作为完成证明。每项交原生曲线、真实刀尖轨迹、源时间、足底与双手可见图／短片。与09交换来刀侧和接触标记，与03交换服装动作穿插。公共prepare_character_library和prepare_rigged_warrior由Root内部生产线维护，你不再编辑它们。
+正式三攻击stage5 raw保持冻结，新上劈候选由Root评审后重导。每阶段结束等待对应review，再继续下一轮。把动作力度和人体重心作为重点，避免只用细微角度与误差小数作为完成证明。每项交原生曲线、真实刀尖轨迹、源时间、足底与双手可见图／短片。与09交换来刀侧和接触标记，与03交换服装动作穿插。公共prepare_character_library和prepare_rigged_warrior由Root内部生产线维护，你不再编辑它们。
 
 ## 当前状态
 
-**fine-overhead下一轮修复进行中。** v7已获实际动态review，髋肩随势改善有效，尚未获准正式发布。源.65／1.00／1.10秒头胸偏低、前视近似鞠躬，先输出正常眼高三分之四和侧面完整连续片，区分源姿态与投影，再决定最小修正。v7及原有证据保持冻结。
+**阶段结束，等待 review。** fine-overhead v9已交完整动作GLB、唯一APK重导输入及正常眼高两机位连续对照片。source .65／1.00／1.10的低俯已修，髋肩随势、刀路、足底和时标保持v7。421个key／midpoint隔离检查与155个实际面检查通过，未正式发布。当前进入waiting，收到本阶段对应Root review后再继续开发。
 
 ## 当前精细上劈合同（2026-11-13）
 
-唯一新增责任为 `ArtSource/refinement/hand-poses/fine-overhead/` 私有候选与本交接。 唯一产品交付为Kotlin + PICO Spatial SDK6.1.9的原生APK，终端Space Pro／OS6，由Root统一构建、PICO Emulator验收与发布。本路只交可由现有producer接入APK的动作GLB与明确重导输入；离线两机位短片仅作Root已要求的动作源审阅证据。停止HTML／Web／Three.js、网页材质与新mock页面工作，已有网页不改不删。基于当前正式源及现有native骨曲线，完成guard→引刀→落刀→随势→收招，改善髋肩、肘腕、重心、支撑与回守。骨长、rest、敌人规则、伤害与整体1.75秒时标保持既定合同；本招手轨、骨轨与真实刀路可独立改进，给Root明确重导输入。
+唯一新增责任为 `ArtSource/refinement/hand-poses/fine-overhead/` 私有候选与本交接。唯一产品交付为Kotlin + PICO Spatial SDK6.1.9的原生APK，终端Space Pro／OS6，由Root统一构建、PICO Emulator验收与发布。本路只交可由现有producer接入APK的动作GLB与明确重导输入；离线两机位短片仅作Root已要求的动作源审阅证据。停止HTML／Web／Three.js、网页材质与新mock页面工作，已有网页不改不删。本轮基于已审v7，限定颈胸低俯与必要的准备肘修正，保留已改善的髋肩随势。骨长、rest、敌人规则、伤害、原刀路与整体1.75秒时标保持既定合同。实际v9仅调整两颈rotation，未动胸肩或准备肘。
 
-正式对照GLB SHA-256为 `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`，当前profile为 `04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90`。正式守势用于03衣片对照。原生动作源为refined-base60k/slash.glb的连续骨曲线，SHA `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a`。派生制作记录实际采样与约束修正来源，采用单调时间映射及连续肘平面，入口／出口回当前canonical guard。
+本轮冻结正式对照GLB SHA-256为 `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`，profile为 `04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90`。正式守势用于03衣片对照。原生动作源为refined-base60k/slash.glb的连续骨曲线，SHA `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a`。派生制作记录实际采样与约束修正来源，采用单调时间映射及连续肘平面，入口／出口回当前canonical guard。
 
 本轮先交眼高1.62m、水平视线的三分之四与侧面1.75秒全片及实际采样帧板，保留固定相机身份和真实刀尖轨迹，不移动演员补画面。若源姿态仍低俯，只修颈胸与必要的准备段肘外展。髋肩随势、刀路、骨长、rest、足底、整体1.75秒及source1.00接触保持；不重做刀路，不扩另一招。45分钟内首项可见实物或明确失败。
 
 全路最多一个Blender、2线程并通过既有宿主锁。当前producer、正式GLB、Kotlin、Git、设备、构建均由其既定负责人维护。阶段结束后在此写明“阶段结束，等待review”，随后等待对应回复，再继续下一轮。
+
 Root已交原生真实输入实录 [native-input-contact-2026-11-12.mp4](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/presentation/native-input-contact-2026-11-12.mp4)及同名PNG／JSON，记录SDK鼠标进入同一resolver、SOFT_HIT／敌人护刀和敌血100降12。此为已接入基础，本轮源审阅以该正式身体／刀为对照。
 
-v7历史交付及审计见下方。新一轮相机证据独立写入review/eye-height-v7，后续若需修姿态另建候选版本，不覆盖v7。
 
-本轮首批正常眼高图已出现，45分钟首交目标内完成。实际侧面contact及三分之四引刀均可见低头，确认不只是投影。两机位为水平眼高1.62m、水平距离2.75m、VFOV70°，全53源时点的72,926个实际身体／刀具顶点均入框。源0.65／1.00／1.10秒的Head前向相对guard向下约41.38／37.37／30.50°，与固定解剖轴度量的26–37°基准不同。最小修正拟只给NeckTwist01／02的rotation分摊45／55%，将俯仰偏离保留20%；其余轨道逐原字节保持，胸、肩、髋、刀与足底不改。两段完整诊断片已交并逐格查看，[三分之四](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v7/three_quarter/movie/full_source_1p75s_30fps.mp4)及[侧面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v7/side/movie/full_source_1p75s_30fps.mp4)，各53真实源帧、实测1.750000秒。
+## fine-overhead v9本阶段交付（2026-11-13）
 
-v8仅两颈rotation的字节与世界轨隔离通过，但新60Hz实际全身体／Steel面检查在source.4667／.4833／.5000秒检出3个Head交叉时点，因此明确失败并冻结留证，不作发布输入。刀面位置逐bit保持v7，问题是抬头进入原准备刀弧。继续同轮最小v9修正，准备段抬头混入延后到.50至.65秒，其余合同保持；需重验混入速度、完整面检查与两机位连续表现。
+**阶段结束，等待 review。** 本阶段仅推荐candidate/v9。先交水平眼高v7完整诊断片，确认低俯来自源颈部折叠与旧相机俯视叠加，再修两颈曲线。v7与原证据未覆盖，v8失败留证，未扩另一招或改刀路。
+
+### 审阅入口
+
+| 机位 | v7／v9完整配对片 | 五关键姿态 | 全53帧对照 |
+| --- | --- | --- | --- |
+| 三分之四 | [连续片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/three_quarter/paired/movie/full_source_1p75s_30fps.mp4) | [姿态板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/three_quarter/paired/poses/five_source_poses.png) | [全帧板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/three_quarter/paired/movie/all_53_source_frames_mosaic.png) |
+| 侧面 | [连续片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/side/paired/movie/full_source_1p75s_30fps.mp4) | [姿态板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/side/paired/poses/five_source_poses.png) | [全帧板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v9/side/paired/movie/all_53_source_frames_mosaic.png) |
+
+两机位固定eye＝aim1.62m、水平距离2.75m、VFOV70°，actor不移动。每机位另有v9独立片，四片均实际53源帧、名义30Hz、末半帧VFR，ffprobe均为1.750000秒。配对片960×584，独立片480×584；v7参考直接复用，未重渲。五pose为source0／.65／1／1.1／1.75，已看全部v9源采样板与关键姿态。侧面与三分之四的接触／随势脸朝前，当前640图未见明显颈裂口、悬浮或肤色断带，首尾回guard。
+
+### 源与实际改动
+
+唯一接入清单为[fine_overhead_inputs.json](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_inputs.json)，SHA-256 `96f994be8a0ef9e4770b0f1256137a061379dca8824d47830af5d893f78d09af`。
+
+| candidate/v9文件 | SHA-256 |
+| --- | --- |
+| fine_overhead_raw.glb | `66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750` |
+| fine_overhead_preview.glb | `84786acc2956da2fb6d7382a70bfaba906f3b93b1ea925eaf857d88c68a2d253` |
+
+新builder直接从冻结v7 patch `NeckTwist01／02.rotation`，增量45／55%分摊，充分混入时保留原俯仰偏离20%。Head局部TRS与native微动保留。source .65／1／1.1相对guard的Head前向由向下41.38／37.37／30.50°收敛至8.28／7.47／6.10°。该指标以guard为零，与旧rest固定解剖轴的26–37°不同；胸世界姿态和Hip→Spine02中心线保持v7，不将Head−Hip指标变化称为胸部修正。
+
+整体1.75秒、211个120Hz采样、234轨及原phase／contact1.00秒保持。raw右15指仍UNBAKED，preview原8项指校正与一次formal root shift原字节保留，未烘焙runtime entity抬升。
+
+### 验证与失败处理
+
+[主验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_neck_verification.json) SHA `046eeff2585da6a1fcadfbd7ecb7a68e7228c4b6df8a90a2e307fe5b12a1f9d2`已实际执行。三份raw／body／preview的JSON、rest、mesh、skin、首尾canonical float32和非颈轨字节保持；每份211key加210midpoint共421时点，整个Neck01子树以外的全部世界矩阵逐bit与v7一致，含髋、胸肩、双手、刀与脚。最大骨长数值差约1.54e−8m。
+
+新实际body／Steel扫描覆盖全招60Hz106时点，加.45–.72秒局部240Hz格点与精确边界，去重共155时点，0个相交样本。所有采样的实际钢刀顶点逐bit与v7一致；鞋面位置变化0，当前鞋底最小高度相对formal源平面误差约.00166mm。[边界与执行依赖补充](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_neck_boundary_verification.json)记录15项非法时间／gain／层级拒绝、v7未改及实际scan helper导入闭包，未为补充文字重复BVH。
+
+v8从起手即抬眼，在source.4667／.4833／.5000的原准备刀弧出现3个Head／Steel交叉时点，已明确标failed并保留执行源／SHA。v9仍直接从v7派生，将进入混合延后为.50–.65秒，未叠v8修正，重新完成上述155点检查。
+
+### Root接入与尚待review
+
+清单production_entry精确指向 `motion_library.json` 的 `attack_source.clips[name=attack_overhead]`，由Root在审核后换为完整v9 raw与其SHA，再收口三向authoring_manifest、三target profiles、hand signatures与binding。v9包含v7已重作的身体／右臂／手和刀轨，不能只给当前正式旧bank叠两条颈补丁。每target仍按原grip、一次校正与grounding重导；公共producer、manifest、正式资源和Kotlin未由本路改动。
+
+source.50前保留v7原头姿以让准备刀弧通过，全招最深俯视仍约37.94°，不能声称整段只剩9.65°。150ms混入是较快抬眼，Head最大离散步进3.193°／120Hz、速度约383.2°／s；已看真实.500／.533／.567／.600／.633／.667连续样本呈逐步抬起，最终节奏、原准备肘外展及身体俯身仍由Root审。C2仅描述混合包络，未证明LINEAR节点瞬时导数或连续时间无穿插。640全景也不覆盖瞳孔和1–2px normal seam。APK重导、SDK过渡、三target／03衣片组合及PICO Emulator／Space Pro验收仍待Root。
+
+本轮源码与离线源验证已收口，**阶段结束，等待 review**。当前waiting，收到此v9对应的新review再续，不自行扩新动作、网页或研究。
+
 ## fine-overhead v7历史阶段交付
 
 **v7阶段已结束，Root已review，尚未批准正式发布。** 本段保留candidate/v7冻结交付事实。首轮可见对照于22:54出现，完整候选经过刀向、准备空间及收刀阶段修正后收口；美术与实际游戏动态由Root最终验收。

@@ -1,0 +1,4598 @@
+{
+  "completion": "verified",
+  "clip": "attack_overhead",
+  "duration_seconds": 1.75,
+  "contact_source_seconds": 1.0,
+  "sample_count": 211,
+  "changed_channels_only": [
+    "NeckTwist01.rotation",
+    "NeckTwist02.rotation"
+  ],
+  "files": [
+    {
+      "file": "fine_overhead_raw.glb",
+      "parent_sha256": "87c5fd566a63bba551cbbdfaa5841f519a7ed865cbbffc7da929c65219c9ef26",
+      "sha256": "66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750",
+      "json_header_rest_mesh_skin_materials_and_all_other_bytes_identical": true,
+      "non_neck_channel_payloads_float32_identical": true,
+      "head_local_payload_identical": true,
+      "neck_guard_endpoint_rows_identical": true,
+      "neck_descendant_nodes": [
+        "R_Eye",
+        "L_Eye",
+        "FacialBone",
+        "Head",
+        "NeckTwist02",
+        "NeckTwist01"
+      ],
+      "world_keys_and_midpoints_sample_count": 421,
+      "non_neck_subtree_world_matrices_bit_identical": true,
+      "maximum_bone_length_change_from_parent_metres": 1.5400280078958772e-08,
+      "local_rotation_statistics": {
+        "NeckTwist01": {
+          "old_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 17.41510805874348,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 19.841401173021065,
+            "maximum_seconds": 0.9416666626930237
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.4079867128648813,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.5053475637031937,
+            "maximum_seconds": 1.399999976158142
+          }
+        },
+        "NeckTwist02": {
+          "old_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 4.949334914763992e-06,
+            "maximum_seconds": 0.28333333134651184
+          },
+          "new_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 20.218827444462192,
+            "maximum_seconds": 0.9083333611488342
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 2.758520534140853e-07,
+            "maximum_seconds": 0.14166666567325592
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 1.8728390342789154,
+            "maximum_seconds": 0.5833333134651184
+          }
+        },
+        "Head": {
+          "old_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "new_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          }
+        }
+      },
+      "angular_dynamics_all_211_keys": {
+        "NeckTwist01": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.4079867128648742,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 168.95856667523051,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10013.138994859073,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.505347563703178,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 180.64187991790266,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10198.704432553248,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303993243609673,
+                "minimum_seconds": 1.75,
+                "maximum": 2.7629658832483783,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.33964824283712186,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.55147929998014,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661224125,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.03911054053,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303993243609673,
+                "minimum_seconds": 1.75,
+                "maximum": 2.6865164126286927,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.33964824283712186,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 322.37766530924887,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661224125,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18525.126207502784,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "NeckTwist02": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 2.758520521859011e-07,
+                "maximum_seconds": 0.14166666567325592
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.922996344678754e-14,
+                "minimum_seconds": 1.0625,
+                "maximum": 3.310227783110031e-05,
+                "maximum_seconds": 0.13750000298023224
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 0.0003634356800337724,
+                "maximum_seconds": 0.05833333358168602
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 1.8728390342789192,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.923092077792626e-14,
+                "minimum_seconds": 0.2958333343267441,
+                "maximum": 224.740898443093,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 7169.030564403613,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303995204915686,
+                "minimum_seconds": 1.75,
+                "maximum": 2.762965979310021,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.33964826637281653,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.5514908272234,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660777799,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.03917732742,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.002830378050326184,
+                "minimum_seconds": 1.75,
+                "maximum": 3.253513874350245,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.33964568995051325,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 390.42203725749886,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660777799,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 20190.8004949892,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "Head": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.00180353805613385,
+                "minimum_seconds": 1.75,
+                "maximum": 2.2880279028423494,
+                "maximum_seconds": 0.15000000596046448
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.2164247731348096,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 274.56311922776126,
+                "maximum_seconds": 0.1458333358168602
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.102338922856774,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 17260.514276678594,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0018035133494361789,
+                "minimum_seconds": 1.75,
+                "maximum": 3.193355602110671,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.21642180832826155,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 383.2030377041756,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.097197423204882,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 15454.415943961925,
+                "maximum_seconds": 1.1749999523162842
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        }
+      },
+      "new_head_world_adjacent_step_degrees": {
+        "minimum": 0.0018035133494435434,
+        "minimum_seconds": 1.75,
+        "maximum": 3.193355602110661,
+        "maximum_seconds": 0.5833333134651184
+      }
+    },
+    {
+      "file": "fine_overhead_body.glb",
+      "parent_sha256": "f6390ce0ee6d32b7210c29bb20b38d2ccf1dd379d9875f3f5d19f383f9e2debb",
+      "sha256": "e4cfb5416619a29331d14348f529823b7081eff298845ab85d4fe4a216bd8440",
+      "json_header_rest_mesh_skin_materials_and_all_other_bytes_identical": true,
+      "non_neck_channel_payloads_float32_identical": true,
+      "head_local_payload_identical": true,
+      "neck_guard_endpoint_rows_identical": true,
+      "neck_descendant_nodes": [
+        "R_Eye",
+        "L_Eye",
+        "FacialBone",
+        "Head",
+        "NeckTwist02",
+        "NeckTwist01"
+      ],
+      "world_keys_and_midpoints_sample_count": 421,
+      "non_neck_subtree_world_matrices_bit_identical": true,
+      "maximum_bone_length_change_from_parent_metres": 1.5400279981814258e-08,
+      "local_rotation_statistics": {
+        "NeckTwist01": {
+          "old_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 17.41510805874348,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 19.841401173021065,
+            "maximum_seconds": 0.9416666626930237
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.4079867128648813,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.5053475637031937,
+            "maximum_seconds": 1.399999976158142
+          }
+        },
+        "NeckTwist02": {
+          "old_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 4.949334914763992e-06,
+            "maximum_seconds": 0.28333333134651184
+          },
+          "new_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 20.218827444462192,
+            "maximum_seconds": 0.9083333611488342
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 2.758520534140853e-07,
+            "maximum_seconds": 0.14166666567325592
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 1.8728390342789154,
+            "maximum_seconds": 0.5833333134651184
+          }
+        },
+        "Head": {
+          "old_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "new_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          }
+        }
+      },
+      "angular_dynamics_all_211_keys": {
+        "NeckTwist01": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.4079867128648742,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 168.95856667523051,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10013.138994859073,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.505347563703178,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 180.64187991790266,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10198.704432553248,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.002830399324386647,
+                "minimum_seconds": 1.75,
+                "maximum": 2.7629658832483726,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482428402034,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.55147929997946,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661290584,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.039110540085,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.002830399324386647,
+                "minimum_seconds": 1.75,
+                "maximum": 2.6865164126286993,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482428402034,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 322.3776653092497,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661290584,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18525.12620750255,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "NeckTwist02": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 2.758520521859011e-07,
+                "maximum_seconds": 0.14166666567325592
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.922996344678754e-14,
+                "minimum_seconds": 1.0625,
+                "maximum": 3.310227783110031e-05,
+                "maximum_seconds": 0.13750000298023224
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 0.0003634356800337724,
+                "maximum_seconds": 0.05833333358168602
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 1.8728390342789192,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.923092077792626e-14,
+                "minimum_seconds": 0.2958333343267441,
+                "maximum": 224.740898443093,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 7169.030564403613,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303995204964887,
+                "minimum_seconds": 1.75,
+                "maximum": 2.7629659793100076,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482663734069,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.55149082722176,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660529642,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.039177326893,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303780503051296,
+                "minimum_seconds": 1.75,
+                "maximum": 3.2535138743502583,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396456899479867,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 390.42203725750045,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660529642,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 20190.800494989482,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "Head": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001803538056132384,
+                "minimum_seconds": 1.75,
+                "maximum": 2.2880279028423804,
+                "maximum_seconds": 0.15000000596046448
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.21642477313463368,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 274.563119227765,
+                "maximum_seconds": 0.1458333358168602
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.102338923023908,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 17260.514276677954,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001803513349364111,
+                "minimum_seconds": 1.75,
+                "maximum": 3.1933556021106706,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.21642180831961347,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 383.20303770417553,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.097197423520228,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 15454.415943961552,
+                "maximum_seconds": 1.1749999523162842
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        }
+      },
+      "new_head_world_adjacent_step_degrees": {
+        "minimum": 0.0018035133493713611,
+        "minimum_seconds": 1.75,
+        "maximum": 3.1933556021106675,
+        "maximum_seconds": 0.5833333134651184
+      }
+    },
+    {
+      "file": "fine_overhead_preview.glb",
+      "parent_sha256": "285d3e34e94e335d2e5f3705d77483fabbe3a297ccfbdec08153bcab1b13a21c",
+      "sha256": "84786acc2956da2fb6d7382a70bfaba906f3b93b1ea925eaf857d88c68a2d253",
+      "json_header_rest_mesh_skin_materials_and_all_other_bytes_identical": true,
+      "non_neck_channel_payloads_float32_identical": true,
+      "head_local_payload_identical": true,
+      "neck_guard_endpoint_rows_identical": true,
+      "neck_descendant_nodes": [
+        "R_Eye",
+        "L_Eye",
+        "FacialBone",
+        "Head",
+        "NeckTwist02",
+        "NeckTwist01"
+      ],
+      "world_keys_and_midpoints_sample_count": 421,
+      "non_neck_subtree_world_matrices_bit_identical": true,
+      "maximum_bone_length_change_from_parent_metres": 1.5400279981814258e-08,
+      "local_rotation_statistics": {
+        "NeckTwist01": {
+          "old_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 17.41510805874348,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_from_guard_degrees": {
+            "minimum": 3.0273666337295996e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 19.841401173021065,
+            "maximum_seconds": 0.9416666626930237
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.4079867128648813,
+            "maximum_seconds": 1.399999976158142
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.0012241203806720227,
+            "minimum_seconds": 1.75,
+            "maximum": 1.5053475637031937,
+            "maximum_seconds": 1.399999976158142
+          }
+        },
+        "NeckTwist02": {
+          "old_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 4.949334914763992e-06,
+            "maximum_seconds": 0.28333333134651184
+          },
+          "new_from_guard_degrees": {
+            "minimum": 1.1209706051673503e-22,
+            "minimum_seconds": 0.0,
+            "maximum": 20.218827444462192,
+            "maximum_seconds": 0.9083333611488342
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 2.758520534140853e-07,
+            "maximum_seconds": 0.14166666567325592
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 1.218027359384072e-22,
+            "minimum_seconds": 0.2916666567325592,
+            "maximum": 1.8728390342789154,
+            "maximum_seconds": 0.5833333134651184
+          }
+        },
+        "Head": {
+          "old_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "new_from_guard_degrees": {
+            "minimum": 8.838073101175285e-16,
+            "minimum_seconds": 0.0,
+            "maximum": 28.701532307472814,
+            "maximum_seconds": 1.3583333492279053
+          },
+          "old_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          },
+          "new_adjacent_step_degrees": {
+            "minimum": 0.001275651698015191,
+            "minimum_seconds": 1.75,
+            "maximum": 3.055218181077919,
+            "maximum_seconds": 1.4333332777023315
+          }
+        }
+      },
+      "angular_dynamics_all_211_keys": {
+        "NeckTwist01": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.4079867128648742,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 168.95856667523051,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10013.138994859073,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001224120380668195,
+                "minimum_seconds": 1.75,
+                "maximum": 1.505347563703178,
+                "maximum_seconds": 1.399999976158142
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.14689458576977707,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 180.64187991790266,
+                "maximum_seconds": 1.3958333134651184
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.17827010110329355,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 10198.704432553248,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.002830399324386647,
+                "minimum_seconds": 1.75,
+                "maximum": 2.7629658832483726,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482428402034,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.55147929997946,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661290584,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.039110540085,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.002830399324386647,
+                "minimum_seconds": 1.75,
+                "maximum": 2.6865164126286993,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482428402034,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 322.3776653092497,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914661290584,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18525.12620750255,
+                "maximum_seconds": 1.4083333015441895
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "NeckTwist02": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 2.758520521859011e-07,
+                "maximum_seconds": 0.14166666567325592
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.922996344678754e-14,
+                "minimum_seconds": 1.0625,
+                "maximum": 3.310227783110031e-05,
+                "maximum_seconds": 0.13750000298023224
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 0.0003634356800337724,
+                "maximum_seconds": 0.05833333358168602
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 7.43592956627742e-16,
+                "minimum_seconds": 0.2916666567325592,
+                "maximum": 1.8728390342789192,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 8.923092077792626e-14,
+                "minimum_seconds": 0.2958333343267441,
+                "maximum": 224.740898443093,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.0,
+                "minimum_seconds": 0.3083333373069763,
+                "maximum": 7169.030564403613,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303995204964887,
+                "minimum_seconds": 1.75,
+                "maximum": 2.7629659793100076,
+                "maximum_seconds": 1.4416667222976685
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396482663734069,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 331.55149082722176,
+                "maximum_seconds": 1.4375
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660529642,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 18367.039177326893,
+                "maximum_seconds": 1.4166666269302368
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0028303780503051296,
+                "minimum_seconds": 1.75,
+                "maximum": 3.2535138743502583,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.3396456899479867,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 390.42203725750045,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 6.094914660529642,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 20190.800494989482,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        },
+        "Head": {
+          "local": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.0012756516980358772,
+                "minimum_seconds": 1.75,
+                "maximum": 3.055218181077916,
+                "maximum_seconds": 1.4333332777023315
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.1530783497511958,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 366.62653137165665,
+                "maximum_seconds": 1.4291666150093079
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 0.4471248980214909,
+                "minimum_seconds": 0.30000001192092896,
+                "maximum": 24708.220604264607,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          },
+          "world_prepared": {
+            "parent_v7": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001803538056132384,
+                "minimum_seconds": 1.75,
+                "maximum": 2.2880279028423804,
+                "maximum_seconds": 0.15000000596046448
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.21642477313463368,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 274.563119227765,
+                "maximum_seconds": 0.1458333358168602
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.102338923023908,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 17260.514276677954,
+                "maximum_seconds": 1.1416666507720947
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            },
+            "candidate": {
+              "adjacent_angle_degrees": {
+                "minimum": 0.001803513349364111,
+                "minimum_seconds": 1.75,
+                "maximum": 3.1933556021106706,
+                "maximum_seconds": 0.5833333134651184
+              },
+              "angular_speed_degrees_per_second": {
+                "minimum": 0.21642180831961347,
+                "minimum_seconds": 1.7458333373069763,
+                "maximum": 383.20303770417553,
+                "maximum_seconds": 0.5791666507720947
+              },
+              "angular_acceleration_degrees_per_second_squared": {
+                "minimum": 16.097197423520228,
+                "minimum_seconds": 0.32499998807907104,
+                "maximum": 15454.415943961552,
+                "maximum_seconds": 1.1749999523162842
+              },
+              "derivative_definition": "Shortest SO(3) spatial rotation vectors per interval; vector angular acceleration from adjacent interval velocities. Local uses parent axes, world uses prepared scene axes. Acceleration is discrete, not the instantaneous derivative at LINEAR interpolation knots."
+            }
+          }
+        }
+      },
+      "new_head_world_adjacent_step_degrees": {
+        "minimum": 0.0018035133493713611,
+        "minimum_seconds": 1.75,
+        "maximum": 3.1933556021106675,
+        "maximum_seconds": 0.5833333134651184
+      }
+    }
+  ],
+  "head": {
+    "guard_calibrated_pitch_degrees": {
+      "old": {
+        "minimum": -45.95188939673184,
+        "minimum_seconds": 0.9083333611488342,
+        "maximum": 1.5902773407317584e-15,
+        "maximum_seconds": 0.0
+      },
+      "new": {
+        "minimum": -37.94349189534363,
+        "minimum_seconds": 0.5083333253860474,
+        "maximum": 1.5902773407317584e-15,
+        "maximum_seconds": 0.0
+      }
+    },
+    "yaw_degrees": {
+      "old": {
+        "minimum": -16.178437198026792,
+        "minimum_seconds": 1.4166666269302368,
+        "maximum": 18.94581717068291,
+        "maximum_seconds": 0.2750000059604645
+      },
+      "new": {
+        "minimum": -16.178437937977435,
+        "minimum_seconds": 1.4166666269302368,
+        "maximum": 18.945817585707804,
+        "maximum_seconds": 0.2750000059604645
+      }
+    },
+    "anatomical_roll_degrees": {
+      "old": {
+        "minimum": -13.221118792465864,
+        "minimum_seconds": 0.25833332538604736,
+        "maximum": 22.009598254804757,
+        "maximum_seconds": 1.1916667222976685
+      },
+      "new": {
+        "minimum": -13.221118792465864,
+        "minimum_seconds": 0.25833332538604736,
+        "maximum": 22.009598472297952,
+        "maximum_seconds": 1.1916667222976685
+      }
+    },
+    "ear_line_elevation_degrees": {
+      "old": {
+        "minimum": -11.289182116167463,
+        "minimum_seconds": 0.25,
+        "maximum": 19.14901154453613,
+        "maximum_seconds": 1.2000000476837158
+      },
+      "new": {
+        "minimum": -11.289182116167634,
+        "minimum_seconds": 0.25,
+        "maximum": 21.889449232083958,
+        "maximum_seconds": 1.1916667222976685
+      }
+    },
+    "pitch_gain": 0.2,
+    "neck_increment_shares": [
+      0.45,
+      0.55
+    ],
+    "maximum_pitch_target_error_degrees": 1.0124328223781731e-05,
+    "maximum_yaw_change_degrees": 1.9820254806290905e-06,
+    "maximum_anatomical_roll_change_degrees": 1.5183030086518556e-06,
+    "neck_world_target_error_degrees": {
+      "NeckTwist01": 4.3779267762571285e-06,
+      "NeckTwist02": 1.0201104822205047e-05
+    },
+    "total_head_extension_degrees": {
+      "minimum": -1.2210505913046177e-06,
+      "minimum_seconds": 0.0833333358168602,
+      "maximum": 36.76151288356339,
+      "maximum_seconds": 0.9083333611488342
+    },
+    "literal_ear_elevation_maximum_change_degrees": 2.825969925524202,
+    "frame": "prepared canonical guard Head defines forward +Z, right +X and up +Y; positive pitch looks up",
+    "samples": [
+      {
+        "source_seconds": 0.0,
+        "old": {
+          "source_seconds": 0.0,
+          "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+          "yaw_degrees": -3.1805546814635168e-15,
+          "anatomical_roll_degrees": -3.180554681463516e-15,
+          "ear_line_elevation_degrees": -3.1805546814635168e-15,
+          "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+          "head_origin_metres": [
+            -0.0013641693337886596,
+            1.469447843542347,
+            -0.00386511739478337
+          ]
+        },
+        "new": {
+          "source_seconds": 0.0,
+          "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+          "yaw_degrees": -3.1805546814635168e-15,
+          "anatomical_roll_degrees": -3.180554681463516e-15,
+          "ear_line_elevation_degrees": -3.1805546814635168e-15,
+          "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+          "head_origin_metres": [
+            -0.0013641693337886596,
+            1.469447843542347,
+            -0.00386511739478337
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.15833333134651184,
+        "old": {
+          "source_seconds": 0.15833333134651184,
+          "guard_calibrated_pitch_degrees": -19.189487862649905,
+          "yaw_degrees": 12.34886108657449,
+          "anatomical_roll_degrees": -6.576111876329137,
+          "ear_line_elevation_degrees": -6.209241282802497,
+          "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+          "head_origin_metres": [
+            0.04377958629201957,
+            1.4350716942110908,
+            0.08394037314536662
+          ]
+        },
+        "new": {
+          "source_seconds": 0.15833333134651184,
+          "guard_calibrated_pitch_degrees": -19.189487862649905,
+          "yaw_degrees": 12.34886108657449,
+          "anatomical_roll_degrees": -6.576111876329137,
+          "ear_line_elevation_degrees": -6.209241282802497,
+          "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+          "head_origin_metres": [
+            0.04377958629201957,
+            1.4350716942110908,
+            0.08394037314536662
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.28333333134651184,
+        "old": {
+          "source_seconds": 0.28333333134651184,
+          "guard_calibrated_pitch_degrees": -31.87695235830363,
+          "yaw_degrees": 18.914823480252,
+          "anatomical_roll_degrees": -12.948508370457324,
+          "ear_line_elevation_degrees": -10.969195182614701,
+          "fixed_rest_axis_pitch_degrees": -27.525402339031448,
+          "head_origin_metres": [
+            0.09109863374184562,
+            1.4058997842924925,
+            0.12654362702849098
+          ]
+        },
+        "new": {
+          "source_seconds": 0.28333333134651184,
+          "guard_calibrated_pitch_degrees": -31.876952099788618,
+          "yaw_degrees": 18.914823859482286,
+          "anatomical_roll_degrees": -12.94850841640411,
+          "ear_line_elevation_degrees": -10.96919525250779,
+          "fixed_rest_axis_pitch_degrees": -27.525402081398937,
+          "head_origin_metres": [
+            0.09109863400488294,
+            1.4058997845343295,
+            0.12654362639028247
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.6499999761581421,
+        "old": {
+          "source_seconds": 0.6499999761581421,
+          "guard_calibrated_pitch_degrees": -41.37986543583007,
+          "yaw_degrees": 11.398961047011749,
+          "anatomical_roll_degrees": -6.317797932912447,
+          "ear_line_elevation_degrees": -4.736309847642605,
+          "fixed_rest_axis_pitch_degrees": -36.93675419261427,
+          "head_origin_metres": [
+            0.032094641392525526,
+            1.3978997648283868,
+            0.18828992978154177
+          ]
+        },
+        "new": {
+          "source_seconds": 0.6499999761581421,
+          "guard_calibrated_pitch_degrees": -8.275972765022177,
+          "yaw_degrees": 11.39896151913807,
+          "anatomical_roll_degrees": -6.317797436558006,
+          "ear_line_elevation_degrees": -6.2517416505775865,
+          "fixed_rest_axis_pitch_degrees": -3.8347730813287133,
+          "head_origin_metres": [
+            0.02494589542987506,
+            1.4166705757171305,
+            0.15283279366820202
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.8999999761581421,
+        "old": {
+          "source_seconds": 0.8999999761581421,
+          "guard_calibrated_pitch_degrees": -45.826720372403244,
+          "yaw_degrees": -1.19512843361416,
+          "anatomical_roll_degrees": 2.529202808731519,
+          "ear_line_elevation_degrees": 1.7621315950718115,
+          "fixed_rest_axis_pitch_degrees": -41.351494929065225,
+          "head_origin_metres": [
+            -0.05383018335014623,
+            1.3708363760830578,
+            0.2365998806423412
+          ]
+        },
+        "new": {
+          "source_seconds": 0.8999999761581421,
+          "guard_calibrated_pitch_degrees": -9.16534477864138,
+          "yaw_degrees": -1.1951287923981553,
+          "anatomical_roll_degrees": 2.5292025225515347,
+          "ear_line_elevation_degrees": 2.4968910688527792,
+          "fixed_rest_axis_pitch_degrees": -4.690225513410296,
+          "head_origin_metres": [
+            -0.053054414669598086,
+            1.3969381800211484,
+            0.19941388812401797
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.9083333611488342,
+        "old": {
+          "source_seconds": 0.9083333611488342,
+          "guard_calibrated_pitch_degrees": -45.95188939673184,
+          "yaw_degrees": -2.3041399175203785,
+          "anatomical_roll_degrees": 3.016556345147703,
+          "ear_line_elevation_degrees": 2.096796655463338,
+          "fixed_rest_axis_pitch_degrees": -41.477788118571574,
+          "head_origin_metres": [
+            -0.05845936694637223,
+            1.3687917648914283,
+            0.23769102927714378
+          ]
+        },
+        "new": {
+          "source_seconds": 0.9083333611488342,
+          "guard_calibrated_pitch_degrees": -9.190376513168454,
+          "yaw_degrees": -2.3041390359059855,
+          "anatomical_roll_degrees": 3.0165571660055894,
+          "ear_line_elevation_degrees": 2.977798807677183,
+          "fixed_rest_axis_pitch_degrees": -4.716457663092331,
+          "head_origin_metres": [
+            -0.056969755003049356,
+            1.3953036427831256,
+            0.20066956026317842
+          ]
+        }
+      },
+      {
+        "source_seconds": 0.9833333492279053,
+        "old": {
+          "source_seconds": 0.9833333492279053,
+          "guard_calibrated_pitch_degrees": -39.69300011329417,
+          "yaw_degrees": -13.513038387146645,
+          "anatomical_roll_degrees": 7.031787034234752,
+          "ear_line_elevation_degrees": 5.405243851010946,
+          "fixed_rest_axis_pitch_degrees": -35.239925631444,
+          "head_origin_metres": [
+            -0.10947202734797172,
+            1.340319647038509,
+            0.24356456057590056
+          ]
+        },
+        "new": {
+          "source_seconds": 0.9833333492279053,
+          "guard_calibrated_pitch_degrees": -7.93859944864846,
+          "yaw_degrees": -13.513038649387388,
+          "anatomical_roll_degrees": 7.031786798312316,
+          "ear_line_elevation_degrees": 6.964063214987254,
+          "fixed_rest_axis_pitch_degrees": -3.486790981130925,
+          "head_origin_metres": [
+            -0.10262065782016258,
+            1.3667059311020318,
+            0.21505512582038758
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.0,
+        "old": {
+          "source_seconds": 1.0,
+          "guard_calibrated_pitch_degrees": -37.36594499751262,
+          "yaw_degrees": -13.45146073338982,
+          "anatomical_roll_degrees": 7.814920094087706,
+          "ear_line_elevation_degrees": 6.203982407731102,
+          "fixed_rest_axis_pitch_degrees": -32.91951421325677,
+          "head_origin_metres": [
+            -0.11837435773696743,
+            1.3359805913268037,
+            0.24368750866261563
+          ]
+        },
+        "new": {
+          "source_seconds": 1.0,
+          "guard_calibrated_pitch_degrees": -7.4731882820047755,
+          "yaw_degrees": -13.451460274688483,
+          "anatomical_roll_degrees": 7.8149203775416884,
+          "ear_line_elevation_degrees": 7.748129729536009,
+          "fixed_rest_axis_pitch_degrees": -3.028241381795991,
+          "head_origin_metres": [
+            -0.11208667852553685,
+            1.361438506454998,
+            0.21739934210170517
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.100000023841858,
+        "old": {
+          "source_seconds": 1.100000023841858,
+          "guard_calibrated_pitch_degrees": -30.49702911167993,
+          "yaw_degrees": -10.89596981599664,
+          "anatomical_roll_degrees": 10.894835689714078,
+          "ear_line_elevation_degrees": 9.372873803921642,
+          "fixed_rest_axis_pitch_degrees": -26.084708266903064,
+          "head_origin_metres": [
+            -0.15076405800165732,
+            1.3205087909170965,
+            0.24223590447630533
+          ]
+        },
+        "new": {
+          "source_seconds": 1.100000023841858,
+          "guard_calibrated_pitch_degrees": -6.09940545466136,
+          "yaw_degrees": -10.895969423639613,
+          "anatomical_roll_degrees": 10.894836173474298,
+          "ear_line_elevation_degrees": 10.832413301517708,
+          "fixed_rest_axis_pitch_degrees": -1.6894813447941717,
+          "head_origin_metres": [
+            -0.14694360864245404,
+            1.3428330809464248,
+            0.22238905890929014
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.1666666269302368,
+        "old": {
+          "source_seconds": 1.1666666269302368,
+          "guard_calibrated_pitch_degrees": -29.36175939984431,
+          "yaw_degrees": -0.395310919838761,
+          "anatomical_roll_degrees": 20.16833878933987,
+          "ear_line_elevation_degrees": 17.487011760272516,
+          "fixed_rest_axis_pitch_degrees": -25.12470498867786,
+          "head_origin_metres": [
+            -0.2096735482954454,
+            1.289605603443034,
+            0.23391627467653545
+          ]
+        },
+        "new": {
+          "source_seconds": 1.1666666269302368,
+          "guard_calibrated_pitch_degrees": -5.872351810371619,
+          "yaw_degrees": -0.39531056050953883,
+          "anatomical_roll_degrees": 20.16833912584541,
+          "ear_line_elevation_degrees": 20.057941396833623,
+          "fixed_rest_axis_pitch_degrees": -1.643630553787232,
+          "head_origin_metres": [
+            -0.2095581459965619,
+            1.3118612997904848,
+            0.21719018330765807
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.2999999523162842,
+        "old": {
+          "source_seconds": 1.2999999523162842,
+          "guard_calibrated_pitch_degrees": -18.73746771325051,
+          "yaw_degrees": -4.8430982702717245,
+          "anatomical_roll_degrees": 17.578427291429296,
+          "ear_line_elevation_degrees": 16.61890307216562,
+          "fixed_rest_axis_pitch_degrees": -14.44354217926402,
+          "head_origin_metres": [
+            -0.17820144786917938,
+            1.3238371931046007,
+            0.24126752410154725
+          ]
+        },
+        "new": {
+          "source_seconds": 1.2999999523162842,
+          "guard_calibrated_pitch_degrees": -3.747494386970061,
+          "yaw_degrees": -4.843099028565693,
+          "anatomical_roll_degrees": 17.578426824367792,
+          "ear_line_elevation_degrees": 17.539619020724988,
+          "fixed_rest_axis_pitch_degrees": 0.5426116015539414,
+          "head_origin_metres": [
+            -0.1771765785265102,
+            1.3372216925210672,
+            0.22917178354679898
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.5,
+        "old": {
+          "source_seconds": 1.5,
+          "guard_calibrated_pitch_degrees": -12.364014126961846,
+          "yaw_degrees": -8.989213784387797,
+          "anatomical_roll_degrees": 8.702434409622354,
+          "ear_line_elevation_degrees": 8.499086727420313,
+          "fixed_rest_axis_pitch_degrees": -7.927546819939418,
+          "head_origin_metres": [
+            -0.0999177249272048,
+            1.4245929637313428,
+            0.14172993903679654
+          ]
+        },
+        "new": {
+          "source_seconds": 1.5,
+          "guard_calibrated_pitch_degrees": -6.396522704379388,
+          "yaw_degrees": -8.989215058025078,
+          "anatomical_roll_degrees": 8.702433953926187,
+          "ear_line_elevation_degrees": 8.647842032852761,
+          "fixed_rest_axis_pitch_degrees": -1.9603892174142241,
+          "head_origin_metres": [
+            -0.09888008853793125,
+            1.4279211953239754,
+            0.1351705685102943
+          ]
+        }
+      },
+      {
+        "source_seconds": 1.75,
+        "old": {
+          "source_seconds": 1.75,
+          "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+          "yaw_degrees": -3.1805546814635176e-15,
+          "anatomical_roll_degrees": 2.2263882770244614e-14,
+          "ear_line_elevation_degrees": 2.2263882770244617e-14,
+          "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+          "head_origin_metres": [
+            -0.0013641693337885655,
+            1.469447843542347,
+            -0.003865117394783422
+          ]
+        },
+        "new": {
+          "source_seconds": 1.75,
+          "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+          "yaw_degrees": -3.1805546814635176e-15,
+          "anatomical_roll_degrees": 2.2263882770244614e-14,
+          "ear_line_elevation_degrees": 2.2263882770244617e-14,
+          "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+          "head_origin_metres": [
+            -0.0013641693337885655,
+            1.469447843542347,
+            -0.003865117394783422
+          ]
+        }
+      }
+    ]
+  },
+  "head_plans_by_file": {
+    "fine_overhead_raw.glb": {
+      "guard_calibrated_pitch_degrees": {
+        "old": {
+          "minimum": -45.95188939673185,
+          "minimum_seconds": 0.9083333611488342,
+          "maximum": 2.703471479243988e-14,
+          "maximum_seconds": 0.0
+        },
+        "new": {
+          "minimum": -37.94349189534362,
+          "minimum_seconds": 0.5083333253860474,
+          "maximum": 2.703471479243988e-14,
+          "maximum_seconds": 0.0
+        }
+      },
+      "yaw_degrees": {
+        "old": {
+          "minimum": -16.178437198026792,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.945817170682872,
+          "maximum_seconds": 0.2750000059604645
+        },
+        "new": {
+          "minimum": -16.178437937977467,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.945817585707776,
+          "maximum_seconds": 0.2750000059604645
+        }
+      },
+      "anatomical_roll_degrees": {
+        "old": {
+          "minimum": -13.221118792465875,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598254804768,
+          "maximum_seconds": 1.1916667222976685
+        },
+        "new": {
+          "minimum": -13.221118792465875,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598472297967,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "ear_line_elevation_degrees": {
+        "old": {
+          "minimum": -11.289182116167463,
+          "minimum_seconds": 0.25,
+          "maximum": 19.14901154453611,
+          "maximum_seconds": 1.2000000476837158
+        },
+        "new": {
+          "minimum": -11.289182116167625,
+          "minimum_seconds": 0.25,
+          "maximum": 21.88944923208397,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "pitch_gain": 0.2,
+      "neck_increment_shares": [
+        0.45,
+        0.55
+      ],
+      "maximum_pitch_target_error_degrees": 1.0124328209570876e-05,
+      "maximum_yaw_change_degrees": 1.9820254806290905e-06,
+      "maximum_anatomical_roll_change_degrees": 1.5183030086518556e-06,
+      "neck_world_target_error_degrees": {
+        "NeckTwist01": 4.377926777659117e-06,
+        "NeckTwist02": 1.0201104812465169e-05
+      },
+      "total_head_extension_degrees": {
+        "minimum": -1.221050566435622e-06,
+        "minimum_seconds": 0.0833333358168602,
+        "maximum": 36.7615128835634,
+        "maximum_seconds": 0.9083333611488342
+      },
+      "literal_ear_elevation_maximum_change_degrees": 2.825969925524241,
+      "frame": "prepared canonical guard Head defines forward +Z, right +X and up +Y; positive pitch looks up",
+      "samples": [
+        {
+          "source_seconds": 0.0,
+          "old": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 2.703471479243988e-14,
+            "yaw_degrees": -1.5902773407317578e-14,
+            "anatomical_roll_degrees": -6.361109362927021e-15,
+            "ear_line_elevation_degrees": -6.3611093629270335e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483911,
+            "head_origin_metres": [
+              -0.0013641693337886507,
+              1.4974469699997741,
+              -0.003865117394783358
+            ]
+          },
+          "new": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 2.703471479243988e-14,
+            "yaw_degrees": -1.5902773407317578e-14,
+            "anatomical_roll_degrees": -6.361109362927021e-15,
+            "ear_line_elevation_degrees": -6.3611093629270335e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483911,
+            "head_origin_metres": [
+              -0.0013641693337886507,
+              1.4974469699997741,
+              -0.003865117394783358
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.15833333134651184,
+          "old": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.1894878626499,
+            "yaw_degrees": 12.348861086574473,
+            "anatomical_roll_degrees": -6.576111876329122,
+            "ear_line_elevation_degrees": -6.209241282802485,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242748,
+            "head_origin_metres": [
+              0.043779586292019564,
+              1.463070820668518,
+              0.08394037314536668
+            ]
+          },
+          "new": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.1894878626499,
+            "yaw_degrees": 12.348861086574473,
+            "anatomical_roll_degrees": -6.576111876329122,
+            "ear_line_elevation_degrees": -6.209241282802485,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242748,
+            "head_origin_metres": [
+              0.043779586292019564,
+              1.463070820668518,
+              0.08394037314536668
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.28333333134651184,
+          "old": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.87695235830363,
+            "yaw_degrees": 18.914823480251968,
+            "anatomical_roll_degrees": -12.948508370457334,
+            "ear_line_elevation_degrees": -10.969195182614689,
+            "fixed_rest_axis_pitch_degrees": -27.525402339031448,
+            "head_origin_metres": [
+              0.09109863374184562,
+              1.4338989107499196,
+              0.12654362702849092
+            ]
+          },
+          "new": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.87695209978861,
+            "yaw_degrees": 18.91482385948228,
+            "anatomical_roll_degrees": -12.948508416404115,
+            "ear_line_elevation_degrees": -10.969195252507786,
+            "fixed_rest_axis_pitch_degrees": -27.525402081398937,
+            "head_origin_metres": [
+              0.09109863400488295,
+              1.4338989109917566,
+              0.12654362639028247
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.6499999761581421,
+          "old": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -41.37986543583005,
+            "yaw_degrees": 11.398961047011701,
+            "anatomical_roll_degrees": -6.317797932912487,
+            "ear_line_elevation_degrees": -4.736309847642618,
+            "fixed_rest_axis_pitch_degrees": -36.93675419261425,
+            "head_origin_metres": [
+              0.032094641392525484,
+              1.425898891285814,
+              0.1882899297815417
+            ]
+          },
+          "new": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -8.275972765022168,
+            "yaw_degrees": 11.398961519138052,
+            "anatomical_roll_degrees": -6.317797436558003,
+            "ear_line_elevation_degrees": -6.25174165057758,
+            "fixed_rest_axis_pitch_degrees": -3.8347730813287164,
+            "head_origin_metres": [
+              0.02494589542987501,
+              1.4446697021745576,
+              0.15283279366820193
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.8999999761581421,
+          "old": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -45.826720372403216,
+            "yaw_degrees": -1.195128433614173,
+            "anatomical_roll_degrees": 2.5292028087315,
+            "ear_line_elevation_degrees": 1.762131595071802,
+            "fixed_rest_axis_pitch_degrees": -41.351494929065204,
+            "head_origin_metres": [
+              -0.05383018335014621,
+              1.3988355025404848,
+              0.23659988064234128
+            ]
+          },
+          "new": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -9.16534477864138,
+            "yaw_degrees": -1.1951287923981615,
+            "anatomical_roll_degrees": 2.5292025225515253,
+            "ear_line_elevation_degrees": 2.4968910688527663,
+            "fixed_rest_axis_pitch_degrees": -4.690225513410296,
+            "head_origin_metres": [
+              -0.053054414669598066,
+              1.4249373064785757,
+              0.199413888124018
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9083333611488342,
+          "old": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -45.95188939673185,
+            "yaw_degrees": -2.3041399175204207,
+            "anatomical_roll_degrees": 3.016556345147666,
+            "ear_line_elevation_degrees": 2.096796655463335,
+            "fixed_rest_axis_pitch_degrees": -41.47778811857158,
+            "head_origin_metres": [
+              -0.0584593669463722,
+              1.3967908913488556,
+              0.23769102927714378
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -9.190376513168454,
+            "yaw_degrees": -2.3041390359059792,
+            "anatomical_roll_degrees": 3.0165571660055956,
+            "ear_line_elevation_degrees": 2.9777988076771797,
+            "fixed_rest_axis_pitch_degrees": -4.716457663092336,
+            "head_origin_metres": [
+              -0.056969755003049335,
+              1.4233027692405527,
+              0.20066956026317845
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9833333492279053,
+          "old": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -39.69300011329417,
+            "yaw_degrees": -13.513038387146683,
+            "anatomical_roll_degrees": 7.031787034234724,
+            "ear_line_elevation_degrees": 5.405243851010933,
+            "fixed_rest_axis_pitch_degrees": -35.239925631444,
+            "head_origin_metres": [
+              -0.10947202734797169,
+              1.3683187734959361,
+              0.24356456057590067
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -7.938599448648452,
+            "yaw_degrees": -13.513038649387413,
+            "anatomical_roll_degrees": 7.03178679831231,
+            "ear_line_elevation_degrees": 6.964063214987254,
+            "fixed_rest_axis_pitch_degrees": -3.4867909811309112,
+            "head_origin_metres": [
+              -0.10262065782016253,
+              1.3947050575594586,
+              0.21505512582038766
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "old": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -37.36594499751264,
+            "yaw_degrees": -13.451460733389855,
+            "anatomical_roll_degrees": 7.8149200940876895,
+            "ear_line_elevation_degrees": 6.203982407731102,
+            "fixed_rest_axis_pitch_degrees": -32.9195142132568,
+            "head_origin_metres": [
+              -0.11837435773696742,
+              1.3639797177842305,
+              0.24368750866261565
+            ]
+          },
+          "new": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -7.473188282004784,
+            "yaw_degrees": -13.451460274688506,
+            "anatomical_roll_degrees": 7.814920377541693,
+            "ear_line_elevation_degrees": 7.748129729536018,
+            "fixed_rest_axis_pitch_degrees": -3.0282413817959997,
+            "head_origin_metres": [
+              -0.11208667852553683,
+              1.3894376329124252,
+              0.21739934210170517
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.100000023841858,
+          "old": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -30.49702911167993,
+            "yaw_degrees": -10.895969815996667,
+            "anatomical_roll_degrees": 10.894835689714048,
+            "ear_line_elevation_degrees": 9.37287380392162,
+            "fixed_rest_axis_pitch_degrees": -26.084708266903053,
+            "head_origin_metres": [
+              -0.15076405800165735,
+              1.3485079173745238,
+              0.24223590447630533
+            ]
+          },
+          "new": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -6.099405454661357,
+            "yaw_degrees": -10.895969423639642,
+            "anatomical_roll_degrees": 10.894836173474301,
+            "ear_line_elevation_degrees": 10.832413301517711,
+            "fixed_rest_axis_pitch_degrees": -1.6894813447941668,
+            "head_origin_metres": [
+              -0.14694360864245407,
+              1.3708322074038524,
+              0.22238905890929017
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.1666666269302368,
+          "old": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -29.361759399844306,
+            "yaw_degrees": -0.3953109198387828,
+            "anatomical_roll_degrees": 20.168338789339895,
+            "ear_line_elevation_degrees": 17.48701176027254,
+            "fixed_rest_axis_pitch_degrees": -25.124704988677834,
+            "head_origin_metres": [
+              -0.2096735482954455,
+              1.3176047299004614,
+              0.23391627467653545
+            ]
+          },
+          "new": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -5.872351810371614,
+            "yaw_degrees": -0.39531056050955776,
+            "anatomical_roll_degrees": 20.16833912584542,
+            "ear_line_elevation_degrees": 20.057941396833645,
+            "fixed_rest_axis_pitch_degrees": -1.643630553787223,
+            "head_origin_metres": [
+              -0.20955814599656197,
+              1.3398604262479121,
+              0.21719018330765807
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.2999999523162842,
+          "old": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -18.73746771325051,
+            "yaw_degrees": -4.843098270271737,
+            "anatomical_roll_degrees": 17.578427291429303,
+            "ear_line_elevation_degrees": 16.61890307216563,
+            "fixed_rest_axis_pitch_degrees": -14.44354217926402,
+            "head_origin_metres": [
+              -0.17820144786917944,
+              1.3518363195620275,
+              0.24126752410154717
+            ]
+          },
+          "new": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -3.747494386970066,
+            "yaw_degrees": -4.843099028565695,
+            "anatomical_roll_degrees": 17.578426824367792,
+            "ear_line_elevation_degrees": 17.539619020724977,
+            "fixed_rest_axis_pitch_degrees": 0.5426116015539364,
+            "head_origin_metres": [
+              -0.17717657852651025,
+              1.3652208189784938,
+              0.22917178354679896
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "old": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -12.364014126961854,
+            "yaw_degrees": -8.989213784387827,
+            "anatomical_roll_degrees": 8.702434409622333,
+            "ear_line_elevation_degrees": 8.499086727420298,
+            "fixed_rest_axis_pitch_degrees": -7.927546819939426,
+            "head_origin_metres": [
+              -0.09991772492720487,
+              1.45259209018877,
+              0.1417299390367966
+            ]
+          },
+          "new": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -6.396522704379385,
+            "yaw_degrees": -8.989215058025097,
+            "anatomical_roll_degrees": 8.702433953926178,
+            "ear_line_elevation_degrees": 8.647842032852747,
+            "fixed_rest_axis_pitch_degrees": -1.9603892174142248,
+            "head_origin_metres": [
+              -0.09888008853793133,
+              1.4559203217814023,
+              0.13517056851029433
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "old": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": 1.749305074804934e-14,
+            "yaw_degrees": -9.54166404439055e-15,
+            "anatomical_roll_degrees": 9.541664044390555e-15,
+            "ear_line_elevation_degrees": 9.54166404439055e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483897,
+            "head_origin_metres": [
+              -0.0013641693337886,
+              1.4974469699997741,
+              -0.0038651173947834303
+            ]
+          },
+          "new": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": 1.749305074804934e-14,
+            "yaw_degrees": -9.54166404439055e-15,
+            "anatomical_roll_degrees": 9.541664044390555e-15,
+            "ear_line_elevation_degrees": 9.54166404439055e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483897,
+            "head_origin_metres": [
+              -0.0013641693337886,
+              1.4974469699997741,
+              -0.0038651173947834303
+            ]
+          }
+        }
+      ]
+    },
+    "fine_overhead_body.glb": {
+      "guard_calibrated_pitch_degrees": {
+        "old": {
+          "minimum": -45.95188939673184,
+          "minimum_seconds": 0.9083333611488342,
+          "maximum": 1.5902773407317584e-15,
+          "maximum_seconds": 0.0
+        },
+        "new": {
+          "minimum": -37.94349189534363,
+          "minimum_seconds": 0.5083333253860474,
+          "maximum": 1.5902773407317584e-15,
+          "maximum_seconds": 0.0
+        }
+      },
+      "yaw_degrees": {
+        "old": {
+          "minimum": -16.178437198026792,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.94581717068291,
+          "maximum_seconds": 0.2750000059604645
+        },
+        "new": {
+          "minimum": -16.178437937977435,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.945817585707804,
+          "maximum_seconds": 0.2750000059604645
+        }
+      },
+      "anatomical_roll_degrees": {
+        "old": {
+          "minimum": -13.221118792465864,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598254804757,
+          "maximum_seconds": 1.1916667222976685
+        },
+        "new": {
+          "minimum": -13.221118792465864,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598472297952,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "ear_line_elevation_degrees": {
+        "old": {
+          "minimum": -11.289182116167463,
+          "minimum_seconds": 0.25,
+          "maximum": 19.14901154453613,
+          "maximum_seconds": 1.2000000476837158
+        },
+        "new": {
+          "minimum": -11.289182116167634,
+          "minimum_seconds": 0.25,
+          "maximum": 21.889449232083958,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "pitch_gain": 0.2,
+      "neck_increment_shares": [
+        0.45,
+        0.55
+      ],
+      "maximum_pitch_target_error_degrees": 1.0124328223781731e-05,
+      "maximum_yaw_change_degrees": 1.9820254806290905e-06,
+      "maximum_anatomical_roll_change_degrees": 1.5183030086518556e-06,
+      "neck_world_target_error_degrees": {
+        "NeckTwist01": 4.3779267762571285e-06,
+        "NeckTwist02": 1.0201104822205047e-05
+      },
+      "total_head_extension_degrees": {
+        "minimum": -1.2210505913046177e-06,
+        "minimum_seconds": 0.0833333358168602,
+        "maximum": 36.76151288356339,
+        "maximum_seconds": 0.9083333611488342
+      },
+      "literal_ear_elevation_maximum_change_degrees": 2.825969925524202,
+      "frame": "prepared canonical guard Head defines forward +Z, right +X and up +Y; positive pitch looks up",
+      "samples": [
+        {
+          "source_seconds": 0.0,
+          "old": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+            "yaw_degrees": -3.1805546814635168e-15,
+            "anatomical_roll_degrees": -3.180554681463516e-15,
+            "ear_line_elevation_degrees": -3.1805546814635168e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+            "head_origin_metres": [
+              -0.0013641693337886596,
+              1.469447843542347,
+              -0.00386511739478337
+            ]
+          },
+          "new": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+            "yaw_degrees": -3.1805546814635168e-15,
+            "anatomical_roll_degrees": -3.180554681463516e-15,
+            "ear_line_elevation_degrees": -3.1805546814635168e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+            "head_origin_metres": [
+              -0.0013641693337886596,
+              1.469447843542347,
+              -0.00386511739478337
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.15833333134651184,
+          "old": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.189487862649905,
+            "yaw_degrees": 12.34886108657449,
+            "anatomical_roll_degrees": -6.576111876329137,
+            "ear_line_elevation_degrees": -6.209241282802497,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+            "head_origin_metres": [
+              0.04377958629201957,
+              1.4350716942110908,
+              0.08394037314536662
+            ]
+          },
+          "new": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.189487862649905,
+            "yaw_degrees": 12.34886108657449,
+            "anatomical_roll_degrees": -6.576111876329137,
+            "ear_line_elevation_degrees": -6.209241282802497,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+            "head_origin_metres": [
+              0.04377958629201957,
+              1.4350716942110908,
+              0.08394037314536662
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.28333333134651184,
+          "old": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.87695235830363,
+            "yaw_degrees": 18.914823480252,
+            "anatomical_roll_degrees": -12.948508370457324,
+            "ear_line_elevation_degrees": -10.969195182614701,
+            "fixed_rest_axis_pitch_degrees": -27.525402339031448,
+            "head_origin_metres": [
+              0.09109863374184562,
+              1.4058997842924925,
+              0.12654362702849098
+            ]
+          },
+          "new": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.876952099788618,
+            "yaw_degrees": 18.914823859482286,
+            "anatomical_roll_degrees": -12.94850841640411,
+            "ear_line_elevation_degrees": -10.96919525250779,
+            "fixed_rest_axis_pitch_degrees": -27.525402081398937,
+            "head_origin_metres": [
+              0.09109863400488294,
+              1.4058997845343295,
+              0.12654362639028247
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.6499999761581421,
+          "old": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -41.37986543583007,
+            "yaw_degrees": 11.398961047011749,
+            "anatomical_roll_degrees": -6.317797932912447,
+            "ear_line_elevation_degrees": -4.736309847642605,
+            "fixed_rest_axis_pitch_degrees": -36.93675419261427,
+            "head_origin_metres": [
+              0.032094641392525526,
+              1.3978997648283868,
+              0.18828992978154177
+            ]
+          },
+          "new": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -8.275972765022177,
+            "yaw_degrees": 11.39896151913807,
+            "anatomical_roll_degrees": -6.317797436558006,
+            "ear_line_elevation_degrees": -6.2517416505775865,
+            "fixed_rest_axis_pitch_degrees": -3.8347730813287133,
+            "head_origin_metres": [
+              0.02494589542987506,
+              1.4166705757171305,
+              0.15283279366820202
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.8999999761581421,
+          "old": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -45.826720372403244,
+            "yaw_degrees": -1.19512843361416,
+            "anatomical_roll_degrees": 2.529202808731519,
+            "ear_line_elevation_degrees": 1.7621315950718115,
+            "fixed_rest_axis_pitch_degrees": -41.351494929065225,
+            "head_origin_metres": [
+              -0.05383018335014623,
+              1.3708363760830578,
+              0.2365998806423412
+            ]
+          },
+          "new": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -9.16534477864138,
+            "yaw_degrees": -1.1951287923981553,
+            "anatomical_roll_degrees": 2.5292025225515347,
+            "ear_line_elevation_degrees": 2.4968910688527792,
+            "fixed_rest_axis_pitch_degrees": -4.690225513410296,
+            "head_origin_metres": [
+              -0.053054414669598086,
+              1.3969381800211484,
+              0.19941388812401797
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9083333611488342,
+          "old": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -45.95188939673184,
+            "yaw_degrees": -2.3041399175203785,
+            "anatomical_roll_degrees": 3.016556345147703,
+            "ear_line_elevation_degrees": 2.096796655463338,
+            "fixed_rest_axis_pitch_degrees": -41.477788118571574,
+            "head_origin_metres": [
+              -0.05845936694637223,
+              1.3687917648914283,
+              0.23769102927714378
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -9.190376513168454,
+            "yaw_degrees": -2.3041390359059855,
+            "anatomical_roll_degrees": 3.0165571660055894,
+            "ear_line_elevation_degrees": 2.977798807677183,
+            "fixed_rest_axis_pitch_degrees": -4.716457663092331,
+            "head_origin_metres": [
+              -0.056969755003049356,
+              1.3953036427831256,
+              0.20066956026317842
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9833333492279053,
+          "old": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -39.69300011329417,
+            "yaw_degrees": -13.513038387146645,
+            "anatomical_roll_degrees": 7.031787034234752,
+            "ear_line_elevation_degrees": 5.405243851010946,
+            "fixed_rest_axis_pitch_degrees": -35.239925631444,
+            "head_origin_metres": [
+              -0.10947202734797172,
+              1.340319647038509,
+              0.24356456057590056
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -7.93859944864846,
+            "yaw_degrees": -13.513038649387388,
+            "anatomical_roll_degrees": 7.031786798312316,
+            "ear_line_elevation_degrees": 6.964063214987254,
+            "fixed_rest_axis_pitch_degrees": -3.486790981130925,
+            "head_origin_metres": [
+              -0.10262065782016258,
+              1.3667059311020318,
+              0.21505512582038758
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "old": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -37.36594499751262,
+            "yaw_degrees": -13.45146073338982,
+            "anatomical_roll_degrees": 7.814920094087706,
+            "ear_line_elevation_degrees": 6.203982407731102,
+            "fixed_rest_axis_pitch_degrees": -32.91951421325677,
+            "head_origin_metres": [
+              -0.11837435773696743,
+              1.3359805913268037,
+              0.24368750866261563
+            ]
+          },
+          "new": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -7.4731882820047755,
+            "yaw_degrees": -13.451460274688483,
+            "anatomical_roll_degrees": 7.8149203775416884,
+            "ear_line_elevation_degrees": 7.748129729536009,
+            "fixed_rest_axis_pitch_degrees": -3.028241381795991,
+            "head_origin_metres": [
+              -0.11208667852553685,
+              1.361438506454998,
+              0.21739934210170517
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.100000023841858,
+          "old": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -30.49702911167993,
+            "yaw_degrees": -10.89596981599664,
+            "anatomical_roll_degrees": 10.894835689714078,
+            "ear_line_elevation_degrees": 9.372873803921642,
+            "fixed_rest_axis_pitch_degrees": -26.084708266903064,
+            "head_origin_metres": [
+              -0.15076405800165732,
+              1.3205087909170965,
+              0.24223590447630533
+            ]
+          },
+          "new": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -6.09940545466136,
+            "yaw_degrees": -10.895969423639613,
+            "anatomical_roll_degrees": 10.894836173474298,
+            "ear_line_elevation_degrees": 10.832413301517708,
+            "fixed_rest_axis_pitch_degrees": -1.6894813447941717,
+            "head_origin_metres": [
+              -0.14694360864245404,
+              1.3428330809464248,
+              0.22238905890929014
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.1666666269302368,
+          "old": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -29.36175939984431,
+            "yaw_degrees": -0.395310919838761,
+            "anatomical_roll_degrees": 20.16833878933987,
+            "ear_line_elevation_degrees": 17.487011760272516,
+            "fixed_rest_axis_pitch_degrees": -25.12470498867786,
+            "head_origin_metres": [
+              -0.2096735482954454,
+              1.289605603443034,
+              0.23391627467653545
+            ]
+          },
+          "new": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -5.872351810371619,
+            "yaw_degrees": -0.39531056050953883,
+            "anatomical_roll_degrees": 20.16833912584541,
+            "ear_line_elevation_degrees": 20.057941396833623,
+            "fixed_rest_axis_pitch_degrees": -1.643630553787232,
+            "head_origin_metres": [
+              -0.2095581459965619,
+              1.3118612997904848,
+              0.21719018330765807
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.2999999523162842,
+          "old": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -18.73746771325051,
+            "yaw_degrees": -4.8430982702717245,
+            "anatomical_roll_degrees": 17.578427291429296,
+            "ear_line_elevation_degrees": 16.61890307216562,
+            "fixed_rest_axis_pitch_degrees": -14.44354217926402,
+            "head_origin_metres": [
+              -0.17820144786917938,
+              1.3238371931046007,
+              0.24126752410154725
+            ]
+          },
+          "new": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -3.747494386970061,
+            "yaw_degrees": -4.843099028565693,
+            "anatomical_roll_degrees": 17.578426824367792,
+            "ear_line_elevation_degrees": 17.539619020724988,
+            "fixed_rest_axis_pitch_degrees": 0.5426116015539414,
+            "head_origin_metres": [
+              -0.1771765785265102,
+              1.3372216925210672,
+              0.22917178354679898
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "old": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -12.364014126961846,
+            "yaw_degrees": -8.989213784387797,
+            "anatomical_roll_degrees": 8.702434409622354,
+            "ear_line_elevation_degrees": 8.499086727420313,
+            "fixed_rest_axis_pitch_degrees": -7.927546819939418,
+            "head_origin_metres": [
+              -0.0999177249272048,
+              1.4245929637313428,
+              0.14172993903679654
+            ]
+          },
+          "new": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -6.396522704379388,
+            "yaw_degrees": -8.989215058025078,
+            "anatomical_roll_degrees": 8.702433953926187,
+            "ear_line_elevation_degrees": 8.647842032852761,
+            "fixed_rest_axis_pitch_degrees": -1.9603892174142241,
+            "head_origin_metres": [
+              -0.09888008853793125,
+              1.4279211953239754,
+              0.1351705685102943
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "old": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+            "yaw_degrees": -3.1805546814635176e-15,
+            "anatomical_roll_degrees": 2.2263882770244614e-14,
+            "ear_line_elevation_degrees": 2.2263882770244617e-14,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+            "head_origin_metres": [
+              -0.0013641693337885655,
+              1.469447843542347,
+              -0.003865117394783422
+            ]
+          },
+          "new": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+            "yaw_degrees": -3.1805546814635176e-15,
+            "anatomical_roll_degrees": 2.2263882770244614e-14,
+            "ear_line_elevation_degrees": 2.2263882770244617e-14,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+            "head_origin_metres": [
+              -0.0013641693337885655,
+              1.469447843542347,
+              -0.003865117394783422
+            ]
+          }
+        }
+      ]
+    },
+    "fine_overhead_preview.glb": {
+      "guard_calibrated_pitch_degrees": {
+        "old": {
+          "minimum": -45.95188939673184,
+          "minimum_seconds": 0.9083333611488342,
+          "maximum": 1.5902773407317584e-15,
+          "maximum_seconds": 0.0
+        },
+        "new": {
+          "minimum": -37.94349189534363,
+          "minimum_seconds": 0.5083333253860474,
+          "maximum": 1.5902773407317584e-15,
+          "maximum_seconds": 0.0
+        }
+      },
+      "yaw_degrees": {
+        "old": {
+          "minimum": -16.178437198026792,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.94581717068291,
+          "maximum_seconds": 0.2750000059604645
+        },
+        "new": {
+          "minimum": -16.178437937977435,
+          "minimum_seconds": 1.4166666269302368,
+          "maximum": 18.945817585707804,
+          "maximum_seconds": 0.2750000059604645
+        }
+      },
+      "anatomical_roll_degrees": {
+        "old": {
+          "minimum": -13.221118792465864,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598254804757,
+          "maximum_seconds": 1.1916667222976685
+        },
+        "new": {
+          "minimum": -13.221118792465864,
+          "minimum_seconds": 0.25833332538604736,
+          "maximum": 22.009598472297952,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "ear_line_elevation_degrees": {
+        "old": {
+          "minimum": -11.289182116167463,
+          "minimum_seconds": 0.25,
+          "maximum": 19.14901154453613,
+          "maximum_seconds": 1.2000000476837158
+        },
+        "new": {
+          "minimum": -11.289182116167634,
+          "minimum_seconds": 0.25,
+          "maximum": 21.889449232083958,
+          "maximum_seconds": 1.1916667222976685
+        }
+      },
+      "pitch_gain": 0.2,
+      "neck_increment_shares": [
+        0.45,
+        0.55
+      ],
+      "maximum_pitch_target_error_degrees": 1.0124328223781731e-05,
+      "maximum_yaw_change_degrees": 1.9820254806290905e-06,
+      "maximum_anatomical_roll_change_degrees": 1.5183030086518556e-06,
+      "neck_world_target_error_degrees": {
+        "NeckTwist01": 4.3779267762571285e-06,
+        "NeckTwist02": 1.0201104822205047e-05
+      },
+      "total_head_extension_degrees": {
+        "minimum": -1.2210505913046177e-06,
+        "minimum_seconds": 0.0833333358168602,
+        "maximum": 36.76151288356339,
+        "maximum_seconds": 0.9083333611488342
+      },
+      "literal_ear_elevation_maximum_change_degrees": 2.825969925524202,
+      "frame": "prepared canonical guard Head defines forward +Z, right +X and up +Y; positive pitch looks up",
+      "samples": [
+        {
+          "source_seconds": 0.0,
+          "old": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+            "yaw_degrees": -3.1805546814635168e-15,
+            "anatomical_roll_degrees": -3.180554681463516e-15,
+            "ear_line_elevation_degrees": -3.1805546814635168e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+            "head_origin_metres": [
+              -0.0013641693337886596,
+              1.469447843542347,
+              -0.00386511739478337
+            ]
+          },
+          "new": {
+            "source_seconds": 0.0,
+            "guard_calibrated_pitch_degrees": 1.5902773407317584e-15,
+            "yaw_degrees": -3.1805546814635168e-15,
+            "anatomical_roll_degrees": -3.180554681463516e-15,
+            "ear_line_elevation_degrees": -3.1805546814635168e-15,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483879,
+            "head_origin_metres": [
+              -0.0013641693337886596,
+              1.469447843542347,
+              -0.00386511739478337
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.15833333134651184,
+          "old": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.189487862649905,
+            "yaw_degrees": 12.34886108657449,
+            "anatomical_roll_degrees": -6.576111876329137,
+            "ear_line_elevation_degrees": -6.209241282802497,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+            "head_origin_metres": [
+              0.04377958629201957,
+              1.4350716942110908,
+              0.08394037314536662
+            ]
+          },
+          "new": {
+            "source_seconds": 0.15833333134651184,
+            "guard_calibrated_pitch_degrees": -19.189487862649905,
+            "yaw_degrees": 12.34886108657449,
+            "anatomical_roll_degrees": -6.576111876329137,
+            "ear_line_elevation_degrees": -6.209241282802497,
+            "fixed_rest_axis_pitch_degrees": -14.750274636242755,
+            "head_origin_metres": [
+              0.04377958629201957,
+              1.4350716942110908,
+              0.08394037314536662
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.28333333134651184,
+          "old": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.87695235830363,
+            "yaw_degrees": 18.914823480252,
+            "anatomical_roll_degrees": -12.948508370457324,
+            "ear_line_elevation_degrees": -10.969195182614701,
+            "fixed_rest_axis_pitch_degrees": -27.525402339031448,
+            "head_origin_metres": [
+              0.09109863374184562,
+              1.4058997842924925,
+              0.12654362702849098
+            ]
+          },
+          "new": {
+            "source_seconds": 0.28333333134651184,
+            "guard_calibrated_pitch_degrees": -31.876952099788618,
+            "yaw_degrees": 18.914823859482286,
+            "anatomical_roll_degrees": -12.94850841640411,
+            "ear_line_elevation_degrees": -10.96919525250779,
+            "fixed_rest_axis_pitch_degrees": -27.525402081398937,
+            "head_origin_metres": [
+              0.09109863400488294,
+              1.4058997845343295,
+              0.12654362639028247
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.6499999761581421,
+          "old": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -41.37986543583007,
+            "yaw_degrees": 11.398961047011749,
+            "anatomical_roll_degrees": -6.317797932912447,
+            "ear_line_elevation_degrees": -4.736309847642605,
+            "fixed_rest_axis_pitch_degrees": -36.93675419261427,
+            "head_origin_metres": [
+              0.032094641392525526,
+              1.3978997648283868,
+              0.18828992978154177
+            ]
+          },
+          "new": {
+            "source_seconds": 0.6499999761581421,
+            "guard_calibrated_pitch_degrees": -8.275972765022177,
+            "yaw_degrees": 11.39896151913807,
+            "anatomical_roll_degrees": -6.317797436558006,
+            "ear_line_elevation_degrees": -6.2517416505775865,
+            "fixed_rest_axis_pitch_degrees": -3.8347730813287133,
+            "head_origin_metres": [
+              0.02494589542987506,
+              1.4166705757171305,
+              0.15283279366820202
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.8999999761581421,
+          "old": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -45.826720372403244,
+            "yaw_degrees": -1.19512843361416,
+            "anatomical_roll_degrees": 2.529202808731519,
+            "ear_line_elevation_degrees": 1.7621315950718115,
+            "fixed_rest_axis_pitch_degrees": -41.351494929065225,
+            "head_origin_metres": [
+              -0.05383018335014623,
+              1.3708363760830578,
+              0.2365998806423412
+            ]
+          },
+          "new": {
+            "source_seconds": 0.8999999761581421,
+            "guard_calibrated_pitch_degrees": -9.16534477864138,
+            "yaw_degrees": -1.1951287923981553,
+            "anatomical_roll_degrees": 2.5292025225515347,
+            "ear_line_elevation_degrees": 2.4968910688527792,
+            "fixed_rest_axis_pitch_degrees": -4.690225513410296,
+            "head_origin_metres": [
+              -0.053054414669598086,
+              1.3969381800211484,
+              0.19941388812401797
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9083333611488342,
+          "old": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -45.95188939673184,
+            "yaw_degrees": -2.3041399175203785,
+            "anatomical_roll_degrees": 3.016556345147703,
+            "ear_line_elevation_degrees": 2.096796655463338,
+            "fixed_rest_axis_pitch_degrees": -41.477788118571574,
+            "head_origin_metres": [
+              -0.05845936694637223,
+              1.3687917648914283,
+              0.23769102927714378
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9083333611488342,
+            "guard_calibrated_pitch_degrees": -9.190376513168454,
+            "yaw_degrees": -2.3041390359059855,
+            "anatomical_roll_degrees": 3.0165571660055894,
+            "ear_line_elevation_degrees": 2.977798807677183,
+            "fixed_rest_axis_pitch_degrees": -4.716457663092331,
+            "head_origin_metres": [
+              -0.056969755003049356,
+              1.3953036427831256,
+              0.20066956026317842
+            ]
+          }
+        },
+        {
+          "source_seconds": 0.9833333492279053,
+          "old": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -39.69300011329417,
+            "yaw_degrees": -13.513038387146645,
+            "anatomical_roll_degrees": 7.031787034234752,
+            "ear_line_elevation_degrees": 5.405243851010946,
+            "fixed_rest_axis_pitch_degrees": -35.239925631444,
+            "head_origin_metres": [
+              -0.10947202734797172,
+              1.340319647038509,
+              0.24356456057590056
+            ]
+          },
+          "new": {
+            "source_seconds": 0.9833333492279053,
+            "guard_calibrated_pitch_degrees": -7.93859944864846,
+            "yaw_degrees": -13.513038649387388,
+            "anatomical_roll_degrees": 7.031786798312316,
+            "ear_line_elevation_degrees": 6.964063214987254,
+            "fixed_rest_axis_pitch_degrees": -3.486790981130925,
+            "head_origin_metres": [
+              -0.10262065782016258,
+              1.3667059311020318,
+              0.21505512582038758
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "old": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -37.36594499751262,
+            "yaw_degrees": -13.45146073338982,
+            "anatomical_roll_degrees": 7.814920094087706,
+            "ear_line_elevation_degrees": 6.203982407731102,
+            "fixed_rest_axis_pitch_degrees": -32.91951421325677,
+            "head_origin_metres": [
+              -0.11837435773696743,
+              1.3359805913268037,
+              0.24368750866261563
+            ]
+          },
+          "new": {
+            "source_seconds": 1.0,
+            "guard_calibrated_pitch_degrees": -7.4731882820047755,
+            "yaw_degrees": -13.451460274688483,
+            "anatomical_roll_degrees": 7.8149203775416884,
+            "ear_line_elevation_degrees": 7.748129729536009,
+            "fixed_rest_axis_pitch_degrees": -3.028241381795991,
+            "head_origin_metres": [
+              -0.11208667852553685,
+              1.361438506454998,
+              0.21739934210170517
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.100000023841858,
+          "old": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -30.49702911167993,
+            "yaw_degrees": -10.89596981599664,
+            "anatomical_roll_degrees": 10.894835689714078,
+            "ear_line_elevation_degrees": 9.372873803921642,
+            "fixed_rest_axis_pitch_degrees": -26.084708266903064,
+            "head_origin_metres": [
+              -0.15076405800165732,
+              1.3205087909170965,
+              0.24223590447630533
+            ]
+          },
+          "new": {
+            "source_seconds": 1.100000023841858,
+            "guard_calibrated_pitch_degrees": -6.09940545466136,
+            "yaw_degrees": -10.895969423639613,
+            "anatomical_roll_degrees": 10.894836173474298,
+            "ear_line_elevation_degrees": 10.832413301517708,
+            "fixed_rest_axis_pitch_degrees": -1.6894813447941717,
+            "head_origin_metres": [
+              -0.14694360864245404,
+              1.3428330809464248,
+              0.22238905890929014
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.1666666269302368,
+          "old": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -29.36175939984431,
+            "yaw_degrees": -0.395310919838761,
+            "anatomical_roll_degrees": 20.16833878933987,
+            "ear_line_elevation_degrees": 17.487011760272516,
+            "fixed_rest_axis_pitch_degrees": -25.12470498867786,
+            "head_origin_metres": [
+              -0.2096735482954454,
+              1.289605603443034,
+              0.23391627467653545
+            ]
+          },
+          "new": {
+            "source_seconds": 1.1666666269302368,
+            "guard_calibrated_pitch_degrees": -5.872351810371619,
+            "yaw_degrees": -0.39531056050953883,
+            "anatomical_roll_degrees": 20.16833912584541,
+            "ear_line_elevation_degrees": 20.057941396833623,
+            "fixed_rest_axis_pitch_degrees": -1.643630553787232,
+            "head_origin_metres": [
+              -0.2095581459965619,
+              1.3118612997904848,
+              0.21719018330765807
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.2999999523162842,
+          "old": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -18.73746771325051,
+            "yaw_degrees": -4.8430982702717245,
+            "anatomical_roll_degrees": 17.578427291429296,
+            "ear_line_elevation_degrees": 16.61890307216562,
+            "fixed_rest_axis_pitch_degrees": -14.44354217926402,
+            "head_origin_metres": [
+              -0.17820144786917938,
+              1.3238371931046007,
+              0.24126752410154725
+            ]
+          },
+          "new": {
+            "source_seconds": 1.2999999523162842,
+            "guard_calibrated_pitch_degrees": -3.747494386970061,
+            "yaw_degrees": -4.843099028565693,
+            "anatomical_roll_degrees": 17.578426824367792,
+            "ear_line_elevation_degrees": 17.539619020724988,
+            "fixed_rest_axis_pitch_degrees": 0.5426116015539414,
+            "head_origin_metres": [
+              -0.1771765785265102,
+              1.3372216925210672,
+              0.22917178354679898
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "old": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -12.364014126961846,
+            "yaw_degrees": -8.989213784387797,
+            "anatomical_roll_degrees": 8.702434409622354,
+            "ear_line_elevation_degrees": 8.499086727420313,
+            "fixed_rest_axis_pitch_degrees": -7.927546819939418,
+            "head_origin_metres": [
+              -0.0999177249272048,
+              1.4245929637313428,
+              0.14172993903679654
+            ]
+          },
+          "new": {
+            "source_seconds": 1.5,
+            "guard_calibrated_pitch_degrees": -6.396522704379388,
+            "yaw_degrees": -8.989215058025078,
+            "anatomical_roll_degrees": 8.702433953926187,
+            "ear_line_elevation_degrees": 8.647842032852761,
+            "fixed_rest_axis_pitch_degrees": -1.9603892174142241,
+            "head_origin_metres": [
+              -0.09888008853793125,
+              1.4279211953239754,
+              0.1351705685102943
+            ]
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "old": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+            "yaw_degrees": -3.1805546814635176e-15,
+            "anatomical_roll_degrees": 2.2263882770244614e-14,
+            "ear_line_elevation_degrees": 2.2263882770244617e-14,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+            "head_origin_metres": [
+              -0.0013641693337885655,
+              1.469447843542347,
+              -0.003865117394783422
+            ]
+          },
+          "new": {
+            "source_seconds": 1.75,
+            "guard_calibrated_pitch_degrees": -7.951386703658793e-15,
+            "yaw_degrees": -3.1805546814635176e-15,
+            "anatomical_roll_degrees": 2.2263882770244614e-14,
+            "ear_line_elevation_degrees": 2.2263882770244617e-14,
+            "fixed_rest_axis_pitch_degrees": 4.476195041483872,
+            "head_origin_metres": [
+              -0.0013641693337885655,
+              1.469447843542347,
+              -0.003865117394783422
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "surface_scan": {
+    "status": "scanned",
+    "scope": "one union scan: full 0\u20131.75 seconds at 60Hz, plus 240Hz keys in 0.45\u20130.72 seconds and the exact 0.72 boundary; all body primitives and unique vertex pools",
+    "sample_count": 155,
+    "source_times_seconds": [
+      0.0,
+      0.016666666666666666,
+      0.03333333333333333,
+      0.05,
+      0.06666666666666667,
+      0.08333333333333333,
+      0.1,
+      0.11666666666666667,
+      0.13333333333333333,
+      0.15,
+      0.16666666666666666,
+      0.18333333333333332,
+      0.2,
+      0.21666666666666667,
+      0.23333333333333334,
+      0.25,
+      0.26666666666666666,
+      0.2833333333333333,
+      0.3,
+      0.31666666666666665,
+      0.3333333333333333,
+      0.35,
+      0.36666666666666664,
+      0.38333333333333336,
+      0.4,
+      0.4166666666666667,
+      0.43333333333333335,
+      0.45,
+      0.45416666666666666,
+      0.4583333333333333,
+      0.4625,
+      0.4666666666666667,
+      0.4708333333333333,
+      0.475,
+      0.4791666666666667,
+      0.48333333333333334,
+      0.4875,
+      0.49166666666666664,
+      0.49583333333333335,
+      0.5,
+      0.5041666666666667,
+      0.5083333333333333,
+      0.5125,
+      0.5166666666666667,
+      0.5208333333333334,
+      0.525,
+      0.5291666666666667,
+      0.5333333333333333,
+      0.5375,
+      0.5416666666666666,
+      0.5458333333333333,
+      0.55,
+      0.5541666666666667,
+      0.5583333333333333,
+      0.5625,
+      0.5666666666666667,
+      0.5708333333333333,
+      0.575,
+      0.5791666666666667,
+      0.5833333333333334,
+      0.5875,
+      0.5916666666666667,
+      0.5958333333333333,
+      0.6,
+      0.6041666666666666,
+      0.6083333333333333,
+      0.6125,
+      0.6166666666666667,
+      0.6208333333333333,
+      0.625,
+      0.6291666666666667,
+      0.6333333333333333,
+      0.6375,
+      0.6416666666666667,
+      0.6458333333333334,
+      0.65,
+      0.6541666666666667,
+      0.6583333333333333,
+      0.6625,
+      0.6666666666666666,
+      0.6708333333333333,
+      0.675,
+      0.6791666666666667,
+      0.6833333333333333,
+      0.6875,
+      0.6916666666666667,
+      0.6958333333333333,
+      0.7,
+      0.7041666666666667,
+      0.7083333333333334,
+      0.7125,
+      0.7166666666666667,
+      0.72,
+      0.7333333333333333,
+      0.75,
+      0.7666666666666667,
+      0.7833333333333333,
+      0.8,
+      0.8166666666666667,
+      0.8333333333333334,
+      0.85,
+      0.8666666666666667,
+      0.8833333333333333,
+      0.9,
+      0.9166666666666666,
+      0.9333333333333333,
+      0.95,
+      0.9666666666666667,
+      0.9833333333333333,
+      1.0,
+      1.0166666666666666,
+      1.0333333333333334,
+      1.05,
+      1.0666666666666667,
+      1.0833333333333333,
+      1.1,
+      1.1166666666666667,
+      1.1333333333333333,
+      1.15,
+      1.1666666666666667,
+      1.1833333333333333,
+      1.2,
+      1.2166666666666666,
+      1.2333333333333334,
+      1.25,
+      1.2666666666666666,
+      1.2833333333333334,
+      1.3,
+      1.3166666666666667,
+      1.3333333333333333,
+      1.35,
+      1.3666666666666667,
+      1.3833333333333333,
+      1.4,
+      1.4166666666666667,
+      1.4333333333333333,
+      1.45,
+      1.4666666666666666,
+      1.4833333333333334,
+      1.5,
+      1.5166666666666666,
+      1.5333333333333334,
+      1.55,
+      1.5666666666666667,
+      1.5833333333333333,
+      1.6,
+      1.6166666666666667,
+      1.6333333333333333,
+      1.65,
+      1.6666666666666667,
+      1.6833333333333333,
+      1.7,
+      1.7166666666666666,
+      1.7333333333333334,
+      1.75
+    ],
+    "full_60hz_sample_count": 106,
+    "focused_window_seconds": [
+      0.45,
+      0.72
+    ],
+    "focused_window_sample_count": 66,
+    "focused_240hz_grid_sample_count": 65,
+    "explicit_focused_window_endpoint_seconds": 0.72,
+    "body_primitive_count": 9,
+    "body_unique_vertex_pool_count": 9,
+    "actual_steel_points_bit_identical_to_v7_at_all_scan_times": true,
+    "actual_shoe_sole_plane_error_max_metres": 1.6612873116918225e-06,
+    "actual_shoe_surface_max_component_change_from_v7_metres": 0.0,
+    "overlap_sample_count": 0,
+    "samples": [
+      {
+        "source_seconds": 0.0,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.016666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.03333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.05,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.06666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.08333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.1,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.11666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.13333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.15,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.16666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.18333333333333332,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.2,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.21666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.23333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.25,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.26666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.2833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.3,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.31666666666666665,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.3333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.35,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.36666666666666664,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.38333333333333336,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.43333333333333335,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.45,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.45416666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4583333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4625,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4708333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.475,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4791666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.48333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.4875,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.49166666666666664,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.49583333333333335,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5041666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5083333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5125,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5208333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.525,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5291666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5375,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5416666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5458333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.55,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5541666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5583333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5625,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5708333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.575,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5791666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5833333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5875,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5916666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.5958333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6041666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6083333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6125,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6208333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.625,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6291666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6375,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6416666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6458333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.65,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6541666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6583333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6625,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6708333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.675,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6791666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6875,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6916666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.6958333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7041666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7083333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7125,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.72,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.75,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.7833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.8,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.8166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.8333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.85,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.8666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.8833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.9,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.9166666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.9333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.95,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.9666666666666667,
+        "body_broadphase_triangles": 224,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 0.9833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.0,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.0166666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.0333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.05,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.0666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.0833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.1,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.1166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.1333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.15,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.1666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.1833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.2,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.2166666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.2333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.25,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.2666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.2833333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.3,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.3166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.3333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.35,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.3666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.3833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.4,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.4166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.4333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.45,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.4666666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.4833333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.5,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.5166666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.5333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.55,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.5666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.5833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.6,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.6166666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.6333333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.65,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.6666666666666667,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.6833333333333333,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.7,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.7166666666666666,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.7333333333333334,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      },
+      {
+        "source_seconds": 1.75,
+        "body_broadphase_triangles": 0,
+        "actual_steel_body_triangle_overlaps": []
+      }
+    ],
+    "true_contact_sample": {
+      "source_seconds": 1.0,
+      "contact_plane_z_0p9_intersections": [
+        {
+          "primitive": 9,
+          "triangle": 1224,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19538605101941353,
+            1.3035231562916034,
+            0.9
+          ],
+          "normal": [
+            -0.9624485459456555,
+            0.2647447950503143,
+            0.060024910669324076
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1225,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1951357172047764,
+            1.3044394113726643,
+            0.9
+          ],
+          "normal": [
+            -0.9632066279004148,
+            0.2621121127578179,
+            0.059415758131532874
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1226,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1959166752794915,
+            1.299955272830006,
+            0.9
+          ],
+          "normal": [
+            -0.9895347634313891,
+            0.13432777594657935,
+            0.0526972539135603
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1227,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19564624172522418,
+            1.301950631272574,
+            0.9
+          ],
+          "normal": [
+            -0.9895885380082065,
+            0.13398770207575716,
+            0.05255303164650545
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1228,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1960536825564328,
+            1.2961588913272757,
+            0.9
+          ],
+          "normal": [
+            -0.9989823978605881,
+            0.009565435045893817,
+            0.04407574409005982
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1229,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19603328260616565,
+            1.2980491130642253,
+            0.9
+          ],
+          "normal": [
+            -0.9989249617734023,
+            0.01157233726818188,
+            0.04488877093615152
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1230,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.197430533956104,
+            1.287504386029191,
+            0.9
+          ],
+          "normal": [
+            -0.9529189819359243,
+            0.2967042168835054,
+            0.06254615535544393
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1231,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19702752379166144,
+            1.2888075065549698,
+            0.9
+          ],
+          "normal": [
+            -0.9539635802823092,
+            0.2935371477611888,
+            0.06155834938644857
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1232,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1985687175919063,
+            1.2795287353896372,
+            0.9
+          ],
+          "normal": [
+            -0.9902428594717297,
+            0.1289605438902806,
+            0.05280395235941268
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1233,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19794544305016576,
+            1.2843194682561654,
+            0.9
+          ],
+          "normal": [
+            -0.9902843070869993,
+            0.12872917274498086,
+            0.05259079027371981
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1234,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19969403052080326,
+            1.2705031393986665,
+            0.9
+          ],
+          "normal": [
+            -0.9911569021390279,
+            0.12190423330386253,
+            0.05241520051247707
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1235,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1991373488070419,
+            1.2750309902518748,
+            0.9
+          ],
+          "normal": [
+            -0.9911714721960364,
+            0.12181814070910309,
+            0.05233978695905244
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1236,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.194487761792991,
+            1.2747174873413736,
+            0.9
+          ],
+          "normal": [
+            0.992780966073573,
+            -0.11129567521588069,
+            -0.04471270602708143
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1237,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19499624648395394,
+            1.2701836415777112,
+            0.9
+          ],
+          "normal": [
+            0.9927742249785322,
+            -0.11138365385546353,
+            -0.04464325113699569
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1238,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19345886768313947,
+            1.2843685024825395,
+            0.9
+          ],
+          "normal": [
+            0.9935573829407098,
+            -0.10425046313171468,
+            -0.044447359210987844
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1239,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19396366861531789,
+            1.2795632961113297,
+            0.9
+          ],
+          "normal": [
+            0.9935426917159362,
+            -0.10446830482744694,
+            -0.04426390204592976
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1240,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19338487243927122,
+            1.2885906302761017,
+            0.9
+          ],
+          "normal": [
+            0.9971531289463672,
+            0.0674689909071628,
+            -0.03366857137507991
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1241,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1932953127567657,
+            1.2872280123454913,
+            0.9
+          ],
+          "normal": [
+            0.9973870266932957,
+            0.06422169005733493,
+            -0.033086152845058094
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1242,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1921016549937979,
+            1.2980120785985994,
+            0.9
+          ],
+          "normal": [
+            0.9736130874048803,
+            -0.22226027746345883,
+            -0.05174867240619034
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1243,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19251989674777398,
+            1.2961697750560013,
+            0.9
+          ],
+          "normal": [
+            0.9740098633241188,
+            -0.22038337780775027,
+            -0.052306337411236255
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1244,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19161639774693445,
+            1.3019888170850586,
+            0.9
+          ],
+          "normal": [
+            0.9941055832050348,
+            -0.09887964177411585,
+            -0.04446240977724945
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1245,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1918161017729489,
+            1.299984875188458,
+            0.9
+          ],
+          "normal": [
+            0.9940805171392558,
+            -0.09917178927862845,
+            -0.04437208193701056
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1246,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.1915949364401774,
+            1.304276775767363,
+            0.9
+          ],
+          "normal": [
+            0.9987520945918936,
+            0.03421583242610019,
+            -0.03638035678349468
+          ]
+        },
+        {
+          "primitive": 9,
+          "triangle": 1247,
+          "material": "Steel | forged body",
+          "point_metres": [
+            -0.19156405691856662,
+            1.3033266088964892,
+            0.9
+          ],
+          "normal": [
+            0.9988516262513752,
+            0.03150902213102689,
+            -0.0360916923866076
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 408,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.19980545698266267,
+            1.260665390860348,
+            0.9
+          ],
+          "normal": [
+            -0.9989498514630176,
+            -0.02235589301619064,
+            0.03999260318438224
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 409,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.1999142188123736,
+            1.2658136254739403,
+            0.9
+          ],
+          "normal": [
+            -0.9988999675141181,
+            -0.01977381522929249,
+            0.04251883266943602
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 410,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.19961130589723003,
+            1.253260788072431,
+            0.9
+          ],
+          "normal": [
+            -0.99883175342295,
+            -0.03002660621308244,
+            0.03786200302889255
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 411,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.19970509525120056,
+            1.256515049659056,
+            0.9
+          ],
+          "normal": [
+            -0.9988407873375936,
+            -0.027336032937403203,
+            0.03962099006916908
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 412,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.1983234771310387,
+            1.256101728115803,
+            0.9
+          ],
+          "normal": [
+            0.9637654210580856,
+            -0.2606792090279145,
+            -0.05659119324870053
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 413,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.1991689706182484,
+            1.2529610494029897,
+            0.9
+          ],
+          "normal": [
+            0.9643529249987793,
+            -0.2581891079744157,
+            -0.05798120876348
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 414,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.19592352997454313,
+            1.2652510556493146,
+            0.9
+          ],
+          "normal": [
+            0.9659074670538897,
+            -0.2532399988660517,
+            -0.053779810931809204
+          ]
+        },
+        {
+          "primitive": 10,
+          "triangle": 415,
+          "material": "Steel | sharpened edge",
+          "point_metres": [
+            -0.19722232238508908,
+            1.2602727914081542,
+            0.9
+          ],
+          "normal": [
+            0.9663984760057864,
+            -0.25088009865350636,
+            -0.05597465206055505
+          ]
+        },
+        {
+          "primitive": 11,
+          "triangle": 102,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.1943658809816655,
+            1.3049433730776612,
+            0.9
+          ],
+          "normal": [
+            0.11944258166652184,
+            0.9910191752708999,
+            0.06012041192657891
+          ]
+        },
+        {
+          "primitive": 11,
+          "triangle": 103,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19267982808712442,
+            1.3047401606872202,
+            0.9
+          ],
+          "normal": [
+            0.11944337450087826,
+            0.9910190673545541,
+            0.06012061566178838
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 408,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19616188823863379,
+            1.2932683178787516,
+            0.9
+          ],
+          "normal": [
+            -0.9978702943666699,
+            0.046063383852498696,
+            0.04618484912428637
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 409,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19609881449926742,
+            1.2946125669899065,
+            0.9
+          ],
+          "normal": [
+            -0.9977928125566901,
+            0.047331601885379875,
+            0.04657491463410287
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 410,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19667044919338228,
+            1.2902122236448181,
+            0.9
+          ],
+          "normal": [
+            -0.98027896590984,
+            0.189641707189162,
+            0.05558031926064204
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 411,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19636507186700383,
+            1.2917975735828406,
+            0.9
+          ],
+          "normal": [
+            -0.9805640595437677,
+            0.18830179390321491,
+            0.05510498656090698
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 412,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19330876657819301,
+            1.291730612207267,
+            0.9
+          ],
+          "normal": [
+            0.9982104463816628,
+            -0.04295176484106417,
+            -0.04160589659603055
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 413,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.1933795008124499,
+            1.2901169328842412,
+            0.9
+          ],
+          "normal": [
+            0.9981648298902421,
+            -0.044287457879007425,
+            -0.04129883103429328
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 414,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19287812486099126,
+            1.2945046209543136,
+            0.9
+          ],
+          "normal": [
+            0.981152154971157,
+            -0.18657051409514228,
+            -0.050317909989675294
+          ]
+        },
+        {
+          "primitive": 14,
+          "triangle": 415,
+          "material": "Steel | dark spine",
+          "point_metres": [
+            -0.19312839904568355,
+            1.2931829032418194,
+            0.9
+          ],
+          "normal": [
+            0.98137502684227,
+            -0.18533041350523796,
+            -0.050553877401356875
+          ]
+        }
+      ]
+    },
+    "limits": "Discrete triangle intersections do not prove continuous collision freedom or measure cloth volume."
+  },
+  "new_neck_streams_identical_across_raw_body_preview": false,
+  "maximum_cross_file_neck_rotation_error_degrees": 9.164970331561974e-14,
+  "source_pins": {
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_metadata.json": "1d395763496e4d9be2c36521575eb1eea2e5ccb906867212dbeba1b5656d8241",
+    "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_alignment.json": "2ce9f3a80d70683651a61e02aed4bbc3ed28aa62aee3be66e9bb508fd78ee6d0",
+    "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_neck_refinement.py": "a2d94163612030a06b2b16d8db682927c02efc740237b3734cffe437e8efbc80",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+    "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+    "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+    "ArtSource/tripo-warrior/refine_character_grips.py": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+    "ArtSource/tripo-warrior/prepare_character_library.py": "5bbca3256e0d54227541427ae1d46688c1a6447682864893c6757a2d7dd92940",
+    "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+    "ArtSource/refinement/hand-poses/run_blender.py": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1"
+  },
+  "limits": "Anatomical roll is deliberately retained; ear-line elevation can change as pitch changes. Visual anatomy and SDK/device playback require separate review.",
+  "post_scan_dependency_provenance": {
+    "supplement": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_neck_boundary_verification.json",
+      "sha256": "f40fffc26f6106a2cb978cc6ec4afa39b72d9985276e157a2d247ebf58aea473"
+    },
+    "source_capture_timing": "File identities captured after the completed primary scan; original primary verifier source identity is preserved and asserted unchanged",
+    "primary_verifier_source_unchanged": true,
+    "patch_and_surface_dependency_roles": {
+      "main_patch": "build_neck_refinement.py directly patches frozen GLB bytes using host NumPy; does not import or invoke public producer",
+      "host_FK_verify": "verify_neck_refinement.py uses build_neck_refinement.py NumPy math",
+      "surface_scan": "verify_neck_refinement.py imports surface/steel_points from verify_fine_overhead.py; that imports build_fine_overhead.py, its dynamic stage4 stance module, build_keyposes and listed public producer/math modules",
+      "producer_usage_in_surface_scan": "Imported helper/module closure only; no producer rebuild, retarget, calibration application or publishing is invoked",
+      "capture_timing": "File identities captured after the completed primary scan; original primary verifier source identity is preserved and asserted unchanged"
+    }
+  }
+}
