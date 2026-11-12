@@ -226,7 +226,7 @@ function paveMat(rx,ry,base){const c=document.createElement('canvas');c.width=c.
  for(let i=0;i<150;i++){const x=(i*53)%256,y=(i*29)%256;g.fillStyle='rgba(255,252,238,'+(0.02+(i%4)*0.014)+')';g.fillRect(x,y,2,2);}
  for(let i=0;i<40;i++){const x=(i*71)%256,y=(i*47)%256;g.strokeStyle='rgba(24,24,20,.20)';g.lineWidth=1;g.beginPath();g.moveTo(x,y);g.lineTo(x+8+(i%6)*7,y+3+(i%4)*4);g.stroke();}
  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(rx,ry);tex.anisotropy=4;
- return new THREE.MeshStandardMaterial({color:base||0xbdb8a6,map:tex,roughness:.96,metalness:.02});
+ return new THREE.MeshStandardMaterial({color:base||0x8d9084,map:tex,roughness:.96,metalness:.02});
 }
 function stoneMat(w,h,base){
  // 大块料石：一块约 2.1 × 1.1 m，灰浆缝细、对比低，远看是石墙而不是瓷砖
@@ -1476,27 +1476,31 @@ try{
   const g=c.getContext('2d');
   /* 地平线压在 v=0.50：上黑下暗，0.47~0.52 一道微光带，远山立在这条线上 */
   const grad=g.createLinearGradient(0,0,0,1024);
-  grad.addColorStop(0,'#020405');grad.addColorStop(.26,'#05090a');
-  grad.addColorStop(.40,'#0a1114');grad.addColorStop(.455,'#161d1e');
-  grad.addColorStop(.492,'#28322e');grad.addColorStop(.512,'#1e2624');
-  grad.addColorStop(.62,'#141a19');grad.addColorStop(1,'#0a0d0c');
+  grad.addColorStop(0,'#0b1922');grad.addColorStop(.20,'#102431');
+  grad.addColorStop(.34,'#0d1c22');grad.addColorStop(.425,'#173037');
+  grad.addColorStop(.468,'#28514f');grad.addColorStop(.492,'#4d6f63');
+  grad.addColorStop(.505,'#2b4140');grad.addColorStop(.55,'#16221f');
+  grad.addColorStop(.72,'#0c1413');grad.addColorStop(1,'#080c0b');
   g.fillStyle=grad;g.fillRect(0,0,2048,1024);
+  /* 云带：横向拉长的低对比色块，只在地平线上方，给天空一点“厚度” */
+  for(let i=0;i<26;i++){
+    const cy=200+((i*97)%340), cx=(i*181)%2048, w=280+((i*53)%420), h=10+((i*31)%26);
+    g.globalAlpha=.05+((i%5)/5)*.05;
+    g.fillStyle=(i%3===0)?'#7d9a9c':'#3c565a';
+    g.beginPath();g.ellipse(cx,cy,w,h,(i%2?.05:-.04),0,7);g.fill();
+  }
+  g.globalAlpha=1;
   /* 星点：微弱、偏冷，给夜空一点层次 */
   for(let i=0;i<210;i++){
     const sx=(i*137.7)%2048, sy=(i*89.3)%(1024*.52);
-    const r=(i%7===0)?1.6:1.0, a=.18+((i*31)%10)/10*.30;
+    const r=(i%9===0)?2.0:((i%5===0)?1.3:1.0), a=.22+((i*31)%10)/10*.34;
     g.globalAlpha=a;g.fillStyle=(i%5===0)?'#cfe0e2':'#9fb6bb';
     g.beginPath();g.arc(sx,sy,r,0,7);g.fill();
   }
   g.globalAlpha=1;
-  /* 月在地平线上方，带三层晕 */
-  const MX=1290,MY=352;
-  g.globalAlpha=.10;g.fillStyle='#9db8c0';g.beginPath();g.arc(MX,MY,258,0,7);g.fill();
-  g.globalAlpha=.20;g.fillStyle='#a9c2c9';g.beginPath();g.arc(MX,MY,140,0,7);g.fill();
-  g.globalAlpha=.82;g.fillStyle='#d3ded8';g.beginPath();g.arc(MX,MY,42,0,7);g.fill();
-  g.globalAlpha=1;
+  /* 月亮由 3D 精灵负责，贴图只负责天色与星 */
   /* 三层山脊，都在 0.44~0.52 之间，越远越淡 */
-  const layers=[[.462,'#1b2422',.92],[.492,'#141b1a',.80],[.522,'#0e1312',.66]];
+  const layers=[[.452,'#16201f',.95],[.486,'#0e1615',.86],[.518,'#080d0d',.72]];
   layers.forEach(function(L,li){
     g.globalAlpha=L[2];g.fillStyle=L[1];g.beginPath();
     const base=1024*L[0];
@@ -1516,16 +1520,16 @@ try{
   g.globalAlpha=1;g.fillStyle=hz;g.fillRect(0,1024*.50,2048,1024*.10);
   const tex=new THREE.CanvasTexture(c);
   if(THREE.sRGBEncoding)tex.encoding=THREE.sRGBEncoding;tex.flipY=false;
-  const sky=new THREE.Mesh(new THREE.SphereGeometry(72,40,24),
+  const sky=new THREE.Mesh(new THREE.SphereGeometry(140,48,28),
     new THREE.MeshBasicMaterial({map:tex,side:THREE.BackSide,fog:false,depthWrite:false}));
-  sky.position.set(0,0,-12);sky.renderOrder=-1;scene.add(sky);
+  sky.position.set(0,0,20);sky.renderOrder=-1;scene.add(sky);
   scene.background=null;
-  if(scene.fog){scene.fog.color.setHex(0x212a27);scene.fog.density=.020;}
+  if(scene.fog){scene.fog.color.setHex(0x1d2c2c);scene.fog.density=.0115;}
   /* 灯光：冷月主光 + 冷补光 + 半空一盏朱砂气 */
   let hemi=null;const dirs=[];
   scene.children.forEach(function(o){
     if(o.isHemisphereLight)hemi=o;else if(o.isDirectionalLight)dirs.push(o);});
-  if(hemi){hemi.color.setHex(0x3b525a);hemi.groundColor.setHex(0x131c20);hemi.intensity=.5;}
+  if(hemi){hemi.color.setHex(0x3b525a);hemi.groundColor.setHex(0x131c20);hemi.intensity=.40;}
   if(dirs[0]){dirs[0].color.setHex(0xa4c1d2);dirs[0].intensity=1.5;dirs[0].position.set(-9,13,8);}
   if(dirs[1]){dirs[1].color.setHex(0x4d6f7c);dirs[1].intensity=.46;}
   const red=new THREE.PointLight(0xa8332a,.5,16);red.position.set(0,1.4,-7);scene.add(red);
@@ -1653,7 +1657,7 @@ try{
   },400);
   if(dirs[0])dirs[0].intensity=1.22;
   if(hemi)hemi.intensity=.42;
-  renderer.toneMappingExposure=.74;
+  renderer.toneMappingExposure=.86;
   /* 开局前不显示敌人：rig.visible 只在 enemyPose 里赋值，菜单阶段会一直是初始可见 */
   (function quietUntilStart(){
     if(started)return;
@@ -1700,6 +1704,165 @@ try{
       hist:hist.map(function(v){return +(v/n*100).toFixed(1);})
     };
   };
+
+  /* ================= v0.36 第一眼：月、光柱、雾层、崖体、框景、天际线 ================= */
+  ;(function artVision(){
+  try{
+   const T=THREE;
+   const cw=stoneMat(16,16,0xb4ad9b),cwD=stoneMat(16,16,0x8a8474),cwR=mat(0x2b3a36);
+   function radial(inner,mid,outer,sz){
+    const S=sz||256,c=document.createElement('canvas');c.width=c.height=S;const g=c.getContext('2d');
+    const rg=g.createRadialGradient(S/2,S/2,0,S/2,S/2,S/2);
+    rg.addColorStop(0,inner);rg.addColorStop(.28,mid);rg.addColorStop(.62,outer);rg.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=rg;g.fillRect(0,0,S,S);
+    const tex=new T.CanvasTexture(c); if(T.sRGBEncoding)tex.encoding=T.sRGBEncoding; return tex;
+   }
+   /* ---------- 月：三圈叠加的冷光，位置在出生视线正前方偏左上 ---------- */
+   const MOON=new T.Vector3(-22,54,-112);
+   const halos=[[110,'rgba(150,182,196,.13)','rgba(90,120,132,.05)'],[52,'rgba(198,220,228,.26)','rgba(120,155,165,.09)'],[20,'rgba(236,246,246,.55)','rgba(160,190,198,.18)']];
+   halos.forEach(function(h,i){
+    const sp=new T.Sprite(new T.SpriteMaterial({map:radial(h[1],h[2],'rgba(0,0,0,0)'),blending:T.AdditiveBlending,transparent:true,depthWrite:false,fog:false,opacity:i===0?.9:1}));
+    sp.position.copy(MOON);sp.scale.set(h[0],h[0],1);sp.renderOrder=-1;scene.add(sp);
+   });
+   const core=new T.Sprite(new T.SpriteMaterial({map:radial('rgba(255,255,255,1)','rgba(238,248,248,.75)','rgba(0,0,0,0)',128),blending:T.AdditiveBlending,transparent:true,depthWrite:false,fog:false}));
+   core.position.copy(MOON);core.scale.set(11,11,1);core.renderOrder=-1;scene.add(core);
+
+   /* ---------- 月光柱：几道极淡的斜向光带，只为“有光下来” ---------- */
+   const shaftTex=radial('rgba(206,226,230,.20)','rgba(150,180,190,.06)','rgba(0,0,0,0)',64);
+   for(let i=0;i<5;i++){
+    const sp=new T.Sprite(new T.SpriteMaterial({map:shaftTex,blending:T.AdditiveBlending,transparent:true,depthWrite:false,fog:false,opacity:.5}));
+    sp.position.set(-30+i*13, 34, -120+i*6);sp.scale.set(9+i%3,120,1);sp.material.rotation=.42;sp.renderOrder=-1;scene.add(sp);
+   }
+
+   /* ---------- 地平线雾带：一圈竖直的雾幕，只压在地平线附近 ---------- */
+   const mists=[];
+   (function(){
+    const W=512,H=256,c=document.createElement('canvas');c.width=W;c.height=H;
+    const g=c.getContext('2d');
+    const vg=g.createLinearGradient(0,0,0,H);
+    vg.addColorStop(0,'rgba(160,186,190,0)');vg.addColorStop(.55,'rgba(150,178,182,.22)');
+    vg.addColorStop(.86,'rgba(176,200,202,.42)');vg.addColorStop(1,'rgba(198,216,216,.55)');
+    g.fillStyle=vg;g.fillRect(0,0,W,H);
+    for(let i=0;i<40;i++){
+     const x=(i*37)%W,y=H*.55+((i*23)%(H*.45)),r=40+((i*19)%90);
+     const rg=g.createRadialGradient(x,y,0,x,y,r);
+     rg.addColorStop(0,'rgba(206,222,224,.30)');rg.addColorStop(1,'rgba(190,210,212,0)');
+     g.fillStyle=rg;g.beginPath();g.arc(x,y,r,0,7);g.fill();
+    }
+    const tex=new T.CanvasTexture(c);
+    if(T.sRGBEncoding)tex.encoding=T.sRGBEncoding;
+    tex.wrapS=T.RepeatWrapping;tex.repeat.set(6,1);
+    const mat2=new T.MeshBasicMaterial({map:tex,transparent:true,opacity:.75,depthWrite:false,fog:false,side:T.DoubleSide,color:0xb8cdd0});
+    const m=new T.Mesh(new T.CylinderGeometry(152,152,16,48,1,true),mat2);
+    m.position.set(0,5.4,-14);m.renderOrder=1;scene.add(m);mists.push(m);
+   })();
+   /* ---------- 崖体：主楼背后的巨大岩体，剪影撑起“城堡在崖上” ---------- */
+   const rockMat=new T.MeshStandardMaterial({color:0x141d1e,roughness:1,metalness:0,flatShading:true});
+   function rock(r,sx,sy,sz,x,y,z){
+    const m=new T.Mesh(new T.IcosahedronGeometry(r,1),rockMat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);scene.add(m);return m;
+   }
+   rock(46,1.9,1.25,1.1,0,-6,-128);
+   rock(34,1.6,1.35,.9,-62,-8,-112);
+   rock(30,1.5,1.3,.9,60,-7,-110);
+   rock(20,.9,1.7,.9,-40,-2,-96);
+   rock(16,1.0,1.5,.8,34,-3,-92);
+
+   /* ---------- 主楼天际线：上层塔身、瓦顶、尖顶、两个附塔 ---------- */
+   const upper=box(10.4,13,.9,cw,0,26.6+6.5,-54.2);
+   box(11.2,.5,9.6,cwR,0,26.6+13.1,-54.2);
+   const spire=new T.Mesh(new T.ConeGeometry(7.0,5.2,8),mat(0x2a3330,0,.9));
+   spire.position.set(0,26.6+13.1+2.6,-54.2);spire.rotation.y=Math.PI/8;scene.add(spire);
+   cyl(.34,2.2,mat(0x9c3b2e,0,.55),0,26.6+13.1+6.4,-54.2);
+   for(const s of [-1,1]){
+    cyl(2.5,13,stoneMat(5,13,0xa9a292),s*8.0,26.6-6.5,-57.5);
+    box(5.6,.42,5.6,cwR,s*8.0,26.6+0.1,-57.5);
+    const c2=new T.Mesh(new T.ConeGeometry(3.4,4.2,10),mat(0x2a3330,0,.9));
+    c2.position.set(s*8.0,26.6+2.3,-57.5);scene.add(c2);
+   }
+
+   /* ---------- 门楼两侧的高塔：让第一眼有竖向节奏 ---------- */
+   for(const s of [-1,1]){
+    const bx=s*13.6;
+    cyl(2.35,20,stoneMat(5,20,0xa9a292),bx,15.0,-2);
+    cyl(2.75,.5,stoneMat(6,.5,0x8f8a7a),bx,10.2,-2);
+    const c4=new T.Mesh(new T.ConeGeometry(3.1,4.6,10),mat(0x28322f,0,.9));
+    c4.position.set(bx,27.3,-2);scene.add(c4);
+    cyl(.30,1.8,mat(0x9c3b2e,0,.55),bx,30.4,-2);
+   }
+
+   /* ---------- 远景塔群：主楼之后的一排细高剪影，拉出城的纵深 ---------- */
+   (function(){
+    const far=mat(0x0f1919,0,1);
+    const xs=[-46,-30,-14,2,18,34,50];
+    xs.forEach(function(x,i){
+     const h=18+((i*7)%14),w=3.2+((i*3)%3)*.8;
+     const m=new T.Mesh(new T.BoxGeometry(w,h,w),far);
+     m.position.set(x,h/2-2,-86-((i*5)%18));scene.add(m);
+     if(i%2===0){const c5=new T.Mesh(new T.ConeGeometry(w*.9,4.2,6),far);c5.position.set(x,h-2+2.1,-86-((i*5)%18));scene.add(c5);}
+    });
+   })();
+
+   /* ---------- 入口框景：断裂石拱 + 岩块 + 松影 ---------- */
+   const archMat=stoneMat(1.8,7,0x9d9884);
+   for(const s of [-1,1]){
+    box(1.45,7.4,1.45,archMat,s*8.0,3.7,13.5);
+    box(2.1,.55,2.1,cwD,s*8.0,.28,13.5);
+    box(1.9,.40,1.9,cwR,s*8.0,7.60,13.5);
+   }
+   const lintel=box(3.6,.75,1.35,archMat,-6.0,7.62,13.5);lintel.rotation.z=.16;
+   box(2.0,.55,1.2,archMat,6.4,7.35,13.5).rotation.z=-.10;
+   for(let i=0;i<7;i++)box(.5+ (i%3)*.2,.4,.5,archMat,3.0+i*.6,.2+(i%2)*.1,14.4+i%3*.2);
+   function pine(x,z,h,scale){
+    cyl(.10*h,.6,mat(0x241f1a,0,.95),x,h*.3,z);
+    for(let i=0;i<4;i++){
+     const c3=new T.Mesh(new T.ConeGeometry(h*.30*(1-i*.18),h*.42,7),new T.MeshStandardMaterial({color:0x14201c,roughness:1,flatShading:true}));
+     c3.position.set(x,h*(.30+i*.24)*(scale||1),z);scene.add(c3);
+    }
+   }
+   pine(-17.5,29,7.2); pine(18.4,31,8.0); pine(-22,36,6.4); pine(23,24,6.0);
+   rock(2.6,1.2,.7,1.0,-16.4,-1.6,33); rock(2.2,1.0,.6,.9,17.2,-1.8,30);
+
+   /* ---------- 廊道火把：把视线一路导向城门 ---------- */
+   for(let i=0;i<3;i++)for(const s of [-1,1]){
+    const z=21-i*5.4,x=s*7.9;
+    cyl(.10,2.4,mat(0x2a2320,0,.9),x,1.2,z);
+    box(.42,.10,.42,cwR,x,2.42,z);
+    const f=new T.Mesh(new T.SphereGeometry(.20,8,6),new T.MeshStandardMaterial({color:0xffc07a,emissive:0xff7a2a,emissiveIntensity:2.2,roughness:.6,fog:false}));
+    f.position.set(x,2.62,z);f.scale.y=1.5;scene.add(f);
+   }
+
+   /* ---------- 寒鸦：主楼上空缓慢盘旋 ---------- */
+   const birdTex=(function(){
+    const c=document.createElement('canvas');c.width=64;c.height=32;const g=c.getContext('2d');
+    g.strokeStyle='rgba(12,16,16,.9)';g.lineWidth=2.4;g.beginPath();
+    g.moveTo(4,20);g.quadraticCurveTo(18,6,32,18);g.quadraticCurveTo(46,6,60,20);g.stroke();
+    const tex=new T.CanvasTexture(c);return tex;
+   })();
+   const birds=[];
+   for(let i=0;i<11;i++){
+    const sp=new T.Sprite(new T.SpriteMaterial({map:birdTex,transparent:true,depthWrite:false,fog:false,color:0x0d1212}));
+    sp.scale.set(2.6,1.3,1);scene.add(sp);birds.push(sp);
+   }
+
+   const t0=performance.now();
+   (function tick(){
+    const tt=(performance.now()-t0)/1000;
+    mists.forEach(function(m,i){
+     m.material.map.offset.x=tt*.0055*(i+1)+Math.sin(tt*.05+i)*.05;
+     m.material.map.offset.y=Math.cos(tt*.04+i)*.03;
+     m.position.x=Math.sin(tt*.03+i*1.4)*10;
+    });
+    birds.forEach(function(b,i){
+     const a=tt*.10+i*1.35;
+     b.position.set(Math.cos(a)*(30+i%4*8),41+Math.sin(tt*.5+i)*2.0,-50+Math.sin(a)*(26+i%3*7));
+     b.material.rotation=Math.sin(tt*.9+i)*.12;
+    });
+    requestAnimationFrame(tick);
+   })();
+   window.__visionReady=1;
+  }catch(e){window.__visionErr=(e&&e.message)||String(e);}
+  })();
+
   window.__artReady=1;try{ensureBody();spawnMobs();perfPass();setTimeout(perfPass,2000);setTimeout(perfPass,5000);}catch(e){}
 }catch(e){window.__artErr=(e&&e.message)||String(e);}
 })();
