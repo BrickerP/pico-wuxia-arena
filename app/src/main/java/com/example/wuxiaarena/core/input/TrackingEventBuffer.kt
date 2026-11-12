@@ -41,7 +41,30 @@ class TrackingEventBuffer(
         left: ObservedPose?,
         right: ObservedPose?,
     ): Boolean = synchronized(lock) {
-        offerPose(origin) { TrackingEvent.Controllers(it, left, right) }
+        if (blockedControl != null && gap == null) {
+            beginGap(origin, 1)
+            return@synchronized false
+        }
+        if (gap != null) {
+            dropped++
+            return@synchronized false
+        }
+        val previous = events.lastOrNull() as? TrackingEvent.Controllers
+        if (previous != null && previous.stamp.origin == origin &&
+            previous.stamp.coordinateEpoch == coordinateEpoch &&
+            sameValidity(previous.left, left) && sameValidity(previous.right, right)
+        ) {
+            val latestStamp = restamp(previous.stamp.sequence, origin)
+            events.removeLast()
+            events.addLast(TrackingEvent.Controllers(latestStamp, left, right))
+            return@synchronized true
+        }
+        if (events.size == capacity) {
+            beginGap(origin, 1)
+            return@synchronized false
+        }
+        events.addLast(TrackingEvent.Controllers(stamp(origin), left, right))
+        true
     }
 
     fun changeDominantHand(origin: InputOrigin, hand: Hand) = synchronized(lock) {
@@ -148,4 +171,21 @@ class TrackingEventBuffer(
         lastTime = now
         return result
     }
+
+    /** Coalesced controller bursts keep their queue position but use the latest receipt time. */
+    private fun restamp(sequence: Long, origin: InputOrigin): ObservationStamp {
+        val now = clockNanos()
+        check(lastTime == null || now >= lastTime!!) { "observation clock moved backwards" }
+        return ObservationStamp(sequence, now, coordinateEpoch, origin).also { lastTime = now }
+    }
+
+    private fun sameValidity(before: ObservedPose?, after: ObservedPose?): Boolean =
+        (before == null) == (after == null) &&
+            positionValid(before) == positionValid(after) && rotationValid(before) == rotationValid(after)
+
+    private fun positionValid(pose: ObservedPose?): Boolean =
+        pose?.quality != TrackingQuality.SOURCE_REPORTED_INVALID && pose?.position?.isFinite() == true
+
+    private fun rotationValid(pose: ObservedPose?): Boolean =
+        pose?.quality != TrackingQuality.SOURCE_REPORTED_INVALID && pose?.rotation?.normalizedOrNull() != null
 }

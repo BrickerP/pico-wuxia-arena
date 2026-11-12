@@ -308,6 +308,8 @@ class PicoTrackingAdapterTest {
         adapter.start()
         buffer.drain()
         controllers.emit(hands(right = controller(1f)))
+        // A head callback is a hard boundary and overflows the one-slot queue.
+        hmd.emit(head())
         controllers.emit(hands(right = controller(2f)))
         val gap = buffer.drain().events.single() as TrackingEvent.Discontinuity
         assertEquals(DiscontinuityReason.QUEUE_GAP, gap.reason)
@@ -347,7 +349,6 @@ class PicoTrackingAdapterTest {
         val adapter = PicoTrackingAdapter(buffer, hmd, controllers)
         adapter.start()
         val headSample = head()
-        val handSample = hands()
         val begin = CountDownLatch(1)
         val pool = Executors.newFixedThreadPool(2)
         try {
@@ -357,7 +358,7 @@ class PicoTrackingAdapterTest {
             }
             val handTask = pool.submit {
                 begin.await()
-                repeat(100) { controllers.emit(handSample) }
+                repeat(100) { index -> controllers.emit(hands(right = controller(index.toFloat()))) }
             }
             begin.countDown()
             headTask.get(10, TimeUnit.SECONDS)
@@ -368,8 +369,15 @@ class PicoTrackingAdapterTest {
         val batch = buffer.drain()
         assertEquals(0, batch.droppedEvents)
         assertEquals(100, batch.events.count { it is TrackingEvent.Head })
-        assertEquals(100, batch.events.count { it is TrackingEvent.Controllers })
-        assertEquals((0L until 200L).toList(), batch.events.map { it.stamp.sequence })
+        val controllerEvents = batch.events.filterIsInstance<TrackingEvent.Controllers>()
+        assertTrue(controllerEvents.isNotEmpty())
+        assertTrue(controllerEvents.size <= 100)
+        assertEquals(99.0, requireNotNull(controllerEvents.last().right?.position).x, 0.0)
+        assertEquals((0L until batch.events.size.toLong()).toList(), batch.events.map { it.stamp.sequence })
+        assertTrue(batch.events.zipWithNext().all { (before, after) ->
+            before.stamp.receivedAtNanos < after.stamp.receivedAtNanos
+        })
+        assertEquals(199L, batch.events.last().stamp.receivedAtNanos)
         adapter.stop()
     }
 
@@ -631,6 +639,8 @@ class PicoTrackingAdapterTest {
         )
         adapter.start()
         controllers.emit(hands())
+        // A head callback prevents controller coalescing and creates a real capacity gap.
+        hmd.emit(head())
         controllers.emit(hands())
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)

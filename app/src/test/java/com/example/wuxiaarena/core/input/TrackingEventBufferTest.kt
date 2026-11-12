@@ -16,17 +16,87 @@ class TrackingEventBufferTest {
     private val pose = ObservedPose(Vector3(0.0, 1.0, -0.5), Quaternion(0.0, 0.0, 0.0, 1.0))
 
     @Test
-    fun keepsEveryReceivedSampleInOrderBetweenConsumerFrames() {
+    fun adjacentControllerBurstKeepsLatestPosesAndTimeAtOneSequence() {
         val clock = AtomicLong(10)
         val buffer = TrackingEventBuffer(8) { clock.getAndIncrement() }
         assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
-        repeat(5) { assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose)) }
+        repeat(5) { index ->
+            val latest = pose.copy(position = Vector3(index.toDouble(), 1.0, -0.5))
+            assertTrue(buffer.offerControllers(InputOrigin.PICO, null, latest))
+        }
 
         val batch = buffer.drain()
         assertEquals(0, batch.droppedEvents)
-        assertEquals((0L..5L).toList(), batch.events.map { it.stamp.sequence })
-        assertEquals((10L..15L).toList(), batch.events.map { it.stamp.receivedAtNanos })
-        assertEquals(5, batch.events.count { it is TrackingEvent.Controllers })
+        assertEquals(listOf(0L, 1L), batch.events.map { it.stamp.sequence })
+        assertEquals(listOf(10L, 15L), batch.events.map { it.stamp.receivedAtNanos })
+        val controllers = batch.events.last() as TrackingEvent.Controllers
+        assertEquals(4.0, requireNotNull(controllers.right?.position).x, 0.0)
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
+        assertEquals(2L, buffer.drain().events.single().stamp.sequence)
+    }
+
+    @Test
+    fun headOriginAndControlsAreHardControllerCoalescingBoundaries() {
+        val clock = AtomicLong()
+        val buffer = TrackingEventBuffer(8) { clock.getAndIncrement() }
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
+        buffer.changeDominantHand(InputOrigin.DESKTOP, Hand.LEFT)
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
+        buffer.discontinuity(InputOrigin.DESKTOP, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
+
+        val events = buffer.drain().events
+        assertEquals(8, events.size)
+        assertEquals((0L..7L).toList(), events.map { it.stamp.sequence })
+        assertEquals(1L, events.last().stamp.coordinateEpoch)
+    }
+
+    @Test
+    fun handAvailabilityAndPoseValidityChangesAreNeverCoalesced() {
+        val clock = AtomicLong()
+        val buffer = TrackingEventBuffer(8) { clock.getAndIncrement() }
+        val invalidPosition = pose.copy(position = null)
+        val invalidRotation = pose.copy(rotation = Quaternion(0.0, 0.0, 0.0, 0.0))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, null))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, pose, pose))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, invalidPosition, pose))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, pose, invalidRotation))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, pose,
+            pose.copy(quality = TrackingQuality.SOURCE_REPORTED_INVALID)))
+
+        assertEquals(5, buffer.drain().events.size)
+    }
+
+    @Test
+    fun coalescingChecksTheLatestReceiptClockBeforeChangingTheQueuedEvent() {
+        val receipts = ArrayDeque(listOf(10L, 9L))
+        val buffer = TrackingEventBuffer(2) { receipts.removeFirst() }
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
+
+        assertThrows(IllegalStateException::class.java) {
+            buffer.offerControllers(InputOrigin.PICO, null, pose)
+        }
+
+        val retained = buffer.drain().events.single() as TrackingEvent.Controllers
+        assertEquals(10L, retained.stamp.receivedAtNanos)
+        assertEquals(0L, retained.stamp.sequence)
+    }
+
+    @Test
+    fun adjacentControllerBurstCanCoalesceAtCapacityWithoutCreatingAGap() {
+        val clock = AtomicLong()
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
+        val latest = pose.copy(position = Vector3(0.4, 1.0, -0.5))
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, null, latest))
+
+        val batch = buffer.drain()
+        assertEquals(0L, batch.droppedEvents)
+        assertEquals(0L, batch.events.single().stamp.sequence)
+        assertEquals(0.4, requireNotNull((batch.events.single() as TrackingEvent.Controllers).right?.position).x, 0.0)
     }
 
     @Test
