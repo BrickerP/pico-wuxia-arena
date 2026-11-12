@@ -155,21 +155,50 @@ animation:inkOpen 3.6s cubic-bezier(.35,0,.2,1) forwards}
 <div class="hud"><div class="brand">酒馆试炼<span class="edition">V0.13 / VR POSE PROXY</span></div><div class="goal" id="goal"></div><div class="enemyFrame"><div class="bossHeading"><span id="enemyName">刀客</span><small id="roundText">三轮试炼</small></div><div class="track enemyTrack"><div class="damageLag" id="enemyLag"></div><div class="fill" id="enemyFill"></div></div><div class="enemyVitals"><span id="enemyHP">—</span><span id="armorText"></span></div><div class="postureGauge enemyPosture"><span class="gaugeCap">敌势</span><div class="track pressureTrack"><div class="fill" id="enemyPrecisionFill"></div><i></i></div><small id="enemyPrecisionText">精度 72 / 72</small></div></div><div class="playerFrame"><div class="resourceName"><span id="healthText">生命 100</span><span class="weaponGlyph">刃</span></div><div class="track healthTrack"><div class="fill" id="healthFill"></div></div><div class="track staminaTrack"><div class="fill" id="staminaFill"></div></div><small>气力 <span id="staminaText">100</span></small></div><div class="postureGauge playerPosture"><span class="gaugeCap">我势</span><div class="track pressureTrack"><div class="fill" id="playerPrecisionFill"></div><i></i></div><small id="playerPrecisionText">精度 100 / 100</small></div><div class="event" id="event">起势</div><div class="hint" id="hint"></div><div class="stats" id="stats"></div><div class="buttons"><button id="pause">暂停</button><button id="settings">设置 / 练招</button><button id="journey">巡路</button></div></div><div class="equipmentHUD" id="equipmentHUD"></div><div class="slowLabel" id="slowLabel"></div><div class="slotNotice hidden" id="slotNotice"></div><div class="directionPad" id="directionPad" aria-label="四方向来势提示"><span class="mark" data-dir="up">上</span><span class="mark" data-dir="down">下</span><span class="mark" data-dir="left">左</span><span class="mark" data-dir="right">右</span><span class="center" id="directionCenter">刺 / 劈 / 砍</span><div class="grabCue"><svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2L28 7V18L16 30L4 18V7Z M2 2L30 30" stroke="currentColor" stroke-width="3" fill="none"/></svg><span>投技 · 不可挡</span><span>侧移 / 后退 · 双握短前送反投</span></div></div><div id="impactLabel" class="impactLabel" aria-live="polite"></div><div id="hitMarker" class="hitMarker"></div><div class="compass" id="compass">酒馆院落</div><div class="progress" id="progress"></div><div class="tell" id="tell"></div><div class="stageTip" id="stageTip"></div><div class="cursor hidden" id="cursor"></div>
 <div class="veil" id="overlay"><section class="sheet"><div class="kicker" id="kicker">LOCAL PLAYABLE SLICE / 不提交仓库</div><h1 id="title">刀起，人在。</h1><div id="body"><p>右侧兵器架分开陈列刀、剑、枪、棍。走近指向握点，用左右键分别取到左/右手；新取武器，旧武器归架。点击不是攻击。短促向上＝劈砍，向下＝捅刺，左右＝横砍。每次新手势出一招；释放后段可预输入，收势直接接下一招。重复刺也能接三种变式，不用背顺序。</p><div class="guide"><div><b>白光 / 蓝光 · 方向格挡</b>向亮起的方向短移鼠标，刀会架到该方向；白色读来势，蓝色是化劲时机。慢移只摆刀，不攻击。正确方向仍须碰到敌刀。</div><div><b>红光 · 投技不可挡</b>看见红色断盾和双箭头，按A/D侧移或S后退离开抓取线。也可在红光末段双键握持并短下划，代理双手前伸合抱反投。提前一直抱住不会自动成功。投技/反投/处决只接空动画槽。</div><div><b>一招一式 · 不考划线</b>手势只需短距离，不用划满屏、不蓄势。动作期间最多缓存一条新意图，重复刺和混合方向都可衔接，碰钢仍会停下撤刀。</div><div><b>VR优先 · 本地代理</b>跑步以摇杆前推意图为主，低位交替摆臂可选加速；双手从低位主动上提触发虚拟跳，不需要真人离地。网页双击W跑，非红光时双握短上提跳。</div></div><p class="fine">原项目模型联网加载。程序变式不是专业动捕，网页不是VR真机验收。先木桩，再方向防守，最后Boss投技。</p></div><div id="fault" class="fault hidden"></div><div class="actions"><button class="primary" id="start" disabled>进入三轮试炼</button><button id="practice" disabled>先试木桩</button><button id="explore" disabled>小径任务</button><button id="boss" disabled>先练Boss投技</button><select id="bossChoice" aria-label="Boss类型"><option value="duelist">青衣剑客 · 化劲破节奏</option><option value="lancer">赤衣枪卫 · 收势破防</option><option value="general" selected>镇北将军 · 玄甲重刀</option><option value="juggernaut">玄甲巨擂 · 棍棒破甲</option></select><button id="resume" class="hidden">继续</button></div><div class="load" id="load">准备角色与酒馆资源…</div></section></div>
 <aside id="panel" class="panel hidden"><div class="row"><button class="primary" id="continue">继续体验</button><button id="closePanel">收起</button></div><label>守势范围 <span id="sensitivityValue">1.00</span><input id="sensitivity" type="range" min="0.7" max="1.3" value="1" step="0.05"></label><label>敌招速度 <span id="tempoValue">1.00</span><input id="tempo" type="range" min="0.7" max="1.25" value="1" step="0.05"></label><label>敌刀姿态追随响应 <span id="gripValue">28 ms</span><input id="grip" type="range" min="14" max="65" value="28" step="1"></label><label>观察线 <select id="debug"><option value="off">正常画面</option><option value="on">刀段与身体代理</option></select></label><label><span><input id="slow" type="checkbox" checked> 白蓝红反应慢动作</span></label><label>动作模组 <select id="motionPack"><option value="single">单手刀 · 游龙变式</option><option value="supported">扶柄刀 · 破阵变式</option></select></label><label>练招模式 <select id="drill"><option value="mixed">四向来刀与Boss投技</option><option value="overhead">重复上劈</option><option value="left">重复左来刀</option><option value="right">重复右来刀</option><option value="thrust">重复捅刺</option><option value="grab">重复投技（专项）</option></select></label><label><span><input id="cues" type="checkbox" checked> 显示来势提示</span></label><label><span><input id="sound" type="checkbox" checked> 接触音效</span></label><div class="row"><button id="resetParams">恢复初值</button><button id="export">导出记录</button></div><div class="log" id="log"></div><p class="fine">敌刀滑条调节可达目标的姿态追随响应；本版不是有限力VR刚体握持。玩家由固定招式与扫掠阻挡驱动，身体使用受限骨骼适配，不强拉副手。观察线显示实体刀段。第一人称无自动镜头震动，左右鼠标键代理双手抓握，攻击仍为方向手势，模型联网加载。动作素材可由独立模型适配层替换，当前关键姿态不是商业动捕。</p></aside>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js" integrity="sha384-vV17nr/rMaJqmeZkFUzXLpHdQ+ME5QHKdydaqqN+3Ga39RJlNrTatJxHwGV4ml2C" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
+(()=>{
+ const status={failed:false,message:''};
+ function fail(message){
+  if(status.failed)return;
+  status.failed=true;status.message=String(message);
+  const fault=document.getElementById('fault'),load=document.getElementById('load');
+  if(fault){fault.textContent=status.message;fault.classList.remove('hidden');fault.setAttribute('role','alert');}
+  if(load)load.textContent='资源加载失败，请检查网络后重新打开。';
+  for(const id of ['start','practice','explore','boss']){const button=document.getElementById(id);if(button)button.disabled=true;}
+ }
+ window.wuxiaLoading=Object.freeze({fail,read:()=>({...status})});
+ window.addEventListener('error',event=>{
+  if(event.target?.id==='gameModule'||(!window.wuxiaDemo&&event.filename===location.href))fail('3D模块无法启动：'+(event.message||'模块载入失败，请检查网络后重新打开。'));
+ },true);
+})();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.module.js"}}</script>
+<script type="module" id="gameModule">
+try{
+const [THREE,{GLTFLoader},{KTX2Loader},{clone:cloneSkinned}]=await Promise.all([
+ import('three'),
+ import('https://cdn.jsdelivr.net/npm/three@0.147.0/examples/jsm/loaders/GLTFLoader.js'),
+ import('https://cdn.jsdelivr.net/npm/three@0.147.0/examples/jsm/loaders/KTX2Loader.js'),
+ import('https://cdn.jsdelivr.net/npm/three@0.147.0/examples/jsm/utils/SkeletonUtils.js')
+]);
 'use strict';
 // ===== Shared rules: metres, seconds, health points; only WASD + pointer pose =====
 const RULES=Object.freeze({id:'wuxia-contact-v0.19',revision:'moveset-1',step:1/120,bladeLength:.84,bladeRadius:.027,bodyRadius:.25,headRadius:.16,walk:2.05,back:1.35,side:1.65,accel:4.8,turn:1.35,edgeDwell:.50,swingSpeed:1.0,swingTravel:.12,swingCooldown:.31,swingQuiet:.14,blockCost:13,parryCost:5,hitCost:9,swingCost:6,regen:11,parryWindow:.17,parrySpeed:.65,enemySpacing:1.34,hp:[468,576,690],attack:{overhead:{prepare:.88,release:.36,recover:.85},left:{prepare:.75,release:.39,recover:.72},right:{prepare:.76,release:.39,recover:.72},thrust:{prepare:.82,release:.38,recover:.75},grab:{prepare:1.10,release:.36,recover:.90}}});
-const ASSET_CDN='https://cdn.jsdelivr.net/gh/BrickerP/pico-wuxia-arena@967756371cfbacb4c8aeed55877d1259e9ec5da7/app/src/main/assets/models/';
-const ASSETS={actor:ASSET_CDN+'opponents/base.glb',tavern:ASSET_CDN+'tavern_slice.glb',dao:ASSET_CDN+'dao_grip.glb'};
+const ASSET_COMMIT='f4540f0e2e45c6f64ab91f98846698b7b7324cb9';
+const ASSET_ROOT='https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/'+ASSET_COMMIT+'/app/src/main/assets/models/';
+const ASSETS=Object.freeze({actor:ASSET_ROOT+'opponents/base.glb',courtyard:ASSET_ROOT+'courtyard_hero.glb',dao:ASSET_ROOT+'dao_grip.glb'});
+const ASSET_SHA=Object.freeze({actor:'ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20',courtyard:'9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5',dao:'db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0'});
+const assetAudit={commit:ASSET_COMMIT,requests:{},complete:false};
+window.wuxiaAssets=Object.freeze({read:()=>JSON.parse(JSON.stringify(assetAudit))});
 const $=id=>document.getElementById(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),smooth=t=>t*t*(3-2*t),mix=(a,b,t)=>a+(b-a)*t;
-let renderer,scene,camera,up,playerPos,velocity,actor,rig,mixer,actions={},bones={},boneBaseline={},fingerGrip={},rest={},enemyWeapon,playerWeapon,daoTemplate,bladeBaseMarker,bladeTipMarker,freeRig,freeHandR,freeHandL,freeBlade,playerArm,playerHand,playerGroup,weaponGroup,debugLines,debugBody,debugHead,trail,signal,tokenMesh,dummy,lights=[];
-let leftHand=null,leftArm=null,handPrev={x:0,y:.25},handVelL=null,handVelW=null,handPrev3=null,loaded=false,running=false,started=false,terminal=false,mode='trial',raf=0,last=0,acc=0,time=0,lastLoopAt=0,usingTimer=false,timerId=0,round=0,health=100,stamina=100,score=0,best=0,enemy=null,mouse={x:0,y:.25},hand={x:0,y:.25},yaw=0,edgeSign=0,edgeTime=0,pointerPending=true,lastPointer=-10,stroke=null,stats={},events=[],serial=0,feedbackUntil=0,particles=[],audio=null,travel=0,tripStage=0,tripEncounter=false,intermission=0,countdown=0,waitInput=true,releasePose=null,poseBlend=null,actorMove=0,loadErrors=[],hudTime=-1,colliders=[],shotFrames=[],frameSamples=[],qualityLocked=false,heldBlade=null;
+let renderer,scene,camera,up,playerPos,velocity,actor,rig,mixer,actions={},bones={},boneBaseline={},rest={},enemyWeapon,daoTemplate,bladeBaseMarker,bladeTipMarker,debugLines,debugBody,debugHead,trail,signal,tokenMesh,dummy,lights=[];
+let handPrev={x:0,y:.25},handVelL=null,handVelW=null,handPrev3=null,loaded=false,running=false,started=false,terminal=false,mode='trial',raf=0,last=0,acc=0,time=0,lastLoopAt=0,usingTimer=false,timerId=0,round=0,health=100,stamina=100,score=0,best=0,enemy=null,mouse={x:0,y:.25},hand={x:0,y:.25},yaw=0,edgeSign=0,edgeTime=0,pointerPending=true,lastPointer=-10,stroke=null,stats={},events=[],serial=0,feedbackUntil=0,particles=[],audio=null,travel=0,tripStage=0,tripEncounter=false,intermission=0,countdown=0,waitInput=true,releasePose=null,poseBlend=null,actorMove=0,loadErrors=[],hudTime=-1,colliders=[],shotFrames=[],frameSamples=[],qualityLocked=false,heldBlade=null;
 const keys=new Set(),P={sensitivity:1,tempo:1,grip:.028,debug:false,cues:true,sound:true,drill:'mixed',slow:true};try{best=Number(localStorage.getItem('wuxia-mouse-v03-best')||0)||0;}catch(_){}
 const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z),Q=()=>new THREE.Quaternion(),clonePose=p=>({base:p.base.clone(),tip:p.tip.clone(),q:p.q?p.q.clone():undefined}),isCombat=()=>mode==='trial'||mode==='boss'||mode==='explore'&&tripEncounter,canFight=()=>isCombat()||mode==='practice';
-function fault(msg){$('fault').textContent=msg;$('fault').classList.remove('hidden');$('load').textContent='资源未就绪，请联网后重新打开。';}
-if(typeof THREE==='undefined'||typeof THREE.GLTFLoader==='undefined'){fault('3D库加载失败。请使用联网的桌面浏览器。');}else{try{init();loadAssets();}catch(e){fault('3D初始化失败：'+e.message);}}
+let decodedCharacterTemplate=null,decodedCharacterClips=[];
+function fault(msg){window.wuxiaLoading.fail(msg);}
+function failAssets(error){loaded=false;assetAudit.complete=false;assetAudit.error=String(error);loadErrors.push(String(error));fault('模型加载失败：'+(error.message||String(error)));}
+try{init();loadAssets().catch(failAssets);}catch(error){failAssets(error);}
 // ===== Scene: existing tavern, intentional paths, original structural meshes =====
 function mat(c,metal=0,rough=.8){return new THREE.MeshStandardMaterial({color:c,metalness:metal,roughness:rough});}
 function mesh(geo,m,pos,parent=scene){const o=new THREE.Mesh(geo,m);o.position.copy(pos);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
@@ -228,7 +257,7 @@ function paveMat(rx,ry,base){const c=document.createElement('canvas');c.width=c.
  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(rx,ry);tex.anisotropy=4;
  return new THREE.MeshStandardMaterial({color:base||0xbdb8a6,map:tex,roughness:.96,metalness:.02});
 }
-function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
+function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
@@ -237,18 +266,69 @@ tokenMesh=sphere(.12,mat(0xbb9b56,.7,.3),0,5.63,-52);tokenMesh.visible=false;
 const altar=box(.5,.7,.5,mat(0x54695d),-1.7,.35,6.4);signal=sphere(.12,new THREE.MeshStandardMaterial({color:0xd1b77c,emissive:0x73633b,emissiveIntensity:.4}),-1.7,.83,6.4);
 const ring=mesh(new THREE.RingGeometry(2.45,2.48,80),new THREE.MeshBasicMaterial({color:0xc6b180,transparent:true,opacity:.45,side:THREE.DoubleSide}),V(0,.055,4.0));ring.rotation.x=-Math.PI/2;ring.castShadow=false;
 dummy=new THREE.Group();scene.add(dummy);cyl(.14,1.6,wood,0,.8,0,dummy);box(.85,.12,.16,wood,0,1.15,0,dummy);cyl(.21,.13,wood,0,.08,0,dummy);dummy.position.set(0,0,4.2);dummy.visible=false;
-playerGroup=new THREE.Group();scene.add(playerGroup);weaponGroup=new THREE.Group();playerGroup.add(weaponGroup);playerArm=mesh(new THREE.CylinderGeometry(.065,.085,1,10),mat(0xe0c39a),V(),scene);playerHand=box(.095,.105,.145,mat(0xe8c9a0),0,-.05,0,playerGroup);leftHand=box(.095,.105,.145,mat(0xe8c9a0),0,0,0);leftArm=cyl(.05,1,mat(0xe8c9a0),0,0,0);leftHand.visible=leftArm.visible=false;
 debugLines={player:line(0xa9e8d3),enemy:line(0xffce8d),target:line(0x7796a8)};debugBody=mesh(new THREE.CylinderGeometry(.25,.25,.85,12),new THREE.MeshBasicMaterial({color:0x83d3b4,wireframe:true}),V());debugHead=mesh(new THREE.SphereGeometry(.16,12,8),new THREE.MeshBasicMaterial({color:0xeac685,wireframe:true}),V());debugBody.visible=debugHead.visible=false;debugLines.player.visible=debugLines.enemy.visible=false;
 trail=new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({length:26},()=>V())),new THREE.LineBasicMaterial({color:0x9fe8ff,transparent:true,opacity:.55}));scene.add(trail);trail.visible=false;
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);if(started)resetInput();draw();});draw();}
-async function loadAssets(){const loader=new THREE.GLTFLoader();function load(url){return new Promise((resolve,reject)=>loader.load(url,resolve,undefined,reject));}try{const result=await Promise.all([load(ASSETS.actor),load(ASSETS.tavern),load(ASSETS.dao)]);const [a,t,d]=result;actor=a.scene;rig=new THREE.Group();scene.add(rig);rig.add(actor);actor.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material&&o.material.name&&o.material.name.startsWith('tripo_')){o.material=o.material.clone();enemyVisualMaterials.push(o.material);}if(o.material&&o.material.name&&!o.material.name.startsWith('tripo_')){o.material.visible=false;o.castShadow=false;}}if(o.isBone)bones[o.name]=o;});actor.updateMatrixWorld(true);for(const [n,b]of Object.entries(bones))boneBaseline[n]={p:b.position.clone(),q:b.quaternion.clone(),s:b.scale.clone()};mixer=new THREE.AnimationMixer(actor);for(const clip of a.animations){actions[clip.name]=mixer.clipAction(clip);actions[clip.name].enabled=true;actions[clip.name].play();actions[clip.name].setEffectiveWeight(0);}sampleAnimation('slash',2.117);for(const [n,b] of Object.entries(bones)){if(/_(Thumb|Index|Mid|Ring|Pinky)/.test(n))fingerGrip[n]=b.quaternion.clone();}const gripWorld={R:bones.R_Hand.getWorldQuaternion(Q()),L:bones.L_Hand.getWorldQuaternion(Q())};sampleAnimation('idle',.4);const rootX=bones.Hip.getWorldPosition(V()).x;actor.position.x-=rootX;rig.updateMatrixWorld(true);
-for(const side of ['R','L']){const arm=bones[side+'_Upperarm'],fore=bones[side+'_Forearm'],h=bones[side+'_Hand'];rest[side]={upperLength:arm.getWorldPosition(V()).distanceTo(fore.getWorldPosition(V())),foreLength:fore.getWorldPosition(V()).distanceTo(h.getWorldPosition(V())),shoulder:rig.worldToLocal(arm.getWorldPosition(V())),gripWorld:gripWorld[side],gripOffset:V()};}
-daoTemplate=d.scene;function normalizeDao(parent){const model=daoTemplate.clone(true);parent.add(model);const base=model.getObjectByName('Blade_Base').position.clone(),tip=model.getObjectByName('Blade_Tip').position.clone();const scale=RULES.bladeLength/base.distanceTo(tip),correction=Q().setFromUnitVectors(tip.clone().sub(base).normalize(),up);model.quaternion.copy(correction);model.scale.setScalar(scale);model.position.copy(base.applyQuaternion(correction).multiplyScalar(-scale));model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.material){o.material=o.material.clone();if(o.material.metalness>.5){o.material.metalness=.38;o.material.roughness=.42;}}}});return model;}
-playerWeapon=normalizeDao(weaponGroup);enemyWeapon=new THREE.Group();rig.add(enemyWeapon);normalizeDao(enemyWeapon);bladeBaseMarker=new THREE.Object3D();bladeTipMarker=new THREE.Object3D();enemyWeapon.add(bladeBaseMarker,bladeTipMarker);bladeTipMarker.position.y=RULES.bladeLength;
-// Preserve the source hand's grip orientation relative to blade direction.
-const sourceGrip=actor.getObjectByName('HandGrip_R'),sourceBase=actor.getObjectByName('Blade_Base'),sourceTip=actor.getObjectByName('Blade_Tip');const hq=bones.R_Hand.getWorldQuaternion(Q());const sq=Q().setFromUnitVectors(up,sourceTip.getWorldPosition(V()).sub(sourceBase.getWorldPosition(V())).normalize());rest.R.gripQ=rest.R.gripWorld.clone().invert().multiply(sq);rest.L.gripQ=rest.L.gripWorld.clone().invert().multiply(sq);
-const tavern=t.scene;tavern.position.set(-25,0,18);tavern.rotation.y=Math.PI/2;tavern.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.name==='Paving')o.visible=false;}});scene.add(tavern);const opposite=tavern.clone(true);opposite.position.set(25,0,18);opposite.rotation.y=-Math.PI/2;scene.add(opposite);colliders.push({x:-25,z:18,w:2.5,d:7},{x:25,z:18,w:2.5,d:7});
+async function loadAssets(){
+ let ktx2;
+ try{
+  ktx2=new KTX2Loader();
+  ktx2.setTranscoderPath('https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/libs/basis/').setWorkerLimit(2).detectSupport(renderer);
+  const loader=new GLTFLoader().setKTX2Loader(ktx2);
+ async function load(name){
+  const begun=performance.now(),url=ASSETS[name],record={url,expectedSha256:ASSET_SHA[name],decoded:false};assetAudit.requests[name]=record;
+  try{
+   const response=await fetch(url,{mode:'cors',credentials:'omit'});
+   Object.assign(record,{url:response.url,status:response.status,cors:response.type});
+   if(!response.ok)throw Error(name+' HTTP '+response.status);
+   const data=await response.arrayBuffer();record.bytes=data.byteLength;
+   const sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',data)),x=>x.toString(16).padStart(2,'0')).join('');record.sha256=sha;
+   if(sha!==ASSET_SHA[name])throw Error(name+' 资源身份不符');
+   const gltf=await new Promise((resolve,reject)=>loader.parse(data,url.slice(0,url.lastIndexOf('/')+1),resolve,reject));
+   const basisIndices=(gltf.parser.json.textures||[]).flatMap((t,i)=>t.extensions?.KHR_texture_basisu?[i]:[]);
+   const basisTextures=await Promise.all(basisIndices.map(i=>gltf.parser.getDependency('texture',i)));
+   if(basisTextures.some(t=>!t?.isTexture||!(t.mipmaps?.length||t.image?.data)))throw Error(name+' KTX2纹理未完成解码');
+   if((gltf.parser.json.extensionsRequired||[]).includes('KHR_texture_basisu')&&!basisTextures.length)throw Error(name+' KTX2纹理合同缺失');
+   Object.assign(record,{decoded:true,ktx2Textures:basisTextures.length,textureFormats:basisTextures.map(t=>({compressed:!!t.isCompressedTexture,format:t.format,levels:t.mipmaps?.length||0})),milliseconds:Math.round(performance.now()-begun),requiredExtensions:gltf.parser.json.extensionsRequired||[]});
+   return gltf;
+  }catch(e){record.error=String(e);throw e;}
+ }
 
+  const results=await Promise.allSettled(['actor','courtyard','dao'].map(load));
+  const failed=results.filter(x=>x.status==='rejected');if(failed.length)throw Error(failed.map(x=>x.reason?.message||String(x.reason)).join('; '));
+  const [a,t,d]=results.map(x=>x.value);
+  actor=a.scene;actor.position.y=.028;rig=new THREE.Group();scene.add(rig);rig.add(actor);
+  // This pinned actor has nine body primitives and fifteen same-skin dao primitives.
+  // The browser's existing physical blade drives one separate weapon; keep the authored body and face intact.
+  if(a.parser.json.meshes.length!==1||a.parser.json.meshes[0].primitives.length!==24)throw Error('角色primitive合同不符');
+  let hiddenWeaponPrimitives=0;
+  actor.traverse(o=>{if(o.isMesh){const ref=a.parser.associations.get(o),weapon=ref?.meshes===0&&ref?.primitives>=9;
+   o.castShadow=true;o.receiveShadow=true;if(weapon){o.visible=false;hiddenWeaponPrimitives++;}else{if(Array.isArray(o.material)){o.material=o.material.map(m=>m.clone());enemyVisualMaterials.push(...o.material);}else if(o.material){o.material=o.material.clone();enemyVisualMaterials.push(o.material);}}
+  }if(o.isBone)bones[o.name]=o;});
+  if(hiddenWeaponPrimitives!==15)throw Error('角色内置刀primitive识别失败');
+  actor.updateMatrixWorld(true);for(const [n,b]of Object.entries(bones))boneBaseline[n]={p:b.position.clone(),q:b.quaternion.clone(),s:b.scale.clone()};
+  mixer=new THREE.AnimationMixer(actor);for(const clip of a.animations){actions[clip.name]=mixer.clipAction(clip);actions[clip.name].enabled=true;actions[clip.name].play();actions[clip.name].setEffectiveWeight(0);}
+  if(!['idle','walk','fall','hit_body','hit_side','attack_overhead','attack_left','attack_right'].every(name=>actions[name]))throw Error('角色动作bank不符');
+  sampleAnimation('idle',0);rig.updateMatrixWorld(true);
+  const gripWorld={R:bones.R_Hand.getWorldQuaternion(Q()),L:bones.L_Hand.getWorldQuaternion(Q())};
+  for(const side of ['R','L']){const arm=bones[side+'_Upperarm'],fore=bones[side+'_Forearm'],h=bones[side+'_Hand'];rest[side]={upperLength:arm.getWorldPosition(V()).distanceTo(fore.getWorldPosition(V())),foreLength:fore.getWorldPosition(V()).distanceTo(h.getWorldPosition(V())),shoulder:rig.worldToLocal(arm.getWorldPosition(V())),gripWorld:gripWorld[side],gripOffset:V()};}
+  daoTemplate=d.scene;
+  function normalizeDao(parent){const model=daoTemplate.clone(true);parent.add(model);const base=model.getObjectByName('Blade_Base').position.clone(),tip=model.getObjectByName('Blade_Tip').position.clone();const scale=RULES.bladeLength/base.distanceTo(tip),correction=Q().setFromUnitVectors(tip.clone().sub(base).normalize(),up);model.quaternion.copy(correction);model.scale.setScalar(scale);model.position.copy(base.applyQuaternion(correction).multiplyScalar(-scale));model.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});return model;}
+  enemyWeapon=new THREE.Group();rig.add(enemyWeapon);normalizeDao(enemyWeapon);
+  bladeBaseMarker=new THREE.Object3D();bladeTipMarker=new THREE.Object3D();enemyWeapon.add(bladeBaseMarker,bladeTipMarker);bladeTipMarker.position.y=RULES.bladeLength;
+  const sourceBase=actor.getObjectByName('Blade_Base'),sourceTip=actor.getObjectByName('Blade_Tip');
+  const sq=Q().setFromUnitVectors(up,sourceTip.getWorldPosition(V()).sub(sourceBase.getWorldPosition(V())).normalize());
+  rest.R.gripQ=rest.R.gripWorld.clone().invert().multiply(sq);rest.L.gripQ=rest.L.gripWorld.clone().invert().multiply(sq);
+  const courtyard=t.scene;courtyard.name='FormalCourtyardWest';courtyard.position.set(-25,0,18);courtyard.rotation.y=Math.PI/2;
+  const distantWalls=courtyard.getObjectByName('EH_DistantTownWalls');if(!distantWalls)throw Error('Courtyard background contract unavailable');distantWalls.visible=false;
+  courtyard.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});scene.add(courtyard);
+  const opposite=courtyard.clone(true);opposite.name='FormalCourtyardEast';opposite.position.set(25,0,18);opposite.rotation.y=-Math.PI/2;scene.add(opposite);
+  // The formal facade replaces the remote wing's old generic collision box.
+  // Native wall center z=-5.3975 rotates to each wing's outside edge.
+  for(const wing of [-1,1])for(const bay of [-1,1])colliders.push({x:wing*30.3975,z:18+wing*bay*3.525,w:.785,d:4.65});
+  assetAudit.actor={clips:a.animations.map(c=>({name:c.name,duration:c.duration})),bones:Object.keys(bones).length,groundLift:.028,hiddenWeaponPrimitives};
+  assetAudit.courtyard={instances:2,hiddenNodes:['EH_DistantTownWalls'],composition:'remote castle side wings',placements:[courtyard,opposite].map(o=>({origin:o.position.toArray(),rotation:o.rotation.toArray().slice(0,3)}))};
+  assetAudit.ktx2={revision:THREE.REVISION,support:ktx2.workerConfig,transcoder:'three@0.147.0/examples/js/libs/basis/'};
 /* ===== 城堡：瓮城 · 外堡 · 内院 · 主楼，幕墙可绕行（参照天国拯救的三进院落） ===== */
 try{
  const cw=mat(0xb4ad9b),cwD=mat(0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a),cwT=mat(0x2a2320);
@@ -401,9 +481,273 @@ try{
   /* ================= v0.31 细节层：生活痕迹 · 主楼立面 · 礼拜堂内装 · 地面质感 ================= */  /* 地面车辙与碎石，把大块铺地切碎 */  for(const s of [-1,1])for(let i=0;i<9;i++)box(.55,.02,4.4,mat(0x4e4b45),s*2.15,.03,-6+i*6.2);  for(let i=0;i<9;i++)box(.30,.02,3.2,mat(0x474a44),0,.03,-8+i*6.2);  box(13,.03,7,mat(0x4c5b45),-33,.02,6); box(11,.03,9,mat(0x4c5b45),33,.02,10);  box(10,.03,8,mat(0x46543e),-34,.02,-24); box(66,.03,5,mat(0x46543e),0,.02,-88);  for(let i=0;i<9;i++)box(.5,.08,.4,mat(0x6c6a5c),-8+Math.sin(i*2.4)*9,.02,-6+i*3.4);  for(let i=0;i<7;i++)box(.42,.07,.34,mat(0x6c6a5c),16+Math.cos(i*1.7)*5,.02,14+i*2.6);  /* 外堡：拒马、木牌、破车、桶、尸骸 */  for(const s of [-1,1]){const grp=new THREE.Group();grp.position.set(s*20,0,30);scene.add(grp);   for(let i=0;i<3;i++){const xb=box(.16,2.1,.16,mat(0x54452f),-.6+i*.6,1.0,0,grp);xb.rotation.z=.5;}   box(2.0,.14,.14,mat(0x54452f),0,1.15,.12,grp); box(2.0,.14,.14,mat(0x54452f),0,.72,-.12,grp);   colliders.push({x:s*20,z:30,w:2.2,d:1.0});}  for(const s of [-1,1]){cyl(.13,2.6,mat(0x4a3b2c),s*2.6,1.3,19);box(1.9,.7,.10,mat(0x3a332a),s*2.6,2.1,19);}  box(.06,.5,.06,mat(0x8f2b22),2.6,2.5,19.05);  const cart=new THREE.Group();cart.position.set(31,0,22);scene.add(cart);  box(3.4,.9,2.0,mat(0x4a3b2c),0,.75,0,cart); box(3.6,.16,2.2,mat(0x54452f),0,1.22,0,cart);  for(const s2 of [-1,1]){const wh=cyl(.72,.16,mat(0x3a332a),s2*1.5,.5,.55,cart);wh.rotation.x=Math.PI/2;}  colliders.push({x:31,z:22,w:3.4,d:2.0});  for(let i=0;i<3;i++)cyl(.30,.72,mat(0x4a3b2c),27+i*.7,.36,28.4);  for(let i=0;i<3;i++)box(.9,.28,.7,mat(0x5a5147),-30+i*.9,.14,26.5);  for(let i=0;i<5;i++)box(6.9,.03,.06,mat(0x33291f),0,.52,57.5+i*2.6);
  const aoMat=new THREE.MeshBasicMaterial({color:0x0e1310,transparent:true,opacity:.42,depthWrite:false});
  const ao=(w,d,x,z,y)=>{const m=mesh(new THREE.PlaneGeometry(w,d),aoMat,V(x,y,z));m.rotation.x=-Math.PI/2;m.castShadow=false;m.receiveShadow=false;return m;};
- ao(10.4,2.2,0,-25.1,.045);ao(8.6,2.6,0,56.5,.045);ao(4.6,2.4,27.8,4.6,.045);ao(5.2,2.0,0,-45.2,4.72);  /* 内院：晾甲架、石槽、尸骸、石鼓、挂旗 */  for(const s of [-1,1]){const zz=s<0?-6.4:-9.6,xx=s<0?-15.2:14.4;   cyl(.09,2.4,mat(0x4a3b2c),xx,1.2,zz);cyl(.09,2.4,mat(0x4a3b2c),xx+1.6,1.2,zz);   box(1.9,.10,.10,mat(0x4a3b2c),xx+.8,2.30,zz);   box(.9,.12,1.0,mat(0x6b5636),xx+.8,1.55,zz);box(.8,.10,.9,mat(0x8a7244),xx+.8,1.10,zz);box(1.0,.34,1.1,mat(0x2a2320),xx+.8,1.82,zz);}  box(3.0,.75,1.0,cwD,12.4,.38,-17.4);box(2.6,.10,.8,mat(0x33504c),12.4,.78,-17.4);  for(let i=0;i<4;i++)box(.7,.22,.5,mat(0x585044),9.4+i*.8,.11,-28.6);  for(const s of [-1,1]){cyl(.34,.62,cwD,s*5.6,.31,-24.2);sphere(.30,cwR,s*5.6,.72,-24.2);}   /* 主楼南立面：腰线、扶壁、窗楣、门拱 */  const KF=KZ1+.05;  for(const y of [8.6,13.2,17.8])box(18.6,.32,.55,cwD,0,y,(KZ1+.05));  for(const x of [-7.4,-3.6,3.6,7.4]){box(1.35,17.5,.85,cw,x,KB+8.75,(KZ1+.05)+.35);box(1.7,.30,1.05,cwR,x,KB+17.6,(KZ1+.05)+.35);}  for(let i=0;i<5;i++)box(1.4,.85,.5,cwD,-5.4+i*2.7,KB+6.6,(KZ1+.05)+.3);  box(4.6,.85,.5,cwD,0,KB+5.9,(KZ1+.05)+.4);  for(let i=0;i<3;i++)box(1.9,.32,.30,cwR,-1.9+i*1.9,KB+15.2+i*.14,(KZ1+.05)+.22);  /* 礼拜堂内装：祭坛、长椅、香炉 */  box(3.4,.9,1.0,cwD,28,.45,-14.2);box(3.0,.8,.08,cwT,28,1.4,-14.6);  for(const s of [-1,1]){cyl(.10,.7,mat(0x2f2a24),28+s*1.0,1.1,-13.4);sphere(.14,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.0}),28+s*1.0,1.5,-13.4);}  for(const z of [-6.4,-3.2])for(const s of [-1,1])box(4.2,.45,.55,mat(0x4a3b2c),28+s*3.0,.22,z);  cyl(.06,1.9,mat(0x6f5c33),24,5.2,-6);cyl(.30,.42,mat(0x6f5c33),24,4.3,-6);  /* 夹道与崖道：箭孔、绳梯、破旗、石堆、木板 */  for(let i=0;i<3;i++)box(.10,1.1,.5,mat(0x1f2622),-43.4,3.3,-4+i*10);  for(let i=0;i<5;i++)box(.10,.42,.34,mat(0x4a3b2c),46.9,1.2+i*.5,-74.4-i*.3);  for(const p of [[-30,1.2,-76.4],[20,1.2,-76.2]]){cyl(.06,2.4,mat(0x3a332a),p[0],p[1]+1.2,p[2]);box(.04,1.0,.8,mat(0x7a2620),p[0],p[1]+1.7,p[2]);}  for(const p of [[49,1.2,-70],[48.6,1.2,-62]])for(let i=0;i<2;i++)box(.8,.5,.7,cwD,p[0]+i*.4,p[1]+.25,p[2]+i*.3);  box(3.0,.10,1.0,mat(0x4a3b2c),46.8,1.25,-60.4);  /* 墨色调压过之后红旗会读成黑块，给朱色一点自发光 */ mat(0x8f2b22).emissive.setHex(0x2e0a06);mat(0x8f2b22).emissiveIntensity=.55;  /* ================= v0.30 箱庭扩建：护城河断塔门 · 西墙高台夹道 · 东礼拜堂 · 西观景塔 · 北崖台地 ================= */  function steps(w,n,rise,dep,x,zStart,dir,material){   for(let i=0;i<n;i++){const h=rise*(i+1)/n;box(w,h,dep,material,x,h/2,zStart+dir*(i+.5)*dep);}  }  /* ---- S1 南面：护城河、石桥、断塔门（城堡的正门在河对岸） ---- */  box(126,.10,20,mat(0x39423b),0,-1.39,66);  mesh(new THREE.PlaneGeometry(126,19.4),new THREE.MeshStandardMaterial({color:0x2f4a4a,roughness:.18,metalness:.35,transparent:true,opacity:.78}),V(0,-1.26,66)).rotation.x=-Math.PI/2;  box(126,1.45,.45,cwD,0,-.72,56.2);  box(126,1.45,.45,cwD,0,-.72,75.8);  for(const s of [-1,1]){   box(.24,.92,16,mat(0x3a332a),s*3.42,.92,64);   for(let i=0;i<3;i++)box(.30,1.05,.30,mat(0x3a332a),s*3.42,1.10,59+i*4.6);   box(.55,1.6,1.6,cwD,s*3.9,.8,58.4);   box(.55,1.6,1.6,cwD,s*3.9,.8,69.6);   /* 桥头断塔 */   cyl(3.4,11.6,cw,s*11.6,5.8,74);   cyl(3.9,.55,cwR,s*11.6,11.75,74);   box(1.7,2.2,1.7,cwD,s*12.4,12.9,74.6);   colliders.push({x:s*11.6,z:74,w:7.2,d:7.2});   /* 门柱与残楣 */   box(1.6,7.2,1.6,cw,s*5.4,3.6,77.4);   colliders.push({x:s*5.4,z:77.4,w:1.6,d:1.6});   box(.9,.9,.9,cw,s*5.4,7.6,77.4);  }  box(3.0,1.1,6.4,cwR,-2.4,-.75,70.5);  box(2.2,.9,3.0,cwR,6.6,-.9,62.4);  for(const p2 of [[-3.4,58.4],[3.4,69.6]]){cyl(.38,.85,mat(0x2f2a24),p2[0],1.35,p2[1]);sphere(.28,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.9}),p2[0],1.72,p2[1]);const bl=new THREE.PointLight(0xff9a4a,1.1,8);bl.position.set(p2[0],1.9,p2[1]);scene.add(bl);}  cyl(.46,1.0,mat(0x2f2a24),0,1.45,55.2);sphere(.34,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7420,emissiveIntensity:2.0}),0,1.9,55.2);const gl=new THREE.PointLight(0xff8a3a,1.3,9);gl.position.set(0,2.1,55.2);scene.add(gl);  /* 河床杂物 */  for(const b of [[-9,.62,62,2.4,1.0,1.0],[-3.6,.5,70,1.6,.8,1.6],[7.4,.55,66,3.0,.9,1.2],[10,.42,72,1.2,.7,2.4]])box(b[3],b[4],b[5],mat(0x4a4a3e),b[0],b[1],b[2]);  for(let i=0;i<5;i++)box(.7,.5,.7,mat(0x54523f),14+ (i%2?1:0)*2.2+i*2.4,.35,60+i*1.4);   /* ---- S2 西墙高台夹道：(x -43.6..-37.8) 两米二实心台，从外堡上，直插内院西侧 ---- */  box(5.8,2.2,40,cwD,-40.7,1.1,10);  box(5.4,.07,39.6,mat(0x8b8575),-40.7,2.24,10);  box(.50,1.05,40,cw,-43.35,2.72,10);  box(.40,.80,40,cw,-37.95,2.60,10);  for(let i=0;i<5;i++){const h=2.2*(i+1)/5;box(5.8,h,1.0,cw,-40.7,h/2,30.5+i*1.0);}  for(let i=0;i<3;i++){   const z=0+i*10;   cyl(.10,1.3,mat(0x3a332a),-40.4,2.8,z);   sphere(.20,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),-40.4,3.55,z);   const ln=new THREE.PointLight(0xff9a4a,.5,5);ln.position.set(-40.4,3.3,z);scene.add(ln);   box(.9,1.6,.35,cwT,-43.0,3.6,z);  }  /* 夹道尽头对着内院西侧，做成塌口 */  box(2.2,2.2,3.4,cwD,-40.7,1.1,-11.4);  for(let i=0;i<3;i++)box(.9,.6,.9,mat(0x5d5a4b),-40.7+i*1.2,.3,-9.4);   /* ---- S3 东礼拜堂：x 20..36 / z -16..4，第一个能进人的室内 ---- */  const CX0=20,CX1=36,CZ0=-16,CZ1=4,CH=7;  box(5.2,CH,.8,cw,22.6,CH/2,CZ1);box(5.2,CH,.8,cw,33.4,CH/2,CZ1);  box(6.6,CH,.8,cw,23.3,CH/2,CZ0);box(6.6,CH,.8,cw,32.7,CH/2,CZ0);  box(.8,CH,20,cw,20,CH/2,-6);box(.8,CH,20,cw,36,CH/2,-6);  colliders.push({x:22.6,z:CZ1,w:5.2,d:.8},{x:33.4,z:CZ1,w:5.2,d:.8},{x:23.3,z:CZ0,w:6.6,d:.8},{x:32.7,z:CZ0,w:6.6,d:.8},{x:20,z:-6,w:.8,d:20},{x:36,z:-6,w:.8,d:20});  box(17.4,.5,21.2,cwT,28,CH+.15,-6);  for(let i=0;i<2;i++)box(17,.22,.30,mat(0x3a2f26),28,CH+.55,-11+i*9);  box(3.6,.5,2.6,cwT,28,CH+.62,-15.4);  for(const x of [23.4,32.4])box(1.0,6.0,1.0,cwD,x,3.0,CZ0+.6);  for(let i=0;i<3;i++)box(12,.9,.8,cwD,28,5.4,-13+i*.3);  for(const c of [[24.4,-2.2],[31.6,-9.6],[27.6,-12.6]]){   cyl(.34,.7,mat(0x2f2a24),c[0],.35,c[1]);   const fl=sphere(.24,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.2}),c[0],.92,c[1]);   fl.scale.set(1,1.5,1);   const pl=new THREE.PointLight(0xffa653,.9,7);pl.position.set(c[0],1.4,c[1]);scene.add(pl);  }  box(1.9,.45,.6,mat(0x4a3b2c),24,.22,-2.6);  box(1.1,2.4,.06,mat(0x8f2b22),29.4,4.6,CZ0-.4);  for(const wz of [-11,-7,-3]){box(.30,2.6,.95,cwT,19.75,4.5,wz);box(.16,1.9,.55,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.7}),19.60,4.5,wz);}  for(const bz of [-14,-6,2]){box(1.0,6.4,.9,cwD,19.9,3.2,bz);box(1.2,.3,1.1,cwR,19.9,6.5,bz);}  for(const wx of [25.6,30.4]){box(.95,2.6,.30,cwT,wx,4.5,4.42);box(.55,1.9,.16,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.5}),wx,4.5,4.36);}  /* 钟楼：三级踏步 + 钟架 */  steps(3.6,3,3.2,.95,33, -13.2, -1, cwD);  for(const s of [-1,1])box(.22,4.6,.22,mat(0x4a3b2c),33+s*1.4,2.3,-15.6);  box(3.4,.24,.24,mat(0x4a3b2c),33,4.62,-15.6);  cyl(.55,.9,mat(0x6f5c33),33,3.9,-15.6);  box(3.8,.4,2.6,cwT,33,4.9,-15.6);   /* ---- S4 西观景塔（半凸出墙外的 bartizan）：沿墙顶七级台阶上到 9.5 ---- */  box(4.6,3.2,5.2,cw,-44.6,7.9,1.4);  box(5.0,.35,5.6,cwR,-44.6,9.55,1.4);  for(let i=0;i<4;i++){box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,-1.0);box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,3.8);}  for(let i=0;i<7;i++){const h=6.3+.46*(i+1);box(2.6,h-6.3,1.0,cw,-44.4,6.3+(h-6.3)/2,8.5-i*1.0);}  cyl(.09,2.6,mat(0x3a332a),-44.6,11.6,1.4);  box(.04,1.5,.9,mat(0x8f2b22),-44.6,12.2,1.9);  for(let i=0;i<3;i++)box(.7,1.0,.16,mat(0x242c28),-44.6,8.6,-1.2+i*.9);   /* ---- S5 北崖台地：东墙外一条 L 形崖道，两头用石阶与幕墙相连 ---- */  box(7.6,1.2,20,cwD,51.4,.6,-68);  box(7.6,.07,19.8,mat(0x8b8575),51.4,1.24,-68);  box(84.0,1.2,6.0,cwD,5.8,.6,-75);  box(84.0,.07,5.8,mat(0x8b8575),5.8,1.24,-75);  const eS=box(7.6,.45,11.6,cw,51.4,3.72,-53);eS.rotation.x=-Math.atan2(5.1,10.2);  const wS=box(7.2,.45,16.6,cw,-51.4,3.72,-66.2);wS.rotation.x=Math.atan2(5.1,16.4);  box(.5,1.0,20,cw,55.5,1.7,-68);  box(84.0,.9,.5,cw,-30,1.65,-77.8);  box(.5,1.2,.9,cwD,47.6,1.8,-57.6);  /* 崖道陈设：松、火盆、神龛、残尸 */  for(const p of [[51,1.2,-72],[50,1.2,-64],[44,1.2,-75]]){   cyl(.26,5.2,cwL,p[0],p[1]+2.6,p[2]);   for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),p[0]+Math.sin(j*2)*.3,p[1]+4.4+j*.44,p[2]+Math.cos(j*2)*.3);cr.scale.y=.72;}  }  for(const p of [[52.4,-73.4],[-8,-75.6]]){   cyl(.42,.9,mat(0x2f2a24),p[0],1.65,p[1]);   sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.8}),p[0],2.05,p[1]);  }  box(2.2,1.6,1.6,cwD,-30,1.2+0.8,-75);  box(1.4,2.2,.2,cwT,-30,2.5,-74.2);  sphere(.16,new THREE.MeshStandardMaterial({color:0xffd39a,emissive:0xffa14a,emissiveIntensity:1.4}),-30,2.85,-74.9);  for(const b of [[-2,-74.4],[12,-73.4],[36,-74.6]])box(1.3,.7,.7,mat(0x4a3b2c),b[0],1.55,b[1]);  /* 北墙外侧挂旗 + 暗门 */  for(const x of [-14,14]){   box(.9,2.6,.06,mat(0x8f2b22),x,4.4,-71.4);   box(.14,.14,.14,mat(0x6f5c33),x,5.75,-71.4);  }  box(1.8,3.4,.3,cwT,-20,1.7,-71.2);  box(2.4,.24,.3,cw,-20,3.5,-71.2); }catch(e){window.__arenaErr=(e&&e.message)||String(e);window.__arenaStack=(e&&e.stack)||'';}
+ ao(10.4,2.2,0,-25.1,.045);ao(8.6,2.6,0,56.5,.045);ao(4.6,2.4,27.8,4.6,.045);ao(5.2,2.0,0,-45.2,4.72);  /* 内院：晾甲架、石槽、尸骸、石鼓、挂旗 */  for(const s of [-1,1]){const zz=s<0?-6.4:-9.6,xx=s<0?-15.2:14.4;   cyl(.09,2.4,mat(0x4a3b2c),xx,1.2,zz);cyl(.09,2.4,mat(0x4a3b2c),xx+1.6,1.2,zz);   box(1.9,.10,.10,mat(0x4a3b2c),xx+.8,2.30,zz);   box(.9,.12,1.0,mat(0x6b5636),xx+.8,1.55,zz);box(.8,.10,.9,mat(0x8a7244),xx+.8,1.10,zz);box(1.0,.34,1.1,mat(0x2a2320),xx+.8,1.82,zz);}  box(3.0,.75,1.0,cwD,12.4,.38,-17.4);box(2.6,.10,.8,mat(0x33504c),12.4,.78,-17.4);  for(let i=0;i<4;i++)box(.7,.22,.5,mat(0x585044),9.4+i*.8,.11,-28.6);  for(const s of [-1,1]){cyl(.34,.62,cwD,s*5.6,.31,-24.2);sphere(.30,cwR,s*5.6,.72,-24.2);}   /* 主楼南立面：腰线、扶壁、窗楣、门拱 */  const KF=KZ1+.05;  for(const y of [8.6,13.2,17.8])box(18.6,.32,.55,cwD,0,y,(KZ1+.05));  for(const x of [-7.4,-3.6,3.6,7.4]){box(1.35,17.5,.85,cw,x,KB+8.75,(KZ1+.05)+.35);box(1.7,.30,1.05,cwR,x,KB+17.6,(KZ1+.05)+.35);}  for(let i=0;i<5;i++)box(1.4,.85,.5,cwD,-5.4+i*2.7,KB+6.6,(KZ1+.05)+.3);  box(4.6,.85,.5,cwD,0,KB+5.9,(KZ1+.05)+.4);  for(let i=0;i<3;i++)box(1.9,.32,.30,cwR,-1.9+i*1.9,KB+15.2+i*.14,(KZ1+.05)+.22);  /* 礼拜堂内装：祭坛、长椅、香炉 */  box(3.4,.9,1.0,cwD,28,.45,-14.2);box(3.0,.8,.08,cwT,28,1.4,-14.6);  for(const s of [-1,1]){cyl(.10,.7,mat(0x2f2a24),28+s*1.0,1.1,-13.4);sphere(.14,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.0}),28+s*1.0,1.5,-13.4);}  for(const z of [-6.4,-3.2])for(const s of [-1,1])box(4.2,.45,.55,mat(0x4a3b2c),28+s*3.0,.22,z);  cyl(.06,1.9,mat(0x6f5c33),24,5.2,-6);cyl(.30,.42,mat(0x6f5c33),24,4.3,-6);  /* 夹道与崖道：箭孔、绳梯、破旗、石堆、木板 */  for(let i=0;i<3;i++)box(.10,1.1,.5,mat(0x1f2622),-43.4,3.3,-4+i*10);  for(let i=0;i<5;i++)box(.10,.42,.34,mat(0x4a3b2c),46.9,1.2+i*.5,-74.4-i*.3);  for(const p of [[-30,1.2,-76.4],[20,1.2,-76.2]]){cyl(.06,2.4,mat(0x3a332a),p[0],p[1]+1.2,p[2]);box(.04,1.0,.8,mat(0x7a2620),p[0],p[1]+1.7,p[2]);}  for(const p of [[49,1.2,-70],[48.6,1.2,-62]])for(let i=0;i<2;i++)box(.8,.5,.7,cwD,p[0]+i*.4,p[1]+.25,p[2]+i*.3);  box(3.0,.10,1.0,mat(0x4a3b2c),46.8,1.25,-60.4);  /* 墨色调压过之后红旗会读成黑块，给朱色一点自发光 */ mat(0x8f2b22).emissive.setHex(0x2e0a06);mat(0x8f2b22).emissiveIntensity=.55;  /* ================= v0.30 箱庭扩建：护城河断塔门 · 西墙高台夹道 · 东礼拜堂 · 西观景塔 · 北崖台地 ================= */  function steps(w,n,rise,dep,x,zStart,dir,material){   for(let i=0;i<n;i++){const h=rise*(i+1)/n;box(w,h,dep,material,x,h/2,zStart+dir*(i+.5)*dep);}  }  /* ---- S1 南面：护城河、石桥、断塔门（城堡的正门在河对岸） ---- */  box(126,.10,20,mat(0x39423b),0,-1.39,66);  mesh(new THREE.PlaneGeometry(126,19.4),new THREE.MeshStandardMaterial({color:0x2f4a4a,roughness:.18,metalness:.35,transparent:true,opacity:.78}),V(0,-1.26,66)).rotation.x=-Math.PI/2;  box(126,1.45,.45,cwD,0,-.72,56.2);  box(126,1.45,.45,cwD,0,-.72,75.8);  for(const s of [-1,1]){   box(.24,.92,16,mat(0x3a332a),s*3.42,.92,64);   for(let i=0;i<3;i++)box(.30,1.05,.30,mat(0x3a332a),s*3.42,1.10,59+i*4.6);   box(.55,1.6,1.6,cwD,s*3.9,.8,58.4);   box(.55,1.6,1.6,cwD,s*3.9,.8,69.6);   /* 桥头断塔 */   cyl(3.4,11.6,cw,s*11.6,5.8,74);   cyl(3.9,.55,cwR,s*11.6,11.75,74);   box(1.7,2.2,1.7,cwD,s*12.4,12.9,74.6);   colliders.push({x:s*11.6,z:74,w:7.2,d:7.2});   /* 门柱与残楣 */   box(1.6,7.2,1.6,cw,s*5.4,3.6,77.4);   colliders.push({x:s*5.4,z:77.4,w:1.6,d:1.6});   box(.9,.9,.9,cw,s*5.4,7.6,77.4);  }  box(3.0,1.1,6.4,cwR,-2.4,-.75,70.5);  box(2.2,.9,3.0,cwR,6.6,-.9,62.4);  for(const p2 of [[-3.4,58.4],[3.4,69.6]]){cyl(.38,.85,mat(0x2f2a24),p2[0],1.35,p2[1]);sphere(.28,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.9}),p2[0],1.72,p2[1]);const bl=new THREE.PointLight(0xff9a4a,1.1,8);bl.position.set(p2[0],1.9,p2[1]);scene.add(bl);}  cyl(.46,1.0,mat(0x2f2a24),0,1.45,55.2);sphere(.34,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7420,emissiveIntensity:2.0}),0,1.9,55.2);const gl=new THREE.PointLight(0xff8a3a,1.3,9);gl.position.set(0,2.1,55.2);scene.add(gl);  /* 河床杂物 */  for(const b of [[-9,.62,62,2.4,1.0,1.0],[-3.6,.5,70,1.6,.8,1.6],[7.4,.55,66,3.0,.9,1.2],[10,.42,72,1.2,.7,2.4]])box(b[3],b[4],b[5],mat(0x4a4a3e),b[0],b[1],b[2]);  for(let i=0;i<5;i++)box(.7,.5,.7,mat(0x54523f),14+ (i%2?1:0)*2.2+i*2.4,.35,60+i*1.4);   /* ---- S2 西墙高台夹道：(x -43.6..-37.8) 两米二实心台，从外堡上，直插内院西侧 ---- */  box(5.8,2.2,40,cwD,-40.7,1.1,10);  box(5.4,.07,39.6,mat(0x8b8575),-40.7,2.24,10);  box(.50,1.05,40,cw,-43.35,2.72,10);  box(.40,.80,40,cw,-37.95,2.60,10);  for(let i=0;i<5;i++){const h=2.2*(i+1)/5;box(5.8,h,1.0,cw,-40.7,h/2,30.5+i*1.0);}  for(let i=0;i<3;i++){   const z=0+i*10;   cyl(.10,1.3,mat(0x3a332a),-40.4,2.8,z);   sphere(.20,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),-40.4,3.55,z);   const ln=new THREE.PointLight(0xff9a4a,.5,5);ln.position.set(-40.4,3.3,z);scene.add(ln);   box(.9,1.6,.35,cwT,-43.0,3.6,z);  }  /* 夹道尽头对着内院西侧，做成塌口 */  box(2.2,2.2,3.4,cwD,-40.7,1.1,-11.4);  for(let i=0;i<3;i++)box(.9,.6,.9,mat(0x5d5a4b),-40.7+i*1.2,.3,-9.4);   /* ---- S3 东礼拜堂：x 20..36 / z -16..4，第一个能进人的室内 ---- */  const CX0=20,CX1=36,CZ0=-16,CZ1=4,CH=7;  box(5.2,CH,.8,cw,22.6,CH/2,CZ1);box(5.2,CH,.8,cw,33.4,CH/2,CZ1);  box(6.6,CH,.8,cw,23.3,CH/2,CZ0);box(6.6,CH,.8,cw,32.7,CH/2,CZ0);  box(.8,CH,20,cw,20,CH/2,-6);box(.8,CH,20,cw,36,CH/2,-6);  colliders.push({x:22.6,z:CZ1,w:5.2,d:.8},{x:33.4,z:CZ1,w:5.2,d:.8},{x:23.3,z:CZ0,w:6.6,d:.8},{x:32.7,z:CZ0,w:6.6,d:.8},{x:20,z:-6,w:.8,d:20},{x:36,z:-6,w:.8,d:20});  box(17.4,.5,21.2,cwT,28,CH+.15,-6);  for(let i=0;i<2;i++)box(17,.22,.30,mat(0x3a2f26),28,CH+.55,-11+i*9);  box(3.6,.5,2.6,cwT,28,CH+.62,-15.4);  for(const x of [23.4,32.4])box(1.0,6.0,1.0,cwD,x,3.0,CZ0+.6);  for(let i=0;i<3;i++)box(12,.9,.8,cwD,28,5.4,-13+i*.3);  for(const c of [[24.4,-2.2],[31.6,-9.6],[27.6,-12.6]]){   cyl(.34,.7,mat(0x2f2a24),c[0],.35,c[1]);   const fl=sphere(.24,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.2}),c[0],.92,c[1]);   fl.scale.set(1,1.5,1);   const pl=new THREE.PointLight(0xffa653,.9,7);pl.position.set(c[0],1.4,c[1]);scene.add(pl);  }  box(1.9,.45,.6,mat(0x4a3b2c),24,.22,-2.6);  box(1.1,2.4,.06,mat(0x8f2b22),29.4,4.6,CZ0-.4);  for(const wz of [-11,-7,-3]){box(.30,2.6,.95,cwT,19.75,4.5,wz);box(.16,1.9,.55,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.7}),19.60,4.5,wz);}  for(const bz of [-14,-6,2]){box(1.0,6.4,.9,cwD,19.9,3.2,bz);box(1.2,.3,1.1,cwR,19.9,6.5,bz);}  for(const wx of [25.6,30.4]){box(.95,2.6,.30,cwT,wx,4.5,4.42);box(.55,1.9,.16,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.5}),wx,4.5,4.36);}  /* 钟楼：三级踏步 + 钟架 */  steps(3.6,3,3.2,.95,33, -13.2, -1, cwD);  for(const s of [-1,1])box(.22,4.6,.22,mat(0x4a3b2c),33+s*1.4,2.3,-15.6);  box(3.4,.24,.24,mat(0x4a3b2c),33,4.62,-15.6);  cyl(.55,.9,mat(0x6f5c33),33,3.9,-15.6);  box(3.8,.4,2.6,cwT,33,4.9,-15.6);   /* ---- S4 西观景塔（半凸出墙外的 bartizan）：沿墙顶七级台阶上到 9.5 ---- */  box(4.6,3.2,5.2,cw,-44.6,7.9,1.4);  box(5.0,.35,5.6,cwR,-44.6,9.55,1.4);  for(let i=0;i<4;i++){box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,-1.0);box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,3.8);}  for(let i=0;i<7;i++){const h=6.3+.46*(i+1);box(2.6,h-6.3,1.0,cw,-44.4,6.3+(h-6.3)/2,8.5-i*1.0);}  cyl(.09,2.6,mat(0x3a332a),-44.6,11.6,1.4);  box(.04,1.5,.9,mat(0x8f2b22),-44.6,12.2,1.9);  for(let i=0;i<3;i++)box(.7,1.0,.16,mat(0x242c28),-44.6,8.6,-1.2+i*.9);   /* ---- S5 北崖台地：东墙外一条 L 形崖道，两头用石阶与幕墙相连 ---- */  box(7.6,1.2,20,cwD,51.4,.6,-68);  box(7.6,.07,19.8,mat(0x8b8575),51.4,1.24,-68);  box(84.0,1.2,6.0,cwD,5.8,.6,-75);  box(84.0,.07,5.8,mat(0x8b8575),5.8,1.24,-75);  const eS=box(7.6,.45,11.6,cw,51.4,3.72,-53);eS.rotation.x=-Math.atan2(5.1,10.2);  const wS=box(7.2,.45,16.6,cw,-51.4,3.72,-66.2);wS.rotation.x=Math.atan2(5.1,16.4);  box(.5,1.0,20,cw,55.5,1.7,-68);  box(84.0,.9,.5,cw,-30,1.65,-77.8);  box(.5,1.2,.9,cwD,47.6,1.8,-57.6);  /* 崖道陈设：松、火盆、神龛、残尸 */  for(const p of [[51,1.2,-72],[50,1.2,-64],[44,1.2,-75]]){   cyl(.26,5.2,cwL,p[0],p[1]+2.6,p[2]);   for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),p[0]+Math.sin(j*2)*.3,p[1]+4.4+j*.44,p[2]+Math.cos(j*2)*.3);cr.scale.y=.72;}  }  for(const p of [[52.4,-73.4],[-8,-75.6]]){   cyl(.42,.9,mat(0x2f2a24),p[0],1.65,p[1]);   sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.8}),p[0],2.05,p[1]);  }  box(2.2,1.6,1.6,cwD,-30,1.2+0.8,-75);  box(1.4,2.2,.2,cwT,-30,2.5,-74.2);  sphere(.16,new THREE.MeshStandardMaterial({color:0xffd39a,emissive:0xffa14a,emissiveIntensity:1.4}),-30,2.85,-74.9);  for(const b of [[-2,-74.4],[12,-73.4],[36,-74.6]])box(1.3,.7,.7,mat(0x4a3b2c),b[0],1.55,b[1]);  /* 北墙外侧挂旗 + 暗门 */  for(const x of [-14,14]){   box(.9,2.6,.06,mat(0x8f2b22),x,4.4,-71.4);   box(.14,.14,.14,mat(0x6f5c33),x,5.75,-71.4);  }  box(1.8,3.4,.3,cwT,-20,1.7,-71.2);  box(2.4,.24,.3,cw,-20,3.5,-71.2); }catch(error){throw error;}
 
-initFloorWeapons();loaded=true;for(const id of ['start','practice','explore','boss'])$(id).disabled=false;$('load').textContent='角色、刀具与酒馆已就绪 · 建议先到右侧兵器架取刀';rig.position.set(0,0,4.1);rig.rotation.y=Math.PI;sampleAnimation('idle',1.0);rig.updateMatrixWorld(true);draw();}catch(e){loadErrors.push(String(e));fault('模型加载失败：'+(e.message||'网络资源不可用')+'。重新打开可重试。');}}
+  decodedCharacterTemplate=cloneSkinned(actor);decodedCharacterClips=a.animations;
+  ensureBody();spawnMobs();perfPass();
+  initFloorWeapons();loaded=true;assetAudit.complete=true;for(const id of ['start','practice','explore','boss'])$(id).disabled=false;
+  $('load').textContent='角色、刀具与新庭院已就绪 · 建议先到右侧兵器架取刀';rig.position.set(0,0,4.1);rig.rotation.y=0;sampleAnimation('idle',0);rig.updateMatrixWorld(true);draw();
+ }finally{ktx2?.dispose();}
+}
+// BEGIN FIRST PERSON HAND VISUALS
+// r147 source contracts: SkeletonUtils.clone, SkinnedMesh.bind/updateMatrixWorld,
+// BufferGeometry.setIndex/setAttribute and normalized BufferAttribute accessors.
+// targetWorldMatrix is a rigid WORLD wrist or NPC-canonical (+Y blade) grip frame.
+// Its scale is deliberately ignored. The authored actor normalization remains.
+function createFirstPersonHands(sourceActor, sourceBaseline) {
+  if (!sourceActor?.isObject3D || !sourceBaseline) {
+    throw Error('First-person hands require the decoded actor and bone baseline');
+  }
+  const unitScale = new THREE.Vector3(1, 1, 1);
+  const reflection = new THREE.Matrix4().makeScale(-1, 1, 1);
+  const sourceBones = new Map();
+  sourceActor.traverse(node => { if (node.isBone) sourceBones.set(node.name, node); });
+  const fingers = /^(R|L)_(Thumb|Index|Mid|Ring|Pinky)[123]$/;
+  const sides = {};
+  const rigid = matrix => {
+    const position = new THREE.Vector3();
+    const quaternion = new THREE.Quaternion();
+    const scale = new THREE.Vector3();
+    matrix.decompose(position, quaternion, scale);
+    return new THREE.Matrix4().compose(position, quaternion.normalize(), unitScale);
+  };
+  const relativeRigid = (model, node) => rigid(
+    new THREE.Matrix4().copy(model.matrixWorld).invert().multiply(node.matrixWorld)
+  );
+
+  // Same bone-remapping algorithm as the official r147 SkeletonUtils.clone.
+  // Cache one private skeleton per source skeleton within each hand clone.
+  function cloneRig() {
+    const model = sourceActor.clone(true);
+    const originals = new Map();
+    const copies = new Map();
+    const skeletons = new Map();
+    function pair(original, copy) {
+      originals.set(copy, original);
+      copies.set(original, copy);
+      original.children.forEach((child, index) => pair(child, copy.children[index]));
+    }
+    pair(sourceActor, model);
+    model.traverse(node => {
+      if (!node.isSkinnedMesh) return;
+      const original = originals.get(node);
+      if (!skeletons.has(original.skeleton)) {
+        const skeleton = original.skeleton.clone();
+        skeleton.bones = original.skeleton.bones.map(bone => copies.get(bone));
+        if (skeleton.bones.some(bone => !bone)) {
+          throw Error('Actor skeleton has a bone outside its decoded root');
+        }
+        skeleton.boneInverses = original.skeleton.boneInverses.map(matrix => matrix.clone());
+        skeletons.set(original.skeleton, skeleton);
+      }
+      node.bind(skeletons.get(original.skeleton), original.bindMatrix);
+    });
+    const bones = new Map();
+    model.traverse(node => {
+      if (!node.isBone) return;
+      const baseline = sourceBaseline[node.name];
+      if (!baseline?.p || !baseline?.q || !baseline?.s) {
+        throw Error('Missing authored bone baseline: ' + node.name);
+      }
+      node.position.copy(baseline.p);
+      node.quaternion.copy(baseline.q);
+      node.scale.copy(baseline.s);
+      node.matrixAutoUpdate = true;
+      bones.set(node.name, node);
+    });
+    model.updateMatrixWorld(true);
+    return {model, bones, originals, skeletons};
+  }
+
+  function sourceVisible(node) {
+    for (let current = node; current; current = current.parent) {
+      if (!current.visible) return false;
+      if (current === sourceActor) break;
+    }
+    return true;
+  }
+
+  function extractGeometry(original, side) {
+    const geometry = original.geometry;
+    const indices = geometry.index;
+    const skinIndex = geometry.attributes.skinIndex;
+    const skinWeight = geometry.attributes.skinWeight;
+    if (!skinIndex || !skinWeight || !geometry.attributes.position) return null;
+    const region = new RegExp('^' + side + '_(Forearm(?:Twist\\d+)?|Hand|(?:Thumb|Index|Mid|Ring|Pinky)[123])$');
+    const selected = new Uint8Array(skinIndex.count);
+    const access = ['getX', 'getY', 'getZ', 'getW'];
+    for (let vertex = 0; vertex < selected.length; vertex++) {
+      let largest = -1;
+      let dominant = -1;
+      for (let slot = 0; slot < 4; slot++) {
+        const weight = skinWeight[access[slot]](vertex);
+        const index = skinIndex[access[slot]](vertex);
+        if (!Number.isFinite(weight) || !Number.isInteger(index) || index < 0 ||
+            index >= original.skeleton.bones.length) {
+          throw Error('Invalid source hand skin influence');
+        }
+        if (weight > largest) { largest = weight; dominant = index; }
+      }
+      selected[vertex] = largest > 0 && region.test(original.skeleton.bones[dominant].name) ? 1 : 0;
+    }
+    const total = indices ? indices.count : geometry.attributes.position.count;
+    const groups = geometry.groups.length ? geometry.groups : [{start: 0, count: total, materialIndex: 0}];
+    const kept = [];
+    const keptGroups = [];
+    const from = geometry.drawRange.start;
+    const until = Math.min(total, from + geometry.drawRange.count);
+    for (const group of groups) {
+      const begin = Math.max(from, group.start);
+      const end = Math.min(until, group.start + group.count);
+      const first = kept.length;
+      for (let index = begin; index + 2 < end; index += 3) {
+        const a = indices ? indices.getX(index) : index;
+        const b = indices ? indices.getX(index + 1) : index + 1;
+        const c = indices ? indices.getX(index + 2) : index + 2;
+        if (selected[a] && selected[b] && selected[c]) kept.push(a, b, c);
+      }
+      if (kept.length > first) keptGroups.push({start: first, count: kept.length - first, materialIndex: group.materialIndex});
+    }
+    if (!kept.length) return null;
+    const result = new THREE.BufferGeometry();
+    // Attributes and decoded textures are immutable shared source data. Only the
+    // private triangle index changes; UVs, normals and skin streams stay exact.
+    for (const [name, attribute] of Object.entries(geometry.attributes)) result.setAttribute(name, attribute);
+    result.morphAttributes = geometry.morphAttributes;
+    result.morphTargetsRelative = geometry.morphTargetsRelative;
+    result.setIndex(kept);
+    for (const group of keptGroups) result.addGroup(group.start, group.count, group.materialIndex);
+    return result;
+  }
+
+  for (const side of ['R', 'L']) {
+    const clone = cloneRig();
+    const root = new THREE.Group();
+    root.name = 'FirstPersonRealHand_' + side;
+    root.matrixAutoUpdate = false;
+    root.visible = false;
+    root.add(clone.model);
+    root.updateMatrixWorld(true);
+    const wrist = clone.bones.get(side + '_Hand');
+    if (!wrist) throw Error('Actor lacks ' + side + ' hand');
+    sides[side] = {...clone, root, wrist, poses: [], materials: new Map(), meshes: [],
+      target: null, anchorKind: null, gripAmount: 0, gripDerived: false};
+  }
+
+  const rightGrip = sides.R.model.getObjectByName('HandGrip_R');
+  if (!rightGrip) throw Error('Actor lacks its authored HandGrip_R');
+  const rightGripRest = new THREE.Matrix4().copy(sides.R.model.matrixWorld).invert().multiply(rightGrip.matrixWorld);
+  for (const side of ['R', 'L']) {
+    const state = sides[side];
+    let grip = state.model.getObjectByName('HandGrip_' + side);
+    if (!grip) {
+      // The pinned actor has no authored L grip. Reflect the calibrated R grip
+      // in actor-rest space, then express it in the actual L hand rest basis.
+      const leftHandRest = new THREE.Matrix4().copy(state.model.matrixWorld).invert().multiply(state.wrist.matrixWorld);
+      const mirrored = new THREE.Matrix4().copy(reflection).multiply(rightGripRest).multiply(reflection);
+      grip = new THREE.Object3D();
+      grip.name = 'FirstPersonDerivedHandGrip_L';
+      grip.matrixAutoUpdate = false;
+      grip.matrix.copy(leftHandRest.invert().multiply(mirrored));
+      state.wrist.add(grip);
+      state.gripDerived = true;
+    }
+    state.grip = grip;
+    state.root.updateMatrixWorld(true);
+    state.referenceInverse = {
+      wrist: rigid(state.wrist.matrixWorld).invert(),
+      grip: rigid(grip.matrixWorld).invert(),
+    };
+    for (const [name, bone] of state.bones) {
+      if (!fingers.test(name) || !name.startsWith(side + '_')) continue;
+      const open = sourceBaseline[name].q.clone();
+      let closed;
+      if (side === 'R') {
+        closed = sourceBones.get(name).quaternion.clone();
+      } else {
+        const rightName = 'R_' + name.slice(2);
+        const rightRest = relativeRigid(sides.R.model, sides.R.bones.get(rightName));
+        const leftRest = relativeRigid(state.model, bone);
+        rightRest.setPosition(0, 0, 0);
+        leftRest.setPosition(0, 0, 0);
+        const delta = sourceBaseline[rightName].q.clone().invert().multiply(sourceBones.get(rightName).quaternion);
+        const worldDelta = rightRest.clone().multiply(new THREE.Matrix4().makeRotationFromQuaternion(delta)).multiply(rightRest.clone().invert());
+        const mirrored = reflection.clone().multiply(worldDelta).multiply(reflection);
+        const localDelta = leftRest.clone().invert().multiply(mirrored).multiply(leftRest);
+        closed = open.clone().multiply(new THREE.Quaternion().setFromRotationMatrix(localDelta)).normalize();
+      }
+      state.poses.push({bone, open, closed});
+    }
+    const candidates = [];
+    state.model.traverse(node => { if (node.isMesh) candidates.push(node); });
+    for (const node of candidates) {
+      const original = state.originals.get(node);
+      const geometry = node.isSkinnedMesh && sourceVisible(original) ? extractGeometry(original, side) : null;
+      if (!geometry) { node.parent.remove(node); continue; }
+      node.geometry = geometry;
+      const privateMaterial = material => {
+        if (!state.materials.has(material)) state.materials.set(material, material.clone());
+        return state.materials.get(material);
+      };
+      node.material = Array.isArray(original.material) ? original.material.map(privateMaterial) : privateMaterial(original.material);
+      node.frustumCulled = false;
+      node.castShadow = false;
+      node.receiveShadow = true;
+      node.visible = true;
+      state.meshes.push(node);
+    }
+    if (!state.meshes.length || state.poses.length !== 15) throw Error('Incomplete source hand extraction: ' + side);
+  }
+
+  function update(side, targetWorldMatrix, grip, anchorKind = 'wrist') {
+    const state = sides[side];
+    if (!state || !['wrist', 'grip'].includes(anchorKind)) throw Error('Invalid first-person hand anchor');
+    if (!targetWorldMatrix?.elements || !Array.from(targetWorldMatrix.elements).every(Number.isFinite) ||
+        targetWorldMatrix.determinant() <= 1e-12) throw Error('Invalid hand target matrix');
+    if (typeof grip !== 'boolean' && !Number.isFinite(grip)) throw Error('Invalid visual grip amount');
+    const amount = typeof grip === 'boolean' ? (grip ? 1 : 0) : Math.max(0, Math.min(1, grip));
+    for (const pose of state.poses) pose.bone.quaternion.copy(pose.open).slerp(pose.closed, amount);
+    const target = rigid(targetWorldMatrix);
+    const world = target.clone().multiply(state.referenceInverse[anchorKind]);
+    if (state.root.parent) {
+      state.root.parent.updateWorldMatrix(true, false);
+      state.root.matrix.copy(state.root.parent.matrixWorld).invert().multiply(world);
+    } else state.root.matrix.copy(world);
+    state.root.matrixWorldNeedsUpdate = true;
+    state.root.visible = true;
+    state.root.updateMatrixWorld(true);
+    state.target = target;
+    state.anchorKind = anchorKind;
+    state.gripAmount = amount;
+  }
+
+  function audit() {
+    const result = {threeRevision: THREE.REVISION, coordinateSpace: 'rigid world frames; actor metre scale preserved',
+      sourceHandGripR: true, sourceHandGripL: !!sourceActor.getObjectByName('HandGrip_L'),
+      leftClosedPose: 'derived R curl reflected through actual L/R rest bases; no authored L closed clip claimed', hands: {}};
+    for (const side of ['R', 'L']) {
+      const state = sides[side];
+      const anchor = state.anchorKind === 'grip' ? state.grip : state.wrist;
+      const actual = rigid(anchor.matrixWorld);
+      const position = new THREE.Vector3().setFromMatrixPosition(actual);
+      const wanted = state.target ? new THREE.Vector3().setFromMatrixPosition(state.target) : null;
+      result.hands[side] = {meshes: state.meshes.length,
+        triangles: state.meshes.reduce((sum, mesh) => sum + mesh.geometry.index.count / 3, 0),
+        wristWorldScale: state.wrist.getWorldScale(new THREE.Vector3()).toArray(),
+        forearmLengthMetres: state.wrist.getWorldPosition(new THREE.Vector3()).distanceTo(state.bones.get(side + '_Forearm').getWorldPosition(new THREE.Vector3())),
+        materials: [...state.materials.values()].map(material => material.name),
+        privateMaterials: [...state.materials].every(([original, copy]) => original !== copy),
+        privateBones: [...state.bones].every(([name, bone]) => bone !== sourceBones.get(name) && bone !== sides[side === 'R' ? 'L' : 'R'].bones.get(name)),
+        derivedGrip: state.gripDerived, anchorKind: state.anchorKind, gripAmount: state.gripAmount,
+        anchorPosition: position.toArray(), positionErrorMetres: wanted ? position.distanceTo(wanted) : null,
+        rotationErrorRadians: state.target ? new THREE.Quaternion().setFromRotationMatrix(actual).angleTo(new THREE.Quaternion().setFromRotationMatrix(state.target)) : null,
+        forearmCut: 'actual dominant-weight forearm boundary; camera framing must keep proximal cut out of view'};
+    }
+    return result;
+  }
+  return {R: sides.R.root, L: sides.L.root, update, audit};
+}
+// END FIRST PERSON HAND VISUALS
 // ===== v0.10 authored stance graph: each intention creates one complete move =====
 // ===== Module: declarative motion packs (no DOM, no skeletal node names) =====
 // BEGIN MOTION CORE BUNDLE
@@ -476,10 +820,10 @@ function weaponLength(){return equipped?selectedWeapon().length:.12;}
 function createWeaponVisual(id){const g=new THREE.Group(),w=Battle.weapons[id];if(id==='dao'){const m=daoTemplate.clone(true),base=m.getObjectByName('Blade_Base').position.clone(),tip=m.getObjectByName('Blade_Tip').position.clone(),scale=w.length/base.distanceTo(tip),correction=Q().setFromUnitVectors(tip.clone().sub(base).normalize(),up);m.quaternion.copy(correction);m.scale.setScalar(scale);m.position.copy(base.applyQuaternion(correction).multiplyScalar(-scale));g.add(m);}else if(id==='staff'){cyl(.032,w.length,mat(0x725334),0,w.length/2,0,g);for(const y of [.04,w.length-.04])cyl(.035,.08,mat(0xadb2af,.7),0,y,0,g);}else if(id==='spear'){cyl(.022,w.length-.28,mat(0x725334),0,(w.length-.28)/2,0,g);const head=mesh(new THREE.ConeGeometry(.044,.28,4),mat(0xc5d8da,.7,.26),V(0,w.length-.14,0),g);head.rotation.y=Math.PI/4;}else{box(.065,w.length,.013,mat(0xc5d8da,.7,.26),0,w.length/2,0,g);box(.25,.035,.045,mat(0xb29554,.6),0,0,0,g);cyl(.028,.20,mat(0x403b37),0,-.12,0,g);}return g;}
 function initFloorWeapons(){if(floorWeapons.length)return;rackGroup=new THREE.Group();scene.add(rackGroup);const wood=mat(0x30251e),metal=mat(0x897550,.65);for(const x of [1.0,4.35]){box(.13,1.8,.13,wood,x,.9,4.30,rackGroup);box(.55,.10,.8,wood,x,.08,4.30,rackGroup);}for(const y of [.33,1.12])box(3.45,.10,.12,wood,2.67,y,4.30,rackGroup);colliders.push({x:2.67,z:4.47,w:3.55,d:.10});for(const [i,id]of Object.keys(Battle.weapons).entries()){const visual=createWeaponVisual(id);scene.add(visual);const el=document.createElement('div');el.className='pickupLabel';document.body.append(el);floorWeapons.push({id,visual,el,pos:V(1.25+i*.95,1.10,4.10),available:true});}resetFloorWeapons();}
 
-function resetFloorWeapons(){for(const f of floorWeapons){f.available=true;f.pos.set(1.25+Object.keys(Battle.weapons).indexOf(f.id)*.95,1.10,4.10);f.visual.position.copy(f.pos);f.visual.rotation.set(.12,0,-.12);f.visual.visible=true;f.el.textContent=Battle.weapons[f.id].name;}equipped=false;weaponId='dao';weaponHand='R';if(playerWeapon)playerWeapon.visible=false;}
+function resetFloorWeapons(){for(const f of floorWeapons){f.available=true;f.pos.set(1.25+Object.keys(Battle.weapons).indexOf(f.id)*.95,1.10,4.10);f.visual.position.copy(f.pos);f.visual.rotation.set(.12,0,-.12);f.visual.visible=true;f.el.textContent=Battle.weapons[f.id].name;}equipped=false;weaponId='dao';weaponHand='R';}
 
 function updateFloorWeapons(){floorPick=null;let best=88;for(const f of floorWeapons){f.visual.visible=f.available;const near=Math.hypot(f.pos.x-playerPos.x,f.pos.z-playerPos.z)<1.6,q=f.pos.clone().project(camera),x=(q.x*.5+.5)*innerWidth,y=(-q.y*.5+.5)*innerHeight,valid=f.available&&near&&q.z<1&&x>0&&x<innerWidth&&y>0&&y<innerHeight;f.el.style.display=running&&valid?'block':'none';f.el.style.left=x+'px';f.el.style.top=y+'px';if(valid){const d=Math.hypot(x-(mouse.x*.5+.5)*innerWidth,y-(mouse.y*.5+.5)*innerHeight);if(d<best){best=d;floorPick=f;}}}for(const f of floorWeapons)f.el.style.borderColor=f===floorPick?'#77e6ef':'#8b815f';if(!equipped&&floorPick&&running&&!animationSlots.read().active&&time>=playerBrokenUntil&&!terminal){pickWeapon(floorPick,'R');}}
-function pickWeapon(f,side){if(!f||!f.available||animationSlots.read().active||time<playerBrokenUntil)return false;const old=equipped?floorWeapons.find(x=>x.id===weaponId):null;if(old){old.available=true;old.pos.set(1.25+Object.keys(Battle.weapons).indexOf(old.id)*.95,1.10,4.10);old.visual.position.copy(old.pos);old.visual.rotation.set(.12,0,-.12);}f.available=false;weaponId=f.id;weaponHand=side;equipped=true;packId=selectedWeapon().grip;resetInput();grips[side]=true;const oldVisual=playerWeapon;weaponGroup.remove(oldVisual);playerWeapon=createWeaponVisual(f.id);weaponGroup.add(playerWeapon);playerWeapon.visible=true;readyTo=stancePose('middle');readyFrom=null;startFreeMove();bladeBodies.player=makeBlade(playerTarget(0));lastPhysicsTarget=null;emit('已用'+(side==='L'?'左手':'右手')+'拾取 '+selectedWeapon().name,'pickup',f.pos);return true;}
+function pickWeapon(f,side){if(!f||!f.available||animationSlots.read().active||time<playerBrokenUntil)return false;const old=equipped?floorWeapons.find(x=>x.id===weaponId):null;if(old){old.available=true;old.pos.set(1.25+Object.keys(Battle.weapons).indexOf(old.id)*.95,1.10,4.10);old.visual.position.copy(old.pos);old.visual.rotation.set(.12,0,-.12);}f.available=false;weaponId=f.id;weaponHand=side;equipped=true;packId=selectedWeapon().grip;resetInput();handPrev3=null;if(handVelW)handVelW.set(0,0,0);grips[side]=true;readyTo=stancePose('middle');readyFrom=null;startFreeMove();bladeBodies.player=makeBlade(playerTarget(0));lastPhysicsTarget=null;emit('已用'+(side==='L'?'左手':'右手')+'拾取 '+selectedWeapon().name,'pickup',f.pos);return true;}
 function startSlot(id){const result=animationSlots.begin(id,realTime,{attack:enemy?.attackId,boss:enemy?.bossId,weapon:weaponId,hand:weaponHand});if(!result)return false;moveAction=null;queuedMove=null;ModulePorts.reset();resetGrip();slotWasActive=true;emit(id==='execute'?'处决动画槽':id==='counter_grab'?'反投技动画槽':'Boss投技动画槽','animation',enemy?.pos);return true;}
 function spendPlayerPrecision(amount){const result=playerPrecision.spend(amount,realTime);lastCombatActivity=realTime;if(result.broke){playerBrokenUntil=time+1.1;ModulePorts.reset();moveAction=null;queuedMove=null;guardDirection='middle';changeStance('middle');stats.playerBreaks=(stats.playerBreaks||0)+1;emit('我方破防 · 不能攻防，仍可撤步','break',currentP?.base);}return result;}
 function spendEnemyPrecision(amount){if(!enemyPrecision||enemy.dead)return;const result=enemyPrecision.spend(amount,realTime);enemy.posture=result.value;enemy.maxPosture=result.max;if(result.broke){releasePose=physicalEnemyLocal();enemy.phase='broken';enemy.elapsed=0;enemy.phrase=[];enemy.resolved=true;enemy.executeUntil=realTime+2.2;stats.breaks++;emit('敌方破防 · 新攻击触发处决槽','break',enemy.pos);}return result;}
@@ -502,8 +846,27 @@ function stanceKey(){return guardDirection==='up'?'high':guardDirection==='down'
 function stancePose(key){if(key==='low')return edgePose(V(-.28,.98,-.64),V(.98,.02,-.18),V(0,-1,0));if(key==='high')return edgePose(V(-.27,1.83,-.62),V(.98,.03,-.18),V(0,-1,0));if(key==='right'||key==='left'){const s=key==='right'?1:-1;return edgePose(V(s*.26,1.08,-.42),V(s*.03,.997,-.06),V(1,0,0));}return edgePose(V(.17,1.12,-.26),V(-.14,.45,-.88),V(1,0,0));}
 function readyPose(){if(!readyTo)readyTo=stancePose(readyKey);return readyFrom?interpPose(readyFrom,readyTo,smooth(clamp((time-readySince)/FLOW.stanceBlend,0,1))):clonePose(readyTo);}
 function changeStance(key,from=null){if(key===readyKey&&!from)return;readyFrom=from?clonePose(from):readyPose();readyKey=key;readyTo=stancePose(key);readySince=time;}
-function resetInput(){KBD.camTurn=0;KBD.lunge=null;resetGrip();ModulePorts.reset();directionInput.reset();guardDirection='middle';guardPointer=null;guardTravel={x:0,y:0};lastGuardChange=-10;parryIntent=null;moveAction=null;queuedMove=null;gesture={samples:[],lastEmit:-10};guardEntered=-10;guardWas=false;chargeAt=-1;chargeLeftAt=-10;heavyGesture=null;counterUntil=-1;bladeBind=null;playerImpact=null;readyKey='middle';readyTo=stancePose(readyKey);readyFrom=bladeBodies.player?localPlayerPose(rigidPose(bladeBodies.player)):null;readySince=time;keys.clear();velocity.set(0,0,0);for(const b of Object.values(bladeBodies)){if(b){b.v.set(0,0,0);b.w.set(0,0,0);}}pointerPending=true;lastPointer=-10;stroke={travel:0,hit:false,paid:false,quiet:0,last:-10,dir:null,speed:0};shotFrames=[];}
-function freehandWorld(){const qCam=camera.quaternion;const base=V(clamp(mouse.x,-1,1)*.09+.10,clamp(mouse.y,-1,1)*.07-.15,-.42).applyQuaternion(qCam).add(camera.position);const dir=V(0,0,-1).applyQuaternion(qCam).normalize();if(!handVelW)handVelW=V();if(handPrev3)handVelW.lerp(base.clone().sub(handPrev3).multiplyScalar(60),.22);handPrev3=base.clone();const block=!!grips.R;let axis;if(block){axis=V(1,0,.05).applyAxisAngle(up,yaw).normalize();}else{const rest=V(0,.28,-1).applyQuaternion(camera.quaternion).normalize(),sp=handVelW.length(),k=clamp((sp-.55)/1.9,0,1);axis=rest.clone().lerp(handVelW.clone().normalize(),k).normalize();}window.__ax=axis.toArray();const q=Q().setFromUnitVectors(up,axis);return{base,tip:base.clone().addScaledVector(axis,weaponLength()),q};}/* ===== 招式系统 v0.19 · 四武器两槽位 + 段位解锁 ===== */
+function resetInput(){KBD.camTurn=0;KBD.lunge=null;resetGrip();KBD.guardSide=null;ModulePorts.reset();directionInput.reset();guardDirection='middle';guardPointer=null;guardTravel={x:0,y:0};lastGuardChange=-10;parryIntent=null;moveAction=null;queuedMove=null;gesture={samples:[],lastEmit:-10};guardEntered=-10;guardWas=false;chargeAt=-1;chargeLeftAt=-10;heavyGesture=null;counterUntil=-1;bladeBind=null;playerImpact=null;readyKey='middle';readyTo=stancePose(readyKey);readyFrom=bladeBodies.player?localPlayerPose(rigidPose(bladeBodies.player)):null;readySince=time;keys.clear();velocity.set(0,0,0);for(const b of Object.values(bladeBodies)){if(b){b.v.set(0,0,0);b.w.set(0,0,0);}}pointerPending=true;lastPointer=-10;stroke={travel:0,hit:false,paid:false,quiet:0,last:-10,dir:null,speed:0};shotFrames=[];}
+function freehandWorld() {
+  const side = weaponHand === 'L' ? -1 : 1;
+  const base = V(side * (clamp(mouse.x, -1, 1) * .09 + .10), clamp(mouse.y, -1, 1) * .07 - .15, -.42)
+    .applyQuaternion(camera.quaternion).add(camera.position);
+  if (!handVelW) handVelW = V();
+  if (handPrev3) handVelW.lerp(base.clone().sub(handPrev3).multiplyScalar(60), .22);
+  handPrev3 = base.clone();
+  let axis;
+  if (grips[weaponHand]) {
+    axis = V(side, 0, .05).applyAxisAngle(up, yaw).normalize();
+  } else {
+    const rest = V(0, .28, -1).applyQuaternion(camera.quaternion).normalize();
+    const speed = handVelW.length();
+    const amount = clamp((speed - .55) / 1.9, 0, 1);
+    axis = rest.clone().lerp(handVelW.clone().normalize(), amount).normalize();
+  }
+  window.__ax = axis.toArray();
+  return {base, tip: base.clone().addScaledVector(axis, weaponLength()), q: Q().setFromUnitVectors(up, axis)};
+}
+/* ===== 招式系统 v0.19 · 四武器两槽位 + 段位解锁 ===== */
 /* 模组契约：每组 = {id,name,theme,maxRank,segs:[{n,dmgMul,prMul,cine,tag}]}
    另一个 agent 只需往 segs 里填段，或替换同名组的 segs；系统只读 dmgMul/prMul/cine/tag/n。 */
 const MOVESETS = Object.freeze({
@@ -641,7 +1004,7 @@ function bindMovesInput(){
 }
 bindMovesInput();
 /* ===== 键盘路线：WASD 移动 · U 轻击 · J 重击 · I 闪身 · K 架刀 ===== */
-const KBD={camTurn:0,lunge:null,swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:'',combo:{kind:'',step:0,at:-99},stuckT:0};
+const KBD={camTurn:0,lunge:null,swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:'',guardSide:null,combo:{kind:'',step:0,at:-99},stuckT:0};
 function startDash(dir,dist,dur){
  if(!dir)return;const d=dir.clone();d.y=0;
  if(d.lengthSq()<1e-6)return;d.normalize();
@@ -750,18 +1113,18 @@ function kbdTick(dt){
  }
 }
 addEventListener('keydown',e=>{
- if(!started||terminal)return;
+ if(!started||terminal||firstPersonVisuals.error)return;
  if(e.code==='KeyU'||e.code==='KeyJ'){KBD.lastKey=e.code;if(!e.repeat)kbdSwing(e.code==='KeyJ');e.preventDefault();}
  else if(e.code==='KeyI'){if(!e.repeat)kbdDodge();e.preventDefault();}
- else if(e.code==='KeyK'){grips.R=true;e.preventDefault();}
+ else if(e.code==='KeyK'){if(!KBD.guardSide)KBD.guardSide=weaponHand;grips[KBD.guardSide]=true;e.preventDefault();}
  else if(e.code==='ArrowLeft'||e.code==='ArrowRight'){KBD.camTurn=e.code==='ArrowLeft'?-1:1;e.preventDefault();}
 });
-addEventListener('keyup',e=>{if(e.code==='KeyK')grips.R=false;if(e.code==='ArrowLeft'||e.code==='ArrowRight')KBD.camTurn=0;});
+addEventListener('keyup',e=>{if(e.code==='KeyK'&&KBD.guardSide){grips[KBD.guardSide]=false;KBD.guardSide=null;}if(e.code==='ArrowLeft'||e.code==='ArrowRight')KBD.camTurn=0;});
 const kEls={};document.querySelectorAll('#keyHint i').forEach(el=>kEls[el.dataset.k]=el);
-setInterval(()=>{for(const k in kEls)kEls[k].classList.toggle('on',!!(keys.has&&keys.has(k))||(k==='KeyK'&&grips.R));},90);
+setInterval(()=>{for(const k in kEls)kEls[k].classList.toggle('on',!!(keys.has&&keys.has(k))||(k==='KeyK'&&grips[weaponHand]));},90);
 function hintFade(){const kh=document.querySelector('.keyHint');if(kh){kh.style.transition='opacity .8s';kh.style.opacity='1';setTimeout(()=>{kh.style.opacity='0'},7000);}}
 function startFreeMove(){grips.R=grips.L=false;const w=selectedWeapon(),gm=gotSpec();moveAction={free:true,type:gm.heavy?'heavy':'slash',sign:1,variant:gm.index,comboIndex:gm.index,linked:false,id:++moveSerial,t:time,elapsed:0,spec:{wind:0,active:1e9,recover:0,cost:0,damage:Math.round(w.damage*gm.seg.dmgMul),pressure:Math.round(w.pressure*gm.seg.prMul),tag:gm.seg.tag,seg:gm.seg,got:gm.group.id,exec:gm.exec||false},origin:localPlayerPose(currentP||freePlayerTarget(0)),chain:1,dealt:false,cutTravel:0,impactLeft:0,iss:false,counter:false,ending:freehandWorld(),stageLog:'release'};stroke={travel:0,hit:false,paid:true,quiet:0,last:time,dir:null,speed:0};}function freePlayerTarget(dt){return worldPlayerPose(readyPose());}
-function guarding(){return equipped&&(FREEHAND?!!grips.R:stanceKey()!=='middle')&&realTime>=playerPrecision.read().brokenUntil;}
+function guarding(){return equipped&&(FREEHAND?!!grips[weaponHand]:stanceKey()!=='middle')&&realTime>=playerPrecision.read().brokenUntil;}
 function actionFamily(type){return ['heavy','down','rise'].includes(type)?'vertical':'horizontal';}
 function actionStage(a=moveAction){if(!a)return 'ready';if(a.blockedAt!==undefined)return 'recoil';const t=a.elapsed;if(t<a.spec.wind)return 'wind';if(t<a.spec.wind+a.spec.active)return 'release';return 'recover';}
 function pointerIntent(){if(FREEHAND)return;if(animationSlots.read().active)return;lastCombatActivity=realTime;if(grips.L&&grips.R&&hugProxy){const travel=mouse.y-hugProxy.y;if(!hugProxy.latched&&travel<-.12&&realTime-hugProxy.t<.55&&(enemy?.type!=='grab'||!['prepare','release'].includes(enemy?.phase))){hugProxy.latched=true;if(!moveAction){guardDirection='middle';changeStance('middle');}triggerJump('hands_lift_proxy');return;}if(!hugProxy.latched&&travel>.10&&realTime-hugProxy.t<.55){hugProxy.latched=true;tryCounterGrab(true);}return;}if(!equipped||mouse.y>.86){directionInput.reset();guardPointer={...mouse,t:realTime};return;}const prev=guardPointer;guardPointer={...mouse,t:realTime};const intent=directionInput.sample(mouse.x,mouse.y,realTime);if(!prev)return;const dx=mouse.x-prev.x,dy=mouse.y-prev.y,speed=Math.hypot(dx,dy)/Math.max(.012,realTime-prev.t),direction=Math.abs(dy)>Math.abs(dx)?(dy>0?'down':'up'):(dx>0?'right':'left'),cue=enemy?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,true):null;if(intent){const d=intent.type==='thrust'?'down':intent.type==='down'?'up':intent.sign>0?'right':'left';const stage=moveAction?actionStage():'ready',rel=moveAction&&stage==='release'&&moveAction.spec.active>0?(moveAction.elapsed-moveAction.spec.wind)/moveAction.spec.active:0,cancelOk=!moveAction||['wind','recover'].includes(stage)||(stage==='release'&&rel<=CANCEL.guardLate);
@@ -776,40 +1139,224 @@ function actionStep(dt=RULES.step){const key=stanceKey();chargeAt=-1;chargeLeftA
 function moveInRelease(){return !!moveAction&&['wind','release'].includes(actionStage());}
 function moveActive(){return !!moveAction&&!moveAction.dealt&&actionStage()==='release';}
 function hitPause(c){if(!moveAction)return;const a=moveAction,zone=c?.zone||'body',metal=['blade','grip','wall','stone'].includes(zone),wood=zone==='wood';let hold=a.type==='heavy'?IMPACT.heavy:IMPACT.hit;if(wood)hold=IMPACT.cutWood;else if(metal)hold=IMPACT.cutSteel;else if(zone==='body'||zone==='head')hold=IMPACT.cutBody;if(weaponId==='staff')hold+=.018;if(weaponId==='spear')hold-=.014;hold=clamp(hold,.045,.20);const from=localPlayerPose(rigidPose(bladeBodies.player)),axis=from.tip.clone().sub(from.base).normalize().multiplyScalar(IMPACT.drag),deep=clonePose(from);deep.base.add(axis);deep.tip.add(axis);a.impactFrom=from;a.impactTotal=hold;a.impactLeft=hold;a.impactPose=deep;a.hitPose=clonePose(deep);a.ending=clonePose(deep);a.ending.base.add(V(a.sign*.10,-.12,.12));a.ending.tip.add(V(a.sign*.10,-.12,.12));a.elapsed=a.spec.wind+a.spec.active;bladeBodies.player.v.multiplyScalar(.18);bladeBodies.player.w.multiplyScalar(.18);}
-function handRig(parent,s){
- const g=new THREE.Group();
- box(.076,.031,.128,mat(0xdcb992),0,0,-.012,g);
- box(.027,.025,.054,mat(0xdcb992),-.039*s,.004,.046,g);
- box(.019,.021,.052,mat(0xd9b48c),.021*s,.009,.060,g);
- box(.018,.020,.048,mat(0xd3ad83),.003*s,.008,.058,g);
- box(.017,.019,.044,mat(0xd3ad83),-.014*s,.006,.052,g);
- box(.046,.028,.115,mat(0x242932),0,-.005,.085,g);
- parent.add(g);return g;
+// BEGIN FIRST PERSON WEAPON VISUALS
+const firstPersonVisuals = { weapon: null, weaponId: null, length: null, weapons: new Map(), hands: null, error: null, audit: {} };
+
+function failFirstPersonPresentation(error) {
+  if (firstPersonVisuals.error) return false;
+  firstPersonVisuals.error = String(error);
+  running = false;
+  if(bodyG)bodyG.visible=false;
+  talkClose();
+  if(document.pointerLockElement)document.exitPointerLock();
+  cancelAnimationFrame(raf);
+  raf = 0;
+  if (timerId) clearInterval(timerId);
+  timerId = 0;
+  usingTimer = false;
+  last = 0;
+  acc = 0;
+  for (const visual of firstPersonVisuals.weapons.values()) visual.root.visible = false;
+  if (firstPersonVisuals.weapon) firstPersonVisuals.weapon.root.visible = false;
+  if (firstPersonVisuals.hands) {
+    firstPersonVisuals.hands.R.visible = false;
+    firstPersonVisuals.hands.L.visible = false;
+  }
+  // Hide any previously presented GPU frame even when rendering itself failed.
+  if (renderer?.domElement) renderer.domElement.style.visibility = 'hidden';
+  resetInput();
+  resetCine();
+  $('cursor').classList.add('hidden');
+  $('panel').classList.add('hidden');
+  $('title').textContent = '手刀呈现已停止';
+  $('kicker').textContent = '呈现错误 / 运行已锁定';
+  $('body').textContent = '手部或武器呈现发生异常，当前运行已暂停。请刷新页面后重新加载。';
+  $('resume').classList.add('hidden');
+  for (const id of ['start', 'practice', 'explore', 'boss', 'resume', 'pause', 'settings', 'journey', 'continue', 'closePanel']) {
+    $(id).disabled = true;
+  }
+  $('overlay').classList.remove('hidden');
+  fault('第一人称手刀呈现失败：' + (error.message || String(error)));
+  return false;
 }
-function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,-1,1),my=clamp(mouse.y,-1,1);const r=V(mx*.05+.172,my*.04-.186,-.408);freeHandR.position.copy(r);freeHandL.position.copy(V(mx*.045-.070,my*.045-.212,-.400));const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);freeBlade.position.copy(r);freeBlade.rotation.set(.34+my*.3+k*.45,mx*.5,-mx*.2,'YXZ');freeBlade.visible=true;freeRig.visible=true;}
+
+function createFirstPersonDao(length) {
+  const model = daoTemplate.clone(true);
+  model.updateMatrixWorld(true);
+  const baseMarker = model.getObjectByName('Blade_Base');
+  const tipMarker = model.getObjectByName('Blade_Tip');
+  const gripMarker = model.getObjectByName('Grip');
+  if (!baseMarker || !tipMarker || !gripMarker) throw Error('第一人称刀具锚点缺失');
+  const base = model.worldToLocal(baseMarker.getWorldPosition(V()));
+  const tip = model.worldToLocal(tipMarker.getWorldPosition(V()));
+  const direction = tip.clone().sub(base);
+  const sourceLength = direction.length();
+  if (sourceLength < .001 || !Number.isFinite(length) || length <= 0) throw Error('第一人称刀具长度无效');
+  direction.normalize();
+  const extra = length / sourceLength - 1;
+  const { x, y, z } = direction;
+  const alongBase = direction.dot(base);
+  const stretch = new THREE.Matrix4().set(
+    1 + extra*x*x, extra*x*y, extra*x*z, -extra*x*alongBase,
+    extra*y*x, 1 + extra*y*y, extra*y*z, -extra*y*alongBase,
+    extra*z*x, extra*z*y, 1 + extra*z*z, -extra*z*alongBase,
+    0, 0, 0, 1
+  );
+  const inverseModel = model.matrixWorld.clone().invert();
+  const bladeParts = [];
+  model.traverse(node => {
+    if (!node.isMesh) return;
+    const materials = Array.isArray(node.material) ? node.material : [node.material];
+    if (materials.length && materials.every(material => material.name.startsWith('Steel |'))) bladeParts.push(node);
+  });
+  if (!bladeParts.length) throw Error('第一人称刀身部件缺失');
+  // Adapt the authored blade to the existing interaction segment while keeping
+  // the grip and fittings at their actual source dimensions.
+  for (const node of [...bladeParts, tipMarker]) {
+    const parentInModel = inverseModel.clone().multiply(node.parent.matrixWorld);
+    node.matrix.copy(parentInModel.clone().invert().multiply(stretch).multiply(parentInModel).multiply(node.matrix));
+    node.matrixAutoUpdate = false;
+  }
+  const correction = Q().setFromUnitVectors(direction, up);
+  model.quaternion.copy(correction);
+  model.position.copy(base.clone().applyQuaternion(correction).negate());
+  model.updateMatrixWorld(true);
+  const root = new THREE.Group();
+  root.name = 'FirstPersonFormalDao';
+  root.add(model);
+  root.userData.source = ASSETS.dao;
+  root.userData.sourceSha256 = ASSET_SHA.dao;
+  root.userData.bladeParts = bladeParts.length;
+  root.userData.sourceBladeLength = sourceLength;
+  return { root, model, baseMarker, tipMarker, gripMarker };
+}
+
+function ensureFirstPersonWeapon(length) {
+  const state = firstPersonVisuals;
+  if (state.weaponId === weaponId && Math.abs(state.length - length) < .000001 && state.weapon) return state.weapon;
+  if (state.weapon) state.weapon.root.visible = false;
+  let visual = state.weapons.get(weaponId);
+  if (!visual) {
+    visual = weaponId === 'dao' ? createFirstPersonDao(length) : { root: createWeaponVisual(weaponId) };
+    visual.root.name = 'FirstPerson_' + weaponId;
+    visual.root.traverse(o=>{if(o.isMesh)o.layers.enable(2);});
+    scene.add(visual.root);
+    state.weapons.set(weaponId, visual);
+  }
+  state.weapon = visual;
+  state.weaponId = weaponId;
+  state.length = length;
+  return visual;
+}
+
+function renderFreeHand(p = currentP) {
+  window.__fh = (window.__fh || 0) + 1;
+  if (firstPersonVisuals.error) return false;
+  if (!daoTemplate || !actor) return true;
+  const physical = p || currentP;
+  if (!physical || !physical.base || !physical.tip) return true;
+  try {
+    if (!firstPersonVisuals.hands) {
+      firstPersonVisuals.hands = createFirstPersonHands(actor, boneBaseline);
+      for(const side of ['R','L'])firstPersonVisuals.hands[side].traverse(o=>{if(o.isMesh)o.layers.enable(2);});
+      scene.add(firstPersonVisuals.hands.R, firstPersonVisuals.hands.L);
+    }
+    const visual = ensureFirstPersonWeapon(physical.base.distanceTo(physical.tip));
+    visual.root.visible = equipped;
+    visual.root.position.copy(physical.base);
+    visual.root.quaternion.copy(goalQ(physical));
+    visual.root.updateMatrixWorld(true);
+    camera.updateMatrixWorld(true);
+    const heldSide = equipped ? weaponHand : null;
+    const cameraQ = camera.getWorldQuaternion(Q());
+    for (const side of ['R', 'L']) {
+      let target;
+      let anchorKind = 'wrist';
+      if (heldSide === side && weaponId === 'dao') {
+        const nativeGrip = visual.gripMarker.matrixWorld.clone().multiply(new THREE.Matrix4().set(
+          1,0,0,0, 0,0,1,0, 0,-1,0,0, 0,0,0,1
+        ));
+        target = nativeGrip;
+        anchorKind = 'grip';
+      } else {
+        const mx = clamp(mouse.x, -1, 1), my = clamp(mouse.y, -1, 1);
+        let position = side === 'R' ? V(mx*.05+.175, my*.04-.19, -.40) : V(mx*.045-.19, my*.045-.205, -.395);
+        position.applyMatrix4(camera.matrixWorld);
+        let quaternion = cameraQ.clone();
+        if (heldSide === side) {
+          position = physical.base.clone().addScaledVector(physical.tip.clone().sub(physical.base).normalize(), -.13);
+          quaternion = goalQ(physical);
+        }
+        target = new THREE.Matrix4().compose(position, quaternion, V(1,1,1));
+      }
+      firstPersonVisuals.hands.update(side, target, heldSide === side || !!grips[side], anchorKind);
+    }
+    if (weaponId === 'dao' && equipped) {
+      const base = visual.baseMarker.getWorldPosition(V());
+      const tip = visual.tipMarker.getWorldPosition(V());
+      firstPersonVisuals.audit = {
+        sourceSha256: ASSET_SHA.dao, weaponId, weaponHand, equipped,
+        grips: { R: !!grips.R, L: !!grips.L },
+        modelBase: base.toArray(), modelTip: tip.toArray(),
+        interactionBase: physical.base.toArray(), interactionTip: physical.tip.toArray(),
+        baseErrorMetres: base.distanceTo(physical.base), tipErrorMetres: tip.distanceTo(physical.tip),
+        sourceGripDimensionsPreserved: true, bladeParts: visual.root.userData.bladeParts,
+        hands: firstPersonVisuals.hands.audit()
+      };
+    } else {
+      firstPersonVisuals.audit = { weaponId, weaponHand, equipped, grips: {R: !!grips.R, L: !!grips.L}, hands: firstPersonVisuals.hands.audit() };
+    }
+    return true;
+  } catch (error) {
+    return failFirstPersonPresentation(error);
+  }
+}
+window.wuxiaFirstPerson = Object.freeze({ read: () => JSON.parse(JSON.stringify({
+  ...firstPersonVisuals.audit, error: firstPersonVisuals.error,
+  locked: !!firstPersonVisuals.error, weaponCacheSize: firstPersonVisuals.weapons.size,
+  visible: {weapon: !!firstPersonVisuals.weapon?.root.visible, R: !!firstPersonVisuals.hands?.R.visible, L: !!firstPersonVisuals.hands?.L.visible},
+  rendererMemory: renderer ? {...renderer.info.memory} : null
+})) });
+// END FIRST PERSON WEAPON VISUALS
+function setFirstPersonVisible(visible){
+ for(const visual of firstPersonVisuals.weapons.values())visual.root.visible=visible&&equipped&&visual===firstPersonVisuals.weapon;
+ if(firstPersonVisuals.hands)for(const side of ['R','L'])firstPersonVisuals.hands[side].visible=visible;
+}
+function isCharacterPresentation(object){
+ for(let node=object;node;node=node.parent){
+  if(node===rig||node===bodyG||node===camera)return true;
+  if(firstPersonVisuals.hands&&(node===firstPersonVisuals.hands.R||node===firstPersonVisuals.hands.L))return true;
+  for(const visual of firstPersonVisuals.weapons.values())if(node===visual.root)return true;
+  if(MOBS.some(m=>node===m.g)||floorWeapons.some(f=>node===f.visual))return true;
+ }
+ return false;
+}
 /* ==== 开局第三人称：给主角补一个墨色剪影，只在入场镜头里出现 ==== */
 let bodyG=null;
 let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFore=null;
 const MOBS=[];
+function cloneDecodedCharacter() {
+ if(!decodedCharacterTemplate)throw Error('Decoded character template unavailable');
+ const instance=cloneSkinned(decodedCharacterTemplate);
+ instance.traverse(o=>{if(!o.isMesh)return;o.material=Array.isArray(o.material)?o.material.map(m=>m.clone()):o.material.clone();o.layers.enable(2);});
+ return {scene:instance,animations:decodedCharacterClips};
+}
 function spawnMobs(){
- if(MOBS.length||!scene)return;
+ if(MOBS.length||!scene||!decodedCharacterTemplate)return;
  const spots=[[-22,16,2.2],[19,12,-2.4],[-9,6,.4],[13,0,-.6],[-24,-10,1.6],[20,-18,-1.8],[28,-6,.9],[51,-66,2.6]];
  for(const sp of spots){
   const g=new THREE.Group();g.visible=false;scene.add(g);
-  const mob={g,pos:V(sp[0],0,sp[1]),yaw:sp[2],mixer:null,idle:null,walk:null,aw:0,hover:0,ready:false};
-  MOBS.push(mob);
-  new THREE.GLTFLoader().load(ASSETS.actor,function(gl){
-   const a2=gl.scene;
-   a2.traverse(function(o){if(o.isMesh){o.castShadow=false;o.receiveShadow=true;if(o.material&&o.material.emissive){o.material.emissive.setHex(0x2a2018);o.material.emissiveIntensity=.6;}if(o.layers&&o.layers.enable)o.layers.enable(2);}});
-   a2.updateMatrixWorld(true);
-   const m=new THREE.AnimationMixer(a2);
-   const idle=gl.animations.find(function(c){return /idle/i.test(c.name);});
-   const walk=gl.animations.find(function(c){return /walk/i.test(c.name);});
-   if(idle){mob.idle=m.clipAction(idle);mob.idle.play();}
-   if(walk){mob.walk=m.clipAction(walk);mob.walk.play();mob.walk.setEffectiveWeight(0);}
-   mob.mixer=m;mob.hand=a2.getObjectByName('R_Hand');mob.fore=a2.getObjectByName('R_Forearm');
-   mob.g.add(a2);mob.g.visible=true;mob.ready=true;
-  },undefined,function(){});
+  const mob={g,pos:V(sp[0],0,sp[1]),yaw:sp[2],mixer:null,idle:null,walk:null,aw:0,hover:0,ready:false,stepDistance:0};
+  const gl=cloneDecodedCharacter(),a2=gl.scene;
+  a2.traverse(o=>{if(o.isMesh){o.castShadow=false;o.receiveShadow=true;if(o.material&&o.material.emissive){o.material.emissive.setHex(0x2a2018);o.material.emissiveIntensity=.6;}}});
+  a2.updateMatrixWorld(true);
+  const m=new THREE.AnimationMixer(a2);
+  const idle=gl.animations.find(c=>c.name==='idle'),walk=gl.animations.find(c=>c.name==='walk');
+  if(!idle||!walk)throw Error('Crowd idle/walk clips unavailable');
+  mob.idle=m.clipAction(idle);mob.idle.play();
+  mob.walk=m.clipAction(walk);mob.walk.play();mob.walk.setEffectiveWeight(0);
+  mob.mixer=m;mob.hand=a2.getObjectByName('R_Hand');mob.fore=a2.getObjectByName('R_Forearm');
+  mob.g.add(a2);mob.g.visible=true;mob.ready=true;MOBS.push(mob);
  }
 }
 function mobStep(dt){
@@ -822,7 +1369,7 @@ function mobStep(dt){
    if(d<14){
     const want=Math.atan2(dx,dz);
     m.yaw+=angleDiff(want,m.yaw)*Math.min(1,dt*3.2);
-    if(d>3.9){const st=Math.min(dt*1.35,d-3.9);m.pos.x+=dx/d*st;m.pos.z+=dz/d*st;moved=true;tgt=1;}
+    if(d>3.9){const st=Math.min(dt*1.35,d-3.9);m.pos.x+=dx/d*st;m.pos.z+=dz/d*st;m.stepDistance+=st;moved=true;tgt=1;}
    }
   }
   const far=Math.hypot(playerPos.x-m.pos.x,playerPos.z-m.pos.z)>62;
@@ -831,12 +1378,13 @@ function mobStep(dt){
   m.aw+=(tgt-m.aw)*Math.min(1,dt*7);
   if(m.idle)m.idle.setEffectiveWeight(1-m.aw);
   if(m.walk)m.walk.setEffectiveWeight(m.aw);
-  if(m.mixer)m.mixer.update(dt);
+  if(m.mixer){m.mixer.update(dt);if(m.walk){m.walk.time=1/3+(((m.stepDistance/1.45)%1+1)%1)*(7/6);m.mixer.update(0);}}
   m.g.position.set(m.pos.x,groundAt(m.pos.x,m.pos.z),m.pos.z);
   m.g.rotation.y=m.yaw;
  }
 }
 function perfPass(){
+ if(firstPersonVisuals.error)return;
  const pts=[];scene.traverse(function(o){if(o.isPointLight)pts.push(o);});
  pts.sort(function(a,b){return b.intensity*b.distance-a.intensity*a.distance;});
  for(let i=6;i<pts.length;i++){const l=pts[i];if(l.parent)l.parent.remove(l);}
@@ -855,38 +1403,25 @@ function perfPass(){
 }
 function ensureBody(){
  if(bodyG)return bodyG;
+ if(!decodedCharacterTemplate)return null;
+ const gl=cloneDecodedCharacter(),a2=gl.scene;
  bodyG=new THREE.Group();scene.add(bodyG);bodyG.visible=false;
- /* 载入一份同样的骨骼角色当主角替身，腰后挂一把刀，只在入场镜头里出现 */
- try{
-  new THREE.GLTFLoader().load(ASSETS.actor,function(g){
-   const a2=g.scene;
-   a2.traverse(function(o){
-    if(o.isMesh){o.castShadow=true;o.receiveShadow=true;
-     /* 主角也要吃轮廓光，否则入场的背影是一坨死黑 */
-     if(o.layers&&typeof o.layers.enable==='function')o.layers.enable(2);}
-   });
-   a2.updateMatrixWorld(true);
-   const m=new THREE.AnimationMixer(a2);
-   const idle=g.animations.find(function(c){return /idle/i.test(c.name);})||g.animations[0];
-   if(idle)m.clipAction(idle).play();
-   bodyHand=a2.getObjectByName('R_Hand');
-   bodyFore=a2.getObjectByName('R_Forearm');
-   if(bodyHand&&bodyFore){
-    bodyBlade=box(.025,.010,.92,mat(0x9aa3a8,.44,.44),0,0,0,bodyG);
-    bodyBlade.geometry.translate(0,0,-.46);
-   }
-   bodyActor=a2;bodyMixer=m;
-   bodyG.add(a2);
-  },undefined,function(){});
- }catch(e){}
+ a2.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;}});
+ a2.updateMatrixWorld(true);
+ const m=new THREE.AnimationMixer(a2),idle=gl.animations.find(c=>c.name==='idle');
+ if(!idle)throw Error('Intro idle clip unavailable');
+ m.clipAction(idle).play();bodyHand=a2.getObjectByName('R_Hand');bodyFore=a2.getObjectByName('R_Forearm');
+ bodyActor=a2;bodyMixer=m;bodyG.add(a2);
+ // Keep the remote intro's blade. The actual FP dao uses its formal anchors.
+ if(bodyHand&&bodyFore){bodyBlade=createWeaponVisual('dao');bodyG.add(bodyBlade);}
  return bodyG;
 }
 function renderIntroBody(p){
  ensureBody();
- /* 替身没解出来就别硬演，退回双手视角 */
- if(!bodyActor){bodyG.visible=false;freeRig.visible=true;return;}
+ // All decoded character consumers are required before Start becomes available.
+ if(!bodyActor)throw Error('Intro character unavailable');
  /* 推进到头部时先换成双手，最后这段看不到身体也不会出现空窗 */
- bodyG.visible=p<.86;freeRig.visible=p>=.86;
+ bodyG.visible=p<.86;setFirstPersonVisible(p>=.86);
  bodyG.position.set(playerPos.x,playerPos.y,playerPos.z);
  bodyG.rotation.y=yaw+Math.PI;
  const now=performance.now();
@@ -899,7 +1434,7 @@ function renderIntroBody(p){
   const dir=hp.clone().sub(fp);
   if(dir.lengthSq()>1e-6){if(dir.y<-.10)dir.y=-.10;dir.normalize();
    bodyBlade.position.copy(hp).addScaledVector(dir,.05);
-   bodyBlade.quaternion.setFromUnitVectors(V(0,0,-1),dir);
+   bodyBlade.quaternion.setFromUnitVectors(up,dir);
   }
  }
 }
@@ -940,7 +1475,7 @@ function resetCine(){cine=null;camShot=null;introOn=false;try{cineBars(false);ci
 function cineNow(name,label,delay){const x=CINE.tier[name]||CINE.tier.light;cine={t0:realTime+(delay||0),dur:x[1],scale:x[0],label:label||'',inDur:.035,outDur:.19};}
 function cineScale(){if(!cine)return 1;const e=realTime-cine.t0;if(e<0)return 1;if(e>cine.dur+cine.outDur){cine=null;return 1;}if(e<cine.inDur)return 1+(cine.scale-1)*(e/cine.inDur);const hold=cine.dur-cine.inDur;if(e<cine.inDur+hold)return cine.scale;return cine.scale+(1-cine.scale)*((e-cine.inDur-hold)/cine.outDur);}
 function camShotNow(kind,dur,opts){camShot={t0:realTime,dur,kind,o:opts||{}};}
-function applyCineCam(){if(camShot&&camShot.kind==='introTP'){const e=realTime-camShot.t0;if(e>=camShot.dur){camShot=null;introOn=false;waitInput=false;try{cineBars(false);cineTitle('','',false);}catch(_e){}}else{applyIntroTP(clamp(e/camShot.dur,0,1));return;}}const __cb=camera.position.clone();let cs=null;if(camShot){const e=realTime-camShot.t0;if(e>=0&&e<=camShot.dur)cs={p:e/camShot.dur,kind:camShot.kind,o:camShot.o};else if(e>camShot.dur)camShot=null;}let fov=CINE.fov,off=V(),roll=0;const eo=p=>1-Math.pow(1-p,3),eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;if(cs){const p=cs.p,o=cs.o;if(cs.kind==='bossIntro'){if(p<.30){const k=eio(p/.30);off=V(k*.95,k*.24,k*3.10);fov=CINE.fov+k*10;}else if(p<.62){const k=eio((p-.30)/.32);off=V(.95+Math.sin(k*Math.PI*.85)*1.7,.24+k*.32,3.10-k*1.25);fov=CINE.fov+10-k*5;roll=-k*CINE.cam.roll;}else{const k=eio((p-.62)/.38);off=V(.42-Math.sin(k*Math.PI)*.9,.60-k*.34,2.05-k*1.55);fov=CINE.fov+5-k*7;roll=-CINE.cam.roll*(1-k);}camera.rotation.y-=.30*Math.min(1,p*2.2);}else if(cs.kind==='push'){const k=eo(p);off=V(0,k*.10,-k*(o.amount||CINE.cam.push));fov=CINE.fov-k*10;}else if(cs.kind==='pull'){const k=eo(p);off=V(0,k*.16,k*(o.amount||CINE.cam.pull));fov=CINE.fov+k*8;}else if(cs.kind==='swing'){const k=Math.sin(p*Math.PI);off=V(k*(o.side||.55),k*.08,k*.26);roll=k*(o.roll||.030);fov=CINE.fov-k*6;}}if(Math.abs(camera.fov-fov)>.02){camera.fov=fov+speedFov;camera.updateProjectionMatrix();}if(off.lengthSq()>.0001)camera.position.copy(__cb).add(off.applyQuaternion(camera.quaternion));if(roll)camera.rotation.z+=roll;}
+function applyCineCam(){if(camShot&&camShot.kind==='introTP'){const e=realTime-camShot.t0;if(e>=camShot.dur){camShot=null;introOn=false;waitInput=false;try{cineBars(false);cineTitle('','',false);}catch(_e){}}else{applyIntroTP(clamp(e/camShot.dur,0,1));return;}}const __cb=camera.position.clone();let cs=null;if(camShot){const e=realTime-camShot.t0;if(e>=0&&e<=camShot.dur)cs={p:e/camShot.dur,kind:camShot.kind,o:camShot.o};else if(e>camShot.dur)camShot=null;}let fov=CINE.fov,off=V(),roll=0;const eo=p=>1-Math.pow(1-p,3),eio=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;if(cs){const p=cs.p,o=cs.o;if(cs.kind==='bossIntro'){if(p<.30){const k=eio(p/.30);off=V(k*.95,k*.24,k*3.10);fov=CINE.fov+k*10;}else if(p<.62){const k=eio((p-.30)/.32);off=V(.95+Math.sin(k*Math.PI*.85)*1.7,.24+k*.32,3.10-k*1.25);fov=CINE.fov+10-k*5;roll=-k*CINE.cam.roll;}else{const k=eio((p-.62)/.38);off=V(.42-Math.sin(k*Math.PI)*.9,.60-k*.34,2.05-k*1.55);fov=CINE.fov+5-k*7;roll=-CINE.cam.roll*(1-k);}camera.rotation.y-=.30*Math.min(1,p*2.2);}else if(cs.kind==='push'){const k=eo(p);off=V(0,k*.10,-k*(o.amount||CINE.cam.push));fov=CINE.fov-k*10;}else if(cs.kind==='pull'){const k=eo(p);off=V(0,k*.16,k*(o.amount||CINE.cam.pull));fov=CINE.fov+k*8;}else if(cs.kind==='swing'){const k=Math.sin(p*Math.PI);off=V(k*(o.side||.55),k*.08,k*.26);roll=k*(o.roll||.030);fov=CINE.fov-k*6;}}const presentedFov=fov+speedFov;if(Math.abs(camera.fov-presentedFov)>.02){camera.fov=presentedFov;camera.updateProjectionMatrix();}if(off.lengthSq()>.0001)camera.position.copy(__cb).add(off.applyQuaternion(camera.quaternion));if(roll)camera.rotation.z+=roll;}
 const ST={stage:'gate',generalDone:false,menu:true,gateTalked:false};
 function storyReset(){
  ST.stage='gate';ST.generalDone=false;ST.gateTalked=false;
@@ -980,9 +1515,9 @@ function startGeneral(){
  nextEnemy(V(0,0,-40));
  bossIntro();
 }
-function bossIntro(){if(!P.cues||introOn||!isCombat())return;introOn=true;waitInput=true;if(enemy)enemy.yaw=lookAngle(enemy.pos,playerPos);const sb=selectedBoss(),nm=(sb&&sb.name)||'强敌';cineEls();cineBars(true);cineTitle(nm,'拔 刃',true);camShotNow('introTP',2.9,{});cineNow('light','',0);countdown=3.1;
- const kh=document.getElementById('keyHint');if(kh)kh.style.opacity='0';setTimeout(()=>{cineTitle('','',false);},2050);setTimeout(()=>{if(introOn)cineBars(false);introOn=false;waitInput=false;
-  const kh=document.getElementById('keyHint');if(kh)kh.style.opacity='';},2900);const skip=()=>{if(!introOn)return;introOn=false;camShot=null;waitInput=false;cineBars(false);cineTitle('','',false);countdown=Math.min(countdown,.5);
+function bossIntro(){if(firstPersonVisuals.error||!P.cues||introOn||!isCombat())return;introOn=true;waitInput=true;if(enemy)enemy.yaw=lookAngle(enemy.pos,playerPos);const sb=selectedBoss(),nm=(sb&&sb.name)||'强敌';cineEls();cineBars(true);cineTitle(nm,'拔 刃',true);camShotNow('introTP',2.9,{});cineNow('light','',0);countdown=3.1;
+ const kh=document.getElementById('keyHint');if(kh)kh.style.opacity='0';setTimeout(()=>{if(firstPersonVisuals.error)return;cineTitle('','',false);},2050);setTimeout(()=>{if(firstPersonVisuals.error)return;if(introOn)cineBars(false);introOn=false;waitInput=false;
+  const kh=document.getElementById('keyHint');if(kh)kh.style.opacity='';},2900);const skip=()=>{if(firstPersonVisuals.error||!introOn)return;introOn=false;camShot=null;waitInput=false;cineBars(false);cineTitle('','',false);countdown=Math.min(countdown,.5);
   camera.position.set(playerPos.x,playerPos.y+1.64,playerPos.z);camera.fov=CINE.fov;camera.updateProjectionMatrix();
   const kh=document.getElementById('keyHint');if(kh)kh.style.opacity='';};addEventListener('pointerdown',skip,{once:true});}
 let faPrev=null,faCd=-1;
@@ -1004,16 +1539,24 @@ function freehandAssist(dt){
  const axis=t1.clone().sub(b0).normalize(),hitQ=pose.q||Q().setFromUnitVectors(up,axis);const perp=tipV.clone().addScaledVector(axis,-tipV.dot(axis)),preA=perp.length()>0.6?perp:tipV.clone();
  damageEnemy({zone:'body',p:best,a:{base:b0.clone(),tip:t1.clone(),q:hitQ.clone()},preA:preA,preB:preA.clone().negate(),n:V(),closing:speed,energy:speed*speed*.5,j:speed*.04,assist:true});
 }
-function renderPlayer(p){if(!started){playerGroup.visible=false;if(playerArm)playerArm.visible=false;if(leftHand)leftHand.visible=false;if(leftArm)leftArm.visible=false;return;}window.__eq=equipped;window.__fr=!!FREEHAND;if(FREEHAND){
+function renderPlayer(p) {
+ if(firstPersonVisuals.error)return false;
+ if(!started){setFirstPersonVisible(false);if(bodyG)bodyG.visible=false;return true;}
+ window.__eq=equipped;window.__fr=!!FREEHAND;
+ try{
   const intro=camShot&&camShot.kind==='introTP';
-  if(intro){const ip=clamp((realTime-camShot.t0)/camShot.dur,0,1);renderIntroBody(ip);if(ip>=.86)renderFreeHand();}
-  else{renderFreeHand();if(bodyG)bodyG.visible=false;}
-  playerGroup.visible=playerArm.visible=leftHand.visible=leftArm.visible=false;
+  if(intro){const ip=clamp((realTime-camShot.t0)/camShot.dur,0,1);renderIntroBody(ip);if(ip>=.86&&renderFreeHand(p)===false)return false;}
+  else{if(renderFreeHand(p)===false)return false;if(bodyG)bodyG.visible=false;}
   camera.position.lerp(V(playerPos.x,playerPos.y+1.64+bobY,playerPos.z),.26);
-  lookPitch=clamp(lookPitch,-.62,.50);camera.rotation.set(lookPitch-.06,yaw,0);applyCineCam();return;
-}freeRig.visible=false;playerGroup.visible=playerArm.visible=equipped;playerGroup.position.copy(p.base);playerGroup.quaternion.copy(p.q);weaponGroup.position.set(0,0,0);playerHand.position.set(0,-.06,0);const q=Q().setFromAxisAngle(up,yaw),shoulder=V(weaponHand==='L'?-.30:.30,1.12,-.26).applyQuaternion(q).add(playerPos),wrist=p.base.clone().addScaledVector(p.tip.clone().sub(p.base).normalize(),-.13);join(playerArm,shoulder,wrist);if(equipped&&leftHand&&leftArm){const lax=p.tip.clone().sub(p.base).normalize();const lw=p.base.clone().addScaledVector(lax,-.10).add(V(0,-.11,0));leftHand.position.copy(lw);leftHand.visible=true;const lsh=V(weaponHand==='L'?.30:-.30,1.08,-.26).applyQuaternion(new THREE.Quaternion().setFromAxisAngle(up,yaw)).add(playerPos);join(leftArm,lsh,lw);leftArm.visible=true;}camera.position.copy(playerPos).add(V(0,1.64,0));lookPitch=0;camera.rotation.set(lookPitch,yaw,0);applyCineCam();lineSet(debugLines.player,p.base,p.tip);debugLines.player.visible=P.debug;}
-function playerPose(dt){const goal=playerTarget(dt);if(!bladeBodies.player)resetBladeBodies(goal);if(FREEHAND){renderPlayer(goal);return goal;}const p=rigidPose(bladeBodies.player);renderPlayer(p);return p;}
-function join(o,a,b){o.position.copy(a).add(b).multiplyScalar(.5);o.quaternion.setFromUnitVectors(up,b.clone().sub(a).normalize());o.scale.y=a.distanceTo(b);}
+  lookPitch=clamp(lookPitch,-.62,.50);camera.rotation.set(lookPitch-.06,yaw,0);applyCineCam();
+  if(p?.base&&p?.tip){lineSet(debugLines.player,p.base,p.tip);debugLines.player.visible=P.debug;}else debugLines.player.visible=false;
+  return true;
+ }catch(error){return failFirstPersonPresentation(error);}
+}
+function playerPose(dt) {
+ if(firstPersonVisuals.error)return currentP;
+ const goal=playerTarget(dt);if(!bladeBodies.player)resetBladeBodies(goal);renderPlayer(goal);return goal;
+}
 function lookAngle(a,b){return Math.atan2(b.x-a.x,b.z-a.z);}
 function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)d+=Math.PI*2;return d;}
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
@@ -1026,7 +1569,7 @@ function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(k
  const k=clamp((spd-Loco.config.walk)/(Loco.config.sprint-Loco.config.walk),0,1);
  bobPhase+=dt*(4.4+k*3.2)*Math.min(1,Math.hypot(velocity.x,velocity.z)/Loco.config.walk);
  bobY=Math.sin(bobPhase*2)*.030*k;
- speedFov+=((k>0? 5.2*k:0)-speedFov)*Math.min(1,dt*5.5);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:spd)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-55.2,55.2);next.z=clamp(next.z,-95.4,79.0);if(isCombat()&&!enemy.dead&&!enemy.truce&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __cg=groundAt(playerPos.x,playerPos.z),__ng=groundAt(next.x,next.z);
+ speedFov+=((k>0? 5.2*k:0)-speedFov)*Math.min(1,dt*5.5);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:spd)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);if(KBD.lunge){const step=Math.min(KBD.lunge.remain,KBD.lunge.speed*dt);next.addScaledVector(KBD.lunge.dir,step);KBD.lunge.remain-=step;if(KBD.lunge.remain<=1e-4)KBD.lunge=null;}next.x=clamp(next.x,-55.2,55.2);next.z=clamp(next.z,-95.4,79.0);if(isCombat()&&!enemy.dead&&!enemy.truce&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __cg=groundAt(playerPos.x,playerPos.z),__ng=groundAt(next.x,next.z);
 if(__ng-__cg>.62&&(jumpY||0)<.12){next.x=playerPos.x;next.z=playerPos.z;velocity.x=velocity.z=0;}
 const __moved=next.distanceTo(playerPos);
 travel+=__moved;next.y=(jumpY||0)+groundAt(next.x,next.z);playerPos.copy(next);
@@ -1049,14 +1592,14 @@ if(__moved<1e-4&&(Math.abs(f)>.05||Math.abs(s)>.05)){
 }else KBD.stuckT=0;const sign=(!KBD.swing&&realTime-lastPointer<1.4&&Math.abs(mouse.x)>.96)?Math.sign(mouse.x):0;if(sign&&sign===edgeSign)edgeTime+=dt;else{edgeTime=0;edgeSign=sign;}if(edgeTime>RULES.edgeDwell){yaw-=sign*RULES.turn*dt;}}
 // ===== Enemy pose: shared rigid blade path + skeletal two-bone arm correction =====
 const animationSamplers=new Map();
-function sampleAnimation(name,t,mask=null){if(!mask)for(const [n,b]of Object.entries(bones)){const bind=boneBaseline[n];if(bind){b.position.copy(bind.p);b.quaternion.copy(bind.q);b.scale.copy(bind.s);}}const clip=actions[name]?.getClip();if(clip){let tracks=animationSamplers.get(name);if(!tracks){tracks=clip.tracks.map(track=>{const binding=THREE.PropertyBinding.create(actor,track.name);binding.bind();return {name:track.name,binding,interpolant:track.createInterpolant()};});animationSamplers.set(name,tracks);}for(const track of tracks)if(!mask||mask.test(track.name))track.binding.setValue(track.interpolant.evaluate(clamp(t,0,clip.duration)),0);}for(const [n,b]of Object.entries(bones))if(fingerGrip[n])b.quaternion.copy(fingerGrip[n]);actor.updateMatrixWorld(true);}
+function sampleAnimation(name,t,mask=null){if(!mask)for(const [n,b]of Object.entries(bones)){const bind=boneBaseline[n];if(bind){b.position.copy(bind.p);b.quaternion.copy(bind.q);b.scale.copy(bind.s);}}const clip=actions[name]?.getClip();if(clip){let tracks=animationSamplers.get(name);if(!tracks){tracks=clip.tracks.map(track=>{const binding=THREE.PropertyBinding.create(actor,track.name);binding.bind();return {name:track.name,binding,interpolant:track.createInterpolant()};});animationSamplers.set(name,tracks);}for(const track of tracks)if(!mask||mask.test(track.name))track.binding.setValue(track.interpolant.evaluate(clamp(t,0,clip.duration)),0);}actor.updateMatrixWorld(true);}
 function setWorldQ(b,q){const p=b.parent.getWorldQuaternion(Q());b.quaternion.copy(p.invert().multiply(q));b.updateWorldMatrix(false,true);}
 function solveArm(side,target,bladeQ){const a=bones[side+'_Upperarm'],f=bones[side+'_Forearm'],h=bones[side+'_Hand'];if(!a||!f||!h)return;const shoulder=a.getWorldPosition(V()),oldElbow=f.getWorldPosition(V()),oldWrist=h.getWorldPosition(V()),toward=target.clone().sub(shoulder),A=rest[side].upperLength*selectedBoss().scale,B=rest[side].foreLength*selectedBoss().scale,raw=toward.length(),distance=clamp(raw,Math.abs(A-B)+.02,A+B-.012),dir=raw>.001?toward.normalize():V(0,-1,0),safeTarget=shoulder.clone().addScaledVector(dir,distance),along=(A*A-B*B+distance*distance)/(2*distance),height=Math.sqrt(Math.max(0,A*A-along*along));let bend=oldElbow.clone().sub(shoulder);bend.addScaledVector(dir,-bend.dot(dir));if(bend.lengthSq()<.00001)bend=V(side==='R'?-.3:.3,-1,0).applyAxisAngle(up,enemy.yaw).addScaledVector(dir,-V(side==='R'?-.3:.3,-1,0).applyAxisAngle(up,enemy.yaw).dot(dir));bend.normalize();const elbow=shoulder.clone().addScaledVector(dir,along).addScaledVector(bend,height),aq=a.getWorldQuaternion(Q()),oldDir=oldElbow.clone().sub(shoulder).normalize();setWorldQ(a,Q().setFromUnitVectors(oldDir,elbow.clone().sub(shoulder).normalize()).multiply(aq));const forePos=f.getWorldPosition(V()),foreDir=h.getWorldPosition(V()).sub(forePos).normalize(),fq=f.getWorldQuaternion(Q());setWorldQ(f,Q().setFromUnitVectors(foreDir,safeTarget.clone().sub(forePos).normalize()).multiply(fq));if(bladeQ){const current=h.getWorldQuaternion(Q()),wanted=bladeQ.clone().multiply(rest[side].gripQ.clone().invert()),angle=current.angleTo(wanted);setWorldQ(h,current.slerp(wanted,Math.min(1,GripProfiles.single.wristLimit/Math.max(.001,angle))));}rigReport[side]={reach:raw,limit:A+B-.012,error:h.getWorldPosition(V()).distanceTo(target),clamped:raw>distance+.001};}
 function neutral(){return {base:V(.07,1.17,.53),tip:V(.07,1.17+RULES.bladeLength,.53)};}
 function attackPose(type,t){let base,axis;if(type==='grab')return edgePose(V(.32,1.18,.06),V(.38,.88,-.10),V(0,0,1));if(type==='thrust')return edgePose(V(.06,1.05,.06+.50*smooth(t)),V(0,.02,1),V(1,0,0));if(type==='overhead'){base=V(.10,mix(1.95,.95,smooth(t)),mix(.18,.65,smooth(t)));const theta=mix(-.45,1.85,smooth(t));axis=V(-.12,Math.cos(theta),Math.sin(theta));}else{const from=type==='left'?.95:-.95,to=-from,theta=mix(from,to,smooth(t));base=V(Math.sin(theta)*.38,1.32, .53+Math.cos(theta)*.16);axis=V(Math.sin(theta)*1.15,.09,Math.cos(theta));}axis.normalize();return edgePose(base,axis,type==='overhead'?V(0,-axis.z,axis.y):V(axis.z,0,-axis.x));}
 function localBlade(){if(enemy.hold>0&&heldBlade)return clonePose(heldBlade);const spec=RULES.attack[enemy.type],p=enemy.elapsed*P.tempo*(enemy.rate||1);if(time<enemy.guardUntil&&enemy.phase==='idle'){const base=enemy.guardFamily==='vertical'?V(-.38,1.70,.58):V(.27,.98,.52),axis=enemy.guardFamily==='vertical'?V(1,.04,.01):V(-.10,.99,.01),g=edgePose(base,axis,V(0,0,1));return interpPose(neutral(),g,smooth(clamp((enemy.guardUntil-time)/.14,0,1)));}if(enemy.phase==='prepare')return interpPose(enemy.prepareOrigin||neutral(),attackPose(enemy.type,0),smooth(clamp(p/spec.prepare,0,1)));if(enemy.phase==='release')return attackPose(enemy.type,clamp(p/spec.release,0,1));if(enemy.phase==='recover'){const end=releasePose||attackPose(enemy.type,1),n=edgePose(V(.52,1.12,.06),V(.38,.88,.14),V(0,0,1));return interpPose(end,n,smooth(clamp(p/.36,0,1)));}if(['open','hurt','broken'].includes(enemy.phase)){const n=edgePose(V(.53,1.03,.02),V(.46,.80,.18),V(0,0,1));return interpPose(releasePose||neutral(),n,smooth(clamp(enemy.elapsed/.26,0,1)));}return neutral();}
 // ===== Module: skeletal presentation adapter; animation never receives collision impulses =====
-function enemyPose(dt,physical=null){if(!rig)return {base:V(),tip:V()};rig.visible=isCombat()&&started;if(!isCombat())return {base:V(),tip:V()};rig.scale.setScalar(selectedBoss().scale);rig.position.set(enemy.pos.x,groundAt(enemy.pos.x,enemy.pos.z),enemy.pos.z);rig.rotation.set(0,enemy.yaw,0);let clip='idle',ct=.4;const attack=['prepare','release','recover'].includes(enemy.phase);if(enemy.dead){clip='fall';ct=clamp(enemy.elapsed,0,3);}else if(enemy.phase==='hurt'){clip='hit_body';ct=Math.min(.40,.06+enemy.elapsed*.8);}else if(enemy.phase==='open'){clip='hit_side';ct=Math.min(.30,.06+enemy.elapsed*.4);}else if(!attack&&actorMove>.001){clip='walk';ct=.10+(enemy.walkClock%1)*2.16;}if(enemy.hold>0&&enemy.frozenClip){clip=enemy.frozenClip.name;ct=enemy.frozenClip.time;}if(enemy.dead)sampleAnimation(clip,ct);else{sampleAnimation('idle',.4);if(clip==='walk')sampleAnimation(clip,ct,/^[LR]_(Thigh|Calf|Foot|Toe|Upperleg|Lowerleg)/);else if(clip==='hit_body'||clip==='hit_side')sampleAnimation(clip,ct,/^(Spine01|Spine02|Head|Neck)\./);}rigReport={};if(attack&&!enemy.dead){const spec=RULES.attack[enemy.type],f=clamp(enemy.elapsed*P.tempo*(enemy.rate||1)/(enemy.phase==='prepare'?spec.prepare:enemy.type!=='grab'&&enemy.phase==='release'?spec.release:spec.recover),0,1),sign=enemy.type==='left'?1:enemy.type==='right'?-1:0,weight=enemy.phase==='prepare'?smooth(f):enemy.type!=='grab'&&enemy.phase==='release'?1:1-smooth(f);if(bones.Waist)bones.Waist.quaternion.multiply(Q().setFromAxisAngle(up,sign*RigPolicy.bodyYaw*weight));if(bones.Spine02)bones.Spine02.quaternion.multiply(Q().setFromAxisAngle(V(1,0,0),enemy.type==='overhead'?RigPolicy.bodyLean*weight:0));}for(const m of enemyVisualMaterials){if(m.emissive)m.emissive.setHex(enemy.reaction&&time-enemy.reaction.t<.10?0x815c27:0);}enemy.currentClip={name:clip,time:ct};rig.updateMatrixWorld(true);if(rest.R)gripEnvelope={center:bones.R_Upperarm.getWorldPosition(V()).toArray(),radius:(rest.R.upperLength+rest.R.foreLength)*selectedBoss().scale-.018};const pose=physical||enemyGoal(),base=pose.base.clone(),tip=pose.tip.clone(),bladeQ=goalQ(pose),profile=GripProfiles.single,axis=tip.clone().sub(base).normalize();if(!enemy.dead){solveArm('R',base.clone().addScaledVector(axis,profile.mainOffset),bladeQ);if(profile.offHand==='support_if_reachable'){const target=base.clone().addScaledVector(axis,profile.offOffset),shoulder=bones.L_Upperarm.getWorldPosition(V()),reach=rest.L.upperLength+rest.L.foreLength-profile.reachMargin;if(shoulder.distanceTo(target)<=reach)solveArm('L',target,bladeQ);else rigReport.L={released:true,reason:'outside_reach'};}}enemyWeapon.position.copy(rig.worldToLocal(base.clone()));if(enemy.type==='grab'&&attack&&!enemy.dead){const target=bones.L_Upperarm.getWorldPosition(V()).add(V(0,-.10,enemy.phase==='prepare'?.15:.36).applyAxisAngle(up,enemy.yaw));solveArm('L',target,null);}enemyWeapon.scale.setScalar(1/selectedBoss().scale);enemyWeapon.quaternion.copy(rig.getWorldQuaternion(Q()).invert().multiply(bladeQ));enemyWeapon.visible=!enemy.dead;rig.updateMatrixWorld(true);lineSet(debugLines.enemy,base,tip);debugLines.enemy.visible=P.debug&&!enemy.dead;debugBody.position.copy(worldLocal(V(0,1.02,0)));debugHead.position.copy(enemy.pos).add(V(0,1.60,0));debugBody.visible=debugHead.visible=P.debug&&!enemy.dead;return {base,tip};}
+function enemyPose(dt,physical=null){if(!rig)return {base:V(),tip:V()};rig.visible=isCombat()&&started;if(!isCombat())return {base:V(),tip:V()};rig.scale.setScalar(selectedBoss().scale);rig.position.set(enemy.pos.x,groundAt(enemy.pos.x,enemy.pos.z),enemy.pos.z);rig.rotation.set(0,enemy.yaw,0);let clip='idle',ct=0;const attack=['prepare','release','recover'].includes(enemy.phase);if(enemy.dead){clip='fall';ct=clamp(enemy.elapsed,0,3);}else if(enemy.phase==='hurt'){clip='hit_body';ct=Math.min(.40,.06+enemy.elapsed*.8);}else if(enemy.phase==='open'){clip='hit_side';ct=Math.min(.30,.06+enemy.elapsed*.4);}else if(!attack&&actorMove>.001){clip='walk';ct=1/3+(((enemy.stepDistance/1.45)%1+1)%1)*(7/6);}if(enemy.hold>0&&enemy.frozenClip){clip=enemy.frozenClip.name;ct=enemy.frozenClip.time;}if(enemy.dead)sampleAnimation(clip,ct);else{sampleAnimation('idle',0);if(clip==='walk')sampleAnimation(clip,ct,/^[LR]_(Thigh|Calf|Foot|Toe|Upperleg|Lowerleg)/);else if(clip==='hit_body'||clip==='hit_side')sampleAnimation(clip,ct,/^(Spine01|Spine02|Head|Neck)\./);}rigReport={};if(attack&&!enemy.dead){const spec=RULES.attack[enemy.type],f=clamp(enemy.elapsed*P.tempo*(enemy.rate||1)/(enemy.phase==='prepare'?spec.prepare:enemy.type!=='grab'&&enemy.phase==='release'?spec.release:spec.recover),0,1),sign=enemy.type==='left'?1:enemy.type==='right'?-1:0,weight=enemy.phase==='prepare'?smooth(f):enemy.type!=='grab'&&enemy.phase==='release'?1:1-smooth(f);if(bones.Waist)bones.Waist.quaternion.multiply(Q().setFromAxisAngle(up,sign*RigPolicy.bodyYaw*weight));if(bones.Spine02)bones.Spine02.quaternion.multiply(Q().setFromAxisAngle(V(1,0,0),enemy.type==='overhead'?RigPolicy.bodyLean*weight:0));}for(const m of enemyVisualMaterials){if(m.emissive)m.emissive.setHex(enemy.reaction&&time-enemy.reaction.t<.10?0x815c27:0);}enemy.currentClip={name:clip,time:ct};rig.updateMatrixWorld(true);if(rest.R)gripEnvelope={center:bones.R_Upperarm.getWorldPosition(V()).toArray(),radius:(rest.R.upperLength+rest.R.foreLength)*selectedBoss().scale-.018};const pose=physical||enemyGoal(),base=pose.base.clone(),tip=pose.tip.clone(),bladeQ=goalQ(pose),profile=GripProfiles.single,axis=tip.clone().sub(base).normalize();if(!enemy.dead){solveArm('R',base.clone().addScaledVector(axis,profile.mainOffset),bladeQ);if(profile.offHand==='support_if_reachable'){const target=base.clone().addScaledVector(axis,profile.offOffset),shoulder=bones.L_Upperarm.getWorldPosition(V()),reach=rest.L.upperLength+rest.L.foreLength-profile.reachMargin;if(shoulder.distanceTo(target)<=reach)solveArm('L',target,bladeQ);else rigReport.L={released:true,reason:'outside_reach'};}}enemyWeapon.position.copy(rig.worldToLocal(base.clone()));if(enemy.type==='grab'&&attack&&!enemy.dead){const target=bones.L_Upperarm.getWorldPosition(V()).add(V(0,-.10,enemy.phase==='prepare'?.15:.36).applyAxisAngle(up,enemy.yaw));solveArm('L',target,null);}enemyWeapon.scale.setScalar(1/selectedBoss().scale);enemyWeapon.quaternion.copy(rig.getWorldQuaternion(Q()).invert().multiply(bladeQ));enemyWeapon.visible=!enemy.dead;rig.updateMatrixWorld(true);lineSet(debugLines.enemy,base,tip);debugLines.enemy.visible=P.debug&&!enemy.dead;debugBody.position.copy(worldLocal(V(0,1.02,0)));debugHead.position.copy(enemy.pos).add(V(0,1.60,0));debugBody.visible=debugHead.visible=P.debug&&!enemy.dead;return {base,tip};}
 function nextEnemy(pos,level=round){const bossId=mode==='boss'?$('bossChoice').value:['duelist','lancer','juggernaut'][level]||'duelist',bp=bossDef(bossId);enemyPrecision=Battle.createPrecision(bp.precision,2.2);enemyPrecision.reset(realTime);bladeBodies.enemy=null;lastEnemyTarget=null;contactCache.clear();enemy={bossId,pos:pos.clone(),yaw:lookAngle(pos,playerPos),hp:bp.hp,maxHp:bp.hp,posture:bp.precision,maxPosture:bp.precision,phrase:[],phraseIndex:0,phase:'idle',elapsed:0,type:'overhead',sequence:0,attackId:serial+1,resolved:false,dead:false,hold:0,hurt:.25,open:.92,pressure:0,guardUntil:0,frozenClip:null,currentClip:null,thinkAt:0,seen:null,seenAttack:0,tactic:'侧步试探',stepSign:1,stepUntil:0,rate:1,prepareDelay:0,chainGap:.24,feint:false,feinted:false,feintAt:time+2,guardFamily:'horizontal'};enemy.stepDistance=0;enemy.walkClock=0;enemy.reaction=null;aiSamples=[];releasePose=null;actorMove=0;}
 // AI reacts only to delayed visible pose/action samples, not queued input or future intent.
 const AI=Object.freeze({reaction:.16,think:.12,chase:1.65,retreat:1.0,side:.95,guardTime:.42,feintCooldown:4.0,seed:7419});let aiSeed=AI.seed,aiSamples=[];
@@ -1171,7 +1714,17 @@ $('progress').textContent=(equipped?selectedWeapon().name:'右侧兵器架 · �
 function currentCue(){return isCombat()&&enemy&&!enemy.dead?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,P.cues):{kind:'none',direction:null};}
 function updateDirectionCues(){const cue=currentCue(),pad=$('directionPad');pad.classList.toggle('red',cue.kind==='red');pad.classList.toggle('black',cue.kind==='black');pad.classList.toggle('blue',cue.kind==='blue');pad.classList.toggle('hidden',!started||terminal||mode==='explore'&&!isCombat());for(const el of pad.querySelectorAll('.mark')){el.classList.toggle('selected',el.dataset.dir===guardDirection);el.classList.toggle('white',cue.kind==='white'&&cue.direction===el.dataset.dir);el.classList.toggle('blue',cue.kind==='blue'&&cue.direction===el.dataset.dir);el.classList.toggle('red',cue.kind==='red'&&cue.direction===el.dataset.dir);el.classList.toggle('black',cue.kind==='black');}$('directionCenter').textContent=moveAction?'出刀':guarding()?'架刀':'刺 / 劈 / 砍';$('tell').textContent=waitInput?'移动鼠标就位':countdown>0?'准备 '+Math.ceil(countdown):cue.kind==='red'?'弹':cue.kind==='black'?'闪':cue.kind==='blue'?'破':cue.kind==='white'?'挡':enemy?.phase==='open'?'反击开口':'';if(enemyWeapon)enemyWeapon.traverse(o=>{if(o.isMesh&&o.material?.emissive)o.material.emissive.setHex(cue.kind==='red'?0x8a1414:cue.kind==='black'?0x14061a:cue.kind==='blue'?0x075d85:cue.kind==='white'?0x282828:0);});}
 function guardMatches(){return guardDirection===({overhead:'up',thrust:'down',left:'right',right:'left'})[enemy?.type];}
-function draw(){if(renderer)renderer.render(scene,camera);}
+function draw() {
+  if (!renderer) return;
+  if (started && firstPersonVisuals.error) return false;
+  try {
+    renderer.render(scene, camera);
+    return true;
+  } catch (error) {
+    if (!started) throw error;
+    return failFirstPersonPresentation(error);
+  }
+}
 let currentP=null,currentE=null;
 let lastLookAt=-99;
 (function(){const h=document.createElement('div');h.id='lockHint';
@@ -1216,7 +1769,7 @@ addEventListener('keydown',function(e){
 },true);
 addEventListener('pointerdown',function(e){if(TALK.on)return;if(document.pointerLockElement)return;if(!running||mode==='menu')return;try{renderer.domElement.requestPointerLock();}catch(_e){}},false);
 addEventListener('pointerdown',function(e){if(!TALK.on)return;e.preventDefault();e.stopPropagation();const row=e.target&&e.target.closest?e.target.closest('[data-i]'):null;talkStep(row?parseInt(row.getAttribute('data-i'),10)||0:0);},true);
-function update(dt){realTime+=dt;
+function update(dt){if(!running||firstPersonVisuals.error)return;realTime+=dt;
  if(bodyG&&(!camShot||camShot.kind!=='introTP'))bodyG.visible=false;
  if(mode==='boss'&&ST.stage==='gate'&&!ST.gateTalked&&!introOn&&!camShot&&started&&enemy){ST.gateTalked=true;gateTalk();}
  /* 鼠标横向位置能带着镜头转，但键盘触发的虚拟挥砍不算：否则每按一次U，镜头就被拖走五十几度 */
@@ -1227,10 +1780,8 @@ function update(dt){realTime+=dt;
  /* 出刀和闪身原来是单帧瞬移0.22/0.66米，画面会跳一下；改成一口气跑完的短冲刺 */
  mobStep(dt);
  if(ST.stage==='passed'&&!ST.generalDone&&playerPos.z<-18&&Math.abs(playerPos.x)<11.5){ST.generalDone=true;generalTalk();}
- if(KBD.lunge){const st=Math.min(KBD.lunge.remain,KBD.lunge.speed*dt);playerPos.addScaledVector(KBD.lunge.dir,st);KBD.lunge.remain-=st;
-  playerPos.x=clamp(playerPos.x,-20.2,20.2);playerPos.z=clamp(playerPos.z,-41.5,17.5);
-  if(KBD.lunge.remain<=1e-4)KBD.lunge=null;}if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();dojoTick(dt);kbdTick(dt);renderPlayer(currentP);freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jogActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:(moveAction&&!moveAction.free)?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
-function loop(t){if(!running){if(timerId){clearInterval(timerId);timerId=0;}usingTimer=false;return;}lastLoopAt=performance.now();const dt=last?Math.min((t-last)/1000,.06):0;last=t;frameSamples.push(dt);if(frameSamples.length>120)frameSamples.shift();
+if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();dojoTick(dt);kbdTick(dt);if(renderPlayer(currentP)===false)return;freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jogActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:(moveAction&&!moveAction.free)?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
+function loop(t){if(firstPersonVisuals.error)return;if(!running){if(timerId){clearInterval(timerId);timerId=0;}usingTimer=false;return;}lastLoopAt=performance.now();const dt=last?Math.min((t-last)/1000,.06):0;last=t;frameSamples.push(dt);if(frameSamples.length>120)frameSamples.shift();
  if(frameSamples.length===60&&!qualityLocked){
   let sum=0;for(const s of frameSamples)sum+=s;const avg=sum/frameSamples.length;
   if(avg>.030&&renderer.getPixelRatio()>1.0){renderer.setPixelRatio(1.0);frameSamples.length=0;}
@@ -1238,31 +1789,51 @@ function loop(t){if(!running){if(timerId){clearInterval(timerId);timerId=0;}usin
   else if(avg<.019){qualityLocked=true;}
  }acc+=dt;let n=0;while(acc>=RULES.step&&n<8&&running){update(RULES.step);acc-=RULES.step;n++;}draw();if(running&&!usingTimer)raf=requestAnimationFrame(loop);}
 function clearParticles(){for(const p of particles){scene.remove(p.o);p.o.geometry.dispose();}for(const m of new Set(particles.map(p=>p.o.material)))m.dispose();particles=[];impactHUD=null;$('impactLabel').style.opacity=$('hitMarker').style.opacity='0';}
-function start(m){if(!loaded)return;if(m==='boss')storyReset();hintFade();running=false;cancelAnimationFrame(raf);started=true;terminal=false;mode=m;time=0;realTime=0;lastCombatActivity=0;lookPitch=0;slotWasActive=false;sprintUntil=-1;lastForwardDown=-10;jumpY=jumpVelocity=0;lastJump=-10;vrMove=null;locomotionPose.reset();playerPrecision.reset(0);reactionClock.reset();animationSlots.reset();resetFloorWeapons();round=m==='boss'?2:0;health=stamina=100;score=0;serial=0;strokeSerial=0;physicsEvent=null;events=[];stats={hits:0,blocks:0,parries:0,hurts:0,misses:0,attacks:0,clashes:0,moves:0,issens:0,counterCuts:0,breaks:0,bindWins:0,bindRepeats:0};moveSerial=0;aiSeed=AI.seed;aiSamples=[];playerBrokenUntil=-1;lastLightType=null;lastLightTime=-10;chainCount=0;playerPos.set(0,0,26);velocity.set(0,0,0);yaw=0;mouse={x:0,y:.25};hand={x:0,y:.25};travel=0;tripStage=0;tripEncounter=false;countdown=isCombat()?1.5:0;resetCine();waitInput=true;intermission=0;feedbackPriority=0;feedbackLock=-1;footClock=0;enemyVisualMaterials.forEach(m=>m.emissive?.setHex(0));clearParticles();resetInput();nextEnemy(V(0,0,isCombat()?21.0:0.11),m==='boss'?2:round);if(FREEHAND&&!equipped){const dw0=floorWeapons.find(x=>x.id==='dao');if(dw0)pickWeapon(dw0,'R');}if(FREEHAND)waitInput=false;PROG.combo=0;PROG.comboUntil=-10;refreshMovesHud();if(isCombat()){if(mode==='boss'&&ST.menu)storyReset();bossIntro();}resetBladeBodies(playerTarget(0));dummy.visible=m==='practice';tokenMesh.visible=false;signal.visible=true;hudTime=-1;feedbackUntil=0;currentP=playerPose(0);currentE=enemyPose(0);$('goal').textContent=m==='trial'?'三轮交锋：架开来刀，再顺势反击。':m==='boss'?'Boss专项：捡武器；红光末段双握前送反投，也可侧移。':m==='practice'?'短方向意图推进变式，不用划满屏。':'出院迎战巡路刀客，取得回廊信物，再返回酒馆。';$('hint').textContent='WASD步法 · 双击W跑 · 双握上提跳 / 千招未尽可直接接招 · 出刀前55%可紧急架刀';$('start').textContent='重新三轮试炼';$('resume').classList.add('hidden');$('load').textContent='本地切片 v0.14 · 资源已就绪';resume();sound('objective');}
-function resume(){if(!started||terminal||running)return;resetInput();if(FREEHAND&&equipped&&!moveAction)startFreeMove();$('overlay').classList.add('hidden');$('panel').classList.add('hidden');$('cursor').classList.remove('hidden');last=0;acc=0;running=true;raf=requestAnimationFrame(loop);setTimeout(()=>{if(running&&!usingTimer&&performance.now()-lastLoopAt>140){usingTimer=true;timerId=setInterval(()=>{if(running)loop(performance.now());},16);}},900);}
+function start(m){if(!loaded||firstPersonVisuals.error)return;if(m==='boss')storyReset();hintFade();running=false;cancelAnimationFrame(raf);started=true;terminal=false;mode=m;time=0;realTime=0;lastCombatActivity=0;lookPitch=0;slotWasActive=false;sprintUntil=-1;lastForwardDown=-10;jumpY=jumpVelocity=0;lastJump=-10;vrMove=null;locomotionPose.reset();playerPrecision.reset(0);reactionClock.reset();animationSlots.reset();resetFloorWeapons();round=m==='boss'?2:0;health=stamina=100;score=0;serial=0;strokeSerial=0;physicsEvent=null;events=[];stats={hits:0,blocks:0,parries:0,hurts:0,misses:0,attacks:0,clashes:0,moves:0,issens:0,counterCuts:0,breaks:0,bindWins:0,bindRepeats:0};moveSerial=0;aiSeed=AI.seed;aiSamples=[];playerBrokenUntil=-1;lastLightType=null;lastLightTime=-10;chainCount=0;playerPos.set(0,0,26);velocity.set(0,0,0);yaw=0;mouse={x:0,y:.25};hand={x:0,y:.25};travel=0;tripStage=0;tripEncounter=false;countdown=isCombat()?1.5:0;resetCine();waitInput=true;intermission=0;feedbackPriority=0;feedbackLock=-1;footClock=0;enemyVisualMaterials.forEach(m=>m.emissive?.setHex(0));clearParticles();resetInput();nextEnemy(V(0,0,isCombat()?21.0:0.11),m==='boss'?2:round);if(FREEHAND&&!equipped){const dw0=floorWeapons.find(x=>x.id==='dao');if(dw0)pickWeapon(dw0,'R');}if(FREEHAND)waitInput=false;PROG.combo=0;PROG.comboUntil=-10;refreshMovesHud();if(isCombat()){if(mode==='boss'&&ST.menu)storyReset();bossIntro();}resetBladeBodies(playerTarget(0));dummy.visible=m==='practice';tokenMesh.visible=false;signal.visible=true;hudTime=-1;feedbackUntil=0;currentP=playerPose(0);if(firstPersonVisuals.error)return;currentE=enemyPose(0);$('goal').textContent=m==='trial'?'三轮交锋：架开来刀，再顺势反击。':m==='boss'?'Boss专项：捡武器；红光末段双握前送反投，也可侧移。':m==='practice'?'短方向意图推进变式，不用划满屏。':'出院迎战巡路刀客，取得回廊信物，再返回酒馆。';$('hint').textContent='WASD步法 · 双击W跑 · 双握上提跳 / 千招未尽可直接接招 · 出刀前55%可紧急架刀';$('start').textContent='重新三轮试炼';$('resume').classList.add('hidden');$('load').textContent='本地切片 v0.14 · 资源已就绪';resume();sound('objective');}
+function resume(){if(!started||terminal||running||firstPersonVisuals.error)return;resetInput();if(FREEHAND&&equipped&&!moveAction)startFreeMove();$('overlay').classList.add('hidden');$('panel').classList.add('hidden');$('cursor').classList.remove('hidden');last=0;acc=0;running=true;raf=requestAnimationFrame(loop);setTimeout(()=>{if(running&&!usingTimer&&performance.now()-lastLoopAt>140){usingTimer=true;timerId=setInterval(()=>{if(running)loop(performance.now());},16);}},900);}
 function pause(show=true){if(!running)return;animationSlots.cancel('pause');slotWasActive=false;running=false;cancelAnimationFrame(raf);last=0;acc=0;resetInput();$('cursor').classList.add('hidden');if(show){$('title').textContent='收刀稍息';$('kicker').textContent='暂停 / 保留当前进度';$('body').innerHTML='<p>敌人、动作判定与计时已经暂停。继续后重新建立持刀手基线，窗口切换不会产生一次虚假的高速斩击。</p>';$('resume').classList.remove('hidden');$('overlay').classList.remove('hidden');}}
 function finish(win){if(terminal)return;terminal=true;animationSlots.cancel('terminal');resetGrip();ModulePorts.reset();moveAction=null;queuedMove=null;bladeBind=null;counterUntil=-1;for(const b of Object.values(bladeBodies)){if(b){b.v.set(0,0,0);b.w.set(0,0,0);}}hudTime=-1;running=false;cancelAnimationFrame(raf);keys.clear();velocity.set(0,0,0);score+=win?100+health:0;hud();best=Math.max(score,best);try{localStorage.setItem('wuxia-mouse-v03-best',String(best));}catch(_){}$('cursor').classList.add('hidden');$('panel').classList.add('hidden');$('title').textContent=win?(mode==='boss'?'投技专项通过':mode==='explore'?'信物已归':'三轮已过'):'再试一刀';$('kicker').textContent=win?'完成 / 可重新挑战':'本局结束 / 可重新挑战';$('body').innerHTML='<p>本局得分 <b>'+score+'</b> · 最高 <b>'+best+'</b><br>命中 '+stats.hits+' · 格挡 '+stats.blocks+' · 弹反 '+stats.parries+' · 承伤 '+stats.hurts+'</p><p>判断重点是你能否看懂来势、实际拦住刀路，并利用开口反击。网页切片不等于VR真机验收。</p>';$('resume').classList.add('hidden');$('overlay').classList.remove('hidden');}
 // ===== UI, bounded input and focus recovery =====
 window.addEventListener('pointermove',e=>{if(!running||e.pointerType==='touch')return;
  if(document.pointerLockElement){mouse.x=clamp(mouse.x+e.movementX*.0018,-1,1);mouse.y=clamp(mouse.y+e.movementY*.0014,-1,1);yaw-=e.movementX*.0022;lookPitch=clamp(lookPitch-e.movementY*.0016,-.62,.50);lastPointer=time;return;}
- mouse.x=clamp((e.clientX/innerWidth-.5)*2,-1,1);mouse.y=clamp((e.clientY/innerHeight-.5)*2,-1,1);lastPointer=time;lastLookAt=realTime;$('cursor').style.left=e.clientX+'px';$('cursor').style.top=e.clientY+'px';if(pointerPending){pointerPending=false;hand={...mouse};stroke.travel=0;stroke.dir=null;stroke.speed=0;const target=playerTarget(0);lastPhysicsTarget=clonePose(target);lastPhysicsPlayer=playerPos.clone();if(!bladeBodies.player)resetBladeBodies(target);currentP=rigidPose(bladeBodies.player);renderPlayer(currentP);waitInput=false;guardWas=guarding();guardEntered=guardWas?time:-10;guardPointer={...mouse,t:realTime};directionInput.sample(mouse.x,mouse.y,realTime);gesture.samples=[{...mouse,t:time}];}else pointerIntent();});
+ mouse.x=clamp((e.clientX/innerWidth-.5)*2,-1,1);mouse.y=clamp((e.clientY/innerHeight-.5)*2,-1,1);lastPointer=time;lastLookAt=realTime;$('cursor').style.left=e.clientX+'px';$('cursor').style.top=e.clientY+'px';if(pointerPending){pointerPending=false;hand={...mouse};stroke.travel=0;stroke.dir=null;stroke.speed=0;const target=playerTarget(0);lastPhysicsTarget=clonePose(target);lastPhysicsPlayer=playerPos.clone();if(!bladeBodies.player)resetBladeBodies(target);currentP=rigidPose(bladeBodies.player);if(renderPlayer(currentP)===false)return;waitInput=false;guardWas=guarding();guardEntered=guardWas?time:-10;guardPointer={...mouse,t:realTime};directionInput.sample(mouse.x,mouse.y,realTime);gesture.samples=[{...mouse,t:time}];}else pointerIntent();});
 window.addEventListener('mousedown',e=>{if(!running||e.target!==renderer.domElement||![0,2].includes(e.button))return;e.preventDefault();const side=e.button===0?'L':'R';grips[side]=true;updateFloorWeapons();if(floorPick){pickWeapon(floorPick,side);return;}if(grips.L&&grips.R)hugProxy={y:mouse.y,t:realTime,latched:false};});window.addEventListener('mouseup',e=>{if(e.button===0)grips.L=false;if(e.button===2)grips.R=false;if(!grips.L||!grips.R)hugProxy=null;});document.addEventListener('contextmenu',e=>{if(e.target===renderer?.domElement)e.preventDefault();});$('slow').onchange=()=>P.slow=$('slow').checked;
 window.addEventListener('keydown',e=>{
  if(e.code==='Tab'){e.preventDefault();toggleDojo();return;}
  if(e.code==='Escape'){toggleDojo(false);return;}
  if(['KeyW','KeyA','KeyS','KeyD'].includes(e.code)&&running){if(e.code==='KeyW'&&!e.repeat){if(realTime-lastForwardDown<.30)sprintUntil=realTime+3600;lastForwardDown=realTime;}keys.add(e.code);e.preventDefault();}});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='KeyW')sprintUntil=-1;});window.addEventListener('blur',()=>pause());document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
-$('boss').onclick=()=>start('boss');$('start').onclick=()=>start('trial');$('practice').onclick=()=>start('practice');$('explore').onclick=()=>start('explore');$('journey').onclick=()=>start('explore');$('pause').onclick=()=>pause();$('resume').onclick=resume;$('settings').onclick=()=>{if(!started||terminal)return;pause(false);$('panel').classList.remove('hidden');$('overlay').classList.add('hidden');};$('continue').onclick=resume;$('closePanel').onclick=resume;
+$('boss').onclick=()=>start('boss');$('start').onclick=()=>start('trial');$('practice').onclick=()=>start('practice');$('explore').onclick=()=>start('explore');$('journey').onclick=()=>start('explore');$('pause').onclick=()=>pause();$('resume').onclick=resume;$('settings').onclick=()=>{if(!started||terminal||firstPersonVisuals.error)return;pause(false);$('panel').classList.remove('hidden');$('overlay').classList.add('hidden');};$('continue').onclick=resume;$('closePanel').onclick=resume;
 for(const id of ['sensitivity','tempo','grip'])$(id).oninput=()=>{P[id]=Number($(id).value)/(id==='grip'?1000:1);$(id+'Value').textContent=id==='grip'?$(id).value+' ms':P[id].toFixed(2);};$('sound').onchange=()=>P.sound=$('sound').checked;$('cues').onchange=()=>P.cues=$('cues').checked;$('debug').onchange=()=>{P.debug=$('debug').value==='on';if(started){currentP=playerPose(0);currentE=enemyPose(0,bladeBodies.enemy?rigidPose(bladeBodies.enemy):null);draw();}};$('motionPack').onchange=()=>{packId=$('motionPack').value;ModulePorts.reset();if(enemy){enemy.phrase=[];enemy.phase='idle';enemy.elapsed=0;enemy.hold=0;enemy.truce=false;enemy.frozenClip=null;releasePose=null;heldBlade=null;bladeBodies.enemy=null;lastEnemyTarget=null;}resetInput();};$('drill').onchange=()=>P.drill=$('drill').value;$('resetParams').onclick=()=>{P.sensitivity=P.tempo=1;P.grip=.028;P.drill='mixed';P.debug=false;P.cues=true;P.sound=true;for(const id of ['sensitivity','tempo','grip']){$(id).value=id==='grip'?28:1;$(id+'Value').textContent=id==='grip'?'28 ms':'1.00';}$('drill').value='mixed';$('debug').value='off';$('cues').checked=$('sound').checked=true;};
 $('export').onclick=()=>{const record={ruleset_id:RULES.id,revision:RULES.revision,action_config:ACTION,physics_config:{...PHYS,gripTime:WEAPON.positionTime*(P.grip/.028),rotationTime:WEAPON.rotationTime*(P.grip/.028),maxForce:WEAPON.maxForce,maxTorque:WEAPON.maxTorque},weapon_config:WEAPON,flow_config:FLOW,impact_config:IMPACT,motion_pack:MotionPacks.get(packId),grip_profile:GripProfiles[MotionPacks.get(packId).grip],rig_policy:RigPolicy,enemy_drive:'kinematic_reachable_sweep',player_drive:'authored_sweep_stop',physics:physicsFrame,aiConfig:AI,mode,score,stats:{...stats},params:{...P},events:events.slice(),tripStage,note:'Mouse-pose proxy. VR comfort and 6DoF not validated.'};const u=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='酒馆试炼-v0.14-交锋记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
 // Read-only observation for tests. No hidden attack, teleport, health or win controls.
 window.wuxiaDemo={rules:RULES,readState:()=>({ruleset_id:RULES.id,revision:RULES.revision,loaded,loadErrors:loadErrors.slice(),running,mode,realTime:+realTime.toFixed(3),locomotion:{jumpY,jumpVelocity,sprint:sprintActive,velocity:velocity.toArray()},timeScale,precision:playerPrecision.read(),enemyPrecision:enemyPrecision?.read(),equipment:{equipped,weapon:weaponId,hand:weaponHand,grips:{...grips},floor:floorWeapons.map(f=>({id:f.id,available:f.available,pos:f.pos.toArray(),screen:f.el.style.display==='block'?[parseFloat(f.el.style.left),parseFloat(f.el.style.top)]:null})),pick:floorPick?.id},animation:animationSlots.read(),time:+time.toFixed(3),round:round+1,health,stamina:+stamina.toFixed(2),score,terminal,waitInput,player:playerPos?playerPos.toArray():null,yaw,enemy:enemy?{bossId:enemy.bossId,phase:enemy.phase,hp:enemy.hp,maxHp:enemy.maxHp,hold:enemy.hold,grabTarget:enemy.grabTarget?.toArray(),reaction:enemy.reaction,walkClock:enemy.walkClock,stepDistance:enemy.stepDistance,type:enemy.type,elapsed:enemy.elapsed,pos:enemy.pos.toArray(),id:enemy.attackId}:null,tripStage,tripEncounter,stats:{...stats},params:{...P},events:events.slice(-12),ai:{tactic:enemy?.tactic,rate:enemy?.rate,guardUntil:enemy?.guardUntil,feinted:enemy?.feinted,phrase:enemy?.phrase,index:enemy?.phraseIndex,seed:aiSeed},bladeAgreement:isCombat()&&rig&&enemy&&!enemy.dead?{base:bladeBaseMarker.getWorldPosition(V()).distanceTo(currentE?.base||V()),tip:bladeTipMarker.getWorldPosition(V()).distanceTo(currentE?.tip||V())}:null,physics:physicsFrame,rigid:bladeBodies.player?{position:bladeBodies.player.x.toArray(),velocity:bladeBodies.player.v.toArray(),omega:bladeBodies.player.w.toArray(),blade:rigidPose(bladeBodies.player)}:null,move:moveAction?{id:moveAction.id,type:moveAction.type,name:moveAction.name,linked:moveAction.linked,spec:{...moveAction.spec},variant:moveAction.variant,comboIndex:moveAction.comboIndex,elapsed:moveAction.elapsed,stage:actionStage(),dealt:moveAction.dealt,iss:moveAction.iss,counter:moveAction.counter,impactLeft:moveAction.impactLeft||0,impactTotal:moveAction.impactTotal||0}:null,queued:queuedMove?{type:queuedMove.type,expires:queuedMove.expires}:null,bind:bladeBind,impact:impactHUD?{...impactHUD}:null,feedback:{kind:$('event').dataset.kind,text:$('event').textContent,lock:feedbackLock},phase:actionStage(),stance:readyKey,cue:currentCue(),guardDirection,parryIntent:parryIntent?{...parryIntent}:null,module:ModulePorts.snapshot(),rig:{...rigReport,head:bones.Head?.getWorldPosition(V()).toArray()},clip:enemy?.currentClip,guard:guarding(),charge:chargeAt>=0?time-chargeAt:0,enemyPosture:enemy?.posture,render:renderer?{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles}:null})};
 const sessionApi=Object.freeze({version:3,sampleVRLocomotion:readVRLocomotion,attachAnimation:adapter=>{if(running)throw Error('Pause before replacing animation');animationSlots.attach(adapter);},sampleVRHands:(left,right,t)=>{if(!running||terminal||animationSlots.read().active)return false;return tryCounterGrab(hugRecognizer.sample(left,right,t));},listWeapons:()=>Battle.weapons,listBosses:()=>Battle.bosses,subscribe:ModulePorts.subscribe,attachModel:ModulePorts.attachModel,listPacks:()=>JSON.parse(JSON.stringify(MotionPacks.list())),readFrame:()=>JSON.parse(JSON.stringify(window.wuxiaDemo.readState()))});window.wuxiaModules=sessionApi;
 
-window.wuxiaDemo.dbgHand=()=>{const w=V();playerHand.getWorldPosition(w);const g=V();leftHand.getWorldPosition(g);return{handR:w.toArray(),handL:g.toArray(),pg:playerGroup.position.toArray(),pgv:playerGroup.visible,visR:playerHand.visible,visL:leftHand.visible,cam:camera.position.toArray(),base:(moveAction&&moveAction.free)?freehandWorld().base.toArray():null}};
+window.wuxiaDemo.dbgHand = () => ({
+  hands: firstPersonVisuals.hands ? firstPersonVisuals.hands.audit() : null,
+  camera: camera.position.toArray(),
+  physical: currentP ? {base: currentP.base.toArray(), tip: currentP.tip.toArray()} : null,
+});
 
-window.wuxiaDemo.dbgAxis=()=>({ax:window.__ax||null,pgq:playerGroup.quaternion.toArray(),camq:camera.quaternion.toArray(),yaw:+yaw.toFixed(2),pitch:+lookPitch.toFixed(2)});
+window.wuxiaDemo.dbgAxis = () => ({
+  axis: window.__ax || null,
+  weaponQuaternion: firstPersonVisuals.weapon ? firstPersonVisuals.weapon.root.quaternion.toArray() : null,
+  cameraQuaternion: camera.quaternion.toArray(),
+  yaw: +yaw.toFixed(2),
+  pitch: +lookPitch.toFixed(2),
+});
 
-window.wuxiaDemo.dbgFree=()=>({vis:freeRig.visible,r:freeHandR.position.toArray(),g:equipped,f:FREEHAND,inScene:camera.parent===scene,rigParent:freeRig.parent===camera,cp:camera.position.toArray()});
+window.wuxiaDemo.dbgFree = () => ({
+  weaponVisible: !!firstPersonVisuals.weapon?.root.visible,
+  hands: firstPersonVisuals.hands ? {
+    R: firstPersonVisuals.hands.R.visible,
+    L: firstPersonVisuals.hands.L.visible,
+  } : null,
+  cachedWeapons: [...firstPersonVisuals.weapons.keys()],
+  equipped,
+  camera: camera.position.toArray(),
+  error: firstPersonVisuals.error,
+});
 ;(function artInk(){
 try{
   if(!scene||!camera||!renderer)return;
@@ -1358,26 +1929,14 @@ try{
   scene.add(rim);scene.add(rim.target);rim.layers.set(2);
   camera.layers.enable(2);
   (function tag(){
-    if(!rig&&!playerGroup&&!weaponGroup){setTimeout(tag,150);return;}
+    if(firstPersonVisuals.error)return;
+    if(!rig){setTimeout(tag,150);return;}
     scene.traverse(function(o){
       if(!o.isMesh)return;
-      let q=o.parent,own=false;
-      while(q){if(q===rig||q===playerGroup||q===freeRig||q===weaponGroup)own=true;q=q.parent;}
-      if(own)o.layers.enable(2);
+      if(isCharacterPresentation(o))o.layers.enable(2);
     });
   })();
   /* 刀身收进墨里，只让刃口留一线高光，别在暗场里当白条 */
-  (function toneBlade(){
-    const gs=[weaponGroup,typeof enemyWeapon!=='undefined'?enemyWeapon:null];
-    gs.forEach(function(g){if(!g)return;
-      g.traverse(function(o){
-        if(!o.isMesh||!o.material)return;
-        if(o.material.color)o.material.color.multiplyScalar(.46);
-        if(o.material.metalness!==undefined)o.material.metalness=Math.min(1,(o.material.metalness||0)*1.35+.18);
-        if(o.material.roughness!==undefined)o.material.roughness=Math.max(.22,(o.material.roughness||.5)*.72);
-      });
-    });
-  })();
   /* 灯笼暖晕：每盏点光挂一张 additive 径向贴图，暗场里给几个透气的高光点 */
   const gc=document.createElement('canvas');gc.width=gc.height=128;
   const gq=gc.getContext('2d');
@@ -1397,6 +1956,7 @@ try{
   /* 跟随玩家的柔光，让近景脱出墨底 */
   const key=new THREE.PointLight(0xc7d8de,.18,8,1.4);scene.add(key);
   (function loop(){
+    if(firstPersonVisuals.error)return;
     const pos=dust.geometry.attributes.position.array;
     for(let i=0;i<N;i++){
       pos[i*3+1]+=spd[i];
@@ -1409,11 +1969,7 @@ try{
   })();
   /* 场景压成墨阶：墙面、石、木、松全部去饱和并压低明度，只留角色与刀 */
   const hsl={h:0,s:0,l:0};
-  function owned(o){
-    let q=o.parent;
-    while(q){if(q===playerGroup||q===rig||q===freeRig||q===camera)return true;q=q.parent;}
-    return false;
-  }
+  function owned(o){return isCharacterPresentation(o);}
   /* 共享材质只压一次：木头被二十几个 mesh 共用，逐 mesh 压会直接压成纯黑 */
   const seen=new Set();
   function inkAll(){
@@ -1434,6 +1990,7 @@ try{
   /* 墙和松树是异步挂上来的，晚于这次遍历：补扫几轮，每个材质只压一次 */
   let inkTries=0,inkIdle=0;
   const inkTimer=setInterval(function(){
+    if(firstPersonVisuals.error){clearInterval(inkTimer);return;}
     const before=seen.size;inkAll();
     inkIdle=(seen.size===before)?inkIdle+1:0;
     if(inkIdle>20||++inkTries>120)clearInterval(inkTimer);
@@ -1443,7 +2000,7 @@ try{
   renderer.toneMappingExposure=.74;
   /* 开局前不显示敌人：rig.visible 只在 enemyPose 里赋值，菜单阶段会一直是初始可见 */
   (function quietUntilStart(){
-    if(started)return;
+    if(started||firstPersonVisuals.error)return;
     if(typeof rig!=='undefined'&&rig)rig.visible=false;
     setTimeout(quietUntilStart,140);
   })();
@@ -1491,6 +2048,7 @@ try{
 }catch(e){window.__artErr=(e&&e.message)||String(e);}
 })();
 
+}catch(error){window.wuxiaLoading.fail('3D模块加载或初始化失败：'+(error.message||String(error)));}
 </script>
 </body>
 </html>
