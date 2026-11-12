@@ -85,7 +85,7 @@ const $=id=>document.getElementById(id),clamp=(v,a,b)=>Math.max(a,Math.min(b,v))
 let renderer,scene,camera,up,playerPos,velocity,actor,rig,mixer,actions={},bones={},boneBaseline={},fingerGrip={},rest={},enemyWeapon,playerWeapon,daoTemplate,bladeBaseMarker,bladeTipMarker,freeRig,freeHandR,freeHandL,freeBlade,playerArm,playerHand,playerGroup,weaponGroup,debugLines,debugBody,debugHead,trail,signal,tokenMesh,dummy,lights=[];
 let leftHand=null,leftArm=null,handPrev={x:0,y:.25},handVelL=null,handVelW=null,handPrev3=null,loaded=false,running=false,started=false,terminal=false,mode='trial',raf=0,last=0,acc=0,time=0,lastLoopAt=0,usingTimer=false,timerId=0,round=0,health=100,stamina=100,score=0,best=0,enemy=null,mouse={x:0,y:.25},hand={x:0,y:.25},yaw=0,edgeSign=0,edgeTime=0,pointerPending=true,lastPointer=-10,stroke=null,stats={},events=[],serial=0,feedbackUntil=0,particles=[],audio=null,travel=0,tripStage=0,tripEncounter=false,intermission=0,countdown=0,waitInput=true,releasePose=null,poseBlend=null,actorMove=0,loadErrors=[],hudTime=-1,colliders=[],shotFrames=[],frameSamples=[],heldBlade=null;
 const keys=new Set(),P={sensitivity:1,tempo:1,grip:.028,debug:false,cues:true,sound:true,drill:'mixed',slow:true};try{best=Number(localStorage.getItem('wuxia-mouse-v03-best')||0)||0;}catch(_){}
-const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z),Q=()=>new THREE.Quaternion(),clonePose=p=>({base:p.base.clone(),tip:p.tip.clone(),q:p.q?p.q.clone():undefined}),isCombat=()=>mode==='trial'||mode==='boss'||mode==='explore'&&tripEncounter;
+const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z),Q=()=>new THREE.Quaternion(),clonePose=p=>({base:p.base.clone(),tip:p.tip.clone(),q:p.q?p.q.clone():undefined}),isCombat=()=>mode==='trial'||mode==='boss'||mode==='explore'&&tripEncounter,canFight=()=>isCombat()||mode==='practice';
 function fault(msg){$('fault').textContent=msg;$('fault').classList.remove('hidden');$('load').textContent='资源未就绪，请联网后重新打开。';}
 if(typeof THREE==='undefined'||typeof THREE.GLTFLoader==='undefined'){fault('3D库加载失败。请使用联网的桌面浏览器。');}else{try{init();loadAssets();}catch(e){fault('3D初始化失败：'+e.message);}}
 // ===== Scene: existing tavern, intentional paths, original structural meshes =====
@@ -312,7 +312,7 @@ bindMovesInput();
 /* ===== 键盘路线：WASD 移动 · U 轻击 · J 重击 · I 闪身 · K 架刀 ===== */
 const KBD={swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:''};
 function kbdSwing(heavy){
- if(!FREEHAND||!equipped||!isCombat()||!enemy||enemy.dead||terminal||waitInput||realTime<KBD.swingCd)return;
+ if(!FREEHAND||!equipped||!canFight()||terminal||waitInput||(isCombat()&&(!enemy||enemy.dead))||realTime<KBD.swingCd)return;
  PROG.heavyHeld=!!heavy;
  PROG.combo=comboAlive()?PROG.combo:0;
  startFreeMove();
@@ -320,7 +320,7 @@ function kbdSwing(heavy){
  KBD.swingCd=realTime+.34;
 }
 function kbdDodge(){
- if(!isCombat()||terminal||waitInput||realTime<KBD.dodgeAt+ .55)return;
+ if(!canFight()||terminal||waitInput||realTime<KBD.dodgeAt+ .55)return;
  const ax=(keys.has('KeyA')?-1:0)+(keys.has('KeyD')?1:0),az=(keys.has('KeyW')?-1:0)+(keys.has('KeyS')?1:0);
  KBD.dodgeAt=realTime;KBD.invulnUntil=realTime+.30;
  if(ax!==0||az!==0){const dir=V(ax,0,az);dir.normalize();playerPos.addScaledVector(dir,.66);emit('闪身 · 避影','dodge',null);}
@@ -407,7 +407,7 @@ function applyCineCam(){const __cb=camera.position.clone();let cs=null;if(camSho
 function bossIntro(){if(!P.cues||introOn||!isCombat())return;introOn=true;waitInput=true;if(enemy)enemy.yaw=Math.atan2(playerPos.x-enemy.pos.x,playerPos.z-enemy.pos.z)+Math.PI;const sb=selectedBoss(),nm=(sb&&sb.name)||'强敌';cineEls();cineBars(true);cineTitle(nm,'拔 刃',true);camShotNow('bossIntro',2.9,{});cineNow('light','',0);countdown=3.1;setTimeout(()=>{cineTitle('','',false);},2050);setTimeout(()=>{if(introOn)cineBars(false);introOn=false;waitInput=false;},2900);const skip=()=>{if(!introOn)return;introOn=false;camShot=null;waitInput=false;cineBars(false);cineTitle('','',false);countdown=Math.min(countdown,.5);};addEventListener('pointerdown',skip,{once:true});}
 let faPrev=null,faCd=-1;
 function freehandAssist(dt){
- if(!FREEHAND||!equipped||!isCombat()||!enemy||enemy.dead||terminal||waitInput||enemy.hold>0)return;
+ if(!FREEHAND||!equipped||!canFight()||!enemy||enemy.dead||terminal||waitInput||enemy.hold>0)return;
  if(realTime<faCd)return;
  const pose=rigidPose(bladeBodies.player),b0=pose.base,t1=pose.tip;
  if(!faPrev||faPrev.distanceTo(t1)>1.5){faPrev=t1.clone();return;}
