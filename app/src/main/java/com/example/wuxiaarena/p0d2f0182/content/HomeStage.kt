@@ -27,7 +27,8 @@ import com.pico.spatial.ui.foundation.content.AttachmentPanelBuilder
 import com.pico.spatial.ui.foundation.content.SpatialViewAttachments
 import com.pico.spatial.ui.platform.LengthUnit
 import com.pico.spatial.ui.platform.LocalPhysicalLengthConverter
-import com.example.wuxiaarena.core.input.ObservedPose
+import com.example.wuxiaarena.core.input.Hand
+import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
@@ -75,6 +76,7 @@ private class SceneOwner(
 ) {
     var root: Entity? = null
     var playerWeapon: Entity? = null
+    var playerHands: PlayerHands? = null
     private data class OpponentRequest(val generation: Long, val roundNumber: Int)
 
     private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
@@ -319,7 +321,15 @@ private class SceneOwner(
         if (light.enabled != visible) light.enabled = visible
     }
 
-    fun presentPlayerHand(pose: ObservedPose?) {
+    fun presentPlayerHand(snapshot: TrackingSnapshot?) {
+        try {
+            playerHands?.present(snapshot)
+        } catch (error: Exception) {
+            Log.w(TAG, "Player-hand presentation failed", error)
+        }
+        val pose = if (snapshot?.hasRequiredObservations == true) {
+            (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right)?.pose
+        } else null
         val parent = root ?: return
         val weapon = playerWeapon ?: return
         if (!parent.valid || !weapon.valid) return
@@ -397,6 +407,12 @@ private class SceneOwner(
                 Log.w(TAG, "Blade trail cleanup failed", error)
             }
             bladeTrail = null
+            try {
+                playerHands?.close()
+            } catch (error: Exception) {
+                Log.w(TAG, "Player-hand cleanup failed", error)
+            }
+            playerHands = null
             closeAtmosphere()
         } finally {
             try {
@@ -583,6 +599,13 @@ internal fun HomeStage(
             check(root.addChild(playerWeapon)) { "Could not attach player dao" }
             playerWeaponAttached = true
             owner.playerWeapon = playerWeapon
+            val hands = PlayerHands(root)
+            owner.playerHands = hands
+            hands.load { owner.root === root && owner.playerHands === hands }
+            if (owner.root !== root) {
+                hands.close()
+                return@SpatialView
+            }
             onPlayerHandPresenter(owner::presentPlayerHand)
             Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
 

@@ -1,106 +1,52 @@
-# Demo实现与验收清单
+# 原生竞技场验收清单
 
-## 当前版本与证据
+当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-目标为Space Pro／OS 6、Kotlin + PICO Spatial SDK 6.1.9、Full Stage。范围为单雨后酒馆院落、单刀、三名顺序对手和180秒三轮试炼。品质与数值目标见[动作／打击反馈规格](combat-polish-spec.md)，正常视距门槛见[视觉bench](visual-quality-bench.md)。
+## 当前可交付节点
 
-| 项目 | 当前事实与证据边界 |
-| --- | --- |
-| 最新本地APK | `app/build/outputs/apk/debug/app-debug.apk`，242,709,448字节 |
-| APK SHA-256 | `7e1368fed7423fa5b3d9ea2f567cc1e786fa0bbfa85ebd6409a714369fbfc17e` |
-| 组合检查 | 面板pose两行修改前，Root运行`:app:assembleDebug :app:testDebugUnitTest --offline`通过；32个suite、311项，0失败／错误／跳过。修改后仅重新assemble与原生视觉验，未重跑311项 |
-| 安装与启动 | 新APK已安装到emulator-5554，运行`com.example.wuxiaarena.p0d2f0182/.platform.LaunchActivity` |
-| 新组实际画面 | [canonical-2026-11-11.png](../ArtSource/refinement/presentation/canonical-2026-11-11.png)及[身份清单](../ArtSource/refinement/presentation/canonical-2026-11-11.json)；新头／眼／颈、canonical idle、玩家刀、场景与完整准备面板已显示 |
-| 启动检查 | 约27秒完成场景与新人物附着，当次未见NO_MEMORY；不证明三轮换入、GPU预算或Space Pro性能 |
-| 前一组合包／唯一区别 | 767bc0af、同为242,709,448字节；当前包只将HomeStage控制面板从`(-0.85,1.15,-1.45)`／yaw34°移至`(-0.6,1.2,-1.75)`／yaw20°，其余源码与APK资产相同 |
-| 新人物binding | `b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f`，schema3正式KTX整组 |
-| 场景身份 | `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b`，唯一`courtyard_hero.glb` |
-| 旧原生输入证据 | 233584包：`artifacts/input-native/real-key-to-resolver-final.*`，真实Shift+E经SDK进入共享motion.observe，无命中／扣血证据 |
-| 旧流程证据 | 同233584包：`artifacts/input-native/start-stationary-left.png`显示敌人接近、玩家受击后的DEFEAT；Start receipt未捕获 |
-| GitHub交付 | main已公开节点fd58c04；[现有开发预发行](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/visual-polish-2026-11-11)仍为8d1e456e…、99,113,182字节的旧包，运行源码6b407ac。7e1368fe新包尚未新发布，新checkpoint仍待Root commit／push |
-
-`artifacts/`为本机证据目录，未纳入版本控制。以下勾选仅表示所注明的代码／资源／检查已完成；准备态、旧版本交互和单元测试不能替代新包完整流程或Space Pro体验。
-
-## 流程与原生输入
-
-- [x] 准备、三秒倒计时、三轮交战、清场补给、胜利／死亡／超时与重新挑战代码已接入。
-- [x] 玩家生命、体力、气势、连击、分数与本机最佳成绩代码已接入。
-- [x] 同一姿态判定器处理挥刀、前刺、架刀、弹反、身法和双手蓄推；破势与低血处决共享入口。
-- [x] 暂停、显式恢复、追踪失效和重开撤销旧输入／反馈上下文。
-- [x] 设备与模拟器均消费SDK原生HMD／controller pose；模拟器标记DESKTOP，追踪质量UNKNOWN，硬件触觉隔离。
-- [x] HMD派生假手、Activity按键宏与右A脚本斩击路径已删除，provider state／support安全门保留。
-- [x] 旧233584原生输入包已证明一次真实主机Shift+E → SDK原生右手 → 共享`PlayerCombatResolver.observe`，返回motion frame与刀段。
-- [ ] 新7e1368fe包真实挥刀 → 接触判定 → 敌人掉血／反馈的同时间窗证据。
-- [ ] 新包三轮胜利、超时、追踪中断、暂停恢复和失败后重新挑战的完整实际流程。
-
-模拟器使用Right Controller Mode、实际启用Controller Button Mode、关闭Keyboard文本模式，Shift+W/A/S/D/Q/E移动虚拟手柄。旧包已有失败结算画面；该画面没有补齐Start receipt，也不能替代新包完整交互。`STARTED/SUPPORTED`、队列注入和资格查询均不算真实命中。
-
-## 正式角色、动作与纹理
-
-- [x] 三轮按base、indigo、veteran请求单一active对手，关闭旧动画／材质并销毁旧角色，再加载新角色；取消与过期返回回收。
-- [x] 三名角色各78骨、十段动作，身体与R_Hand刀共用骨架。
-- [x] canonical idle／walk与三攻击共用一次根Y校准，typed采样与最终GLB／profile／binding成组发布。
-- [x] 正劈、左斩、右斩共享守势端点，source 1.00秒映射ACTIVE接触中点；成功接触继续收势，未命中从ACTIVE末端继续。
-- [x] 动画、身体代理与敌刀读取同一profile／源时钟；最终encoded GLB实际蒙皮采样，头／身体XZ校准与body Y coverage合同明确。
-- [x] 六步walk源循环1/3–1.5秒，每1.45m六步；动画、代理和脚声消费同组locomotion profile。
-- [x] 试刀客采用raw34ce新头、独立眼球／角膜和连续颈桥，已在新包Full Stage首轮准备态显示。
-- [x] 三角色和玩家刀使用必需KHR_texture_basisu／KTX2，全分辨率UASTC3、Zstd18、完整mips；保留normal XYZ与sampler分轴语义。
-- [x] 受击部位、弹反反应与倒地／处决代码衔接已接入；新增六组反应源尚未进入正式bank。
-
-| 正式运行资产 | SHA-256 |
-| --- | --- |
-| 试刀客base | `722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e` |
-| 青衫护院indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` |
-| 玄甲守擂veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` |
-| 玩家dao_grip | `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0` |
-
-每名角色包含idle、walk、fall、turn、hit_body、hit_head、hit_side及三攻击。turn在bank中，运行编排仍待补齐。
-
-离线检查已证明同组输入／输出身份、非图片GLB数据守恒与profile数值守恒。**动态质量仍OPEN：** 青衫约18.36mm、玄甲约13.68mm的离线足底残余；攻击身体表面拟合残余约48.86mm；实际过渡、握柄、手指、袖口、领口、近距眼／皮肤法线与切轮资源峰值。数据和导入通过不能关闭这些项。
-
-## 场景、UI、特效与声音
-
-- [x] 唯一courtyard_hero替换旧三块运行场景，stage2窗纸暖斑、方向木纹和灯笼纸腹材质已在新包显示。
-- [x] 原生月光、四灯笼、v4人物／刀手补光、雨夜IBL和每帧雨雾已接入。
-- [x] 纸墨／朱砂UI、三项玩家资源、敌人状态、来势提示、伤害跳字和结算已接入。
-- [x] 四页教学与未知来源ranchu配置引导已接入；交战统一160dp，准备／暂停／结算400dp；输入来源和就绪规则不由帮助显示覆盖。
-- [x] 同批CombatImpact传递实际伤害、部位、致命标记、接触点、法线和同一扫掠见证切向。
-- [x] 身体70ms、要害90ms、甲片85ms、弹反95ms、致命150ms短停；玩家头手保持实时。
-- [x] 致命动作0.35倍220ms、180ms恢复；身体白闪28ms／致命40ms；刀具材质独立并恢复原PBR。
-- [x] 刀根／刀尖驱动65ms轨迹与短亮核心；异常样本、静止和代次变化断开旧历史。
-- [x] 软／金属接触粒子已有真实事件入口，湿布／闪避近地／落地资源已预载。
-- [x] 13份WAV、同源六步脚声与事件去重已接入；61项音频JVM和7项最小源专项通过，正式WAV未改。
-- [x] 音频重建仅依赖实际10份OGG及许可；整包URL／hash为来源记录，不要求下载ZIP存在。
-- [x] 触觉按手别、优先级和代次去重，模拟器不冒充硬件触觉。
-- [ ] 湿布／闪避近地／落地的真实事件生产与呈现闭环；目前存在无调用入口，不能称五类效果全部可触发。
-- [x] 控制面板pose两行修正后，Root实际查看新PICO设备截图，确认完整面板在视场内且不遮敌人脸和刀。
-- [ ] 新位置的真实开始／翻页确认，以及暂停／结算等状态下的完整可操作区域。
-- [ ] 重置模拟器观察视角时纸面显示差异定位；普通设备图有暖纸面，尚未证明背面／alpha根因。
-- [ ] 命中、格挡、弹反、闪避和致命击的真实短片，以及声音／粒子／跳字同步。
-- [ ] 实际SoundPool、六个落脚音画、Space Pro扬声器与触觉体感。
-
-## 当前制作收件与返修
-
-| 方向 | 已审核收件 | 下一门槛 |
+| 节点 | 产物 | 实际边界 |
 | --- | --- | --- |
-| 05头脸 | raw34ce连续头颈已正式组合并显示，几何冻结 | 仅微表面／材质delta；近距眼／皮肤、实际攻击／转头压力 |
-| 02刀具 | NPC与玩家刀正式发布，装配身份闭合 | 真实握持穿插、刀刃高光和正常视距材质 |
-| 03服装 | v3领襟材质／UV方向获开发集成认可，尚未入正式人物 | 袖口真实蒙皮穿插／腕纹参照、扣具装配与组合 |
-| 01／09动作 | canonical idle／六步walk与typed profile正式发布 | 实际过渡／足底／代理与反应动作接入 |
-| 06／07环境 | stage2场景与v4配光已在新包显示 | 纸面视角差异、人物／背景层次与设备预算 |
-| 10／11呈现 | 新配置教学、六步脚声与最小音源已冻结 | UI真实确认／状态切换、真实音画、扬声器与触觉 |
+| 已公开原生包 | [native-input-feedback-2026-11-12](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-input-feedback-2026-11-12)，源码 `0ed05ce761bd6f53ef54b1aeef7cf62b9e124b26`，APK `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b` | 328项测试通过；真实 SDK 挥刀、命中、敌血100→12、玩家 BLOCK 与终局重开已有证据。不是完整三轮与真机验收。 |
+| main整合点 | [PR #11](https://github.com/BrickerP/pico-wuxia-arena/pull/11)，`93f3ded393d4c417f6fb883447cc1e6fe4602199` | 合入原生输入与已审核资产；网页扩世界原型不计原生交付。 |
+| 本机双手/HIT包 | [APK身份](../artifacts/native-hands-hit-2026-11-13/init-fix-identity.json)，APK `a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b` | managed assembleDebug成功、已安装启动。修复了disabled skeleton创建动画导致场景中止；[准备态实图](../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)已显示手部、场景、敌人。[实际交战图](../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)敌血12/100、玩家80/100。尚未公开。 |
 
-完整交付、来源与Root续派在[12路交接](agents/README.md)。
+当前包的真实输入记录为 [real-input.log](../artifacts/native-hands-hit-2026-11-13/real-input.log) 与 [桌面操作收据](../artifacts/native-hands-hit-2026-11-13/real-input-ui.json)：实际鼠标 Start accepted → COUNTDOWN → SDK手柄轨迹 → SOFT_HIT / GUARDED_HIT / PLAYER_HIT，受击播放 `hit_body`。没有状态注入或按键宏代替共享判定。
 
-## 成品Demo仍需通过
+本机环境的 managed Run `run-2e7eba15-3d6a-4b59-aeff-87f152533fd8` 构建步骤通过，整体delivery因自定义验收没有自动证据而BLOCKED；不能宣称整个workflow通过。源码/构建、实际画面与整体品质分开记录。
 
-- [ ] 新包实际完成开局、三轮胜利、生命归零、超时、暂停恢复和重开，资源正确换入／回收。
-- [ ] 真实键盘模拟头手与Space Pro动作走同一判定出口，暂停／换代不残留旧动作。
-- [ ] 三方向蓄势、触刀、受击、破势、步法与处决衔接可信，判定与可见身体／刀一致。
-- [ ] 三角色0.8m／1.5m／3m正常视距可读，握持、领袖、脚底与场景保持可信接触。
-- [ ] 特效、数字、声音、触觉和局部灯光在同次接触同步，密集接触不补播过期事件。
-- [ ] UI完整覆盖准备、追踪中断、交战、蓄力、局间与终局，不裁字、不挡脸或刀路。
-- [ ] Space Pro实测帧耗时、模型／纹理内存、持续运行、热稳定、舒适度与真实触觉。
-- [ ] 同版本可追溯源码／资产、APK、实际操作片段和参赛材料统一发布。
+## 已证实与待验
 
-Root负责运行证据与最终合入。每次观察有明确目标和有限时长；不无限轮询logcat、等待会话，也不把离线或测试PASS写成品质达标。
+- [x] 原生准备态加载庭院、首名角色、玩家刀和真实第一人称手部。
+- [x] 同一 SDK 头手来源进入共享判定；实际鼠标开局、挥刀、扣血与既有软/金属反馈有同时间窗证据。
+- [x] 已公开9e包真实玩家 BLOCK、异向受伤、失败后重开并再次开局。
+- [x] 普通 HIT 从正式GLB导出真实受击采样；渲染与接触查询共享 clip/source clock，保留接触短停与过渡。新typed数据与三份正式profile完全一致。
+- [x] 341项单元测试在双手/HIT组合源码上通过；初始化顺序修复后的运行已重新构建并进入实际交战，最终复验收据见 [fixed-test-counts.json](../artifacts/native-hands-hit-2026-11-13/fixed-test-counts.json)。
+- [ ] 玩家弹反、HMD动作闪避、技能与处决的真实设备输入到反馈闭环。
+- [ ] 三轮角色切换、清场补给、胜利、超时、暂停恢复与追踪中断的完整实际流程。
+- [ ] 原生左右手完整握柄贴合、换手、隐藏恢复、前臂切口与退出重建；当前右手有一指过直且肤色偏亮，未作视觉通过。
+- [ ] 原生短时交叉淡入中的模型与判定精度；数据同源不等于每个blend瞬间已测量。
+- [ ] 真正接触时的短停、粒子、轨迹、数字、声音与触觉同步；38ms效果不能用稀疏录制认定通过。
+- [ ] Space Pro 的帧耗时、纹理/模型内存、切轮峰值、持续运行、发热、舒适度、声音与触觉。
+
+## 正式资产与视觉关卡
+
+| 当前正式运行资产 | SHA-256 |
+| --- | --- |
+| base | `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20` |
+| indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` |
+| veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` |
+| dao_grip | `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0` |
+| courtyard | `9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5` |
+| right_hand | `5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d` |
+| left_hand | `cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541` |
+
+三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。此次HIT数据发布没有改变运行GLB。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地资源亦没有完整真实事件入口，不能按文件存在认定可用。
+
+下一批仅围绕同一战斗画面交付：
+
+1. **人物与手刀：** 修自然握柄、袖肩薄厚、皮肤/衣料分区、近距过亮与黑刀面；服装Cloth首件失败，转真实二维衣片构型，保当前脸手/骨架。
+2. **一招动作：** fine-overhead v7的整体随势比旧版明显，但准备/接触时低头弯腰需要三分之四/侧面复核；未正式重导，暂不扩新招。
+3. **场景：** 整立面64da候选已由Root看图接受开发整合，尚待替换唯一courtyard并检查原生法线、接缝与成本；不是新场景。
+4. **反馈/UI：** 处理普通命中的整身白块、刀面遮脸和重复大面板；只消费真实事件，头手保持实时，不用相机抖动补力度。
+
+各方向实物、Root修改意见和当前责任见 [并行制作入口](agents/README.md)。每次收件要求同机位正常视距前后图/短片和可追溯源；尺寸、面数、离线图或测试PASS均不能代替实际品质验收。

@@ -29,7 +29,7 @@ import kotlin.math.atan2
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
-typealias HandPosePresenter = (ObservedPose?) -> Unit
+typealias HandPosePresenter = (TrackingSnapshot?) -> Unit
 
 internal enum class TrialResult { READY, COUNTDOWN, FIGHTING, ROUND_CLEAR, VICTORY, DEFEAT }
 internal enum class CombatFeedback {
@@ -640,6 +640,7 @@ internal class ArenaSession(
             moving = enemyMoveDirection != 0f,
             recoveryFromContact = enemyRecoveryFromContact,
             gaitMeters = enemyGaitMeters,
+            hitReaction = combat.hitReaction, hitZone = enemyHitZone,
         )
     }
 
@@ -652,6 +653,7 @@ internal class ArenaSession(
             origin, enemyYaw, combat.currentAttackDirection ?: AttackDirection.OVERHEAD,
             combat.guarding, enemyMoveDirection != 0f, enemyRecoveryFromContact,
             gaitMeters = enemyGaitMeters,
+            hitReaction = combat.hitReaction, hitZone = enemyHitZone,
         )
     }
 
@@ -807,14 +809,7 @@ internal class ArenaSession(
 
     fun setPlayerHandPresenter(presenter: HandPosePresenter?) {
         playerHandPresenter = presenter
-        val snapshot = latestTrackingSnapshot
-        val handPose = if (snapshot?.hasRequiredObservations == true) {
-            val hand = if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right
-            hand?.pose
-        } else {
-            null
-        }
-        presentHand(handPose)
+        presentHand(latestTrackingSnapshot)
     }
 
     /** Expected visual replacement freezes action and clocks without impersonating lost tracking. */
@@ -928,8 +923,9 @@ internal class ArenaSession(
             }
         }
         hadReadyInput = snapshot.hasRequiredObservations
+        // Visual hands consume both accepted sides, including invalidation snapshots.
+        presentHand(snapshot)
         if (!snapshot.hasRequiredObservations) {
-            presentHand(null)
             lastTickTime = null
             lastReportedHead = null
             if (!reportedWaiting) {
@@ -944,8 +940,6 @@ internal class ArenaSession(
             return
         }
         establishActionBaseline()
-        val handPose = (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right)?.pose
-        presentHand(handPose)
         val target = enemyPosition
         if (sceneAvailable && target != null && viewState.actionReady) {
             val frame = motion.observe(snapshot, target, checkNotNull(enemyContactPose()))
@@ -1068,9 +1062,9 @@ internal class ArenaSession(
         )
     }
 
-    private fun presentHand(pose: ObservedPose?) {
+    private fun presentHand(snapshot: TrackingSnapshot?) {
         try {
-            playerHandPresenter?.invoke(pose)
+            playerHandPresenter?.invoke(snapshot)
         } catch (error: Exception) {
             logFailure("Player-hand presentation failed", error)
         }

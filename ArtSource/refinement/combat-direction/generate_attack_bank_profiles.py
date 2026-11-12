@@ -11,6 +11,7 @@ DEFAULT_BANK = REPO / 'ArtSource/tripo-warrior/library'
 DEFAULT_OUTPUT = REPO / 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt'
 DIRECTIONS = ('OVERHEAD', 'LEFT', 'RIGHT')
 FIELDS = ('head', 'body_bottom', 'body_top', 'blade_base', 'blade_tip')
+REACTIONS = {'hit_body': ('body', .72), 'hit_head': ('head', .72), 'hit_side': ('side', 1.18)}
 
 
 def sha256(path):
@@ -40,17 +41,47 @@ def gait_step_events(profile):
 
 
 def validate_pose_samples(samples, start, end):
+    if not isinstance(samples, list):
+        raise ValueError('Pose samples must be a list')
     previous = -math.inf
     for sample in samples:
-        time = sample['source_seconds']
-        if not math.isfinite(time) or time <= previous:
+        if not isinstance(sample, dict):
+            raise ValueError('Pose sample must contain a source time and anchors')
+        time = sample.get('source_seconds')
+        if type(time) not in (int, float) or not math.isfinite(time) or time <= previous:
             raise ValueError('Samples must have finite increasing source times')
         previous = time
         for field in FIELDS:
-            if len(sample[field]) != 3 or not all(math.isfinite(v) for v in sample[field]):
+            point = sample.get(field)
+            if (not isinstance(point, list) or len(point) != 3 or
+                    not all(type(v) in (int, float) and math.isfinite(v) for v in point)):
                 raise ValueError('Invalid anchor: ' + field)
     if not samples or samples[0]['source_seconds'] != start or samples[-1]['source_seconds'] != end:
         raise ValueError('Pose samples must include their exact source endpoints')
+
+
+def validate_reactions(profile, reviewed):
+    reactions = profile.get('reactions')
+    if not isinstance(reactions, dict) or set(reactions) != set(REACTIONS):
+        raise ValueError('The canonical bank requires actual hit_body, hit_head and hit_side profiles')
+    signatures = reviewed.get('clip_semantic_signatures', {})
+    for name, (_, end) in REACTIONS.items():
+        clip = reactions[name]
+        if not isinstance(clip, dict) or clip.get('clip') != name:
+            raise ValueError('Reaction clip identity differs from its profile key')
+        signature = signatures.get(name)
+        if not signature or clip.get('animation_semantics_sha256') != signature:
+            raise ValueError('Reaction curve identity differs from reviewed prepared model: ' + name)
+        source = clip.get('source_range_seconds')
+        if (not isinstance(source, list) or len(source) != 2 or
+                not all(type(v) in (int, float) and math.isfinite(v) and v >= 0.0 for v in source) or
+                source[0] >= source[1]):
+            raise ValueError('Reaction source range must be finite, non-negative and increasing: ' + name)
+        if clip.get('playback_range_seconds') != [.05, end]:
+            raise ValueError('Reaction playback range differs from the existing HIT clock: ' + name)
+        if source[0] > .05 or source[1] < end:
+            raise ValueError('Reaction source range does not cover the complete HIT playback: ' + name)
+        validate_pose_samples(clip.get('samples'), *source)
 
 
 def sampled_fields(samples, time):
@@ -114,6 +145,7 @@ def load_bank(bank):
                     clip['animation_semantics_sha256'] != reviewed[character['id']]['clip_semantic_signatures'][name]):
                 raise ValueError('Locomotion clip identity/timing differs from the reviewed model')
             validate_pose_samples(clip['samples'], 0.0, 1.5)
+        validate_reactions(profile, reviewed[character['id']])
         if set(profile['attacks']) != set(DIRECTIONS):
             raise ValueError('Exactly three attack directions are required')
         for direction in DIRECTIONS:
@@ -195,7 +227,13 @@ def generate(bank):
                   '                stepEvents = listOf(']
         for phase, forward, reverse in gait_step_events(profile):
             lines.append(f'                    GaitStepEvent({kotlin_double(phase)}, EnemyFoot.{forward}, EnemyFoot.{reverse}),')
-        lines += ['                ),', '            ),', '        ),']
+        lines += ['                ),', '            ),', '            reactions = ReactionProfiles(']
+        for name, (field, _) in REACTIONS.items():
+            clip = profile['reactions'][name]
+            title = name.title().replace('_', '')
+            lines += [f'                // Animation semantics SHA-256 {clip["animation_semantics_sha256"]}',
+                      f'                {field} = PoseClipProfile("{name}", {cid}{title}()),']
+        lines += ['            ),', '        ),']
     lines += ['    )', '}', '',
               '// Columns: source seconds, head xyz, lower torso xyz, upper torso xyz, blade base xyz, blade tip xyz.',
               'private fun decodeAttackSamples(values: DoubleArray): List<AttackPoseSample> {',
@@ -208,6 +246,7 @@ def generate(bank):
     for character, profile, _ in loaded:
         clips = [(direction.title(), profile['attacks'][direction]) for direction in DIRECTIONS]
         clips += [(name.title(), clip) for name, clip in profile['locomotion'].items()]
+        clips += [(name.title().replace('_', ''), profile['reactions'][name]) for name in REACTIONS]
         for title, clip in clips:
             lines.append(f'private fun {character["id"]}{title}(): List<AttackPoseSample> = decodeAttackSamples(doubleArrayOf(')
             for sample in clip['samples']:
@@ -227,10 +266,10 @@ def main():
     if args.check:
         if args.output.read_text() != content:
             raise SystemExit('Generated Kotlin attack bank differs from the prepared library')
-        print('Verified exact generated attack data: 3 actors × 3 attacks + actual idle/walk')
+        print('Verified exact generated attack data: 3 actors × 3 attacks + actual idle/walk and HIT reactions')
     else:
         args.output.write_text(content)
-        print(f'Generated {args.output.relative_to(REPO)} ({len(content)} characters)')
+        print(f'Generated {args.output} ({len(content)} characters)')
 
 
 if __name__ == '__main__':

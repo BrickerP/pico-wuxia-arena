@@ -439,7 +439,7 @@
       },
       "attack_profiles": {
         "file": "base_attack_profiles.json",
-        "sha256": "7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478"
+        "sha256": "04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90"
       }
     },
     {
@@ -806,7 +806,7 @@
       },
       "attack_profiles": {
         "file": "indigo_attack_profiles.json",
-        "sha256": "ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a"
+        "sha256": "0fe3a4d8658b645fb5bd0e86b19cb759e041ce4702aef0925b2aa9e9babfddf4"
       }
     },
     {
@@ -1173,7 +1173,7 @@
       },
       "attack_profiles": {
         "file": "veteran_attack_profiles.json",
-        "sha256": "2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6"
+        "sha256": "a14b9d7f41bf086b505e2f2c4441af27d49c3f7e10e4729e3c52d180dbb510e9"
       }
     }
   ],

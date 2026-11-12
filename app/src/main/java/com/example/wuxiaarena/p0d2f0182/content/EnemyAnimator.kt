@@ -6,8 +6,6 @@ import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
-import com.example.wuxiaarena.core.combat.HitReaction
-import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
@@ -109,16 +107,12 @@ internal class EnemyAnimator(enemy: Entity) {
             state.phase, state.phaseElapsedNanos, state.phaseRemainingNanos,
             state.attackDirection ?: AttackDirection.OVERHEAD, state.guarding,
             state.enemyMoveDirection != 0f, state.enemyRecoveryFromContact, state.enemyGaitMeters,
+            hitReaction = state.hitReaction, hitZone = state.enemyHitZone,
         )
         val clip = when (state.phase) {
             EnemyPhase.IDLE -> checkNotNull(poseFrame).clip
             EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> checkNotNull(poseFrame).clip
-            EnemyPhase.HIT -> when {
-                state.guarding -> checkNotNull(poseFrame).clip
-                state.hitReaction == HitReaction.PARRIED -> "hit_side"
-                state.enemyHitZone == HitZone.HEAD -> "hit_head"
-                else -> "hit_body"
-            }
+            EnemyPhase.HIT -> checkNotNull(poseFrame).clip
             EnemyPhase.DEAD -> if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
         }
         val key = PlaybackKey(clip, state.roundGeneration, state.roundNumber, state.attackId, state.phase == EnemyPhase.HIT)
@@ -155,12 +149,10 @@ internal class EnemyAnimator(enemy: Entity) {
                 active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
             }
             EnemyPhase.HIT -> {
-                if (state.guarding) {
-                    active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
-                } else {
-                    val end = if (state.hitReaction == HitReaction.PARRIED) 1.18f else 0.72f
-                    seekPhase(active, state, 0.05f, end)
-                }
+                // Hurt playback and contacts advance only on this same coordinator source clock.
+                val duration = active.getDuration()
+                check(duration.isFinite() && duration > 0f) { "Enemy animation has no finite duration" }
+                active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(duration))
             }
             EnemyPhase.DEAD -> {
                 val elapsed = state.deathElapsedSeconds
@@ -177,31 +169,13 @@ internal class EnemyAnimator(enemy: Entity) {
 
         val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
             !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT ||
-            clip == "idle" || clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT && state.guarding
+            clip == "idle" || clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT
         if (paused && !active.isPaused()) active.pause()
         if (!paused && active.isPaused()) active.resume()
         if (lastPhase != state.phase || lastPaused != paused) {
             Log.i(TAG, "Presented phase=${state.phase}, paused=$paused, clip=$clip, sourceSeconds=${active.getTime()}")
             lastPhase = state.phase
             lastPaused = paused
-        }
-    }
-
-    private fun seekPhase(
-        playback: AnimationPlaybackController,
-        state: ArenaViewState,
-        startSeconds: Float,
-        endSeconds: Float,
-    ) {
-        val duration = playback.getDuration()
-        check(duration.isFinite() && duration > 0f) { "Enemy animation has no finite duration" }
-        val start = startSeconds.coerceIn(0f, duration)
-        val end = endSeconds.coerceIn(start, duration)
-        val phaseNanos = state.phaseElapsedNanos.toDouble() + (state.phaseRemainingNanos ?: 0L).toDouble()
-        val progress = if (phaseNanos > 0.0) (state.phaseElapsedNanos / phaseNanos).coerceIn(0.0, 1.0) else 1.0
-        playback.setTime(start + (end - start) * progress.toFloat())
-        if (phaseNanos > 0.0) {
-            playback.setSpeed(((end - start) / (phaseNanos / 1_000_000_000.0)).toFloat())
         }
     }
 

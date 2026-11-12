@@ -18,6 +18,8 @@ ATTACK_PHASES = {
     'active_end': 1.10,
     'recovery_end': 1.75,
 }
+REACTION_PLAYBACK = {'hit_body': (.05, .72), 'hit_head': (.05, .72), 'hit_side': (.05, 1.18)}
+
 LANDMARKS = {
     'head': 'Head',
     'spine02': 'Spine02',
@@ -372,8 +374,35 @@ def profile_sample(document, tracks, time, parents, order, landmarks, offsets):
     return row
 
 
+def export_reaction_profiles(document, binary, root, parents, order, landmarks, offsets):
+    """Sample the existing hurt clips with the same frozen bone-local proxy calibration."""
+    animations = {animation['name']: animation for animation in document.get('animations', [])}
+    if len(animations) != len(document.get('animations', [])):
+        raise ValueError('motion clip names must be unique')
+    result = {}
+    for name, playback in REACTION_PLAYBACK.items():
+        if name not in animations:
+            raise ValueError('reaction clip is absent from the prepared actor: ' + name)
+        animation = animations[name]
+        tracks, keys = animation_tracks(document, binary, animation, require_attack_range=False)
+        if any(index == root for index, _ in tracks):
+            raise ValueError('prepared actor root cannot be animated')
+        start, end = min(keys), max(keys)
+        if start > playback[0] or end < playback[1]:
+            raise ValueError('reaction source does not cover its current playback window: ' + name)
+        times = sorted({float32(time) for time in [*keys, *playback,
+            *[frame / 60 for frame in range(math.ceil(start * 60), math.floor(end * 60) + 1)]]})
+        result[name] = {
+            'clip': name, 'source_range_seconds': [start, end],
+            'playback_range_seconds': list(playback),
+            'animation_semantics_sha256': animation_signature(document, binary, animation),
+            'samples': [profile_sample(document, tracks, time, parents, order, landmarks, offsets) for time in times],
+        }
+    return result
+
+
 def export_attack_profiles(document, binary, attack_clips, locomotion_contract, body_coverage_contract):
-    """Return schema-3 locomotion and attack anchors with one final-idle mesh calibration.
+    """Return schema-3 motion and hurt anchors with one final-idle mesh calibration.
 
     Blade markers follow the same R_Hand mount used to bake rigid weapon skinning.
     Radius selection and player-view LEFT/RIGHT classification belong to the caller.
@@ -450,4 +479,5 @@ def export_attack_profiles(document, binary, attack_clips, locomotion_contract, 
         'sample_rate_hz': 60, 'time_encoding': 'float32 source-key/60Hz/phase union; locomotion includes source-key midpoints',
         'direction_labels': 'caller supplied; player-view incoming side requires geometric review',
         'source_contract': source_contract, 'locomotion': locomotion, 'attacks': profiles,
+        'reactions': export_reaction_profiles(document, binary, root, parents, order, landmarks, offsets),
     }

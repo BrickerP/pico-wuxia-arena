@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "phase": "阶段结束，等待 Root review",
+  "status": "offline_asset_candidate_approved_root_review_pending",
+  "version": "71c39091c0859a357ed6",
+  "independent_review": "APPROVE_OFFLINE_ASSET_CANDIDATE",
+  "formal_resources_published": false,
+  "pico_device_verified": false,
+  "ownership": "ArtSource/refinement/weapon/native-first-person/ and docs/agents/02-input.md; Root owns formal publication, SDK/Spatial Entity integration, browser, public producers, Git, builds and devices",
+  "source": {
+    "formal_actor": {
+      "path": "ArtSource/tripo-warrior/library/base.glb",
+      "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20"
+    },
+    "png_actor": {
+      "path": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96"
+    },
+    "formal_dao": {
+      "path": "ArtSource/tripo-warrior/library/dao_grip.glb",
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+    }
+  },
+  "assets": {
+    "right": {
+      "path": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+      "bytes": 2515388
+    },
+    "left": {
+      "path": "ArtSource/refinement/weapon/native-first-person/left_hand.glb",
+      "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+      "bytes": 2959296
+    }
+  },
+  "root_contract": {
+    "right": "RightGripRoot identity; actual dao Grip; metres +Y up/-Z blade forward",
+    "left": "LeftAnatomicalWristRoot identity; actual L_Hand wrist; +Y dorsal/-Z fingers",
+    "source_normalization_preserved": true,
+    "palette_joints_each": 78
+  },
+  "pose_contract": {
+    "default_R": "closed while equipped with dao",
+    "default_L": "relaxed open",
+    "guard_attack_grips_are_not_equipment_ownership": true,
+    "animation": "grip, 0 seconds source open, 1 second closed, 15 corresponding finger rotation channels; nonfinger source rest",
+    "left_closed": "derived from reflected R curl in actual rest bases; not authored/calibrated left weapon contact"
+  },
+  "budget": {
+    "triangles_right": 4936,
+    "triangles_left": 5642,
+    "triangles_total": 10578,
+    "original_source_triangles": 10073,
+    "new_cloth_closure_triangles": 505,
+    "image_count": 6,
+    "image_dimensions": [
+      1536,
+      1536
+    ],
+    "ktx_image_bytes": 5009771,
+    "full_mip_uastc_4x4_block_bytes": 18874656,
+    "hand_glb_bytes": 5474684,
+    "native_gpu_memory_measured": false
+  },
+  "evidence": {
+    "verification_passed": true,
+    "verification": {
+      "path": "ArtSource/refinement/weapon/native-first-person/verification.json",
+      "sha256": "b6a3724ed9cd2e302212569722826f6a36e945cadba0ae280f4be40b4d5890a1",
+      "bytes": 44750
+    },
+    "review": {
+      "path": "ArtSource/refinement/weapon/native-first-person/review.json",
+      "sha256": "0bf8b0d54ad0f44a0126872c5ece6d7d68a4095c97c5240aac0597163860ec76",
+      "bytes": 8143
+    },
+    "actual_ktx_level0_decoded_views": 9,
+    "renders": {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/render_manifest.json",
+      "sha256": "e7402a70e40b96a9d353b398c7b347910dec4526c684e43b43aab825fe0cecee",
+      "bytes": 19156
+    },
+    "default_near": {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_0.3m.png",
+      "sha256": "207ac4d0ea1a9293ee960259ecf3be8e36236720f892b337a9c23abc24d81e12",
+      "bytes": 1218409
+    },
+    "default_one_metre": {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_1.0m.png",
+      "sha256": "c67771c80a85c835210139c523b2507a79a34750f7ba158b0317cf6210c173df",
+      "bytes": 1130352
+    },
+    "default_one_metre_reverse": {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_1.0m_reverse.png",
+      "sha256": "5511d97e43d46a7f2986b4de5ef5dfbb85e44f72e48fddca97f68273a79796c3",
+      "bytes": 1147700
+    }
+  },
+  "limits": [
+    "PICO SDK input/tracking/lifecycle and animation control remain Root integration validation",
+    "Runtime MikkTSpace, KTX mip selection, actual lighting/GPU/performance not verified",
+    "Left closed is derived, not authored weapon contact",
+    "Source body lacks TANGENT; L UV faces50347/50348/50349 collapse across2 islands; L inherited normal faces48751/50091/50092 retained",
+    "Proximal gray cloth closure remains visibly an asset end at1m; not full arm/clothing continuity; original hand folds/spikes retained",
+    "Visual evidence uses actual KTX level0 decoded companions in Blender, not device screenshots"
+  ],
+  "files": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/README.md",
+      "sha256": "af5e3288390226231ce5ee757b7251c1523c3e74915a3855104e88074acee163",
+      "bytes": 11074
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+      "bytes": 2515388
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/left_hand.glb",
+      "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+      "bytes": 2959296
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/right_hand_png.glb",
+      "sha256": "a70c821dbb1f8b5a30d5fc86b4c591a435f1637b26ae9b99776fb52b588608af",
+      "bytes": 1872532
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/left_hand_png.glb",
+      "sha256": "5a68481eee8d1afd180af62c34a43fb7a23025684fd66b7df9b3c0417a94843e",
+      "bytes": 2181564
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/build_hands.py",
+      "sha256": "935e9ecc3266c61b32c19e8e157076b952e536442a7af3f99cfd873d5c0bae54",
+      "bytes": 47446
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/bake_hand_atlas.py",
+      "sha256": "877e283ca1cc0fce94cf0b160157ce264668a69107814a0d64cf938284988f4c",
+      "bytes": 23751
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compress_hands.py",
+      "sha256": "ae7cd3de9eddbf267ceb4fc6f6ed4187fd836647be6ab24cd98457d79cac58a4",
+      "bytes": 13373
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/verify_hands.py",
+      "sha256": "4726712c3eefd705682905aa4c6fed9e4c9117ce77660b787b1a24e37b600df3",
+      "bytes": 57593
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/render_hands.py",
+      "sha256": "b155bf82b710161c6935e01b274489f5dd57a60bc28772490a6bfd0d6a3ab8df",
+      "bytes": 9360
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/selection.json",
+      "sha256": "07d6620c4cd37e680678b06edc5afd081c6a9615b97f5762a5774392280466e5",
+      "bytes": 4021
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/selection.npz",
+      "sha256": "4aaafe6dcd856978a9fae7754925f4577f9142070d5af725198ae32ffe21e2ba",
+      "bytes": 314847
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/uv_remap.json",
+      "sha256": "fcf2bb1809d7e1bc6ef8d54f212aa23d576d00186432c6a98b51288e9d98aebf",
+      "bytes": 38042
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/uv_remap.npz",
+      "sha256": "01262190837a821a3699e3afacb49f427a11aa4b454c337292e1a2615d43d50b",
+      "bytes": 111081
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas_manifest.json",
+      "sha256": "b8d66b744131484cf17a2ce0158ddf14f0b681a8cfea7facfef244f57254425d",
+      "bytes": 42221
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/rig_manifest.json",
+      "sha256": "7f8fcc02e2dee50056f9008c5c5bf34780ab50e41f2e61f311e5762f4b3ea971",
+      "bytes": 50295
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression_manifest.json",
+      "sha256": "86c145ff2b9bab8bcd68634d073d584f2e3b0bb803400e27c08c259c1795964f",
+      "bytes": 14943
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/verification.json",
+      "sha256": "b6a3724ed9cd2e302212569722826f6a36e945cadba0ae280f4be40b4d5890a1",
+      "bytes": 44750
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/review.json",
+      "sha256": "0bf8b0d54ad0f44a0126872c5ece6d7d68a4095c97c5240aac0597163860ec76",
+      "bytes": 8143
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/render_manifest.json",
+      "sha256": "e7402a70e40b96a9d353b398c7b347910dec4526c684e43b43aab825fe0cecee",
+      "bytes": 19156
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/before/render_manifest.json",
+      "sha256": "e85a86a2b09b0034879d10732f16bb5e4729a3e9c883c9f0424f71f6857c158e",
+      "bytes": 8234
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/right_hand_decoded.glb",
+      "sha256": "a28c3711bbf3bb317982640881d51e94c903050894b5cc62ac013ad0b3be8606",
+      "bytes": 2246308
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/left_hand_decoded.glb",
+      "sha256": "680b23e68daf95af1f0bbda40e2cfe431cbef303f6e1ef80e9c27c218aa17c9d",
+      "bytes": 2620772
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.glb",
+      "sha256": "f983ee7463db688febcec5fd75b90109eb13afa2c4c5564d221659b98a12aa0c",
+      "bytes": 3063336
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_base_color.png",
+      "sha256": "e15d97d32ab0205237cd180e4c6915d84173b8a093c0e71afc33fcaddd33e267",
+      "bytes": 744616
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_coverage.png",
+      "sha256": "66551741e8febf81f6f1b5d9bbbeccd412968f100127abbd8cbccbaa9c62ad67",
+      "bytes": 21286
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_metallic_roughness.png",
+      "sha256": "3a76b2e1390ce6445573880157041fec97b84e1af5aeb0374a0a1638af3766fc",
+      "bytes": 540233
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_normal.png",
+      "sha256": "0dfdcf53da145b6bab851091d40fcc7e7701f863f18d822464c48823c50e7156",
+      "bytes": 652565
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_base_color.png",
+      "sha256": "cdd65e5273db4e188122117d6c8a3af793329b7929258cb50174385fc05494a1",
+      "bytes": 646185
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_coverage.png",
+      "sha256": "2f235b68c9c2373a7da67b49bc6a7abb13ab008e0d4c42d5f2f3acf6f1404d9a",
+      "bytes": 20520
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_metallic_roughness.png",
+      "sha256": "b3d6439a248cefe43dc004998177ef064b6f69715579727248c9a2f384c23dfd",
+      "bytes": 451108
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_normal.png",
+      "sha256": "f438edf85edd40ff12f3bd30d6d52da2b4fb86118782cb206c1e0bedf28d13e2",
+      "bytes": 554875
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_0.3m.png",
+      "sha256": "207ac4d0ea1a9293ee960259ecf3be8e36236720f892b337a9c23abc24d81e12",
+      "bytes": 1218409
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_1.0m.png",
+      "sha256": "c67771c80a85c835210139c523b2507a79a34750f7ba158b0317cf6210c173df",
+      "bytes": 1130352
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_1.0m_reverse.png",
+      "sha256": "5511d97e43d46a7f2986b4de5ef5dfbb85e44f72e48fddca97f68273a79796c3",
+      "bytes": 1147700
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_open_0.3m.png",
+      "sha256": "956cecec1a2b116e72f85510914000b6a11b4d7a366db5a536fa40754488e357",
+      "bytes": 1221105
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_open_1.0m.png",
+      "sha256": "9ea1db2bdd9766cf9e0154ac6ea230c3796a579785c92b3895275344ac7310b1",
+      "bytes": 1130637
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_open_1.0m_reverse.png",
+      "sha256": "8497d39a826410f06c252757e2f1f3a560d7299679a89dcfca16e65bfccd1290",
+      "bytes": 1147410
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_closed_0.3m.png",
+      "sha256": "fcdc333fc089709a8e29c940e214c688b28c3230df20c6ce31b38d7dacedea1a",
+      "bytes": 1220350
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_closed_1.0m.png",
+      "sha256": "ff0e70e6ff86b960f800d517d7c473a4e429347ab7df489f64ee5bd00ae610e7",
+      "bytes": 1129642
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_closed_1.0m_reverse.png",
+      "sha256": "cd3191e2a9da687ea93f2907d49c70480d9a3dd797a25ad538fbfd9575116c3f",
+      "bytes": 1147081
+    }
+  ]
+}

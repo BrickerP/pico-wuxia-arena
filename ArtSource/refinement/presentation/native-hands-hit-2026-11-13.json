@@ -1,0 +1,48 @@
+{
+  "schema": "native-hands-hit-development-evidence/v1",
+  "quality_complete": false,
+  "apk": {
+    "file": "wuxia-arena-native-hands-hit-fixed.apk",
+    "sha256": "a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b",
+    "published": false
+  },
+  "tests": {
+    "exit_code": 0,
+    "tests": 341,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "build": {
+    "result": "BUILD SUCCESSFUL",
+    "managed_root": "run-2e7eba15-3d6a-4b59-aeff-87f152533fd8",
+    "managed_delivery": "BLOCKED; custom required acceptance criteria are not automatically verified",
+    "local_receipt": "artifacts/native-hands-hit-2026-11-13/init-fix-managed-build.json"
+  },
+  "observed": [
+    "Initialized grip playback while animated hierarchy enabled; previous disabled-playAnimation scene abort no longer present",
+    "Actual native scene shows right hand, dao, courtyard and first opponent",
+    "Real physical mouse Start accepted=true nextResult=COUNTDOWN",
+    "Actual four mouse drags drive SDK_NATIVE controller observations and shared resolver",
+    "SOFT_HIT, GUARDED_HIT and PLAYER_HIT are consumed; hit_body plays",
+    "Contact screenshot enemy12/100 player80/100"
+  ],
+  "visual_limits": [
+    "Right-hand finger shape/grip contact not approved",
+    "Left hand outside current capture; independent display and hand switching unobserved",
+    "Skin/face too bright at close range; coarse garment and dark blade remain",
+    "Native crossfade precision and complete 3-round flow not proven",
+    "No Space Pro hardware verification"
+  ],
+  "images": [
+    {
+      "file": "native-hands-ready-2026-11-13.png",
+      "sha256": "31d138493e8773e7dc4a101841416a6e29cd451c56c7be264f47fc230ff448c8"
+    },
+    {
+      "file": "native-hands-contact-2026-11-13.png",
+      "sha256": "0b23f953c9f534da4372651963b701f7e8676e89455f66d3c4fd3f5094931b4e"
+    }
+  ],
+  "source_evidence_local": "artifacts/native-hands-hit-2026-11-13/real-input.log"
+}

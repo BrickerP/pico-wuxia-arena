@@ -36,7 +36,7 @@ def actor():
                       {'bufferView': 1, 'componentType': 5126, 'type': 'VEC3', 'count': 2}],
         'animations': [{'name': name, 'samplers': [{'input': 0, 'output': 1}],
                         'channels': [{'sampler': 0, 'target': {'node': 5, 'path': 'translation'}}]}
-                       for name in [*BANK.values(), 'idle', 'walk']],
+                       for name in [*BANK.values(), 'hit_body', 'hit_head', 'hit_side', 'idle', 'walk']],
     }
     binary = struct.pack('<8f', 0, 1.75, .2, 0, 0, .4, 0, 0)
     def append(rows, kind, component=5126):
@@ -131,6 +131,52 @@ class AttackProfileTests(unittest.TestCase):
                 self.assertIn(float32(phase), times)
             self.assertEqual(times[0], 0)
             self.assertEqual(times[-1], 1.5)
+
+    def test_reaction_samples_follow_actual_hurt_bones_with_the_same_calibration(self):
+        document, binary = actor()
+        animation = next(row for row in document['animations'] if row['name'] == 'hit_body')
+        animation['channels'][0]['target']['node'] = 3
+        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        self.assertEqual(set(result['reactions']), {'hit_body', 'hit_head', 'hit_side'})
+        for name, clip in result['reactions'].items():
+            self.assertEqual(clip['clip'], name)
+            self.assertEqual(clip['playback_range_seconds'], [.05, 1.18 if name == 'hit_side' else .72])
+            self.assertEqual(clip['source_range_seconds'], [0.0, 1.75])
+            times = [row['source_seconds'] for row in clip['samples']]
+            self.assertEqual(times[0], 0.0)
+            self.assertEqual(times[-1], 1.75)
+            self.assertIn(float32(.05), times)
+            self.assertIn(float32(clip['playback_range_seconds'][1]), times)
+        hurt = result['reactions']['hit_body']['samples']
+        first, last = hurt[0], hurt[-1]
+        self.assertGreater(last['head'][0] - first['head'][0], .39)
+        self.assertGreater(last['body_top'][0] - first['body_top'][0], .39)
+        self.assertEqual(first['body_bottom'], last['body_bottom'])
+        self.assertNotEqual(first['head'], result['locomotion']['idle']['samples'][0]['head'])
+
+    def test_missing_or_too_short_reaction_source_fails_instead_of_exporting_standing(self):
+        document, binary = actor()
+        document['animations'] = [row for row in document['animations'] if row['name'] != 'hit_head']
+        with self.assertRaisesRegex(ValueError, 'reaction clip is absent.*hit_head'):
+            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        document, binary = actor()
+        animation = next(row for row in document['animations'] if row['name'] == 'hit_side')
+        # Reuse an existing accessor but make its second source time unable to cover 1.18s.
+        original_view = document['bufferViews'][document['accessors'][0]['bufferView']]
+        changed = bytearray(binary)
+        struct.pack_into('<f', changed, original_view['byteOffset'] + 4, .7)
+        # Keep the three attacks valid by removing their use of the shortened time accessor.
+        for row in document['animations']:
+            if row['name'] != 'hit_side' and row['samplers'][0]['input'] == 0:
+                row['samplers'][0]['input'] = document['animations'][-1]['samplers'][0]['input']
+        # The isolated reaction exporter reaches the missing-window guard without the attack-range guard.
+        from attack_profiles import hierarchy, landmark_indices, export_reaction_profiles
+        from mathutils import Vector
+        root, parents, order = hierarchy(document)
+        landmarks = landmark_indices(document, root, parents)
+        with self.assertRaisesRegex(ValueError, 'reaction source does not cover.*hit_side'):
+            export_reaction_profiles(document, bytes(changed), root, parents, order, landmarks,
+                {'head': Vector((0, 0, 0)), 'body_bottom': Vector((0, 0, 0)), 'body_top': Vector((0, 0, 0))})
 
     def test_final_mesh_change_moves_proxy_without_editing_constants(self):
         document, binary = actor()

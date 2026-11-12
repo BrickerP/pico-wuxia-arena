@@ -1,60 +1,51 @@
-# 并行制作与Root审核入口
+# 并行制作与 Root 审核入口
 
-## 当前可交付状态
+## 当前交付合同
 
-整体仍是工程原型，没有达到最终参赛美术或完整可验收Demo。当前真实进展是：原生开局、SDK鼠标动作到共享战斗判定、有效命中/扣血与接触消费已取得实际画面；完整攻防、三轮和Space Pro硬件仍开放。
+整体仍是开发预览，人物、动作与打击的整体观感未通过，尚未达到完整参赛 Demo。技术栈为 **Kotlin + PICO Spatial SDK 6.1.9**，目标 **Space Pro / OS 6、Full Stage**；只打磨既有单院落、短 PVE 三轮战斗。
 
-| 范围 | 权威证据 | 边界 |
+| 状态 | 已有实物与证据 | 验收边界 |
 | --- | --- | --- |
-| 最新本地原生包 | `artifacts/native-controller-burst/native-controller-burst-debug.apk`，SHA `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b`；构建和328测试0失败，构建前后Kotlin源码SHA一致，已安装 | 这是输入/反馈整合包，尚未公开上传 |
-| 实际交战 | [15.8秒录像](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.mp4)、[扣血实图](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.png)、[身份/事件收据](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.json)；真实Start进入COUNTDOWN，真实鼠标旋转产生MotionStrike及SOFT_HIT，HUD敌人100→12、玩家40；敌人护刀接触也实际消费 | 敌人GUARDED_HIT不等于玩家格挡/弹反；三轮胜利和完整手感未通过 |
-| 原生人物/场景 | base ac7 / binding1b3e、单窗庭院9b已显示；最新启动首敌成功附着，无NO_MEMORY/FATAL | 新衣/发型未通过；局部颜色和单窗不代表整体美术通过 |
-| 已公开节点 | [唯一仓库](https://github.com/BrickerP/pico-wuxia-arena)；[开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-visual-preview-2026-11-12)已公开，源码标签精确f4540f0，APK为1b905，3份附件摘要核对一致 | 公开1b905是前一美术节点，不含本轮输入/反馈修复；不能混用9e测试或交战证据 |
-| 浏览器 | 旧三方候选1fb已独立APPROVE并在实际Chrome加载三正式资产/44个KTX纹理、78骨10clip、真实双手/dao；无加载/FP错误 | 该次是明确的本地资源接收测试，不能称公网请求或PICO通过；最新44fd候选已保留上游v0.32/8人和地形，待Root实际合入 |
-| Tripo | 单人条件图已审；ov代理/直连失败，3个现有节点未通过官方TLS；没有新收费任务 | 余额未知，不等于0或足够；新源实验未执行 |
+| 已公开 | [最新原生开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-input-feedback-2026-11-12)：源码 `0ed05ce761bd6f53ef54b1aeef7cf62b9e124b26`，APK `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b`，4 份附件均已上传并核对摘要；[发布收据](../../artifacts/native-controller-burst/published-release.json)、[源码标签收据](../../artifacts/native-controller-burst/source-published.json) | 这是输入与反馈整合节点，未包含下表正在集成的双手与 HIT 修复。旧 `native-visual-preview-2026-11-12` 是前一美术节点，证据不可混用。 |
+| 已合入 main | [PR #11](https://github.com/BrickerP/pico-wuxia-arena/pull/11)，合入提交 `93f3ded393d4c417f6fb883447cc1e6fe4602199` | main 源码节点与公开 APK 的固定源码标签分别标识，不能把后续工作树改动算进已发布包。 |
+| 原生链路局部通过 | [15.8 秒交战片](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.mp4)、[扣血画面](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.png)、[身份与事件收据](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.json)：真实 Start → COUNTDOWN，实际模拟器鼠标动作 → SDK 虚拟手柄轨迹 → 共享 resolver → MotionStrike / SOFT_HIT，HUD 敌血 100→12 | 原始捕获只有 74 帧，导出 30fps 未补造中间状态；不能据此判定 38ms 特效细节、完整手感或三轮通过。 |
+| 玩家格挡、重开局部通过 | [格挡画面](../../artifacts/native-controller-burst/held-guard-4s.png)、[实际输入录像](../../artifacts/native-controller-burst/held-guard-attempt.mp4)、[对应日志](../../artifacts/native-controller-burst/held-guard-attempt.log)：终局后重开并再次 Start，generation=1；实际 BLOCK 消费 id=9，画面玩家 HP100 / 耐力75；随后异向来刀 PLAYER_HIT | 玩家 BLOCK 与敌人 GUARDED_HIT 已区分；玩家 PARRY、HMD 闪避、技能 / 处决、三轮胜利及 Space Pro 实机仍未验证。 |
+| 已发布包构建通过 | [9e 构建身份](../../artifacts/native-controller-burst/build-identity.json)：328 测试、0 失败 / 错误 / 跳过，构建前后 Kotlin 源码摘要一致 | 该结果只属于 9e 包，不覆盖当前双手 / HIT 工作树。 |
+| 本机集成，未公开 | 双手/HIT组合包 `a8907a84…` 已构建、安装、进入实际交战；[准备态实图](../../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)、[交战实图](../../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)、[实际输入日志](../../artifacts/native-hands-hit-2026-11-13/real-input.log)。初始化禁用模型后播放动画的黑屏已修；真实Start/挥刀/敌血100→12/受击hit_body再次成立 | 整体workflow的自定义验收仍未自动证明；右手一指过直、近景肤色、左手/换手/切口与HIT过渡像素仍待验。数据/构建通过不算视觉通过。公开包仍为9e。 |
+| 美术未通过 | 当前正式角色 base `ac7dfbc…` / binding `1b3e031…`、单窗庭院 `9b2598…` 已原生显示；新上劈、整立面与近场配光候选已交 | 新衣物物理首件失败，发型仅局部方向收益；人物质感、握刀贴合、动作衔接、遮挡与效果仍需改善。面数、导入与尺寸不是整体品质验收。 |
 
-## 上轮Root审核与本轮修正
+浏览器探索原型与原生交付分开：Root 的外观接收版本保留在标签 [`web-appearance-preview-2026-11-13`](https://github.com/BrickerP/pico-wuxia-arena/tree/web-appearance-preview-2026-11-13)，提交 `2f59db7eec8f17501955c46c6d849c67d0c1fdcf`。main 的网页扩世界内容保留其上游工作，不纳入本次原生竞技场验收，也不继续追着扩展。
 
-- 输入：拒绝Core“保留旧可信基线直到速度变合理”的方案，它会把tracking teleport累积成假扫掠。改为上游队尾相邻Controllers去重，使用最新pose/真实receipt、保连续sequence；Head/control/origin/epoch/有效性变化均为边界。Core原35m/s、250ms、旋转保护不变。328测试及实际MotionStrike/扣血已证明当前模拟器路径。
-- 03服装：两轮大形仍是光滑袖筒、压襟弱、颈腕接口未完，STOPLOSS。Tripo不可用期间改为原高模真实Cloth Sculpt/布料约束的单件实验，先完整guard灰模，不再参数衣筒/R3。
-- 05发型：直接高模首件只小幅侧面收益，背面仍扇形刻槽，partial_direction，不发布；保脸眼，新条件源待网络。
-- 02手刀：旧3项MEDIUM已独立关闭，真实左右持刀、故障锁、旧占位清理通过。续派PICO可用双手/前臂骨架资产，控制移动端纹理预算。
-- 08效果：旧普通身体命中浅色硬片拒绝；薄短core/真实切向scar/大小有层次碎屑的新envelope已进9e。实际SOFT/METAL消费已证，38ms细节像素仍要更合适的捕获，不能只凭日志放行。
-- 07光影：现有HDR网页IBL有可见金属收益，候选待集成；同时诊断原生近距皮肤泛白。已签名albedo输入冻结，不改动其handoff。
-- 06场景：一个结构窗已进入唯一原生courtyard；不扩第二窗，硬件预算仍开放。浏览器双翼是保留其上游构图，不改变原生单场景合同。
+## Root 审核重点与下一交付
 
-## 下一轮交付与验收
+1. **先把双手与 HIT 合成可运行节点。** 保留真实 SDK 输入、同一 resolver 和现有动作规则；核实左右持刀、默认闭握 / 空手放松、追踪丢失恢复、UI 射线与退出回收。受击模型与代理共享真实 clip / source clock，保留短停和过渡，不用 standing 代理或关闭淡入掩盖问题。交新的固定源码、APK 与实际近景画面。
+2. **把同一记近身战斗磨清楚。** 01 上劈 v7 先由 Root 审完整短片、侧向刀路与接触 / 回守，再决定重导；04 的整身白闪遮细节、黑色刀面遮脸问题交 07 / 08 / 02 协同，先改明确可见的两点。缺少像素证据的效果不作通过，未被真实动作触发的资源不算可用机制。
+3. **把人物与原场景的整体现有内容做精。** 03 的失败物理笼不传入正式高模，不继续参数试错；05 保脸眼与已签名源，不重做失败发型。06 整立面候选进入 Root 目视与原生预算审查，旧“单窗冻结”已被本轮成套精修合同替代；不扩场景或地点。
+4. **再收既有完整流程。** 沿真实输入补玩家弹反、HMD 闪避、技能 / 处决，随后三轮角色切换与回收、胜利 / 死亡 / 超时、暂停 / 恢复 / 重开。Space Pro 性能、画面与触觉实测单独列为待验，未完成前不宣称 100%。
 
-1. Root沿同一真实输入完成玩家格挡/弹反、HMD闪避、既有技能/处决，再验三轮切换/回收、胜利/死亡/超时、暂停/恢复/重开。先拍一段完整交战，不再以启动成功替代。Space Pro真机缺口仍明确保留。
-2. 01精修一招上劈的引刀—落刀—随势—收招，先1.5m前后短片与5关键姿态；03做完整上衣新方法首件；02做原生双手资产；05保脸眼等待条件源。灰模→动态→材质→原生四关不跳过。
-3. Root合入保留最新上游的实际消费者/手刀，再接现有HDR IBL。所有人物/替身复用一次解码并保独立骨架，不恢复旧模型/白盒/静默失败。
-4. 04只审实际15.8秒片段，给最多3个带时间点的可见问题；08根据真实画面修接触效果，11随后做音画/触觉对应。不要批量新增QA夹具或更多预载未触发资源。
-5. Git使用固定节点发布、核退出码和远端SHA；当前公开f454已完成。后续把新源码、包和实录成组发布，并保留远端网页更新，禁止force或覆盖其内容。
+## 各方向收件与下一项
 
-## 当前分工
+下表为工程交付状态；“待 Root”代表收件 / 合入关卡，不是质量已通过。具体来源、SHA、限制与制作文件以各路交接为准。
 
-| 会话 | 当前责任 | 交接 |
-| --- | --- | --- |
-| Root | 唯一正式产线、共享构建、设备、真实交战与Git发布 | 本文 |
-| 01 | 已续派一招精细上劈；原10clip/六步walk已收 | [01](01-combat.md) |
-| 02 | 已续派PICO双手/前臂GLB、骨架/抓松与贴图预算 | [02](02-input.md) |
-| 03 | 原高模/Cloth方法完整上衣首件；Tripo实验未取消 | [03](03-art.md) |
-| 04 | 已续派实际交战视频的3条视觉review | [04](04-benchmark-qa.md) |
-| 05 | 发型partial冻结，条件源到手后适配，保脸眼 | [05](05-hero-face.md) |
-| 06 | 单窗原生已收，冻结 | [06](06-environment.md) |
-| 07 | 网页IBL候选收尾、原生近场皮肤诊断 | [07](07-lookdev.md) |
-| 08 | 身体斩envelope已进9e；等实际细节图再校准 | [08](08-impact-vfx.md) |
-| 09 | loader/typed组已收，整合由Root处理 | [09](09-combat-direction.md) |
-| 10 | 现有四页教学/UI已接；不扩页 | [10](10-ui-art.md) |
-| 11 | Foley已收；完整音画/真机触觉未验 | [11](11-audio-haptics.md) |
-| 12 | 条件图与造型输入已交冻结 | [12](12-visual-bench.md) |
+| 方向 | 当前实物 / 审核结论 | 最重要下一交付 | Root 接力 |
+| --- | --- | --- | --- |
+| [01 动作](01-combat.md) | fine-overhead v7：1.75 秒完整源、五姿态与同机位前后片已交；正式仍是既有 10clip / 六步 walk | 同一招经 Root 审阅后的刀路、接触与收招修正，不新增招式 | 待完整动作审核与重导决策 |
+| [02 手刀](02-input.md) | 原生双手版本 `71c39091…`，共 10,578 面 / 5.47MB；离线开发集成接受，资源与接线已入工作树 | 原生实际闭握、左右映射与前臂截口画面，修具体贴合问题 | Root 正在整包与原生接力 |
+| [03 服装](03-art.md) | 一次真实 Cloth 求解在 F06 健康门停止；腕口挤压、肩肘大形未改善；未传高模、未烘焙 | Root 选定结构修复或新源后，先交结构正确的完整 guard 灰模；不得沿失败笼继续参数循环 | Root已续派真实二维衣片结构；无可发布新衣 |
+| [04 独立效果审阅](04-benchmark-qa.md) | 原生片已审：10.296611s 整身白闪，12.080411 / 12.455311s 黑刀面遮脸；未把单目重叠判成确定穿模 | 对修后实际交战片核这两处可见问题及独立粒子细节 | 现有问题已可派修，待修后画面 |
+| [05 头发](05-hero-face.md) | direct-high 侧面仅小幅收益，背面仍扇形刻槽；冻结为 partial，未正式发布 | 一次受控新源到达后只适配发区，保既有脸眼，交连续汇根与盘结灰模 | 待 Root 新源；不追加曲线 / 参数盘髻 |
+| [06 场景](06-environment.md) | 整庭院 `64da2798…` 已交：四地层 / 五上层共享窗、近檐瓦口 / 滴水；零新增图片 / 材质，有整立面与 1.5m 对照 | Root 审同机位整体收益、原生材质及实际绘制 / 内存预算 | Root已目视接受开发整合，待原生替换；正式仍9b |
+| [07 光影](07-lookdev.md) | 已签名 albedo 已发布；Web IBL 候选冻结；原生 `native-nearfield.patch/json` 为未应用数值提案 | Root 受控应用近场提案，交同场景近脸 / 刀刃前后画面 | 候选待 Root 审 / 接；不改已签名 albedo |
+| [08 运行效果](08-impact-vfx.md) | 薄 core / 切向 scar / 分层碎屑已进9e，SOFT / METAL 实际消费已证；5资源存在不等于5类触发全通 | 修明确遮挡并取得实际接触细节画面；核真实闪避等入口再消费已有资源 | 已收源码，细节像素与其它触发待验 |
+| [09 bank / 接线](09-combat-direction.md) | 正式 locomotion / typed 基础已收；网页消费者工作保留独立外观标签；新增 hurt 数据已由 Root 正式重发 | 收口受击 source clock、typed 与 runtime 一致性，交原生动作 / 判定对齐 | Root 正在整合；不混入网页扩世界 |
+| [10 UI](10-ui-art.md) | 既有四页教学、HUD、伤害字已接 | 在真实交战中修影响来刀阅读与操作的具体 UI 问题 | 不扩页面；整体观感待 Root 审 |
+| [11 声音触觉](11-audio-haptics.md) | 13种 Foley / 雨声与消费已收；离线试听不等于端内同步 | 对真实命中 / 格挡 / 弹反画面核音画与触觉时机 | 待 Root 设备侧同步与实机触觉 |
+| [12 视觉 bench](12-visual-bench.md) | UB-01v2 与单张 T-pose 条件图已交，输入图已接受；不是3D成果 | 只审03 / 05下一件灰模，给最多3条可直接制作的造型意见 | 输入冻结；不扩研究 / 概念图轮次 |
 
-## 制作与合入合同
+Tripo 图像条件实验保留：只用已配置 `tripo-cli`、`ov` 区域、`tripo-v3.1`，Root 统一 doctor / 余额 / dry-run / 付费。当前可用出口未通过官方 TLS，余额**未知**，没有新收费任务；网络失败不能推成余额为0或足够，不反复空转重试。不得把 API Key 或授权链接写进仓库 / 聊天。
 
-技术栈仅Kotlin + PICO Spatial SDK 6.1.9，目标Space Pro／OS 6，Full Stage。围绕单院落短竞技场精修人物、武器、动作、打击、UI与场景，不增加新的探索模式或并行院落。
+## 制作与合入边界
 
-Root独占公共正式角色producer／manifest最终发布、library／app资源发布、Main／HomeStage最终接线、共享构建、设备、画面采集和Git。各路只改责任目录或明确授权文件，保留同仓库他人的编辑；禁止复制仓库、建worktree或另开同链路。Root可委派公共producer的具体修改，正式发布仍由Root执行。
+唯一仓库为 `/Users/yupeng/projects/personal/pico-wuxia-arena`。Root 负责公共角色 producer / manifest 正式发布、library / app 资源、Main / HomeStage 最终接线、共享构建、设备、画面与 Git。各路只改责任目录或明确授权文件，保留同仓库他人的编辑；不复制仓库、不建 worktree、不改 `/Users/yupeng/projects/personal/pico` 或 `BrickerP.github.io`。
 
-各路交接文档承载当前工程交付、来源SHA、可见变化、接入合同、限制和下一项。Root将review与续派写回对应文档。长期决定、偏好与教训进入agentmemory，交接不写成记忆日志。不无限轮询日志或等待会话；不以离线图、单元测试或导入成功替代实际操作验收。
-
-付费Tripo任务由Root统一调度，使用已配置CLI、ov区域、显式 `tripo-v3.1`，先doctor与dry-run；沿现有角色精修，优先已授权制作。API Key与授权URL不得进入仓库或聊天。
+每路交接只保留可执行工程合同、来源 / 实物、可见变化、验证边界和下一项。Root 将具体 review 与续派写回对应交接；长期决定与教训进入 agentmemory。有限观察一次取证，不无限轮询 logcat、不无限等会话；收到可用产物就审核合入或自行补齐。离线图、单元测试、加载日志与实际游戏画面分开验收。

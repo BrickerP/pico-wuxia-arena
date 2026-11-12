@@ -96,7 +96,7 @@ class ArenaSessionTest {
     }
 
     @Test
-    fun latePresenterImmediatelyReceivesCurrentDominantHandPose() {
+    fun latePresenterImmediatelyReceivesCurrentDominantHandPoseFromFullFrame() {
         val state = TrackingState(Hand.LEFT)
         val session = ArenaSession(logMessage = {})
         for (event in listOf(headEvent, handEvent)) {
@@ -107,9 +107,50 @@ class ArenaSessionTest {
         assertTrue(state.snapshot.hasRequiredObservations)
 
         val presented = mutableListOf<ObservedPose?>()
-        session.setPlayerHandPresenter { presented += it }
+        session.setPlayerHandPresenter { frame ->
+                presented += frame?.takeIf { it.hasRequiredObservations }?.let {
+                    (if (it.dominantHand == Hand.LEFT) it.left else it.right)?.pose
+                }
+            }
 
         assertEquals(listOf(leftPose), presented)
+    }
+
+    @Test
+    fun fullHandPresenterReceivesBothSidesAndKeepsValidSideOnOppositeLoss() {
+        val state = TrackingState(Hand.RIGHT)
+        val session = ArenaSession(logMessage = {})
+        val frames = mutableListOf<com.example.wuxiaarena.core.input.TrackingSnapshot?>()
+        session.setPlayerHandPresenter { frames += it }
+        for (event in listOf(headEvent, handEvent)) {
+            val accepted = state.accept(event)
+            session.onTrackingEvent(event, accepted, state.snapshot)
+        }
+        assertEquals(leftPose, frames.last()?.left?.pose)
+        assertEquals(rightPose, frames.last()?.right?.pose)
+        val loss = TrackingEvent.Controllers(ObservationStamp(2, 30, 1, InputOrigin.PICO), leftPose, null)
+        val accepted = state.accept(loss)
+        session.onTrackingEvent(loss, accepted, state.snapshot)
+        assertEquals(leftPose, frames.last()?.left?.pose)
+        assertEquals(null, frames.last()?.right?.pose)
+        assertFalse(frames.last()!!.hasRequiredObservations)
+    }
+
+    @Test
+    fun fullHandPresenterCarriesDominantSwitchWithoutSwappingModelInputs() {
+        val state = TrackingState(Hand.RIGHT)
+        val session = ArenaSession(logMessage = {})
+        var frame: com.example.wuxiaarena.core.input.TrackingSnapshot? = null
+        session.setPlayerHandPresenter { frame = it }
+        val switched = TrackingEvent.DominantHandChanged(ObservationStamp(2, 30, 1, InputOrigin.PICO), Hand.LEFT)
+        val restored = TrackingEvent.Controllers(ObservationStamp(3, 40, 1, InputOrigin.PICO), leftPose, rightPose)
+        for (event in listOf(headEvent, handEvent, switched, restored)) {
+            val accepted = state.accept(event)
+            session.onTrackingEvent(event, accepted, state.snapshot)
+        }
+        assertEquals(Hand.LEFT, frame?.dominantHand)
+        assertEquals(leftPose, frame?.left?.pose)
+        assertEquals(rightPose, frame?.right?.pose)
     }
 
     @Test
@@ -142,7 +183,11 @@ class ArenaSessionTest {
                 session.onTrackingEvent(event, accepted, state.snapshot)
             }
             val originalPresenter = mutableListOf<ObservedPose?>()
-            session.setPlayerHandPresenter { originalPresenter += it }
+            session.setPlayerHandPresenter { frame ->
+                originalPresenter += frame?.takeIf { it.hasRequiredObservations }?.let {
+                    (if (it.dominantHand == Hand.LEFT) it.left else it.right)?.pose
+                }
+            }
             assertEquals(listOf(rightPose), originalPresenter)
 
             val accepted = state.accept(interruption)
@@ -152,7 +197,11 @@ class ArenaSessionTest {
             session.setPlayerHandPresenter(null)
 
             val newPresenter = mutableListOf<ObservedPose?>()
-            session.setPlayerHandPresenter { newPresenter += it }
+            session.setPlayerHandPresenter { frame ->
+                newPresenter += frame?.takeIf { it.hasRequiredObservations }?.let {
+                    (if (it.dominantHand == Hand.LEFT) it.left else it.right)?.pose
+                }
+            }
 
             assertEquals(listOf<ObservedPose?>(null), newPresenter)
 

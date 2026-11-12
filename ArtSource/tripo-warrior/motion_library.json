@@ -320,8 +320,8 @@
     "source_sha256": "eb6530df0419564bab3009f012854ba28912b11a3be650a287b630bdf2656433"
   },
   "production_review": {
-    "source": "../refinement/material-direction/integration/root_production_review.json",
-    "source_sha256": "680b604055e96a391c5b74daa63d6af1b87f2de9927c7967c3e3a4e3a6388d7b"
+    "source": "../refinement/combat-direction/hit-reaction-candidate-2026-11-13/root_production_review.json",
+    "source_sha256": "b5a97970aaab2a2af504de55c0fc68e603079168b5a408a59698d961dc7ce652"
   },
   "runtime_texture_encoding": {
     "format": "KHR_texture_basisu",

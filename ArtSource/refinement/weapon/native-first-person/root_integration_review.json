@@ -1,0 +1,27 @@
+{
+  "decision": "approved_for_development_integration",
+  "quality_complete": false,
+  "version": "71c39091c0859a357ed6",
+  "reviewed_views": [
+    "previews_ktx/hands_dao_equipped_default_0.3m.png",
+    "previews_ktx/hands_dao_equipped_default_1.0m_reverse.png"
+  ],
+  "scope": "same Tripo hand geometry/skin, cropped1536 KTX maps, real finger grip clip, exact metre roots",
+  "open": [
+    "native model import and grip animation",
+    "actual tracked grip/left asset-derived mapping",
+    "forearm cutoff/lighting/UI ray/lifecycle and GPU budget"
+  ],
+  "assets": {
+    "right": {
+      "path": "app/src/main/assets/models/player_hands/right_hand.glb",
+      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+      "bytes": 2515388
+    },
+    "left": {
+      "path": "app/src/main/assets/models/player_hands/left_hand.glb",
+      "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+      "bytes": 2959296
+    }
+  }
+}

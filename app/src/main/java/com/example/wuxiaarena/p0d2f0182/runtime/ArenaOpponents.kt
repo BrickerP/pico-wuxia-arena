@@ -4,6 +4,8 @@ import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.CombatImpactKind
+import com.example.wuxiaarena.core.combat.HitReaction
+import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.math.Vector3
 
 internal data class ArenaOpponent(
@@ -24,6 +26,7 @@ internal data class EnemyPoseFrame(val clip: String, val pose: AttackPoseSample)
 internal fun selectEnemyPose(
     attack: AttackProfile,
     locomotion: LocomotionProfile,
+    reactions: ReactionProfiles,
     phase: EnemyPhase,
     elapsedNanos: Long,
     remainingNanos: Long?,
@@ -31,9 +34,12 @@ internal fun selectEnemyPose(
     moving: Boolean,
     gaitMeters: Double,
     recoveryFromContact: Boolean = false,
+    hitReaction: HitReaction? = null,
+    hitZone: HitZone? = null,
 ): EnemyPoseFrame? = when {
     phase == EnemyPhase.IDLE -> EnemyPoseFrame(locomotion.clip(moving), locomotion.sample(moving, gaitMeters))
     phase == EnemyPhase.HIT && guarding -> EnemyPoseFrame(locomotion.clip(false), locomotion.sample(false, gaitMeters))
+    phase == EnemyPhase.HIT -> reactions.frame(hitReaction, hitZone, elapsedNanos, remainingNanos)
     phase in ATTACK_PHASES -> EnemyPoseFrame(attack.clip,
         attack.sample(attack.sourceSeconds(phase, elapsedNanos, remainingNanos, recoveryFromContact)))
     else -> null
@@ -45,6 +51,8 @@ internal fun ArenaOpponent.attackProfile(direction: AttackDirection): AttackProf
 
 internal fun ArenaOpponent.locomotionProfile(): LocomotionProfile = AttackBankProfiles.locomotionForAsset(asset)
 
+internal fun ArenaOpponent.reactionProfiles(): ReactionProfiles = AttackBankProfiles.reactionsForAsset(asset)
+
 internal fun ArenaOpponent.poseFrame(
     phase: EnemyPhase,
     elapsedNanos: Long,
@@ -54,8 +62,10 @@ internal fun ArenaOpponent.poseFrame(
     moving: Boolean,
     recoveryFromContact: Boolean,
     gaitMeters: Double,
-): EnemyPoseFrame? = selectEnemyPose(attackProfile(direction), locomotionProfile(), phase,
-    elapsedNanos, remainingNanos, guarding, moving, gaitMeters, recoveryFromContact)
+    hitReaction: HitReaction? = null,
+    hitZone: HitZone? = null,
+): EnemyPoseFrame? = selectEnemyPose(attackProfile(direction), locomotionProfile(), reactionProfiles(), phase,
+    elapsedNanos, remainingNanos, guarding, moving, gaitMeters, recoveryFromContact, hitReaction, hitZone)
 
 internal fun ArenaOpponent.attackPose(
     phase: EnemyPhase,
@@ -68,13 +78,15 @@ internal fun ArenaOpponent.attackPose(
     moving: Boolean = false,
     recoveryFromContact: Boolean = false,
     gaitMeters: Double,
+    hitReaction: HitReaction? = null,
+    hitZone: HitZone? = null,
 ): AttackPoseSample? {
     require(origin.isFinite() && yaw.isFinite()) { "Attack pose requires a finite Stage transform" }
     require(elapsedNanos >= 0L && (remainingNanos == null || remainingNanos >= 0L)) {
         "Contact phase time must be non-negative"
     }
     return poseFrame(phase, elapsedNanos, remainingNanos, direction, guarding, moving,
-        recoveryFromContact, gaitMeters)?.pose?.inStage(origin, yaw)
+        recoveryFromContact, gaitMeters, hitReaction, hitZone)?.pose?.inStage(origin, yaw)
 }
 
 internal fun ArenaOpponent.contactPose(
@@ -88,7 +100,9 @@ internal fun ArenaOpponent.contactPose(
     moving: Boolean = false,
     recoveryFromContact: Boolean = false,
     gaitMeters: Double,
+    hitReaction: HitReaction? = null,
+    hitZone: HitZone? = null,
 ): EnemyContactPose = attackPose(phase, elapsedNanos, remainingNanos, origin, yaw, direction,
-    guarding, moving, recoveryFromContact, gaitMeters)?.contact ?: EnemyContactPose.standing(origin)
+    guarding, moving, recoveryFromContact, gaitMeters, hitReaction, hitZone)?.contact ?: EnemyContactPose.standing(origin)
 
 private val ATTACK_PHASES = setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING)

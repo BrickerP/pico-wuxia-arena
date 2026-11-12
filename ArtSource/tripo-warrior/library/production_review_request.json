@@ -594,7 +594,7 @@
         "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
       },
       "texture_encoding_manifest_sha256": "9c0eb8cb795c670ade7cf5b7713214ac6d598c441c0f1988db5925cb603aecd0",
-      "attack_profiles_sha256": "7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478"
+      "attack_profiles_sha256": "04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90"
     },
     {
       "id": "indigo",
@@ -640,7 +640,7 @@
         "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
       },
       "texture_encoding_manifest_sha256": "b1a075d58041578d31df6376731aeb475c9922899a7399f1157d17a0701faec9",
-      "attack_profiles_sha256": "ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a"
+      "attack_profiles_sha256": "0fe3a4d8658b645fb5bd0e86b19cb759e041ce4702aef0925b2aa9e9babfddf4"
     },
     {
       "id": "veteran",
@@ -686,7 +686,7 @@
         "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
       },
       "texture_encoding_manifest_sha256": "77e56f95732c2a8d95e96255e0aec1e49c88dea2e3e5868e36b9700e275b209d",
-      "attack_profiles_sha256": "2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6"
+      "attack_profiles_sha256": "a14b9d7f41bf086b505e2f2c4441af27d49c3f7e10e4729e3c52d180dbb510e9"
     }
   ],
   "player_weapon": {

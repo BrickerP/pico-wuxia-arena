@@ -167,9 +167,13 @@ internal data class CharacterAttackProfiles(
     val profileSha256: String,
     val attacks: Map<AttackDirection, AttackProfile>,
     val locomotion: LocomotionProfile,
+    val reactions: ReactionProfiles,
 )
 
 internal object AttackBankProfiles {
+    fun reactionsForAsset(asset: String): ReactionProfiles =
+        AttackBankProfileData.characters.getValue(asset).reactions
+
     fun locomotionForAsset(asset: String): LocomotionProfile =
         AttackBankProfileData.characters.getValue(asset).locomotion
 
