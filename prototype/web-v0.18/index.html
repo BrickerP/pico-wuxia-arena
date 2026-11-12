@@ -310,14 +310,32 @@ function bindMovesInput(){
 }
 bindMovesInput();
 /* ===== 键盘路线：WASD 移动 · U 轻击 · J 重击 · I 闪身 · K 架刀 ===== */
-const KBD={swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:''};
+const KBD={swing:null,swingCd:-10,dodgeAt:-10,invulnUntil:-10,lastKey:'',combo:{kind:'',step:0,at:-99}};
 function kbdSwing(heavy){
  if(!FREEHAND||!equipped||!canFight()||terminal||waitInput||(isCombat()&&(!enemy||enemy.dead))||realTime<KBD.swingCd)return;
  PROG.heavyHeld=!!heavy;
  PROG.combo=comboAlive()?PROG.combo:0;
+ const kind=heavy?'heavy':'light',now=realTime,win=.62;
+ let step=0,link=false;
+ if(KBD.combo.at>0&&now-KBD.combo.at<win){
+  if(KBD.combo.kind===kind)step=KBD.combo.step>=2?0:KBD.combo.step+1;
+  else if(PROG.rank>=2&&KBD.combo.step>=1){step=0;link=true;}
+ }
+ KBD.combo={kind,step,at:now};
  startFreeMove();
- KBD.swing={p:0,dur:.20,dir:KBD.lastKey==='KeyU'?1:(KBD.lastKey==='KeyJ'?-1:(Math.random()<.5?1:-1)),baseX:mouse.x,baseY:mouse.y,heavy:!!heavy};
- KBD.swingCd=realTime+.34;
+ if(step===2){
+  moveAction.spec.damage=Math.round(moveAction.spec.damage*1.7);
+  moveAction.spec.pressure=Math.round(moveAction.spec.pressure*1.35);
+  moveAction.finisher=true;
+  moveAction.name=(heavy?'\u91cd\u4e09\u00b7\u6536':'\u8f7b\u4e09\u00b7\u6536');
+ }else if(step===1){
+  moveAction.spec.damage=Math.round(moveAction.spec.damage*1.15);
+  moveAction.name=(heavy?'\u91cd\u4e8c':'\u8f7b\u4e8c');
+ }else if(link){
+  moveAction.name=(heavy?'\u91cd\u4e00\u00b7\u8854':'\u8f7b\u4e00\u00b7\u8854');
+ }
+ KBD.swing={p:0,dur:step===2?.26:.20,dir:KBD.lastKey==='KeyU'?1:(KBD.lastKey==='KeyJ'?-1:(Math.random()<.5?1:-1)),baseX:mouse.x,baseY:mouse.y,heavy:!!heavy,step,fin:step===2,pushed:false};
+ KBD.swingCd=realTime+(step===2?.42:.34);
 }
 function kbdDodge(){
  if(!canFight()||terminal||waitInput||realTime<KBD.dodgeAt+ .55)return;
@@ -352,10 +370,18 @@ function kbdTick(dt){
  if(!KBD.swing)return;
  KBD.swing.p+=dt/KBD.swing.dur;
  if(KBD.swing.p>=1){KBD.swing=null;return;}
- const p=KBD.swing.p,k=Math.sin(p*Math.PI),target=KBD.swing.dir*(.55+k*.45);
+ const p=KBD.swing.p,st=KBD.swing.step||0,arcs=[[.55,.45,.085],[.62,.40,.078],[.80,.55,.126]][st];
+ const flip=st===1?-1:1,k=Math.sin(p*Math.PI);
+ const target=KBD.swing.dir*flip*(arcs[0]+k*arcs[1]);
  const blend=Math.min(1,p*2.4);
  mouse.x=KBD.swing.baseX*(1-blend)+target*blend;
- mouse.y=KBD.swing.baseY-Math.sin(p*Math.PI)*.085;
+ mouse.y=KBD.swing.baseY-k*arcs[2];
+ if(KBD.swing.fin&&!KBD.swing.pushed&&p>.34){
+  KBD.swing.pushed=true;
+  const fwd=V(0,0,-1);fwd.applyQuaternion(camera.quaternion);fwd.y=0;
+  if(fwd.lengthSq()>.001){fwd.normalize();playerPos.addScaledVector(fwd,.22);}
+  if(typeof triggerCine==='function')triggerCine('heavy');
+ }
 }
 addEventListener('keydown',e=>{
  if(!started||terminal)return;
