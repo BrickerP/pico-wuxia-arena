@@ -4,18 +4,19 @@
 
 整体仍为开发预览，人物/动作/打击品质未通过。Kotlin + PICO Spatial SDK6.1.9，Space Pro/OS6、Full Stage；唯一产品路径是原生源码→APK→PICO Emulator→Space Pro，HTML/Web与新mock保持停止。
 
-本轮UI/局部命中组合已构建并在Emulator完整通关：APK`ca26f4a9…`，336单测通过，样式0error/0warning；实际失败→重开→三轮→VICTORY 967/40HP。[完整交战片](../../ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)、[胜利图](../../ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[证据边界](../../ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json)。当前待新发布；旧a890和9e发布节点保持独立。
+本轮UI/局部命中组合已构建并在Emulator完整通关：APK`ca26f4a9…`，336单测通过，样式0error/0warning；实际失败→重开→三轮→VICTORY 967/40HP。[完整交战片](../../ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)、[胜利图](../../ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[证据边界](../../ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json)。已公开为[native-ui-impact-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13)，固定源码a22a216、五附件SHA均核对；旧a890和9e节点保持独立。
 
 整身Unlit白闪已移除，默认BODY不加点光，保真实短停/切向/碎屑和头手实时；无caller的表面入口与3个预载实例已移除，只保6个实际SOFT/METAL槽。现有游戏架构未改，通用模板架构gate仍不clean；不得把构建/三轮通关写成整体品质达标。
 
 Root已实看新图并续派两处真实问题：02修source闭握长指/拇指；08修宽灰刀轨；10修终局纸牌被近身NPC/刀遮挡及重复信息。三路只做原生候选，正式app/构建/设备/Git由Root统一。已交64da整立面、上劈v9、近场配光仍待Root下一轮原生接入；03衣片与05发型没有可发布新角色。
 
-## Root 审核重点与下一交付
+## Root审核重点与下一交付
 
-1. **先把双手与 HIT 合成可运行节点。** 保留真实 SDK 输入、同一 resolver 和现有动作规则；核实左右持刀、默认闭握 / 空手放松、追踪丢失恢复、UI 射线与退出回收。受击模型与代理共享真实 clip / source clock，保留短停和过渡，不用 standing 代理或关闭淡入掩盖问题。交新的固定源码、APK 与实际近景画面。
-2. **把同一记近身战斗磨清楚。** 01 上劈 v7 先由 Root 审完整短片、侧向刀路与接触 / 回守，再决定重导；04 的整身白闪遮细节、黑色刀面遮脸问题交 07 / 08 / 02 协同，先改明确可见的两点。缺少像素证据的效果不作通过，未被真实动作触发的资源不算可用机制。
-3. **把人物与原场景的整体现有内容做精。** 03 的失败物理笼不传入正式高模，不继续参数试错；05 保脸眼与已签名源，不重做失败发型。06 整立面候选进入 Root 目视与原生预算审查，旧“单窗冻结”已被本轮成套精修合同替代；不扩场景或地点。
-4. **再收既有完整流程。** 沿真实输入补玩家弹反、HMD 闪避、技能 / 处决，随后三轮角色切换与回收、胜利 / 死亡 / 超时、暂停 / 恢复 / 重开。Space Pro 性能、画面与触觉实测单独列为待验，未完成前不宣称 100%。
+1. 当前UI/局部命中包已通过真实失败→重开→三轮胜利；不重复把这条主链写成待开局。Root下一轮接已交64da立面与近场光，按同一实际视点比较人物/刀面/窗檐。
+2. 01的v9低头改善接受进入候选重导。唯一producer目前硬要求106键，v9为211键/120Hz；须同步OVERHEAD合同、authoring_manifest与三target重导/typed，LEFT/RIGHT仍106。不能降采样绕过或直接把preview装包，重点看.50–.65s快抬头。
+3. 02修默认R闭握长指/拇指的真实绕柄；08修细刃光与alpha渐隐，拒绝新增30cm空间门把合法快挥轨迹丢掉；10修终局遮挡与重复信息。三路只交原生候选，Root接实际APK。
+4. 03先交可接受的完整guard衣形，失败物理笼不传入正式高模；05保脸眼，缺新源不再绕曲线/参数盘髻。所有新形体仍需正常视距与动态组合，不能靠数值或导入通过。
+5. 剩余真实分支是玩家PARRY、HMD闪避、技能/处决、暂停/恢复/超时/追踪中断，以及Space Pro声音/触觉/性能/舒适度。保已有规则和真实SDK来源，不为通过测试造事件或扩模式。整体品质未达标，目标继续active。
 
 ## 各方向收件与下一项
 

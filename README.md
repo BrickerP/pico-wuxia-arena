@@ -14,7 +14,7 @@
 | 实际主流程 | PICO Emulator真实输入完成失败→重新挑战→三轮角色换入/交战→胜利，结算967分、剩余40生命；SOFT/HARD/GUARDED/PLAYER_HIT与三次fall均有对应日志 |
 | 实际画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-ui-impact-contact-2026-11-13.png)、[胜利结算](ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json) |
 | 检查 | 构建、安装启动、336项单元测试通过；UI样式0错误/0警告。通用模板架构检查仍报现有game包布局/ViewModel差异，未宣称整个workflow clean |
-| 下载 | 本轮新APK待发布；[前一原生双手/HIT包](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13)仍保留固定源码与附件 |
+| 最新下载 | [native-ui-impact-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13)，固定源码a22a216，含APK/52秒实录/两张原生图/manifest，五附件大小与SHA已核对 |
 | 当前品质 | **成品Demo未完成。** 握柄长指、近景肤色/刀面、衣服/发型、宽灰刀轨、近身NPC遮挡终局牌仍有问题；玩家PARRY/HMD闪避/技能处决、暂停恢复与Space Pro实测未完成 |
 
 336项是当前机制测试集：新增局部灯测试，删除随旧白闪/死入口一并退役的测试。完整三轮通过是模拟器流程证据，不等于视觉、手感或终端性能已达标。原生镜像窗口约57fps录制也不代表PICO渲染帧率。

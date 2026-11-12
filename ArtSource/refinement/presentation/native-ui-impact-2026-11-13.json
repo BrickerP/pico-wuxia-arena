@@ -112,5 +112,7 @@
     "input_log": "artifacts/native-ui-impact-2026-11-13/three-round-input.log",
     "physical_ui_actions": "artifacts/native-ui-impact-2026-11-13/three-round-ui.json",
     "build_identity": "artifacts/native-ui-impact-2026-11-13/build-identity.json"
-  }
+  },
+  "source_commit": "a22a2163d021b619d92c816a3a6e6a4ab987a84e",
+  "release_url": "https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13"
 }

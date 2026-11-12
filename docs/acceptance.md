@@ -4,7 +4,7 @@
 
 ## 当前可交付节点
 
-本轮原生UI/命中组合APK：`ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`，242,709,621字节，当前本地待新发布。构建与336项单测通过，源在构建/测试/录制期间一致；运行包已无EnemyHitFlash。UI样式0error/0warning，保Full Stage、既有面板尺寸/位置、输入与规则。
+本轮原生UI/命中组合APK：`ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`，242,709,621字节，已公开为[native-ui-impact-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13)，固定源码a22a216。构建与336项单测通过，源在构建/测试/录制期间一致；运行包已无EnemyHitFlash。UI样式0error/0warning，保Full Stage、既有面板尺寸/位置、输入与规则。
 
 [52秒原生连续片](../ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)来自一次65秒PICO Emulator窗口原始录制，未插帧或改速，完整解码通过；[交战状态](../ArtSource/refinement/presentation/native-ui-impact-contact-2026-11-13.png)、[胜利](../ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[版本/验收边界](../ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json)已固定。
 
