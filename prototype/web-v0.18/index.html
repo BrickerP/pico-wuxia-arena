@@ -817,10 +817,10 @@ try{
   const g=c.getContext('2d');
   /* 地平线压在 v=0.50：上黑下暗，0.47~0.52 一道微光带，远山立在这条线上 */
   const grad=g.createLinearGradient(0,0,0,1024);
-  grad.addColorStop(0,'#03060a');grad.addColorStop(.26,'#060d11');
-  grad.addColorStop(.40,'#0d1719');grad.addColorStop(.455,'#1b2726');
-  grad.addColorStop(.492,'#33413a');grad.addColorStop(.512,'#26322c');
-  grad.addColorStop(.62,'#18211e');grad.addColorStop(1,'#0e1412');
+  grad.addColorStop(0,'#020405');grad.addColorStop(.26,'#05090a');
+  grad.addColorStop(.40,'#0a1114');grad.addColorStop(.455,'#161d1e');
+  grad.addColorStop(.492,'#28322e');grad.addColorStop(.512,'#1e2624');
+  grad.addColorStop(.62,'#141a19');grad.addColorStop(1,'#0a0d0c');
   g.fillStyle=grad;g.fillRect(0,0,2048,1024);
   /* 月在地平线上方，带三层晕 */
   const MX=1290,MY=352;
@@ -829,7 +829,7 @@ try{
   g.globalAlpha=.82;g.fillStyle='#d3ded8';g.beginPath();g.arc(MX,MY,42,0,7);g.fill();
   g.globalAlpha=1;
   /* 三层山脊，都在 0.44~0.52 之间，越远越淡 */
-  const layers=[[.462,'#22302d',.92],[.492,'#1a2622',.80],[.522,'#121b18',.66]];
+  const layers=[[.462,'#1b2422',.92],[.492,'#141b1a',.80],[.522,'#0e1312',.66]];
   layers.forEach(function(L,li){
     g.globalAlpha=L[2];g.fillStyle=L[1];g.beginPath();
     const base=1024*L[0];
@@ -845,7 +845,7 @@ try{
   });
   /* 山脚一层横向雾，抹掉生硬的接缝 */
   const hz=g.createLinearGradient(0,1024*.50,0,1024*.60);
-  hz.addColorStop(0,'rgba(38,49,44,.55)');hz.addColorStop(1,'rgba(14,20,18,0)');
+  hz.addColorStop(0,'rgba(32,40,38,.55)');hz.addColorStop(1,'rgba(10,14,13,0)');
   g.globalAlpha=1;g.fillStyle=hz;g.fillRect(0,1024*.50,2048,1024*.10);
   const tex=new THREE.CanvasTexture(c);
   if(THREE.sRGBEncoding)tex.encoding=THREE.sRGBEncoding;tex.flipY=false;
@@ -853,7 +853,7 @@ try{
     new THREE.MeshBasicMaterial({map:tex,side:THREE.BackSide,fog:false,depthWrite:false}));
   sky.position.set(0,0,-12);sky.renderOrder=-1;scene.add(sky);
   scene.background=null;
-  if(scene.fog){scene.fog.color.setHex(0x2b3733);scene.fog.density=.019;}
+  if(scene.fog){scene.fog.color.setHex(0x212a27);scene.fog.density=.020;}
   /* 灯光：冷月主光 + 冷补光 + 半空一盏朱砂气 */
   let hemi=null;const dirs=[];
   scene.children.forEach(function(o){
@@ -864,24 +864,24 @@ try{
   const red=new THREE.PointLight(0xa8332a,.5,16);red.position.set(0,1.4,-7);scene.add(red);
   /* 地面：宣纸墨渍纹理 + 一张延伸到雾里的暗垫 */
   const pc=document.createElement('canvas');pc.width=pc.height=512;const pg=pc.getContext('2d');
-  pg.fillStyle='#4a5044';pg.fillRect(0,0,512,512);
-  for(let i=0;i<26000;i++){
-    const x=Math.random()*512,y=Math.random()*512,a=Math.random()*.4;
-    pg.fillStyle='rgba('+(18+Math.random()*96|0)+','+(22+Math.random()*98|0)+','+(18+Math.random()*84|0)+','+a+')';
-    pg.fillRect(x,y,1.4,1.4);
-  }
-  for(let i=0;i<9;i++){
-    const x=Math.random()*512,y=Math.random()*512,r=22+Math.random()*92;
+  /* 只有大块墨晕，不做高频噪点：噪点在平铺时接缝会连成砖缝，墨晕到边缘已经透明 */
+  pg.fillStyle='#3d423e';pg.fillRect(0,0,512,512);
+  for(let i=0;i<7;i++){
+    const x=Math.random()*512,y=Math.random()*512,r=118+Math.random()*160;
     const rg=pg.createRadialGradient(x,y,0,x,y,r);
-    rg.addColorStop(0,'rgba(28,32,26,.32)');rg.addColorStop(1,'rgba(28,32,26,0)');
+    rg.addColorStop(0,'rgba(19,23,20,.46)');
+    rg.addColorStop(.6,'rgba(23,27,24,.22)');
+    rg.addColorStop(1,'rgba(26,30,27,0)');
     pg.fillStyle=rg;pg.beginPath();pg.arc(x,y,r,0,7);pg.fill();
   }
   const ptex=new THREE.CanvasTexture(pc);
-  ptex.wrapS=ptex.wrapT=THREE.RepeatWrapping;ptex.repeat.set(15,21);
+  ptex.wrapS=ptex.wrapT=THREE.RepeatWrapping;ptex.repeat.set(3,4);
   if(THREE.sRGBEncoding)ptex.encoding=THREE.sRGBEncoding;
+  /* 平铺纹理在平面上必然留接缝，格线怎么调都在：地面改纯色，层次交给光和雾 */
   const floor=new THREE.Mesh(new THREE.PlaneGeometry(44.8,63.8),
-    new THREE.MeshStandardMaterial({map:ptex,color:0xb4b9a9,roughness:.72,metalness:0}));
-  floor.rotation.x=-Math.PI/2;floor.position.set(0,-.05,-12);floor.receiveShadow=true;scene.add(floor);
+    new THREE.MeshStandardMaterial({color:0x373c36,roughness:.94,metalness:0}));
+  /* 和下面的 box 顶面只差 5mm 会 z-fighting，抬到 22mm 拉开距离 */
+  floor.rotation.x=-Math.PI/2;floor.position.set(0,-.022,-12);floor.receiveShadow=true;scene.add(floor);
   const farFloor=new THREE.Mesh(new THREE.PlaneGeometry(320,320),
     new THREE.MeshStandardMaterial({color:0x2e3430,roughness:1}));
   farFloor.rotation.x=-Math.PI/2;farFloor.position.set(0,-.32,-12);scene.add(farFloor);
@@ -898,6 +898,32 @@ try{
   const dust=new THREE.Points(geo,new THREE.PointsMaterial({color:0xb9c4bb,size:.03,
     transparent:true,opacity:.26,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true}));
   dust.frustumCulled=false;scene.add(dust);
+  /* 轮廓光：从场景深处反打，只照角色与刀，用 layers 隔离所以不抬背景亮度 */
+  const rim=new THREE.DirectionalLight(0x9fc0d6,.9);
+  rim.position.set(-4,6,-26);rim.target.position.set(0,1.1,-2);
+  scene.add(rim);scene.add(rim.target);rim.layers.set(2);
+  camera.layers.enable(2);
+  (function tag(){
+    if(!rig&&!playerGroup&&!weaponGroup){setTimeout(tag,150);return;}
+    scene.traverse(function(o){
+      if(!o.isMesh)return;
+      let q=o.parent,own=false;
+      while(q){if(q===rig||q===playerGroup||q===freeRig||q===weaponGroup)own=true;q=q.parent;}
+      if(own)o.layers.enable(2);
+    });
+  })();
+  /* 刀身收进墨里，只让刃口留一线高光，别在暗场里当白条 */
+  (function toneBlade(){
+    const gs=[weaponGroup,typeof enemyWeapon!=='undefined'?enemyWeapon:null];
+    gs.forEach(function(g){if(!g)return;
+      g.traverse(function(o){
+        if(!o.isMesh||!o.material)return;
+        if(o.material.color)o.material.color.multiplyScalar(.46);
+        if(o.material.metalness!==undefined)o.material.metalness=Math.min(1,(o.material.metalness||0)*1.35+.18);
+        if(o.material.roughness!==undefined)o.material.roughness=Math.max(.22,(o.material.roughness||.5)*.72);
+      });
+    });
+  })();
   /* 灯笼暖晕：每盏点光挂一张 additive 径向贴图，暗场里给几个透气的高光点 */
   const gc=document.createElement('canvas');gc.width=gc.height=128;
   const gq=gc.getContext('2d');
@@ -915,7 +941,7 @@ try{
     sp.scale.setScalar(Math.max(1.4,(o.distance||3)*.62));o.add(sp);
   });
   /* 跟随玩家的柔光，让近景脱出墨底 */
-  const key=new THREE.PointLight(0xc7d8de,.5,9,1.4);scene.add(key);
+  const key=new THREE.PointLight(0xc7d8de,.18,8,1.4);scene.add(key);
   (function loop(){
     const pos=dust.geometry.attributes.position.array;
     for(let i=0;i<N;i++){
@@ -936,25 +962,77 @@ try{
   }
   /* 共享材质只压一次：木头被二十几个 mesh 共用，逐 mesh 压会直接压成纯黑 */
   const seen=new Set();
-  scene.traverse(function(o){
-    if(!o.isMesh||!o.material)return;
-    if(!o.material.isMeshStandardMaterial)return;
-    if(o.material.map===ptex)return;
-    if(owned(o))return;
-    if(seen.has(o.material))return;
-    seen.add(o.material);
-    const c=o.material.color;c.getHSL(hsl);
-    c.setHSL(hsl.h,hsl.s*0.19,Math.max(.014,hsl.l*0.46));
-  });
-  if(dirs[0])dirs[0].intensity=1.0;
+  function inkAll(){
+    scene.traverse(function(o){
+      if(!o.isMesh||!o.material)return;
+      if(!o.material.isMeshStandardMaterial)return;
+      if(o.material.map===ptex)return;
+      if(owned(o))return;
+      if(seen.has(o.material))return;
+      seen.add(o.material);
+      const c=o.material.color;c.getHSL(hsl);
+      c.setHSL(hsl.h,hsl.s*0.105,Math.max(.012,hsl.l*0.42));
+      /* 少量材质走的是另一套底色，压一次仍偏亮：超过阈值再压一档 */
+      if(c.getHSL(hsl).l>.11)c.setHSL(hsl.h,hsl.s*0.5,Math.max(.02,hsl.l*0.4));
+    });
+  }
+  inkAll();
+  /* 墙和松树是异步挂上来的，晚于这次遍历：补扫几轮，每个材质只压一次 */
+  let inkTries=0,inkIdle=0;
+  const inkTimer=setInterval(function(){
+    const before=seen.size;inkAll();
+    inkIdle=(seen.size===before)?inkIdle+1:0;
+    if(inkIdle>20||++inkTries>120)clearInterval(inkTimer);
+  },400);
+  if(dirs[0])dirs[0].intensity=.68;
   if(hemi)hemi.intensity=.27;
-  renderer.toneMappingExposure=.66;
+  renderer.toneMappingExposure=.55;
   /* 开局前不显示敌人：rig.visible 只在 enemyPose 里赋值，菜单阶段会一直是初始可见 */
   (function quietUntilStart(){
     if(started)return;
     if(typeof rig!=='undefined'&&rig)rig.visible=false;
     setTimeout(quietUntilStart,140);
   })();
+  /* 像素级自评：直接读 WebGL 缓冲，统计墨阶分布、彩色占比、高频能量、地平线分离 */
+  window.__bench=function(){
+    renderer.render(scene,camera);
+    const gl=renderer.getContext();
+    const W=gl.drawingBufferWidth,H=gl.drawingBufferHeight;
+    const px=new Uint8Array(W*H*4);
+    gl.readPixels(0,0,W,H,gl.RGBA,gl.UNSIGNED_BYTE,px);
+    const n=W*H;
+    let dark=0,midl=0,bright=0,colorful=0,sumS=0,sumL=0;
+    const hist=[0,0,0,0,0,0,0,0];
+    for(let i=0;i<n;i++){
+      const r=px[i*4]/255,g=px[i*4+1]/255,b2=px[i*4+2]/255;
+      const l=0.2126*r+0.7152*g+0.0722*b2;
+      const mx=Math.max(r,g,b2),mn=Math.min(r,g,b2);
+      const s=mx===0?0:(mx-mn)/mx;
+      sumL+=l;sumS+=s;
+      hist[Math.min(7,Math.floor(l*8))]++;
+      if(l<0.12)dark++;else if(l<0.62)midl++;else bright++;
+      if(s>0.32&&l>0.10)colorful++;
+    }
+    let hfS=0,hfN=0;
+    for(let y=0;y<H;y+=3){for(let x=0;x<W-1;x+=3){
+      const i=(y*W+x)*4,j=(y*W+x+1)*4;
+      hfS+=Math.abs(px[i]-px[j])+Math.abs(px[i+1]-px[j+1])+Math.abs(px[i+2]-px[j+2]);
+      hfN++;
+    }}
+    let upL=0,dnL=0,upN=0,dnN=0;
+    for(let y=Math.floor(H*0.55);y<H;y+=4)for(let x=0;x<W;x+=4){
+      const i=(y*W+x)*4;upL+=(px[i]+px[i+1]+px[i+2])/765;upN++;}
+    for(let y=0;y<Math.floor(H*0.4);y+=4)for(let x=0;x<W;x+=4){
+      const i=(y*W+x)*4;dnL+=(px[i]+px[i+1]+px[i+2])/765;dnN++;}
+    return {
+      avgL:+(sumL/n).toFixed(3),avgS:+(sumS/n).toFixed(3),
+      dark:+(dark/n*100).toFixed(1),mid:+(midl/n*100).toFixed(1),
+      bright:+(bright/n*100).toFixed(1),colorful:+(colorful/n*100).toFixed(1),
+      hf:+(hfS/hfN/255).toFixed(4),
+      skyL:+(upL/upN).toFixed(3),floorL:+(dnL/dnN).toFixed(3),
+      hist:hist.map(function(v){return +(v/n*100).toFixed(1);})
+    };
+  };
   window.__artReady=1;
 }catch(e){window.__artErr=(e&&e.message)||String(e);}
 })();
