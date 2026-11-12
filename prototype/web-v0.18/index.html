@@ -153,7 +153,7 @@ animation:inkOpen 3.6s cubic-bezier(.35,0,.2,1) forwards}
  font-size:15px;color:#f2ebdc;background:#a8342a;font-style:normal;box-shadow:0 0 0 1px #a8342a,0 0 0 3px #f2ebdc,0 0 0 4px #a8342a;opacity:.92}
 #mapBox{position:fixed;right:18px;top:18px;width:132px;height:132px;z-index:6; border:1px solid rgba(233,201,138,.35);background:rgba(16,20,18,.42); box-shadow:0 0 0 1px rgba(0,0,0,.3);transition:opacity .3s}#mapBox canvas{width:100%;height:100%;display:block}#mapBox .mapTag{position:absolute;left:6px;bottom:4px;font:10px/1 "Songti SC",serif; letter-spacing:.2em;color:#cfc2a6aa}@media(max-width:640px){#mapBox{width:96px;height:96px}}</style><style id="hudV4">/* 战斗界面只留四样：敌血条、我血条、读招色光、命中数字 */.hud .brand,.hud .goal,.hud .compass,.hud .progress,.hud .stageTip,.hud .enemyVitals,.hud .postureGauge,.hud .playerVitals,.hud .staminaTrack,.hud .bossHeading small,#moves,#event,#objective,.tell,.slowBadge,.mapTag{display:none!important}.hud .enemyFrame{width:264px!important;top:14px!important}.hud .bossHeading{font-size:11px!important;letter-spacing:.28em!important;opacity:.62}.hud .enemyFrame .track{height:2px!important}.hud .playerFrame{left:20px!important;bottom:20px!important}.hud .playerFrame .track{height:3px!important}.hud .playerFrame .resourceName{font-size:10px!important;opacity:.55}/* 刀谱入口 */.dojoBtn{position:fixed;left:246px;bottom:18px;width:30px;height:30px;z-index:8; line-height:28px;text-align:center;font:15px "Songti SC","STKaiti",serif;color:#f2ebdc; background:#a8342a;cursor:pointer;letter-spacing:0; box-shadow:0 0 0 1px #a8342a,0 0 0 3px rgba(242,235,220,.16);opacity:.9; transition:opacity .2s,transform .2s}.dojoBtn:hover{opacity:1;transform:scale(1.06)}/* 面板里的地图 */.dojoMap{height:96px;max-height:96px;overflow:hidden;margin:0 0 14px;border:1px solid #d9cdb4;background:#efe7d4}.dojoMap canvas{width:100%;height:96px!important;display:block}</style><div class="lockDot" id="lockDot" style="opacity:0"></div><div class="dojoBtn" id="dojoBtn" title="刀谱 · Tab">刀</div><div class="dojo hidden" id="dojo"><div class="dojoCard"><div class="dojoHead"><b>刀谱</b><i class="seal">刀</i><span id="dojoRank">点数 3</span></div><div class="dojoMap"><canvas id="map" width="200" height="176"></canvas></div><div id="dojoList"></div><div class="dojoFoot"><button id="dojoFill">点满</button><button id="dojoClose">收</button></div></div></div><div class="keyHint" id="keyHint"><div class="row"><i data-k="KeyW">W</i></div><div class="row"><i data-k="KeyA">A</i><i data-k="KeyS">S</i><i data-k="KeyD">D</i></div><div class="row"><i data-k="KeyU">U</i><i data-k="KeyJ">J</i><i data-k="KeyI">I</i><i data-k="KeyK">K</i></div></div>
 <div class="hud"><div class="brand">酒馆试炼<span class="edition">V0.13 / VR POSE PROXY</span></div><div class="goal" id="goal"></div><div class="enemyFrame"><div class="bossHeading"><span id="enemyName">刀客</span><small id="roundText">三轮试炼</small></div><div class="track enemyTrack"><div class="damageLag" id="enemyLag"></div><div class="fill" id="enemyFill"></div></div><div class="enemyVitals"><span id="enemyHP">—</span><span id="armorText"></span></div><div class="postureGauge enemyPosture"><span class="gaugeCap">敌势</span><div class="track pressureTrack"><div class="fill" id="enemyPrecisionFill"></div><i></i></div><small id="enemyPrecisionText">精度 72 / 72</small></div></div><div class="playerFrame"><div class="resourceName"><span id="healthText">生命 100</span><span class="weaponGlyph">刃</span></div><div class="track healthTrack"><div class="fill" id="healthFill"></div></div><div class="track staminaTrack"><div class="fill" id="staminaFill"></div></div><small>气力 <span id="staminaText">100</span></small></div><div class="postureGauge playerPosture"><span class="gaugeCap">我势</span><div class="track pressureTrack"><div class="fill" id="playerPrecisionFill"></div><i></i></div><small id="playerPrecisionText">精度 100 / 100</small></div><div class="event" id="event">起势</div><div class="hint" id="hint"></div><div class="stats" id="stats"></div><div class="buttons"><button id="pause">暂停</button><button id="settings">设置 / 练招</button><button id="journey">巡路</button></div></div><div class="equipmentHUD" id="equipmentHUD"></div><div class="slowLabel" id="slowLabel"></div><div class="slotNotice hidden" id="slotNotice"></div><div class="directionPad" id="directionPad" aria-label="四方向来势提示"><span class="mark" data-dir="up">上</span><span class="mark" data-dir="down">下</span><span class="mark" data-dir="left">左</span><span class="mark" data-dir="right">右</span><span class="center" id="directionCenter">刺 / 劈 / 砍</span><div class="grabCue"><svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2L28 7V18L16 30L4 18V7Z M2 2L30 30" stroke="currentColor" stroke-width="3" fill="none"/></svg><span>投技 · 不可挡</span><span>侧移 / 后退 · 双握短前送反投</span></div></div><div id="impactLabel" class="impactLabel" aria-live="polite"></div><div id="hitMarker" class="hitMarker"></div><div class="compass" id="compass">酒馆院落</div><div class="progress" id="progress"></div><div class="tell" id="tell"></div><div class="stageTip" id="stageTip"></div><div class="cursor hidden" id="cursor"></div>
-<div class="veil" id="overlay"><section class="sheet"><div class="kicker" id="kicker">LOCAL PLAYABLE SLICE / 不提交仓库</div><h1 id="title">刀起，人在。</h1><div id="body"><p>右侧兵器架分开陈列刀、剑、枪、棍。走近指向握点，用左右键分别取到左/右手；新取武器，旧武器归架。点击不是攻击。短促向上＝劈砍，向下＝捅刺，左右＝横砍。每次新手势出一招；释放后段可预输入，收势直接接下一招。重复刺也能接三种变式，不用背顺序。</p><div class="guide"><div><b>白光 / 蓝光 · 方向格挡</b>向亮起的方向短移鼠标，刀会架到该方向；白色读来势，蓝色是化劲时机。慢移只摆刀，不攻击。正确方向仍须碰到敌刀。</div><div><b>红光 · 投技不可挡</b>看见红色断盾和双箭头，按A/D侧移或S后退离开抓取线。也可在红光末段双键握持并短下划，代理双手前伸合抱反投。提前一直抱住不会自动成功。投技/反投/处决只接空动画槽。</div><div><b>一招一式 · 不考划线</b>手势只需短距离，不用划满屏、不蓄势。动作期间最多缓存一条新意图，重复刺和混合方向都可衔接，碰钢仍会停下撤刀。</div><div><b>VR优先 · 本地代理</b>跑步以摇杆前推意图为主，低位交替摆臂可选加速；双手从低位主动上提触发虚拟跳，不需要真人离地。网页双击W跑，非红光时双握短上提跳。</div></div><p class="fine">原项目模型联网加载。程序变式不是专业动捕，网页不是VR真机验收。先木桩，再方向防守，最后Boss投技。</p></div><div id="fault" class="fault hidden"></div><div class="actions"><button class="primary" id="start" disabled>进入三轮试炼</button><button id="practice" disabled>先试木桩</button><button id="explore" disabled>小径任务</button><button id="boss" disabled>先练Boss投技</button><select id="bossChoice" aria-label="Boss类型"><option value="duelist">青衣剑客 · 化劲破节奏</option><option value="lancer">赤衣枪卫 · 收势破防</option><option value="juggernaut" selected>玄甲巨擂 · 棍棒破甲</option></select><button id="resume" class="hidden">继续</button></div><div class="load" id="load">准备角色与酒馆资源…</div></section></div>
+<div class="veil" id="overlay"><section class="sheet"><div class="kicker" id="kicker">LOCAL PLAYABLE SLICE / 不提交仓库</div><h1 id="title">刀起，人在。</h1><div id="body"><p>右侧兵器架分开陈列刀、剑、枪、棍。走近指向握点，用左右键分别取到左/右手；新取武器，旧武器归架。点击不是攻击。短促向上＝劈砍，向下＝捅刺，左右＝横砍。每次新手势出一招；释放后段可预输入，收势直接接下一招。重复刺也能接三种变式，不用背顺序。</p><div class="guide"><div><b>白光 / 蓝光 · 方向格挡</b>向亮起的方向短移鼠标，刀会架到该方向；白色读来势，蓝色是化劲时机。慢移只摆刀，不攻击。正确方向仍须碰到敌刀。</div><div><b>红光 · 投技不可挡</b>看见红色断盾和双箭头，按A/D侧移或S后退离开抓取线。也可在红光末段双键握持并短下划，代理双手前伸合抱反投。提前一直抱住不会自动成功。投技/反投/处决只接空动画槽。</div><div><b>一招一式 · 不考划线</b>手势只需短距离，不用划满屏、不蓄势。动作期间最多缓存一条新意图，重复刺和混合方向都可衔接，碰钢仍会停下撤刀。</div><div><b>VR优先 · 本地代理</b>跑步以摇杆前推意图为主，低位交替摆臂可选加速；双手从低位主动上提触发虚拟跳，不需要真人离地。网页双击W跑，非红光时双握短上提跳。</div></div><p class="fine">原项目模型联网加载。程序变式不是专业动捕，网页不是VR真机验收。先木桩，再方向防守，最后Boss投技。</p></div><div id="fault" class="fault hidden"></div><div class="actions"><button class="primary" id="start" disabled>进入三轮试炼</button><button id="practice" disabled>先试木桩</button><button id="explore" disabled>小径任务</button><button id="boss" disabled>先练Boss投技</button><select id="bossChoice" aria-label="Boss类型"><option value="duelist">青衣剑客 · 化劲破节奏</option><option value="lancer">赤衣枪卫 · 收势破防</option><option value="general" selected>镇北将军 · 玄甲重刀</option><option value="juggernaut">玄甲巨擂 · 棍棒破甲</option></select><button id="resume" class="hidden">继续</button></div><div class="load" id="load">准备角色与酒馆资源…</div></section></div>
 <aside id="panel" class="panel hidden"><div class="row"><button class="primary" id="continue">继续体验</button><button id="closePanel">收起</button></div><label>守势范围 <span id="sensitivityValue">1.00</span><input id="sensitivity" type="range" min="0.7" max="1.3" value="1" step="0.05"></label><label>敌招速度 <span id="tempoValue">1.00</span><input id="tempo" type="range" min="0.7" max="1.25" value="1" step="0.05"></label><label>敌刀姿态追随响应 <span id="gripValue">28 ms</span><input id="grip" type="range" min="14" max="65" value="28" step="1"></label><label>观察线 <select id="debug"><option value="off">正常画面</option><option value="on">刀段与身体代理</option></select></label><label><span><input id="slow" type="checkbox" checked> 白蓝红反应慢动作</span></label><label>动作模组 <select id="motionPack"><option value="single">单手刀 · 游龙变式</option><option value="supported">扶柄刀 · 破阵变式</option></select></label><label>练招模式 <select id="drill"><option value="mixed">四向来刀与Boss投技</option><option value="overhead">重复上劈</option><option value="left">重复左来刀</option><option value="right">重复右来刀</option><option value="thrust">重复捅刺</option><option value="grab">重复投技（专项）</option></select></label><label><span><input id="cues" type="checkbox" checked> 显示来势提示</span></label><label><span><input id="sound" type="checkbox" checked> 接触音效</span></label><div class="row"><button id="resetParams">恢复初值</button><button id="export">导出记录</button></div><div class="log" id="log"></div><p class="fine">敌刀滑条调节可达目标的姿态追随响应；本版不是有限力VR刚体握持。玩家由固定招式与扫掠阻挡驱动，身体使用受限骨骼适配，不强拉副手。观察线显示实体刀段。第一人称无自动镜头震动，左右鼠标键代理双手抓握，攻击仍为方向手势，模型联网加载。动作素材可由独立模型适配层替换，当前关键姿态不是商业动捕。</p></aside>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js" integrity="sha384-vV17nr/rMaJqmeZkFUzXLpHdQ+ME5QHKdydaqqN+3Ga39RJlNrTatJxHwGV4ml2C" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -178,9 +178,20 @@ function cyl(r,h,m,x,y,z,parent=scene){return mesh(new THREE.CylinderGeometry(r,
 function sphere(r,m,x,y,z,parent=scene){return mesh(new THREE.SphereGeometry(r,16,10),m,V(x,y,z),parent);}
 function line(color){const g=new THREE.BufferGeometry().setFromPoints([V(),V()]);const o=new THREE.Line(g,new THREE.LineBasicMaterial({color,transparent:true,opacity:.7}));scene.add(o);return o;}
 function lineSet(o,a,b){const arr=o.geometry.attributes.position.array;arr[0]=a.x;arr[1]=a.y;arr[2]=a.z;arr[3]=b.x;arr[4]=b.y;arr[5]=b.z;o.geometry.attributes.position.needsUpdate=true;o.geometry.computeBoundingSphere();}
+/* 高度场：楼梯和栈道靠它抬人，没有它就只能平地走 */
+function groundAt(x,z){
+ if(x>-6.4&&x<6.4&&z>-30.6&&z<-22.4)return 4.6;
+ if(x>-3.3&&x<3.3&&z<=-16&&z>=-23.6){const t=(-16-z)/7.6;return 4.6*Math.max(0,Math.min(1,t));}
+ if(x>=-29.2&&x<=-26.3){
+  if(z>=-50&&z<=6)return 5.0;
+  if(z>6&&z<=14.4){const t=(14.4-z)/8.4;return 5.0*Math.max(0,Math.min(1,t));}
+ }
+ if(z>=-50.2&&z<=-47.0&&x>=-29.2&&x<=29.2)return 5.0;
+ return 0;
+}
 function init(){up=V(0,1,0);playerPos=V(0,0,5.45);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.019);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,100);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x333d36,.7));const sun=new THREE.DirectionalLight(0xffd6a3,2.0);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-10,right:10,top:10,bottom:-10,near:1,far:35});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.45);fill.position.set(4,4,-6);scene.add(fill);
-const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(45,.15,64,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
+const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(96,.15,112,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 const tileGeometry=new THREE.BoxGeometry(.96,.018,.96),tileMats=[mat(0x738580),mat(0x7e8d82),mat(0x697d75)];for(let z=-3;z<8;z++)for(let x=-4;x<5;x++){const t=mesh(tileGeometry,tileMats[Math.abs((x*7+z*11)%3)],V(x,.03,z));t.castShadow=false;}
 for(const side of [-1,1]){box(3.7,2.25,.22,plaster,side*3.05,1.125,-3.7);colliders.push({x:side*3.05,z:-3.7,w:3.7,d:.22});box(.17,2.7,.2,wood,side*1.13,1.35,-3.7);for(let z=-2;z<8;z+=1.25){box(.11,1.05,.11,wood,side*4.75,.525,z);box(.075,.07,1.25,wood,side*4.75,.84,z+.6);}for(let z of [-1,3,6]){const g=new THREE.Group();g.position.set(side*2.8,2.3,z);scene.add(g);sphere(.16,mat(0xbc8246),0,0,0,g).scale.set(.7,1.15,.7);box(.20,.045,.20,wood,0,.19,0,g);const l=new THREE.PointLight(0xffa653,.7,3);g.add(l);}}
 box(2.7,.18,.75,roof,0,2.76,-3.7);for(let i=0;i<8;i++){for(const s of [-1,1]){const x=s*(5.6+Math.sin(i*1.7)*.62),z=-7-i*3.2;cyl(.13,3.0,wood,x,1.5,z);colliders.push({x,z,w:.45,d:.45});for(let j=0;j<3;j++){const crown=sphere(.9,mat(j===0?0x3e6350:0x496c56),x+Math.sin(j*2)*.35,2.5+j*.48,z+Math.cos(j*2)*.35);crown.scale.y=.75;}}}
@@ -200,34 +211,69 @@ playerWeapon=normalizeDao(weaponGroup);enemyWeapon=new THREE.Group();rig.add(ene
 const sourceGrip=actor.getObjectByName('HandGrip_R'),sourceBase=actor.getObjectByName('Blade_Base'),sourceTip=actor.getObjectByName('Blade_Tip');const hq=bones.R_Hand.getWorldQuaternion(Q());const sq=Q().setFromUnitVectors(up,sourceTip.getWorldPosition(V()).sub(sourceBase.getWorldPosition(V())).normalize());rest.R.gripQ=rest.R.gripWorld.clone().invert().multiply(sq);rest.L.gripQ=rest.L.gripWorld.clone().invert().multiply(sq);
 const tavern=t.scene;tavern.position.set(-6,0,-.8);tavern.rotation.y=Math.PI/2;tavern.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.name==='Paving')o.visible=false;}});scene.add(tavern);const opposite=tavern.clone(true);opposite.position.set(6,0,-.8);opposite.rotation.y=-Math.PI/2;scene.add(opposite);colliders.push({x:-6,z:-.8,w:2.5,d:7},{x:6,z:-.8,w:2.5,d:7});
 
-/* ===== 竞技场外围：石墙、角楼、灯道 ===== */
+/* ===== 城堡：内院、城墙、角楼、主楼、露台与登城梯 ===== */
 try{
- const arenaWall=mat(0xb6ae99),arenaPave=mat(0xa9a793);
- const WX=20.6,WZ1=-42,WZ2=18;
- box(WX*2,1.1,.6,arenaWall,0,.55,WZ1);colliders.push({x:0,z:WZ1,w:WX*2,d:.6});
- box(WX*2,1.1,.6,arenaWall,0,.55,WZ2);colliders.push({x:0,z:WZ2,w:WX*2,d:.6});
+ const cw=mat(0xb4ad9b),cwD=mat(0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a);
+ const XW=30,ZS=-50,ZN=21,WH=9;
+ box(XW*2+1.6,WH,1.6,cw,0,WH/2,ZS);colliders.push({x:0,z:ZS,w:XW*2+1.6,d:1.6});
+ box(XW*2+1.6,WH,1.6,cw,0,WH/2,ZN);colliders.push({x:0,z:ZN,w:XW*2+1.6,d:1.6});
+ for(const s of [-1,1]){box(1.6,WH,ZN-ZS,cw,s*XW,WH/2,(ZS+ZN)/2);colliders.push({x:s*XW,z:(ZS+ZN)/2,w:1.6,d:ZN-ZS});}
+ for(let z=ZS+1;z<ZN;z+=2.2)for(const s of [-1,1])box(1.0,.85,.9,cw,s*XW,WH+.42,z);
+ for(let x=-XW+1;x<XW;x+=2.2){box(.9,.85,1.0,cw,x,WH+.42,ZS);box(.9,.85,1.0,cw,x,WH+.42,ZN);}
+ for(const sx of [-1,1])for(const sz of [ZS,ZN]){
+  const g=new THREE.Group();g.position.set(sx*XW,0,sz);scene.add(g);
+  cyl(3.3,13,cw,0,6.5,0,g);
+  box(7.2,.5,7.2,cw,0,13.25,0,g);
+  cyl(3.7,1.2,cwR,0,13.9,0,g);
+  colliders.push({x:sx*XW,z:sz,w:6.6,d:6.6});
+ }
+ box(9.4,7.6,2.0,cwD,0,3.8,ZN-1.2);colliders.push({x:0,z:ZN-1.2,w:9.4,d:2.0});
+ box(10.6,.42,2.8,cwR,0,7.8,ZN-1.2);
+ for(const s of [-1,1]){box(1.4,8.6,1.4,cwD,s*4.9,4.3,ZN-1.2);sphere(.62,mat(0x9c3b2e),s*4.9,8.9,ZN-1.2);}
+ const KX=8,KZ0=-44,KZ1=-30,KH=20;
+ box(KX*2,KH,KZ1-KZ0,cw,0,KH/2,(KZ0+KZ1)/2);colliders.push({x:0,z:(KZ0+KZ1)/2,w:KX*2,d:KZ1-KZ0});
+ box(KX*2+1.8,.5,KZ1-KZ0+1.8,cwR,0,KH+.25,(KZ0+KZ1)/2);
+ box(3.4,5.4,.5,cwD,0,2.7,KZ1+.3);
+ for(let i=0;i<4;i++)box(1.4,3.3,.3,cwD,-5.4+i*3.6,14,KZ1+.15);
+ for(let i=0;i<5;i++)for(let j=0;j<3;j++)box(.7,1.5,.24,mat(0x2a2320),-6+i*3,15.6+j*2.2,KZ1+.12);
+ for(let i=0;i<4;i++)box(.5,1.3,.2,mat(0x3a2f26),-5+i*3.1,7.6,KZ1+.16);
+ const doorGlow=new THREE.PointLight(0xffb066,.8,6);doorGlow.position.set(0,3.2,KZ1+.7);scene.add(doorGlow);
+ box(12.8,.6,8.2,cw,0,4.3,-26.7);
+ box(12.8,.45,.4,cwD,0,4.88,-30.4);
+ for(const s of [-1,1])box(.4,.45,8.2,cwD,s*6.2,4.88,-26.7);
+ for(let i=0;i<13;i++){const h=4.6*(i+1)/13,z=-16-(i+.5)*.585;box(6.6,h,.6,cw,0,h/2,z);}
+ box(2.9,.4,56,cw,-27.75,4.8,-22);
+ box(2.9,.4,3.2,cw,0,4.8,-48.5);
+ for(let i=0;i<10;i++){const h=5*(i+1)/10,z=14.4-(i+.5)*.84;box(2.9,h,.85,cw,-27.75,h/2,z);}
+ box(.35,1.1,56,cwD,-29.05,5.55,-22);
+ box(58.4,1.1,.35,cwD,0,5.55,-50.05);
+ box(56,.06,63,mat(0x7a766a),0,.005,-13.5);
+ for(let z=-44;z<=16;z+=2.4)box(56,.012,.06,mat(0x615e53),0,.05,z);
+ for(const s of [-1,1])for(const z of [-40,-6,12]){
+  cyl(.30,.9,mat(0x2f2a24),s*9.6,.45,z);
+  cyl(.44,.16,mat(0x3b332a),s*9.6,.94,z);
+  const fl=sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.5}),s*9.6,1.12,z);
+  fl.scale.set(1,.6,1);
+  const ln=new THREE.PointLight(0xff9a4a,1.4,9);ln.position.set(s*9.6,1.4,z);scene.add(ln);
+ }
  for(const s of [-1,1]){
-  box(.6,1.1,60,arenaWall,s*WX,.55,-12);colliders.push({x:s*WX,z:-12,w:.6,d:60});
-  for(const z of [WZ1+2,WZ2-2]){
-   box(4.2,6,4.2,arenaWall,s*(WX-2),3,z);colliders.push({x:s*(WX-2),z,w:4.2,d:4.2});
-   box(4.9,.34,4.9,mat(0x2f3a34),s*(WX-2),6.1,z);
-   box(1.1,.9,1.1,mat(0x9c3b2e),s*(WX-2),6.7,z);
-  }
+  cyl(.10,5.6,mat(0x3a332a),s*7.2,2.8,-29.6);
+  box(.04,2.6,1.3,mat(0x8f2b22),s*7.2,4.1,-30.25);
  }
- for(let z=-36;z<=14;z+=7){
-  for(const s of [-1,1]){
-   box(.18,2.6,.18,mat(0x493b2d),s*8.6,1.3,z);colliders.push({x:s*8.6,z,w:.18,d:.18});
-   sphere(.22,mat(0xf3d9a4),s*8.6,2.72,z);
-  }
+ for(let i=0;i<5;i++){cyl(.035,1.5,mat(0x9aa3a8),-2.6+i*.7,.75,-31.2);box(.5,.06,.12,mat(0x3a332a),-2.6+i*.7,.72,-31.2);}
+
+ for(let z=-44;z<=12;z+=8)for(const s of [-1,1]){
+  cyl(.16,2.8,cwL,s*12.4,1.4,z);colliders.push({x:s*12.4,z,w:.4,d:.4});
+  sphere(.24,mat(0xf0d29a),s*12.4,2.92,z);
+  const l=new THREE.PointLight(0xffa653,.55,4);l.position.set(s*12.4,2.9,z);scene.add(l);
  }
- for(let i=0;i<14;i++){
-  const a2=i*1.9,rr=13+Math.sin(i*2.3)*2.2;
-  const x=Math.cos(a2)*rr,z=-12+Math.sin(a2)*rr;
-  if(Math.abs(x)<3.4)continue;
-  cyl(.24,5.2,mat(0x493b2d),x,2.6,z);colliders.push({x,z,w:.5,d:.5});
-  for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),x+Math.sin(j*2)*.3,4.3+j*.45,z+Math.cos(j*2)*.3);cr.scale.y=.72;}
+ for(let i=0;i<8;i++){
+  const x=(i%2?-1:1)*(15.5+Math.sin(i*2.1)*2.2),z=-40+i*6.2;
+  cyl(.26,5.4,cwL,x,2.7,z);colliders.push({x,z,w:.55,d:.55});
+  for(let j=0;j<3;j++){const cr=sphere(.92,mat(j===0?0x40654f:0x4d7159),x+Math.sin(j*2)*.32,4.5+j*.46,z+Math.cos(j*2)*.32);cr.scale.y=.72;}
  }
 }catch(e){window.__arenaErr=(e&&e.message)||String(e);window.__arenaStack=(e&&e.stack)||'';}
+
 initFloorWeapons();loaded=true;for(const id of ['start','practice','explore','boss'])$(id).disabled=false;$('load').textContent='角色、刀具与酒馆已就绪 · 建议先到右侧兵器架取刀';rig.position.set(0,0,4.1);rig.rotation.y=Math.PI;sampleAnimation('idle',1.0);rig.updateMatrixWorld(true);draw();}catch(e){loadErrors.push(String(e));fault('模型加载失败：'+(e.message||'网络资源不可用')+'。重新打开可重试。');}}
 // ===== v0.10 authored stance graph: each intention creates one complete move =====
 // ===== Module: declarative motion packs (no DOM, no skeletal node names) =====
@@ -293,7 +339,9 @@ const Battle=WuxiaBattleCore,playerPrecision=Battle.createPrecision(100,1.1),rea
 let enemyPrecision=null,weaponId='dao',weaponHand='R',equipped=false,grips={L:false,R:false},hugProxy=null,realTime=0,timeScale=1,floorWeapons=[],floorPick=null,slotWasActive=false,lastCombatActivity=0,lookPitch=0;
 const Loco=WuxiaLocomotion,locomotionPose=Loco.createPoseRecognizer();let sprintActive=false,sprintUntil=-1,lastForwardDown=-10,jumpY=0,jumpVelocity=0,lastJump=-10,vrMove=null,vrMoveAt=-10,rackGroup=null;
 function selectedWeapon(){return Battle.weapons[weaponId];}
-function selectedBoss(){return Battle.bosses[enemy?.bossId||'duelist'];}
+const EXTRA_BOSSES={general:{name:'镇北将军 · 玄甲重刀',hp:2400,armor:44,precision:36,scale:1.26,reach:1.2,damage:24,tactic:'沉稳逼近'}};
+function bossDef(id){return EXTRA_BOSSES[id]||Battle.bosses[id]||Battle.bosses.duelist;}
+function selectedBoss(){return bossDef(enemy&&enemy.bossId||'duelist');}
 function resetGrip(){locomotionPose.reset();vrMove=null;sprintActive=false;sprintUntil=-1;grips.L=grips.R=false;hugProxy=null;hugRecognizer.reset();reactionClock.clear();}
 function weaponLength(){return equipped?selectedWeapon().length:.12;}
 function createWeaponVisual(id){const g=new THREE.Group(),w=Battle.weapons[id];if(id==='dao'){const m=daoTemplate.clone(true),base=m.getObjectByName('Blade_Base').position.clone(),tip=m.getObjectByName('Blade_Tip').position.clone(),scale=w.length/base.distanceTo(tip),correction=Q().setFromUnitVectors(tip.clone().sub(base).normalize(),up);m.quaternion.copy(correction);m.scale.setScalar(scale);m.position.copy(base.applyQuaternion(correction).multiplyScalar(-scale));g.add(m);}else if(id==='staff'){cyl(.032,w.length,mat(0x725334),0,w.length/2,0,g);for(const y of [.04,w.length-.04])cyl(.035,.08,mat(0xadb2af,.7),0,y,0,g);}else if(id==='spear'){cyl(.022,w.length-.28,mat(0x725334),0,(w.length-.28)/2,0,g);const head=mesh(new THREE.ConeGeometry(.044,.28,4),mat(0xc5d8da,.7,.26),V(0,w.length-.14,0),g);head.rotation.y=Math.PI/4;}else{box(.065,w.length,.013,mat(0xc5d8da,.7,.26),0,w.length/2,0,g);box(.25,.035,.045,mat(0xb29554,.6),0,0,0,g);cyl(.028,.20,mat(0x403b37),0,-.12,0,g);}return g;}
@@ -613,6 +661,49 @@ function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,
 /* ==== 开局第三人称：给主角补一个墨色剪影，只在入场镜头里出现 ==== */
 let bodyG=null;
 let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFore=null;
+const MOBS=[];
+function spawnMobs(){
+ if(MOBS.length||!scene)return;
+ const spots=[[-7.5,9.5,.6],[8.2,2.5,-.7],[-4.5,-9,.2],[13,6.5,1.2]];
+ for(const sp of spots){
+  const g=new THREE.Group();g.visible=false;scene.add(g);
+  const mob={g,pos:V(sp[0],0,sp[1]),yaw:sp[2],mixer:null,idle:null,walk:null,aw:0,hover:0,ready:false};
+  MOBS.push(mob);
+  new THREE.GLTFLoader().load(ASSETS.actor,function(gl){
+   const a2=gl.scene;
+   a2.traverse(function(o){if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.layers&&o.layers.enable)o.layers.enable(2);}});
+   a2.updateMatrixWorld(true);
+   const m=new THREE.AnimationMixer(a2);
+   const idle=gl.animations.find(function(c){return /idle/i.test(c.name);});
+   const walk=gl.animations.find(function(c){return /walk/i.test(c.name);});
+   if(idle){mob.idle=m.clipAction(idle);mob.idle.play();}
+   if(walk){mob.walk=m.clipAction(walk);mob.walk.play();mob.walk.setEffectiveWeight(0);}
+   mob.mixer=m;mob.hand=a2.getObjectByName('R_Hand');mob.fore=a2.getObjectByName('R_Forearm');
+   mob.g.add(a2);mob.g.visible=true;mob.ready=true;
+  },undefined,function(){});
+ }
+}
+function mobStep(dt){
+ if(!MOBS.length)return;
+ for(const m of MOBS){
+  if(!m.ready)continue;
+  let moved=false,tgt=0;
+  if(started&&enemy&&!enemy.dead){
+   const dx=playerPos.x-m.pos.x,dz=playerPos.z-m.pos.z,d=Math.hypot(dx,dz);
+   if(d<14){
+    const want=Math.atan2(dx,dz);
+    m.yaw+=angleDiff(want,m.yaw)*Math.min(1,dt*3.2);
+    if(d>2.3){const st=Math.min(dt*1.35,d-2.3);m.pos.x+=dx/d*st;m.pos.z+=dz/d*st;moved=true;tgt=1;}
+   }
+  }
+  m.aw+=(tgt-m.aw)*Math.min(1,dt*7);
+  if(m.idle)m.idle.setEffectiveWeight(1-m.aw);
+  if(m.walk)m.walk.setEffectiveWeight(m.aw);
+  if(m.mixer)m.mixer.update(dt);
+  m.g.position.set(m.pos.x,groundAt(m.pos.x,m.pos.z),m.pos.z);
+  m.g.rotation.y=m.yaw;
+ }
+}
 function ensureBody(){
  if(bodyG)return bodyG;
  bodyG=new THREE.Group();scene.add(bodyG);bodyG.visible=false;
@@ -647,7 +738,7 @@ function renderIntroBody(p){
  if(!bodyActor){bodyG.visible=false;freeRig.visible=true;return;}
  /* 推进到头部时先换成双手，最后这段看不到身体也不会出现空窗 */
  bodyG.visible=p<.86;freeRig.visible=p>=.86;
- bodyG.position.set(playerPos.x,jumpY||0,playerPos.z);
+ bodyG.position.set(playerPos.x,playerPos.y,playerPos.z);
  bodyG.rotation.y=yaw+Math.PI;
  const now=performance.now();
  if(bodyMixer){const d=bodyLast?Math.min(.05,(now-bodyLast)/1000):.016;bodyLast=now;bodyMixer.update(d);}
@@ -740,8 +831,8 @@ function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
 function triggerJump(source){if(jumpY>0||jumpVelocity>0||moveAction||guarding()||realTime-lastJump<Loco.config.jumpCooldown||stamina<Loco.config.jumpCost||animationSlots.read().active||realTime<playerPrecision.read().brokenUntil)return false;stamina-=Loco.config.jumpCost;jumpVelocity=Loco.config.jumpSpeed;lastJump=realTime;stats.jumps=(stats.jumps||0)+1;emit('腾步 · '+(source==='hands_lift_proxy'?'上提姿态代理':'VR意图'),'locomotion',null);return true;}
 function readVRLocomotion(frame){if(!running||terminal)return false;const move=frame?.move||{x:0,y:0},busy=!!moveAction||guarding()||enemy?.type==='grab'&&['prepare','release'].includes(enemy.phase)||!!animationSlots.read().active,intent=locomotionPose.sample({...frame,move:Math.hypot(move.x,move.y),busy,grounded:jumpY===0});vrMove={x:clamp(move.x||0,-1,1),y:clamp(move.y||0,-1,1)};vrMoveAt=realTime;if(intent.run)sprintUntil=realTime+.25;if(intent.jump)triggerJump('vr_intent');return intent;}
-function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-20.2,20.2);next.z=clamp(next.z,-41.5,17.5);if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
-travel+=__moved;next.y=jumpY;playerPos.copy(next);
+function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-28.4,28.4);next.z=clamp(next.z,-47.6,19.2);if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
+travel+=__moved;next.y=(jumpY||0)+groundAt(next.x,next.z);playerPos.copy(next);
 if(__moved<1e-4&&(Math.abs(f)>.05||Math.abs(s)>.05)){
  KBD.stuckT+=dt;
  if(KBD.stuckT>.32){
@@ -768,12 +859,12 @@ function neutral(){return {base:V(.07,1.17,.53),tip:V(.07,1.17+RULES.bladeLength
 function attackPose(type,t){let base,axis;if(type==='grab')return edgePose(V(.32,1.18,.06),V(.38,.88,-.10),V(0,0,1));if(type==='thrust')return edgePose(V(.06,1.05,.06+.50*smooth(t)),V(0,.02,1),V(1,0,0));if(type==='overhead'){base=V(.10,mix(1.95,.95,smooth(t)),mix(.18,.65,smooth(t)));const theta=mix(-.45,1.85,smooth(t));axis=V(-.12,Math.cos(theta),Math.sin(theta));}else{const from=type==='left'?.95:-.95,to=-from,theta=mix(from,to,smooth(t));base=V(Math.sin(theta)*.38,1.32, .53+Math.cos(theta)*.16);axis=V(Math.sin(theta)*1.15,.09,Math.cos(theta));}axis.normalize();return edgePose(base,axis,type==='overhead'?V(0,-axis.z,axis.y):V(axis.z,0,-axis.x));}
 function localBlade(){if(enemy.hold>0&&heldBlade)return clonePose(heldBlade);const spec=RULES.attack[enemy.type],p=enemy.elapsed*P.tempo*(enemy.rate||1);if(time<enemy.guardUntil&&enemy.phase==='idle'){const base=enemy.guardFamily==='vertical'?V(-.38,1.70,.58):V(.27,.98,.52),axis=enemy.guardFamily==='vertical'?V(1,.04,.01):V(-.10,.99,.01),g=edgePose(base,axis,V(0,0,1));return interpPose(neutral(),g,smooth(clamp((enemy.guardUntil-time)/.14,0,1)));}if(enemy.phase==='prepare')return interpPose(enemy.prepareOrigin||neutral(),attackPose(enemy.type,0),smooth(clamp(p/spec.prepare,0,1)));if(enemy.phase==='release')return attackPose(enemy.type,clamp(p/spec.release,0,1));if(enemy.phase==='recover'){const end=releasePose||attackPose(enemy.type,1),n=edgePose(V(.52,1.12,.06),V(.38,.88,.14),V(0,0,1));return interpPose(end,n,smooth(clamp(p/.36,0,1)));}if(['open','hurt','broken'].includes(enemy.phase)){const n=edgePose(V(.53,1.03,.02),V(.46,.80,.18),V(0,0,1));return interpPose(releasePose||neutral(),n,smooth(clamp(enemy.elapsed/.26,0,1)));}return neutral();}
 // ===== Module: skeletal presentation adapter; animation never receives collision impulses =====
-function enemyPose(dt,physical=null){if(!rig)return {base:V(),tip:V()};rig.visible=isCombat()&&started;if(!isCombat())return {base:V(),tip:V()};rig.scale.setScalar(selectedBoss().scale);rig.position.copy(enemy.pos);rig.rotation.set(0,enemy.yaw,0);let clip='idle',ct=.4;const attack=['prepare','release','recover'].includes(enemy.phase);if(enemy.dead){clip='fall';ct=clamp(enemy.elapsed,0,3);}else if(enemy.phase==='hurt'){clip='hit_body';ct=Math.min(.40,.06+enemy.elapsed*.8);}else if(enemy.phase==='open'){clip='hit_side';ct=Math.min(.30,.06+enemy.elapsed*.4);}else if(!attack&&actorMove>.001){clip='walk';ct=.10+(enemy.walkClock%1)*2.16;}if(enemy.hold>0&&enemy.frozenClip){clip=enemy.frozenClip.name;ct=enemy.frozenClip.time;}if(enemy.dead)sampleAnimation(clip,ct);else{sampleAnimation('idle',.4);if(clip==='walk')sampleAnimation(clip,ct,/^[LR]_(Thigh|Calf|Foot|Toe|Upperleg|Lowerleg)/);else if(clip==='hit_body'||clip==='hit_side')sampleAnimation(clip,ct,/^(Spine01|Spine02|Head|Neck)\./);}rigReport={};if(attack&&!enemy.dead){const spec=RULES.attack[enemy.type],f=clamp(enemy.elapsed*P.tempo*(enemy.rate||1)/(enemy.phase==='prepare'?spec.prepare:enemy.type!=='grab'&&enemy.phase==='release'?spec.release:spec.recover),0,1),sign=enemy.type==='left'?1:enemy.type==='right'?-1:0,weight=enemy.phase==='prepare'?smooth(f):enemy.type!=='grab'&&enemy.phase==='release'?1:1-smooth(f);if(bones.Waist)bones.Waist.quaternion.multiply(Q().setFromAxisAngle(up,sign*RigPolicy.bodyYaw*weight));if(bones.Spine02)bones.Spine02.quaternion.multiply(Q().setFromAxisAngle(V(1,0,0),enemy.type==='overhead'?RigPolicy.bodyLean*weight:0));}for(const m of enemyVisualMaterials){if(m.emissive)m.emissive.setHex(enemy.reaction&&time-enemy.reaction.t<.10?0x815c27:0);}enemy.currentClip={name:clip,time:ct};rig.updateMatrixWorld(true);if(rest.R)gripEnvelope={center:bones.R_Upperarm.getWorldPosition(V()).toArray(),radius:(rest.R.upperLength+rest.R.foreLength)*selectedBoss().scale-.018};const pose=physical||enemyGoal(),base=pose.base.clone(),tip=pose.tip.clone(),bladeQ=goalQ(pose),profile=GripProfiles.single,axis=tip.clone().sub(base).normalize();if(!enemy.dead){solveArm('R',base.clone().addScaledVector(axis,profile.mainOffset),bladeQ);if(profile.offHand==='support_if_reachable'){const target=base.clone().addScaledVector(axis,profile.offOffset),shoulder=bones.L_Upperarm.getWorldPosition(V()),reach=rest.L.upperLength+rest.L.foreLength-profile.reachMargin;if(shoulder.distanceTo(target)<=reach)solveArm('L',target,bladeQ);else rigReport.L={released:true,reason:'outside_reach'};}}enemyWeapon.position.copy(rig.worldToLocal(base.clone()));if(enemy.type==='grab'&&attack&&!enemy.dead){const target=bones.L_Upperarm.getWorldPosition(V()).add(V(0,-.10,enemy.phase==='prepare'?.15:.36).applyAxisAngle(up,enemy.yaw));solveArm('L',target,null);}enemyWeapon.scale.setScalar(1/selectedBoss().scale);enemyWeapon.quaternion.copy(rig.getWorldQuaternion(Q()).invert().multiply(bladeQ));enemyWeapon.visible=!enemy.dead;rig.updateMatrixWorld(true);lineSet(debugLines.enemy,base,tip);debugLines.enemy.visible=P.debug&&!enemy.dead;debugBody.position.copy(worldLocal(V(0,1.02,0)));debugHead.position.copy(enemy.pos).add(V(0,1.60,0));debugBody.visible=debugHead.visible=P.debug&&!enemy.dead;return {base,tip};}
-function nextEnemy(pos,level=round){const bossId=mode==='boss'?$('bossChoice').value:['duelist','lancer','juggernaut'][level]||'duelist',bp=Battle.bosses[bossId];enemyPrecision=Battle.createPrecision(bp.precision,2.2);enemyPrecision.reset(realTime);bladeBodies.enemy=null;lastEnemyTarget=null;contactCache.clear();enemy={bossId,pos:pos.clone(),yaw:lookAngle(pos,playerPos),hp:bp.hp,maxHp:bp.hp,posture:bp.precision,maxPosture:bp.precision,phrase:[],phraseIndex:0,phase:'idle',elapsed:0,type:'overhead',sequence:0,attackId:serial+1,resolved:false,dead:false,hold:0,hurt:.25,open:.92,pressure:0,guardUntil:0,frozenClip:null,currentClip:null,thinkAt:0,seen:null,seenAttack:0,tactic:'侧步试探',stepSign:1,stepUntil:0,rate:1,prepareDelay:0,chainGap:.24,feint:false,feinted:false,feintAt:time+2,guardFamily:'horizontal'};enemy.stepDistance=0;enemy.walkClock=0;enemy.reaction=null;aiSamples=[];releasePose=null;actorMove=0;}
+function enemyPose(dt,physical=null){if(!rig)return {base:V(),tip:V()};rig.visible=isCombat()&&started;if(!isCombat())return {base:V(),tip:V()};rig.scale.setScalar(selectedBoss().scale);rig.position.set(enemy.pos.x,groundAt(enemy.pos.x,enemy.pos.z),enemy.pos.z);rig.rotation.set(0,enemy.yaw,0);let clip='idle',ct=.4;const attack=['prepare','release','recover'].includes(enemy.phase);if(enemy.dead){clip='fall';ct=clamp(enemy.elapsed,0,3);}else if(enemy.phase==='hurt'){clip='hit_body';ct=Math.min(.40,.06+enemy.elapsed*.8);}else if(enemy.phase==='open'){clip='hit_side';ct=Math.min(.30,.06+enemy.elapsed*.4);}else if(!attack&&actorMove>.001){clip='walk';ct=.10+(enemy.walkClock%1)*2.16;}if(enemy.hold>0&&enemy.frozenClip){clip=enemy.frozenClip.name;ct=enemy.frozenClip.time;}if(enemy.dead)sampleAnimation(clip,ct);else{sampleAnimation('idle',.4);if(clip==='walk')sampleAnimation(clip,ct,/^[LR]_(Thigh|Calf|Foot|Toe|Upperleg|Lowerleg)/);else if(clip==='hit_body'||clip==='hit_side')sampleAnimation(clip,ct,/^(Spine01|Spine02|Head|Neck)\./);}rigReport={};if(attack&&!enemy.dead){const spec=RULES.attack[enemy.type],f=clamp(enemy.elapsed*P.tempo*(enemy.rate||1)/(enemy.phase==='prepare'?spec.prepare:enemy.type!=='grab'&&enemy.phase==='release'?spec.release:spec.recover),0,1),sign=enemy.type==='left'?1:enemy.type==='right'?-1:0,weight=enemy.phase==='prepare'?smooth(f):enemy.type!=='grab'&&enemy.phase==='release'?1:1-smooth(f);if(bones.Waist)bones.Waist.quaternion.multiply(Q().setFromAxisAngle(up,sign*RigPolicy.bodyYaw*weight));if(bones.Spine02)bones.Spine02.quaternion.multiply(Q().setFromAxisAngle(V(1,0,0),enemy.type==='overhead'?RigPolicy.bodyLean*weight:0));}for(const m of enemyVisualMaterials){if(m.emissive)m.emissive.setHex(enemy.reaction&&time-enemy.reaction.t<.10?0x815c27:0);}enemy.currentClip={name:clip,time:ct};rig.updateMatrixWorld(true);if(rest.R)gripEnvelope={center:bones.R_Upperarm.getWorldPosition(V()).toArray(),radius:(rest.R.upperLength+rest.R.foreLength)*selectedBoss().scale-.018};const pose=physical||enemyGoal(),base=pose.base.clone(),tip=pose.tip.clone(),bladeQ=goalQ(pose),profile=GripProfiles.single,axis=tip.clone().sub(base).normalize();if(!enemy.dead){solveArm('R',base.clone().addScaledVector(axis,profile.mainOffset),bladeQ);if(profile.offHand==='support_if_reachable'){const target=base.clone().addScaledVector(axis,profile.offOffset),shoulder=bones.L_Upperarm.getWorldPosition(V()),reach=rest.L.upperLength+rest.L.foreLength-profile.reachMargin;if(shoulder.distanceTo(target)<=reach)solveArm('L',target,bladeQ);else rigReport.L={released:true,reason:'outside_reach'};}}enemyWeapon.position.copy(rig.worldToLocal(base.clone()));if(enemy.type==='grab'&&attack&&!enemy.dead){const target=bones.L_Upperarm.getWorldPosition(V()).add(V(0,-.10,enemy.phase==='prepare'?.15:.36).applyAxisAngle(up,enemy.yaw));solveArm('L',target,null);}enemyWeapon.scale.setScalar(1/selectedBoss().scale);enemyWeapon.quaternion.copy(rig.getWorldQuaternion(Q()).invert().multiply(bladeQ));enemyWeapon.visible=!enemy.dead;rig.updateMatrixWorld(true);lineSet(debugLines.enemy,base,tip);debugLines.enemy.visible=P.debug&&!enemy.dead;debugBody.position.copy(worldLocal(V(0,1.02,0)));debugHead.position.copy(enemy.pos).add(V(0,1.60,0));debugBody.visible=debugHead.visible=P.debug&&!enemy.dead;return {base,tip};}
+function nextEnemy(pos,level=round){const bossId=mode==='boss'?$('bossChoice').value:['duelist','lancer','juggernaut'][level]||'duelist',bp=bossDef(bossId);enemyPrecision=Battle.createPrecision(bp.precision,2.2);enemyPrecision.reset(realTime);bladeBodies.enemy=null;lastEnemyTarget=null;contactCache.clear();enemy={bossId,pos:pos.clone(),yaw:lookAngle(pos,playerPos),hp:bp.hp,maxHp:bp.hp,posture:bp.precision,maxPosture:bp.precision,phrase:[],phraseIndex:0,phase:'idle',elapsed:0,type:'overhead',sequence:0,attackId:serial+1,resolved:false,dead:false,hold:0,hurt:.25,open:.92,pressure:0,guardUntil:0,frozenClip:null,currentClip:null,thinkAt:0,seen:null,seenAttack:0,tactic:'侧步试探',stepSign:1,stepUntil:0,rate:1,prepareDelay:0,chainGap:.24,feint:false,feinted:false,feintAt:time+2,guardFamily:'horizontal'};enemy.stepDistance=0;enemy.walkClock=0;enemy.reaction=null;aiSamples=[];releasePose=null;actorMove=0;}
 // AI reacts only to delayed visible pose/action samples, not queued input or future intent.
 const AI=Object.freeze({reaction:.16,think:.12,chase:1.65,retreat:1.0,side:.95,guardTime:.42,feintCooldown:4.0,seed:7419});let aiSeed=AI.seed,aiSamples=[];
 function aiRandom(){aiSeed=(1664525*aiSeed+1013904223)>>>0;return aiSeed/4294967296;}
-function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-4.3,mode==='trial'?2.5:4.3);next.z=clamp(next.z,-40,16.5);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
+function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-26.5,mode==='trial'?2.5:26.5);next.z=clamp(next.z,-46,19);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
 function aiObserve(){aiSamples.push({t:time,guard:guarding(),side:mouse.x,high:mouse.y<-.44,attack:moveAction?.id||0,family:moveAction?actionFamily(moveAction.type):null,recover:moveAction?actionStage()==='recover':false,pos:playerPos.clone()});while(aiSamples.length>1&&aiSamples[1].t<=time-AI.reaction)aiSamples.shift();return aiSamples[0]?.t<=time-AI.reaction?aiSamples[0]:null;}
 function aiThink(seen,dist){if(!seen||time<enemy.thinkAt)return;enemy.thinkAt=time+AI.think;enemy.seen=seen;
  if(seen.attack&&seen.attack!==enemy.seenAttack&&enemy.phase==='idle'){enemy.seenAttack=seen.attack;if(aiRandom()<(round===0?.38:.62)){enemy.guardFamily=seen.family;enemy.guardUntil=time+AI.guardTime;enemy.tactic='护刀反击';stats.aiGuards=(stats.aiGuards||0)+1;}}
@@ -892,6 +983,7 @@ function update(dt){realTime+=dt;
  /* 出招期间只做很轻的朝向修正，最多1.25rad/s，且只在偏角小于77度时生效 */
  if(KBD.swing&&isCombat()&&enemy&&!enemy.dead){const wantAim=lookAngle(playerPos,enemy.pos)+Math.PI,aimD=angleDiff(wantAim,yaw);if(Math.abs(aimD)<1.35)yaw+=clamp(aimD,-dt*1.25,dt*1.25);}const rawCue=isCombat()&&enemy&&!enemy.dead?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,true):{kind:'none'};timeScale=reactionClock.sample(enemy?.attackId||0,rawCue.kind,realTime,P.slow);timeScale=Math.min(timeScale,cineScale());time+=dt;movePlayer(dt);
  /* 出刀和闪身原来是单帧瞬移0.22/0.66米，画面会跳一下；改成一口气跑完的短冲刺 */
+ mobStep(dt);
  if(KBD.lunge){const st=Math.min(KBD.lunge.remain,KBD.lunge.speed*dt);playerPos.addScaledVector(KBD.lunge.dir,st);KBD.lunge.remain-=st;
   playerPos.x=clamp(playerPos.x,-20.2,20.2);playerPos.z=clamp(playerPos.z,-41.5,17.5);
   if(KBD.lunge.remain<=1e-4)KBD.lunge=null;}if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();dojoTick(dt);kbdTick(dt);renderPlayer(currentP);freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:moveAction?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
@@ -1144,7 +1236,7 @@ try{
       hist:hist.map(function(v){return +(v/n*100).toFixed(1);})
     };
   };
-  window.__artReady=1;try{ensureBody();}catch(e){}
+  window.__artReady=1;try{ensureBody();spawnMobs();}catch(e){}
 }catch(e){window.__artErr=(e&&e.message)||String(e);}
 })();
 
