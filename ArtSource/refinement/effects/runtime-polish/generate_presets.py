@@ -10,9 +10,6 @@ SOURCE = ROOT / 'ArtSource/refinement/effects/contact-polish'
 JOBS = [
     ('SOFT', HERE / 'soft/motion.json', 'soft_contact_polish.glb'),
     ('METAL', SOURCE / 'metal/motion.json', 'metal_contact_polish.glb'),
-    ('WET_CLOTH', SOURCE / 'wet/motion.json', 'wet_cloth_contact.glb'),
-    ('DODGE_GROUND', SOURCE / 'ground/visibility-v2/dodge_motion.json', 'dodge_ground_polish.glb'),
-    ('LANDING_GROUND', SOURCE / 'ground/visibility-v2/landing_motion.json', 'landing_ground_polish.glb'),
 ]
 
 def number(x):
@@ -50,7 +47,6 @@ def main():
                       keys(normal) + ', ' + keys(parry) + ', directional = ' + str(c['node'] == 'scar').lower() + '),']
         lines += ['    )),']
         glb = path.parent / asset
-        # Wet and ground motions use their local asset names unchanged.
         manifest.append({'family': family, 'motion': str(path.relative_to(ROOT)),
                          'motion_sha256': hashlib.sha256(raw).hexdigest(), 'candidate': str(glb.relative_to(ROOT)),
                          'asset_sha256': hashlib.sha256(glb.read_bytes()).hexdigest(),

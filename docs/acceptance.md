@@ -4,15 +4,15 @@
 
 ## 当前可交付节点
 
-| 节点 | 产物 | 实际边界 |
-| --- | --- | --- |
-| 已公开原生包 | [native-input-feedback-2026-11-12](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-input-feedback-2026-11-12)，源码 `0ed05ce761bd6f53ef54b1aeef7cf62b9e124b26`，APK `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b` | 328项测试通过；真实 SDK 挥刀、命中、敌血100→12、玩家 BLOCK 与终局重开已有证据。不是完整三轮与真机验收。 |
-| main整合点 | [PR #11](https://github.com/BrickerP/pico-wuxia-arena/pull/11)，`93f3ded393d4c417f6fb883447cc1e6fe4602199` | 合入原生输入与已审核资产；网页扩世界原型不计原生交付。 |
-| 最新已公开双手/HIT包 | [APK身份](../artifacts/native-hands-hit-2026-11-13/init-fix-identity.json)，APK `a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b` | managed assembleDebug成功、已安装启动。修复了disabled skeleton创建动画导致场景中止；[准备态实图](../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)已显示手部、场景、敌人。[实际交战图](../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)敌血12/100、玩家80/100。已公开为[native-hands-hit-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13)。 |
+本轮原生UI/命中组合APK：`ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`，242,709,621字节，当前本地待新发布。构建与336项单测通过，源在构建/测试/录制期间一致；运行包已无EnemyHitFlash。UI样式0error/0warning，保Full Stage、既有面板尺寸/位置、输入与规则。
 
-当前包的真实输入记录为 [real-input.log](../artifacts/native-hands-hit-2026-11-13/real-input.log) 与 [桌面操作收据](../artifacts/native-hands-hit-2026-11-13/real-input-ui.json)：实际鼠标 Start accepted → COUNTDOWN → SDK手柄轨迹 → SOFT_HIT / GUARDED_HIT / PLAYER_HIT，受击播放 `hit_body`。没有状态注入或按键宏代替共享判定。
+[52秒原生连续片](../ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)来自一次65秒PICO Emulator窗口原始录制，未插帧或改速，完整解码通过；[交战状态](../ArtSource/refinement/presentation/native-ui-impact-contact-2026-11-13.png)、[胜利](../ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[版本/验收边界](../ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json)已固定。
 
-本机环境的 managed Run `run-2e7eba15-3d6a-4b59-aeff-87f152533fd8` 构建步骤通过，整体delivery因自定义验收没有自动证据而BLOCKED；不能宣称整个workflow通过。源码/构建、实际画面与整体品质分开记录。
+当前同包已证明：失败结算→实际UI重新挑战→Start accepted→三轮base/indigo/veteran依次换入→胜利967分、余40HP。日志中的Contact.round表示generation；本次重开后三轮generation=3/4/5，角色加载日志round=1/2/3。SOFT/HARD/GUARDED/PLAYER_HIT与三次fall已消费/播放。原始日志与物理鼠标收据在`artifacts/native-ui-impact-2026-11-13/`，没有注入游戏状态。
+
+通用workflow的源码扫描、Gradle发现、构建、安装启动已通过；旧项目缺其要求的domain/model与ViewModel导致架构阶段失败。当前继续使用既有core/combat与ArenaSession状态拥有者，不伪造clean receipt或为小范围呈现改动重构游戏。样式与完整测试独立完成。PICO renderer性能/Space Pro刷新率不能从主机录制fps推导。
+
+前一公开节点 [native-hands-hit-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13)仍为APK a8907a84、源码27bd559，不能混用本轮新流程证据。更早9e的真实玩家BLOCK仍只属其原节点。
 
 ## 已证实与待验
 
@@ -20,9 +20,10 @@
 - [x] 同一 SDK 头手来源进入共享判定；实际鼠标开局、挥刀、扣血与既有软/金属反馈有同时间窗证据。
 - [x] 已公开9e包真实玩家 BLOCK、异向受伤、失败后重开并再次开局。
 - [x] 普通 HIT 从正式GLB导出真实受击采样；渲染与接触查询共享 clip/source clock，保留接触短停与过渡。新typed数据与三份正式profile完全一致。
-- [x] 341项单元测试在双手/HIT组合源码上通过；初始化顺序修复后的运行已重新构建并进入实际交战，最终复验收据见 [fixed-test-counts.json](../artifacts/native-hands-hit-2026-11-13/fixed-test-counts.json)。
+- [x] 当前组合336项单元测试通过，0失败/错误/跳过；旧白闪/死入口测试随其机制删除，局部灯happy/boundary已覆盖。
 - [ ] 玩家弹反、HMD动作闪避、技能与处决的真实设备输入到反馈闭环。
-- [ ] 三轮角色切换、清场补给、胜利、超时、暂停恢复与追踪中断的完整实际流程。
+- [x] 当前包真实三轮角色切换、清场补给、胜利、生命归零与失败后重开。
+- [ ] 超时、暂停恢复、追踪中断与原生UI重开确认的实际流程。
 - [ ] 原生左右手完整握柄贴合、换手、隐藏恢复、前臂切口与退出重建；当前右手有一指过直且肤色偏亮，未作视觉通过。
 - [ ] 原生短时交叉淡入中的模型与判定精度；数据同源不等于每个blend瞬间已测量。
 - [ ] 真正接触时的短停、粒子、轨迹、数字、声音与触觉同步；38ms效果不能用稀疏录制认定通过。
@@ -40,7 +41,7 @@
 | right_hand | `5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d` |
 | left_hand | `cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541` |
 
-三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。此次HIT数据发布没有改变运行GLB。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地资源亦没有完整真实事件入口，不能按文件存在认定可用。
+三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。此次HIT数据发布没有改变运行GLB。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地无真实witness，当前已移除无caller入口与无用预载；源资产保留，不按文件存在认定可用。
 
 下一批仅围绕同一战斗画面交付：
 

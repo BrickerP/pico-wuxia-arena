@@ -63,7 +63,8 @@ class ContactParticleMotionTest {
     }
 
     @Test fun allReviewedPresetsHaveIndependentNodesAndBoundedLifetimes() {
-        assertEquals(5, CONTACT_EFFECT_DEFINITIONS.size)
+        assertEquals(2, CONTACT_EFFECT_DEFINITIONS.size)
+        assertEquals(setOf(ContactEffectFamily.SOFT, ContactEffectFamily.METAL), CONTACT_EFFECT_DEFINITIONS.map { it.family }.toSet())
         for (effect in CONTACT_EFFECT_DEFINITIONS) {
             val names = effect.particles.map { it.node } + effect.cores.map { it.node }
             assertEquals(names.size, names.toSet().size)

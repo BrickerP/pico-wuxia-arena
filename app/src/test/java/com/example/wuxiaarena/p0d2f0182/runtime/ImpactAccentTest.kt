@@ -11,7 +11,7 @@ import org.junit.Test
 
 class ImpactAccentTest {
     @Test
-    fun headAndFatalResultsChangeAudioHapticsLightAndVisualScale() {
+    fun headAndFatalResultsChangeAudioHapticsAndVisualScale() {
         val ordinary = CombatFeedbackProfile.accent(impact())
         val head = CombatFeedbackProfile.accent(impact().copy(zone = HitZone.HEAD))
         val fatal = CombatFeedbackProfile.accent(impact().copy(zone = HitZone.HEAD, fatal = true))
@@ -19,12 +19,10 @@ class ImpactAccentTest {
         assertTrue(head.soundRate > ordinary.soundRate)
         assertTrue(head.hapticLevel > ordinary.hapticLevel)
         assertTrue(head.hapticDurationMillis > ordinary.hapticDurationMillis)
-        assertTrue(head.lightDurationNanos > ordinary.lightDurationNanos)
         assertTrue(head.visualScale > ordinary.visualScale)
         assertTrue(fatal.soundRate < ordinary.soundRate)
         assertTrue(fatal.hapticLevel > head.hapticLevel)
         assertTrue(fatal.hapticDurationMillis > head.hapticDurationMillis)
-        assertTrue(fatal.lightDurationNanos > head.lightDurationNanos)
         assertTrue(fatal.visualScale > head.visualScale)
     }
 

@@ -74,7 +74,7 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
                     visible = visible || frame.opacity > 0.005f
                 }
             }
-            // Ground opacity starts at zero; keep its slot alive until its actual lifetime.
+            // Keep each slot alive until its actual lifetime, including initially invisible frames.
             val end = if (softBodyCut) softDuration
                 else maxOf(definition.particles.maxOfOrNull { it.lifetime } ?: 0.0,
                     definition.cores.maxOfOrNull { (if (parry) it.parry else it.normal).last().seconds } ?: 0.0)
@@ -113,13 +113,10 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
             !size.isFinite() || size <= 0f) return false
         val n = normal.normalizedOrNull() ?: return false
         val basis = ContactBasis.from(n, tangent)
-        // Wet and ground effects have no symmetric core and must have a real tangent.
-        if (basis == null && family != ContactEffectFamily.SOFT && family != ContactEffectFamily.METAL) return false
         val slot = slots.filter { it.definition.family == family && !it.failed && it.anchor.valid && it !in reserved }
             .minWithOrNull(compareBy<Slot> { it.start != null }.thenBy { it.start ?: Long.MIN_VALUE }) ?: return false
         reserved.add(slot)
-        val offset = if (family == ContactEffectFamily.DODGE_GROUND || family == ContactEffectFamily.LANDING_GROUND) 0.002 else 0.008
-        val position = (point + n * offset).spatial()
+        val position = (point + n * 0.008).spatial()
         if (!position.x.isFinite() || !position.y.isFinite() || !position.z.isFinite()) return false
         val orientation = basis?.rotation() ?: normalFacingRotation(n) ?: return false
         return safely(slot) {
@@ -163,8 +160,7 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
             val owned = mutableListOf<Slot>()
             try {
                 for (definition in CONTACT_EFFECT_DEFINITIONS) {
-                    val count = if (definition.family == ContactEffectFamily.SOFT || definition.family == ContactEffectFamily.METAL) 3 else 1
-                    repeat(count) { owned.add(loadSlot(root, definition)) }
+                    repeat(3) { owned.add(loadSlot(root, definition)) }
                 }
                 return ContactParticleEmitter(root, owned)
             } catch (error: Exception) {

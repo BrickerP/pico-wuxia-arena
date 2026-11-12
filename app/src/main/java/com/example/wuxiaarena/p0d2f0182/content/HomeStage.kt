@@ -33,10 +33,8 @@ import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.core.combat.CombatImpact
-import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import java.util.concurrent.CancellationException
@@ -81,14 +79,11 @@ private class SceneOwner(
 
     private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
         var animator: EnemyAnimator? = null
-        var flash: EnemyHitFlash? = null
         var ready = false
 
         fun close() {
             ready = false
             // Keep each failed owner for an explicit retry instead of loading over it.
-            flash?.close()
-            flash = null
             animator?.close()
             animator = null
             if (entity.valid) check(entity.destroy()) { "Could not destroy the previous opponent" }
@@ -118,7 +113,7 @@ private class SceneOwner(
     var statusWorldRotation: Quat = Quat.identity()
     var statusPanelY = 2.15f
     private var impactRound = -1L
-    private var lastImpact = Long.MIN_VALUE
+    private val seenImpactLights = mutableSetOf<Long>()
     private var pulseUntil = 0L
 
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
@@ -150,7 +145,6 @@ private class SceneOwner(
             }
         }
         loaded.animator?.present(state, events)
-        loaded.flash?.present(state, events)
     }
 
     private fun requestOpponent(state: ArenaViewState, parent: Entity) {
@@ -200,7 +194,6 @@ private class SceneOwner(
                     transform.setQuaternion(parent.convertRotationFrom(Quat.identity(), null))
                     bindGroundShadow(entity, casts = true, receives = false, label = definition.name)
                     loaded.animator = EnemyAnimator(entity)
-                    loaded.flash = EnemyHitFlash(entity)
                     val origin = entity.convertPositionTo(Vector3(0f, 0f, 0f), null)
                     val bounds = entity.getVisualBounds(entity)
                     val reachX = abs(bounds.center.x) + bounds.size.x / 2f
@@ -288,30 +281,31 @@ private class SceneOwner(
     }
 
     private fun presentImpactLight(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+        if (state.roundGeneration < impactRound) return
         val parent = root ?: return
         val light = contactLight?.takeIf { it.valid } ?: return
         val now = System.nanoTime()
         if (impactRound != state.roundGeneration) {
             impactRound = state.roundGeneration
-            lastImpact = Long.MIN_VALUE
+            seenImpactLights.clear()
             pulseUntil = 0L
         }
-        val fresh = events.filterIsInstance<CombatImpact>().filter { it.id > lastImpact }
-        if (fresh.isNotEmpty()) lastImpact = fresh.maxOf { it.id }
-        val impact = currentContactImpacts(fresh, state.simulationNanos).firstOrNull()
+        val fresh = events.filterIsInstance<CombatImpact>().filter { seenImpactLights.add(it.id) }
+        val impact = currentContactImpacts(fresh, state.simulationNanos).firstOrNull {
+            remainingNativeImpactLightNanos(it, state.simulationNanos) > 0L
+        }
         if (impact != null) {
-            val accent = CombatFeedbackProfile.accent(impact)
-            val strength = accent.strength.toFloat()
+            val cue = checkNotNull(nativeImpactLight(impact))
+            val remaining = remainingNativeImpactLightNanos(impact, state.simulationNanos)
             val direction = impact.normal.normalizedOrNull() ?: TrackingVector3(0.0, 0.0, 1.0)
             val point = impact.point + direction * 0.035
             val position = Vector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat())
             if (position.x.isFinite() && position.y.isFinite() && position.z.isFinite()) {
-                val hard = impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
-                    impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY
-                val color = if (hard) Color4(1f, 0.82f, 0.46f, 1f) else Color4(1f, 0.91f, 0.78f, 1f)
-                light.components.set(PointLightComponent(color, 110f + 180f * strength, 0.60f))
+                light.components.set(PointLightComponent(
+                    Color4(cue.red, cue.green, cue.blue, 1f), cue.intensity, cue.attenuationRadius,
+                ))
                 checkNotNull(light.components[TransformComponent::class.java]).setPosition(parent.convertPositionFrom(position, null))
-                pulseUntil = now + accent.lightDurationNanos
+                pulseUntil = now + remaining
             }
         }
         val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT

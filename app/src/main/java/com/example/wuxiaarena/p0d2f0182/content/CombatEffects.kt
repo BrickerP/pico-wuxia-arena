@@ -60,8 +60,6 @@ internal class CombatEffects private constructor(
     private var closed = false
     private var round = Long.MIN_VALUE
     private val seenImpacts = mutableSetOf<Long>()
-    private val surfaceEvents = ResolvedSurfaceEventGate()
-    private var surfaceContactsAllowed = false
 
     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         if (closed || !root.valid || state.roundGeneration < round) return
@@ -69,7 +67,6 @@ internal class CombatEffects private constructor(
         if (state.roundGeneration != round) {
             clear()
             seenImpacts.clear()
-            surfaceEvents.reset(state.roundGeneration)
             round = state.roundGeneration
         }
         // Consume while paused as well, so a resumed frame cannot replay a queued core.
@@ -79,7 +76,6 @@ internal class CombatEffects private constructor(
             clear()
             return
         }
-        surfaceContactsAllowed = true
         particles.update(now)
         forceSlots.forEach { slot -> safely(slot) { slot.update(now) } }
         val reservedForce = mutableSetOf<ForceSlot>()
@@ -108,16 +104,6 @@ internal class CombatEffects private constructor(
         }
     }
 
-    /** Explicit material/ground witnesses only. SOFT or DEAD timers never imply these events. */
-    fun presentResolvedSurface(
-        eventId: Long, roundGeneration: Long, family: ContactEffectFamily, point: Vector3, normal: Vector3, tangent: Vector3,
-        atNanos: Long, simulationNanos: Long,
-    ): Boolean {
-        if (closed || family == ContactEffectFamily.SOFT || family == ContactEffectFamily.METAL) return false
-        if (!surfaceEvents.consume(eventId, roundGeneration, family, atNanos, simulationNanos, surfaceContactsAllowed)) return false
-        return particles.emit(family, point, normal, tangent, System.nanoTime(), simulationNanos - atNanos)
-    }
-
     private fun emitForce(slot: ForceSlot, impact: CombatImpact, scale: Float, now: Long, age: Long) {
         val normal = impact.normal.normalizedOrNull() ?: return
         val basis = ContactBasis.from(normal, impact.tangent)
@@ -138,7 +124,6 @@ internal class CombatEffects private constructor(
     }
 
     private fun clear() {
-        surfaceContactsAllowed = false
         particles.clear()
         forceSlots.forEach { slot -> safely(slot) { slot.hide() } }
     }

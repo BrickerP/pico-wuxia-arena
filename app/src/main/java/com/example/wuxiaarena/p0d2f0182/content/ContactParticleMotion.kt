@@ -101,7 +101,7 @@ private fun rotationFromAxes(x: Vector3, y: Vector3, z: Vector3): Quaternion {
     return checkNotNull(q.normalizedOrNull())
 }
 
-internal enum class ContactEffectFamily { SOFT, METAL, WET_CLOTH, DODGE_GROUND, LANDING_GROUND }
+internal enum class ContactEffectFamily { SOFT, METAL }
 
 internal data class ContactCoreDefinition(
     val node: String, val position: Vector3, val normal: List<OpacityKey>, val parry: List<OpacityKey>,

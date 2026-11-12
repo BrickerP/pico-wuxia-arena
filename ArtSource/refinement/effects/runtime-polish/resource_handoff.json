@@ -20,38 +20,8 @@
       "publish_to": "app/src/main/assets/models/effects/contact-polish/metal_contact_polish.glb",
       "particle_count": 12,
       "core_count": 1
-    },
-    {
-      "family": "WET_CLOTH",
-      "motion": "ArtSource/refinement/effects/contact-polish/wet/motion.json",
-      "motion_sha256": "bfecf2f77443ac401b7d930d03e03586cc37e33d4d9e306d41e6d260de95ae71",
-      "candidate": "ArtSource/refinement/effects/contact-polish/wet/wet_cloth_contact.glb",
-      "asset_sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
-      "publish_to": "app/src/main/assets/models/effects/contact-polish/wet_cloth_contact.glb",
-      "particle_count": 10,
-      "core_count": 0
-    },
-    {
-      "family": "DODGE_GROUND",
-      "motion": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/dodge_motion.json",
-      "motion_sha256": "9a946043beb74595e9df114c286be0da34db882c510d5a5ed38af9b62277d911",
-      "candidate": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/dodge_ground_polish.glb",
-      "asset_sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
-      "publish_to": "app/src/main/assets/models/effects/contact-polish/dodge_ground_polish.glb",
-      "particle_count": 8,
-      "core_count": 0
-    },
-    {
-      "family": "LANDING_GROUND",
-      "motion": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/landing_motion.json",
-      "motion_sha256": "c6419cee00497fe76e86f8008e5db40973d3cf64f332c7724904f414b35c81ea",
-      "candidate": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/landing_ground_polish.glb",
-      "asset_sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b",
-      "publish_to": "app/src/main/assets/models/effects/contact-polish/landing_ground_polish.glb",
-      "particle_count": 8,
-      "core_count": 0
     }
   ],
   "kotlin": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
-  "kotlin_sha256": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb"
+  "kotlin_sha256": "5205fcd942976a3f0a88d6e58246d088347ebcc538e2726332d4d006ee237796"
 }

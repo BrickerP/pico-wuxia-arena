@@ -1,0 +1,116 @@
+{
+  "schema": "native-ui-impact-evidence/v1",
+  "quality_complete": false,
+  "apk": {
+    "file": "pico-wuxia-arena-native-ui-impact.apk",
+    "sha256": "ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c",
+    "bytes": 242709621
+  },
+  "source_parent": "3161daf412211c1f7ebe68ae1d70b11d6352050f",
+  "tests": {
+    "tests": 336,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "ui_style": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "generic_workflow": {
+    "status": "not_clean",
+    "build": "PASS",
+    "runtime_install_launch": "PASS",
+    "fidelity": "NOT_APPLICABLE; bounded existing-panel patch",
+    "architecture_errors": [
+      "Existing namespace has no domain/model folder",
+      "Existing game uses ArenaSession rather than ui/*ViewModel.kt"
+    ],
+    "notes": "No state-architecture rewrite in this presentation patch; whole workflow is not claimed to pass."
+  },
+  "changes": [
+    "Native HUD has transparent fighting regions; controls and combat hints preserved",
+    "Removed full-actor Unlit hit flash and old unused duration tuning",
+    "Local event-dependent point light preserves actor PBR; tracked HMD/hands remain realtime",
+    "Removed no-caller surface effect route and 3 unused preloaded instances; SOFT/METAL use6slots"
+  ],
+  "observed": [
+    "Actual UI Start accepted to countdown and SDK_NATIVE physical controller input",
+    "First attempt cleared two rounds and loaded all3 characters, then reached defeat after input ended",
+    "Actual terminal retry loaded base generation3 and accepted Start",
+    "Retry cleared base/indigo/veteran with generations3/4/5 and reached VICTORY",
+    "Terminal UI reads3/3 cleared, score967, playerHP40; veteran0/150",
+    "Actual SOFT_HIT/HARD_HIT/GUARDED_HIT/PLAYER_HIT and all3 fall clips in the same input window"
+  ],
+  "capture": {
+    "method": "Native macOS window recording of PICO Emulator window19723",
+    "raw": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "width": 1882,
+          "height": 1938,
+          "avg_frame_rate": "739400/12999",
+          "nb_frames": "3697"
+        }
+      ],
+      "format": {
+        "duration": "64.981667",
+        "size": "174478753"
+      }
+    },
+    "export": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1882,
+          "height": 1938,
+          "avg_frame_rate": "59060/1041",
+          "nb_frames": "2953"
+        }
+      ],
+      "format": {
+        "duration": "52.008333",
+        "size": "10152096"
+      }
+    },
+    "processing": "First52seconds of one continuous65second native recording; H264 re-encode only; no interpolated frames, speed changes or synthetic events",
+    "fps_limit": "Host recording rate is not PICO renderer performance or Space Pro refresh-rate evidence",
+    "audio": "Not recorded",
+    "still_frame_note": "Fighting still at first recording11.2s shows enemy50/100 andplayer80/100; not claimed as an exact impact timestamp"
+  },
+  "evidence": [
+    {
+      "file": "native-ui-impact-victory-2026-11-13.png",
+      "sha256": "c1261d613d5e2211ab7146c405dd246efc9d991b4c15e851902d40cc9e9f8578",
+      "bytes": 3107595
+    },
+    {
+      "file": "native-ui-impact-contact-2026-11-13.png",
+      "sha256": "17d948159a98f62bb096acb61d19c552a6289b0511af5b5e0e5f00566e3cb4dc",
+      "bytes": 1671851
+    },
+    {
+      "file": "native-ui-impact-three-rounds-2026-11-13.mp4",
+      "sha256": "f16c7da6ce67e9207698b5a45922e04baebf559a3c60b795d865a50aa101fac6",
+      "bytes": 10152096
+    }
+  ],
+  "remaining": [
+    "Natural gripping finger/contact and left-hand view/switching",
+    "Near-field skin/steel contrast and improved garment/hair geometry",
+    "DEFEAT foreground opponent can visually cover part of world control panel; retry was actually operable",
+    "Player parry/HMD dodge/skill/execution and pause/resume device evidence",
+    "Space Pro performance/thermal/comfort/audio/haptics",
+    "Native integration of facade64da, fine-overheadv9, nearfield lighting patch",
+    "Player blade trail can appear as a wide flat gray polygon; refinement delegated, not fixed in this APK"
+  ],
+  "local_receipts": {
+    "input_log": "artifacts/native-ui-impact-2026-11-13/three-round-input.log",
+    "physical_ui_actions": "artifacts/native-ui-impact-2026-11-13/three-round-ui.json",
+    "build_identity": "artifacts/native-ui-impact-2026-11-13/build-identity.json"
+  }
+}

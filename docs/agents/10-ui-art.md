@@ -1,16 +1,14 @@
 # 10 · 中式UI美术与空间信息设计
 
-## 当前状态
+## 当前状态与Root审核
 
-2026-11-13当前只交原生源码候选：next-polish/ui-polish.patch已完成，目标仅现有APK的ArenaHud，正式app未改。Kotlin/Compose隔离编译通过、样式0错误/0警告，Root负责合入/构建/PICO Emulator与Space Pro验收。按用户最新纠偏停止HTML/Web/Three.js、浏览器主试玩、新HTML mock和不能接入的研究/重复渲染；既有HTML仅保留历史，不维护、不作为验收。没有新增原生任务时收口停止。
+`next-polish/ui-polish.patch`已由Root精确应用到ArenaHud，当前源SHA`097e46fc…`。APK`ca26f4a9…`已构建并在PICO Emulator实际完成失败→重开→三轮→胜利967/40HP；336项当前单测通过，UI样式0错误/0警告。正式app现已修改，旧“候选/未改app/待共享构建”都是制作时快照。Full Stage、400×160/400与500×260、原生actions/确认链、ready/quality/来源门槛保持。
 
-最新pose：Root已自行采用Position=(-0.6,1.2,-1.75)、yaw20°/Quat=(0,0.17364818,0,0.98480775)并重构建native。本路只读核对未见明确HIGH，原A/B只作未采用备选，不应再自动替换Root当前值；物理尺寸与400/160保持，等待同机位复拍确认完整性和刀路。
+Root实际审图接受战斗信息区精简的运行集成，整体视觉未通过。DEFEAT时近身NPC/刀遮部分左侧纸牌，VICTORY/DEFEAT顶栏与结算内容仍重复；Space Pro手势、hover/haptics、放大字体和暂停恢复实际操作未验。
 
-最新最小修复已实现，SOURCE FROZEN，Root可立即共享构建：Main只传`isRanchuHost = Build.HARDWARE == "ranchu"`展示提示；helper仅在DESKTOP或“来源未知且明确ranchu”时显示模拟器配置教程。ArenaViewState/ArenaSession、所有ready/quality/Unsupported与触觉/刀轨来源均未改，Start receipt和按钮gate保留。Main+UI隔离编译与33项回归已通过。源指纹在`ArtSource/refinement/ui-review/ranchu-help/handoff.json`；不等待新截图或额外UI改动。
+当前仅在`ArtSource/refinement/ui-native-preview/terminal-occlusion/`交下一原生修复。基于`artifacts/native-ui-impact-2026-11-13/current-terminal.png`与`three-round-final.png`，用最小源码patch改善终局可读与操作，不加页面/新窗口/HTML或mock，不用缩小字体/纸牌掩盖遮挡。保现有state/actions与确认链；若需改HomeStage空间关系，先核真实owner/坐标与公开SDK，交Root最小接入建议，不以未测bbox宣称安全。Root持有正式源码、构建、Emulator、Git。
 
-原生输入UI源码已冻结（来源fd58c04）：`ArenaControlPanel(state, controlsAvailable, controlPending, onStart, onPause, onResume, onRestart)`已移除`onDesktopAction`；`arenaControlPanelHeightDp(result, pauseReason)`已改两参数，compact统一160，其余400。UI候选编译与27项定向回归通过。Main高度调用的第三个desktop实参由Root删除，本路未编辑Main。UI只按`state.inputOrigin == DESKTOP`选择模拟器教学；最终ArenaHud SHA为`8899445473ce1f2cb73dc262e64b85418e36a04528333f1e017dbb64429464ca`。
-
-终局连击修复继续保留：VICTORY/DEFEAT隐藏徽记，保留计分、最佳与历史combo。旧公开身份与历史宿主图不重写；本轮未运行共享Gradle或部署，新接口的隔离图更新后置，不阻塞Root接线和构建。
+当前控制牌仍Position=(-0.6,1.2,-1.75)、yaw20°，不擅自套旧A/B值。只推进已授权原生任务，不能接入的研究/重复渲染停止。
 
 ## 目标
 

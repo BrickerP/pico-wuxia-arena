@@ -8,9 +8,17 @@
 
 02 后续只执行 Root 已授权、能进入现有原生 APK 的源码补丁、GLB／贴图／动作／原生 UI 资源，并给出明确接入点。不能接入的研究、报告和重复渲染停止。Root 统一构建、模拟器／设备、Git 提交与发布，其他责任方的代码和资产保持各自所有权。
 
-当前原生手／刀已显示、握柄视觉待 review 的结论保留。本路尚无新获派的原生实现任务；**本次合同更新结束，即停止执行**，不新增模型、研究、报告、渲染或试玩。下文浏览器交付仅为已有证据，其 APPROVE 不代表原生 APK 通过。
+当前新增获派事项为下节原生右手闭握修复，仅在其明确所有权和接入点内推进；不恢复旧网页队列。下文浏览器交付仅为已有证据，其 APPROVE 不代表原生 APK 通过。
 
-## 当前接力：原生已显示，握柄视觉待 review（2026-11-13）
+## 当前制作：原生默认右手握柄修复（2026-11-13）
+
+Root 已将原生 UI／命中反馈与三角色换入 APK `ca26f4a9…`，本轮直接修 source 闭握，不再停在时间读数／SDK 探针。输入为已发布 `right_hand.glb` SHA `5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d` 和正式 dao SHA `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0`；实际待修观感见 Root 的 `artifacts/native-ui-impact-2026-11-13/combat-final.png`、`current-terminal.png`。
+
+唯一制作所有权是 `ArtSource/refinement/weapon/native-first-person/grip-refinement/` 与本交接。只调 R 的 15 指闭握骨姿，重点为长指末两节和拇指压柄；默认 Rclosed 与 `grip@1` 一致，`grip@0` 原样。腕／握点／刀 Base／Tip、骨长／IBM、几何／UV／材质及三张 1536² KTX 字节均保持，不整体旋转手刀，不改左手、SDK 或识别。Root 统一正式资产、构建、Emulator、Git；他人修改保留。
+
+本轮在 45 分钟内交一个可接现有 PlayerHands 的同契约完整 GLB、骨姿 delta 和 0.3 m 正／反／斜视各一张实际 KTX＋正式刀图，核指腹接触、悬空／穿柄及腕口。最多一个 Blender 进程、两线程；无可见收益就如实停止，不做参数大扫描或重复渲染。当前制作中，完成后明确阶段结束并等待对应 review。
+
+## 上轮只读复核：原生已显示，握柄视觉待 review（2026-11-13）
 
 **原生 Full Stage 已显示手／刀；握柄视觉仍待 Root review，尚不能判为实际 closed@1 合格。** 本次仅查看 Root 的[修复后窗口图](/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/native-hands-hit-2026-11-13/fixed-ready-window.png)，对照候选[默认握刀近景](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_0.3m.png)及[反面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/previews_ktx/hands_dao_equipped_default_1.0m_reverse.png)。窗口标题为 PICO Emulator 6.1.0，因此这是原生模拟器呈现证据，不是头显实测。所审窗口图 SHA 为 `31d138493e8773e7dc4a101841416a6e29cd451c56c7be264f47fc230ff448c8`。
 

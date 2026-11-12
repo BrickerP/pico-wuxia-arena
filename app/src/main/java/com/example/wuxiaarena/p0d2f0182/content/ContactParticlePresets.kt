@@ -38,39 +38,4 @@ internal val CONTACT_EFFECT_DEFINITIONS = listOf(
     ), listOf(
         ContactCoreDefinition("core_star", Vector3(0.0, 0.0, 0.001), listOf(OpacityKey(0.0, 1.0f), OpacityKey(0.012, 0.88f), OpacityKey(0.065, 0.0f)), listOf(OpacityKey(0.0, 1.0f), OpacityKey(0.018, 0.94f), OpacityKey(0.09, 0.0f)), directional = false),
     )),
-    ContactEffectDefinition(ContactEffectFamily.WET_CLOTH, "wet_cloth_contact.glb", listOf(
-        ContactParticleDefinition("drop_00", Vector3(-0.0035, 0.0007, 0.001), Vector3(0.32, 0.15, 0.19), 0.18, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0612, 0.7176f), OpacityKey(0.18, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_01", Vector3(-0.0025, -0.0007, 0.0015), Vector3(0.72, 0.2, 0.28), 0.24, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0816, 0.7176f), OpacityKey(0.24, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_02", Vector3(-0.0015, 0.0007, 0.002), Vector3(0.46, -0.08, 0.16), 0.22, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0748, 0.7176f), OpacityKey(0.22, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_03", Vector3(-0.0005, -0.0007, 0.001), Vector3(0.9, 0.12, 0.33), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.102, 0.7176f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_04", Vector3(0.0005, 0.0007, 0.0015), Vector3(0.56, 0.27, 0.23), 0.26, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0884, 0.7176f), OpacityKey(0.26, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_05", Vector3(0.0015, -0.0007, 0.002), Vector3(0.8, -0.12, 0.31), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.1088, 0.7176f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_06", Vector3(0.0025, 0.0007, 0.001), Vector3(0.63, 0.04, 0.25), 0.28, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0952, 0.7176f), OpacityKey(0.28, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("drop_07", Vector3(0.0035, -0.0007, 0.0015), Vector3(0.4, -0.2, 0.14), 0.21, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0714, 0.7176f), OpacityKey(0.21, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("fiber_00", Vector3(-0.001, 0.0004, 0.001), Vector3(0.45, 0.16, 0.13), 0.24, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.78f), OpacityKey(0.0816, 0.6084f), OpacityKey(0.24, 0.0f)), followsVelocity = false, grounded = false),
-        ContactParticleDefinition("fiber_01", Vector3(0.001, 0.0004, 0.001), Vector3(0.66, -0.06, 0.2), 0.29, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.78f), OpacityKey(0.0986, 0.6084f), OpacityKey(0.29, 0.0f)), followsVelocity = false, grounded = false),
-    ), listOf(
-    )),
-    ContactEffectDefinition(ContactEffectFamily.DODGE_GROUND, "dodge_ground_polish.glb", listOf(
-        ContactParticleDefinition("dust_00", Vector3(-0.04, 0.015, 0.0), Vector3(-0.04, 0.045, 0.16), 0.28, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1008, 0.595f), OpacityKey(0.28, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_01", Vector3(-0.051000000000000004, -0.025, 0.0), Vector3(-0.06, -0.065, 0.19), 0.34, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1224, 0.595f), OpacityKey(0.34, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_02", Vector3(-0.062, 0.035, 0.0), Vector3(-0.08, 0.08499999999999999, 0.22), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.108, 0.595f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_03", Vector3(-0.07300000000000001, -0.015, 0.0), Vector3(-0.1, -0.045, 0.25), 0.38, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1368, 0.595f), OpacityKey(0.38, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_04", Vector3(-0.08399999999999999, 0.025, 0.0), Vector3(-0.04, 0.065, 0.16), 0.26, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.0936, 0.595f), OpacityKey(0.26, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_05", Vector3(-0.095, -0.035, 0.0), Vector3(-0.06, -0.08499999999999999, 0.19), 0.36, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1296, 0.595f), OpacityKey(0.36, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_06", Vector3(-0.10600000000000001, 0.015, 0.0), Vector3(-0.08, 0.045, 0.22), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1152, 0.595f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_07", Vector3(-0.11699999999999999, -0.025, 0.0), Vector3(-0.1, -0.065, 0.25), 0.35, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.126, 0.595f), OpacityKey(0.35, 0.0f)), followsVelocity = false, grounded = true),
-    ), listOf(
-    )),
-    ContactEffectDefinition(ContactEffectFamily.LANDING_GROUND, "landing_ground_polish.glb", listOf(
-        ContactParticleDefinition("dust_00", Vector3(0.025, 0.0, 0.0), Vector3(0.16, 0.0, 0.22), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1152, 0.595f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_01", Vector3(0.024748737341529166, 0.024748737341529162, 0.0), Vector3(0.12727922061357855, 0.12727922061357855, 0.26), 0.38, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1368, 0.595f), OpacityKey(0.38, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_02", Vector3(2.7554552980815448e-18, 0.045, 0.0), Vector3(1.2246467991473533e-17, 0.2, 0.3), 0.34, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1224, 0.595f), OpacityKey(0.34, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_03", Vector3(-0.017677669529663688, 0.01767766952966369, 0.0), Vector3(-0.15556349186104043, 0.15556349186104046, 0.22), 0.42, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1512, 0.595f), OpacityKey(0.42, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_04", Vector3(-0.035, 4.286263797015737e-18, 0.0), Vector3(-0.16, 1.959434878635765e-17, 0.26), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.108, 0.595f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_05", Vector3(-0.031819805153394644, -0.03181980515339464, 0.0), Vector3(-0.12727922061357858, -0.12727922061357855, 0.3), 0.4, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.144, 0.595f), OpacityKey(0.4, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_06", Vector3(-4.592425496802574e-18, -0.025, 0.0), Vector3(-3.6739403974420595e-17, -0.2, 0.22), 0.36, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1296, 0.595f), OpacityKey(0.36, 0.0f)), followsVelocity = false, grounded = true),
-        ContactParticleDefinition("dust_07", Vector3(0.02474873734152916, -0.024748737341529173, 0.0), Vector3(0.15556349186104043, -0.1555634918610405, 0.26), 0.39, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1404, 0.595f), OpacityKey(0.39, 0.0f)), followsVelocity = false, grounded = true),
-    ), listOf(
-    )),
 )

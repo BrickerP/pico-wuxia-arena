@@ -1,21 +1,14 @@
 # 08 · 运行时攻击／弹反／防御／闪避特效
 
-## Root当前效果审核与续派
+## 当前Root审核与执行合同
 
-Root已实际看sequence-review的ordinary_timeline.png与parry_timeline.png。普通命中出生段像纯浅色硬片/掌前块，167ms碎屑像等大的软斑，未达到预期；弹反短星芯与方向散射有辨识度，允许进入真实接触验证，但不据离线图判原生通过。
+Root已把`native-impact-polish/01-local-native-impact.patch`和`surface-preload/02-remove-unused-surface-route.patch`接入正式app。APK`ca26f4a9…`已构建/安装，336项当前单测通过；真实PICO Emulator完成失败→重开→三轮胜利967分/余40HP。源码已无EnemyHitFlash/BodyFlashMaterial与废时长字段，SOFT/METAL保6槽，头手/输入/伤害/时钟保持。旧候选“未改app/待合入”仅为制作时快照，不再表示当前状态。
 
-下一项只精修现有普通身体斩：压薄并缩短soft core的遮挡，核心应沿真实切向读成短切口闪动，碎屑大小/速度有层次，避免等大浅色团；沿既有资产和有界池修改runtime envelope，不新增资源家族，不自动把SOFT当湿衣喷水。先交同一1.5m相机的一对时序，不重做全部图。弹反预设暂冻结，等Root真实事件取图。
+Root实际看了交战和胜利画面，整身平色替换路径已退出；细粒子效果和Space Pro触觉仍不能由代码通过推定。主机约57fps窗口录制不等于终端性能。
 
-Root已接入来自敌人实际相邻blade样本的incoming tangent，覆盖快速护刀后静止的合法PARRY，5项新增及28项相关测试通过。法线、伤害、窗口、时钟不变，尚未进入1b905上传包；08无需重复另补同功能。保留新事件INFO回执供实际输入→事件→消费配对。源码与效果像素仍分开验收。
+下一件只在`ArtSource/refinement/effects/native-blade-trail-polish/`精修现有刀轨：当前`artifacts/native-ui-impact-2026-11-13/contact-detail.png`中的宽灰硬多边形需要变为有渐隐边缘的细亮刃线/短弧。保真实Blade_Base/Tip、65ms寿命、失追踪/换代断史、当前头手与判定，不做新特效系统或相机抖动。优先现有资源和公开SDK材质，交能接入当前APK的最小patch/必需小资产和实际源轨迹检查；不靠离线画弧宣称原生改善。
 
-
-## 当前状态
-
-当前执行合同（Root最新纠偏，2026-11-13）：唯一产品为Kotlin＋PICO Spatial SDK6.1.9原生APK，PICO Emulator验证，Space Pro／OS6为终端。停止HTML/Web/Three.js游戏、浏览器试玩、网页材质／光照调试和新HTML mock；既有HTML保留，不维护或删除他人文件。浏览器只可查必要官方资料／账号，不能验收游戏。本路仅交能接现有APK的源码／原生资源和接线，不能接入的研究、报告、重复渲染停止。Root独占构建、设备、Git与发布；不另建仓库／分支／页面，不碰pico或网站。当前native-impact-polish的Kotlin私有patch已交候选并停止追加渲染；离线帧只解释既有故障，不是产品或验收替代。
-
-2026-11-13阶段4：针对原生10.296611s整人平色反馈，只在ArtSource/refinement/effects/native-impact-polish/与本交接制作私有patch／事件数值表。Root的hands＋HIT managed build锁定app，本轮未直接改app；此前可改content的权限在本轮暂停。未占共享Gradle、设备或Git。
-
-主候选退出全身Unlit替换，所有事件保持原PBR；普通SOFT BODY只留原38ms薄core／8颗粒，不新开点光；弹反／致命复用原单点光短脉冲分级。原N/T、8颗粒cleanup、HMD／手、伤害／时钟保持。候选、14项隔离测试及补丁校验已交，等待Root按源SHA审入与真实像素复核。
+唯一交付仍为Kotlin + PICO Spatial SDK6.1.9原生APK，PICO Emulator验证、Space Pro/OS6终端。禁止HTML/Web/mock，不能接入的研究/重复渲染停止。Root统一正式源码/构建/设备/Git；本路不碰app。每次最多1Blender2线程，交可见首件再等对应review。
 
 ## 目标
 

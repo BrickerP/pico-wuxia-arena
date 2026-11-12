@@ -9,7 +9,6 @@ internal data class ImpactAccent(
     val strength: Double,
     val soundRate: Float,
     val visualScale: Float,
-    val lightDurationNanos: Long,
     val hapticLevel: Int,
     val hapticFrequency: Int,
     val hapticDurationMillis: Int,
@@ -53,14 +52,8 @@ internal object CombatFeedbackProfile {
             headHit -> 1.12f
             else -> 1f
         }
-        val lightDuration = when {
-            impact.fatal -> 100_000_000L
-            impact.kind == CombatImpactKind.PARRY -> 90_000_000L
-            headHit -> 75_000_000L
-            else -> 60_000_000L
-        }
         return ImpactAccent(
-            emphasizedStrength, soundRate, visualScale, lightDuration,
+            emphasizedStrength, soundRate, visualScale,
             if (impact.fatal) 245 else (emphasizedStrength * peak).roundToInt(),
             if (headHit && !impact.fatal) frequency + 20 else frequency,
             when {
