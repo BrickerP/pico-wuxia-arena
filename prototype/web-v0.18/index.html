@@ -257,6 +257,35 @@ function paveMat(rx,ry,base){const c=document.createElement('canvas');c.width=c.
  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.repeat.set(rx,ry);tex.anisotropy=4;
  return new THREE.MeshStandardMaterial({color:base||0xbdb8a6,map:tex,roughness:.96,metalness:.02});
 }
+function stoneMat(w,h,base){
+ // 大块料石：一块约 2.1 × 1.1 m，灰浆缝细、对比低，远看是石墙而不是瓷砖
+ const c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');
+ const BW=128,BH=128;
+ g.fillStyle='#6f6c61';g.fillRect(0,0,256,256);
+ const rnd=(i)=>{const x=Math.sin(i*127.1)*43758.5453;return x-Math.floor(x);};
+ for(let r=0;r<2;r++)for(let k=-1;k<3;k++){
+  const x=k*BW+(r%2?BW/2:0),y=r*BH,seed=r*11+k*7+3;
+  const v=Math.round(6*(rnd(seed)-.5));
+  g.fillStyle='rgb('+(150+v)+','+(146+v)+','+(134+v)+')';
+  g.fillRect(x+3,y+3,BW-6,BH-6);
+  for(let s=0;s<46;s++){const px=x+6+rnd(seed+s)*(BW-12),py=y+6+rnd(seed+s*3)*(BH-12);
+   g.fillStyle='rgba('+(rnd(seed+s*7)>.5?'255,252,240,':'20,20,16,')+(.05+rnd(seed+s*5)*.05)+')';
+   g.fillRect(px,py,2+rnd(seed+s*9)*3,1+rnd(seed+s*11)*2);}
+  g.fillStyle='rgba(0,0,0,.05)';g.fillRect(x+3,y+BH-7,BW-6,4);
+ }
+ for(let i=0;i<5;i++){const x=rnd(i*13)*256,y=rnd(i*29)*256,r=30+rnd(i*7)*50;
+  const grd=g.createRadialGradient(x,y,0,x,y,r);grd.addColorStop(0,'rgba(40,44,38,.10)');grd.addColorStop(1,'rgba(40,44,38,0)');
+  g.fillStyle=grd;g.beginPath();g.arc(x,y,r,0,7);g.fill();}
+ for(let i=0;i<4;i++){const x=rnd(i*31)*256,w=8+rnd(i*17)*10;
+  const grd=g.createLinearGradient(x,0,x,256);grd.addColorStop(0,'rgba(28,30,26,.14)');grd.addColorStop(.7,'rgba(28,30,26,0)');
+  g.fillStyle=grd;g.fillRect(x,0,w,256);}
+ for(let i=0;i<6;i++){const x=rnd(i*41)*256,y=rnd(i*53)*256;
+  g.strokeStyle='rgba(20,20,16,.14)';g.lineWidth=1;g.beginPath();g.moveTo(x,y);
+  g.lineTo(x+12+rnd(i*3)*22,y+5+rnd(i*5)*12);g.stroke();}
+ const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;
+ tex.repeat.set(Math.max(1,w/4.2),Math.max(1,h/2.2));tex.anisotropy=4;
+ return new THREE.MeshStandardMaterial({color:base||0xb4ad9b,map:tex,roughness:.95,metalness:.02});
+}
 function mergeStatics(){
  // Only direct environment meshes are batched; character and interactive roots remain live.
  if(firstPersonVisuals.error)return 0;
@@ -313,7 +342,7 @@ function mergeStatics(){
  }catch(error){window.__mergeErr=error.message||String(error);throw error;}
 }
 function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
+scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.0006;sun.shadow.normalBias=.028;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
 box(10,.08,12,stone,0,-.025,2.4);
@@ -386,7 +415,8 @@ async function loadAssets(){
   assetAudit.ktx2={revision:THREE.REVISION,support:ktx2.workerConfig,transcoder:'three@0.147.0/examples/js/libs/basis/'};
 /* ===== 城堡：瓮城 · 外堡 · 内院 · 主楼，幕墙可绕行（参照天国拯救的三进院落） ===== */
 try{
- const cw=mat(0xb4ad9b),cwD=mat(0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a),cwT=mat(0x2a2320);
+ const cw=stoneMat(16,16,0xb4ad9b),cwD=stoneMat(16,16,0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a),cwT=mat(0x2a2320);
+ const roofMat=mat(0x2f3733,0,.9),winLitMat=new THREE.MeshStandardMaterial({color:0x241a10,emissive:0xffa251,emissiveIntensity:.62,roughness:.55}),winDarkMat=new THREE.MeshStandardMaterial({color:0x100e0b,roughness:.92});
  const WH=6.3,XW=45.6,ZS=-69.6,ZN=39.2,ZB=56,BX=13.5;
 
  /* ---- 幕墙：北、东、西三面连续，南面留门洞 ---- */
@@ -409,8 +439,12 @@ try{
  for(const sx of [-1,1])for(const sz of [-1,1]){
   const g=new THREE.Group();g.position.set(sx*(XW-.6),0,sz===1?ZN-.4:ZS+.6);scene.add(g);
   cyl(4.0,15,cw,0,7.5,0,g);
+  cyl(4.55,1.15,cwD,0,.57,0,g);
+  cyl(4.15,.22,cwR,0,1.20,0,g);
   box(8.6,.5,8.6,cwD,0,15.2,0,g);
   cyl(4.4,1.6,cwR,0,16.3,0,g);
+  mesh(new THREE.CylinderGeometry(.22,4.55,3.6,16),roofMat,V(0,18.0,0),g);
+  cyl(.30,.22,roofMat,0,19.9,0,g);sphere(.30,mat(0x9c3b2e),0,20.2,0,g);
   colliders.push({x:sx*(XW-.6),z:sz===1?ZN-.4:ZS+.6,w:7.4,d:7.4});
  }
 
@@ -424,11 +458,23 @@ try{
  box(10.6,7.4,1.8,cw,8.3,3.7,ZB);
  box(8.4,1.9,2.1,cwD,0,5.2,ZB);
  for(let i=0;i<4;i++)box(1.0,1.1,1.0,cw,-3.0+i*2.0,7.1,ZB);
- for(let i=0;i<6;i++)box(.10,3.4,.10,mat(0x2a2620),-2.5+i*1.0,2.9,ZB);
- for(let i=0;i<3;i++)box(6.4,.10,.10,mat(0x2a2620),0,1.7+i*1.2,ZB);
+ for(let i=0;i<6;i++)box(.10,3.4,.10,mat(0x2a2620),-2.5+i*1.0,4.05,ZB);
+ /* 木门与门钉 */
+ for(const s of [-1,1]){
+  const g2=new THREE.Group();g2.position.set(s*2.86,2.5,ZB-.10);g2.rotation.y=s*1.16;scene.add(g2);
+  box(2.8,5.0,.12,mat(0x4a3423),-s*1.4,0,0,g2);
+  for(let r=0;r<4;r++)for(let c=0;c<3;c++)sphere(.07,mat(0x2a2320),-s*(.5+c*.62),-1.5+r*1.25,.05,g2);
+  box(.09,5.0,.09,mat(0x2a1d14),-s*.04,0,.06,g2);
+ }
+ box(6.6,.22,.5,mat(0x2a2620),0,5.24,ZB-.30);
+ for(let i=0;i<4;i++)box(.34,.30,.34,cwD,-1.65+i*1.1,5.0,ZB-.28);
+
+ for(let i=0;i<3;i++)box(6.4,.10,.10,mat(0x2a2620),0,3.0+i*1.05,ZB);
  for(const s of [-1,1]){
   cyl(2.9,12,cw,s*11.6,6,53);
   cyl(3.3,1.3,cwR,s*11.6,12.6,53);
+  mesh(new THREE.CylinderGeometry(.20,3.45,3.1,14),roofMat,V(s*11.6,14.2,53));
+  sphere(.26,mat(0x9c3b2e),s*11.6,15.9,53);
   colliders.push({x:s*11.6,z:53,w:5.6,d:5.6});
   sphere(.5,mat(0x9c3b2e),s*11.6,13.4,53);
  }
@@ -436,6 +482,63 @@ try{
  
  box(26,.06,16,paveMat(5,3),0,.005,48);
 
+ /* ---- v0.35 演武场：石圈、四角灯柱、旗杆 ---- */
+ {
+  const ring=stoneMat(20,15,0x8e8878),ringIn=stoneMat(18.4,13.4,0x6f6a5c),banner=mat(0x8f2b22);
+  box(20,.03,15,ring,0,.03,10);          // 外侧石圈
+  box(18.4,.03,13.4,ringIn,0,.045,10);   // 内侧较深，形成描边
+  box(17.2,.03,12.2,ring,0,.06,10);
+  box(18.4,.12,.35,mat(0x2a2320),0,.12,3.2);
+  box(18.4,.12,.35,mat(0x2a2320),0,.12,16.8);
+  for(const sx of [-1,1])for(const sz of [-1,1]){
+   const px=sx*9.2,pz=10+sz*6.9;
+   cyl(.20,4.2,cwL,px,2.1,pz);
+   box(.52,.30,.52,cwD,px,4.28,pz);
+   const lamp=sphere(.30,new THREE.MeshStandardMaterial({color:0x2a1d10,emissive:0xffa85c,emissiveIntensity:1.25,roughness:.6}),px,4.72,pz);
+   lamp.scale.y=1.1;
+   colliders.push({x:px,z:pz,w:.5,d:.5});
+  }
+  for(const sx of [-1,1]){
+   const px=sx*6.6;
+   cyl(.16,5.6,cwL,px,2.8,1.4);
+   box(1.5,.12,.12,cwR,px-.72,5.5,1.4);
+   box(1.15,3.4,.05,banner,px-1.3,3.8,1.42);
+   box(1.15,.10,.06,mat(0xc8a06a),px-1.3,2.1,1.44);
+   colliders.push({x:px,z:1.4,w:.4,d:.4});
+  }
+  // 场边兵器架
+  box(.18,1.9,.18,cwL,0,0.95,17.8);box(.18,1.9,.18,cwL,2.2,0.95,17.8);
+  for(let i=0;i<3;i++){const gb=box(.06,1.5,.06,mat(0x8f9298,1,.35),.35+i*.7,1.25,17.8);gb.rotation.x=.18;}
+  colliders.push({x:1.1,z:17.8,w:2.6,d:.5});
+ }
+ /* ---- v0.35 外堡市集：摊位、灯笼、麻袋、酒桶 ---- */
+ {
+  const cloth=mat(0x5a2b23,0,.92),cloth2=mat(0x3d4a44,0,.92),pole=mat(0x4a3b2c),
+        lampMat=new THREE.MeshStandardMaterial({color:0x2a1d10,emissive:0xffb163,emissiveIntensity:.9,roughness:.6});
+  for(const s of [-1,1]){
+   for(let i=0;i<3;i++){
+    const bx=s*(30+i*1.2),bz=-6+i*11.5,ry=s*(.06+i*.03);
+    const g=new THREE.Group();g.position.set(bx,0,bz);g.rotation.y=ry;scene.add(g);
+    box(.16,2.5,.16,pole,-1.75,1.25,0,g);box(.16,2.5,.16,pole,1.75,1.25,0,g);
+    box(.16,.16,2.2,pole,0,2.45,-1.0,g);
+    const cn=box(3.9,.10,2.6,cloth,0,2.62,-.4,g);
+    box(3.9,.16,.10,cloth,0,2.45,.86,g);
+    box(2.9,.9,.8,mat(0x6a5c46),0,.45,-.2,g);
+    for(let k=0;k<3;k++)box(.55,.45,.5,mat(0x7b6a4e),-1.0+k*.9,1.05,-.1,g);
+    box(.42,.5,.42,mat(0x4a5b4e),1.28,.25,.35,g);
+    colliders.push({x:bx,z:bz,w:3.4,d:2.0});
+    // 檐下灯笼
+    const lg=sphere(.20,lampMat,1.55,2.16,.72,g);lg.scale.y=1.25;
+    box(.05,.35,.05,mat(0x2a2320),1.55,2.42,.72,g);
+   }
+  }
+  // 火盆：进门两侧
+  for(const s of [-1,1]){
+   cyl(.52,.30,cwR,s*4.6,.62,52.4);cyl(.20,.10,cwD,s*4.6,.80,52.4);
+   sphere(.26,new THREE.MeshStandardMaterial({color:0x3a1c08,emissive:0xff8a3a,emissiveIntensity:1.6,roughness:.7}),s*4.6,.92,52.4);
+   colliders.push({x:s*4.6,z:52.4,w:1.0,d:1.0});
+  }
+ }
  /* ---- 外堡：铺地、市集、马厩、水井、火盆 ---- */
  box(88,.06,66,paveMat(16,12),0,.005,4);
 
@@ -494,11 +597,12 @@ try{
  }
 
  /* ---- 主楼台阶：13 级上露台 ---- */
- box(24,4.6,32,cw,0,2.3,-50);
+ const stepMat=stoneMat(9.2,4.4,0xb2ab98),terrMat=stoneMat(24,4.6,0xaea792),buttMat=stoneMat(1.6,17,0xaba492);
+ box(24,4.6,32,cw,0,2.3,-50);box(24,4.55,.10,terrMat,0,2.3,-33.94);
  box(11.6,.5,1.4,cwD,0,.25,-25.3);
  box(24,.16,32,cwD,0,4.68,-50);box(23.7,.02,31.7,paveMat(10,13),0,4.77,-50);
  for(const s of [-1,1]){box(7.2,.95,1.0,cwD,s*8.4,5.13,-34.4);box(7.6,.22,1.2,cwR,s*8.4,5.6,-34.4);}
- for(let i=0;i<13;i++){const h=4.6*(i+1)/13,z=-26-(i+.5)*.615;box(9.0,h,.64,cw,0,h/2,z);
+ for(let i=0;i<13;i++){const h=4.6*(i+1)/13,z=-26-(i+.5)*.615;box(9.0,h,.64,stepMat,0,h/2,z);
   box(9.0,.03,.12,mat(0xd2c7ab),0,h+.012,z+.27);if(i%4===0)box(9.0,.012,.34,mat(0xdcd2b6),0,h+.006,z+.02);box(9.0,.10,.05,cwD,0,h-.05,z+.31);}
  for(const s of [-1,1]){const pv=box(1.0,1.05,9.4,cwD,s*5.1,2.85,-30);pv.rotation.x=Math.atan2(4.6,8);const pv2=box(1.12,.2,9.4,cwR,s*5.1,3.35,-30);pv2.rotation.x=Math.atan2(4.6,8);}
 
@@ -511,6 +615,31 @@ try{
  for(let i=0;i<3;i++)box(1.5,3.4,.28,cwD,-5.4+i*5.4,KB+15,KZ1+.15);
  for(let i=0;i<5;i++)for(let j=0;j<3;j++)box(.66,1.5,.22,mat(0x2a2320),-4+i*2,KB+17+j*2.1,KZ1+.11);
  const doorGlow=new THREE.PointLight(0xffb066,.9,7);doorGlow.position.set(0,KB+3.4,KZ1+.9);scene.add(doorGlow);
+ /* ---- v0.35 立面：砌石、暖窗、窗套、托臂、门拱 ---- */
+ box(KX*2,KH,.06,stoneMat(KX*2,KH,0xb9b29f),0,KB+KH/2,KZ1+.04);
+ box(.06,KH,KZ1-KZ0,stoneMat(KZ1-KZ0,KH,0xb9b29f),KX+.04,KB+KH/2,(KZ0+KZ1)/2);
+ box(.06,KH,KZ1-KZ0,stoneMat(KZ1-KZ0,KH,0xb9b29f),-KX-.04,KB+KH/2,(KZ0+KZ1)/2);
+ let __wi=0;
+ for(const row of [7.3,10.5,13.7])for(const x of [-5.5,-2.0,2.0,5.5]){
+  if(row>13&&Math.abs(x)<2.6)continue;
+  const lit=((__wi++*5)%3===0);
+  box(1.24,1.84,.05,cwD,x,KB+row,KZ1+.08);
+  box(.92,1.50,.05,lit?winLitMat:winDarkMat,x,KB+row,KZ1+.10);
+  box(.06,1.50,.04,cwD,x,KB+row,KZ1+.13);box(.92,.06,.04,cwD,x,KB+row,KZ1+.13);
+  box(1.38,.14,.12,cwD,x,KB+row+1.00,KZ1+.10);
+  box(1.10,.08,.14,cwD,x,KB+row-.96,KZ1+.10);
+ }
+ box(19.2,1.15,.30,cwT,0,KB+.57,KZ1+.14);
+ for(const s of [-1,1]){
+  box(1.5,.12,.16,cwR,s*2.0,KB+19.4,KZ1+.30);
+  box(1.34,6.4,.05,mat(0x8f2b22),s*2.0,KB+16.1,KZ1+.24);
+  box(1.34,.10,.06,mat(0xc8a06a),s*2.0,KB+12.95,KZ1+.26);
+  box(1.34,1.2,.055,mat(0x6f1f18),s*2.0,KB+12.4,KZ1+.25);
+ }
+ for(let i=0;i<9;i++)box(.56,.44,.92,cwD,-8+i*2,KB+KH-.28,KZ1+.46);
+ for(let i=0;i<9;i++){const a=(i/8-0.5)*Math.PI;box(.38,.55,.30,cwD,Math.sin(a)*1.95,KB+3.9-Math.cos(a)*1.95,KZ1+.42).rotation.x=a*.55;}
+ box(4.2,.26,.55,cwD,0,KB+5.85,KZ1+.30);
+
 
  /* ---- 城墙走道与登城坡（可以从外堡绕到北墙） ---- */
  for(const s of [-1,1]){
@@ -536,7 +665,7 @@ try{
   /* ================= v0.31 细节层：生活痕迹 · 主楼立面 · 礼拜堂内装 · 地面质感 ================= */  /* 地面车辙与碎石，把大块铺地切碎 */  for(const s of [-1,1])for(let i=0;i<9;i++)box(.55,.02,4.4,mat(0x4e4b45),s*2.15,.03,-6+i*6.2);  for(let i=0;i<9;i++)box(.30,.02,3.2,mat(0x474a44),0,.03,-8+i*6.2);  box(13,.03,7,mat(0x4c5b45),-33,.02,6); box(11,.03,9,mat(0x4c5b45),33,.02,10);  box(10,.03,8,mat(0x46543e),-34,.02,-24); box(66,.03,5,mat(0x46543e),0,.02,-88);  for(let i=0;i<9;i++)box(.5,.08,.4,mat(0x6c6a5c),-8+Math.sin(i*2.4)*9,.02,-6+i*3.4);  for(let i=0;i<7;i++)box(.42,.07,.34,mat(0x6c6a5c),16+Math.cos(i*1.7)*5,.02,14+i*2.6);  /* 外堡：拒马、木牌、破车、桶、尸骸 */  for(const s of [-1,1]){const grp=new THREE.Group();grp.position.set(s*20,0,30);scene.add(grp);   for(let i=0;i<3;i++){const xb=box(.16,2.1,.16,mat(0x54452f),-.6+i*.6,1.0,0,grp);xb.rotation.z=.5;}   box(2.0,.14,.14,mat(0x54452f),0,1.15,.12,grp); box(2.0,.14,.14,mat(0x54452f),0,.72,-.12,grp);   colliders.push({x:s*20,z:30,w:2.2,d:1.0});}  for(const s of [-1,1]){cyl(.13,2.6,mat(0x4a3b2c),s*2.6,1.3,19);box(1.9,.7,.10,mat(0x3a332a),s*2.6,2.1,19);}  box(.06,.5,.06,mat(0x8f2b22),2.6,2.5,19.05);  const cart=new THREE.Group();cart.position.set(31,0,22);scene.add(cart);  box(3.4,.9,2.0,mat(0x4a3b2c),0,.75,0,cart); box(3.6,.16,2.2,mat(0x54452f),0,1.22,0,cart);  for(const s2 of [-1,1]){const wh=cyl(.72,.16,mat(0x3a332a),s2*1.5,.5,.55,cart);wh.rotation.x=Math.PI/2;}  colliders.push({x:31,z:22,w:3.4,d:2.0});  for(let i=0;i<3;i++)cyl(.30,.72,mat(0x4a3b2c),27+i*.7,.36,28.4);  for(let i=0;i<3;i++)box(.9,.28,.7,mat(0x5a5147),-30+i*.9,.14,26.5);  for(let i=0;i<5;i++)box(6.9,.03,.06,mat(0x33291f),0,.52,57.5+i*2.6);
  const aoMat=new THREE.MeshBasicMaterial({color:0x0e1310,transparent:true,opacity:.42,depthWrite:false});
  const ao=(w,d,x,z,y)=>{const m=mesh(new THREE.PlaneGeometry(w,d),aoMat,V(x,y,z));m.rotation.x=-Math.PI/2;m.castShadow=false;m.receiveShadow=false;return m;};
- ao(10.4,2.2,0,-25.1,.045);ao(8.6,2.6,0,56.5,.045);ao(4.6,2.4,27.8,4.6,.045);ao(5.2,2.0,0,-45.2,4.72);  /* 内院：晾甲架、石槽、尸骸、石鼓、挂旗 */  for(const s of [-1,1]){const zz=s<0?-6.4:-9.6,xx=s<0?-15.2:14.4;   cyl(.09,2.4,mat(0x4a3b2c),xx,1.2,zz);cyl(.09,2.4,mat(0x4a3b2c),xx+1.6,1.2,zz);   box(1.9,.10,.10,mat(0x4a3b2c),xx+.8,2.30,zz);   box(.9,.12,1.0,mat(0x6b5636),xx+.8,1.55,zz);box(.8,.10,.9,mat(0x8a7244),xx+.8,1.10,zz);box(1.0,.34,1.1,mat(0x2a2320),xx+.8,1.82,zz);}  box(3.0,.75,1.0,cwD,12.4,.38,-17.4);box(2.6,.10,.8,mat(0x33504c),12.4,.78,-17.4);  for(let i=0;i<4;i++)box(.7,.22,.5,mat(0x585044),9.4+i*.8,.11,-28.6);  for(const s of [-1,1]){cyl(.34,.62,cwD,s*5.6,.31,-24.2);sphere(.30,cwR,s*5.6,.72,-24.2);}   /* 主楼南立面：腰线、扶壁、窗楣、门拱 */  const KF=KZ1+.05;  for(const y of [8.6,13.2,17.8])box(18.6,.32,.55,cwD,0,y,(KZ1+.05));  for(const x of [-7.4,-3.6,3.6,7.4]){box(1.35,17.5,.85,cw,x,KB+8.75,(KZ1+.05)+.35);box(1.7,.30,1.05,cwR,x,KB+17.6,(KZ1+.05)+.35);}  for(let i=0;i<5;i++)box(1.4,.85,.5,cwD,-5.4+i*2.7,KB+6.6,(KZ1+.05)+.3);  box(4.6,.85,.5,cwD,0,KB+5.9,(KZ1+.05)+.4);  for(let i=0;i<3;i++)box(1.9,.32,.30,cwR,-1.9+i*1.9,KB+15.2+i*.14,(KZ1+.05)+.22);  /* 礼拜堂内装：祭坛、长椅、香炉 */  box(3.4,.9,1.0,cwD,28,.45,-14.2);box(3.0,.8,.08,cwT,28,1.4,-14.6);  for(const s of [-1,1]){cyl(.10,.7,mat(0x2f2a24),28+s*1.0,1.1,-13.4);sphere(.14,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.0}),28+s*1.0,1.5,-13.4);}  for(const z of [-6.4,-3.2])for(const s of [-1,1])box(4.2,.45,.55,mat(0x4a3b2c),28+s*3.0,.22,z);  cyl(.06,1.9,mat(0x6f5c33),24,5.2,-6);cyl(.30,.42,mat(0x6f5c33),24,4.3,-6);  /* 夹道与崖道：箭孔、绳梯、破旗、石堆、木板 */  for(let i=0;i<3;i++)box(.10,1.1,.5,mat(0x1f2622),-43.4,3.3,-4+i*10);  for(let i=0;i<5;i++)box(.10,.42,.34,mat(0x4a3b2c),46.9,1.2+i*.5,-74.4-i*.3);  for(const p of [[-30,1.2,-76.4],[20,1.2,-76.2]]){cyl(.06,2.4,mat(0x3a332a),p[0],p[1]+1.2,p[2]);box(.04,1.0,.8,mat(0x7a2620),p[0],p[1]+1.7,p[2]);}  for(const p of [[49,1.2,-70],[48.6,1.2,-62]])for(let i=0;i<2;i++)box(.8,.5,.7,cwD,p[0]+i*.4,p[1]+.25,p[2]+i*.3);  box(3.0,.10,1.0,mat(0x4a3b2c),46.8,1.25,-60.4);  /* 墨色调压过之后红旗会读成黑块，给朱色一点自发光 */ mat(0x8f2b22).emissive.setHex(0x2e0a06);mat(0x8f2b22).emissiveIntensity=.55;  /* ================= v0.30 箱庭扩建：护城河断塔门 · 西墙高台夹道 · 东礼拜堂 · 西观景塔 · 北崖台地 ================= */  function steps(w,n,rise,dep,x,zStart,dir,material){   for(let i=0;i<n;i++){const h=rise*(i+1)/n;box(w,h,dep,material,x,h/2,zStart+dir*(i+.5)*dep);}  }  /* ---- S1 南面：护城河、石桥、断塔门（城堡的正门在河对岸） ---- */  box(126,.10,20,mat(0x39423b),0,-1.39,66);  mesh(new THREE.PlaneGeometry(126,19.4),new THREE.MeshStandardMaterial({color:0x2f4a4a,roughness:.18,metalness:.35,transparent:true,opacity:.78}),V(0,-1.26,66)).rotation.x=-Math.PI/2;  box(126,1.45,.45,cwD,0,-.72,56.2);  box(126,1.45,.45,cwD,0,-.72,75.8);  for(const s of [-1,1]){   box(.24,.92,16,mat(0x3a332a),s*3.42,.92,64);   for(let i=0;i<3;i++)box(.30,1.05,.30,mat(0x3a332a),s*3.42,1.10,59+i*4.6);   box(.55,1.6,1.6,cwD,s*3.9,.8,58.4);   box(.55,1.6,1.6,cwD,s*3.9,.8,69.6);   /* 桥头断塔 */   cyl(3.4,11.6,cw,s*11.6,5.8,74);   cyl(3.9,.55,cwR,s*11.6,11.75,74);   box(1.7,2.2,1.7,cwD,s*12.4,12.9,74.6);   colliders.push({x:s*11.6,z:74,w:7.2,d:7.2});   /* 门柱与残楣 */   box(1.6,7.2,1.6,cw,s*5.4,3.6,77.4);   colliders.push({x:s*5.4,z:77.4,w:1.6,d:1.6});   box(.9,.9,.9,cw,s*5.4,7.6,77.4);  }  box(3.0,1.1,6.4,cwR,-2.4,-.75,70.5);  box(2.2,.9,3.0,cwR,6.6,-.9,62.4);  for(const p2 of [[-3.4,58.4],[3.4,69.6]]){cyl(.38,.85,mat(0x2f2a24),p2[0],1.35,p2[1]);sphere(.28,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.9}),p2[0],1.72,p2[1]);const bl=new THREE.PointLight(0xff9a4a,1.1,8);bl.position.set(p2[0],1.9,p2[1]);scene.add(bl);}  cyl(.46,1.0,mat(0x2f2a24),0,1.45,55.2);sphere(.34,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7420,emissiveIntensity:2.0}),0,1.9,55.2);const gl=new THREE.PointLight(0xff8a3a,1.3,9);gl.position.set(0,2.1,55.2);scene.add(gl);  /* 河床杂物 */  for(const b of [[-9,.62,62,2.4,1.0,1.0],[-3.6,.5,70,1.6,.8,1.6],[7.4,.55,66,3.0,.9,1.2],[10,.42,72,1.2,.7,2.4]])box(b[3],b[4],b[5],mat(0x4a4a3e),b[0],b[1],b[2]);  for(let i=0;i<5;i++)box(.7,.5,.7,mat(0x54523f),14+ (i%2?1:0)*2.2+i*2.4,.35,60+i*1.4);   /* ---- S2 西墙高台夹道：(x -43.6..-37.8) 两米二实心台，从外堡上，直插内院西侧 ---- */  box(5.8,2.2,40,cwD,-40.7,1.1,10);  box(5.4,.07,39.6,mat(0x8b8575),-40.7,2.24,10);  box(.50,1.05,40,cw,-43.35,2.72,10);  box(.40,.80,40,cw,-37.95,2.60,10);  for(let i=0;i<5;i++){const h=2.2*(i+1)/5;box(5.8,h,1.0,cw,-40.7,h/2,30.5+i*1.0);}  for(let i=0;i<3;i++){   const z=0+i*10;   cyl(.10,1.3,mat(0x3a332a),-40.4,2.8,z);   sphere(.20,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),-40.4,3.55,z);   const ln=new THREE.PointLight(0xff9a4a,.5,5);ln.position.set(-40.4,3.3,z);scene.add(ln);   box(.9,1.6,.35,cwT,-43.0,3.6,z);  }  /* 夹道尽头对着内院西侧，做成塌口 */  box(2.2,2.2,3.4,cwD,-40.7,1.1,-11.4);  for(let i=0;i<3;i++)box(.9,.6,.9,mat(0x5d5a4b),-40.7+i*1.2,.3,-9.4);   /* ---- S3 东礼拜堂：x 20..36 / z -16..4，第一个能进人的室内 ---- */  const CX0=20,CX1=36,CZ0=-16,CZ1=4,CH=7;  box(5.2,CH,.8,cw,22.6,CH/2,CZ1);box(5.2,CH,.8,cw,33.4,CH/2,CZ1);  box(6.6,CH,.8,cw,23.3,CH/2,CZ0);box(6.6,CH,.8,cw,32.7,CH/2,CZ0);  box(.8,CH,20,cw,20,CH/2,-6);box(.8,CH,20,cw,36,CH/2,-6);  colliders.push({x:22.6,z:CZ1,w:5.2,d:.8},{x:33.4,z:CZ1,w:5.2,d:.8},{x:23.3,z:CZ0,w:6.6,d:.8},{x:32.7,z:CZ0,w:6.6,d:.8},{x:20,z:-6,w:.8,d:20},{x:36,z:-6,w:.8,d:20});  box(17.4,.5,21.2,cwT,28,CH+.15,-6);  for(let i=0;i<2;i++)box(17,.22,.30,mat(0x3a2f26),28,CH+.55,-11+i*9);  box(3.6,.5,2.6,cwT,28,CH+.62,-15.4);  for(const x of [23.4,32.4])box(1.0,6.0,1.0,cwD,x,3.0,CZ0+.6);  for(let i=0;i<3;i++)box(12,.9,.8,cwD,28,5.4,-13+i*.3);  for(const c of [[24.4,-2.2],[31.6,-9.6],[27.6,-12.6]]){   cyl(.34,.7,mat(0x2f2a24),c[0],.35,c[1]);   const fl=sphere(.24,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.2}),c[0],.92,c[1]);   fl.scale.set(1,1.5,1);   const pl=new THREE.PointLight(0xffa653,.9,7);pl.position.set(c[0],1.4,c[1]);scene.add(pl);  }  box(1.9,.45,.6,mat(0x4a3b2c),24,.22,-2.6);  box(1.1,2.4,.06,mat(0x8f2b22),29.4,4.6,CZ0-.4);  for(const wz of [-11,-7,-3]){box(.30,2.6,.95,cwT,19.75,4.5,wz);box(.16,1.9,.55,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.7}),19.60,4.5,wz);}  for(const bz of [-14,-6,2]){box(1.0,6.4,.9,cwD,19.9,3.2,bz);box(1.2,.3,1.1,cwR,19.9,6.5,bz);}  for(const wx of [25.6,30.4]){box(.95,2.6,.30,cwT,wx,4.5,4.42);box(.55,1.9,.16,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.5}),wx,4.5,4.36);}  /* 钟楼：三级踏步 + 钟架 */  steps(3.6,3,3.2,.95,33, -13.2, -1, cwD);  for(const s of [-1,1])box(.22,4.6,.22,mat(0x4a3b2c),33+s*1.4,2.3,-15.6);  box(3.4,.24,.24,mat(0x4a3b2c),33,4.62,-15.6);  cyl(.55,.9,mat(0x6f5c33),33,3.9,-15.6);  box(3.8,.4,2.6,cwT,33,4.9,-15.6);   /* ---- S4 西观景塔（半凸出墙外的 bartizan）：沿墙顶七级台阶上到 9.5 ---- */  box(4.6,3.2,5.2,cw,-44.6,7.9,1.4);  box(5.0,.35,5.6,cwR,-44.6,9.55,1.4);  for(let i=0;i<4;i++){box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,-1.0);box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,3.8);}  for(let i=0;i<7;i++){const h=6.3+.46*(i+1);box(2.6,h-6.3,1.0,cw,-44.4,6.3+(h-6.3)/2,8.5-i*1.0);}  cyl(.09,2.6,mat(0x3a332a),-44.6,11.6,1.4);  box(.04,1.5,.9,mat(0x8f2b22),-44.6,12.2,1.9);  for(let i=0;i<3;i++)box(.7,1.0,.16,mat(0x242c28),-44.6,8.6,-1.2+i*.9);   /* ---- S5 北崖台地：东墙外一条 L 形崖道，两头用石阶与幕墙相连 ---- */  box(7.6,1.2,20,cwD,51.4,.6,-68);  box(7.6,.07,19.8,mat(0x8b8575),51.4,1.24,-68);  box(84.0,1.2,6.0,cwD,5.8,.6,-75);  box(84.0,.07,5.8,mat(0x8b8575),5.8,1.24,-75);  const eS=box(7.6,.45,11.6,cw,51.4,3.72,-53);eS.rotation.x=-Math.atan2(5.1,10.2);  const wS=box(7.2,.45,16.6,cw,-51.4,3.72,-66.2);wS.rotation.x=Math.atan2(5.1,16.4);  box(.5,1.0,20,cw,55.5,1.7,-68);  box(84.0,.9,.5,cw,-30,1.65,-77.8);  box(.5,1.2,.9,cwD,47.6,1.8,-57.6);  /* 崖道陈设：松、火盆、神龛、残尸 */  for(const p of [[51,1.2,-72],[50,1.2,-64],[44,1.2,-75]]){   cyl(.26,5.2,cwL,p[0],p[1]+2.6,p[2]);   for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),p[0]+Math.sin(j*2)*.3,p[1]+4.4+j*.44,p[2]+Math.cos(j*2)*.3);cr.scale.y=.72;}  }  for(const p of [[52.4,-73.4],[-8,-75.6]]){   cyl(.42,.9,mat(0x2f2a24),p[0],1.65,p[1]);   sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.8}),p[0],2.05,p[1]);  }  box(2.2,1.6,1.6,cwD,-30,1.2+0.8,-75);  box(1.4,2.2,.2,cwT,-30,2.5,-74.2);  sphere(.16,new THREE.MeshStandardMaterial({color:0xffd39a,emissive:0xffa14a,emissiveIntensity:1.4}),-30,2.85,-74.9);  for(const b of [[-2,-74.4],[12,-73.4],[36,-74.6]])box(1.3,.7,.7,mat(0x4a3b2c),b[0],1.55,b[1]);  /* 北墙外侧挂旗 + 暗门 */  for(const x of [-14,14]){   box(.9,2.6,.06,mat(0x8f2b22),x,4.4,-71.4);   box(.14,.14,.14,mat(0x6f5c33),x,5.75,-71.4);  }  box(1.8,3.4,.3,cwT,-20,1.7,-71.2);  box(2.4,.24,.3,cw,-20,3.5,-71.2); }catch(error){throw error;}
+ ao(10.4,2.2,0,-25.1,.045);ao(8.6,2.6,0,56.5,.045);ao(4.6,2.4,27.8,4.6,.045);ao(5.2,2.0,0,-45.2,4.72);  /* 内院：晾甲架、石槽、尸骸、石鼓、挂旗 */  for(const s of [-1,1]){const zz=s<0?-6.4:-9.6,xx=s<0?-15.2:14.4;   cyl(.09,2.4,mat(0x4a3b2c),xx,1.2,zz);cyl(.09,2.4,mat(0x4a3b2c),xx+1.6,1.2,zz);   box(1.9,.10,.10,mat(0x4a3b2c),xx+.8,2.30,zz);   box(.9,.12,1.0,mat(0x6b5636),xx+.8,1.55,zz);box(.8,.10,.9,mat(0x8a7244),xx+.8,1.10,zz);box(1.0,.34,1.1,mat(0x2a2320),xx+.8,1.82,zz);}  box(3.0,.75,1.0,cwD,12.4,.38,-17.4);box(2.6,.10,.8,mat(0x33504c),12.4,.78,-17.4);  for(let i=0;i<4;i++)box(.7,.22,.5,mat(0x585044),9.4+i*.8,.11,-28.6);  for(const s of [-1,1]){cyl(.34,.62,cwD,s*5.6,.31,-24.2);sphere(.30,cwR,s*5.6,.72,-24.2);}   /* 主楼南立面：腰线、扶壁、窗楣、门拱 */  const KF=KZ1+.05;  for(const y of [8.6,13.2,17.8])box(18.6,.32,.55,cwD,0,y,(KZ1+.05));  for(const x of [-7.4,-3.6,3.6,7.4]){box(1.35,17.5,.85,buttMat,x,KB+8.75,(KZ1+.05)+.35);box(1.7,.30,1.05,cwR,x,KB+17.6,(KZ1+.05)+.35);box(1.55,.16,1.0,cwR,x,KB+1.0,(KZ1+.05)+.35);}  for(let i=0;i<5;i++)box(1.4,.85,.5,cwD,-5.4+i*2.7,KB+6.6,(KZ1+.05)+.3);  box(4.6,.85,.5,cwD,0,KB+5.9,(KZ1+.05)+.4);  for(let i=0;i<3;i++)box(1.9,.32,.30,cwR,-1.9+i*1.9,KB+15.2+i*.14,(KZ1+.05)+.22);  /* 礼拜堂内装：祭坛、长椅、香炉 */  box(3.4,.9,1.0,cwD,28,.45,-14.2);box(3.0,.8,.08,cwT,28,1.4,-14.6);  for(const s of [-1,1]){cyl(.10,.7,mat(0x2f2a24),28+s*1.0,1.1,-13.4);sphere(.14,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.0}),28+s*1.0,1.5,-13.4);}  for(const z of [-6.4,-3.2])for(const s of [-1,1])box(4.2,.45,.55,mat(0x4a3b2c),28+s*3.0,.22,z);  cyl(.06,1.9,mat(0x6f5c33),24,5.2,-6);cyl(.30,.42,mat(0x6f5c33),24,4.3,-6);  /* 夹道与崖道：箭孔、绳梯、破旗、石堆、木板 */  for(let i=0;i<3;i++)box(.10,1.1,.5,mat(0x1f2622),-43.4,3.3,-4+i*10);  for(let i=0;i<5;i++)box(.10,.42,.34,mat(0x4a3b2c),46.9,1.2+i*.5,-74.4-i*.3);  for(const p of [[-30,1.2,-76.4],[20,1.2,-76.2]]){cyl(.06,2.4,mat(0x3a332a),p[0],p[1]+1.2,p[2]);box(.04,1.0,.8,mat(0x7a2620),p[0],p[1]+1.7,p[2]);}  for(const p of [[49,1.2,-70],[48.6,1.2,-62]])for(let i=0;i<2;i++)box(.8,.5,.7,cwD,p[0]+i*.4,p[1]+.25,p[2]+i*.3);  box(3.0,.10,1.0,mat(0x4a3b2c),46.8,1.25,-60.4);  /* 墨色调压过之后红旗会读成黑块，给朱色一点自发光 */ mat(0x8f2b22).emissive.setHex(0x2e0a06);mat(0x8f2b22).emissiveIntensity=.55;  /* ================= v0.30 箱庭扩建：护城河断塔门 · 西墙高台夹道 · 东礼拜堂 · 西观景塔 · 北崖台地 ================= */  function steps(w,n,rise,dep,x,zStart,dir,material){   for(let i=0;i<n;i++){const h=rise*(i+1)/n;box(w,h,dep,material,x,h/2,zStart+dir*(i+.5)*dep);}  }  /* ---- S1 南面：护城河、石桥、断塔门（城堡的正门在河对岸） ---- */  box(126,.10,20,mat(0x39423b),0,-1.39,66);  mesh(new THREE.PlaneGeometry(126,19.4),new THREE.MeshStandardMaterial({color:0x2f4a4a,roughness:.18,metalness:.35,transparent:true,opacity:.78}),V(0,-1.26,66)).rotation.x=-Math.PI/2;  box(126,1.45,.45,cwD,0,-.72,56.2);  box(126,1.45,.45,cwD,0,-.72,75.8);  for(const s of [-1,1]){   box(.24,.92,16,mat(0x3a332a),s*3.42,.92,64);   for(let i=0;i<3;i++)box(.30,1.05,.30,mat(0x3a332a),s*3.42,1.10,59+i*4.6);   box(.55,1.6,1.6,cwD,s*3.9,.8,58.4);   box(.55,1.6,1.6,cwD,s*3.9,.8,69.6);   /* 桥头断塔 */   cyl(3.4,11.6,cw,s*11.6,5.8,74);   cyl(3.9,.55,cwR,s*11.6,11.75,74);   box(1.7,2.2,1.7,cwD,s*12.4,12.9,74.6);   colliders.push({x:s*11.6,z:74,w:7.2,d:7.2});   /* 门柱与残楣 */   box(1.6,7.2,1.6,cw,s*5.4,3.6,77.4);   colliders.push({x:s*5.4,z:77.4,w:1.6,d:1.6});   box(.9,.9,.9,cw,s*5.4,7.6,77.4);  }  box(3.0,1.1,6.4,cwR,-2.4,-.75,70.5);  box(2.2,.9,3.0,cwR,6.6,-.9,62.4);  for(const p2 of [[-3.4,58.4],[3.4,69.6]]){cyl(.38,.85,mat(0x2f2a24),p2[0],1.35,p2[1]);sphere(.28,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.9}),p2[0],1.72,p2[1]);const bl=new THREE.PointLight(0xff9a4a,1.1,8);bl.position.set(p2[0],1.9,p2[1]);scene.add(bl);}  cyl(.46,1.0,mat(0x2f2a24),0,1.45,55.2);sphere(.34,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7420,emissiveIntensity:2.0}),0,1.9,55.2);const gl=new THREE.PointLight(0xff8a3a,1.3,9);gl.position.set(0,2.1,55.2);scene.add(gl);  /* 河床杂物 */  for(const b of [[-9,.62,62,2.4,1.0,1.0],[-3.6,.5,70,1.6,.8,1.6],[7.4,.55,66,3.0,.9,1.2],[10,.42,72,1.2,.7,2.4]])box(b[3],b[4],b[5],mat(0x4a4a3e),b[0],b[1],b[2]);  for(let i=0;i<5;i++)box(.7,.5,.7,mat(0x54523f),14+ (i%2?1:0)*2.2+i*2.4,.35,60+i*1.4);   /* ---- S2 西墙高台夹道：(x -43.6..-37.8) 两米二实心台，从外堡上，直插内院西侧 ---- */  box(5.8,2.2,40,cwD,-40.7,1.1,10);  box(5.4,.07,39.6,mat(0x8b8575),-40.7,2.24,10);  box(.50,1.05,40,cw,-43.35,2.72,10);  box(.40,.80,40,cw,-37.95,2.60,10);  for(let i=0;i<5;i++){const h=2.2*(i+1)/5;box(5.8,h,1.0,cw,-40.7,h/2,30.5+i*1.0);}  for(let i=0;i<3;i++){   const z=0+i*10;   cyl(.10,1.3,mat(0x3a332a),-40.4,2.8,z);   sphere(.20,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),-40.4,3.55,z);   const ln=new THREE.PointLight(0xff9a4a,.5,5);ln.position.set(-40.4,3.3,z);scene.add(ln);   box(.9,1.6,.35,cwT,-43.0,3.6,z);  }  /* 夹道尽头对着内院西侧，做成塌口 */  box(2.2,2.2,3.4,cwD,-40.7,1.1,-11.4);  for(let i=0;i<3;i++)box(.9,.6,.9,mat(0x5d5a4b),-40.7+i*1.2,.3,-9.4);   /* ---- S3 东礼拜堂：x 20..36 / z -16..4，第一个能进人的室内 ---- */  const CX0=20,CX1=36,CZ0=-16,CZ1=4,CH=7;  box(5.2,CH,.8,cw,22.6,CH/2,CZ1);box(5.2,CH,.8,cw,33.4,CH/2,CZ1);  box(6.6,CH,.8,cw,23.3,CH/2,CZ0);box(6.6,CH,.8,cw,32.7,CH/2,CZ0);  box(.8,CH,20,cw,20,CH/2,-6);box(.8,CH,20,cw,36,CH/2,-6);  colliders.push({x:22.6,z:CZ1,w:5.2,d:.8},{x:33.4,z:CZ1,w:5.2,d:.8},{x:23.3,z:CZ0,w:6.6,d:.8},{x:32.7,z:CZ0,w:6.6,d:.8},{x:20,z:-6,w:.8,d:20},{x:36,z:-6,w:.8,d:20});  box(17.4,.5,21.2,cwT,28,CH+.15,-6);  for(let i=0;i<2;i++)box(17,.22,.30,mat(0x3a2f26),28,CH+.55,-11+i*9);  box(3.6,.5,2.6,cwT,28,CH+.62,-15.4);  for(const x of [23.4,32.4])box(1.0,6.0,1.0,cwD,x,3.0,CZ0+.6);  for(let i=0;i<3;i++)box(12,.9,.8,cwD,28,5.4,-13+i*.3);  for(const c of [[24.4,-2.2],[31.6,-9.6],[27.6,-12.6]]){   cyl(.34,.7,mat(0x2f2a24),c[0],.35,c[1]);   const fl=sphere(.24,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.2}),c[0],.92,c[1]);   fl.scale.set(1,1.5,1);   const pl=new THREE.PointLight(0xffa653,.9,7);pl.position.set(c[0],1.4,c[1]);scene.add(pl);  }  box(1.9,.45,.6,mat(0x4a3b2c),24,.22,-2.6);  box(1.1,2.4,.06,mat(0x8f2b22),29.4,4.6,CZ0-.4);  for(const wz of [-11,-7,-3]){box(.30,2.6,.95,cwT,19.75,4.5,wz);box(.16,1.9,.55,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.7}),19.60,4.5,wz);}  for(const bz of [-14,-6,2]){box(1.0,6.4,.9,cwD,19.9,3.2,bz);box(1.2,.3,1.1,cwR,19.9,6.5,bz);}  for(const wx of [25.6,30.4]){box(.95,2.6,.30,cwT,wx,4.5,4.42);box(.55,1.9,.16,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.5}),wx,4.5,4.36);}  /* 钟楼：三级踏步 + 钟架 */  steps(3.6,3,3.2,.95,33, -13.2, -1, cwD);  for(const s of [-1,1])box(.22,4.6,.22,mat(0x4a3b2c),33+s*1.4,2.3,-15.6);  box(3.4,.24,.24,mat(0x4a3b2c),33,4.62,-15.6);  cyl(.55,.9,mat(0x6f5c33),33,3.9,-15.6);  box(3.8,.4,2.6,cwT,33,4.9,-15.6);   /* ---- S4 西观景塔（半凸出墙外的 bartizan）：沿墙顶七级台阶上到 9.5 ---- */  box(4.6,3.2,5.2,cw,-44.6,7.9,1.4);  box(5.0,.35,5.6,cwR,-44.6,9.55,1.4);  for(let i=0;i<4;i++){box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,-1.0);box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,3.8);}  for(let i=0;i<7;i++){const h=6.3+.46*(i+1);box(2.6,h-6.3,1.0,cw,-44.4,6.3+(h-6.3)/2,8.5-i*1.0);}  cyl(.09,2.6,mat(0x3a332a),-44.6,11.6,1.4);  box(.04,1.5,.9,mat(0x8f2b22),-44.6,12.2,1.9);  for(let i=0;i<3;i++)box(.7,1.0,.16,mat(0x242c28),-44.6,8.6,-1.2+i*.9);   /* ---- S5 北崖台地：东墙外一条 L 形崖道，两头用石阶与幕墙相连 ---- */  box(7.6,1.2,20,cwD,51.4,.6,-68);  box(7.6,.07,19.8,mat(0x8b8575),51.4,1.24,-68);  box(84.0,1.2,6.0,cwD,5.8,.6,-75);  box(84.0,.07,5.8,mat(0x8b8575),5.8,1.24,-75);  const eS=box(7.6,.45,11.6,cw,51.4,3.72,-53);eS.rotation.x=-Math.atan2(5.1,10.2);  const wS=box(7.2,.45,16.6,cw,-51.4,3.72,-66.2);wS.rotation.x=Math.atan2(5.1,16.4);  box(.5,1.0,20,cw,55.5,1.7,-68);  box(84.0,.9,.5,cw,-30,1.65,-77.8);  box(.5,1.2,.9,cwD,47.6,1.8,-57.6);  /* 崖道陈设：松、火盆、神龛、残尸 */  for(const p of [[51,1.2,-72],[50,1.2,-64],[44,1.2,-75]]){   cyl(.26,5.2,cwL,p[0],p[1]+2.6,p[2]);   for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),p[0]+Math.sin(j*2)*.3,p[1]+4.4+j*.44,p[2]+Math.cos(j*2)*.3);cr.scale.y=.72;}  }  for(const p of [[52.4,-73.4],[-8,-75.6]]){   cyl(.42,.9,mat(0x2f2a24),p[0],1.65,p[1]);   sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.8}),p[0],2.05,p[1]);  }  box(2.2,1.6,1.6,cwD,-30,1.2+0.8,-75);  box(1.4,2.2,.2,cwT,-30,2.5,-74.2);  sphere(.16,new THREE.MeshStandardMaterial({color:0xffd39a,emissive:0xffa14a,emissiveIntensity:1.4}),-30,2.85,-74.9);  for(const b of [[-2,-74.4],[12,-73.4],[36,-74.6]])box(1.3,.7,.7,mat(0x4a3b2c),b[0],1.55,b[1]);  /* 北墙外侧挂旗 + 暗门 */  for(const x of [-14,14]){   box(.9,2.6,.06,mat(0x8f2b22),x,4.4,-71.4);   box(.14,.14,.14,mat(0x6f5c33),x,5.75,-71.4);  }  box(1.8,3.4,.3,cwT,-20,1.7,-71.2);  box(2.4,.24,.3,cw,-20,3.5,-71.2); }catch(error){throw error;}
 
   decodedCharacterTemplate=cloneSkinned(actor);decodedCharacterClips=a.animations;
   ensureBody();spawnMobs();perfPass();
@@ -1925,6 +2054,14 @@ try{
   grad.addColorStop(.492,'#28322e');grad.addColorStop(.512,'#1e2624');
   grad.addColorStop(.62,'#141a19');grad.addColorStop(1,'#0a0d0c');
   g.fillStyle=grad;g.fillRect(0,0,2048,1024);
+  /* 星点：微弱、偏冷，给夜空一点层次 */
+  for(let i=0;i<210;i++){
+    const sx=(i*137.7)%2048, sy=(i*89.3)%(1024*.52);
+    const r=(i%7===0)?1.6:1.0, a=.18+((i*31)%10)/10*.30;
+    g.globalAlpha=a;g.fillStyle=(i%5===0)?'#cfe0e2':'#9fb6bb';
+    g.beginPath();g.arc(sx,sy,r,0,7);g.fill();
+  }
+  g.globalAlpha=1;
   /* 月在地平线上方，带三层晕 */
   const MX=1290,MY=352;
   g.globalAlpha=.10;g.fillStyle='#9db8c0';g.beginPath();g.arc(MX,MY,258,0,7);g.fill();
@@ -1984,7 +2121,7 @@ try{
   const floor=new THREE.Mesh(new THREE.PlaneGeometry(44.8,63.8),
     new THREE.MeshStandardMaterial({color:0x373c36,roughness:.94,metalness:0}));
   /* 和下面的 box 顶面只差 5mm 会 z-fighting，抬到 22mm 拉开距离 */
-  floor.rotation.x=-Math.PI/2;floor.position.set(0,-.022,-12);floor.receiveShadow=true;scene.add(floor);
+  floor.rotation.x=-Math.PI/2;floor.position.set(0,-.09,-12);floor.receiveShadow=true;floor.visible=false;scene.add(floor); // 兜底地面已被铺装完全覆盖，留着只为防雾底穿帮
   const farFloor=new THREE.Mesh(new THREE.PlaneGeometry(320,320),
     new THREE.MeshStandardMaterial({color:0x2e3430,roughness:1}));
   farFloor.rotation.x=-Math.PI/2;farFloor.position.set(0,-.32,-12);scene.add(farFloor);
