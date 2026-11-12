@@ -1,0 +1,89 @@
+{
+  "status": "FROZEN_CANDIDATE_READY_FOR_ROOT_MATERIAL_REVIEW",
+  "date": "2026-11-12",
+  "source_png_sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
+  "formal_ktx_glb_sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
+  "source_commit": "69f3866ab012e7c1a52ad3b038b790628f3697e0",
+  "recommended_candidate": "albedo_only",
+  "reason": "same-geometry same-V4-light actual guard comparisons show albedo benefit; added roughness benefit minor",
+  "allowed_deltas": {
+    "albedo": "body image1 RGB only inside true albedo_write_mask",
+    "roughness_optional": "body image2 GREEN only inside roughness_write_mask; R/B unchanged"
+  },
+  "geometry_rig_animation_uv_normal_and_other_images": "exactly preserved; independent verification PASS",
+  "visual_status": "OFFLINE_DIRECTION_READABLE; PICO/KTX_mips unverified",
+  "views": {
+    "full_guard": "true1.5m camera to fullguard bounds center, source-fixed87degHFOV; idle@0",
+    "upperbody": "true.8m camera,60degHFOV; idle@0; blade/feet maycrop"
+  },
+  "render_controls": "V4profile+HDRx16,AgXexposure0/gamma1; all3 variants identical perview, no addedlighting/noimageediting",
+  "validation": {
+    "independent_assets": "PASS",
+    "counterexample_tests": 10,
+    "deterministic_rebuild_files": 6,
+    "render_originals": 6,
+    "blender_threads": 2,
+    "max_concurrent_blender": 1
+  },
+  "root_next": "Apply only chosen image delta/mask to current matchingbodyatlas, canonicalmerge/KTXwithmipchecks, same-distance nativevisualreview. No newgeometryacceptance implied.",
+  "limitations": [
+    "No new cloth geometry, UVs, high/low bake, or normal changes",
+    "Conservative protected/uncertain coat may retain white fragments",
+    "Level0 protected decoded RGB is not a KTX mip/anisotropic sampling guarantee",
+    "Visual review of fixed-light guard still required"
+  ],
+  "files": {
+    "candidates/albedo_only.glb": {
+      "sha256": "fdb2e9e0ab77914a2555f9cd5741dd9081e410d166095ad55c16b032a612d232",
+      "bytes": 60657880
+    },
+    "candidates/final_pbr.glb": {
+      "sha256": "6a99efbcfb0b4276c67d8350dfa644f977576324b9d8414ed0f97bead82c1297",
+      "bytes": 69252888
+    },
+    "textures/albedo_write_mask.png": {
+      "sha256": "1dd1913a6249ee9238baef7b9f41cd901e1fb62f4f5aa41ed0e87d1f480420ad",
+      "bytes": 127012
+    },
+    "textures/coat_basecolor.png": {
+      "sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+      "bytes": 13942523
+    },
+    "textures/coat_roughness_mr.png": {
+      "sha256": "31c48cbd265a78f6dd16356b1287de4cc600ba3e577a0fffb809771283faee99",
+      "bytes": 8594945
+    },
+    "textures/roughness_write_mask.png": {
+      "sha256": "360e4e2c75322bfea8268be45a945cefbe57ebcc81ce30b3ee37bbc09eb45843",
+      "bytes": 270950
+    },
+    "review/original_albedo_final_guard_1p5m.png": {
+      "sha256": "3b4563b8ce6dcad3f3dbe7dc3ca4b5dff982b14a40a60535d7faa97c2328376a",
+      "bytes": 1186164
+    },
+    "review/original_albedo_final_upperbody_0p8m.png": {
+      "sha256": "e1bc0f3cc62849133836106224eb9093ce12d98c0fec0c186e0c8ccb0b3ed947",
+      "bytes": 2301787
+    },
+    "review/provenance.json": {
+      "sha256": "cdad6e357750f2db9404b2da640636e360e7cb7b8863d2f807e2139a112fabcf",
+      "bytes": 86306
+    },
+    "build_materials.py": {
+      "sha256": "9eb1012a89ee4cef503ddad47ab0985940f3f104a966a0d4c07e0c6cf664c947",
+      "bytes": 9923
+    },
+    "verify_materials.py": {
+      "sha256": "b3d62e298325c89d1541c3dbe18cbb6f55f75aa75eeff372ae4d34db87478ea8",
+      "bytes": 17779
+    },
+    "test_materials.py": {
+      "sha256": "aae721fc2ebdd9c3cee5f375d2237f6b216b60136844927862b355664c443943",
+      "bytes": 9468
+    },
+    "render_materials.py": {
+      "sha256": "d5795723c0015491785b22ef7529db441157d9f9ca9627b1c5b96eb23a4e1899",
+      "bytes": 22559
+    }
+  }
+}

@@ -3,13 +3,13 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "base_prepared_png.glb",
-    "sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
-    "bytes": 46715300
+    "sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+    "bytes": 57582484
   },
   "output": {
     "path": "base.glb",
-    "sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
-    "bytes": 75464020
+    "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+    "bytes": 75131720
   },
   "encoder": {
     "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -133,13 +133,13 @@
       "domain": "srgb",
       "wrap_s": "wrap",
       "wrap_t": "wrap",
-      "source_sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b",
-      "decoded_pixels_sha256": "b3e424be644908ce0ee79f7e9ef522de71d3adc67131cd130eab375fb35620ce",
+      "source_sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+      "decoded_pixels_sha256": "b0a54421eff236b390b6de298506a5de0271117cd4924b0273395d82aef82096",
       "source_mode": "RGB",
       "width": 4096,
       "height": 4096,
-      "sha256": "7726c5ab2b97e3419410d11dd3f4e505957f0ac3b5863973698b9099182c0655",
-      "ktx2_bytes": 15779482,
+      "sha256": "40fecf48bf9257da054dbd839a337515ba4cf85cc5798f8da801185dfdd1ce06",
+      "ktx2_bytes": 15447181,
       "ktx2": {
         "vk_format": 0,
         "type_size": 1,
@@ -168,7 +168,7 @@
             4096,
             4096
           ],
-          "pixels_sha256": "b3e424be644908ce0ee79f7e9ef522de71d3adc67131cd130eab375fb35620ce"
+          "pixels_sha256": "b0a54421eff236b390b6de298506a5de0271117cd4924b0273395d82aef82096"
         }
       ],
       "command_template": [
@@ -199,7 +199,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "7620b5032d68e83573171906c0729879d92b2309025cec5e92959ab1b38e94c3"
+      "cache_key": "c13be592c295941354c629deed0303555ce499ab8486783f4c9bb8051fd8efbb"
     },
     {
       "image": 2,

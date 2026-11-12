@@ -1,0 +1,27 @@
+{
+  "apk_sha256": "1b905852d2c6286eaab23f6cc172fa02fcc0c4483cd3861641c88154cb6ec6a1",
+  "apk_bytes": 242709448,
+  "actor_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+  "scene_sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+  "binding": "1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2",
+  "tests": {
+    "total": 311,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "native material/tangent/window trial; no new geometry or end-to-end pass",
+  "screenshot": {
+    "file": "clean-coat-one-window-2026-11-12.png",
+    "sha256": "9c073997781e818e6936a8dc696d507a324f957412a089196d0beac8bd6d6fe6",
+    "scope": "actual PICO Emulator Full Stage preparation frame, first actor only"
+  },
+  "source_commit": "69f3866 plus uncommitted material/window/typed-data group",
+  "real_start_receipt": "2026-11-12 18:59:24.908 accepted=true nextResult=COUNTDOWN",
+  "open_gates": [
+    "player strike/contact not demonstrated",
+    "full defense/parry/dodge and three rounds",
+    "costume/hair shape and dynamic clipping",
+    "Space Pro hardware performance and comfort"
+  ]
+}

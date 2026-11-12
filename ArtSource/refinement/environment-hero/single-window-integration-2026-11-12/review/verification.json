@@ -1,0 +1,51 @@
+{
+  "status": "passed full-scene construction/preservation checks; native remains Root gate",
+  "candidate_sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+  "source_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "module_sha256": "2fb34ef40f8dffe34c2f6d4f058bf673979df8e5ba27560f51c5c4e61752f6d5",
+  "source_bin_prefix_bytes": 31657160,
+  "changed_source_primitives": [
+    [
+      4,
+      0
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      4,
+      2
+    ],
+    [
+      23,
+      0
+    ]
+  ],
+  "removed_window_triangles": [
+    176,
+    396,
+    44,
+    0
+  ],
+  "wall_surface_area_removed_m2": 8.864959716796875,
+  "expected_wall_surface_area_removed_m2": 8.865,
+  "old_wall_pane_ray_skin_removed": true,
+  "ground_anchors_and_combat_clearance_preserved": true,
+  "current_guard_png_geometry_skin_animation_matches_formal_ktx": true,
+  "budget": {
+    "source_bytes": 31733408,
+    "candidate_bytes": 34423280,
+    "delta_bytes": 2689872,
+    "source_triangles": 153838,
+    "candidate_triangles": 162206,
+    "delta_triangles": 8368,
+    "source_materials": 29,
+    "candidate_materials": 32,
+    "source_images": 45,
+    "candidate_images": 50,
+    "source_meshes": 31,
+    "candidate_meshes": 32
+  },
+  "published_app_sha256_observed": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5"
+}

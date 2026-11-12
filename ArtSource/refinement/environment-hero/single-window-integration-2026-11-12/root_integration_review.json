@@ -1,0 +1,32 @@
+{
+  "decision": "approved_for_development_integration",
+  "quality_complete": false,
+  "source_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "candidate_sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+  "reviewed": [
+    "review/comparison_player.png",
+    "review/comparison_window_1p5m.png",
+    "review/verification.json",
+    "review/gltf-validator.json"
+  ],
+  "scope": "one window in single complete courtyard, receivers and stage origin unchanged",
+  "open": [
+    "native same-view visibility",
+    "new normal/tangent response",
+    "device runtime budget"
+  ],
+  "budget": {
+    "source_bytes": 31733408,
+    "candidate_bytes": 34423280,
+    "delta_bytes": 2689872,
+    "source_triangles": 153838,
+    "candidate_triangles": 162206,
+    "delta_triangles": 8368,
+    "source_materials": 29,
+    "candidate_materials": 32,
+    "source_images": 45,
+    "candidate_images": 50,
+    "source_meshes": 31,
+    "candidate_meshes": 32
+  }
+}

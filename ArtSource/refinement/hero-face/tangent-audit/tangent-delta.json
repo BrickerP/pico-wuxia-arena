@@ -1,0 +1,1539 @@
+{
+  "schema_version": 1,
+  "source": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/library/base_prepared_png.glb",
+  "source_sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
+  "raw_geometry_sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
+  "verified_source_sha256": [
+    "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
+    "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9"
+  ],
+  "streams": [
+    {
+      "old_stream_sha256": "435256f57c420b0e60dc7c2e536c186ad228a16d16b06da232a06e071ee93682",
+      "vertex_count": 29189,
+      "accessors": [
+        40
+      ],
+      "role_primitives": [
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "material": 1
+        }
+      ],
+      "changes": [
+        {
+          "vertex": 13576,
+          "old": [
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "new": [
+            -0.5209541916847229,
+            0.7884929776191711,
+            -0.3269335627555847,
+            -1.0
+          ],
+          "reason": "zero_xyz_from_main_uv_fan",
+          "evidence": {
+            "method": "area_times_corner_angle_weighted_uv_fan",
+            "faces": [
+              {
+                "triangle": 10168,
+                "vertex_ids": [
+                  13576,
+                  12300,
+                  14364
+                ],
+                "uv_determinant": 2.4376923235536196e-07,
+                "twice_geometric_area": 1.9579220099036516e-07,
+                "corner_angle_radians": 0.13119178604583664,
+                "uv_positive_u_derivative": [
+                  -0.07395345057437128,
+                  0.3221934511958103,
+                  0.027360768148463995
+                ],
+                "projected_derivative": [
+                  -0.1477574491853368,
+                  0.22363905578969706,
+                  -0.0927276713846087
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vertex": 23845,
+          "old": [
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "new": [
+            -0.875169038772583,
+            -0.4828992784023285,
+            -0.029789866879582405,
+            -1.0
+          ],
+          "reason": "zero_xyz_from_main_uv_fan",
+          "evidence": {
+            "method": "area_times_corner_angle_weighted_uv_fan",
+            "faces": [
+              {
+                "triangle": 23001,
+                "vertex_ids": [
+                  23845,
+                  28253,
+                  13631
+                ],
+                "uv_determinant": 1.770787836363752e-06,
+                "twice_geometric_area": 1.3685901462178748e-07,
+                "corner_angle_radians": 0.056207557882326974,
+                "uv_positive_u_derivative": [
+                  -0.19394395901258157,
+                  -0.1202961247718886,
+                  -0.23452717277542806
+                ],
+                "projected_derivative": [
+                  -0.2054994855322497,
+                  -0.1133901595704147,
+                  -0.006994994151095474
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vertex": 29058,
+          "old": [
+            0.5746778845787048,
+            -0.7970049977302551,
+            -0.18581804633140564,
+            1.0
+          ],
+          "new": [
+            0.5736979246139526,
+            -0.7968316078186035,
+            -0.1895522028207779,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0038644757797088873,
+            "normal": [
+              0.25468695163726807,
+              -0.0464048907160759,
+              0.965909481048584
+            ]
+          }
+        },
+        {
+          "vertex": 29059,
+          "old": [
+            0.5570536255836487,
+            -0.8039453029632568,
+            -0.2082383632659912,
+            1.0
+          ],
+          "new": [
+            0.5563502907752991,
+            -0.803816556930542,
+            -0.21060208976268768,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0024694999510476126,
+            "normal": [
+              0.28549015522003174,
+              -0.0531146377325058,
+              0.956908643245697
+            ]
+          }
+        },
+        {
+          "vertex": 29062,
+          "old": [
+            0.4600990414619446,
+            -0.8514120578765869,
+            -0.2518061697483063,
+            1.0
+          ],
+          "new": [
+            0.4594981074333191,
+            -0.8513251543045044,
+            -0.25319358706474304,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0015144616191393849,
+            "normal": [
+              0.39714521169662476,
+              -0.058047324419021606,
+              0.915918231010437
+            ]
+          }
+        },
+        {
+          "vertex": 29081,
+          "old": [
+            0.2933681011199951,
+            -0.8582910895347595,
+            -0.4210362732410431,
+            1.0
+          ],
+          "new": [
+            0.2927887737751007,
+            -0.8580543398857117,
+            -0.42192113399505615,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0010837927285751124,
+            "normal": [
+              0.5346958637237549,
+              -0.21889089047908783,
+              0.8162028789520264
+            ]
+          }
+        },
+        {
+          "vertex": 29085,
+          "old": [
+            0.5177346467971802,
+            -0.6189664006233215,
+            0.5906195044517517,
+            1.0
+          ],
+          "new": [
+            0.5159068703651428,
+            -0.618939220905304,
+            0.5922451615333557,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.002446257749875885,
+            "normal": [
+              -0.7478060722351074,
+              0.0118601368740201,
+              0.6638112664222717
+            ]
+          }
+        },
+        {
+          "vertex": 29086,
+          "old": [
+            0.359817236661911,
+            -0.8312888145446777,
+            0.42366310954093933,
+            1.0
+          ],
+          "new": [
+            0.3528900742530823,
+            -0.8316233158111572,
+            0.4288020730018616,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.00863161275847305,
+            "normal": [
+              -0.8040562272071838,
+              -0.03516510874032974,
+              0.5935124158859253
+            ]
+          }
+        },
+        {
+          "vertex": 29089,
+          "old": [
+            -0.1458495557308197,
+            0.9793466329574585,
+            -0.14002880454063416,
+            1.0
+          ],
+          "new": [
+            -0.1449962705373764,
+            0.9793962836265564,
+            -0.1405666321516037,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0010098568729572158,
+            "normal": [
+              -0.845024049282074,
+              -0.048675332218408585,
+              0.5325083136558533
+            ]
+          }
+        },
+        {
+          "vertex": 29091,
+          "old": [
+            0.2791733741760254,
+            -0.8877154588699341,
+            0.3660922050476074,
+            1.0
+          ],
+          "new": [
+            0.2810743451118469,
+            -0.8876082301139832,
+            0.36489564180374146,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.00224877247721018,
+            "normal": [
+              -0.845024049282074,
+              -0.048675332218408585,
+              0.5325083136558533
+            ]
+          }
+        },
+        {
+          "vertex": 29093,
+          "old": [
+            0.29629430174827576,
+            -0.8169989585876465,
+            -0.49469420313835144,
+            1.0
+          ],
+          "new": [
+            0.2969203591346741,
+            -0.8176776170730591,
+            -0.4931953251361847,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0017604451153287756,
+            "normal": [
+              0.3553560674190521,
+              -0.38477540016174316,
+              0.8518626689910889
+            ]
+          }
+        },
+        {
+          "vertex": 29095,
+          "old": [
+            0.30999213457107544,
+            -0.8039069175720215,
+            -0.5075809955596924,
+            1.0
+          ],
+          "new": [
+            0.31064119935035706,
+            -0.804653525352478,
+            -0.5059987306594849,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0018660649966750259,
+            "normal": [
+              0.3475225567817688,
+              -0.3993363082408905,
+              0.8483858704566956
+            ]
+          }
+        },
+        {
+          "vertex": 29098,
+          "old": [
+            0.3137415945529938,
+            -0.7664344310760498,
+            -0.5604859590530396,
+            1.0
+          ],
+          "new": [
+            0.3145532011985779,
+            -0.7673832178115845,
+            -0.5587300658226013,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0021545089780674372,
+            "normal": [
+              0.37636497616767883,
+              -0.43954089283943176,
+              0.815569281578064
+            ]
+          }
+        },
+        {
+          "vertex": 29112,
+          "old": [
+            0.0907050147652626,
+            -0.3019239008426666,
+            -0.9490071535110474,
+            1.0
+          ],
+          "new": [
+            0.09008011966943741,
+            -0.3006006181240082,
+            -0.9494866132736206,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.001539948431028,
+            "normal": [
+              0.40586066246032715,
+              -0.8595283031463623,
+              0.31062546372413635
+            ]
+          }
+        },
+        {
+          "vertex": 29116,
+          "old": [
+            -0.04986260086297989,
+            -0.12009125202894211,
+            -0.9915098547935486,
+            1.0
+          ],
+          "new": [
+            -0.05082995444536209,
+            -0.11799514293670654,
+            -0.9917123913764954,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0023174239191430172,
+            "normal": [
+              0.41736751794815063,
+              -0.9046361446380615,
+              0.08624264597892761
+            ]
+          }
+        },
+        {
+          "vertex": 29117,
+          "old": [
+            -0.10631601512432098,
+            0.04680546000599861,
+            -0.9932301640510559,
+            1.0
+          ],
+          "new": [
+            -0.1069863960146904,
+            0.04828009381890297,
+            -0.9930875897407532,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0016261281320562478,
+            "normal": [
+              0.41217079758644104,
+              -0.90679931640625,
+              -0.08848869800567627
+            ]
+          }
+        },
+        {
+          "vertex": 29120,
+          "old": [
+            0.23888178169727325,
+            -0.9697642922401428,
+            0.049926526844501495,
+            1.0
+          ],
+          "new": [
+            0.2410431057214737,
+            -0.9692333340644836,
+            0.049849819391965866,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0022269161560413983,
+            "normal": [
+              -0.9702762365341187,
+              -0.23952798545360565,
+              0.03450159728527069
+            ]
+          }
+        },
+        {
+          "vertex": 29123,
+          "old": [
+            -0.6466571688652039,
+            -0.11320625245571136,
+            -0.7543333768844604,
+            1.0
+          ],
+          "new": [
+            -0.6521111130714417,
+            -0.10127581655979156,
+            -0.7513283491134644,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.013457441474975835,
+            "normal": [
+              0.40088552236557007,
+              -0.8872120976448059,
+              -0.22835391759872437
+            ]
+          }
+        },
+        {
+          "vertex": 29125,
+          "old": [
+            -0.8088357448577881,
+            -0.16141334176063538,
+            -0.5654471516609192,
+            1.0
+          ],
+          "new": [
+            -0.8125641942024231,
+            -0.15355128049850464,
+            -0.562282383441925,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.009258914937395966,
+            "normal": [
+              0.3989255428314209,
+              -0.8498456478118896,
+              -0.3444136679172516
+            ]
+          }
+        },
+        {
+          "vertex": 29127,
+          "old": [
+            0.17211341857910156,
+            -0.9141121506690979,
+            -0.36711838841438293,
+            1.0
+          ],
+          "new": [
+            0.1708775907754898,
+            -0.914341926574707,
+            -0.3671235740184784,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0012570154144745725,
+            "normal": [
+              -0.9832547307014465,
+              -0.18219509720802307,
+              -0.0038885697722434998
+            ]
+          }
+        },
+        {
+          "vertex": 29130,
+          "old": [
+            -0.8819965124130249,
+            -0.1876278519630432,
+            -0.4322938621044159,
+            1.0
+          ],
+          "new": [
+            -0.8815680742263794,
+            -0.1884908676147461,
+            -0.432792067527771,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0010847045988504331,
+            "normal": [
+              0.3954654037952423,
+              -0.7955290079116821,
+              -0.4590650498867035
+            ]
+          }
+        },
+        {
+          "vertex": 29131,
+          "old": [
+            -0.8963572382926941,
+            -0.14608041942119598,
+            -0.41857409477233887,
+            1.0
+          ],
+          "new": [
+            -0.8957153558731079,
+            -0.14729063212871552,
+            -0.4195229709148407,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0016664418826083823,
+            "normal": [
+              0.3859291672706604,
+              -0.7261046767234802,
+              -0.5690612196922302
+            ]
+          }
+        },
+        {
+          "vertex": 29134,
+          "old": [
+            -0.9099339842796326,
+            -0.11260103434324265,
+            -0.3991755545139313,
+            1.0
+          ],
+          "new": [
+            -0.9095560312271118,
+            -0.11329661309719086,
+            -0.3998396396636963,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0010332959667206964,
+            "normal": [
+              0.36627396941185,
+              -0.6731065511703491,
+              -0.6424725651741028
+            ]
+          }
+        },
+        {
+          "vertex": 29136,
+          "old": [
+            0.18099962174892426,
+            -0.981241762638092,
+            0.06636052578687668,
+            1.0
+          ],
+          "new": [
+            0.17668308317661285,
+            -0.9820337295532227,
+            0.06627852469682693,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.004389339568114092,
+            "normal": [
+              -0.9838011264801025,
+              -0.1782718151807785,
+              -0.01882833056151867
+            ]
+          }
+        },
+        {
+          "vertex": 29143,
+          "old": [
+            0.250619500875473,
+            -0.4625019431114197,
+            -0.8504597544670105,
+            1.0
+          ],
+          "new": [
+            0.24672579765319824,
+            -0.46316298842430115,
+            -0.8512381911277771,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.004025397835673742,
+            "normal": [
+              -0.9677829146385193,
+              -0.16328677535057068,
+              -0.19166035950183868
+            ]
+          }
+        },
+        {
+          "vertex": 29151,
+          "old": [
+            0.5738527178764343,
+            -0.4149976670742035,
+            -0.7060241103172302,
+            1.0
+          ],
+          "new": [
+            0.5749536156654358,
+            -0.41499200463294983,
+            -0.7051311731338501,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.001417479407048001,
+            "normal": [
+              -0.7762458324432373,
+              -0.004288095980882645,
+              -0.6304157376289368
+            ]
+          }
+        },
+        {
+          "vertex": 29152,
+          "old": [
+            -0.9008101224899292,
+            -0.05571132153272629,
+            -0.430624395608902,
+            1.0
+          ],
+          "new": [
+            -0.9019240736961365,
+            -0.05488785728812218,
+            -0.428392618894577,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.002626745158610061,
+            "normal": [
+              0.4229043126106262,
+              -0.3135644793510437,
+              -0.8501936793327332
+            ]
+          }
+        },
+        {
+          "vertex": 29153,
+          "old": [
+            0.6040737628936768,
+            -0.4413709044456482,
+            -0.6635409593582153,
+            1.0
+          ],
+          "new": [
+            0.6064326763153076,
+            -0.4414333403110504,
+            -0.6613441109657288,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.003224067136885223,
+            "normal": [
+              -0.7306815385818481,
+              0.018653085455298424,
+              -0.6824635863304138
+            ]
+          }
+        },
+        {
+          "vertex": 29155,
+          "old": [
+            0.6431605815887451,
+            -0.42898890376091003,
+            -0.6342814564704895,
+            1.0
+          ],
+          "new": [
+            0.6449510455131531,
+            -0.42910608649253845,
+            -0.6323813199996948,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0026134386190183163,
+            "normal": [
+              -0.6842550039291382,
+              0.04427315667271614,
+              -0.7278976440429688
+            ]
+          }
+        },
+        {
+          "vertex": 29157,
+          "old": [
+            -0.7997989654541016,
+            -0.06148112937808037,
+            -0.5971111059188843,
+            1.0
+          ],
+          "new": [
+            -0.8005923628807068,
+            -0.06128709763288498,
+            -0.596066951751709,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.00132565840256035,
+            "normal": [
+              0.5979407429695129,
+              -0.14640861749649048,
+              -0.7880554795265198
+            ]
+          }
+        },
+        {
+          "vertex": 29158,
+          "old": [
+            0.6816925406455994,
+            -0.4215523898601532,
+            -0.5979873538017273,
+            1.0
+          ],
+          "new": [
+            0.6807880401611328,
+            -0.4214518964290619,
+            -0.5990875959396362,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0014278427082776424,
+            "normal": [
+              -0.6339527368545532,
+              0.07068586349487305,
+              -0.770134687423706
+            ]
+          }
+        },
+        {
+          "vertex": 29159,
+          "old": [
+            0.7109643816947937,
+            -0.40508416295051575,
+            -0.5748360753059387,
+            1.0
+          ],
+          "new": [
+            0.711620032787323,
+            -0.4051746129989624,
+            -0.5739603042602539,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0010977174410985986,
+            "normal": [
+              -0.5969082713127136,
+              0.08218561857938766,
+              -0.7980889678001404
+            ]
+          }
+        },
+        {
+          "vertex": 29164,
+          "old": [
+            0.8221985101699829,
+            -0.26058998703956604,
+            -0.506045937538147,
+            1.0
+          ],
+          "new": [
+            0.8238650560379028,
+            -0.26086094975471497,
+            -0.5031877756118774,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0033196376699941204,
+            "normal": [
+              -0.5006639957427979,
+              0.08119428157806396,
+              -0.8618254065513611
+            ]
+          }
+        },
+        {
+          "vertex": 29165,
+          "old": [
+            0.8350691795349121,
+            -0.26344090700149536,
+            -0.4829682409763336,
+            1.0
+          ],
+          "new": [
+            0.8375973701477051,
+            -0.2638643980026245,
+            -0.478336900472641,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.005293419523676273,
+            "normal": [
+              -0.47539380192756653,
+              0.07930601388216019,
+              -0.8761913180351257
+            ]
+          }
+        },
+        {
+          "vertex": 29168,
+          "old": [
+            0.37702426314353943,
+            -0.8831285238265991,
+            -0.2791714072227478,
+            1.0
+          ],
+          "new": [
+            0.37481072545051575,
+            -0.8827682137489319,
+            -0.283261775970459,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.004664837835993293,
+            "normal": [
+              -0.47539380192756653,
+              0.07930601388216019,
+              -0.8761913180351257
+            ]
+          }
+        },
+        {
+          "vertex": 29169,
+          "old": [
+            0.42841657996177673,
+            -0.8657573461532593,
+            -0.2586955726146698,
+            1.0
+          ],
+          "new": [
+            0.42797985672950745,
+            -0.8656823039054871,
+            -0.25966784358024597,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.001068496422885924,
+            "normal": [
+              -0.40897664427757263,
+              0.0707099512219429,
+              -0.909801185131073
+            ]
+          }
+        },
+        {
+          "vertex": 29172,
+          "old": [
+            0.5070052742958069,
+            -0.8244087100028992,
+            -0.2515866756439209,
+            1.0
+          ],
+          "new": [
+            0.504074215888977,
+            -0.8239553570747375,
+            -0.25885656476020813,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.007851557711147894,
+            "normal": [
+              -0.3752920925617218,
+              0.060975462198257446,
+              -0.9248988032341003
+            ]
+          }
+        },
+        {
+          "vertex": 29173,
+          "old": [
+            -0.477122962474823,
+            -0.8733530044555664,
+            -0.09802155196666718,
+            1.0
+          ],
+          "new": [
+            -0.4754885137081146,
+            -0.873678982257843,
+            -0.10293561220169067,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.005188980312614162,
+            "normal": [
+              0.31621941924095154,
+              -0.0605534128844738,
+              -0.946751594543457
+            ]
+          }
+        },
+        {
+          "vertex": 29176,
+          "old": [
+            0.43121522665023804,
+            -0.8860613107681274,
+            -0.1701432466506958,
+            1.0
+          ],
+          "new": [
+            0.4318200349807739,
+            -0.8861658573150635,
+            -0.16805210709571838,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0021793511407078438,
+            "normal": [
+              -0.2770434319972992,
+              0.04699790105223656,
+              -0.9597073197364807
+            ]
+          }
+        },
+        {
+          "vertex": 29179,
+          "old": [
+            0.48114368319511414,
+            -0.873012125492096,
+            -0.0796908512711525,
+            1.0
+          ],
+          "new": [
+            0.48086854815483093,
+            -0.8729922771453857,
+            -0.08154676109552383,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0018762958256394932,
+            "normal": [
+              -0.14707638323307037,
+              0.011374912224709988,
+              -0.9890597462654114
+            ]
+          }
+        },
+        {
+          "vertex": 29181,
+          "old": [
+            -0.7813776731491089,
+            -0.6195378303527832,
+            -0.07497842609882355,
+            1.0
+          ],
+          "new": [
+            -0.7806292772293091,
+            -0.6198058128356934,
+            -0.08036550134420395,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.00544538423036611,
+            "normal": [
+              0.13956063985824585,
+              -0.047527529299259186,
+              -0.9890722632408142
+            ]
+          }
+        },
+        {
+          "vertex": 29183,
+          "old": [
+            0.46899136900901794,
+            -0.8759585022926331,
+            0.11288837343454361,
+            1.0
+          ],
+          "new": [
+            0.4696340560913086,
+            -0.87618488073349,
+            0.10836956650018692,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.004569880152450218,
+            "normal": [
+              0.13956063985824585,
+              -0.047527529299259186,
+              -0.9890722632408142
+            ]
+          }
+        },
+        {
+          "vertex": 29184,
+          "old": [
+            0.39542168378829956,
+            -0.9151652455329895,
+            0.07819391041994095,
+            1.0
+          ],
+          "new": [
+            0.3955114185810089,
+            -0.9152203798294067,
+            0.07708694040775299,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.001111967720784662,
+            "normal": [
+              0.08046987652778625,
+              -0.049077797681093216,
+              -0.9955480694770813
+            ]
+          }
+        },
+        {
+          "vertex": 29185,
+          "old": [
+            0.48681318759918213,
+            -0.8725365996360779,
+            -0.04114369675517082,
+            1.0
+          ],
+          "new": [
+            0.48695358633995056,
+            -0.8725260496139526,
+            -0.03968022018671036,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0014702342410581324,
+            "normal": [
+              -0.0951336920261383,
+              -0.007824022322893143,
+              -0.9954337477684021
+            ]
+          }
+        },
+        {
+          "vertex": 29186,
+          "old": [
+            0.41240835189819336,
+            -0.909480094909668,
+            0.05258593708276749,
+            1.0
+          ],
+          "new": [
+            0.4123588800430298,
+            -0.9094380736351013,
+            0.053689803928136826,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.001105775719702284,
+            "normal": [
+              0.044977325946092606,
+              -0.03853890299797058,
+              -0.9982443451881409
+            ]
+          }
+        },
+        {
+          "vertex": 29188,
+          "old": [
+            0.4511341154575348,
+            -0.8924561738967896,
+            3.0703104130225256e-05,
+            1.0
+          ],
+          "new": [
+            0.4511892795562744,
+            -0.892427384853363,
+            0.0012694166507571936,
+            1.0
+          ],
+          "reason": "normal_orthogonalization",
+          "evidence": {
+            "old_normalized_abs_dot": 0.0012402756368240786,
+            "normal": [
+              -0.04420299828052521,
+              -0.023768585175275803,
+              -0.9987397789955139
+            ]
+          }
+        }
+      ],
+      "before": {
+        "vertices": 29189,
+        "used_vertices": 28600,
+        "zero_xyz_all": 2,
+        "nonfinite_all": 0,
+        "w_zero_all": 0,
+        "used_abs_normal_tangent_dot_max": 0.013457441474975835,
+        "used_abs_dot_gt_0_001": 44,
+        "used_abs_dot_gt_2e_6": 27520
+      },
+      "new_stream_sha256": "7bc9afea58c5db4715078224ba6d45218c92a90c2a03a41e63151919c94de867",
+      "after": {
+        "vertices": 29189,
+        "used_vertices": 28600,
+        "zero_xyz_all": 0,
+        "nonfinite_all": 0,
+        "w_zero_all": 0,
+        "used_abs_normal_tangent_dot_max": 0.000982756233466459,
+        "used_abs_dot_gt_0_001": 0,
+        "used_abs_dot_gt_2e_6": 27476
+      }
+    },
+    {
+      "old_stream_sha256": "4f494c7ab0c86035b0f6074807d04eefa368961595f904d7fca711fe92329364",
+      "vertex_count": 29051,
+      "accessors": [
+        15
+      ],
+      "role_primitives": [
+        {
+          "mesh": 0,
+          "primitive": 2,
+          "material": 1
+        },
+        {
+          "mesh": 0,
+          "primitive": 3,
+          "material": 1
+        }
+      ],
+      "changes": [
+        {
+          "vertex": 13576,
+          "old": [
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "new": [
+            -0.5209541916847229,
+            0.7884929776191711,
+            -0.3269335627555847,
+            -1.0
+          ],
+          "reason": "zero_xyz_from_main_uv_fan",
+          "evidence": {
+            "method": "area_times_corner_angle_weighted_uv_fan",
+            "faces": [
+              {
+                "triangle": 10168,
+                "vertex_ids": [
+                  13576,
+                  12300,
+                  14364
+                ],
+                "uv_determinant": 2.4376923235536196e-07,
+                "twice_geometric_area": 1.9579220099036516e-07,
+                "corner_angle_radians": 0.13119178604583664,
+                "uv_positive_u_derivative": [
+                  -0.07395345057437128,
+                  0.3221934511958103,
+                  0.027360768148463995
+                ],
+                "projected_derivative": [
+                  -0.1477574491853368,
+                  0.22363905578969706,
+                  -0.0927276713846087
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "vertex": 23845,
+          "old": [
+            0.0,
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "new": [
+            -0.875169038772583,
+            -0.4828992784023285,
+            -0.029789866879582405,
+            -1.0
+          ],
+          "reason": "zero_xyz_from_main_uv_fan",
+          "evidence": {
+            "method": "area_times_corner_angle_weighted_uv_fan",
+            "faces": [
+              {
+                "triangle": 23001,
+                "vertex_ids": [
+                  23845,
+                  28253,
+                  13631
+                ],
+                "uv_determinant": 1.770787836363752e-06,
+                "twice_geometric_area": 1.3685901462178748e-07,
+                "corner_angle_radians": 0.056207557882326974,
+                "uv_positive_u_derivative": [
+                  -0.19394395901258157,
+                  -0.1202961247718886,
+                  -0.23452717277542806
+                ],
+                "projected_derivative": [
+                  -0.2054994855322497,
+                  -0.1133901595704147,
+                  -0.006994994151095474
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "before": {
+        "vertices": 29051,
+        "used_vertices": 73,
+        "zero_xyz_all": 2,
+        "nonfinite_all": 0,
+        "w_zero_all": 0,
+        "used_abs_normal_tangent_dot_max": 8.909615893592599e-05,
+        "used_abs_dot_gt_0_001": 0,
+        "used_abs_dot_gt_2e_6": 71
+      },
+      "new_stream_sha256": "d7730ef691220b1628d52e5397e688a8263afbfcb336a72c889a189d1bad5581",
+      "after": {
+        "vertices": 29051,
+        "used_vertices": 73,
+        "zero_xyz_all": 0,
+        "nonfinite_all": 0,
+        "w_zero_all": 0,
+        "used_abs_normal_tangent_dot_max": 8.909615893592599e-05,
+        "used_abs_dot_gt_0_001": 0,
+        "used_abs_dot_gt_2e_6": 71
+      }
+    }
+  ],
+  "limits": "JSON tangent-only delta; no GLB written. Missing TANGENT streams and degenerate UVs can still cause native-generated invalid tangents; this is not a native fix claim.",
+  "verification": {
+    "json_unchanged": true,
+    "binary_length_unchanged": true,
+    "byte_diff_only_listed_tangent_xyz": true,
+    "all_other_attributes_unchanged": true,
+    "all_w_exact_unchanged": true,
+    "whole_head_streams_zero_and_nonfinite_free": true,
+    "repaired_rows_abs_dot_le_2e_6": true,
+    "repaired_abs_dot_max": 3.440046569824773e-08,
+    "changed_byte_count": 380,
+    "changed_row_count": 48,
+    "all_used_abs_dot_le_2e_6": false,
+    "all_used_abs_dot_le_0_001": true
+  },
+  "untouched_native_tangent_generation_risks": [
+    {
+      "mesh": 0,
+      "primitive": 0,
+      "material": 0,
+      "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "missing_tangent": true,
+      "active_normal_texture": true,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 7
+    },
+    {
+      "mesh": 0,
+      "primitive": 4,
+      "material": 4,
+      "material_name": "tripo_eyeball_L_Eye",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 364
+    },
+    {
+      "mesh": 0,
+      "primitive": 5,
+      "material": 5,
+      "material_name": "tripo_cornea_L_Eye",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 6,
+      "material": 6,
+      "material_name": "tripo_eyeball_R_Eye",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 555
+    },
+    {
+      "mesh": 0,
+      "primitive": 7,
+      "material": 7,
+      "material_name": "tripo_cornea_R_Eye",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 8,
+      "material": 8,
+      "material_name": "tripo_neck_continuous",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 9,
+      "material": 9,
+      "material_name": "Steel | forged body",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 10,
+      "material": 10,
+      "material_name": "Steel | sharpened edge",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 21
+    },
+    {
+      "mesh": 0,
+      "primitive": 11,
+      "material": 11,
+      "material_name": "Steel | dark spine",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 151
+    },
+    {
+      "mesh": 0,
+      "primitive": 12,
+      "material": 12,
+      "material_name": "Brass | aged",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 60
+    },
+    {
+      "mesh": 0,
+      "primitive": 13,
+      "material": 13,
+      "material_name": "Steel | uneven wear",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 14,
+      "material": 11,
+      "material_name": "Steel | dark spine",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 15,
+      "material": 14,
+      "material_name": "Brass | polished ridges",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 60
+    },
+    {
+      "mesh": 0,
+      "primitive": 16,
+      "material": 15,
+      "material_name": "Grip | worn cord",
+      "missing_tangent": true,
+      "active_normal_texture": true,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 17,
+      "material": 14,
+      "material_name": "Brass | polished ridges",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 18,
+      "material": 14,
+      "material_name": "Brass | polished ridges",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 0
+    },
+    {
+      "mesh": 0,
+      "primitive": 19,
+      "material": 12,
+      "material_name": "Brass | aged",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 124
+    },
+    {
+      "mesh": 0,
+      "primitive": 20,
+      "material": 14,
+      "material_name": "Brass | polished ridges",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 124
+    },
+    {
+      "mesh": 0,
+      "primitive": 21,
+      "material": 16,
+      "material_name": "Grip | dark oxblood leather",
+      "missing_tangent": true,
+      "active_normal_texture": true,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 60
+    },
+    {
+      "mesh": 0,
+      "primitive": 22,
+      "material": 14,
+      "material_name": "Brass | polished ridges",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 60
+    },
+    {
+      "mesh": 0,
+      "primitive": 23,
+      "material": 12,
+      "material_name": "Brass | aged",
+      "missing_tangent": true,
+      "active_normal_texture": false,
+      "uv_degenerate_or_nonfinite_indexed_triangles": 124
+    }
+  ],
+  "raw_geometry": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hero-face/neck-continuous/candidate-raw.glb",
+  "raw_head_stream_mapping": [
+    {
+      "old_stream_sha256": "435256f57c420b0e60dc7c2e536c186ad228a16d16b06da232a06e071ee93682",
+      "formal_accessor": 40,
+      "raw_accessor": 40,
+      "core_geometry_and_indices_equal": true
+    },
+    {
+      "old_stream_sha256": "4f494c7ab0c86035b0f6074807d04eefa368961595f904d7fca711fe92329364",
+      "formal_accessor": 15,
+      "raw_accessor": 15,
+      "core_geometry_and_indices_equal": true
+    }
+  ],
+  "raw_formal_head_streams_equivalent": true,
+  "raw_cross_apply_tangent_streams_match": true,
+  "source_files_sha_unchanged": true
+}

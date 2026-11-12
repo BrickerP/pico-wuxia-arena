@@ -35,8 +35,8 @@
     {
       "id": "base",
       "name": "试刀客",
-      "source": "../refinement/hero-face/neck-continuous/candidate-raw.glb",
-      "source_sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
+      "source": "../refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+      "source_sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
       "grip_source": {
         "source": "refined-base60k/slash.glb",
         "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
@@ -320,8 +320,8 @@
     "source_sha256": "eb6530df0419564bab3009f012854ba28912b11a3be650a287b630bdf2656433"
   },
   "production_review": {
-    "source": "review/locomotion-v3-ktx-production-review.json",
-    "source_sha256": "d531692751a9e1c309eb2815c05a6eb51bd3b5c55cad5d43c3d42e12e5df3b6c"
+    "source": "../refinement/material-direction/integration/root_production_review.json",
+    "source_sha256": "680b604055e96a391c5b74daa63d6af1b87f2de9927c7967c3e3a4e3a6388d7b"
   },
   "runtime_texture_encoding": {
     "format": "KHR_texture_basisu",

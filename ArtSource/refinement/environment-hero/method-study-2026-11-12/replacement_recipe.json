@@ -1,0 +1,91 @@
+{
+  "status": "private method specimen, Root review required before production rebuild",
+  "source_scene_sha256": "8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b",
+  "candidate_sha256": "2fb34ef40f8dffe34c2f6d4f058bf673979df8e5ba27560f51c5c4e61752f6d5",
+  "module_origin_stage_m": [
+    -2.5,
+    0,
+    -5.51
+  ],
+  "rotation": "identity",
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "remove_window_parts": {
+    "node": "EH_EntryDoorsWindows",
+    "source_mesh": 4,
+    "source_primitive_materials": [
+      0,
+      3,
+      4
+    ],
+    "bounds_stage_m": {
+      "min": [
+        -3.2,
+        0.89,
+        -5.44
+      ],
+      "max": [
+        -1.74,
+        2.51,
+        -5.31
+      ]
+    },
+    "parts": 14,
+    "policy": "select complete named/material connected box components inside this window bbox; never remove the full source node"
+  },
+  "replace_wall_volume": {
+    "node": "EH_TavernWalls",
+    "source_mesh": 23,
+    "source_primitive": 0,
+    "bounds_stage_m": {
+      "min": [
+        -3.485,
+        0.515,
+        -5.79
+      ],
+      "max": [
+        -1.515,
+        2.765,
+        -5.51
+      ]
+    },
+    "policy": "clip triangles at all six planes, keep every outside polygon; do not centroid-delete, remove the whole connected wall or Boolean-intersect overlapping merged solids"
+  },
+  "merge": "merge the new infill into the single courtyard export, replacing the old owned region; no second runtime scene or fallback",
+  "context_not_runtime_overlay": [
+    "before_bay_with_context.glb",
+    "after_bay_with_context.glb",
+    "open14_bay_with_context.glb"
+  ],
+  "kept_source_parts": [
+    "both full posts",
+    "long horizontal beams",
+    "column bases",
+    "all other windows and eaves"
+  ],
+  "budget": {
+    "before_bay_with_context.glb": {
+      "triangles": 2227,
+      "bytes": 11185060,
+      "meshes": 4,
+      "materials": 7
+    },
+    "after_bay_with_context.glb": {
+      "triangles": 11081,
+      "bytes": 14476284,
+      "meshes": 4,
+      "materials": 9
+    },
+    "window_infill_candidate.glb": {
+      "triangles": 8964,
+      "bytes": 10833856,
+      "meshes": 1,
+      "materials": 5
+    }
+  },
+  "same_context_triangle_delta": 8854,
+  "runtime_boundary": "No Kotlin/receiver/light/container/Gradle/schema change is needed to compare the sample; final production assembly and native budget remain Root-owned"
+}

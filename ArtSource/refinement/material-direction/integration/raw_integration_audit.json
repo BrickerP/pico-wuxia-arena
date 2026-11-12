@@ -1,0 +1,273 @@
+{
+  "status": "raw_candidate_verified",
+  "author_script_sha256": "be767413c6766825d401a51dfb9c272d8bbf74c904a061f1bc57121f57ac6e6d",
+  "raw_source": {
+    "path": "ArtSource/refinement/hero-face/neck-continuous/candidate-raw.glb",
+    "sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
+    "animations": 0
+  },
+  "historical_prepared_reference": {
+    "sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
+    "body_albedo_payload_sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b",
+    "required_for_raw_rebuild": false,
+    "read_during_this_build": false,
+    "role": "historical b03f source whose image1 payload was independently verified equal to raw34ce"
+  },
+  "accepted_handoff_sha256": "61e0d9baca7411c5db33d867fd9e365db8536fccf452b31694662234b166e3b8",
+  "body_albedo_source_payload_sha256": "2f3c385efcd08004dc851549af60088711c5b289ec964a2874116d4270ccc79b",
+  "replacement_albedo": {
+    "path": "ArtSource/refinement/material-direction/textures/coat_basecolor.png",
+    "sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+    "mime_type": "image/png",
+    "roughness_replacement_applied": false
+  },
+  "pixels": {
+    "size": [
+      4096,
+      4096
+    ],
+    "mode": "RGB",
+    "changed_rgb_pixels": 3374816,
+    "mask_pixels": 3374816,
+    "outside_mask_rgb_exact": true,
+    "alpha_exact": true
+  },
+  "tangents": {
+    "changed_rows": 48,
+    "actual_changed_bytes": 380,
+    "only_listed_xyz_changed": true,
+    "w_exact": true,
+    "streams": [
+      {
+        "accessor": 40,
+        "old_sha256": "435256f57c420b0e60dc7c2e536c186ad228a16d16b06da232a06e071ee93682",
+        "new_sha256": "7bc9afea58c5db4715078224ba6d45218c92a90c2a03a41e63151919c94de867"
+      },
+      {
+        "accessor": 15,
+        "old_sha256": "4f494c7ab0c86035b0f6074807d04eefa368961595f904d7fca711fe92329364",
+        "new_sha256": "d7730ef691220b1628d52e5397e688a8263afbfcb336a72c889a189d1bad5581"
+      }
+    ],
+    "native_zero_tangent_warning_resolved": false,
+    "remaining_risks_from_delta_prepared_reference": [
+      {
+        "mesh": 0,
+        "primitive": 0,
+        "material": 0,
+        "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+        "missing_tangent": true,
+        "active_normal_texture": true,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 7
+      },
+      {
+        "mesh": 0,
+        "primitive": 4,
+        "material": 4,
+        "material_name": "tripo_eyeball_L_Eye",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 364
+      },
+      {
+        "mesh": 0,
+        "primitive": 5,
+        "material": 5,
+        "material_name": "tripo_cornea_L_Eye",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 6,
+        "material": 6,
+        "material_name": "tripo_eyeball_R_Eye",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 555
+      },
+      {
+        "mesh": 0,
+        "primitive": 7,
+        "material": 7,
+        "material_name": "tripo_cornea_R_Eye",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 8,
+        "material": 8,
+        "material_name": "tripo_neck_continuous",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 9,
+        "material": 9,
+        "material_name": "Steel | forged body",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 10,
+        "material": 10,
+        "material_name": "Steel | sharpened edge",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 21
+      },
+      {
+        "mesh": 0,
+        "primitive": 11,
+        "material": 11,
+        "material_name": "Steel | dark spine",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 151
+      },
+      {
+        "mesh": 0,
+        "primitive": 12,
+        "material": 12,
+        "material_name": "Brass | aged",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 60
+      },
+      {
+        "mesh": 0,
+        "primitive": 13,
+        "material": 13,
+        "material_name": "Steel | uneven wear",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 14,
+        "material": 11,
+        "material_name": "Steel | dark spine",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 15,
+        "material": 14,
+        "material_name": "Brass | polished ridges",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 60
+      },
+      {
+        "mesh": 0,
+        "primitive": 16,
+        "material": 15,
+        "material_name": "Grip | worn cord",
+        "missing_tangent": true,
+        "active_normal_texture": true,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 17,
+        "material": 14,
+        "material_name": "Brass | polished ridges",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 18,
+        "material": 14,
+        "material_name": "Brass | polished ridges",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 0
+      },
+      {
+        "mesh": 0,
+        "primitive": 19,
+        "material": 12,
+        "material_name": "Brass | aged",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 124
+      },
+      {
+        "mesh": 0,
+        "primitive": 20,
+        "material": 14,
+        "material_name": "Brass | polished ridges",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 124
+      },
+      {
+        "mesh": 0,
+        "primitive": 21,
+        "material": 16,
+        "material_name": "Grip | dark oxblood leather",
+        "missing_tangent": true,
+        "active_normal_texture": true,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 60
+      },
+      {
+        "mesh": 0,
+        "primitive": 22,
+        "material": 14,
+        "material_name": "Brass | polished ridges",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 60
+      },
+      {
+        "mesh": 0,
+        "primitive": 23,
+        "material": 12,
+        "material_name": "Brass | aged",
+        "missing_tangent": true,
+        "active_normal_texture": false,
+        "uv_degenerate_or_nonfinite_indexed_triangles": 124
+      }
+    ]
+  },
+  "protection": {
+    "buffer_view_count_unchanged": 71,
+    "selected_view": 7,
+    "replaced_in_original_image_view": true,
+    "appended_orphan_views": 0,
+    "other_view_payloads_exact_after_only_listed_tangent_patch": true,
+    "geometry_indices_uv_weights_rest_animations_json_exact": true,
+    "other_images_exact": [
+      0,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "output": {
+    "file": "base_albedo_tangent_raw.glb",
+    "bytes": 50544292,
+    "sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec"
+  },
+  "baseline_manifest_sha256": "52912cd6753c89fdf22ef263e4fcc59b7111160f72cd8d84cbea8342301f52da",
+  "candidate_manifest_sha256": "a35f40fe7227b45d0376ff9f5b2e52560700aeecf7cd12f01fbe100146cdff0c",
+  "baseline_profiles_sha256": "cf33d354801c21a688a241f6daead2611c7594cbd0d709107c49d0ac80dd6d1b",
+  "baseline_request_sha256": "12a4f2bc81a929c05c1750160cdff46dc71a3fbd2af5b8de5bc42f275f2a696c",
+  "new_geometry_acceptance": false,
+  "native_material_and_tangent_warning_status": "OPEN; Root validates native"
+}
