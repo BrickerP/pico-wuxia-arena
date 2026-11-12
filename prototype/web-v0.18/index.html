@@ -180,22 +180,25 @@ function line(color){const g=new THREE.BufferGeometry().setFromPoints([V(),V()])
 function lineSet(o,a,b){const arr=o.geometry.attributes.position.array;arr[0]=a.x;arr[1]=a.y;arr[2]=a.z;arr[3]=b.x;arr[4]=b.y;arr[5]=b.z;o.geometry.attributes.position.needsUpdate=true;o.geometry.computeBoundingSphere();}
 /* 高度场：楼梯和栈道靠它抬人，没有它就只能平地走 */
 function groundAt(x,z){
- if(x>-6.4&&x<6.4&&z>-30.6&&z<-22.4)return 4.6;
- if(x>-3.3&&x<3.3&&z<=-16&&z>=-23.6){const t=(-16-z)/7.6;return 4.6*Math.max(0,Math.min(1,t));}
- if(x>=-29.2&&x<=-26.3){
-  if(z>=-50&&z<=6)return 5.0;
-  if(z>6&&z<=14.4){const t=(14.4-z)/8.4;return 5.0*Math.max(0,Math.min(1,t));}
- }
- if(z>=-50.2&&z<=-47.0&&x>=-29.2&&x<=29.2)return 5.0;
+ /* 主楼露台（方堡坐在这块台地上） */
+ if(x>-12&&x<12&&z>-66&&z<-34)return 4.6;
+ /* 大台阶：z -26 → -34 由 0 升到 4.6 */
+ if(x>-4.5&&x<4.5&&z<=-26&&z>=-34){const t=(-26-z)/8;return 4.6*Math.max(0,Math.min(1,t));}
+ /* 登城平台：贴着东墙，四米宽 */
+ if(z>-6.9&&z<=-1.3&&Math.abs(x)>=40&&Math.abs(x)<44.1)return 6.3;
+ /* 登城坡：z -1.3 → 14.9 由 6.3 落到 0 */
+ if(z>-1.3&&z<14.9&&Math.abs(x)>=40&&Math.abs(x)<44.1){const t=(z+1.3)/16.2;return 6.3*(1-t);}
+ /* 幕墙墙体与墙顶走道（四面连通，可绕城一圈） */
+ if(Math.abs(x)>=44.1)return 6.3;
+ if(z>-70.8&&z<-68.3)return 6.3;
  return 0;
 }
-function init(){up=V(0,1,0);playerPos=V(0,0,1.20);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.019);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,100);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.0);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-10,right:10,top:10,bottom:-10,near:1,far:35});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
+function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0135);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(96,.15,112,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
-const tileGeometry=new THREE.BoxGeometry(.96,.018,.96),tileMats=[mat(0x738580),mat(0x7e8d82),mat(0x697d75)];for(let z=-3;z<8;z++)for(let x=-4;x<5;x++){const t=mesh(tileGeometry,tileMats[Math.abs((x*7+z*11)%3)],V(x,.03,z));t.castShadow=false;}
-for(const side of [-1,1]){box(3.7,2.25,.22,plaster,side*3.05,1.125,-3.7);colliders.push({x:side*3.05,z:-3.7,w:3.7,d:.22});box(.17,2.7,.2,wood,side*1.13,1.35,-3.7);for(let z=-2;z<8;z+=1.25){box(.11,1.05,.11,wood,side*4.75,.525,z);box(.075,.07,1.25,wood,side*4.75,.84,z+.6);}for(let z of [-1,3,6]){const g=new THREE.Group();g.position.set(side*2.8,2.3,z);scene.add(g);sphere(.16,mat(0xbc8246),0,0,0,g).scale.set(.7,1.15,.7);box(.20,.045,.20,wood,0,.19,0,g);const l=new THREE.PointLight(0xffa653,.7,3);g.add(l);}}
-box(2.7,.18,.75,roof,0,2.76,-3.7);for(let i=0;i<8;i++){for(const s of [-1,1]){const x=s*(5.6+Math.sin(i*1.7)*.62),z=-7-i*3.2;cyl(.13,3.0,wood,x,1.5,z);colliders.push({x,z,w:.45,d:.45});for(let j=0;j<3;j++){const crown=sphere(.9,mat(j===0?0x3e6350:0x496c56),x+Math.sin(j*2)*.35,2.5+j*.48,z+Math.cos(j*2)*.35);crown.scale.y=.75;}}}
-for(const s of [-1,1])for(const z of [-26.3,-28.5]){box(.14,2.6,.14,wood,s*1.1,1.3,z);colliders.push({x:s*1.1,z,w:.14,d:.14});}box(3.0,.22,3,roof,0,2.7,-27.4);box(2.7,.12,3,stone,0,.05,-27.4);box(1.3,.11,.65,wood,0,.75,-28.0);tokenMesh=sphere(.12,mat(0xbb9b56,.7,.3),0,1.03,-28.0);tokenMesh.visible=false;
+/* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
+box(10,.08,12,stone,0,-.025,2.4);
+tokenMesh=sphere(.12,mat(0xbb9b56,.7,.3),0,5.63,-52);tokenMesh.visible=false;
 const altar=box(.5,.7,.5,mat(0x54695d),-1.7,.35,6.4);signal=sphere(.12,new THREE.MeshStandardMaterial({color:0xd1b77c,emissive:0x73633b,emissiveIntensity:.4}),-1.7,.83,6.4);
 const ring=mesh(new THREE.RingGeometry(2.45,2.48,80),new THREE.MeshBasicMaterial({color:0xc6b180,transparent:true,opacity:.45,side:THREE.DoubleSide}),V(0,.055,4.0));ring.rotation.x=-Math.PI/2;ring.castShadow=false;
 dummy=new THREE.Group();scene.add(dummy);cyl(.14,1.6,wood,0,.8,0,dummy);box(.85,.12,.16,wood,0,1.15,0,dummy);cyl(.21,.13,wood,0,.08,0,dummy);dummy.position.set(0,0,4.2);dummy.visible=false;
@@ -209,73 +212,152 @@ daoTemplate=d.scene;function normalizeDao(parent){const model=daoTemplate.clone(
 playerWeapon=normalizeDao(weaponGroup);enemyWeapon=new THREE.Group();rig.add(enemyWeapon);normalizeDao(enemyWeapon);bladeBaseMarker=new THREE.Object3D();bladeTipMarker=new THREE.Object3D();enemyWeapon.add(bladeBaseMarker,bladeTipMarker);bladeTipMarker.position.y=RULES.bladeLength;
 // Preserve the source hand's grip orientation relative to blade direction.
 const sourceGrip=actor.getObjectByName('HandGrip_R'),sourceBase=actor.getObjectByName('Blade_Base'),sourceTip=actor.getObjectByName('Blade_Tip');const hq=bones.R_Hand.getWorldQuaternion(Q());const sq=Q().setFromUnitVectors(up,sourceTip.getWorldPosition(V()).sub(sourceBase.getWorldPosition(V())).normalize());rest.R.gripQ=rest.R.gripWorld.clone().invert().multiply(sq);rest.L.gripQ=rest.L.gripWorld.clone().invert().multiply(sq);
-const tavern=t.scene;tavern.position.set(-6,0,-.8);tavern.rotation.y=Math.PI/2;tavern.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.name==='Paving')o.visible=false;}});scene.add(tavern);const opposite=tavern.clone(true);opposite.position.set(6,0,-.8);opposite.rotation.y=-Math.PI/2;scene.add(opposite);colliders.push({x:-6,z:-.8,w:2.5,d:7},{x:6,z:-.8,w:2.5,d:7});
+const tavern=t.scene;tavern.position.set(-25,0,18);tavern.rotation.y=Math.PI/2;tavern.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.name==='Paving')o.visible=false;}});scene.add(tavern);const opposite=tavern.clone(true);opposite.position.set(25,0,18);opposite.rotation.y=-Math.PI/2;scene.add(opposite);colliders.push({x:-25,z:18,w:2.5,d:7},{x:25,z:18,w:2.5,d:7});
 
-/* ===== 城堡：内院、城墙、角楼、主楼、露台与登城梯 ===== */
+/* ===== 城堡：瓮城 · 外堡 · 内院 · 主楼，幕墙可绕行（参照天国拯救的三进院落） ===== */
 try{
- const cw=mat(0xb4ad9b),cwD=mat(0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a);
- const XW=30,ZS=-50,ZN=21,WH=9;
- box(XW*2+1.6,WH,1.6,cw,0,WH/2,ZS);colliders.push({x:0,z:ZS,w:XW*2+1.6,d:1.6});
- box(XW*2+1.6,WH,1.6,cw,0,WH/2,ZN);colliders.push({x:0,z:ZN,w:XW*2+1.6,d:1.6});
- for(const s of [-1,1]){box(1.6,WH,ZN-ZS,cw,s*XW,WH/2,(ZS+ZN)/2);colliders.push({x:s*XW,z:(ZS+ZN)/2,w:1.6,d:ZN-ZS});}
- for(let z=ZS+1;z<ZN;z+=2.2)for(const s of [-1,1])box(1.0,.85,.9,cw,s*XW,WH+.42,z);
- for(let x=-XW+1;x<XW;x+=2.2){box(.9,.85,1.0,cw,x,WH+.42,ZS);box(.9,.85,1.0,cw,x,WH+.42,ZN);}
- for(const sx of [-1,1])for(const sz of [ZS,ZN]){
-  const g=new THREE.Group();g.position.set(sx*XW,0,sz);scene.add(g);
-  cyl(3.3,13,cw,0,6.5,0,g);
-  box(7.2,.5,7.2,cw,0,13.25,0,g);
-  cyl(3.7,1.2,cwR,0,13.9,0,g);
-  colliders.push({x:sx*XW,z:sz,w:6.6,d:6.6});
- }
- box(9.4,7.6,2.0,cwD,0,3.8,ZN-1.2);colliders.push({x:0,z:ZN-1.2,w:9.4,d:2.0});
- box(10.6,.42,2.8,cwR,0,7.8,ZN-1.2);
- for(const s of [-1,1]){box(1.4,8.6,1.4,cwD,s*4.9,4.3,ZN-1.2);sphere(.62,mat(0x9c3b2e),s*4.9,8.9,ZN-1.2);}
- const KX=8,KZ0=-44,KZ1=-30,KH=20;
- box(KX*2,KH,KZ1-KZ0,cw,0,KH/2,(KZ0+KZ1)/2);colliders.push({x:0,z:(KZ0+KZ1)/2,w:KX*2,d:KZ1-KZ0});
- box(KX*2+1.8,.5,KZ1-KZ0+1.8,cwR,0,KH+.25,(KZ0+KZ1)/2);
- box(3.4,5.4,.5,cwD,0,2.7,KZ1+.3);
- for(let i=0;i<4;i++)box(1.4,3.3,.3,cwD,-5.4+i*3.6,14,KZ1+.15);
- for(let i=0;i<5;i++)for(let j=0;j<3;j++)box(.7,1.5,.24,mat(0x2a2320),-6+i*3,15.6+j*2.2,KZ1+.12);
- for(let i=0;i<4;i++)box(.5,1.3,.2,mat(0x3a2f26),-5+i*3.1,7.6,KZ1+.16);
- const doorGlow=new THREE.PointLight(0xffb066,.8,6);doorGlow.position.set(0,3.2,KZ1+.7);scene.add(doorGlow);
- box(12.8,.6,8.2,cw,0,4.3,-26.7);
- box(12.8,.45,.4,cwD,0,4.88,-30.4);
- for(const s of [-1,1])box(.4,.45,8.2,cwD,s*6.2,4.88,-26.7);
- for(let i=0;i<13;i++){const h=4.6*(i+1)/13,z=-16-(i+.5)*.585;box(6.6,h,.6,cw,0,h/2,z);}
- box(2.9,.4,56,cw,-27.75,4.8,-22);
- box(2.9,.4,3.2,cw,0,4.8,-48.5);
- for(let i=0;i<10;i++){const h=5*(i+1)/10,z=14.4-(i+.5)*.84;box(2.9,h,.85,cw,-27.75,h/2,z);}
- box(.35,1.1,56,cwD,-29.05,5.55,-22);
- box(58.4,1.1,.35,cwD,0,5.55,-50.05);
- box(56,.06,63,mat(0x7a766a),0,.005,-13.5);
- for(let z=-44;z<=16;z+=2.4)box(56,.012,.06,mat(0x615e53),0,.05,z);
- for(const s of [-1,1])for(const z of [-40,-6,12]){
-  cyl(.30,.9,mat(0x2f2a24),s*9.6,.45,z);
-  cyl(.44,.16,mat(0x3b332a),s*9.6,.94,z);
-  const fl=sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.5}),s*9.6,1.12,z);
-  fl.scale.set(1,.6,1);
-  const ln=new THREE.PointLight(0xff9a4a,1.4,9);ln.position.set(s*9.6,1.4,z);scene.add(ln);
- }
- for(const s of [-1,1]){
-  cyl(.26,.18,mat(0x2f2a24),s*4.7,.5,-14.2);
-  cyl(.20,1.5,mat(0x2f2a24),s*4.7,1.25,-14.2);
-  const fl2=sphere(.26,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),s*4.7,2.05,-14.2);
-  fl2.scale.set(1,.62,1);
-  const ln2=new THREE.PointLight(0xff9a4a,1.7,10);ln2.position.set(s*4.7,2.2,-14.2);scene.add(ln2);
- }
- for(const s of [-1,1]){
-  cyl(.10,5.6,mat(0x3a332a),s*7.2,2.8,-29.6);
-  box(.04,2.6,1.3,mat(0x8f2b22),s*7.2,4.1,-30.25);
- }
- for(let i=0;i<5;i++){cyl(.035,1.5,mat(0x9aa3a8),-2.6+i*.7,.75,-31.2);box(.5,.06,.12,mat(0x3a332a),-2.6+i*.7,.72,-31.2);}
+ const cw=mat(0xb4ad9b),cwD=mat(0x8a8474),cwR=mat(0x2b3a36),cwL=mat(0x3a332a),cwT=mat(0x2a2320);
+ const WH=6.3,XW=45.6,ZS=-69.6,ZN=39.2,ZB=56,BX=13.5;
 
- for(let z=-44;z<=12;z+=8)for(const s of [-1,1]){
-  cyl(.16,2.8,cwL,s*12.4,1.4,z);colliders.push({x:s*12.4,z,w:.4,d:.4});
-  sphere(.24,mat(0xf0d29a),s*12.4,2.92,z);
-  const l=new THREE.PointLight(0xffa653,.55,4);l.position.set(s*12.4,2.9,z);scene.add(l);
+ /* ---- 幕墙：北、东、西三面连续，南面留门洞 ---- */
+ box(97.2,WH,3.0,cw,0,WH/2,ZS);
+ box(3.0,WH,112,cw,-XW,WH/2,-15);
+ box(3.0,WH,112,cw,XW,WH/2,-15);
+ for(const s of [-1,1])box(37.2,WH,3.0,cw,s*22.8,WH/2,ZN);
+ /* 垛口：只在墙外沿，走道留在内侧 */
+ for(let z=ZS+2;z<ZN;z+=3.3){
+  box(.9,2.1,1.0,cw,-XW-1.05,WH+1.05,z);
+  box(.9,2.1,1.0,cw,XW+1.05,WH+1.05,z);
  }
- for(let i=0;i<8;i++){
-  const x=(i%2?-1:1)*(15.5+Math.sin(i*2.1)*2.2),z=-40+i*6.2;
+ for(let x=-XW+2;x<XW;x+=3.3)box(1.0,2.1,.9,cw,x,WH+1.05,ZS-1.05);
+ for(const s of [-1,1])for(let x=4.6;x<XW;x+=3.3)box(1.0,2.1,.9,cw,s*x,WH+1.05,ZN+1.05);
+ /* 墙根阴影带，压出厚度 */
+ for(const s of [-1,1])box(.5,.9,112,cwR,s*(XW-1.6),.45,-15);
+ box(97,.9,.5,cwR,0,.45,ZS+1.6);
+
+ /* ---- 四角塔 ---- */
+ for(const sx of [-1,1])for(const sz of [-1,1]){
+  const g=new THREE.Group();g.position.set(sx*(XW-.6),0,sz===1?ZN-.4:ZS+.6);scene.add(g);
+  cyl(4.0,15,cw,0,7.5,0,g);
+  box(8.6,.5,8.6,cwD,0,15.2,0,g);
+  cyl(4.4,1.6,cwR,0,16.3,0,g);
+  colliders.push({x:sx*(XW-.6),z:sz===1?ZN-.4:ZS+.6,w:7.4,d:7.4});
+ }
+
+ /* ---- 瓮城：外门 → 小院 → 内门（双门结构，和塔尔木城堡一样） ---- */
+ for(const s of [-1,1]){
+  box(1.8,7.4,16,cw,s*BX,3.7,48);
+  colliders.push({x:s*BX,z:48,w:1.8,d:16});
+  box(1.8,.6,1.0,cwD,s*BX-.2,7.6,44);
+ }
+ box(27.2,7.4,1.8,cw,-(4.2+13.6/2)+0,3.7,ZB);
+ box(13.6,7.4,1.8,cw,9.8,3.7,ZB);
+ box(8.9,2.6,1.9,cwD,0,5.6,ZB);
+ for(const s of [-1,1]){
+  cyl(2.9,12,cw,s*11.6,6,53);
+  cyl(3.3,1.3,cwR,s*11.6,12.6,53);
+  colliders.push({x:s*11.6,z:53,w:5.6,d:5.6});
+  sphere(.5,mat(0x9c3b2e),s*11.6,13.4,53);
+ }
+ box(7.2,.5,15,mat(0x4a3b2c),0,.25,64);
+ for(let i=0;i<14;i++)box(.34,.34,.9,mat(0x3a2f24),-3.4+i*.52,.62,57.4);
+ box(26,.06,16,mat(0x7a766a),0,.005,48);
+
+ /* ---- 外堡：铺地、市集、马厩、水井、火盆 ---- */
+ box(88,.06,66,mat(0x7a766a),0,.005,4);
+ for(let z=-26;z<=36;z+=3.4)box(88,.012,.07,mat(0x615e53),0,.05,z);
+ for(let x=-44;x<=44;x+=4.8)box(.07,.012,64,mat(0x615e53),x,.05,4);
+
+ /* 马厩两座 */
+ for(const s of [-1,1]){
+  box(9,3.4,6,cwL,s*33,1.7,30);
+  box(9.6,.28,6.6,cwT,s*33,3.55,30);
+  for(let i=0;i<4;i++)box(.16,2.6,.16,mat(0x54452f),s*33-3.6+i*2.4,1.3,26.9);
+  colliders.push({x:s*33,z:30,w:9,d:6});
+ }
+ /* 水井 */
+ cyl(1.1,1.1,cwD,17.6,.55,12);
+ cyl(.9,.12,mat(0x2a2320),17.6,1.1,12);
+ for(const s of [-1,1])box(.18,2.4,.18,mat(0x54452f),17.6+s*1.1,1.9,12);
+ box(2.6,.16,.5,mat(0x54452f),17.6,3.0,12);
+ colliders.push({x:17.6,z:12,w:2.6,d:2.6});
+ /* 草垛与车 */
+ for(let i=0;i<3;i++){const g=box(2.4,1.6,2.0,mat(0x6b5a35),-36+i*1.4,.8,8+i*1.2);colliders.push({x:-36+i*1.4,z:8+i*1.2,w:2.4,d:2.0});}
+ box(1.6,.9,3.2,mat(0x4a3b2c),26,.5,36);box(1.9,.5,3.6,mat(0x4a3b2c),26,.95,36);
+
+ /* ---- 内门与主塔（bergfried） ---- */
+ for(const s of [-1,1]){
+  box(3.9,8,4.2,cw,s*5.65,4,0);
+  colliders.push({x:s*5.65,z:0,w:3.9,d:4.2});
+  box(3.4,10.4,3.4,cw,s*8.6,5.2,0);
+  cyl(2.4,1.2,cwR,s*8.6,10.9,0);
+  colliders.push({x:s*8.6,z:0,w:3.4,d:3.4});
+ }
+ box(7.2,2.8,4.2,cw,0,6.6,0);
+ box(9.0,.5,4.6,cwR,0,8.25,0);
+ for(let i=0;i<4;i++)box(.8,.9,.9,cw,-3.2+i*2.1,8.9,0);
+ cyl(4.6,24,cw,-13.4,12,1.5);
+ cyl(5.0,1.4,cwD,-13.4,24.7,1.5);
+ cyl(.5,1.6,cwR,-13.4,25.8,1.5);
+ for(let i=0;i<6;i++)box(1.0,1.4,.3,cwT,-13.4+Math.cos(i*1.05)*4.2,17+Math.sin(i*2)*2,1.5+Math.sin(i*1.05)*4.2);
+ colliders.push({x:-13.4,z:1.5,w:8.4,d:8.4});
+
+ /* ---- 内院陈设：旗、兵器架、火盆 ---- */
+ for(const s of [-1,1]){
+  cyl(.10,5.6,mat(0x3a332a),s*6.2,2.8,-22);
+  box(.04,2.6,1.3,mat(0x8f2b22),s*6.2,4.1,-22.6);
+ }
+ for(let i=0;i<5;i++){cyl(.035,1.5,mat(0x9aa3a8),-11.6,.75,-19.4+i*.62);box(.12,.06,.5,mat(0x3a332a),-11.6,.72,-19.4+i*.62);}
+ box(1.5,.10,.22,mat(0x3a332a),-11.6,1.42,-18.0);box(1.5,.10,.22,mat(0x3a332a),-11.6,.32,-18.0);
+ for(const s of [-1,1]){
+  cyl(.44,.95,mat(0x2f2a24),s*7.4,.47,-24.6);
+  cyl(.62,.14,mat(0x3b332a),s*7.4,.98,-24.6);
+  const sg=sphere(.34,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.0}),s*7.4,1.16,-24.6);
+  sg.scale.set(1,.55,1);
+  const sun2=new THREE.PointLight(0xff8a3a,1.4,9);sun2.position.set(s*7.4,1.7,-24.6);scene.add(sun2);
+  cyl(.30,.9,mat(0x2f2a24),s*9.2,.45,-10);
+  cyl(.44,.16,mat(0x3b332a),s*9.2,.94,-10);
+  const fl=sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.5}),s*9.2,1.12,-10);
+  fl.scale.set(1,.6,1);
+  const ln=new THREE.PointLight(0xff9a4a,1.5,10);ln.position.set(s*9.2,1.5,-10);scene.add(ln);
+ }
+
+ /* ---- 主楼台阶：13 级上露台 ---- */
+ box(24,4.6,32,cw,0,2.3,-50);
+ box(11.6,.5,1.4,cwD,0,.25,-25.3);
+ box(24,.16,32,cwD,0,4.68,-50);
+ for(const s of [-1,1]){box(7.2,.95,1.0,cwD,s*8.4,5.13,-34.4);box(7.6,.22,1.2,cwR,s*8.4,5.6,-34.4);}
+ for(let i=0;i<13;i++){const h=4.6*(i+1)/13,z=-26-(i+.5)*.615;box(9.0,h,.64,cw,0,h/2,z);}
+ for(const s of [-1,1]){const pv=box(1.0,1.05,9.4,cwD,s*5.1,2.85,-30);pv.rotation.x=Math.atan2(4.6,8);const pv2=box(1.12,.2,9.4,cwR,s*5.1,3.35,-30);pv2.rotation.x=Math.atan2(4.6,8);}
+
+ /* ---- 主楼：方堡 + 窗洞 + 门洞 + 雉堞 ---- */
+ const KH=22,KX=9,KZ0=-62,KZ1=-46,KB=4.6;
+ box(KX*2,KH,KZ1-KZ0,cw,0,KB+KH/2,(KZ0+KZ1)/2);
+ box(KX*2+1.8,.5,KZ1-KZ0+1.8,cwR,0,KB+KH+.25,(KZ0+KZ1)/2);
+ for(let i=0;i<7;i++)for(const s of [-1,1])box(.9,1.1,.7,cw,-7+i*2.3,KB+KH+.9,s==1?KZ1+.6:KZ0-.6);
+ box(3.4,5.8,.5,cwD,0,KB+2.9,KZ1+.3);
+ for(let i=0;i<3;i++)box(1.5,3.4,.28,cwD,-5.4+i*5.4,KB+15,KZ1+.15);
+ for(let i=0;i<5;i++)for(let j=0;j<3;j++)box(.66,1.5,.22,mat(0x2a2320),-4+i*2,KB+17+j*2.1,KZ1+.11);
+ const doorGlow=new THREE.PointLight(0xffb066,.9,7);doorGlow.position.set(0,KB+3.4,KZ1+.9);scene.add(doorGlow);
+
+ /* ---- 城墙走道与登城坡（可以从外堡绕到北墙） ---- */
+ for(const s of [-1,1]){
+  box(4.0,WH,5.8,cw,s*42.0,WH/2,-4.1);
+  box(4.0,WH*.5,1.7,cw,s*42.0,WH*.25,14.05);
+  for(let i=1;i<10;i++){const h=WH*(10-i)/10,z=-1.3+(i+.5)*1.62;box(4.0,h,1.62,cw,s*42.0,h/2,z);}
+  box(4.0,.9,1.7,cwD,s*42.0,-.05,-1.3);
+  for(const t of [-1,1])box(.22,1.0,5.8,cwD,s*(42.0+t*2.0),WH+.5,-4.1);
+ }
+
+ /* ---- 灯柱与松林 ---- */
+ for(let z=-24;z<=34;z+=8)for(const s of [-1,1]){
+  if(Math.abs(z-22)<4)continue;
+  cyl(.16,2.8,cwL,s*16.4,1.4,z);colliders.push({x:s*16.4,z,w:.4,d:.4});
+  sphere(.24,mat(0xf0d29a),s*16.4,2.92,z);
+  const l=new THREE.PointLight(0xffa653,.55,4);l.position.set(s*16.4,2.92,z);scene.add(l);
+ }
+ for(let i=0;i<10;i++){
+  const x=(i%2?-1:1)*(20+Math.sin(i*2.1)*3.4),z=-20+i*5.2;
   cyl(.26,5.4,cwL,x,2.7,z);colliders.push({x,z,w:.55,d:.55});
   for(let j=0;j<3;j++){const cr=sphere(.92,mat(j===0?0x40654f:0x4d7159),x+Math.sin(j*2)*.32,4.5+j*.46,z+Math.cos(j*2)*.32);cr.scale.y=.72;}
  }
@@ -334,7 +416,7 @@ function grabHits(origin,target,player){const dx=target[0]-origin[0],dz=target[2
 'use strict';
 /* Pose-to-locomotion intent only: no camera, rendering, or hardware writes. Prototype calibration values. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.WuxiaLocomotion=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
-const config=Object.freeze({walk:2.85,back:1.75,side:2.35,sprint:4.4,accel:7.2,jumpSpeed:2.45,gravity:7.5,jumpCost:12,sprintDrain:14,jumpCooldown:.85,poseFresh:.20});
+const config=Object.freeze({walk:3.05,back:1.9,side:2.5,sprint:5.0,accel:7.8,jumpSpeed:2.45,gravity:7.5,jumpCost:12,sprintDrain:14,jumpCooldown:.85,poseFresh:.20});
 function createPoseRecognizer(){let last=null,base=null,steps=[],runUntil=-1,jumpLatch=false,buttonPrev=false;return Object.freeze({reset:()=>{last=base=null;steps=[];runUntil=-1;jumpLatch=false;buttonPrev=false;},sample:(frame)=>{const {t,left,right,move=0,busy=false,grounded=true,stickSprint=false,jumpButton=false}=frame||{};if(!Number.isFinite(t)||!left?.tracked||!right?.tracked||!Array.isArray(left.position)||!Array.isArray(right.position)||left.position.length!==3||right.position.length!==3||![...left.position,...right.position].every(Number.isFinite)){last=base=null;steps=[];runUntil=-1;jumpLatch=false;buttonPrev=false;return {run:false,jump:false};}if(last&&(t<=last.t||t-last.t>.20)){last=base=null;steps=[];jumpLatch=false;runUntil=-1;}const L=left.position,R=right.position,avg=(L[1]+R[1])/2;if(!base||avg<.95){base={height:avg,t};if(avg<.95)jumpLatch=false;}let jump=!!jumpButton&&!buttonPrev&&grounded&&!busy;buttonPrev=!!jumpButton;const poseJump=!busy&&grounded&&!jumpLatch&&base&&t-base.t<=.45&&avg-base.height>.22&&Math.abs(L[1]-R[1])<.12&&avg<1.6&&base.height<1.05;if(poseJump)jump=true;if(jump)jumpLatch=true;if(busy||move<.65){steps=[];runUntil=-1;}else if(last&&L[1]<1.15&&R[1]<1.15){const dl=L[2]-last.L[2],dr=R[2]-last.R[2],amplitude=Math.abs(L[2]-R[2]),side=dl>.008&&dr<-.008?1:dl<-.008&&dr>.008?-1:0;if(side&&amplitude>.14&&(!steps.length||steps[steps.length-1].side!==side)){steps.push({t,side});steps=steps.filter(s=>t-s.t<1.0);if(steps.length>=3)runUntil=t+.60;}}last={t,L:L.slice(),R:R.slice()};return Object.freeze({run:move>.65&&!busy&&(stickSprint||t<runUntil),jump,source:jump?'hands_lift':stickSprint?'stick':'arm_swing'});}});}
 return Object.freeze({version:1,config,createPoseRecognizer});
 });
@@ -346,7 +428,7 @@ const Battle=WuxiaBattleCore,playerPrecision=Battle.createPrecision(100,1.1),rea
 let enemyPrecision=null,weaponId='dao',weaponHand='R',equipped=false,grips={L:false,R:false},hugProxy=null,realTime=0,timeScale=1,floorWeapons=[],floorPick=null,slotWasActive=false,lastCombatActivity=0,lookPitch=0;
 const Loco=WuxiaLocomotion,locomotionPose=Loco.createPoseRecognizer();let sprintActive=false,sprintUntil=-1,lastForwardDown=-10,jumpY=0,jumpVelocity=0,lastJump=-10,vrMove=null,vrMoveAt=-10,rackGroup=null;
 function selectedWeapon(){return Battle.weapons[weaponId];}
-const EXTRA_BOSSES={general:{name:'镇北将军 · 玄甲重刀',hp:2400,armor:44,precision:36,scale:1.26,reach:1.2,damage:24,tactic:'沉稳逼近'},brigand:{name:'拦路山贼 · 独眼',hp:420,armor:12,precision:18,scale:.98,reach:1,damage:10,tactic:'抢身乱砍'}};
+const EXTRA_BOSSES={general:{name:'镇北将军 · 玄甲重刀',hp:2400,armor:44,precision:36,scale:1.26,reach:1.2,damage:24,tactic:'沉稳逼近',phrases:[['overhead','thrust'],['left','overhead','right'],['thrust','grab'],['overhead','left','right']]},brigand:{name:'拦路山贼 · 独眼',hp:420,armor:12,precision:18,scale:.98,reach:1,damage:10,tactic:'抢身乱砍',phrases:[['left','right'],['overhead'],['thrust','left']]}};
 function bossDef(id){return EXTRA_BOSSES[id]||Battle.bosses[id]||Battle.bosses.duelist;}
 function selectedBoss(){return bossDef(enemy&&enemy.bossId||'duelist');}
 function resetGrip(){locomotionPose.reset();vrMove=null;sprintActive=false;sprintUntil=-1;grips.L=grips.R=false;hugProxy=null;hugRecognizer.reset();reactionClock.clear();}
@@ -361,7 +443,7 @@ function pickWeapon(f,side){if(!f||!f.available||animationSlots.read().active||t
 function startSlot(id){const result=animationSlots.begin(id,realTime,{attack:enemy?.attackId,boss:enemy?.bossId,weapon:weaponId,hand:weaponHand});if(!result)return false;moveAction=null;queuedMove=null;ModulePorts.reset();resetGrip();slotWasActive=true;emit(id==='execute'?'处决动画槽':id==='counter_grab'?'反投技动画槽':'Boss投技动画槽','animation',enemy?.pos);return true;}
 function spendPlayerPrecision(amount){const result=playerPrecision.spend(amount,realTime);lastCombatActivity=realTime;if(result.broke){playerBrokenUntil=time+1.1;ModulePorts.reset();moveAction=null;queuedMove=null;guardDirection='middle';changeStance('middle');stats.playerBreaks=(stats.playerBreaks||0)+1;emit('我方破防 · 不能攻防，仍可撤步','break',currentP?.base);}return result;}
 function spendEnemyPrecision(amount){if(!enemyPrecision||enemy.dead)return;const result=enemyPrecision.spend(amount,realTime);enemy.posture=result.value;enemy.maxPosture=result.max;if(result.broke){releasePose=physicalEnemyLocal();enemy.phase='broken';enemy.elapsed=0;enemy.phrase=[];enemy.resolved=true;enemy.executeUntil=realTime+2.2;stats.breaks++;emit('敌方破防 · 新攻击触发处决槽','break',enemy.pos);}return result;}
-function pressureEnemy(options={}){return spendEnemyPrecision(Battle.pressure(weaponId,enemy.bossId,options));}
+function pressureEnemy(options={}){const __bid=Battle&&Battle.bosses&&Battle.bosses[enemy.bossId]?enemy.bossId:'duelist';return spendEnemyPrecision(Battle.pressure(weaponId,__bid,options));}
 function tryCounterGrab(newHug){if(!enemy||!isCombat()||enemy.dead||enemy.resolved||animationSlots.read().active)return false;const inRange=enemy.pos.distanceTo(playerPos)<1.8,ok=Battle.canCounterGrab({type:enemy.type,phase:enemy.phase,elapsed:enemy.elapsed*P.tempo,prepare:RULES.attack.grab.prepare,newHug,inRange,broken:realTime<playerPrecision.read().brokenUntil});if(!ok){if(newHug&&enemy.type==='grab')emit('反投未到时机 · 松握再合抱','dry',enemy.pos);return false;}enemy.resolved=true;enemy.phrase=[];enemy.phase='open';enemy.elapsed=0;enemy.open=1.25;stats.counterGrabs=(stats.counterGrabs||0)+1;pressureEnemy({counterGrab:true});startSlot('counter_grab');return true;}
 function tryExecute(){if(!isCombat()||enemy.dead||enemy.phase!=='broken'||realTime>enemy.executeUntil||playerPos.distanceTo(enemy.pos)>weaponLength()+.85)return false;if(startSlot('execute')){enemy.hp=0;enemy.dead=true;enemy.phase='dead';enemy.elapsed=0;intermission=1.3;stats.executions=(stats.executions||0)+1;score+=50;return true;}return false;}
 function updatePrecision(dt){if(!moveAction&&realTime-lastCombatActivity>.6&&guarding()){guardDirection='middle';changeStance('middle');}const still=jumpY===0&&jumpVelocity===0&&velocity.length()<.04&&!moveAction&&!guarding()&&!animationSlots.read().active&&realTime-lastCombatActivity>.1;playerPrecision.step(dt,realTime,still);if(enemyPrecision&&!enemy.dead){enemyPrecision.step(dt,realTime,enemy.phase==='idle'&&actorMove<.001&&time>=enemy.guardUntil);enemy.posture=enemyPrecision.read().value;}const slot=animationSlots.read().active;$('slotNotice').classList.toggle('hidden',!slot);if(slot)$('slotNotice').textContent=({boss_grab:'Boss投技',counter_grab:'反投技',execute:'处决'})[slot.id]+' · 动画资源槽为空（仅流程占位）';if(slotWasActive&&animationSlots.step(realTime)){slotWasActive=false;pointerPending=true;lastPhysicsTarget=null;}}
@@ -671,7 +753,7 @@ let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFo
 const MOBS=[];
 function spawnMobs(){
  if(MOBS.length||!scene)return;
- const spots=[[-7.5,9.5,.6],[8.2,2.5,-.7],[-4.5,-9,.2],[13,6.5,1.2]];
+ const spots=[[-22,16,2.2],[19,12,-2.4],[-9,6,.4],[13,0,-.6],[-24,-10,1.6],[20,-18,-1.8]];
  for(const sp of spots){
   const g=new THREE.Group();g.visible=false;scene.add(g);
   const mob={g,pos:V(sp[0],0,sp[1]),yaw:sp[2],mixer:null,idle:null,walk:null,aw:0,hover:0,ready:false};
@@ -703,7 +785,7 @@ function mobStep(dt){
     if(d>3.9){const st=Math.min(dt*1.35,d-3.9);m.pos.x+=dx/d*st;m.pos.z+=dz/d*st;moved=true;tgt=1;}
    }
   }
-  const far=Math.hypot(playerPos.x-m.pos.x,playerPos.z-m.pos.z)>46;
+  const far=Math.hypot(playerPos.x-m.pos.x,playerPos.z-m.pos.z)>62;
   m.g.visible=!far;
   if(far)continue;
   m.aw+=(tgt-m.aw)*Math.min(1,dt*7);
@@ -840,7 +922,7 @@ function questShow(txt){
 }
 function payToll(){
  ST.stage='passed';
- if(enemy){enemy.hold=true;enemy.pos.x+=(enemy.pos.x<0?-2.6:2.6);enemy.yaw=lookAngle(enemy.pos,playerPos);}
+ if(enemy){enemy.truce=true;enemy.hold=0;enemy.pos.x+=(enemy.pos.x<0?-3.4:3.4);enemy.yaw=lookAngle(enemy.pos,playerPos);}
  questShow('上大台阶 · 去见城主');
  talk('拦路山贼 · 独眼',['……算你识时务。','城主在后院，别去送死。'],null);
 }
@@ -855,8 +937,7 @@ function startGeneral(){
  const bc=$('bossChoice');
  if(!bc.querySelector('option[value="general"]'))bc.appendChild(new Option('镇北将军 · 玄甲重刀','general'));
  bc.value='general';
- if(enemy)enemy.hold=false;
- nextEnemy(V(0,0,-26));
+ nextEnemy(V(0,0,-40));
  bossIntro();
 }
 function bossIntro(){if(!P.cues||introOn||!isCombat())return;introOn=true;waitInput=true;if(enemy)enemy.yaw=lookAngle(enemy.pos,playerPos);const sb=selectedBoss(),nm=(sb&&sb.name)||'强敌';cineEls();cineBars(true);cineTitle(nm,'拔 刃',true);camShotNow('introTP',2.9,{});cineNow('light','',0);countdown=3.1;
@@ -898,7 +979,9 @@ function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
 function triggerJump(source){if(jumpY>0||jumpVelocity>0||moveAction||guarding()||realTime-lastJump<Loco.config.jumpCooldown||stamina<Loco.config.jumpCost||animationSlots.read().active||realTime<playerPrecision.read().brokenUntil)return false;stamina-=Loco.config.jumpCost;jumpVelocity=Loco.config.jumpSpeed;lastJump=realTime;stats.jumps=(stats.jumps||0)+1;emit('腾步 · '+(source==='hands_lift_proxy'?'上提姿态代理':'VR意图'),'locomotion',null);return true;}
 function readVRLocomotion(frame){if(!running||terminal)return false;const move=frame?.move||{x:0,y:0},busy=!!moveAction||guarding()||enemy?.type==='grab'&&['prepare','release'].includes(enemy.phase)||!!animationSlots.read().active,intent=locomotionPose.sample({...frame,move:Math.hypot(move.x,move.y),busy,grounded:jumpY===0});vrMove={x:clamp(move.x||0,-1,1),y:clamp(move.y||0,-1,1)};vrMoveAt=realTime;if(intent.run)sprintUntil=realTime+.25;if(intent.jump)triggerJump('vr_intent');return intent;}
-function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&(realTime<sprintUntil||keys.has('ShiftLeft')||keys.has('ShiftRight'))&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-28.4,28.4);next.z=clamp(next.z,-47.6,19.2);if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
+function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&(realTime<sprintUntil||keys.has('ShiftLeft')||keys.has('ShiftRight'))&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-46.2,46.2);next.z=clamp(next.z,-69.6,55.4);if(isCombat()&&!enemy.dead&&!enemy.truce&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __cg=groundAt(playerPos.x,playerPos.z),__ng=groundAt(next.x,next.z);
+if(__ng-__cg>.62&&(jumpY||0)<.12){next.x=playerPos.x;next.z=playerPos.z;velocity.x=velocity.z=0;}
+const __moved=next.distanceTo(playerPos);
 travel+=__moved;next.y=(jumpY||0)+groundAt(next.x,next.z);playerPos.copy(next);
 if(__moved<1e-4&&(Math.abs(f)>.05||Math.abs(s)>.05)){
  KBD.stuckT+=dt;
@@ -931,7 +1014,7 @@ function nextEnemy(pos,level=round){const bossId=mode==='boss'?$('bossChoice').v
 // AI reacts only to delayed visible pose/action samples, not queued input or future intent.
 const AI=Object.freeze({reaction:.16,think:.12,chase:1.65,retreat:1.0,side:.95,guardTime:.42,feintCooldown:4.0,seed:7419});let aiSeed=AI.seed,aiSamples=[];
 function aiRandom(){aiSeed=(1664525*aiSeed+1013904223)>>>0;return aiSeed/4294967296;}
-function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-26.5,mode==='trial'?2.5:26.5);next.z=clamp(next.z,-46,19);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
+function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-43,mode==='trial'?2.5:43);next.z=clamp(next.z,mode==='trial'?-8:-64,mode==='trial'?6:36);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
 function aiObserve(){aiSamples.push({t:time,guard:guarding(),side:mouse.x,high:mouse.y<-.44,attack:moveAction?.id||0,family:moveAction?actionFamily(moveAction.type):null,recover:moveAction?actionStage()==='recover':false,pos:playerPos.clone()});while(aiSamples.length>1&&aiSamples[1].t<=time-AI.reaction)aiSamples.shift();return aiSamples[0]?.t<=time-AI.reaction?aiSamples[0]:null;}
 function aiThink(seen,dist){if(!seen||time<enemy.thinkAt)return;enemy.thinkAt=time+AI.think;enemy.seen=seen;
  if(seen.attack&&seen.attack!==enemy.seenAttack&&enemy.phase==='idle'){enemy.seenAttack=seen.attack;if(aiRandom()<(round===0?.38:.62)){enemy.guardFamily=seen.family;enemy.guardUntil=time+AI.guardTime;enemy.tactic='护刀反击';stats.aiGuards=(stats.aiGuards||0)+1;}}
@@ -939,10 +1022,10 @@ function aiThink(seen,dist){if(!seen||time<enemy.thinkAt)return;enemy.thinkAt=ti
 }
 function startAttack(chain=false){
  const seen=enemy.seen;
- if(!chain){enemy.phrase=P.drill==='mixed'?selectedBoss().phrases[enemy.sequence%selectedBoss().phrases.length].slice():[P.drill];enemy.phraseIndex=0;enemy.rate=1;enemy.prepareDelay=0;enemy.feint=false;enemy.feinted=false;enemy.sequence++;}
+ if(!chain){const __ph=selectedBoss().phrases||[['overhead'],['thrust'],['left'],['overhead','left']];enemy.phrase=P.drill==='mixed'?__ph[enemy.sequence%__ph.length].slice():[P.drill];enemy.phraseIndex=0;enemy.rate=1;enemy.prepareDelay=0;enemy.feint=false;enemy.feinted=false;enemy.sequence++;}
  const origin=physicalEnemyLocal();enemy.type=enemy.phrase[enemy.phraseIndex]||'overhead';enemy.tone=({overhead:'white',thrust:'blue',grab:'black',left:'none',right:'none'})[enemy.type]||'none';enemy.prepareOrigin=origin;enemy.attackId++;enemy.phase='prepare';enemy.elapsed=0;enemy.resolved=false;enemy.chainGap=.32;releasePose=null;if(enemy.type==='grab'){enemy.grabOrigin=enemy.pos.clone();enemy.grabTarget=playerPos.clone();emit('投技 · 侧移或后退','warning',enemy.pos);}stats.attacks++;enemy.tactic=chain?'续刀压迫':enemy.tactic||'进步试刀';
 }
-function enemyStep(dt){actorMove=0;if(TALK.on){enemy.phase='idle';return;}if(!isCombat()||!equipped||animationSlots.read().active)return;const seen=aiObserve(),dist=enemy.pos.distanceTo(playerPos);aiThink(seen,dist);
+function enemyStep(dt){actorMove=0;if(TALK.on||enemy.truce){enemy.phase='idle';return;}if(!isCombat()||!equipped||animationSlots.read().active)return;const seen=aiObserve(),dist=enemy.pos.distanceTo(playerPos);aiThink(seen,dist);
  if(enemy.knockVelocity&&time<enemy.knockUntil){aiMove(enemy.knockVelocity.clone().multiplyScalar(dt));}else enemy.knockVelocity=null;if(enemy.hold>0){enemy.hold=Math.max(0,enemy.hold-dt);if(enemy.hold===0)enemy.frozenClip=null;return;}if(countdown>0){countdown=Math.max(0,countdown-dt);enemy.elapsed=0;return;}enemy.elapsed+=dt;
  if(enemy.dead){intermission-=dt;if(intermission<=0){if(mode==='boss'){if(enemy&&enemy.bossId==='brigand'&&ST.stage==='fight'&&!ST.generalDone){ST.stage='passed';ST.generalDone=false;intermission=999;questShow('上大台阶 · 去见城主');}else finish(true);}else if(mode==='trial'){if(round<2){round++;health=Math.min(100,health+12);stamina=Math.min(100,stamina+25);nextEnemy(playerPos.clone().add(V(0,0,-1.34)));countdown=1.4;resetInput();bossIntro();}else finish(true);}else{tripEncounter=false;tripStage=2;rig.visible=false;tokenMesh.visible=true;emit('巡路胜 · 前往回廊','objective',enemy.pos);}}return;}
  if(enemy.phase==='broken'){if(realTime>=enemy.executeUntil){enemy.posture=enemy.maxPosture*.55;enemy.phase='idle';enemy.elapsed=0;releasePose=null;}return;}
@@ -1096,7 +1179,7 @@ function update(dt){realTime+=dt;
  if(KBD.swing&&isCombat()&&enemy&&!enemy.dead){const wantAim=lookAngle(playerPos,enemy.pos)+Math.PI,aimD=angleDiff(wantAim,yaw);if(Math.abs(aimD)<1.35)yaw+=clamp(aimD,-dt*1.25,dt*1.25);}const rawCue=isCombat()&&enemy&&!enemy.dead?WuxiaMotionCore.defenseCue(enemy.type,enemy.phase,enemy.elapsed*P.tempo,RULES.attack[enemy.type].prepare,true):{kind:'none'};timeScale=reactionClock.sample(enemy?.attackId||0,rawCue.kind,realTime,P.slow);timeScale=Math.min(timeScale,cineScale());time+=dt;movePlayer(dt);
  /* 出刀和闪身原来是单帧瞬移0.22/0.66米，画面会跳一下；改成一口气跑完的短冲刺 */
  mobStep(dt);
- if(ST.stage==='passed'&&!ST.generalDone&&playerPos.z<-13.0&&Math.abs(playerPos.x)<10.5){ST.generalDone=true;generalTalk();}
+ if(ST.stage==='passed'&&!ST.generalDone&&playerPos.z<-18&&Math.abs(playerPos.x)<11.5){ST.generalDone=true;generalTalk();}
  if(KBD.lunge){const st=Math.min(KBD.lunge.remain,KBD.lunge.speed*dt);playerPos.addScaledVector(KBD.lunge.dir,st);KBD.lunge.remain-=st;
   playerPos.x=clamp(playerPos.x,-20.2,20.2);playerPos.z=clamp(playerPos.z,-41.5,17.5);
   if(KBD.lunge.remain<=1e-4)KBD.lunge=null;}if(!animationSlots.read().active)actionStep(dt);if(!waitInput){enemyStep(dt*timeScale);exploration();}if(isCombat()&&enemy)ModulePorts.prepare({dt:0,enemyBlade:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null,actor:{position:enemy.pos.toArray(),yaw:enemy.yaw,phase:enemy.phase,type:enemy.type,elapsed:enemy.elapsed},motion:ModulePorts.snapshot()});const goal=playerTarget(dt),result=animationSlots.read().active?{player:rigidPose(bladeBodies.player),enemy:bladeBodies.enemy?rigidPose(bladeBodies.enemy):null}:physicsStep(goal,dt);currentP=result.player;uiTick();dojoTick(dt);kbdTick(dt);renderPlayer(currentP);freehandAssist(dt);if(FREEHAND&&realTime-PROG.hudAt>.20){PROG.hudAt=realTime;refreshMovesHud();}currentE=ModulePorts.present({dt,enemyBlade:result.enemy,actor:{position:enemy?.pos?.toArray(),yaw:enemy?.yaw,phase:enemy?.phase,type:enemy?.type,elapsed:enemy?.elapsed},motion:ModulePorts.snapshot(),contact:physicsFrame});stamina=clamp(stamina+dt*(sprintActive||jumpY>0||jumpVelocity>0?0:guarding()?-2:moveAction?0:20),0,100);effects(dt);updatePrecision(dt);updateFloorWeapons();shotFrames.push(currentP.tip.clone());if(shotFrames.length>26)shotFrames.shift();if(shotFrames.length>1){trail.geometry.setFromPoints(shotFrames);trail.visible=stroke.speed>1.05;}hud();}
@@ -1108,7 +1191,7 @@ function loop(t){if(!running){if(timerId){clearInterval(timerId);timerId=0;}usin
   else if(avg<.019){qualityLocked=true;}
  }acc+=dt;let n=0;while(acc>=RULES.step&&n<8&&running){update(RULES.step);acc-=RULES.step;n++;}draw();if(running&&!usingTimer)raf=requestAnimationFrame(loop);}
 function clearParticles(){for(const p of particles){scene.remove(p.o);p.o.geometry.dispose();}for(const m of new Set(particles.map(p=>p.o.material)))m.dispose();particles=[];impactHUD=null;$('impactLabel').style.opacity=$('hitMarker').style.opacity='0';}
-function start(m){if(!loaded)return;if(m==='boss')storyReset();hintFade();running=false;cancelAnimationFrame(raf);started=true;terminal=false;mode=m;time=0;realTime=0;lastCombatActivity=0;lookPitch=0;slotWasActive=false;sprintUntil=-1;lastForwardDown=-10;jumpY=jumpVelocity=0;lastJump=-10;vrMove=null;locomotionPose.reset();playerPrecision.reset(0);reactionClock.reset();animationSlots.reset();resetFloorWeapons();round=m==='boss'?2:0;health=stamina=100;score=0;serial=0;strokeSerial=0;physicsEvent=null;events=[];stats={hits:0,blocks:0,parries:0,hurts:0,misses:0,attacks:0,clashes:0,moves:0,issens:0,counterCuts:0,breaks:0,bindWins:0,bindRepeats:0};moveSerial=0;aiSeed=AI.seed;aiSamples=[];playerBrokenUntil=-1;lastLightType=null;lastLightTime=-10;chainCount=0;playerPos.set(0,0,1.20);velocity.set(0,0,0);yaw=0;mouse={x:0,y:.25};hand={x:0,y:.25};travel=0;tripStage=0;tripEncounter=false;countdown=isCombat()?1.5:0;resetCine();waitInput=true;intermission=0;feedbackPriority=0;feedbackLock=-1;footClock=0;enemyVisualMaterials.forEach(m=>m.emissive?.setHex(0));clearParticles();resetInput();nextEnemy(V(0,0,isCombat()?-3.40:0.11),m==='boss'?2:round);if(FREEHAND&&!equipped){const dw0=floorWeapons.find(x=>x.id==='dao');if(dw0)pickWeapon(dw0,'R');}if(FREEHAND)waitInput=false;PROG.combo=0;PROG.comboUntil=-10;refreshMovesHud();if(isCombat()){if(mode==='boss'&&ST.menu)storyReset();bossIntro();}resetBladeBodies(playerTarget(0));dummy.visible=m==='practice';tokenMesh.visible=false;signal.visible=true;hudTime=-1;feedbackUntil=0;currentP=playerPose(0);currentE=enemyPose(0);$('goal').textContent=m==='trial'?'三轮交锋：架开来刀，再顺势反击。':m==='boss'?'Boss专项：捡武器；红光末段双握前送反投，也可侧移。':m==='practice'?'短方向意图推进变式，不用划满屏。':'出院迎战巡路刀客，取得回廊信物，再返回酒馆。';$('hint').textContent='WASD步法 · 双击W跑 · 双握上提跳 / 千招未尽可直接接招 · 出刀前55%可紧急架刀';$('start').textContent='重新三轮试炼';$('resume').classList.add('hidden');$('load').textContent='本地切片 v0.14 · 资源已就绪';resume();sound('objective');}
+function start(m){if(!loaded)return;if(m==='boss')storyReset();hintFade();running=false;cancelAnimationFrame(raf);started=true;terminal=false;mode=m;time=0;realTime=0;lastCombatActivity=0;lookPitch=0;slotWasActive=false;sprintUntil=-1;lastForwardDown=-10;jumpY=jumpVelocity=0;lastJump=-10;vrMove=null;locomotionPose.reset();playerPrecision.reset(0);reactionClock.reset();animationSlots.reset();resetFloorWeapons();round=m==='boss'?2:0;health=stamina=100;score=0;serial=0;strokeSerial=0;physicsEvent=null;events=[];stats={hits:0,blocks:0,parries:0,hurts:0,misses:0,attacks:0,clashes:0,moves:0,issens:0,counterCuts:0,breaks:0,bindWins:0,bindRepeats:0};moveSerial=0;aiSeed=AI.seed;aiSamples=[];playerBrokenUntil=-1;lastLightType=null;lastLightTime=-10;chainCount=0;playerPos.set(0,0,26);velocity.set(0,0,0);yaw=0;mouse={x:0,y:.25};hand={x:0,y:.25};travel=0;tripStage=0;tripEncounter=false;countdown=isCombat()?1.5:0;resetCine();waitInput=true;intermission=0;feedbackPriority=0;feedbackLock=-1;footClock=0;enemyVisualMaterials.forEach(m=>m.emissive?.setHex(0));clearParticles();resetInput();nextEnemy(V(0,0,isCombat()?21.0:0.11),m==='boss'?2:round);if(FREEHAND&&!equipped){const dw0=floorWeapons.find(x=>x.id==='dao');if(dw0)pickWeapon(dw0,'R');}if(FREEHAND)waitInput=false;PROG.combo=0;PROG.comboUntil=-10;refreshMovesHud();if(isCombat()){if(mode==='boss'&&ST.menu)storyReset();bossIntro();}resetBladeBodies(playerTarget(0));dummy.visible=m==='practice';tokenMesh.visible=false;signal.visible=true;hudTime=-1;feedbackUntil=0;currentP=playerPose(0);currentE=enemyPose(0);$('goal').textContent=m==='trial'?'三轮交锋：架开来刀，再顺势反击。':m==='boss'?'Boss专项：捡武器；红光末段双握前送反投，也可侧移。':m==='practice'?'短方向意图推进变式，不用划满屏。':'出院迎战巡路刀客，取得回廊信物，再返回酒馆。';$('hint').textContent='WASD步法 · 双击W跑 · 双握上提跳 / 千招未尽可直接接招 · 出刀前55%可紧急架刀';$('start').textContent='重新三轮试炼';$('resume').classList.add('hidden');$('load').textContent='本地切片 v0.14 · 资源已就绪';resume();sound('objective');}
 function resume(){if(!started||terminal||running)return;resetInput();if(FREEHAND&&equipped&&!moveAction)startFreeMove();$('overlay').classList.add('hidden');$('panel').classList.add('hidden');$('cursor').classList.remove('hidden');last=0;acc=0;running=true;raf=requestAnimationFrame(loop);setTimeout(()=>{if(running&&!usingTimer&&performance.now()-lastLoopAt>140){usingTimer=true;timerId=setInterval(()=>{if(running)loop(performance.now());},16);}},900);}
 function pause(show=true){if(!running)return;animationSlots.cancel('pause');slotWasActive=false;running=false;cancelAnimationFrame(raf);last=0;acc=0;resetInput();$('cursor').classList.add('hidden');if(show){$('title').textContent='收刀稍息';$('kicker').textContent='暂停 / 保留当前进度';$('body').innerHTML='<p>敌人、动作判定与计时已经暂停。继续后重新建立持刀手基线，窗口切换不会产生一次虚假的高速斩击。</p>';$('resume').classList.remove('hidden');$('overlay').classList.remove('hidden');}}
 function finish(win){if(terminal)return;terminal=true;animationSlots.cancel('terminal');resetGrip();ModulePorts.reset();moveAction=null;queuedMove=null;bladeBind=null;counterUntil=-1;for(const b of Object.values(bladeBodies)){if(b){b.v.set(0,0,0);b.w.set(0,0,0);}}hudTime=-1;running=false;cancelAnimationFrame(raf);keys.clear();velocity.set(0,0,0);score+=win?100+health:0;hud();best=Math.max(score,best);try{localStorage.setItem('wuxia-mouse-v03-best',String(best));}catch(_){}$('cursor').classList.add('hidden');$('panel').classList.add('hidden');$('title').textContent=win?(mode==='boss'?'投技专项通过':mode==='explore'?'信物已归':'三轮已过'):'再试一刀';$('kicker').textContent=win?'完成 / 可重新挑战':'本局结束 / 可重新挑战';$('body').innerHTML='<p>本局得分 <b>'+score+'</b> · 最高 <b>'+best+'</b><br>命中 '+stats.hits+' · 格挡 '+stats.blocks+' · 弹反 '+stats.parries+' · 承伤 '+stats.hurts+'</p><p>判断重点是你能否看懂来势、实际拦住刀路，并利用开口反击。网页切片不等于VR真机验收。</p>';$('resume').classList.add('hidden');$('overlay').classList.remove('hidden');}
@@ -1122,7 +1205,7 @@ window.addEventListener('keydown',e=>{
  if(e.code==='Escape'){toggleDojo(false);return;}
  if(['KeyW','KeyA','KeyS','KeyD'].includes(e.code)&&running){if(e.code==='KeyW'&&!e.repeat){if(realTime-lastForwardDown<.30)sprintUntil=realTime+3600;lastForwardDown=realTime;}keys.add(e.code);e.preventDefault();}});window.addEventListener('keyup',e=>{keys.delete(e.code);if(e.code==='KeyW')sprintUntil=-1;});window.addEventListener('blur',()=>pause());document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
 $('boss').onclick=()=>start('boss');$('start').onclick=()=>start('trial');$('practice').onclick=()=>start('practice');$('explore').onclick=()=>start('explore');$('journey').onclick=()=>start('explore');$('pause').onclick=()=>pause();$('resume').onclick=resume;$('settings').onclick=()=>{if(!started||terminal)return;pause(false);$('panel').classList.remove('hidden');$('overlay').classList.add('hidden');};$('continue').onclick=resume;$('closePanel').onclick=resume;
-for(const id of ['sensitivity','tempo','grip'])$(id).oninput=()=>{P[id]=Number($(id).value)/(id==='grip'?1000:1);$(id+'Value').textContent=id==='grip'?$(id).value+' ms':P[id].toFixed(2);};$('sound').onchange=()=>P.sound=$('sound').checked;$('cues').onchange=()=>P.cues=$('cues').checked;$('debug').onchange=()=>{P.debug=$('debug').value==='on';if(started){currentP=playerPose(0);currentE=enemyPose(0,bladeBodies.enemy?rigidPose(bladeBodies.enemy):null);draw();}};$('motionPack').onchange=()=>{packId=$('motionPack').value;ModulePorts.reset();if(enemy){enemy.phrase=[];enemy.phase='idle';enemy.elapsed=0;enemy.hold=0;enemy.frozenClip=null;releasePose=null;heldBlade=null;bladeBodies.enemy=null;lastEnemyTarget=null;}resetInput();};$('drill').onchange=()=>P.drill=$('drill').value;$('resetParams').onclick=()=>{P.sensitivity=P.tempo=1;P.grip=.028;P.drill='mixed';P.debug=false;P.cues=true;P.sound=true;for(const id of ['sensitivity','tempo','grip']){$(id).value=id==='grip'?28:1;$(id+'Value').textContent=id==='grip'?'28 ms':'1.00';}$('drill').value='mixed';$('debug').value='off';$('cues').checked=$('sound').checked=true;};
+for(const id of ['sensitivity','tempo','grip'])$(id).oninput=()=>{P[id]=Number($(id).value)/(id==='grip'?1000:1);$(id+'Value').textContent=id==='grip'?$(id).value+' ms':P[id].toFixed(2);};$('sound').onchange=()=>P.sound=$('sound').checked;$('cues').onchange=()=>P.cues=$('cues').checked;$('debug').onchange=()=>{P.debug=$('debug').value==='on';if(started){currentP=playerPose(0);currentE=enemyPose(0,bladeBodies.enemy?rigidPose(bladeBodies.enemy):null);draw();}};$('motionPack').onchange=()=>{packId=$('motionPack').value;ModulePorts.reset();if(enemy){enemy.phrase=[];enemy.phase='idle';enemy.elapsed=0;enemy.hold=0;enemy.truce=false;enemy.frozenClip=null;releasePose=null;heldBlade=null;bladeBodies.enemy=null;lastEnemyTarget=null;}resetInput();};$('drill').onchange=()=>P.drill=$('drill').value;$('resetParams').onclick=()=>{P.sensitivity=P.tempo=1;P.grip=.028;P.drill='mixed';P.debug=false;P.cues=true;P.sound=true;for(const id of ['sensitivity','tempo','grip']){$(id).value=id==='grip'?28:1;$(id+'Value').textContent=id==='grip'?'28 ms':'1.00';}$('drill').value='mixed';$('debug').value='off';$('cues').checked=$('sound').checked=true;};
 $('export').onclick=()=>{const record={ruleset_id:RULES.id,revision:RULES.revision,action_config:ACTION,physics_config:{...PHYS,gripTime:WEAPON.positionTime*(P.grip/.028),rotationTime:WEAPON.rotationTime*(P.grip/.028),maxForce:WEAPON.maxForce,maxTorque:WEAPON.maxTorque},weapon_config:WEAPON,flow_config:FLOW,impact_config:IMPACT,motion_pack:MotionPacks.get(packId),grip_profile:GripProfiles[MotionPacks.get(packId).grip],rig_policy:RigPolicy,enemy_drive:'kinematic_reachable_sweep',player_drive:'authored_sweep_stop',physics:physicsFrame,aiConfig:AI,mode,score,stats:{...stats},params:{...P},events:events.slice(),tripStage,note:'Mouse-pose proxy. VR comfort and 6DoF not validated.'};const u=URL.createObjectURL(new Blob([JSON.stringify(record,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='酒馆试炼-v0.14-交锋记录.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
 // Read-only observation for tests. No hidden attack, teleport, health or win controls.
 window.wuxiaDemo={rules:RULES,readState:()=>({ruleset_id:RULES.id,revision:RULES.revision,loaded,loadErrors:loadErrors.slice(),running,mode,realTime:+realTime.toFixed(3),locomotion:{jumpY,jumpVelocity,sprint:sprintActive,velocity:velocity.toArray()},timeScale,precision:playerPrecision.read(),enemyPrecision:enemyPrecision?.read(),equipment:{equipped,weapon:weaponId,hand:weaponHand,grips:{...grips},floor:floorWeapons.map(f=>({id:f.id,available:f.available,pos:f.pos.toArray(),screen:f.el.style.display==='block'?[parseFloat(f.el.style.left),parseFloat(f.el.style.top)]:null})),pick:floorPick?.id},animation:animationSlots.read(),time:+time.toFixed(3),round:round+1,health,stamina:+stamina.toFixed(2),score,terminal,waitInput,player:playerPos?playerPos.toArray():null,yaw,enemy:enemy?{bossId:enemy.bossId,phase:enemy.phase,hp:enemy.hp,maxHp:enemy.maxHp,hold:enemy.hold,grabTarget:enemy.grabTarget?.toArray(),reaction:enemy.reaction,walkClock:enemy.walkClock,stepDistance:enemy.stepDistance,type:enemy.type,elapsed:enemy.elapsed,pos:enemy.pos.toArray(),id:enemy.attackId}:null,tripStage,tripEncounter,stats:{...stats},params:{...P},events:events.slice(-12),ai:{tactic:enemy?.tactic,rate:enemy?.rate,guardUntil:enemy?.guardUntil,feinted:enemy?.feinted,phrase:enemy?.phrase,index:enemy?.phraseIndex,seed:aiSeed},bladeAgreement:isCombat()&&rig&&enemy&&!enemy.dead?{base:bladeBaseMarker.getWorldPosition(V()).distanceTo(currentE?.base||V()),tip:bladeTipMarker.getWorldPosition(V()).distanceTo(currentE?.tip||V())}:null,physics:physicsFrame,rigid:bladeBodies.player?{position:bladeBodies.player.x.toArray(),velocity:bladeBodies.player.v.toArray(),omega:bladeBodies.player.w.toArray(),blade:rigidPose(bladeBodies.player)}:null,move:moveAction?{id:moveAction.id,type:moveAction.type,name:moveAction.name,linked:moveAction.linked,spec:{...moveAction.spec},variant:moveAction.variant,comboIndex:moveAction.comboIndex,elapsed:moveAction.elapsed,stage:actionStage(),dealt:moveAction.dealt,iss:moveAction.iss,counter:moveAction.counter,impactLeft:moveAction.impactLeft||0,impactTotal:moveAction.impactTotal||0}:null,queued:queuedMove?{type:queuedMove.type,expires:queuedMove.expires}:null,bind:bladeBind,impact:impactHUD?{...impactHUD}:null,feedback:{kind:$('event').dataset.kind,text:$('event').textContent,lock:feedbackLock},phase:actionStage(),stance:readyKey,cue:currentCue(),guardDirection,parryIntent:parryIntent?{...parryIntent}:null,module:ModulePorts.snapshot(),rig:{...rigReport,head:bones.Head?.getWorldPosition(V()).toArray()},clip:enemy?.currentClip,guard:guarding(),charge:chargeAt>=0?time-chargeAt:0,enemyPosture:enemy?.posture,render:renderer?{calls:renderer.info.render.calls,triangles:renderer.info.render.triangles}:null})};
@@ -1295,9 +1378,9 @@ try{
       if(seen.has(o.material))return;
       seen.add(o.material);
       const c=o.material.color;c.getHSL(hsl);
-      c.setHSL(hsl.h,hsl.s*0.105,Math.max(.012,hsl.l*0.42));
+      c.setHSL(hsl.h,hsl.s*0.13,Math.max(.016,hsl.l*0.55));
       /* 少量材质走的是另一套底色，压一次仍偏亮：超过阈值再压一档 */
-      if(c.getHSL(hsl).l>.11)c.setHSL(hsl.h,hsl.s*0.5,Math.max(.02,hsl.l*0.4));
+      if(c.getHSL(hsl).l>.15)c.setHSL(hsl.h,hsl.s*0.45,Math.max(.03,hsl.l*0.62));
     });
   }
   inkAll();
@@ -1308,9 +1391,9 @@ try{
     inkIdle=(seen.size===before)?inkIdle+1:0;
     if(inkIdle>20||++inkTries>120)clearInterval(inkTimer);
   },400);
-  if(dirs[0])dirs[0].intensity=.68;
-  if(hemi)hemi.intensity=.27;
-  renderer.toneMappingExposure=.55;
+  if(dirs[0])dirs[0].intensity=1.22;
+  if(hemi)hemi.intensity=.42;
+  renderer.toneMappingExposure=.74;
   /* 开局前不显示敌人：rig.visible 只在 enemyPose 里赋值，菜单阶段会一直是初始可见 */
   (function quietUntilStart(){
     if(started)return;
