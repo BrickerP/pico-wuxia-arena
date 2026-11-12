@@ -1,8 +1,22 @@
 # 09 · 正式动作bank与战斗表现接线
 
+## 当前执行合同：原生APK唯一交付（2026-11-13，覆盖冲突旧授权）
+
+用户最新纠偏立即生效。本仓库唯一产品交付为Kotlin＋PICO Spatial SDK 6.1.9的现有原生APK，使用PICO Emulator验证，最终终端为Space Pro／OS6，Full Stage。Root统一构建、设备操作、Git提交及发布。
+
+09停止HTML／Web／Three.js游戏、浏览器试玩、网页材质／光照调试及任何新HTML mock页面；已有HTML与他人工作原样保留，不维护、不删除、不继续发布或验收。浏览器仅可在必要时查官方资料或操作已授权账号服务，不能作为游戏产品、视觉或输入验收。
+
+可推进的工作仅限Root明确授权、能进入现有原生APK的源码补丁、GLB／贴图／动作／原生UI资源及其明确接入点。不能接入的研究、报告、重复渲染立即停止。下文旧轮的Web授权、续派队列、预演服务及发布建议均仅为历史记录，不再形成执行授权。
+
+唯一工程仍为`/Users/yupeng/projects/personal/pico-wuxia-arena`；多人共享工作树，不回滚他人。不开新仓库／分支／页面，不碰pico或网站仓库。每次终端显式workdir；本路不自行运行Root共享构建／设备或Git发布。
+
+当前没有新增实质原生执行项：最近native正式身份收口已完成并冻结。本轮只更正本合同冲突正文，完成即停止；不自开研究、测试、渲染或文档任务来制造回报。收到后续明确原生任务后再按其范围推进。
+
 ## 当前状态
 
-Root已用唯一publisher原子发布KTX整组至正式library/app（含dao_grip），当前schema3 binding为b03f55e6。09已从DEFAULT_BANK正式library重新生成typed身份并对齐精确pin；本轮仅身份更新，运行逻辑、时钟、判定、输入、样本数组及生成器不动。64／64 focus、5／5生成器及默认来源精确重现均通过，现已重新冻结给Root共享新APK；最高画面／交互HIGH继续由Root实际验收。
+09最近一次原生交付是2026-11-12的1b3e031d正式身份收口：DEFAULT_BANK正式library重生typed数据、精确pin与reaction记录对齐，64／64 focus及5／5生成专项通过，已交Root组装；这是已完成的交付记录，不触发重复生成或测试。本路源码／数据冻结，当前没有新的原生实现任务，合同更正后停止。
+
+所有Web／浏览器工作已终止，既有文件只保留历史。原生APK、模拟器及Space Pro最终验收由Root统合。
 
 ## 目标
 
@@ -14,23 +28,17 @@ Root已用唯一publisher原子发布KTX整组至正式library/app（含dao_grip
 
 01是动作作者，Root内部character_grip_polish负责Python producer、manifest及正式发布。你不改这些制作源或GLB，不写Main/HomeStage。
 
-## 当前输入
+## 最近已交原生输入（2026-11-12快照）
 
-唯一生产真源为`ArtSource/tripo-warrior/library`，正式KTX schema3 binding `b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f`，状态`approved_for_development_integration`。三角色library GLB、app GLB、profile内部model SHA、characters/review及Kotlin exact pin已一致；typed数据仍从DEFAULT_BANK正式library生成，私有candidate不作默认。
+native唯一生产真源为`ArtSource/tripo-warrior/library`，正式schema3 binding `1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2`，状态`approved_for_development_integration`。三角色library GLB、app GLB、profile内部model SHA、characters/review及Kotlin/Python精确pin一致；typed数据只用默认正式library生成。
 
-本轮Root严格audit已报告：除`model_sha256`外，三份profile与ff3完整JSON精确相同，全部非image GLB数据守恒；09另外验证2616个typed样本数组与本轮开始前相同。locomotion／三攻击／gait及代理规则保持。当前完整身份见文末KTX发布表与`ArtSource/refinement/combat-direction/ktx_published_locomotion_runtime_identity.json`。此前ff3与私有基准／身份快照作为历史冻结保留。
+base正式model为`ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`，profile为`7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478`；indigo／veteran身份不变。Root报告三profile剥model_sha后精确同b03，本路另核全部2616个typed样本数组与开始前相同。完整记录见`ArtSource/refinement/combat-direction/albedo_tangent_native_identity.json`。旧b03/ff3及其身份文件继续作为历史快照，不追改；旧web ce90记录也只保留历史，不再维护或等待Web续派。
 
-## 制作队列
+## 原生任务状态与授权边界
 
-1. 复用同一profile数据选择三方向clip、source阶段及各角色head/body/刀根尖代理，替换旧统一slash和手写旧曲线数组。普通guarded HIT明确取新守势与对应代理。
-2. 正常出招／反击目前硬编码OVERHEAD。给已有入口可读且可重复的三方向序列，按真实AttackStarted推进，不在每tick消耗随机选择。保持既有伤害、资源和识别阈值。
-3. hitstop仍保留实际接触前姿态，致命仍读统一死亡时钟。转身、起步、停步、回守与受击切换减少突跳，保留最新白闪／真实刀光接线。
-4. 与01接防御支撑、弹反卸力、受击与行动资源，逐阶段写明确输入文件与使用状态。现bank未正式发布前交完整接入代码给Root统一合入，Root组合后构建。
-5. 以实际最终target profile验证phase端点、玩家视角方向、actor yaw和Root反冲一致，正常入口一招对应一次接触。
+三方向、idle／walk真实profile与最近正式身份收口均已交Root，当前无新增执行项。防御／受击／转身等历史建议及未关闭的原生验收项由Root决定是否续派；待验状态不构成自行研究、重渲染或更改schema的授权。
 
-## 首轮交付
-
-三方向正常循环与动画／代理使用同一数据的完整代码与必要专项。随后收口防御、转身和受击。
+历史首轮里程碑为三方向正常循环与动画／代理同源接线。本合同不自动重启这些已完成工作，也不生成新的展示入口。
 
 ## 共同执行合同
 
@@ -40,9 +48,9 @@ Root已用唯一publisher原子发布KTX整组至正式library/app（含dao_grip
 
 其他会话共享同一工作树。只编辑责任范围，保留他人修改。Root统一正式角色producer、manifest、library/app正式资源发布、Main/HomeStage最终接线、构建、设备、截图录制与Git。源资产与候选目录分开，Root按部件或补丁合成。
 
-首轮45分钟内交真实资产、可运行源码或正常游戏视距的可见画面。每路本机最多1个Blender进程，重渲遇资源争用先交模型和已有图，继续可独立的制作。阶段回填本文件的交付区，包含来源SHA、产物路径、可见变化、接入点、限制与下一项。阶段完成后继续本合同已授权队列，不等重复批准，不无限等待其他会话。
+仅对后续明确授权且能进入原生APK的任务执行必要制作及验证，并记录实际接入点与来源。当前无此新增任务，不启动Blender、重渲染、重复专项或新的报告。旧“阶段后自动继续制作队列”在本次用户纠偏下失效。
 
-判定依据是0.8m／1.5m／3m正常视距下的整体效果。每次给同机位前后图或短片，单独高光图和极端放大近景只能作为补充。构建／导入／面数与参数通过不能代替视觉验收。当前整体效果粗糙、保守，需要正常视距下明显可见的进步。
+产品判定依据为现有原生APK在PICO Emulator及最终Space Pro正常视距下的效果。GLB／源码／必要专项只作原生接入证据；离线图、浏览器画面及导入参数不作为游戏验收。设备与画面统一由Root验证。
 
 先开发和专项制作检查，整局自玩后置。Root负责实际输入到共享判定、三轮流程与Space Pro实测。模拟器只作为其实际可证明范围的证据。
 
@@ -396,7 +404,7 @@ Root已用唯一publisher发布`b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf
 | indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` | `ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a` |
 | veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` | `2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6` |
 
-精确Kotlin binding／三model／三profile pin与Python binding／model pin全部取实际正式metadata更新；reaction当前消费binding改为b03f55e6，六组reaction来源SHA和状态保持。`DEFAULT_BANK`仍仅正式library，未改生成器逻辑、未取私有candidate作默认。
+精确Kotlin binding／三model／三profile pin与Python binding／model pin全部取实际正式metadata更新；当轮reaction消费binding改为b03f55e6，六组reaction来源SHA和状态保持。`DEFAULT_BANK`仍仅正式library，未改生成器逻辑、未取私有candidate作默认。
 
 本轮前后EnemyAnimator、ArenaOpponents、AttackBankProfiles、LocomotionProfiles、ArenaSession、EnemyCombatStateMachine、生成器及隔离runner SHA逐项完全相同。typed样本数组文本SHA仍是`781a861dfd3c30384678fbdd3685028d4cd1f56e0aee847ea78a9ce9a774f3a4`。Root关于profile剥model SHA的整JSON与全部非image GLB守恒结论记录为Root audit，本路未重复审计资产。没有改动作时钟／判定／阈值／半径／输入／资产／Gradle／设备／Git。
 
@@ -404,3 +412,24 @@ Root已用唯一publisher发布`b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf
 
 
 KTX身份更新最终实跑：默认正式library `--check`通过，Python生成器5／5、PICO6.1.9类型隔离编译／focus JUnit64／64通过。独立只读复核确认app/library/profile内部/characters/review/Kotlin/Python/reaction全部一致，四个身份文件无旧ff3及旧model/profile pin或candidate locator残留。本路现全部重新冻结，Root可开始共享新APK。
+
+
+## 07 albedo-only＋05局部Tangent正式native身份收口（2026-11-12）
+
+Root正式publisher完成后，09实际核到binding `1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2`及三角色app/library/profile/manifest一致，随后只执行一次DEFAULT_BANK生成：
+
+`python3 ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py`
+
+| 角色 | 当前native正式model SHA-256 | 当前native正式profile SHA-256 |
+| --- | --- | --- |
+| base | `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20` | `7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478` |
+| indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` | `ef1a853a1801ddd4a2f8a28292a7ad6358385c2cb6f1bea0ca1b8c2e524ad73a` |
+| veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` | `2a0c8ae7a824dcf952fcf3b80e8b4431017b0f16ad30ff0e2947b470f7de0ee6` |
+
+本轮只更新typed binding／base model与profile身份、Kotlin／Python必要exact pin、reaction当前消费binding与本身份产物／交接；indigo与veteran的model/profile字节身份保持。旧发布快照不追改。
+
+本轮开始至结束EnemyAnimator、ArenaOpponents、AttackBankProfiles、LocomotionProfiles、ArenaSession、EnemyCombatStateMachine、生成器及隔离runner SHA完全相同；typed sample数组文本SHA仍为`781a861dfd3c30384678fbdd3685028d4cd1f56e0aee847ea78a9ce9a774f3a4`。因此没有动作clock／样本／规则／阈值／半径或输入修改。Root报告profile剥model_sha与b03相同记为Root audit；本轮不把base局部Tangent修改误称为全部非image GLB数据不变，也未重做资产审计。
+
+实际有限验证：默认正式library `--check`通过；Python生成专项5／5；PICO6.1.9实际类型隔离编译／focus JUnit64／64通过。独立只读review核app、library、profile内部model、characters/review、Kotlin/Python/reaction均一致，未发现pin漂移。未运行Gradle、设备或Git；未改资产或浏览器loader／02FP。
+
+身份快照为`albedo_tangent_native_identity.json`。native代码／数据／生成器／专项现重新冻结，Root可组装新原生包。前面web ce90段及722ffe/base是其固定消费者身份，不应被native ac7全局替换；两条入口的最终画面由Root分别验收。

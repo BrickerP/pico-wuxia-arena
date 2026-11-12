@@ -1,0 +1,319 @@
+{
+  "source_glb": "../refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+  "source_sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
+  "body_height_metres": 1.78,
+  "source_forward": "+X",
+  "prepared_forward": "+Z",
+  "rotation_y_degrees": -90,
+  "uniform_scale": 1.8198128977677444,
+  "normalization_matrix_gltf": [
+    -7.954654535069494e-08,
+    0.0,
+    1.8198128938674927,
+    0.0,
+    0.0,
+    1.8198128938674927,
+    0.0,
+    0.0,
+    -1.8198128938674927,
+    0.0,
+    -7.954654535069494e-08,
+    0.0,
+    0.00027122750179842114,
+    0.00028711825143545866,
+    -0.00013676621892955154,
+    1.0
+  ],
+  "source_triangles": 97878,
+  "source_vertices": 97868,
+  "joint_count": 78,
+  "animation_count": 1,
+  "animations": [
+    {
+      "name": "attack_overhead",
+      "source_glb": "../refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_raw.glb",
+      "source_sha256": "87c5fd566a63bba551cbbdfaa5841f519a7ed865cbbffc7da929c65219c9ef26",
+      "channels": 234,
+      "keyframe_time_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "interpolation_modes": [
+        "LINEAR"
+      ],
+      "keyframe_semantics_sha256": "4649f482934e2d87c5b042f811dc2b325d3f90e9b1eadc585546bce4e78e073b",
+      "max_default_local_matrix_difference": 0.0,
+      "source_keyframe_semantics_sha256": "283f4cdf06c46a266acac2e1116477aa35ce3d2b51a2bfbd58a606c6bf5d792a"
+    }
+  ],
+  "body_bounds_node": "TripoBody_Mesh",
+  "body_subtree": "TripoBody_Root",
+  "body_bounds_scope": "all body primitives before same-skin dao",
+  "body_primitive_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "body_bind_bounds_gltf_metres": {
+    "min": [
+      -0.8142107129096985,
+      0.0,
+      -0.17947834730148315
+    ],
+    "max": [
+      0.8142107129096985,
+      1.78000009059906,
+      0.17947834730148315
+    ]
+  },
+  "weapon_subtree": "Weapon_Root",
+  "grip_node": "HandGrip_R",
+  "grip_parent": "R_Hand",
+  "grip_local_matrix_gltf": [
+    -0.16072896122932434,
+    -0.5248784422874451,
+    0.025034938007593155,
+    0.0,
+    -0.4625701308250427,
+    0.12890656292438507,
+    -0.2671518325805664,
+    0.0,
+    0.2493053376674652,
+    -0.09921517223119736,
+    -0.47954261302948,
+    0.0,
+    0.013535577803850174,
+    0.046395160257816315,
+    -0.0215284563601017,
+    1.0
+  ],
+  "grip_world_metres": [
+    -0.6953257918357849,
+    1.3245368003845215,
+    0.00020403414964675903
+  ],
+  "grip_pose": "per-character reviewed grip-frame calibration",
+  "grip_source_metres": [
+    0.00018728990107774734,
+    0.727684497833252,
+    0.38223543763160706
+  ],
+  "weapon_binding": {
+    "method": "same-skin rigid vertices",
+    "skin": 0,
+    "source_glb": "../refinement/weapon/stage2/dao_refined.glb",
+    "source_sha256": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+    "joint_name": "R_Hand",
+    "joint_palette_index": 60,
+    "body_primitive_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "weapon_primitive_indices": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "primitive_sources": [
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 0,
+        "target_primitive": 9
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 1,
+        "target_primitive": 10
+      },
+      {
+        "source_node": "Blade",
+        "source_mesh": 0,
+        "source_primitive": 2,
+        "target_primitive": 11
+      },
+      {
+        "source_node": "Blade collar",
+        "source_mesh": 1,
+        "source_primitive": 0,
+        "target_primitive": 12
+      },
+      {
+        "source_node": "Blade | asymmetric wear",
+        "source_mesh": 2,
+        "source_primitive": 0,
+        "target_primitive": 13
+      },
+      {
+        "source_node": "Blade | shallow fuller",
+        "source_mesh": 3,
+        "source_primitive": 0,
+        "target_primitive": 14
+      },
+      {
+        "source_node": "Grip ferrule",
+        "source_mesh": 4,
+        "source_primitive": 0,
+        "target_primitive": 15
+      },
+      {
+        "source_node": "Grip | cord wrap",
+        "source_mesh": 5,
+        "source_primitive": 0,
+        "target_primitive": 16
+      },
+      {
+        "source_node": "Guard pin 1",
+        "source_mesh": 6,
+        "source_primitive": 0,
+        "target_primitive": 17
+      },
+      {
+        "source_node": "Guard pin 2",
+        "source_mesh": 7,
+        "source_primitive": 0,
+        "target_primitive": 18
+      },
+      {
+        "source_node": "Guard | flared oval",
+        "source_mesh": 8,
+        "source_primitive": 0,
+        "target_primitive": 19
+      },
+      {
+        "source_node": "Guard | outer rim",
+        "source_mesh": 9,
+        "source_primitive": 0,
+        "target_primitive": 20
+      },
+      {
+        "source_node": "Handle core",
+        "source_mesh": 10,
+        "source_primitive": 0,
+        "target_primitive": 21
+      },
+      {
+        "source_node": "Pommel ring",
+        "source_mesh": 11,
+        "source_primitive": 0,
+        "target_primitive": 22
+      },
+      {
+        "source_node": "Pommel | brass",
+        "source_mesh": 12,
+        "source_primitive": 0,
+        "target_primitive": 23
+      }
+    ]
+  },
+  "anchor_nodes_role": "bind/source anchors; SDK dynamic markers require joint-pose support",
+  "weapon_bind_forward_vector_gltf": [
+    -0.013089701533317566,
+    -2.2724267978446733e-07,
+    0.999914288520813
+  ],
+  "weapon_world_scale": 1.0,
+  "source_binary_sha256": "0fb449d3c25c1b70862defd05239ed1c157a381e785ed7c24aeaf3d4f3c2be79",
+  "outputs": [
+    {
+      "file": "fine_overhead_body.glb",
+      "sha256": "f6390ce0ee6d32b7210c29bb20b38d2ccf1dd379d9875f3f5d19f383f9e2debb",
+      "bytes": 51287876
+    },
+    {
+      "file": "fine_overhead_preview.glb",
+      "sha256": "285d3e34e94e335d2e5f3705d77483fabbe3a297ccfbdec08153bcab1b13a21c",
+      "bytes": 54380800
+    }
+  ],
+  "finger_rotation_calibration": {
+    "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+    "offsets": {
+      "R_Thumb1": {
+        "x_degrees": 4.5,
+        "z_degrees": 0.0
+      },
+      "R_Thumb2": {
+        "x_degrees": 4.5,
+        "z_degrees": 0.0
+      },
+      "R_Index2": {
+        "x_degrees": 3.0,
+        "z_degrees": 0.0
+      },
+      "R_Ring1": {
+        "x_degrees": 0.0,
+        "z_degrees": -1.5
+      },
+      "R_Mid1": {
+        "x_degrees": 0.0,
+        "z_degrees": -1.5
+      },
+      "R_Thumb3": {
+        "x_degrees": -3.0,
+        "z_degrees": -3.0
+      },
+      "R_Index1": {
+        "x_degrees": -1.5,
+        "z_degrees": 0.0
+      },
+      "R_Pinky1": {
+        "x_degrees": -1.5,
+        "z_degrees": 0.0
+      }
+    },
+    "clips": [
+      {
+        "clip": "attack_overhead",
+        "modified_rotation_tracks": 8
+      }
+    ],
+    "modified_rotation_tracks": 8
+  },
+  "canonical_root_grounding": {
+    "policy": {
+      "version": 2,
+      "method": "one constant prepared +Y BoneRoot translation from target idle at source zero",
+      "target_plane_metres": -0.028,
+      "region": "body vertices with total same-side Foot/Toe skin weight greater than 0.5",
+      "canonical_clip": "idle",
+      "canonical_source_seconds": 0.0,
+      "scope": "idle, walk and three attacks share one target guard shift; no per-frame grounding or IK",
+      "residual_policy": "measure keys and midpoints without modifying authored relative foot heights",
+      "runtime_entity_lift_metres": 0.028,
+      "runtime_entity_lift_application_count": 1
+    },
+    "constant_world_root_shift_metres": -0.02799914504376948,
+    "constant_local_root_shift": [
+      0.0,
+      -0.015385729260742664,
+      0.0
+    ]
+  }
+}

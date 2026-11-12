@@ -1,0 +1,30 @@
+{
+  "scope": "App files are input only. Patch/candidate not installed or applied.",
+  "input_source_sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt": "853469d4095497e8b1b8377f618378b76c9e8f253776d0faccdfb44649c6fd44",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlash.kt": "0b97749ef9cbb0405456638412591e114095ef5e315c3e7b743b7238ac4073c2",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterial.kt": "3d7da63d8b1a342364c412dbd559dc28acdf6bc82348ed63c487627740ddcd40",
+    "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlashPulseTest.kt": "9fc1ee51f3bcaaa7c6e2415e2a0814d6c62b1c0d9cf1b71c242e526db3dccdf1",
+    "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterialTest.kt": "baf29d17014d2479c53bb47d3bcd9ed7a5d4069e861477e6f1f16dcc15993a07",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt": "185b6bad2b5989d5b1386582ac198b609211965c896c0e1a5af68c2a217b24d5",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt": "b4619ea134262c44d2659e5a54dcc9fba6161d961d5c9051f11907ce43ac9f8d",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt": "4f8fdcb601bd36deac8067c4ce9c623e2170469827e86f1697c322692cc9bf37",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt": "d57296a2eec4b596282d475a28e464fbae43b53378b5cd85e9f799edcb82d9a5",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt": "db3ad3a9b20e96f3c214eb3004cd2199b903b0babe663f28e021ccff715ae8a3"
+  },
+  "candidate_sha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt": "ea1855c6047e765aaa35bd28dd98b48f6d8945f5431efba82c19bb193a025e77",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlash.kt": null,
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterial.kt": null,
+    "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlashPulseTest.kt": null,
+    "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterialTest.kt": null,
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt": "11acd12dced420627990c362ca9b71a8d3bfb1bb5d557bcacf9ffd61b84f4da5",
+    "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt": "9b16ea8474ec8610c7fc12fc17af4c9593936d4df42cd8f97d940f0aeeb09f95"
+  },
+  "patch": {
+    "file": "01-local-native-impact.patch",
+    "sha256": "0d02fa502d743b5dacf246fe8ae6d6eae966e444099a85cc4b651733f474d06f"
+  },
+  "app_source_stable_after_prepare": true
+}

@@ -1,0 +1,26 @@
+{
+  "product": "existing native Kotlin/PICO6.1.9 APK",
+  "applicationEdits": false,
+  "changedFileInPatch": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt",
+  "baseMatchesCurrent": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt": true,
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaUiPalette.kt": true,
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaPresentation.kt": true
+  },
+  "patchSha256": "8dab16ec3dc852ca3470b65d26ae5c580c75348848d8dad5b7631ff8264fd7fc",
+  "candidateSha256": "097e46fc72552fe3d2df1109284a0eaef4d0f9de408eea416f2c0842d6737f51",
+  "compiler": "PASS",
+  "styleErrors": 0,
+  "styleWarnings": 0,
+  "independentReview": "No HIGH/blocker; mechanism and action gates preserved",
+  "acceptance": "Root native build/emulator/device only; not performed here",
+  "htmlStatus": "stopped; existing historical files retained, not maintained",
+  "noGitGradleDeviceBrowserGameOperation": true,
+  "nativePending": [
+    "Badge value fit at native font",
+    "contrast on bright windows/lanterns",
+    "long feedback+combo+charge within260",
+    "physical view and sword occlusion",
+    "actual clicks/hover/haptics"
+  ]
+}

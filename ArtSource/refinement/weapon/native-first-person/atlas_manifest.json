@@ -1,0 +1,1525 @@
+{
+  "schema_version": 1,
+  "status": "ATLAS_READY_AWAITING_BOUND_GLB_RENDER_AND_KTX_REVIEW",
+  "formal_source": "ArtSource/tripo-warrior/library/base.glb",
+  "formal_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+  "png_source": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+  "png_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+  "source_images": {
+    "normal": {
+      "source_texture": 0,
+      "source_image": 0,
+      "source_buffer_view": 6,
+      "source_png_sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167",
+      "source_png_bytes": 1271883,
+      "dimensions": [
+        4096,
+        4096
+      ],
+      "channels": "RGB",
+      "color_space": "linear",
+      "source_texture_info": {
+        "index": 0
+      },
+      "source_sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      }
+    },
+    "base_color": {
+      "source_texture": 1,
+      "source_image": 1,
+      "source_buffer_view": 7,
+      "source_png_sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+      "source_png_bytes": 13942523,
+      "dimensions": [
+        4096,
+        4096
+      ],
+      "channels": "RGB",
+      "color_space": "sRGB",
+      "source_texture_info": {
+        "index": 1
+      },
+      "source_sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      }
+    },
+    "metallic_roughness": {
+      "source_texture": 2,
+      "source_image": 2,
+      "source_buffer_view": 8,
+      "source_png_sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd",
+      "source_png_bytes": 11910857,
+      "dimensions": [
+        4096,
+        4096
+      ],
+      "channels": "RGB",
+      "color_space": "linear",
+      "source_texture_info": {
+        "index": 2
+      },
+      "source_sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987
+      }
+    }
+  },
+  "source_material_json": {
+    "doubleSided": true,
+    "name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+    "normalTexture": {
+      "index": 0
+    },
+    "pbrMetallicRoughness": {
+      "baseColorTexture": {
+        "index": 1
+      },
+      "metallicRoughnessTexture": {
+        "index": 2
+      }
+    }
+  },
+  "selection": "ArtSource/refinement/weapon/native-first-person/selection.json",
+  "selection_sha256": "07d6620c4cd37e680678b06edc5afd081c6a9615b97f5762a5774392280466e5",
+  "uv_remap": "ArtSource/refinement/weapon/native-first-person/uv_remap.json",
+  "uv_remap_sha256": "fcf2bb1809d7e1bc6ef8d54f212aa23d576d00186432c6a98b51288e9d98aebf",
+  "uv_remap_npz": "ArtSource/refinement/weapon/native-first-person/uv_remap.npz",
+  "uv_remap_npz_sha256": "01262190837a821a3699e3afacb49f427a11aa4b454c337292e1a2615d43d50b",
+  "layout": {
+    "atlas_edge": 1536,
+    "source_texels_per_atlas_texel": 1,
+    "resampling": false,
+    "rotation": false,
+    "reflection": false,
+    "padded_rect_margin_pixels": 20,
+    "conservative_original_bilinear_guard_pixels": 2,
+    "additional_nearest_seed_extrusion_pixels": 16,
+    "gutter_limit": "16-pixel dilation protects local filtering only; coarse mips eventually blend islands. Runtime anisotropy and KTX mips require visual review."
+  },
+  "normal_tangent_contract": {
+    "source_has_tangent": false,
+    "atlas_adds_tangent": false,
+    "normals_unchanged_by_atlas": true,
+    "normal_rgb_bytes_transformed": false,
+    "uv_jacobian": "Positive uniform scale on each original indexed UV island preserves tangent and bitangent directions and handedness before float32 rounding.",
+    "runtime_requirement": "Generate MikkTSpace tangent basis from valid NORMAL and remapped TEXCOORD_0. Runtime SDK behavior remains unverified.",
+    "inherited_degenerate_uv": "Original collapsed UV triangles retain one constant sample, and cannot define a tangent basis; no invented unwrap."
+  },
+  "budget": {
+    "source_three_rgb_level_zero_bytes": 150994944,
+    "atlas_six_rgb_level_zero_bytes": 42467328,
+    "atlas_six_rgb_complete_mips_theoretical_bytes": 56623068,
+    "mip_edges": [
+      1536,
+      768,
+      384,
+      192,
+      96,
+      48,
+      24,
+      12,
+      6,
+      3,
+      1
+    ],
+    "actual_png_bytes": 3589582,
+    "ktx_actual_bytes": null,
+    "ktx_responsibility": "Compression agent measures actual encoded KTX blocks and runtime-decoded allocation."
+  },
+  "sides": {
+    "R": {
+      "npz_prefix": "R_p0",
+      "source_material": 0,
+      "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "vertices": 2741,
+      "triangles": 4681,
+      "uv_npz_key": "R_p0_TEXCOORD_0",
+      "compact_vertex_order_unchanged": true,
+      "additional_vertex_splits": 0,
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "islands": [
+        {
+          "island_id": 0,
+          "vertices": 128,
+          "faces": 192,
+          "source_uv_min": [
+            0.43648022413253784,
+            0.9484421610832214
+          ],
+          "source_uv_max": [
+            0.49993830919265747,
+            0.9993854761123657
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1787,
+            3884,
+            2048,
+            4094
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            999,
+            301,
+            250
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.150390625,
+            -1.865234375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 28221,
+          "copied_plus_extruded_pixels": 45372,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 1,
+          "vertices": 40,
+          "faces": 54,
+          "source_uv_min": [
+            0.5800978541374207,
+            0.007406711578369141
+          ],
+          "source_uv_max": [
+            0.5948453545570374,
+            0.04429030418395996
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2376,
+            30,
+            2437,
+            182
+          ],
+          "atlas_padded_rect_xywh": [
+            301,
+            999,
+            101,
+            192
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.337890625,
+            0.6438802083333334
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 7942,
+          "copied_plus_extruded_pixels": 16353,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 2,
+          "vertices": 646,
+          "faces": 1169,
+          "source_uv_min": [
+            0.589584469795227,
+            0.8459732532501221
+          ],
+          "source_uv_max": [
+            0.7192807793617249,
+            0.9038969278335571
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2414,
+            3465,
+            2947,
+            3703
+          ],
+          "atlas_padded_rect_xywh": [
+            900,
+            0,
+            573,
+            278
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -0.97265625,
+            -2.2428385416666665
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 102762,
+          "copied_plus_extruded_pixels": 130595,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 3,
+          "vertices": 1106,
+          "faces": 2061,
+          "source_uv_min": [
+            0.580636739730835,
+            0.43818366527557373
+          ],
+          "source_uv_max": [
+            0.7060064077377319,
+            0.6719803214073181
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2378,
+            1794,
+            2892,
+            2753
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            0,
+            554,
+            999
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.53515625,
+            -1.1549479166666667
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 334860,
+          "copied_plus_extruded_pixels": 389010,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 4,
+          "vertices": 76,
+          "faces": 116,
+          "source_uv_min": [
+            0.0032026944682002068,
+            0.9561895728111267
+          ],
+          "source_uv_max": [
+            0.024850960820913315,
+            1.0
+          ],
+          "source_core_pixel_rect_xyxy": [
+            13,
+            3916,
+            102,
+            4097
+          ],
+          "atlas_padded_rect_xywh": [
+            620,
+            942,
+            129,
+            221
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.408203125,
+            -1.9231770833333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 12381,
+          "copied_plus_extruded_pixels": 22642,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 5,
+          "vertices": 62,
+          "faces": 81,
+          "source_uv_min": [
+            0.9255537390708923,
+            0.025041162967681885
+          ],
+          "source_uv_max": [
+            0.9764299392700195,
+            0.07149076461791992
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3791,
+            102,
+            4000,
+            293
+          ],
+          "atlas_padded_rect_xywh": [
+            427,
+            1252,
+            249,
+            231
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.1770833333333335,
+            0.76171875
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 14511,
+          "copied_plus_extruded_pixels": 29294,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 6,
+          "vertices": 212,
+          "faces": 325,
+          "source_uv_min": [
+            0.0920996218919754,
+            0.6176920533180237
+          ],
+          "source_uv_max": [
+            0.16667041182518005,
+            0.7538206577301025
+          ],
+          "source_core_pixel_rect_xyxy": [
+            377,
+            2530,
+            683,
+            3088
+          ],
+          "atlas_padded_rect_xywh": [
+            554,
+            0,
+            346,
+            598
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.12825520833333334,
+            -1.6341145833333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 69329,
+          "copied_plus_extruded_pixels": 103403,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 7,
+          "vertices": 64,
+          "faces": 91,
+          "source_uv_min": [
+            0.4093989133834839,
+            0.004045724868774414
+          ],
+          "source_uv_max": [
+            0.4569987654685974,
+            0.02125871181488037
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1676,
+            16,
+            1872,
+            88
+          ],
+          "atlas_padded_rect_xywh": [
+            554,
+            598,
+            236,
+            112
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -0.7174479166666666,
+            0.3919270833333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 9389,
+          "copied_plus_extruded_pixels": 19628,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 8,
+          "vertices": 70,
+          "faces": 105,
+          "source_uv_min": [
+            0.9141213893890381,
+            0.25042998790740967
+          ],
+          "source_uv_max": [
+            0.9716026186943054,
+            0.2860985994338989
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3744,
+            1025,
+            3980,
+            1172
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            1249,
+            276,
+            187
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.4244791666666665,
+            0.15885416666666666
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 14791,
+          "copied_plus_extruded_pixels": 28363,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 9,
+          "vertices": 73,
+          "faces": 112,
+          "source_uv_min": [
+            0.0022677502129226923,
+            0.1334850788116455
+          ],
+          "source_uv_max": [
+            0.02911711111664772,
+            0.1862492561340332
+          ],
+          "source_core_pixel_rect_xyxy": [
+            9,
+            546,
+            120,
+            763
+          ],
+          "atlas_padded_rect_xywh": [
+            276,
+            1249,
+            151,
+            257
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.18684895833333334,
+            0.470703125
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 14763,
+          "copied_plus_extruded_pixels": 27771,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 10,
+          "vertices": 83,
+          "faces": 123,
+          "source_uv_min": [
+            0.004135495983064175,
+            0.5521631240844727
+          ],
+          "source_uv_max": [
+            0.04113466292619705,
+            0.6037675142288208
+          ],
+          "source_core_pixel_rect_xyxy": [
+            16,
+            2261,
+            169,
+            2474
+          ],
+          "atlas_padded_rect_xywh": [
+            427,
+            999,
+            193,
+            253
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.2805989583333333,
+            -0.80859375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 13575,
+          "copied_plus_extruded_pixels": 27934,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 11,
+          "vertices": 78,
+          "faces": 116,
+          "source_uv_min": [
+            0.009359115734696388,
+            0.704867959022522
+          ],
+          "source_uv_max": [
+            0.03909618407487869,
+            0.7516608238220215
+          ],
+          "source_core_pixel_rect_xyxy": [
+            38,
+            2887,
+            161,
+            3079
+          ],
+          "atlas_padded_rect_xywh": [
+            554,
+            710,
+            163,
+            232
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.3489583333333333,
+            -1.404296875
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 13606,
+          "copied_plus_extruded_pixels": 25667,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 12,
+          "vertices": 25,
+          "faces": 33,
+          "source_uv_min": [
+            0.007162030320614576,
+            0.006902575492858887
+          ],
+          "source_uv_max": [
+            0.018604706972837448,
+            0.023673832416534424
+          ],
+          "source_core_pixel_rect_xyxy": [
+            29,
+            28,
+            77,
+            97
+          ],
+          "atlas_padded_rect_xywh": [
+            790,
+            598,
+            88,
+            109
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.5084635416666666,
+            0.3841145833333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 2756,
+          "copied_plus_extruded_pixels": 7748,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 13,
+          "vertices": 30,
+          "faces": 41,
+          "source_uv_min": [
+            0.6003371477127075,
+            0.9788903594017029
+          ],
+          "source_uv_max": [
+            0.6088348627090454,
+            0.991710901260376
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2458,
+            4009,
+            2494,
+            4063
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            1436,
+            76,
+            94
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.5872395833333333,
+            -1.662109375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 1569,
+          "copied_plus_extruded_pixels": 5820,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 14,
+          "vertices": 5,
+          "faces": 3,
+          "source_uv_min": [
+            0.9294232726097107,
+            0.017358124256134033
+          ],
+          "source_uv_max": [
+            0.9314717054367065,
+            0.020002365112304688
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3806,
+            71,
+            3816,
+            82
+          ],
+          "atlas_padded_rect_xywh": [
+            427,
+            1483,
+            50,
+            51
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.1868489583333335,
+            0.9322916666666666
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 104,
+          "copied_plus_extruded_pixels": 1992,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 15,
+          "vertices": 43,
+          "faces": 59,
+          "source_uv_min": [
+            0.7242977619171143,
+            0.017947614192962646
+          ],
+          "source_uv_max": [
+            0.7372368574142456,
+            0.0508265495300293
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2966,
+            73,
+            3020,
+            209
+          ],
+          "atlas_padded_rect_xywh": [
+            717,
+            710,
+            94,
+            176
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.451171875,
+            0.427734375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 5968,
+          "copied_plus_extruded_pixels": 13421,
+          "zero_area_source_face_ids": []
+        }
+      ],
+      "textures": {
+        "normal": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_normal.png",
+          "sha256": "f438edf85edd40ff12f3bd30d6d52da2b4fb86118782cb206c1e0bedf28d13e2",
+          "bytes": 554875,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "linear",
+          "texCoord": 0,
+          "source_png_sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167",
+          "comparison": {
+            "source_target_bilinear_samples": 16784,
+            "max_rgb_byte_error": 0.0021317529026418924,
+            "mean_rgb_byte_error": 1.5905529246976266e-05,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        },
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_base_color.png",
+          "sha256": "cdd65e5273db4e188122117d6c8a3af793329b7929258cb50174385fc05494a1",
+          "bytes": 646185,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "sRGB",
+          "texCoord": 0,
+          "source_png_sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+          "comparison": {
+            "source_target_bilinear_samples": 16784,
+            "max_rgb_byte_error": 0.0016871104016900063,
+            "mean_rgb_byte_error": 2.157333717974077e-05,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/R_metallic_roughness.png",
+          "sha256": "b3d6439a248cefe43dc004998177ef064b6f69715579727248c9a2f384c23dfd",
+          "bytes": 451108,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "linear",
+          "texCoord": 0,
+          "source_png_sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd",
+          "comparison": {
+            "source_target_bilinear_samples": 16784,
+            "max_rgb_byte_error": 0.0019529759883880615,
+            "mean_rgb_byte_error": 5.722918541765737e-06,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        }
+      },
+      "source_uv_triangle_area": 0.037076701431984535,
+      "source_uv_area_texels": 622043.8284919139,
+      "atlas_triangle_area_fraction": 0.26365654351633444,
+      "packed_rect_fraction": 0.5678151448567709,
+      "sampling_footprint_pixels": 646527,
+      "sampling_plus_gutter_pixels": 895013,
+      "zero_area_source_face_ids": [],
+      "float32_uv_derivative_max_abs_error": 4.967053731297008e-08,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    },
+    "L": {
+      "npz_prefix": "L_p0",
+      "source_material": 0,
+      "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+      "vertices": 3121,
+      "triangles": 5392,
+      "uv_npz_key": "L_p0_TEXCOORD_0",
+      "compact_vertex_order_unchanged": true,
+      "additional_vertex_splits": 0,
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "islands": [
+        {
+          "island_id": 0,
+          "vertices": 1466,
+          "faces": 2769,
+          "source_uv_min": [
+            0.292016863822937,
+            0.4459086060523987
+          ],
+          "source_uv_max": [
+            0.5321164131164551,
+            0.5924424529075623
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1196,
+            1826,
+            2180,
+            2427
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            0,
+            1024,
+            641
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -0.765625,
+            -1.17578125
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 461521,
+          "copied_plus_extruded_pixels": 518520,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 1,
+          "vertices": 401,
+          "faces": 694,
+          "source_uv_min": [
+            0.4155654311180115,
+            0.11180132627487183
+          ],
+          "source_uv_max": [
+            0.535611629486084,
+            0.18353891372680664
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1702,
+            457,
+            2194,
+            752
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            641,
+            532,
+            335
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.0950520833333333,
+            0.1328125
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 75123,
+          "copied_plus_extruded_pixels": 103318,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 2,
+          "vertices": 112,
+          "faces": 172,
+          "source_uv_min": [
+            0.816448450088501,
+            0.05753284692764282
+          ],
+          "source_uv_max": [
+            0.8801071643829346,
+            0.13254815340042114
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3344,
+            235,
+            3605,
+            543
+          ],
+          "atlas_padded_rect_xywh": [
+            1162,
+            0,
+            301,
+            348
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.4075520833333333,
+            -0.13997395833333334
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 36093,
+          "copied_plus_extruded_pixels": 57144,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 3,
+          "vertices": 382,
+          "faces": 664,
+          "source_uv_min": [
+            0.8547631502151489,
+            0.7816256880760193
+          ],
+          "source_uv_max": [
+            0.9224950075149536,
+            0.8738676905632019
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3501,
+            3201,
+            3779,
+            3580
+          ],
+          "atlas_padded_rect_xywh": [
+            217,
+            976,
+            318,
+            419
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.125,
+            -1.435546875
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 62876,
+          "copied_plus_extruded_pixels": 87920,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 4,
+          "vertices": 120,
+          "faces": 193,
+          "source_uv_min": [
+            0.9157097339630127,
+            0.17776769399642944
+          ],
+          "source_uv_max": [
+            0.9737284183502197,
+            0.231986403465271
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3750,
+            728,
+            3989,
+            951
+          ],
+          "atlas_padded_rect_xywh": [
+            1024,
+            556,
+            279,
+            263
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.76171875,
+            -0.09895833333333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 30579,
+          "copied_plus_extruded_pixels": 46982,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 5,
+          "vertices": 81,
+          "faces": 122,
+          "source_uv_min": [
+            0.9449927806854248,
+            0.43694794178009033
+          ],
+          "source_uv_max": [
+            0.990859866142273,
+            0.46569931507110596
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3870,
+            1789,
+            4059,
+            1908
+          ],
+          "atlas_padded_rect_xywh": [
+            1303,
+            800,
+            229,
+            159
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.658203125,
+            -0.630859375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 14774,
+          "copied_plus_extruded_pixels": 25937,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 6,
+          "vertices": 96,
+          "faces": 145,
+          "source_uv_min": [
+            0.2521478235721588,
+            0.06377017498016357
+          ],
+          "source_uv_max": [
+            0.2757318317890167,
+            0.14329183101654053
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1032,
+            261,
+            1130,
+            587
+          ],
+          "atlas_padded_rect_xywh": [
+            1024,
+            0,
+            138,
+            366
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.0078125,
+            -0.15690104166666666
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 24190,
+          "copied_plus_extruded_pixels": 39860,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 7,
+          "vertices": 112,
+          "faces": 160,
+          "source_uv_min": [
+            0.848167896270752,
+            0.09457099437713623
+          ],
+          "source_uv_max": [
+            0.8912777900695801,
+            0.19143575429916382
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3474,
+            387,
+            3651,
+            785
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            976,
+            217,
+            438
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.2486979166666665,
+            0.396484375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 28543,
+          "copied_plus_extruded_pixels": 49048,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 8,
+          "vertices": 92,
+          "faces": 138,
+          "source_uv_min": [
+            0.6048611998558044,
+            0.9035720825195312
+          ],
+          "source_uv_max": [
+            0.6365710496902466,
+            0.9748674035072327
+          ],
+          "source_core_pixel_rect_xyxy": [
+            2477,
+            3701,
+            2608,
+            3994
+          ],
+          "atlas_padded_rect_xywh": [
+            532,
+            641,
+            171,
+            333
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.2532552083333333,
+            -1.9791666666666667
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 18520,
+          "copied_plus_extruded_pixels": 33996,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 9,
+          "vertices": 51,
+          "faces": 65,
+          "source_uv_min": [
+            0.008007608354091644,
+            0.577257513999939
+          ],
+          "source_uv_max": [
+            0.0728466808795929,
+            0.6180990934371948
+          ],
+          "source_core_pixel_rect_xyxy": [
+            32,
+            2364,
+            299,
+            2532
+          ],
+          "atlas_padded_rect_xywh": [
+            1162,
+            348,
+            307,
+            208
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.7486979166666666,
+            -1.2994791666666667
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 8839,
+          "copied_plus_extruded_pixels": 25653,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 10,
+          "vertices": 68,
+          "faces": 96,
+          "source_uv_min": [
+            0.965456485748291,
+            0.7161409854888916
+          ],
+          "source_uv_max": [
+            0.9845672845840454,
+            0.7658566832542419
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3954,
+            2933,
+            4033,
+            3137
+          ],
+          "atlas_padded_rect_xywh": [
+            1303,
+            556,
+            119,
+            244
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.712890625,
+            -1.5345052083333333
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 10305,
+          "copied_plus_extruded_pixels": 22002,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 11,
+          "vertices": 3,
+          "faces": 1,
+          "source_uv_min": [
+            0.0,
+            1.0
+          ],
+          "source_uv_max": [
+            0.0,
+            1.0
+          ],
+          "source_core_pixel_rect_xyxy": [
+            0,
+            4096,
+            1,
+            4097
+          ],
+          "atlas_padded_rect_xywh": [
+            1469,
+            93,
+            41,
+            41
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.9694010416666666,
+            -2.5930989583333335
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 12,
+          "copied_plus_extruded_pixels": 1292,
+          "zero_area_source_face_ids": [
+            50347
+          ]
+        },
+        {
+          "island_id": 12,
+          "vertices": 4,
+          "faces": 2,
+          "source_uv_min": [
+            0.9952334761619568,
+            0.8228545188903809
+          ],
+          "source_uv_max": [
+            0.9958399534225464,
+            0.8233753442764282
+          ],
+          "source_core_pixel_rect_xyxy": [
+            4076,
+            3370,
+            4079,
+            3373
+          ],
+          "atlas_padded_rect_xywh": [
+            1469,
+            50,
+            43,
+            43
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.6842447916666667,
+            -2.1484375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 34,
+          "copied_plus_extruded_pixels": 1506,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 13,
+          "vertices": 4,
+          "faces": 2,
+          "source_uv_min": [
+            0.0,
+            1.0
+          ],
+          "source_uv_max": [
+            0.0,
+            1.0
+          ],
+          "source_core_pixel_rect_xyxy": [
+            0,
+            4096,
+            1,
+            4097
+          ],
+          "atlas_padded_rect_xywh": [
+            1469,
+            134,
+            41,
+            41
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.9694010416666666,
+            -2.56640625
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 12,
+          "copied_plus_extruded_pixels": 1292,
+          "zero_area_source_face_ids": [
+            50348,
+            50349
+          ]
+        },
+        {
+          "island_id": 14,
+          "vertices": 61,
+          "faces": 83,
+          "source_uv_min": [
+            0.360113263130188,
+            0.0012371540069580078
+          ],
+          "source_uv_max": [
+            0.4062633216381073,
+            0.02079904079437256
+          ],
+          "source_core_pixel_rect_xyxy": [
+            1475,
+            5,
+            1665,
+            86
+          ],
+          "atlas_padded_rect_xywh": [
+            0,
+            1414,
+            230,
+            121
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -0.947265625,
+            0.9303385416666666
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 10539,
+          "copied_plus_extruded_pixels": 21160,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 15,
+          "vertices": 21,
+          "faces": 24,
+          "source_uv_min": [
+            0.8555409908294678,
+            0.023294448852539062
+          ],
+          "source_uv_max": [
+            0.8636531233787537,
+            0.038387954235076904
+          ],
+          "source_core_pixel_rect_xyxy": [
+            3504,
+            95,
+            3538,
+            158
+          ],
+          "atlas_padded_rect_xywh": [
+            230,
+            1395,
+            74,
+            103
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -2.1184895833333335,
+            0.859375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 1507,
+          "copied_plus_extruded_pixels": 5932,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 16,
+          "vertices": 4,
+          "faces": 3,
+          "source_uv_min": [
+            0.9958012104034424,
+            0.8807151317596436
+          ],
+          "source_uv_max": [
+            0.9986416101455688,
+            0.8829083442687988
+          ],
+          "source_core_pixel_rect_xyxy": [
+            4078,
+            3607,
+            4091,
+            3617
+          ],
+          "atlas_padded_rect_xywh": [
+            1469,
+            0,
+            53,
+            50
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            -1.685546875,
+            -2.3352864583333335
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 121,
+          "copied_plus_extruded_pixels": 2041,
+          "zero_area_source_face_ids": []
+        },
+        {
+          "island_id": 17,
+          "vertices": 43,
+          "faces": 59,
+          "source_uv_min": [
+            0.12030243873596191,
+            0.9601038694381714
+          ],
+          "source_uv_max": [
+            0.13951429724693298,
+            0.9937563538551331
+          ],
+          "source_core_pixel_rect_xyxy": [
+            492,
+            3932,
+            572,
+            4071
+          ],
+          "atlas_padded_rect_xywh": [
+            1024,
+            366,
+            120,
+            179
+          ],
+          "uniform_uv_scale": 2.6666666666666665,
+          "uv_offset": [
+            0.359375,
+            -2.30859375
+          ],
+          "rotation_degrees": 0,
+          "reflection": false,
+          "copied_sampling_footprint_pixels": 7260,
+          "copied_plus_extruded_pixels": 15841,
+          "zero_area_source_face_ids": []
+        }
+      ],
+      "textures": {
+        "normal": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_normal.png",
+          "sha256": "0dfdcf53da145b6bab851091d40fcc7e7701f863f18d822464c48823c50e7156",
+          "bytes": 652565,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "linear",
+          "texCoord": 0,
+          "source_png_sha256": "fdf4597ccec089a30fe1ff90382dde071dd5c322d6841ddec85c5aca9a315167",
+          "comparison": {
+            "source_target_bilinear_samples": 19297,
+            "max_rgb_byte_error": 0.0028090476989746094,
+            "mean_rgb_byte_error": 1.8768302929741283e-05,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        },
+        "base_color": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_base_color.png",
+          "sha256": "e15d97d32ab0205237cd180e4c6915d84173b8a093c0e71afc33fcaddd33e267",
+          "bytes": 744616,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "sRGB",
+          "texCoord": 0,
+          "source_png_sha256": "d1037bb7875a75520a83358d0b150ed8e7945f74c3f7b9a717a5369db1f33d20",
+          "comparison": {
+            "source_target_bilinear_samples": 19297,
+            "max_rgb_byte_error": 0.004476542235352099,
+            "mean_rgb_byte_error": 2.3710256504404825e-05,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        },
+        "metallic_roughness": {
+          "path": "ArtSource/refinement/weapon/native-first-person/atlas/L_metallic_roughness.png",
+          "sha256": "3a76b2e1390ce6445573880157041fec97b84e1af5aeb0374a0a1638af3766fc",
+          "bytes": 540233,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "channels": "RGB",
+          "color_space": "linear",
+          "texCoord": 0,
+          "source_png_sha256": "1696603924f1d5f2abdf364b002892e9924f592cc776ffb83f238c250fe139dd",
+          "comparison": {
+            "source_target_bilinear_samples": 19297,
+            "max_rgb_byte_error": 0.0026435849722474813,
+            "mean_rgb_byte_error": 7.214471551495709e-06,
+            "copied_footprint_pixels_byte_exact": true
+          }
+        }
+      },
+      "source_uv_triangle_area": 0.04555073934081563,
+      "source_uv_area_texels": 764214.5928805615,
+      "atlas_triangle_area_fraction": 0.32391636864580003,
+      "packed_rect_fraction": 0.6538238525390625,
+      "sampling_footprint_pixels": 790848,
+      "sampling_plus_gutter_pixels": 1059444,
+      "zero_area_source_face_ids": [
+        50347,
+        50348,
+        50349
+      ],
+      "float32_uv_derivative_max_abs_error": 5.21540641784668e-08,
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    }
+  },
+  "verification": {
+    "all_seed_pixels_byte_exact": true,
+    "png_round_trip_byte_exact": true,
+    "bilinear_rgb_max_byte_error": 0.004476542235352099,
+    "source_images_not_copied_wholesale": true,
+    "source_and_selection_hash_guards": true,
+    "pending": [
+      "independent mapped geometry checks",
+      "bound GLB PBR views",
+      "KTX compression pixel/mip review",
+      "PICO runtime tangent generation"
+    ]
+  },
+  "phase": "\u9636\u6bb5\u7ed3\u675f\uff0c\u7b49\u5f85 Root review\uff1b\u8d34\u56fe\u4ea7\u7269\u5df2\u5c31\u7eea\uff0c\u7ed1\u5b9a\u4e0e\u538b\u7f29\u9a8c\u6536\u4ecd\u5f85\u5b8c\u6210\u3002"
+}

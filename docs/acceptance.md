@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | 已公开原生包 | [native-input-feedback-2026-11-12](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-input-feedback-2026-11-12)，源码 `0ed05ce761bd6f53ef54b1aeef7cf62b9e124b26`，APK `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b` | 328项测试通过；真实 SDK 挥刀、命中、敌血100→12、玩家 BLOCK 与终局重开已有证据。不是完整三轮与真机验收。 |
 | main整合点 | [PR #11](https://github.com/BrickerP/pico-wuxia-arena/pull/11)，`93f3ded393d4c417f6fb883447cc1e6fe4602199` | 合入原生输入与已审核资产；网页扩世界原型不计原生交付。 |
-| 本机双手/HIT包 | [APK身份](../artifacts/native-hands-hit-2026-11-13/init-fix-identity.json)，APK `a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b` | managed assembleDebug成功、已安装启动。修复了disabled skeleton创建动画导致场景中止；[准备态实图](../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)已显示手部、场景、敌人。[实际交战图](../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)敌血12/100、玩家80/100。尚未公开。 |
+| 最新已公开双手/HIT包 | [APK身份](../artifacts/native-hands-hit-2026-11-13/init-fix-identity.json)，APK `a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b` | managed assembleDebug成功、已安装启动。修复了disabled skeleton创建动画导致场景中止；[准备态实图](../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)已显示手部、场景、敌人。[实际交战图](../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)敌血12/100、玩家80/100。已公开为[native-hands-hit-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13)。 |
 
 当前包的真实输入记录为 [real-input.log](../artifacts/native-hands-hit-2026-11-13/real-input.log) 与 [桌面操作收据](../artifacts/native-hands-hit-2026-11-13/real-input-ui.json)：实际鼠标 Start accepted → COUNTDOWN → SDK手柄轨迹 → SOFT_HIT / GUARDED_HIT / PLAYER_HIT，受击播放 `hit_body`。没有状态注入或按键宏代替共享判定。
 

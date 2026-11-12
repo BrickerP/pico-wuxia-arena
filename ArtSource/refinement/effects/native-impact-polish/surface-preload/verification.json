@@ -1,0 +1,169 @@
+{
+  "schema": "pico-candidate-static-verification/v1",
+  "date": "2026-11-13",
+  "checks": [
+    {
+      "name": "minimal changes only load loop",
+      "pass": true
+    },
+    {
+      "name": "minimal leaves emit/update/clear/close bytes unchanged",
+      "pass": true
+    },
+    {
+      "name": "clean SOFT/METAL preset blocks byte-identical",
+      "pass": true
+    },
+    {
+      "name": "clean live present routing and impact.tangent / BODY route byte-identical",
+      "pass": true
+    },
+    {
+      "name": "eight fragment envelope untouched",
+      "pass": true
+    },
+    {
+      "name": "emitter clear/close + failure/load cleanup untouched",
+      "pass": true
+    },
+    {
+      "name": "clean removes dead API/gate and family tokens from changed production source",
+      "pass": true
+    },
+    {
+      "name": "clean producer jobs have only SOFT/METAL",
+      "pass": true
+    },
+    {
+      "name": "clean manifest matches generated preset source hash",
+      "pass": true
+    },
+    {
+      "name": "source files not edited during candidate generation",
+      "pass": true
+    },
+    {
+      "name": "clean generator reproduces candidate Kotlin + resource manifest exactly using write/read overlay without source writes",
+      "pass": true
+    },
+    {
+      "name": "all locked source hashes unchanged after dry-runs and isolated tests",
+      "pass": true
+    }
+  ],
+  "candidates": {
+    "01-load-active-only.patch": {
+      "patch_sha256": "7aebeba5d1a07fc65aa1dde1119d982729d6e2760a1aa336cfcb8d3b5bdc15d1",
+      "changed_files": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt",
+          "before_sha256": "b4619ea134262c44d2659e5a54dcc9fba6161d961d5c9051f11907ce43ac9f8d",
+          "after_sha256": "3e3e1d930b72749e96e9b75be35fd18ae4e649208f8d0f9f03ea89d3a020b1cc",
+          "deleted": false
+        }
+      ]
+    },
+    "02-remove-unused-surface-route.patch": {
+      "patch_sha256": "07bf64d463c521ab62d5ee500f65c390b731036c054f2b7e6b39f39553013663",
+      "changed_files": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+          "before_sha256": "185b6bad2b5989d5b1386582ac198b609211965c896c0e1a5af68c2a217b24d5",
+          "after_sha256": "f763556e55796a5b17c4f4f3b3b15ec20e5dab0b13af9838adf303cbdc06a6d3",
+          "deleted": false
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt",
+          "before_sha256": "b4619ea134262c44d2659e5a54dcc9fba6161d961d5c9051f11907ce43ac9f8d",
+          "after_sha256": "1767be55f05e04ad7eec8612cae6681da1bd30c5cb7e6dbebd2d430df05dd59e",
+          "deleted": false
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+          "before_sha256": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb",
+          "after_sha256": "5205fcd942976a3f0a88d6e58246d088347ebcc538e2726332d4d006ee237796",
+          "deleted": false
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt",
+          "before_sha256": "d57296a2eec4b596282d475a28e464fbae43b53378b5cd85e9f799edcb82d9a5",
+          "after_sha256": "36298a247585ae613f92041739565067b95560b11b4d7a52743e384124327509",
+          "deleted": false
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTiming.kt",
+          "before_sha256": "3af85e88e6d0660aafddeb654f3e21788be9a2f91bf137c4fdb66ec9f2f1caaf",
+          "after_sha256": null,
+          "deleted": true
+        },
+        {
+          "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTimingTest.kt",
+          "before_sha256": "2df609c7a7a7d432d9fb9e16a1fea9f8928adc4461cfe2b77d73d51235664c08",
+          "after_sha256": null,
+          "deleted": true
+        },
+        {
+          "path": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt",
+          "before_sha256": "4067b57db2cd0d045d8826cef14de53d135b6a69727b93e7ff37d3afac68b334",
+          "after_sha256": "8938e92f949d19b0f68092c2d8d56c21b605ff79bec070d1b6a7a78845710e11",
+          "deleted": false
+        },
+        {
+          "path": "ArtSource/refinement/effects/runtime-polish/generate_presets.py",
+          "before_sha256": "3d16b4c9c68316431e86ce9525c1063428950c0ef5fb03cae4bdbe7969ee3932",
+          "after_sha256": "356e94878660834b8cbe7d40c1b098e9b843c3dbfaf4d9259c33d801d0af0309",
+          "deleted": false
+        },
+        {
+          "path": "ArtSource/refinement/effects/runtime-polish/resource_handoff.json",
+          "before_sha256": "3668e88df0aabd139167f7076abcddaed8b80a3306877c2fdf75a7a27dcb2e83",
+          "after_sha256": "9c36442dfa3a7682e8a096f92f3a659b5d89529b9b42434d03e3331db4b445bd",
+          "deleted": false
+        }
+      ]
+    }
+  },
+  "pure_candidate_compile": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "compiler": "Kotlin 2.1.20, JDK21, target11",
+    "scope": [
+      "app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt",
+      "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+      "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt",
+      "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt",
+      "app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelopeTest.kt"
+    ],
+    "isolated": true,
+    "gradle": false
+  },
+  "pure_candidate_tests": {
+    "exit_code": 0,
+    "stdout": "JUnit version 4.13.2\n...............\nTime: 0.077\n\nOK (15 tests)\n\n",
+    "stderr": "",
+    "scope": "candidate clean patch pure math/presets/envelope; no SDK, entity load or on-device claims"
+  },
+  "patch_dry_run": {
+    "01-load-active-only.patch": {
+      "exit_code": 0,
+      "stdout": "patching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt'\n",
+      "stderr": "",
+      "root_choice_header_verified": true
+    },
+    "02-remove-unused-surface-route.patch": {
+      "exit_code": 0,
+      "stdout": "patching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTiming.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTimingTest.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt'\npatching file 'ArtSource/refinement/effects/runtime-polish/generate_presets.py'\npatching file 'ArtSource/refinement/effects/runtime-polish/resource_handoff.json'\n",
+      "stderr": "",
+      "root_choice_header_verified": true
+    }
+  },
+  "independent_review": {
+    "agent": "surface_route_review",
+    "recommended": "clean deletion",
+    "minimal_verdict": "REQUEST CHANGES as final architecture; no loaded slots makes preserved surface API silently fail",
+    "clean_verdict": "APPROVE within no-caller source evidence",
+    "preserved": "SOFT BODY actual tangent forwarding, eight enabled dry fragments, per-slot hide/destroy failure cleanup unchanged"
+  }
+}

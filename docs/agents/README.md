@@ -6,15 +6,15 @@
 
 | 状态 | 已有实物与证据 | 验收边界 |
 | --- | --- | --- |
-| 已公开 | [最新原生开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-input-feedback-2026-11-12)：源码 `0ed05ce761bd6f53ef54b1aeef7cf62b9e124b26`，APK `9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b`，4 份附件均已上传并核对摘要；[发布收据](../../artifacts/native-controller-burst/published-release.json)、[源码标签收据](../../artifacts/native-controller-burst/source-published.json) | 这是输入与反馈整合节点，未包含下表正在集成的双手与 HIT 修复。旧 `native-visual-preview-2026-11-12` 是前一美术节点，证据不可混用。 |
+| 最新已公开 | [原生双手/HIT开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13)，源码`27bd559d9d204aeb9fbb7e53ffd92e1dd38f9a4e`、APK`a8907a84…`，四附件已核对SHA与上传状态；[版本收据](../../ArtSource/refinement/presentation/native-hands-hit-2026-11-13.json) | 整体品质未通过。后续场景、上劈、UI、FX候选仅备份制作源，尚未装入此APK。 |
 | 已合入 main | [PR #11](https://github.com/BrickerP/pico-wuxia-arena/pull/11)，合入提交 `93f3ded393d4c417f6fb883447cc1e6fe4602199` | main 源码节点与公开 APK 的固定源码标签分别标识，不能把后续工作树改动算进已发布包。 |
 | 原生链路局部通过 | [15.8 秒交战片](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.mp4)、[扣血画面](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.png)、[身份与事件收据](../../ArtSource/refinement/presentation/native-input-contact-2026-11-12.json)：真实 Start → COUNTDOWN，实际模拟器鼠标动作 → SDK 虚拟手柄轨迹 → 共享 resolver → MotionStrike / SOFT_HIT，HUD 敌血 100→12 | 原始捕获只有 74 帧，导出 30fps 未补造中间状态；不能据此判定 38ms 特效细节、完整手感或三轮通过。 |
 | 玩家格挡、重开局部通过 | [格挡画面](../../artifacts/native-controller-burst/held-guard-4s.png)、[实际输入录像](../../artifacts/native-controller-burst/held-guard-attempt.mp4)、[对应日志](../../artifacts/native-controller-burst/held-guard-attempt.log)：终局后重开并再次 Start，generation=1；实际 BLOCK 消费 id=9，画面玩家 HP100 / 耐力75；随后异向来刀 PLAYER_HIT | 玩家 BLOCK 与敌人 GUARDED_HIT 已区分；玩家 PARRY、HMD 闪避、技能 / 处决、三轮胜利及 Space Pro 实机仍未验证。 |
 | 已发布包构建通过 | [9e 构建身份](../../artifacts/native-controller-burst/build-identity.json)：328 测试、0 失败 / 错误 / 跳过，构建前后 Kotlin 源码摘要一致 | 该结果只属于 9e 包，不覆盖当前双手 / HIT 工作树。 |
-| 本机集成，未公开 | 双手/HIT组合包 `a8907a84…` 已构建、安装、进入实际交战；[准备态实图](../../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)、[交战实图](../../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)、[实际输入日志](../../artifacts/native-hands-hit-2026-11-13/real-input.log)。初始化禁用模型后播放动画的黑屏已修；真实Start/挥刀/敌血100→12/受击hit_body再次成立 | 整体workflow的自定义验收仍未自动证明；右手一指过直、近景肤色、左手/换手/切口与HIT过渡像素仍待验。数据/构建通过不算视觉通过。公开包仍为9e。 |
+| 最新原生运行 | 双手/HIT组合包 `a8907a84…` 已构建、安装、进入实际交战；[准备态实图](../../ArtSource/refinement/presentation/native-hands-ready-2026-11-13.png)、[交战实图](../../ArtSource/refinement/presentation/native-hands-contact-2026-11-13.png)、[实际输入日志](../../artifacts/native-hands-hit-2026-11-13/real-input.log)。初始化禁用模型后播放动画的黑屏已修；真实Start/挥刀/敌血100→12/受击hit_body再次成立 | 整体workflow的自定义验收仍未自动证明；右手一指过直、近景肤色、左手/换手/切口与HIT过渡像素仍待验。数据/构建通过不算视觉通过。当前公开包为a8907a84，原9e视频仍只作为旧节点证据。 |
 | 美术未通过 | 当前正式角色 base `ac7dfbc…` / binding `1b3e031…`、单窗庭院 `9b2598…` 已原生显示；新上劈、整立面与近场配光候选已交 | 新衣物物理首件失败，发型仅局部方向收益；人物质感、握刀贴合、动作衔接、遮挡与效果仍需改善。面数、导入与尺寸不是整体品质验收。 |
 
-浏览器探索原型与原生交付分开：Root 的外观接收版本保留在标签 [`web-appearance-preview-2026-11-13`](https://github.com/BrickerP/pico-wuxia-arena/tree/web-appearance-preview-2026-11-13)，提交 `2f59db7eec8f17501955c46c6d849c67d0c1fdcf`。main 的网页扩世界内容保留其上游工作，不纳入本次原生竞技场验收，也不继续追着扩展。
+唯一产品路径为原生源码→APK→PICO Emulator→Space Pro。HTML/Three.js游戏、浏览器试玩、Web光照和新HTML mock全部停止。prototype及已有Web候选只保留历史，不继续接入或维护；浏览器只用于必要资料与账号服务。
 
 ## Root 审核重点与下一交付
 

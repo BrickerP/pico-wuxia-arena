@@ -1,0 +1,499 @@
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt
+@@ -33,10 +33,8 @@
+ import com.example.wuxiaarena.p0d2f0182.runtime.HandPosePresenter
+ import com.example.wuxiaarena.p0d2f0182.runtime.ArenaPresenter
+ import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+-import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
+ import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+ import com.example.wuxiaarena.core.combat.CombatImpact
+-import com.example.wuxiaarena.core.combat.CombatImpactKind
+ import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
+ import com.example.wuxiaarena.core.combat.EnemyCombatEvent
+ import java.util.concurrent.CancellationException
+@@ -81,14 +79,11 @@
+ 
+     private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
+         var animator: EnemyAnimator? = null
+-        var flash: EnemyHitFlash? = null
+         var ready = false
+ 
+         fun close() {
+             ready = false
+             // Keep each failed owner for an explicit retry instead of loading over it.
+-            flash?.close()
+-            flash = null
+             animator?.close()
+             animator = null
+             if (entity.valid) check(entity.destroy()) { "Could not destroy the previous opponent" }
+@@ -118,7 +113,7 @@
+     var statusWorldRotation: Quat = Quat.identity()
+     var statusPanelY = 2.15f
+     private var impactRound = -1L
+-    private var lastImpact = Long.MIN_VALUE
++    private val seenImpactLights = mutableSetOf<Long>()
+     private var pulseUntil = 0L
+ 
+     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+@@ -150,7 +145,6 @@
+             }
+         }
+         loaded.animator?.present(state, events)
+-        loaded.flash?.present(state, events)
+     }
+ 
+     private fun requestOpponent(state: ArenaViewState, parent: Entity) {
+@@ -200,7 +194,6 @@
+                     transform.setQuaternion(parent.convertRotationFrom(Quat.identity(), null))
+                     bindGroundShadow(entity, casts = true, receives = false, label = definition.name)
+                     loaded.animator = EnemyAnimator(entity)
+-                    loaded.flash = EnemyHitFlash(entity)
+                     val origin = entity.convertPositionTo(Vector3(0f, 0f, 0f), null)
+                     val bounds = entity.getVisualBounds(entity)
+                     val reachX = abs(bounds.center.x) + bounds.size.x / 2f
+@@ -293,25 +286,25 @@
+         val now = System.nanoTime()
+         if (impactRound != state.roundGeneration) {
+             impactRound = state.roundGeneration
+-            lastImpact = Long.MIN_VALUE
++            seenImpactLights.clear()
+             pulseUntil = 0L
+         }
+-        val fresh = events.filterIsInstance<CombatImpact>().filter { it.id > lastImpact }
+-        if (fresh.isNotEmpty()) lastImpact = fresh.maxOf { it.id }
+-        val impact = currentContactImpacts(fresh, state.simulationNanos).firstOrNull()
++        val fresh = events.filterIsInstance<CombatImpact>().filter { seenImpactLights.add(it.id) }
++        val impact = currentContactImpacts(fresh, state.simulationNanos).firstOrNull {
++            remainingNativeImpactLightNanos(it, state.simulationNanos) > 0L
++        }
+         if (impact != null) {
+-            val accent = CombatFeedbackProfile.accent(impact)
+-            val strength = accent.strength.toFloat()
++            val cue = checkNotNull(nativeImpactLight(impact))
++            val remaining = remainingNativeImpactLightNanos(impact, state.simulationNanos)
+             val direction = impact.normal.normalizedOrNull() ?: TrackingVector3(0.0, 0.0, 1.0)
+             val point = impact.point + direction * 0.035
+             val position = Vector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat())
+             if (position.x.isFinite() && position.y.isFinite() && position.z.isFinite()) {
+-                val hard = impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
+-                    impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY
+-                val color = if (hard) Color4(1f, 0.82f, 0.46f, 1f) else Color4(1f, 0.91f, 0.78f, 1f)
+-                light.components.set(PointLightComponent(color, 110f + 180f * strength, 0.60f))
++                light.components.set(PointLightComponent(
++                    Color4(cue.red, cue.green, cue.blue, 1f), cue.intensity, cue.attenuationRadius,
++                ))
+                 checkNotNull(light.components[TransformComponent::class.java]).setPosition(parent.convertPositionFrom(position, null))
+-                pulseUntil = now + accent.lightDurationNanos
++                pulseUntil = now + remaining
+             }
+         }
+         val terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlash.kt
++++ /dev/null
+@@ -1,188 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-import android.util.Log
+-import com.example.wuxiaarena.core.combat.CombatImpact
+-import com.example.wuxiaarena.core.combat.CombatImpactKind
+-import com.example.wuxiaarena.core.combat.EnemyCombatEvent
+-import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+-import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+-import com.pico.spatial.core.ecs.Entity
+-import com.pico.spatial.core.ecs.ModelComponent
+-import com.pico.spatial.core.ecs.resource.BlendingMode
+-import com.pico.spatial.core.ecs.resource.PhysicallyBasedMaterial
+-import com.pico.spatial.core.ecs.resource.UnlitMaterial
+-import com.pico.spatial.core.math.Color4
+-
+-/** Owns the short body-material override for one opponent, without modifying its PBR resources. */
+-internal class EnemyHitFlash(enemy: Entity) : AutoCloseable {
+-    private class Binding(
+-        val entity: Entity,
+-        val model: ModelComponent,
+-        val index: Int,
+-        val original: PhysicallyBasedMaterial,
+-        val flash: UnlitMaterial,
+-        var overridden: Boolean = false,
+-    )
+-
+-    private val bindings = mutableListOf<Binding>()
+-    private val flashes = mutableMapOf<PhysicallyBasedMaterial, UnlitMaterial>()
+-    private val pulse = EnemyHitFlashPulse()
+-    private var round = Long.MIN_VALUE
+-    private var closed = false
+-    private var failed = false
+-
+-    init {
+-        try {
+-            for (entity in enemy.findSkinnedMeshEntity(includeDisabled = true)) {
+-                val model = entity.components[ModelComponent::class.java] ?: continue
+-                for (index in 0 until model.materials.size) {
+-                    val original = model.materials[index] as? PhysicallyBasedMaterial ?: continue
+-                    if (!isFlashableBodyMaterial(original.getName())) continue
+-                    // The mesh and DAO share a ModelComponent. Only the named body slots change.
+-                    val retained = flashes[original]
+-                    if (retained != null) {
+-                        bindings += Binding(entity, model, index, original, retained)
+-                        continue
+-                    }
+-                    original.toGlobal()
+-                    var flash: UnlitMaterial? = null
+-                    try {
+-                        flash = UnlitMaterial.create(BlendingMode.OPAQUE)
+-                        flash.toGlobal()
+-                        flash.setBaseColor(Color4(0.94f, 0.90f, 0.79f, 1f))
+-                        flash.setCullingMode(original.getCullingMode())
+-                        flash.setDepthTest(original.getDepthTest())
+-                        flash.setDepthWrite(original.getDepthWrite())
+-                        flash.setApplyToneMapping(true)
+-                        flashes[original] = flash
+-                        bindings += Binding(entity, model, index, original, flash)
+-                    } catch (error: Exception) {
+-                        try { flash?.close() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
+-                        try { original.close() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
+-                        throw error
+-                    }
+-                }
+-            }
+-            check(bindings.isNotEmpty()) { "Opponent has no named Tripo body material slots" }
+-        } catch (error: Exception) {
+-            try { close() } catch (cleanup: Exception) { error.addSuppressed(cleanup) }
+-            throw error
+-        }
+-    }
+-
+-    fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+-        if (closed || state.roundGeneration < round) return
+-        if (failed) {
+-            restore()
+-            return
+-        }
+-        round = state.roundGeneration
+-        val active = state.sceneReady && state.inputReady && state.pauseReason == null &&
+-            (state.result == TrialResult.FIGHTING || state.result == TrialResult.ROUND_CLEAR ||
+-                state.result == TrialResult.VICTORY)
+-        val visible = pulse.update(state.roundGeneration, active, events, System.nanoTime())
+-        if (!visible) {
+-            restore()
+-            return
+-        }
+-        try {
+-            for (binding in bindings) {
+-                if (!binding.overridden && binding.entity.valid) {
+-                    binding.model.materials[binding.index] = binding.flash
+-                    binding.overridden = true
+-                }
+-            }
+-        } catch (error: Exception) {
+-            failed = true
+-            restore()
+-            Log.w(TAG, "Opponent body flash became unavailable", error)
+-        }
+-    }
+-
+-    /** Restores a hidden or suspended opponent while retaining contact de-duplication. */
+-    fun suspend() {
+-        if (closed) return
+-        pulse.suspend()
+-        restore()
+-    }
+-
+-    /** Call before destroying the opponent's scene subtree. */
+-    override fun close() {
+-        if (closed) return
+-        closed = true
+-        restore()
+-        for ((original, flash) in flashes) {
+-            try { flash.close() } catch (error: Exception) {
+-                Log.w(TAG, "Unable to release flash material", error)
+-            }
+-            try { original.close() } catch (error: Exception) {
+-                Log.w(TAG, "Unable to release original material hold", error)
+-            }
+-        }
+-        bindings.clear()
+-        flashes.clear()
+-    }
+-
+-    private fun restore() {
+-        for (binding in bindings) {
+-            if (!binding.overridden) continue
+-            try {
+-                if (binding.entity.valid) binding.model.materials[binding.index] = binding.original
+-                binding.overridden = false
+-            } catch (error: Exception) {
+-                // A failed slot must not prevent the remaining slots from returning to PBR.
+-                Log.w(TAG, "Unable to restore body material slot ${binding.index}", error)
+-            }
+-        }
+-    }
+-
+-    private companion object {
+-        const val TAG = "ArenaHitFlash"
+-    }
+-}
+-
+-/** Wall-time pulse policy, isolated so event identity and boundary timing can be verified on the host. */
+-internal class EnemyHitFlashPulse {
+-    private var round = Long.MIN_VALUE
+-    private val seen = mutableSetOf<Long>()
+-    private var startedAt: Long? = null
+-    private var duration = 0L
+-    private var lastNow: Long? = null
+-
+-    fun suspend() {
+-        startedAt = null
+-    }
+-
+-    fun update(generation: Long, active: Boolean, events: List<EnemyCombatEvent>, nowNanos: Long): Boolean {
+-        if (generation < round) return isVisible(nowNanos)
+-        if (generation != round) {
+-            round = generation
+-            seen.clear()
+-            startedAt = null
+-            lastNow = null
+-        }
+-        if (lastNow?.let { nowNanos < it } == true) startedAt = null
+-        lastNow = nowNanos
+-        val fresh = events.filterIsInstance<CombatImpact>().filter { seen.add(it.id) }
+-        if (!active) {
+-            startedAt = null
+-            return false
+-        }
+-        val nextDuration = fresh.filter { it.appliedDamage > 0 && it.kind.affectsEnemyBody() }
+-            .maxOfOrNull { if (it.fatal) 40_000_000L else 28_000_000L }
+-        if (nextDuration != null && (!isVisible(nowNanos) || nextDuration >= duration)) {
+-            startedAt = nowNanos
+-            duration = nextDuration
+-        }
+-        return isVisible(nowNanos)
+-    }
+-
+-    private fun isVisible(nowNanos: Long): Boolean =
+-        startedAt?.let { nowNanos >= it && nowNanos - it < duration } == true
+-
+-    private fun CombatImpactKind.affectsEnemyBody(): Boolean = when (this) {
+-        CombatImpactKind.SOFT_HIT, CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
+-        CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> true
+-        CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.PLAYER_HIT -> false
+-    }
+-}
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterial.kt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-/** Transparent corneas retain their PBR layer while the opaque body and eyes flash. */
+-internal fun isFlashableBodyMaterial(name: String): Boolean =
+-    name.startsWith("tripo_", ignoreCase = true) &&
+-        !name.startsWith("tripo_cornea_", ignoreCase = true)
+--- a/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlashPulseTest.kt
++++ /dev/null
+@@ -1,77 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-import com.example.wuxiaarena.core.combat.CombatImpact
+-import com.example.wuxiaarena.core.combat.CombatImpactKind
+-import com.example.wuxiaarena.core.input.Hand
+-import com.example.wuxiaarena.core.math.Vector3
+-import org.junit.Assert.assertFalse
+-import org.junit.Assert.assertTrue
+-import org.junit.Test
+-
+-class EnemyHitFlashPulseTest {
+-    @Test
+-    fun bodyDamageFlashesFor28Milliseconds() {
+-        val pulse = EnemyHitFlashPulse()
+-        assertTrue(pulse.update(1L, true, listOf(hit(1L)), 0L))
+-        assertTrue(pulse.update(1L, true, emptyList(), 27_999_999L))
+-        assertFalse(pulse.update(1L, true, emptyList(), 28_000_000L))
+-    }
+-
+-    @Test
+-    fun fatalDamageWinsTheBatchAndCannotBeShortenedByANormalHit() {
+-        val pulse = EnemyHitFlashPulse()
+-        assertTrue(pulse.update(1L, true, listOf(hit(1L), hit(2L, fatal = true)), 0L))
+-        assertTrue(pulse.update(1L, true, listOf(hit(3L)), 10_000_000L))
+-        assertTrue(pulse.update(1L, true, emptyList(), 39_999_999L))
+-        assertFalse(pulse.update(1L, true, emptyList(), 40_000_000L))
+-    }
+-
+-    @Test
+-    fun zeroDamageAndPlayerOrBladeDefenseContactsDoNotFlashTheEnemy() {
+-        val pulse = EnemyHitFlashPulse()
+-        for (kind in CombatImpactKind.entries) {
+-            assertFalse(pulse.update(1L, true, listOf(hit(kind.ordinal.toLong(), kind, damage = 0)), 0L))
+-        }
+-        assertFalse(pulse.update(1L, true, listOf(hit(20L, CombatImpactKind.PLAYER_HIT)), 0L))
+-        assertFalse(pulse.update(1L, true, listOf(hit(21L, CombatImpactKind.BLOCK)), 0L))
+-        assertFalse(pulse.update(1L, true, listOf(hit(22L, CombatImpactKind.PARRY)), 0L))
+-    }
+-
+-    @Test
+-    fun duplicatesDoNotRestartAndMutedContactsCannotReplayAfterResume() {
+-        val pulse = EnemyHitFlashPulse()
+-        val first = hit(1L)
+-        pulse.update(1L, true, listOf(first), 0L)
+-        assertFalse(pulse.update(1L, true, listOf(first), 28_000_000L))
+-        val paused = hit(2L)
+-        assertFalse(pulse.update(1L, false, listOf(paused), 30_000_000L))
+-        assertFalse(pulse.update(1L, true, listOf(paused), 31_000_000L))
+-    }
+-
+-    @Test
+-    fun newRoundAndClockRollbackClearTheOldPulse() {
+-        val pulse = EnemyHitFlashPulse()
+-        pulse.update(1L, true, listOf(hit(1L)), 100_000_000L)
+-        assertFalse(pulse.update(1L, true, emptyList(), 90_000_000L))
+-        assertTrue(pulse.update(2L, true, listOf(hit(1L)), 110_000_000L))
+-        assertFalse(pulse.update(3L, true, emptyList(), 111_000_000L))
+-    }
+-
+-    @Test
+-    fun suspendingEndsThePulseWithoutMakingAnOldImpactFresh() {
+-        val pulse = EnemyHitFlashPulse()
+-        val impact = hit(1L)
+-        assertTrue(pulse.update(1L, true, listOf(impact), 0L))
+-        pulse.suspend()
+-        assertFalse(pulse.update(1L, true, listOf(impact), 1L))
+-        assertTrue(pulse.update(1L, true, listOf(hit(2L)), 2L))
+-    }
+-
+-    private fun hit(
+-        id: Long,
+-        kind: CombatImpactKind = CombatImpactKind.SOFT_HIT,
+-        damage: Int = 25,
+-        fatal: Boolean = false,
+-    ) = CombatImpact(id, kind, Vector3(0.0, 1.0, -1.0), Vector3(0.0, 0.0, 1.0),
+-        0.8, Hand.RIGHT, 0L, appliedDamage = damage, fatal = fatal)
+-}
+--- a/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterialTest.kt
++++ /dev/null
+@@ -1,19 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-import org.junit.Assert.assertFalse
+-import org.junit.Assert.assertTrue
+-import org.junit.Test
+-
+-class BodyFlashMaterialTest {
+-    @Test fun opaqueBodyHeadAndEyesFlash() {
+-        for (name in listOf("tripo_body", "tripo_head", "tripo_eyeball_L_Eye")) {
+-            assertTrue(isFlashableBodyMaterial(name))
+-        }
+-    }
+-
+-    @Test fun transparentCorneasAndWeaponSlotsKeepTheirMaterials() {
+-        for (name in listOf("tripo_cornea_L_Eye", "TRIPO_CORNEA_R_EYE", "Steel | sharpened edge", "")) {
+-            assertFalse(isFlashableBodyMaterial(name))
+-        }
+-    }
+-}
+--- /dev/null
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt
+@@ -0,0 +1,43 @@
++package com.example.wuxiaarena.p0d2f0182.content
++
++import com.example.wuxiaarena.core.combat.CombatImpact
++import com.example.wuxiaarena.core.combat.CombatImpactKind
++import com.example.wuxiaarena.core.combat.HitZone
++import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
++
++/** Values feed the existing single contact light; this policy never overrides actor PBR. */
++internal data class NativeImpactLight(
++    val red: Float, val green: Float, val blue: Float,
++    val intensity: Float, val attenuationRadius: Float, val durationNanos: Long,
++)
++
++/** Ordinary BODY feedback belongs to the real-contact core and dry fragments alone. */
++internal fun nativeImpactLight(impact: CombatImpact): NativeImpactLight? {
++    if (impact.kind == CombatImpactKind.PLAYER_HIT) return null
++    if (!impact.strength.isFinite()) return null
++    val accent = CombatFeedbackProfile.accent(impact)
++    val strength = accent.strength.toFloat()
++    return when {
++        impact.fatal -> NativeImpactLight(1f, 0.82f, 0.56f,
++            120f + 40f * strength, 0.45f, 90_000_000L)
++        impact.kind == CombatImpactKind.SOFT_HIT && impact.zone == HitZone.BODY -> null
++        impact.kind == CombatImpactKind.SOFT_HIT && impact.zone != HitZone.HEAD -> null
++        impact.kind == CombatImpactKind.PARRY -> NativeImpactLight(1f, 0.82f, 0.46f,
++            80f + 40f * strength, 0.35f, 70_000_000L)
++        impact.kind == CombatImpactKind.HARD_HIT || impact.kind == CombatImpactKind.GUARDED_HIT ||
++            impact.kind == CombatImpactKind.BLOCK -> NativeImpactLight(1f, 0.82f, 0.46f,
++            30f + 30f * strength, 0.22f, 45_000_000L)
++        impact.kind == CombatImpactKind.SOFT_HIT -> NativeImpactLight(1f, 0.86f, 0.66f,
++            20f + 20f * strength, 0.18f, 45_000_000L)
++        else -> NativeImpactLight(1f, 0.82f, 0.56f,
++            80f + 40f * strength, 0.35f, 60_000_000L)
++    }
++}
++
++/** Late delivery samples the existing pulse's true age; it must not restart a shorter flash. */
++internal fun remainingNativeImpactLightNanos(impact: CombatImpact, simulationNanos: Long): Long {
++    if (impact.atNanos < 0L || impact.atNanos > simulationNanos) return 0L
++    val light = nativeImpactLight(impact) ?: return 0L
++    val age = simulationNanos - impact.atNanos
++    return (light.durationNanos - age).coerceAtLeast(0L)
++}
+--- /dev/null
++++ b/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt
+@@ -0,0 +1,58 @@
++package com.example.wuxiaarena.p0d2f0182.content
++
++import com.example.wuxiaarena.core.combat.CombatImpact
++import com.example.wuxiaarena.core.combat.CombatImpactKind
++import com.example.wuxiaarena.core.combat.HitZone
++import com.example.wuxiaarena.core.input.Hand
++import com.example.wuxiaarena.core.math.Vector3
++import org.junit.Assert.*
++import org.junit.Test
++
++class NativeImpactLightTest {
++    @Test fun ordinaryBodyAndUnknownSoftSurfaceDoNotAddASecondWhiteLayer() {
++        assertNull(nativeImpactLight(hit()))
++        assertNull(nativeImpactLight(hit().copy(zone = null)))
++        assertEquals(0L, remainingNativeImpactLightNanos(hit(), 0L))
++    }
++    @Test fun parryWithNoEnemyDamageStillHasALocalMetalPulse() {
++        val light = nativeImpactLight(hit().copy(kind = CombatImpactKind.PARRY, appliedDamage = 0, strength = 1.0))!!
++        assertEquals(120f, light.intensity, 0f)
++        assertEquals(0.35f, light.attenuationRadius, 0f)
++        assertEquals(70_000_000L, light.durationNanos)
++    }
++    @Test fun fatalBodyKeepsMoreAccentWithoutAFullActorMaterialOverride() {
++        val light = nativeImpactLight(hit().copy(fatal = true, strength = 0.1))!!
++        assertEquals(160f, light.intensity, 0f)
++        assertEquals(0.45f, light.attenuationRadius, 0f)
++        assertEquals(90_000_000L, light.durationNanos)
++    }
++    @Test fun headAccentIsSmallerThanParryAndNeverAnActorMaterial() {
++        val light = nativeImpactLight(hit().copy(zone = HitZone.HEAD))!!
++        assertEquals(35f, light.intensity, 0f)
++        assertEquals(0.18f, light.attenuationRadius, 0f)
++        assertEquals(45_000_000L, light.durationNanos)
++    }
++    @Test fun nearHeadPlayerDamageDoesNotAddAnUnrequestedLight() {
++        assertNull(nativeImpactLight(hit().copy(kind = CombatImpactKind.PLAYER_HIT)))
++    }
++    @Test fun ageBoundaryAndFutureDeliveryNeverRestartThePulse() {
++        val parry = hit().copy(kind = CombatImpactKind.PARRY, appliedDamage = 0, strength = 1.0)
++        assertEquals(70_000_000L, remainingNativeImpactLightNanos(parry, 0L))
++        assertEquals(1L, remainingNativeImpactLightNanos(parry, 69_999_999L))
++        assertEquals(0L, remainingNativeImpactLightNanos(parry, 70_000_000L))
++        assertEquals(0L, remainingNativeImpactLightNanos(parry, 120_000_000L))
++        assertEquals(0L, remainingNativeImpactLightNanos(parry.copy(atNanos = 1L), 0L))
++    }
++    @Test fun strengthAndEveryResolvedMaterialRemainBounded() {
++        for (kind in CombatImpactKind.entries) for (strength in listOf(-1.0, 0.0, 0.5, 1.0, 100.0)) {
++            val light = nativeImpactLight(hit().copy(kind = kind, strength = strength)) ?: continue
++            assertTrue(light.intensity in 0f..160f)
++            assertTrue(light.attenuationRadius in 0.18f..0.45f)
++            assertTrue(light.durationNanos in 1L..90_000_000L)
++        }
++        assertNull(nativeImpactLight(hit().copy(strength = Double.NaN)))
++    }
++    private fun hit() = CombatImpact(1L, CombatImpactKind.SOFT_HIT,
++        Vector3(0.0, 1.0, -1.0), Vector3(0.0, 0.0, 1.0),
++        0.625, Hand.RIGHT, 0L, appliedDamage = 25, zone = HitZone.BODY)
++}

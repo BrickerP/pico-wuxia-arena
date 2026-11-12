@@ -1,0 +1,2747 @@
+{
+  "status": "initial measured-roll proposal; not accepted GLB",
+  "source_path": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v3/fine_overhead_preview.glb",
+  "source_sha256": "8cda9f95e0af2461893ad7246f3b9da644cac1744b209aab2adac17773ea6f15",
+  "binding": "preview W_HandGrip_R \u00d7 actual source Blade world; source sharpened edge is +X",
+  "derivative_seconds": 0.004166666666666667,
+  "method": "Measured actual mid-blade perpendicular velocity at .9/1/1.1; signed unwrapped target roll; shape-preserving Hermite correction curve. Body motion remains the native 234-channel source.",
+  "roll_curve_envelope_applied": false,
+  "recommended_envelope": {
+    "ingress": [
+      0.25,
+      0.75
+    ],
+    "exit": [
+      1.2,
+      1.75
+    ],
+    "function": "C2 quintic smoothstep"
+  },
+  "measured_anchors_degrees": {
+    "0.9": 191.9666053658085,
+    "1.0": 157.39068771161152,
+    "1.1": 184.73194899036966
+  },
+  "before": [
+    {
+      "source_seconds": 0.9,
+      "axis": [
+        0.02412386196714359,
+        0.6791377371670381,
+        -0.733614321860898
+      ],
+      "edge": [
+        -0.2713659412861047,
+        -0.7018270668432208,
+        -0.6586344161643451
+      ],
+      "normal": [
+        -0.9621738747199993,
+        0.21496674673510885,
+        0.16736407202391732
+      ],
+      "axis_dot_forearm": 0.18837061894727009,
+      "tip": {
+        "point": [
+          -0.02875990886085251,
+          1.9130993476336817,
+          0.00799893631527504
+        ],
+        "velocity": [
+          0.6340185117365771,
+          0.4414398984329182,
+          5.905180202344762
+        ],
+        "speed": 5.955501815910869,
+        "edge_tangent_cosine": -0.994192225104662,
+        "edge_full_velocity_cosine": -0.7339802000518723,
+        "axis_velocity_cosine": -0.6745076107774537,
+        "normal_velocity_cosine": 0.07945155086657985,
+        "target_total_roll_deg": 173.8219284690638
+      },
+      "mid": {
+        "point": [
+          -0.03745265007329738,
+          1.6683802970588173,
+          0.27234796377885373
+        ],
+        "velocity": [
+          0.510357989355251,
+          -1.8810122243144534,
+          3.7329175753337296
+        ],
+        "speed": 4.2110979434768065,
+        "edge_tangent_cosine": -0.9782686151474704,
+        "edge_full_velocity_cosine": -0.3032407436367202,
+        "axis_velocity_cosine": -0.9507440646704475,
+        "normal_velocity_cosine": -0.06427110464715041,
+        "target_total_roll_deg": 191.9666053658085
+      }
+    },
+    {
+      "source_seconds": 1.0,
+      "axis": [
+        0.047745085480101646,
+        0.6995476142164403,
+        0.7129891599853284
+      ],
+      "edge": [
+        -0.27342219873770485,
+        0.6956928915837679,
+        -0.664267793767886
+      ],
+      "normal": [
+        -0.9607084407092179,
+        -0.16323154120421146,
+        0.22448776337734092
+      ],
+      "axis_dot_forearm": 0.1485075066939328,
+      "tip": {
+        "point": [
+          -0.08857021935290055,
+          1.3457456167129436,
+          0.8326794577667969
+        ],
+        "velocity": [
+          -2.226389696617475,
+          -15.119454872200526,
+          1.9841986487385732
+        ],
+        "speed": 15.410768020814817,
+        "edge_tangent_cosine": -0.9119274279060983,
+        "edge_full_velocity_cosine": -0.7285679829029373,
+        "axis_velocity_cosine": -0.6014213963996742,
+        "normal_velocity_cosine": 0.3278429475242851,
+        "target_total_roll_deg": 155.7730816365814
+      },
+      "mid": {
+        "point": [
+          -0.10577457908638634,
+          1.0936721585829496,
+          0.5757625024170013
+        ],
+        "velocity": [
+          -1.0352305458344007,
+          -10.042913701977385,
+          -3.0279136466582024
+        ],
+        "speed": 10.540402220029968,
+        "edge_tangent_cosine": -0.9231477453648441,
+        "edge_full_velocity_cosine": -0.44518065302196363,
+        "axis_velocity_cosine": -0.8760380207117984,
+        "normal_velocity_cosine": 0.18539571851122366,
+        "target_total_roll_deg": 157.39068771161152
+      }
+    },
+    {
+      "source_seconds": 1.1,
+      "axis": [
+        -0.06774184565829931,
+        0.33110996994322955,
+        0.9411573886183972
+      ],
+      "edge": [
+        -0.428812729409231,
+        0.8420876490147685,
+        -0.3271208254963074
+      ],
+      "normal": [
+        -0.9008499794324318,
+        -0.4257400370895056,
+        0.08493959839564613
+      ],
+      "axis_dot_forearm": -0.060180887467850136,
+      "tip": {
+        "point": [
+          -0.17121510028887132,
+          0.984654579524325,
+          0.7363309619107393
+        ],
+        "velocity": [
+          -0.0003209990280184094,
+          -0.415801678545602,
+          0.647978279309096
+        ],
+        "speed": 0.7699136246216799,
+        "edge_tangent_cosine": -0.9241260854798403,
+        "edge_full_velocity_cosine": -0.7299143451071253,
+        "axis_velocity_cosine": 0.6133093296654573,
+        "normal_velocity_cosine": 0.30178918958793705,
+        "target_total_roll_deg": 157.53694293421756
+      },
+      "mid": {
+        "point": [
+          -0.1468051603955387,
+          0.8653431792243362,
+          0.39719648656409084
+        ],
+        "velocity": [
+          0.17979617857833308,
+          -0.1830513648106047,
+          0.5793340160344074
+        ],
+        "speed": 0.6336105823965946,
+        "edge_tangent_cosine": -0.9965915417282936,
+        "edge_full_velocity_cosine": -0.6640615178610361,
+        "axis_velocity_cosine": 0.7456545801397567,
+        "normal_velocity_cosine": -0.05496860570089103,
+        "target_total_roll_deg": 184.73194899036966
+      }
+    }
+  ],
+  "rigid_roll_simulation_after_with_envelope": [
+    {
+      "source_seconds": 0.9,
+      "axis": [
+        0.02412386196714359,
+        0.6791377371670381,
+        -0.733614321860898
+      ],
+      "edge": [
+        0.4649674020992718,
+        0.6420038551886657,
+        0.6096198527836385
+      ],
+      "normal": [
+        0.8849990702078983,
+        -0.3558131305594637,
+        -0.30028929693319034
+      ],
+      "axis_dot_forearm": 0.18837061894727009,
+      "tip": {
+        "point": [
+          -0.13520987430181544,
+          1.8375586433520823,
+          -0.06543273702755992
+        ],
+        "velocity": [
+          0.772082200748333,
+          0.994310631589661,
+          5.096544316650244
+        ],
+        "speed": 5.249716995075499,
+        "edge_tangent_cosine": 0.9597578146570226,
+        "edge_full_velocity_cosine": 0.781813365119745,
+        "axis_velocity_cosine": -0.5800309671421667,
+        "normal_velocity_cosine": -0.22876175221453243,
+        "target_total_roll_deg": 175.65691606696691
+      },
+      "mid": {
+        "point": [
+          -0.1439026155142603,
+          1.5928395927772179,
+          0.19891629043601877
+        ],
+        "velocity": [
+          0.6484216783670127,
+          -1.3281414911576572,
+          2.924281689639212
+        ],
+        "speed": 3.2765582390474832,
+        "edge_tangent_cosine": 0.9907916452712341,
+        "edge_full_velocity_cosine": 0.3758587728291618,
+        "axis_velocity_cosine": -0.925252438495727,
+        "normal_velocity_cosine": 0.05136251497996691,
+        "target_total_roll_deg": 199.74809021637785
+      }
+    },
+    {
+      "source_seconds": 1.0,
+      "axis": [
+        0.047745085480101646,
+        0.6995476142164403,
+        0.7129891599853284
+      ],
+      "edge": [
+        -0.11693082279608186,
+        -0.7049809341003874,
+        0.6995205967197652
+      ],
+      "normal": [
+        0.9919917285404799,
+        -0.11676907980724861,
+        0.04813930315489952
+      ],
+      "axis_dot_forearm": 0.1485075066939328,
+      "tip": {
+        "point": [
+          -0.15818591035268176,
+          1.4410016690940726,
+          0.7438810010460004
+        ],
+        "velocity": [
+          -2.617290042499183,
+          -13.663444693052096,
+          3.8649915515446454
+        ],
+        "speed": 14.438770298753642,
+        "edge_tangent_cosine": 0.9979294576811226,
+        "edge_full_velocity_cosine": 0.8755697899319657,
+        "axis_velocity_cosine": -0.4797843341769896,
+        "normal_velocity_cosine": -0.05643169000514012,
+        "target_total_roll_deg": 153.7029956384801
+      },
+      "mid": {
+        "point": [
+          -0.17539027008616756,
+          1.1889282109640786,
+          0.48696404569620505
+        ],
+        "velocity": [
+          -1.4261308917161086,
+          -8.586903522828901,
+          -1.147120743852117
+        ],
+        "speed": 8.779786297607375,
+        "edge_tangent_cosine": 0.99630187120526,
+        "edge_full_velocity_cosine": 0.6170910263914412,
+        "axis_velocity_cosine": -0.7850900962899059,
+        "normal_velocity_cosine": -0.053218472870460304,
+        "target_total_roll_deg": 152.4616450511913
+      }
+    },
+    {
+      "source_seconds": 1.1,
+      "axis": [
+        -0.06774184565829931,
+        0.33110996994322955,
+        0.9411573886183972
+      ],
+      "edge": [
+        0.5016660698224564,
+        -0.8040963293530888,
+        0.31899882054606254
+      ],
+      "normal": [
+        0.8624048914145244,
+        0.4937562970991686,
+        -0.11163566786300971
+      ],
+      "axis_dot_forearm": -0.060180887467850136,
+      "tip": {
+        "point": [
+          -0.2885346739041979,
+          1.0705559977879202,
+          0.6976655262376396
+        ],
+        "velocity": [
+          -0.18719433560378196,
+          -0.6478915717956202,
+          0.7209808506919613
+        ],
+        "speed": 0.9872277321623643,
+        "edge_tangent_cosine": 0.7600338885936598,
+        "edge_full_velocity_cosine": 0.6655508224350175,
+        "axis_velocity_cosine": 0.48288147716820196,
+        "normal_velocity_cosine": -0.569093649379368,
+        "target_total_roll_deg": 144.1991345135486
+      },
+      "mid": {
+        "point": [
+          -0.2641247340108652,
+          0.9512445974879314,
+          0.35853105089099124
+        ],
+        "velocity": [
+          -0.007077157997423811,
+          -0.41514125806060953,
+          0.6523365874172993
+        ],
+        "speed": 0.7732628101704581,
+        "edge_tangent_cosine": 0.8845388423563452,
+        "edge_full_velocity_cosine": 0.6962158099882829,
+        "axis_velocity_cosine": 0.6168322116446749,
+        "normal_velocity_cosine": -0.3671533311845312,
+        "target_total_roll_deg": 156.92677339570102
+      }
+    }
+  ],
+  "samples": [
+    {
+      "source_seconds": 0.0,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6005133055835469,
+      "forearm_twist_projection_degrees": -160.19939773345865,
+      "forearm_share_70_degrees": -112.13957841342105,
+      "remaining_swing_degrees": 105.35939735816115,
+      "remaining_rotation_after70_percent_twist_degrees": 112.75389799110319
+    },
+    {
+      "source_seconds": 0.008333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6008569049989136,
+      "forearm_twist_projection_degrees": -160.21049683511515,
+      "forearm_share_70_degrees": -112.14734778458059,
+      "remaining_swing_degrees": 105.31088168633484,
+      "remaining_rotation_after70_percent_twist_degrees": 112.71256900223379
+    },
+    {
+      "source_seconds": 0.016666666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6031252271093586,
+      "forearm_twist_projection_degrees": -160.28346119772584,
+      "forearm_share_70_degrees": -112.19842283840808,
+      "remaining_swing_degrees": 104.99018328734968,
+      "remaining_rotation_after70_percent_twist_degrees": 112.4394637534444
+    },
+    {
+      "source_seconds": 0.025,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6088701566834139,
+      "forearm_twist_projection_degrees": -160.46589488203293,
+      "forearm_share_70_degrees": -112.32612641742303,
+      "remaining_swing_degrees": 104.1746950016353,
+      "remaining_rotation_after70_percent_twist_degrees": 111.74569135605475
+    },
+    {
+      "source_seconds": 0.03333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6192564849988907,
+      "forearm_twist_projection_degrees": -160.78736990564937,
+      "forearm_share_70_degrees": -112.55115893395455,
+      "remaining_swing_degrees": 102.68817992385917,
+      "remaining_rotation_after70_percent_twist_degrees": 110.4836675637849
+    },
+    {
+      "source_seconds": 0.041666666666666664,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.635092531544121,
+      "forearm_twist_projection_degrees": -161.25783377508827,
+      "forearm_share_70_degrees": -112.88048364256179,
+      "remaining_swing_degrees": 100.39007471342508,
+      "remaining_rotation_after70_percent_twist_degrees": 108.5395554882352
+    },
+    {
+      "source_seconds": 0.05,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6567542454591326,
+      "forearm_twist_projection_degrees": -161.86556656196075,
+      "forearm_share_70_degrees": -113.30589659337251,
+      "remaining_swing_degrees": 97.1801581757314,
+      "remaining_rotation_after70_percent_twist_degrees": 105.83908268277301
+    },
+    {
+      "source_seconds": 0.058333333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6842001060495005,
+      "forearm_twist_projection_degrees": -162.58162687487214,
+      "forearm_share_70_degrees": -113.8071388124105,
+      "remaining_swing_degrees": 92.991175690204,
+      "remaining_rotation_after70_percent_twist_degrees": 102.34358255399664
+    },
+    {
+      "source_seconds": 0.06666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.7169239391400086,
+      "forearm_twist_projection_degrees": -163.36530238169496,
+      "forearm_share_70_degrees": -114.35571166718647,
+      "remaining_swing_degrees": 87.79231960528041,
+      "remaining_rotation_after70_percent_twist_degrees": 98.0558859570719
+    },
+    {
+      "source_seconds": 0.075,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.7539200861539476,
+      "forearm_twist_projection_degrees": -164.17098992469255,
+      "forearm_share_70_degrees": -114.91969294728479,
+      "remaining_swing_degrees": 81.59494220473752,
+      "remaining_rotation_after70_percent_twist_degrees": 93.02878824239187
+    },
+    {
+      "source_seconds": 0.08333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.793670001171549,
+      "forearm_twist_projection_degrees": -164.95445054205,
+      "forearm_share_70_degrees": -115.468115379435,
+      "remaining_swing_degrees": 74.46263967569207,
+      "remaining_rotation_after70_percent_twist_degrees": 87.37751301444767
+    },
+    {
+      "source_seconds": 0.09166666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.83417454352766,
+      "forearm_twist_projection_degrees": -165.6772336225449,
+      "forearm_share_70_degrees": -115.97406353578143,
+      "remaining_swing_degrees": 66.52780391594175,
+      "remaining_rotation_after70_percent_twist_degrees": 81.29617183439483
+    },
+    {
+      "source_seconds": 0.1,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.8733582949365322,
+      "forearm_twist_projection_degrees": -166.31359866719782,
+      "forearm_share_70_degrees": -116.41951906703848,
+      "remaining_swing_degrees": 57.94959660944885,
+      "remaining_rotation_after70_percent_twist_degrees": 75.02711995833155
+    },
+    {
+      "source_seconds": 0.10833333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9083192642405193,
+      "forearm_twist_projection_degrees": -166.83567084926077,
+      "forearm_share_70_degrees": -116.78496959448253,
+      "remaining_swing_degrees": 49.16447700110503,
+      "remaining_rotation_after70_percent_twist_degrees": 69.0266257103919
+    },
+    {
+      "source_seconds": 0.11666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9363650815064449,
+      "forearm_twist_projection_degrees": -167.22665852685557,
+      "forearm_share_70_degrees": -117.0586609687989,
+      "remaining_swing_degrees": 40.866436501846096,
+      "remaining_rotation_after70_percent_twist_degrees": 63.858640426784206
+    },
+    {
+      "source_seconds": 0.125,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9525197409940341,
+      "forearm_twist_projection_degrees": -167.44154819774312,
+      "forearm_share_70_degrees": -117.20908373842019,
+      "remaining_swing_degrees": 35.25389219819101,
+      "remaining_rotation_after70_percent_twist_degrees": 60.704229787319434
+    },
+    {
+      "source_seconds": 0.13333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9582798880716428,
+      "forearm_twist_projection_degrees": -167.51643847553845,
+      "forearm_share_70_degrees": -117.2615069328769,
+      "remaining_swing_degrees": 33.03096139169802,
+      "remaining_rotation_after70_percent_twist_degrees": 59.54297587272088
+    },
+    {
+      "source_seconds": 0.14166666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9523544835824556,
+      "forearm_twist_projection_degrees": -167.43938640284173,
+      "forearm_share_70_degrees": -117.20757048198922,
+      "remaining_swing_degrees": 35.3156621597217,
+      "remaining_rotation_after70_percent_twist_degrees": 60.73724781656083
+    },
+    {
+      "source_seconds": 0.15,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9352583178783795,
+      "forearm_twist_projection_degrees": -167.21166796144792,
+      "forearm_share_70_degrees": -117.04816757301354,
+      "remaining_swing_degrees": 41.22399333490098,
+      "remaining_rotation_after70_percent_twist_degrees": 64.06961692226585
+    },
+    {
+      "source_seconds": 0.15833333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.9083362966882297,
+      "forearm_twist_projection_degrees": -166.8359155309197,
+      "forearm_share_70_degrees": -116.78514087164379,
+      "remaining_swing_degrees": 49.15984133383226,
+      "remaining_rotation_after70_percent_twist_degrees": 69.02359161624479
+    },
+    {
+      "source_seconds": 0.16666666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.8737038772628122,
+      "forearm_twist_projection_degrees": -166.31896084155045,
+      "forearm_share_70_degrees": -116.42327258908531,
+      "remaining_swing_degrees": 57.86882139612012,
+      "remaining_rotation_after70_percent_twist_degrees": 74.96985144156784
+    },
+    {
+      "source_seconds": 0.175,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.834374988173447,
+      "forearm_twist_projection_degrees": -165.68063871647735,
+      "forearm_share_70_degrees": -115.97644710153413,
+      "remaining_swing_degrees": 66.48646870444094,
+      "remaining_rotation_after70_percent_twist_degrees": 81.2651450233862
+    },
+    {
+      "source_seconds": 0.18333333333333332,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.7933628492263006,
+      "forearm_twist_projection_degrees": -164.94869238017083,
+      "forearm_share_70_degrees": -115.46408466611958,
+      "remaining_swing_degrees": 74.51997930161393,
+      "remaining_rotation_after70_percent_twist_degrees": 87.42229979098236
+    },
+    {
+      "source_seconds": 0.19166666666666668,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.7534682150574162,
+      "forearm_twist_projection_degrees": -164.16161733101822,
+      "forearm_share_70_degrees": -114.91313213171274,
+      "remaining_swing_degrees": 81.67297799514928,
+      "remaining_rotation_after70_percent_twist_degrees": 93.0914586301705
+    },
+    {
+      "source_seconds": 0.2,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.7170210687577491,
+      "forearm_twist_projection_degrees": -163.36752424550957,
+      "forearm_share_70_degrees": -114.3572669718567,
+      "remaining_swing_degrees": 87.77652106896431,
+      "remaining_rotation_after70_percent_twist_degrees": 98.04294894678685
+    },
+    {
+      "source_seconds": 0.20833333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6857286546583359,
+      "forearm_twist_projection_degrees": -162.61986057698985,
+      "forearm_share_70_degrees": -113.83390240389289,
+      "remaining_swing_degrees": 92.75352919730678,
+      "remaining_rotation_after70_percent_twist_degrees": 102.14631839977913
+    },
+    {
+      "source_seconds": 0.21666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6604549634302347,
+      "forearm_twist_projection_degrees": -161.9655048191045,
+      "forearm_share_70_degrees": -113.37585337337313,
+      "remaining_swing_degrees": 96.62360205210166,
+      "remaining_rotation_after70_percent_twist_degrees": 105.37273266479478
+    },
+    {
+      "source_seconds": 0.225,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6403275306156864,
+      "forearm_twist_projection_degrees": -161.40837491365124,
+      "forearm_share_70_degrees": -112.98586243955587,
+      "remaining_swing_degrees": 99.62158627530052,
+      "remaining_rotation_after70_percent_twist_degrees": 107.89139870552088
+    },
+    {
+      "source_seconds": 0.23333333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6265494051051419,
+      "forearm_twist_projection_degrees": -161.00690485944065,
+      "forearm_share_70_degrees": -112.70483340160844,
+      "remaining_swing_degrees": 101.63470703087823,
+      "remaining_rotation_after70_percent_twist_degrees": 109.5913992809076
+    },
+    {
+      "source_seconds": 0.24166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6186084494400085,
+      "forearm_twist_projection_degrees": -160.7676189737035,
+      "forearm_share_70_degrees": -112.53733328159244,
+      "remaining_swing_degrees": 102.78139730475522,
+      "remaining_rotation_after70_percent_twist_degrees": 110.56270597379631
+    },
+    {
+      "source_seconds": 0.25,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6156280130662172,
+      "forearm_twist_projection_degrees": -160.67626038897075,
+      "forearm_share_70_degrees": -112.47338227227952,
+      "remaining_swing_degrees": 103.20930989818577,
+      "remaining_rotation_after70_percent_twist_degrees": 110.92570588196729
+    },
+    {
+      "source_seconds": 0.25833333333333336,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.61644414451496,
+      "forearm_twist_projection_degrees": -160.70136243233404,
+      "forearm_share_70_degrees": -112.49095370263382,
+      "remaining_swing_degrees": 103.0922668160105,
+      "remaining_rotation_after70_percent_twist_degrees": 110.82638923111843
+    },
+    {
+      "source_seconds": 0.26666666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6196648052767553,
+      "forearm_twist_projection_degrees": -160.79979413221147,
+      "forearm_share_70_degrees": -112.55985589254803,
+      "remaining_swing_degrees": 102.62941209343208,
+      "remaining_rotation_after70_percent_twist_degrees": 110.4338457726779
+    },
+    {
+      "source_seconds": 0.275,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6237098771060422,
+      "forearm_twist_projection_degrees": -160.92202157876307,
+      "forearm_share_70_degrees": -112.64541510513413,
+      "remaining_swing_degrees": 102.04585211643207,
+      "remaining_rotation_after70_percent_twist_degrees": 109.93941786946397
+    },
+    {
+      "source_seconds": 0.2833333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.625982589262554,
+      "forearm_twist_projection_degrees": -160.99002061859517,
+      "forearm_share_70_degrees": -112.69301443301661,
+      "remaining_swing_degrees": 101.71687816086242,
+      "remaining_rotation_after70_percent_twist_degrees": 109.6609320908842
+    },
+    {
+      "source_seconds": 0.2916666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6259027498632607,
+      "forearm_twist_projection_degrees": -160.98763998224945,
+      "forearm_share_70_degrees": -112.6913479875746,
+      "remaining_swing_degrees": 101.72844843894559,
+      "remaining_rotation_after70_percent_twist_degrees": 109.6707236853304
+    },
+    {
+      "source_seconds": 0.3,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6234681458446728,
+      "forearm_twist_projection_degrees": -160.9147606651438,
+      "forearm_share_70_degrees": -112.64033246560065,
+      "remaining_swing_degrees": 102.08079567057408,
+      "remaining_rotation_after70_percent_twist_degrees": 109.9690088445926
+    },
+    {
+      "source_seconds": 0.30833333333333335,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6184541242803927,
+      "forearm_twist_projection_degrees": -160.7629094947399,
+      "forearm_share_70_degrees": -112.53403664631792,
+      "remaining_swing_degrees": 102.80358704590196,
+      "remaining_rotation_after70_percent_twist_degrees": 110.58152253456771
+    },
+    {
+      "source_seconds": 0.31666666666666665,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6106844847042043,
+      "forearm_twist_projection_degrees": -160.52281728631974,
+      "forearm_share_70_degrees": -112.3659721004238,
+      "remaining_swing_degrees": 103.91616722050667,
+      "remaining_rotation_after70_percent_twist_degrees": 111.52596059677545
+    },
+    {
+      "source_seconds": 0.325,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.6000316929884495,
+      "forearm_twist_projection_degrees": -160.18381970589562,
+      "forearm_share_70_degrees": -112.12867379412691,
+      "remaining_swing_degrees": 105.42737253985405,
+      "remaining_rotation_after70_percent_twist_degrees": 112.8118097741542
+    },
+    {
+      "source_seconds": 0.3333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.586416551602447,
+      "forearm_twist_projection_degrees": -159.733166757544,
+      "forearm_share_70_degrees": -111.81321673028081,
+      "remaining_swing_degrees": 107.33589469389257,
+      "remaining_rotation_after70_percent_twist_degrees": 114.44051991101662
+    },
+    {
+      "source_seconds": 0.3416666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.5702721195731967,
+      "forearm_twist_projection_degrees": -159.17179821907757,
+      "forearm_share_70_degrees": -111.4202587533543,
+      "remaining_swing_degrees": 109.56738773268295,
+      "remaining_rotation_after70_percent_twist_degrees": 116.351309185036
+    },
+    {
+      "source_seconds": 0.35,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.5522011132961173,
+      "forearm_twist_projection_degrees": -158.50581976970523,
+      "forearm_share_70_degrees": -110.95407383879365,
+      "remaining_swing_degrees": 112.02696693070877,
+      "remaining_rotation_after70_percent_twist_degrees": 118.46502332720483
+    },
+    {
+      "source_seconds": 0.35833333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.5314575558247848,
+      "forearm_twist_projection_degrees": -157.6875353238105,
+      "forearm_share_70_degrees": -110.38127472666734,
+      "remaining_swing_degrees": 114.80380174312498,
+      "remaining_rotation_after70_percent_twist_degrees": 120.86038132770264
+    },
+    {
+      "source_seconds": 0.36666666666666664,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.5081219384474535,
+      "forearm_twist_projection_degrees": -156.69027420068502,
+      "forearm_share_70_degrees": -109.6831919404795,
+      "remaining_swing_degrees": 117.87237062101244,
+      "remaining_rotation_after70_percent_twist_degrees": 123.51773150522476
+    },
+    {
+      "source_seconds": 0.375,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.4822920361893004,
+      "forearm_twist_projection_degrees": -155.4787320634262,
+      "forearm_share_70_degrees": -108.83511244439835,
+      "remaining_swing_degrees": 121.20570931976528,
+      "remaining_rotation_after70_percent_twist_degrees": 126.41573533420238
+    },
+    {
+      "source_seconds": 0.38333333333333336,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.4540877840142901,
+      "forearm_twist_projection_degrees": -154.0059474257772,
+      "forearm_share_70_degrees": -107.80416319804404,
+      "remaining_swing_degrees": 124.77520109965839,
+      "remaining_rotation_after70_percent_twist_degrees": 129.53110474938447
+    },
+    {
+      "source_seconds": 0.39166666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.4236384623012107,
+      "forearm_twist_projection_degrees": -152.20772780824473,
+      "forearm_share_70_degrees": -106.54540946577131,
+      "remaining_swing_degrees": 128.55236563790052,
+      "remaining_rotation_after70_percent_twist_degrees": 132.84013382052464
+    },
+    {
+      "source_seconds": 0.4,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.391088895653859,
+      "forearm_twist_projection_degrees": -149.99517545577444,
+      "forearm_share_70_degrees": -104.9966228190421,
+      "remaining_swing_degrees": 132.5078638986219,
+      "remaining_rotation_after70_percent_twist_degrees": 136.3178536063847
+    },
+    {
+      "source_seconds": 0.4083333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.35974609322795986,
+      "forearm_twist_projection_degrees": -147.51374709367153,
+      "forearm_share_70_degrees": -103.25962296557006,
+      "remaining_swing_degrees": 136.24027079001942,
+      "remaining_rotation_after70_percent_twist_degrees": 139.61010164356622
+    },
+    {
+      "source_seconds": 0.4166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.32714367771001635,
+      "forearm_twist_projection_degrees": -144.47138020231353,
+      "forearm_share_70_degrees": -101.12996614161946,
+      "remaining_swing_degrees": 140.04494201619548,
+      "remaining_rotation_after70_percent_twist_degrees": 142.9758930979684
+    },
+    {
+      "source_seconds": 0.425,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.29325054009427093,
+      "forearm_twist_projection_degrees": -140.66557684716355,
+      "forearm_share_70_degrees": -98.46590379301448,
+      "remaining_swing_degrees": 143.915151630008,
+      "remaining_rotation_after70_percent_twist_degrees": 146.40910586507906
+    },
+    {
+      "source_seconds": 0.43333333333333335,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.25821333917050393,
+      "forearm_twist_projection_degrees": -135.81522536687729,
+      "forearm_share_70_degrees": -95.0706577568141,
+      "remaining_swing_degrees": 147.81894095891602,
+      "remaining_rotation_after70_percent_twist_degrees": 149.88125036989715
+    },
+    {
+      "source_seconds": 0.44166666666666665,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.22218212892742384,
+      "forearm_twist_projection_degrees": -129.490842053912,
+      "forearm_share_70_degrees": -90.64358943773838,
+      "remaining_swing_degrees": 151.7162268834529,
+      "remaining_rotation_after70_percent_twist_degrees": 153.35658467654372
+    },
+    {
+      "source_seconds": 0.45,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.18529181813957502,
+      "forearm_twist_projection_degrees": -121.01099341618071,
+      "forearm_share_70_degrees": -84.70769539132648,
+      "remaining_swing_degrees": 155.5535705924237,
+      "remaining_rotation_after70_percent_twist_degrees": 156.78752318379108
+    },
+    {
+      "source_seconds": 0.4583333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.14765392377345396,
+      "forearm_twist_projection_degrees": -109.26323375163999,
+      "forearm_share_70_degrees": -76.48426362614799,
+      "remaining_swing_degrees": 159.25061838786118,
+      "remaining_rotation_after70_percent_twist_degrees": 160.10251873787627
+    },
+    {
+      "source_seconds": 0.4666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.11214370177646342,
+      "forearm_twist_projection_degrees": -93.87228964172141,
+      "forearm_share_70_degrees": -65.71060274920498,
+      "remaining_swing_degrees": 162.4377145013406,
+      "remaining_rotation_after70_percent_twist_degrees": 162.96938336192568
+    },
+    {
+      "source_seconds": 0.475,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.07901919294803847,
+      "forearm_twist_projection_degrees": -74.02753534389977,
+      "forearm_share_70_degrees": -51.81927474072983,
+      "remaining_swing_degrees": 164.99787819619064,
+      "remaining_rotation_after70_percent_twist_degrees": 165.2803063053502
+    },
+    {
+      "source_seconds": 0.48333333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.045638749964362776,
+      "forearm_twist_projection_degrees": -47.06089119758253,
+      "forearm_share_70_degrees": -32.94262383830777,
+      "remaining_swing_degrees": 166.9435821718198,
+      "remaining_rotation_after70_percent_twist_degrees": 167.04297744116604
+    },
+    {
+      "source_seconds": 0.49166666666666664,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.03329082556108054,
+      "forearm_twist_projection_degrees": -35.2429695120745,
+      "forearm_share_70_degrees": -24.670078658452148,
+      "remaining_swing_degrees": 167.44193000582086,
+      "remaining_rotation_after70_percent_twist_degrees": 167.49555896477352
+    },
+    {
+      "source_seconds": 0.5,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.029729790026712305,
+      "forearm_twist_projection_degrees": -31.672528828281767,
+      "forearm_share_70_degrees": -22.170770179797234,
+      "remaining_swing_degrees": 167.55946141814334,
+      "remaining_rotation_after70_percent_twist_degrees": 167.60237207417768
+    },
+    {
+      "source_seconds": 0.5083333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.025895584190486168,
+      "forearm_twist_projection_degrees": -27.756550924669178,
+      "forearm_share_70_degrees": -19.429585647268425,
+      "remaining_swing_degrees": 167.67218080833516,
+      "remaining_rotation_after70_percent_twist_degrees": 167.70484009581406
+    },
+    {
+      "source_seconds": 0.5166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.021880744084204012,
+      "forearm_twist_projection_degrees": -23.58415705708305,
+      "forearm_share_70_degrees": -16.508909939958134,
+      "remaining_swing_degrees": 167.77442965208544,
+      "remaining_rotation_after70_percent_twist_degrees": 167.79781406902362
+    },
+    {
+      "source_seconds": 0.525,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.017943404446765496,
+      "forearm_twist_projection_degrees": -19.429712194991914,
+      "forearm_share_70_degrees": -13.600798536494338,
+      "remaining_swing_degrees": 167.85864417883275,
+      "remaining_rotation_after70_percent_twist_degrees": 167.87440721149832
+    },
+    {
+      "source_seconds": 0.5333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.016632854683948248,
+      "forearm_twist_projection_degrees": -18.03481619833599,
+      "forearm_share_70_degrees": -12.624371338835191,
+      "remaining_swing_degrees": 167.88308866315586,
+      "remaining_rotation_after70_percent_twist_degrees": 167.89664249417203
+    },
+    {
+      "source_seconds": 0.5416666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.015275203853495331,
+      "forearm_twist_projection_degrees": -16.584087620663,
+      "forearm_share_70_degrees": -11.608861334464098,
+      "remaining_swing_degrees": 167.90650304330114,
+      "remaining_rotation_after70_percent_twist_degrees": 167.9179420514153
+    },
+    {
+      "source_seconds": 0.55,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.013870988746296282,
+      "forearm_twist_projection_degrees": -15.07795511689206,
+      "forearm_share_70_degrees": -10.554568581824443,
+      "remaining_swing_degrees": 167.92866539376436,
+      "remaining_rotation_after70_percent_twist_degrees": 167.93810382423607
+    },
+    {
+      "source_seconds": 0.5583333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.012420002967060244,
+      "forearm_twist_projection_degrees": -13.516139826690281,
+      "forearm_share_70_degrees": -9.461297878683196,
+      "remaining_swing_degrees": 167.94935870182206,
+      "remaining_rotation_after70_percent_twist_degrees": 167.95693018626406
+    },
+    {
+      "source_seconds": 0.5666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.01092555554287554,
+      "forearm_twist_projection_degrees": -11.902258405537967,
+      "forearm_share_70_degrees": -8.331580883876576,
+      "remaining_swing_degrees": 167.96831478387105,
+      "remaining_rotation_after70_percent_twist_degrees": 167.97417692398182
+    },
+    {
+      "source_seconds": 0.575,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.009381610061183258,
+      "forearm_twist_projection_degrees": -10.22993926759967,
+      "forearm_share_70_degrees": -7.160957487319769,
+      "remaining_swing_degrees": 167.98537503241351,
+      "remaining_rotation_after70_percent_twist_degrees": 167.9896994961212
+    },
+    {
+      "source_seconds": 0.5833333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.0077958864160836555,
+      "forearm_twist_projection_degrees": -8.507815213010975,
+      "forearm_share_70_degrees": -5.955470649107681,
+      "remaining_swing_degrees": 168.00021590775148,
+      "remaining_rotation_after70_percent_twist_degrees": 168.00320328300052
+    },
+    {
+      "source_seconds": 0.5916666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.00728854066911281,
+      "forearm_twist_projection_degrees": -7.955977207005724,
+      "forearm_share_70_degrees": -5.569184044904007,
+      "remaining_swing_degrees": 168.00438886504148,
+      "remaining_rotation_after70_percent_twist_degrees": 168.00700037031712
+    },
+    {
+      "source_seconds": 0.6,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.007648753143250912,
+      "forearm_twist_projection_degrees": -8.34781847874148,
+      "forearm_share_70_degrees": -5.843472935119036,
+      "remaining_swing_degrees": 168.0014548396848,
+      "remaining_rotation_after70_percent_twist_degrees": 168.00433061661357
+    },
+    {
+      "source_seconds": 0.6083333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.007953811145009294,
+      "forearm_twist_projection_degrees": -8.679509883903968,
+      "forearm_share_70_degrees": -6.075656918732778,
+      "remaining_swing_degrees": 167.99885998525875,
+      "remaining_rotation_after70_percent_twist_degrees": 168.00196950100357
+    },
+    {
+      "source_seconds": 0.6166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.00820893238112512,
+      "forearm_twist_projection_degrees": -8.956793128691876,
+      "forearm_share_70_degrees": -6.269755190084313,
+      "remaining_swing_degrees": 167.9966124321891,
+      "remaining_rotation_after70_percent_twist_degrees": 167.99992441530378
+    },
+    {
+      "source_seconds": 0.625,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.008413126121672894,
+      "forearm_twist_projection_degrees": -9.17864933720863,
+      "forearm_share_70_degrees": -6.425054536046042,
+      "remaining_swing_degrees": 167.99476272723356,
+      "remaining_rotation_after70_percent_twist_degrees": 167.99824134702195
+    },
+    {
+      "source_seconds": 0.6333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.008566213465588786,
+      "forearm_twist_projection_degrees": -9.344933393389546,
+      "forearm_share_70_degrees": -6.541453375372681,
+      "remaining_swing_degrees": 167.9933463559867,
+      "remaining_rotation_after70_percent_twist_degrees": 167.99695257957003
+    },
+    {
+      "source_seconds": 0.6416666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.0086720056708845,
+      "forearm_twist_projection_degrees": -9.459822289843775,
+      "forearm_share_70_degrees": -6.6218756028906425,
+      "remaining_swing_degrees": 167.9923527364081,
+      "remaining_rotation_after70_percent_twist_degrees": 167.99604848001204
+    },
+    {
+      "source_seconds": 0.65,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.00872465067486643,
+      "forearm_twist_projection_degrees": -9.516986960835808,
+      "forearm_share_70_degrees": -6.661890872585065,
+      "remaining_swing_degrees": 167.99185377101617,
+      "remaining_rotation_after70_percent_twist_degrees": 167.99559446970727
+    },
+    {
+      "source_seconds": 0.6583333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.011008186189046164,
+      "forearm_twist_projection_degrees": -11.991622602763119,
+      "forearm_share_70_degrees": -8.394135821934183,
+      "remaining_swing_degrees": 167.96732932850594,
+      "remaining_rotation_after70_percent_twist_degrees": 167.97328031046197
+    },
+    {
+      "source_seconds": 0.6666666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.013207381767795508,
+      "forearm_twist_projection_degrees": -14.3643239297177,
+      "forearm_share_70_degrees": -10.05502675080239,
+      "remaining_swing_degrees": 167.93840853697006,
+      "remaining_rotation_after70_percent_twist_degrees": 167.94696781983387
+    },
+    {
+      "source_seconds": 0.675,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.015325815255782922,
+      "forearm_twist_projection_degrees": -16.638267968526353,
+      "forearm_share_70_degrees": -11.646787577968448,
+      "remaining_swing_degrees": 167.9056651714778,
+      "remaining_rotation_after70_percent_twist_degrees": 167.9171798357712
+    },
+    {
+      "source_seconds": 0.6833333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.01737015522623353,
+      "forearm_twist_projection_degrees": -18.82025916888367,
+      "forearm_share_70_degrees": -13.174181418218566,
+      "remaining_swing_degrees": 167.8695584765127,
+      "remaining_rotation_after70_percent_twist_degrees": 167.88433494695934
+    },
+    {
+      "source_seconds": 0.6916666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.019351247162718903,
+      "forearm_twist_projection_degrees": -20.921702507427764,
+      "forearm_share_70_degrees": -14.645191755199434,
+      "remaining_swing_degrees": 167.83038096090553,
+      "remaining_rotation_after70_percent_twist_degrees": 167.84870001473183
+    },
+    {
+      "source_seconds": 0.7,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.02126801515182956,
+      "forearm_twist_projection_degrees": -22.941474673060863,
+      "forearm_share_70_degrees": -16.059032271142602,
+      "remaining_swing_degrees": 167.78858910231503,
+      "remaining_rotation_after70_percent_twist_degrees": 167.81069097405688
+    },
+    {
+      "source_seconds": 0.7083333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.023130668298204014,
+      "forearm_twist_projection_degrees": -24.89049144667579,
+      "forearm_share_70_degrees": -17.42334401267305,
+      "remaining_swing_degrees": 167.7443520982829,
+      "remaining_rotation_after70_percent_twist_degrees": 167.7704623949028
+    },
+    {
+      "source_seconds": 0.7166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.02494423293348782,
+      "forearm_twist_projection_degrees": -26.774199292295165,
+      "forearm_share_70_degrees": -18.741939504606616,
+      "remaining_swing_degrees": 167.69788424587267,
+      "remaining_rotation_after70_percent_twist_degrees": 167.728209818174
+    },
+    {
+      "source_seconds": 0.725,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.030265334658438604,
+      "forearm_twist_projection_degrees": -32.2137228563363,
+      "forearm_share_70_degrees": -22.549605999435407,
+      "remaining_swing_degrees": 167.54256748881045,
+      "remaining_rotation_after70_percent_twist_degrees": 167.58701696285652
+    },
+    {
+      "source_seconds": 0.7333333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.03562162250034036,
+      "forearm_twist_projection_degrees": -37.542696122629906,
+      "forearm_share_70_degrees": -26.27988728584093,
+      "remaining_swing_degrees": 167.35847064003028,
+      "remaining_rotation_after70_percent_twist_degrees": 167.41972854393273
+    },
+    {
+      "source_seconds": 0.7416666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.04008349939725412,
+      "forearm_twist_projection_degrees": -41.85781696802528,
+      "forearm_share_70_degrees": -29.3004718776177,
+      "remaining_swing_degrees": 167.18469963304628,
+      "remaining_rotation_after70_percent_twist_degrees": 167.2618883866975
+    },
+    {
+      "source_seconds": 0.75,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.04320742067548912,
+      "forearm_twist_projection_degrees": -44.80749514168863,
+      "forearm_share_70_degrees": -31.36524659918204,
+      "remaining_swing_degrees": 167.0524091626027,
+      "remaining_rotation_after70_percent_twist_degrees": 167.14176727470536
+    },
+    {
+      "source_seconds": 0.7583333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.04458177232157971,
+      "forearm_twist_projection_degrees": -46.08588417759977,
+      "forearm_share_70_degrees": -32.26011892431983,
+      "remaining_swing_degrees": 166.99151432394794,
+      "remaining_rotation_after70_percent_twist_degrees": 167.08648590736254
+    },
+    {
+      "source_seconds": 0.7666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.04383243143347311,
+      "forearm_twist_projection_degrees": -45.39034589562709,
+      "forearm_share_70_degrees": -31.773242126938964,
+      "remaining_swing_degrees": 167.02491776246234,
+      "remaining_rotation_after70_percent_twist_degrees": 167.11680920406064
+    },
+    {
+      "source_seconds": 0.775,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.040615450285785004,
+      "forearm_twist_projection_degrees": -42.364343126383595,
+      "forearm_share_70_degrees": -29.65504018846852,
+      "remaining_swing_degrees": 167.16278151080874,
+      "remaining_rotation_after70_percent_twist_degrees": 167.24198406208714
+    },
+    {
+      "source_seconds": 0.7833333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.10350399153298326,
+      "forearm_twist_projection_degrees": -89.28180415597761,
+      "forearm_share_70_degrees": -62.49726290918432,
+      "remaining_swing_degrees": 163.15165399489183,
+      "remaining_rotation_after70_percent_twist_degrees": 163.6130027527784
+    },
+    {
+      "source_seconds": 0.7916666666666666,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.166443656616441,
+      "forearm_twist_projection_degrees": -115.60274231443226,
+      "forearm_share_70_degrees": -80.92191962010259,
+      "remaining_swing_degrees": 157.43781786961827,
+      "remaining_rotation_after70_percent_twist_degrees": 158.4757865846341
+    },
+    {
+      "source_seconds": 0.8,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.2274513233188178,
+      "forearm_twist_projection_degrees": -130.51948626145074,
+      "forearm_share_70_degrees": -91.36364038301551,
+      "remaining_swing_degrees": 151.15459841648823,
+      "remaining_rotation_after70_percent_twist_degrees": 152.85520488679433
+    },
+    {
+      "source_seconds": 0.8083333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.2778568577833551,
+      "forearm_twist_projection_degrees": -138.66632885344282,
+      "forearm_share_70_degrees": -97.06643019740999,
+      "remaining_swing_degrees": 145.64302423609374,
+      "remaining_rotation_after70_percent_twist_degrees": 147.94481350215244
+    },
+    {
+      "source_seconds": 0.8166666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.3183013824010308,
+      "forearm_twist_projection_degrees": -143.54885945825006,
+      "forearm_share_70_degrees": -100.48420162077502,
+      "remaining_swing_degrees": 141.06312231330185,
+      "remaining_rotation_after70_percent_twist_degrees": 143.87820911968691
+    },
+    {
+      "source_seconds": 0.825,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.34887332665356724,
+      "forearm_twist_projection_degrees": -146.55703762105958,
+      "forearm_share_70_degrees": -102.58992633474169,
+      "remaining_swing_degrees": 137.51790320124186,
+      "remaining_rotation_after70_percent_twist_degrees": 140.7392897040328
+    },
+    {
+      "source_seconds": 0.8333333333333334,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.36946079078818284,
+      "forearm_twist_projection_degrees": -148.32456551596476,
+      "forearm_share_70_degrees": -103.82719586117533,
+      "remaining_swing_degrees": 135.09128195056962,
+      "remaining_rotation_after70_percent_twist_degrees": 138.59556181325587
+    },
+    {
+      "source_seconds": 0.8416666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.37994106307445613,
+      "forearm_twist_projection_degrees": -149.1561611016874,
+      "forearm_share_70_degrees": -104.40931277118116,
+      "remaining_swing_degrees": 133.84384025781182,
+      "remaining_rotation_after70_percent_twist_degrees": 137.49513663989364
+    },
+    {
+      "source_seconds": 0.85,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.3803213413000315,
+      "forearm_twist_projection_degrees": -149.18553539018953,
+      "forearm_share_70_degrees": -104.42987477313265,
+      "remaining_swing_degrees": 133.79842167430238,
+      "remaining_rotation_after70_percent_twist_degrees": 137.45509177383715
+    },
+    {
+      "source_seconds": 0.8583333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.3718272299235826,
+      "forearm_twist_projection_degrees": -148.5161365969301,
+      "forearm_share_70_degrees": -103.96129561785106,
+      "remaining_swing_degrees": 134.81032933441801,
+      "remaining_rotation_after70_percent_twist_degrees": 138.34762460991587
+    },
+    {
+      "source_seconds": 0.8666666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.3521708265577524,
+      "forearm_twist_projection_degrees": -146.85292432033688,
+      "forearm_share_70_degrees": -102.79704702423581,
+      "remaining_swing_degrees": 137.13134997957056,
+      "remaining_rotation_after70_percent_twist_degrees": 140.39753308053028
+    },
+    {
+      "source_seconds": 0.875,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.32212393652968385,
+      "forearm_twist_projection_degrees": -143.95328869343103,
+      "forearm_share_70_degrees": -100.76730208540172,
+      "remaining_swing_degrees": 140.62368434634982,
+      "remaining_rotation_after70_percent_twist_degrees": 143.48869718154373
+    },
+    {
+      "source_seconds": 0.8833333333333333,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.2834178934618158,
+      "forearm_twist_projection_degrees": -139.41062035728777,
+      "forearm_share_70_degrees": -97.58743425010144,
+      "remaining_swing_degrees": 145.02105828990983,
+      "remaining_rotation_after70_percent_twist_degrees": 147.3918145209758
+    },
+    {
+      "source_seconds": 0.8916666666666667,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.23811000419398587,
+      "forearm_twist_projection_degrees": -132.48440041858004,
+      "forearm_share_70_degrees": -92.73908029300603,
+      "remaining_swing_degrees": 150.00946133247905,
+      "remaining_rotation_after70_percent_twist_degrees": 151.83349830565737
+    },
+    {
+      "source_seconds": 0.9,
+      "roll_degrees_unwrapped": 191.9666053658085,
+      "forearm_axis_dot_blade_axis": 0.18837061894727009,
+      "forearm_twist_projection_degrees": -121.81678633495416,
+      "forearm_share_70_degrees": -85.2717504344679,
+      "remaining_swing_degrees": 155.2403625694212,
+      "remaining_rotation_after70_percent_twist_degrees": 156.50713058957368
+    },
+    {
+      "source_seconds": 0.9083333333333333,
+      "roll_degrees_unwrapped": 188.8651775669656,
+      "forearm_axis_dot_blade_axis": 0.14517491909756608,
+      "forearm_twist_projection_degrees": -123.79889871987189,
+      "forearm_share_70_degrees": -86.65922910391032,
+      "remaining_swing_degrees": 161.1121406490639,
+      "remaining_rotation_after70_percent_twist_degrees": 162.10381625999185
+    },
+    {
+      "source_seconds": 0.9166666666666666,
+      "roll_degrees_unwrapped": 185.40358395922487,
+      "forearm_axis_dot_blade_axis": 0.11452296641143028,
+      "forearm_twist_projection_degrees": -135.21095857175501,
+      "forearm_share_70_degrees": -94.64767100022851,
+      "remaining_swing_degrees": 165.78552389843554,
+      "remaining_rotation_after70_percent_twist_degrees": 166.6709513870886
+    },
+    {
+      "source_seconds": 0.925,
+      "roll_degrees_unwrapped": 181.70187981221878,
+      "forearm_axis_dot_blade_axis": 0.08591896701950802,
+      "forearm_twist_projection_degrees": -160.38444311304644,
+      "forearm_share_70_degrees": -112.2691101791325,
+      "remaining_swing_degrees": 169.99678406051066,
+      "remaining_rotation_after70_percent_twist_degrees": 170.86763983390506
+    },
+    {
+      "source_seconds": 0.9333333333333333,
+      "roll_degrees_unwrapped": 177.8801203955801,
+      "forearm_axis_dot_blade_axis": 0.06113002936407197,
+      "forearm_twist_projection_degrees": 146.3221821922677,
+      "forearm_share_70_degrees": 102.42552753458737,
+      "remaining_swing_degrees": 172.67747665634715,
+      "remaining_rotation_after70_percent_twist_degrees": 173.20885011848262
+    },
+    {
+      "source_seconds": 0.9416666666666667,
+      "roll_degrees_unwrapped": 174.05836097894147,
+      "forearm_axis_dot_blade_axis": 0.04148691512027869,
+      "forearm_twist_projection_degrees": 77.2781851855244,
+      "forearm_share_70_degrees": 54.09472962986708,
+      "remaining_swing_degrees": 172.39100695103377,
+      "remaining_rotation_after70_percent_twist_degrees": 172.54641944108096
+    },
+    {
+      "source_seconds": 0.95,
+      "roll_degrees_unwrapped": 170.35665683193542,
+      "forearm_axis_dot_blade_axis": 0.029404120140685663,
+      "forearm_twist_projection_degrees": 38.435379534252924,
+      "forearm_share_70_degrees": 26.904765673977042,
+      "remaining_swing_degrees": 169.7860974387226,
+      "remaining_rotation_after70_percent_twist_degrees": 169.8378984620227
+    },
+    {
+      "source_seconds": 0.9583333333333334,
+      "roll_degrees_unwrapped": 166.8950632241946,
+      "forearm_axis_dot_blade_axis": 0.04386236993855894,
+      "forearm_twist_projection_degrees": 41.800283767832624,
+      "forearm_share_70_degrees": 29.260198637482837,
+      "remaining_swing_degrees": 165.96758997852234,
+      "remaining_rotation_after70_percent_twist_degrees": 166.05194740792868
+    },
+    {
+      "source_seconds": 0.9666666666666667,
+      "roll_degrees_unwrapped": 163.7936354253517,
+      "forearm_axis_dot_blade_axis": 0.06645782491213123,
+      "forearm_twist_projection_degrees": 50.04361984210584,
+      "forearm_share_70_degrees": 35.030533889474086,
+      "remaining_swing_degrees": 162.10195844147472,
+      "remaining_rotation_after70_percent_twist_degrees": 162.25658878329193
+    },
+    {
+      "source_seconds": 0.975,
+      "roll_degrees_unwrapped": 161.17242870503932,
+      "forearm_axis_dot_blade_axis": 0.09553501643010837,
+      "forearm_twist_projection_degrees": 59.9027960074254,
+      "forearm_share_70_degrees": 41.931957205197776,
+      "remaining_swing_degrees": 158.23747713290763,
+      "remaining_rotation_after70_percent_twist_degrees": 158.5077410329391
+    },
+    {
+      "source_seconds": 0.9833333333333333,
+      "roll_degrees_unwrapped": 159.1514983328901,
+      "forearm_axis_dot_blade_axis": 0.12809446707414907,
+      "forearm_twist_projection_degrees": 69.69682386453296,
+      "forearm_share_70_degrees": 48.78777670517307,
+      "remaining_swing_degrees": 154.52628416207708,
+      "remaining_rotation_after70_percent_twist_degrees": 154.9560924229567
+    },
+    {
+      "source_seconds": 0.9916666666666667,
+      "roll_degrees_unwrapped": 157.8508995785366,
+      "forearm_axis_dot_blade_axis": 0.13950877049820826,
+      "forearm_twist_projection_degrees": 70.95933712500354,
+      "forearm_share_70_degrees": 49.67153598750248,
+      "remaining_swing_degrees": 152.71243066748866,
+      "remaining_rotation_after70_percent_twist_degrees": 153.19077702783994
+    },
+    {
+      "source_seconds": 1.0,
+      "roll_degrees_unwrapped": 157.39068771161152,
+      "forearm_axis_dot_blade_axis": 0.1485075066939328,
+      "forearm_twist_projection_degrees": 73.21681745675717,
+      "forearm_share_70_degrees": 51.25177221973001,
+      "remaining_swing_degrees": 151.73099899897187,
+      "remaining_rotation_after70_percent_twist_degrees": 152.2591963028916
+    },
+    {
+      "source_seconds": 1.0083333333333333,
+      "roll_degrees_unwrapped": 157.75460496242835,
+      "forearm_axis_dot_blade_axis": 0.15910785730042937,
+      "forearm_twist_projection_degrees": 77.96527522006103,
+      "forearm_share_70_degrees": 54.57569265404272,
+      "remaining_swing_degrees": 151.261646500905,
+      "remaining_rotation_after70_percent_twist_degrees": 151.87063742748853
+    },
+    {
+      "source_seconds": 1.0166666666666666,
+      "roll_degrees_unwrapped": 158.78306675821491,
+      "forearm_axis_dot_blade_axis": 0.13858962880939307,
+      "forearm_twist_projection_degrees": 72.99861650092082,
+      "forearm_share_70_degrees": 51.099031550644575,
+      "remaining_swing_degrees": 153.52187252262243,
+      "remaining_rotation_after70_percent_twist_degrees": 154.0124540137516
+    },
+    {
+      "source_seconds": 1.025,
+      "roll_degrees_unwrapped": 160.38113816397566,
+      "forearm_axis_dot_blade_axis": 0.08162071878736121,
+      "forearm_twist_projection_degrees": 50.5412065347612,
+      "forearm_share_70_degrees": 35.37884457433284,
+      "remaining_swing_degrees": 158.28098844177575,
+      "remaining_rotation_after70_percent_twist_degrees": 158.4731115593908
+    },
+    {
+      "source_seconds": 1.0333333333333334,
+      "roll_degrees_unwrapped": 162.4538842447149,
+      "forearm_axis_dot_blade_axis": 0.01992025013637222,
+      "forearm_twist_projection_degrees": 14.709962895098693,
+      "forearm_share_70_degrees": 10.296974026569083,
+      "remaining_swing_degrees": 162.30715511184064,
+      "remaining_rotation_after70_percent_twist_degrees": 162.3203784437721
+    },
+    {
+      "source_seconds": 1.0416666666666667,
+      "roll_degrees_unwrapped": 164.90637006543685,
+      "forearm_axis_dot_blade_axis": -0.03452513869204249,
+      "forearm_twist_projection_degrees": -29.212706177513873,
+      "forearm_share_70_degrees": -20.448894324259708,
+      "remaining_swing_degrees": 164.39918439675503,
+      "remaining_rotation_after70_percent_twist_degrees": 164.44506925683712
+    },
+    {
+      "source_seconds": 1.05,
+      "roll_degrees_unwrapped": 167.64366069114587,
+      "forearm_axis_dot_blade_axis": -0.09136629950802139,
+      "forearm_twist_projection_degrees": -80.33115102065337,
+      "forearm_share_70_degrees": -56.23180571445735,
+      "remaining_swing_degrees": 163.8081576626373,
+      "remaining_rotation_after70_percent_twist_degrees": 164.16722676994635
+    },
+    {
+      "source_seconds": 1.0583333333333333,
+      "roll_degrees_unwrapped": 170.5708211868462,
+      "forearm_axis_dot_blade_axis": -0.09447886799501778,
+      "forearm_twist_projection_degrees": -97.76408784867293,
+      "forearm_share_70_degrees": -68.43486149407104,
+      "remaining_swing_degrees": 165.64009352060404,
+      "remaining_rotation_after70_percent_twist_degrees": 166.11022155642468
+    },
+    {
+      "source_seconds": 1.0666666666666667,
+      "roll_degrees_unwrapped": 173.59291661754227,
+      "forearm_axis_dot_blade_axis": -0.08934791427331584,
+      "forearm_twist_projection_degrees": -115.87103702507976,
+      "forearm_share_70_degrees": -81.10972591755583,
+      "remaining_swing_degrees": 167.91494830417932,
+      "remaining_rotation_after70_percent_twist_degrees": 168.46865220522912
+    },
+    {
+      "source_seconds": 1.075,
+      "roll_degrees_unwrapped": 176.61501204823833,
+      "forearm_axis_dot_blade_axis": -0.07951358475523362,
+      "forearm_twist_projection_degrees": -139.22867837416956,
+      "forearm_share_70_degrees": -97.4600748619187,
+      "remaining_swing_degrees": 170.27217996825746,
+      "remaining_rotation_after70_percent_twist_degrees": 170.91266721175649
+    },
+    {
+      "source_seconds": 1.0833333333333333,
+      "roll_degrees_unwrapped": 179.54217254393868,
+      "forearm_axis_dot_blade_axis": -0.06894304888354932,
+      "forearm_twist_projection_degrees": -173.36672200239943,
+      "forearm_share_70_degrees": -121.35670540167959,
+      "remaining_swing_degrees": 172.08021349274935,
+      "remaining_rotation_after70_percent_twist_degrees": 172.88313751943204
+    },
+    {
+      "source_seconds": 1.0916666666666666,
+      "roll_degrees_unwrapped": 182.2794631696477,
+      "forearm_axis_dot_blade_axis": -0.06442486778604409,
+      "forearm_twist_projection_degrees": 145.6781469795119,
+      "forearm_share_70_degrees": 101.97470288565832,
+      "remaining_swing_degrees": 172.26913267969715,
+      "remaining_rotation_after70_percent_twist_degrees": 172.82534912555363
+    },
+    {
+      "source_seconds": 1.1,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.060180887467850136,
+      "forearm_twist_projection_degrees": 111.05646357155122,
+      "forearm_share_70_degrees": 77.73952450008585,
+      "remaining_swing_degrees": 171.6346149946978,
+      "remaining_rotation_after70_percent_twist_degrees": 171.98629183527623
+    },
+    {
+      "source_seconds": 1.1083333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.05926429544842177,
+      "forearm_twist_projection_degrees": 110.23357914822682,
+      "forearm_share_70_degrees": 77.16350540375878,
+      "remaining_swing_degrees": 171.7211463367262,
+      "remaining_rotation_after70_percent_twist_degrees": 172.06407135212487
+    },
+    {
+      "source_seconds": 1.1166666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.05825147594848765,
+      "forearm_twist_projection_degrees": 109.30415754357973,
+      "forearm_share_70_degrees": 76.51291028050582,
+      "remaining_swing_degrees": 171.81624822028544,
+      "remaining_rotation_after70_percent_twist_degrees": 172.14956881150744
+    },
+    {
+      "source_seconds": 1.125,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.05814484954275173,
+      "forearm_twist_projection_degrees": 109.20505633921701,
+      "forearm_share_70_degrees": 76.4435394374519,
+      "remaining_swing_degrees": 171.82622813605064,
+      "remaining_rotation_after70_percent_twist_degrees": 172.1585417257418
+    },
+    {
+      "source_seconds": 1.1333333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.055896426472913235,
+      "forearm_twist_projection_degrees": 107.05784234555503,
+      "forearm_share_70_degrees": 74.9404896418885,
+      "remaining_swing_degrees": 172.03519441565956,
+      "remaining_rotation_after70_percent_twist_degrees": 172.3464622019255
+    },
+    {
+      "source_seconds": 1.1416666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.05073961200579813,
+      "forearm_twist_projection_degrees": 101.68778561093973,
+      "forearm_share_70_degrees": 71.18144992765781,
+      "remaining_swing_degrees": 172.50282699564198,
+      "remaining_rotation_after70_percent_twist_degrees": 172.76728927755408
+    },
+    {
+      "source_seconds": 1.15,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.04234559602088436,
+      "forearm_twist_projection_degrees": 91.4080452873739,
+      "forearm_share_70_degrees": 63.985631701161715,
+      "remaining_swing_degrees": 173.22222129375686,
+      "remaining_rotation_after70_percent_twist_degrees": 173.41558514819022
+    },
+    {
+      "source_seconds": 1.1583333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.03277316380391529,
+      "forearm_twist_projection_degrees": 76.84306740652649,
+      "forearm_share_70_degrees": 53.79014718456853,
+      "remaining_swing_degrees": 173.9591091089514,
+      "remaining_rotation_after70_percent_twist_degrees": 174.08104818401418
+    },
+    {
+      "source_seconds": 1.1666666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.022410069112774517,
+      "forearm_twist_projection_degrees": 56.94960723515374,
+      "forearm_share_70_degrees": 39.86472506460762,
+      "remaining_swing_degrees": 174.61638185110485,
+      "remaining_rotation_after70_percent_twist_degrees": 174.67615040069913
+    },
+    {
+      "source_seconds": 1.175,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.013891690769486792,
+      "forearm_twist_projection_degrees": 37.1671239867292,
+      "forearm_share_70_degrees": 26.01698679071044,
+      "remaining_swing_degrees": 175.00759423325746,
+      "remaining_rotation_after70_percent_twist_degrees": 175.0312243197732
+    },
+    {
+      "source_seconds": 1.1833333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.0071107108719101475,
+      "forearm_twist_projection_degrees": 19.529794002352855,
+      "forearm_share_70_degrees": 13.670855801646997,
+      "remaining_swing_degrees": 175.19844621329543,
+      "remaining_rotation_after70_percent_twist_degrees": 175.20472453467306
+    },
+    {
+      "source_seconds": 1.1916666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.002744698522661154,
+      "forearm_twist_projection_degrees": 7.601079767903354,
+      "forearm_share_70_degrees": 5.320755837532348,
+      "remaining_swing_degrees": 175.25761582733756,
+      "remaining_rotation_after70_percent_twist_degrees": 175.2585553087825
+    },
+    {
+      "source_seconds": 1.2,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.0030004772292855364,
+      "forearm_twist_projection_degrees": 8.307051157019465,
+      "forearm_share_70_degrees": 5.814935809913626,
+      "remaining_swing_degrees": 175.25558296203053,
+      "remaining_rotation_after70_percent_twist_degrees": 175.2567055359124
+    },
+    {
+      "source_seconds": 1.2083333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.006301801682573216,
+      "forearm_twist_projection_degrees": 17.3439825735731,
+      "forearm_share_70_degrees": 12.140787801501169,
+      "remaining_swing_degrees": 175.2132967317052,
+      "remaining_rotation_after70_percent_twist_degrees": 175.21823323138216
+    },
+    {
+      "source_seconds": 1.2166666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.011460571099367184,
+      "forearm_twist_projection_degrees": 31.005679226521032,
+      "forearm_share_70_degrees": 21.70397545856472,
+      "remaining_swing_degrees": 175.0892818243015,
+      "remaining_rotation_after70_percent_twist_degrees": 175.10546116976778
+    },
+    {
+      "source_seconds": 1.225,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.017985223484847573,
+      "forearm_twist_projection_degrees": 47.046288953423634,
+      "forearm_share_70_degrees": 32.93240226739654,
+      "remaining_swing_degrees": 174.838903303943,
+      "remaining_rotation_after70_percent_twist_degrees": 174.87802713436477
+    },
+    {
+      "source_seconds": 1.2333333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.025530085654710072,
+      "forearm_twist_projection_degrees": 63.42380244635217,
+      "forearm_share_70_degrees": 44.396661712446516,
+      "remaining_swing_degrees": 174.43699055222785,
+      "remaining_rotation_after70_percent_twist_degrees": 174.5135604240103
+    },
+    {
+      "source_seconds": 1.2416666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.03625273601690285,
+      "forearm_twist_projection_degrees": 82.52857725153582,
+      "forearm_share_70_degrees": 57.770004076075075,
+      "remaining_swing_degrees": 173.70341782682152,
+      "remaining_rotation_after70_percent_twist_degrees": 173.84995674031077
+    },
+    {
+      "source_seconds": 1.25,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.046721646777886205,
+      "forearm_twist_projection_degrees": 97.02516614801802,
+      "forearm_share_70_degrees": 67.9176163036126,
+      "remaining_swing_degrees": 172.85435607784655,
+      "remaining_rotation_after70_percent_twist_degrees": 173.08392737835274
+    },
+    {
+      "source_seconds": 1.2583333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.05587469221839986,
+      "forearm_twist_projection_degrees": 107.0365386681715,
+      "forearm_share_70_degrees": 74.92557706772004,
+      "remaining_swing_degrees": 172.03720021571942,
+      "remaining_rotation_after70_percent_twist_degrees": 172.3482663628499
+    },
+    {
+      "source_seconds": 1.2666666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.06283927053094959,
+      "forearm_twist_projection_degrees": 113.3492538400974,
+      "forearm_share_70_degrees": 79.34447768806818,
+      "remaining_swing_degrees": 171.38127307010936,
+      "remaining_rotation_after70_percent_twist_degrees": 171.75864127837895
+    },
+    {
+      "source_seconds": 1.275,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.06674887686714528,
+      "forearm_twist_projection_degrees": 116.48501253749104,
+      "forearm_share_70_degrees": 81.53950877624372,
+      "remaining_swing_degrees": 171.00277012014388,
+      "remaining_rotation_after70_percent_twist_degrees": 171.41870035366154
+    },
+    {
+      "source_seconds": 1.2833333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.06473115816355807,
+      "forearm_twist_projection_degrees": 114.90027984726555,
+      "forearm_share_70_degrees": 80.43019589308588,
+      "remaining_swing_degrees": 171.19895009137753,
+      "remaining_rotation_after70_percent_twist_degrees": 171.59486778152274
+    },
+    {
+      "source_seconds": 1.2916666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.050369490387399185,
+      "forearm_twist_projection_degrees": 101.27670421464404,
+      "forearm_share_70_degrees": 70.89369295025082,
+      "remaining_swing_degrees": 172.53570910750528,
+      "remaining_rotation_after70_percent_twist_degrees": 172.79689645184345
+    },
+    {
+      "source_seconds": 1.3,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": -0.02384253213010043,
+      "forearm_twist_projection_degrees": 59.97471057678976,
+      "forearm_share_70_degrees": 41.982297403752824,
+      "remaining_swing_degrees": 174.53619442039053,
+      "remaining_rotation_after70_percent_twist_degrees": 174.60345639872563
+    },
+    {
+      "source_seconds": 1.3083333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.011881373936829698,
+      "forearm_twist_projection_degrees": -32.08650425081102,
+      "forearm_share_70_degrees": -22.460552975567712,
+      "remaining_swing_degrees": 175.07617313767537,
+      "remaining_rotation_after70_percent_twist_degrees": 175.09354576187195
+    },
+    {
+      "source_seconds": 1.3166666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.05252050613058565,
+      "forearm_twist_projection_degrees": -103.616212145726,
+      "forearm_share_70_degrees": -72.5313485020082,
+      "remaining_swing_degrees": 172.34328397351752,
+      "remaining_rotation_after70_percent_twist_degrees": 172.62366737731773
+    },
+    {
+      "source_seconds": 1.325,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.09327235494115335,
+      "forearm_twist_projection_degrees": -132.21549287120865,
+      "forearm_share_70_degrees": -92.55084500984604,
+      "remaining_swing_degrees": 168.29969468648795,
+      "remaining_rotation_after70_percent_twist_degrees": 168.99585471006387
+    },
+    {
+      "source_seconds": 1.3333333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.1304996524972216,
+      "forearm_twist_projection_degrees": -144.8633543124609,
+      "forearm_share_70_degrees": -101.40434801872262,
+      "remaining_swing_degrees": 164.27831661569593,
+      "remaining_rotation_after70_percent_twist_degrees": 165.4017873726426
+    },
+    {
+      "source_seconds": 1.3416666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.16827006713929177,
+      "forearm_twist_projection_degrees": -152.4087091954019,
+      "forearm_share_70_degrees": -106.68609643678133,
+      "remaining_swing_degrees": 160.0613697022274,
+      "remaining_rotation_after70_percent_twist_degrees": 161.64172354735587
+    },
+    {
+      "source_seconds": 1.35,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.2034747489252183,
+      "forearm_twist_projection_degrees": -157.04319774713738,
+      "forearm_share_70_degrees": -109.93023842299615,
+      "remaining_swing_degrees": 156.05404511961885,
+      "remaining_rotation_after70_percent_twist_degrees": 158.07543074352748
+    },
+    {
+      "source_seconds": 1.3583333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.23245282541286139,
+      "forearm_twist_projection_degrees": -159.84234704848132,
+      "forearm_share_70_degrees": -111.88964293393691,
+      "remaining_swing_degrees": 152.7112265306578,
+      "remaining_rotation_after70_percent_twist_degrees": 155.10553312823174
+    },
+    {
+      "source_seconds": 1.3666666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.24528346021970093,
+      "forearm_twist_projection_degrees": -160.87679330016627,
+      "forearm_share_70_degrees": -112.61375531011637,
+      "remaining_swing_degrees": 151.2192700186356,
+      "remaining_rotation_after70_percent_twist_degrees": 153.78155445534586
+    },
+    {
+      "source_seconds": 1.375,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.24763401969428764,
+      "forearm_twist_projection_degrees": -161.05500724209318,
+      "forearm_share_70_degrees": -112.7385050694652,
+      "remaining_swing_degrees": 150.94516769880258,
+      "remaining_rotation_after70_percent_twist_degrees": 153.5384199636797
+    },
+    {
+      "source_seconds": 1.3833333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.2413718272045277,
+      "forearm_twist_projection_degrees": -160.57274422537768,
+      "forearm_share_70_degrees": -112.40092095776438,
+      "remaining_swing_degrees": 151.67487828929703,
+      "remaining_rotation_after70_percent_twist_degrees": 154.1857625605952
+    },
+    {
+      "source_seconds": 1.3916666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.2261924211782596,
+      "forearm_twist_projection_degrees": -159.29634206601537,
+      "forearm_share_70_degrees": -111.50743944621075,
+      "remaining_swing_degrees": 153.4365778700282,
+      "remaining_rotation_after70_percent_twist_degrees": 155.74956652991028
+    },
+    {
+      "source_seconds": 1.4,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.20774450387118243,
+      "forearm_twist_projection_degrees": -157.50287514057834,
+      "forearm_share_70_degrees": -110.25201259840485,
+      "remaining_swing_degrees": 155.56388442522783,
+      "remaining_rotation_after70_percent_twist_degrees": 157.63966174079033
+    },
+    {
+      "source_seconds": 1.4083333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.1861971328927956,
+      "forearm_twist_projection_degrees": -154.97734533890522,
+      "forearm_share_70_degrees": -108.48414173723364,
+      "remaining_swing_degrees": 158.0286362947634,
+      "remaining_rotation_after70_percent_twist_degrees": 159.83189489499185
+    },
+    {
+      "source_seconds": 1.4166666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.16136001216172663,
+      "forearm_twist_projection_degrees": -151.27508247593428,
+      "forearm_share_70_degrees": -105.89255773315398,
+      "remaining_swing_degrees": 160.84007830921897,
+      "remaining_rotation_after70_percent_twist_degrees": 162.33548717011678
+    },
+    {
+      "source_seconds": 1.425,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.13486465036479361,
+      "forearm_twist_projection_degrees": -145.93375214607656,
+      "forearm_share_70_degrees": -102.15362650225357,
+      "remaining_swing_degrees": 163.7964891708195,
+      "remaining_rotation_after70_percent_twist_degrees": 164.97175898028476
+    },
+    {
+      "source_seconds": 1.4333333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.10825463036718197,
+      "forearm_twist_projection_degrees": -138.2193009518953,
+      "forearm_share_70_degrees": -96.7535106663267,
+      "remaining_swing_degrees": 166.70360756667338,
+      "remaining_rotation_after70_percent_twist_degrees": 167.56818280386162
+    },
+    {
+      "source_seconds": 1.4416666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.0834659887229185,
+      "forearm_twist_projection_degrees": -127.3271200518842,
+      "forearm_share_70_degrees": -89.12898403631893,
+      "remaining_swing_degrees": 169.3214216070588,
+      "remaining_rotation_after70_percent_twist_degrees": 169.91080052665993
+    },
+    {
+      "source_seconds": 1.45,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.06130003178192628,
+      "forearm_twist_projection_degrees": -112.038374542808,
+      "forearm_share_70_degrees": -78.4268621799656,
+      "remaining_swing_degrees": 171.52838242334377,
+      "remaining_rotation_after70_percent_twist_degrees": 171.89082012017724
+    },
+    {
+      "source_seconds": 1.4583333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.04491946552269471,
+      "forearm_twist_projection_degrees": -94.78346139421284,
+      "forearm_share_70_degrees": -66.34842297594898,
+      "remaining_swing_degrees": 173.0078796355932,
+      "remaining_rotation_after70_percent_twist_degrees": 173.22230026077003
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.03247755687656556,
+      "forearm_twist_projection_degrees": -76.33808168956269,
+      "forearm_share_70_degrees": -53.43665718269388,
+      "remaining_swing_degrees": 173.98011258590077,
+      "remaining_rotation_after70_percent_twist_degrees": 174.10004042754105
+    },
+    {
+      "source_seconds": 1.475,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.026386480582607785,
+      "forearm_twist_projection_degrees": -65.12677820444453,
+      "forearm_share_70_degrees": -45.588744743111164,
+      "remaining_swing_degrees": 174.38476776541316,
+      "remaining_rotation_after70_percent_twist_degrees": 174.4662535924004
+    },
+    {
+      "source_seconds": 1.4833333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.026737182500493895,
+      "forearm_twist_projection_degrees": -65.81499876946457,
+      "forearm_share_70_degrees": -46.070499138625195,
+      "remaining_swing_degrees": 174.36302818360014,
+      "remaining_rotation_after70_percent_twist_degrees": 174.4465636499413
+    },
+    {
+      "source_seconds": 1.4916666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.030784830205525693,
+      "forearm_twist_projection_degrees": -73.37805063780299,
+      "forearm_share_70_degrees": -51.36463544646208,
+      "remaining_swing_degrees": 174.09807356676714,
+      "remaining_rotation_after70_percent_twist_degrees": 174.20673391469327
+    },
+    {
+      "source_seconds": 1.5,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.039723856026197435,
+      "forearm_twist_projection_degrees": -87.74685085398764,
+      "forearm_share_70_degrees": -61.422795597791335,
+      "remaining_swing_degrees": 173.4340776536221,
+      "remaining_rotation_after70_percent_twist_degrees": 173.60674587254442
+    },
+    {
+      "source_seconds": 1.5083333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.05328311046081102,
+      "forearm_twist_projection_degrees": -104.41757110589624,
+      "forearm_share_70_degrees": -73.09229977412737,
+      "remaining_swing_degrees": 172.27431634671106,
+      "remaining_rotation_after70_percent_twist_degrees": 172.561597786406
+    },
+    {
+      "source_seconds": 1.5166666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.07080261541336369,
+      "forearm_twist_projection_degrees": -119.46779837460883,
+      "forearm_share_70_degrees": -83.62745886222618,
+      "remaining_swing_degrees": 170.60366525171725,
+      "remaining_rotation_after70_percent_twist_degrees": 171.06046847649185
+    },
+    {
+      "source_seconds": 1.525,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.09211738586520324,
+      "forearm_twist_projection_degrees": -131.68454348481458,
+      "forearm_share_70_degrees": -92.1791804393702,
+      "remaining_swing_degrees": 168.42110171281365,
+      "remaining_rotation_after70_percent_twist_degrees": 169.10452742050632
+    },
+    {
+      "source_seconds": 1.5333333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.11693467192425627,
+      "forearm_twist_projection_degrees": -141.07943927724648,
+      "forearm_share_70_degrees": -98.75560749407252,
+      "remaining_swing_degrees": 165.76392676238436,
+      "remaining_rotation_after70_percent_twist_degrees": 166.72842526785374
+    },
+    {
+      "source_seconds": 1.5416666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.14484415707399528,
+      "forearm_twist_projection_degrees": -148.15786315152354,
+      "forearm_share_70_degrees": -103.71050420606647,
+      "remaining_swing_degrees": 162.68894240659876,
+      "remaining_rotation_after70_percent_twist_degrees": 163.98369227463917
+    },
+    {
+      "source_seconds": 1.55,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.17533346770861802,
+      "forearm_twist_projection_degrees": -153.48019711426957,
+      "forearm_share_70_degrees": -107.43613797998869,
+      "remaining_swing_degrees": 159.2625311349442,
+      "remaining_rotation_after70_percent_twist_degrees": 160.93028406934684
+    },
+    {
+      "source_seconds": 1.5583333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.2074603356263398,
+      "forearm_twist_projection_degrees": -157.47284706502637,
+      "forearm_share_70_degrees": -110.23099294551845,
+      "remaining_swing_degrees": 155.59653263758753,
+      "remaining_rotation_after70_percent_twist_degrees": 157.66868402280508
+    },
+    {
+      "source_seconds": 1.5666666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.24033751746805698,
+      "forearm_twist_projection_degrees": -160.4907405302176,
+      "forearm_share_70_degrees": -112.34351837115233,
+      "remaining_swing_degrees": 151.7952383392051,
+      "remaining_rotation_after70_percent_twist_degrees": 154.29255933522504
+    },
+    {
+      "source_seconds": 1.575,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.2734745849375023,
+      "forearm_twist_projection_degrees": -162.8170459420171,
+      "forearm_share_70_degrees": -113.97193215941198,
+      "remaining_swing_degrees": 147.9159433314732,
+      "remaining_rotation_after70_percent_twist_degrees": 150.85373520656546
+    },
+    {
+      "source_seconds": 1.5833333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.3063931205812098,
+      "forearm_twist_projection_degrees": -164.6398315310217,
+      "forearm_share_70_degrees": -115.2478820717152,
+      "remaining_swing_degrees": 144.01374986383289,
+      "remaining_rotation_after70_percent_twist_degrees": 147.40201213608555
+    },
+    {
+      "source_seconds": 1.5916666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.33864493108418187,
+      "forearm_twist_projection_degrees": -166.08762663296534,
+      "forearm_share_70_degrees": -116.26133864307573,
+      "remaining_swing_degrees": 140.1407925292325,
+      "remaining_rotation_after70_percent_twist_degrees": 143.98434383027995
+    },
+    {
+      "source_seconds": 1.6,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.3698238697418116,
+      "forearm_twist_projection_degrees": -167.25045067671283,
+      "forearm_share_70_degrees": -117.07531547369898,
+      "remaining_swing_degrees": 136.3457292068547,
+      "remaining_rotation_after70_percent_twist_degrees": 140.64427068372336
+    },
+    {
+      "source_seconds": 1.6083333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.39957611247869307,
+      "forearm_twist_projection_degrees": -168.19280463523677,
+      "forearm_share_70_degrees": -117.73496324466574,
+      "remaining_swing_degrees": 132.67302542467834,
+      "remaining_rotation_after70_percent_twist_degrees": 137.42120012018535
+    },
+    {
+      "source_seconds": 1.6166666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.42760625961002025,
+      "forearm_twist_projection_degrees": -168.96183701682796,
+      "forearm_share_70_degrees": -118.27328591177954,
+      "remaining_swing_degrees": 129.1623946703323,
+      "remaining_rotation_after70_percent_twist_degrees": 134.3498625816926
+    },
+    {
+      "source_seconds": 1.625,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.4536799606967826,
+      "forearm_twist_projection_degrees": -169.59262969368064,
+      "forearm_share_70_degrees": -118.71484078557644,
+      "remaining_swing_degrees": 125.84836269036181,
+      "remaining_rotation_after70_percent_twist_degrees": 131.4599192586002
+    },
+    {
+      "source_seconds": 1.6333333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.477623427172863,
+      "forearm_twist_projection_degrees": -170.1117018598669,
+      "forearm_share_70_degrees": -119.07819130190684,
+      "remaining_swing_degrees": 122.75997035129954,
+      "remaining_rotation_after70_percent_twist_degrees": 128.7757353193823
+    },
+    {
+      "source_seconds": 1.6416666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.49932160599525155,
+      "forearm_twist_projection_degrees": -170.53940713620239,
+      "forearm_share_70_degrees": -119.37758499534168,
+      "remaining_swing_degrees": 119.9204561163214,
+      "remaining_rotation_after70_percent_twist_degrees": 126.31617802586385
+    },
+    {
+      "source_seconds": 1.65,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5187125165525498,
+      "forearm_twist_projection_degrees": -170.89155385342158,
+      "forearm_share_70_degrees": -119.6240876973951,
+      "remaining_swing_degrees": 117.34731890864967,
+      "remaining_rotation_after70_percent_twist_degrees": 124.0947809751465
+    },
+    {
+      "source_seconds": 1.6583333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5357827072808723,
+      "forearm_twist_projection_degrees": -171.18058822650528,
+      "forearm_share_70_degrees": -119.8264117585537,
+      "remaining_swing_degrees": 115.05219853371236,
+      "remaining_rotation_after70_percent_twist_degrees": 122.11977483040177
+    },
+    {
+      "source_seconds": 1.6666666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5505603803592162,
+      "forearm_twist_projection_degrees": -171.4164147543124,
+      "forearm_share_70_degrees": -119.99149032801867,
+      "remaining_swing_degrees": 113.04109400230703,
+      "remaining_rotation_after70_percent_twist_degrees": 120.394422325414
+    },
+    {
+      "source_seconds": 1.675,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5631104514041997,
+      "forearm_twist_projection_degrees": -171.60702638342426,
+      "forearm_share_70_degrees": -120.12491846839697,
+      "remaining_swing_degrees": 111.31441240994336,
+      "remaining_rotation_after70_percent_twist_degrees": 118.91720502441972
+    },
+    {
+      "source_seconds": 1.6833333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5735289302257468,
+      "forearm_twist_projection_degrees": -171.75895953636697,
+      "forearm_share_70_degrees": -120.23127167545688,
+      "remaining_swing_degrees": 109.86723821051538,
+      "remaining_rotation_after70_percent_twist_degrees": 117.68218424441794
+    },
+    {
+      "source_seconds": 1.6916666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5819397515561768,
+      "forearm_twist_projection_degrees": -171.87766650130663,
+      "forearm_share_70_degrees": -120.31436655091464,
+      "remaining_swing_degrees": 108.68942019533087,
+      "remaining_rotation_after70_percent_twist_degrees": 116.6791794859827
+    },
+    {
+      "source_seconds": 1.7,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5884926621507343,
+      "forearm_twist_projection_degrees": -171.96781169560785,
+      "forearm_share_70_degrees": -120.37746818692548,
+      "remaining_swing_degrees": 107.76566898957557,
+      "remaining_rotation_after70_percent_twist_degrees": 115.89392289491184
+    },
+    {
+      "source_seconds": 1.7083333333333333,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5933620769541723,
+      "forearm_twist_projection_degrees": -172.03351464387475,
+      "forearm_share_70_degrees": -120.42346025071232,
+      "remaining_swing_degrees": 107.07567275323578,
+      "remaining_rotation_after70_percent_twist_degrees": 115.30819220541417
+    },
+    {
+      "source_seconds": 1.7166666666666666,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5967483764784732,
+      "forearm_twist_projection_degrees": -172.07857685713168,
+      "forearm_share_70_degrees": -120.45500379999217,
+      "remaining_swing_degrees": 106.59400376192357,
+      "remaining_rotation_after70_percent_twist_degrees": 114.89973001838695
+    },
+    {
+      "source_seconds": 1.725,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.5988796745000624,
+      "forearm_twist_projection_degrees": -172.1066784382323,
+      "forearm_share_70_degrees": -120.47467490676263,
+      "remaining_swing_degrees": 106.29006521995093,
+      "remaining_rotation_after70_percent_twist_degrees": 114.64216648748169
+    },
+    {
+      "source_seconds": 1.7333333333333334,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.6000153277664313,
+      "forearm_twist_projection_degrees": -172.1215711051917,
+      "forearm_share_70_degrees": -120.48509977363418,
+      "remaining_swing_degrees": 106.12786382593566,
+      "remaining_rotation_after70_percent_twist_degrees": 114.50477150778048
+    },
+    {
+      "source_seconds": 1.7416666666666667,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.6004491544489644,
+      "forearm_twist_projection_degrees": -172.12724539729507,
+      "forearm_share_70_degrees": -120.48907177810655,
+      "remaining_swing_degrees": 106.06585592720504,
+      "remaining_rotation_after70_percent_twist_degrees": 114.4522574985691
+    },
+    {
+      "source_seconds": 1.75,
+      "roll_degrees_unwrapped": 184.73194899036966,
+      "forearm_axis_dot_blade_axis": 0.6005133055835469,
+      "forearm_twist_projection_degrees": -172.12808377781715,
+      "forearm_share_70_degrees": -120.48965864447199,
+      "remaining_swing_degrees": 106.05668448917372,
+      "remaining_rotation_after70_percent_twist_degrees": 114.44449078012538
+    }
+  ],
+  "warning": "The forearm axis is near-perpendicular to blade axis; full twist decomposition leaves >150 degrees of swing during active. Twist sharing alone does not establish a natural wrist. Roll also changes offset blade-point velocities and positions; audit actual encoded v4 and true steel surface/BVH.",
+  "free_wrist_native_local_proposal": {
+    "method": "Exact nearest shoulder-sphere elbow: E=S+u*normalize(Wold-l*D*f-S); Wnew=E+l*D*f; Fworld=D*oldFworld; Hworld=D*oldHworld, so exact old wrist-local orientation.",
+    "measurements": [
+      {
+        "t": 0.9,
+        "shoulder": [
+          -0.19846935617892678,
+          1.2878120473175854,
+          0.20416073070737717
+        ],
+        "old_elbow": [
+          -0.1951363127647643,
+          1.2116159363912051,
+          0.42834943751084187
+        ],
+        "new_elbow": [
+          -0.0921858734889307,
+          1.356760327297386,
+          0.40422944078476064
+        ],
+        "old_wrist": [
+          -0.09458032430204914,
+          1.3612236704519,
+          0.5184129671436115
+        ],
+        "new_wrist": [
+          -0.2241839455663705,
+          1.277147137211147,
+          0.27444627851579195
+        ],
+        "wrist_displacement": [
+          -0.12960362126432134,
+          -0.08407653324075315,
+          -0.24396668862781956
+        ],
+        "axis": [
+          0.02412386196714359,
+          0.6791377371670381,
+          -0.733614321860898
+        ],
+        "edge": [
+          0.4649674020992718,
+          0.6420038551886657,
+          0.6096198527836385
+        ],
+        "roll_degrees": 191.9666053658085,
+        "normal": [
+          0.8849990702078983,
+          -0.3558131305594637,
+          -0.30028929693319034
+        ],
+        "tip": [
+          -0.2648134955661368,
+          1.7534821101113294,
+          -0.3093994256553795
+        ],
+        "mid": [
+          -0.27350623677858166,
+          1.5087630595364647,
+          -0.04505039819180079
+        ],
+        "base": [
+          -0.28219897799102656,
+          1.2640440089616003,
+          0.21929862927177807
+        ],
+        "tip_motion": {
+          "velocity": [
+            0.06598033453720786,
+            3.101328232262901,
+            4.099961113206357
+          ],
+          "speed": 5.141232472722944,
+          "edge_tangent_cosine": 0.8931835192637767,
+          "edge_full_velocity_cosine": 0.8793924609121213,
+          "axis_velocity_cosine": -0.17504935988434023,
+          "normal_velocity_cosine": -0.44274893709076957
+        },
+        "mid_motion": {
+          "velocity": [
+            -0.05768018784410911,
+            0.7788761095155561,
+            1.927698486195324
+          ],
+          "speed": 2.079902990940578,
+          "edge_tangent_cosine": 0.8761179130542872,
+          "edge_full_velocity_cosine": 0.7925299076324048,
+          "axis_velocity_cosine": -0.42627686575009194,
+          "normal_velocity_cosine": -0.4361013405556674
+        }
+      },
+      {
+        "t": 1.0,
+        "shoulder": [
+          -0.2436035727713716,
+          1.212262820791729,
+          0.08651699782349491
+        ],
+        "old_elbow": [
+          -0.2493780098521536,
+          0.9767387977474552,
+          0.11044666864451679
+        ],
+        "new_elbow": [
+          -0.2159819815899214,
+          1.0076368812549241,
+          0.20246013591043266
+        ],
+        "old_wrist": [
+          -0.17222401589017433,
+          0.8635918915357141,
+          0.2582656845272023
+        ],
+        "new_wrist": [
+          -0.21369043609930563,
+          1.1707829269391985,
+          0.0842081201857595
+        ],
+        "wrist_displacement": [
+          -0.0414664202091313,
+          0.30719103540348436,
+          -0.17405756434144276
+        ],
+        "axis": [
+          0.047745085480101646,
+          0.6995476142164403,
+          0.7129891599853284
+        ],
+        "edge": [
+          -0.11693082279608186,
+          -0.7049809341003874,
+          0.6995205967197652
+        ],
+        "roll_degrees": 157.39068771161152,
+        "normal": [
+          0.9919917285404799,
+          -0.11676907980724861,
+          0.04813930315489952
+        ],
+        "tip": [
+          -0.19965233056181306,
+          1.748192704497557,
+          0.5698234367045577
+        ],
+        "mid": [
+          -0.21685669029529886,
+          1.496119246367563,
+          0.3129064813547623
+        ],
+        "base": [
+          -0.2340610500287847,
+          1.244045788237569,
+          0.05598952600496672
+        ],
+        "tip_motion": {
+          "velocity": [
+            -2.8401838802738477,
+            -10.401828432238363,
+            9.528563133662358
+          ],
+          "speed": 14.389516829959206,
+          "edge_tangent_cosine": 0.996828100154947,
+          "edge_full_velocity_cosine": 0.9959070968824209,
+          "axis_velocity_cosine": -0.04297690243353525,
+          "normal_velocity_cosine": -0.07951125855152041
+        },
+        "mid_motion": {
+          "velocity": [
+            -1.64902472949077,
+            -5.325287262015195,
+            4.516450838265609
+          ],
+          "speed": 7.174698262360831,
+          "edge_tangent_cosine": 0.993776267099378,
+          "edge_full_velocity_cosine": 0.9904804261217104,
+          "axis_velocity_cosine": -0.08137545513253747,
+          "normal_velocity_cosine": -0.11102504569567641
+        }
+      },
+      {
+        "t": 1.1,
+        "shoulder": [
+          -0.30198776388975074,
+          1.1593680161107565,
+          0.05103509311791128
+        ],
+        "old_elbow": [
+          -0.28709795702296825,
+          0.9420791251667904,
+          -0.04192370539098622
+        ],
+        "new_elbow": [
+          -0.20081367069632422,
+          0.9456328384472119,
+          0.06362808291491914
+        ],
+        "old_wrist": [
+          -0.17707732169096646,
+          0.7813318082826163,
+          0.009662903608020294
+        ],
+        "new_wrist": [
+          -0.3227086073410206,
+          1.0889849606788178,
+          -0.008463607205475426
+        ],
+        "wrist_displacement": [
+          -0.14563128565005412,
+          0.3076531523962015,
+          -0.01812651081349572
+        ],
+        "axis": [
+          -0.06774184565829931,
+          0.33110996994322955,
+          0.9411573886183972
+        ],
+        "edge": [
+          0.5016660698224564,
+          -0.8040963293530888,
+          0.31899882054606254
+        ],
+        "roll_degrees": 184.73194899036966,
+        "normal": [
+          0.8624048914145244,
+          0.4937562970991686,
+          -0.11163566786300971
+        ],
+        "tip": [
+          -0.434165959554252,
+          1.3782091501841218,
+          0.6795390154241439
+        ],
+        "mid": [
+          -0.40975601966091935,
+          1.258897749884133,
+          0.34040454007749554
+        ],
+        "base": [
+          -0.3853460797675868,
+          1.1395863495841443,
+          0.0012700647308471757
+        ],
+        "tip_motion": {
+          "velocity": [
+            -0.3589049137648881,
+            -0.5576888824738901,
+            0.5739296285735307
+          ],
+          "speed": 0.8770546421484291,
+          "edge_tangent_cosine": 0.5710825980448285,
+          "edge_full_velocity_cosine": 0.5147547469509586,
+          "axis_velocity_cosine": 0.4330569891395384,
+          "normal_velocity_cosine": -0.739925127731754
+        },
+        "mid_motion": {
+          "velocity": [
+            -0.17878773615854326,
+            -0.3249385687388795,
+            0.5052853652988687
+          ],
+          "speed": 0.6267881846684569,
+          "edge_tangent_cosine": 0.6676816658867293,
+          "edge_full_velocity_cosine": 0.5309219496577104,
+          "axis_velocity_cosine": 0.6063835849310732,
+          "normal_velocity_cosine": -0.5919635388246436
+        }
+      }
+    ],
+    "status": "Numeric proposal only; actual generated GLB and surface review pending."
+  },
+  "free_wrist_plus60deg_sagittal_proposal": {
+    "method": "Same exact native wrist-local construction, add prepared +X pitch to whole forearm+hand desired world orientation; pitch envelope peak*smooth((t-.75)/.25)*(1-smooth((t-1.15)/.45)).",
+    "measurements": [
+      {
+        "t": 0.9,
+        "shoulder": [
+          -0.19846935617892678,
+          1.2878120473175854,
+          0.20416073070737717
+        ],
+        "new_elbow": [
+          -0.0916979676968613,
+          1.309752605183955,
+          0.4143892142176764
+        ],
+        "new_wrist": [
+          -0.22369603977430108,
+          1.3346915548069629,
+          0.26418942048964833
+        ],
+        "axis": [
+          0.02412386196714359,
+          0.9937581782133775,
+          -0.10891612606872936
+        ],
+        "edge": [
+          0.4649674020992718,
+          0.08529351167260935,
+          0.8812095845209633
+        ],
+        "roll_degrees": 191.9666053658085,
+        "pitch_degrees": 40.95360000000002,
+        "normal": [
+          0.8849990702078981,
+          -0.07190062656600152,
+          -0.46000754953649625
+        ],
+        "tip": [
+          -0.2643255897740674,
+          2.0771193605898075,
+          0.13545804945904444
+        ],
+        "mid": [
+          -0.2730183309865123,
+          1.7190306481471205,
+          0.1747046551255412
+        ],
+        "base": [
+          -0.2817110721989571,
+          1.3609419357044332,
+          0.2139512607920382
+        ],
+        "tip_motion": {
+          "velocity": [
+            -0.014141275404113696,
+            0.6970270432734971,
+            11.802457483272544
+          ],
+          "speed": 11.823030462583642,
+          "edge_tangent_cosine": 0.8852633040602943,
+          "normal_velocity_cosine": -0.4645045328689595
+        },
+        "mid_motion": {
+          "velocity": [
+            -0.13780179778543067,
+            0.09174767377071902,
+            6.052249703052372
+          ],
+          "speed": 6.054513476672817,
+          "edge_tangent_cosine": 0.8754966599780745,
+          "normal_velocity_cosine": -0.481067842106428
+        }
+      },
+      {
+        "t": 1.0,
+        "shoulder": [
+          -0.2436035727713716,
+          1.212262820791729,
+          0.08651699782349491
+        ],
+        "new_elbow": [
+          -0.21355862530819056,
+          0.9806229582310105,
+          0.1254761290374753
+        ],
+        "new_wrist": [
+          -0.21126707981757478,
+          1.1646052307394317,
+          0.20763874126469695
+        ],
+        "axis": [
+          0.047745085480101646,
+          -0.2676929180620016,
+          0.9623205850608977
+        ],
+        "edge": [
+          -0.11693082279608188,
+          -0.95829307427996,
+          -0.26077109975473617
+        ],
+        "roll_degrees": 157.39068771161152,
+        "pitch_degrees": 59.99999999999999,
+        "normal": [
+          0.9919917285404799,
+          -0.10007439935624765,
+          -0.07705533791216004
+        ],
+        "tip": [
+          -0.1972289742800822,
+          1.0327549189465108,
+          0.9504979352831564
+        ],
+        "mid": [
+          -0.214433334013568,
+          1.129214799877389,
+          0.6037374392478908
+        ],
+        "base": [
+          -0.23163769374705384,
+          1.2256746808082672,
+          0.2569769432126252
+        ],
+        "tip_motion": {
+          "velocity": [
+            -2.7994641225242276,
+            -18.28832279009641,
+            -4.648020451432755
+          ],
+          "speed": 19.076263889058495,
+          "edge_tangent_cosine": 0.9995236007817083,
+          "normal_velocity_cosine": -0.03086021206006008
+        },
+        "mid_motion": {
+          "velocity": [
+            -1.6083049717411502,
+            -11.407432681398113,
+            -2.757271697381296
+          ],
+          "speed": 11.845619970095992,
+          "edge_tangent_cosine": 0.9997922251914659,
+          "normal_velocity_cosine": -0.020376371469115986
+        }
+      },
+      {
+        "t": 1.1,
+        "shoulder": [
+          -0.30198776388975074,
+          1.1593680161107565,
+          0.05103509311791128
+        ],
+        "new_elbow": [
+          -0.20175049770300008,
+          0.9513658021786784,
+          -0.0015488983925018227
+        ],
+        "new_wrist": [
+          -0.3236454343476965,
+          1.0854750983404986,
+          0.08655183608628347
+        ],
+        "axis": [
+          -0.06774184565829933,
+          -0.6495112225313405,
+          0.7573283397263374
+        ],
+        "edge": [
+          0.5016660698224564,
+          -0.678309247046708,
+          -0.5368684380365624
+        ],
+        "roll_degrees": 184.73194899036966,
+        "pitch_degrees": 59.99999999999999,
+        "normal": [
+          0.8624048914145244,
+          0.34355747288739275,
+          0.3717876626349118
+        ],
+        "tip": [
+          -0.43510278656092793,
+          0.6342594440255819,
+          0.6810286429016511
+        ],
+        "mid": [
+          -0.4106928466675953,
+          0.8683028148248924,
+          0.40813470160744225
+        ],
+        "base": [
+          -0.3862829067742627,
+          1.1023461856242027,
+          0.1352407603132335
+        ],
+        "tip_motion": {
+          "velocity": [
+            -0.33157507182066004,
+            -0.4802171949564471,
+            -0.24667408920823863
+          ],
+          "speed": 0.6335603277284872,
+          "edge_tangent_cosine": 0.47363939672523336,
+          "normal_velocity_cosine": -0.856500208512813
+        },
+        "mid_motion": {
+          "velocity": [
+            -0.15145789421431521,
+            -0.3043943622690204,
+            -0.07942853641224712
+          ],
+          "speed": 0.34914798280613046,
+          "edge_tangent_cosine": 0.5473492927415277,
+          "normal_velocity_cosine": -0.7582043993142509
+        }
+      }
+    ],
+    "status": "Numerical candidate, not accepted or surface checked."
+  }
+}

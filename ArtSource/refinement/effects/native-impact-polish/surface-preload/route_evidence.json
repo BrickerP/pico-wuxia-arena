@@ -1,0 +1,249 @@
+{
+  "schema": "pico-surface-route-audit/v1",
+  "date": "2026-11-13",
+  "finding": "presentResolvedSurface has no production caller; surface witness chain absent",
+  "searches": [
+    {
+      "scope": [
+        "app/src/main",
+        "app/src/test"
+      ],
+      "tool": "rg -n --glob *.kt",
+      "pattern": "presentResolvedSurface|SurfaceContact|ResolvedSurface|wet.?cloth|WET_CLOTH|DODGE_GROUND|LANDING_GROUND|ContactParticleEmitter|CombatEffects\\.load|effects\\.present|combatEffects",
+      "presentResolvedSurface_matches": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+          "line": 112,
+          "kind": "definition"
+        }
+      ],
+      "production_callers": 0,
+      "retry": "none; no second search of absent caller"
+    },
+    {
+      "scope": [
+        "app/src/main",
+        "app/src/test"
+      ],
+      "tool": "rg -n --glob *.kt",
+      "pattern": "CONTACT_EFFECT_DEFINITIONS|ContactEffectDefinition|surfaceWitness|materialWitness|groundWitness|wetCloth|landingContact|dodgeContact|WetCloth|LandingContact|DodgeContact",
+      "named_witness_producer_matches": 0,
+      "catalog_runtime_consumer": "ContactParticleEmitter.load"
+    }
+  ],
+  "live_chain": [
+    {
+      "edge": "Main creates ArenaSession and installs presenter that forwards state/events to enemyPresenter",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/Main.kt",
+        "sha256": "e689c605837775e27fd2a008f3d1cb4ba7fc16c1c32a8e5fdc5f8399e66bb727",
+        "first_line": 46,
+        "last_line": 71,
+        "source": "46:                 val arena = remember { ArenaSession(savedBestScore = preferences.getInt(\"best_score\", 0)) }\n47:                 val audio = remember(context) { CombatAudio(context) }\n48:                 val haptics = rememberUpdatedState(LocalHandControllerHaptic.current)\n49:                 val hapticContacts = remember(arena) { CombatHapticContacts() }\n50:                 val viewState = remember { mutableStateOf(arena.viewState) }\n51:                 val trackingControls = remember { mutableStateOf<TrackingControls?>(null) }\n52:                 val enemyPresenter = remember { mutableStateOf<ArenaPresenter?>(null) }\n53:                 val pendingControl = remember { mutableStateOf<PendingControlRequest?>(null) }\n54: \n55:                 DisposableEffect(arena, audio) {\n56:                     arena.setArenaPresenter { state, events ->\n57:                         val previous = viewState.value\n58:                         if (shouldPublishHudState(previous, state)) viewState.value = state\n59:                         val pending = pendingControl.value\n60:                         val completed = when (pending?.kind) {\n61:                             PendingControlKind.PAUSE -> state.pauseReason != null\n62:                             PendingControlKind.RESTART -> state.roundGeneration != pending.roundGeneration\n63:                             null -> false\n64:                         }\n65:                         if (completed) pendingControl.value = null\n66:                         try {\n67:                             enemyPresenter.value?.invoke(state, events)\n68:                         } catch (error: Exception) {\n69:                             Log.w(\"ArenaFeedback\", \"Scene presentation is unavailable\", error)\n70:                         }\n71:                         audio.present(state, events)"
+      }
+    },
+    {
+      "edge": "Main HomeStage supplies onEnemyPresenter callback",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/Main.kt",
+        "sha256": "e689c605837775e27fd2a008f3d1cb4ba7fc16c1c32a8e5fdc5f8399e66bb727",
+        "first_line": 103,
+        "last_line": 110,
+        "source": "103:                 HomeStage(\n104:                     onEnemyGeometry = arena::setEnemyGeometry,\n105:                     onOpponentChange = arena::beginOpponentChange,\n106:                     onPlayerHandPresenter = arena::setPlayerHandPresenter,\n107:                     onEnemyPresenter = { presenter ->\n108:                         enemyPresenter.value = presenter\n109:                         presenter?.invoke(arena.viewState, emptyList())\n110:                     },"
+      }
+    },
+    {
+      "edge": "ArenaSession.publish invokes ArenaPresenter(ArenaViewState, List<EnemyCombatEvent>)",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+        "sha256": "2f6fa5a014f61e0c171138037fc40631dcf15c03673a6f61d0615c52e5e34e3f",
+        "first_line": 1073,
+        "last_line": 1083,
+        "source": "1073:     private fun publish(events: List<EnemyCombatEvent> = emptyList()) {\n1074:         try {\n1075:             arenaPresenter?.invoke(viewState, events.toList())\n1076:         } catch (error: Exception) {\n1077:             logFailure(\"Arena presentation failed\", error)\n1078:         } finally {\n1079:             // Presentation failure must not leave combat permanently waiting for a callback.\n1080:             hitStopAwaitingPresentation = false\n1081:         }\n1082:     }\n1083: }"
+      }
+    },
+    {
+      "edge": "HomeStage registers SceneOwner.presentArena",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt",
+        "sha256": "853469d4095497e8b1b8377f618378b76c9e8f253776d0faccdfb44649c6fd44",
+        "first_line": 647,
+        "last_line": 652,
+        "source": "647:                 val bounds = model.getVisualBounds(null)\n648:                 Log.i(TAG, \"Tavern attached; stage bounds center=${bounds.center}, size=${bounds.size}\")\n649:             } catch (error: Exception) {\n650:                 Log.w(TAG, \"Tavern attached but visual bounds are unavailable\", error)\n651:             }\n652:             onEnemyPresenter(owner::presentArena)"
+      }
+    },
+    {
+      "edge": "SceneOwner.presentArena calls effects.present(state,events)",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt",
+        "sha256": "853469d4095497e8b1b8377f618378b76c9e8f253776d0faccdfb44649c6fd44",
+        "first_line": 135,
+        "last_line": 146,
+        "source": "135:         if (!enemy.valid) return\n136:         state.enemyPosition?.let { position ->\n137:             val displayPosition = position + state.enemyRecoilOffset\n138:             val transform = checkNotNull(enemy.components[TransformComponent::class.java])\n139:             transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))\n140:             val halfYaw = state.enemyYawRadians / 2f\n141:             transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))\n142:             panelAnchors[STATUS_PANEL_ID]?.let { anchor ->\n143:                 val readablePosition = readableStatusPosition(position, state.playerHeadPosition, statusPanelY.toDouble())\n144:                 val location = Vector3(readablePosition.x.toFloat(), readablePosition.y.toFloat(), readablePosition.z.toFloat())\n145:                 val facing = readableStatusRotation(readablePosition, state.playerHeadPosition)\n146:                 val rotation = Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())"
+      }
+    },
+    {
+      "edge": "CombatEffects.present routes non-force CombatImpact only to SOFT or METAL",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+        "sha256": "185b6bad2b5989d5b1386582ac198b609211965c896c0e1a5af68c2a217b24d5",
+        "first_line": 86,
+        "last_line": 107,
+        "source": "86:         for (impact in currentContactImpacts(impacts, state.simulationNanos)) {\n87:             val accent = CombatFeedbackProfile.accent(impact)\n88:             val scale = ((0.72 + 0.46 * accent.strength).toFloat() * accent.visualScale).coerceIn(0.75f, 1.5f)\n89:             val age = state.simulationNanos - impact.atNanos\n90:             if (impact.kind == CombatImpactKind.SKILL || impact.kind == CombatImpactKind.EXECUTION) {\n91:                 val slot = forceSlots.filter { !it.failed && it.anchor.valid && it !in reservedForce }\n92:                     .minWithOrNull(compareBy<ForceSlot> { it.start != null }.thenBy { it.start ?: Long.MIN_VALUE }) ?: continue\n93:                 reservedForce.add(slot)\n94:                 emitForce(slot, impact, scale, now, age)\n95:             } else {\n96:                 val family = when (impact.kind) {\n97:                     CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> ContactEffectFamily.SOFT\n98:                     else -> ContactEffectFamily.METAL\n99:                 }\n100:                 val accepted = particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,\n101:                     parry = impact.kind == CombatImpactKind.PARRY, size = scale,\n102:                     softBodyCut = impact.kind == CombatImpactKind.SOFT_HIT && impact.zone == HitZone.BODY)\n103:                 // Receipt evidence only: a consumed event does not prove SDK pixels or native input.\n104:                 val mode = if (ContactBasis.from(impact.normal, impact.tangent) != null) \"core_particles\" else \"core_only\"\n105:                 Log.i(TAG, \"Contact consumed id=${impact.id} kind=${impact.kind} family=$family \" +\n106:                     \"accepted=$accepted mode=$mode ageNs=$age round=${state.roundGeneration} origin=${state.inputOrigin}\")\n107:             }"
+      }
+    },
+    {
+      "edge": "HomeStage preload awaits CombatEffects.load before player weapon and final presenter registration",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt",
+        "sha256": "853469d4095497e8b1b8377f618378b76c9e8f253776d0faccdfb44649c6fd44",
+        "first_line": 585,
+        "last_line": 600,
+        "source": "585:             val effects = CombatEffects.load(root)\n586:             if (owner.root !== root) {\n587:                 effects.close()\n588:                 return@SpatialView\n589:             }\n590:             owner.effects = effects\n591:             owner.bladeTrail = PlayerBladeTrail(root)\n592: \n593:             playerWeapon = Entity.loadSuspend(PLAYER_DAO_ASSET)\n594:             if (owner.root !== root) {\n595:                 playerWeapon.destroy()\n596:                 return@SpatialView\n597:             }\n598:             playerWeapon.enabled = false\n599:             check(root.addChild(playerWeapon)) { \"Could not attach player dao\" }\n600:             playerWeaponAttached = true"
+      }
+    },
+    {
+      "edge": "CombatEffects.load awaits ContactParticleEmitter.load",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+        "sha256": "185b6bad2b5989d5b1386582ac198b609211965c896c0e1a5af68c2a217b24d5",
+        "first_line": 162,
+        "last_line": 177,
+        "source": "162:     companion object {\n163:         private const val TAG = \"ArenaEffects\"\n164:         suspend fun load(root: Entity): CombatEffects {\n165:             val particles = ContactParticleEmitter.load(root)\n166:             val force = mutableListOf<ForceSlot>()\n167:             try {\n168:                 repeat(2) { force.add(loadForce(root)) }\n169:                 return CombatEffects(root, particles, force)\n170:             } catch (error: Exception) {\n171:                 particles.close()\n172:                 force.forEach { try { it.anchor.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) } }\n173:                 throw error\n174:             }\n175:         }\n176: \n177:         private suspend fun loadForce(root: Entity): ForceSlot {"
+      }
+    },
+    {
+      "edge": "ContactParticleEmitter.load currently loads every catalog family",
+      "evidence": {
+        "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt",
+        "sha256": "b4619ea134262c44d2659e5a54dcc9fba6161d961d5c9051f11907ce43ac9f8d",
+        "first_line": 160,
+        "last_line": 174,
+        "source": "160: \n161:     companion object {\n162:         suspend fun load(root: Entity): ContactParticleEmitter {\n163:             val owned = mutableListOf<Slot>()\n164:             try {\n165:                 for (definition in CONTACT_EFFECT_DEFINITIONS) {\n166:                     val count = if (definition.family == ContactEffectFamily.SOFT || definition.family == ContactEffectFamily.METAL) 3 else 1\n167:                     repeat(count) { owned.add(loadSlot(root, definition)) }\n168:                 }\n169:                 return ContactParticleEmitter(root, owned)\n170:             } catch (error: Exception) {\n171:                 owned.forEach { try { it.anchor.destroy() } catch (cleanup: Exception) { error.addSuppressed(cleanup) } }\n172:                 throw error\n173:             }\n174:         }"
+      }
+    }
+  ],
+  "missing_surface_routes": [
+    {
+      "family": "WET_CLOTH",
+      "caller": "none",
+      "witness": "CombatImpact/MotionContact carry geometric point/normal/tangent/zone only; BODY/SOFT is not a wet-material fact",
+      "prohibited_surrogate": "SOFT_HIT/BODY or rain ambiance cannot imply wet clothing",
+      "evidence": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt",
+          "sha256": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+          "first_line": 6,
+          "last_line": 25,
+          "source": "6: enum class CombatImpactKind {\n7:     SOFT_HIT, HARD_HIT, GUARDED_HIT, BLOCK, PARRY, PLAYER_HIT, SKILL, EXECUTION,\n8: }\n9: \n10: /** A resolved physical contact, expressed in Stage metres and emitted once. */\n11: data class CombatImpact(\n12:     val id: Long,\n13:     val kind: CombatImpactKind,\n14:     val point: Vector3,\n15:     val normal: Vector3,\n16:     val strength: Double,\n17:     val hand: Hand,\n18:     override val atNanos: Long,\n19:     /** Actual enemy health removed by this contact, after guard and remaining health. */\n20:     val appliedDamage: Int = 0,\n21:     val zone: HitZone? = null,\n22:     val fatal: Boolean = false,\n23:     /** Real cutting direction at this contact in Stage space; absent for a resting/unknown blade. */\n24:     val tangent: Vector3? = null,\n25: ) : EnemyCombatEvent {"
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt",
+          "sha256": "133e0c0a50b2458fe90946d6a4edc624c490c88b423dcf7672ebca459ad71099",
+          "first_line": 15,
+          "last_line": 26,
+          "source": "15: enum class HitZone { BODY, HEAD }\n16: \n17: data class MotionContact(\n18:     val zone: HitZone,\n19:     val point: Vector3,\n20:     val normal: Vector3,\n21:     /** Unit Stage direction of the blade at the contact witness, before surface-plane projection. */\n22:     val tangent: Vector3? = null,\n23: )\n24: \n25: data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val bodyTop: Vector3) {\n26:     fun isFinite(): Boolean = head.isFinite() && bodyBottom.isFinite() && bodyTop.isFinite()"
+        }
+      ]
+    },
+    {
+      "family": "DODGE_GROUND",
+      "caller": "none",
+      "witness": "AttackOutcome.MISSED awards DODGE feedback then returns without a ground point/normal/material/ground displacement event",
+      "prohibited_surrogate": "CombatFeedback.DODGE is not physical ground contact",
+      "evidence": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+          "sha256": "2f6fa5a014f61e0c171138037fc40631dcf15c03673a6f61d0615c52e5e34e3f",
+          "first_line": 449,
+          "last_line": 464,
+          "source": "449:         val target = enemyPosition ?: return\n450:         val frame = latestMotion\n451:         val receiptNow = lastTickTime ?: return\n452:         synchronizeAttackBaseline()\n453:         // Availability changes come from the tracking owner. Missing combat data cannot grant invulnerability.\n454:         var outcome = if (frame == null) AttackOutcome.HIT_PLAYER else {\n455:             motion.resolveDefense(id, checkNotNull(combat.currentAttackDirection), target, receiptNow)\n456:         }\n457:         resolvedContactId = id\n458:         if (outcome == AttackOutcome.MISSED) {\n459:             stamina = (stamina - 15.0).coerceAtLeast(0.0)\n460:             focus = (focus + 12.0).coerceAtMost(100.0)\n461:             score += 15\n462:             notifyFeedback(CombatFeedback.DODGE)\n463:             return\n464:         }"
+        }
+      ]
+    },
+    {
+      "family": "LANDING_GROUND",
+      "caller": "none",
+      "witness": "ArenaViewState exposes deathElapsedSeconds but no resolved body-ground contact; EnemyCombatEvent has phase/damage/attack/pause/reset, no landing contact",
+      "prohibited_surrogate": "DEAD state or fixed seconds cannot be used as actual contact",
+      "evidence": [
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+          "sha256": "2f6fa5a014f61e0c171138037fc40631dcf15c03673a6f61d0615c52e5e34e3f",
+          "first_line": 72,
+          "last_line": 105,
+          "source": "72:     val roundCount: Int = 3,\n73:     val remainingSeconds: Int = 180,\n74:     val countdownSeconds: Int = 0,\n75:     val feedback: CombatFeedback? = null,\n76:     val feedbackSequence: Long = 0,\n77:     val enemyPosition: Vector3? = null,\n78:     val enemyYawRadians: Float = 0f,\n79:     val hitStop: Boolean = false,\n80:     val executionAvailable: Boolean = false,\n81:     val executing: Boolean = false,\n82:     val deathElapsedSeconds: Float = 0f,\n83:     val dominantHand: Hand = Hand.RIGHT,\n84:     val enemyName: String = \"刀客\",\n85:     val enemyTravelMeters: Double = 0.0,\n86:     val enemyGaitMeters: Double = 0.0,\n87:     val enemyMoveDirection: Float = 0f,\n88:     val motionCharge: Float = 0f,\n89:     val playerBladeBase: Vector3? = null,\n90:     val playerBladeTip: Vector3? = null,\n91:     val playerHeadPosition: Vector3? = null,\n92:     val motionReleaseRequired: Boolean = false,\n93:     val enemyHitZone: HitZone? = null,\n94:     val enemyRecoilOffset: Vector3 = Vector3(0.0, 0.0, 0.0),\n95:     val playerBladeTipSpeed: Double = 0.0,\n96:     val playerBladeAtRest: Boolean = true,\n97:     val playerMotionGeneration: Long = 0L,\n98:     val enemyBladeBase: Vector3? = null,\n99:     val enemyBladeTip: Vector3? = null,\n100:     val enemyRecoveryFromContact: Boolean = false,\n101: )\n102: \n103: internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit\n104: \n105: /** One-thread owner of trial state, tracking gates and presentation delivery. */"
+        },
+        {
+          "path": "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+          "sha256": "bf269e9c4ba16520cafaf9c6a4271e60d5ca8a557f61986c438c98338719b719",
+          "first_line": 38,
+          "last_line": 92,
+          "source": "38:     val atNanos: Long\n39: \n40:     data class PhaseChanged(\n41:         val previous: EnemyPhase,\n42:         val current: EnemyPhase,\n43:         override val atNanos: Long,\n44:     ) : EnemyCombatEvent\n45: \n46:     data class AttackStarted(\n47:         val attackId: Long,\n48:         val direction: AttackDirection,\n49:         val counterattack: Boolean,\n50:         override val atNanos: Long,\n51:     ) : EnemyCombatEvent\n52: \n53:     data class AttackResolved(\n54:         val attackId: Long,\n55:         val outcome: AttackOutcome,\n56:         override val atNanos: Long,\n57:     ) : EnemyCombatEvent\n58: \n59:     data class AttackCancelled(\n60:         val attackId: Long,\n61:         val reason: AttackCancelReason,\n62:         override val atNanos: Long,\n63:     ) : EnemyCombatEvent\n64: \n65:     data class EnemyDamaged(\n66:         val nominalDamage: Int,\n67:         val appliedDamage: Int,\n68:         val healthBefore: Int,\n69:         val healthAfter: Int,\n70:         val guarded: Boolean,\n71:         override val atNanos: Long,\n72:     ) : EnemyCombatEvent\n73: \n74:     data class GuardChanged(val active: Boolean, override val atNanos: Long) : EnemyCombatEvent\n75: \n76:     data class HitReactionStarted(\n77:         val reaction: HitReaction,\n78:         val durationNanos: Long,\n79:         override val atNanos: Long,\n80:     ) : EnemyCombatEvent\n81: \n82:     data class PauseChanged(\n83:         val previous: PauseReason?,\n84:         val current: PauseReason?,\n85:         val pauseId: Long,\n86:         override val atNanos: Long,\n87:     ) : EnemyCombatEvent\n88: \n89:     /** The clock restarts with the round; the caller owns round identity. */\n90:     data class RoundReset(override val atNanos: Long = 0L) : EnemyCombatEvent\n91: }\n92: "
+        }
+      ]
+    }
+  ],
+  "preload_budget": {
+    "current_model_instances": 9,
+    "proposed_model_instances": 6,
+    "removed_model_instances": 3,
+    "removed_addressed_mesh_opacity_controllers": 26,
+    "retained_addressed_mesh_opacity_controllers": 81,
+    "removed_catalog": [
+      {
+        "family": "WET_CLOTH",
+        "slots": 1,
+        "particles_per_slot": 10
+      },
+      {
+        "family": "DODGE_GROUND",
+        "slots": 1,
+        "particles_per_slot": 8
+      },
+      {
+        "family": "LANDING_GROUND",
+        "slots": 1,
+        "particles_per_slot": 8
+      }
+    ],
+    "limitation": "Counts derived from declared slots and preset nodes; no measured load-time/memory/frame claims."
+  },
+  "preserved": {
+    "soft_body_tangent_forwarding": {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+      "sha256": "185b6bad2b5989d5b1386582ac198b609211965c896c0e1a5af68c2a217b24d5",
+      "first_line": 93,
+      "last_line": 102,
+      "source": "93:                 reservedForce.add(slot)\n94:                 emitForce(slot, impact, scale, now, age)\n95:             } else {\n96:                 val family = when (impact.kind) {\n97:                     CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> ContactEffectFamily.SOFT\n98:                     else -> ContactEffectFamily.METAL\n99:                 }\n100:                 val accepted = particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,\n101:                     parry = impact.kind == CombatImpactKind.PARRY, size = scale,\n102:                     softBodyCut = impact.kind == CombatImpactKind.SOFT_HIT && impact.zone == HitZone.BODY)"
+    },
+    "eight_fragment_envelope": {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt",
+      "sha256": "4f8fdcb601bd36deac8067c4ce9c623e2170469827e86f1697c322692cc9bf37",
+      "first_line": 43,
+      "last_line": 65,
+      "source": "43:     fun debris(index: Int, age: Double, size: Float, sourceLifetime: Double): SoftDebrisEnvelope {\n44:         val tier = Math.floorMod(index, 3)\n45:         val x = when (tier) { 0 -> 0.18; 1 -> 0.32; else -> 0.50 }\n46:         val y = when (tier) { 0 -> 0.065; 1 -> 0.11; else -> 0.16 }\n47:         val speed = when (tier) { 0 -> 1.55; 1 -> 1.05; else -> 0.65 }\n48:         val lifetime = minOf(sourceLifetime, when (tier) { 0 -> 0.135; 1 -> 0.190; else -> 0.250 })\n49:         // Eight unequal fragments read as dry flakes; four overlapping puff nodes stay disabled.\n50:         val peak = if (index == 3 || index == 7 || index == 8 || index == 9) 0.0\n51:             else when (tier) { 0 -> 0.60; 1 -> 0.45; else -> 0.32 }\n52:         val delay = when (tier) { 0 -> 0.004; 1 -> 0.012; else -> 0.020 } + (index.coerceAtLeast(0) / 3) * 0.002\n53:         val gain = size.toDouble()\n54:         val opacity = if (!age.isFinite() || age < delay || age >= lifetime || lifetime <= 0.0) 0f else {\n55:             val enter = ((age - delay) / 0.012).coerceIn(0.0, 1.0)\n56:             val smoothEnter = enter * enter * (3.0 - 2.0 * enter)\n57:             (peak * smoothEnter * (1.0 - (age / lifetime).pow(1.5))).coerceIn(0.0, 1.0).toFloat()\n58:         }\n59:         return SoftDebrisEnvelope(Vector3(x * gain, y * gain, gain), speed, lifetime, opacity)\n60:     }\n61: \n62:     fun duration(particles: List<ContactParticleDefinition>): Double =\n63:         maxOf(SCAR_SECONDS, particles.mapIndexed { index, p -> debris(index, 0.0, 1f, p.lifetime).lifetime }.maxOrNull() ?: 0.0)\n64: \n65:     private fun fade(age: Double, lifetime: Double, peak: Double, exponent: Double): Float ="
+    },
+    "clear_close": {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt",
+      "sha256": "b4619ea134262c44d2659e5a54dcc9fba6161d961d5c9051f11907ce43ac9f8d",
+      "first_line": 134,
+      "last_line": 147,
+      "source": "134:             slot.anchor.enabled = true\n135:             slot.update(now)\n136:         }\n137:     }\n138: \n139:     fun clear() {\n140:         reserved.clear()\n141:         slots.forEach { slot -> safely(slot) { slot.hide() } }\n142:     }\n143: \n144:     override fun close() {\n145:         if (closed) return\n146:         closed = true\n147:         slots.forEach { slot -> safely(slot) { if (slot.anchor.valid) slot.anchor.destroy() } }"
+    },
+    "shared_motion_math": "ContactBasis/sampleContactParticle/Stage gravity remain unchanged in both candidates"
+  },
+  "root_choice": {
+    "recommended": "02-remove-unused-surface-route.patch",
+    "why": "Remove unreachable API/gate/families/catalog/producer jobs; loader naturally only SOFT/METAL. No new compatibility or guessed events.",
+    "alternative": "01-load-active-only.patch",
+    "alternative_status": "incomplete final architecture; usable only as a consciously selected scoped loader step",
+    "alternative_risk": "presentResolvedSurface would remain callable but always fail after its gate consumes the event because no slots exist.",
+    "exclusive": "Choose one; do not apply both. Rebase against current files if source hashes drift.",
+    "assets": "No binary APK assets or source candidate assets are deleted by either patch; Root owns formal asset packaging."
+  },
+  "unverified": [
+    "No shared build, native load timing, device install, screenshot or effect pixels run.",
+    "Static source search cannot exclude an external/reflection caller; method is internal and no such registration was found in the reviewed Main/HomeStage route."
+  ]
+}

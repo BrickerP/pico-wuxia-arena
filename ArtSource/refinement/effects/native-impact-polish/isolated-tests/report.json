@@ -1,0 +1,64 @@
+{
+  "sources": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt": "bf269e9c4ba16520cafaf9c6a4271e60d5ca8a557f61986c438c98338719b719",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt": "133e0c0a50b2458fe90946d6a4edc624c490c88b423dcf7672ebca459ad71099",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt": "043b18fc3778ba9f26215fb05cb9e8fd3c30ea1c9329fc1568efb6023342d8ec",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt": "db3ad3a9b20e96f3c214eb3004cd2199b903b0babe663f28e021ccff715ae8a3",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt": "d57296a2eec4b596282d475a28e464fbae43b53378b5cd85e9f799edcb82d9a5",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt": "4f8fdcb601bd36deac8067c4ce9c623e2170469827e86f1697c322692cc9bf37",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/candidate/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt": "11acd12dced420627990c362ca9b71a8d3bfb1bb5d557bcacf9ffd61b84f4da5",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/candidate/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt": "9b16ea8474ec8610c7fc12fc17af4c9593936d4df42cd8f97d940f0aeeb09f95",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelopeTest.kt": "dbcd34c845c0927ff9b2ab903c158439579409715cea020f6c4d4ff9b598424b"
+  },
+  "compile": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/2.1.20/4ef56b3316798316bfac7a0ae443391c9e900ea1/kotlin-compiler-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/2.1.20/f7c623d7f7bdb01f5ccd6b437bc0a937fcd7c57e/kotlin-script-runtime-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.6.10/1cbe9c92c12a94eea200d23c2bbaedaf3daf5132/kotlin-reflect-1.6.10.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-embeddable/2.1.20/95670fce77befd02a70a0bc3abe8ee4533521334/kotlin-daemon-embeddable-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.intellij.deps/trove4j/1.0.20200330/3afb14d5f9ceb459d724e907a21145e8ff394f02/trove4j-1.0.20200330.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.8.0/ac1dc37a30a93150b704022f8d895ee1bd3a36b3/kotlinx-coroutines-core-jvm-1.8.0.jar",
+      "org.jetbrains.kotlin.cli.jvm.K2JVMCompiler",
+      "-no-stdlib",
+      "-no-reflect",
+      "-jvm-target",
+      "11",
+      "-classpath",
+      "/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "-d",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/isolated-tests/classes-czv3wufo",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/candidate/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/candidate/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelopeTest.kt"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "tests": {
+    "command": [
+      "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+      "-cp",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-impact-polish/isolated-tests/classes-czv3wufo:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/2.1.20/aa8ca79cd50578314f6d1180c47cbe14c0fee567/kotlin-stdlib-2.1.20.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/junit/junit/4.13.2/8ac9e16d933b6fb43bc7f576336b8f4d7eb5ba12/junit-4.13.2.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar:/Users/yupeng/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/23.0.0/8cc20c07506ec18e0834947b84a864bfc094484e/annotations-23.0.0.jar",
+      "org.junit.runner.JUnitCore",
+      "com.example.wuxiaarena.p0d2f0182.content.NativeImpactLightTest",
+      "com.example.wuxiaarena.p0d2f0182.content.SoftContactEnvelopeTest"
+    ],
+    "returncode": 0,
+    "stdout": "JUnit version 4.13.2\n..............\nTime: 0.08\n\nOK (14 tests)\n\n",
+    "stderr": ""
+  }
+}

@@ -1,11 +1,62 @@
 # 06 · 雨夜酒馆庭院整体场景
 
-## Root当前原生收件
+## 当前合同：64da整面已交并冻结（2026-11-13）
+
+Root已实际查看 `comparison_facade`，确认窗框内退与檐口的整面统一收益，接受 `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605` 为原生开发整合候选；不是最终美术或Space Pro预算通过。当前只保留这一整面候选的收件与验证，候选、producer、输入、材质/图像、manifest和已交渲染收据保持冻结，不继续添建筑、不重导。
+
+唯一产品交付是Kotlin＋PICO Spatial SDK6.1.9原生APK，在PICO Emulator验证，终端目标Space Pro／OS6。停止HTML/Web/Three.js游戏、浏览器试玩、网页材质/光照调试和新HTML mock；已有HTML保留，不维护、不删除他人工作。浏览器仅可用于必要官方资料/账号服务，不能作为游戏验收。不能进入现有原生APK的研究、报告或重复渲染停止。
+
+历史指令归档、3项检查卡及109提交只读审计已完成，审计明细在 `facade-polish/native-review/submission_audit.json`：不破窗共享的空间分组合批估算109→83，实际收益未测，当前不实施；不烘焙9窗，不改64da。原生接入点仍为唯一 `app/src/main/assets/models/courtyard_hero.glb`、HomeStage原点identity与既有receiver。Root当前优先构建hands＋HIT，正式资源/构建/设备/Git由Root维护。06当前无新增已授权原生源码/资源修改项，本轮只收口合同后停止增量工作，不为回报继续造报告、页面或渲染，不改公共producer或其它会话文件。
+
+## 本次原生检查卡
+
+`ArtSource/refinement/environment-hero/facade-polish/native-review/check_card.png` 与 `check_card.json` 已备。仅用冻结64da的整面/1.5m离线原图加审核框，不新增渲染，不把它当新原生证据。检查仅三项：
+
+1. **远看层次：** 同一稳定READY/guard机位下，九窗内退、分扇、窗台形成整面层次，门洞与人物仍为主，不被重复横带抢走。
+2. **瓦口轮廓：** 薄壁瓦口贴屋面，滴水在瓦沟；慢转头无圆钮串、浮缝、闪裂或穿瓦。
+3. **贴图/切线接缝：** 灰泥连续、木纹顺构件、转角高光稳定；矩形色块、凹凸反转或视角跳亮需单独记录。4条继承的运行时切线警告保留为观察项。
+
+原生对照需绑定新APK/环境SHA，固定观察路径、眼高、灯光和曝光；避开HIT闪白等瞬态帧。hands/HIT变化不能归为立面收益。
+
+## 当前已交实物与预算（2026-11-13）
+
+路径前缀 `ArtSource/refinement/environment-hero/facade-polish/`。完整单一庭院 `courtyard_facade_polish.glb`，SHA256 `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605`。图为 `review/comparison_facade.png`、`comparison_near_1p5m.png`（仅两个机位、同灯、当前clean-coat guard准确对应源，离线GLB重导入，非端内图）。复建/来源/预算见 `REBUILD.md`、`candidate_manifest.json`、`delivery_manifest.json`。
+
+1. **整体收益：** 四地层窗＋五上层窗形成统一内退框口、分扇和窗台层次，主体仍优先。上层只调整构件长度，框截面、棂条厚度、止口和半搭接带宽保留，节点scale均1。初版灰色“圆钮串”已回撤，改为贴合原瓦的薄壁半圆口和居间滴水；没有添加地点/NPC/雕像。
+2. **共享与零增图：** 四地层节点指同一原核心mesh，五上层节点指同一宽矮mesh。材质/图片/texture三表与9b完全相同：32材质、50图片，零新增贴图和材质。八片墙合为一批，整排59瓦口＋58滴水合为一批；旧112窗件/4928三角、前檐190三角精准替换，门洞/门五金、柱梁、地面receiver、灯位、原点及战斗净空保留。
+3. **验证与边界：** 资产结构/共享/裁墙检查通过，格式0错误、4条继承的运行时切线警告。新上层最终float32退化面已清理，切线正交；抽查搭接和闭扇间隙正常。滴水背面顶角逐点与实际源瓦面核对，有约5mm接触余量。独立复核接受最终整图作为Root原生审核候选，不宣称SDK真实合批或Space Pro预算通过。
+
+| GLB资产预算（定义见REBUILD） | 9b | 本候选 |
+| --- | ---: | ---: |
+| 节点展开三角 | 162206 | 235746 |
+| 唯一mesh三角 | 162206 | 173982 |
+| 引用的唯一POSITION流顶点数 | 297165 | 332980 |
+| 唯一属性VB字节 | 12094176 | 13808688 |
+| 唯一索引buffer字节 | 934656 | 1136412 |
+| 活跃唯一mesh | 32 | 36 |
+| primitive×node提交估算 | 75 | 109 |
+| 文件字节 | 34423280 | 36954180 |
+
+几何实例展开增加73540三角，但唯一mesh只增加11776三角；唯一属性VB增加约1.715MB，文件增加2.531MB。以上是GLB数据统计，不是设备VRAM或实际drawcall实测，节点共享mesh不能据此承诺硬件实例化。原生9b输入及正式app未由本路改写；当前人物正式ac7d/PNG对应b3fb双SHA与idle@0均记录在图像收据。Root负责后续正式发布与原生验证，本路保持已交文件冻结。
+
+---
+
+## 历史证据区（以下原合同/限制均已过期，不作为当前执行指令）
+
+保留来源与验收链；当前执行范围只看文件最前的64da合同。
+
+### 历史｜2026-11-13 收口前制作合同（已完成）
+
+Root已原生验证9b在首敌/交战/重开可显示且启动无NO_MEMORY，现解除仅一窗的局部冻结。06仅拥有 `ArtSource/refinement/environment-hero/facade-polish/` 与本交接，沿完整唯一9b院落升级正立面多处窗/木构，并可补近檐瓦当轮廓；旧“不扩第二窗”不覆盖本次续派。正式app/公共producer/其它模型/SDK/Git/设备/共享构建仍由Root维护，多人共仓保留他人编辑，不复制仓库或另开场景。
+
+本轮采用地层四窗共享已审核心（含现有9b窗）、上层五窗共享保持框截面的宽矮变体，零新增贴图；各墙片精确裁洞，保留门洞、柱梁、原点、地面receiver和战斗净空。近檐仅补薄壁筒瓦口/瓦沟滴水并合为一批，避免大量重复节点。先交正常站立眼高整立面同灯前后与1.5m局部、完整GLB及三角/唯一VB/材质/图像/预计绘制预算。构造与少量有效图先行，不以未借到Space Pro停止离线制作，也不将其预算宣称通过。
+
+### 历史｜Root当前原生收件
 
 单窗整景9b已进入正式app资源，并由Root实际安装的1b905包显示，见 [原生准备态](../../ArtSource/refinement/presentation/clean-coat-one-window-2026-11-12.png) 与同名JSON。首敌附着阶段未报NO_MEMORY或新增切线警告。只接受一个结构窗进入唯一courtyard的开发整合；不等于整景美术、全局运行预算或Space Pro硬件通过。保留此件，暂不扩第二窗，不另开场景。
 
 
-## Root整景收件与原生接力（2026-11-12）
+### 历史｜Root整景收件与原生接力（2026-11-12）
 
 Root已实际看comparison_player，完整guard构图中窗框/内退与窗台改进仍成立但较局部克制。9b259812整景接受development integration，Root现在核SHA后替换唯一app courtyard并原生取图。仍不代表整院最终美术或Space Pro通过，不扩第二窗。
 
@@ -13,7 +64,7 @@ Root已实际看comparison_player，完整guard构图中窗框/内退与窗台�
 
 原生检查卡已备：`ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/native-review/checkpoints.png`与同名JSON。只标注已交9b离线原图，未新增渲染；9b、producer、manifest和取景收据SHA均保持。仅追三点：①墙窗连接/窗台投影可辨且灰泥连续，无矩形色块、亮缝或闪线；②竖框与横框转角的纹理方向、倒角高光在小幅换角时连续，运行时切线的4条警告仍作为原生观察项；③纸复用8b材质4，分扇/遮挡收益出现，人物脸/手/刀仍优先。以同一观察路径、机位、灯光/曝光及绑定9b的新APK图对照，不把旧8b或不同相机单帧当本版结论。
 
-## Root review and next production contract (2026-11-12)
+### 历史｜Root review and next production contract (2026-11-12)
 
 用户本次要求继续。Root已实际看图收件：12研究完成；05发髻变光滑蛋形，拒绝；03袖口像深色短筒加浅色粗壳且极限姿态穿插，拒绝；06木窗同光clay有真实进深收益，只接受结构方向，尚未原生放行。本轮正式游戏没有获得有效的人物升级。
 
@@ -30,7 +81,7 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 
 本轮交已装配整景候选，不再停在孤立方法样件；只一窗，不整院重做。
 
-### 整景首件收件（2026-11-12）
+#### 整景首件收件（2026-11-12）
 
 路径前缀：`ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/`。
 
@@ -44,21 +95,21 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 
 ---
 
-> Prior delivery evidence below; execute only the current contract above.
+> 以下为历史交付原文，不构成当前执行指令。
 
-## 当前状态
+### 历史｜当前状态
 
 2026-11-11 Root已将stage2环境8b109801…df3db7b发布到唯一正式courtyard资源，56bb源与旧producer输入保留冻结。新版native暖纸与灯笼已可见；一次Reset观察图中纸组消失，后续settled与forward帧恢复，有限只读归因未发现可证实资产错误，当前保留8b、不生成correction。实际原生主流程、Space Pro与checkpoint继续由Root负责。
 
-## 目标
+### 历史｜目标
 
 把当前黑背景、平直墙面和大黑缝石块的院落提升为有构图、空间层次和生活痕迹的中式雨后酒馆。参考《黑神话》的建筑与材质，《天国拯救》《骑马与砍杀》的可信空间尺度。以现短场景形成探索片段与战斗区域，玩家站立区和对砍视线清楚。
 
-## 所有权
+### 历史｜所有权
 
 负责 ArtSource/refinement/environment-hero/ 与本文件。原场景和03已有environment候选只读作输入，整个环境新方向由你主导。07负责照明／天气运行，10负责UI，你交几何与材质可组合场景，不改HomeStage或正式app资产。
 
-## 制作队列
+### 历史｜制作队列
 
 1. 读取真实端内图 ArtSource/refinement/presentation/combat-feedback-outcome.png 和 artifacts/ui-input/current-scene.png，确定主视角构图。建立酒馆门楼、瓦檐、木柱基座、石路、墙根、排水与积水的连续结构。
 2. 用Blender和现制作逻辑完成真实GLB升级。石板厚度／倒角／缝宽、木构榫接／门槛／瓦片层次要在正常视距可见。纹理采用原有资产或可核对授权来源，给物理尺度、baseColor／normal／roughness。
@@ -66,11 +117,11 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 4. 湿润、苔痕、污渍和破损有位置原因，低处积水、檐下干区和脚步路径不同。战斗地面以Y=0作为公共基准。
 5. 场景按少量有名mesh／material分组，地面receiver与重要灯位给明确节点名。交本地包围盒、米制坐标、实体装配点和可用Root接入说明，远近层分清。
 
-## 首轮交付
+### 历史｜首轮交付
 
 一个明显改善构图和材质层次的真实场景GLB，以及主战斗视角／侧向探索视角各一张前后图。首轮集中做好一段石路和门楼，随后扩相邻屋檐、墙角和水面。
 
-## 共同执行合同
+### 历史｜共同执行合同
 
 唯一工程为 /Users/yupeng/projects/personal/pico-wuxia-arena。每次终端调用显式指定该workdir，首先核对git根目录。当前会话所在Home分组只是入口。禁止修改 /Users/yupeng/projects/personal/pico、BrickerP.github.io 或其他仓库，禁止复制仓库、建worktree、切分支、提交或推送。
 
@@ -84,9 +135,9 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 
 先开发和专项制作检查，整局自玩后置。Root负责实际输入到共享判定、三轮流程与Space Pro实测。模拟器只作为其实际可证明范围的证据。
 
-## 阶段交付
+### 历史｜阶段交付
 
-### 2026-11-11 · stage2窗纸、木构与灯笼候选已交
+#### 2026-11-11 · stage2窗纸、木构与灯笼候选已交
 
 **来源与冻结：** Root指定稳定代码节点 `6b407acc4507812b99d1315e58c8a2c588719fd0`，实际执行开始观察HEAD为 `193d0f6dcc859168b8f7c00669c185a3863e1a8d`；未切换分支或修改Git。任务实图为 `ArtSource/refinement/presentation/integrated-2026-11-11.png`，SHA `c23a267ed6b634a07d22b7193211f05d8420770b1f281830df4ea59216b33f6d`。唯一输入庭院仍为正式 `56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8`；候选、正式app文件、旧producer SHA及全部旧贴图SHA均核对未变。
 
@@ -128,7 +179,7 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 
 **剩余验证与下一步：** 正式场景仍为56bb，stage2只交Root选择。需要Root/07接入后检查PICO实际emissive/normal响应、灯笼纸面与真实光池、人物/门洞亮度层次、侧向遮挡与Space Pro性能。收到实际端内问题再以独立新文件和新SHA续修；当前stage2交付签名及图像身份保持一致。
 
-### 2026-11-11 · 首张PICO集成图只读评审
+#### 2026-11-11 · 首张PICO集成图只读评审
 
 输入为Root实际取得的 `artifacts/integrated-polish/ready-scene.png`，2160×2158，SHA256 `c5a7a7d23c9f99b66fc418bffe01d8fcdc00a8e87a674d723905bbd0cb40186c`。候选与正式app模型只读复核仍为 `56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8`。Root反馈原点装配、receiver、天气、IBL及角色10clip已加载；本图能直接证明新建筑与石路已进入PICO画面，不能仅凭单图证明所有角色/动作或运行性能。
 
@@ -141,7 +192,7 @@ Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看
 
 当前没有本图足以证实、必须立即修改几何的阻断项。06本轮仅做图片与源码只读审核、回填本交接，没有修改模型、manifest、贴图、producer、运行代码或正常视距图，没有启动Blender、构建或设备操作。等待Root提供侧向探索图及07完成后的同机位图，再由Root选择是否制作独立新候选；若制作，明确新文件路径和新SHA，冻结56bb签名继续保留。
 
-### 2026-11-11 · Root已接入，签名冻结
+#### 2026-11-11 · Root已接入，签名冻结
 
 Root通知已将 `courtyard_hero.glb` 发布到 `app/src/main/assets/models/`，HomeStage改为原点identity单加载，旧三场景的运行加载路径和包内资源已移除，原ArtSource源保留；07按本模型灯位继续对齐。本会话只读核对了候选与正式app GLB，两者SHA256均为 `56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8`。HomeStage源码已包含 `EH_GroundReceiver`、`EH_MortarAndDrain` 接收节点绑定。
 
@@ -151,7 +202,7 @@ Root通知已将 `courtyard_hero.glb` 发布到 `app/src/main/assets/models/`，
 
 下一步由Root取得实际集成画面，确认原生材质、灯光、阴影、脚底高度及Space Pro性能。06收到定向视觉问题后可继续只读分析；需要新几何时遵守上述独立候选与新SHA边界。
 
-### 2026-11-11 · 首轮完整候选与专项自检
+#### 2026-11-11 · 首轮完整候选与专项自检
 
 本轮没有修改正式producer、app资源、HomeStage、Main、Gradle、Manifest或其它会话目录；没有共享构建、设备操作、Git提交或推送。所有实物在 `ArtSource/refinement/environment-hero/`。来源代码节点 `562449af40ee984ddd8ef61be5c339ac9bea2de5`，旧酒馆来源SHA `af3adf8b15bb5aa6f34a9a5240e18bc2534bc977db4a05089a0c3a1ee1bbdc69`。
 
@@ -189,22 +240,22 @@ Root通知已将 `courtyard_hero.glb` 发布到 `app/src/main/assets/models/`，
 
 **已继续的队列与下一步：** 首轮石路/门楼后已继续完成两翼屋檐、墙根排水、池角水面、远景屋檐及三档距离图；当前06制作队列的可独立部分已产出。Root可按上面的互斥替换说明实际装配；07使用命名灯位做原生夜雨光色。下一项有意义的证据是Root接线后的同眼位端内图，06随后据实际光照修材质与遮挡，不以离线图宣称VR体验已完成。
 
-## Root组合审核与下一步
+### 历史｜Root组合审核与下一步
 
 已核对完整courtyard_hero SHA56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8，离线主视角显示建筑体量、连续细缝铺地和庭院层次有可见升级，接受开发集成。Root已发布单一courtyard_hero入口并删除旧三份运行场景，原ArtSource保持。两个实际receiver已绑定，灯位由07按新anchors适配。原生构建与250项组合回归通过，实际画面尚待本轮取图。随后优先按原生图修正材质尺度、瓦檐薄弱处和探索侧景，不再增加同类随机道具。
 
-## Root本轮组合审核与续派（2026-11-11）
+### 历史｜Root本轮组合审核与续派（2026-11-11）
 
 审核：courtyard_hero已作为唯一主场景实际启动，旧三运行资源已移除；两层酒馆与连续石路可见。
 
 下一步：根据relight-ready-scene实际图集中建筑材质尺度、窗纸与人物亮度层次的最多3个可见改进；不增开放世界或再造并行院落。
 
 
-## Root stage2 开发集成审核（2026-11-11）
+### 历史｜Root stage2 开发集成审核（2026-11-11）
 
 Root已实际看主战机位与灯笼搭接两组同机位图，接受8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b作为下一构建来源。仅替换唯一app/models/courtyard_hero.glb，stage1 source56bb与stage2重建输入保留；不叠加场景实例。窗纸暖斑、方向木纹与灯笼纸腹渐层已有离线可见改善，native材质响应、人物亮度层次、实际光池与预算仍OPEN。工程收件在stage2/root_integration_review.json。
 
-## 06续轮优先级 · Root接受stage2开发集成后（2026-11-11）
+### 历史｜06续轮优先级 · Root接受stage2开发集成后（2026-11-11）
 
 Root已实际审核stage2的player与lantern_joinery两张前后板，接受 `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b` 为development integration候选，接下来由Root统一替换唯一courtyard资源并取得新native图。06从此冻结stage2模型、producer、贴图、manifest及已有图像身份；本轮仅追加本节，没有运行生成器、Blender、构建、设备或Git，没有修改正式资源。开发集成接受不等于PICO画质、Space Pro性能或实机通过。
 
@@ -218,7 +269,7 @@ Root已实际审核stage2的player与lantern_joinery两张前后板，接受 `8b
 
 本轮没有新增候选或新SHA。stage2的10项检查与对照图是发布前制作证据；其中“正式app仍为56bb”的输入冻结断言属于当时状态，Root将正式app切换为已接受8b1098后，不把这一旧app基线断言当作接入失败。冻结源56bb与已交stage2文件身份仍分别保留，后续实际delta使用独立文件和显式新SHA。
 
-## 06 native纸面消失有限归因 · 保留8b1098（2026-11-11）
+### 历史｜06 native纸面消失有限归因 · 保留8b1098（2026-11-11）
 
 **结论与处理：** 已实际看loaded、Reset后异常、settled恢复及两张forward-controls图。当前没有可证实的资产alpha、背面、法线或包围盒错误；恢复帧阻止把一次观察窗口异常直接判为持续资产缺陷。保持已发布 `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b`，本轮不生成correction，不修改模型、producer、源纹理、manifest或正式资源。确需后续修复时，仅在同stage2下的新private correction子目录交独立delta和新SHA，不覆盖checkpoint来源。
 

@@ -1,0 +1,274 @@
+# ROOT CHOICE B (RECOMMENDED): remove the unreachable surface route and preload.
+# Choose instead of 01, never apply both. There are no production callers of
+# presentResolvedSurface and no material/ground witness in the reviewed route.
+# Remove API/gate, unused families/presets, their generator jobs and gate tests;
+# naturally retain only three SOFT and three METAL slots. Keep common math tests.
+# Preserve real SOFT BODY tangent forwarding, eight-fragment envelope, and every
+# existing clear/close/failure/load cleanup path. No fabricated surface events.
+# Formal APK binary assets remain Root-owned and are not deleted by this patch.
+# Rebase only these hunks if Root's independent cleanup patch changes the emitter.
+# Source-lock SHA256s and exact call-chain evidence are in adjacent JSON files.
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt
+@@ -60,8 +60,6 @@
+     private var closed = false
+     private var round = Long.MIN_VALUE
+     private val seenImpacts = mutableSetOf<Long>()
+-    private val surfaceEvents = ResolvedSurfaceEventGate()
+-    private var surfaceContactsAllowed = false
+ 
+     fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+         if (closed || !root.valid || state.roundGeneration < round) return
+@@ -69,7 +67,6 @@
+         if (state.roundGeneration != round) {
+             clear()
+             seenImpacts.clear()
+-            surfaceEvents.reset(state.roundGeneration)
+             round = state.roundGeneration
+         }
+         // Consume while paused as well, so a resumed frame cannot replay a queued core.
+@@ -79,7 +76,6 @@
+             clear()
+             return
+         }
+-        surfaceContactsAllowed = true
+         particles.update(now)
+         forceSlots.forEach { slot -> safely(slot) { slot.update(now) } }
+         val reservedForce = mutableSetOf<ForceSlot>()
+@@ -108,16 +104,6 @@
+         }
+     }
+ 
+-    /** Explicit material/ground witnesses only. SOFT or DEAD timers never imply these events. */
+-    fun presentResolvedSurface(
+-        eventId: Long, roundGeneration: Long, family: ContactEffectFamily, point: Vector3, normal: Vector3, tangent: Vector3,
+-        atNanos: Long, simulationNanos: Long,
+-    ): Boolean {
+-        if (closed || family == ContactEffectFamily.SOFT || family == ContactEffectFamily.METAL) return false
+-        if (!surfaceEvents.consume(eventId, roundGeneration, family, atNanos, simulationNanos, surfaceContactsAllowed)) return false
+-        return particles.emit(family, point, normal, tangent, System.nanoTime(), simulationNanos - atNanos)
+-    }
+-
+     private fun emitForce(slot: ForceSlot, impact: CombatImpact, scale: Float, now: Long, age: Long) {
+         val normal = impact.normal.normalizedOrNull() ?: return
+         val basis = ContactBasis.from(normal, impact.tangent)
+@@ -138,7 +124,6 @@
+     }
+ 
+     private fun clear() {
+-        surfaceContactsAllowed = false
+         particles.clear()
+         forceSlots.forEach { slot -> safely(slot) { slot.hide() } }
+     }
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt
+@@ -113,13 +113,10 @@
+             !size.isFinite() || size <= 0f) return false
+         val n = normal.normalizedOrNull() ?: return false
+         val basis = ContactBasis.from(n, tangent)
+-        // Wet and ground effects have no symmetric core and must have a real tangent.
+-        if (basis == null && family != ContactEffectFamily.SOFT && family != ContactEffectFamily.METAL) return false
+         val slot = slots.filter { it.definition.family == family && !it.failed && it.anchor.valid && it !in reserved }
+             .minWithOrNull(compareBy<Slot> { it.start != null }.thenBy { it.start ?: Long.MIN_VALUE }) ?: return false
+         reserved.add(slot)
+-        val offset = if (family == ContactEffectFamily.DODGE_GROUND || family == ContactEffectFamily.LANDING_GROUND) 0.002 else 0.008
+-        val position = (point + n * offset).spatial()
++        val position = (point + n * 0.008).spatial()
+         if (!position.x.isFinite() || !position.y.isFinite() || !position.z.isFinite()) return false
+         val orientation = basis?.rotation() ?: normalFacingRotation(n) ?: return false
+         return safely(slot) {
+@@ -163,8 +160,7 @@
+             val owned = mutableListOf<Slot>()
+             try {
+                 for (definition in CONTACT_EFFECT_DEFINITIONS) {
+-                    val count = if (definition.family == ContactEffectFamily.SOFT || definition.family == ContactEffectFamily.METAL) 3 else 1
+-                    repeat(count) { owned.add(loadSlot(root, definition)) }
++                    repeat(3) { owned.add(loadSlot(root, definition)) }
+                 }
+                 return ContactParticleEmitter(root, owned)
+             } catch (error: Exception) {
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt
+@@ -38,39 +38,4 @@
+     ), listOf(
+         ContactCoreDefinition("core_star", Vector3(0.0, 0.0, 0.001), listOf(OpacityKey(0.0, 1.0f), OpacityKey(0.012, 0.88f), OpacityKey(0.065, 0.0f)), listOf(OpacityKey(0.0, 1.0f), OpacityKey(0.018, 0.94f), OpacityKey(0.09, 0.0f)), directional = false),
+     )),
+-    ContactEffectDefinition(ContactEffectFamily.WET_CLOTH, "wet_cloth_contact.glb", listOf(
+-        ContactParticleDefinition("drop_00", Vector3(-0.0035, 0.0007, 0.001), Vector3(0.32, 0.15, 0.19), 0.18, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0612, 0.7176f), OpacityKey(0.18, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_01", Vector3(-0.0025, -0.0007, 0.0015), Vector3(0.72, 0.2, 0.28), 0.24, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0816, 0.7176f), OpacityKey(0.24, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_02", Vector3(-0.0015, 0.0007, 0.002), Vector3(0.46, -0.08, 0.16), 0.22, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0748, 0.7176f), OpacityKey(0.22, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_03", Vector3(-0.0005, -0.0007, 0.001), Vector3(0.9, 0.12, 0.33), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.102, 0.7176f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_04", Vector3(0.0005, 0.0007, 0.0015), Vector3(0.56, 0.27, 0.23), 0.26, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0884, 0.7176f), OpacityKey(0.26, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_05", Vector3(0.0015, -0.0007, 0.002), Vector3(0.8, -0.12, 0.31), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.1088, 0.7176f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_06", Vector3(0.0025, 0.0007, 0.001), Vector3(0.63, 0.04, 0.25), 0.28, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0952, 0.7176f), OpacityKey(0.28, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("drop_07", Vector3(0.0035, -0.0007, 0.0015), Vector3(0.4, -0.2, 0.14), 0.21, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.92f), OpacityKey(0.0714, 0.7176f), OpacityKey(0.21, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("fiber_00", Vector3(-0.001, 0.0004, 0.001), Vector3(0.45, 0.16, 0.13), 0.24, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.78f), OpacityKey(0.0816, 0.6084f), OpacityKey(0.24, 0.0f)), followsVelocity = false, grounded = false),
+-        ContactParticleDefinition("fiber_01", Vector3(0.001, 0.0004, 0.001), Vector3(0.66, -0.06, 0.2), 0.29, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.008, 0.78f), OpacityKey(0.0986, 0.6084f), OpacityKey(0.29, 0.0f)), followsVelocity = false, grounded = false),
+-    ), listOf(
+-    )),
+-    ContactEffectDefinition(ContactEffectFamily.DODGE_GROUND, "dodge_ground_polish.glb", listOf(
+-        ContactParticleDefinition("dust_00", Vector3(-0.04, 0.015, 0.0), Vector3(-0.04, 0.045, 0.16), 0.28, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1008, 0.595f), OpacityKey(0.28, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_01", Vector3(-0.051000000000000004, -0.025, 0.0), Vector3(-0.06, -0.065, 0.19), 0.34, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1224, 0.595f), OpacityKey(0.34, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_02", Vector3(-0.062, 0.035, 0.0), Vector3(-0.08, 0.08499999999999999, 0.22), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.108, 0.595f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_03", Vector3(-0.07300000000000001, -0.015, 0.0), Vector3(-0.1, -0.045, 0.25), 0.38, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1368, 0.595f), OpacityKey(0.38, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_04", Vector3(-0.08399999999999999, 0.025, 0.0), Vector3(-0.04, 0.065, 0.16), 0.26, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.0936, 0.595f), OpacityKey(0.26, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_05", Vector3(-0.095, -0.035, 0.0), Vector3(-0.06, -0.08499999999999999, 0.19), 0.36, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1296, 0.595f), OpacityKey(0.36, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_06", Vector3(-0.10600000000000001, 0.015, 0.0), Vector3(-0.08, 0.045, 0.22), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1152, 0.595f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_07", Vector3(-0.11699999999999999, -0.025, 0.0), Vector3(-0.1, -0.065, 0.25), 0.35, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.126, 0.595f), OpacityKey(0.35, 0.0f)), followsVelocity = false, grounded = true),
+-    ), listOf(
+-    )),
+-    ContactEffectDefinition(ContactEffectFamily.LANDING_GROUND, "landing_ground_polish.glb", listOf(
+-        ContactParticleDefinition("dust_00", Vector3(0.025, 0.0, 0.0), Vector3(0.16, 0.0, 0.22), 0.32, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1152, 0.595f), OpacityKey(0.32, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_01", Vector3(0.024748737341529166, 0.024748737341529162, 0.0), Vector3(0.12727922061357855, 0.12727922061357855, 0.26), 0.38, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1368, 0.595f), OpacityKey(0.38, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_02", Vector3(2.7554552980815448e-18, 0.045, 0.0), Vector3(1.2246467991473533e-17, 0.2, 0.3), 0.34, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1224, 0.595f), OpacityKey(0.34, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_03", Vector3(-0.017677669529663688, 0.01767766952966369, 0.0), Vector3(-0.15556349186104043, 0.15556349186104046, 0.22), 0.42, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1512, 0.595f), OpacityKey(0.42, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_04", Vector3(-0.035, 4.286263797015737e-18, 0.0), Vector3(-0.16, 1.959434878635765e-17, 0.26), 0.3, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.108, 0.595f), OpacityKey(0.3, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_05", Vector3(-0.031819805153394644, -0.03181980515339464, 0.0), Vector3(-0.12727922061357858, -0.12727922061357855, 0.3), 0.4, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.144, 0.595f), OpacityKey(0.4, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_06", Vector3(-4.592425496802574e-18, -0.025, 0.0), Vector3(-3.6739403974420595e-17, -0.2, 0.22), 0.36, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1296, 0.595f), OpacityKey(0.36, 0.0f)), followsVelocity = false, grounded = true),
+-        ContactParticleDefinition("dust_07", Vector3(0.02474873734152916, -0.024748737341529173, 0.0), Vector3(0.15556349186104043, -0.1555634918610405, 0.26), 0.39, listOf(OpacityKey(0.0, 0.0f), OpacityKey(0.025, 0.85f), OpacityKey(0.1404, 0.595f), OpacityKey(0.39, 0.0f)), followsVelocity = false, grounded = true),
+-    ), listOf(
+-    )),
+ )
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt
++++ b/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt
+@@ -101,7 +101,7 @@
+     return checkNotNull(q.normalizedOrNull())
+ }
+ 
+-internal enum class ContactEffectFamily { SOFT, METAL, WET_CLOTH, DODGE_GROUND, LANDING_GROUND }
++internal enum class ContactEffectFamily { SOFT, METAL }
+ 
+ internal data class ContactCoreDefinition(
+     val node: String, val position: Vector3, val normal: List<OpacityKey>, val parry: List<OpacityKey>,
+--- a/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTiming.kt
++++ /dev/null
+@@ -1,21 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-/** Consume even inactive events once. Resume/hitstop must never restart their presentation clock. */
+-internal class ResolvedSurfaceEventGate {
+-    private var generation = Long.MIN_VALUE
+-    private val seen = mutableSetOf<Pair<ContactEffectFamily, Long>>()
+-
+-    fun reset(roundGeneration: Long) {
+-        if (generation == roundGeneration) return
+-        generation = roundGeneration
+-        seen.clear()
+-    }
+-
+-    fun consume(
+-        id: Long, roundGeneration: Long, family: ContactEffectFamily,
+-        atNanos: Long, simulationNanos: Long, active: Boolean,
+-    ): Boolean {
+-        if (id < 0L || roundGeneration != generation || !seen.add(family to id)) return false
+-        return active && atNanos >= 0L && atNanos <= simulationNanos && simulationNanos - atNanos <= 120_000_000L
+-    }
+-}
+--- a/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactEventTimingTest.kt
++++ /dev/null
+@@ -1,31 +0,0 @@
+-package com.example.wuxiaarena.p0d2f0182.content
+-
+-import org.junit.Assert.*
+-import org.junit.Test
+-
+-class ContactEventTimingTest {
+-    private val family = ContactEffectFamily.WET_CLOTH
+-    @Test fun duplicateDeliveryDuringHitstopDoesNotRestartEvent() {
+-        val gate = ResolvedSurfaceEventGate().also { it.reset(1) }
+-        assertTrue(gate.consume(2, 1, family, 900, 1000, true))
+-        assertFalse(gate.consume(2, 1, family, 900, 1000, true))
+-    }
+-    @Test fun pausedEventIsConsumedAndCannotReplayOnResume() {
+-        val gate = ResolvedSurfaceEventGate().also { it.reset(1) }
+-        assertFalse(gate.consume(2, 1, family, 900, 1000, false))
+-        assertFalse(gate.consume(2, 1, family, 900, 1000, true))
+-    }
+-    @Test fun roundResetAcceptsNewIdsAndRejectsDelayedPreviousRound() {
+-        val gate = ResolvedSurfaceEventGate().also { it.reset(1) }
+-        assertTrue(gate.consume(2, 1, family, 900, 1000, true))
+-        gate.reset(2)
+-        assertFalse(gate.consume(3, 1, family, 900, 1000, true))
+-        assertTrue(gate.consume(2, 2, family, 900, 1000, true))
+-    }
+-    @Test fun expiredAndFutureEventsNeverQueueForLater() {
+-        val gate = ResolvedSurfaceEventGate().also { it.reset(1) }
+-        assertFalse(gate.consume(2, 1, family, 0, 120_000_001, true))
+-        assertFalse(gate.consume(3, 1, family, 120_000_002, 120_000_001, true))
+-        assertFalse(gate.consume(3, 1, family, 120_000_002, 120_000_002, true))
+-    }
+-}
+--- a/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt
++++ b/app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotionTest.kt
+@@ -63,7 +63,8 @@
+     }
+ 
+     @Test fun allReviewedPresetsHaveIndependentNodesAndBoundedLifetimes() {
+-        assertEquals(5, CONTACT_EFFECT_DEFINITIONS.size)
++        assertEquals(2, CONTACT_EFFECT_DEFINITIONS.size)
++        assertEquals(setOf(ContactEffectFamily.SOFT, ContactEffectFamily.METAL), CONTACT_EFFECT_DEFINITIONS.map { it.family }.toSet())
+         for (effect in CONTACT_EFFECT_DEFINITIONS) {
+             val names = effect.particles.map { it.node } + effect.cores.map { it.node }
+             assertEquals(names.size, names.toSet().size)
+--- a/ArtSource/refinement/effects/runtime-polish/generate_presets.py
++++ b/ArtSource/refinement/effects/runtime-polish/generate_presets.py
+@@ -10,9 +10,6 @@
+ JOBS = [
+     ('SOFT', HERE / 'soft/motion.json', 'soft_contact_polish.glb'),
+     ('METAL', SOURCE / 'metal/motion.json', 'metal_contact_polish.glb'),
+-    ('WET_CLOTH', SOURCE / 'wet/motion.json', 'wet_cloth_contact.glb'),
+-    ('DODGE_GROUND', SOURCE / 'ground/visibility-v2/dodge_motion.json', 'dodge_ground_polish.glb'),
+-    ('LANDING_GROUND', SOURCE / 'ground/visibility-v2/landing_motion.json', 'landing_ground_polish.glb'),
+ ]
+ 
+ def number(x):
+@@ -50,7 +47,6 @@
+                       keys(normal) + ', ' + keys(parry) + ', directional = ' + str(c['node'] == 'scar').lower() + '),']
+         lines += ['    )),']
+         glb = path.parent / asset
+-        # Wet and ground motions use their local asset names unchanged.
+         manifest.append({'family': family, 'motion': str(path.relative_to(ROOT)),
+                          'motion_sha256': hashlib.sha256(raw).hexdigest(), 'candidate': str(glb.relative_to(ROOT)),
+                          'asset_sha256': hashlib.sha256(glb.read_bytes()).hexdigest(),
+--- a/ArtSource/refinement/effects/runtime-polish/resource_handoff.json
++++ b/ArtSource/refinement/effects/runtime-polish/resource_handoff.json
+@@ -20,38 +20,8 @@
+       "publish_to": "app/src/main/assets/models/effects/contact-polish/metal_contact_polish.glb",
+       "particle_count": 12,
+       "core_count": 1
+-    },
+-    {
+-      "family": "WET_CLOTH",
+-      "motion": "ArtSource/refinement/effects/contact-polish/wet/motion.json",
+-      "motion_sha256": "bfecf2f77443ac401b7d930d03e03586cc37e33d4d9e306d41e6d260de95ae71",
+-      "candidate": "ArtSource/refinement/effects/contact-polish/wet/wet_cloth_contact.glb",
+-      "asset_sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+-      "publish_to": "app/src/main/assets/models/effects/contact-polish/wet_cloth_contact.glb",
+-      "particle_count": 10,
+-      "core_count": 0
+-    },
+-    {
+-      "family": "DODGE_GROUND",
+-      "motion": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/dodge_motion.json",
+-      "motion_sha256": "9a946043beb74595e9df114c286be0da34db882c510d5a5ed38af9b62277d911",
+-      "candidate": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/dodge_ground_polish.glb",
+-      "asset_sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
+-      "publish_to": "app/src/main/assets/models/effects/contact-polish/dodge_ground_polish.glb",
+-      "particle_count": 8,
+-      "core_count": 0
+-    },
+-    {
+-      "family": "LANDING_GROUND",
+-      "motion": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/landing_motion.json",
+-      "motion_sha256": "c6419cee00497fe76e86f8008e5db40973d3cf64f332c7724904f414b35c81ea",
+-      "candidate": "ArtSource/refinement/effects/contact-polish/ground/visibility-v2/landing_ground_polish.glb",
+-      "asset_sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b",
+-      "publish_to": "app/src/main/assets/models/effects/contact-polish/landing_ground_polish.glb",
+-      "particle_count": 8,
+-      "core_count": 0
+     }
+   ],
+   "kotlin": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+-  "kotlin_sha256": "1d2376f99312f9bd0a431b463006a0087ab00a3727fb370236d0ef7fd59846eb"
++  "kotlin_sha256": "5205fcd942976a3f0a88d6e58246d088347ebcc538e2726332d4d006ee237796"
+ }

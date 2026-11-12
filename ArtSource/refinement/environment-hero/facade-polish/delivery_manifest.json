@@ -1,0 +1,65 @@
+{
+  "status": "facade_family_candidate_delivered_for_root_native_review",
+  "candidate_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "source_sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+  "source_bytes": 34423280,
+  "candidate_bytes": 36954180,
+  "added_bytes": 2530900,
+  "source_budget": {
+    "node_expanded_triangles": 162206,
+    "unique_mesh_triangles": 162206,
+    "active_unique_meshes": 32,
+    "unique_position_stream_vertices": 297165,
+    "unique_attribute_buffer_bytes": 12094176,
+    "unique_index_buffer_bytes": 934656,
+    "primitive_node_submission_upper_estimate": 75,
+    "materials": 32,
+    "images": 50
+  },
+  "candidate_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 173982,
+    "active_unique_meshes": 36,
+    "unique_position_stream_vertices": 332980,
+    "unique_attribute_buffer_bytes": 13808688,
+    "unique_index_buffer_bytes": 1136412,
+    "primitive_node_submission_upper_estimate": 109,
+    "materials": 32,
+    "images": 50
+  },
+  "key_judgments": [
+    "paired/recessed window family improves the whole facade while the actor remains primary",
+    "four ground instances and five upper instances share two cores; zero new materials/images",
+    "thin cover mouths and pan-aligned drips replace the rejected solid-coin prototype; native budget remains open"
+  ],
+  "independent_review": "final float32 degenerates removed; upper laps/positive sash gaps kept; 116 drip rear corners each have 5mm contact margin on actual frozen roof",
+  "validator": {
+    "errors": 0,
+    "warnings": 4,
+    "warning_scope": "same four generated tangent-space warnings inherited from accepted9b core/wall"
+  },
+  "unverified": [
+    "native material/normal response",
+    "SDK real batching/draws",
+    "Space Pro memory/frame time/comfort"
+  ],
+  "helper_code_sha256": {
+    "ArtSource/refinement/environment-hero/verify_environment.py": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+    "ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/build_courtyard.py": "40d37e22ba3ee1203a8969b1a7b508ae317eadadc46c91e963a7daee86d107a8",
+    "ArtSource/refinement/environment-hero/stage2/create_candidate.py": "cbeabf52ab60a504b0e2357e06aa4ed28d4ceb21924d874c600472ba4a229d15",
+    "ArtSource/refinement/environment-hero/stage2/render_review.py": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e"
+  },
+  "files": {
+    "courtyard_facade_polish.glb": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+    "candidate_manifest.json": "2c4ecb44ee45884f1500a3bb9587448df7150c84f271ada48386ee6ce45af999",
+    "build_facade.py": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+    "verify_facade.py": "16ce48ad58a5f8e0875d2d4c2031facb1630cdab1e699d3d088eef04ed0525c9",
+    "render_facade.py": "ae7213a84adc221f5132090a78d7de002124742031df8ecd4b3a0a9e1f6fc32c",
+    "make_boards.py": "3d7ef006760e481146a2af9198cac86a301d855e0f4987a3f9b37af9decf84e4",
+    "REBUILD.md": "9044be74784104f9bf20227f58d8dfa5b3a7b3ad23c75b60e53d3ee7fed22aa1",
+    "review/verification.json": "f827f1894917e1aa85906df65cf7464d8b6566be4262944fcb9676f4438aa770",
+    "review/render_evidence.json": "2d0fa29b6fe18c50861d4500c1458aff3f63a0f05c1b3f7786053f190471d794",
+    "review/board_receipt.json": "a64e8cb4040c354035bab1d679d1a143f9afbcec767293068b4b0283ca89feb8",
+    "review/gltf-validator.json": "76034849df948ede1fb3b4a37b98a9e1c006462403e17139432effd509feba59"
+  }
+}

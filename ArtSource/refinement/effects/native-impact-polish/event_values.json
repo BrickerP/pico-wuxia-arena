@@ -1,0 +1,183 @@
+{
+  "scope": "Numeric candidate policy examples, NOT events mapped to video frame47 or invented native triggers.",
+  "intensity_units": "Raw public PointLightComponent intensity parameter; exact photometric unit not established by local signatures.",
+  "radius_semantics": "Existing metre-based Stage convention, attenuation radius is not a surface mask or hard spatial clip.",
+  "point_offset_m": 0.035,
+  "remaining_duration": "max(duration - (simulationNanos - impact.atNanos),0); future/negative timestamps rejected; no late pulse restart",
+  "ordinary_zero_policy": "Ordinary BODY does not start or extend a light; an already-running earlier parry/fatal pulse may finish at its existing deadline.",
+  "dedup": "Round-local ID set, consume once even while paused, no backlog.",
+  "actor_pbr": "All rows keep original PBR; removed full-body material override path.",
+  "native_verified": false,
+  "rows": [
+    {
+      "event": "SOFT_HIT / BODY / nonfatal / appliedDamage25",
+      "accent_strength": 0.625,
+      "before": {
+        "actor_unlit_ms": 28,
+        "point_intensity": 222.5,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 0,
+        "point_radius": 0,
+        "point_ms": 0,
+        "local_fx_unchanged": "38ms thin core +60ms scar +8 dry fragments <=250ms"
+      }
+    },
+    {
+      "event": "SOFT_HIT / HEAD / nonfatal",
+      "accent_strength": 0.75,
+      "before": {
+        "actor_unlit_ms": 28,
+        "point_intensity": 245,
+        "point_radius": 0.6,
+        "point_ms": 75
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 35,
+        "point_radius": 0.18,
+        "point_ms": 45,
+        "local_fx_unchanged": "existing head local envelope, no new geometry"
+      }
+    },
+    {
+      "event": "HARD_HIT / strength.8",
+      "accent_strength": 0.8,
+      "before": {
+        "actor_unlit_ms": 28,
+        "point_intensity": 254,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 54,
+        "point_radius": 0.22,
+        "point_ms": 45,
+        "local_fx_unchanged": "existing metal core/sparks"
+      }
+    },
+    {
+      "event": "GUARDED_HIT / strength.65",
+      "accent_strength": 0.65,
+      "before": {
+        "actor_unlit_ms": 28,
+        "point_intensity": 227,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 49.5,
+        "point_radius": 0.22,
+        "point_ms": 45,
+        "local_fx_unchanged": "existing metal core/sparks"
+      }
+    },
+    {
+      "event": "BLOCK / strength.65 / damage0",
+      "accent_strength": 0.65,
+      "before": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 227,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 49.5,
+        "point_radius": 0.22,
+        "point_ms": 45,
+        "local_fx_unchanged": "existing metal core/sparks"
+      }
+    },
+    {
+      "event": "PARRY / strength1 / damage0",
+      "accent_strength": 1,
+      "before": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 290,
+        "point_radius": 0.6,
+        "point_ms": 90
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 120,
+        "point_radius": 0.35,
+        "point_ms": 70,
+        "local_fx_unchanged": "90ms core +12 independent sparks; incoming tangent untouched"
+      }
+    },
+    {
+      "event": "fatal SOFT BODY / low raw strength",
+      "accent_strength": 1,
+      "before": {
+        "actor_unlit_ms": 40,
+        "point_intensity": 290,
+        "point_radius": 0.6,
+        "point_ms": 100
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 160,
+        "point_radius": 0.45,
+        "point_ms": 90,
+        "local_fx_unchanged": "existing emphasized BODY envelope; no global material replacement"
+      }
+    },
+    {
+      "event": "PLAYER_HIT",
+      "accent_strength": 0.65,
+      "before": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 227,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 0,
+        "point_radius": 0,
+        "point_ms": 0,
+        "local_fx_unchanged": "existing local player-hit feedback/haptics unchanged"
+      }
+    },
+    {
+      "event": "SKILL",
+      "accent_strength": 1,
+      "before": {
+        "actor_unlit_ms": 28,
+        "point_intensity": 290,
+        "point_radius": 0.6,
+        "point_ms": 60
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 120,
+        "point_radius": 0.35,
+        "point_ms": 60,
+        "local_fx_unchanged": "existing force envelope only; no skill expansion"
+      }
+    },
+    {
+      "event": "EXECUTION / fatal",
+      "accent_strength": 1,
+      "before": {
+        "actor_unlit_ms": 40,
+        "point_intensity": 290,
+        "point_radius": 0.6,
+        "point_ms": 100
+      },
+      "candidate": {
+        "actor_unlit_ms": 0,
+        "point_intensity": 160,
+        "point_radius": 0.45,
+        "point_ms": 90,
+        "local_fx_unchanged": "existing force envelope only; no gameplay expansion"
+      }
+    }
+  ]
+}

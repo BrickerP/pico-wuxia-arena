@@ -1,0 +1,73 @@
+{
+  "scope": "one-file UI source candidate only; not applied or published",
+  "changedFiles": [
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt"
+  ],
+  "baseSourceSha256": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt": "e9711f73a6578fbfe9c3cf413dfe43257dcdadb7814b3db475eae6fc30ba6a12",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaUiPalette.kt": "95517b55f9933baf78648e3c5bdc3f379fbd91b0848f84963cad01c4cb750c41",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaPresentation.kt": "e8cb90eac5f174db56e1900c9da5dcd78726d531209fae2fabf27f04d448f9be"
+  },
+  "candidateSourceSha256": "097e46fc72552fe3d2df1109284a0eaef4d0f9de408eea416f2c0842d6737f51",
+  "patchSha256": "8dab16ec3dc852ca3470b65d26ae5c580c75348848d8dad5b7631ff8264fd7fc",
+  "patchLines": {
+    "additions": 150,
+    "deletions": 99
+  },
+  "publicSignaturesUnchanged": true,
+  "paletteAndPresentationUnchanged": true,
+  "protectedBlocksUnchanged": [
+    "TechniqueGuide",
+    "MatchSummary",
+    "RestartConfirmationDialog",
+    "inputSummary",
+    "phaseLabel",
+    "phaseHint",
+    "feedback status priority + all transient enum mappings"
+  ],
+  "gatesPreserved": [
+    "start readiness",
+    "resume pauseId/resumeReady",
+    "controlPending disables",
+    "ranchu waiting guide",
+    "COUNTDOWN and ROUND_CLEAR real seconds",
+    "incoming threat gate",
+    "terminal combo hidden",
+    "simulation-driven emphasis"
+  ],
+  "compile": {
+    "backend": "isolated Kotlin2.1.20 + Compose compiler",
+    "result": "PASS",
+    "driverExitCode": 0,
+    "sharedGradle": false
+  },
+  "designStyle": {
+    "result": "PASS",
+    "errors": 0,
+    "warnings": 0,
+    "scope": "candidate source + unchanged palette snapshot",
+    "R10DesignIRTrace": "not supplied; source-level discipline audited"
+  },
+  "visualChange": [
+    "transparent normal fighting controls",
+    "Small40 pause cinnabar / restart ink plus stamp28",
+    "transparent status structure with native value badges",
+    "only default in-range footer omitted"
+  ],
+  "noNewStateClockThresholdOrResources": true,
+  "noAppSourceGitDeviceBrowserOrNativeRendererOperation": true,
+  "unverified": [
+    "same-view visual review and reading distance",
+    "bright facade contrast",
+    "worst-case 260dp status capacity",
+    "countdown/pending/input-wait 160dp capacity",
+    "controller hover/haptics/real input"
+  ],
+  "artifactsSha256": {
+    "build_candidate.py": "61224b5f0e1241a254f364ef0f7fb166a9333a7a0114cd9d1216bb5722838255",
+    "compile_candidate.py": "2b7ea94fd65fe20e1136286ce7bc3590980a42101225fcb0286ce33b157e2049",
+    "README.md": "3fa3ec43d182cbb5be2e1f2bc31a970341ba32c485c3a1a68e5d3ba8fae1c1a1",
+    "source-shas.json": "0dded675cf1caf0f6dfdd65a7a211404a7022baef7a9aad5a6a82628c69d0fdc",
+    "input-binaries.json": "e0d8364d2ecfb41d9e73d15485b5714977e0562fd16f053078e9249c817ccbbb"
+  }
+}

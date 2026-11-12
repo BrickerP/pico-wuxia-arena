@@ -11,9 +11,11 @@ Root已接入来自敌人实际相邻blade样本的incoming tangent，覆盖快�
 
 ## 当前状态
 
-2026-11-12续派首件已交：普通身体命中与弹反各0.6秒完整离线预演、真实采样刀光回放、真实消费入口与逐事件INFO回执。继续现有打击路线，不增加玩法或更多预载资源。Root已发布5资源，并在ArenaSession以named args转发contact.tangent；旧“未发布／未转发”只保留为阶段1交付时的历史边界，不是当前未修项。
+当前执行合同（Root最新纠偏，2026-11-13）：唯一产品为Kotlin＋PICO Spatial SDK6.1.9原生APK，PICO Emulator验证，Space Pro／OS6为终端。停止HTML/Web/Three.js游戏、浏览器试玩、网页材质／光照调试和新HTML mock；既有HTML保留，不维护或删除他人文件。浏览器只可查必要官方资料／账号，不能验收游戏。本路仅交能接现有APK的源码／原生资源和接线，不能接入的研究、报告、重复渲染停止。Root独占构建、设备、Git与发布；不另建仓库／分支／页面，不碰pico或网站。当前native-impact-polish的Kotlin私有patch已交候选并停止追加渲染；离线帧只解释既有故障，不是产品或验收替代。
 
-本轮可改08现有content特效模块、runtime-polish和专项检查；不改Core／PlayerCombatResolver、ArenaSession、HomeStage／Main、伤害、阈值或时钟。禁止Git、构建和设备操作。普通／弹反预演明确是离线示例接触，不是注入命中或原生效果通过。
+2026-11-13阶段4：针对原生10.296611s整人平色反馈，只在ArtSource/refinement/effects/native-impact-polish/与本交接制作私有patch／事件数值表。Root的hands＋HIT managed build锁定app，本轮未直接改app；此前可改content的权限在本轮暂停。未占共享Gradle、设备或Git。
+
+主候选退出全身Unlit替换，所有事件保持原PBR；普通SOFT BODY只留原38ms薄core／8颗粒，不新开点光；弹反／致命复用原单点光短脉冲分级。原N/T、8颗粒cleanup、HMD／手、伤害／时钟保持。候选、14项隔离测试及补丁校验已交，等待Root按源SHA审入与真实像素复核。
 
 ## 目标
 
@@ -176,3 +178,29 @@ Main.kt把ArenaSession的ArenaPresenter回调转给enemyPresenter；HomeStage在
 独立静态审查通过，确认只由SOFT_HIT+BODY选择、slot复用每次重写路由、PLAYER_HIT／头部／METAL/PARRY原公式保持；Stage重力不缩放、delay不重开轨迹、缺切向只对称core。制图18行采样独立复算position/scale/opacity/quaternion误差0，5图输出与原before图SHA核对通过。5份正式资源SHA均保持。
 
 新增7项SoftContactEnvelopeTest已写，覆盖薄口／scar轴校正／缺切向／出生与8片预算／确定性寿命／迟到不重播／重力独立；本轮按禁令未执行Kotlin或共享构建。Root在下一轮共享构建运行该类并复核实际Stage。源码及图SHA冻结清单见同目录delivery.json；参数数值检查在numeric_check.json，制图输入／采样表与独立复核见manifest.json及after_samples.json。本轮未改Core、ArenaSession、HomeStage／Main，未运行Git、构建或设备。
+
+## 阶段4：原生白块归因与私有局部反馈补丁（2026-11-13）
+
+当前唯一写入范围为ArtSource/refinement/effects/native-impact-polish/和08交接。主补丁`01-local-native-impact.patch`、事件数值表`event_values.json`、选择／API／验证说明README.md均已落盘；没有直接修改app或其它会话源码。
+
+### 实录证据与选择
+
+04的原VFR frame47 PTS=926695/90000=10.296611s，三张相邻PNG逐像素匹配原视频解码。该帧主色RGB196/194/179，面部SD约0.0117、两处衣料ROI为常数，脸部种子连通平色色域545,490像素、占画面11.70%；这不是身体表面积，也不是RGB255曝光裁切。前后间隔69.544／238.789ms不能用于推断28ms白闪或38ms粒子的实际寿命，没有共同时间锚也不强配event id。唯一对照板和JSON在frame-evidence/。
+
+SDK／源码归因是EnemyHitFlash把除cornea外9个tripo_* body/head/eyes/neck PBR槽改成同色OPAQUE Unlit；不受点光照明的Unlit直接抹掉材质层次。点光另作用于PBR／其它物体，不是把Unlit人形照白的主因。候选选择删除全身替换机制，而非继续增加材质白闪例外；致命与弹反的更强反馈留给现有局部core／颗粒／单点光。完整退出也移除toGlobal／restore／close的旧资源恢复风险。
+
+主补丁只改HomeStage现有接线并新增纯NativeImpactLight数值策略，删除EnemyHitFlash／BodyFlashMaterial及两旧测试。普通非致命SOFT BODY从222.5/.60/60ms额外点光改为关闭，原局部38ms core／60ms scar／8干碎屑<=250ms保持；PARRY为120/.35/70ms，fatal为160/.45/90ms，HEAD例35/.18/45ms，HARD例54/.22/45ms，GUARD/BLOCK例49.5/.22/45ms。所有事件原PBR始终保持。强度只标SDK参数，不把公有签名未证明的单位写成流明；半径不是表面mask。其它例值见README表与JSON，均是策略样例而非伪造原生事件。
+
+HomeStage复用原contactLight，不新增灯；事件用round-local ID集合去重，普通无灯事件不会延长之前的强脉冲。迟到时取duration-age的剩余时间，future／负时刻拒绝；仍用wall deadline推进，不冻结HMD／双手、不做camera shake，不碰Core输入或战斗判定。
+
+### public API与未使用入口
+
+BOM6.1.9、host知识线6.1；MCP不可用，已读取本机6.1参考与exact core AAR公有javap签名。PointLightComponent(Color4,float,float)、setColor/setIntensity/setAttenuationRadius公开存在。未采用未经证明的局部material mask／surface emit。api-review/保留参考／AAR SHA和签名输出。
+
+presentResolvedSurface湿／闪避／落地真实生产caller为0，未发现湿材质／成功近地位移／实际骨骼落地witness，不造触发。完整入口链和缺失witness在surface-preload/route_evidence.json。推荐其02-remove-unused-surface-route.patch清理无caller API／gate／三类运行预设，预载9→6实例；真实SOFT BODY与8碎屑cleanup保持。01只是被否决的仅过滤loader对照，不建议留成正式死接口。该建议不删除04源资产或已发布资源；与主补丁文件不重叠，可独立审入。
+
+### 已跑验证与未证明范围
+
+候选Native7例＋原Soft7例已在本目录隔离JDK/Kotlin运行，14/14通过，覆盖普通BODY无灯、0伤弹反有灯、fatal强调、HEAD值、PLAYER近脸无灯、迟到／future／精确截止、strength边界与原SOFT生命周期／重力。没有启动Gradle或设备。patch在本目录临时5文件fixture里dry-run/apply，逐路径SHA／删除项匹配，app输入锁未变；表面清理另有独立15/15与17源文件锁。独立只读审查通过。
+
+源码、patch、API和测试证据分别在source_lock.json、patch_check.json、api-review/、isolated-tests/report.json。HomeStage完整SDK/UI编译、Root组合验收包、实际PBR细节／曝光和短颗粒像素仍待Root应用后验证；本轮没有新“修复后原生图”，不把原白块或消费日志当粒子像素证明。

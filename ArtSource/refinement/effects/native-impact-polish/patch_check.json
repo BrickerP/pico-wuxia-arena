@@ -1,0 +1,12 @@
+{
+  "dry_run_exit_code": 0,
+  "isolated_apply_exit_code": 0,
+  "candidate_hashes_match": true,
+  "app_sources_unchanged": true,
+  "shared_gradle_run": false,
+  "device_run": false,
+  "git_run": false,
+  "limits": "Only isolated patch consistency and source preservation; HomeStage SDK compilation and actual pixels remain Root checks.",
+  "dry_run_output": "patching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlash.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterial.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlashPulseTest.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterialTest.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt'\n",
+  "apply_output": "patching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlash.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterial.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/EnemyHitFlashPulseTest.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/BodyFlashMaterialTest.kt'\npatching file 'app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt'\npatching file 'app/src/test/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLightTest.kt'\n"
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "root-asset-review/v1",
+  "asset": "courtyard_facade_polish.glb",
+  "sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "decision": "approved_for_native_development_integration",
+  "quality_complete": false,
+  "reviewed_view": "review/comparison_facade.png",
+  "visible_gain": "Full facade has consistent inset window frames, panel divisions, sills and roof-edge silhouette at standing eye height. Character and ground composition preserved.",
+  "scope": "Single existing courtyard replacement, no new locations or gameplay.",
+  "costs": {
+    "expanded_triangles_delta": 73540,
+    "unique_triangles_delta": 11776,
+    "estimated_submissions": [
+      75,
+      109
+    ],
+    "added_textures": 0,
+    "added_materials": 0
+  },
+  "unverified": [
+    "Native normals and seams",
+    "Real draw submissions and Space Pro thermal/frame budget",
+    "Native visual comparison with current lighting"
+  ],
+  "next": "Root integrates after current hands/HIT source build is closed; do not edit packaged asset concurrently."
+}

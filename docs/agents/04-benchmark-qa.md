@@ -1,12 +1,20 @@
 # 04 · 独立接触与地面特效资产
 
-## 最新用户目标与执行队列
+## 当前接力 · 原生接触视觉review（2026-11-12）
+
+**本轮阶段结束，等待review。** Root已收并发布软／金属／湿布／闪避／落地5份粒子资源，08运行消费已接通；本录制原日志明确确认SOFT／METAL两family共6条accepted消费。Root已修模拟器输入，APK `9e5fc90…b24b2b` 的实际SDK鼠标→共享resolver→扣血局部通过，交付记录328测试全过。本轮引用该交付，不重跑测试或继续等待真实输入前置。
+
+本轮所有权仅为 `ArtSource/refinement/effects/native-contact-review/` 及04交接，已检查15.8秒H264片、同名JSON／PNG、原VFR采样和contact-attempt.log。提交两项明确画面派修：**10.296611秒整身白闪填平脸／衣褶细节（08／07）**；**12.080411、12.455311秒来刀呈大块黑面，遮住头脸且刃线不清（02／07，必要时01核轨迹）**。没有仅凭单目重叠给03报确定穿模。
+
+原捕获只有74帧，71／73个相邻间隔超过38ms。独立SOFT／METAL粒子像素仍待补证，不能由画面未见推成未触发，也不能把整身白闪当成38ms新SOFT效果通过。日志与视频没有精确对时锚，GUARDED_HIT是敌人挡住玩家攻击，玩家格挡／弹反、完整三轮和Space Pro仍开放。详见 [本轮视觉review](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-contact-review/README.md) 与 [逐项证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/native-contact-review/review.json)。
+
+## 历史源制作目标与队列（2026-11-11）
 
 2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你集中做独立火星、湿布、纤维、闪避近地尘、落地、技能与致命特效源资产。08接运行时发射／真实切向／轨迹与可复用池，07接全局lookdev，11接声音触觉。
 
 当前微小星火和水滴在正常视距仍偏弱，按可见性明确调整热芯、数量、宽度、明暗层次与短寿命包络，交实际比例前后短片并与08对齐，维持材质差异和不遮来刀。既有motion.json／TBN／Stage重力接口作为共同数据。旧lighting候选、HDR/KTX来源与限制交07，global配光后续移出本会话。不要用固定DEAD秒数或HUD提示冒充真实落地。
 
-## 当前状态
+## 历史visibility-v3源交付状态
 
 **visibility-v3阶段结束，等待review。** 已交更强的金属与湿布源资产、1.5／2.5m同条件前后图和短片，统一复建、节点／曲线检查及渲染输入SHA核对通过。金属在两种距离有清楚提升，2.5m湿布仍细；08／Root的运行接入与端内观感尚待验证。交付与下一项见文末，旧lighting阶段记录属于历史，后续全局lookdev归07。
 
@@ -24,7 +32,7 @@ CombatImpact、分层FX、11段音效、触觉与离线预演已交付。正式P
 
 ## 文件所有权
 
-负责 ArtSource/refinement/effects/contact-polish/ 及后续效果源资产与本文件。HomeStage、照明、音频、共享CombatEffects运行文件由Root／07／08／11分工维护。
+当前续派仅负责 ArtSource/refinement/effects/native-contact-review/ 与本文件的视觉review交接。以下contact-polish制作属于已交历史源工作；HomeStage、照明、音频、共享CombatEffects运行文件仍由Root／07／08／11分工维护。
 
 ## 历史配光阶段任务（已完成）
 

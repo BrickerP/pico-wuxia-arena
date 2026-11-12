@@ -1,0 +1,95 @@
+{
+  "scope": "Final independent four-pass review of the native first-person right/left hand and forearm offline assets",
+  "verdict": "APPROVE_OFFLINE_ASSET_CANDIDATE",
+  "blocking_issues": [],
+  "issues_by_severity": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 0
+  },
+  "frozen_inputs": {
+    "formal_actor_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+    "prepared_png_actor_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+    "formal_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "formal_png_non_image_equivalence": "PASS"
+  },
+  "approved_outputs": {
+    "right_hand": {
+      "path": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+      "bytes": 2515388,
+      "triangles": 4936,
+      "decoded_review_companion_sha256": "a28c3711bbf3bb317982640881d51e94c903050894b5cc62ac013ad0b3be8606"
+    },
+    "left_hand": {
+      "path": "ArtSource/refinement/weapon/native-first-person/left_hand.glb",
+      "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+      "bytes": 2959296,
+      "triangles": 5642,
+      "decoded_review_companion_sha256": "680b23e68daf95af1f0bbda40e2cfe431cbef303f6e1ef80e9c27c218aa17c9d"
+    },
+    "combined_triangles": 10578
+  },
+  "four_pass_review": {
+    "correctness": {
+      "result": "PASS",
+      "evidence": [
+        "The selected source geometry is 4681 right plus 5392 left triangles with no decimation. Source face/vertex mappings and original POSITION, NORMAL, TEXCOORD_0, JOINTS_0 and WEIGHTS_0 streams remain exact.",
+        "Both assets retain the complete ordered 78-joint palette, original inverse bind matrices and source normalization scale. The rigid conversion wrapper contains both the original mesh and joint hierarchy; the independent asset root is identity.",
+        "The right native-to-player frame follows Rx(-90) times inverse rigid candidate-rest HandGrip_R. The converted logical Grip origin error is approximately 1.72e-7 m; formal dao Blade_Base and Blade_Tip position errors are approximately 1.51e-7 m and 9.44e-8 m, with full-axis matrix error below 2.31e-7.",
+        "The left root is the actual anatomical L_Hand wrist; its verified logical-origin residual is below 5e-8 m. The optional DerivedHandGrip_L remains explicitly derived and is not described as an authored source marker.",
+        "Each asset contains exactly one grip animation with 15 finger rotation channels, LINEAR inputs [0,1], normalized same-hemisphere quaternions, no non-finger channels and finite open/mid/closed sampling. Right default is actual idle@0 closed, left default is source-rest open; clip time 0 remains source open and time 1 remains closed. Default-to-expected skinned pose errors are below 1.8e-8 m."
+      ]
+    },
+    "geometry_and_skin": {
+      "result": "PASS",
+      "evidence": [
+        "The initially visible proximal black cavities were treated as a blocker and replaced by separate generated cloth transition/rim/cap primitives without modifying any original source triangle or attribute stream.",
+        "The right closure adds 255 triangles and the left closure 250. Serialized JOINTS_0 is correctly UNSIGNED_BYTE, actual decoded palettes remain in range, weights are finite/max4/normalized and effective cap influences are limited to the corresponding Upperarm and Forearm.",
+        "After position welding, both complete assets have zero open, nonmanifold or inconsistently oriented edges at open, mid and closed grip samples. Boundary skin mismatch is zero, source/new and self-intersection counts are zero, and minimum generated triangle areas are positive.",
+        "Generated cap normals agree with actual geometric winding in open and closed states: producer minimum signed dot is above 0.90 for both sides, and the independent verification finds no nonpositive new face."
+      ]
+    },
+    "textures_and_packaging": {
+      "result": "PASS",
+      "evidence": [
+        "The source UV islands are repacked into separate 1536-square atlases using positive uniform scale plus translation only, with no rotation, reflection or additional vertex split. UV winding is retained and sampled source pixels match within the recorded float sampling bounds.",
+        "Normal, base-color and metallic-roughness roles preserve their linear/sRGB domains. Final KTX2 textures use UASTC, Zstd, eleven complete mip levels, clamp sampling and valid KTX headers; base color reports sRGB transfer while normal and metallic-roughness remain linear.",
+        "The compressed GLBs require KHR_texture_basisu and contain three embedded image/ktx2 images. Compression preserves all 29 non-image buffer views, accessor semantics/payloads and non-image JSON semantics for each capped source asset.",
+        "The generated sleeve closure uses a separate non-black, non-metallic, high-roughness solid cloth material sampled from adjacent authored cloth. It intentionally has no normal map and is isolated from the reviewed three-texture atlas."
+      ]
+    },
+    "visual_and_drift": {
+      "result": "PASS",
+      "evidence": [
+        "Nine final images were rendered from the actual final KTX top-mip decoded companions: equipped-default, explicit open and explicit closed states at 0.3 m front, 1.0 m front and 1.0 m reverse.",
+        "The equipped default reads correctly as right hand closed on the formal dao and left hand relaxed. Open and closed boundary states are distinct and preserve the inherited hand proportions and material response.",
+        "The 1.0 m front and reverse views no longer expose the former black cavity or jagged opening. The new proximal closures are visible as deliberate grey cloth cutoff surfaces with thickness rather than black occlusion cards.",
+        "No application, browser, Kotlin, shared producer, formal resource, build, device or Git path is modified by these private assets."
+      ]
+    }
+  },
+  "evidence": {
+    "selection_manifest_sha256": "07d6620c4cd37e680678b06edc5afd081c6a9615b97f5762a5774392280466e5",
+    "atlas_manifest_sha256": "b8d66b744131484cf17a2ce0158ddf14f0b681a8cfea7facfef244f57254425d",
+    "rig_manifest_sha256": "7f8fcc02e2dee50056f9008c5c5bf34780ab50e41f2e61f311e5762f4b3ea971",
+    "compression_manifest_sha256": "86c145ff2b9bab8bcd68634d073d584f2e3b0bb803400e27c08c259c1795964f",
+    "verification_sha256": "b6a3724ed9cd2e302212569722826f6a36e945cadba0ae280f4be40b4d5890a1",
+    "verification_passed": true,
+    "verification_errors": [],
+    "verification_pending": [],
+    "final_render_manifest_sha256": "e7402a70e40b96a9d353b398c7b347910dec4526c684e43b43aab825fe0cecee",
+    "final_render_count": 9,
+    "final_pixels_from_actual_ktx_top_mips": true
+  },
+  "remaining_limits": [
+    "This approval is for the offline independent asset candidates only. PICO SDK input binding, runtime animation control, KTX2 decode/transcode, generated MikkTSpace tangents, GPU allocation and device performance remain unverified.",
+    "The formal source has no TANGENT stream. The left source also inherits three collapsed UV faces in two islands and inherited original normal/face disagreements; the producer neither drops nor silently repairs them.",
+    "The left closed pose is a rest-basis mirror of the calibrated right curl, not an authored or device-calibrated left grip.",
+    "The proximal closure is a generated flat cloth cutoff for a bounded first-person forearm asset, not a continuation into a full upper arm or garment. Device camera and culling must keep that asset boundary appropriate in actual use.",
+    "The final visual review uses decoded companions from actual KTX top mips under neutral Blender lighting; it does not replace native renderer and lighting review."
+  ],
+  "release_boundary": "Approved for Root integration and native runtime validation as private hand assets. Not approved as a device-validated or formally published app asset until Root completes SDK, rendering, performance and identity checks.",
+  "review_complete": true
+}

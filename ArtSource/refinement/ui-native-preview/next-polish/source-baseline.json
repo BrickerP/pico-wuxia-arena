@@ -1,0 +1,33 @@
+{
+  "scope": "next-polish candidate only; no application edits",
+  "date": "2026-11-13",
+  "reference": "ArtSource/refinement/presentation/native-input-contact-2026-11-12.png",
+  "referenceSha256": "1d1dc108981308e683ba75fa1453117508d5a06d41efaf4d1a6cb4d9ee029e97",
+  "sources": {
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt": "e9711f73a6578fbfe9c3cf413dfe43257dcdadb7814b3db475eae6fc30ba6a12",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaPresentation.kt": "e8cb90eac5f174db56e1900c9da5dcd78726d531209fae2fabf27f04d448f9be",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaUiPalette.kt": "95517b55f9933baf78648e3c5bdc3f379fbd91b0848f84963cad01c4cb750c41",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/Main.kt": "e689c605837775e27fd2a008f3d1cb4ba7fc16c1c32a8e5fdc5f8399e66bb727",
+    "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt": "853469d4095497e8b1b8377f618378b76c9e8f253776d0faccdfb44649c6fd44",
+    "app/src/main/res/values/strings.xml": "b1cdab95aa2fe0ac0e24cdaebf1a1872de237872508bf5f8d15f6016ab2e10eb",
+    "app/src/main/res/values/arena_ui_art.xml": "f9c41a07745b70f54ee9a67a96a96258ef4c54c602ea090fe37c100853bfc593"
+  },
+  "mock": {
+    "file": "mock/fighting-same-view-mock.png",
+    "tool": "built-in ImageGen",
+    "type": "UI design mock; not native runtime validation",
+    "scenePreservation": "reference camera/framing requested; generation is not pixel-identity proof",
+    "exactSceneReferenceRemainsOriginal": true,
+    "values": {
+      "enemy": "试刀客",
+      "round": "1/3",
+      "time": "02:53",
+      "enemyHealth": "12/100",
+      "playerHealth": "40/100",
+      "stamina": "100/100",
+      "focus": "86/100",
+      "phase": "待机",
+      "feedback": "受到攻击"
+    }
+  }
+}

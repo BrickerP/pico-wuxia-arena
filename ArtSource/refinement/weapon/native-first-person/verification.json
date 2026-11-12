@@ -1,0 +1,1388 @@
+{
+  "geometry_controls": {
+    "storage_controls": [
+      "valid tightly packed u8",
+      "u16/u8 payload mismatch rejected",
+      "valid explicit interleaved stride"
+    ],
+    "passed": true,
+    "cases": [
+      "UV-split closed manifold",
+      "open boundary",
+      "nonmanifold",
+      "noncoplanar crossing",
+      "coplanar positive-area overlap",
+      "legal shared edge",
+      "separated triangles"
+    ],
+    "scope": "Offline geometry/contract helper controls only"
+  },
+  "scope": "Independent offline assets/schema/skin/texture audit only; no native SDK input, decode, render or device acceptance.",
+  "errors": [],
+  "pending": [],
+  "source_and_selection": {
+    "formal_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+    "png_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+    "equivalence": {
+      "passed": true,
+      "non_image_json_exact": true,
+      "non_image_buffer_views_exact": 2587,
+      "texture_role_and_sampler_semantics_exact": true
+    },
+    "selection": {
+      "R": {
+        "triangles": 4681,
+        "vertices": 2741,
+        "source_mapping_and_all_attributes_exact": true,
+        "head_torso_wrong_side_faces": 0
+      },
+      "L": {
+        "triangles": 5392,
+        "vertices": 3121,
+        "source_mapping_and_all_attributes_exact": true,
+        "head_torso_wrong_side_faces": 0
+      }
+    },
+    "formal_dao_png_equivalence": {
+      "passed": true,
+      "non_image_json_exact": true,
+      "non_image_buffer_views_exact": 59,
+      "texture_role_and_sampler_semantics_exact": true
+    }
+  },
+  "atlas": {
+    "sides": {
+      "R": {
+        "positive_uniform_scale": 2.6666666666666665,
+        "UV_transform_max_error": 2.856055891786724e-08,
+        "UV_winding_retained": true,
+        "degenerate_source_UV_face_ids": [],
+        "degenerate_source_UV_face_count": 0,
+        "degenerate_UV_island_ids": [],
+        "degenerate_UV_island_count": 0,
+        "textures": {
+          "normal": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.0021317529026418924,
+            "sample_positions": 7422
+          },
+          "base_color": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.0016871104016900063,
+            "sample_positions": 7422
+          },
+          "metallic_roughness": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.0019529759883880615,
+            "sample_positions": 7422
+          }
+        }
+      },
+      "L": {
+        "positive_uniform_scale": 2.6666666666666665,
+        "UV_transform_max_error": 2.9802322387695312e-08,
+        "UV_winding_retained": true,
+        "degenerate_source_UV_face_ids": [
+          50347,
+          50348,
+          50349
+        ],
+        "degenerate_source_UV_face_count": 3,
+        "degenerate_UV_island_ids": [
+          11,
+          13
+        ],
+        "degenerate_UV_island_count": 2,
+        "textures": {
+          "normal": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.0028090476989746094,
+            "sample_positions": 8513
+          },
+          "base_color": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.004476542235352099,
+            "sample_positions": 8513
+          },
+          "metallic_roughness": {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "source_sample_max_byte_difference": 0.0026435849722474813,
+            "sample_positions": 8513
+          }
+        }
+      }
+    },
+    "sdk_tangent_generation": "UNVERIFIED",
+    "normal_tangent_scope": "Positive UV derivatives preserve existing parameter directions. Missing source TANGENT and collapsed source UV faces do not establish a valid SDK TBN."
+  },
+  "compression_manifest_sha256": "86c145ff2b9bab8bcd68634d073d584f2e3b0bb803400e27c08c259c1795964f",
+  "hands": {
+    "R": {
+      "sha256": "a70c821dbb1f8b5a30d5fc86b4c591a435f1637b26ae9b99776fb52b588608af",
+      "accessor_storage": {
+        "all_declared_payloads_accounted": true,
+        "views_checked": 29,
+        "accessors": [
+          {
+            "accessor": 0,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 2741,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 32892
+          },
+          {
+            "accessor": 1,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 2741,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 32892
+          },
+          {
+            "accessor": 2,
+            "component_width_bytes": 4,
+            "components": 2,
+            "count": 2741,
+            "declared_element_bytes": 8,
+            "actual_row_stride": 8,
+            "required_span_bytes": 21928
+          },
+          {
+            "accessor": 3,
+            "component_width_bytes": 1,
+            "components": 4,
+            "count": 2741,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 10964
+          },
+          {
+            "accessor": 4,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2741,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 43856
+          },
+          {
+            "accessor": 5,
+            "component_width_bytes": 2,
+            "components": 1,
+            "count": 14043,
+            "declared_element_bytes": 2,
+            "actual_row_stride": 2,
+            "required_span_bytes": 28086
+          },
+          {
+            "accessor": 6,
+            "component_width_bytes": 4,
+            "components": 16,
+            "count": 78,
+            "declared_element_bytes": 64,
+            "actual_row_stride": 64,
+            "required_span_bytes": 4992
+          },
+          {
+            "accessor": 7,
+            "component_width_bytes": 4,
+            "components": 1,
+            "count": 2,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 8
+          },
+          {
+            "accessor": 8,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 9,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 10,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 11,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 12,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 13,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 14,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 15,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 16,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 17,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 18,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 19,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 20,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 21,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 22,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 23,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 280,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 3360
+          },
+          {
+            "accessor": 24,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 280,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 3360
+          },
+          {
+            "accessor": 25,
+            "component_width_bytes": 4,
+            "components": 2,
+            "count": 280,
+            "declared_element_bytes": 8,
+            "actual_row_stride": 8,
+            "required_span_bytes": 2240
+          },
+          {
+            "accessor": 26,
+            "component_width_bytes": 1,
+            "components": 4,
+            "count": 280,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 1120
+          },
+          {
+            "accessor": 27,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 280,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 4480
+          },
+          {
+            "accessor": 28,
+            "component_width_bytes": 2,
+            "components": 1,
+            "count": 765,
+            "declared_element_bytes": 2,
+            "actual_row_stride": 2,
+            "required_span_bytes": 1530
+          }
+        ],
+        "scope": "No-stride native candidate streams must exactly cover each payload; explicit valid interleaved row padding is allowed."
+      },
+      "side": "R",
+      "logical_root_identity": true,
+      "real15_joint_grip": true,
+      "mid_pose_evaluated": true,
+      "primitives": [
+        {
+          "triangles": 4681,
+          "accessor_vertices": 2741,
+          "surface_referenced_vertices": 2741,
+          "unreferenced_accessor_vertices": 0,
+          "open_closed_skin_max_metres": 0.13042494748961758,
+          "open_closed_skin_p95_metres": 0.09751228422524838,
+          "closed_surface_bounds_metres": [
+            [
+              -0.052583803255158046,
+              -0.07729599569409515,
+              -0.055127372083158904
+            ],
+            [
+              0.3191579751396136,
+              0.09957231120578723,
+              0.13226409002158732
+            ]
+          ]
+        },
+        {
+          "triangles": 255,
+          "accessor_vertices": 280,
+          "surface_referenced_vertices": 280,
+          "unreferenced_accessor_vertices": 0,
+          "open_closed_skin_max_metres": 0.0,
+          "open_closed_skin_p95_metres": 0.0,
+          "closed_surface_bounds_metres": [
+            [
+              0.27584001231469213,
+              -0.0594871049936033,
+              -0.027870808722904657
+            ],
+            [
+              0.3671120231569464,
+              0.12720512057129518,
+              0.14611877024861877
+            ]
+          ]
+        }
+      ],
+      "source_rig_frames_and_skin": {
+        "source_open_world_correspondence": [
+          {
+            "source_vertex_mapping_exact": true,
+            "maximum_open_world_component_error_metres": 1.9518342775359798e-07
+          }
+        ],
+        "independent_f64_vs_declared_f32_frame_max_error": 2.747567902482845e-07,
+        "numeric_matrix_comparison_bound": 3e-06,
+        "maximum_open_pose_node_matrix_error": 4.724272593126244e-07,
+        "default_pose_contract": "R actual source idle0 closed; L source rest open; only R default15 finger rotation may change",
+        "actual_default_to_required_clip_LBS_max_error_metres": 0.0,
+        "maximum_default_local_matrix_error": 1.7153409325940117e-07,
+        "maximum_nonfinger_root_pose_drift": 0.0,
+        "source_wrist_singular_scales": [
+          1.8198132733311343,
+          1.8198129201439328,
+          1.8198126052507915
+        ],
+        "output_wrist_singular_scales": [
+          1.8198133360069288,
+          1.8198129067307138,
+          1.819812545186964
+        ],
+        "source_normalization_scale_preserved": true,
+        "all78_joint_palette_and_inverse_binds_exact": true,
+        "closed_finger_provenance_matrix_errors": {
+          "R_Index1": 1.604232813257056e-08,
+          "R_Index2": 0.0,
+          "R_Index3": 0.0,
+          "R_Mid1": 0.0,
+          "R_Mid2": 0.0,
+          "R_Mid3": 4.804957848270064e-09,
+          "R_Pinky1": 0.0,
+          "R_Pinky2": 0.0,
+          "R_Pinky3": 0.0,
+          "R_Ring1": 0.0,
+          "R_Ring2": 0.0,
+          "R_Ring3": 0.0,
+          "R_Thumb1": 0.0,
+          "R_Thumb2": 0.0,
+          "R_Thumb3": 2.470059601300534e-09
+        },
+        "frames": {
+          "source_internal_grip_rigid_matrix_gltf": [
+            0.9999999999999948,
+            9.537254848126677e-08,
+            -3.6410373438489074e-08,
+            0.0,
+            -3.641035386163374e-08,
+            -2.047065618394135e-07,
+            -0.9999999999999785,
+            0.0,
+            -9.537255586444367e-08,
+            0.9999999999999744,
+            -2.0470655831550388e-07,
+            0.0,
+            1.4586386546701358e-07,
+            8.392387116501476e-08,
+            3.500758972573188e-08,
+            1.0
+          ],
+          "converted_grip_matrix_gltf": [
+            0.9999999999999948,
+            9.537254848126677e-08,
+            -3.6410373438489074e-08,
+            0.0,
+            -9.537255586444367e-08,
+            0.9999999999999744,
+            -2.047065583767362e-07,
+            0.0,
+            3.6410353861633734e-08,
+            2.0470656190064582e-07,
+            0.9999999999999785,
+            0.0,
+            1.4586386546701358e-07,
+            8.392387116501476e-08,
+            3.500758972573188e-08,
+            1.0
+          ],
+          "converted_axes_identity_error": 2.0470656190064582e-07,
+          "actual_formal_dao_markers": {
+            "Blade_Base": {
+              "output_world_matrix_gltf": [
+                1.0000001104552523,
+                4.4593436304696255e-08,
+                2.7744199271317882e-08,
+                0.0,
+                -1.005649246654805e-07,
+                -1.7891284227744553e-07,
+                -1.0000000596451846,
+                0.0,
+                -1.4615168339449092e-07,
+                0.9999999019875919,
+                -2.305002742911122e-07,
+                0.0,
+                0.02200013520179646,
+                6.182517015393283e-08,
+                -0.1289999718005952,
+                1.0
+              ],
+              "formal_dao_world_matrix_gltf": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -2.220446049250313e-16,
+                -1.0000000000000002,
+                0.0,
+                0.0,
+                1.0000000000000002,
+                -2.220446049250313e-16,
+                0.0,
+                0.02199999988079071,
+                0.0,
+                -0.12899999972432852,
+                1.0
+              ],
+              "maximum_matrix_error": 2.305002740690676e-07,
+              "position_error_metres": 1.5137325108511437e-07,
+              "linear_axes_max_error": 2.305002740690676e-07
+            },
+            "Blade_Tip": {
+              "output_world_matrix_gltf": [
+                1.0000001104552523,
+                4.4593436304696255e-08,
+                2.7744199271317882e-08,
+                0.0,
+                -1.005649246654805e-07,
+                -1.7891284227744553e-07,
+                -1.0000000596451846,
+                0.0,
+                -1.4615168339449092e-07,
+                0.9999999019875919,
+                -2.305002742911122e-07,
+                0.0,
+                0.053200065394867053,
+                -6.560076373021863e-08,
+                -0.8490000285199009,
+                1.0
+              ],
+              "formal_dao_world_matrix_gltf": [
+                1.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                -2.220446049250313e-16,
+                -1.0000000000000002,
+                0.0,
+                0.0,
+                1.0000000000000002,
+                -2.220446049250313e-16,
+                0.0,
+                0.053199999034404755,
+                0.0,
+                -0.8490000143647194,
+                1.0
+              ],
+              "maximum_matrix_error": 2.305002740690676e-07,
+              "position_error_metres": 9.437976648092553e-08,
+              "linear_axes_max_error": 2.305002740690676e-07
+            }
+          },
+          "converted_grip_origin_error_metres": 1.7188663339162298e-07
+        }
+      },
+      "embedded_atlas": {
+        "normal": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        },
+        "base_color": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        },
+        "metallic_roughness": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        }
+      },
+      "negative_contract_tests": {
+        "scope": "Candidate asset/schema validation only, not SDK grip-input behavior",
+        "normal_asset_passed": true,
+        "mutations_rejected": [
+          "empty_animation",
+          "logical_root_offset",
+          "nonfinite_position",
+          "out_of_range_index"
+        ]
+      },
+      "cuff_closure": {
+        "inherited_original_normal_face_disagreements": {
+          "count": 0,
+          "compact_face_ids": [],
+          "source_face_ids": [],
+          "scope": "Existing source grip0/open smooth-normal disagreement; limitation only, not generated-cap blocking count"
+        },
+        "present": true,
+        "passed": true,
+        "errors": [],
+        "new_cap_normal_disagreement_combined_face_ids": [],
+        "original_boundary_topology": {
+          "position_weld_epsilon_metres": 1e-07,
+          "welded_vertices": 2367,
+          "open_edges": 51,
+          "nonmanifold_edges": 0,
+          "inconsistent_two_face_edge_orientation": 0
+        },
+        "closed_combined_topology": {
+          "position_weld_epsilon_metres": 1e-07,
+          "welded_vertices": 2470,
+          "open_edges": 0,
+          "nonmanifold_edges": 0,
+          "inconsistent_two_face_edge_orientation": 0
+        },
+        "actual_decoded_cap_joint_palettes": [
+          {
+            "primitive": 1,
+            "componentType": 5121,
+            "actual_decoded_palette_min": 0,
+            "actual_decoded_palette_max": 56,
+            "effective_joint_names": [
+              "R_Upperarm",
+              "R_Forearm"
+            ]
+          }
+        ],
+        "new_primitives": 1,
+        "new_triangles": 255,
+        "animated_mid_closed_topology": {
+          "0.5": {
+            "position_weld_epsilon_metres": 1e-07,
+            "welded_vertices": 2470,
+            "open_edges": 0,
+            "nonmanifold_edges": 0,
+            "inconsistent_two_face_edge_orientation": 0
+          },
+          "1": {
+            "position_weld_epsilon_metres": 1e-07,
+            "welded_vertices": 2470,
+            "open_edges": 0,
+            "nonmanifold_edges": 0,
+            "inconsistent_two_face_edge_orientation": 0
+          }
+        },
+        "new_cap_minimum_signed_average_vertex_normal_face_dot": 0.9012400649400327,
+        "normal_metric_formula": "mean_i(dot(unit(actual geometric face normal), unit(actual LBS transformed vertex normal_i)))",
+        "cap_materials": [
+          {
+            "name": "R_GeneratedGreyClothClosure",
+            "doubleSided": false,
+            "pbrMetallicRoughness": {
+              "baseColorFactor": [
+                0.017138856906268166,
+                0.02018894760984213,
+                0.02221721037351331,
+                1
+              ],
+              "metallicFactor": 0,
+              "roughnessFactor": 0.8953225552636772
+            },
+            "extras": {
+              "generated_closure": true,
+              "normal_map": false
+            }
+          }
+        ],
+        "minimum_new_world_triangle_area_m2": 4.671448661367834e-06,
+        "boundary_dense_skin_max_error": 0.0,
+        "new_surface_intersection_count": 0,
+        "self_intersection_scope": "New-vs-original/new triangles, welded-edge adjacency and coplanar positive-area overlaps handled; existing original-vs-original contacts are not reclassified."
+      },
+      "compression": {
+        "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+        "PNG_KTX_nonimage_equivalence": {
+          "passed": true,
+          "non_image_json_exact": true,
+          "non_image_buffer_views_exact": 29,
+          "texture_role_and_sampler_semantics_exact": true
+        },
+        "embedded_KTX_roles": {
+          "normal": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "base_color": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          "metallic_roughness": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          }
+        },
+        "SDK_decode_and_gpu_memory_unverified": true,
+        "actual_ktx_decoded_companion": {
+          "sha256": "a28c3711bbf3bb317982640881d51e94c903050894b5cc62ac013ad0b3be8606",
+          "source_compressed_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+          "nonimage_equivalence": {
+            "passed": true,
+            "non_image_json_exact": true,
+            "non_image_buffer_views_exact": 29,
+            "texture_role_and_sampler_semantics_exact": true
+          },
+          "scope": "Companion identity and non-image bytes independently checked; decoder execution/provenance supplied by pinned compression manifest, no SDK decode claim"
+        }
+      }
+    },
+    "L": {
+      "sha256": "5a68481eee8d1afd180af62c34a43fb7a23025684fd66b7df9b3c0417a94843e",
+      "accessor_storage": {
+        "all_declared_payloads_accounted": true,
+        "views_checked": 29,
+        "accessors": [
+          {
+            "accessor": 0,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 3121,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 37452
+          },
+          {
+            "accessor": 1,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 3121,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 37452
+          },
+          {
+            "accessor": 2,
+            "component_width_bytes": 4,
+            "components": 2,
+            "count": 3121,
+            "declared_element_bytes": 8,
+            "actual_row_stride": 8,
+            "required_span_bytes": 24968
+          },
+          {
+            "accessor": 3,
+            "component_width_bytes": 1,
+            "components": 4,
+            "count": 3121,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 12484
+          },
+          {
+            "accessor": 4,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 3121,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 49936
+          },
+          {
+            "accessor": 5,
+            "component_width_bytes": 2,
+            "components": 1,
+            "count": 16176,
+            "declared_element_bytes": 2,
+            "actual_row_stride": 2,
+            "required_span_bytes": 32352
+          },
+          {
+            "accessor": 6,
+            "component_width_bytes": 4,
+            "components": 16,
+            "count": 78,
+            "declared_element_bytes": 64,
+            "actual_row_stride": 64,
+            "required_span_bytes": 4992
+          },
+          {
+            "accessor": 7,
+            "component_width_bytes": 4,
+            "components": 1,
+            "count": 2,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 8
+          },
+          {
+            "accessor": 8,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 9,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 10,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 11,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 12,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 13,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 14,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 15,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 16,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 17,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 18,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 19,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 20,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 21,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 22,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 2,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 32
+          },
+          {
+            "accessor": 23,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 269,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 3228
+          },
+          {
+            "accessor": 24,
+            "component_width_bytes": 4,
+            "components": 3,
+            "count": 269,
+            "declared_element_bytes": 12,
+            "actual_row_stride": 12,
+            "required_span_bytes": 3228
+          },
+          {
+            "accessor": 25,
+            "component_width_bytes": 4,
+            "components": 2,
+            "count": 269,
+            "declared_element_bytes": 8,
+            "actual_row_stride": 8,
+            "required_span_bytes": 2152
+          },
+          {
+            "accessor": 26,
+            "component_width_bytes": 1,
+            "components": 4,
+            "count": 269,
+            "declared_element_bytes": 4,
+            "actual_row_stride": 4,
+            "required_span_bytes": 1076
+          },
+          {
+            "accessor": 27,
+            "component_width_bytes": 4,
+            "components": 4,
+            "count": 269,
+            "declared_element_bytes": 16,
+            "actual_row_stride": 16,
+            "required_span_bytes": 4304
+          },
+          {
+            "accessor": 28,
+            "component_width_bytes": 2,
+            "components": 1,
+            "count": 750,
+            "declared_element_bytes": 2,
+            "actual_row_stride": 2,
+            "required_span_bytes": 1500
+          }
+        ],
+        "scope": "No-stride native candidate streams must exactly cover each payload; explicit valid interleaved row padding is allowed."
+      },
+      "side": "L",
+      "logical_root_identity": true,
+      "real15_joint_grip": true,
+      "mid_pose_evaluated": true,
+      "primitives": [
+        {
+          "triangles": 5392,
+          "accessor_vertices": 3121,
+          "surface_referenced_vertices": 3121,
+          "unreferenced_accessor_vertices": 0,
+          "open_closed_skin_max_metres": 0.13329161769372413,
+          "open_closed_skin_p95_metres": 0.09347464224626839,
+          "closed_surface_bounds_metres": [
+            [
+              -0.10257885712661918,
+              -0.12987864143366606,
+              -0.13675792878263648
+            ],
+            [
+              0.08160960557924839,
+              0.04389253765151774,
+              0.24592358177676582
+            ]
+          ]
+        },
+        {
+          "triangles": 250,
+          "accessor_vertices": 269,
+          "surface_referenced_vertices": 269,
+          "unreferenced_accessor_vertices": 0,
+          "open_closed_skin_max_metres": 0.0,
+          "open_closed_skin_p95_metres": 0.0,
+          "closed_surface_bounds_metres": [
+            [
+              -0.08179829101730468,
+              -0.14198225031173067,
+              0.20346889147840808
+            ],
+            [
+              0.09772973480101674,
+              0.03424478042150074,
+              0.2737764487019572
+            ]
+          ]
+        }
+      ],
+      "source_rig_frames_and_skin": {
+        "source_open_world_correspondence": [
+          {
+            "source_vertex_mapping_exact": true,
+            "maximum_open_world_component_error_metres": 2.3247714833057875e-07
+          }
+        ],
+        "independent_f64_vs_declared_f32_frame_max_error": 1.5898024573750454e-06,
+        "numeric_matrix_comparison_bound": 3e-06,
+        "maximum_open_pose_node_matrix_error": 2.0776515430032116e-06,
+        "default_pose_contract": "R actual source idle0 closed; L source rest open; only R default15 finger rotation may change",
+        "actual_default_to_required_clip_LBS_max_error_metres": 4.104788711141285e-09,
+        "maximum_default_local_matrix_error": 0.0,
+        "maximum_nonfinger_root_pose_drift": 0.0,
+        "source_wrist_singular_scales": [
+          1.8198130512720403,
+          1.8198125871185515,
+          1.8198122493508013
+        ],
+        "output_wrist_singular_scales": [
+          1.8198130357516067,
+          1.819812732842478,
+          1.819812332785344
+        ],
+        "source_normalization_scale_preserved": true,
+        "all78_joint_palette_and_inverse_binds_exact": true,
+        "closed_finger_provenance_matrix_errors": {
+          "L_Index1": 1.3164471679427692e-07,
+          "L_Index2": 2.855698367325299e-07,
+          "L_Index3": 7.324182629830922e-08,
+          "L_Mid1": 1.9034933165795742e-07,
+          "L_Mid2": 1.4046843715975754e-07,
+          "L_Mid3": 8.709437271381404e-08,
+          "L_Pinky1": 4.514762885488022e-07,
+          "L_Pinky2": 6.285054945931456e-08,
+          "L_Pinky3": 6.742247299351689e-08,
+          "L_Ring1": 1.249990227714104e-07,
+          "L_Ring2": 2.65373174495806e-07,
+          "L_Ring3": 1.4159411726444304e-08,
+          "L_Thumb1": 9.857281701997067e-08,
+          "L_Thumb2": 1.1839575306954453e-07,
+          "L_Thumb3": 9.093410398720164e-08
+        },
+        "frames": {
+          "actual_anatomical_wrist_position_metres": [
+            2.042273368688531e-08,
+            4.938972324819251e-08,
+            8.892787588270543e-09
+          ],
+          "closed_pose_provenance": "rest-basis mirrored R curl; derived, not authored/calibrated L closed"
+        }
+      },
+      "embedded_atlas": {
+        "normal": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        },
+        "base_color": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        },
+        "metallic_roughness": {
+          "embedded_exact_png": true,
+          "dimensions": [
+            1536,
+            1536
+          ],
+          "sampler_clamp": true
+        }
+      },
+      "negative_contract_tests": {
+        "scope": "Candidate asset/schema validation only, not SDK grip-input behavior",
+        "normal_asset_passed": true,
+        "mutations_rejected": [
+          "empty_animation",
+          "logical_root_offset",
+          "nonfinite_position",
+          "out_of_range_index"
+        ]
+      },
+      "cuff_closure": {
+        "inherited_original_normal_face_disagreements": {
+          "count": 3,
+          "compact_face_ids": [
+            3797,
+            5137,
+            5138
+          ],
+          "source_face_ids": [
+            48751,
+            50091,
+            50092
+          ],
+          "scope": "Existing source grip0/open smooth-normal disagreement; limitation only, not generated-cap blocking count"
+        },
+        "present": true,
+        "passed": true,
+        "errors": [],
+        "new_cap_normal_disagreement_combined_face_ids": [],
+        "original_boundary_topology": {
+          "position_weld_epsilon_metres": 1e-07,
+          "welded_vertices": 2724,
+          "open_edges": 50,
+          "nonmanifold_edges": 0,
+          "inconsistent_two_face_edge_orientation": 0
+        },
+        "closed_combined_topology": {
+          "position_weld_epsilon_metres": 1e-07,
+          "welded_vertices": 2825,
+          "open_edges": 0,
+          "nonmanifold_edges": 0,
+          "inconsistent_two_face_edge_orientation": 0
+        },
+        "actual_decoded_cap_joint_palettes": [
+          {
+            "primitive": 1,
+            "componentType": 5121,
+            "actual_decoded_palette_min": 0,
+            "actual_decoded_palette_max": 77,
+            "effective_joint_names": [
+              "L_Upperarm",
+              "L_Forearm"
+            ]
+          }
+        ],
+        "new_primitives": 1,
+        "new_triangles": 250,
+        "animated_mid_closed_topology": {
+          "0.5": {
+            "position_weld_epsilon_metres": 1e-07,
+            "welded_vertices": 2825,
+            "open_edges": 0,
+            "nonmanifold_edges": 0,
+            "inconsistent_two_face_edge_orientation": 0
+          },
+          "1": {
+            "position_weld_epsilon_metres": 1e-07,
+            "welded_vertices": 2825,
+            "open_edges": 0,
+            "nonmanifold_edges": 0,
+            "inconsistent_two_face_edge_orientation": 0
+          }
+        },
+        "new_cap_minimum_signed_average_vertex_normal_face_dot": 0.9049993744692891,
+        "normal_metric_formula": "mean_i(dot(unit(actual geometric face normal), unit(actual LBS transformed vertex normal_i)))",
+        "cap_materials": [
+          {
+            "name": "L_GeneratedGreyClothClosure",
+            "doubleSided": false,
+            "pbrMetallicRoughness": {
+              "baseColorFactor": [
+                0.016776181473565965,
+                0.022157678245271772,
+                0.02559211632831391,
+                1
+              ],
+              "metallicFactor": 0,
+              "roughnessFactor": 0.8985392529411622
+            },
+            "extras": {
+              "generated_closure": true,
+              "normal_map": false
+            }
+          }
+        ],
+        "minimum_new_world_triangle_area_m2": 3.958763227893522e-06,
+        "boundary_dense_skin_max_error": 0.0,
+        "new_surface_intersection_count": 0,
+        "self_intersection_scope": "New-vs-original/new triangles, welded-edge adjacency and coplanar positive-area overlaps handled; existing original-vs-original contacts are not reclassified."
+      },
+      "compression": {
+        "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+        "PNG_KTX_nonimage_equivalence": {
+          "passed": true,
+          "non_image_json_exact": true,
+          "non_image_buffer_views_exact": 29,
+          "texture_role_and_sampler_semantics_exact": true
+        },
+        "embedded_KTX_roles": {
+          "normal": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "base_color": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          "metallic_roughness": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          }
+        },
+        "SDK_decode_and_gpu_memory_unverified": true,
+        "actual_ktx_decoded_companion": {
+          "sha256": "680b23e68daf95af1f0bbda40e2cfe431cbef303f6e1ef80e9c27c218aa17c9d",
+          "source_compressed_sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+          "nonimage_equivalence": {
+            "passed": true,
+            "non_image_json_exact": true,
+            "non_image_buffer_views_exact": 29,
+            "texture_role_and_sampler_semantics_exact": true
+          },
+          "scope": "Companion identity and non-image bytes independently checked; decoder execution/provenance supplied by pinned compression manifest, no SDK decode claim"
+        }
+      }
+    }
+  },
+  "actual_two_hand_triangle_total": 10578,
+  "PNG_assets_passed": true,
+  "stable_artifact_snapshot": true,
+  "passed": true,
+  "source_checks_completed": true,
+  "phase": "OFFLINE_INDEPENDENT_ASSET_PASS_RUNTIME_UNVERIFIED",
+  "limitations": [
+    "Normal metric is signed average dot against geometric face direction; negative values can require a true crease split and are not alone a geometric inversion proof.",
+    "Source L original normal/face disagreements are inherited limitations and do not count as newly generated cap defects.",
+    "Left closed pose provenance must remain explicitly rest-derived unless an authored calibration is independently supplied.",
+    "Collapsed source UV faces/islands cannot establish tangent basis validity; no source faces silently dropped.",
+    "No PICO SDK input validation or device/GPU texture-allocation claim."
+  ],
+  "verifier_source_sha256": "4726712c3eefd705682905aa4c6fed9e4c9117ce77660b787b1a24e37b600df3",
+  "final_compression_version": "71c39091c0859a357ed6"
+}

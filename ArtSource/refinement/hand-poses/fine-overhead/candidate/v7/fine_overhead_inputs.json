@@ -1,0 +1,646 @@
+{
+  "schema_version": 1,
+  "status": "frozen_v7_private_source_for_root_reimport",
+  "clip": "attack_overhead",
+  "direction": "OVERHEAD",
+  "raw": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_raw.glb",
+    "sha256": "87c5fd566a63bba551cbbdfaa5841f519a7ed865cbbffc7da929c65219c9ef26",
+    "bytes": 19192540
+  },
+  "preview": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_preview.glb",
+    "sha256": "285d3e34e94e335d2e5f3705d77483fabbe3a297ccfbdec08153bcab1b13a21c",
+    "bytes": 54380800
+  },
+  "duration_seconds": 1.75,
+  "source_range_seconds": [
+    0.0,
+    1.75
+  ],
+  "sample_rate_hz": 120,
+  "sample_count": 211,
+  "interpolation": "LINEAR",
+  "animation_channel_count": 234,
+  "phase_markers_seconds": {
+    "start": 0.0,
+    "preparation_end": 0.65,
+    "startup_end": 0.9,
+    "active_end": 1.1,
+    "recovery_end": 1.75,
+    "contact": 1.0
+  },
+  "phase_boundaries_seconds": [
+    0.0,
+    0.65,
+    0.9,
+    1.1,
+    1.75
+  ],
+  "contact_source_seconds": 1.0,
+  "contact_active_elapsed_ms": 100,
+  "original_rig": {
+    "file": "ArtSource/tripo-warrior/refined-base60k/rig.glb",
+    "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+    "bytes": 18480880
+  },
+  "native_basis_source": {
+    "file": "ArtSource/tripo-warrior/refined-base60k/slash.glb",
+    "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+    "bytes": 18660564
+  },
+  "native_timewarp": {
+    "output_seconds": [
+      0.0,
+      0.65,
+      0.9,
+      1.0,
+      1.1,
+      1.55,
+      1.75
+    ],
+    "native_seconds": [
+      1.55,
+      1.9,
+      2.03,
+      2.117,
+      2.15,
+      3.4,
+      3.4
+    ],
+    "slopes": [
+      0.5384615384615382,
+      0.52770618556701,
+      0.6752238805970153,
+      0.4784999999999992,
+      0.5054677781697317,
+      0.0,
+      0.0
+    ],
+    "interpolation": "monotone cubic Hermite"
+  },
+  "native_basis_policy": {
+    "sample_all_native_channels_per_output_frame": true,
+    "classification": "authored animation using a continuous native animation basis; not motion capture",
+    "legacy_dense_keyposes_used_as_motion_basis": false,
+    "canonical_guard_source": {
+      "file": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb",
+      "sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
+      "bytes": 18864464
+    },
+    "guard_source_seconds": 0.0,
+    "raw_first_last_trs_values_identical_to_canonical_guard": true,
+    "entry_exit_native_mix_seconds": {
+      "entry": [
+        0.0,
+        0.28
+      ],
+      "exit": [
+        1.3,
+        1.75
+      ]
+    }
+  },
+  "authored_tracks": {
+    "right_arm": [
+      {
+        "joint": "R_Upperarm",
+        "policy": "new authored rotation track for this overhead; native basis plus blade-direction, natural wrist/shoulder-sphere reconstruction and clearance; not a reused formal hand trajectory",
+        "translation_scale_policy": "retain original rig/native bone geometry"
+      },
+      {
+        "joint": "R_Forearm",
+        "policy": "new authored rotation track for this overhead; native basis plus blade-direction, natural wrist/shoulder-sphere reconstruction and clearance; not a reused formal hand trajectory",
+        "translation_scale_policy": "retain original rig/native bone geometry"
+      },
+      {
+        "joint": "R_Hand",
+        "policy": "new authored rotation track for this overhead; native basis plus blade-direction, natural wrist/shoulder-sphere reconstruction and clearance; not a reused formal hand trajectory",
+        "translation_scale_policy": "retain original rig/native bone geometry"
+      }
+    ],
+    "reuse_previous_formal_right_arm_or_hand_tracks": false,
+    "other_modified_joint_groups": {
+      "root_and_torso": [
+        "BoneRoot",
+        "Hip",
+        "Waist",
+        "Spine01",
+        "Spine02"
+      ],
+      "root_and_torso_policy": "native continuous basis with horizontal rebase, vertical pressure, sagittal pelvis cap and canonical guard joins",
+      "left_guard_arm": [
+        "L_Upperarm",
+        "L_Forearm",
+        "L_Hand"
+      ],
+      "left_guard_arm_policy": "independent protective arc and dynamic native elbow-plane IK",
+      "feet_and_legs": [
+        "L_Thigh",
+        "L_Calf",
+        "L_Foot",
+        "R_Thigh",
+        "R_Calf",
+        "R_Foot"
+      ],
+      "feet_and_legs_policy": "actual shoe-surface planted-foot IK in canonical wide stance",
+      "left_fingers": [
+        "L_Thumb1",
+        "L_Thumb2",
+        "L_Thumb3",
+        "L_Index1",
+        "L_Index2",
+        "L_Index3",
+        "L_Mid1",
+        "L_Mid2",
+        "L_Mid3",
+        "L_Ring1",
+        "L_Ring2",
+        "L_Ring3",
+        "L_Pinky1",
+        "L_Pinky2",
+        "L_Pinky3"
+      ],
+      "left_finger_policy": "reviewed hit_head open protective curve"
+    },
+    "all_78_joints_reencoded_in_234_trs_channels": true,
+    "rest_mesh_skin_weights_inverse_binds_and_bone_lengths_changed": false,
+    "blade_direction_correction": {
+      "roll_solution_sha256": "4e0637696aa8908fe0eea1d1c45d2bb2d84e478615b48a8d6746ac405aaa1691",
+      "roll_tail_after_contact_degrees": 157.39068771161152,
+      "native_active_end_seconds": 2.15,
+      "pitch_peak_degrees": 45.0,
+      "wrist_policy": "Forearm and hand share the full rigid correction delta, preserving the pre-correction local wrist relation. The lift IK still alters wrist-local at source0.9 by about19 degrees; native wrist-local is recovered only from about0.9833 through ACTIVE end1.1.",
+      "shoulder_sphere_clearance": {
+        "pre_goal_offset_metres": [
+          -0.65,
+          0.3,
+          0.25
+        ],
+        "return_goal_offset_metres": [
+          -0.65,
+          0.1,
+          0.25
+        ],
+        "pre_blade_axis_unit_vector": [
+          0.0,
+          0.85,
+          -0.5267826876
+        ],
+        "pre_axis_envelope_seconds": [
+          0.25,
+          0.45,
+          0.7,
+          0.9
+        ],
+        "frame": "prepared +Y up/+Z forward; offsets metres, axis dimensionless, envelope source seconds"
+      },
+      "roll_envelope_seconds": [
+        0.25,
+        0.75,
+        1.2,
+        1.75
+      ],
+      "pitch_envelope_seconds": [
+        0.75,
+        1.0,
+        1.15,
+        1.6
+      ]
+    }
+  },
+  "right_grip_and_calibration": {
+    "joints": [
+      "R_Thumb1",
+      "R_Thumb2",
+      "R_Thumb3",
+      "R_Index1",
+      "R_Index2",
+      "R_Index3",
+      "R_Mid1",
+      "R_Mid2",
+      "R_Mid3",
+      "R_Ring1",
+      "R_Ring2",
+      "R_Ring3",
+      "R_Pinky1",
+      "R_Pinky2",
+      "R_Pinky3"
+    ],
+    "reference": {
+      "file": "ArtSource/tripo-warrior/refined-base60k/slash.glb",
+      "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+      "bytes": 18660564
+    },
+    "reference_native_seconds": 2.117,
+    "raw": {
+      "stage": "authored_raw",
+      "right_grip": "original reviewed R15 grip, constant UNBAKED",
+      "finger_offset_application_count": 0,
+      "constant_all_211_keys": true
+    },
+    "preview": {
+      "stage": "baked",
+      "finger_offset_application_count": 1,
+      "modified_rotation_track_count": 8,
+      "offsets_degrees": {
+        "R_Thumb1": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Thumb2": {
+          "x_degrees": 4.5,
+          "z_degrees": 0.0
+        },
+        "R_Index2": {
+          "x_degrees": 3.0,
+          "z_degrees": 0.0
+        },
+        "R_Ring1": {
+          "x_degrees": 0.0,
+          "z_degrees": -1.5
+        },
+        "R_Mid1": {
+          "x_degrees": 0.0,
+          "z_degrees": -1.5
+        },
+        "R_Thumb3": {
+          "x_degrees": -3.0,
+          "z_degrees": -3.0
+        },
+        "R_Index1": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        },
+        "R_Pinky1": {
+          "x_degrees": -1.5,
+          "z_degrees": 0.0
+        }
+      },
+      "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+      "formal_root_shift_application_count": 1,
+      "formal_root_shift_prepared_y_metres": -0.02799914504376948,
+      "formal_root_shift_raw_local": [
+        0.0,
+        -0.015385729260742664,
+        0.0
+      ],
+      "runtime_entity_lift_baked": false
+    },
+    "reimport_rule": "Retarget the UNBAKED raw to each target and apply that target calibration once. Preview is already once-baked; do not feed preview through calibration or formal grounding again."
+  },
+  "coordinate_frames": {
+    "raw_gltf": {
+      "up": "+Y",
+      "forward": "+X",
+      "translations": "original native rig/source model units; convert using normalization_matrix_gltf before treating as prepared metres",
+      "rotations": "glTF quaternion xyzw, dimensionless",
+      "angles_in_calibration": "degrees"
+    },
+    "prepared_source_measurements": {
+      "up": "+Y",
+      "forward": "+Z",
+      "distance_units": "metres",
+      "world_frame": "normalization @ raw posed world; before the preview constant root shift",
+      "normalization_matrix_gltf_column_major": [
+        -7.954654535069494e-08,
+        0.0,
+        1.8198128938674927,
+        0.0,
+        0.0,
+        1.8198128938674927,
+        0.0,
+        0.0,
+        -1.8198128938674927,
+        0.0,
+        -7.954654535069494e-08,
+        0.0,
+        0.00027122750179842114,
+        0.00028711825143545866,
+        -0.00013676621892955154,
+        1.0
+      ],
+      "uniform_scale": 1.8198128977677444
+    },
+    "preview_and_contact": {
+      "up": "+Y",
+      "forward": "+Z",
+      "distance_units": "metres",
+      "normal_units": "unit direction, dimensionless",
+      "root_shift_included": true,
+      "root_shift_y_metres": -0.02799914504376948,
+      "target_shoe_plane_y_metres": -0.028,
+      "runtime_entity_lift_baked": false
+    },
+    "calibration_frame": {
+      "finger_offsets": "right finger local joint axes; degrees; normalize(q @ (Qx @ Qz))",
+      "grip_frame": "R_Hand-local glTF mount matrix; raw source joint frame",
+      "weapon_binding": "W_RHand × actual HandGrip_R mount × Translation(-source Grip) × source Blade world",
+      "source_grip_translation": [
+        0,
+        -0.11400000005960464,
+        0
+      ],
+      "grip_shift_required": true
+    },
+    "normalization_and_binding_evidence": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_alignment.json",
+      "sha256": "2ce9f3a80d70683651a61e02aed4bbc3ed28aa62aee3be66e9bb508fd78ee6d0",
+      "bytes": 7900
+    }
+  },
+  "actual_steel_contact": {
+    "source_seconds": 1.0,
+    "active_elapsed_ms": 100,
+    "coordinate_frame": "preview_and_contact",
+    "plane_z_metres": 0.9,
+    "representative_surface_point": {
+      "primitive": 10,
+      "triangle": 408,
+      "material": "Steel | sharpened edge",
+      "point_metres": [
+        -0.19980522278888713,
+        1.2606656787071722,
+        0.9
+      ],
+      "normal": [
+        -0.9989498366825422,
+        -0.02235610577311999,
+        0.03999285344387381
+      ]
+    },
+    "point_selection": "One frozen true sharpened-edge triangle/plane intersection-segment midpoint from verification; not a marker or chord approximation.",
+    "triangle_index_base": 0,
+    "primitive_index_base": 0,
+    "triangle_index_scope": "primitive 10 of preview TripoBody_Mesh; this is the final actual appended dao geometry",
+    "normal_meaning": "actual triangle winding surface normal; distinct from the sharpened-edge cutting direction",
+    "all_sharpened_edge_intersections_at_contact": [
+      {
+        "primitive": 10,
+        "triangle": 408,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19980522278888713,
+          1.2606656787071722,
+          0.9
+        ],
+        "normal": [
+          -0.9989498366825422,
+          -0.02235610577311999,
+          0.03999285344387381
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 409,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19991398600287497,
+          1.2658139155262709,
+          0.9
+        ],
+        "normal": [
+          -0.9988999527017062,
+          -0.019774029214065604,
+          0.042519081142120704
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 410,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.1996110694635524,
+          1.2532610401446016,
+          0.9
+        ],
+        "normal": [
+          -0.998831737582641,
+          -0.03002681432036724,
+          0.03786225586798159
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 411,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.1997048596978568,
+          1.2565153031171685,
+          0.9
+        ],
+        "normal": [
+          -0.9988407716293408,
+          -0.027336242483852885,
+          0.03962124149704353
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 412,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19832325563534609,
+          1.2561018632937477,
+          0.9
+        ],
+        "normal": [
+          0.9637655143822175,
+          -0.2606788254587903,
+          -0.05659137076450241
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 413,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19916874839086834,
+          1.2529611829718341,
+          0.9
+        ],
+        "normal": [
+          0.9643530166273375,
+          -0.2581887258831392,
+          -0.05798138622519373
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 414,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19592331943986266,
+          1.265251159835035,
+          0.9
+        ],
+        "normal": [
+          0.9659075566509839,
+          -0.253239618726738,
+          -0.05377999174100699
+        ]
+      },
+      {
+        "primitive": 10,
+        "triangle": 415,
+        "material": "Steel | sharpened edge",
+        "point_metres": [
+          -0.19722211068469217,
+          1.2602728930524834,
+          0.9
+        ],
+        "normal": [
+          0.9663985638455987,
+          -0.25087972005973724,
+          -0.0559748323794917
+        ]
+      }
+    ],
+    "evidence": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_verification.json",
+      "sha256": "dde6d899108a731048f1d1b5d082543e464984f70f85acc4ccf1b2080fc347c4",
+      "bytes": 118799,
+      "json_path": "$.true_contact_sample.contact_plane_z_0p9_intersections"
+    },
+    "actual_direction_evidence": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/blade_direction_audit.json",
+      "sha256": "fe401b832a79094c08ba692d4fbc83a6fafeaf3665cabbf7b0ae03c92ee88ba3",
+      "bytes": 45303,
+      "json_path": "$.active_120hz_samples",
+      "active_sample_count": 25,
+      "derivative_seconds": 0.004166666666666667
+    }
+  },
+  "foot_samples": {
+    "authoring": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_metadata.json",
+      "sha256": "1d395763496e4d9be2c36521575eb1eea2e5ccb906867212dbeba1b5656d8241",
+      "bytes": 423995,
+      "json_path": "$.frames[*].foot_surfaces",
+      "time_json_path": "$.frames[*].output_seconds",
+      "sample_count": 211,
+      "coordinate_frame": "prepared_source_measurements"
+    },
+    "preview_checks": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_verification.json",
+      "sha256": "dde6d899108a731048f1d1b5d082543e464984f70f85acc4ccf1b2080fc347c4",
+      "bytes": 118799,
+      "coordinate_frame": "preview_and_contact",
+      "sole_plane_error_max_metres": 1.7751971742897832e-06,
+      "surface_centre_motion_max_metres": 1.7241270303607786e-06
+    },
+    "contact_phase_seconds": {
+      "L_": [
+        [
+          0,
+          1.75,
+          "flat planted"
+        ]
+      ],
+      "R_": [
+        [
+          0,
+          1.75,
+          "flat planted"
+        ]
+      ]
+    }
+  },
+  "bone_anchor_sources": {
+    "all_211_authoring_samples": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_metadata.json",
+      "sha256": "1d395763496e4d9be2c36521575eb1eea2e5ccb906867212dbeba1b5656d8241",
+      "bytes": 423995,
+      "json_path": "$.frames",
+      "position_fields": [
+        "right_hand_metres",
+        "left_hand_metres"
+      ],
+      "coordinate_frame": "prepared_source_measurements",
+      "scope": "measurements only; not full per-joint matrices"
+    },
+    "rendered_preview_53_frames": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/review/after/movie/render_manifest.json",
+      "sha256": "de1deacc3e1783ed2608652c4703fdebaebe64cb59bcb79fe93cd67ea24fc945",
+      "bytes": 181192,
+      "json_path": "$.frames[*].anchors_gltf_metres",
+      "time_json_path": "$.frames[*].source_seconds",
+      "coordinate_frame": "preview_and_contact",
+      "sample_count": 53,
+      "nominal_sample_rate_hz": 30,
+      "includes_exact_endpoint_seconds": 1.75,
+      "joints_and_weapon_markers": [
+        "Head",
+        "Hip",
+        "R_Hand",
+        "L_Hand",
+        "R_Foot",
+        "L_Foot",
+        "Blade_Base",
+        "Blade_Tip"
+      ],
+      "scope": "actual imported Action/slot FK; no rebase; partial bone/weapon anchors, not all 78 matrices"
+    }
+  },
+  "root_reimport_required": {
+    "source": "raw",
+    "targets": "all runtime target characters using their current rig/body, grip mount and target calibration",
+    "regenerate": [
+      "retargeted animation tracks",
+      "right-arm and hand-track signatures",
+      "actual weapon surface contacts for each target",
+      "attack profiles and profile/model hashes",
+      "weapon/character motion binding and binding hashes"
+    ],
+    "trajectory_authority": "new authored raw joint tracks plus final actual weapon geometry; do not reuse the old formal hand trajectory, contact points, hand-track hashes, profiles or binding evidence",
+    "candidate_preview_scope": "current base character PNG preview only; other targets must be freshly retargeted and measured",
+    "canonical_guard_source_retained": true
+  },
+  "evidence": {
+    "metadata": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_metadata.json",
+      "sha256": "1d395763496e4d9be2c36521575eb1eea2e5ccb906867212dbeba1b5656d8241",
+      "bytes": 423995
+    },
+    "alignment": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_alignment.json",
+      "sha256": "2ce9f3a80d70683651a61e02aed4bbc3ed28aa62aee3be66e9bb508fd78ee6d0",
+      "bytes": 7900
+    },
+    "verification": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/fine_overhead_verification.json",
+      "sha256": "dde6d899108a731048f1d1b5d082543e464984f70f85acc4ccf1b2080fc347c4",
+      "bytes": 118799
+    },
+    "blade_direction_audit": {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/blade_direction_audit.json",
+      "sha256": "fe401b832a79094c08ba692d4fbc83a6fafeaf3665cabbf7b0ae03c92ee88ba3",
+      "bytes": 45303
+    },
+    "formal_baseline_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+    "source_pins": {
+      "ArtSource/tripo-warrior/motion_library.json": "8f106807494b26ff4f6c39566987943069b753049b196040feda9cee6ef9b25c",
+      "ArtSource/tripo-warrior/library/base_alignment.json": "8ea12a2628d6a519d3d99ed8498ca16b68000bb6c9fc1fc47424cfdb572aa7ae",
+      "ArtSource/refinement/hand-poses/fine-overhead/candidate/v7/blade_roll_solution.json": "4e0637696aa8908fe0eea1d1c45d2bb2d84e478615b48a8d6746ac405aaa1691",
+      "ArtSource/tripo-warrior/../refinement/material-direction/integration/base_albedo_tangent_raw.glb": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
+      "ArtSource/tripo-warrior/../refinement/weapon/stage2/dao_refined.glb": "4834a555d70f80151bbe19358c0a94c11e1c3f76ab2e501bf6e70c2860bcf452",
+      "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_metadata.json": "20501f7585432160b814c0651188cf12a00a589e1b791b8fa53b9f7ca19c6950",
+      "ArtSource/tripo-warrior/refined-base60k/rig.glb": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "ArtSource/tripo-warrior/refined-base60k/slash.glb": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+      "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
+      "ArtSource/tripo-warrior/prepare_character_library.py": "5bbca3256e0d54227541427ae1d46688c1a6447682864893c6757a2d7dd92940",
+      "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "ArtSource/tripo-warrior/refine_character_grips.py": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+      "ArtSource/refinement/hand-poses/run_blender.py": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+      "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+      "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f"
+    }
+  },
+  "limits": [
+    "At source0.9, R_Hand local retains approximately19 degrees of lift-IK adjustment; from approximately0.9833 through ACTIVE end1.1 it matches the native wrist-local rotation to numerical tolerance. Do not label the entire ACTIVE wrist-local track strictly native.",
+    "Continuous native animation is a motion basis; final right-arm and blade trajectories are authored, not mocap and not reused former formal hand tracks.",
+    "Steel/body BVH is discrete:106 samples across full source0–1.75 seconds at60Hz; zero sampled intersections does not prove continuous collision freedom between samples.",
+    "SDK playback, target retargeting, runtime contact/proxy alignment and device behavior have not been validated by this private candidate lane."
+  ]
+}

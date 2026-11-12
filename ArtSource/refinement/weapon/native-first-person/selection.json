@@ -1,0 +1,124 @@
+{
+  "formal_source": "ArtSource/tripo-warrior/library/base.glb",
+  "formal_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+  "png_source": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+  "png_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+  "equivalence": {
+    "passed": true,
+    "non_image_json_exact": true,
+    "non_image_buffer_views_exact": 2587,
+    "normalized_texture_semantics_exact": true
+  },
+  "selection_rule": "visible body primitives; all three vertices have a dominant bone of the selected Forearm/ForearmTwist/Hand/15-finger side",
+  "id_space": "source mesh/primitive-local vertex ID and source primitive triangle ID; compact indices map through source_vertex_ids",
+  "npz": "ArtSource/refinement/weapon/native-first-person/selection.npz",
+  "sides": {
+    "R": {
+      "triangles": 4681,
+      "vertices": 2741,
+      "primitives": [
+        {
+          "source_mesh": 0,
+          "source_primitive": 0,
+          "source_material": 0,
+          "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+          "triangles": 4681,
+          "vertices": 2741,
+          "npz_prefix": "R_p0",
+          "attributes": {
+            "POSITION": {
+              "npz_key": "R_p0_POSITION",
+              "source_accessor": 0,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC3"
+            },
+            "NORMAL": {
+              "npz_key": "R_p0_NORMAL",
+              "source_accessor": 1,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC3"
+            },
+            "TEXCOORD_0": {
+              "npz_key": "R_p0_TEXCOORD_0",
+              "source_accessor": 2,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC2"
+            },
+            "JOINTS_0": {
+              "npz_key": "R_p0_JOINTS_0",
+              "source_accessor": 3,
+              "componentType": 5121,
+              "normalized": false,
+              "type": "VEC4"
+            },
+            "WEIGHTS_0": {
+              "npz_key": "R_p0_WEIGHTS_0",
+              "source_accessor": 4,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC4"
+            }
+          }
+        }
+      ]
+    },
+    "L": {
+      "triangles": 5392,
+      "vertices": 3121,
+      "primitives": [
+        {
+          "source_mesh": 0,
+          "source_primitive": 0,
+          "source_material": 0,
+          "material_name": "tripo_mat_78aef961-efe3-4f9f-a9e2-d501bb808dac",
+          "triangles": 5392,
+          "vertices": 3121,
+          "npz_prefix": "L_p0",
+          "attributes": {
+            "POSITION": {
+              "npz_key": "L_p0_POSITION",
+              "source_accessor": 0,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC3"
+            },
+            "NORMAL": {
+              "npz_key": "L_p0_NORMAL",
+              "source_accessor": 1,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC3"
+            },
+            "TEXCOORD_0": {
+              "npz_key": "L_p0_TEXCOORD_0",
+              "source_accessor": 2,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC2"
+            },
+            "JOINTS_0": {
+              "npz_key": "L_p0_JOINTS_0",
+              "source_accessor": 3,
+              "componentType": 5121,
+              "normalized": false,
+              "type": "VEC4"
+            },
+            "WEIGHTS_0": {
+              "npz_key": "L_p0_WEIGHTS_0",
+              "source_accessor": 4,
+              "componentType": 5126,
+              "normalized": false,
+              "type": "VEC4"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "total_triangles": 10073,
+  "decimation_applied": false,
+  "npz_sha256": "4aaafe6dcd856978a9fae7754925f4577f9142070d5af725198ae32ffe21e2ba"
+}

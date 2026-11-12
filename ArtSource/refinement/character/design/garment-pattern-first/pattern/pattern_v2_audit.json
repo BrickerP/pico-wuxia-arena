@@ -1,0 +1,323 @@
+{
+  "status": "PATTERN_INTRINSIC_AND_SEAM_GRAPH_PASS",
+  "pattern_npz_sha256": "52e6ba5ce41f6b51928c3122ebf5bdc6a5b0e55e356b061c68697b89f1553c77",
+  "all_material_panels_flat": true,
+  "all_initial_3d_islands_flat": true,
+  "minimum_structural_edge_m": 0.006000041961669922,
+  "max_float32_rigid_layout_edge_error_m": 2.48928473499041e-07,
+  "pin_vertices": 28,
+  "pin_fraction": 0.004232164449818622,
+  "seams": [
+    {
+      "id": "shoulder_L",
+      "samples": 17,
+      "length_a_m": 0.15500003099441528,
+      "length_b_m": 0.1549999937415123,
+      "maximum_segment_mismatch_m": 5.21540641784668e-08
+    },
+    {
+      "id": "side_L",
+      "samples": 23,
+      "length_a_m": 0.219390869140625,
+      "length_b_m": 0.219390869140625,
+      "maximum_segment_mismatch_m": 0.0
+    },
+    {
+      "id": "shoulder_R",
+      "samples": 17,
+      "length_a_m": 0.1549999713897705,
+      "length_b_m": 0.1549999937415123,
+      "maximum_segment_mismatch_m": 8.195638656616211e-08
+    },
+    {
+      "id": "side_R",
+      "samples": 23,
+      "length_a_m": 0.219390869140625,
+      "length_b_m": 0.219390869140625,
+      "maximum_segment_mismatch_m": 0.0
+    },
+    {
+      "id": "armhole_front_L",
+      "samples": 17,
+      "length_a_m": 0.16000008583068848,
+      "length_b_m": 0.1599999964237213,
+      "maximum_segment_mismatch_m": 1.0989606380462646e-07
+    },
+    {
+      "id": "armhole_back_L",
+      "samples": 17,
+      "length_a_m": 0.16000008583068848,
+      "length_b_m": 0.1600000262260437,
+      "maximum_segment_mismatch_m": 1.1920928955078125e-07
+    },
+    {
+      "id": "sleeve_upper_L",
+      "samples": 43,
+      "length_a_m": 0.4199998378753662,
+      "length_b_m": 0.41999998688697815,
+      "maximum_segment_mismatch_m": 2.2351741790771484e-07
+    },
+    {
+      "id": "sleeve_under_L",
+      "samples": 37,
+      "length_a_m": 0.36365481112333753,
+      "length_b_m": 0.3636549022673732,
+      "maximum_segment_mismatch_m": 2.2548564546781558e-07
+    },
+    {
+      "id": "gusset_body_front_L",
+      "samples": 7,
+      "length_a_m": 0.06060910224914551,
+      "length_b_m": 0.06060916185379028,
+      "maximum_segment_mismatch_m": 5.960464477539063e-08
+    },
+    {
+      "id": "gusset_body_back_L",
+      "samples": 7,
+      "length_a_m": 0.06060910224914551,
+      "length_b_m": 0.06060916185379028,
+      "maximum_segment_mismatch_m": 5.960464477539063e-08
+    },
+    {
+      "id": "gusset_sleeve_front_L",
+      "samples": 7,
+      "length_a_m": 0.06060909637699488,
+      "length_b_m": 0.06060916185379028,
+      "maximum_segment_mismatch_m": 4.036389865229306e-08
+    },
+    {
+      "id": "gusset_sleeve_back_L",
+      "samples": 7,
+      "length_a_m": 0.060609153802328626,
+      "length_b_m": 0.06060916185379028,
+      "maximum_segment_mismatch_m": 3.5358926234879684e-08
+    },
+    {
+      "id": "armhole_front_R",
+      "samples": 17,
+      "length_a_m": 0.16000008583068848,
+      "length_b_m": 0.15999996662139893,
+      "maximum_segment_mismatch_m": 1.1920928955078125e-07
+    },
+    {
+      "id": "armhole_back_R",
+      "samples": 17,
+      "length_a_m": 0.16000008583068848,
+      "length_b_m": 0.1600000262260437,
+      "maximum_segment_mismatch_m": 1.1920928955078125e-07
+    },
+    {
+      "id": "sleeve_upper_R",
+      "samples": 43,
+      "length_a_m": 0.4200000762939453,
+      "length_b_m": 0.4199998378753662,
+      "maximum_segment_mismatch_m": 2.384185791015625e-07
+    },
+    {
+      "id": "sleeve_under_R",
+      "samples": 37,
+      "length_a_m": 0.36365493229710893,
+      "length_b_m": 0.3636548100712509,
+      "maximum_segment_mismatch_m": 2.3602249233679873e-07
+    },
+    {
+      "id": "gusset_body_front_R",
+      "samples": 7,
+      "length_a_m": 0.06060910224914551,
+      "length_b_m": 0.06060922145843506,
+      "maximum_segment_mismatch_m": 1.1920928955078125e-07
+    },
+    {
+      "id": "gusset_body_back_R",
+      "samples": 7,
+      "length_a_m": 0.06060910224914551,
+      "length_b_m": 0.060609154403209686,
+      "maximum_segment_mismatch_m": 8.940696716308594e-08
+    },
+    {
+      "id": "gusset_sleeve_front_R",
+      "samples": 7,
+      "length_a_m": 0.060609212280910714,
+      "length_b_m": 0.060609154403209686,
+      "maximum_segment_mismatch_m": 1.0509764690816437e-07
+    },
+    {
+      "id": "gusset_sleeve_back_R",
+      "samples": 7,
+      "length_a_m": 0.06060909848459119,
+      "length_b_m": 0.06060922145843506,
+      "maximum_segment_mismatch_m": 8.306013114106614e-08
+    }
+  ],
+  "semantic_corner_graph": [
+    {
+      "side": "L",
+      "name": "shoulder_cap",
+      "vertex_ids": [
+        2789,
+        2024,
+        3571,
+        4286
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "L",
+      "name": "gusset_bottom",
+      "vertex_ids": [
+        2415,
+        1034,
+        5017
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "L",
+      "name": "gusset_front",
+      "vertex_ids": [
+        2517,
+        3555,
+        5059
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "L",
+      "name": "gusset_back",
+      "vertex_ids": [
+        1304,
+        4302,
+        5023
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "L",
+      "name": "gusset_sleeve_under",
+      "vertex_ids": [
+        3657,
+        4404,
+        5065
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "R",
+      "name": "shoulder_cap",
+      "vertex_ids": [
+        3554,
+        1980,
+        5082,
+        5797
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "R",
+      "name": "gusset_bottom",
+      "vertex_ids": [
+        3180,
+        990,
+        6528
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "R",
+      "name": "gusset_front",
+      "vertex_ids": [
+        3282,
+        5066,
+        6570
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "R",
+      "name": "gusset_back",
+      "vertex_ids": [
+        1260,
+        5813,
+        6534
+      ],
+      "seam_equivalence_pass": true
+    },
+    {
+      "side": "R",
+      "name": "gusset_sleeve_under",
+      "vertex_ids": [
+        5168,
+        5915,
+        6576
+      ],
+      "seam_equivalence_pass": true
+    }
+  ],
+  "panels": [
+    {
+      "panel": "back",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "front_L_outer",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "front_R_inner",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "sleeve_front_L",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "sleeve_back_L",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "gusset_L",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "sleeve_front_R",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "sleeve_back_R",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "gusset_R",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    },
+    {
+      "panel": "narrow_inner_collar",
+      "flat_rest_z_range_m": 0.0,
+      "layout_smallest_singular_value_m": 0.0,
+      "not_a_preformed_tube": true
+    }
+  ],
+  "limits": [
+    "Topology proves equal pairings and coherent corners, not successful physical seam closure.",
+    "Tenth panel inner collar remains construction-only; nine physical panels in solver.",
+    "No source-human anatomical surface exists in this pattern file; hidden mannequin is approximate."
+  ]
+}

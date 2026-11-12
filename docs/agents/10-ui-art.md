@@ -2,6 +2,8 @@
 
 ## 当前状态
 
+2026-11-13当前只交原生源码候选：next-polish/ui-polish.patch已完成，目标仅现有APK的ArenaHud，正式app未改。Kotlin/Compose隔离编译通过、样式0错误/0警告，Root负责合入/构建/PICO Emulator与Space Pro验收。按用户最新纠偏停止HTML/Web/Three.js、浏览器主试玩、新HTML mock和不能接入的研究/重复渲染；既有HTML仅保留历史，不维护、不作为验收。没有新增原生任务时收口停止。
+
 最新pose：Root已自行采用Position=(-0.6,1.2,-1.75)、yaw20°/Quat=(0,0.17364818,0,0.98480775)并重构建native。本路只读核对未见明确HIGH，原A/B只作未采用备选，不应再自动替换Root当前值；物理尺寸与400/160保持，等待同机位复拍确认完整性和刀路。
 
 最新最小修复已实现，SOURCE FROZEN，Root可立即共享构建：Main只传`isRanchuHost = Build.HARDWARE == "ranchu"`展示提示；helper仅在DESKTOP或“来源未知且明确ranchu”时显示模拟器配置教程。ArenaViewState/ArenaSession、所有ready/quality/Unsupported与触觉/刀轨来源均未改，Start receipt和按钮gate保留。Main+UI隔离编译与33项回归已通过。源指纹在`ArtSource/refinement/ui-review/ranchu-help/handoff.json`；不等待新截图或额外UI改动。
@@ -16,7 +18,7 @@
 
 ## 所有权
 
-负责 content/ArenaHud.kt、DamagePopupText.kt、新ui目录与app/res内自有UI资源、设计包和本文件。Main／HomeStage最终容器与Attachment接线由Root负责，交最小集成点。伤害timeline正确性、CombatImpact与输入规则保持原逻辑。
+当前唯一可写责任为ArtSource/refinement/ui-native-preview/next-polish/与本文件，交可映射现有state/action的原生Kotlin最小源码patch。正式ArenaHud/其他app源码由Root合入；Main/HomeStage最终接线、Gradle、设备、Git提交与发布也由Root统一。保留他人编辑，不扩玩法、入口或宏，伤害timeline/CombatImpact/输入规则不改。
 
 ## 当前基线
 
@@ -24,15 +26,15 @@
 
 ## 制作队列
 
-1. 先按PICO空间设计流程制作可审设计包／预览，给准备、交战、暂停、换轮、结算五状态。使用当前Full Stage和Attachment，优先可读层次和战斗视野。
+1. 以现有真实APK画面与state/action链为基线，只交可接入Kotlin/PICO Spatial SDK6.1.9 APK的源码或原生资源；准备、交战、暂停、换轮、结算仍使用当前Full Stage与Attachment。不新增或维护HTML/Web/Three.js，不以浏览器或mock充当游戏验收。
 2. 明确中文字体、数字样式、敌人身份、生命／精力／气、来刀提示、弹反／要害与结算。可加入原创印章、刀痕、细笔触等可辨元素，保留标准控件语义与hover／haptics。
 3. 写Compose前读取spatial-ui-design-style和所需能力／组件官方指南。PicoTheme原生语义角色保持，项目自有装饰色单独命名。新字体／图纹必须可核对授权，沿既有资源组织。
 4. 文本按真实物理阅读距离设计，避免把桌面像素图当VR验收。伤害数字透明背景、稳定深度与不遮脸／刀路仍参与评审。
-5. 设计自审后直接实现责任代码，保留现有回调和可用入口。交Root真实Compose与资源、状态对照、接线差异与样式检查结果。
+5. 自审后在候选目录制作最小原生源码patch，保留现有回调、机制反馈和可点击入口。交Root明确目标文件、基线SHA、公有API检查与接入差异；正式实现由Root合入，不能接入的研究/报告或重复渲染立即停止。
 
 ## 首轮交付
 
-一套清楚显示目标方向的可运行UI预览与至少准备／交战两个状态的实际代码。随后完善暂停、结算、出招与击中UI动效。
+一份可进入现有原生APK的最小Compose补丁与准确state/action映射。Root在PICO Emulator验证、终端Space Pro/OS6验收；历史Web/mock保留作过程资料，不是产品交付或原生验收。
 
 ## 共同执行合同
 
@@ -359,3 +361,41 @@ Root当前值：Position=(-0.6,1.2,-1.75)，Quat=(0,0.17364818,0,0.98480775)，y
 剩余是待native复拍的可见性风险：400页抬高后的上缘与脸部/持刀区、当前取景左边余量、近身挥刀经过时的内侧边缘。固定世界pose不能保证所有头位和刀帧无遮挡；当前没有已证实的高风险，因此不给另一组数值打断Root构建。按同一正视复位机位先验400页完整，再验160战斗和短挥刀帧；两种截图相机不同不直接归因SDK。
 
 本路本轮只修改10交接；HomeStage由Root应用，Main/教程/安全门均未触碰，无新控件/面板/宏，无构建或设备操作。
+
+### 2026-11-13 · 9e画面UI精修首轮实物（候选制作中）
+
+唯一写入工作范围为ArtSource/refinement/ui-native-preview/next-polish/与本文；正式app、浏览器主试玩、Gradle、设备与Git均不操作。基线取ArtSource/refinement/presentation/native-input-contact-2026-11-12.png，源码与图像SHA已固定于next-polish/source-baseline.json。
+
+首项实物：next-polish/mock/fighting-same-view-mock.png，图内明确MOCK/设计示意/非原生验收；HTML对照页已停止维护且不作为交付；仅保留标明MOCK的PNG和原生Kotlin候选。使用内置ImageGen编辑参考图，完整prompt在mock/prompt.txt；生成图参照原机位/人物/刀路，但不是场景像素一致性或代码字体证明。
+
+方案：正常交战控制区去掉重复试炼标题、目标和轮次，保留印章、暂停/重开原生按钮及确认链；敌人状态区以透明结构和必要的小范围承载替代大墨块，敌名/轮次/敌血主层，架势/方向独立，玩家三资源与短时反馈完整。待机与近期受到攻击不是重复项；敌人蓄势与玩家收刀蓄势也不能合并。没有架势HP字段，不虚构新数值。
+
+已交ui-polish.patch仅修改ArenaHud.kt，映射现有state/action；Root负责正式合入、构建和PICO Emulator状态验收。候选未写入app。
+
+### 2026-11-13 · 原生UI精修单文件候选交付（收口，Root合入）
+
+按用户最新纠偏，本轮只以可进入原生APK的源码patch为交付。HTML/Web/Three.js、浏览器游戏、新HTML mock和不能接入的研究/重复渲染已停止；此前已创建的HTML与生成mock保留历史、不维护、不删除他人文件、不作为原生验收。当前没有扩展任务，不再为回报制造新工作。
+
+唯一目标为正式`app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt`。候选在`ArtSource/refinement/ui-native-preview/next-polish/candidate/src/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt`，统一diff为`next-polish/ui-polish.patch`，由Python difflib生成，没有运行Git。正式app源码未改，Root独占合入、构建、设备和发布。
+
+最小变化：
+- 正常FIGHTING控制区改透明，仅保留原生Small40暂停/重开和28dp试印；不缩点击目标。暂停为朱砂，重开为低优先墨色，确认链与全部控制gates不变。去掉此处重复试炼标题、目标和轮次；COUNTDOWN/ROUND_CLEAR真实秒数、controlPending、场景/输入等待文本仍保留。
+- 状态牌去掉整块墨底，结构透明；现有敌名/轮次/时间、敌血分母、阶段/方向、三项玩家资源、短时攻防事件、蓄势/收刀复位/处决条件完整。4个数字用原生Badge作局部承托，其余文字使用与现跳字同类的轻量Shadow，未加app装饰边框或覆盖PicoTheme角色。
+- feedbackLabel只把最后默认“目标在范围内”兜底改为不显示；全部14种事件、低资源、距离不足、敌人护身、执行、追踪中断、倒计时、换轮和终局优先级仍在。敌人阶段与近期反馈各自保留，不把“待机＋受到攻击”错误去重。没有新增架势HP、技能或UI计时器。
+- 准备/暂停/结算纸页、教程、开始/恢复条件、pending禁用、重开确认、终局combo隐藏、400×160/400和500×260槽位及公开接口保留。Palette、ArenaPresentation、Main/HomeStage、输入/战斗规则都没有候选改动。
+
+核对依据为当前PICO SpatialUI6.1.9公有Button/Badge/LinearProgressIndicator/Text/AlertDialog与PicoTheme契约；没有使用私有token。候选单文件Kotlin2.1.20+Compose隔离编译PASS，未运行Gradle；样式门0 error/0 warning，扫描包含未改palette快照。未提供新完整设计IR，R10 IR追踪没有冒充通过；源码层无嵌套app填充/装饰边框，原生Badge背景属组件处理。
+
+独立四项审查未发现HIGH/阻塞：所有动作callback与gates保留，阶段/反馈映射完整。默认资源列约142.7dp，标签与76dp数值Badge约132dp；理论最重状态约251/260dp，Root仍须原生核字和底边，不能用数字估算充当通过。Badge实际内容宽约68dp，100/100、放大字体、亮窗/灯笼后的透明标签、长提示+combo+charge和点击/hover/haptics均待APK中复验。
+
+先前生成mock仅说明方向，与候选存在差异：mock敌血单排而源码上下两排；源码有4个暗底数字Badge；mock的斜角/描边/印章肌理和字形不是候选承诺。它不证明空间尺寸、原生文字、点击或刀线无遮挡。正式实现一律以源码patch为准。
+
+Root接入：先核对当前ArenaHud基线SHA，再仅应用这一文件的patch；没有Main/HomeStage或资源接线要求。保持既有原生头手通路与所有安全门，统一由Root共享构建，并在PICO Emulator/Space Pro复验实际9e同机位及正常视距。
+
+交付指纹：
+- 基线ArenaHud：`e9711f73a6578fbfe9c3cf413dfe43257dcdadb7814b3db475eae6fc30ba6a12`。
+- 候选ArenaHud：`097e46fc72552fe3d2df1109284a0eaef4d0f9de408eea416f2c0842d6737f51`。
+- `next-polish/ui-polish.patch`：`8dab16ec3dc852ca3470b65d26ae5c580c75348848d8dad5b7631ff8264fd7fc`。
+- `next-polish/candidate/candidate-report.json`含编译、样式、不变量、基线/候选及输入SHA；`next-polish/delivery.json`为本轮最终接入摘要，README明确原生唯一产品合同。
+
+本轮至此停止，等待Root对原生候选的真实集成结果再派具体工作。

@@ -1,8 +1,80 @@
 # 07 · PICO原生光影与氛围
 
+## Root材质收件（2026-11-12）
+
+Root已实际看1.5m original/albedo/final三组并接受albedo_only，不采用roughness追加。**当前已正式发布**：所选颜色delta与05已匹配局部切线修复进入原始源与唯一producer，发布组`1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2`，正式base `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`。Root报告APK`1b905...`已在原生Full Stage显示；本路已核对当前正式资源hash。几何硬折、厚边、受保护区残斑仍在，不因此放行03新几何。以下b732／722ffe与“未发布”均为制作时历史输入／快照，不再代表当前正式状态；本路冻结旧候选，不另作离线衣料A/B。
+
+## 当前执行：原生近场配光
+
+只交付现有APK可用的原生候选。Web IBL队列已经终止，不再接入、测试或发布；保留已有文件，不续做网页模块。现有近场补丁及数值收据位于`ArtSource/refinement/lookdev/native-nearfield/`，内容与原件相同，仅移出Web目录。Root统一在PICO Emulator作同机位A/B，不用网页或离线渲染替代。
+
+### 原生近场诊断 · 仅三点与独立数值patch
+
+已实际看`artifacts/native-controller-burst/ready.png`及`ArtSource/refinement/presentation/native-input-contact-2026-11-12.png`，构建收据为同一APK`9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b`；接触图敌血12／100，脸／双手比ready明显泛白。以下为诊断／候选，未执行原生或材质修改。
+
+1. **先排短时反馈，未见皮肤来源漂移。** 当前正式ac7、头albedo/MR与既有来源相同，PBR／贴图乘因子无新的提亮设置。head MR全图G中位227、B中位5，偏粗糙／低金属；这不是脸UV专项测量。整人白闪会将除角膜外tripo_*替换为无纹理乳白Unlit持续28ms（致命40ms），与接触图仍清楚可见灰衣纹／蓝裤的外观不符；但接触点光110–290lm、0.6m、60–100ms尚不能排除。Root先找末次新impact至少200ms后、同一近距的稳态帧，不把触发截图直接当稳态灯光证据。
+2. **近场补光是合理首嫌，精确曲线未证明。** 现Spot20,000lm位于(-.35,2.1,+.45)，刀补点光12,000lm位于(+1.15,1.65,+.25)。参考脸心(0,1.55,z)从z−2.4走到−1.1时，Spot距离2.92→1.68m，且光接近正面；近距更亮并压平体积有合理几何基础。SDK只保证距离衰减，未公开精确反平方／cutoff函数；不据此归咎皮肤贴图或改roughness／曝光／IBL。
+3. **最小受控候选已成文件，未应用。** `native-nearfield/native-nearfield.patch`只改三行：Spot X−.35→−1.10m，重新朝原目标(0,1.30,−1.75)，Quat(-.16077158,-.22106092,0,.96191713)，20,000lm与其余Spot参数不变；刀补点光12,000→8,000lm，其余点光参数不变。更偏侧以保脸部体积、降低近手溢光；理想正面Lambert／r²模型仅估计参考ready保约84%、近−1.1m保约61%，不含真实SDK角度／范围／BRDF，绝非实际亮度验证。Root后续以同一包／机位的ready和无新impact近距帧检查眉眼／鼻颊层次、双手、刃边；ready退黑或near仍平白都不能按模型宣称成功。
+
+`native-nearfield/native-nearfield.json`锁原生基线SHA`8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e`、参考原图SHA、数值、单位及未验证边界。只在内存验证替换唯一性、四元数归一／瞄向与脸手包络24.47°处于保守外半角37.5°内；没有写原生文件、改曝光、做多轮重渲或占Root设备。已签名albedo handoff SHA `61e0d9baca7411c5db33d867fd9e365db8536fccf452b31694662234b166e3b8`末核保持；所有本轮新增资料仅web-ibl目录和07文档。
+
+## 已完成续派：原几何上的衣料材质隔离对照 (2026-11-12)
+
+Root实际看正式b03f整人clay与PBR，衣物灰白花斑可能在显著制造石块/污渍观感。03新几何仍在G1，不准越过它做新衣烘焙；本轮独立在已发布基线几何上作材质诊断，分清可见粗糙感的来源。
+
+仅拥有ArtSource/refinement/material-direction/及本07交接。正式source/app/producer/manifest、SceneLighting与其它Kotlin、03衣片、05头脸均只读。多人共享不要回滚。优先复用ArtSource/refinement/character/design/cloth-surface/v2已有保护与来源；当前基线是library/base_prepared_png.glb b732配正式KTX722ffe，不能用旧头或不同灯。
+
+做一个可复现的上衣PBR图像/材质delta：减少无因果大片白斑，外衣黛青/炭灰布面与窄内领、棕皮/古铜分工；保裸手/脸/皮革/金属/刀的采样保护。不加随机噪声、不烘方向灯，不用提亮/改曝光掩盖。保当前normal，先只隔离baseColor与roughness贡献；必要mask/UV来源明确，不能一把涂黑整个含皮肤的body atlas。新UV/高低模重烘不在本轮。
+
+至少交原材质/仅albedo修正/最终PBR三者同几何同灯完整guard的1.5m对照，可加0.8m材质分区。来源、保护边界、可见收益和残余几何问题说清。模型几何/骨架/动画逐项不变。这是诊断和可接收材质候选，不等于03新几何过关。实际图若仍不可辨就停止，不继续堆纹理。
+
+每次最多1个Blender、2线程，少量有效图先交。不要占Root设备/Gradle/Git。Root统一源合成/KTX/原生。主控目标active，直接执行不等重复许可。
+
+---
+
+### 首件已交 · 当前b732上的隔离材质候选
+
+2026-11-12已生成`ArtSource/refinement/material-direction/`候选。输入为当前正式PNG `b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09`，对应正式KTX GLB `722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e`，来源代码`69f3866ab012e7c1a52ad3b038b790628f3697e0`。没有拿旧raw43整人／旧头来对照。
+
+- `candidates/albedo_only.glb` SHA `fdb2e9e0ab77914a2555f9cd5741dd9081e410d166095ad55c16b032a612d232`：只改body image1允许上衣像素。
+- `candidates/final_pbr.glb` SHA `6a99efbcfb0b4276c67d8350dfa644f977576324b9d8414ed0f97bead82c1297`：颜色与albedo-only完全相同，只另改image2的G粗糙度，R／B金属度不变。
+
+当前source有26张图；normal image0及全部未选图片payload保持。原BIN前缀45,757,584字节和原2613个bufferView逐字节不变；mesh、节点、78骨、UV、10clip、材质／texture／sampler JSON不变。候选只追加PNG view，供诊断，不直接发布app。
+
+复用cloth-surface/v2的supercover＋2px周期REPEAT保护；raw到当前body50350面按顶点三元组唯一映射，不能拿旧raw face row索引当前面。独立验证确认每图13,401,956个非编辑像素零变化，30826个存活noncoat面每图308260个最近采样和1233040个双线性邻域保留。10项反例测试通过（protected像素／MR R/B／原BIN／动画／sampler／新头被偷改、坏PNG、截断拒绝）；报告在`material-direction/verification/`。
+
+压缩的是灰白大片差异，不是整块涂黑：editable衣料sRGB中位数40.63→39.80保持，95分位63.92→47.38、99分位105.92→62.09；布色向黛青炭灰收敛。roughness中位数230→228接近原值，主要收窄变化。无随机噪声、新方向光烘焙、normal或UV变更。保护区内不确定衣面可能留白残；Root KTX mip采样尚未验证。
+
+当前idle@0完整guard三组1.5m图与补充0.8m上半身三组已完成并实际目视。固定V4灯光／HDR16倍／AgX曝光0和逐面材质槽，只更换候选允许图像；不是PICO端内画面。正式source/app/producer/manifest、Kotlin、03新衣、05头脸均未改动。
+
+### 材质隔离交付完成 · 可见结论与Root取用
+
+| 实物 | 相对 `ArtSource/refinement/material-direction/` 的路径 |
+| --- | --- |
+| 原／仅albedo／最终PBR，完整guard 1.5m | `review/original_albedo_final_guard_1p5m.png` |
+| 同三组，真实0.8m上半身材质分区 | `review/original_albedo_final_upperbody_0p8m.png` |
+| 6张未修原图、逐面材质索引与相机／灯／HDR／曝光证据 | `review/`、`review/provenance.json` |
+| 两个真实GLB与四张像素delta／write-mask PNG | `candidates/`、`textures/` |
+| 配方与全部输出身份 | `build_materials.py`、`material_delta.json`、`handoff.json` |
+| 独立保护／反例／确定性重建验证 | `verification/materials.json`、`tests.json`、`rebuild.json` |
+
+**正常视距结论：albedo是灰白花斑观感的重要来源。** 1.5m完整guard已经能看出外衣由不规则灰白、褐灰斑向较连续的黛青炭灰布面收敛，棕皮／铜扣／窄白内领分工更清楚；0.8m补充图确认胸腹、肩部的大块泛白明显减少。脸、手、头发、刀、内领、皮革和金属纹理未被候选改写；并非用旧头或整套atlas覆盖当前人物。
+
+**推荐Root首轮优先取`albedo_only`对应颜色delta。** `final_pbr`表示第三个隔离对照分支，不是预先验收的最终资源。它仅额外收窄roughness，在1.5m和0.8m相对仅albedo的收益都较小，目前没有必要为追求更多变化而继续堆纹理。两个候选均完整保留供Root选择，但本路不默认要求发布roughness变化。
+
+残余问题如实保留：肩袖、腹部与裙摆的硬折和厚边仍受未改的原几何／normal影响；有些细碎褐白残留属于保护／不确定衣面未编辑范围。仅靠这三组不能把所有残余分别归因给geometry或normal，因此不声称已修复结构，也不把材质收益当作03新衣G1通过。未扩大mask去追残斑，未做新UV、高低模或normal烘焙。
+
+1.5m定义是摄像机到完整guard bounds center的真实距离，源完整抬刀／前伸手决定横FOV87度；不是远距拉近或正交。人物身体在完整构图中较小，故另交真实0.8m、横FOV60度的胸腰材质分区，明确裁刀尖／腿，不用它替换完整guard证据。三组各自完全共用机位，两个机位之间的差异在provenance单独记录。实际导入15个使用材质槽、106580面，三组完整逐polygon索引bytes一致（GLB定义有17材质，并非全部使用），避免先前clear-slot导致的错色陷阱。
+
+光照边界：复用冻结V4 profile `15bac312...f19e5`、原创HDR `4d55e3d8...175e0`，所有组同AgX/None、exposure0、gamma1。Blender能量按lumen或lux除以683与线性RGB亮度作明确物理转换；没有旧25lm/W艺术倍数、候选补灯或曝光微调。SDK与Blender光锥半角语义、原生KTX相对HDR方位、范围衰减等价未证明，因此只称同条件离线材质诊断。
+
+验证已完成：独立原图／候选结构与采样检查PASS，10项有效及破坏性反例测试PASS；在独立临时目录重新运行配方，6个PNG／GLB输出SHA逐字节相同，且未覆盖渲染输入。两轮渲染各3帧，均只有一个Blender进程、2线程、exit0；6张原图与源GLB最终SHA复核通过。四轮自审覆盖正确性（当前三角映射、采样、通道与源前缀）、复杂度（复用mask／codec，无新UV与噪声）、可读性（两档真实透视／三组原图）、漂移（正式资源／Kotlin／别路几何完全未改）。
+
+最终图身份：1.5m三联SHA `3b4563b8ce6dcad3f3dbe7dc3ca4b5dff982b14a40a60535d7faa97c2328376a`；0.8m三联SHA `e1bc0f3cc62849133836106224eb9093ce12d98c0fec0c186e0c8ccb0b3ed947`；统一provenance SHA `cdad6e357750f2db9404b2da640636e360e7cb7b8863d2f807e2139a112fabcf`。当前候选冻结，不继续材质参数循环。Root按mask合入当前body图后仍需统一KTX mip检查与端内正常视距图，才可宣称发布效果；本路没有占Root设备、Gradle或Git。
+
 ## 当前状态
 
-2026-11-11当前冻结为v4：SceneLighting SHA `8243467b...d8d0e`，含awaitRelease及下一组原生聚光。真实SDK独立编译与累计34项专项检查通过，其中11项验证实际SceneLighting协程／释放路径。新值为前向Spot20,000lm、刀补12,000lm、IBL指数4（16倍）；其它环境灯、天气、全部资产不变。依据dac9f5e5失败实图和已核官方单位制作，v4仍须Root重编译取图判断，未宣称已达到视觉目标。准确身份见`ArtSource/refinement/lookdev/native_handoff.json`。
+原生v4已由Root以8d1e456e完整加载实图开发接收并保持冻结，SceneLighting SHA `8243467b...d8d0e`；前向Spot20,000lm、刀补12,000lm、IBL指数4（16倍）不再由本路改动。衣料albedo-only又已由Root发布为1b3e／ac7并报告APK1b905原生显示。当前本路只交上面的独立Web IBL候选，不重做离线衣料对照或原生验证；以下逐阶段记录为历史制作证据。
 
 ## 目标
 

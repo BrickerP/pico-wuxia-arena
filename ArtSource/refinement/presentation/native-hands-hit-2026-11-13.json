@@ -4,7 +4,7 @@
   "apk": {
     "file": "wuxia-arena-native-hands-hit-fixed.apk",
     "sha256": "a8907a84b867e9383f6d2f5a50d02f43fc75ecae7fbdf1d0cce886d742eb498b",
-    "published": false
+    "published": true
   },
   "tests": {
     "exit_code": 0,
@@ -44,5 +44,7 @@
       "sha256": "0b23f953c9f534da4372651963b701f7e8676e89455f66d3c4fd3f5094931b4e"
     }
   ],
-  "source_evidence_local": "artifacts/native-hands-hit-2026-11-13/real-input.log"
+  "source_evidence_local": "artifacts/native-hands-hit-2026-11-13/real-input.log",
+  "source_commit": "27bd559d9d204aeb9fbb7e53ffd92e1dd38f9a4e",
+  "release_url": "https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hands-hit-2026-11-13"
 }
