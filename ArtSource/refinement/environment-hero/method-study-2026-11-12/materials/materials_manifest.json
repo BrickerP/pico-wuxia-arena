@@ -1,0 +1,250 @@
+{
+  "status": "complete",
+  "scope": "Directed 2026-11-12 wood-window material study only; no scene or runtime modification",
+  "producer": "ArtSource/refinement/environment-hero/method-study-2026-11-12/materials/make_materials.py",
+  "producer_sha256": "d8478b3be728c56437977fbbf992508950a2e9115f7659b47f974572dc851723",
+  "seed": 2026111206,
+  "source": {
+    "asset": "Fine Grained Wood",
+    "author": "Rob Tuytel",
+    "license": "CC0",
+    "asset_url": "https://polyhaven.com/a/fine_grained_wood",
+    "license_url": "https://polyhaven.com/license",
+    "license_record_source": "ArtSource/tavern/README.md",
+    "files": {
+      "fine_grained_wood_col_1k.jpg": {
+        "path": "ArtSource/tavern/textures/fine_grained_wood_col_1k.jpg",
+        "sha256": "d171f45ef01bc6e239b00dfaa4961bcd27f7d8e93e3962da3bd3d0ce703d802c"
+      },
+      "fine_grained_wood_nor_gl_1k.jpg": {
+        "path": "ArtSource/tavern/textures/fine_grained_wood_nor_gl_1k.jpg",
+        "sha256": "ba95eadc009818e161d0f753191f1bacc3fc861e593be0bc6d82b437f9ec8044"
+      },
+      "fine_grained_wood_rough_1k.jpg": {
+        "path": "ArtSource/tavern/textures/fine_grained_wood_rough_1k.jpg",
+        "sha256": "f281f682e62fe322303dfeaa13dac18b5cb9e113617fe0aca43605b49161d82b"
+      }
+    }
+  },
+  "long_grain": {
+    "physical_tile_m": [
+      0.8,
+      0.8
+    ],
+    "size_px": [
+      1024,
+      1024
+    ],
+    "density_px_per_m": [
+      1280,
+      1280
+    ],
+    "uv_direction": "U across grain, V along source grain; source image orientation retained",
+    "basecolor_formula": "decode sRGB C; Y=.2126R+.7152G+.0722B; C_out=.98*(.88*C+.12*Y); encode sRGB; round to 8-bit",
+    "normal_formula": "copy decoded fine_grained_wood_nor_gl_1k.jpg RGB pixels exactly into PNG",
+    "roughness_formula": "MR.R=255; MR.G=decoded fine_grained_wood_rough_1k.jpg; MR.B=0",
+    "resampling": "none",
+    "added_ao": false,
+    "added_grooves": false,
+    "added_position_dependent_dirt_wear_or_wetness": false
+  },
+  "end_grain": {
+    "physical_tile_m": [
+      0.25,
+      0.25
+    ],
+    "size_px": [
+      512,
+      512
+    ],
+    "density_px_per_m": [
+      2048,
+      2048
+    ],
+    "recipe": {
+      "kind": "original procedural end grain; palette derived from aged scan mean only",
+      "seed": 2026111206,
+      "pith_m_relative_to_tile_top_left": [
+        -0.046,
+        0.137
+      ],
+      "radius_m": "sqrt((1.025*(x+0.046))^2 + (0.975*(y-0.137))^2)",
+      "growth_spacing_m": [
+        0.0021,
+        0.0047
+      ],
+      "latewood_gaussian_width_m": [
+        0.00028155354661373375,
+        0.0006387836258737383
+      ],
+      "angular_boundary_wobble_m": [
+        -0.0004,
+        0.0004
+      ],
+      "spatial_warp_m": "0.0065*(noise7x8-.5)+0.0012*(noise29x31-.5)",
+      "angular_ring_intensity_range": [
+        0.08,
+        1.0
+      ],
+      "color_multiplier": "0.969+.095*(large-.5)+.032*(small-.5)-.077*latewood+.027*(fine-.5)",
+      "height_m": "-0.000018*latewood+0.000009*(fine-.5)",
+      "normal_formula": "normalize(-dHeight/dU_m, -dHeight/dV_m, 1), mapped to RGB [0,1]",
+      "roughness_formula": "clamp(.875+.040*(small-.5)+.018*latewood+.015*(fine-.5),.80,.95)",
+      "added_ao": false,
+      "added_position_dependent_dirt_wear_or_wetness": false,
+      "fixed_sinusoidal_layers": false
+    }
+  },
+  "binding": {
+    "baseColorFactor": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "roughnessFactor": 1,
+    "metallicFactor": 1,
+    "normalTexture.scale": 1,
+    "normal_convention": "OpenGL/glTF tangent-space +Y; linear RGB",
+    "MR": "RGB: R=1 unused for AO, G=absolute roughness, B=0 absolute metallic",
+    "occlusionTexture": "Do not bind the MR red channel as added AO; it is constant one",
+    "note": "Wetness, dust, wear and positional layering belong to Root's geometry/material zoning"
+  },
+  "checks": {
+    "long_normal_matches_decoded_source_exactly": true,
+    "long_roughness_matches_decoded_source_exactly": true,
+    "MR_red_constant_255_and_blue_constant_0": true,
+    "long_basecolor_linear_luminance_mean_before": 0.034483681829610174,
+    "long_basecolor_linear_luminance_mean_after": 0.03391276700780658,
+    "long_basecolor_mean_luminance_ratio_after_over_before": 0.9834439134247733,
+    "end_normal_max_decoded_unit_length_error": 0.00044588290871039327,
+    "six_maps_encoded_and_verified": true
+  },
+  "maps": {
+    "wood_long_basecolor.png": {
+      "role": "baseColor",
+      "source_kind": "existing CC0 scanned long grain, modest color adjustment",
+      "channels": "RGB",
+      "color_space": "sRGB",
+      "size_px": [
+        1024,
+        1024
+      ],
+      "physical_tile_m": [
+        0.8,
+        0.8
+      ],
+      "density_px_per_m": [
+        1280.0,
+        1280.0
+      ],
+      "sha256": "f1281cb3d3dc4b3be79827183ed89cef3b97ade6d520d8958f764a9081c512f7"
+    },
+    "wood_long_normal.png": {
+      "role": "normal",
+      "source_kind": "decoded source pixels copied exactly; no channel flip, rotation, sharpening or amplitude change",
+      "channels": "RGB",
+      "color_space": "linear",
+      "size_px": [
+        1024,
+        1024
+      ],
+      "physical_tile_m": [
+        0.8,
+        0.8
+      ],
+      "density_px_per_m": [
+        1280.0,
+        1280.0
+      ],
+      "sha256": "ab6d3797bdb8570cea974ca4d4dd223f57a1c7d63a1c41d9b6bbe339915e1c7e"
+    },
+    "wood_long_mr.png": {
+      "role": "metallicRoughness",
+      "source_kind": "G is decoded source roughness copied exactly; R=255, B=0",
+      "channels": "RGB",
+      "color_space": "linear",
+      "size_px": [
+        1024,
+        1024
+      ],
+      "physical_tile_m": [
+        0.8,
+        0.8
+      ],
+      "density_px_per_m": [
+        1280.0,
+        1280.0
+      ],
+      "sha256": "685157567059203b56add55db82d4df1ae48e3d28a5e3d7a9e2855a801935b73"
+    },
+    "wood_end_basecolor.png": {
+      "role": "baseColor",
+      "source_kind": "original procedural end grain",
+      "channels": "RGB",
+      "color_space": "sRGB",
+      "size_px": [
+        512,
+        512
+      ],
+      "physical_tile_m": [
+        0.25,
+        0.25
+      ],
+      "density_px_per_m": [
+        2048.0,
+        2048.0
+      ],
+      "sha256": "db0ebee58368b4e7ed2a7c60b2a6f3c674c20149211d9edaf3978439ec824477"
+    },
+    "wood_end_normal.png": {
+      "role": "normal",
+      "source_kind": "original physical-height end-grain normal",
+      "channels": "RGB",
+      "color_space": "linear",
+      "size_px": [
+        512,
+        512
+      ],
+      "physical_tile_m": [
+        0.25,
+        0.25
+      ],
+      "density_px_per_m": [
+        2048.0,
+        2048.0
+      ],
+      "sha256": "dfd11b862443060431677c251896aaa3b815e664b229508f367865c63f02d1a2"
+    },
+    "wood_end_mr.png": {
+      "role": "metallicRoughness",
+      "source_kind": "original dry end-grain roughness; R=255, B=0",
+      "channels": "RGB",
+      "color_space": "linear",
+      "size_px": [
+        512,
+        512
+      ],
+      "physical_tile_m": [
+        0.25,
+        0.25
+      ],
+      "density_px_per_m": [
+        2048.0,
+        2048.0
+      ],
+      "sha256": "b021e467eea1f8c1ad1babe11b93c069e8da425319c85f3e3e26f85511af06b0"
+    }
+  },
+  "contact_sheet": {
+    "path": "materials_contact.png",
+    "sha256": "f53cda798d12db65269df4f377e0cd7cc2af4058d903b9bae16309461b22972e",
+    "color_exposure_change_for_preview": false,
+    "note": "Displayed at equal pixel panel sizes; labels state different physical tile sizes"
+  },
+  "limits": [
+    "This is a reusable material tile set, not an installed or rendered PICO result",
+    "Original end grain is not advertised as scanned data or as an identified wood species",
+    "No AO, edge wear, local wetness, or position-dependent dirt is baked into these new tiles"
+  ]
+}

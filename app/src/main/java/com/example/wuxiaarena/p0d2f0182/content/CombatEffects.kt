@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
+import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
@@ -96,8 +97,13 @@ internal class CombatEffects private constructor(
                     CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> ContactEffectFamily.SOFT
                     else -> ContactEffectFamily.METAL
                 }
-                particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,
-                    parry = impact.kind == CombatImpactKind.PARRY, size = scale)
+                val accepted = particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,
+                    parry = impact.kind == CombatImpactKind.PARRY, size = scale,
+                    softBodyCut = impact.kind == CombatImpactKind.SOFT_HIT && impact.zone == HitZone.BODY)
+                // Receipt evidence only: a consumed event does not prove SDK pixels or native input.
+                val mode = if (ContactBasis.from(impact.normal, impact.tangent) != null) "core_particles" else "core_only"
+                Log.i(TAG, "Contact consumed id=${impact.id} kind=${impact.kind} family=$family " +
+                    "accepted=$accepted mode=$mode ageNs=$age round=${state.roundGeneration} origin=${state.inputOrigin}")
             }
         }
     }

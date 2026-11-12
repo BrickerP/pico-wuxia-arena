@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "kind": "09 reaction-source consumption review",
-  "current_attack_bank_binding_sha256": "b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f",
+  "current_attack_bank_binding_sha256": "1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2",
   "formal_asset_owner": "Root",
   "entries": [
     {

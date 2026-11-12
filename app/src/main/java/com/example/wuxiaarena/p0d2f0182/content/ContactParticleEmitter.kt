@@ -15,9 +15,13 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
         val definition: ContactEffectDefinition, val anchor: Entity,
         val nodes: Map<String, Entity>,
     ) {
+        private val softDuration = if (definition.family == ContactEffectFamily.SOFT) {
+            SoftContactEnvelope.duration(definition.particles)
+        } else 0.0
         var start: Long? = null
         var basis: ContactBasis? = null
         var parry = false
+        var softBodyCut = false
         var size = 1f
         var failed = false
 
@@ -32,6 +36,12 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
             val age = (now.toDouble() - began.toDouble()) / 1_000_000_000.0
             var visible = false
             for (core in definition.cores) {
+                if (softBodyCut) {
+                    val layer = SoftContactEnvelope.layer(core.node, age, size, basis != null)
+                    show(checkNotNull(nodes[core.node]), core.position, layer.rotation, layer.scale, layer.opacity)
+                    visible = visible || layer.opacity > 0.005f
+                    continue
+                }
                 val keys = if (parry) core.parry else core.normal
                 val opacity = if (age < 0.0 || age >= keys.last().seconds || (core.directional && basis == null)) 0f
                     else opacityAt(keys, age)
@@ -42,10 +52,20 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
                 show(checkNotNull(nodes[core.node]), core.position, Quaternion(0.0, 0.0, 0.0, 1.0), growth, opacity)
                 visible = visible || opacity > 0.005f
             }
-            for (particle in definition.particles) {
-                val frame = basis?.let { sampleContactParticle(particle, age, it, if (parry) 1.8 else 1.0) }
+            for ((index, particle) in definition.particles.withIndex()) {
+                val soft = if (softBodyCut) {
+                    SoftContactEnvelope.debris(index, age, size, particle.lifetime)
+                } else null
+                val frame = if (soft != null && soft.opacity <= 0.005f) null else basis?.let {
+                    sampleContactParticle(particle, age, it, soft?.velocityGain ?: if (parry) 1.8 else 1.0)
+                }
                 val node = checkNotNull(nodes[particle.node])
                 if (frame == null) node.enabled = false else {
+                    if (soft != null) {
+                        show(node, frame.position, frame.rotation, soft.scale, soft.opacity)
+                        visible = visible || soft.opacity > 0.005f
+                        continue
+                    }
                     // Size changes the cross-section, never Stage gravity or the physical trajectory.
                     val scale = size * if (definition.family == ContactEffectFamily.METAL) {
                         if (parry) 1.65f else 1.25f
@@ -55,17 +75,22 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
                 }
             }
             // Ground opacity starts at zero; keep its slot alive until its actual lifetime.
-            val end = maxOf(definition.particles.maxOfOrNull { it.lifetime } ?: 0.0,
-                definition.cores.maxOfOrNull { (if (parry) it.parry else it.normal).last().seconds } ?: 0.0)
+            val end = if (softBodyCut) softDuration
+                else maxOf(definition.particles.maxOfOrNull { it.lifetime } ?: 0.0,
+                    definition.cores.maxOfOrNull { (if (parry) it.parry else it.normal).last().seconds } ?: 0.0)
             if (!visible && age >= end) hide()
         }
 
         private fun show(entity: Entity, position: Vector3, rotation: Quaternion, size: Float, opacity: Float) {
+            show(entity, position, rotation, Vector3(size.toDouble(), size.toDouble(), size.toDouble()), opacity)
+        }
+
+        private fun show(entity: Entity, position: Vector3, rotation: Quaternion, scale: Vector3, opacity: Float) {
             entity.enabled = opacity > 0.005f
             if (!entity.enabled) return
             transform(entity).setPosition(position.spatial())
             transform(entity).setQuaternion(rotation.spatial())
-            transform(entity).setScaleVector(SpatialVector3(size, size, size))
+            transform(entity).setScaleVector(scale.spatial())
             checkNotNull(entity.components[OpacityControllerComponent::class.java]).opacity = opacity
         }
     }
@@ -82,7 +107,7 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
     /** Caller provides a fresh resolved event; no delayed queue exists. */
     fun emit(
         family: ContactEffectFamily, point: Vector3, normal: Vector3, tangent: Vector3?,
-        now: Long, ageNanos: Long, parry: Boolean = false, size: Float = 1f,
+        now: Long, ageNanos: Long, parry: Boolean = false, size: Float = 1f, softBodyCut: Boolean = false,
     ): Boolean {
         if (closed || !root.valid || ageNanos !in 0L..120_000_000L || !point.isFinite() ||
             !size.isFinite() || size <= 0f) return false
@@ -104,6 +129,7 @@ internal class ContactParticleEmitter private constructor(private val root: Enti
             slot.start = now - ageNanos
             slot.basis = basis
             slot.parry = parry
+            slot.softBodyCut = softBodyCut && family == ContactEffectFamily.SOFT
             slot.size = size.coerceIn(0.75f, 1.5f)
             slot.anchor.enabled = true
             slot.update(now)

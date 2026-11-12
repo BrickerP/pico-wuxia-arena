@@ -483,6 +483,16 @@ internal class ArenaSession(
         val contactOffsets = captureContactOffsets()
         val bladePose = enemyAttackPose()
         val attackOffsets = captureAttackOffsets()
+        // Capture incoming source motion before resolve changes ACTIVE to its reaction phase.
+        val bladeContact = motion.defenseContact(outcome, target, latestTrackingSnapshot?.head?.pose?.position)?.let {
+            if (bladePose == null) it.copy(tangent = null) else {
+                val point = bladePose.nearestBladePoint(it.point)
+                val profile = arenaOpponents[roundNumber - 1].attackProfile(checkNotNull(combat.currentAttackDirection))
+                it.copy(point = point, tangent = profile.bladeTangentAt(
+                    bladePose.sourceSeconds, point, target + currentRecoilOffset(), enemyYaw,
+                ))
+            }
+        }
         val resolved = combat.resolveActiveAttack(id, outcome)
         collect(resolved, events)
         if (resolved.any { it is EnemyCombatEvent.AttackResolved && it.attackId == id }) {
@@ -494,9 +504,6 @@ internal class ArenaSession(
                 AttackOutcome.HIT_PLAYER -> CombatImpactKind.PLAYER_HIT
                 AttackOutcome.MISSED -> return
             }
-            val contact = motion.defenseContact(outcome, target, latestTrackingSnapshot?.head?.pose?.position)
-            // Keep existing defense rules; place their feedback on the actual incoming blade.
-            val bladeContact = contact?.let { if (bladePose != null) it.copy(point = bladePose.nearestBladePoint(it.point)) else it }
             if (bladeContact != null) emitImpact(kind, bladeContact,
                 if (outcome == AttackOutcome.PARRIED) 1.0 else 0.65,
                 frame?.hand ?: latestTrackingSnapshot?.dominantHand ?: Hand.RIGHT, events)

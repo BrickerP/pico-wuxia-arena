@@ -1,0 +1,64 @@
+{
+  "date_local": "2026-11-12T20:03:34.726465+08:00",
+  "status": "SINGLE_IMAGE_CONDITIONING_INPUT_READY_FOR_ROOT_REVIEW",
+  "image": "ArtSource/bench/tripo-image-input-2026-11-12/front-tpose-v1.png",
+  "absolute_image_path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/bench/tripo-image-input-2026-11-12/front-tpose-v1.png",
+  "sha256": "d07299e90d89077add6e09a59f62138a1035536fb7728dcadbab8b3c0894c453",
+  "bytes": 1428448,
+  "width": 1254,
+  "height": 1254,
+  "mode": "RGB",
+  "format": "PNG",
+  "generator": "built-in image_gen",
+  "generated_image_count": 1,
+  "tripo_calls_by_12": 0,
+  "paid_generation_calls_by_12": 0,
+  "scope": "2D conditioned-source input only; not a game-quality/3D asset result",
+  "pose": "single frontal T-pose, empty visible hands, complete boots",
+  "controls_over_old_text_to_model": [
+    "single visual specification of adult face/hair direction, body proportions and color/material hierarchy",
+    "actual right-closing cross-collar overlap, continuous shoulder/elbow cloth and tapered cuff supplied in image",
+    "separate visible empty palms/fingers and complete shoes, no weapon fusion or cropped extremities",
+    "neutral diffuse photograph-style light-gray background, no UI/text/multiple figures/pedestal"
+  ],
+  "input_references": [
+    {
+      "path": "ArtSource/bench/upper-body-design-2026-11-12/UB-01-upper-body-v2.png",
+      "role": "accepted clothing/hair design only; no text/multiple figures/weapon copied",
+      "sha256": "319bee3fa3908dbf889eede48093104f849d75a837c6610e0bfbdf9cbe814b51"
+    },
+    {
+      "path": "ArtSource/refinement/hero-face/method-study-2026-11-12/review/before_0.8_pbr.png",
+      "role": "current adult face and tied-hair identity direction",
+      "sha256": "ff3be6a6fc316e62eb8d4fafb690ae28b3f600fd9b05f38ca34cb6ba23d7cc39"
+    },
+    {
+      "path": "ArtSource/refinement/presentation/canonical-2026-11-11.png",
+      "role": "current adult body/belt/trousers/boots continuity only",
+      "sha256": "530fcc425a1d0a9cb4477e3cab54fc6c705198cb2444209ad042d78303e39bd7"
+    }
+  ],
+  "boundary": [
+    "Root checks OV balance and actual CLI image/multiview capability",
+    "Root reviews dry-run and owns any paid call",
+    "no side/back images generated without capability-based decision",
+    "image-generation identity direction is not a promise of same geometry/rig or exact biometric identity",
+    "not proof of posterior structure, cloth topology, skinning or 3D quality"
+  ],
+  "no_changes": [
+    "formal models/producer/manifest/library/app",
+    "Kotlin",
+    "PICO/Root desktop",
+    "build/device",
+    "Git"
+  ],
+  "independent_visual_review": {
+    "input_conditions": "accepted_for_one_controlled_image_conditioned_trial",
+    "observed": "single adult full body, front T-pose, all fingers and boot soles visible, neutral gray background, no weapon/text/random white blotches",
+    "limits": [
+      "front only; back, palm-back and hidden inner cloth require inference",
+      "soft shading present; not an albedo texture",
+      "not a 3D/rig acceptance"
+    ]
+  }
+}

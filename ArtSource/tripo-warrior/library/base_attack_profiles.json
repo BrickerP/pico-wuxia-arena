@@ -65006,7 +65006,7 @@
     }
   },
   "character_id": "base",
-  "model_sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
+  "model_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",

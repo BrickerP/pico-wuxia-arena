@@ -1,6 +1,6 @@
 {
-  "source_glb": "../refinement/hero-face/neck-continuous/candidate-raw.glb",
-  "source_sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
+  "source_glb": "../refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+  "source_sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
   "body_height_metres": 1.78,
   "source_forward": "+X",
   "prepared_forward": "+Z",
@@ -44,7 +44,7 @@
       "keyframe_semantics_sha256": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "3d110e35171732ba24cb7ac307a83912da0096f5e6de10d98bf0ffad04188b8b",
-      "retargeted_clip_sha256": "ea127b91211382415ed31cd86ea765f216ed1b1cc506a62d97e1231c565c204a"
+      "retargeted_clip_sha256": "b975f0ca26d089a5afaf3f229de99dbc4cccbdc52ae933ad32eab1b03cc0af76"
     },
     {
       "name": "turn",
@@ -61,7 +61,7 @@
       "keyframe_semantics_sha256": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "2fbaf44eafa320f3ff78bfeed1cfd4cb222f9cad62ecfdf480adcea9e0c99780",
-      "retargeted_clip_sha256": "8eae535ccb82b96baa473a6c8258cffd44e1b016a731e73a5e937e61d16adadb"
+      "retargeted_clip_sha256": "3b40bbec2a2f17ffa402016cdbac8aee22026d3fa2846270e6c2b4be6055e817"
     },
     {
       "name": "hit_body",
@@ -78,7 +78,7 @@
       "keyframe_semantics_sha256": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "cf277c1137edd1ec95c6c123986d83830c2986839286bfa91576d2e0239de16a",
-      "retargeted_clip_sha256": "2c5aabd2b7a38a88dbedc3f018e48cd25efc7ea26541921fc1481cdf4ffc47a5"
+      "retargeted_clip_sha256": "d3e4d27a9aca7a43a900abdd83bdad52e6e4628002e7ff3af2ee5bc4aa108ca4"
     },
     {
       "name": "hit_head",
@@ -95,7 +95,7 @@
       "keyframe_semantics_sha256": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "93ecc53400701f33382be7f8386dbde02643549867125f33d462c17b6383009a",
-      "retargeted_clip_sha256": "a8b0336c3c49665c7d39939d966265afd011df68d7585b83584d8085b9375f1b"
+      "retargeted_clip_sha256": "4932ee27073824a44c6fd1327874b73f965fb4a1d957f4742c7efccde401d5a4"
     },
     {
       "name": "hit_side",
@@ -112,7 +112,7 @@
       "keyframe_semantics_sha256": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "d936a4968c0c5bf26d87d1ade137263bdb9e522dd195400b064bc236158d0b2a",
-      "retargeted_clip_sha256": "5a2f026fbffe9e978d9a23774f0ff80dd707e24ccff53776cb5f03b550910717"
+      "retargeted_clip_sha256": "54c0f38653d02b2026a022e9ec053038c8f85f0d648bd08f9936b98d120d4dfd"
     },
     {
       "name": "idle",
@@ -129,7 +129,7 @@
       "keyframe_semantics_sha256": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "2bd821e757978a95943ae14d6eca2037aa654ca3c6437a49588f1dac26638dab",
-      "retargeted_clip_sha256": "4dcaa05f6ac8c7b2570f279b62a372826a74e6890ba8727d5cbb4d99143c28e6"
+      "retargeted_clip_sha256": "ffdbc7943cf238e3b7be8d2331bd36294d413b4a29afa53bab4340979fb68984"
     },
     {
       "name": "walk",
@@ -147,7 +147,7 @@
       "keyframe_semantics_sha256": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "e5f7893859fbf3a14e69fdb10627316840629fa4bca9e082c123372ea7af9947",
-      "retargeted_clip_sha256": "f19d9dba6a37c2ed0416967ada973ef2ce52725507c5a13e495dca32fa162858"
+      "retargeted_clip_sha256": "95ca35ae5d4e2f9e46ebe777f6d61fdce09ca5def5a83e0f007c4c6741ec2930"
     },
     {
       "name": "attack_overhead",
@@ -164,7 +164,7 @@
       "keyframe_semantics_sha256": "15230eb2e60e37fc303af182bdf103344b9cd1c34d0335ecb47dee58f31fadfa",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "3dfcc1de4c8d47737b516d56c4cb67b3bc4a26a86a215a5d4f0f64bfd0b6f61d",
-      "retargeted_clip_sha256": "db30f6a0cbb96008043363fbab1aedcb07ccda10d9c06da4da5bfe519873312f"
+      "retargeted_clip_sha256": "67d2d391bc570cae531e4b7be4eb8c02051c871a1a1383c8ad3930bd675cc188"
     },
     {
       "name": "attack_left",
@@ -181,7 +181,7 @@
       "keyframe_semantics_sha256": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "6f7df7fdfc8a0a69ea2d7c6a014bce78f9c7a4ee4c1dc53289cfeafebdd954d7",
-      "retargeted_clip_sha256": "90629e1b057302eabba79334122036b7343ceda2b13f86c6857b857a4c392375"
+      "retargeted_clip_sha256": "dc8daeb5e980513fb775e06eeed7f5f7227c025e3efb24287c20e780ed9552db"
     },
     {
       "name": "attack_right",
@@ -198,7 +198,7 @@
       "keyframe_semantics_sha256": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "6e0b74dae7d4443276154059a8f5cf53ffa6120ab392e22ed6bfdb4a5b8ca063",
-      "retargeted_clip_sha256": "392b6d7124aeae7d673fb82966d741148b9faa2ec53ee1bc47fea7987b6932fb"
+      "retargeted_clip_sha256": "0f8df77dd7def12dc595d9ebea5f2af06376f7c92d5e1e7886718d97fbcbce2b"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -394,22 +394,22 @@
     0.999914288520813
   ],
   "weapon_world_scale": 1.0,
-  "source_binary_sha256": "e5000001155c89e274d2e9f1445d604649e0cb6fe2c93002c8aa84c3f4823f3f",
+  "source_binary_sha256": "0fb449d3c25c1b70862defd05239ed1c157a381e785ed7c24aeaf3d4f3c2be79",
   "outputs": [
     {
       "file": "base_body.glb",
-      "bytes": 43622176,
-      "sha256": "2b5ee206fcdef4f36cbf7db67f496b92659496aebf8a75e62fe7148cd2fe7b7c"
+      "bytes": 54489360,
+      "sha256": "9a5ac3996ded4d09eb9d156c2addcbfbb53a2a3f21e79bec0629bf841be89db1"
     },
     {
       "file": "base_prepared_png.glb",
-      "bytes": 46715300,
-      "sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09"
+      "bytes": 57582484,
+      "sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96"
     },
     {
       "file": "base.glb",
-      "bytes": 75464020,
-      "sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e"
+      "bytes": 75131720,
+      "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20"
     }
   ],
   "finger_rotation_calibration": {
@@ -22799,7 +22799,7 @@
       "name": "fall",
       "source": "expanded/base/tripo-out/e7df779b-retarget-4-9a342753/model.glb",
       "source_sha256": "892dd28f6514468223c4170c8ea9b6901f65dfbfac498534bb13ecf2313b323c",
-      "retargeted_clip_sha256": "ea127b91211382415ed31cd86ea765f216ed1b1cc506a62d97e1231c565c204a",
+      "retargeted_clip_sha256": "b975f0ca26d089a5afaf3f229de99dbc4cccbdc52ae933ad32eab1b03cc0af76",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -22841,7 +22841,7 @@
       "name": "turn",
       "source": "expanded/base/tripo-out/e7df779b-retarget-5-b35c205e/model.glb",
       "source_sha256": "3a4f7f12934f87cebf2d8fed59602f69fcb5eafb7b9ba203652116478c694a26",
-      "retargeted_clip_sha256": "8eae535ccb82b96baa473a6c8258cffd44e1b016a731e73a5e937e61d16adadb",
+      "retargeted_clip_sha256": "3b40bbec2a2f17ffa402016cdbac8aee22026d3fa2846270e6c2b4be6055e817",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -22883,7 +22883,7 @@
       "name": "hit_body",
       "source": "expanded/base/tripo-out/e7df779b-retarget-6-8b0a1035/model.glb",
       "source_sha256": "f8f16bb8f5ae4369134e61b5662fe891a80dca122c8ed77cb999aef6fb7b860c",
-      "retargeted_clip_sha256": "2c5aabd2b7a38a88dbedc3f018e48cd25efc7ea26541921fc1481cdf4ffc47a5",
+      "retargeted_clip_sha256": "d3e4d27a9aca7a43a900abdd83bdad52e6e4628002e7ff3af2ee5bc4aa108ca4",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -22929,7 +22929,7 @@
       "name": "hit_head",
       "source": "expanded/base/tripo-out/e7df779b-retarget-7-a03d8662/model.glb",
       "source_sha256": "b152df4679efc20e29e218cd382d8b52d694cb767ec4dcb7f415a855e0f4b026",
-      "retargeted_clip_sha256": "a8b0336c3c49665c7d39939d966265afd011df68d7585b83584d8085b9375f1b",
+      "retargeted_clip_sha256": "4932ee27073824a44c6fd1327874b73f965fb4a1d957f4742c7efccde401d5a4",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -22975,7 +22975,7 @@
       "name": "hit_side",
       "source": "expanded/base/tripo-out/e7df779b-retarget-8-68546cb4/model.glb",
       "source_sha256": "a27a5a3a1ea1bd68774d10740a7a55aee5549a0be70669327fd8679c2443120c",
-      "retargeted_clip_sha256": "5a2f026fbffe9e978d9a23774f0ff80dd707e24ccff53776cb5f03b550910717",
+      "retargeted_clip_sha256": "54c0f38653d02b2026a022e9ec053038c8f85f0d648bd08f9936b98d120d4dfd",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 41,
       "target_joints": 78,
@@ -23021,7 +23021,7 @@
       "name": "idle",
       "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_raw.glb",
       "source_sha256": "f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1",
-      "retargeted_clip_sha256": "4dcaa05f6ac8c7b2570f279b62a372826a74e6890ba8727d5cbb4d99143c28e6",
+      "retargeted_clip_sha256": "ffdbc7943cf238e3b7be8d2331bd36294d413b4a29afa53bab4340979fb68984",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -23046,7 +23046,7 @@
       "name": "walk",
       "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
       "source_sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
-      "retargeted_clip_sha256": "f19d9dba6a37c2ed0416967ada973ef2ce52725507c5a13e495dca32fa162858",
+      "retargeted_clip_sha256": "95ca35ae5d4e2f9e46ebe777f6d61fdce09ca5def5a83e0f007c4c6741ec2930",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -23071,7 +23071,7 @@
       "name": "attack_overhead",
       "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb",
       "source_sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
-      "retargeted_clip_sha256": "db30f6a0cbb96008043363fbab1aedcb07ccda10d9c06da4da5bfe519873312f",
+      "retargeted_clip_sha256": "67d2d391bc570cae531e4b7be4eb8c02051c871a1a1383c8ad3930bd675cc188",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -23096,7 +23096,7 @@
       "name": "attack_left",
       "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
       "source_sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
-      "retargeted_clip_sha256": "90629e1b057302eabba79334122036b7343ceda2b13f86c6857b857a4c392375",
+      "retargeted_clip_sha256": "dc8daeb5e980513fb775e06eeed7f5f7227c025e3efb24287c20e780ed9552db",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -23121,7 +23121,7 @@
       "name": "attack_right",
       "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
       "source_sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
-      "retargeted_clip_sha256": "392b6d7124aeae7d673fb82966d741148b9faa2ec53ee1bc47fea7987b6932fb",
+      "retargeted_clip_sha256": "0f8df77dd7def12dc595d9ebea5f2af06376f7c92d5e1e7886718d97fbcbce2b",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -23256,14 +23256,14 @@
   },
   "prepared_png": {
     "file": "base_prepared_png.glb",
-    "bytes": 46715300,
-    "sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09"
+    "bytes": 57582484,
+    "sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96"
   },
   "runtime_texture_encoding": {
     "file": "base_texture_encoding.json",
-    "sha256": "b7b9ce9af2047151b7ceadb763d7611ad4c48feb43af5c46065ddeb912dadefe",
-    "prepared_png_sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09",
-    "encoded_sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
+    "sha256": "9c0eb8cb795c670ade7cf5b7713214ac6d598c441c0f1988db5925cb603aecd0",
+    "prepared_png_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+    "encoded_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
     "preservation": {
       "non_image_bufferViews_byte_identical": 2587,
       "accessors_semantics_and_payloads_unchanged": 2587,
@@ -23664,6 +23664,6 @@
   },
   "attack_profiles": {
     "file": "base_attack_profiles.json",
-    "sha256": "df8a8531a4e94ef3651f8b9d889688e418a8b5e07a7685587300fa6899da657e"
+    "sha256": "7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478"
   }
 }

@@ -1,8 +1,19 @@
 # 08 · 运行时攻击／弹反／防御／闪避特效
 
+## Root当前效果审核与续派
+
+Root已实际看sequence-review的ordinary_timeline.png与parry_timeline.png。普通命中出生段像纯浅色硬片/掌前块，167ms碎屑像等大的软斑，未达到预期；弹反短星芯与方向散射有辨识度，允许进入真实接触验证，但不据离线图判原生通过。
+
+下一项只精修现有普通身体斩：压薄并缩短soft core的遮挡，核心应沿真实切向读成短切口闪动，碎屑大小/速度有层次，避免等大浅色团；沿既有资产和有界池修改runtime envelope，不新增资源家族，不自动把SOFT当湿衣喷水。先交同一1.5m相机的一对时序，不重做全部图。弹反预设暂冻结，等Root真实事件取图。
+
+Root已接入来自敌人实际相邻blade样本的incoming tangent，覆盖快速护刀后静止的合法PARRY，5项新增及28项相关测试通过。法线、伤害、窗口、时钟不变，尚未进入1b905上传包；08无需重复另补同功能。保留新事件INFO回执供实际输入→事件→消费配对。源码与效果像素仍分开验收。
+
+
 ## 当前状态
 
-阶段1运行源码和候选已交：普通命中独立碎屑、金属普通／弹反逐粒运动、真实65ms尾迹＋12ms亮芯。Root发布前需应用root-tangent.patch并按resource_handoff.json发布5资源；未做共享构建或端内验收。2026-11-11用户要求扩大并行，整体品质需明显提升。
+2026-11-12续派首件已交：普通身体命中与弹反各0.6秒完整离线预演、真实采样刀光回放、真实消费入口与逐事件INFO回执。继续现有打击路线，不增加玩法或更多预载资源。Root已发布5资源，并在ArenaSession以named args转发contact.tangent；旧“未发布／未转发”只保留为阶段1交付时的历史边界，不是当前未修项。
+
+本轮可改08现有content特效模块、runtime-polish和专项检查；不改Core／PlayerCombatResolver、ArenaSession、HomeStage／Main、伤害、阈值或时钟。禁止Git、构建和设备操作。普通／弹反预演明确是离线示例接触，不是注入命中或原生效果通过。
 
 ## 目标
 
@@ -95,3 +106,73 @@ Root已原子发布handoff的5份GLB并核APK内SHA，emitImpact已named转发co
 审核：5资源与tangent真实扫掠转发均已接入；250→253组合回归已过，但真实命中画面尚缺，不能声称打击观感通过。
 
 下一步：当前运行文件先冻结，待真实攻击/弹反图后按材质、近地与1.5/3m可读性修；不能用假DEAD计时触发落地。
+
+## 阶段2当前任务与入口复核（2026-11-12）
+
+本轮首件：普通身体命中、弹反各18帧／30fps／0.6秒的完整离线接触包络，固定1.5m参考面与80°水平视角，显示核心／12独立颗粒／寿命回收；另交既有真实采样刀光的0.6秒连续回放。仅复用当前正式GLB，无新资源预载，无玩法变化。源码来源以本轮source_start.json与最终文件SHA记录，不执行Git命令。
+
+### 当前真实消费入口
+
+Main.kt把ArenaSession的ArenaPresenter回调转给enemyPresenter；HomeStage在加载后注册owner::presentArena。ArenaSession.publish把当批事件events.toList送入回调；SceneOwner.presentArena先effects.present，再bladeTrail.present。CombatEffects.present按事件ID消费一次，检查场景／暂停／输入／终局例外，按致命／弹反优先，再选择SOFT／METAL池；ContactParticleEmitter.emit设置真实接触锚点、TBN、age，随后每帧update推进到回收。PlayerBladeTrail仍直接消费ArenaViewState里的真实刀根／刀尖、tipSpeed、atRest和motionGeneration，不由命中事件画固定弧线。
+
+已核对：5份app正式GLB均与resource_handoff.json SHA一致，motion要求节点均存在；ArenaSession已保留contact.tangent。普通移动SOFT_HIT会走core／scar／12chips消费分支，PARRY会走metal/core／12sparks分支。现有结构与资源核对能证明入口接通，尚无本轮原生触发到像素的运行证据。
+
+本轮最小代码改动为CombatEffects中的逐新事件日志：`ArenaEffects: Contact consumed id=… kind=… family=… accepted=… mode=core_particles|core_only ageNs=… round=… origin=…`。accepted表示消费器接受该事件；不是可见像素、命中判定或原生输入证明。事件ID去重后只记录一次，无逐帧刷屏。Root可将它与实际生产事件和原生输入日志按时间／ID配对。本轮未运行共享构建或设备，所以这条新回执尚无实际输出。
+
+### 新发现：合法弹反可能缺来刃切向
+
+旧“emitImpact漏转发”已修。本轮发现的是另一问题：判定允许fastGuardAt后180ms内弹反，但defenseContact在当前护刀已静止时tangent=null，消费器于是按安全策略仅显示核心，所有方向火星隐藏。当前ArenaSession把点吸到enemy blade，但未同时改normal/tangent，它们仍可能来自玩家护刀代理。
+
+已向Root发送最小数据修复要求：从实际enemy AttackProfile相邻pose，按同一刀段接触见证点计算incoming位移／切向，吸附点时一并转发；不可用继续null/core-only，不用刀轴、固定左右roll或预设方向猜。Root补“快速架刀后静止、仍在PARRY_WINDOW”的事件回归，并检查三方向。08不越界修改Core／ArenaSession。预演将使用明确示例TBN，不隐藏此运行时缺口。
+
+暂停、重开、场景释放和预算复核未见新缺陷：暂停前先消费事件ID再clear，恢复不重播；roundGeneration变化清空池与去重；close销毁；SOFT／METAL各3槽，其余预存3类各1槽，2个force槽，本轮未增加；同批reserved防止重复覆盖，120ms以上与未来事件不排队。
+
+### 已交连续刀光回放
+
+`ArtSource/refinement/effects/runtime-polish/sequence-trail-review/trail_sequence_0.6s.mp4`与`trail_sequence_timeline.png`已出。仅回放2026-11-11的49帧90Hz DESKTOP导出网格；本轮两份刀光源码SHA与该导出清单完全相同。18帧固定相机，空网格清屏，最后一帧显式清屏，0.600000秒与全片解码检查通过。最后的显式清屏只证明回放边界，不能称为新的生产静止事件；没有假定此刀光fixture有真实命中。
+
+普通／弹反两条0.6秒预演已完成，实际交付与限制如下。
+
+### 阶段2实交：普通命中与弹反各0.6秒
+
+- `ArtSource/refinement/effects/runtime-polish/sequence-review/ordinary_contact_0.6s.mp4`：普通身体首击25实际伤害的示例，strength=0.625，slot size=1.0075；视频SHA256 `4c1ba1a8bc226c6660084e5266ebfac8f2ffe9e970e2d2de336f4cb757b91138`。
+- 同目录 `parry_contact_0.6s.mp4`：PARRY示例，strength=1.0，slot size=1.18；视频SHA256 `8c813b3cabab685845f4ba73baacb457e8598706e4b12973fa2fc9a90f10edf3`。
+- `ordinary_timeline.png`／`parry_timeline.png`均含0／33／67／167／300／567ms六幅。普通67ms核心已灭而85ms scar可仍存在；弹反67ms热芯仍亮；167ms颗粒独立飞散；300ms和567ms所有核心与粒子均隐藏。
+- 两视频各18帧／30fps，ffprobe确认0.600000秒，ffmpeg全片解码exit0。`manifest.json`含完整参数／相机／接触点／来源与逐帧状态；`delivery_check.json`复核视频SHA／时长／回收及五资源未变。渲染与编码入口为同目录`render_preview.py`，命令及日志在render.log／finalize.log。当前只运行离线制图、数据／帧／结构检查，未运行Kotlin或共享构建。
+
+机位为固定1.5m身体参考点、80°水平视角，两例共用相机；实际突出刀面接触点距相机约1.236m，在manifest中单列，没有把所有接触距离都写成1.5m。角色静态参考姿势只提供尺度与材质语境，不模拟NPC停顿、反冲、控制器或音画同步。接触TBN为明确标注的示例，不是原生事件。
+
+当前正式actor为10clip GLB，SHA256 `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`。Blender首次导入因KHR_texture_basisu失败，错误日志保留。实际用本机已有官方KTX工具，把该源26张KTX2的顶mip解码为RGBA8 PNG，并仅在sequence-review内追加到原BIN后生成`actor_published_decoded_for_blender.glb`。原几何、节点、骨架、动画、材质参数与sampler保持，来源／PNG SHA及色彩元数据见`actor_decode_manifest.json`；图头显式标`OFFLINE decoded texture copy`。它不是正式asset，未加入任何运行加载或handoff资源路径，没有改app正式GLB。
+
+已目视两张最终时序板：弹反的短热芯／向外飞散清楚，普通0／33ms的出生叠层仍像偏实浅色团，不能据此宣称普通命中写实观感已通过。此问题连同实际图交Root审；本轮没有为离线图私调已发布素材或新加强度公式。连续刀光回放仍作为单独真实采样几何证据，未与示例接触拼成一次假“原生成功”。
+
+运行代码变化只有`CombatEffects.kt`逐事件INFO回执；`scope_check.json`通过移除日志可逐字恢复开工SHA，证明池、采样、时钟、公式、预设均未改。未增预载资源；未改Core、ArenaSession、HomeStage或Main，未操作设备或注入命中。开工只读核对过一次仓库根目录，其后未运行Git，未提交或推送。
+
+下一步为Root用真实输入取得普通斩／弹反的事件和Stage短片，将`ArenaEffects / Contact consumed`回执与实际触发配对；Root处理静止架刀弹反的incoming tangent后，再按实际1.5m观感决定普通浅色叠层／金属爆发的下一次有界修正。当前两条离线包络首件及入口核对已交，不把原生触发或SDK透明排序当已验证。
+
+
+阶段2最后复核：离线KTX2解码副本已独立核验，原74,172,904字节BIN完整前缀及所有几何／骨架／动画／材质结构保持；26图色彩域分别为11张sRGB带PNG sRGB块、15张linear无sRGB块，未手工gamma。两张时序板未见明显解码错色或结构破损。这只认可离线来源与呈现合同，不复现原生KTX2的GPU mip采样。当前源码与五资源不再因预演继续调参，交Root按真实触发画面续派。
+
+## 阶段3当前任务：只修普通身体SOFT包络
+
+按Root顶部续派处理浅色硬片／等大软斑。Root已接incoming tangent并回报5新例／28相关例通过，本轮不重复该功能；弹反参数冻结，Core输入由其它会话维护。
+
+已新增纯SoftContactEnvelope.kt，只由CombatEffects对`SOFT_HIT && zone == BODY`选择。Emitter每次emit重写softBodyCut标志，复用槽不会把该包络带进金属／玩家受伤／头部命中。原GLB、motion、ContactParticlePresets与池数量不变。
+
+新普通核心以真实T/B非均匀压薄，38ms结束；scar按原mesh内在34.384°斜率，在非均匀缩放后校正到真实T，60ms结束。缺切向只给32ms小型对称核心，scar／颗粒仍隐藏。原12节点中只点亮8片（0、1、2、4、5、6、10、11），按固定index三档，局部X缩放0.18／0.32／0.50，B缩放0.065／0.11／0.16，初速gain1.55／1.05／0.65，有效寿命不超源寿命且分别封顶135／190／250ms；淡入错开约4–26ms，仅作用透明度，不从delay重新积分。Stage重力、真实age和过期事件门不变。
+
+7项纯Kotlin专项用例已写入SoftContactEnvelopeTest.kt，留Root共享构建执行；本轮不编译。独立数值参考检查已执行，8片opacity总和峰值约3.152（低于3.5），250ms后全部清空，缩放后scar主轴B分量接近0。证据位于runtime-polish/soft-envelope-review/numeric_check.json，明确它不是Kotlin执行或SDK结果。
+
+制图复用阶段2解码副本、实际已发布SOFT资源、完全相同1.5m相机／接触点／灯光，先出0／33／67／167／300ms前后一对时序，不重渲弹反。
+
+### 阶段3最终实交与冻结点
+
+同一1.5m相机、灯光、角色、接触点与已发布资源的5对图已交：runtime-polish/soft-envelope-review/compare_000ms.png、compare_033ms.png、compare_067ms.png、compare_167ms.png、compare_300ms.png。before为阶段2原PNG按字节保持，不重渲；after仅改普通身体包络。第一轮过弱薄屑图归档calibration-thin-1，当前图头为body-cut candidate，不冒称Root已批准。
+
+最终只启用原12节点中的8片；三档opacity peak为0.60／0.45／0.32，B缩放0.065／0.11／0.16，其余速度／寿命／绝对age公式与本节说明一致。0ms只有core/scar两层，33ms最多8片加短核心，67ms核心与痕全灭，167ms6片，300ms全清。没有新GLB、motion变动、额外预载或弹反重渲。
+
+已目视0／33／167ms：掌前硬片和等大软斑已去掉，呈短切向闪口与几片薄屑；167ms仍偏克制，当前只认可去遮挡与层次方向，不认定强打击或原生效果通过。Root可据当前图选择进入真实触发验证，再调实际曝光与可见度，本轮不继续漂移参数。
+
+独立静态审查通过，确认只由SOFT_HIT+BODY选择、slot复用每次重写路由、PLAYER_HIT／头部／METAL/PARRY原公式保持；Stage重力不缩放、delay不重开轨迹、缺切向只对称core。制图18行采样独立复算position/scale/opacity/quaternion误差0，5图输出与原before图SHA核对通过。5份正式资源SHA均保持。
+
+新增7项SoftContactEnvelopeTest已写，覆盖薄口／scar轴校正／缺切向／出生与8片预算／确定性寿命／迟到不重播／重力独立；本轮按禁令未执行Kotlin或共享构建。Root在下一轮共享构建运行该类并复核实际Stage。源码及图SHA冻结清单见同目录delivery.json；参数数值检查在numeric_check.json，制图输入／采样表与独立复核见manifest.json及after_samples.json。本轮未改Core、ArenaSession、HomeStage／Main，未运行Git、构建或设备。

@@ -1,0 +1,61 @@
+{
+  "scope": "actual PICO Emulator Full Stage host mouse input; not injected combat events",
+  "apk_sha256": "9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b",
+  "apk_bytes": 242709448,
+  "source_snapshot_sha256": "3b716456e90a99cdbee7b909e50f077a4789590bf61135f7c282450a329b3204",
+  "tests": {
+    "tests": 328,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actual_start": [
+    "11-12 22:07:30.143 26084 26084 I ArenaControls: Start receipt atNanos=99253736803118 generation=0 result=READY sceneReady=true inputReady=true actionReady=true pause=null accepted=true nextResult=COUNTDOWN"
+  ],
+  "actual_consumed_contacts": [
+    "11-12 22:07:36.157 26084 26084 I ArenaEffects: Contact consumed id=1 kind=PLAYER_HIT family=SOFT accepted=true mode=core_particles ageNs=35861334 round=0 origin=DESKTOP",
+    "11-12 22:07:36.478 26084 26084 I ArenaEffects: Contact consumed id=2 kind=SOFT_HIT family=SOFT accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-12 22:07:37.325 26084 26084 I ArenaEffects: Contact consumed id=3 kind=GUARDED_HIT family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-12 22:07:38.227 26084 26084 I ArenaEffects: Contact consumed id=4 kind=PLAYER_HIT family=SOFT accepted=true mode=core_particles ageNs=39011000 round=0 origin=DESKTOP",
+    "11-12 22:07:38.715 26084 26084 I ArenaEffects: Contact consumed id=5 kind=SOFT_HIT family=SOFT accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-12 22:07:40.746 26084 26084 I ArenaEffects: Contact consumed id=6 kind=PLAYER_HIT family=SOFT accepted=true mode=core_particles ageNs=20745792 round=0 origin=DESKTOP"
+  ],
+  "motion_strikes": [
+    "11-12 22:07:36.475 26084 26084 I ArenaCombat: Native motion observed source=SDK_NATIVE origin=DESKTOP sequence=32477 coordinateEpoch=0 receivedAtNanos=99260064458121 roundGeneration=0 headSequence=32476 leftSequence=32477 rightSequence=32477 head=ObservedPose(position=Vector3(x=0.0, y=1.2393996715545654, z=0.0), rotation=Quaternion(x=8.726901264576978E-4, y=-0.002617989063275078, z=2.284701957026488E-6, w=0.9999961922627446), quality=UNKNOWN) left=ObservedPose(position=Vector3(x=0.4415135383605957, y=1.649999976158142, z=0.05283021554350853), rotation=Quaternion(x=0.08694300960858423, y=0.06949100771516702, z=0.006080000773410292, w=0.9937680546875753), quality=UNKNOWN) right=ObservedPose(position=Vector3(x=0.26940178871154785, y=1.3972954750061035, z=-0.44832053780555725), rotation=Quaternion(x=0.12723343948948243, y=0.10176936789777813, z=4.241810324295935E-4, w=0.9866379618197418), quality=UNKNOWN) motionResult={frameAvailable=true receivedAtNanos=99260064458121 bladeBase=Vector3(x=0.265026491741628, y=1.4302600866948931, z=-0.5748874811700564) bladeTip=Vector3(x=0.1509127753580038, y=1.61180003503561, z=-1.2629243601885922) bladeTipSpeed=3.4714811671564982 strike=MotionStrike(id=1, zone=BODY, power=1.4, contact=MotionContact(zone=BODY, point=Vector3(x=0.1388716954240696, y=1.1889213880566984, z=-1.2640660650213036), normal=Vector3(x=0.5228795912782782, y=-0.038996150034094325, z=0.8515140828589853), tangent=Vector3(x=-0.003799390307458568, y=0.9592944426789568, z=-0.2823822531225377))) guard=null skill=false release=false motionGeneration=569}",
+    "11-12 22:07:37.321 26084 26084 I ArenaCombat: Native motion observed source=SDK_NATIVE origin=DESKTOP sequence=32506 coordinateEpoch=0 receivedAtNanos=99260878942872 roundGeneration=0 headSequence=32505 leftSequence=32506 rightSequence=32506 head=ObservedPose(position=Vector3(x=0.0, y=1.2393996715545654, z=0.0), rotation=Quaternion(x=8.726901264576978E-4, y=-0.002617989063275078, z=2.284701957026488E-6, w=0.9999961922627446), quality=UNKNOWN) left=ObservedPose(position=Vector3(x=0.4415135383605957, y=1.649999976158142, z=0.05283021554350853), rotation=Quaternion(x=0.08694300960858423, y=0.06949100771516702, z=0.006080000773410292, w=0.9937680546875753), quality=UNKNOWN) right=ObservedPose(position=Vector3(x=0.26940178871154785, y=1.3972954750061035, z=-0.44832053780555725), rotation=Quaternion(x=-0.09431376515211265, y=0.1622184422455573, z=-1.0302433069019077E-4, w=0.9822372829842311), quality=UNKNOWN) motionResult={frameAvailable=true receivedAtNanos=99260878942872 bladeBase=Vector3(x=0.249132482640305, y=1.3727214271763066, z=-0.5752467817610495) bladeTip=Vector3(x=0.04923116227631916, y=1.2383850591508965, z=-1.2544865349722971) bladeTipSpeed=4.666063704546769 strike=MotionStrike(id=2, zone=HEAD, power=1.4, contact=MotionContact(zone=HEAD, point=Vector3(x=0.1383353908859565, y=1.5977738815766698, z=-1.2573652671029938), normal=Vector3(x=0.8954777669489844, y=0.1707745596282968, z=0.4110421130295793), tangent=Vector3(x=-0.23207296130012156, y=-0.9594227400318316, z=-0.16015663128077043))) guard=null skill=false release=false motionGeneration=569}"
+  ],
+  "visible_hud": {
+    "enemy_before": 100,
+    "enemy_after": 12,
+    "player_at_after_frame": 40,
+    "round": 1
+  },
+  "video_duration_seconds": 15.8,
+  "media": {
+    "native-input-contact-2026-11-12.png": {
+      "sha256": "1d1dc108981308e683ba75fa1453117508d5a06d41efaf4d1a6cb4d9ee029e97",
+      "bytes": 1836716
+    },
+    "native-input-contact-2026-11-12.mp4": {
+      "sha256": "e9a51ef033823da66d72bbac9aa479ee5217be8fd007a930801c4ef57b7eefa7",
+      "bytes": 3592627
+    }
+  },
+  "open_gates": [
+    "player parry, guard, dodge and execution",
+    "all three rounds and resource swaps",
+    "final costume/hair and dynamic clipping",
+    "Space Pro hardware performance, comfort and haptics"
+  ],
+  "video_export": {
+    "encoding": "H264 CFR30 + faststart; standard re-encode only, same capture timeline",
+    "raw_capture_sha256": "be96144423b3fb0cfc59068a6adfff995585d64b419de4c08d49ea2c33251079",
+    "raw_capture_duration_seconds": 15.799478,
+    "full_decode_errors": 0,
+    "stream": {
+      "width": 2160,
+      "height": 2158,
+      "r_frame_rate": "30/1"
+    }
+  }
+}

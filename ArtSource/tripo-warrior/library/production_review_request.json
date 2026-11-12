@@ -296,8 +296,8 @@
       {
         "id": "base",
         "name": "试刀客",
-        "source": "../refinement/hero-face/neck-continuous/candidate-raw.glb",
-        "source_sha256": "34ce3a601f842fcb512b643d2ea62317e87485d646ca453e4a46d5116681d4f9",
+        "source": "../refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+        "source_sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
         "grip_source": {
           "source": "refined-base60k/slash.glb",
           "source_sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
@@ -498,7 +498,7 @@
       }
     ]
   },
-  "binding_sha256": "b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f",
+  "binding_sha256": "1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2",
   "source_contract_evidence": {
     "idle": {
       "canonical_clip": "attack_overhead",
@@ -555,18 +555,18 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 43622176,
-          "sha256": "2b5ee206fcdef4f36cbf7db67f496b92659496aebf8a75e62fe7148cd2fe7b7c"
+          "bytes": 54489360,
+          "sha256": "9a5ac3996ded4d09eb9d156c2addcbfbb53a2a3f21e79bec0629bf841be89db1"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 46715300,
-          "sha256": "b732929ed6bd9ded6ce00de3564b8c446aa7ab59f83495d95cdfabfd9310af09"
+          "bytes": 57582484,
+          "sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96"
         },
         {
           "file": "base.glb",
-          "bytes": 75464020,
-          "sha256": "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e"
+          "bytes": 75131720,
+          "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20"
         }
       ],
       "hand_track_signatures": {
@@ -593,8 +593,8 @@
         "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
         "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
       },
-      "texture_encoding_manifest_sha256": "b7b9ce9af2047151b7ceadb763d7611ad4c48feb43af5c46065ddeb912dadefe",
-      "attack_profiles_sha256": "df8a8531a4e94ef3651f8b9d889688e418a8b5e07a7685587300fa6899da657e"
+      "texture_encoding_manifest_sha256": "9c0eb8cb795c670ade7cf5b7713214ac6d598c441c0f1988db5925cb603aecd0",
+      "attack_profiles_sha256": "7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478"
     },
     {
       "id": "indigo",

@@ -13,9 +13,9 @@ MAIN = ROOT / 'app/src/main/java/com/example/wuxiaarena'
 TEST = ROOT / 'app/src/test/java/com/example/wuxiaarena'
 CACHE = Path.home() / '.gradle/caches/modules-2/files-2.1'
 JAVA = Path.home() / '.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java'
-CONTENT = ['ContactEventTiming', 'ContactParticleMotion', 'ContactParticlePresets', 'ContactParticleEmitter', 'CombatEffects', 'BladeTrailGeometry', 'PlayerBladeTrail']
+CONTENT = ['SoftContactEnvelope', 'ContactEventTiming', 'ContactParticleMotion', 'ContactParticlePresets', 'ContactParticleEmitter', 'CombatEffects', 'BladeTrailGeometry', 'PlayerBladeTrail']
 RUNTIME = ['ArenaSession', 'ArenaOpponents', 'AttackBankProfiles', 'AttackBankProfileData', 'CombatFeedbackProfile', 'TrackingProcessor']
-TESTS = ['p0d2f0182/content/ContactEventTimingTest', 'p0d2f0182/content/ContactParticleMotionTest', 'p0d2f0182/content/CombatEffectsTimingTest',
+TESTS = ['p0d2f0182/content/SoftContactEnvelopeTest', 'p0d2f0182/content/ContactEventTimingTest', 'p0d2f0182/content/ContactParticleMotionTest', 'p0d2f0182/content/CombatEffectsTimingTest',
          'p0d2f0182/content/BladeTrailGeometryTest', 'core/combat/PlayerContactTangentTest',
          'core/combat/PlayerCombatImpactTest', 'core/combat/PlayerMotionContinuityTest']
 

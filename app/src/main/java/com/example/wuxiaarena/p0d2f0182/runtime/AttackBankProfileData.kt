@@ -8,11 +8,11 @@ import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.math.Vector3
 
 internal object AttackBankProfileData {
-    const val bindingSha256 = "b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f"
+    const val bindingSha256 = "1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2"
     val characters: Map<String, CharacterAttackProfiles> = mapOf(
         "asset://models/opponents/base.glb" to CharacterAttackProfiles(
-            modelSha256 = "722ffe6e9d3d498629b257e88aaeaf3b0ad368e5c5a37be87ccb85d63a6cf83e",
-            profileSha256 = "df8a8531a4e94ef3651f8b9d889688e418a8b5e07a7685587300fa6899da657e",
+            modelSha256 = "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+            profileSha256 = "7c3c31787139c53b262587f39e73a690da66954911db2ca981d7740d5e325478",
             attacks = mapOf(
                 // Animation semantics SHA-256 15230eb2e60e37fc303af182bdf103344b9cd1c34d0335ecb47dee58f31fadfa
                 AttackDirection.OVERHEAD to AttackProfile(

@@ -1,8 +1,54 @@
 # 06 · 雨夜酒馆庭院整体场景
 
+## Root当前原生收件
+
+单窗整景9b已进入正式app资源，并由Root实际安装的1b905包显示，见 [原生准备态](../../ArtSource/refinement/presentation/clean-coat-one-window-2026-11-12.png) 与同名JSON。首敌附着阶段未报NO_MEMORY或新增切线警告。只接受一个结构窗进入唯一courtyard的开发整合；不等于整景美术、全局运行预算或Space Pro硬件通过。保留此件，暂不扩第二窗，不另开场景。
+
+
+## Root整景收件与原生接力（2026-11-12）
+
+Root已实际看comparison_player，完整guard构图中窗框/内退与窗台改进仍成立但较局部克制。9b259812整景接受development integration，Root现在核SHA后替换唯一app courtyard并原生取图。仍不代表整院最终美术或Space Pro通过，不扩第二窗。
+
+本路冻结9b及producer/输入，暂不再造新场景或修未证实故障；可准备该一窗实际材质/法线的对照检查点，Root取到新原生图后按证据接力。主控已恢复active；所有正式资源、构建和设备仍由Root维护。
+
+原生检查卡已备：`ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/native-review/checkpoints.png`与同名JSON。只标注已交9b离线原图，未新增渲染；9b、producer、manifest和取景收据SHA均保持。仅追三点：①墙窗连接/窗台投影可辨且灰泥连续，无矩形色块、亮缝或闪线；②竖框与横框转角的纹理方向、倒角高光在小幅换角时连续，运行时切线的4条警告仍作为原生观察项；③纸复用8b材质4，分扇/遮挡收益出现，人物脸/手/刀仍优先。以同一观察路径、机位、灯光/曝光及绑定9b的新APK图对照，不把旧8b或不同相机单帧当本版结论。
+
+## Root review and next production contract (2026-11-12)
+
+用户本次要求继续。Root已实际看图收件：12研究完成；05发髻变光滑蛋形，拒绝；03袖口像深色短筒加浅色粗壳且极限姿态穿插，拒绝；06木窗同光clay有真实进深收益，只接受结构方向，尚未原生放行。本轮正式游戏没有获得有效的人物升级。
+
+下一节点是一个完整刀客上半身。比较三路：旧小补丁收益已不足；反复整人重生成会重置身份/绑定且无质量保证；选择现有Tripo高模、固定身份和明确参考下的完整部件造型。最大风险是缺少造型输入时再把发髻做成球、袖子做成管，所以先形体、再动态、再材质、最后原生。
+
+唯一仓库 /Users/yupeng/projects/personal/pico-wuxia-arena，Kotlin+PICO Spatial SDK6.1.9，Space Pro/OS6。正式b03f人物与8b1098场景仍为基线。你不独占仓库，不回滚他人，不复制仓库，不改pico/BrickerP.github.io。Root独占正式producer/manifest/library/app、Kotlin、共享构建、设备和Git。本轮具体制作继续，不等同恢复24小时自动监控。只改本路范围，研究已交部分不反复写长报告。
+
+Root审核：接受一窗结构方向，整景/原生仍未通过。已实际看1.5m同光clay/PBR，真实洞口、内退框扇和窗台有收益；不代表整院美术达标。
+
+1. 沿当前build_window_sample.py、replacement_recipe.json与8b1098，只做一扇主视窗的完整courtyard候选。移除对应旧14件并精确裁切共享墙，保外侧、其他窗、柱梁、地面receiver、灯位与战斗净空。不要贴回实墙，不新增运行场景。
+2. 交一个完整单一庭院GLB及可复建来源，不覆盖正式app/8b输入。合并相同材质/图像，给实际新增三角、材质、贴图与文件成本，避免孤立模块重复带资源。
+3. 首交整景含当前人物guard的同机位前后图和1.5m局部。Root亲自替换唯一正式资源、取正常眼高原生图；你不碰设备/Gradle/Git。
+4. 单窗在原生正常游戏视距确有收益且预算可接受，才复制到第二扇。如果整景看不出或代价不值，停止扩窗，把资源回到刀客。
+
+本轮交已装配整景候选，不再停在孤立方法样件；只一窗，不整院重做。
+
+### 整景首件收件（2026-11-12）
+
+路径前缀：`ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/`。
+
+- **完整唯一庭院已到：** `courtyard_one_window.glb`，SHA256 `9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5`。`build_courtyard.py`可从冻结8b与已接受2fb模块复建；只移除目标窗4框/9棂/1纸及对应墙片，源BIN前缀保留，不新增第二运行场景。正式app和8b输入未改。
+- **有效图已到：** `review/comparison_player.png`、`comparison_slight_oblique.png`为完整庭院含当前正式人物对应源的同机位前后；`comparison_window_1p5m.png`为1.5m局部。人物采用与正式722ffe KTX配对的PNG源b732929e…，当前锁定guard为 `idle@0.0s`，Stage `(0,.028,-2.4)`；没有沿用旧e7或attack_overhead待战。图为实际整景GLB重导入的离线对照，不是原生放行。
+- **成本与接力：** 153838→162206三角（+8368），31.733→34.423MB（+2.690MB），+1mesh/+3材质/+5图。灰墙/纸直接重用25/4材质，7张墙纸图及1张木normal重用；其余窗、柱梁、地面receiver、灯位与战斗净空保持。Root可对完整单一资源实际装包取图；本轮不扩第二窗，原生收益/预算门槛仍OPEN。
+
+收件校验已齐：`review/verification.json`独立核对原BIN前31657160字节、原accessor/view/material前缀、原节点/变换保持，仅4个源primitive改变；旧窗176/396/44三角按完整14件精确移除，老墙前后各4.4325㎡裁除，中央射线无旧墙残皮。float32边界细线在2e-6m裁切容差内；没有通过放大删除区掩盖接缝。正式PNG对应源与KTX人物的geometry/skin/animation已直接比对一致。完整身份在`delivery_manifest.json`，复建步骤在`REBUILD.md`。
+
+官方`review/gltf-validator.json`为0错误、4条`MESH_PRIMITIVE_GENERATED_TANGENT_SPACE`警告，均指向已接受2fb模块未显式TANGENT的4个normal材质primitive；本候选保留该模块运行时切线生成合同，不将格式检查通过当原生normal保证。Root装包时需看该窗法线/材质响应。完整图中框口、中央分扇和窗台仍可辨，但收益比1.5m局部克制，尚不支持扩窗。图像、候选、当前guard来源与收据SHA一致；本轮只交这一个完整单一courtyard供Root实际取图，正式资源、Kotlin、共享构建、设备和Git均未由本路修改。
+
+---
+
+> Prior delivery evidence below; execute only the current contract above.
+
 ## 当前状态
 
-2026-11-11 Root已将庭院发布至正式app资源，并以原点identity单加载接入HomeStage；两地面receiver已绑定，07正在对齐原生灯光。06交付的模型SHA已冻结，正常视距图与文档齐备；设备验收继续由Root执行。
+2026-11-11 Root已将stage2环境8b109801…df3db7b发布到唯一正式courtyard资源，56bb源与旧producer输入保留冻结。新版native暖纸与灯笼已可见；一次Reset观察图中纸组消失，后续settled与forward帧恢复，有限只读归因未发现可证实资产错误，当前保留8b、不生成correction。实际原生主流程、Space Pro与checkpoint继续由Root负责。
 
 ## 目标
 
@@ -39,6 +85,48 @@
 先开发和专项制作检查，整局自玩后置。Root负责实际输入到共享判定、三轮流程与Space Pro实测。模拟器只作为其实际可证明范围的证据。
 
 ## 阶段交付
+
+### 2026-11-11 · stage2窗纸、木构与灯笼候选已交
+
+**来源与冻结：** Root指定稳定代码节点 `6b407acc4507812b99d1315e58c8a2c588719fd0`，实际执行开始观察HEAD为 `193d0f6dcc859168b8f7c00669c185a3863e1a8d`；未切换分支或修改Git。任务实图为 `ArtSource/refinement/presentation/integrated-2026-11-11.png`，SHA `c23a267ed6b634a07d22b7193211f05d8420770b1f281830df4ea59216b33f6d`。唯一输入庭院仍为正式 `56bbd7e4f6f371a9a7d8dbcf10f55777c0b6ec445e0ca0bf1b10c1f47d9af6b8`；候选、正式app文件、旧producer SHA及全部旧贴图SHA均核对未变。
+
+**新文件与显式新SHA：** `ArtSource/refinement/environment-hero/stage2/courtyard_materials_stage2.glb`，SHA256 `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b`。本轮仅编辑stage2私有目录与本交接；没有运行旧producer，没有覆盖56bb源、旧输入或正式app文件，没有修改HomeStage/SceneLighting/SDK/Gradle，没有构建、设备或提交推送。
+
+**正常距离可见收益：**
+
+1. 23幅独立窗纸（11正面、8侧廊、4远楼）绑定2×2原创atlas，包含细纤维、纸幅接缝、边缘受潮、压框暗边、少数叠纸修补和局部暖斑；不会增加窗格。远楼单独降亮。3m图可读暖斑与纸层差异，细纤维主要在0.8m／1.5m图验证。表面反射factor `[.38,.30,.21,1]`、emissiveFactor `[.42,.27,.10]`，降低反射填光洗平暖斑的风险。
+2. 木材沿现有梁柱长轴增强颜色／roughness／normal方向性，原长轴UV保持。为现有18处托木前端补独立端纹，12个锁键嵌入柱面，门内侧3段压边补进深；只加1个命名mesh `EH_S2_TimberJointFaces`，没有扩场景或重复窗格。原全局深色窗棂／灯笼骨架材质3保持字节语义不变，仅主木构局部使用独立浅一档接缝材质。
+3. 灯笼使用原创纸面baseColor／normal／roughness及独立emissive图，中腹较亮、上下口压暗、轻微纸厚与贴纸缝变化，既有暗肋保持。emissiveFactor `[.75,.65,.50]`，U首尾逐像素周期一致。夜景图中灯笼从暗红实心感转为暖橙纸腹，和周围暖窗协调。
+
+**文件入口（均在 `ArtSource/refinement/environment-hero/stage2/`）：**
+
+| 用途 | 文件 |
+| --- | --- |
+| 完整接入候选 | `courtyard_materials_stage2.glb` |
+| 资产／UV／新几何／输入身份 | `candidate_manifest.json`、`handoff.json` |
+| 私有GLB加工 | `create_candidate.py` |
+| 原创纸／灯笼与木材生成 | `make_paper_maps.py`、`make_wood_maps.py` |
+| 贴图身份／色彩空间／atlas矩形 | `textures/paper_maps_manifest.json`、`textures/wood_maps_manifest.json` |
+| 正常主视角／探索前后对照 | `review/comparison_player.png`、`review/comparison_explore.png` |
+| 3m窗纸／灯笼搭接夜景对照 | `review/comparison_paper_3m.png`、`review/comparison_lantern_joinery.png` |
+| 1.5m／0.8m纸幅对照 | `review/comparison_paper_1p5m.png`、`review/comparison_paper_0p8m.png` |
+| 三距离总览／中性光主视角 | `review/distance_review.png`、`review/comparison_neutral_player.png` |
+| GLB与图片专项证据 | `review/validation.json`、`validation.log`、`neutral_evidence.json`、`night_evidence.json`、`board_receipt.json` |
+| 07原生点灯接口事实 | `light_contract.json` |
+
+**Root／07接入合同：** 接受时按新SHA选择这份完整候选替换统一场景资源，不与56bb叠加；原点identity、米制、原命名receivers与所有灯位保持。旧BIN前18619512字节、原POSITION/NORMAL/indices、全部原节点变换均保持。PBR仍走core glTF，图片均内嵌；baseColor和emissive为sRGB，normal/MR为linear，切线已按新UV补算。没有引入材质透射扩展、运行灯光或假光池贴片。发光贴图只表现美术亮度变化，不是物理透射，不会代替真实照明。
+
+07当前四灯线性RGB `(1,.49,.20)`：主门 `(-2.15,2.7,-4.7)`／`(2.15,2.7,-4.7)` 为1500lm、半径3.8m；侧灯 `(-4.03,2.25,.56)`／`(4.03,2.25,-1.32)` 为1100lm、半径3.4m。均距纸壳中心向玩家侧约8cm，候选没有移动它们。真实光池与阴影由Root/07用原生点灯验证；GLB emissive值与lm不在同一单位，不能直接按数值比例承诺亮度。夜景离线图优先保留人物脸与手高于大面积门纸的视觉层次。
+
+**验证：** `python3 ArtSource/refinement/environment-hero/stage2/verify_candidate.py`，10项全通过。覆盖冻结输入与正式app不变、候选身份与原BIN精确保留、旧几何/transform/anchors不变、Y=0与战斗净空、23纸幅atlas/米制尺度/V方向、normal材质显式TANGENT的有限/单位/正交/handedness、opaque/core emissive、未增加窗格、灯笼周期接缝、错误或缺失源输入的实际拒绝路径。
+
+自我review与独立复核修复了两个实际问题：纸倒角退化UV原fallback使dot(N,T)=.707，现最大约1.49e-7；原12个锁键距柱面2mm，已改为嵌入4mm。灯笼新normal图对应1100顶点切线全部有效，最大正交误差1.19e-7、handedness与UV导数一致。最终夜景复核确认纸层暖斑、木纹方向／托木端纹和灯笼纸腹均有可见收益，人物脸、手和持刀姿态仍为视觉焦点。
+
+候选39节点、31mesh、29材质、45张内嵌图、153838三角，相对56bb增加2244三角、1mesh、3材质；大小约30MB。地图新增包含2K纸幅atlas，实际头显纹理内存及加载／帧率仍需Root核对，当前没有端内性能结论。
+
+所有before/after均导入实际GLB，使用相同正式 `opponents/base.glb` SHA `e7f3de3d8c7e202999b2d456ae85257b89a01e7c21792f332c4b273c77b60cbc`、`attack_overhead @0.0s`、Stage `(0,.028,-2.4)`、同一机位/灯光。离线眼高1.6m是制作机位，不冒称设备实测HMD位置。中性光与夜景均有完整图像SHA；并列图仅加边框/文字，三距离总览仅缩排版尺寸，没有修补渲染像素。Blender灯功率是受控对照配方，不冒称与PICO流明数值等价。
+
+**剩余验证与下一步：** 正式场景仍为56bb，stage2只交Root选择。需要Root/07接入后检查PICO实际emissive/normal响应、灯笼纸面与真实光池、人物/门洞亮度层次、侧向遮挡与Space Pro性能。收到实际端内问题再以独立新文件和新SHA续修；当前stage2交付签名及图像身份保持一致。
 
 ### 2026-11-11 · 首张PICO集成图只读评审
 
@@ -110,3 +198,50 @@ Root通知已将 `courtyard_hero.glb` 发布到 `app/src/main/assets/models/`，
 审核：courtyard_hero已作为唯一主场景实际启动，旧三运行资源已移除；两层酒馆与连续石路可见。
 
 下一步：根据relight-ready-scene实际图集中建筑材质尺度、窗纸与人物亮度层次的最多3个可见改进；不增开放世界或再造并行院落。
+
+
+## Root stage2 开发集成审核（2026-11-11）
+
+Root已实际看主战机位与灯笼搭接两组同机位图，接受8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b作为下一构建来源。仅替换唯一app/models/courtyard_hero.glb，stage1 source56bb与stage2重建输入保留；不叠加场景实例。窗纸暖斑、方向木纹与灯笼纸腹渐层已有离线可见改善，native材质响应、人物亮度层次、实际光池与预算仍OPEN。工程收件在stage2/root_integration_review.json。
+
+## 06续轮优先级 · Root接受stage2开发集成后（2026-11-11）
+
+Root已实际审核stage2的player与lantern_joinery两张前后板，接受 `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b` 为development integration候选，接下来由Root统一替换唯一courtyard资源并取得新native图。06从此冻结stage2模型、producer、贴图、manifest及已有图像身份；本轮仅追加本节，没有运行生成器、Blender、构建、设备或Git，没有修改正式资源。开发集成接受不等于PICO画质、Space Pro性能或实机通过。
+
+只读输入为 `artifacts/input-native/aim-post-move.png`，1882×1938，SHA `f0e65d571b7f82a6b5aa9e9044750e8110930f10c7efb3617f7fb1dd2d4beb4b`。它是带模拟器窗口边框和工具栏的原生画面截帧；未取得绑定8b1098的新APK／资源收据，读取时正式app文件仍为56bb。因此该图用于说明已有立面观察点，不用它判stage2成功或失败。目标维度沿用12的现有bench：《黑神话》的建筑材质与构造层次、《天国拯救》《骑马与砍杀》的可信空间尺度；没有新增未经查看的游戏截图或视频结论。
+
+最多保留以下3项优先级，均等Root本次新native证据后才定具体delta：
+
+1. **P1 · 验证stage2材质在实际照明下的可见收益。** 本帧纸面仍是均匀褐片、灯笼暗红，梁柱／托木／椽底较多并成黑带；这三项已有stage2定向制作，不重复新开一套贴图。先用Root的新同机位帧确认局部暖斑、灯笼中腹/口部明暗及顺构件木纹/托木端纹在正常游戏视距出现，同时保持人物脸、手和动作轮廓优先。若效果被原生填光洗平，由06/07只定位现有baseColor、emissive、roughness及灯位的实际贡献，再决定局部参数或贴图delta；不先整体抬亮院落，不增加大贴图。验收关注“纸幅有受光原因、木构能读连接、灯笼纸面与真实光池一致”，不以数值上调当可见通过。
+2. **P2 · 可见檐口的端头／滴水层次。** 当前画面里连续冷蓝直边比瓦端构造更易辨认，主檐下方有体量但端头轮廓较弱。先在新native轻微仰视/侧向图分清材质暗部与几何实际轮廓；若仍读成贯穿的平直横板，下一候选只处理现有檐边的筒瓦端面、滴水瓦断续轮廓、局部磨损或受潮roughness，优先复用现有瓦面图与材质。保留檐深、承重关系、已交木椽及举刀净空，不据这张主要显示檐底的图重做未入镜的瓦面和整片屋脊。
+3. **P3 · 侧向探索的廊柱—湿石—池沿层次。** 本帧主要是正立面，侧廊深度、石池踏步、水面与远景屋檐未充分展示，暂不判它们失败。等Root在正常眼高取得左右侧向探索图，先检查柱间通透、托木接触、池沿接地、水面亮度与近/中/远材质尺度。若平面感仍在，优先修现有湿石/干檐/墙根的连续roughness与接触层次，或有限可见面的UV/法线；不添重复坛罐/窗格、不扩庭院、不增加第三套院落或大贴图。侧景应继续服务清楚的战斗视线与同一酒馆风格。
+
+本轮没有新增候选或新SHA。stage2的10项检查与对照图是发布前制作证据；其中“正式app仍为56bb”的输入冻结断言属于当时状态，Root将正式app切换为已接受8b1098后，不把这一旧app基线断言当作接入失败。冻结源56bb与已交stage2文件身份仍分别保留，后续实际delta使用独立文件和显式新SHA。
+
+## 06 native纸面消失有限归因 · 保留8b1098（2026-11-11）
+
+**结论与处理：** 已实际看loaded、Reset后异常、settled恢复及两张forward-controls图。当前没有可证实的资产alpha、背面、法线或包围盒错误；恢复帧阻止把一次观察窗口异常直接判为持续资产缺陷。保持已发布 `8b109801cc268e8194820e22575d6b1415a2b65bcfc52e2bc0a9b415fdf3db7b`，本轮不生成correction，不修改模型、producer、源纹理、manifest或正式资源。确需后续修复时，仅在同stage2下的新private correction子目录交独立delta和新SHA，不覆盖checkpoint来源。
+
+**绑定与时序：** `artifacts/canonical-native/build-identity.json`绑定APK `767bc0afecd9bb40377a736da0466126665e4f03cf52d646b21cb0a9d285c9f2`与环境8b1098；Root报告Android PID15914一致，startup.log亦记录此PID。候选与当前正式app GLB只读SHA均仍为8b1098。以下时间为文件mtime（北京时间），不是GPU帧时间：
+
+| 图 | mtime | SHA256 | 实际可见事实 |
+| --- | --- | --- | --- |
+| `loaded-head-native.png` | 20:24:17 | `24fd202c2919a081ea41cb21adead1c25784c9b6100853026f96ffc44d552c13` | 模拟器窗口中暖纸、亮斑与完整灯笼纸壳可见 |
+| `reset-controller-view.png` | 20:24:57 | `027e56110fa387be050a9727e23386b5209fd78a0920689fa293a80cd984048d` | 视点变化后纸组未显现，可见窗后的蓝灰墙，灯笼独立骨架仍在；不是仅整体变暗 |
+| `full-stage-settled.png` | 20:26:43 | `4a04be2b73480dc01c52574ace61fdfd9c347a1d84f9e0ad0c7daf260ffcdb7d` | ordinary2D应用画面中暖纸、亮斑和完整灯笼恢复 |
+| `forward-controls-full-stage.png` | 20:39:48 | `395c891c23baf2a1669ec0fcfb4edb737d8475a7dc9125d808182f3e40711ebf` | 等待场景时暖纸/灯笼已可见；此帧没有对手，不将它说成完整游戏加载完成 |
+| `forward-controls-loaded.png` | 20:45:11 | `530fcc425a1d0a9cb4477e3cab54fc6c705198cb2444209ad042d78303e39bd7` | 人物与暖纸/灯笼同框正常 |
+
+图均位于 `artifacts/canonical-native/`。模拟器窗口图与ordinary2D图的取景和尺寸不同。reset元数据记录桌面点击、窗口focus和截图，没有HMD/观察相机pose、渲染帧标记或同视点成对捕获；未取得官方证据证明两种捕获相机具体如何关联。不能因此直接认定“Reset Camera渲染瞬态”或“不同观察相机”已是根因。相同PID也不能单独证明SpatialView没有重建。
+
+**只读资产排除：**
+
+- 窗纸mat4、灯笼mat10、远楼窗纸mat26均为 `doubleSided=true`，未指定透明模式/透明扩展，baseColor alpha=1，相关PNG为RGB、没有alpha通道。glTF缺省OPAQUE；无资产级depth override，实际渲染深度状态本轮未采集。
+- 相关原POSITION/NORMAL/indices与旧BIN前缀保持，POSITION bounds与真实顶点误差为0。纸面几何法线与顶点法线最小点积约1，灯笼约.91，没有发现反向面；新切线有限、单位、正交，最大误差约1.49e-7，未见反向UV basis。
+- 额外CPU几何射线检查选择一幅正面窗纸与一盏灯笼纸壳，各覆盖距离0.8/1.5/3m、眼高0.8/1.6/2.2m、yaw -60/-30/0/30/60/180度，共108样本均命中纸几何。该检查只排除代表性几何在这些角度缺面，不是PICO渲染或全场景遮挡稳定性的保证。
+
+**只读应用调用链排除：** HomeStage.kt:490的SpatialView.update只更新HUD锚点；:550初始化唯一庭院并绑定两个地面receiver，没有按视角、相机或追踪修改纸面材质/alpha/depth/culling/visibility。唯一model.materials写入位于EnemyHitFlash.kt:91，输入仅HomeStage.kt:201的对手实体，BodyFlashMaterial.kt:4又按tripo_身体材质过滤，未触环境。SceneLighting.kt:46的IBL初始化、SceneWeather.kt:40的天气rig及TrackingSession.kt:434的采样生命周期均无环境纸面角度分支。Main.kt:42使用DefaultStage，没有应用自建相机或Reset Camera处理。上述行号对应本轮只读源码，不把它推断为SDK内部实现证据。
+
+startup.log在20:23:38记录Tavern attached，20:23:40出现Assimp `mesh tangents: Found zero-length vector`，20:23:44记录Tripo enemy attached。该警告没有携带可绑定的资产/mesh身份，且环境相关切线实测正常，不能直接归因给纸面；也未据此修改新头或环境。
+
+**剩余证据边界：** 目前支持“有一次观察窗口异常，后续多个应用帧正常”，不支持“已证明alpha/backface故障”或“已修复Reset Camera内部问题”。Root当前主流程和checkpoint继续，06不占GUI/Gradle/设备、不启动Blender、不做大渲染。若后续稳定重现，再有限取同一观察相机的Reset前/后立即/稳定后帧，并同期配ordinary2D、资源SHA、PID及pose/时间标记；只有可重复证据指向材质通道时才做最小隔离delta。

@@ -11,6 +11,7 @@ import com.example.wuxiaarena.core.input.TrackingEventBuffer
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.input.TrackingState
 import com.example.wuxiaarena.core.input.TrackingTarget
+import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import java.util.concurrent.atomic.AtomicLong
@@ -26,6 +27,36 @@ class TrackingPipelineRegressionTest {
     private val head = ObservedPose(Vector3(0.0, 1.60, 0.0), Quaternion(0.0, 0.0, 0.0, 1.0))
     private val left = ObservedPose(Vector3(-0.20, 1.25, -0.35), Quaternion(0.0, 0.0, 0.0, 1.0))
     private val right = ObservedPose(Vector3(0.25, 1.25, -0.35), Quaternion(0.0, 0.0, 0.0, 1.0))
+
+    @Test
+    fun coalescedControllerBurstCannotTurnATrackingTeleportIntoAStrike() {
+        val receipts = ArrayDeque(listOf(0L, 1L, 100_000_000L, 100_050_000L, 120_000_000L))
+        val buffer = TrackingEventBuffer(capacity = 8) { receipts.removeFirst() }
+        val state = TrackingState(Hand.RIGHT)
+        val resolver = PlayerCombatResolver()
+        val enemy = Vector3(2.0, 0.0, -0.8)
+        assertTrue(buffer.offerHead(InputOrigin.DESKTOP, head))
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, right.copy(position = Vector3(0.0, 1.25, -0.35))))
+        accept(state, buffer.drain())
+        val baseline = requireNotNull(resolver.observe(state.snapshot, enemy))
+
+        val teleported = right.copy(position = Vector3(4.0, 1.25, -0.35))
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, right.copy(position = Vector3(0.0, 1.25, -0.35))))
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, teleported))
+        val burst = buffer.drain()
+        assertEquals(1, burst.events.size)
+        accept(state, burst)
+        val rejected = requireNotNull(resolver.observe(state.snapshot, enemy))
+        assertTrue(rejected.motionGeneration > baseline.motionGeneration)
+        assertNull(rejected.strike)
+
+        assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, teleported))
+        accept(state, buffer.drain())
+        val stable = requireNotNull(resolver.observe(state.snapshot, enemy))
+        assertEquals(rejected.motionGeneration, stable.motionGeneration)
+        assertEquals(0.0, stable.bladeTipSpeed, 0.0)
+        assertNull(stable.strike)
+    }
 
     @Test
     fun saturatedControlsPreserveResetAndRequireFreshSelectedHandBeforeObservingReady() {

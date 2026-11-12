@@ -134,6 +134,27 @@ internal class AttackProfile(
 
     fun sample(sourceSeconds: Double): AttackPoseSample = samplePose(samples, sourceSeconds)
 
+    /** Incoming motion of this blade's same witness fraction, before contact resolves ACTIVE. */
+    fun bladeTangentAt(sourceSeconds: Double, point: Vector3, origin: Vector3, yaw: Float): Vector3? {
+        require(sourceSeconds.isFinite() && point.isFinite() && origin.isFinite() && yaw.isFinite()) {
+            "Blade motion requires a finite source time and Stage transform"
+        }
+        // At an exact source key use the arriving interval, never the post-contact recoil.
+        val found = samples.binarySearchBy(sourceSeconds) { it.sourceSeconds }
+        val afterIndex = if (found >= 0) found else -found - 1
+        if (afterIndex <= 0 || afterIndex >= samples.size) return null
+        val pose = sample(sourceSeconds).inStage(origin, yaw)
+        val axis = pose.bladeTip - pose.bladeBase
+        val lengthSquared = axis.dot(axis)
+        if (!lengthSquared.isFinite() || lengthSquared == 0.0) return null
+        val along = ((point - pose.bladeBase).dot(axis) / lengthSquared).coerceIn(0.0, 1.0)
+        val before = samples[afterIndex - 1].inStage(origin, yaw)
+        val after = samples[afterIndex].inStage(origin, yaw)
+        val baseDelta = after.bladeBase - before.bladeBase
+        val tipDelta = after.bladeTip - before.bladeTip
+        return (baseDelta + (tipDelta - baseDelta) * along).normalizedOrNull()
+    }
+
     private fun interpolate(start: Double, end: Double, progress: Double): Double = when (progress) {
         0.0 -> start
         1.0 -> end
