@@ -180,22 +180,42 @@ function line(color){const g=new THREE.BufferGeometry().setFromPoints([V(),V()])
 function lineSet(o,a,b){const arr=o.geometry.attributes.position.array;arr[0]=a.x;arr[1]=a.y;arr[2]=a.z;arr[3]=b.x;arr[4]=b.y;arr[5]=b.z;o.geometry.attributes.position.needsUpdate=true;o.geometry.computeBoundingSphere();}
 /* 高度场：楼梯和栈道靠它抬人，没有它就只能平地走 */
 function groundAt(x,z){
+ const ax=Math.abs(x);
  /* 主楼露台（方堡坐在这块台地上） */
  if(x>-12&&x<12&&z>-66&&z<-34)return 4.6;
  /* 大台阶：z -26 → -34 由 0 升到 4.6 */
  if(x>-4.5&&x<4.5&&z<=-26&&z>=-34){const t=(-26-z)/8;return 4.6*Math.max(0,Math.min(1,t));}
- /* 登城平台：贴着东墙，四米宽 */
- if(z>-6.9&&z<=-1.3&&Math.abs(x)>=40&&Math.abs(x)<44.1)return 6.3;
- /* 登城坡：z -1.3 → 14.9 由 6.3 落到 0 */
- if(z>-1.3&&z<14.9&&Math.abs(x)>=40&&Math.abs(x)<44.1){const t=(z+1.3)/16.2;return 6.3*(1-t);}
- /* 幕墙墙体与墙顶走道（四面连通，可绕城一圈） */
- if(Math.abs(x)>=44.1)return 6.3;
- if(z>-70.8&&z<-68.3)return 6.3;
+ /* 西观景塔：塔顶平台 + 沿墙顶走道登塔的七级石阶（6.3 → 9.5） */
+ if(x>-46.9&&x<-42.3&&z>-0.9&&z<3.7)return 9.5;
+ if(x>-45.9&&x<-42.9&&z>=2&&z<=9){const t=(9-z)/7;return 6.3+3.2*Math.max(0,Math.min(1,t));}
+ /* 东礼拜堂钟楼三级石阶（0 → 3.2） */
+ if(x>31.2&&x<34.8&&z>-17.4&&z<-13.2){const t=(-13.2-z)/4.2;return 3.2*Math.max(0,Math.min(1,t));}
+ /* 西墙高台夹道：2.2 米实心台，z -10..30；入口坡 z 30..35 */
+ if(x>=-43.6&&x<=-37.8){
+  if(z>-10&&z<=30)return 2.2;
+  if(z>30&&z<=35){const t=(35-z)/5;return 2.2*Math.max(0,Math.min(1,t));}
+ }
+ /* 登城平台与登城坡（贴东墙） */
+ if(z>-6.9&&z<=-1.3&&ax>=40&&ax<=44.1)return 6.3;
+ if(z>-1.3&&z<14.9&&ax>=40&&ax<=44.1){const t=(z+1.3)/16.2;return 6.3*(1-t);}
+ /* 幕墙走道：三米半宽的顶面，四面连通 */
+ if(ax>=44.1&&ax<=47.6&&z>-71.1&&z<39.2)return 6.3;
+ if(z>-70.8&&z<-68.3&&ax<=47.6)return 6.3;
+ /* 北崖台地：东侧下坡（z -48 → -58，6.3 落到 1.2） */
+ if(x>=47.6&&x<=54.6&&z<=-48&&z>=-58){const t=(-48-z)/10;return 6.3-5.1*Math.max(0,Math.min(1,t));}
+ /* 台地本体：贴东墙外的一竖条 + 贴北墙外的一横条 */
+ if(x>=47.6&&x<=54.6&&z>=-78&&z<-58)return 1.2;
+ if(x>-36&&x<=47.6&&z>=-78&&z<-72)return 1.2;
+ /* 西侧上坡：从台地爬回西墙顶（1.2 → 6.3） */
+ if(x>=-53.6&&x<=-47.6&&z>-74&&z<=-58){const t=(-58-z)/16;return 6.3-5.1*Math.max(0,Math.min(1,t));}
+ /* 南面护城河：河床 -1.4，桥面 0，东岸乱石坡爬回地面 */
+ if(z>=60&&z<70&&x>=12&&x<=18){const t=(x-12)/6;return -1.4+1.4*Math.max(0,Math.min(1,t));}
+ if(z>56&&z<76&&ax>4.6)return -1.4;
  return 0;
 }
 function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0135);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.001;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
-const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(96,.15,112,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
+const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
 box(10,.08,12,stone,0,-.025,2.4);
 tokenMesh=sphere(.12,mat(0xbb9b56,.7,.3),0,5.63,-52);tokenMesh.visible=false;
@@ -225,12 +245,12 @@ try{
  box(3.0,WH,112,cw,XW,WH/2,-15);
  for(const s of [-1,1])box(37.2,WH,3.0,cw,s*22.8,WH/2,ZN);
  /* 垛口：只在墙外沿，走道留在内侧 */
- for(let z=ZS+2;z<ZN;z+=3.3){
-  box(.9,2.1,1.0,cw,-XW-1.05,WH+1.05,z);
-  box(.9,2.1,1.0,cw,XW+1.05,WH+1.05,z);
+ for(let z=ZS+2;z<ZN;z+=6.6){
+  box(1.15,2.1,1.2,cw,-XW-1.05,WH+1.05,z);
+  box(1.15,2.1,1.2,cw,XW+1.05,WH+1.05,z);
  }
- for(let x=-XW+2;x<XW;x+=3.3)box(1.0,2.1,.9,cw,x,WH+1.05,ZS-1.05);
- for(const s of [-1,1])for(let x=4.6;x<XW;x+=3.3)box(1.0,2.1,.9,cw,s*x,WH+1.05,ZN+1.05);
+ for(let x=-XW+2;x<XW;x+=6.6)box(1.2,2.1,1.05,cw,x,WH+1.05,ZS-1.05);
+ for(const s of [-1,1])for(let x=4.6;x<XW;x+=6.6)box(1.2,2.1,1.05,cw,s*x,WH+1.05,ZN+1.05);
  /* 墙根阴影带，压出厚度 */
  for(const s of [-1,1])box(.5,.9,112,cwR,s*(XW-1.6),.45,-15);
  box(97,.9,.5,cwR,0,.45,ZS+1.6);
@@ -250,9 +270,12 @@ try{
   colliders.push({x:s*BX,z:48,w:1.8,d:16});
   box(1.8,.6,1.0,cwD,s*BX-.2,7.6,44);
  }
- box(27.2,7.4,1.8,cw,-(4.2+13.6/2)+0,3.7,ZB);
- box(13.6,7.4,1.8,cw,9.8,3.7,ZB);
- box(8.9,2.6,1.9,cwD,0,5.6,ZB);
+ box(10.6,7.4,1.8,cw,-8.3,3.7,ZB);
+ box(10.6,7.4,1.8,cw,8.3,3.7,ZB);
+ box(8.4,1.9,2.1,cwD,0,5.2,ZB);
+ for(let i=0;i<4;i++)box(1.0,1.1,1.0,cw,-3.0+i*2.0,7.1,ZB);
+ for(let i=0;i<6;i++)box(.10,3.4,.10,mat(0x2a2620),-2.5+i*1.0,2.9,ZB);
+ for(let i=0;i<3;i++)box(6.4,.10,.10,mat(0x2a2620),0,1.7+i*1.2,ZB);
  for(const s of [-1,1]){
   cyl(2.9,12,cw,s*11.6,6,53);
   cyl(3.3,1.3,cwR,s*11.6,12.6,53);
@@ -334,7 +357,7 @@ try{
  const KH=22,KX=9,KZ0=-62,KZ1=-46,KB=4.6;
  box(KX*2,KH,KZ1-KZ0,cw,0,KB+KH/2,(KZ0+KZ1)/2);
  box(KX*2+1.8,.5,KZ1-KZ0+1.8,cwR,0,KB+KH+.25,(KZ0+KZ1)/2);
- for(let i=0;i<7;i++)for(const s of [-1,1])box(.9,1.1,.7,cw,-7+i*2.3,KB+KH+.9,s==1?KZ1+.6:KZ0-.6);
+ for(let i=0;i<5;i++)for(const s of [-1,1])box(1.1,1.1,.8,cw,-6+i*3.1,KB+KH+.9,s==1?KZ1+.6:KZ0-.6);
  box(3.4,5.8,.5,cwD,0,KB+2.9,KZ1+.3);
  for(let i=0;i<3;i++)box(1.5,3.4,.28,cwD,-5.4+i*5.4,KB+15,KZ1+.15);
  for(let i=0;i<5;i++)for(let j=0;j<3;j++)box(.66,1.5,.22,mat(0x2a2320),-4+i*2,KB+17+j*2.1,KZ1+.11);
@@ -361,7 +384,7 @@ try{
   cyl(.26,5.4,cwL,x,2.7,z);colliders.push({x,z,w:.55,d:.55});
   for(let j=0;j<3;j++){const cr=sphere(.92,mat(j===0?0x40654f:0x4d7159),x+Math.sin(j*2)*.32,4.5+j*.46,z+Math.cos(j*2)*.32);cr.scale.y=.72;}
  }
-}catch(e){window.__arenaErr=(e&&e.message)||String(e);window.__arenaStack=(e&&e.stack)||'';}
+  /* ================= v0.30 箱庭扩建：护城河断塔门 · 西墙高台夹道 · 东礼拜堂 · 西观景塔 · 北崖台地 ================= */  function steps(w,n,rise,dep,x,zStart,dir,material){   for(let i=0;i<n;i++){const h=rise*(i+1)/n;box(w,h,dep,material,x,h/2,zStart+dir*(i+.5)*dep);}  }  /* ---- S1 南面：护城河、石桥、断塔门（城堡的正门在河对岸） ---- */  box(126,.10,20,mat(0x39423b),0,-1.39,66);  mesh(new THREE.PlaneGeometry(126,19.4),new THREE.MeshStandardMaterial({color:0x2f4a4a,roughness:.18,metalness:.35,transparent:true,opacity:.78}),V(0,-1.26,66)).rotation.x=-Math.PI/2;  box(126,1.45,.45,cwD,0,-.72,56.2);  box(126,1.45,.45,cwD,0,-.72,75.8);  for(const s of [-1,1]){   box(.24,.92,16,mat(0x3a332a),s*3.42,.92,64);   for(let i=0;i<3;i++)box(.30,1.05,.30,mat(0x3a332a),s*3.42,1.10,59+i*4.6);   box(.55,1.6,1.6,cwD,s*3.9,.8,58.4);   box(.55,1.6,1.6,cwD,s*3.9,.8,69.6);   /* 桥头断塔 */   cyl(3.4,11.6,cw,s*11.6,5.8,74);   cyl(3.9,.55,cwR,s*11.6,11.75,74);   box(1.7,2.2,1.7,cwD,s*12.4,12.9,74.6);   colliders.push({x:s*11.6,z:74,w:7.2,d:7.2});   /* 门柱与残楣 */   box(1.6,7.2,1.6,cw,s*5.4,3.6,77.4);   colliders.push({x:s*5.4,z:77.4,w:1.6,d:1.6});   box(.9,.9,.9,cw,s*5.4,7.6,77.4);  }  box(3.0,1.1,6.4,cwR,-2.4,-.75,70.5);  box(2.2,.9,3.0,cwR,6.6,-.9,62.4);  for(const p2 of [[-3.4,58.4],[3.4,69.6]]){cyl(.38,.85,mat(0x2f2a24),p2[0],1.35,p2[1]);sphere(.28,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.9}),p2[0],1.72,p2[1]);const bl=new THREE.PointLight(0xff9a4a,1.1,8);bl.position.set(p2[0],1.9,p2[1]);scene.add(bl);}  cyl(.46,1.0,mat(0x2f2a24),0,1.45,55.2);sphere(.34,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7420,emissiveIntensity:2.0}),0,1.9,55.2);const gl=new THREE.PointLight(0xff8a3a,1.3,9);gl.position.set(0,2.1,55.2);scene.add(gl);  /* 河床杂物 */  for(const b of [[-9,.62,62,2.4,1.0,1.0],[-3.6,.5,70,1.6,.8,1.6],[7.4,.55,66,3.0,.9,1.2],[10,.42,72,1.2,.7,2.4]])box(b[3],b[4],b[5],mat(0x4a4a3e),b[0],b[1],b[2]);  for(let i=0;i<5;i++)box(.7,.5,.7,mat(0x54523f),14+ (i%2?1:0)*2.2+i*2.4,.35,60+i*1.4);   /* ---- S2 西墙高台夹道：(x -43.6..-37.8) 两米二实心台，从外堡上，直插内院西侧 ---- */  box(5.8,2.2,40,cwD,-40.7,1.1,10);  box(5.4,.07,39.6,mat(0x8b8575),-40.7,2.24,10);  box(.50,1.05,40,cw,-43.35,2.72,10);  box(.40,.80,40,cw,-37.95,2.60,10);  for(let i=0;i<5;i++){const h=2.2*(i+1)/5;box(5.8,h,1.0,cw,-40.7,h/2,30.5+i*1.0);}  for(let i=0;i<3;i++){   const z=0+i*10;   cyl(.10,1.3,mat(0x3a332a),-40.4,2.8,z);   sphere(.20,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.6}),-40.4,3.55,z);   const ln=new THREE.PointLight(0xff9a4a,.5,5);ln.position.set(-40.4,3.3,z);scene.add(ln);   box(.9,1.6,.35,cwT,-43.0,3.6,z);  }  /* 夹道尽头对着内院西侧，做成塌口 */  box(2.2,2.2,3.4,cwD,-40.7,1.1,-11.4);  for(let i=0;i<3;i++)box(.9,.6,.9,mat(0x5d5a4b),-40.7+i*1.2,.3,-9.4);   /* ---- S3 东礼拜堂：x 20..36 / z -16..4，第一个能进人的室内 ---- */  const CX0=20,CX1=36,CZ0=-16,CZ1=4,CH=7;  box(5.2,CH,.8,cw,22.6,CH/2,CZ1);box(5.2,CH,.8,cw,33.4,CH/2,CZ1);  box(6.6,CH,.8,cw,23.3,CH/2,CZ0);box(6.6,CH,.8,cw,32.7,CH/2,CZ0);  box(.8,CH,20,cw,20,CH/2,-6);box(.8,CH,20,cw,36,CH/2,-6);  colliders.push({x:22.6,z:CZ1,w:5.2,d:.8},{x:33.4,z:CZ1,w:5.2,d:.8},{x:23.3,z:CZ0,w:6.6,d:.8},{x:32.7,z:CZ0,w:6.6,d:.8},{x:20,z:-6,w:.8,d:20},{x:36,z:-6,w:.8,d:20});  box(17.4,.5,21.2,cwT,28,CH+.15,-6);  for(let i=0;i<2;i++)box(17,.22,.30,mat(0x3a2f26),28,CH+.55,-11+i*9);  box(3.6,.5,2.6,cwT,28,CH+.62,-15.4);  for(const x of [23.4,32.4])box(1.0,6.0,1.0,cwD,x,3.0,CZ0+.6);  for(let i=0;i<3;i++)box(12,.9,.8,cwD,28,5.4,-13+i*.3);  for(const c of [[24.4,-2.2],[31.6,-9.6],[27.6,-12.6]]){   cyl(.34,.7,mat(0x2f2a24),c[0],.35,c[1]);   const fl=sphere(.24,new THREE.MeshStandardMaterial({color:0xffc07a,emissive:0xff6a1e,emissiveIntensity:2.2}),c[0],.92,c[1]);   fl.scale.set(1,1.5,1);   const pl=new THREE.PointLight(0xffa653,.9,7);pl.position.set(c[0],1.4,c[1]);scene.add(pl);  }  box(1.9,.45,.6,mat(0x4a3b2c),24,.22,-2.6);  box(1.1,2.4,.06,mat(0x8f2b22),29.4,4.6,CZ0-.4);  for(const wz of [-11,-7,-3]){box(.30,2.6,.95,cwT,19.75,4.5,wz);box(.16,1.9,.55,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.7}),19.60,4.5,wz);}  for(const bz of [-14,-6,2]){box(1.0,6.4,.9,cwD,19.9,3.2,bz);box(1.2,.3,1.1,cwR,19.9,6.5,bz);}  for(const wx of [25.6,30.4]){box(.95,2.6,.30,cwT,wx,4.5,4.42);box(.55,1.9,.16,new THREE.MeshStandardMaterial({color:0xffc27a,emissive:0xff9a44,emissiveIntensity:1.5}),wx,4.5,4.36);}  /* 钟楼：三级踏步 + 钟架 */  steps(3.6,3,3.2,.95,33, -13.2, -1, cwD);  for(const s of [-1,1])box(.22,4.6,.22,mat(0x4a3b2c),33+s*1.4,2.3,-15.6);  box(3.4,.24,.24,mat(0x4a3b2c),33,4.62,-15.6);  cyl(.55,.9,mat(0x6f5c33),33,3.9,-15.6);  box(3.8,.4,2.6,cwT,33,4.9,-15.6);   /* ---- S4 西观景塔（半凸出墙外的 bartizan）：沿墙顶七级台阶上到 9.5 ---- */  box(4.6,3.2,5.2,cw,-44.6,7.9,1.4);  box(5.0,.35,5.6,cwR,-44.6,9.55,1.4);  for(let i=0;i<4;i++){box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,-1.0);box(.9,1.0,.9,cw,-46.0+i*1.2,10.0,3.8);}  for(let i=0;i<7;i++){const h=6.3+.46*(i+1);box(2.6,h-6.3,1.0,cw,-44.4,6.3+(h-6.3)/2,8.5-i*1.0);}  cyl(.09,2.6,mat(0x3a332a),-44.6,11.6,1.4);  box(.04,1.5,.9,mat(0x8f2b22),-44.6,12.2,1.9);  for(let i=0;i<3;i++)box(.7,1.0,.16,mat(0x242c28),-44.6,8.6,-1.2+i*.9);   /* ---- S5 北崖台地：东墙外一条 L 形崖道，两头用石阶与幕墙相连 ---- */  box(7.0,1.2,20,cwD,51.1,.6,-68);  box(7.0,.07,19.8,mat(0x8b8575),51.1,1.24,-68);  box(84.0,1.2,6.0,cwD,5.8,.6,-75);  box(84.0,.07,5.8,mat(0x8b8575),5.8,1.24,-75);  const eS=box(7.0,.45,11.6,cw,51.1,3.72,-53);eS.rotation.x=-Math.atan2(5.1,10.2);  const wS=box(6.0,.45,16.6,cw,-50.6,3.72,-66.2);wS.rotation.x=Math.atan2(5.1,16.4);  box(.5,1.0,20,cw,54.5,1.7,-68);  box(84.0,.9,.5,cw,-30,1.65,-77.8);  box(.5,1.2,.9,cwD,47.6,1.8,-57.6);  /* 崖道陈设：松、火盆、神龛、残尸 */  for(const p of [[51,1.2,-72],[50,1.2,-64],[44,1.2,-75]]){   cyl(.26,5.2,cwL,p[0],p[1]+2.6,p[2]);   for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),p[0]+Math.sin(j*2)*.3,p[1]+4.4+j*.44,p[2]+Math.cos(j*2)*.3);cr.scale.y=.72;}  }  for(const p of [[52.4,-73.4],[-8,-75.6]]){   cyl(.42,.9,mat(0x2f2a24),p[0],1.65,p[1]);   sphere(.30,new THREE.MeshStandardMaterial({color:0xffb066,emissive:0xff7a2a,emissiveIntensity:1.8}),p[0],2.05,p[1]);  }  box(2.2,1.6,1.6,cwD,-30,1.2+0.8,-75);  box(1.4,2.2,.2,cwT,-30,2.5,-74.2);  sphere(.16,new THREE.MeshStandardMaterial({color:0xffd39a,emissive:0xffa14a,emissiveIntensity:1.4}),-30,2.85,-74.9);  for(const b of [[-2,-74.4],[12,-73.4],[36,-74.6]])box(1.3,.7,.7,mat(0x4a3b2c),b[0],1.55,b[1]);  /* 北墙外侧挂旗 + 暗门 */  for(const x of [-14,14]){   box(.9,2.6,.06,mat(0x8f2b22),x,4.4,-71.4);   box(.14,.14,.14,mat(0x6f5c33),x,5.75,-71.4);  }  box(1.8,3.4,.3,cwT,-20,1.7,-71.2);  box(2.4,.24,.3,cw,-20,3.5,-71.2); }catch(e){window.__arenaErr=(e&&e.message)||String(e);window.__arenaStack=(e&&e.stack)||'';}
 
 initFloorWeapons();loaded=true;for(const id of ['start','practice','explore','boss'])$(id).disabled=false;$('load').textContent='角色、刀具与酒馆已就绪 · 建议先到右侧兵器架取刀';rig.position.set(0,0,4.1);rig.rotation.y=Math.PI;sampleAnimation('idle',1.0);rig.updateMatrixWorld(true);draw();}catch(e){loadErrors.push(String(e));fault('模型加载失败：'+(e.message||'网络资源不可用')+'。重新打开可重试。');}}
 // ===== v0.10 authored stance graph: each intention creates one complete move =====
@@ -753,7 +776,7 @@ let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFo
 const MOBS=[];
 function spawnMobs(){
  if(MOBS.length||!scene)return;
- const spots=[[-22,16,2.2],[19,12,-2.4],[-9,6,.4],[13,0,-.6],[-24,-10,1.6],[20,-18,-1.8]];
+ const spots=[[-22,16,2.2],[19,12,-2.4],[-9,6,.4],[13,0,-.6],[-24,-10,1.6],[20,-18,-1.8],[28,-6,.9],[51,-66,2.6]];
  for(const sp of spots){
   const g=new THREE.Group();g.visible=false;scene.add(g);
   const mob={g,pos:V(sp[0],0,sp[1]),yaw:sp[2],mixer:null,idle:null,walk:null,aw:0,hover:0,ready:false};
@@ -979,7 +1002,7 @@ function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
 function triggerJump(source){if(jumpY>0||jumpVelocity>0||moveAction||guarding()||realTime-lastJump<Loco.config.jumpCooldown||stamina<Loco.config.jumpCost||animationSlots.read().active||realTime<playerPrecision.read().brokenUntil)return false;stamina-=Loco.config.jumpCost;jumpVelocity=Loco.config.jumpSpeed;lastJump=realTime;stats.jumps=(stats.jumps||0)+1;emit('腾步 · '+(source==='hands_lift_proxy'?'上提姿态代理':'VR意图'),'locomotion',null);return true;}
 function readVRLocomotion(frame){if(!running||terminal)return false;const move=frame?.move||{x:0,y:0},busy=!!moveAction||guarding()||enemy?.type==='grab'&&['prepare','release'].includes(enemy.phase)||!!animationSlots.read().active,intent=locomotionPose.sample({...frame,move:Math.hypot(move.x,move.y),busy,grounded:jumpY===0});vrMove={x:clamp(move.x||0,-1,1),y:clamp(move.y||0,-1,1)};vrMoveAt=realTime;if(intent.run)sprintUntil=realTime+.25;if(intent.jump)triggerJump('vr_intent');return intent;}
-function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&(realTime<sprintUntil||keys.has('ShiftLeft')||keys.has('ShiftRight'))&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-46.2,46.2);next.z=clamp(next.z,-69.6,55.4);if(isCombat()&&!enemy.dead&&!enemy.truce&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __cg=groundAt(playerPos.x,playerPos.z),__ng=groundAt(next.x,next.z);
+function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&(realTime<sprintUntil||keys.has('ShiftLeft')||keys.has('ShiftRight'))&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-55.2,55.2);next.z=clamp(next.z,-95.4,79.0);if(isCombat()&&!enemy.dead&&!enemy.truce&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __cg=groundAt(playerPos.x,playerPos.z),__ng=groundAt(next.x,next.z);
 if(__ng-__cg>.62&&(jumpY||0)<.12){next.x=playerPos.x;next.z=playerPos.z;velocity.x=velocity.z=0;}
 const __moved=next.distanceTo(playerPos);
 travel+=__moved;next.y=(jumpY||0)+groundAt(next.x,next.z);playerPos.copy(next);
