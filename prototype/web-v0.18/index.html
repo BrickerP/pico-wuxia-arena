@@ -119,6 +119,35 @@ playerWeapon=normalizeDao(weaponGroup);enemyWeapon=new THREE.Group();rig.add(ene
 // Preserve the source hand's grip orientation relative to blade direction.
 const sourceGrip=actor.getObjectByName('HandGrip_R'),sourceBase=actor.getObjectByName('Blade_Base'),sourceTip=actor.getObjectByName('Blade_Tip');const hq=bones.R_Hand.getWorldQuaternion(Q());const sq=Q().setFromUnitVectors(up,sourceTip.getWorldPosition(V()).sub(sourceBase.getWorldPosition(V())).normalize());rest.R.gripQ=rest.R.gripWorld.clone().invert().multiply(sq);rest.L.gripQ=rest.L.gripWorld.clone().invert().multiply(sq);
 const tavern=t.scene;tavern.position.set(-6,0,-.8);tavern.rotation.y=Math.PI/2;tavern.traverse(o=>{if(o.isMesh){o.castShadow=true;o.receiveShadow=true;if(o.name==='Paving')o.visible=false;}});scene.add(tavern);const opposite=tavern.clone(true);opposite.position.set(6,0,-.8);opposite.rotation.y=-Math.PI/2;scene.add(opposite);colliders.push({x:-6,z:-.8,w:2.5,d:7},{x:6,z:-.8,w:2.5,d:7});
+
+/* ===== 竞技场外围：石墙、角楼、灯道 ===== */
+try{
+ const arenaWall=mat(0xb6ae99),arenaPave=mat(0xa9a793);
+ const WX=20.6,WZ1=-42,WZ2=18;
+ box(WX*2,1.1,.6,arenaWall,0,.55,WZ1);colliders.push({x:0,z:WZ1,w:WX*2,d:.6});
+ box(WX*2,1.1,.6,arenaWall,0,.55,WZ2);colliders.push({x:0,z:WZ2,w:WX*2,d:.6});
+ for(const s of [-1,1]){
+  box(.6,1.1,60,arenaWall,s*WX,.55,-12);colliders.push({x:s*WX,z:-12,w:.6,d:60});
+  for(const z of [WZ1+2,WZ2-2]){
+   box(4.2,6,4.2,arenaWall,s*(WX-2),3,z);colliders.push({x:s*(WX-2),z,w:4.2,d:4.2});
+   box(4.9,.34,4.9,mat(0x2f3a34),s*(WX-2),6.1,z);
+   box(1.1,.9,1.1,mat(0x9c3b2e),s*(WX-2),6.7,z);
+  }
+ }
+ for(let z=-36;z<=14;z+=7){
+  for(const s of [-1,1]){
+   box(.18,2.6,.18,mat(0x493b2d),s*8.6,1.3,z);colliders.push({x:s*8.6,z,w:.18,d:.18});
+   sphere(.22,mat(0xf3d9a4),s*8.6,2.72,z);
+  }
+ }
+ for(let i=0;i<14;i++){
+  const a2=i*1.9,rr=13+Math.sin(i*2.3)*2.2;
+  const x=Math.cos(a2)*rr,z=-12+Math.sin(a2)*rr;
+  if(Math.abs(x)<3.4)continue;
+  cyl(.24,5.2,mat(0x493b2d),x,2.6,z);colliders.push({x,z,w:.5,d:.5});
+  for(let j=0;j<3;j++){const cr=sphere(.86,mat(j===0?0x40654f:0x4d7159),x+Math.sin(j*2)*.3,4.3+j*.45,z+Math.cos(j*2)*.3);cr.scale.y=.72;}
+ }
+}catch(e){window.__arenaErr=(e&&e.message)||String(e);window.__arenaStack=(e&&e.stack)||'';}
 initFloorWeapons();loaded=true;for(const id of ['start','practice','explore','boss'])$(id).disabled=false;$('load').textContent='角色、刀具与酒馆已就绪 · 建议先到右侧兵器架取刀';rig.position.set(0,0,4.1);rig.rotation.y=Math.PI;sampleAnimation('idle',1.0);rig.updateMatrixWorld(true);draw();}catch(e){loadErrors.push(String(e));fault('模型加载失败：'+(e.message||'网络资源不可用')+'。重新打开可重试。');}}
 // ===== v0.10 authored stance graph: each intention creates one complete move =====
 // ===== Module: declarative motion packs (no DOM, no skeletal node names) =====
@@ -300,7 +329,7 @@ function renderDojo(){
 }
 function toggleDojo(force){
  const d=document.getElementById('dojo');if(!d)return;
- const on=force===undefined?!d.classList.contains('hidden'):force;
+ const on=force===undefined?d.classList.contains('hidden'):force;
  d.classList.toggle('hidden',!on);
  if(on)renderDojo();
 }
@@ -394,7 +423,7 @@ function drawMap(){
  const c=document.getElementById('map');if(!c)return;
  const g=c.getContext('2d'),W=c.width,H=c.height;
  g.clearRect(0,0,W,H);
- const U=Math.min(W/10.4,H/37),sx=v=>W/2+v*U,sz=v=>H/2-(v+10.5)*U;
+ const U=Math.min(W/44,H/62),sx=v=>W/2+v*U,sz=v=>H/2-(v+12)*U;
  g.strokeStyle='rgba(207,194,166,.55)';g.lineWidth=1;
  g.beginPath();
  for(const [x,z,w,d] of [[-3.05,-3.7,3.7,.2],[3.05,-3.7,3.7,.2]]){
@@ -529,7 +558,7 @@ function angleDiff(a,b){let d=a-b;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)
 function worldLocal(v){return v.clone().multiplyScalar(selectedBoss().scale).applyAxisAngle(up,enemy.yaw).add(enemy.pos);}
 function triggerJump(source){if(jumpY>0||jumpVelocity>0||moveAction||guarding()||realTime-lastJump<Loco.config.jumpCooldown||stamina<Loco.config.jumpCost||animationSlots.read().active||realTime<playerPrecision.read().brokenUntil)return false;stamina-=Loco.config.jumpCost;jumpVelocity=Loco.config.jumpSpeed;lastJump=realTime;stats.jumps=(stats.jumps||0)+1;emit('腾步 · '+(source==='hands_lift_proxy'?'上提姿态代理':'VR意图'),'locomotion',null);return true;}
 function readVRLocomotion(frame){if(!running||terminal)return false;const move=frame?.move||{x:0,y:0},busy=!!moveAction||guarding()||enemy?.type==='grab'&&['prepare','release'].includes(enemy.phase)||!!animationSlots.read().active,intent=locomotionPose.sample({...frame,move:Math.hypot(move.x,move.y),busy,grounded:jumpY===0});vrMove={x:clamp(move.x||0,-1,1),y:clamp(move.y||0,-1,1)};vrMoveAt=realTime;if(intent.run)sprintUntil=realTime+.25;if(intent.jump)triggerJump('vr_intent');return intent;}
-function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);if(mode==='trial'){next.x=clamp(next.x,-4.45,4.45);next.z=clamp(next.z,-29.0,7.8);}if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
+function movePlayer(dt){let f=(keys.has('KeyW')?1:0)-(keys.has('KeyS')?1:0),s=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);if(vrMove&&realTime-vrMoveAt<.2){f=vrMove.y;s=vrMove.x;}const sprint=f>.65&&realTime<sprintUntil&&!moveAction&&!guarding()&&!animationSlots.read().active&&stamina>8;sprintActive=sprint;if(sprint)stamina=Math.max(0,stamina-dt*Loco.config.sprintDrain);if(jumpY>0||jumpVelocity>0){jumpVelocity-=Loco.config.gravity*dt;jumpY=Math.max(0,jumpY+jumpVelocity*dt);if(jumpY===0)jumpVelocity=0;}const norm=Math.max(1,Math.hypot(f,s));f/=norm;s/=norm;const target=V(-Math.sin(yaw),0,-Math.cos(yaw)).multiplyScalar(f*(f<0?Loco.config.back:sprint?Loco.config.sprint:Loco.config.walk)).addScaledVector(V(Math.cos(yaw),0,-Math.sin(yaw)),s*Loco.config.side);const dif=target.clone().sub(velocity);if(dif.length()>Loco.config.accel*dt)dif.setLength(Loco.config.accel*dt);velocity.add(dif);const next=playerPos.clone().addScaledVector(velocity,dt);next.x=clamp(next.x,-20.2,20.2);next.z=clamp(next.z,-41.5,17.5);if(isCombat()&&!enemy.dead&&Math.hypot(next.x-enemy.pos.x,next.z-enemy.pos.z)<.80){const away=next.clone().sub(enemy.pos);away.y=0;if(away.length()>.001)next.copy(enemy.pos).addScaledVector(away.normalize(),.80);else next.copy(playerPos);}for(const c of colliders){const blocked=(x,z)=>Math.abs(x-c.x)<c.w/2+.23&&Math.abs(z-c.z)<c.d/2+.23;if(blocked(next.x,next.z)){if(!blocked(next.x,playerPos.z)){next.z=playerPos.z;velocity.z=0;}else if(!blocked(playerPos.x,next.z)){next.x=playerPos.x;velocity.x=0;}else{next.x=playerPos.x;next.z=playerPos.z;velocity.set(0,0,0);}}}const __moved=next.distanceTo(playerPos);
 travel+=__moved;next.y=jumpY;playerPos.copy(next);
 if(__moved<1e-4&&(Math.abs(f)>.05||Math.abs(s)>.05)){
  KBD.stuckT+=dt;
@@ -562,7 +591,7 @@ function nextEnemy(pos,level=round){const bossId=mode==='boss'?$('bossChoice').v
 // AI reacts only to delayed visible pose/action samples, not queued input or future intent.
 const AI=Object.freeze({reaction:.16,think:.12,chase:1.65,retreat:1.0,side:.95,guardTime:.42,feintCooldown:4.0,seed:7419});let aiSeed=AI.seed,aiSamples=[];
 function aiRandom(){aiSeed=(1664525*aiSeed+1013904223)>>>0;return aiSeed/4294967296;}
-function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-4.3,mode==='trial'?2.5:4.3);next.z=clamp(next.z,-28,7.8);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
+function aiMove(delta){const next=enemy.pos.clone().add(delta);next.x=clamp(next.x,mode==='trial'?-2.5:-4.3,mode==='trial'?2.5:4.3);next.z=clamp(next.z,-40,16.5);if(next.distanceTo(playerPos)<.92)return false;for(const c of colliders)if(Math.abs(next.x-c.x)<c.w/2+.26&&Math.abs(next.z-c.z)<c.d/2+.26)return false;const moved=next.distanceTo(enemy.pos);actorMove+=moved;enemy.stepDistance+=moved;enemy.walkClock=(enemy.walkClock||0)+moved/.52;enemy.pos.copy(next);return true;}
 function aiObserve(){aiSamples.push({t:time,guard:guarding(),side:mouse.x,high:mouse.y<-.44,attack:moveAction?.id||0,family:moveAction?actionFamily(moveAction.type):null,recover:moveAction?actionStage()==='recover':false,pos:playerPos.clone()});while(aiSamples.length>1&&aiSamples[1].t<=time-AI.reaction)aiSamples.shift();return aiSamples[0]?.t<=time-AI.reaction?aiSamples[0]:null;}
 function aiThink(seen,dist){if(!seen||time<enemy.thinkAt)return;enemy.thinkAt=time+AI.think;enemy.seen=seen;
  if(seen.attack&&seen.attack!==enemy.seenAttack&&enemy.phase==='idle'){enemy.seenAttack=seen.attack;if(aiRandom()<(round===0?.38:.62)){enemy.guardFamily=seen.family;enemy.guardUntil=time+AI.guardTime;enemy.tactic='护刀反击';stats.aiGuards=(stats.aiGuards||0)+1;}}
