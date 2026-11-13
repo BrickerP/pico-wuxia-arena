@@ -1055,30 +1055,37 @@ function paintHand(root){
 }
 
 function carveSleeve(root){
- const handRe=/Hand|Thumb|Index|Middle|Ring|Pinky|Finger/i, armRe=/Forearm|UpperArm|Upper_|Shoulder|Sleeve/i;
  root.traverse(o=>{
   if(!o.isMesh||!o.geometry||!o.skeleton)return;
-  const g=o.geometry,pos=g.attributes.position,si=g.attributes.skinIndex,sw=g.attributes.skinWeight;
+  const g=o.geometry,pos=g.attributes.position,si=g.attributes.skinIndex,sw=g.attributes.skinWeight,ia=g.index;
   if(!pos||!si||!sw)return;
-  const bones=o.skeleton.bones,n=pos.count,armMask=new Uint8Array(n);
-  let hx=0,hy=0,hz=0,hn=0;
-  for(let i=0;i<n;i++){
-   let bi=0,bw=-1;
-   const idx=[si.getX(i),si.getY(i),si.getZ(i),si.getW(i)],ws=[sw.getX(i),sw.getY(i),sw.getZ(i),sw.getW(i)];
-   for(let k=0;k<4;k++)if(ws[k]>bw){bw=ws[k];bi=idx[k];}
-   const nm=(bones[bi]&&bones[bi].name)||'';
-   if(handRe.test(nm)){hx+=pos.getX(i);hy+=pos.getY(i);hz+=pos.getZ(i);hn++;}
-   else if(armRe.test(nm))armMask[i]=1;
+  const bones=o.skeleton.bones,n=pos.count,armRe=/Forearm|UpperArm|Upper_|Shoulder|Sleeve/i;
+  const arm=new Uint8Array(n);
+  for(let i2=0;i2<n;i2++){
+   let bi=0,bw=-1;const q=[si.getX(i2),si.getY(i2),si.getZ(i2),si.getW(i2)],w=[sw.getX(i2),sw.getY(i2),sw.getZ(i2),sw.getW(i2)];
+   for(let k=0;k<4;k++)if(w[k]>bw){bw=w[k];bi=q[k];}
+   if(armRe.test((bones[bi]&&bones[bi].name)||''))arm[i2]=1;
   }
-  if(!hn)return;
-  hx/=hn;hy/=hn;hz/=hn;
-  for(let i=0;i<n;i++)if(armMask[i]){
-   pos.setXYZ(i,hx+(pos.getX(i)-hx)*.05,hy+(pos.getY(i)-hy)*.05,hz+(pos.getZ(i)-hz)*.05);
+  const idx=ia?Array.from(ia.array):[...Array(n).keys()];
+  const keep=[];
+  for(let f=0;f<idx.length;f+=3){
+   if(arm[idx[f]]+arm[idx[f+1]]+arm[idx[f+2]]>=2)continue;
+   keep.push(idx[f],idx[f+1],idx[f+2]);
   }
-  pos.needsUpdate=true;g.computeVertexNormals();g.computeBoundingBox();g.computeBoundingSphere();
+  if(keep.length===idx.length)return;
+  const ng=g.clone();ng.setIndex(keep);ng.computeBoundingBox();ng.computeBoundingSphere();
+  o.geometry=ng;
  });
 }
 
+
+function poseGrip(root,side){
+ const d1=-.28,d2=-.45,d3=-.45;
+ ['Index','Mid','Ring','Pinky'].forEach(f=>{
+  [[1,d1],[2,d2],[3,d3]].forEach(([j,add])=>{const b=root.getObjectByName(side+'_'+f+j);if(b)b.rotation.x+=add;});
+ });
+ [[1,-.20],[2,-.30],[3,-.20]].forEach(([j,add])=>{const b=root.getObjectByName(side+'_Thumb'+j);if(b)b.rotation.x+=add;});
+}
 
 function paintDao(root){
  root.traverse(o=>{
@@ -1103,7 +1110,7 @@ function loadEmbeddedModels(){
  const parse=key=>new Promise((res,rej)=>loader.parse(b64buf(EMBEDDED_GLB[key]),'',res,rej));
  Promise.all([parse('rh'),parse('lh'),parse('dao')]).then(([rh,lh,dao])=>{
   realHandR=pivotize(rh.scene);carveSleeve(realHandR.userData.inner);paintHand(realHandR.userData.inner);
-  realHandL=pivotize(lh.scene);carveSleeve(realHandL.userData.inner);paintHand(realHandL.userData.inner);
+  realHandL=pivotize(lh.scene);paintHand(realHandL.userData.inner);realHandL.visible=false;
   realDao=dao.scene;paintDao(realDao);
   if(rh.animations&&rh.animations[0]){handMixerR=new THREE.AnimationMixer(realHandR.userData.inner);const a=handMixerR.clipAction(rh.animations[0]);a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.time=rh.animations[0].duration;}
   if(lh.animations&&lh.animations[0]){handMixerL=new THREE.AnimationMixer(realHandL.userData.inner);const a=handMixerL.clipAction(lh.animations[0]);a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.time=lh.animations[0].duration;}
@@ -1177,7 +1184,16 @@ function handRig(parent,s){
  g.add(h);parent.add(g);return g;
 }
 function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,-1,1),my=clamp(mouse.y,-1,1);const bob=bobY*.5,sway=Math.sin(bobPhase)*.006,kick=stepKick*.02;
- const r=V(mx*.042+HANDCFG.rPos[0]+sway,my*.034+HANDCFG.rPos[1]+bob-kick,HANDCFG.rPos[2]);if(gripRig)gripRig.position.set(0,0,0);freeHandR.position.copy(r);freeHandR.rotation.set(HANDCFG.rRot[0]+my*.08,HANDCFG.rRot[1],HANDCFG.rRot[2]-mx*.06+bobRoll*.6);const lv=V(mx*.038+HANDCFG.lPos[0]+sway*.8,my*.036+HANDCFG.lPos[1]+bob-kick*.8,HANDCFG.lPos[2]);freeHandL.rotation.set(HANDCFG.lRot[0]+my*.06,HANDCFG.lRot[1],HANDCFG.lRot[2]-mx*.05+bobRoll*.5);const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);let bx=.30+my*.3+k*.45,by=mx*.5,bz=-mx*.2,gx=0,gy=0,gz=0,pz=0;
+ const nowV=performance.now()/1000,vms=window.__vm||(window.__vm={x:0,y:0,vx:0,vy:0,rx:0,ry:0,vrx:0,vry:0,t:nowV,low:0,lowV:0,lastHit:-9});
+ const dtv=Math.min(.05,Math.max(.001,nowV-vms.t));vms.t=nowV;
+ const txm=mx*.042,tym=my*.034;
+ vms.vx+=(txm-vms.x)*240*dtv-vms.vx*24*dtv;vms.x+=vms.vx*dtv;
+ vms.vy+=(tym-vms.y)*190*dtv-vms.vy*20*dtv;vms.y+=vms.vy*dtv;
+ vms.vrx+=((my*.08)-vms.rx)*150*dtv-vms.vrx*16*dtv;vms.rx+=vms.vrx*dtv;
+ vms.vry+=((mx*.06)-vms.ry)*150*dtv-vms.vry*16*dtv;vms.ry+=vms.vry*dtv;
+ const lowT=sprintActive?.055:0;vms.low+=(lowT-vms.low)*(1-Math.exp(-dtv*7));
+ const hrV=globalThis.hitRecoil;if(hrV&&hrV.t!==vms.lastHit){vms.lastHit=hrV.t;vms.vry+=(mx>0?-.6:.6)*hrV.mag;vms.vrx-=.5*hrV.mag;}
+ const r=V(vms.x+HANDCFG.rPos[0]+sway,vms.y+HANDCFG.rPos[1]+bob-kick-vms.low-jumpY*.02,HANDCFG.rPos[2]);if(gripRig)gripRig.position.set(0,0,0);freeHandR.position.copy(r);freeHandR.rotation.set(HANDCFG.rRot[0]+vms.rx,HANDCFG.rRot[1],HANDCFG.rRot[2]-vms.ry+bobRoll*.6+vms.low*.9);const lv=V(vms.x*.95+HANDCFG.lPos[0]+sway*.8,vms.y*.95+HANDCFG.lPos[1]+bob-kick*.8-vms.low*.9-jumpY*.02,HANDCFG.lPos[2]);freeHandL.rotation.set(HANDCFG.lRot[0]+vms.rx*.9,HANDCFG.lRot[1],HANDCFG.lRot[2]-vms.ry*.9+bobRoll*.5+vms.low*.9);const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);let bx=.30+my*.3+k*.45,by=mx*.5,bz=-mx*.2,gx=0,gy=0,gz=0,pz=0;
  if(moveAction){
   const ty=moveAction.type,sp=moveAction.spec,t=moveAction.elapsed,heavy=moveAction.heavy?1.3:1;
   const eo=u=>1-Math.pow(1-u,2),ei=u=>u*u;
