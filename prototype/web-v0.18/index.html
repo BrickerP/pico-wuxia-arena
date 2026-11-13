@@ -1186,16 +1186,27 @@ function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,
   else if(t<sp.wind+sp.active)sw=-.50+1.75*eo(Math.min(1,(t-sp.wind)/sp.active));
   else sw=1.25*(1-eo(Math.min(1,(t-sp.wind-sp.active)/Math.max(.05,sp.recover))));
   sw*=heavy;
-  if(ty==='overhead'){gx+=sw*.62;bx+=sw*.30;}
-  else if(ty==='left'){gy-=sw*.70;gz+=sw*.20;by-=sw*.30;}
-  else if(ty==='right'){gy+=sw*.70;gz-=sw*.20;by+=sw*.30;}
-  else if(ty==='thrust'){pz=-Math.max(0,sw)*.24;bx-=sw*.12;}
+  const step=(typeof moveAction.comboIndex==='number')?(moveAction.comboIndex%3):0;
+  if(step===1){sw*=.85;}else if(step===2){sw*=1.22;}
+  if(ty==='overhead'){gx+=sw*.62;}
+  else if(ty==='left'){gy-=sw*.70;gz+=sw*.20;}
+  else if(ty==='right'){gy+=sw*.70;gz-=sw*.20;}
+  else if(ty==='thrust'){pz=-Math.max(0,sw)*.24;}
   else{gx+=sw*.42;gy+=sw*.42;}
+  if(step===1){gy=-gy*.9;gz=-gz*.9;}
+  if(step===2){gx*=1.15;gy*=1.18;gz*=1.25;pz-=Math.max(0,sw)*.08;}
  }
  gx+=Math.sin(realTime*1.15)*.006;gz+=Math.sin(realTime*.9)*.004;
  const dg=realTime-KBD.dodgeAt;
  if(dg>=0&&dg<.30){const e=1-Math.pow(1-dg/.30,2);gx-=e*.20;gz+=e*.12;}
  if(typeof playerImpact!=='undefined'&&playerImpact&&realTime<playerImpact.until){const j=Math.sin(realTime*46)*.012;gx+=j;gz-=j*.6;}
+ const hr=globalThis.hitRecoil;
+ if(hr){const uu=(realTime-hr.t)/.30;if(uu>0&&uu<1){const e=(1-uu)*(1-uu);gx-=e*hr.mag*.30;gz+=e*hr.mag*.14;}}
+ const nowR=performance.now()/1000,st=window.__sw||(window.__sw={x:0,y:0,z:0,t:nowR});
+ const dts=Math.min(.05,Math.max(.001,nowR-st.t));st.t=nowR;
+ const kk=1-Math.exp(-dts*16);
+ st.x+=(gx-st.x)*kk;st.y+=(gy-st.y)*kk;st.z+=(gz-st.z)*kk;
+ gx=st.x;gy=st.y;gz=st.z;
  gripRig.position.copy(r);
  freeHandR.position.set(0,0,0);
  freeHandL.position.copy(lv).sub(r);
@@ -1852,6 +1863,7 @@ function bestiaryTick(dt){
     u.hitCd=.45;
     const dmg=heavy?140:46;
     u.hp-=dmg;
+    globalThis.hitRecoil={t:realTime,mag:heavy?1:.62,dx:(hx-px)/dHor,dz:(hz-pz)/dHor};
     emit(heavy?'重击命中 · '+(u.kind==='beast'?'巨兽':'敌'):'命中 · 敌','hit',new THREE.Vector3(hx,hh,hz));
     sound('hit',new THREE.Vector3(hx,hh,hz));
     if(u.hp<=0){u.hp=0;u.dead=14;u.g.visible=false;score+=60;stats.kills=(stats.kills||0)+1;emit('击倒 · '+(u.kind==='beast'?'巨兽':'敌'),'win',null);}
