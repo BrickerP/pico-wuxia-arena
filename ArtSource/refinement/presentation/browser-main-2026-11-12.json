@@ -1,0 +1,180 @@
+{
+  "integration_baseline": {
+    "before": {
+      "assets": {
+        "commit": "f4540f0e2e45c6f64ab91f98846698b7b7324cb9",
+        "complete": true,
+        "requests": {
+          "actor": {
+            "bytes": 75131720,
+            "decoded": true,
+            "ktx2Textures": 26,
+            "milliseconds": 446743,
+            "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/opponents/base.glb"
+          },
+          "courtyard": {
+            "bytes": 34423280,
+            "decoded": true,
+            "ktx2Textures": 0,
+            "milliseconds": 443995,
+            "sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/courtyard_hero.glb"
+          },
+          "dao": {
+            "bytes": 4332212,
+            "decoded": true,
+            "ktx2Textures": 18,
+            "milliseconds": 78463,
+            "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/dao_grip.glb"
+          }
+        }
+      },
+      "candidate": "44fd4936a716ac6127826cd40695596fa8122e16d88824f61fe22c9713797111",
+      "firstPerson": {
+        "baseErrorMetres": 1.3877787807814457e-17,
+        "error": null,
+        "locked": false,
+        "memory": {
+          "geometries": 528,
+          "textures": 119
+        },
+        "tipErrorMetres": 1.3877787807814457e-17,
+        "visible": {
+          "L": true,
+          "R": true,
+          "weapon": true
+        },
+        "weaponHand": "R"
+      },
+      "state": {
+        "health": 100,
+        "loadErrors": [],
+        "loaded": true,
+        "mode": "trial",
+        "player": [
+          0,
+          0,
+          26
+        ],
+        "render": {
+          "calls": 522,
+          "triangles": 685151
+        },
+        "running": true
+      }
+    },
+    "after": {
+      "assets": {
+        "commit": "f4540f0e2e45c6f64ab91f98846698b7b7324cb9",
+        "complete": true,
+        "requests": {
+          "actor": {
+            "bytes": 75131720,
+            "decoded": true,
+            "ktx2Textures": 26,
+            "milliseconds": 446743,
+            "sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/opponents/base.glb"
+          },
+          "courtyard": {
+            "bytes": 34423280,
+            "decoded": true,
+            "ktx2Textures": 0,
+            "milliseconds": 443995,
+            "sha256": "9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/courtyard_hero.glb"
+          },
+          "dao": {
+            "bytes": 4332212,
+            "decoded": true,
+            "ktx2Textures": 18,
+            "milliseconds": 78463,
+            "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+            "status": 200,
+            "url": "https://raw.githubusercontent.com/BrickerP/pico-wuxia-arena/f4540f0e2e45c6f64ab91f98846698b7b7324cb9/app/src/main/assets/models/dao_grip.glb"
+          }
+        }
+      },
+      "candidate": "44fd4936a716ac6127826cd40695596fa8122e16d88824f61fe22c9713797111",
+      "firstPerson": {
+        "baseErrorMetres": 1.3877787807814457e-17,
+        "error": null,
+        "locked": false,
+        "memory": {
+          "geometries": 528,
+          "textures": 119
+        },
+        "tipErrorMetres": 4.443059973708341e-16,
+        "visible": {
+          "L": true,
+          "R": true,
+          "weapon": true
+        },
+        "weaponHand": "R"
+      },
+      "state": {
+        "health": 100,
+        "loadErrors": [],
+        "loaded": true,
+        "mode": "trial",
+        "player": [
+          0,
+          0,
+          24.99754166666664
+        ],
+        "render": {
+          "calls": 518,
+          "triangles": 634765
+        },
+        "running": true
+      }
+    },
+    "host_input_duration_seconds": 0.5726988749999999,
+    "input": "trusted browser keydown/up W, one bounded .4s hold; no state mutation",
+    "scope": "public immutable assets and current formal 44fd entry; first-person + short walk only",
+    "not_proven": [
+      "all eight NPC visual timelines",
+      "full castle collisions",
+      "PICO hardware"
+    ]
+  },
+  "held_grip_fix": {
+    "html_sha256": "2c173012c13bf9ee263aa1a576784cd3005197a60ac0c25e783c88fed79eb646",
+    "module_sha256": "54cf8f74a13c21820bd826926ab8e07562f167029cee676121c6d237d70b1f2a",
+    "change": "equipped hand holding pose independent from guard boolean",
+    "tests": "both equipped sides / unarmed / fist / fault; executed original render function with r147"
+  },
+  "actual_default_pose": {
+    "guard_input": {
+      "L": false,
+      "R": false
+    },
+    "visual_grip_amount": {
+      "L": 0,
+      "R": 1
+    },
+    "weapon_hand": "R",
+    "loaded": true,
+    "running": true,
+    "error": null,
+    "base_error_metres": 1.3877787807814457e-17,
+    "tip_error_metres": 1.3877787807814457e-17,
+    "module_sha256_observed": "54cf8f74a13c21820bd826926ab8e07562f167029cee676121c6d237d70b1f2a"
+  },
+  "image": {
+    "path": "browser-main-2026-11-12.png",
+    "sha256": "07db399b3dad90da04c5195725b6b98a8d872f8dcb9ae185e39d51ef96f5948f"
+  },
+  "tests": {
+    "held_grip_actual_render_function": "passed both sides, unarmed, fist, fault; guard input unchanged",
+    "browser": "actual original source module digest matched, default pose screenshot"
+  },
+  "scope": "Browser consumer and presentation; native test evidence independent"
+}

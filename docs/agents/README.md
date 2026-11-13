@@ -31,6 +31,6 @@ Tripo仅用已安装tripo-cli、ov官方区域、tripo-v3.1；Root统一doctor/�
 
 ## 制作与合入边界
 
-Root独占公共角色producer/manifest、library/app正式资源、Main/HomeStage最终接线、共享构建、设备、画面、Git与发布。各路只改责任目录或明确授权文件，保留他人编辑；不复制仓库、不建worktree，不改pico或个人网站仓库。停止HTML/Web/Three.js游戏、浏览器试玩、网页光照和新mock；已有文件仅保留历史。
+Root独占公共角色producer/manifest、library/app正式资源、Main/HomeStage最终接线、共享构建、设备、画面、Git与发布。各路只改责任目录或明确授权文件，保留他人编辑；不复制仓库、不建worktree，不改pico或个人网站仓库。原生制作任务继续停止HTML/Web/Three.js替代实现、浏览器试玩替代验收、网页光照和新mock。仓库独立Web探索线允许web/** PR，不属于这些原生派工；既有成果与回归不得删除。两线范围见`docs/collaboration-boundaries.md`。
 
 交接文件是工程合同与验收产物：写清源/实物、可见变化、验证边界、review和下一项。长期决定/偏好/教训只能进agentmemory。有限检查一次取证，不无限轮询logcat或等会话；可用产物由Root直接取件、审核、合入或补齐。源审、单测、原生像素和真机验收分别取证，不混称通过。

@@ -2,9 +2,13 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
-## 唯一开发与验收路径
+## 两条独立工作线
 
-**原生源码 → APK → PICO Emulator → Space Pro。** 模拟器的真实头手观察和终端设备共用战斗判定。HTML、Three.js、浏览器试玩和网页光照实验已停止，不作为前置步骤或验收入口；已有 prototype 文件仅保留历史，不继续维护。
+**参赛原生Demo：源码 → APK → PICO Emulator → Space Pro。** 本次Demo采用同一SDK头手观察与战斗判定，原生任务不能用HTML、Three.js或浏览器试玩替代开发和设备验收。
+
+**独立探索原型：[prototype/web-v0.18](prototype/web-v0.18/README.md)。** 允许`web/**`独立PR继续探索、美术和敌群试验；现有v0.34–v0.37成果及未来Web版本有明确归属。它们不计为原生完成度，也不自动扩进当前短PVE Demo。选中的资产/动作/玩法须经过原生移植和验证。
+
+两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
 ## 当前交付
 
