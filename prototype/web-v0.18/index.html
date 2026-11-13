@@ -310,7 +310,7 @@ function mergeStatics(){
   window.__mergedStatics=saved;
  }catch(e){window.__mergeErr=(e&&e.message)||String(e);}
 }
-function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(box(.017,.082,.70,mat(0x7f8892),0,0,-.40,freeBlade));freeBlade.add(box(.005,.014,.70,mat(0xf2f6fa),0,-.038,-.40,freeBlade));freeBlade.add(box(.03,.03,.26,mat(0x6b4a2f),0,0,-.03,freeBlade));freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
+function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.0006;sun.shadow.normalBias=.028;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
@@ -319,7 +319,7 @@ tokenMesh=sphere(.12,mat(0xbb9b56,.7,.3),0,5.63,-52);tokenMesh.visible=false;
 const altar=box(.5,.7,.5,mat(0x54695d),-1.7,.35,6.4);signal=sphere(.12,new THREE.MeshStandardMaterial({color:0xd1b77c,emissive:0x73633b,emissiveIntensity:.4}),-1.7,.83,6.4);
 const ring=mesh(new THREE.RingGeometry(2.45,2.48,80),new THREE.MeshBasicMaterial({color:0xc6b180,transparent:true,opacity:.45,side:THREE.DoubleSide}),V(0,.055,4.0));ring.rotation.x=-Math.PI/2;ring.castShadow=false;
 dummy=new THREE.Group();scene.add(dummy);cyl(.14,1.6,wood,0,.8,0,dummy);box(.85,.12,.16,wood,0,1.15,0,dummy);cyl(.21,.13,wood,0,.08,0,dummy);dummy.position.set(0,0,4.2);dummy.visible=false;
-playerGroup=new THREE.Group();scene.add(playerGroup);weaponGroup=new THREE.Group();playerGroup.add(weaponGroup);playerArm=mesh(new THREE.CylinderGeometry(.065,.085,1,10),mat(0xe0c39a),V(),scene);playerHand=box(.095,.105,.145,mat(0xe8c9a0),0,-.05,0,playerGroup);leftHand=box(.095,.105,.145,mat(0xe8c9a0),0,0,0);leftArm=cyl(.05,1,mat(0xe8c9a0),0,0,0);leftHand.visible=leftArm.visible=false;
+playerGroup=new THREE.Group();scene.add(playerGroup);weaponGroup=new THREE.Group();playerGroup.add(weaponGroup);playerArm=mesh(new THREE.CylinderGeometry(.065,.085,1,10),mat(0xe0c39a),V(),scene);playerHand=mkHand('R',{grip:true});playerGroup.add(playerHand);leftHand=mkHand('L',{grip:false});leftArm=cyl(.05,1,new THREE.MeshStandardMaterial({color:0x1d232b,roughness:.92}),0,0,0);leftHand.visible=leftArm.visible=false;
 debugLines={player:line(0xa9e8d3),enemy:line(0xffce8d),target:line(0x7796a8)};debugBody=mesh(new THREE.CylinderGeometry(.25,.25,.85,12),new THREE.MeshBasicMaterial({color:0x83d3b4,wireframe:true}),V());debugHead=mesh(new THREE.SphereGeometry(.16,12,8),new THREE.MeshBasicMaterial({color:0xeac685,wireframe:true}),V());debugBody.visible=debugHead.visible=false;debugLines.player.visible=debugLines.enemy.visible=false;
 trail=new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({length:26},()=>V())),new THREE.LineBasicMaterial({color:0x9fe8ff,transparent:true,opacity:.55}));scene.add(trail);trail.visible=false;
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);if(started)resetInput();draw();});draw();}
@@ -958,17 +958,100 @@ function actionStep(dt=RULES.step){const key=stanceKey();chargeAt=-1;chargeLeftA
 function moveInRelease(){return !!moveAction&&['wind','release'].includes(actionStage());}
 function moveActive(){return !!moveAction&&!moveAction.dealt&&actionStage()==='release';}
 function hitPause(c){if(!moveAction)return;const a=moveAction,zone=c?.zone||'body',metal=['blade','grip','wall','stone'].includes(zone),wood=zone==='wood';let hold=a.type==='heavy'?IMPACT.heavy:IMPACT.hit;if(wood)hold=IMPACT.cutWood;else if(metal)hold=IMPACT.cutSteel;else if(zone==='body'||zone==='head')hold=IMPACT.cutBody;if(weaponId==='staff')hold+=.018;if(weaponId==='spear')hold-=.014;hold=clamp(hold,.045,.20);const from=localPlayerPose(rigidPose(bladeBodies.player)),axis=from.tip.clone().sub(from.base).normalize().multiplyScalar(IMPACT.drag),deep=clonePose(from);deep.base.add(axis);deep.tip.add(axis);a.impactFrom=from;a.impactTotal=hold;a.impactLeft=hold;a.impactPose=deep;a.hitPose=clonePose(deep);a.ending=clonePose(deep);a.ending.base.add(V(a.sign*.10,-.12,.12));a.ending.tip.add(V(a.sign*.10,-.12,.12));a.elapsed=a.spec.wind+a.spec.active;bladeBodies.player.v.multiplyScalar(.18);bladeBodies.player.w.multiplyScalar(.18);}
-function handRig(parent,s){
- const g=new THREE.Group();
- box(.076,.031,.128,mat(0xdcb992),0,0,-.012,g);
- box(.027,.025,.054,mat(0xdcb992),-.039*s,.004,.046,g);
- box(.019,.021,.052,mat(0xd9b48c),.021*s,.009,.060,g);
- box(.018,.020,.048,mat(0xd3ad83),.003*s,.008,.058,g);
- box(.017,.019,.044,mat(0xd3ad83),-.014*s,.006,.052,g);
- box(.046,.028,.115,mat(0x242932),0,-.005,.085,g);
- parent.add(g);return g;
+/* ---- v0.38 写实手部：掌 + 四指三节 + 拇指两节，按材质合并 ---- */
+function mergeGeos(list){
+ const pos=[],nor=[],uv=[],idx=[];let off=0;
+ for(const g of list){
+  const p=g.attributes.position,n=g.attributes.normal,u=g.attributes.uv,ind=g.index;
+  for(let i=0;i<p.count;i++){pos.push(p.getX(i),p.getY(i),p.getZ(i));nor.push(n.getX(i),n.getY(i),n.getZ(i));uv.push(u?u.getX(i):0,u?u.getY(i):0);}
+  if(ind){for(let i=0;i<ind.count;i++)idx.push(ind.getX(i)+off);}else{for(let i=0;i<p.count;i++)idx.push(i+off);}
+  off+=p.count;
+ }
+ const geo=new THREE.BufferGeometry();
+ geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+ geo.setAttribute('normal',new THREE.Float32BufferAttribute(nor,3));
+ geo.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+ geo.setIndex(idx);return geo;
 }
-function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,-1,1),my=clamp(mouse.y,-1,1);const r=V(mx*.05+.172,my*.04-.186,-.408);freeHandR.position.copy(r);freeHandL.position.copy(V(mx*.045-.070,my*.045-.212,-.400));const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);freeBlade.position.copy(r);freeBlade.rotation.set(.34+my*.3+k*.45,mx*.5,-mx*.2,'YXZ');freeBlade.visible=true;freeRig.visible=true;}
+function mkDao(){
+ const g=new THREE.Group();
+ const steel=new THREE.MeshStandardMaterial({color:0xc9d3dc,metalness:.82,roughness:.30});
+ const edge=new THREE.MeshStandardMaterial({color:0xeef4f8,metalness:.55,roughness:.40,emissive:0x203040,emissiveIntensity:.35});
+ const dark=new THREE.MeshStandardMaterial({color:0x353b43,metalness:.55,roughness:.55});
+ const wood=new THREE.MeshStandardMaterial({color:0x54341f,roughness:.82});
+ const gold=new THREE.MeshStandardMaterial({color:0xb08a4a,metalness:.7,roughness:.38});
+ const seg=(len,w,t,mat,px,py,pz,rx)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,t,len),mat);m.position.set(px||0,py||0,pz||0);if(rx)m.rotation.x=rx;m.castShadow=true;g.add(m);return m;};
+ seg(.30,.016,.070,steel,0,0,-.20,0);
+ seg(.26,.013,.062,steel,0,.006,-.48,-.055);
+ seg(.055,.010,.040,steel,0,.016,-.615,-.10);
+ seg(.30,.004,.012,edge,0,-.033,-.20,0);
+ seg(.26,.003,.010,edge,0,-.026-.002,-.478,-.055);
+ const guard=new THREE.Mesh(new THREE.CylinderGeometry(.040,.040,.011,18),dark);guard.rotation.x=Math.PI/2;guard.position.set(0,0,-.050);g.add(guard);
+ const ring=new THREE.Mesh(new THREE.TorusGeometry(.034,.0045,8,20),gold);ring.position.set(0,0,-.044);g.add(ring);
+ const hilt=new THREE.Mesh(new THREE.CylinderGeometry(.0145,.016,.145,14),wood);hilt.rotation.x=Math.PI/2;hilt.position.set(0,0,.036);g.add(hilt);
+ for(let i=0;i<5;i++){const w=new THREE.Mesh(new THREE.TorusGeometry(.0158,.0032,6,14),dark);w.position.set(0,0,-.010+i*.026);g.add(w);}
+ const pommel=new THREE.Mesh(new THREE.SphereGeometry(.020,10,8),gold);pommel.position.set(0,0,.112);g.add(pommel);
+ return g;
+}
+function mkHand(side,opt){
+ const s=(side==='L')?-1:1,o=Object.assign({grip:true,flip:false,skin:0xb98a5e},opt||{});
+ const G=new THREE.Group(),skin=[],nail=[],cloth=[];
+ const bind=(arr,geo,m)=>{geo.applyMatrix4(m);arr.push(geo);};
+ const M=(x,y,z,rx,ry,rz)=>{const m=new THREE.Matrix4();m.makeRotationFromEuler(new THREE.Euler(rx||0,ry||0,rz||0,'XYZ'));m.setPosition(x,y,z);return m;};
+ /* 掌：掌心主体 + 掌背隆起 + 大鱼际 */
+ bind(skin,new THREE.BoxGeometry(.072,.023,.090),M(0,.002,-.004));
+ const back=new THREE.Mesh(new THREE.SphereGeometry(.044,14,10),null);back.scale.set(1.02,.42,1.10);
+ bind(skin,new THREE.SphereGeometry(.031,14,10),M(0,.013,-.004,0,0,0));
+ bind(skin,new THREE.SphereGeometry(.020,12,9),M(-.036*s,.002,.020,0,0,.35*s));
+ bind(skin,new THREE.SphereGeometry(.017,10,8),M(.034*s,.000,.018,0,0,-.25*s));
+ /* 四指：指骨沿 +z 伸出，绕 X 累积弯曲 */
+ const specs=[[.029,.030,.022,.017,.0094],[.010,.032,.024,.018,.0092],[-.009,.030,.022,.017,.0084],[-.028,.024,.017,.014,.0073]];
+ const curl=o.grip?[-1.06,-1.26,-.78]:[.20,.24,.13];
+ for(let f=0;f<4;f++){
+  const [fx,l0,l1,l2,r]=specs[f];
+  const len=[l0,l1,l2],k=o.grip?(f===3?1.08:1):1;
+  let py=.004,pz=.044,ang=0;
+  for(let i=0;i<3;i++){
+   ang+=curl[i]*k;
+   const L=len[i],ey=py-Math.sin(ang)*L,ez=pz+Math.cos(ang)*L;
+   bind(skin,new THREE.CapsuleGeometry(r*.96,Math.max(L-r*1.7,.004),6,10),M(fx*s,(py+ey)/2,(pz+ez)/2,Math.PI/2+ang,0,0));
+   bind(skin,new THREE.SphereGeometry(r*1.06,8,6),M(fx*s,py,pz));
+   if(i===2){bind(nail,new THREE.BoxGeometry(r*1.45,.0045,.010),M(fx*s,ey+.0075,ez-.004,ang,0,0));}
+   py=ey;pz=ez;
+  }
+ }
+ /* 拇指：内旋后向前跨过掌心 */
+ const tx=-.036*s,ty=.004,tz=.016,tyaw=.88*s;
+ const tc=o.grip?[-.92,-1.02]:[.22,.26];
+ let ang0=0,pos=[tx,ty,tz];
+ for(let i=0;i<2;i++){
+  const L=i===0?.030:.025,r=i===0?.0105:.0092;
+  ang0+=tc[i];
+  const dir=[Math.sin(tyaw)*Math.cos(ang0),-Math.sin(ang0),Math.cos(tyaw)*Math.cos(ang0)];
+  const end=[pos[0]+dir[0]*L,pos[1]+dir[1]*L,pos[2]+dir[2]*L];
+  const mid=[(pos[0]+end[0])/2,(pos[1]+end[1])/2,(pos[2]+end[2])/2];
+  bind(skin,new THREE.CapsuleGeometry(r*1.35,Math.max(L-r*2.2,.004),6,10),M(mid[0],mid[1],mid[2],Math.PI/2+ang0,tyaw,0));
+  bind(skin,new THREE.SphereGeometry(r*1.08,8,6),M(pos[0],pos[1],pos[2]));
+  if(i===1){bind(nail,new THREE.BoxGeometry(r*1.5,.0045,.010),M(end[0]+.004*s,end[1]+.006,end[2]-.004,ang0,tyaw,0));}
+  pos=end;
+ }
+ /* 腕口：布袖 + 内衬环 + 前臂锥 */
+ bind(cloth,new THREE.CylinderGeometry(.037,.040,.062,16),M(0,-.002,-.048,Math.PI/2,0,0));
+ bind(cloth,new THREE.CylinderGeometry(.041,.049,.115,16),M(0,-.006,-.108,Math.PI/2,0,0));
+ bind(cloth,new THREE.TorusGeometry(.039,.005,8,18),M(0,0,-.013,0,0,0));
+ const skinMat=new THREE.MeshStandardMaterial({color:o.skin,roughness:.62,metalness:0});
+ const nailMat=new THREE.MeshStandardMaterial({color:0xb98a5e,roughness:.55,metalness:.02});
+ const clothMat=new THREE.MeshStandardMaterial({color:0x1d232b,roughness:.92,metalness:.02});
+ const a=new THREE.Mesh(mergeGeos(skin),skinMat),b=new THREE.Mesh(mergeGeos(nail),nailMat),c=new THREE.Mesh(mergeGeos(cloth),clothMat);
+ for(const m of [a,b,c]){m.castShadow=true;m.receiveShadow=true;G.add(m);}
+ if(o.flip)G.rotation.y=Math.PI;
+ return G;
+}
+function handRig(parent,s){
+ const g=new THREE.Group(),h=mkHand(s<0?'L':'R',{grip:true,flip:true});
+ g.add(h);parent.add(g);return g;
+}
+function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,-1,1),my=clamp(mouse.y,-1,1);const r=V(mx*.042+.150,my*.034-.208,-.415);freeHandR.position.copy(r);freeHandR.rotation.set(-.16,0,-.30);freeHandL.position.copy(V(mx*.038-.108,my*.036-.222,-.402));freeHandL.rotation.set(-.10,0,.26);const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);freeBlade.position.set(r.x,r.y+.024,r.z);freeBlade.rotation.set(.30+my*.3+k*.45,mx*.5,-mx*.2,'YXZ');freeBlade.visible=true;freeRig.visible=true;}
 /* ==== 开局第三人称：给主角补一个墨色剪影，只在入场镜头里出现 ==== */
 let bodyG=null;
 let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFore=null;
