@@ -202,7 +202,8 @@ private class SceneOwner(
             ), null)
             val finite = listOf(center.x, center.y, center.z, size.x, size.y, size.z,
                 head.x, head.y, head.z, expected.x, expected.y, expected.z).all { it.isFinite() }
-            val fullHeight = !bounds.isEmpty() && finite && size.x > 0f && size.y > 0f && size.z >= 0f &&
+            val measuredBounds = !bounds.isEmpty() && finite && size.x > 0f && size.y > 0f && size.z >= 0f
+            val fullHeight = measuredBounds &&
                 abs(size.y - fullControlHeightMeters) <= epsilon &&
                 abs(fullControlHeightMeters.toDouble() - pose.fullHeightMeters) <= epsilon
             val currentPose = fullHeight && abs(center.x - expected.x) <= epsilon &&
@@ -211,16 +212,64 @@ private class SceneOwner(
             val pass = currentPose && top <= head.y - 0.08f + epsilon
             if (!pass && terminalBoundsAttempts < 10) return
             terminalBoundsAttempts = 10
+            recordTerminalAttachmentEvidence(parent, anchor, pose)
+            val numeric = when {
+                pass -> "PASS"
+                measuredBounds -> "FAIL"
+                else -> "UNOBSERVED"
+            }
+            val reason = when {
+                !measuredBounds -> "empty_or_invalid_ecs_visual_bounds"
+                !fullHeight -> "measured_height_mismatch"
+                !currentPose -> "measured_center_mismatch"
+                !pass -> "measured_head_margin_mismatch"
+                else -> "fresh_full_height_bounds"
+            }
             Log.i(TAG, "TerminalControlPlacement owner=HomeStage.sceneRoot generation=${pose.generation} " +
-                "heightDp=400 expectedHeightMeters=$fullControlHeightMeters head=$head " +
-                "expectedCenter=$expected panelCenter=$center panelSize=$size top=$top epsilon=$epsilon " +
-                "numeric=${if (pass) "PASS" else "BLOCKED"} " +
-                "reason=${if (pass) "fresh_full_height_bounds" else "empty_stale_or_misaligned_bounds"} visual=UNOBSERVED")
+                "configuredHeightDp=400 expectedHeightMeters=$fullControlHeightMeters headInOwner=$head " +
+                "expectedCenter=$expected anchorBoundsCenter=$center anchorBoundsSize=$size topReading=$top epsilon=$epsilon " +
+                "ecsVisualBounds=${if (measuredBounds) "MEASURED" else "UNOBSERVED"} " +
+                "numeric=$numeric reason=$reason visual=UNOBSERVED")
         } catch (error: Exception) {
             if (terminalBoundsAttempts < 10) return
+            recordTerminalAttachmentEvidence(parent, anchor, pose)
             Log.w(TAG, "TerminalControlPlacement owner=HomeStage.sceneRoot generation=${pose.generation} " +
                 "expectedHeightMeters=$fullControlHeightMeters epsilon=$epsilon " +
-                "numeric=BLOCKED reason=bounds_unavailable visual=UNOBSERVED", error)
+                "ecsVisualBounds=UNOBSERVED numeric=UNOBSERVED reason=bounds_query_unavailable visual=UNOBSERVED", error)
+        }
+    }
+
+    /** One diagnostic at the existing bounded probe's end; never substitutes layout for visual bounds. */
+    private fun recordTerminalAttachmentEvidence(parent: Entity, anchor: Entity, pose: TerminalControlPose) {
+        try {
+            // This is the same attachment entity added below the owned anchor at scene creation.
+            val attachment = anchor.getChildren().singleOrNull()?.takeIf { it.valid }
+            val component = attachment?.components?.get(AttachmentPanelComponent::class.java)
+            val view = component?.content
+            val metrics = view?.resources?.displayMetrics
+            fun boundsReading(enabledOnly: Boolean): String {
+                if (attachment == null) return "attachment_unavailable"
+                return try {
+                    attachment.getVisualBounds(parent, recursive = true, enabledOnly = enabledOnly).toString()
+                } catch (error: Exception) {
+                    "query_unavailable:${error.javaClass.simpleName}"
+                }
+            }
+            val ownerOrigin = parent.convertPositionTo(Vector3(0f, 0f, 0f), null)
+            val headInOwner = parent.convertPositionFrom(Vector3(
+                pose.capturedHead.x.toFloat(), pose.capturedHead.y.toFloat(), pose.capturedHead.z.toFloat(),
+            ), null)
+            Log.i(TAG, "TerminalControlAttachmentEvidence owner=HomeStage.sceneRoot generation=${pose.generation} " +
+                "ownerOriginInContainer=$ownerOrigin rawCapturedHead=${pose.capturedHead} headInOwner=$headInOwner " +
+                "anchorEnabled=${anchor.enabled} attachmentPresent=${attachment != null} " +
+                "attachmentEnabled=${attachment?.enabled} componentPresent=${component != null} " +
+                "viewPresent=${view != null} viewLaidOut=${view?.isLaidOut} " +
+                "viewWidthPx=${view?.width} viewHeightPx=${view?.height} " +
+                "androidViewDensity=${metrics?.density} androidViewDensityDpi=${metrics?.densityDpi} " +
+                "attachmentBoundsAll=${boundsReading(false)} attachmentBoundsEnabled=${boundsReading(true)}")
+        } catch (error: Exception) {
+            Log.w(TAG, "TerminalControlAttachmentEvidence owner=HomeStage.sceneRoot generation=${pose.generation} " +
+                "diagnostic=UNOBSERVED reason=attachment_query_unavailable", error)
         }
     }
 
