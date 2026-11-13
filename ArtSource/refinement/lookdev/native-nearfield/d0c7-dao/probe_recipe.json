@@ -1,0 +1,170 @@
+{
+  "schema": "d0c7-dao-one-JSON-metallicFactor217",
+  "status": "PRIVATE_DIAGNOSTIC_JSON_FACTOR_ONLY",
+  "purpose": "Single-runtime-variable effective-metallic hypothesis; not a scalar-metalness bug claim or production decision",
+  "input": {
+    "runtime_path": "app/src/main/assets/models/dao_grip.glb",
+    "runtime_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "source_PNG_GLB_path": "ArtSource/refinement/weapon/stage2/dao_grip_refined.glb",
+    "source_PNG_GLB_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+    "source_PNG_GLB_unchanged": true
+  },
+  "change": {
+    "JSON_pointer": "/materials/0/pbrMetallicRoughness/metallicFactor",
+    "material": "Steel | forged body",
+    "mesh_primitive": [
+      0,
+      0
+    ],
+    "previous_effective_factor": 1,
+    "previous_factor_is_glTF_default": true,
+    "new_factor": 0.8509803921568627,
+    "numerator": 217,
+    "denominator": 255,
+    "effective_metallic": "unchanged MR B/255 multiplied by217/255; median approximately0.851 for the near255 source median",
+    "intentional_modulation": true,
+    "difference_from_rejected_cap": "This scales every B texel, including values below217. The abandoned source edit used min(B,217) and left lower values intact. This is a clean multiplier control, not an identical cap operation."
+  },
+  "verification": {
+    "only_JSON_pointer_changed": "/materials/0/pbrMetallicRoughness/metallicFactor",
+    "previous_explicit_factor": false,
+    "source_effective_factor": 1,
+    "candidate_factor": 0.8509803921568627,
+    "complete_BIN_bytes_bit_exact": 4312988,
+    "BIN_sha256": "e43d1d7192ed09bac5a95af890ff9f8af3492dbf8f539ba18cde6c53b0502a38",
+    "all_bufferViews_bit_exact": 77,
+    "accessors_and_all_payloads_bit_exact": 59,
+    "all18_KTX_payloads_bit_exact": [
+      {
+        "image": 0,
+        "name": "steel_forged_basecolor",
+        "sha256": "583761c24ddf95b6f9733adb781231e0673e0995f59f7615d36a426517112b9e",
+        "bytes": 207089
+      },
+      {
+        "image": 1,
+        "name": "steel_forged_metallicRoughness",
+        "sha256": "741d5a0ea8a6616c4c3bbac9cdf742401cc3891084384cb0e2e2ab97b1ed9737",
+        "bytes": 358636
+      },
+      {
+        "image": 2,
+        "name": "steel_edge_basecolor",
+        "sha256": "073ba206c84faf577b8b5fde284155e5409ce57a215c7784bd9d32fe25ce0aed",
+        "bytes": 20980
+      },
+      {
+        "image": 3,
+        "name": "steel_edge_metallicRoughness",
+        "sha256": "c492049107b71bd0311596907fe7eeb68d76f7115322e06af56bdd31622c1049",
+        "bytes": 71325
+      },
+      {
+        "image": 4,
+        "name": "steel_spine_basecolor",
+        "sha256": "a8cab87ddb8fcd789d97821fa064bee18469928090d53f4e112e02ff1d06ade3",
+        "bytes": 132304
+      },
+      {
+        "image": 5,
+        "name": "steel_spine_metallicRoughness",
+        "sha256": "9810b1cddda356ffb06f61f8fc6a56880d658b995d5b2497d8bd3e0325465ad7",
+        "bytes": 122060
+      },
+      {
+        "image": 6,
+        "name": "brass_aged_basecolor",
+        "sha256": "adecd5f851bec8b8c8960d4647720559355d1a4d7a05994d6b373d2aced5e249",
+        "bytes": 300058
+      },
+      {
+        "image": 7,
+        "name": "brass_aged_metallicRoughness",
+        "sha256": "1eba4169c8b0bb0edd10b40f6eb0ca54cdf2ce81e08aa088b8cf0e89f34ae101",
+        "bytes": 516003
+      },
+      {
+        "image": 8,
+        "name": "steel_wear_basecolor",
+        "sha256": "24179c972584b513fc3907d11ca7024dc6e22ac54e18990fc44d9fe7da1bdc55",
+        "bytes": 200504
+      },
+      {
+        "image": 9,
+        "name": "steel_wear_metallicRoughness",
+        "sha256": "e99940adad97a7d750de8125b1ee3112d07b087ac06ddde7d25a8765a65f3f90",
+        "bytes": 317132
+      },
+      {
+        "image": 10,
+        "name": "brass_contact_basecolor",
+        "sha256": "f7f0e9309658b7d19848b7230d26fdf0644707e7528cb1c63c5f4181e62559cc",
+        "bytes": 394581
+      },
+      {
+        "image": 11,
+        "name": "brass_contact_metallicRoughness",
+        "sha256": "603fd005fdc37da7408e2708fef53437cf4a5a09f4956b72056e6f9f2adaf04d",
+        "bytes": 178233
+      },
+      {
+        "image": 12,
+        "name": "cord_weave_normal",
+        "sha256": "3b5c97f2deda63216941a4ab8830dbbe215c7f2082976e6b729d28bccaf3fc8b",
+        "bytes": 66825
+      },
+      {
+        "image": 13,
+        "name": "cord_weave_basecolor",
+        "sha256": "78bed486c7bf2c8f236d9e4d325e40e42cf13627fb35b7b45aa83b7c90b290ba",
+        "bytes": 435973
+      },
+      {
+        "image": 14,
+        "name": "cord_weave_metallicRoughness",
+        "sha256": "a24d3811739708ce99e542e73472f7c1fca53ff7e9986e6f0014f6dfd6f27614",
+        "bytes": 143912
+      },
+      {
+        "image": 15,
+        "name": "leather_pressed_normal",
+        "sha256": "c65b28cc36b36216acc4c234fd56bbe2cbec6a665f94c7ec7835ba4e4118c250",
+        "bytes": 14714
+      },
+      {
+        "image": 16,
+        "name": "leather_pressed_basecolor",
+        "sha256": "190a3f679a1527d1feb3251360351aec5dcc57434547bf2c9fd5126138b4d9d8",
+        "bytes": 247379
+      },
+      {
+        "image": 17,
+        "name": "leather_pressed_metallicRoughness",
+        "sha256": "3c2e082ae24659085170450d9474c5252e3b1221a391aa9f69e149600bb34a22",
+        "bytes": 216734
+      }
+    ],
+    "all_other_JSON_exact": true,
+    "geometry_UV_N_T_anchors_morphs_textures_samplers_all_other_material_factors_exact": true
+  },
+  "codec_invocations": 0,
+  "decoded_R_G_change": "zero; all encoded KTX bytes are unchanged",
+  "output": {
+    "path": "ArtSource/refinement/lookdev/native-nearfield/d0c7-dao/dao_grip_forged_factor217_runtime.glb",
+    "sha256": "634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5",
+    "bytes": 4332248
+  },
+  "builder_sha256": "2c88de29d6ff83d98e5c71e83bf56b410480586bcf6bbc9e0094160956d0871a",
+  "rejected_previous_route": "rejected-reencode-budget.json",
+  "unchanged": [
+    "all18 KTX images and MR R/G/B source bytes",
+    "all BIN bytes/views/accessors",
+    "albedo",
+    "roughness G",
+    "edge/spine/normal",
+    "all other material factors",
+    "geometry/UV/N/T/anchors/morphs",
+    "lights/IBL/exposure"
+  ],
+  "native_visual_status": "UNTESTED. Root may privately swap only the player dao for a fixed-light comparison; no formal publication is made here."
+}

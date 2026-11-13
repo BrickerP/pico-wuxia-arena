@@ -1,0 +1,193 @@
+{
+  "status": "REJECTED_REENCODE_CONTROL",
+  "reason": "Source B-only edit caused UASTC decoded G drift beyond the agreed all-mip budget; primary control now changes only the material metallicFactor JSON value.",
+  "old_builder_sha256": "a5ecd0a483fd737439162140a5b11b9fdfe4ff93195a50a40bc7f8306757c220",
+  "source": {
+    "path": "ArtSource/refinement/weapon/stage2/dao_grip_refined.glb",
+    "sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+    "image": 1,
+    "payload_sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002"
+  },
+  "runtime_baseline": {
+    "path": "app/src/main/assets/models/dao_grip.glb",
+    "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "matches_apk": "d0c76247"
+  },
+  "abandoned_operation": {
+    "source_operation": "B=min(originalB,217)",
+    "cap_normalized": 0.8509803921568627,
+    "source_R_G": "bit exact",
+    "selected_texture": 1,
+    "selected_material": "Steel | forged body",
+    "selected_mesh_primitive": [
+      0,
+      0
+    ],
+    "encoded_channels": "UASTC jointly quantizes channels; encoded R/G are measured, never claimed bit exact"
+  },
+  "outputs": {
+    "steel_forged_mr_blue_cap217.png": {
+      "sha256": "62c4dcb648ac6fabfd8a21ef41721e844e3e157066f5b49b48dce0ee0bef740a",
+      "bytes": 147984
+    },
+    "blue_cap217_write_mask.png": {
+      "sha256": "3ea0241e86bb128d563ced2f10e49eec9351083a1c232473b9316e5dee4aa569",
+      "bytes": 3243
+    },
+    "steel_forged_mr_blue_cap217.ktx2": {
+      "sha256": "66b64153716bbc9361718df1be5074ef02f8d5fe4d8e9a3825ff0afcab0f859b",
+      "bytes": 345072
+    },
+    "dao_grip_blue_cap217_runtime.glb": {
+      "sha256": "4b30530203839fcc532bd2cceb197c77eec7c72b12146b5099fa62ed6d0ad906",
+      "bytes": 4677340
+    }
+  },
+  "encoder": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+    "version": "ktx version: v4.4.2",
+    "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+    "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+  },
+  "baseline_encoding_manifest_sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab",
+  "budget_uint8": {
+    "RG_max": 4,
+    "RG_mean": 0.6
+  },
+  "all_mips_RG_budget_pass": false,
+  "mips": [
+    {
+      "level": 0,
+      "size": [
+        1024,
+        1024
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 3,
+      "G_mean": 0.01715564727783203,
+      "pass": true
+    },
+    {
+      "level": 1,
+      "size": [
+        512,
+        512
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 4,
+      "G_mean": 0.03985595703125,
+      "pass": true
+    },
+    {
+      "level": 2,
+      "size": [
+        256,
+        256
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 5,
+      "G_mean": 0.077484130859375,
+      "pass": false
+    },
+    {
+      "level": 3,
+      "size": [
+        128,
+        128
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 7,
+      "G_mean": 0.11376953125,
+      "pass": false
+    },
+    {
+      "level": 4,
+      "size": [
+        64,
+        64
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 9,
+      "G_mean": 0.2099609375,
+      "pass": false
+    },
+    {
+      "level": 5,
+      "size": [
+        32,
+        32
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 8,
+      "G_mean": 0.306640625,
+      "pass": false
+    },
+    {
+      "level": 6,
+      "size": [
+        16,
+        16
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 3,
+      "G_mean": 0.3671875,
+      "pass": true
+    },
+    {
+      "level": 7,
+      "size": [
+        8,
+        8
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 2,
+      "G_mean": 0.609375,
+      "pass": false
+    },
+    {
+      "level": 8,
+      "size": [
+        4,
+        4
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 1,
+      "G_mean": 0.4375,
+      "pass": true
+    },
+    {
+      "level": 9,
+      "size": [
+        2,
+        2
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 0,
+      "G_mean": 0.0,
+      "pass": true
+    },
+    {
+      "level": 10,
+      "size": [
+        1,
+        1
+      ],
+      "R_max": 0,
+      "R_mean": 0.0,
+      "G_max": 0,
+      "G_mean": 0.0,
+      "pass": true
+    }
+  ],
+  "scope": "Historical diagnostic evidence only, not an active or recommended candidate."
+}

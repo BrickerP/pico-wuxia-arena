@@ -1,0 +1,202 @@
+{
+  "status": "FROZEN_ONE_NATIVE_RUNTIME_MATERIAL_PROBE_ROOT_AB_PENDING",
+  "date": "2026-11-13",
+  "apk_sha256": "d0c76247ce0e6957e721e4840a0ea7a5311fe8ba931cb9b45214d0d09088be95",
+  "source_commit": "c07cdf6d440ef02291a12615b393c9c399b3d48a",
+  "current_lighting_sha256": "8d54c3fccc3fb5370ae2153c4fb0af4c51eb1591d3b20ef9faec6af2ac8dc71a",
+  "old_three_line_patch": "alreadyintegrated/frozenhistorical/doNOTreapply",
+  "runtime_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "courtyard_64da_is_not_dao": true,
+  "only_candidate": {
+    "path": "ArtSource/refinement/lookdev/native-nearfield/d0c7-dao/dao_grip_forged_factor217_runtime.glb",
+    "sha256": "634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5",
+    "bytes": 4332248
+  },
+  "only_variable": {
+    "JSON_pointer": "/materials/0/pbrMetallicRoughness/metallicFactor",
+    "material": "Steel | forged body",
+    "mesh_primitive": [
+      0,
+      0
+    ],
+    "previous_effective_factor": 1,
+    "previous_factor_is_glTF_default": true,
+    "new_factor": 0.8509803921568627,
+    "numerator": 217,
+    "denominator": 255,
+    "effective_metallic": "unchanged MR B/255 multiplied by217/255; median approximately0.851 for the near255 source median",
+    "intentional_modulation": true,
+    "difference_from_rejected_cap": "This scales every B texel, including values below217. The abandoned source edit used min(B,217) and left lower values intact. This is a clean multiplier control, not an identical cap operation."
+  },
+  "immutable": {
+    "only_JSON_pointer_changed": "/materials/0/pbrMetallicRoughness/metallicFactor",
+    "previous_explicit_factor": false,
+    "source_effective_factor": 1,
+    "candidate_factor": 0.8509803921568627,
+    "complete_BIN_bytes_bit_exact": 4312988,
+    "BIN_sha256": "e43d1d7192ed09bac5a95af890ff9f8af3492dbf8f539ba18cde6c53b0502a38",
+    "all_bufferViews_bit_exact": 77,
+    "accessors_and_all_payloads_bit_exact": 59,
+    "all18_KTX_payloads_bit_exact": [
+      {
+        "image": 0,
+        "name": "steel_forged_basecolor",
+        "sha256": "583761c24ddf95b6f9733adb781231e0673e0995f59f7615d36a426517112b9e",
+        "bytes": 207089
+      },
+      {
+        "image": 1,
+        "name": "steel_forged_metallicRoughness",
+        "sha256": "741d5a0ea8a6616c4c3bbac9cdf742401cc3891084384cb0e2e2ab97b1ed9737",
+        "bytes": 358636
+      },
+      {
+        "image": 2,
+        "name": "steel_edge_basecolor",
+        "sha256": "073ba206c84faf577b8b5fde284155e5409ce57a215c7784bd9d32fe25ce0aed",
+        "bytes": 20980
+      },
+      {
+        "image": 3,
+        "name": "steel_edge_metallicRoughness",
+        "sha256": "c492049107b71bd0311596907fe7eeb68d76f7115322e06af56bdd31622c1049",
+        "bytes": 71325
+      },
+      {
+        "image": 4,
+        "name": "steel_spine_basecolor",
+        "sha256": "a8cab87ddb8fcd789d97821fa064bee18469928090d53f4e112e02ff1d06ade3",
+        "bytes": 132304
+      },
+      {
+        "image": 5,
+        "name": "steel_spine_metallicRoughness",
+        "sha256": "9810b1cddda356ffb06f61f8fc6a56880d658b995d5b2497d8bd3e0325465ad7",
+        "bytes": 122060
+      },
+      {
+        "image": 6,
+        "name": "brass_aged_basecolor",
+        "sha256": "adecd5f851bec8b8c8960d4647720559355d1a4d7a05994d6b373d2aced5e249",
+        "bytes": 300058
+      },
+      {
+        "image": 7,
+        "name": "brass_aged_metallicRoughness",
+        "sha256": "1eba4169c8b0bb0edd10b40f6eb0ca54cdf2ce81e08aa088b8cf0e89f34ae101",
+        "bytes": 516003
+      },
+      {
+        "image": 8,
+        "name": "steel_wear_basecolor",
+        "sha256": "24179c972584b513fc3907d11ca7024dc6e22ac54e18990fc44d9fe7da1bdc55",
+        "bytes": 200504
+      },
+      {
+        "image": 9,
+        "name": "steel_wear_metallicRoughness",
+        "sha256": "e99940adad97a7d750de8125b1ee3112d07b087ac06ddde7d25a8765a65f3f90",
+        "bytes": 317132
+      },
+      {
+        "image": 10,
+        "name": "brass_contact_basecolor",
+        "sha256": "f7f0e9309658b7d19848b7230d26fdf0644707e7528cb1c63c5f4181e62559cc",
+        "bytes": 394581
+      },
+      {
+        "image": 11,
+        "name": "brass_contact_metallicRoughness",
+        "sha256": "603fd005fdc37da7408e2708fef53437cf4a5a09f4956b72056e6f9f2adaf04d",
+        "bytes": 178233
+      },
+      {
+        "image": 12,
+        "name": "cord_weave_normal",
+        "sha256": "3b5c97f2deda63216941a4ab8830dbbe215c7f2082976e6b729d28bccaf3fc8b",
+        "bytes": 66825
+      },
+      {
+        "image": 13,
+        "name": "cord_weave_basecolor",
+        "sha256": "78bed486c7bf2c8f236d9e4d325e40e42cf13627fb35b7b45aa83b7c90b290ba",
+        "bytes": 435973
+      },
+      {
+        "image": 14,
+        "name": "cord_weave_metallicRoughness",
+        "sha256": "a24d3811739708ce99e542e73472f7c1fca53ff7e9986e6f0014f6dfd6f27614",
+        "bytes": 143912
+      },
+      {
+        "image": 15,
+        "name": "leather_pressed_normal",
+        "sha256": "c65b28cc36b36216acc4c234fd56bbe2cbec6a665f94c7ec7835ba4e4118c250",
+        "bytes": 14714
+      },
+      {
+        "image": 16,
+        "name": "leather_pressed_basecolor",
+        "sha256": "190a3f679a1527d1feb3251360351aec5dcc57434547bf2c9fd5126138b4d9d8",
+        "bytes": 247379
+      },
+      {
+        "image": 17,
+        "name": "leather_pressed_metallicRoughness",
+        "sha256": "3c2e082ae24659085170450d9474c5252e3b1221a391aa9f69e149600bb34a22",
+        "bytes": 216734
+      }
+    ],
+    "all_other_JSON_exact": true,
+    "geometry_UV_N_T_anchors_morphs_textures_samplers_all_other_material_factors_exact": true
+  },
+  "tests": 14,
+  "codec_invocations": 0,
+  "native_visual_benefit": "UNTESTED",
+  "root_integration": "PrivateA/B replaceonlyindependentplayerassets/models/dao_grip.glb; preservealllighting/exposure/IBL/otherassets; recordcandidateSHA. No newcode. EnemyactorinternalDAOunchanged.",
+  "risk_boundary": [
+    "puremetal1notdeclaredassetbug",
+    "workingHomeStagechangedsincec07,headposemissing:reflectionmathconditional",
+    "BASEnewheadandVETERANoriginalheadconfoundskincomparison",
+    "typedcontacttimevsfilebirthnotexposurebridge"
+  ],
+  "signed_albedo_handoff_sha256": "61e0d9baca7411c5db33d867fd9e365db8536fccf452b31694662234b166e3b8",
+  "files": {
+    "dao_grip_forged_factor217_runtime.glb": {
+      "sha256": "634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5",
+      "bytes": 4332248
+    },
+    "build_probe.py": {
+      "sha256": "2c88de29d6ff83d98e5c71e83bf56b410480586bcf6bbc9e0094160956d0871a",
+      "bytes": 8759
+    },
+    "test_probe.py": {
+      "sha256": "b64d6dd18abc890eca834cfdb8d4a9eda92255b9b6b0cda8083a396933223e68",
+      "bytes": 12135
+    },
+    "probe_recipe.json": {
+      "sha256": "41489d44759c18993c04ec7ecfa39808430e435a7bd4a0fde10cfa96134009b0",
+      "bytes": 6319
+    },
+    "tests.json": {
+      "sha256": "21ed65e1f0c2dcebdac4110d57a2137f4d6bd08fcb35226b04e2022849b9ddda",
+      "bytes": 748
+    },
+    "asset-audit.json": {
+      "sha256": "d31091cc085fb36313f7502dc1fc645e075551638d4a793abcbd1d3ec8975b22",
+      "bytes": 39625
+    },
+    "timing-light-audit.json": {
+      "sha256": "d5cb96fa9265e9173074f1a38c6f8262b807e486f080660fe226a0a7e1f823e7",
+      "bytes": 5544
+    },
+    "rejected-reencode-budget.json": {
+      "sha256": "dd0cef5e217b99bcf16322c89cead101517079aa97443f22d3a884587d0de15b",
+      "bytes": 4559
+    },
+    "README.md": {
+      "sha256": "85744702f1c9059c9ca08dc45129915a39117fe70f59980df1d010ca64cd05d2",
+      "bytes": 5771
+    }
+  }
+}

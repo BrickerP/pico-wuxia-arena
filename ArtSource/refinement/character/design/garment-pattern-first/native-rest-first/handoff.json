@@ -1,0 +1,99 @@
+{
+  "status": "FIXED_REST_FIRST_PIECE_FAILED_STOP_NO_GLB",
+  "stage_end": "阶段结束，等待Root review；按本次失败条款已停",
+  "structure_handoff": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/structure/structure_handoff.json",
+    "sha256": "5ca470a63351d3d43d7ee48561d78a9d133123ab0009a3c7e86374e5c8af32c4",
+    "bytes": 103395
+  },
+  "actual_REST_geometry": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/structure/constructed_rest.npz",
+    "sha256": "1538eca4587eee3a820b5a4cce1e31c95046b4e429b9e9565f4896b3c2b0abf5",
+    "bytes": 240551
+  },
+  "export_handoff": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/export/export_handoff.json",
+    "sha256": "177d9acb4514e3478aa69982bb5865c2affa33aa5102d512a107461d5beba5cc",
+    "bytes": 4141
+  },
+  "current_REST_snapshot": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/export/current_rest_snapshot.npz",
+    "sha256": "94eef50e971c3f2d11e5f13a6d796b42a2694596405c3997f301c39026a0dd16",
+    "bytes": 4342517
+  },
+  "source_pattern": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/character/design/garment-pattern-first/pattern/pattern_v2.npz",
+    "sha256": "52e6ba5ce41f6b51928c3122ebf5bdc6a5b0e55e356b061c68697b89f1553c77"
+  },
+  "current_identity": {
+    "raw": {
+      "path": "ArtSource/refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+      "sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec"
+    },
+    "prepared": {
+      "path": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "1cc9aaba1b7ee18c9c9b4be85c82f6ef93be72f9ffd3d9f18b96da920ab594bb"
+    },
+    "library": {
+      "path": "ArtSource/tripo-warrior/library/base.glb",
+      "sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24"
+    },
+    "published": {
+      "path": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24"
+    }
+  },
+  "input_source_state": "Current live78 REST. No guard/cloth/relaxed output consumed as new geometry.",
+  "scheme": "Fixed seam equivalence graph and live-joint 3D construction; shared seam vertices, no sewing force.",
+  "seams_closed": 20,
+  "allowed_open_boundaries": [
+    180,
+    32,
+    32
+  ],
+  "geometric_self_crossings": 160,
+  "source_quad_pair_count": 91,
+  "concrete_witness": {
+    "triangle_ids": [
+      3703,
+      6686
+    ],
+    "source_quad_ids": [
+      1851,
+      3343
+    ],
+    "segment_parameters": [
+      0.0999419256,
+      0.9103488768
+    ],
+    "intersection_points_m": [
+      [
+        -0.1745288132,
+        1.4192835727,
+        -0.0569605554
+      ],
+      [
+        -0.1748349607,
+        1.4191811119,
+        -0.0571362571
+      ]
+    ]
+  },
+  "failure_attribution": [
+    "The v2 seam equivalence graph is intrinsically manifold; the failed operation is this 3D initial placement, not mismatched 2D seam lengths.",
+    "A common shoulder boundary closes all samples, but the adjacent body surface parameterizations fold across each other near the shoulder; exact union alone does not make the interior embedding valid.",
+    "Different front-panel interior maps produce overlapping front-sheet crossings despite the disclosed 5mm nominal layer offset.",
+    "The two-piece sleeve centerline changes its local cross-section frame at the elbow and folds sleeve_front_L near that transition.",
+    "One proper crossing also occurs within the attached collar near its shoulder turn."
+  ],
+  "binding_executed": false,
+  "candidate_GLB_count": 0,
+  "Blender_started": false,
+  "guard_render_produced": false,
+  "production_ready": false,
+  "new_physics_or_relaxation": false,
+  "UV_or_bake": false,
+  "formal_files_modified": false,
+  "protected_and_remove_scope": "17157 exact current p0 rows/triplets reverified; no protected group/hand incident triangles removed. 4254 selected faces still disputed; 1009 group0 retained and right cuff255 not certified anatomical. No combined actor was produced.",
+  "next": "Stop this fixed structural experiment per Root. Do not rename-loop, bind invalid mesh, or fabricate a GLB for a load-only claim."
+}

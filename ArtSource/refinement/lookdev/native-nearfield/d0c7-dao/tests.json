@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "schema": "one-JSON-factor-only-tests",
+  "tests_run": 14,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "test_source_sha256": "b64d6dd18abc890eca834cfdb8d4a9eda92255b9b6b0cda8083a396933223e68",
+  "builder_sha256": "2c88de29d6ff83d98e5c71e83bf56b410480586bcf6bbc9e0094160956d0871a",
+  "two_rebuild_hashes": [
+    "634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5",
+    "634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5"
+  ],
+  "codec_invocations": 0,
+  "candidate_quantization_status": "NO_REENCODING_ALL18_KTX_BIT_IDENTICAL",
+  "limits": "PASS proves the exact one-pointer JSON diagnostic, immutable encoded data and deterministic no-codec builds. Native appearance remains untested."
+}

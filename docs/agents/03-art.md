@@ -1,5 +1,27 @@
 # 03 · 服装结构与装配精修
 
+## Root审核：REST首件不通过，停止该结构实验（2026-11-13）
+
+Root已核native-rest-first/handoff：20条缝闭合为共享拓扑后仍有160对真实自交，未绑定、GLB为0，4254选面仍有衣料语义争议。此件不接受进入正式producer/app；未导出无效GLB的处理正确，不以共享缝数替代可穿戴完整衣形。
+
+冻结本次pattern／REST实物、失败面ID和交点，不重开Cloth、松弛、参数或改名循环，不做UV/bake，也不让03再写无产物报告。下一步由Root恢复Tripo ov官方CLI网络，doctor确证余额后做一次受控图像条件新源，再把真实衣料源交03、头发交05；没有新源不虚构转换器或继续这条失败实验。当前官方API直连未完成、既有7897代理TLS失败，余额未知且未付费；这是Root的外部依赖，不改变正式Tripo人物。Root同时继续07刀面A/B与08刀轨消费定位，整体目标保持active。
+
+## 当前Root原生续派：固定REST衣物结构首件（2026-11-13）
+
+本轮明确原生资产授权覆盖下方“无新任务停止”。仅在既有`garment-pattern-first/`核`pattern_v2`真实缝合关系／弧长和3D初态，把应连缝边做成共享顶点；开放领／腕／下摆保边。按当前78骨REST构造，不读guard结果冒充REST，不Cloth、不松弛、不UV／bake、不扩图。目标为真实REST＋skin衣物GLB及移除／保护范围；只有结构成立才绑定和出真实权重guard。固定方案仍不能成衣时，按具体失败面／缝ID停止，不换名循环。正式源／producer／library／app、Kotlin、构建、设备、Git仍由Root维护。
+
+### 本轮已执行：结构失败，阶段结束，等待Root review
+
+入口：`ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/handoff.json`。已从实际`pattern_v2`重新在当前live REST构造，不复用旧`constructed_guard`几何。20条缝端点及弧长逐条核验并共享顶点，整衣为单连通、可定向；领／前襟／下摆为一允许开口，双腕各一开口，未用大力sewing拉缝。
+
+失败不是缝没闭或骨架变化，而是**3D衣片内域嵌入折返**：实际REST检出160个proper三角自交对、91个原衣片quad对。独立公式确认 `triangle 3703 ↔ 6686 / source quad 1851 ↔ 3343` 在肩顶后身／右内襟邻域有段内交线；另有前襟层间、左袖肘区和内领自交。完整面ID、部件、交点坐标及源映射在 `structure/structure_handoff.json` 与 `structure/constructed_rest.npz`，不是seam接触被误算。
+
+已按失败条款停在绑定前：**未运行绑定、未生成GLB、未启动Blender、未生成guard对照**。`export/bind_rest.py`仅AST检查，不把未运行脚本当验证完成；当前没有合格可装包衣物。当前raw a428／prepared 1cc9／library-app 6ca1、78骨rest及IBM快照已核，未改原脸手、腰裤或正式数据。
+
+原衣移除保护也明确保留边界：旧17157行已按当前p0 ordered triplet重新核实，不是盲套旧SHA；保护集合交集0，原手关联4193面移除0，p1…8保留。但移除集内4254面仍有争议，右腕保留255面、另有1009个group0未确认面，不能说旧硬圈全清或把保守保护域说成裸肤真值。它们不是本轮继续删面或重试的授权。
+
+本轮只交失败REST实物及具体失败位置，按固定方案条件停止；没有拿NPZ／PNG或guard态测试GLB替代原生资产。源码补丁、producer接入、原生动态及艺术通过均未声称完成。
+
 ## 当前有效执行：原生APK资源限定（2026-11-13）
 
 按用户最新纠偏：唯一产品是 **Kotlin＋PICO Spatial SDK 6.1.9 APK**，由Root在PICO Emulator验证，终端Space Pro／OS6。停止HTML／Web／Three.js游戏、浏览器试玩、网页材质光照与新HTML mock；现有文件保留，不维护、不删除他人工作。浏览器仅用于必要官方资料／账号服务，不能作为游戏验收。Root继续独占正式资源接入、共享构建、设备、Git及发布。

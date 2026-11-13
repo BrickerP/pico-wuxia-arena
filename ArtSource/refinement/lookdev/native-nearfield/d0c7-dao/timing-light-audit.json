@@ -1,0 +1,156 @@
+{
+  "scope": "Read-only native screenshots, consumed-contact labels and conditional light/view geometry. No Blender/browser/device/build/Git or code changes.",
+  "apk_sha256": "d0c76247ce0e6957e721e4840a0ea7a5311fe8ba931cb9b45214d0d09088be95",
+  "source_commit": "c07cdf6d440ef02291a12615b393c9c399b3d48a",
+  "image_sha256": {
+    "ready.png": "c36db3e4aeee4dc7eb9ce74ef08129d326fd8e7bc34119afe254b99fbf01d4c4",
+    "trial3-12.png": "13477f3e2add2a663d9e3b36a4796b8821cfb9e5b1a04cd0cf7ddfdeccb6d999",
+    "trial3-36.png": "695551acb65289e9e7cd0ecd71188582c3259a91e5bcf883ea95af2df9d98bd7",
+    "trial3-final.png": "a006ff1764d05802c51016aedf2ab8eb4dea98163d8c0cb02b71e2247c90ba02"
+  },
+  "source_identity": {
+    "SceneLighting_matches_build_pin": true,
+    "SceneLighting_sha256": "8d54c3fccc3fb5370ae2153c4fb0af4c51eb1591d3b20ef9faec6af2ac8dc71a",
+    "NativeImpactLight_matches_build_pin": true,
+    "HomeStage_matches_build_pin": false,
+    "compiled_weapon_pose_path": "UNVERIFIED; do not substitute changed current HomeStage for c07 source"
+  },
+  "typed_timing": [
+    {
+      "image": "trial3-12.png",
+      "host_file_birth_local": "2026-11-13 08:44:55.704853",
+      "last_consumed_contact": {
+        "id": 8,
+        "kind": "SOFT_HIT",
+        "android_log_local": "08:44:50.898",
+        "line": 623
+      },
+      "wall_label_gap_seconds": 4.806853
+    },
+    {
+      "image": "trial3-36.png",
+      "host_file_birth_local": "2026-11-13 08:45:17.463701",
+      "last_consumed_contact": {
+        "id": 17,
+        "kind": "SOFT_HIT",
+        "android_log_local": "08:45:16.194",
+        "line": 2206
+      },
+      "wall_label_gap_seconds": 1.269701
+    },
+    {
+      "image": "trial3-final.png",
+      "host_file_birth_local": "2026-11-13 08:45:41.340400",
+      "last_consumed_contact": {
+        "id": 17,
+        "kind": "SOFT_HIT",
+        "android_log_local": "08:45:16.194",
+        "line": 2206
+      },
+      "wall_label_gap_seconds": 25.1464
+    }
+  ],
+  "timing_boundary": "PNG host file creation is not exposure time. MOV creation is whole-second only. No exact host/Android exposure clock bridge; gaps are NOT strict exposure lower bounds. Later MotionStrike proposals are not new consumed contacts.",
+  "transient_boundary": {
+    "published_source_max_native_light_pulse_ms": 90,
+    "ordinary_head_soft_pulse_ms": 45,
+    "light_enabled_off_receipt": "UNOBSERVED",
+    "legacy_EnemyHitFlash": "Not found by child timing agent in d0c7 DEX/source snapshot; not an exhaustive claim of all shader behavior"
+  },
+  "visual_observation": {
+    "black_blade": "Visible in ready before trial and in terminal victory final; not restricted to a recent impact screenshot. Brass fittings and hands remain lit.",
+    "trial3_36_face": "Bright face with retained brow/nose shading in a falling veteran pose. This single shot does not prove steady lighting vs transient.",
+    "final_face": "Veteran face is outside the useful image region; cannot use final to prove white-face persistence."
+  },
+  "native_lights": {
+    "face_key": {
+      "position_stage_m": [
+        -1.1,
+        2.1,
+        0.45
+      ],
+      "lumens": 20000
+    },
+    "blade_fill": {
+      "position_stage_m": [
+        1.15,
+        1.65,
+        0.25
+      ],
+      "lumens": 8000
+    }
+  },
+  "asset_normal_geometry": {
+    "dao_glb_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "Blade_node_normal_matrix_row_major": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        -1,
+        0
+      ]
+    ],
+    "forged_wide_face_normal_asset_unit": [
+      -0.02392968,
+      0.99970581,
+      -0.00395801
+    ],
+    "asset_centroid_m": [
+      0.0042741,
+      0,
+      -0.4816596
+    ],
+    "rule": "Use inverse transpose of complete consumed linear transform, not blade forward axis. Actor SourceW_RHand/HandGrip chain must not be duplicated onto an already normalized standalone dao."
+  },
+  "conditional_nearby_pose_calculation": {
+    "rawRight_android_label": "08:45:41.090",
+    "position_stage_m": [
+      0.27000001,
+      1.39999998,
+      -0.44999987
+    ],
+    "quaternion_xyzw": [
+      0.1567854288,
+      0.1171305778,
+      0,
+      0.9806624073
+    ],
+    "assumed_path": "W_ObservedPose * standalone DAO Blade-node; not yet verified against compiled c07 consumer",
+    "broad_centroid_stage_m": [
+      0.1635939,
+      1.5505824,
+      -0.8949976
+    ],
+    "broad_normal_stage_unit": [
+      0.0125356,
+      0.9508951,
+      0.3092593
+    ],
+    "N_dot_faceKey_L": 0.4791233,
+    "N_dot_bladeFill_L": 0.3043796,
+    "assumed_head_stage_m": [
+      0,
+      1.6,
+      0
+    ],
+    "head_pose_logged": false,
+    "N_dot_V_ASSUMED": 0.353,
+    "N_dot_key_H_ASSUMED": 0.4362689,
+    "N_dot_fill_H_ASSUMED": 0.3642292,
+    "interpretation": "These lights are on the broad-face illuminated hemisphere, but under the explicitly assumed view both half-vectors remain far from the normal. This supports an off-specular hypothesis, not a measured renderer diagnosis."
+  },
+  "one_controlled_probe": {
+    "type": "local material discrimination only",
+    "change": "forged body effective metallic B capped at0.85; keep edge metallic1, source factors, all G roughness, N/T, lights, IBL, exposure and pose unchanged",
+    "purpose": "Separate pure-metal reflection from a small diffuse contribution under the same existing native lighting. Do not label metal1 a bug or adopt0.85 as production truth without runtime comparison."
+  }
+}

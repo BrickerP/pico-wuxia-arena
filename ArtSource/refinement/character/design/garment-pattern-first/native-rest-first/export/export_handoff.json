@@ -1,0 +1,127 @@
+{
+  "status": "STOP_UPSTREAM_REST_SELF_INTERSECTION_NO_BINDING",
+  "current_rest_snapshot": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/export/current_rest_snapshot.npz",
+    "sha256": "94eef50e971c3f2d11e5f13a6d796b42a2694596405c3997f301c39026a0dd16"
+  },
+  "current_identity": {
+    "raw": {
+      "path": "ArtSource/refinement/material-direction/integration/base_albedo_tangent_raw.glb",
+      "sha256": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec"
+    },
+    "prepared": {
+      "path": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "1cc9aaba1b7ee18c9c9b4be85c82f6ef93be72f9ffd3d9f18b96da920ab594bb"
+    },
+    "library": {
+      "path": "ArtSource/tripo-warrior/library/base.glb",
+      "sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24"
+    },
+    "published": {
+      "path": "app/src/main/assets/models/opponents/base.glb",
+      "sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24"
+    }
+  },
+  "live_joint_count": 78,
+  "actual_indexed_positive_palette_bones": 53,
+  "unused_bones_not_authorized_for_new_weights": [
+    "BoneRoot",
+    "Hip",
+    "L_CalfTwist01",
+    "L_CalfTwist02",
+    "L_KneeShareBone",
+    "L_ThighTwist01",
+    "L_ThighTwist02",
+    "R_KneeShareBone",
+    "R_CalfTwist01",
+    "R_CalfTwist02",
+    "R_ThighTwist01",
+    "R_ThighTwist02",
+    "NeckTwist01",
+    "NeckTwist02",
+    "FacialBone",
+    "L_ForearmTwist01",
+    "L_ForearmTwist02",
+    "L_ElbowShareBone",
+    "L_UpperarmTwist01",
+    "L_UpperarmTwist02",
+    "R_ElbowShareBone",
+    "R_ForearmTwist01",
+    "R_ForearmTwist02",
+    "R_UpperarmTwist01",
+    "R_UpperarmTwist02"
+  ],
+  "structure_handoff": {
+    "path": "ArtSource/refinement/character/design/garment-pattern-first/native-rest-first/structure/structure_handoff.json",
+    "sha256": "481b4b1ed820e1e88801d7ec9823ddcfe34063ec9f5455b7745bd39896cefefc"
+  },
+  "structure_status": "REST_STRUCTURE_FAILED_SELF_INTERSECTION_STOP",
+  "proper_self_crossing_pairs": 160,
+  "first_source_quad_pairs": [
+    [
+      1851,
+      3343
+    ],
+    [
+      1850,
+      3343
+    ],
+    [
+      1851,
+      3343
+    ],
+    [
+      1851,
+      3342
+    ],
+    [
+      1894,
+      3343
+    ],
+    [
+      1851,
+      3343
+    ],
+    [
+      1894,
+      3343
+    ],
+    [
+      1852,
+      3342
+    ],
+    [
+      1852,
+      3342
+    ],
+    [
+      1852,
+      3342
+    ]
+  ],
+  "candidate_glb_produced": false,
+  "binding_executed": false,
+  "blender_started": false,
+  "guard_render_produced": false,
+  "checks": [
+    "Live raw and motion manifest identities match",
+    "Prepared/library output hashes match characters.json",
+    "Published app base equals current library",
+    "All original 78 joint local REST matrices and IBM retained in snapshot",
+    "Code AST parse passed",
+    "No GLB in export directory",
+    "Formal source/producer/library/app unchanged by this agent"
+  ],
+  "pending_integration_contract": {
+    "owner": "Root",
+    "coordinate_space": "Native current raw mesh-local. Solve each target canonical REST point using inverse of weighted native REST skin matrix; never invert guard pose.",
+    "geometry_scope": "Garment-only GLB with native 78 hierarchy and IBM; no body/head/hands/pants/DAO geometry.",
+    "weight_rules": "Source actual indexed positive bone palette only; merge duplicate joints, at most 4 unique positive influences; no unused helper weights.",
+    "root_action_after_geometry_and_binding_pass": "Append garment attributes/indices to current raw, preserve face/hands/waist/pants and original skin defaults; Root alone invokes current motion_library producer.",
+    "removal": "17157 current p0 face rows are a revalidated exact provenance selection, not all certified anatomical cloth. Protected32184 incident faces preserved, remaininggroup0 1009 unresolved. Right cuff retained255 faces (124 mixed), left unknown44; do not expand deletion."
+  },
+  "unverified": [
+    "Binding code has not run; no claim of usable bound candidate",
+    "Guard / skin import / dynamic / art approval not performed"
+  ]
+}

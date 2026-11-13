@@ -1,22 +1,42 @@
-# 07 · PICO原生光影与氛围
+# 07 · 原生光影与局部材质
 
-## Root材质收件（2026-11-12）
+## Root收件：单参数刀材质进入原生A/B队列（2026-11-13）
 
-Root已实际看1.5m original/albedo/final三组并接受albedo_only，不采用roughness追加。**当前已正式发布**：所选颜色delta与05已匹配局部切线修复进入原始源与唯一producer，发布组`1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2`，正式base `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`。Root报告APK`1b905...`已在原生Full Stage显示；本路已核对当前正式资源hash。几何硬折、厚边、受保护区残斑仍在，不因此放行03新几何。以下b732／722ffe与“未发布”均为制作时历史输入／快照，不再代表当前正式状态；本路冻结旧候选，不另作离线衣料A/B。
+Root独立解析正式db28刀与候选634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5：BIN逐字节相同，JSON唯一差异为material0的metallicFactor从缺省1改成217/255。接受为受控原生A/B候选，未接受正式发布；原生改善仍未证明，当前1c41公开包保持db28。
 
-## 当前执行：原生近场配光
+冻结唯一候选及14项离线验证，不再调整灯/全局曝光/IBL或扫描其它系数。BASE/VETERAN头材质不同，不据不同人物截图定死过曝；黑刀反射角度解释仍是假设。下一步Root隔离测试玩家刀同场景实际像素，确认收益后走唯一正式资源产线，敌人内嵌刀不在此候选范围。07不自行覆盖app/producer、构建、设备或Git，不把API参数/离线测试当GPU视觉通过。
 
-只交付现有APK可用的原生候选。Web IBL队列已经终止，不再接入、测试或发布；保留已有文件，不续做网页模块。现有近场补丁及数值收据位于`ArtSource/refinement/lookdev/native-nearfield/`，内容与原件相同，仅移出Web目录。Root统一在PICO Emulator作同机位A/B，不用网页或离线渲染替代。
+## 当前执行合同（2026-11-13）· d0c76247 原生 DAO 单变量候选
 
-### 原生近场诊断 · 仅三点与独立数值patch
+唯一产品交付为 Kotlin＋PICO Spatial SDK6.1.9 APK，PICO Emulator 验证，终端 Space Pro／OS6。Web／HTML／Three游戏、浏览器试玩与网页材质调试已停止，旧文件仅存档；不新增页面，不用离线灯替代原生验收。Root独占正式app／producer／library／manifest、原生接线、构建、设备、Git和发布。本轮只写 `ArtSource/refinement/lookdev/native-nearfield/d0c7-dao/` 及本交接，不改灯、全局IBL、曝光、场景或玩法。
 
-已实际看`artifacts/native-controller-burst/ready.png`及`ArtSource/refinement/presentation/native-input-contact-2026-11-12.png`，构建收据为同一APK`9e5fc90a3d341b6b21a36585594ce25d9b16a10d498b424244a67dcc11b24b2b`；接触图敌血12／100，脸／双手比ready明显泛白。以下为诊断／候选，未执行原生或材质修改。
+**当前已看真实输入**：`artifacts/native-visual-v9-grip-v2-2026-11-13/ready.png`、`trial3-12.png`、`trial3-36.png`、`trial3-final.png`。对应APK `d0c76247ce0e6957e721e4840a0ea7a5311fe8ba931cb9b45214d0d09088be95`，源码 `c07cdf6d440ef02291a12615b393c9c399b3d48a`；Root已真实三轮胜利1062／100HP。这里的“64da”是庭院，不是刀：包内独立DAO仍为 `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0`。当前人物v9不再用下方历史ac7／1b905作当前包身份。
 
-1. **先排短时反馈，未见皮肤来源漂移。** 当前正式ac7、头albedo/MR与既有来源相同，PBR／贴图乘因子无新的提亮设置。head MR全图G中位227、B中位5，偏粗糙／低金属；这不是脸UV专项测量。整人白闪会将除角膜外tripo_*替换为无纹理乳白Unlit持续28ms（致命40ms），与接触图仍清楚可见灰衣纹／蓝裤的外观不符；但接触点光110–290lm、0.6m、60–100ms尚不能排除。Root先找末次新impact至少200ms后、同一近距的稳态帧，不把触发截图直接当稳态灯光证据。
-2. **近场补光是合理首嫌，精确曲线未证明。** 现Spot20,000lm位于(-.35,2.1,+.45)，刀补点光12,000lm位于(+1.15,1.65,+.25)。参考脸心(0,1.55,z)从z−2.4走到−1.1时，Spot距离2.92→1.68m，且光接近正面；近距更亮并压平体积有合理几何基础。SDK只保证距离衰减，未公开精确反平方／cutoff函数；不据此归咎皮肤贴图或改roughness／曝光／IBL。
-3. **最小受控候选已成文件，未应用。** `native-nearfield/native-nearfield.patch`只改三行：Spot X−.35→−1.10m，重新朝原目标(0,1.30,−1.75)，Quat(-.16077158,-.22106092,0,.96191713)，20,000lm与其余Spot参数不变；刀补点光12,000→8,000lm，其余点光参数不变。更偏侧以保脸部体积、降低近手溢光；理想正面Lambert／r²模型仅估计参考ready保约84%、近−1.1m保约61%，不含真实SDK角度／范围／BRDF，绝非实际亮度验证。Root后续以同一包／机位的ready和无新impact近距帧检查眉眼／鼻颊层次、双手、刃边；ready退黑或near仍平白都不能按模型宣称成功。
+### 已合入并冻结：上一轮三行近场光
 
-`native-nearfield/native-nearfield.json`锁原生基线SHA`8243467b7b4e04fa82ff66eff208c212fb9b19d471e01060c4fe58f8c14d8d0e`、参考原图SHA、数值、单位及未验证边界。只在内存验证替换唯一性、四元数归一／瞄向与脸手包络24.47°处于保守外半角37.5°内；没有写原生文件、改曝光、做多轮重渲或占Root设备。已签名albedo handoff SHA `61e0d9baca7411c5db33d867fd9e365db8536fccf452b31694662234b166e3b8`末核保持；所有本轮新增资料仅web-ibl目录和07文档。
+旧 `native-nearfield.patch/json` 的三行已经进入本包：key X=-1.10、20,000lm，原点光fill=8,000lm；SceneLighting SHA `8d54c3fccc3fb5370ae2153c4fb0af4c51eb1591d3b20ef9faec6af2ac8dc71a` 与构建pin一致。旧patch仅存历史，不再重复应用，不等待旧“缺端内画面”状态。新实图仍有黑刀、近场脸／手偏亮的残余，并非把旧侧光记成已解决全部问题。
+
+### 当前根因证据（严格区分已证与条件计算）
+
+1. **文件层未见黑图／通道／法线损坏。** 实际APK DAO与db28逐字节相同。18张KTX经现有官方工具解码：baseColor sRGB、MR／normal linear，无swizzle，rd方向；锻钢RGB均值116/124/129、刃口160/167/172。有效MR中位数：锻钢G=.333/B=1、刃口G=.212/B=1、暗脊G=.518/B=.871。没有额外暗factor、Unlit或emission。法线有限单位化、无反向绕序／负det；钢／铜没有normal map，不能把缺省TANGENT当钢面变黑原因。详见 `asset-audit.json`。
+2. **黑刀不是仅命中帧现象，纯金属反射是待区分项。** ready未开局与final胜利页都黑刀，手和铜件仍可读。trial3日志已对齐PNG文件时间标签，但非精确曝光桥，不能单凭文件时差证明pulse已关。宽面逆转置后约为资产±Y；日志手姿加假设头位(0,1.6,0)时，N·L约.479／.304但半向量离法线约64°／69°，与窄镜面未照到视点一致。这是条件模型；头位没记录，当前HomeStage又与c07 source pin不同，未把当前源码或假设N·V冒充实际运行几何。详见 `timing-light-audit.json`。
+3. **皮肤存在角色材质混杂。** ready的BASE用独立新头材质／贴图，trial3-36的VETERAN及INDIGO仍用各自原全身材质的脸；三套albedo／MR／normal不同。不能用BASE ready对VETERAN倒身脸，宣称仅近场照明导致发白。36只有一张亮脸，final脸已离开有效区域；本候选不改肤材、灯或曝光。
+
+### 唯一可接入候选 · Root原生A/B待收
+
+`d0c7-dao/dao_grip_forged_factor217_runtime.glb`，SHA **634e7b8aff412e53edff7a6cc73932c3c99a7dd607b3436bcc2ef17edd8a8fa5**，4,332,248字节。
+
+只改一个JSON pointer：`/materials/0/pbrMetallicRoughness/metallicFactor`，`Steel | forged body` 的缺省有效1→217/255（.8509803921568627）。这是明确的有效金属度判别，给宽面少量非金属贡献；不把正确的metallic=1判为坏资产，也不预先批准最终视觉。18张KTX、完整BIN4,312,988字节、77views、59accessors、其它材质参数／刃口／粗糙度／颜色／normal／UV／锚点全部逐字节不变；零codec调用。14项测试与两次纯标准库重建完全一致通过。
+
+曾尝试源MR的B裁217后按原UASTC重编码，但小mip的G漂移最多9/255，不能充当严格单变量；这条路线已拒绝并移除生成候选，只留小预算证据 `rejected-reencode-budget.json`。当前仅有一个推荐runtime GLB，没有扫参数、Blender批渲或新增灯／系统。
+
+**Root最小接入点**：同基线私有A/B只替换现有独立玩家刀 `assets/models/dao_grip.glb`，以新SHA记录该包资源identity；无需新Kotlin调用点或重新编码贴图，不改正式producer来做这次诊断。保持其它资产与配光不变。它不自动改变对手actor内置蒙皮刀；对手刀不在本件覆盖内。Root若重建资源，应明确保留本次有意倍率，不能无意归1后称已测候选。
+
+**验收仍待端内**：Root在常用斜举／横持、无新impact窗口看宽面是否可读、亮刃／暗脊是否分层、是否变成灰漆；脸／手不应因这个局部数据变化而改变。若改善，仅支持该姿态下纯金属反射输入／方向不足的假设，不唯一证明IBL布局或SDK采样正确；若不变，不继续加亮世界或叠改其它参数。
+
+配方／完整保护为 `probe_recipe.json`，测试 `tests.json`，复现 `build_probe.py`，正式输入／APK／源图身份已锁定。已签名albedo handoff SHA `61e0d9baca7411c5db33d867fd9e365db8536fccf452b31694662234b166e3b8` 保持不变。原生收益 **UNTESTED／Root待A/B**，没有用数据通过或离线灯声称已改善。
+
+---
 
 ## 已完成续派：原几何上的衣料材质隔离对照 (2026-11-12)
 
@@ -72,19 +92,19 @@ Root实际看正式b03f整人clay与PBR，衣物灰白花斑可能在显著制�
 
 最终图身份：1.5m三联SHA `3b4563b8ce6dcad3f3dbe7dc3ca4b5dff982b14a40a60535d7faa97c2328376a`；0.8m三联SHA `e1bc0f3cc62849133836106224eb9093ce12d98c0fec0c186e0c8ccb0b3ed947`；统一provenance SHA `cdad6e357750f2db9404b2da640636e360e7cb7b8863d2f807e2139a112fabcf`。当前候选冻结，不继续材质参数循环。Root按mask合入当前body图后仍需统一KTX mip检查与端内正常视距图，才可宣称发布效果；本路没有占Root设备、Gradle或Git。
 
-## 当前状态
+## 历史状态（非现行执行队列）
 
-原生v4已由Root以8d1e456e完整加载实图开发接收并保持冻结，SceneLighting SHA `8243467b...d8d0e`；前向Spot20,000lm、刀补12,000lm、IBL指数4（16倍）不再由本路改动。衣料albedo-only又已由Root发布为1b3e／ac7并报告APK1b905原生显示。当前本路只交上面的独立Web IBL候选，不重做离线衣料对照或原生验证；以下逐阶段记录为历史制作证据。
+以下为2026-11-11／12早期v4与材质制作记录。当前状态以顶部d0c76247／c07cdf6为准，三行侧光已合入；Web队列已彻底终止，不再接入或发布。本轮只有顶部一个原生DAO局部参数候选，不自动续跑旧队列。
 
 ## 目标
 
 建立雨夜中式的冷暖光色、脸部体积、刀刃反射与场景纵深。正常玩法画面具有明确主次和空气感，避免整个空间同亮或黑成背景。与06几何共同对齐《黑神话》的环境层次，维持VR出招可读性。
 
-## 所有权
+## 早期所有权（历史；现责任以顶部为准）
 
-负责 ArtSource/refinement/lookdev/、新的 content/SceneLighting.kt 或明确命名的新照明模块，以及本文件。HomeStage／Main由Root最终接线，你给最小接入补丁说明。04旧lighting/stage3候选只读，可复用其HDR和KTX链。
+当时负责 ArtSource/refinement/lookdev/、新的 content/SceneLighting.kt 或明确命名的新照明模块，以及本文件。HomeStage／Main由Root最终接线，你给最小接入补丁说明。04旧lighting/stage3候选只读，可复用其HDR和KTX链。
 
-## 制作队列
+## 早期制作队列（历史，不自动续作）
 
 1. 读取当前HomeStage配光与实际端内图，提出一个强主方向并交可复现光照剖面，明确脸／刀／门楼／路面／远景各层的亮度和色温关系。
 2. 基于已安装SDK官方6.1文档和6.1.9公有类型实现code-owned照明模块，资源和Entity由场景owner持有，失败／取消／销毁完整释放。

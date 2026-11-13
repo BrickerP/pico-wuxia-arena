@@ -1,0 +1,1702 @@
+{
+  "scope": "read-only actual d0c APK DAO versus pinned PNG source; decoder uses stdin/stdout only, no extracted files",
+  "apk": {
+    "path": "artifacts/native-visual-v9-grip-v2-2026-11-13/pico-wuxia-arena-native-visual-v9-grip-v2.apk",
+    "sha256": "d0c76247ce0e6957e721e4840a0ea7a5311fe8ba931cb9b45214d0d09088be95"
+  },
+  "identity": {
+    "source": "ArtSource/refinement/weapon/stage2/dao_grip_refined.glb",
+    "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637",
+    "formal_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "packaged_matches_formal": true,
+    "requested_64da_is_courtyard_not_dao": true
+  },
+  "encoder": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+    "version": "ktx version: v4.4.2",
+    "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+    "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+  },
+  "non_image_semantics_preserved": true,
+  "images": [
+    {
+      "image": 0,
+      "name": "steel_forged_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217",
+      "ktx_payload_sha256": "583761c24ddf95b6f9733adb781231e0673e0995f59f7615d36a426517112b9e",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.02381,
+        0.01866,
+        0.02458
+      ],
+      "decode_error_max": [
+        2,
+        2,
+        2
+      ],
+      "decoded_rgb_mean": [
+        116.1903,
+        123.7542,
+        128.7633
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 1,
+      "name": "steel_forged_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002",
+      "ktx_payload_sha256": "741d5a0ea8a6616c4c3bbac9cdf742401cc3891084384cb0e2e2ab97b1ed9737",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.09696,
+        0.01467
+      ],
+      "decode_error_max": [
+        0,
+        3,
+        2
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        85.3034,
+        252.6617
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 2,
+      "name": "steel_edge_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d",
+      "ktx_payload_sha256": "073ba206c84faf577b8b5fde284155e5409ce57a215c7784bd9d32fe25ce0aed",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.00724,
+        0.00801,
+        0.00565
+      ],
+      "decode_error_max": [
+        2,
+        2,
+        2
+      ],
+      "decoded_rgb_mean": [
+        160.3214,
+        167.3307,
+        172.3179
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 3,
+      "name": "steel_edge_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856",
+      "ktx_payload_sha256": "c492049107b71bd0311596907fe7eeb68d76f7115322e06af56bdd31622c1049",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.01567,
+        0.00858
+      ],
+      "decode_error_max": [
+        0,
+        3,
+        2
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        54.2126,
+        253.6997
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 4,
+      "name": "steel_spine_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11",
+      "ktx_payload_sha256": "a8cab87ddb8fcd789d97821fa064bee18469928090d53f4e112e02ff1d06ade3",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.00394,
+        0.00878,
+        0.00629
+      ],
+      "decode_error_max": [
+        1,
+        1,
+        1
+      ],
+      "decoded_rgb_mean": [
+        54.9711,
+        62.4806,
+        67.4769
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 5,
+      "name": "steel_spine_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70",
+      "ktx_payload_sha256": "9810b1cddda356ffb06f61f8fc6a56880d658b995d5b2497d8bd3e0325465ad7",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.05335,
+        0.13788
+      ],
+      "decode_error_max": [
+        0,
+        3,
+        2
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        132.5817,
+        222.1379
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 6,
+      "name": "brass_aged_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8",
+      "ktx_payload_sha256": "adecd5f851bec8b8c8960d4647720559355d1a4d7a05994d6b373d2aced5e249",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.04941,
+        0.0442,
+        0.02146
+      ],
+      "decode_error_max": [
+        2,
+        2,
+        2
+      ],
+      "decoded_rgb_mean": [
+        55.7326,
+        42.5825,
+        20.701
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 7,
+      "name": "brass_aged_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213",
+      "ktx_payload_sha256": "1eba4169c8b0bb0edd10b40f6eb0ca54cdf2ce81e08aa088b8cf0e89f34ae101",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.05462,
+        0.06071
+      ],
+      "decode_error_max": [
+        0,
+        3,
+        3
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        175.3067,
+        128.978
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 8,
+      "name": "steel_wear_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee",
+      "ktx_payload_sha256": "24179c972584b513fc3907d11ca7024dc6e22ac54e18990fc44d9fe7da1bdc55",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.01807,
+        0.04089,
+        0.01413
+      ],
+      "decode_error_max": [
+        2,
+        1,
+        2
+      ],
+      "decoded_rgb_mean": [
+        95.2621,
+        101.4758,
+        105.6011
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 9,
+      "name": "steel_wear_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b",
+      "ktx_payload_sha256": "e99940adad97a7d750de8125b1ee3112d07b087ac06ddde7d25a8765a65f3f90",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.14527,
+        0.14352
+      ],
+      "decode_error_max": [
+        0,
+        4,
+        3
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        115.9457,
+        214.1435
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 10,
+      "name": "brass_contact_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b",
+      "ktx_payload_sha256": "f7f0e9309658b7d19848b7230d26fdf0644707e7528cb1c63c5f4181e62559cc",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.04098,
+        0.08391,
+        0.12973
+      ],
+      "decode_error_max": [
+        1,
+        2,
+        2
+      ],
+      "decoded_rgb_mean": [
+        114.8311,
+        79.8592,
+        34.9059
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 11,
+      "name": "brass_contact_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1",
+      "ktx_payload_sha256": "603fd005fdc37da7408e2708fef53437cf4a5a09f4956b72056e6f9f2adaf04d",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.00062,
+        0.58606
+      ],
+      "decode_error_max": [
+        0,
+        1,
+        1
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        91.8284,
+        244.4139
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 12,
+      "name": "cord_weave_normal",
+      "roles": [
+        "normal"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6",
+      "ktx_payload_sha256": "3b5c97f2deda63216941a4ab8830dbbe215c7f2082976e6b729d28bccaf3fc8b",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.05498,
+        0.03677,
+        0.01953
+      ],
+      "decode_error_max": [
+        3,
+        2,
+        1
+      ],
+      "decoded_rgb_mean": [
+        127.4753,
+        127.4921,
+        254.87
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 13,
+      "name": "cord_weave_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba",
+      "ktx_payload_sha256": "78bed486c7bf2c8f236d9e4d325e40e42cf13627fb35b7b45aa83b7c90b290ba",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.06743,
+        0.07479,
+        0.10024
+      ],
+      "decode_error_max": [
+        2,
+        2,
+        2
+      ],
+      "decoded_rgb_mean": [
+        66.0462,
+        45.4242,
+        26.7574
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 14,
+      "name": "cord_weave_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc",
+      "ktx_payload_sha256": "a24d3811739708ce99e542e73472f7c1fca53ff7e9986e6f0014f6dfd6f27614",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.0493,
+        0.0
+      ],
+      "decode_error_max": [
+        0,
+        1,
+        0
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        209.6951,
+        0.0
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 15,
+      "name": "leather_pressed_normal",
+      "roles": [
+        "normal"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb",
+      "ktx_payload_sha256": "c65b28cc36b36216acc4c234fd56bbe2cbec6a665f94c7ec7835ba4e4118c250",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0087,
+        0.03183,
+        0.0
+      ],
+      "decode_error_max": [
+        2,
+        2,
+        0
+      ],
+      "decoded_rgb_mean": [
+        127.5612,
+        127.5651,
+        255.0
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 16,
+      "name": "leather_pressed_basecolor",
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "source_payload_sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a",
+      "ktx_payload_sha256": "190a3f679a1527d1feb3251360351aec5dcc57434547bf2c9fd5126138b4d9d8",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.06805,
+        0.0485,
+        0.08291
+      ],
+      "decode_error_max": [
+        2,
+        3,
+        3
+      ],
+      "decoded_rgb_mean": [
+        50.9888,
+        21.4153,
+        16.5086
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "supercompression": 2
+      }
+    },
+    {
+      "image": 17,
+      "name": "leather_pressed_metallicRoughness",
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "source_payload_sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3",
+      "ktx_payload_sha256": "3c2e082ae24659085170450d9474c5252e3b1221a391aa9f69e149600bb34a22",
+      "dfd_samples": [
+        {
+          "bit_offset": 0,
+          "bit_length": 128,
+          "channel_type_hex": "0x0"
+        }
+      ],
+      "orientation": "rd",
+      "swizzle": null,
+      "decode_error_mean": [
+        0.0,
+        0.07837,
+        0.0
+      ],
+      "decode_error_max": [
+        0,
+        2,
+        0
+      ],
+      "decoded_rgb_mean": [
+        255.0,
+        185.915,
+        0.0
+      ],
+      "ktx_profile": {
+        "width": 1024,
+        "height": 1024,
+        "levels": 11,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "supercompression": 2
+      }
+    }
+  ],
+  "materials": [
+    {
+      "material": 0,
+      "name": "Steel | forged body",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.45565,
+        0.48531,
+        0.50495
+      ],
+      "base_linear_mean": [
+        0.17578,
+        0.20131,
+        0.21936
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.29804,
+        0.33333,
+        0.36863
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.96863,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "material": 1,
+      "name": "Steel | sharpened edge",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.62871,
+        0.6562,
+        0.67576
+      ],
+      "base_linear_mean": [
+        0.35331,
+        0.38835,
+        0.41447
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.19608,
+        0.21176,
+        0.22745
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.98431,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "material": 2,
+      "name": "Steel | dark spine",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.21557,
+        0.24502,
+        0.26462
+      ],
+      "base_linear_mean": [
+        0.0382,
+        0.04895,
+        0.05698
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.4902,
+        0.51765,
+        0.55294
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.87059,
+        0.87059,
+        0.87843
+      ]
+    },
+    {
+      "material": 3,
+      "name": "Brass | aged",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.21856,
+        0.16699,
+        0.08118
+      ],
+      "base_linear_mean": [
+        0.03997,
+        0.02407,
+        0.00741
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.63137,
+        0.68627,
+        0.74118
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.37255,
+        0.50588,
+        0.64314
+      ]
+    },
+    {
+      "material": 4,
+      "name": "Steel | uneven wear",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.37358,
+        0.39794,
+        0.41412
+      ],
+      "base_linear_mean": [
+        0.11542,
+        0.13182,
+        0.14342
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.41961,
+        0.4549,
+        0.4902
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.83922,
+        0.83922,
+        0.84706
+      ]
+    },
+    {
+      "material": 5,
+      "name": "Brass | polished ridges",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": null,
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.45032,
+        0.31317,
+        0.13689
+      ],
+      "base_linear_mean": [
+        0.1711,
+        0.08002,
+        0.01674
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.31765,
+        0.36078,
+        0.40784
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.95686,
+        0.95686,
+        0.96078
+      ]
+    },
+    {
+      "material": 6,
+      "name": "Grip | worn cord",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": {
+        "index": 12,
+        "scale": 0.6499999761581421
+      },
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.259,
+        0.17813,
+        0.10493
+      ],
+      "base_linear_mean": [
+        0.05531,
+        0.02711,
+        0.01094
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.75686,
+        0.83137,
+        0.86667
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "material": 7,
+      "name": "Grip | dark oxblood leather",
+      "base_color_factor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic_factor": 1,
+      "roughness_factor": 1,
+      "normal_texture": {
+        "index": 15,
+        "scale": 0.44999998807907104
+      },
+      "extensions": {},
+      "emissive_factor": [
+        0,
+        0,
+        0
+      ],
+      "alpha_mode": "OPAQUE",
+      "double_sided": true,
+      "base_srgb_mean": [
+        0.19996,
+        0.08398,
+        0.06474
+      ],
+      "base_linear_mean": [
+        0.03418,
+        0.0081,
+        0.00556
+      ],
+      "effective_roughness_p5_p50_p95": [
+        0.65098,
+        0.73725,
+        0.78039
+      ],
+      "effective_metallic_p5_p50_p95": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "geometry": [
+    {
+      "node": "Blade",
+      "mesh": 0,
+      "primitive": 0,
+      "material": 0,
+      "vertex_count": 3076,
+      "face_count": 1560,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999494078721,
+        1.000000126685533
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 1560,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        780,
+        780,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Blade",
+      "mesh": 0,
+      "primitive": 1,
+      "material": 1,
+      "vertex_count": 1087,
+      "face_count": 541,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999507267506,
+        1.0000001304338573
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 541,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        260,
+        260,
+        21
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Blade",
+      "mesh": 0,
+      "primitive": 2,
+      "material": 2,
+      "vertex_count": 168,
+      "face_count": 151,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999744388927,
+        1.0000000608311101
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 151,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        0,
+        0,
+        151
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Blade collar",
+      "mesh": 1,
+      "primitive": 0,
+      "material": 3,
+      "vertex_count": 196,
+      "face_count": 252,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.999999958503083,
+        1.0000000892712688
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 252,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        192,
+        0,
+        60
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Blade | asymmetric wear",
+      "mesh": 2,
+      "primitive": 0,
+      "material": 4,
+      "vertex_count": 162,
+      "face_count": 54,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999504209471,
+        1.000000107151599
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 54,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        50,
+        4,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Blade | shallow fuller",
+      "mesh": 3,
+      "primitive": 0,
+      "material": 2,
+      "vertex_count": 1040,
+      "face_count": 520,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999428877231,
+        1.0000001289796678
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 520,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        260,
+        260,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Grip ferrule",
+      "mesh": 4,
+      "primitive": 0,
+      "material": 5,
+      "vertex_count": 163,
+      "face_count": 188,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999698704661,
+        1.0000000662356334
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 188,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        128,
+        0,
+        60
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Grip | cord wrap",
+      "mesh": 5,
+      "primitive": 0,
+      "material": 6,
+      "vertex_count": 1442,
+      "face_count": 1440,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999367063052,
+        1.0000001376793892
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 1440,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        1440,
+        0,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Guard pin 1",
+      "mesh": 6,
+      "primitive": 0,
+      "material": 5,
+      "vertex_count": 264,
+      "face_count": 120,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.999999925672017,
+        1.0000000783057001
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0935000662337985e-08,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 120,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        120,
+        0,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Guard pin 2",
+      "mesh": 7,
+      "primitive": 0,
+      "material": 5,
+      "vertex_count": 264,
+      "face_count": 120,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.999999925672017,
+        1.0000000783057001
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0935000662337985e-08,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 120,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        120,
+        0,
+        0
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Guard | flared oval",
+      "mesh": 8,
+      "primitive": 0,
+      "material": 3,
+      "vertex_count": 704,
+      "face_count": 1404,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999324294605,
+        1.0000001069304978
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 1404,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        1260,
+        20,
+        124
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Guard | outer rim",
+      "mesh": 9,
+      "primitive": 0,
+      "material": 5,
+      "vertex_count": 384,
+      "face_count": 764,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.999999948512065,
+        1.0000001110175303
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 764,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        630,
+        10,
+        124
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Handle core",
+      "mesh": 10,
+      "primitive": 0,
+      "material": 7,
+      "vertex_count": 276,
+      "face_count": 380,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999313896615,
+        1.0000001124299804
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 380,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        320,
+        0,
+        60
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Pommel ring",
+      "mesh": 11,
+      "primitive": 0,
+      "material": 5,
+      "vertex_count": 169,
+      "face_count": 188,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999657481541,
+        1.0000000884447589
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 188,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        128,
+        0,
+        60
+      ],
+      "all_source_runtime_attributes_equal": true
+    },
+    {
+      "node": "Pommel | brass",
+      "mesh": 12,
+      "primitive": 0,
+      "material": 3,
+      "vertex_count": 512,
+      "face_count": 1020,
+      "normal_all_finite": true,
+      "normal_length_minmax": [
+        0.9999999282945772,
+        1.000000108539378
+      ],
+      "zero_normals": 0,
+      "world_determinant": 1.0000000000000004,
+      "tangent_present": false,
+      "geometric_nondegenerate_triangles": 1020,
+      "normal_winding_opposed": 0,
+      "uv_finite": true,
+      "uv_det_negative_positive_zero": [
+        758,
+        138,
+        124
+      ],
+      "all_source_runtime_attributes_equal": true
+    }
+  ],
+  "conclusion": {
+    "wrong_unlit_or_emissive_material": false,
+    "double_factor_modulation": false,
+    "all_image_role_transfer_metadata_correct": true,
+    "source_runtime_normals_uv_geometry_identical": true,
+    "steel_materials_have_no_normal_map": true,
+    "tangents_absent_both_source_and_runtime": true,
+    "all_world_transform_determinants_positive": true,
+    "not_proven": "Native decoder/material readback and reflected lighting direction are not measured by this offline audit"
+  },
+  "normal_handedness_boundary": {
+    "tangent_streams": "absent in both exact sources",
+    "normal_mapped_materials_only": {
+      "Grip | worn cord": 0.65,
+      "Grip | dark oxblood leather": 0.45
+    },
+    "steel_brass_normal_maps": "none",
+    "native_mikktspace_or_derivative_handedness": "not observed; existing stage2/verify_geometry.py:248 also explicitly leaves SDK tangent generation/handedness unverified",
+    "uv_mirror_note": "negative and positive UV triangle orientation occurs; preserved exactly by compression, no new parity inversion introduced"
+  },
+  "forged_probe_binding": {
+    "source_image_index": 1,
+    "source_texture_index": 1,
+    "source_payload_sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002",
+    "size": [
+      1024,
+      1024
+    ],
+    "references": [
+      {
+        "material": 0,
+        "name": "Steel | forged body",
+        "role": "metallicRoughnessTexture",
+        "texture": 1
+      }
+    ],
+    "diagnostic_scope": "B cap .85 would be an effective-metallic diagnostic only, not evidence scalar-one is erroneous"
+  },
+  "forged_geometry_direction": {
+    "node_index": 0,
+    "node": {
+      "mesh": 0,
+      "name": "Blade",
+      "translation": [
+        0,
+        0,
+        -0.11400000005960464
+      ],
+      "rotation": [
+        -0.7071067811865476,
+        0,
+        0,
+        0.7071067811865476
+      ]
+    },
+    "parent_chain": [
+      [
+        15,
+        "Grip"
+      ]
+    ],
+    "matrix_order": "row-major mathematical matrices below; original glTF matrix fields remain column-major",
+    "local_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -2.220446049250313e-16,
+        1.0000000000000002,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0000000000000002,
+        -2.220446049250313e-16,
+        -0.11400000005960464
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "asset_world_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        -2.220446049250313e-16,
+        1.0000000000000002,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0000000000000002,
+        -2.220446049250313e-16,
+        -0.11400000005960464
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "primitive": 0,
+    "material": "Steel | forged body",
+    "bbox_local": [
+      [
+        -0.023000000044703484,
+        0.014999999664723873,
+        -0.0031999999191612005
+      ],
+      [
+        0.05307599902153015,
+        0.7350000143051147,
+        0.0031999999191612005
+      ]
+    ],
+    "bbox_asset": [
+      [
+        -0.023000000044703484,
+        -0.0031999999191612135,
+        -0.8490000143647195
+      ],
+      [
+        0.05307599902153015,
+        0.003199999919161198,
+        -0.12899999972432852
+      ]
+    ],
+    "centroid_area_weighted_local": [
+      0.004274083403385669,
+      0.36765961155654797,
+      -1.0401887885864245e-07
+    ],
+    "total_area_m2": 0.04087585046573728,
+    "normal_clusters": [
+      {
+        "dominant_axis": "-Z",
+        "triangle_count": 780,
+        "area_m2": 0.020437921165670617,
+        "area_fraction": 0.49999990049875476,
+        "area_weighted_geometric_normal": [
+          -0.023840293271121905,
+          0.003943274954745524,
+          -0.9961037672687163
+        ],
+        "area_weighted_shading_normal": [
+          -0.023843702714941954,
+          0.0039437851809601895,
+          -0.9961137624085673
+        ],
+        "area_weighted_centroid_local": [
+          0.004274072771886835,
+          0.36765951514295114,
+          -0.0024313972615533632
+        ]
+      },
+      {
+        "dominant_axis": "+Z",
+        "triangle_count": 780,
+        "area_m2": 0.020437929300066656,
+        "area_fraction": 0.5000000995012451,
+        "area_weighted_geometric_normal": [
+          -0.02384028378256833,
+          0.003943273385302764,
+          0.9961033708145345
+        ],
+        "area_weighted_shading_normal": [
+          -0.023843704975315714,
+          0.003943793700830201,
+          0.9961137626761228
+        ],
+        "area_weighted_centroid_local": [
+          0.0042740940348802575,
+          0.36765970797010633,
+          0.0024311882561290203
+        ]
+      }
+    ],
+    "native_stage_boundary": "source asset frame only; actual controller rotation/native presentation is not in GLB"
+  }
+}

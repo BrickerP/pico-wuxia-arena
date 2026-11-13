@@ -1,20 +1,24 @@
 # 01 · 动作源与战斗姿态
 
+## Root本轮收件：保持v9，动作复核阶段结束（2026-11-13）
+
+Root已收3张真实原生帧及有界复核：未确证颈部跳断、肩肘脱节或刀具脱手；部分手部遮挡和source时间对齐限制保留，不推成整段动态品质通过。v9已由唯一producer正式重导，bfaf53b／1c41包实际三轮通关并可重试。接受本轮动作收口，冻结v9，不开v10、不重复离线渲染或扩大招式。Root下一优先为服装、刀面与刀轨；无明确新动作缺陷时01不空转，也不把流程证据当所有攻防动作验收完成。
+
 ## 最新用户目标与执行队列
 
 2026-11-11扩展分工已生效，完整地图见[并行制作入口](README.md)。你继续负责动作源与正常视距可见的站姿、引刀、随势、防御支撑、弹反卸力、受击与行走转身。09接正式bank／正常循环／动画与代理，05接头脸，Root统一producer和发布。
 
-Root已接受fine-overhead v9进入开发整合，上劈保留211键／120Hz，左右攻击保留原106键；v7／v8和历史stage5源继续冻结。当前等待Root本次原生A/B反馈，再决定下一轮动作调整。把动作力度和人体重心作为重点，避免只用细微角度与误差小数作为完成证明。每项交原生曲线、真实刀尖轨迹、源时间、足底与双手可见图／短片。与09交换来刀侧和接触标记，与03交换服装动作穿插。公共prepare_character_library和prepare_rigged_warrior由Root内部生产线维护，你不再编辑它们。
+Root已接受fine-overhead v9进入开发整合，上劈保留211键／120Hz，左右攻击保留原106键；v7／v8和历史stage5源继续冻结。Root已回执v9原生三轮通关，本次限3张实际原生帧完成一次动作目视复核，等待Root review／续派后再调整。把动作力度和人体重心作为重点，避免只用细微角度与误差小数作为完成证明。每项交原生曲线、真实刀尖轨迹、源时间、足底与双手可见图／短片。与09交换来刀侧和接触标记，与03交换服装动作穿插。公共prepare_character_library和prepare_rigged_warrior由Root内部生产线维护，你不再编辑它们。
 
 ## 当前状态
 
-**Root已接收v9，原生验证中。** Root源审接受低头改善，未发现新的刀路／足底／握持倒退；唯一producer正式publish已exit0，三角色binding与候选匹配，前缀为 `365578…`。Root已重生typed与identity pins，正在合包进行原生A/B。当前不代表APK／Space Pro验收通过。
+**v9原生三轮已获Root回执，单次动作抽帧复核已结束。** 正式binding `365578…`、三角色及typed／profiles／pins齐套；Root回执源码 `bfaf53b`／APK `1c41cfc3…` 实际三轮895分／60HP、349测试通过。[发布录像](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4)已存在，不再将缺APK或原生输入作为阻塞。该回执属于PICO Emulator，Space Pro真机未由本路验收。
 
-**源码制作阶段结束，等待Root本次原生反馈。** v9保持211键／120Hz，不离线开v10、不降采样、不重渲；不改正式producer、资源、设备或Git。source .50–.65秒快抬头保留为实际原生观察项，收到这次反馈后再调整。
+**阶段结束，等待Root review／续派。** 本次仅从既有trial2原生录像抽取并目视3张原尺寸帧，结论见当前合同。未确证需要返修的问题，保持v9的211键／120Hz；不开v10、不降采样、不重渲，不改动作源、正式库／producer／Kotlin／设备／Git。
 
 ## 当前精细上劈合同（2026-11-13）
 
-唯一新增责任为 `ArtSource/refinement/hand-poses/fine-overhead/` 私有候选与本交接。唯一产品交付为Kotlin + PICO Spatial SDK6.1.9的原生APK，终端Space Pro／OS6，由Root统一构建、PICO Emulator验收与发布。本路只交可由现有producer接入APK的动作GLB与明确重导输入；离线两机位短片仅作Root已要求的动作源审阅证据。停止HTML／Web／Three.js、网页材质与新mock页面工作，已有网页不改不删。本轮基于已审v7，限定颈胸低俯与必要的准备肘修正，保留已改善的髋肩随势。骨长、rest、敌人规则、伤害、原刀路与整体1.75秒时标保持既定合同。实际v9仅调整两颈rotation，未动胸肩或准备肘。
+唯一新增责任为 `ArtSource/refinement/hand-poses/fine-overhead/` 私有候选与本交接。唯一产品交付为Kotlin + PICO Spatial SDK6.1.9的原生APK，终端Space Pro／OS6，由Root统一构建、PICO Emulator验收与发布。本路只交可由现有producer接入APK的动作GLB与明确重导输入；离线两机位短片仅作Root已要求的动作源审阅证据。停止HTML／Web／Three.js、网页材质与新mock页面工作，已有网页不改不删。v9制作阶段基于已审v7，限定颈胸低俯与必要的准备肘修正，保留已改善的髋肩随势；该制作合同已结束，本次只做一次实际v9目视复核，最多3张原生帧、最多3条结论，未确证问题不改源。骨长、rest、敌人规则、伤害、原刀路与整体1.75秒时标保持既定合同。实际v9仅调整两颈rotation，未动胸肩或准备肘。
 
 本轮冻结正式对照GLB SHA-256为 `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20`，profile为 `04b225ac95aafc13b5d38dec5bbb55cf278b235514b4e7ca864fdebb20af3e90`。正式守势用于03衣片对照。原生动作源为refined-base60k/slash.glb的连续骨曲线，SHA `98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a`。派生制作记录实际采样与约束修正来源，采用单调时间映射及连续肘平面，入口／出口回当前canonical guard。
 
@@ -25,9 +29,16 @@ Root已接受fine-overhead v9进入开发整合，上劈保留211键／120Hz，�
 Root已交原生真实输入实录 [native-input-contact-2026-11-12.mp4](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/presentation/native-input-contact-2026-11-12.mp4)及同名PNG／JSON，记录SDK鼠标进入同一resolver、SOFT_HIT／敌人护刀和敌血100降12。此为已接入基础，本轮源审阅以该正式身体／刀为对照。
 
 
+### 本次原生动作目视复核（2026-11-13）
+
+1. **快抬眼未见确证返修点。** 实际[帧1](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/native-v9-2026-11-13/native_01.png)／[帧2](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/native-v9-2026-11-13/native_02.png)／[帧3](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/hand-poses/fine-overhead/review/native-v9-2026-11-13/native_03.png)来自[trial2-window.mov](/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/native-visual-v9-grip-v2-2026-11-13/trial2-window.mov)的PTS29.150000／29.291667／29.433333秒，HUD依次为蓄势／蓄势／起势。trial2为Root说明的同v9动作源、仅后续终局日志诊断代码不同版本，不冒充发布APK逐字节相同的录像。正常游戏视距下，头从前俯经可见中间姿态转向前方，未见颈部跳断或位置突移；三帧不充当150ms连续节奏全面通过证明。定位依据是[trial2.log](/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/native-visual-v9-grip-v2-2026-11-13/trial2.log:462)中OVERHEAD attackId1的08:30:22.643 STARTUP／source.6511296。按录像文件birthtime00:29:53.279056Z估算source约.44／.58／.72，文件birth不是已校准首帧时钟，故不把估值冒充精确source.50／.575／.65。
+2. **肩肘、手刀未见明确脱节。** 同三帧中持刀肩肘随引刀换位，右手／刀柄仍相连，头颈与衣领未见明显裂开或悬浮；左护手保持在胸前侧。持刀手部分被头肩遮住，不据此宣称所有握持面无穿插。前景横贯胸前的是玩家刀，未作为敌人刀路或脱手证据。
+3. **保持v9，等待Root决定下一项。** [同场日志](/Users/yupeng/projects/personal/pico-wuxia-arena/artifacts/native-visual-v9-grip-v2-2026-11-13/trial2.log)记录该OVERHEAD完整PREPARING→STARTUP→ACTIVE→RECOVERING→IDLE及PLAYER_HIT，另有完整LEFT／RIGHT，未为侧击增加抽帧。本次未确证动作源需返修，不创建v10或改正式资源；以Root已完成的原生三轮与本次有限目视为现有证据，后续仅按Root新派发的具体问题调整。**阶段结束，等待 review。**
+
+
 ## fine-overhead v9本阶段交付（2026-11-13）
 
-**源码制作阶段已结束，Root源审已接受v9进入开发整合，现等待本次原生反馈。** 先交水平眼高v7完整诊断片，确认低俯来自源颈部折叠与旧相机俯视叠加，再修两颈曲线。v7与原证据未覆盖，v8失败留证，未扩另一招或改刀路。
+**源码制作阶段已结束，Root源审与原生三轮回执已收件，本次单次目视复核见当前合同。** 先交水平眼高v7完整诊断片，确认低俯来自源颈部折叠与旧相机俯视叠加，再修两颈曲线。v7与原证据未覆盖，v8失败留证，未扩另一招或改刀路。
 
 ### 审阅入口
 
@@ -61,13 +72,13 @@ v8从起手即抬眼，在source.4667／.4833／.5000的原准备刀弧出现3�
 
 ### Root接收与原生验证回执（2026-11-13）
 
-Root回执明确接受v9进入开发整合，三视图低头改善有效，未见新的刀路／足底／握持倒退。唯一producer已采用authoring逐clip精确timegrid合同，OVERHEAD保留211键／120Hz，LEFT／RIGHT各106键；grounding透传同一条已验证timeline，相关17项测试通过。正式publish已exit0并匹配三角色候选binding `365578…`，typed与identity pins由Root重生，目前进入合包原生A/B。
+Root回执明确接受v9进入开发整合，三视图低头改善有效，未见新的刀路／足底／握持倒退。唯一producer已采用authoring逐clip精确timegrid合同，OVERHEAD保留211键／120Hz，LEFT／RIGHT各106键；grounding透传同一条已验证timeline，相关17项测试通过。正式publish已exit0并匹配三角色候选binding `365578…`，typed与identity pins由Root重生。Root现已回执源码bfaf53b／APK1c41cfc3…真实三轮895分／60HP、349测试通过；本路未重新构建或操作设备。
 
 接入入口仍为清单production_entry指定的 `motion_library.json`／`attack_source.clips[name=attack_overhead]` 与完整v9 raw。v9包含v7已重作的身体／右臂／手和刀轨，不是向旧bank叠两条颈补丁。三向authoring_manifest、三target profiles、hand signatures、binding及每target原grip、一次校正与grounding由Root唯一生产线维护；本路未修改这些正式文件。以上发布／17测试为Root回执，不记作本路另行构建或设备验收。
 
-source.50前保留v7原头姿以让准备刀弧通过，全招最深俯视仍约37.94°，不能声称整段只剩9.65°。150ms混入是较快抬眼，Head最大离散步进3.193°／120Hz、速度约383.2°／s；已看真实.500／.533／.567／.600／.633／.667连续样本呈逐步抬起，最终节奏、原准备肘外展及身体俯身仍由Root审。C2仅描述混合包络，未证明LINEAR节点瞬时导数或连续时间无穿插。640全景也不覆盖瞳孔和1–2px normal seam。Root已完成本次正式生产线发布；实际原生观察继续核source.50–.65的快抬头、SDK过渡和接触节奏、三target／03衣片组合与足底／握持连续性。PICO Emulator／Space Pro验收结论仍待Root本次反馈。
+source.50前保留v7原头姿以让准备刀弧通过，全招最深俯视仍约37.94°，不能声称整段只剩9.65°。150ms混入是较快抬眼，Head最大离散步进3.193°／120Hz、速度约383.2°／s；已看真实.500／.533／.567／.600／.633／.667连续样本呈逐步抬起，最终节奏、原准备肘外展及身体俯身仍由Root审。C2仅描述混合包络，未证明LINEAR节点瞬时导数或连续时间无穿插。640全景也不覆盖瞳孔和1–2px normal seam。Root已完成正式生产线发布与PICO Emulator三轮实战；本次已用3张原生帧完成有限动作目视，未见确证返修点。未扩展三角色全表面或Space Pro验收，精确连续节奏不由三帧证明。
 
-本轮源码与离线源验证已收口，**阶段结束，等待Root本次原生反馈**。当前waiting，不新开v10、不降采样、不重渲，不修改正式producer／资源／设备／Git；只在收到这次原生反馈后再调整。
+本轮源码与离线源验证已收口，原生回执及本次单次目视结论已更新，**阶段结束，等待Root review／续派**。当前waiting，不新开v10、不降采样、不重渲，不修改正式producer／资源／设备／Git。
 
 ## fine-overhead v7历史阶段交付
 
