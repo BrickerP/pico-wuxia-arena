@@ -310,7 +310,7 @@ function mergeStatics(){
   window.__mergedStatics=saved;
  }catch(e){window.__mergeErr=(e&&e.message)||String(e);}
 }
-function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;document.body.prepend(renderer.domElement);
+function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();camera.add(freeRig);freeHandR=handRig(freeRig,1);freeHandL=handRig(freeRig,-1);freeBlade=new THREE.Group();freeRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.0006;sun.shadow.normalBias=.028;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
@@ -1016,12 +1016,40 @@ function pivotToBone(pivot,boneName){
  root.position.sub(lp);
  root.updateMatrixWorld(true);
 }
+function tintWrap(mesh,wrapRGB){
+ const g=mesh.geometry,si=g.attributes&&g.attributes.skinIndex,sw=g.attributes&&g.attributes.skinWeight,sk=mesh.skeleton;
+ if(!si||!sw||!sk)return;
+ const skinBone=sk.bones.map(b=>/hand|thumb|index|middle|ring|little|pinky|wrist|palm|finger/i.test(b.name||''));
+ const col=new Float32Array(si.count*3),w=new THREE.Color(wrapRGB[0],wrapRGB[1],wrapRGB[2]);
+ for(let i=0;i<si.count;i++){
+  let skinW=0,tot=0;
+  for(let k=0;k<4;k++){
+   const idx=si.array[i*4+k],wt=sw.array[i*4+k];
+   tot+=wt;if(skinBone[idx])skinW+=wt;
+  }
+  const k=tot>0?1-skinW/tot:0;
+  col[i*3]=1+(w.r-1)*k;col[i*3+1]=1+(w.g-1)*k;col[i*3+2]=1+(w.b-1)*k;
+ }
+ g.setAttribute('color',new THREE.BufferAttribute(col,3));
+}
+function makeBracer(){
+ const g=new THREE.Group();
+ const mat=new THREE.MeshStandardMaterial({color:0x2a1f19,roughness:.66,metalness:.08});
+ const body=new THREE.Mesh(new THREE.CylinderGeometry(.105,.150,.42,16,1,true),mat);
+ body.rotation.z=Math.PI/2;body.position.set(.30,0,.004);body.castShadow=true;
+ const rim=new THREE.Mesh(new THREE.TorusGeometry(.148,.016,8,20),new THREE.MeshStandardMaterial({color:0x6f5230,roughness:.45,metalness:.55}));
+ rim.rotation.y=Math.PI/2;rim.position.set(.515,0,.004);
+ const rim2=new THREE.Mesh(new THREE.TorusGeometry(.108,.014,8,20),new THREE.MeshStandardMaterial({color:0x33251a,roughness:.7,metalness:.2}));
+ rim2.rotation.y=Math.PI/2;rim2.position.set(.095,0,.004);
+ g.add(body);g.add(rim);g.add(rim2);return g;
+}
 function paintHand(root){
  root.traverse(o=>{
   if(!o.isMesh)return;
   const n=(o.material&&o.material.name)||'';
   if(/Cloth|cloth|Closure/i.test(n)){o.visible=false;return;}
-  else o.material=new THREE.MeshStandardMaterial({color:0x8d6a4d,roughness:.82,metalness:.02});
+  o.material=new THREE.MeshStandardMaterial({color:0x5a3c28,roughness:.95,metalness:.0,vertexColors:true,emissive:0x120b07,emissiveIntensity:.55});
+  tintWrap(o,[.55,.5,.44]);
   o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;
  });
 }
@@ -1055,8 +1083,8 @@ function loadEmbeddedModels(){
   if(freeHandL){freeHandL.clear();freeHandL.add(realHandL);}
   if(freeBlade){freeBlade.clear();freeBlade.add(realDao);}
   applyHandCfg();
-  if(realHandR)pivotToBone(realHandR,'R_Hand');
-  if(realHandL)pivotToBone(realHandL,'L_Hand');
+  if(realHandR){pivotToBone(realHandR,'R_Hand');}
+  if(realHandL){pivotToBone(realHandL,'L_Hand');}
 
   window.__handReady=true;window.__handDims={r:[realHandR.position.x,realHandR.position.y,realHandR.position.z],l:[realHandL.position.x,realHandL.position.y,realHandL.position.z]};
  }).catch(e=>{window.__handErr=(e&&e.message)||String(e);});
@@ -1508,7 +1536,7 @@ function checkEnemyBreak(p){if(enemy&&enemyPrecision)enemy.posture=enemyPrecisio
 
 function contactEvents(list){for(const c of list){if(terminal)break;if(['body','head'].includes(c.zone)&&list.some(x=>['blade','grip'].includes(x.zone)&&x.j>.009))continue;physicsEvent={closing:+c.closing.toFixed(3),energy:+c.energy.toFixed(4),impulse:+c.j.toFixed(4),normal:c.n.toArray(),relative:c.preA.clone().sub(c.preB).toArray()};if(physicsEvent){physicsEvent.surface=c.zone;physicsEvent.contactKey=c.key;}const key=(c.zone==='grip'?'enemy-grip':c.key)+':'+(moveAction?.id||0)+':'+(enemy?.attackId||0),old=contactCache.get(key);if(old&&old.dealt){old.last=time;continue;}const entry={last:time,dealt:false,moveId:moveAction?.id||0,attackId:enemy?.attackId||0};contactCache.set(key,entry);const impact=c.closing>=.35&&c.j>.009,active=moveActive();if(['blade','grip','wall','stone'].includes(c.zone)&&moveAction&&actionStage()==='wind'&&c.j>.009){obstructMove(c.p,c.n);emit('起手碰钢 · 受阻收势','clash',c.p);entry.dealt=true;continue;}if(c.zone==='grip'&&(impact||c.j>.009)){if(enemy.type!=='grab'&&enemy.phase==='release'&&!enemy.resolved&&(guarding()&&guardMatches()&&!moveInRelease()||active)){enemy.resolved=true;releasePose=physicalEnemyLocal();enemy.phase='recover';enemy.elapsed=0;stamina=Math.max(0,stamina-10);spendPlayerPrecision(18);stats.blocks++;emit('挡住护手 · 收刀读续招','block',c.p);}if(active){pressureEnemy({type:moveAction.type});obstructMove(c.p,c.n);consumeStroke();emit('护手受阻 · 收刀换路','clash',c.p);}entry.dealt=true;continue;}if(c.zone==='blade'){
 if(enemy.type!=='grab'&&enemy.phase==='release'&&!enemy.resolved&&(impact||guarding()&&c.j>.009)){const a=moveAction,iss=false;if(iss){enemy.resolved=true;enemy.phrase=[];spendEnemyPrecision(35);enemy.hp=Math.max(0,enemy.hp-40);if(physicsEvent)physicsEvent.damage=40;stats.issens++;score+=40;consumeStroke();releasePose=physicalEnemyLocal();enemy.phase='open';enemy.elapsed=0;enemy.open=.62;emit('一闪 · 抢攻截刃','issen',c.p);cineNow('parry','一闪',0);camShotNow('swing',.34,{side:.65,roll:.036});checkEnemyBreak(c.p);if(enemy.hp===0){enemy.dead=true;enemy.phase='dead';enemy.elapsed=0;intermission=1.3;score+=50;emit('一闪截胜 · 收刀','win',c.p);}}
-else if(guarding()&&enemy.tone!=='black'&&!moveInRelease()&&time>=playerBrokenUntil){enemy.resolved=true;const aligned=guardMatches(),precise=aligned&&parryIntent?.attack===enemy.attackId&&parryIntent.direction===guardDirection&&time<=parryIntent.until;parryIntent=null;releasePose=physicalEnemyLocal();if(precise){enemy.phrase=[];enemy.phase='open';enemy.elapsed=0;enemy.open=.62;stamina=Math.min(100,stamina+7);pressureEnemy({parry:true});spendPlayerPrecision(5);counterUntil=time+CANCEL.counterWindow;stats.parries++;score+=12;emit('化劲 · 主动反斩','parry',c.p);checkEnemyBreak(c.p);}else if(aligned){stamina=Math.max(0,stamina-10);spendPlayerPrecision(18);stats.blocks++;enemy.phase='recover';enemy.elapsed=0;emit('架刀 · 续招将至','block',c.p);}else{stamina=Math.max(0,stamina-11);spendPlayerPrecision(24);stats.blocks++;stats.skewBlocks=(stats.skewBlocks||0)+1;enemy.phase='recover';enemy.elapsed=0;emit('歪架 · 刀背硬吃','block',c.p);}consumeStroke();}else if(active){pressureEnemy({type:moveAction.type});releasePose=physicalEnemyLocal();obstructMove(c.p,c.n);bladeBind={family:actionFamily(moveAction.type),until:time+.42};enemy.resolved=true;if(enemy.phase!=='broken'){enemy.phase='recover';enemy.elapsed=0;}stats.clashes++;consumeStroke();emit('白刃相交 · 换路卸力','clash',c.p);}entry.dealt=true;
+else if(guarding()&&enemy.tone!=='black'&&!moveInRelease()&&time>=playerBrokenUntil){enemy.resolved=true;const aligned=guardMatches(),precise=aligned&&parryIntent?.attack===enemy.attackId&&parryIntent.direction===guardDirection&&time<=parryIntent.until;parryIntent=null;releasePose=physicalEnemyLocal();if(precise){enemy.phrase=[];enemy.phase='open';enemy.elapsed=0;enemy.open=.62;stamina=Math.min(100,stamina+7);pressureEnemy({parry:true});spendPlayerPrecision(5);counterUntil=time+CANCEL.counterWindow;stats.parries++;score+=12;emit('化劲 · 主动反斩','parry',c.p);checkEnemyBreak(c.p);}else if(aligned){stamina=Math.max(0,stamina-10);spendPlayerPrecision(18);stats.blocks++;enemy.phase='recover';enemy.elapsed=0;emit('架刀 · 续招将至','block',c.p);}else{stamina=Math.max(0,stamina-11);spendPlayerPrecision(24);stats.blocks++;stats.skewBlocks=(stats.skewBlocks||0)+1;health=Math.max(0,health-(realTime<KBD.invulnUntil?0:11));stats.hurts++;playerImpact={until:time+.18,pose:localPlayerPose(rigidPose(bladeBodies.player))};enemy.phase='recover';enemy.elapsed=0;emit('歪架 · 方向错被劈中','hurt',c.p);if(health===0)finish(false);}consumeStroke();}else if(active){pressureEnemy({type:moveAction.type});releasePose=physicalEnemyLocal();obstructMove(c.p,c.n);bladeBind={family:actionFamily(moveAction.type),until:time+.42};enemy.resolved=true;if(enemy.phase!=='broken'){enemy.phase='recover';enemy.elapsed=0;}stats.clashes++;consumeStroke();emit('白刃相交 · 换路卸力','clash',c.p);}entry.dealt=true;
 }else if(active&&impact){obstructMove(c.p,c.n);pressureEnemy({type:moveAction.type});bladeBind={family:actionFamily(moveAction.type),until:time+.42};stats.clashes++;consumeStroke();checkEnemyBreak(c.p);emit('白刃相交 · 变招','clash',c.p);entry.dealt=true;}}
 else if(c.zone==='wood'&&active&&impact){const cut=cutQuality(c,c.a);consumeStroke();entry.dealt=true;if(cut.valid){hitPause(c);stats.hits++;score+=10;emit('斩击木桩 · 收势再出','wood',c.p);}else{stats.glances=(stats.glances||0)+1;emit('擦碰木桩 · 刀刃未发力','glance',c.p);}}else if(['body','head'].includes(c.zone)&&active&&impact&&!enemy.dead){entry.dealt=true;damageEnemy(c);}else if(c.zone==='player'&&enemy.type!=='grab'&&enemy.phase==='release'&&!enemy.resolved&&impact){entry.dealt=true;enemy.resolved=true;health=Math.max(0,health-(realTime<KBD.invulnUntil?0:18));stamina=Math.max(0,stamina-12);stats.hurts++;spendPlayerPrecision(22);const armoredAction=moveAction&&moveInRelease()&&playerPrecision.read().value>0?moveAction:null;ModulePorts.reset();playerImpact={until:time+.16,pose:localPlayerPose(rigidPose(bladeBodies.player))};moveAction=armoredAction;queuedMove=null;if(armoredAction){playerImpact=null;stats.playerArmorHits=(stats.playerArmorHits||0)+1;}counterUntil=-1;releasePose=physicalEnemyLocal();enemy.phase='recover';enemy.elapsed=0;emit('受击 · 重整架势','hurt',c.p);if(health===0)finish(false);}else if(['wall','stone'].includes(c.zone)&&active&&impact){obstructMove(c.p,c.n);consumeStroke();entry.dealt=true;emit('刀撞硬面 · 收势','clash',c.p);}}}
 function physicsStep(goal,dt){if(!bladeBodies.player)resetBladeBodies(goal);if(isCombat()&&!enemy.dead&&!bladeBodies.enemy)bladeBodies.enemy=makeBlade(enemyGoal(),true);const lastGoal=lastPhysicsTarget||goal;stroke.speed=goal.tip.distanceTo(lastGoal.tip)/dt;
