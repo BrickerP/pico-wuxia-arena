@@ -310,7 +310,7 @@ function mergeStatics(){
   window.__mergedStatics=saved;
  }catch(e){window.__mergeErr=(e&&e.message)||String(e);}
 }
-function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();freeRig.position.set(.140,-.098,.020);freeRig.scale.setScalar(.87);camera.add(freeRig);gripRig=new THREE.Group();freeRig.add(gripRig);freeHandR=handRig(gripRig,1);freeHandL=handRig(gripRig,-1);freeBlade=new THREE.Group();gripRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
+function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();freeRig.position.set(.110,-.075,.020);freeRig.scale.setScalar(.87);camera.add(freeRig);gripRig=new THREE.Group();freeRig.add(gripRig);freeHandR=handRig(gripRig,1);freeHandL=handRig(gripRig,-1);freeBlade=new THREE.Group();gripRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
 try{
  const ec=document.createElement('canvas');ec.width=256;ec.height=128;const ex=ec.getContext('2d');
  const eg=ex.createLinearGradient(0,0,0,128);eg.addColorStop(0,'#243039');eg.addColorStop(.42,'#77868a');eg.addColorStop(.56,'#cfd8d2');eg.addColorStop(1,'#33382f');
@@ -1060,7 +1060,7 @@ function paintHand(root){
   if(!o.isMesh)return;
   const n=(o.material&&o.material.name)||'';
   if(/Cloth|Closure/i.test(n)){o.visible=false;return;}
-  const m=new THREE.MeshStandardMaterial({map:base,normalMap:nrm,mnormalMap:null,metalnessMap:mr,roughnessMap:mr,metalness:1,roughness:1});
+  const m=new THREE.MeshStandardMaterial({map:base,normalMap:nrm,metalnessMap:mr,roughnessMap:mr,metalness:1,roughness:1});
   m.normalScale=new THREE.Vector2(.8,.8);
   o.material=m;o.castShadow=true;o.receiveShadow=true;o.frustumCulled=false;
  });
@@ -1073,9 +1073,10 @@ function curlGrip(root,side){
   if(!o.isBone)return;
   const m=o.name.match(re);if(!m)return;
   const j=+m[2];
-  o.rotation.set(0,0,0);
-  o.rotation.z=j===1?1.35:(j===2?1.25:.70);
-  if(m[1]==='Thumb')o.rotation.z=j===1?0.95:(j===2?1.05:0.55);
+  if(!o.userData.q0)o.userData.q0=o.quaternion.clone();
+  let cz=j===1?1.35:(j===2?1.25:.70);
+  if(m[1]==='Thumb')cz=j===1?0.95:(j===2?1.05:0.55);
+  o.quaternion.copy(o.userData.q0).multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,0,1),cz));
   grip[o.name]=o.quaternion.clone();
  });
  root.userData.grip=grip;
