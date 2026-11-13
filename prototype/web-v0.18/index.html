@@ -311,6 +311,14 @@ function mergeStatics(){
  }catch(e){window.__mergeErr=(e&&e.message)||String(e);}
 }
 function init(){up=V(0,1,0);playerPos=V(0,0,26);velocity=V();scene=new THREE.Scene();scene.background=new THREE.Color(0x647e7b);scene.fog=new THREE.FogExp2(0x647e7b,.0178);camera=new THREE.PerspectiveCamera(68,innerWidth/innerHeight,.07,180);camera.rotation.order='YXZ';scene.add(camera);freeRig=new THREE.Group();freeRig.position.set(.082,-.070,.020);freeRig.scale.setScalar(.87);camera.add(freeRig);gripRig=new THREE.Group();freeRig.add(gripRig);freeHandR=handRig(gripRig,1);freeHandL=handRig(gripRig,-1);freeBlade=new THREE.Group();gripRig.add(freeBlade);freeBlade.add(mkDao());freeRig.visible=false;camera.position.copy(playerPos).add(V(0,1.64,0));renderer=new THREE.WebGLRenderer({antialias:true});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.85;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;document.body.prepend(renderer.domElement);
+try{
+ const ec=document.createElement('canvas');ec.width=256;ec.height=128;const ex=ec.getContext('2d');
+ const eg=ex.createLinearGradient(0,0,0,128);eg.addColorStop(0,'#243039');eg.addColorStop(.42,'#77868a');eg.addColorStop(.56,'#cfd8d2');eg.addColorStop(1,'#33382f');
+ ex.fillStyle=eg;ex.fillRect(0,0,256,128);
+ const et=new THREE.CanvasTexture(ec);et.mapping=THREE.EquirectangularReflectionMapping;
+ const pg=new THREE.PMREMGenerator(renderer);window.__envTex=pg.fromEquirectangular(et).texture;pg.dispose();et.dispose();
+}catch(e){}
+const vmL=new THREE.PointLight(0xfff0da,.62,3.2);vmL.position.set(.26,.34,.30);camera.add(vmL);
 scene.add(new THREE.HemisphereLight(0xd7e9df,0x3d4842,.95));const sun=new THREE.DirectionalLight(0xffd6a3,2.45);sun.position.set(-5,9,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-40,right:40,top:40,bottom:-40,near:8,far:120});sun.shadow.bias=-.0006;sun.shadow.normalBias=.028;scene.add(sun);const fill=new THREE.DirectionalLight(0xa6cfce,.85);fill.position.set(2,6,22);scene.add(fill);
 const stone=mat(0x657974),wood=mat(0x493b2d),jade=mat(0x355a4e),earth=mat(0x68725c),plaster=mat(0xbbb598),roof=mat(0x283e3e);box(150,.15,206,earth,0,-.13,-12);box(10,.08,12,stone,0,-.025,2.4);box(2.8,.06,29,mat(0x6b7168),0,-.015,-16);
 /* 旧酒馆院内布景（矮墙/地砖/十六株树/石台）已在新城堡里穿模，整段撤掉，只留信物 */
@@ -1092,10 +1100,10 @@ function paintDao(root){
   if(!o.isMesh)return;
   const n=(o.material&&o.material.name)||'';
   let m;
-  if(/Brass|brass/i.test(n))m=new THREE.MeshStandardMaterial({color:0xb08a4a,metalness:.82,roughness:.34});
+  if(/Brass|brass/i.test(n)){m=new THREE.MeshStandardMaterial({color:0xb08a4a,metalness:.82,roughness:.34});if(window.__envTex){m.envMap=window.__envTex;m.envMapIntensity=.70;}}
   else if(/Grip|worn cord/i.test(n))m=new THREE.MeshStandardMaterial({color:0x4a2f22,metalness:.15,roughness:.86});
   else if(/leather/i.test(n))m=new THREE.MeshStandardMaterial({color:0x2b1a15,metalness:.1,roughness:.8});
-  else m=new THREE.MeshStandardMaterial({color:0xc9d3dc,metalness:.86,roughness:.27});
+  else{m=new THREE.MeshStandardMaterial({color:0xc9d3dc,metalness:.86,roughness:.27});if(window.__envTex){m.envMap=window.__envTex;m.envMapIntensity=.85;}}
   o.material=m;o.castShadow=true;o.receiveShadow=true;
  });
 }
@@ -1111,6 +1119,41 @@ function loadEmbeddedModels(){
  Promise.all([parse('rh'),parse('lh'),parse('dao')]).then(([rh,lh,dao])=>{
   realHandR=pivotize(rh.scene);carveSleeve(realHandR.userData.inner);paintHand(realHandR.userData.inner);
   realHandL=pivotize(lh.scene);paintHand(realHandL.userData.inner);realHandL.visible=false;
+window.__mkMirror=function(){try{
+ let sm=null;realHandR.userData.inner.traverse(o=>{if(!sm&&o.isSkinnedMesh&&o.visible!==false)sm=o;});
+ if(sm&&sm.skeleton){
+  const g=sm.geometry,pa=g.attributes.position,sia=g.attributes.skinIndex,swa=g.attributes.skinWeight;
+  sm.updateMatrixWorld(true);sm.skeleton.update();
+  const bms=sm.skeleton.bones.map((b,i)=>new THREE.Matrix4().multiplyMatrices(b.matrixWorld,sm.skeleton.boneInverses[i]));
+  freeHandR.updateMatrixWorld(true);const M2F=new THREE.Matrix4().copy(freeHandR.matrixWorld).invert().multiply(sm.matrixWorld);
+  const out=new Float32Array(pa.count*3),v=new THREE.Vector3(),acc=new THREE.Vector3();
+  for(let i=0;i<pa.count;i++){
+   v.fromBufferAttribute(pa,i).applyMatrix4(sm.bindMatrix);
+   acc.set(0,0,0);
+   for(let k=0;k<4;k++){const bi=sia.array[i*4+k],w=swa.array[i*4+k];if(w<=0)continue;acc.add(v.clone().applyMatrix4(bms[bi]).multiplyScalar(w));}
+   acc.applyMatrix4(sm.bindMatrixInverse);
+   out[i*3]=acc.x;out[i*3+1]=acc.y;out[i*3+2]=acc.z;
+  }
+  const bg=g.clone();bg.setAttribute('position',new THREE.BufferAttribute(out,3));bg.computeVertexNormals();
+  const bm2=sm.material.clone();bm2.side=THREE.DoubleSide;bm2.vertexColors=true;
+  const bmesh=new THREE.Mesh(bg,bm2);bmesh.castShadow=true;bmesh.scale.x=-1;
+  bmesh.rotation.y=Math.PI*.0;
+  bmesh.matrixAutoUpdate=true;
+  try{
+   scene.updateMatrixWorld(true);
+   const gd=realDao.getObjectByName('Guard_|_flared_oval'),pm=realDao.getObjectByName('Pommel_|_brass');
+   if(gd&&pm){
+    const gW=gd.getWorldPosition(new THREE.Vector3()),pW=pm.getWorldPosition(new THREE.Vector3());
+    const tW=gW.lerp(pW,.62);
+    bmesh.position.copy(freeHandR.worldToLocal(tW.clone()));
+    const q=new THREE.Quaternion(),sc=new THREE.Vector3(),pos=new THREE.Vector3();
+    M2F.decompose(pos,q,sc);bmesh.quaternion.copy(q);
+   }
+  }catch(e){window.__mirrorErr=(e&&e.message)||String(e);}
+  freeHandR.add(bmesh);window.__mirrorMesh=bmesh;
+  window.__mirrorHand=true;
+ }
+}catch(e){window.__mirrorErr=(e&&e.message)||String(e);}};
   realDao=dao.scene;paintDao(realDao);
   if(rh.animations&&rh.animations[0]){handMixerR=new THREE.AnimationMixer(realHandR.userData.inner);const a=handMixerR.clipAction(rh.animations[0]);a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.time=rh.animations[0].duration;}
   if(lh.animations&&lh.animations[0]){handMixerL=new THREE.AnimationMixer(realHandL.userData.inner);const a=handMixerL.clipAction(lh.animations[0]);a.setLoop(THREE.LoopOnce,1);a.clampWhenFinished=true;a.play();a.time=lh.animations[0].duration;}
@@ -1118,6 +1161,7 @@ function loadEmbeddedModels(){
   if(freeHandL){freeHandL.clear();freeHandL.add(realHandL);}
   if(freeBlade){freeBlade.clear();freeBlade.add(realDao);}
   applyHandCfg();
+  try{if(window.__mkMirror)window.__mkMirror();}catch(e){}
   if(realHandR){pivotToBone(realHandR,'R_Hand');}
   if(realHandL){pivotToBone(realHandL,'L_Hand');}
 
@@ -1228,6 +1272,7 @@ function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,
  gripRig.position.copy(r);
  freeHandR.position.set(0,0,0);
  freeHandL.position.copy(lv).sub(r);
+ if(window.__mirrorMesh){window.__mirrorMesh.visible=false;}
  freeBlade.position.set(HANDCFG.daoX,HANDCFG.daoY,pz);
  freeBlade.rotation.set(bx,by,bz,'YXZ');
  gripRig.rotation.set(gx,gy,gz,'YXZ');
