@@ -1177,7 +1177,32 @@ function handRig(parent,s){
  g.add(h);parent.add(g);return g;
 }
 function renderFreeHand(){window.__fh=(window.__fh||0)+1;const mx=clamp(mouse.x,-1,1),my=clamp(mouse.y,-1,1);const bob=bobY*.5,sway=Math.sin(bobPhase)*.006,kick=stepKick*.02;
- const r=V(mx*.042+HANDCFG.rPos[0]+sway,my*.034+HANDCFG.rPos[1]+bob-kick,HANDCFG.rPos[2]);if(gripRig)gripRig.position.set(0,0,0);freeHandR.position.copy(r);freeHandR.rotation.set(HANDCFG.rRot[0]+my*.08,HANDCFG.rRot[1],HANDCFG.rRot[2]-mx*.06+bobRoll*.6);freeHandL.position.copy(V(mx*.038+HANDCFG.lPos[0]+sway*.8,my*.036+HANDCFG.lPos[1]+bob-kick*.8,HANDCFG.lPos[2]));freeHandL.rotation.set(HANDCFG.lRot[0]+my*.06,HANDCFG.lRot[1],HANDCFG.lRot[2]-mx*.05+bobRoll*.5);const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);freeBlade.position.set(r.x+HANDCFG.daoX,r.y+HANDCFG.daoY,r.z);freeBlade.rotation.set(.30+my*.3+k*.45,mx*.5,-mx*.2,'YXZ');freeBlade.visible=true;freeRig.visible=true;}
+ const r=V(mx*.042+HANDCFG.rPos[0]+sway,my*.034+HANDCFG.rPos[1]+bob-kick,HANDCFG.rPos[2]);if(gripRig)gripRig.position.set(0,0,0);freeHandR.position.copy(r);freeHandR.rotation.set(HANDCFG.rRot[0]+my*.08,HANDCFG.rRot[1],HANDCFG.rRot[2]-mx*.06+bobRoll*.6);const lv=V(mx*.038+HANDCFG.lPos[0]+sway*.8,my*.036+HANDCFG.lPos[1]+bob-kick*.8,HANDCFG.lPos[2]);freeHandL.rotation.set(HANDCFG.lRot[0]+my*.06,HANDCFG.lRot[1],HANDCFG.lRot[2]-mx*.05+bobRoll*.5);const sp=handVelW?handVelW.length():0,k=clamp((sp-.4)/2.2,0,1);let bx=.30+my*.3+k*.45,by=mx*.5,bz=-mx*.2,gx=0,gy=0,gz=0,pz=0;
+ if(moveAction){
+  const ty=moveAction.type,sp=moveAction.spec,t=moveAction.elapsed,heavy=moveAction.heavy?1.3:1;
+  const eo=u=>1-Math.pow(1-u,2),ei=u=>u*u;
+  let sw=0;
+  if(t<sp.wind)sw=-.50*ei(Math.min(1,t/sp.wind));
+  else if(t<sp.wind+sp.active)sw=-.50+1.75*eo(Math.min(1,(t-sp.wind)/sp.active));
+  else sw=1.25*(1-eo(Math.min(1,(t-sp.wind-sp.active)/Math.max(.05,sp.recover))));
+  sw*=heavy;
+  if(ty==='overhead'){gx+=sw*.62;bx+=sw*.30;}
+  else if(ty==='left'){gy-=sw*.70;gz+=sw*.20;by-=sw*.30;}
+  else if(ty==='right'){gy+=sw*.70;gz-=sw*.20;by+=sw*.30;}
+  else if(ty==='thrust'){pz=-Math.max(0,sw)*.24;bx-=sw*.12;}
+  else{gx+=sw*.42;gy+=sw*.42;}
+ }
+ gx+=Math.sin(realTime*1.15)*.006;gz+=Math.sin(realTime*.9)*.004;
+ const dg=realTime-KBD.dodgeAt;
+ if(dg>=0&&dg<.30){const e=1-Math.pow(1-dg/.30,2);gx-=e*.20;gz+=e*.12;}
+ if(typeof playerImpact!=='undefined'&&playerImpact&&realTime<playerImpact.until){const j=Math.sin(realTime*46)*.012;gx+=j;gz-=j*.6;}
+ gripRig.position.copy(r);
+ freeHandR.position.set(0,0,0);
+ freeHandL.position.copy(lv).sub(r);
+ freeBlade.position.set(HANDCFG.daoX,HANDCFG.daoY,pz);
+ freeBlade.rotation.set(bx,by,bz,'YXZ');
+ gripRig.rotation.set(gx,gy,gz,'YXZ');
+ freeBlade.visible=true;freeRig.visible=true;}
 /* ==== 开局第三人称：给主角补一个墨色剪影，只在入场镜头里出现 ==== */
 let bodyG=null;
 let bodyActor=null,bodyMixer=null,bodyLast=0,bodyBlade=null,bodyHand=null,bodyFore=null;
