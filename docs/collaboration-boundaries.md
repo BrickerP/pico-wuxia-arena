@@ -1,5 +1,7 @@
 # 原生Demo与探索原型协作边界
 
+协作沟通与Web回归迁移跟踪：[Issue #12](https://github.com/BrickerP/pico-wuxia-arena/issues/12)。旧手册PR的清理回执：[PR #10评论](https://github.com/BrickerP/pico-wuxia-arena/pull/10#issuecomment-6844960438)。
+
 ## 工作线与验收
 
 | 工作线 | 目录/分支 | 可以继续的工作 | 完成证据 |

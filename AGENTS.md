@@ -1,4 +1,4 @@
-开工先读 `docs/agent-start.md`，再读 `docs/collaboration-boundaries.md`。
+开工先读 `docs/collaboration-boundaries.md`。原生任务再读 `docs/agent-start.md`；独立Web任务读 `prototype/web-v0.18/README.md`。
 
 本仓库维护两条独立工作线：
 
