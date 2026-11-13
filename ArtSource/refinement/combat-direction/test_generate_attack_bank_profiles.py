@@ -12,8 +12,8 @@ from unittest.mock import patch
 import generate_attack_bank_profiles as generator
 
 
-BOUND_BINDING = '1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2'
-BOUND_MODELS = {'base': 'ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20', 'indigo': '94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e', 'veteran': 'cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5'}
+BOUND_BINDING = '365578d497f3a592e08cbe158f90777fe326211f8d9593bab85ff807c0ac07ac'
+BOUND_MODELS = {'base': '6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24', 'indigo': '27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df', 'veteran': '6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2'}
 
 
 def reaction_fixture():
@@ -91,7 +91,7 @@ class GenerateAttackBankProfilesTest(unittest.TestCase):
         data = generator.load_bank(bank)
         self.assertEqual(len(data), 3)
         self.assertEqual(BOUND_MODELS, {c['id']: profile['model_sha256'] for c, profile, _ in data})
-        self.assertEqual(sum(len(p['attacks'][d]['samples']) for _, p, _ in data for d in generator.DIRECTIONS), 954)
+        self.assertEqual(sum(len(p['attacks'][d]['samples']) for _, p, _ in data for d in generator.DIRECTIONS), 1269)
         self.assertEqual(sum(len(p['locomotion'][name]['samples']) for _, p, _ in data for name in ['idle', 'walk']), 1662)
         self.assertTrue(all(set(profile['reactions']) == set(generator.REACTIONS) for _, profile, _ in data))
 

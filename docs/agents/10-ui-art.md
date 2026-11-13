@@ -10,13 +10,15 @@ Root实际审图接受战斗信息区精简的运行集成，整体视觉未通�
 
 当前控制牌仍Position=(-0.6,1.2,-1.75)、yaw20°，不擅自套旧A/B值。只推进已授权原生任务，不能接入的研究/重复渲染停止。
 
+本阶段候选已交：terminal-occlusion.patch仅两处原生显示改动，编译/样式通过；空间遮挡另见同目录spatial-integration.md，由Root复核container坐标后应用既有Attachment，未声称安全。本阶段收口等待对应review。
+
 ## 目标
 
 把当前大黑面板、小字与普通资源条提升为克制、有质感的中式游戏UI。参考目标游戏的信息层次、纸墨／朱砂／暗金与器物气质，保持VR清晰阅读和操作反馈。
 
 ## 所有权
 
-当前唯一可写责任为ArtSource/refinement/ui-native-preview/next-polish/与本文件，交可映射现有state/action的原生Kotlin最小源码patch。正式ArenaHud/其他app源码由Root合入；Main/HomeStage最终接线、Gradle、设备、Git提交与发布也由Root统一。保留他人编辑，不扩玩法、入口或宏，伤害timeline/CombatImpact/输入规则不改。
+当前唯一可写责任为ArtSource/refinement/ui-native-preview/terminal-occlusion/与本文件，只交真实终局可读性最小原生patch和必要空间接入建议；正式app、已通关输入/流程不动。Root拥有ArenaHud合入、HomeStage空间修改、Gradle、设备、Git与发布。无页面/窗口/HTML/mock，不缩字/缩面板掩盖遮挡，不用未测bbox宣称安全；阶段交付后等对应review。
 
 ## 当前基线
 
@@ -397,3 +399,23 @@ Root接入：先核对当前ArenaHud基线SHA，再仅应用这一文件的patch
 - `next-polish/candidate/candidate-report.json`含编译、样式、不变量、基线/候选及输入SHA；`next-polish/delivery.json`为本轮最终接入摘要，README明确原生唯一产品合同。
 
 本轮至此停止，等待Root对原生候选的真实集成结果再派具体工作。
+
+### 2026-11-13 · ca26f4a9终局可读性候选（交付后等review）
+
+Root已确认APK `ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`、336单测、真实失败→重开→三轮胜利967分/40HP，本轮不重做输入或流程。已读四张实际图：DEFEAT时NPC袖子/横刀覆盖左纸牌再挑战区域，VICTORY倒地后纸牌清楚；不是字体或面板内溢出。
+
+原生最小补丁 `ArtSource/refinement/ui-native-preview/terminal-occlusion/terminal-occlusion.patch` 仅改ArenaHud两处：
+1. 仅result为VICTORY/DEFEAT时，在上栏敌血后结束该Column，保留对手/轮次时间/敌血，结算状态、结语与玩家摘要统一由纸牌呈现。ROUND_CLEAR、普通暂停、敌人phase DEAD都不会误当终局，非终局代码原样。
+2. MatchSummary在DEFEAT且feedback=TIMEOUT时复用“试炼时间已尽”现有串；其余胜败结语不变。这样移除上栏终局反馈不会丢超时原因。分数、最佳、余血与再挑战/确认链/gates均保留，未新增状态或资源。
+
+候选Kotlin/Compose隔离编译通过、样式0 error/0 warning（未声称新完整IR追踪）；两处逆替换可精确还原当前base。未改app，未运行共享Gradle/设备/Git/HTML/mock或重复渲染。独立审查未见HIGH，终局再挑战仍走resetRound、普通暂停恢复与原确认链保持。
+
+真正的空间遮挡由Root应用既有HomeStage控制Attachment：`spatial-integration.md`已记录实际head来自SDK→snapshot→playerHeadPosition的链、当前Entity父关系和公开坐标契约。关键是`convertPositionFrom(p,null)`的null表示所属SpatialContainer，不是跨container全局世界；当前ViewState无head orientation，LookAt仅转向，不能称为head-locked或避障。
+
+建议起点（未测安全）：同container水平head→enemy为forward、right=(-forward.z,0,forward.x)；位置=head+forward×0.85−right×0.18−Y×(converter得到的400dp物理半高+0.08)，scale1.4/400dp不变；yaw沿现有readableStatusRotation。终局首次有效头部数据捕获一次保持点击目标稳定，两处CONTROL_PANEL_ID放置统一用此值；非终局/新generation/READY/release清理恢复原pose。若每次按head重算则随头平移，仍不随yaw/pitch，不能混称固定世界锚点。Root应先确认当前tracking/container对齐，再native验DEFEAT刀尖/手臂、TIMEOUT、VICTORY和重开恢复；无实测bbox或全视野安全承诺。
+
+注意：仅应用ArenaHud去重补丁不等于遮挡已解决。空间文档是本次Root明确要求的最小接入建议，未擅改HomeStage；近处刀尖/玩家刀仍可能更靠近，最终以原生帧/可点为准。精确6.1坐标网页未取到，文档明确引用公开6.0语义并以本机6.1.9公有类型核验，没有冒充版本证明。
+
+指纹：base ArenaHud `097e46fc72552fe3d2df1109284a0eaef4d0f9de408eea416f2c0842d6737f51`；候选 `1b45acabea634a966e265ea76926fcdbb8a47f70f66421217cf08a19b0b98f3b`；patch `967c2989c906d75f384b356622ae1fc2b1648854cf53f4241520326e36a65eb3`。`candidate-report.json`含编译/不变量/四图输入SHA，`delivery.json`为本阶段接入摘要。
+
+本阶段至此停止，等Root对应review；不自行应用正式源码或继续扩展研究/渲染。

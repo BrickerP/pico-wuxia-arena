@@ -1,0 +1,367 @@
+{
+  "source_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+  "prior_correction_manifest": "ArtSource/refinement/weapon/right-grip/candidate2_manifest.json",
+  "prior_manifest_sha256": "fab4f47aeea574fceb9accda5888a19b0456b58e38c90fb7ec198974deaa29c0",
+  "application": "source closed q @ q_delta_post exactly once; do not reapply native baked offsets",
+  "changes": {
+    "R_Thumb1": {
+      "source_open_xyzw": [
+        -0.1400647908449173,
+        -0.3665246069431305,
+        0.3636062741279602,
+        0.8448858261108398
+      ],
+      "source_closed_xyzw": [
+        -0.3078208565711975,
+        -0.6131649613380432,
+        0.28461718559265137,
+        0.6695282459259033
+      ],
+      "q_delta_post_xyzw": [
+        0.15141436706090372,
+        -0.018402096186045384,
+        -0.14880098646668247,
+        0.9770329158887369
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        -0.10289780795574188,
+        -0.6141120195388794,
+        0.27696043252944946,
+        0.731827437877655
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        -0.3078208565711975,
+        -0.6131649613380432,
+        0.28461718559265137,
+        0.6695282459259033
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 0.0,
+      "reused_prior_field": "rotation_contracts.bones.R_Thumb1.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 2.2859759694809374e-06,
+      "new_closed_distance_to_double_application_degrees": 24.606808173216137,
+      "incremental_applications": 1
+    },
+    "R_Thumb2": {
+      "source_open_xyzw": [
+        -0.24213062226772308,
+        -0.42625144124031067,
+        -0.020906930789351463,
+        0.8713470101356506
+      ],
+      "source_closed_xyzw": [
+        -0.22969068586826324,
+        -0.5056064128875732,
+        -0.162820503115654,
+        0.8155328631401062
+      ],
+      "q_delta_post_xyzw": [
+        -0.04321817250054818,
+        0.0403482871246288,
+        -0.09993469579593868,
+        0.9932357534180868
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        -0.20628568530082703,
+        -0.4851982593536377,
+        -0.2743381857872009,
+        0.8042185306549072
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        -0.22969068586826324,
+        -0.5056064128875732,
+        -0.162820503115654,
+        0.8155328631401062
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 0.0,
+      "reused_prior_field": "rotation_contracts.bones.R_Thumb2.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 2.299757828126544e-06,
+      "new_closed_distance_to_double_application_degrees": 13.335903239567731,
+      "incremental_applications": 1
+    },
+    "R_Pinky1": {
+      "source_open_xyzw": [
+        0.13352884352207184,
+        0.8890750408172607,
+        -0.10077890008687973,
+        0.4260977506637573
+      ],
+      "source_closed_xyzw": [
+        0.14884746074676514,
+        0.6104834079742432,
+        -0.7194558382034302,
+        0.2958677411079407
+      ],
+      "q_delta_post_xyzw": [
+        -0.08638031608017634,
+        -0.006139730446222188,
+        0.04309007066764046,
+        0.9953110019053312
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        0.1444808691740036,
+        0.6615372896194458,
+        -0.6515135169029236,
+        0.3420875072479248
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        0.14884746074676514,
+        0.6104834079742432,
+        -0.7194558382034302,
+        0.2958677411079407
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 0.0,
+      "reused_prior_field": "rotation_contracts.bones.R_Pinky1.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 3.0391475927054066e-06,
+      "new_closed_distance_to_double_application_degrees": 11.101396256825673,
+      "incremental_applications": 1
+    },
+    "R_Pinky2": {
+      "source_open_xyzw": [
+        0.08925465494394302,
+        0.29764875769615173,
+        -0.042648687958717346,
+        0.9495366811752319
+      ],
+      "source_closed_xyzw": [
+        0.20648132264614105,
+        0.2966790199279785,
+        -0.02048044465482235,
+        0.932162880897522
+      ],
+      "q_delta_post_xyzw": [
+        -0.02469420868506856,
+        -0.004913930906417558,
+        -0.0015347735416126943,
+        0.9996817962785165
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        0.18284061551094055,
+        0.29282668232917786,
+        -0.0155929671600461,
+        0.9383915662765503
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        0.20648132264614105,
+        0.2966790199279785,
+        -0.02048044465482235,
+        0.932162880897522
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 0.0,
+      "reused_prior_field": "rotation_contracts.bones.R_Pinky2.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 6.507810324565401e-07,
+      "new_closed_distance_to_double_application_degrees": 2.890891296716251,
+      "incremental_applications": 1
+    },
+    "R_Ring2": {
+      "source_open_xyzw": [
+        0.0321812629699707,
+        -0.42371565103530884,
+        0.10771308094263077,
+        0.8987921476364136
+      ],
+      "source_closed_xyzw": [
+        0.14902620017528534,
+        -0.35181981325149536,
+        0.5332692861557007,
+        0.7547435760498047
+      ],
+      "q_delta_post_xyzw": [
+        -0.03873255483158559,
+        0.0017457515963282045,
+        -0.05888374532670749,
+        0.9975116270419516
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        0.13920773565769196,
+        -0.3615064322948456,
+        0.4741334617137909,
+        0.7906527519226074
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        0.14902624487876892,
+        -0.35181987285614014,
+        0.533269464969635,
+        0.7547434568405151
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 2.5788539282987435e-05,
+      "reused_prior_field": "rotation_contracts.bones.R_Ring2.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 1.549495246049361e-06,
+      "new_closed_distance_to_double_application_degrees": 8.085658446721776,
+      "incremental_applications": 1
+    },
+    "R_Ring3": {
+      "source_open_xyzw": [
+        1.5869738945184508e-06,
+        8.661300654466686e-08,
+        1.4901164604452788e-06,
+        1.0
+      ],
+      "source_closed_xyzw": [
+        0.06487974524497986,
+        0.00362674449570477,
+        0.07698378711938858,
+        0.9949125647544861
+      ],
+      "q_delta_post_xyzw": [
+        -0.006712795104084303,
+        0.001262352893615039,
+        -0.01012468131969938,
+        0.9999254150561615
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        0.0580623596906662,
+        0.0050225150771439075,
+        0.06701111793518066,
+        0.9960486888885498
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        0.06487974524497986,
+        0.00362674449570477,
+        0.07698378711938858,
+        0.9949125647544861
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 0.0,
+      "reused_prior_field": "rotation_contracts.bones.R_Ring3.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 2.7645258174261195e-07,
+      "new_closed_distance_to_double_application_degrees": 1.399574406210967,
+      "incremental_applications": 1
+    },
+    "R_Mid3": {
+      "source_open_xyzw": [
+        -5.774199962615967e-08,
+        9.313225746154785e-08,
+        -1.087784767150879e-06,
+        1.0
+      ],
+      "source_closed_xyzw": [
+        0.03269125148653984,
+        -0.0025658104568719864,
+        0.10369932651519775,
+        0.9940680861473083
+      ],
+      "q_delta_post_xyzw": [
+        -0.02800958777459694,
+        0.0037558816672394633,
+        -0.08561606667208557,
+        0.995927329413748
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        0.0045448653399944305,
+        0.001072562183253467,
+        0.018219709396362305,
+        0.9998230934143066
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        0.03269124776124954,
+        -0.0025658102240413427,
+        0.10369931161403656,
+        0.9940679669380188
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 2.820943259841457e-07,
+      "reused_prior_field": "rotation_contracts.bones.R_Mid3.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 6.431629142547029e-08,
+      "new_closed_distance_to_double_application_degrees": 10.345578387537449,
+      "incremental_applications": 1
+    },
+    "R_Thumb3": {
+      "source_open_xyzw": [
+        -3.334134817123413e-07,
+        -7.683410530034962e-08,
+        1.2456439435482025e-06,
+        1.0
+      ],
+      "source_closed_xyzw": [
+        -0.13458816707134247,
+        -0.0026280912570655346,
+        -0.021981164813041687,
+        0.9906542897224426
+      ],
+      "q_delta_post_xyzw": [
+        0.10131294063941927,
+        -0.017872765278622058,
+        -0.018505494646433304,
+        0.9945218946751146
+      ],
+      "reason": "same-source previously measured support/retreat correction, applied once after already baked source pose",
+      "new_closed_xyzw": [
+        -0.033829011023044586,
+        -0.025037024170160294,
+        -0.03752157464623451,
+        0.9984091520309448
+      ],
+      "reviewed_source_prepared_q_xyzw": [
+        -0.13458815217018127,
+        -0.0026280905585736036,
+        -0.021981168538331985,
+        0.9906544089317322
+      ],
+      "source_closed_to_reviewed_source_error_degrees": 3.5354041155593868e-06,
+      "reused_prior_field": "rotation_contracts.bones.R_Thumb3.q_delta_post_xyzw",
+      "new_closed_error_to_single_application_degrees": 2.446239870874536e-07,
+      "new_closed_distance_to_double_application_degrees": 12.000000898692319,
+      "incremental_applications": 1
+    },
+    "R_Pinky3": {
+      "source_open_xyzw": [
+        1.1478550732135773e-06,
+        -3.9488082848038175e-07,
+        3.4086406230926514e-07,
+        1.0
+      ],
+      "source_closed_xyzw": [
+        0.07759243249893188,
+        0.005303083918988705,
+        0.024522094056010246,
+        0.9966694712638855
+      ],
+      "q_delta_post_xyzw": [
+        0.15004243351840735,
+        -0.021364238498005898,
+        0.03876311790475387,
+        0.9876883405951378
+      ],
+      "reason": {
+        "node": "R_Pinky3",
+        "extra_degrees": 18,
+        "axis_local": [
+          0.9591392375063919,
+          -0.1365698952114649,
+          0.2477914179256151
+        ],
+        "axis_canonical": [
+          0.07322213123803674,
+          0.04780379820230869,
+          -0.9961693211369204
+        ],
+        "pivot_canonical_metres": [
+          -0.02478483412324298,
+          0.013018703895839989,
+          0.03102991631253732
+        ],
+        "distal_skin_point_metres": [
+          -0.02263025163049448,
+          0.03466325516280493,
+          0.03222695667273611
+        ],
+        "reason": "one bounded distal flexion toward actual canonical handle radial axis after supported retreat"
+      },
+      "new_closed_xyzw": [
+        0.2269093096256256,
+        -0.015383659861981869,
+        0.06040081009268761,
+        0.9719193577766418
+      ],
+      "new_closed_error_to_single_application_degrees": 7.160195450721789e-07,
+      "new_closed_distance_to_double_application_degrees": 17.999999286665272,
+      "incremental_applications": 1
+    }
+  },
+  "consumer_contract": "Complete candidate GLB already contains changes; asset consumers do not apply pose_delta again. Rebuild only from exact source_sha256 closed q, postmultiply each delta once."
+}

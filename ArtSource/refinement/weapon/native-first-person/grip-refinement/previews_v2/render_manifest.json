@@ -1,0 +1,81 @@
+{
+  "scope": "native hand v2 closed contact evidence; APK/Emulator validation belongs to Root",
+  "candidate_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "decoded_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+  "camera_source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/render_manifest.json",
+  "camera_source_sha256": "d585ebdabf2e2abe829c663e4ac8de6e1b6fc5952d88d70a301764001762aca2",
+  "cameras_identical_to_r1": true,
+  "threads": 2,
+  "hand_and_dao_pixels": "actual KTX level0 decoded companions",
+  "materials_overridden": false,
+  "root_and_model_scale_changed": false,
+  "pose_seconds": 1.0,
+  "surface_geometry": {
+    "face_referenced_vertices": 3021,
+    "ignored_loose_vertices": 0,
+    "bounds_min": [
+      -0.05258439853787422,
+      -0.1461188942193985,
+      -0.07729627937078476
+    ],
+    "bounds_max": [
+      0.3671119511127472,
+      0.06610580533742905,
+      0.1272049844264984
+    ],
+    "position_digest": "9790fdc157820233682b4842e7ddc562e2bf37863615653c4ef9aadf9f016633"
+  },
+  "images": [
+    {
+      "view": "front",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_front.png",
+      "sha256": "8c4faba6b2b593c144db4b1f076ef4130c172dad0a0322fb1cde8a627dd0df73",
+      "camera_blender_metres": [
+        0.007374756969511509,
+        -0.020910127088427544,
+        0.2991794943809509
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_grip_metres": 0.29999998338074224,
+      "lens_mm": 30.0
+    },
+    {
+      "view": "back",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_back.png",
+      "sha256": "5fcfce98575b10bf56d97a04ec8f3ca86b49e8cbb0abf282c329c89eacbef44c",
+      "camera_blender_metres": [
+        -0.009217382408678532,
+        -0.19601814448833466,
+        -0.22691833972930908
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_grip_metres": 0.3000000079128463,
+      "lens_mm": 30.0
+    },
+    {
+      "view": "oblique",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_oblique.png",
+      "sha256": "c5cd9d18006203a3a1ac9a18497276393bef1b26dbd9c863012450437450a22b",
+      "camera_blender_metres": [
+        -0.07639557123184204,
+        0.16285084187984467,
+        0.24009022116661072
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_grip_metres": 0.2999999896623192,
+      "lens_mm": 30.0
+    }
+  ]
+}

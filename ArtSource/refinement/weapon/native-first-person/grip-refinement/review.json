@@ -1,0 +1,113 @@
+{
+  "scope": "Final four-pass review of the bounded native right-hand closed-grip refinement candidate",
+  "verdict": "REQUEST_CHANGES_FOR_FINAL_GRIP",
+  "candidate_handoff_allowed_for_root_native_review": true,
+  "visible_first_piece_benefit": true,
+  "production_or_formal_publish_allowed": false,
+  "source": {
+    "path": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+    "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+    "formal_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+  },
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb",
+    "sha256": "0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef",
+    "changed_closed_rotation_tracks": 9,
+    "closed_only": true
+  },
+  "issues_by_severity": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "MEDIUM": 1,
+    "LOW": 0
+  },
+  "issues": [
+    {
+      "severity": "MEDIUM",
+      "title": "Pinky distal support remains open while new Ring-Pinky self-crossings are introduced",
+      "evidence": {
+        "pinky3_to_cord_nearest_mm": 5.061499504759529,
+        "pinky3_to_cord_samples_within_3mm": 0,
+        "pinky3_to_ring_nearest_mm_before": 2.9661222551296,
+        "pinky3_to_ring_nearest_mm_after": 3.84137478970439,
+        "pinky3_to_ring_samples_within_3mm_before": 2,
+        "pinky3_to_ring_samples_within_3mm_after": 0,
+        "ring_pinky_confirmed_nonadjacent_crossings_before": 0,
+        "ring_pinky_confirmed_nonadjacent_crossings_after": 10,
+        "crossing_localization": "Ring2-to-Pinky2, with one Pinky1-involved pair; not the unsupported Pinky3 tip",
+        "pinky3_extra_flex_revert_probe_crossings": 10
+      },
+      "impact": "The three actual 0.3 m views show a substantially tighter grip overall, but the distal little finger remains visibly unsupported. The added Ring-Pinky crossings show that the bounded extra curl displaced another part of the finger band rather than completing clean support.",
+      "required_fix": "Before final grip acceptance, diagnose the Ring2/Pinky2 and Pinky1 crossing band separately from the unsupported Pinky3 tip, then refine only the relevant closed rotations against the same actual surface and self-contact constraints. Reverting the extra Pinky3 flex alone does not remove the ten crossings. Preserve the accepted thumb retreat/press, open row, wrist/Grip/root and all non-pose data. Do not optimize raw pair count at the expense of visible support."
+    }
+  ],
+  "four_pass_review": {
+    "correctness_and_contract": {
+      "result": "PASS",
+      "evidence": [
+        "The original BIN prefix, geometry, UV, skin, IBM, materials, three KTX payloads, root, wrist, Grip, bone lengths and all non-pose JSON/accessors remain exact.",
+        "All 15 open time-0 finger rows are byte-identical. Only nine right-finger closed rows and corresponding default rotations change; default equals grip time 1, and the post-delta quaternion application error is below 2.66e-8 chord distance.",
+        "Nonfinger and left-bone matrices, unaffected skinned vertices and cuff-cap skinning remain unchanged at open, mid and closed samples. Negative contract tests reject wrist translation, open-row mutation and KTX mutation."
+      ]
+    },
+    "contact_and_anatomy": {
+      "result": "PASS_WITH_REMAINING_MEDIUM",
+      "evidence": [
+        "On the identical 7167 samples, whole-hand inside samples fall from 277 to 2 and maximum signed-core penetration magnitude falls from 11.48591 mm to 0.092522 mm. Samples deeper than the provisional 0.25 mm working cutoff fall from 256 to zero.",
+        "Thumb, Mid, Ring and Pinky sampled solid-core penetration all fall to zero. The two remaining shallow samples belong to unchanged Index3 and are retained as actual negative signed values rather than rounded to strict zero.",
+        "Thumb3-to-Index nearest actual surface distance improves from 0.084871 mm to 0.043760 mm, with samples within 1 mm increasing from 23 to 24; this supports the visible opposing thumb press.",
+        "Position-weld interpretation improves Thumb-Index nonadjacent crossings from 50 to 47 and Mid-Ring from 64 to 62, but Ring-Pinky regresses from zero to ten and Pinky3 loses nearby support."
+      ]
+    },
+    "visual_quality": {
+      "result": "VISIBLE_BENEFIT_WITH_REMAINING_MEDIUM",
+      "evidence": [
+        "The front, back and thumb-side oblique images are actual 0.3 m renders from the candidate KTX pixels and formal dao with identity roots and no material override or model rescale.",
+        "Compared with the native terminal/source default, the formerly long straight finger silhouette is visibly pulled back into a more compact wrap. The front view reads as a closed grasp rather than fingers laid along the shaft.",
+        "The thumb-side and back views show a credible opposing thumb/palm clamp and no renewed handle-core breakthrough, wrist drift or cuff regression.",
+        "The oblique view still exposes separation around the little-finger distal band, consistent with the measured lack of cord or Ring support; therefore the visible improvement is real but not final-quality complete."
+      ]
+    },
+    "drift_and_scope": {
+      "result": "PASS",
+      "evidence": [
+        "No model rebuild, SDK, application, HTML, Kotlin, formal/shared producer, device, Gradle or Git path is changed by this private candidate.",
+        "The candidate reuses a bounded previously measured retreat correction and one bounded Pinky3 flexion; no parameter grid or speculative animation system is introduced."
+      ]
+    }
+  },
+  "evidence": {
+    "manifest_sha256": "18826a6fe25c1dc81ef4b82d55a27fb50ef137dc622b24d51fa4c43be0548d55",
+    "pose_delta_sha256": "ee352400be184a47782ceb258720674aed51600fa0dc759f4b2d13b92f2891e2",
+    "baseline_contact_sha256": "3e09ccbcf22e478e5c19e6271cffa0cb781b4aa56cdb2b4a0efa72f3eb62ba71",
+    "verification_sha256": "3260bd13278665e1f8dc97f01b301dc9d175afc92818c7ede12f76617bd10bc4",
+    "verification_passed": true,
+    "verification_errors": [],
+    "verification_grip_quality_accepted": false,
+    "render_manifest_sha256": "d585ebdabf2e2abe829c663e4ac8de6e1b6fc5952d88d70a301764001762aca2",
+    "render_count": 3,
+    "images": [
+      {
+        "view": "front",
+        "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_front.png",
+        "sha256": "6d42cdaa33425fd19cd838184fea892c5e4e39d03019e56e51aba92003809ac9"
+      },
+      {
+        "view": "back",
+        "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_back.png",
+        "sha256": "5a8fd7d4ea0538edcd567b7a6a6009cb21f820fd0d148346add7facdf571411a"
+      },
+      {
+        "view": "oblique_thumb_side",
+        "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_oblique.png",
+        "sha256": "af861562f5244b85328d3529df7f8d9a63f76ea1b696c33a095a366b1264b4f1"
+      }
+    ]
+  },
+  "limits": [
+    "The finite vertex, edge-midpoint and face-centroid samples do not prove a continuous maximum on the nonconvex handle core.",
+    "The 0.25 mm value is a provisional art-session working decision cutoff, not measurement precision or permission to claim strict zero penetration.",
+    "This review approves a bounded visible first-piece handoff to Root native review only. It does not approve formal publication, PICO SDK behavior, device input, runtime rendering or final grip quality."
+  ],
+  "review_complete": true
+}

@@ -1,0 +1,568 @@
+{
+  "freeze_status": "Root-accepted v9 complete OVERHEAD raw + unchanged stage5 LEFT/RIGHT; private production candidate only",
+  "coordinate_frame": "prepared glTF metres before enemy entity transform; +X actor left, +Y up, +Z forward",
+  "direction_semantics": "slash_to_left/right name the actor cutting direction; player-view enum mapping belongs to Root",
+  "rig_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+  "native_grip_reference": {
+    "path": "ArtSource/tripo-warrior/refined-base60k/slash.glb",
+    "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+    "use": "grip sampling only"
+  },
+  "clips": [
+    {
+      "clip": "overhead",
+      "phase_mapping": {
+        "PREPARING": {
+          "game_ms": 650,
+          "source_seconds": [
+            0,
+            0.65
+          ]
+        },
+        "STARTUP": {
+          "game_ms": 250,
+          "source_seconds": [
+            0.65,
+            0.9
+          ]
+        },
+        "ACTIVE": {
+          "game_ms": 200,
+          "source_seconds": [
+            0.9,
+            1.1
+          ]
+        },
+        "RECOVERING": {
+          "game_ms": 650,
+          "source_seconds": [
+            1.1,
+            1.75
+          ]
+        }
+      },
+      "contact_source_seconds": 1.0,
+      "ACTIVE_phase_elapsed_ms": 100,
+      "actor_direction": "complete v9 authored overhead downward cut",
+      "raw": {
+        "path": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_raw.glb",
+        "sha256": "66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750",
+        "bytes": 19192540,
+        "right_finger_calibration_baked": false
+      },
+      "source_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "sample_count": 211,
+      "sample_rate_hz": 120,
+      "interpolation": "LINEAR",
+      "animation_channel_count": 234,
+      "source_handoff": {
+        "path": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_inputs.json",
+        "sha256": "96f994be8a0ef9e4770b0f1256137a061379dca8824d47830af5d893f78d09af"
+      },
+      "source_scope": "complete v9 raw including all v7 body/right-arm/hand/blade tracks; no two-neck delta or preview import"
+    },
+    {
+      "clip": "slash_to_left",
+      "actor_direction": "toward actor +X left",
+      "raw": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
+        "sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+        "bytes": 18864444,
+        "right_finger_calibration_baked": false
+      },
+      "preview": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_preview.glb",
+        "sha256": "4c0d898a4078b3c3b9651f3fcba91b5acfd6a519b7757003a28715aa22b3fb21",
+        "bytes": 19753460,
+        "right_finger_calibration_applications": 1
+      },
+      "source_range_seconds": [
+        0,
+        1.75
+      ],
+      "sample_count": 106,
+      "sample_rate_hz": 60,
+      "interpolation": "LINEAR",
+      "cut_axis_prepared": [
+        0,
+        1,
+        0
+      ],
+      "phase_mapping": {
+        "PREPARING": {
+          "game_ms": 550,
+          "source_seconds": [
+            0,
+            0.65
+          ]
+        },
+        "STARTUP": {
+          "game_ms": 180,
+          "source_seconds": [
+            0.65,
+            0.9
+          ]
+        },
+        "ACTIVE": {
+          "game_ms": 200,
+          "source_seconds": [
+            0.9,
+            1.1
+          ]
+        },
+        "RECOVERING": {
+          "game_ms": 600,
+          "source_seconds": [
+            1.1,
+            1.75
+          ]
+        }
+      },
+      "contact_source_seconds": 1.0,
+      "ACTIVE_phase_elapsed_ms": 100,
+      "real_surface_contact": {
+        "point_metres": [
+          -0.10461629927158356,
+          1.2931269407272339,
+          0.8999999761581421
+        ],
+        "normal": [
+          0.1686379313468933,
+          -0.983322024345398,
+          -0.06811066716909409
+        ],
+        "material": "Steel | sharpened edge",
+        "source_reference_sha256": "1cb7a1ab744968af4d72fb8ff4c77b047626e0c1cfa894ac81350f13d2213789",
+        "source_primitive": 2,
+        "source_triangle": 12,
+        "method": "nearest point on true sharpened-edge triangle/plane intersection to the blade chord",
+        "approximate_chord_point_metres": [
+          -0.09991209954023361,
+          1.293063998222351,
+          0.8999999761581421
+        ],
+        "chord_to_surface_distance_mm": 4.70462087796432
+      },
+      "blade_kinematics": [
+        {
+          "source_seconds": 0.9,
+          "actual_blade_tip_metres": [
+            -0.6825986504554749,
+            1.3836181163787842,
+            0.9833501577377319
+          ],
+          "actual_blade_axis_direction": [
+            -0.508280873298645,
+            0.048091739416122437,
+            0.8598474860191345
+          ],
+          "actual_dao_source_x_direction": [
+            0.8370157480239868,
+            -0.03167516365647316,
+            0.5462611317634583
+          ],
+          "projected_source_x_cut_tangent": [
+            0.8595245480537415,
+            -0.0337614044547081,
+            0.5099782943725586
+          ],
+          "ideal_cut_tangent": [
+            0.8608435988426208,
+            -0.0,
+            0.5088697075843811
+          ],
+          "cut_tangent_alignment_cosine": 0.9994287192821503,
+          "blade_tip_velocity_metres_per_source_second": [
+            4.544670104980469,
+            -0.9231519103050232,
+            3.362595796585083
+          ],
+          "blade_tip_velocity_tangent": [
+            0.793373167514801,
+            -0.16115668416023254,
+            0.5870158672332764
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_blade_tip_metres": [
+            -0.06719228625297546,
+            1.2767046689987183,
+            1.2252323627471924
+          ],
+          "actual_blade_axis_direction": [
+            0.09997355937957764,
+            -0.04998626187443733,
+            0.9937337040901184
+          ],
+          "actual_dao_source_x_direction": [
+            0.9983410835266113,
+            -0.0021359759848564863,
+            -0.057536281645298004
+          ],
+          "projected_source_x_cut_tangent": [
+            0.994977593421936,
+            3.742680405594001e-07,
+            -0.10009868443012238
+          ],
+          "ideal_cut_tangent": [
+            0.9949775338172913,
+            0.0,
+            -0.10009869933128357
+          ],
+          "cut_tangent_alignment_cosine": 1.0000000884756446,
+          "blade_tip_velocity_metres_per_source_second": [
+            11.661567687988281,
+            -3.059735059738159,
+            -0.305085152387619
+          ],
+          "blade_tip_velocity_tangent": [
+            0.9669504165649414,
+            -0.2537062168121338,
+            -0.025296960026025772
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_blade_tip_metres": [
+            0.7528667449951172,
+            1.0636932849884033,
+            0.8304622769355774
+          ],
+          "actual_blade_axis_direction": [
+            0.8487704396247864,
+            -0.09985508024692535,
+            0.5192473530769348
+          ],
+          "actual_dao_source_x_direction": [
+            0.5576543211936951,
+            -0.004267135169357061,
+            -0.8300622701644897
+          ],
+          "projected_source_x_cut_tangent": [
+            0.5218555927276611,
+            5.700246106243867e-07,
+            -0.8530338406562805
+          ],
+          "ideal_cut_tangent": [
+            0.5218555927276611,
+            0.0,
+            -0.8530339002609253
+          ],
+          "cut_tangent_alignment_cosine": 1.0000000596046448,
+          "blade_tip_velocity_metres_per_source_second": [
+            0.45757052302360535,
+            -0.16538141667842865,
+            -0.509455144405365
+          ],
+          "blade_tip_velocity_tangent": [
+            0.6495320796966553,
+            -0.23476280272006989,
+            -0.7231835126876831
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        }
+      ],
+      "calibration": {
+        "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+        "offsets": {
+          "R_Thumb1": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Index2": {
+            "x_degrees": 3.0,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Thumb3": {
+            "x_degrees": -3.0,
+            "z_degrees": -3.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        },
+        "clips": [
+          {
+            "clip": "slash_to_left",
+            "modified_rotation_tracks": 8
+          }
+        ],
+        "modified_rotation_tracks": 8
+      },
+      "verification_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_verification.json"
+    },
+    {
+      "clip": "slash_to_right",
+      "actor_direction": "toward actor -X right",
+      "raw": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
+        "sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+        "bytes": 18864448,
+        "right_finger_calibration_baked": false
+      },
+      "preview": {
+        "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_preview.glb",
+        "sha256": "149340854a45e8191c277819d304a64ed202c45a4ab7794da894ef9c84e47ae2",
+        "bytes": 19753460,
+        "right_finger_calibration_applications": 1
+      },
+      "source_range_seconds": [
+        0,
+        1.75
+      ],
+      "sample_count": 106,
+      "sample_rate_hz": 60,
+      "interpolation": "LINEAR",
+      "cut_axis_prepared": [
+        0,
+        -1,
+        0
+      ],
+      "phase_mapping": {
+        "PREPARING": {
+          "game_ms": 550,
+          "source_seconds": [
+            0,
+            0.65
+          ]
+        },
+        "STARTUP": {
+          "game_ms": 180,
+          "source_seconds": [
+            0.65,
+            0.9
+          ]
+        },
+        "ACTIVE": {
+          "game_ms": 200,
+          "source_seconds": [
+            0.9,
+            1.1
+          ]
+        },
+        "RECOVERING": {
+          "game_ms": 600,
+          "source_seconds": [
+            1.1,
+            1.75
+          ]
+        }
+      },
+      "contact_source_seconds": 1.0,
+      "ACTIVE_phase_elapsed_ms": 100,
+      "real_surface_contact": {
+        "point_metres": [
+          -0.02535293996334076,
+          1.3433386087417603,
+          0.8999999761581421
+        ],
+        "normal": [
+          -0.17849516868591309,
+          0.9834885001182556,
+          0.029831374064087868
+        ],
+        "material": "Steel | sharpened edge",
+        "source_reference_sha256": "1cb7a1ab744968af4d72fb8ff4c77b047626e0c1cfa894ac81350f13d2213789",
+        "source_primitive": 2,
+        "source_triangle": 12,
+        "method": "nearest point on true sharpened-edge triangle/plane intersection to the blade chord",
+        "approximate_chord_point_metres": [
+          -0.030087849125266075,
+          1.3433538675308228,
+          0.8999999761581421
+        ],
+        "chord_to_surface_distance_mm": 4.734933724085414
+      },
+      "blade_kinematics": [
+        {
+          "source_seconds": 0.9,
+          "actual_blade_tip_metres": [
+            0.49829331040382385,
+            1.3569159507751465,
+            1.0091291666030884
+          ],
+          "actual_blade_axis_direction": [
+            0.5052160620689392,
+            0.03332526609301567,
+            0.8623492121696472
+          ],
+          "actual_dao_source_x_direction": [
+            -0.8396196961402893,
+            -0.02699504792690277,
+            0.5425034165382385
+          ],
+          "projected_source_x_cut_tangent": [
+            -0.8619994521141052,
+            -0.028445307165384293,
+            0.5061104893684387
+          ],
+          "ideal_cut_tangent": [
+            -0.8628284931182861,
+            0.0,
+            0.5054968595504761
+          ],
+          "cut_tangent_alignment_cosine": 0.9995949268341064,
+          "blade_tip_velocity_metres_per_source_second": [
+            -4.100330352783203,
+            -0.27248379588127136,
+            3.1433913707733154
+          ],
+          "blade_tip_velocity_tangent": [
+            -0.792523205280304,
+            -0.052666421979665756,
+            0.6075633764266968
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_blade_tip_metres": [
+            -0.06310907751321793,
+            1.3268431425094604,
+            1.2282265424728394
+          ],
+          "actual_blade_axis_direction": [
+            -0.09997352957725525,
+            -0.049986619502305984,
+            0.9937337040901184
+          ],
+          "actual_dao_source_x_direction": [
+            -0.9983410835266113,
+            -0.0021368619054555893,
+            -0.05753648653626442
+          ],
+          "projected_source_x_cut_tangent": [
+            -0.9949775338172913,
+            -5.068698101240443e-07,
+            -0.10009868443012238
+          ],
+          "ideal_cut_tangent": [
+            -0.9949775338172913,
+            -0.0,
+            -0.10009866952896118
+          ],
+          "cut_tangent_alignment_cosine": 1.0000000251457095,
+          "blade_tip_velocity_metres_per_source_second": [
+            -13.344566345214844,
+            -3.422276735305786,
+            -1.008531928062439
+          ],
+          "blade_tip_velocity_tangent": [
+            -0.9660682082176208,
+            -0.24775272607803345,
+            -0.07301178574562073
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_blade_tip_metres": [
+            -0.9615253210067749,
+            0.9941467642784119,
+            0.7417217493057251
+          ],
+          "actual_blade_axis_direction": [
+            -0.8589698672294617,
+            -0.179784893989563,
+            0.4794248342514038
+          ],
+          "actual_dao_source_x_direction": [
+            -0.5236318111419678,
+            -0.007683442905545235,
+            -0.8519099354743958
+          ],
+          "projected_source_x_cut_tangent": [
+            -0.48736605048179626,
+            2.987618756833399e-07,
+            -0.8731977343559265
+          ],
+          "ideal_cut_tangent": [
+            -0.4873660206794739,
+            -0.0,
+            -0.8731978535652161
+          ],
+          "cut_tangent_alignment_cosine": 1.0000000149011612,
+          "blade_tip_velocity_metres_per_source_second": [
+            -0.49858686327934265,
+            -0.26460883021354675,
+            -0.5968379378318787
+          ],
+          "blade_tip_velocity_tangent": [
+            -0.606940507888794,
+            -0.3221140205860138,
+            -0.726543664932251
+          ],
+          "central_difference_step_seconds": 0.008333333333333333
+        }
+      ],
+      "calibration": {
+        "application": "normalize(q @ (Qx(x_degrees) @ Qz(z_degrees))) in local joint space",
+        "offsets": {
+          "R_Thumb1": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Thumb2": {
+            "x_degrees": 4.5,
+            "z_degrees": 0.0
+          },
+          "R_Index2": {
+            "x_degrees": 3.0,
+            "z_degrees": 0.0
+          },
+          "R_Ring1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Mid1": {
+            "x_degrees": 0.0,
+            "z_degrees": -1.5
+          },
+          "R_Thumb3": {
+            "x_degrees": -3.0,
+            "z_degrees": -3.0
+          },
+          "R_Index1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          },
+          "R_Pinky1": {
+            "x_degrees": -1.5,
+            "z_degrees": 0.0
+          }
+        },
+        "clips": [
+          {
+            "clip": "slash_to_right",
+            "modified_rotation_tracks": 8
+          }
+        ],
+        "modified_rotation_tracks": 8
+      },
+      "verification_path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_verification.json"
+    }
+  ]
+}

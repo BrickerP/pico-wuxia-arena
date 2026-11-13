@@ -1,0 +1,142 @@
+{
+  "phase": "可见首件阶段结束，等待对应Root review",
+  "status": "structural_pass_visible_benefit_final_grip_changes_requested",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb",
+    "sha256": "0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef",
+    "bytes": 2516696
+  },
+  "source": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+  "source_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+  "formal_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "native_integration": {
+    "asset": "app/src/main/assets/models/player_hands/right_hand.glb",
+    "consumer": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerHands.kt",
+    "uri": "asset://models/player_hands/right_hand.glb",
+    "contract": "identity RightGripRoot; one skinned entity/skeleton; grip 0 original open / 1 refined closed; default equals1",
+    "kotlin_change_required": false,
+    "applied_by_this_session": false
+  },
+  "review": "REQUEST_CHANGES_FOR_FINAL_GRIP",
+  "candidate_handoff_allowed_for_root_native_review": true,
+  "formal_publish_allowed": false,
+  "verification_passed": true,
+  "grip_quality_accepted": false,
+  "changed_closed_finger_rotations": 9,
+  "preserved": "all15open0 bytes,originalBINprefix,geometry,NORMAL,UV,weights,joints,78IBM,bone lengths/T/S,wrist/Grip,material,1536KTX bytes,left bones/files",
+  "results": {
+    "same_surface_samples": 7167,
+    "inside_before": 277,
+    "inside_after": 2,
+    "maximum_core_depth_mm_before": 11.485910123886395,
+    "maximum_core_depth_mm_after": 0.092522,
+    "samples_deeper_than_point25_mm_before": 256,
+    "samples_deeper_than_point25_mm_after": 0,
+    "thumb3_index_gap_mm": 0.04376,
+    "pinky3_cord_gap_mm": 5.0614995,
+    "pinky3_ring_gap_mm": 3.8413748,
+    "new_ring2_pinky2_nonadjacent_intersections": 10
+  },
+  "rendering": {
+    "blender_processes": 1,
+    "cpu_threads": 2,
+    "actual_ktx_level0_decoded_pixels": true,
+    "views": 3,
+    "distance_to_actual_grip_metres": 0.3,
+    "root_or_model_rescale": false
+  },
+  "remaining": [
+    "Pinky3 lacks near cord/Ring support",
+    "Ring2/Pinky2 band has10new position-weld-confirmed intersections; quality changes requested",
+    "Index retains2original shallow core samples",
+    "cuff edge/source folds retained,proximal cap partly outside frame; no continuous crop acceptance",
+    "new candidate not built or verified inAPK/Emulator bythis session; Root owns formal publication/build/device/Git"
+  ],
+  "files": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/README.md",
+      "sha256": "a12cdf704b05fe255c9f72be5443e0ea621aa47208f371f2da5c029d33f25e00",
+      "bytes": 6815
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb",
+      "sha256": "0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef",
+      "bytes": 2516696
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_decoded.glb",
+      "sha256": "1961e0f47662f9cfded160a40885ffccb5e09a959730094977a0de6b6e04b850",
+      "bytes": 2247612
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/pose_delta.json",
+      "sha256": "ee352400be184a47782ceb258720674aed51600fa0dc759f4b2d13b92f2891e2",
+      "bytes": 12319
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/manifest.json",
+      "sha256": "18826a6fe25c1dc81ef4b82d55a27fb50ef137dc622b24d51fa4c43be0548d55",
+      "bytes": 2585
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verification.json",
+      "sha256": "3260bd13278665e1f8dc97f01b301dc9d175afc92818c7ede12f76617bd10bc4",
+      "bytes": 3252627
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/review.json",
+      "sha256": "870bb056faf8a15554d1ffd305b6ba72c16e791abf6e8a6cafdd2d6d3aefd498",
+      "bytes": 7564
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/decode_manifest.json",
+      "sha256": "3aea30753d9c862f383d6034884374f85158fe38dd794976b639c2a5e9789354",
+      "bytes": 9553
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/baseline_contact.json",
+      "sha256": "3e09ccbcf22e478e5c19e6271cffa0cb781b4aa56cdb2b4a0efa72f3eb62ba71",
+      "bytes": 2869238
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/build_grip.py",
+      "sha256": "c84ee57351888f2d303dfb3814ce08c7ca6a7c35d83c99291a4476ce66e52f76",
+      "bytes": 14686
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verify_grip.py",
+      "sha256": "cae0bc385230f48490daa9915fb301923ea2a6a763657bee9e10756aa266f8cd",
+      "bytes": 31246
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion.py",
+      "sha256": "add35e6ff0b27ee6d1d42af3ac058729e4796aa6ad2478582d07b0ff3e4938d6",
+      "bytes": 11317
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/render_grip.py",
+      "sha256": "a0601488cd8dbe74c7429ac1a30f7562370e59989f9f6fd9051445fe13694f5b",
+      "bytes": 4874
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/render_manifest.json",
+      "sha256": "d585ebdabf2e2abe829c663e4ac8de6e1b6fc5952d88d70a301764001762aca2",
+      "bytes": 2764
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_front.png",
+      "sha256": "6d42cdaa33425fd19cd838184fea892c5e4e39d03019e56e51aba92003809ac9",
+      "bytes": 1288914
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_back.png",
+      "sha256": "5a8fd7d4ea0538edcd567b7a6a6009cb21f820fd0d148346add7facdf571411a",
+      "bytes": 1163682
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_oblique.png",
+      "sha256": "af861562f5244b85328d3529df7f8d9a63f76ea1b696c33a095a366b1264b4f1",
+      "bytes": 1310835
+    }
+  ]
+}

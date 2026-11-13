@@ -197,3 +197,16 @@ presentResolvedSurface湿／闪避／落地真实生产caller为0，未发现湿
 候选Native7例＋原Soft7例已在本目录隔离JDK/Kotlin运行，14/14通过，覆盖普通BODY无灯、0伤弹反有灯、fatal强调、HEAD值、PLAYER近脸无灯、迟到／future／精确截止、strength边界与原SOFT生命周期／重力。没有启动Gradle或设备。patch在本目录临时5文件fixture里dry-run/apply，逐路径SHA／删除项匹配，app输入锁未变；表面清理另有独立15/15与17源文件锁。独立只读审查通过。
 
 源码、patch、API和测试证据分别在source_lock.json、patch_check.json、api-review/、isolated-tests/report.json。HomeStage完整SDK/UI编译、Root组合验收包、实际PBR细节／曝光和短颗粒像素仍待Root应用后验证；本轮没有新“修复后原生图”，不把原白块或消费日志当粒子像素证明。
+
+
+## 阶段5：原生刀轨细化私有补丁（2026-11-13）
+
+Root已接受顶端6cm尾／1cm芯与两边alpha0的接入方向，明确否决前版>30cm单段清baseline。本版已完整移除该距离门与常量，不添加25ms时间门或其它替代阈值；只保留原有rest、失追／motionGeneration、时间回退和65ms历史过期断史。
+
+同一`native-blade-trail-polish/01-native-blade-trail.patch`已更新：patch SHA `75d1af3a124d74cfc147986f76d9e7c709bfae3d472b9b72fd0da52a46d9a779`，Geometry SHA `424e5eecccce9233c90bd3c39d4fa880e42f95edcdee839655ff87cd16c91a2b`。仍只有Geometry、Player两行颜色和对应测试三路径，正式app未动。
+
+保留真实tip末端6cm尾带／1cm芯，共心tip后3cm，尾／芯各3点，边缘alpha0，中心随原age和tipSpeed变化；65ms／12ms、8点、单mesh／material／entity、透明／深度与释放顺序不变。窄带和渐隐直接解决原约45cm宽灰面，不通过丢掉合法快速反馈规避问题。无新资源、HTML、相机抖动，输入／判定／伤害／HMD／双手保持。
+
+19项必要几何测试重新执行通过；原距离拒绝例已改为同代快速挥刀保反馈，0.30m、nextUp及0.60m在33ms内均继续输出窄带，同时既有65ms／12ms、rest／generation等边界通过。补丁仅在本目录临时三文件fixture里dry-run/apply和SHA核对，正式app源锁原样。
+
+按Root要求不扩或重跑unknown-rest假设组合，不追加研究／渲染。native-replay/的194条原源及6项结果只保留为前版证据，不冒作本版连续原生像素证明。当前结果以isolated-tests/report.json、patch_check.json和delivery.json为准。Root下一轮直接进APK看实际像素；本轮没有发现或暗混其它原断史／真实caller修复。

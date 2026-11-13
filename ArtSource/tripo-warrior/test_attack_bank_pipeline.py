@@ -4,6 +4,7 @@ import hashlib
 import json
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from mathutils import Quaternion
@@ -93,7 +94,8 @@ class AttackBankContracts(unittest.TestCase):
         _, rig, rig_binary = library.pinned_source(bank)
         row = next(row for row in bank['clips'] if row['direction'] == 'LEFT')
         _, motion, motion_binary = library.pinned_source(row)
-        library.validate_source_clip(motion, motion_binary, rig, rig_binary, 'attack78')
+        library.validate_source_clip(motion, motion_binary, rig, rig_binary, 'attack78', row['name'],
+                                     library.attack_source_contracts(bank)[row['name']])
         target_row = next(row for row in self.manifest['characters'] if row['id'] == 'indigo')
         _, target, target_binary = library.pinned_source(target_row)
         _, grip, grip_binary = library.pinned_source(target_row['grip_source'])
@@ -118,6 +120,61 @@ class AttackBankContracts(unittest.TestCase):
             library.retarget_clip(motion, motion_binary, rig, target, target_binary,
                                   native, 'idle', source_contract='motion41')
 
+    def test_each_attack_uses_its_bound_authoring_grid_without_downsampling_v9(self):
+        bank = self.manifest['attack_source']
+        _, rig, rig_binary = library.pinned_source(bank)
+        original_contracts = library.attack_source_contracts(bank)
+        left = next(row for row in bank['clips'] if row['direction'] == 'LEFT')
+        _, source, binary = library.pinned_source(left)
+        actual = library.validate_source_clip(source, binary, rig, rig_binary, 'attack78', left['name'],
+                                             original_contracts[left['name']])
+        self.assertEqual(len(actual), 234)
+        self.assertEqual(len(next(iter(actual.values()))[0]), 106)
+        candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        library.validate_manifest(candidate)
+        attack = candidate['attack_source']
+        contracts = library.attack_source_contracts(attack)
+        row = next(row for row in attack['clips'] if row['direction'] == 'OVERHEAD')
+        _, source, binary = library.pinned_source(row)
+        actual = library.validate_source_clip(source, binary, rig, rig_binary, 'attack78', row['name'], contracts[row['name']])
+        self.assertEqual(len(actual), 234)
+        self.assertEqual(len(next(iter(actual.values()))[0]), 211)
+        self.assertEqual([contracts[name]['sample_count'] for name in library.ATTACK_CLIPS.values()], [211, 106, 106])
+
+    def test_v9_wrong_declared_count_or_wrong_clip_contract_is_rejected(self):
+        candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        bank = candidate['attack_source']
+        contracts = library.attack_source_contracts(bank)
+        _, rig, rig_binary = library.pinned_source(bank)
+        row = next(row for row in bank['clips'] if row['direction'] == 'OVERHEAD')
+        _, source, binary = library.pinned_source(row)
+        bad_count = copy.deepcopy(contracts[row['name']])
+        bad_count['sample_count'] = 210
+        for declared in (bad_count, contracts['attack_left']):
+            with self.assertRaisesRegex(ValueError, 'authoring time contract'):
+                library.validate_source_clip(source, binary, rig, rig_binary, 'attack78', row['name'], declared)
+        swapped = copy.deepcopy(bank)
+        swapped['clips'][0]['source_sha256'] = swapped['clips'][1]['source_sha256']
+        with self.assertRaisesRegex(ValueError, 'frozen unbaked authoring source'):
+            library.attack_source_contracts(swapped)
+
+    def test_v9_off_grid_or_shortened_boundary_source_times_are_rejected(self):
+        candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        bank = candidate['attack_source']
+        row = next(row for row in bank['clips'] if row['direction'] == 'OVERHEAD')
+        declared = library.attack_source_contracts(bank)[row['name']]
+        _, rig, rig_binary = library.pinned_source(bank)
+        _, source, binary = library.pinned_source(row)
+        tracks, times = library.decode_animation(source, binary)
+        for index, delta in ((1, .00001), (-1, -.00001)):
+            changed = list(times)
+            changed[index] += delta
+            altered_tracks = {key: (changed, values, interpolation)
+                              for key, (_, values, interpolation) in tracks.items()}
+            with mock.patch.object(library, 'decode_animation', return_value=(altered_tracks, changed)):
+                with self.assertRaisesRegex(ValueError, 'source key count/time grid'):
+                    library.validate_source_clip(source, binary, rig, rig_binary, 'attack78', row['name'], declared)
+
     def test_locked_locomotion_reuses_world_transfer_and_keeps_step_semantics(self):
         bank = self.manifest['locomotion_source']
         _, rig, rig_binary = library.pinned_source(bank)
@@ -128,7 +185,7 @@ class AttackBankContracts(unittest.TestCase):
         row = next(row for row in bank['clips'] if row['name'] == 'walk')
         _, motion, motion_binary = library.pinned_source(row)
         tracks = library.validate_source_clip(motion, motion_binary, rig, rig_binary, 'locomotion78', 'walk')
-        with self.assertRaisesRegex(ValueError, '106-key'):
+        with self.assertRaisesRegex(ValueError, 'pinned authoring time contract'):
             library.validate_source_clip(motion, motion_binary, rig, rig_binary, 'attack78')
         broken = copy.deepcopy(motion)
         channel = next(c for c in broken['animations'][0]['channels']

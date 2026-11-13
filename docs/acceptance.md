@@ -2,7 +2,15 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-## 当前可交付节点
+## 本轮开发整合：v9动作＋右手v2（原生流程待验）
+
+2026-11-13 新组合APK `d0c76247ce0e6957e721e4840a0ea7a5311fe8ba931cb9b45214d0d09088be95`，242,706,266 B，已构建并安装到同一PICO Emulator 6.1.0。Kotlin源码与349项全过版本逐文件相同；相对已完成managed scene build只换入已源审的右手v2，7个装包GLB均匹配正式资源。上劈v9/120Hz211键、64da庭院、近场光、薄刀轨与终局摆位已进入本包。APK/构建身份见本地 `artifacts/native-visual-v9-grip-v2-2026-11-13/`。
+
+同包原生准备态已显示庭院、首敌和v2左右手；SDK Head/Controller为STARTED/SUPPORTED，真实Shift组合键和鼠标进入SDK_NATIVE共享判定，Start gate随有效头手恢复。完整三轮、v9动作/刀轨、终局面板数值及点击仍待本包实际试玩，不能借下方旧版三轮录像判新包通过。当前还在校准模拟器切左右模式后变化的虚拟手基点。新增Tripo doctor在30秒有界检查内未返回，余额未知，没有新的收费任务。
+
+右手v2已获Root和独立三视图复审；只改Pinky闭握并保留v1拇指收益，新增Ring/Pinky交叉10→0。旧掌背硬脊、腕口硬边及closed极浅样本仍保留，未作最终手部质量通过。运行时仅消费grip0/1，不消费mid；离线固定右手DAO的open/mid旧穿入仍如实保留在源审核。
+
+## 上一已公开、完成三轮的节点
 
 本轮原生UI/命中组合APK：`ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`，242,709,621字节，已公开为[native-ui-impact-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13)，固定源码a22a216。构建与336项单测通过，源在构建/测试/录制期间一致；运行包已无EnemyHitFlash。UI样式0error/0warning，保Full Stage、既有面板尺寸/位置、输入与规则。
 
@@ -33,21 +41,21 @@
 
 | 当前正式运行资产 | SHA-256 |
 | --- | --- |
-| base | `ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20` |
-| indigo | `94773349741af7cdd2616bb3f5970c5c9fa16f16199c1d0ce5bf6fde6ee0c54e` |
-| veteran | `cabf24597a83d46495ad67b451867aaf5e1dad1bbb5df21cae286513af9a17a5` |
+| base | `6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24` |
+| indigo | `27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df` |
+| veteran | `6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2` |
 | dao_grip | `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0` |
-| courtyard | `9b259812a46f07e95dab6b4e4c414521c05118366ed09fca9632bebc51c27dd5` |
-| right_hand | `5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d` |
+| courtyard | `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605` |
+| right_hand | `3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0` |
 | left_hand | `cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541` |
 
-三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。此次HIT数据发布没有改变运行GLB。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地无真实witness，当前已移除无caller入口与无用预载；源资产保留，不按文件存在认定可用。
+三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。本轮v9已通过唯一producer重导，typed/profile/三角色binding为365578…；此前HIT阶段未改运行GLB的事实仅属于旧公开包。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地无真实witness，当前已移除无caller入口与无用预载；源资产保留，不按文件存在认定可用。
 
 下一批仅围绕同一战斗画面交付：
 
 1. **人物与手刀：** 修自然握柄、袖肩薄厚、皮肤/衣料分区、近距过亮与黑刀面；服装Cloth首件失败，转真实二维衣片构型，保当前脸手/骨架。
-2. **一招动作：** fine-overhead v7的整体随势比旧版明显，但准备/接触时低头弯腰需要三分之四/侧面复核；未正式重导，暂不扩新招。
-3. **场景：** 整立面64da候选已由Root看图接受开发整合，尚待替换唯一courtyard并检查原生法线、接缝与成本；不是新场景。
-4. **反馈/UI：** 处理普通命中的整身白块、刀面遮脸和重复大面板；只消费真实事件，头手保持实时，不用相机抖动补力度。
+2. **一招动作：** fine-overhead v9已完成三角色正式重导，低头姿态经源审改善；0.50–0.65s快抬头及连续交战仍待本包原生观察，不扩新招。
+3. **场景：** 整立面64da已换入唯一courtyard并显示于本包原生准备态；进一步检查动态法线/接缝和Space Pro成本。静态合批候选另由06制作，未合入，不凭静态计数归因LMK。
+4. **反馈/UI：** 旧整身白闪已在上一公开包删除；本轮薄刀轨、近场光、终局文本和面板世界锚进入开发包，实际接触/遮挡/点击待验。只消费真实事件，头手保持实时，不用相机抖动补力度。
 
 各方向实物、Root修改意见和当前责任见 [并行制作入口](agents/README.md)。每次收件要求同机位正常视距前后图/短片和可追溯源；尺寸、面数、离线图或测试PASS均不能代替实际品质验收。

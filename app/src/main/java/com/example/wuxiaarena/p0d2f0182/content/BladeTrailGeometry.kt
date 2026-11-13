@@ -2,13 +2,13 @@ package com.example.wuxiaarena.p0d2f0182.content
 
 import com.example.wuxiaarena.core.math.Vector3
 
-/** Short Stage-space history for a ribbon swept by the visible end of the real blade. */
+/** Short Stage-space history of the real blade tip, with transparent cross-section edges. */
 internal class BladeTrailGeometry {
     data class Ribbon(
         val positions: List<Vector3>,
         val triangleIndices: List<Int>,
         val alphas: List<Float>,
-        /** Tail vertices precede this offset; the short hot edge follows it in the same mesh. */
+        /** Tail vertices precede this offset; the narrow hot edge follows in the same mesh. */
         val coreVertexOffset: Int,
     )
 
@@ -32,15 +32,17 @@ internal class BladeTrailGeometry {
         motionGeneration: Long,
     ): Ribbon? {
         val blade = tip - base
+        val bladeLength = blade.length()
         if (atRest || !tipSpeed.isFinite() || tipSpeed < 0.0 ||
             !base.isFinite() || !tip.isFinite() || !blade.isFinite() ||
-            blade.length() <= GEOMETRY_EPSILON
+            !bladeLength.isFinite() || bladeLength <= GEOMETRY_EPSILON
         ) {
             clear()
             return null
         }
-        val near = base + blade * 0.35
-        val far = base + blade * 0.98
+        // Six centimetres at most, instead of filling most of the measured blade length.
+        val near = tip - blade * (minOf(TAIL_WIDTH_METRES, bladeLength) / bladeLength)
+        val far = tip
         if (!near.isFinite() || !far.isFinite()) {
             clear()
             return null
@@ -73,22 +75,34 @@ internal class BladeTrailGeometry {
         val positions = mutableListOf<Vector3>()
         val indices = mutableListOf<Int>()
         val alphas = mutableListOf<Float>()
-        fun append(before: Sample, after: Sample, hotCore: Boolean) {
-            // The hot edge occupies the outer half of the sampled blade, never a preset arc.
-            val beforeNear = if (hotCore) before.near + (before.far - before.near) * 0.5 else before.near
-            val afterNear = if (hotCore) after.near + (after.far - after.near) * 0.5 else after.near
-            val firstTriangle = hasArea(beforeNear, before.far, afterNear)
-            val secondTriangle = hasArea(afterNear, before.far, after.far)
-            if (!firstTriangle && !secondTriangle) return
-            val offset = positions.size
-            positions.addAll(listOf(beforeNear, before.far, afterNear, after.far))
-            val lifetime = if (hotCore) CORE_NANOS else HISTORY_NANOS
-            val beforeAlpha = alpha(before, nowNanos, lifetime)
-            val afterAlpha = alpha(after, nowNanos, lifetime)
-            alphas.addAll(listOf(beforeAlpha, beforeAlpha, afterAlpha, afterAlpha))
-            if (firstTriangle) indices.addAll(listOf(offset, offset + 1, offset + 2))
-            if (secondTriangle) indices.addAll(listOf(offset + 2, offset + 1, offset + 3))
+
+        fun section(sample: Sample, hotCore: Boolean): List<Vector3> {
+            val center = (sample.near + sample.far) * 0.5
+            if (!hotCore) return listOf(sample.near, center, sample.far)
+            val span = sample.far - sample.near
+            val length = span.length()
+            if (length <= GEOMETRY_EPSILON) return listOf(center, center, center)
+            val half = span * (minOf(CORE_WIDTH_METRES, length) * 0.5 / length)
+            return listOf(center - half, center, center + half)
         }
+
+        fun append(before: Sample, after: Sample, hotCore: Boolean) {
+            val sectionA = section(before, hotCore)
+            val sectionB = section(after, hotCore)
+            if ((sectionA + sectionB).any { !it.isFinite() }) return
+            val vertices = sectionA + sectionB
+            val local = listOf(0, 1, 3, 3, 1, 4, 1, 2, 4, 4, 2, 5)
+                .chunked(3).filter { (a, b, c) -> hasArea(vertices[a], vertices[b], vertices[c]) }
+            if (local.isEmpty()) return
+            val offset = positions.size
+            positions.addAll(vertices)
+            val lifetime = if (hotCore) CORE_NANOS else HISTORY_NANOS
+            // Both cross-section edges are exactly transparent; only the measured centre glows.
+            alphas.addAll(listOf(0f, alpha(before, nowNanos, lifetime), 0f,
+                0f, alpha(after, nowNanos, lifetime), 0f))
+            for (triangle in local) indices.addAll(triangle.map { it + offset })
+        }
+
         for (index in 1 until samples.size) append(samples[index - 1], samples[index], hotCore = false)
         val coreVertexOffset = positions.size
         for (index in 1 until samples.size) {
@@ -98,14 +112,12 @@ internal class BladeTrailGeometry {
             if (afterAge >= CORE_NANOS) continue
             val beforeAge = ageNanos(before.atNanos, nowNanos)
             val clipped = if (beforeAge > CORE_NANOS) {
-                // Clip along the measured segment at the hot-edge age, including sparse frames.
+                // Clip only on this already-measured segment; never invent a preset swing curve.
                 val fraction = (beforeAge - CORE_NANOS).toDouble() / (beforeAge - afterAge)
-                Sample(
-                    before.near + (after.near - before.near) * fraction,
+                Sample(before.near + (after.near - before.near) * fraction,
                     before.far + (after.far - before.far) * fraction,
                     nowNanos - CORE_NANOS,
-                    before.intensity + (after.intensity - before.intensity) * fraction,
-                )
+                    before.intensity + (after.intensity - before.intensity) * fraction)
             } else before
             append(clipped, after, hotCore = true)
         }
@@ -127,6 +139,8 @@ internal class BladeTrailGeometry {
     private companion object {
         const val HISTORY_NANOS = 65_000_000L
         const val CORE_NANOS = 12_000_000L
+        const val TAIL_WIDTH_METRES = 0.06
+        const val CORE_WIDTH_METRES = 0.01
         const val MAX_SAMPLES = 8
         const val GEOMETRY_EPSILON = 1e-12
     }

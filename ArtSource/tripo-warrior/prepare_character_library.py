@@ -484,7 +484,38 @@ def encode_runtime_glb(source, output, config):
     return report
 
 
-def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=None):
+def attack_source_contracts(attacks):
+    """Bind each source to its pinned three-attack authoring row, including its exact grid."""
+    authoring = attacks['authoring_manifest']
+    path = HERE / authoring['source']
+    if hashlib.sha256(path.read_bytes()).hexdigest() != authoring['source_sha256']:
+        raise ValueError('frozen attack input manifest hash changed')
+    frozen = json.loads(path.read_text())
+    if frozen['rig_sha256'] != attacks['source_sha256']:
+        raise ValueError('attack raw rig differs from the frozen authoring rig')
+    aliases = {'OVERHEAD': 'overhead', 'LEFT': 'slash_to_left', 'RIGHT': 'slash_to_right'}
+    rows = frozen['clips']
+    if len(rows) != 3 or {row['clip'] for row in rows} != set(aliases.values()):
+        raise ValueError('attack authoring requires exactly its three direction-specific rows')
+    result = {}
+    for entry in attacks['clips']:
+        row = next(row for row in rows if row['clip'] == aliases[entry['direction']])
+        raw = row['raw']
+        if (raw.get('right_finger_calibration_baked') is not False or
+                raw['sha256'] != entry['source_sha256'] or
+                (HERE.parent.parent / raw['path']).resolve() != (HERE / entry['source']).resolve()):
+            raise ValueError('attack clip differs from its frozen unbaked authoring source: ' + entry['name'])
+        rate, count = row['sample_rate_hz'], row['sample_count']
+        if (row['source_range_seconds'] != [0, 1.75] or
+                type(rate) is not int or rate <= 0 or type(count) is not int or count < 2 or
+                1.75 * rate != count - 1 or row['interpolation'] != 'LINEAR' or
+                row['contact_source_seconds'] != ATTACK_PHASES['contact']):
+            raise ValueError('attack authoring has an inconsistent 0..1.75s time contract: ' + entry['name'])
+        result[entry['name']] = row
+    return result
+
+
+def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=None, sample_contract=None):
     require_same_rest(document, rig)
     source_joints = joint_nodes(document)
     expected_count = {'motion41': 41, 'attack78': 78, 'locomotion78': 78}[contract]
@@ -505,8 +536,19 @@ def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=
     if set(tracks) != expected:
         raise ValueError('source requires one complete TRS track per joint')
     if contract in {'attack78', 'locomotion78'}:
-        if contract == 'attack78' and (len(times) != 106 or abs(times[0]) > 1e-7 or abs(times[-1] - 1.75) > 1e-6):
-            raise ValueError('attack78 requires the frozen 106-key 0..1.75s raw source')
+        if contract == 'attack78':
+            if sample_contract is None:
+                raise ValueError('attack78 requires its pinned authoring time contract')
+            rate, count = sample_contract['sample_rate_hz'], sample_contract['sample_count']
+            if (sample_contract['source_range_seconds'] != [0, 1.75] or
+                    type(rate) is not int or rate <= 0 or type(count) is not int or count < 2 or
+                    1.75 * rate != count - 1 or sample_contract['interpolation'] != 'LINEAR'):
+                raise ValueError('attack78 has an inconsistent authoring time contract')
+            expected_times = [struct.unpack('<f', struct.pack('<f', index / rate))[0] for index in range(count)]
+            if times != expected_times:
+                raise ValueError('attack78 source key count/time grid differs from its pinned authoring time contract')
+            if any(track[2] != sample_contract['interpolation'] for track in tracks.values()):
+                raise ValueError('attack78 interpolation differs from its pinned authoring time contract')
         if contract == 'locomotion78':
             if clip_name not in LOCOMOTION_CLIPS:
                 raise ValueError('locomotion78 requires an explicit idle/walk alias')
@@ -670,16 +712,7 @@ def validate_manifest(manifest):
             raise ValueError('attack sources must explicitly identify unbaked authored raw curves')
     if attacks['phase_markers'] != ATTACK_PHASES:
         raise ValueError('attack source phase markers differ from the 1.75s source contract')
-    authoring = attacks['authoring_manifest']
-    source = HERE / authoring['source']
-    if hashlib.sha256(source.read_bytes()).hexdigest() != authoring['source_sha256']:
-        raise ValueError('frozen attack input manifest hash changed')
-    frozen = json.loads(source.read_text())
-    if frozen['rig_sha256'] != attacks['source_sha256']:
-        raise ValueError('attack raw rig differs from the frozen authoring rig')
-    raw = {row['raw']['sha256'] for row in frozen['clips'] if row['raw']['right_finger_calibration_baked'] is False}
-    if raw != {row['source_sha256'] for row in rows}:
-        raise ValueError('attack bank differs from the frozen unbaked source identities')
+    attack_source_contracts(attacks)
     for character in characters:
         retired = {'finger_rotation_review', 'offhand_rotation_envelope', 'offhand_rotation_review'}
         if retired.intersection(character):
@@ -735,6 +768,7 @@ def build_library(manifest_path, candidate_dir=None):
     movement = manifest['motion_source']
     locomotion = manifest['locomotion_source']
     attacks = manifest['attack_source']
+    attack_contracts = attack_source_contracts(attacks)
     weapon_source = manifest['weapon_source']
     texture_encoding = manifest['runtime_texture_encoding']
     player_weapon_source = manifest['player_weapon_source']
@@ -744,12 +778,16 @@ def build_library(manifest_path, candidate_dir=None):
     _, locomotion_rig, locomotion_binary = pinned_source(locomotion)
     _, attack_rig, attack_binary = pinned_source(attacks)
     sources = []
+    source_timelines = {}
     for family, rig, rig_binary in ((movement, motion_rig, motion_binary),
                                    (locomotion, locomotion_rig, locomotion_binary),
                                    (attacks, attack_rig, attack_binary)):
         for entry in family['clips']:
             _, document, binary = pinned_source(entry)
-            validate_source_clip(document, binary, rig, rig_binary, family['contract'], entry['name'])
+            tracks = validate_source_clip(document, binary, rig, rig_binary, family['contract'], entry['name'],
+                                          attack_contracts[entry['name']] if family['contract'] == 'attack78' else None)
+            if family['contract'] in {'attack78', 'locomotion78'}:
+                source_timelines[entry['name']] = list(next(iter(tracks.values()))[0])
             sources.append((entry, document, binary, rig, family['contract']))
     targets = []
     for character in manifest['characters']:
@@ -802,7 +840,7 @@ def build_library(manifest_path, candidate_dir=None):
                                        output_folder / (stem + '_alignment.json'),
                                        height=character['height_metres'], grip_frame=character.get('grip_frame'),
                                        finger_rotation_offsets=character.get('finger_rotation_offsets'),
-                                       canonical_grounding_clips=['idle', 'walk', *ATTACK_CLIPS.values()],
+                                       canonical_grounding_clips=source_timelines,
                                        weapon_source=weapon_source)
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']

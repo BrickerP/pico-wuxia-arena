@@ -115,10 +115,27 @@ private class SceneOwner(
     private var impactRound = -1L
     private val seenImpactLights = mutableSetOf<Long>()
     private var pulseUntil = 0L
+    private val controlPosition = Vector3(-0.6f, 1.2f, -1.75f)
+    private val controlRotation = Quat(0f, 0.17364818f, 0f, 0.98480775f)
+    private val terminalControls = TerminalControlPlacement()
+    var fullControlHeightMeters = 0f
+    var currentControlHeightDp = 0
+    private var terminalBoundsPose: TerminalControlPose? = null
+    private var terminalBoundsAttempts = 0
+    private var terminalBoundsNextAt = 0L
 
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
         if (!parent.valid) return
+        terminalControls.update(
+            state.roundGeneration,
+            terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT,
+            inputReady = state.inputReady && state.headQuality != TrackingQuality.SOURCE_REPORTED_INVALID,
+            head = state.playerHeadPosition,
+            enemy = state.enemyPosition,
+            fullHeightMeters = fullControlHeightMeters.toDouble(),
+        )
+        placeControlPanel(parent)
         requestOpponent(state, parent)
         weather?.update(System.nanoTime(), state.sceneReady)
         presentImpactLight(state, events)
@@ -145,6 +162,66 @@ private class SceneOwner(
             }
         }
         loaded.animator?.present(state, events)
+    }
+
+    /** All initial, Compose-update and arena-update placement uses this same selection. */
+    fun placeControlPanel(parent: Entity) {
+        val anchor = panelAnchors[CONTROL_PANEL_ID]?.takeIf { it.valid } ?: return
+        val pose = terminalControls.pose
+        val position = pose?.position?.let { Vector3(it.x.toFloat(), it.y.toFloat(), it.z.toFloat()) } ?: controlPosition
+        val rotation = pose?.let {
+            val facing = readableStatusRotation(it.position, it.capturedHead)
+            Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())
+        } ?: controlRotation
+        placeAttachment(parent, anchor, position, rotation)
+        recordTerminalControlBounds(parent, anchor, pose)
+    }
+
+    private fun recordTerminalControlBounds(parent: Entity, anchor: Entity, pose: TerminalControlPose?) {
+        val now = System.nanoTime()
+        if (pose !== terminalBoundsPose) {
+            terminalBoundsPose = pose
+            terminalBoundsAttempts = 0
+            terminalBoundsNextAt = now + 100_000_000L
+        }
+        if (pose == null || currentControlHeightDp != 400 || terminalBoundsAttempts >= 10 || now < terminalBoundsNextAt) return
+        terminalBoundsAttempts++
+        terminalBoundsNextAt = now + 100_000_000L
+        val epsilon = 0.002f
+        try {
+            // Query the visible attachment subtree in its direct scene owner's axes,
+            // after the chosen transform/scale. Compact or stale layout cannot pass.
+            val bounds = anchor.getVisualBounds(parent, recursive = true, enabledOnly = true)
+            val center = bounds.center
+            val size = bounds.size
+            val head = parent.convertPositionFrom(Vector3(
+                pose.capturedHead.x.toFloat(), pose.capturedHead.y.toFloat(), pose.capturedHead.z.toFloat(),
+            ), null)
+            val expected = parent.convertPositionFrom(Vector3(
+                pose.position.x.toFloat(), pose.position.y.toFloat(), pose.position.z.toFloat(),
+            ), null)
+            val finite = listOf(center.x, center.y, center.z, size.x, size.y, size.z,
+                head.x, head.y, head.z, expected.x, expected.y, expected.z).all { it.isFinite() }
+            val fullHeight = !bounds.isEmpty() && finite && size.x > 0f && size.y > 0f && size.z >= 0f &&
+                abs(size.y - fullControlHeightMeters) <= epsilon &&
+                abs(fullControlHeightMeters.toDouble() - pose.fullHeightMeters) <= epsilon
+            val currentPose = fullHeight && abs(center.x - expected.x) <= epsilon &&
+                abs(center.y - expected.y) <= epsilon && abs(center.z - expected.z) <= epsilon
+            val top = center.y + size.y / 2f
+            val pass = currentPose && top <= head.y - 0.08f + epsilon
+            if (!pass && terminalBoundsAttempts < 10) return
+            terminalBoundsAttempts = 10
+            Log.i(TAG, "TerminalControlPlacement owner=HomeStage.sceneRoot generation=${pose.generation} " +
+                "heightDp=400 expectedHeightMeters=$fullControlHeightMeters head=$head " +
+                "expectedCenter=$expected panelCenter=$center panelSize=$size top=$top epsilon=$epsilon " +
+                "numeric=${if (pass) "PASS" else "BLOCKED"} " +
+                "reason=${if (pass) "fresh_full_height_bounds" else "empty_stale_or_misaligned_bounds"} visual=UNOBSERVED")
+        } catch (error: Exception) {
+            if (terminalBoundsAttempts < 10) return
+            Log.w(TAG, "TerminalControlPlacement owner=HomeStage.sceneRoot generation=${pose.generation} " +
+                "expectedHeightMeters=$fullControlHeightMeters epsilon=$epsilon " +
+                "numeric=BLOCKED reason=bounds_unavailable visual=UNOBSERVED", error)
+        }
     }
 
     private fun requestOpponent(state: ArenaViewState, parent: Entity) {
@@ -354,6 +431,10 @@ private class SceneOwner(
     }
 
     fun release() {
+        terminalControls.clear()
+        terminalBoundsPose = null
+        terminalBoundsAttempts = 0
+        terminalBoundsNextAt = 0L
         opponentRequest = null
         failedOpponentRequest = null
         opponentJob?.cancel()
@@ -469,12 +550,12 @@ internal fun HomeStage(
     val currentStatus = rememberUpdatedState(statusPanel)
     val currentControlHeight = rememberUpdatedState(controlsHeightDp)
     val converter = LocalPhysicalLengthConverter.current
+    owner.fullControlHeightMeters = converter.dpToLength(400.dp, LengthUnit.Meters) * HUD_WORLD_SCALE
+    owner.currentControlHeightDp = controlsHeightDp
     val statusHeightMeters = converter.dpToLength(260.dp, LengthUnit.Meters) * STATUS_WORLD_SCALE
     val statusPosition = Vector3(0f, maxOf(2.15f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
     owner.statusPanelY = statusPosition.y
     owner.damageWorldScale = 0.18f / converter.dpToLength(128.dp, LengthUnit.Meters)
-    val controlPosition = remember { Vector3(-0.6f, 1.2f, -1.75f) }
-    val controlRotation = remember { Quat(0f, 0.17364818f, 0f, 0.98480775f) }
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
@@ -503,7 +584,7 @@ internal fun HomeStage(
         update = { _, attachments ->
             val root = owner.root
             if (root != null && root.valid) {
-                placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
+                owner.placeControlPanel(root)
                 val location = owner.statusWorldPosition ?: statusPosition
                 placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), location, owner.statusWorldRotation, STATUS_WORLD_SCALE)
             }
@@ -555,7 +636,7 @@ internal fun HomeStage(
                     throw error
                 }
             }
-            placeAttachment(root, owner.panelAnchors.getValue(CONTROL_PANEL_ID), controlPosition, controlRotation)
+            owner.placeControlPanel(root)
             placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity(), STATUS_WORLD_SCALE)
             model = Entity.loadSuspend(COURTYARD_ASSET)
             if (owner.root !== root) {

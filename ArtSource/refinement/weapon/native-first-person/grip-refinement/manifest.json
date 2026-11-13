@@ -1,0 +1,79 @@
+{
+  "source": "ArtSource/refinement/weapon/native-first-person/right_hand.glb",
+  "source_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+  "formal_dao": "app/src/main/assets/models/dao_grip.glb",
+  "formal_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "candidate": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb",
+  "candidate_sha256": "0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef",
+  "source_bin_prefix_bytes": 2487020,
+  "source_bin_prefix_sha256": "98befadee02a63808937cb1837119b1981ee6770a6a6940c5d082355f33073ae",
+  "preserved": {
+    "original_BIN_prefix": true,
+    "grip0_every_finger_byte_exact": true,
+    "default_equals_grip1": true,
+    "geometry_UV_skin_IBM_material_images_exact": true,
+    "wrist_grip_root_bone_lengths_and_other_node_data_exact": true
+  },
+  "modified_closed_rotation_tracks": 9,
+  "closed_only": true,
+  "camera_guides": {
+    "space": "canonical player Dao root, metres",
+    "basis": "R palm outward = cross(Index1-Pinky1, mean(Index1,Pinky1,Mid3)-R_Hand)",
+    "palm_outward_unit": [
+      0.02821397097889234,
+      0.9945870695079841,
+      -0.10000266501010077
+    ],
+    "dorsal_outward_unit": [
+      -0.02821397097889234,
+      -0.9945870695079841,
+      0.10000266501010077
+    ],
+    "oblique_outward_unit": [
+      -0.13073146624088852,
+      0.7938308231695077,
+      -0.593920792631921
+    ],
+    "bone_palm_center_metres": [
+      0.009874790726540423,
+      -0.02980118917618224,
+      -0.0012079977606189569
+    ],
+    "skin_hand_finger_center_metres": [
+      0.039424548762294426,
+      -0.02148183528655727,
+      0.001091843199844518
+    ],
+    "skin_hand_finger_bounds_metres": [
+      [
+        -0.052583803255158046,
+        -0.07729599569409515,
+        -0.06610574459646068
+      ],
+      [
+        0.1314329007797469,
+        0.03433232512098061,
+        0.06828943099614972
+      ]
+    ]
+  },
+  "status": "frozen first candidate awaiting independent visual review; no automatic APPROVE",
+  "modified_closed_bones": [
+    "R_Thumb1",
+    "R_Thumb2",
+    "R_Pinky1",
+    "R_Pinky2",
+    "R_Ring2",
+    "R_Ring3",
+    "R_Mid3",
+    "R_Thumb3",
+    "R_Pinky3"
+  ],
+  "pose_delta_sha256": "ee352400be184a47782ceb258720674aed51600fa0dc759f4b2d13b92f2891e2",
+  "single_application_proof": {
+    "all_nine_bones_match_once": true,
+    "max_once_error_degrees": 3.0391475927054066e-06,
+    "min_double_application_distance_degrees": 1.399574406210967,
+    "native_baked_offsets_reapplied": false
+  }
+}

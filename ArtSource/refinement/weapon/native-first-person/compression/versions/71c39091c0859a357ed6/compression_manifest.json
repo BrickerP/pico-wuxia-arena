@@ -1,0 +1,452 @@
+{
+  "status": "offline_validated_native_validation_pending",
+  "version": "71c39091c0859a357ed6",
+  "source_job": {
+    "formal_source": "ArtSource/tripo-warrior/library/base.glb",
+    "formal_sha256": "ac7dfbc606cb968dc8e4ca4e50f877bff431ad18b1a23526197dfc4edc14da20",
+    "png_source": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+    "png_sha256": "b3fbfe66727d0dd90bd741420937a6c57dbb9e083d76ecd983cd9383ab5bbf96",
+    "rig_manifest_sha256": "7f8fcc02e2dee50056f9008c5c5bf34780ab50e41f2e61f311e5762f4b3ea971",
+    "sides": {
+      "right": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/sources/right-a70c821dbb1f8b5a30d5fc86b4c591a435f1637b26ae9b99776fb52b588608af.glb",
+        "sha256": "a70c821dbb1f8b5a30d5fc86b4c591a435f1637b26ae9b99776fb52b588608af",
+        "producer_path": "ArtSource/refinement/weapon/native-first-person/right_hand_png.glb"
+      },
+      "left": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/sources/left-5a68481eee8d1afd180af62c34a43fb7a23025684fd66b7df9b3c0417a94843e.glb",
+        "sha256": "5a68481eee8d1afd180af62c34a43fb7a23025684fd66b7df9b3c0417a94843e",
+        "producer_path": "ArtSource/refinement/weapon/native-first-person/left_hand_png.glb"
+      }
+    }
+  },
+  "helper": {
+    "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+    "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+  },
+  "settings": {
+    "codec": "uastc",
+    "uastc_quality": 3,
+    "threads": 2,
+    "zstd": 18,
+    "mipmap_filter": "lanczos4",
+    "full_mips": true,
+    "normal_mode": false,
+    "normalize": false,
+    "rdo": false,
+    "orientation": "top-left",
+    "pixel_resize": false,
+    "mip_source": {
+      "same_axis": "ktx-cli-generate-mipmap",
+      "different_axes": "explicit-axis-lanczos4-v1"
+    },
+    "axis_mips": {
+      "version": 1,
+      "precision": "float64",
+      "support": 4,
+      "centers": "half-pixel",
+      "antialias": "support-scaled-by-source/target",
+      "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+      "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+      "alpha_filter": "linear-straight",
+      "quantization": "clip-0-1-round-half-up-uint8",
+      "top": "original-decoded-pixels"
+    }
+  },
+  "encoder": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+    "version": "ktx version: v4.4.2",
+    "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+    "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+  },
+  "hands": {
+    "right": {
+      "source_sha256": "a70c821dbb1f8b5a30d5fc86b4c591a435f1637b26ae9b99776fb52b588608af",
+      "artifact": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb",
+        "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+        "bytes": 2515388
+      },
+      "preflight": {
+        "triangles": 4936,
+        "images": [
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "normal"
+            ],
+            "domain": "linear",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          },
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "baseColor"
+            ],
+            "domain": "srgb",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          },
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "metallicRoughness"
+            ],
+            "domain": "linear",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          }
+        ]
+      },
+      "preservation": {
+        "non_image_bufferViews_byte_identical": 29,
+        "accessors_semantics_and_payloads_unchanged": 29,
+        "non_image_json_semantics_identical": true,
+        "images": [
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          }
+        ]
+      },
+      "images": [
+        {
+          "image": 0,
+          "ktx2_bytes": 672531,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        },
+        {
+          "image": 1,
+          "ktx2_bytes": 873143,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        },
+        {
+          "image": 2,
+          "ktx2_bytes": 749149,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        }
+      ],
+      "decoded_companion": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded.glb",
+        "sha256": "a28c3711bbf3bb317982640881d51e94c903050894b5cc62ac013ad0b3be8606",
+        "bytes": 2246308,
+        "compressed_input_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+        "decoded_from_actual_ktx_top_mip": true,
+        "non_image_semantics_and_buffer_views_preserved": true,
+        "images": [
+          {
+            "image": 0,
+            "png_sha256": "c91c15a12d1e8fa172f25f233aed392f38d0dc4985789bffbc1d794a0b8d72ec",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-0.png"
+          },
+          {
+            "image": 1,
+            "png_sha256": "354713703353c3d201e4cdc5c6b2cbffb41496b5d48a2b080c66cb07bb9d5c8d",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-1.png"
+          },
+          {
+            "image": 2,
+            "png_sha256": "e43f6eac481a0a3a60906415f4c1744a728f53209bb6057e75db6737f85b4374",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-2.png"
+          }
+        ]
+      }
+    },
+    "left": {
+      "source_sha256": "5a68481eee8d1afd180af62c34a43fb7a23025684fd66b7df9b3c0417a94843e",
+      "artifact": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/left_hand.glb",
+        "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+        "bytes": 2959296
+      },
+      "preflight": {
+        "triangles": 5642,
+        "images": [
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "normal"
+            ],
+            "domain": "linear",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          },
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "baseColor"
+            ],
+            "domain": "srgb",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          },
+          {
+            "dimensions": [
+              1536,
+              1536
+            ],
+            "roles": [
+              "metallicRoughness"
+            ],
+            "domain": "linear",
+            "wrap_s": "clamp",
+            "wrap_t": "clamp"
+          }
+        ]
+      },
+      "preservation": {
+        "non_image_bufferViews_byte_identical": 29,
+        "accessors_semantics_and_payloads_unchanged": 29,
+        "non_image_json_semantics_identical": true,
+        "images": [
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          }
+        ]
+      },
+      "images": [
+        {
+          "image": 0,
+          "ktx2_bytes": 789951,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        },
+        {
+          "image": 1,
+          "ktx2_bytes": 1033610,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        },
+        {
+          "image": 2,
+          "ktx2_bytes": 891387,
+          "ktx_header": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1536,
+            "height": 1536,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 3145776
+          },
+          "estimated_full_mip_uastc_4x4_block_bytes": 3145776,
+          "ktx_validate_passed": true
+        }
+      ],
+      "decoded_companion": {
+        "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/left_hand_decoded.glb",
+        "sha256": "680b23e68daf95af1f0bbda40e2cfe431cbef303f6e1ef80e9c27c218aa17c9d",
+        "bytes": 2620772,
+        "compressed_input_sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+        "decoded_from_actual_ktx_top_mip": true,
+        "non_image_semantics_and_buffer_views_preserved": true,
+        "images": [
+          {
+            "image": 0,
+            "png_sha256": "5bd3928b615160f7b20a53c1f10d55a53dadbd74da072ad23ba88899c1afa9c2",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/left_hand_decoded-image-0.png"
+          },
+          {
+            "image": 1,
+            "png_sha256": "a6c33bf1e82a14a1ee76161d8e33f4df093abbb1e5fa11d35367f14c3202aadb",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/left_hand_decoded-image-1.png"
+          },
+          {
+            "image": 2,
+            "png_sha256": "6e07bda485909cbb0672fb6ad9462e1d947c486088eb5700c3c2697e48403832",
+            "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/left_hand_decoded-image-2.png"
+          }
+        ]
+      }
+    }
+  },
+  "native_gpu_format_and_memory_measured": false,
+  "memory_scope": "UASTC full-mip block estimate and KTX storage bytes; not measured GPU memory or runtime transcode format",
+  "total_ktx2_image_bytes": 5009771,
+  "estimated_full_mip_uastc_4x4_block_bytes": 18874656,
+  "source_pins_match_current_producer": true,
+  "aliases_published": true
+}

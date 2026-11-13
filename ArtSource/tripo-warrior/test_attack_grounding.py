@@ -14,7 +14,21 @@ from attack_profiles import animation_tracks, hierarchy, pose_world
 from prepare_rigged_warrior import accessor_bytes, animation_signature
 
 
-def fixture(animate_parent=False):
+def source_timelines(overhead_rate=60):
+    timelines = {}
+    for name in CANONICAL_CLIPS:
+        if name == 'idle':
+            times = [frame / 60 for frame in range(91)]
+        elif name == 'walk':
+            times = sorted({*[frame / 120 for frame in range(181)], 19 / 36, 26 / 36, 40 / 36, 47 / 36})
+        else:
+            rate = overhead_rate if name == 'attack_overhead' else 60
+            times = [frame / rate for frame in range(int(1.75 * rate) + 1)]
+        timelines[name] = [struct.unpack('<f', struct.pack('<f', time))[0] for time in times]
+    return timelines
+
+
+def fixture(animate_parent=False, overhead_rate=60):
     """Two real weighted sole surfaces, different key grids and a nonunit parent."""
     document = {
         'nodes': [{'name': 'Actor', 'children': [1, 5]},
@@ -46,12 +60,7 @@ def fixture(animate_parent=False):
     document['meshes'][0]['primitives'].append({'attributes': {
         'POSITION': positions, 'JOINTS_0': palettes, 'WEIGHTS_0': weights}})
     for name in CANONICAL_CLIPS:
-        if name == 'idle':
-            times = [frame / 60 for frame in range(91)]
-        elif name == 'walk':
-            times = sorted({*[frame / 120 for frame in range(181)], 19 / 36, 26 / 36, 40 / 36, 47 / 36})
-        else:
-            times = [frame / 60 for frame in range(106)]
+        times = source_timelines(overhead_rate)[name]
         values = [(0, .1 if name in {'idle', 'walk'} else .1 + .04 * math.sin(math.pi * time / 1.75), 0)
                   for time in times]
         document['animations'].append({'name': name,
@@ -78,7 +87,7 @@ class CanonicalGroundingTests(unittest.TestCase):
     def test_one_shift_preserves_clocks_curves_and_authored_residuals(self):
         document, binary = fixture()
         original = copy.deepcopy(document)
-        result, report = ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+        result, report = ground_canonical_guard_feet(document, binary, source_timelines())
         self.assertEqual(report['policy'], GROUNDING_POLICY)
         self.assertEqual(result[:len(binary)], binary)
         for field in ('nodes', 'meshes', 'skins', 'scenes'):
@@ -119,6 +128,33 @@ class CanonicalGroundingTests(unittest.TestCase):
             self.assertEqual(clip_report['before_semantics_sha256'], animation_signature(original, binary, before))
             self.assertEqual(clip_report['after_semantics_sha256'], animation_signature(document, result, after))
 
+    def test_v9_overhead_preserves_all211_keys_with_the_same_one_guard_shift(self):
+        document, binary = fixture(overhead_rate=120)
+        original = copy.deepcopy(document)
+        timelines = source_timelines(overhead_rate=120)
+        result, report = ground_canonical_guard_feet(document, binary, timelines)
+        self.assertAlmostEqual(report['constant_world_root_shift_metres'], -.078, places=6)
+        expected = {'idle': 91, 'walk': 185, 'attack_overhead': 211, 'attack_left': 106, 'attack_right': 106}
+        for before, after, row in zip(original['animations'], document['animations'], report['clips']):
+            self.assertEqual(row['key_count'], expected[row['clip']])
+            self.assertEqual(len(row['samples']), expected[row['clip']] * 2 - 1)
+            self.assertEqual(accessor_bytes(original, binary, before['samplers'][0]['input']),
+                             accessor_bytes(document, result, after['samplers'][0]['input']))
+        self.assertEqual(report['policy'], GROUNDING_POLICY)
+
+    def test_grounding_rejects_per_clip_count_and_boundary_mismatch_instead_of_resampling(self):
+        for changed_clip, changed_index in [('attack_overhead', -1), ('attack_left', 1)]:
+            document, binary = fixture(overhead_rate=120)
+            timelines = source_timelines(overhead_rate=120)
+            timelines[changed_clip][changed_index] += .00001
+            with self.assertRaisesRegex(ValueError, 'frozen source timeline'):
+                ground_canonical_guard_feet(document, binary, timelines)
+        document, binary = fixture(overhead_rate=120)
+        timelines = source_timelines(overhead_rate=120)
+        timelines['attack_overhead'] = source_timelines()['attack_overhead']
+        with self.assertRaisesRegex(ValueError, 'frozen source timeline'):
+            ground_canonical_guard_feet(document, binary, timelines)
+
     def test_requires_five_distinct_clips_and_measured_both_feet(self):
         document, binary = fixture()
         for bad_names in (CANONICAL_CLIPS[2:], ['idle'] * 5):
@@ -126,12 +162,12 @@ class CanonicalGroundingTests(unittest.TestCase):
                 ground_canonical_guard_feet(copy.deepcopy(document), binary, bad_names)
         document['nodes'][4]['name'] = 'MissingFoot'
         with self.assertRaisesRegex(ValueError, 'both feet'):
-            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+            ground_canonical_guard_feet(document, binary, source_timelines())
 
     def test_refuses_animated_root_parent_frame(self):
         document, binary = fixture(animate_parent=True)
         with self.assertRaisesRegex(ValueError, 'fixed root parent frame'):
-            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+            ground_canonical_guard_feet(document, binary, source_timelines())
 
     def test_refuses_old_timeline_or_changed_root_interpolation(self):
         for clip_name in ('idle', 'walk', 'attack_overhead'):
@@ -139,14 +175,14 @@ class CanonicalGroundingTests(unittest.TestCase):
             clip = next(row for row in document['animations'] if row['name'] == clip_name)
             clip['samplers'][0]['interpolation'] = 'LINEAR' if clip_name in {'idle', 'walk'} else 'STEP'
             with self.assertRaisesRegex(ValueError, 'unchanged .* root keys'):
-                ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+                ground_canonical_guard_feet(document, binary, source_timelines())
         document, binary = fixture()
         clip = document['animations'][0]
         document['accessors'][clip['samplers'][0]['input']]['count'] -= 1
         for sampler in clip['samplers']:
             document['accessors'][sampler['output']]['count'] -= 1
         with self.assertRaisesRegex(ValueError, 'frozen source timeline'):
-            ground_canonical_guard_feet(document, binary, CANONICAL_CLIPS)
+            ground_canonical_guard_feet(document, binary, source_timelines())
 
 
 if __name__ == '__main__':

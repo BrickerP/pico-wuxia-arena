@@ -242,8 +242,8 @@
     "source": "refined-base60k/rig.glb",
     "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
     "authoring_manifest": {
-      "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/attack_bank_inputs.json",
-      "source_sha256": "70882dead0ea0e006e113a23f90098aea6ec777cd2c1d9cb3084a1285808ae24"
+      "source": "../refinement/combat-direction/overhead-v9-candidate/attack_bank_inputs.json",
+      "source_sha256": "28ad4bef880b78102f4801f2f2b5b5c22f048fb674e1449041f6593adce5626b"
     },
     "phase_markers": {
       "start": 0.0,
@@ -259,8 +259,8 @@
         "direction": "OVERHEAD",
         "incoming_guard_side": "OVERHEAD",
         "actor_travel_side": "DOWN",
-        "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/overhead_aligned_raw.glb",
-        "source_sha256": "377bcfc1197d1ae84d2c1784dc1de4004b68d09189528025786578c0b95987b9",
+        "source": "../refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_raw.glb",
+        "source_sha256": "66a56edc4a2bfd4e83c29866a9ce93a854d2d64f1a215e433dc1ac54dc16d750",
         "stage": "authored_raw",
         "right_calibration_baked": false
       },
@@ -320,8 +320,8 @@
     "source_sha256": "eb6530df0419564bab3009f012854ba28912b11a3be650a287b630bdf2656433"
   },
   "production_review": {
-    "source": "../refinement/combat-direction/hit-reaction-candidate-2026-11-13/root_production_review.json",
-    "source_sha256": "b5a97970aaab2a2af504de55c0fc68e603079168b5a408a59698d961dc7ce652"
+    "source": "../refinement/combat-direction/overhead-v9-candidate/root_production_review.json",
+    "source_sha256": "f4427c0c52b37505cb3da9265e46d06dec5f80cf5eaf7a327f172b7c826a38d8"
   },
   "runtime_texture_encoding": {
     "format": "KHR_texture_basisu",

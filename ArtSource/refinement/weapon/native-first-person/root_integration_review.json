@@ -1,27 +1,30 @@
 {
   "decision": "approved_for_development_integration",
   "quality_complete": false,
-  "version": "71c39091c0859a357ed6",
+  "version": "right-grip-v2-2026-11-13",
   "reviewed_views": [
-    "previews_ktx/hands_dao_equipped_default_0.3m.png",
-    "previews_ktx/hands_dao_equipped_default_1.0m_reverse.png"
+    "grip-refinement/previews_v2/grip_0.3m_front.png",
+    "grip-refinement/previews_v2/grip_0.3m_back.png",
+    "grip-refinement/previews_v2/grip_0.3m_oblique.png"
   ],
-  "scope": "same Tripo hand geometry/skin, cropped1536 KTX maps, real finger grip clip, exact metre roots",
+  "scope": "Existing Tripo geometry/skin/KTX unchanged; accepted Thumb from v1 and only Pinky1/2/3 closed/default rotation refinement from v2; no Kotlin or attack binding change.",
   "open": [
-    "native model import and grip animation",
-    "actual tracked grip/left asset-derived mapping",
-    "forearm cutoff/lighting/UI ray/lifecycle and GPU budget"
+    "New right v2 native import, default closed@1 with tracked controller, actual lighting and wrist cutoff remain unverified.",
+    "Source palm/wrist hard edges remain; closed fixed-core audit retains 2 shallow samples (0.092522mm max).",
+    "Current runtime uses only grip@0 or grip@1; fixed-dao offline open/mid tests retain prior penetrations, not a claim of an entirely clean grip curve.",
+    "Space Pro GPU budget, tracking, comfort and long-session validation remain unverified."
   ],
   "assets": {
     "right": {
       "path": "app/src/main/assets/models/player_hands/right_hand.glb",
-      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
-      "bytes": 2515388
+      "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "bytes": 2517124
     },
     "left": {
       "path": "app/src/main/assets/models/player_hands/left_hand.glb",
       "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
       "bytes": 2959296
     }
-  }
+  },
+  "right_candidate_handoff": "grip-refinement/handoff_v2.json"
 }

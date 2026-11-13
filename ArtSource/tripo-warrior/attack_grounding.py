@@ -108,13 +108,11 @@ LOCKED_CHAIN = ('Armature', 'BoneRoot', 'Hip', 'Waist', 'Spine01', 'Spine02',
                 'NeckTwist01', 'NeckTwist02', 'Head')
 
 
-def grounding_tracks(document, binary, animation, root):
+def grounding_tracks(document, binary, animation, root, expected_times):
     name = animation['name']
     locomotion = name in {'idle', 'walk'}
     tracks, timeline = animation_tracks(document, binary, animation, require_attack_range=not locomotion)
-    expected_count = {'idle': 91, 'walk': 185}.get(name, 106)
-    expected_end = 1.5 if locomotion else 1.75
-    if len(timeline) != expected_count or min(timeline) != 0.0 or max(timeline) != expected_end:
+    if sorted(timeline) != list(expected_times):
         raise ValueError('grounding requires the frozen source timeline: ' + name)
     key = root, 'translation'
     channels = [channel for channel in animation['channels'] if
@@ -128,7 +126,7 @@ def grounding_tracks(document, binary, animation, root):
     return tracks, times, values, channels[0]['sampler']
 
 
-def ground_canonical_guard_feet(document, binary, clip_names):
+def ground_canonical_guard_feet(document, binary, clip_timelines):
     """Shift the whole canonical family by its target idle's one measured +Y offset.
 
     Only BoneRoot translation outputs are appended. Keeping the same constant
@@ -138,7 +136,8 @@ def ground_canonical_guard_feet(document, binary, clip_names):
     clips = {animation['name']: animation for animation in document['animations']}
     if len(clips) != len(document['animations']):
         raise ValueError('grounding requires unique clip names')
-    if len(clip_names) != 5 or set(clip_names) != set(CANONICAL_CLIPS) or not set(clip_names).issubset(clips):
+    if (not isinstance(clip_timelines, dict) or set(clip_timelines) != set(CANONICAL_CLIPS) or
+            not set(clip_timelines).issubset(clips)):
         raise ValueError('grounding requires the five distinct canonical guard clips')
     _, parents, order = hierarchy(document)
     roots = [index for index, node in enumerate(document['nodes']) if node.get('name') == 'BoneRoot']
@@ -146,7 +145,8 @@ def ground_canonical_guard_feet(document, binary, clip_names):
         raise ValueError('grounding requires one parented BoneRoot')
     root = roots[0]
     surface = foot_surface(document, binary, parents, root)
-    decoded = {name: grounding_tracks(document, binary, clips[name], root) for name in CANONICAL_CLIPS}
+    decoded = {name: grounding_tracks(document, binary, clips[name], root, clip_timelines[name])
+               for name in CANONICAL_CLIPS}
     canonical_world = pose_world(document, decoded['idle'][0], 0.0, parents, order)
     canonical_heights = surface_heights(document, canonical_world, surface)
     plane = GROUNDING_POLICY['target_plane_metres']

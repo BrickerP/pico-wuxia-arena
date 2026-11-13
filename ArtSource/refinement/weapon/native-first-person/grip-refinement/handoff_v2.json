@@ -1,0 +1,183 @@
+{
+  "phase": "v2阶段结束，等待对应Root review",
+  "status": "source_and_three_view_review_approved_for_root_native_review",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+    "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+    "bytes": 2517124
+  },
+  "source_v1": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb",
+    "sha256": "0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef",
+    "bytes": 2516696
+  },
+  "review_verdict": "APPROVE_FOR_ROOT_NATIVE_REVIEW",
+  "root_runtime_review_pending": true,
+  "formal_publish_allowed": false,
+  "native_integration": {
+    "target_asset": "app/src/main/assets/models/player_hands/right_hand.glb",
+    "consumer": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerHands.kt",
+    "uri": "asset://models/player_hands/right_hand.glb",
+    "contract": "identity RightGripRoot; one skinned entity/skeleton; one grip clip0 original open/1 refined closed; default equals1",
+    "kotlin_change_required": false,
+    "applied_by_this_session": false,
+    "current_app_asset_observed_sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d"
+  },
+  "changes": {
+    "closed_rotation_bones": [
+      "R_Pinky1",
+      "R_Pinky2",
+      "R_Pinky3"
+    ],
+    "relative_to_v1": true,
+    "geometry_or_weights_changed": false,
+    "NORMAL_UV_TANGENT_contract_unchanged": true,
+    "1536KTX_payloads_unchanged": true,
+    "Thumb1_2_3_and_original24_support_sample_IDs_preserved": true,
+    "open0_bytes_exact": true,
+    "wrist_Grip_Base_Tip_scale_parent_IBM_bone_lengths_left_unchanged": true,
+    "mixed_weight_surface_displacement_mm": {
+      "Ring_max": 1.5602,
+      "Mid_max": 0.004541
+    }
+  },
+  "results": {
+    "Ring_Pinky_new_intersections_v1": 10,
+    "Ring_Pinky_new_intersections_v2": 0,
+    "all_other_existing_face_pair_sets_unchanged": true,
+    "new_Pinky_Palm_pairs": 0,
+    "fixed_P3_pad_samples": 24,
+    "P3_pad_samples_within3mm": 17,
+    "P3_pad_cord_mm": {
+      "min": 1.392404,
+      "median": 2.216292,
+      "p95": 3.66277
+    },
+    "all_P3_200_sample_cord_median_mm": 11.454,
+    "Thumb_original_support_samples_preserved": 24,
+    "open_mid_closed_no_new_or_deeper_core": true,
+    "open_mid_closed_no_new_normal_or_degeneracy_regression": true
+  },
+  "rendering": {
+    "blender_processes": 1,
+    "cpu_threads": 2,
+    "views": 3,
+    "cameras_exactly_match_v1": true,
+    "actual_hand_and_formal_dao_KTX_level0_decoded_pixels": true,
+    "model_root_rotation_or_scale_changed": false,
+    "distance_to_actual_Grip_metres": 0.3
+  },
+  "known_limits": [
+    "Root still validates actual APK/Emulator/device/lighting/equipment routing and release identity",
+    "source fixed-dao open max11.0776mm/187inside and mid4.88092mm/45inside remain; no claim whole clip clears core",
+    "closed retains2original shallowIndex samples/max.092522mm",
+    "inherited ThumbIndex47/MidRing62 existing intersections unchanged; no claim whole hand has zero self contact",
+    "finite samples/three pose times do not prove continuous absence of collision",
+    "source hard folds/cuff and proximal crop limits and runtime tangent/skin brightness remain Root validation"
+  ],
+  "evidence": {
+    "verification": {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verification_v2.json",
+      "sha256": "93e75220c8bcf04547a83b711dd4af85e5ccace9a0a9ab81d23b47f2623ee831",
+      "bytes": 1882099
+    },
+    "review": {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/review_v2.json",
+      "sha256": "008d32b06ecc1a9ff2562ed753465eb1b9b197d3e93513e018bbc216981f4fb6",
+      "bytes": 6826
+    },
+    "renders": {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json",
+      "sha256": "24f6a999143e6fd3b0f875fbaa685bf787d3392cdd27806cdb4ea6e4a2f25655",
+      "bytes": 2720
+    },
+    "v1_catalog_all_files_unchanged": true
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/README_v2.md",
+      "sha256": "bc2e0eda47557c280ab5557bf1e7c7703d784d358d0d955e251f1493cab6af1b",
+      "bytes": 6664
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+      "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "bytes": 2517124
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2_decoded.glb",
+      "sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+      "bytes": 2248044
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/pose_delta_v2.json",
+      "sha256": "f61ebc7b69caa4d85796bc6af47f8ec1e1c9979220e61b85d3a3232fcc666db0",
+      "bytes": 4779
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/manifest_v2.json",
+      "sha256": "40de115857d058617cfdb2f907050b78782855a04444bd201fb39ed8459457cc",
+      "bytes": 64752
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verification_v2.json",
+      "sha256": "93e75220c8bcf04547a83b711dd4af85e5ccace9a0a9ab81d23b47f2623ee831",
+      "bytes": 1882099
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/review_v2.json",
+      "sha256": "008d32b06ecc1a9ff2562ed753465eb1b9b197d3e93513e018bbc216981f4fb6",
+      "bytes": 6826
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/decode_manifest_v2.json",
+      "sha256": "ed8d95de361d30edada399bc700bb5977c9b309d3899713571d424083fcf75b7",
+      "bytes": 10324
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/build_grip_v2.py",
+      "sha256": "001655fa4c563270ebd8cf7fece5c8ca1b9495bf15b43b011e586bc546aa3941",
+      "bytes": 21387
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verify_grip_v2.py",
+      "sha256": "f9cd134869d2c2972a54b124922c856a389c165c5aaa58dbc35ed675749223ef",
+      "bytes": 26465
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion_v2.py",
+      "sha256": "336c4175df2cdcea303dc7bce0f5b890c1b3ade9ebeea2f797a0f7732eaf0f00",
+      "bytes": 3674
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/render_grip_v2.py",
+      "sha256": "eb4a38528bb828ebe8d32edc5a07896bb9220a67c08b7a2ecfe60436c96d045f",
+      "bytes": 4091
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/constraints_v2.json",
+      "sha256": "bae31923b9463d8965fd4e343c51e9602a538b037d8f21af25580a8aaff0dc95",
+      "bytes": 1757657
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json",
+      "sha256": "24f6a999143e6fd3b0f875fbaa685bf787d3392cdd27806cdb4ea6e4a2f25655",
+      "bytes": 2720
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_front.png",
+      "sha256": "8c4faba6b2b593c144db4b1f076ef4130c172dad0a0322fb1cde8a627dd0df73",
+      "bytes": 1288659
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_back.png",
+      "sha256": "5fcfce98575b10bf56d97a04ec8f3ca86b49e8cbb0abf282c329c89eacbef44c",
+      "bytes": 1163965
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_oblique.png",
+      "sha256": "c5cd9d18006203a3a1ac9a18497276393bef1b26dbd9c863012450437450a22b",
+      "bytes": 1309782
+    }
+  ]
+}

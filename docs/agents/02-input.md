@@ -8,15 +8,47 @@
 
 02 后续只执行 Root 已授权、能进入现有原生 APK 的源码补丁、GLB／贴图／动作／原生 UI 资源，并给出明确接入点。不能接入的研究、报告和重复渲染停止。Root 统一构建、模拟器／设备、Git 提交与发布，其他责任方的代码和资产保持各自所有权。
 
-当前新增获派事项为下节原生右手闭握修复，仅在其明确所有权和接入点内推进；不恢复旧网页队列。下文浏览器交付仅为已有证据，其 APPROVE 不代表原生 APK 通过。
+Root 已完成 v2 三视图与独立复审，接受 `3a1be1dd…` 进入正式开发资源，右手 app GLB 已由 Root 替换。待新包验证，不能记为原生或最终手部质量通过；不恢复旧网页队列。下文浏览器交付仅为已有证据，其 APPROVE 不代表原生 APK 通过。
 
-## 当前制作：原生默认右手握柄修复（2026-11-13）
+## Root review：v2已进入开发资源，等待原生验收（2026-11-13）
+
+Root与独立复审实际看过正／反／斜三图，接受小指绕柄与清楚指缝，闭握骨姿本轮不再退回。正式 app 右手现为 `3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0`、2,517,124 B；源收件与历史基线冻结，左手／dao／角色producer／attack binding未变。总审核入口为 `ArtSource/refinement/weapon/native-first-person/root_integration_review.json`。
+
+已有运行时只 seek grip 0或1，默认右持刀是closed@1，未消费mid@0.5；离线固定dao的open／mid旧侵入不可隐去，也不直接当默认闭握失败。closed仍有2个最大0.092522mm浅样本。旧掌背硬脊、腕口硬边未解决，完整手部品质未通过。02冻结v2与三视图，不追加闭握参数扫描；Root负责下一包实际装备路由、亮度和腕口／裁边检查，再据具体原生画面续派。
+
+## 当前交付：Ring／Pinky 指缝与末端支撑 v2（2026-11-13）
+
+**v2源审已通过开发整合，原生待验。** [完整 GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb) SHA `3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0`，2,517,124 B；[骨姿 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/pose_delta_v2.json)／[接入说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/README_v2.md)／[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/handoff_v2.json)。[独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/verification_v2.json) PASS、errors／blocking 均为空；[四遍终审](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/review_v2.json)为 **`APPROVE_FOR_ROOT_NATIVE_REVIEW`**，可交主控原生接入评审，Root已换入正式开发资源，尚未构建与端内验收。
+
+本轮只联动 Pinky1／2／3 闭握骨姿，先分开中节，再让中节承担主要弯曲、末节配合顺柄收回。原 Ring／Pinky 10 对真实新增交面 **10→0**，其余指间交面完整集合不变，小指与掌面没有新增交叉。固定 24 个真实掌侧样本由 0／24 增为 **17／24 距绳面≤3 mm**，最近 1.392 mm、中位 2.216 mm；不是只追单个最小距离，也不把全 P3 指背都称接触面。独立三视图确认指缝清晰、绕柄自然，没有折钩、融合或黑三角。
+
+保留已认可的拇指／食指实际皮面及原 24 个近 1 mm 支撑样本。纯骨姿已解决返修目标，**没有改网格或权重**，POSITION／NORMAL／UV／JOINTS／WEIGHTS、骨长／IBM、尺度／父级、腕／Grip／刀 Base／Tip、材质／1536² KTX 和左手均保持。非 Pinky 12 指骨曲线不变；原混合 Pinky 权重使 Ring／Mid 主导皮面局部随动最多 1.5602／0.004541 mm，已明确披露。默认 closed＝新 `grip@1`，15 指 `grip@0` 原字节保持。
+
+复用原三个精确机位、同光照材质与比例，一次单 Blender／两线程出 [0.3 m 正面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_front.png)／[反面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_back.png)／[斜面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/grip_0.3m_oblique.png)，实际 KTX level 0＋正式 dao，未整体转动手刀。开／中／闭均无新增或加深 core 样本、无新增指间／掌面交叉、退化或法线回归。固定带刀对照中原 open 11.0776 mm／187 样本、mid 4.88092 mm／45 样本，以及 closed Index 0.092522 mm／2 浅样本保留，不能称整 clip 绝对清核。
+
+Root 接入点仍为 `app/src/main/assets/models/player_hands/right_hand.glb`，由 `PlayerHands.kt` 消费，根／骨架／唯一 `grip` 0→1 秒契约不变，无需 Kotlin 改动。本路未改正式资源、SDK、手势、构建、Emulator 或 Git。Root 仍须验实际装备路由、肤色／光照、原腕口边与连续手姿／裁边；本轮不追加参数扫描或重复渲染。
+
+Root 已收件并认可 0c44 的拇指压靠／整体包握收益，正式闭握继续返修，尚未换入 app。下一首件先消除 Ring2／Pinky2 中节 10 对新增交面，再联动 Pinky1／2／3 收回约 5 mm 末端悬空，恢复清楚指缝，不能仅把 Pinky3 折成钩。自然绕柄及无新指间穿插为验收目标，穿柄数字单独改善不算通过。
+
+仍仅拥有 `ArtSource/refinement/weapon/native-first-person/grip-refinement/` 与本交接。保已认可的 Thumb1／2／3 闭握及拇指收益、腕／Grip／刀 Base／Tip、坐标尺度父级、其余手和左手不动。优先纯骨姿分步修正；若明确证实骨姿不足，可最小调整局部 Pinky／Ring 原网格或权重，须列原 vertex／face IDs、原因、幅度及 NORMAL／TANGENT／UV／贴图影响，并实际验证开／中／闭。若几何改变则明确放弃旧“几何不变”声明，不能为守字节指标保留可见穿插，也不扩到掌腕／前臂或整体手刀。
+
+v1 GLB／delta／三图及审计保持冻结；v2 同目录完整 GLB、delta、实际验证与新三图均已交，阶段结束。Root 统一正式源、构建、Emulator 与 Git；等待对应 review 再推进获派的下一轮。
+
+## 上轮首件：原生默认右手握柄修复（2026-11-13，Root 已返修）
+
+**可见首件阶段结束，等待对应 Root review。** [完整 GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined.glb) SHA `0c44cd30bb405e5cf3b05cfae53ce73b732278933f6c3e5b82602139772cfaef`；[骨姿 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/pose_delta.json)／[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/handoff.json)／[说明与接入点](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/README.md)。结构契约 PASS，四遍 review 为 **`REQUEST_CHANGES_FOR_FINAL_GRIP`**，允许交 Root 原生首件评审，有可见收益，但最终握持质量未通过、未获正式发布批准。
+
+Root 可选择替换的现有入口为 `app/src/main/assets/models/player_hands/right_hand.glb`，由 `PlayerHands.kt` 加载 `asset://models/player_hands/right_hand.glb`；无需改 Kotlin。候选只改 9 个右指的闭握 rotation，默认 Rclosed＝新 `grip@1`，15 指 `grip@0` 数据原样；原 BIN 前缀、几何／UV／权重／IBM／骨长、腕／Grip、材质和三张 1536² KTX 字节不变，左侧及正式文件均未动。
+
+只运行一个 Blender 进程、两线程，已交 0.3 m 实际 KTX＋正式 dao [正面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_front.png)／[反面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_back.png)／[拇指侧斜面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/previews/grip_0.3m_oblique.png)，没有整体旋转手刀或改比例。新姿态相较原生基线明显收回长直指，拇指与食指形成对向近接触；腕口原有不规则边和源折面保留，近端 cap 部分出画，不能视为连续裁边通过。
+
+[实际同组 7,167 表面样本核验](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/verification.json)：核内样本 277→2，最大深度 11.486→0.0925 mm，深于 0.25 mm 的 256 个样本全部清除；剩余为原 Index 极浅入。拇指末节到 Index 最近约 0.0438 mm，有 24 样本在 1 mm 内。**未解决项**：Pinky3 到 cord 最近仍 5.061 mm、到 Ring 3.841 mm，均无 3 mm 内支撑样本；真实位置焊接排除合法邻接后，Ring2／Pinky2 带新增 **0→10 对交面**（不是 Pinky3 末节导致），不能声称握持质量或无自交通过。Root 决定原生接入评审与下一轮修派，本路冻结单首件，不继续参数扫描或重复渲染。
 
 Root 已将原生 UI／命中反馈与三角色换入 APK `ca26f4a9…`，本轮直接修 source 闭握，不再停在时间读数／SDK 探针。输入为已发布 `right_hand.glb` SHA `5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d` 和正式 dao SHA `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0`；实际待修观感见 Root 的 `artifacts/native-ui-impact-2026-11-13/combat-final.png`、`current-terminal.png`。
 
 唯一制作所有权是 `ArtSource/refinement/weapon/native-first-person/grip-refinement/` 与本交接。只调 R 的 15 指闭握骨姿，重点为长指末两节和拇指压柄；默认 Rclosed 与 `grip@1` 一致，`grip@0` 原样。腕／握点／刀 Base／Tip、骨长／IBM、几何／UV／材质及三张 1536² KTX 字节均保持，不整体旋转手刀，不改左手、SDK 或识别。Root 统一正式资产、构建、Emulator、Git；他人修改保留。
 
-本轮在 45 分钟内交一个可接现有 PlayerHands 的同契约完整 GLB、骨姿 delta 和 0.3 m 正／反／斜视各一张实际 KTX＋正式刀图，核指腹接触、悬空／穿柄及腕口。最多一个 Blender 进程、两线程；无可见收益就如实停止，不做参数大扫描或重复渲染。当前制作中，完成后明确阶段结束并等待对应 review。
+本轮要求在 45 分钟内交一个可接现有 PlayerHands 的同契约完整 GLB、骨姿 delta 和 0.3 m 正／反／斜视各一张实际 KTX＋正式刀图；首件与检查已在该窗口内完成。最多一个 Blender 进程、两线程；不做参数大扫描或重复渲染，当前阶段已结束，等待对应 review。
 
 ## 上轮只读复核：原生已显示，握柄视觉待 review（2026-11-13）
 

@@ -403,7 +403,13 @@ private fun MatchSummary(state: ArenaViewState) {
         maxLines = 2,
     )
     Text(
-        text = stringResource(if (state.result == TrialResult.VICTORY) R.string.arena_victory_detail else R.string.arena_defeat_detail),
+        text = stringResource(
+            when {
+                state.result == TrialResult.DEFEAT && state.feedback == CombatFeedback.TIMEOUT -> R.string.arena_feedback_timeout
+                state.result == TrialResult.VICTORY -> R.string.arena_victory_detail
+                else -> R.string.arena_defeat_detail
+            },
+        ),
         style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
         color = ArenaUiPalette.inkBlack,
         maxLines = 3,
@@ -446,6 +452,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     color = ArenaUiPalette.ember,
                     modifier = Modifier.fillMaxWidth(),
                 )
+                if (state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT) return@Column
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,

@@ -66,8 +66,8 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
                 positions = positions,
                 triangleIndices = ribbon.triangleIndices,
                 colors = ribbon.alphas.mapIndexed { index, alpha ->
-                    if (index < ribbon.coreVertexOffset) Color4(0.70f, 0.79f, 0.83f, alpha * 0.38f)
-                    else Color4(1.0f, 0.94f, 0.76f, alpha * 0.82f)
+                    if (index < ribbon.coreVertexOffset) Color4(0.78f, 0.88f, 0.96f, alpha * 0.26f)
+                    else Color4(1.0f, 0.96f, 0.82f, alpha * 0.86f)
                 },
             )
             val bounds = boundsOf(positions)
