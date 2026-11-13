@@ -1,0 +1,10 @@
+{
+  "candidate_sha256": "2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b",
+  "source_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "source_images": {
+    "before_static_environment.png": "59a1b220f2105ce641f8a9fc0bdae70024dd5b8dee175988ffd05a55d56d8a53",
+    "after_static_environment.png": "8c46791b49e2a767d6be5ef7e3d34bc69d45dfbd9949d1383826ecf2e82d7a25"
+  },
+  "pixels_repainted": false,
+  "board_sha256": "a26419cab0aee5c291750d436780024f013213f27648b8a38607509d71265b59"
+}

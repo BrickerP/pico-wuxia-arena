@@ -1,12 +1,34 @@
 # 06 · 雨夜酒馆庭院整体场景
 
-## 当前合同：64da整面已交并冻结（2026-11-13）
+## 当前合同：Root保留正式64da，合批备选冻结（2026-11-13）
 
-Root已实际查看 `comparison_facade`，确认窗框内退与檐口的整面统一收益，接受 `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605` 为原生开发整合候选；不是最终美术或Space Pro预算通过。当前只保留这一整面候选的收件与验证，候选、producer、输入、材质/图像、manifest和已交渲染收据保持冻结，不继续添建筑、不重导。
+Root本轮已实际验证正式64da＋v9/手v2三轮通关，干净6.1模拟器未重现前台LMK；目前没有提交瓶颈证据。因此正式courtyard继续保持 `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605`，不采用静态合批作为本轮正式资源，也不把109→80估算当性能通过。
 
-唯一产品交付是Kotlin＋PICO Spatial SDK6.1.9原生APK，在PICO Emulator验证，终端目标Space Pro／OS6。停止HTML/Web/Three.js游戏、浏览器试玩、网页材质/光照调试和新HTML mock；已有HTML保留，不维护、不删除他人工作。浏览器仅可用于必要官方资料/账号服务，不能作为游戏验收。不能进入现有原生APK的研究、报告或重复渲染停止。
+静态合批 `2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b` 已收为有源、有等价证据的A/B备选，候选及producer/输入保持冻结。唯一属性VB增加5,546,816B（约5.55MB）、文件增加5,355,332B的交换明确保留。未证明LMK来自场景，也未证明此备选改善内存；既有LMK机制与资源压力根因不混同。
 
-历史指令归档、3项检查卡及109提交只读审计已完成，审计明细在 `facade-polish/native-review/submission_audit.json`：不破窗共享的空间分组合批估算109→83，实际收益未测，当前不实施；不烘焙9窗，不改64da。原生接入点仍为唯一 `app/src/main/assets/models/courtyard_hero.glb`、HomeStage原点identity与既有receiver。Root当前优先构建hands＋HIT，正式资源/构建/设备/Git由Root维护。06当前无新增已授权原生源码/资源修改项，本轮只收口合同后停止增量工作，不为回报继续造报告、页面或渲染，不改公共producer或其它会话文件。
+本阶段结束，06停止进一步合批、新渲染与新几何，不修改app/producer/设备/构建/Git，也不等待“所有品质通过”才收口。后续仅在实际Space Pro提交或内存瓶颈出现、且Root明确指定时再做A/B。唯一产品仍为Kotlin＋PICO Spatial SDK6.1.9原生APK，PICO Emulator验证，目标Space Pro/OS6；正式发布与Git收口由Root处理。
+
+### 供Root Git收口的精简清单（既有文件，不重建）
+
+前缀：`ArtSource/refinement/environment-hero/facade-polish/`。输入64da及父级helper源码沿既有收件保留，下面是static-batch备选的最小复建/核对链；临时`.log`不作为必要收件。
+
+| 用途 | 文件 |
+| --- | --- |
+| 冻结输入 | `courtyard_facade_polish.glb`（64da）；既有父级producer/helper来源见本级`delivery_manifest.json` |
+| 可复建源码 | `static-batch/build_static_batch.py`、`verify_static_batch.py`、`REBUILD.md` |
+| A/B候选与身份 | `static-batch/courtyard_static_batch.glb`、`candidate_manifest.json`、`delivery_manifest.json` |
+| 世界/属性/50图字节等价、格式 | `static-batch/review/equivalence.json`、`gltf-validator.json` |
+| 唯一一组对照及可复建来源 | `static-batch/render_equivalence.py`、`make_board.py`；`static-batch/review/comparison.png`、`before_static_environment.png`、`after_static_environment.png`、`render_evidence.json`、`board_receipt.json` |
+
+### 已完成备选证据与预算（冻结，不作为继续制作指令）
+
+完整私有候选：`facade-polish/static-batch/courtyard_static_batch.glb`，SHA `2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b`。九窗36项按真实材质和原属性布局合成7primitive，整景提交估算109→80；235746个世界三角逐corner核对，position最大误差2.3835e-7m，NORMAL/UV/已有T及缺失T状态保持。旧窗节点留empty/原变换，旧mesh32/33及无引用accessor/view/旧BIN已清理重打包；32材质、50图原始payload逐图相等。
+
+实际代价：唯一属性VB 13,808,688→19,355,504B（+5.547MB），索引1,136,412→1,640,616B，文件36,954,180→42,309,512B（+5.355MB）。这是提交降低换几何存储增加，不是已证明的内存优化；不能作为LMK根因或解决证据。50图合同包含4个legacy图槽，按要求全部保留，不声称纹理预载减少。Root已决定本轮正式资源保持64da；该备选冻结，正式资源与app未由06改动。
+
+本件完整收件已齐：`static-batch/delivery_manifest.json`、`REBUILD.md`、`review/equivalence.json`、`review/gltf-validator.json`和唯一一组既有机位 `review/comparison.png`。格式0错误、4条原有运行时切线警告；独立审计通过九窗与非窗world几何、node41父链、全部receiver/anchors、50图bytes及资源清理。没有unused mesh/accessor/view，BIN只含存活几何和明确保留的50图及对齐字节，不是向旧BIN追加新批次。
+
+唯一一组实际GLB同灯图未见变形；它只显示静态环境等价，NPC/手刀是APK另载资源，不参与此批次。新合批会损失逐窗culling，且唯一VB/文件增长，所以此件定位提交成本A/B备选；Root已据干净模拟器结果与当前缺少提交瓶颈证据决定本轮不切换；只有实际Space Pro瓶颈且Root明确指定时才重启A/B。当前没有扩窗、降画质或正式发布动作。
 
 ## 本次原生检查卡
 

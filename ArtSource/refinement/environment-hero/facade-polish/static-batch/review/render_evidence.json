@@ -1,0 +1,23 @@
+{
+  "kind": "one actual GLB equivalence camera pair, offline, not native APK proof",
+  "source_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "candidate_sha256": "2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b",
+  "camera_stage_m": [
+    0,
+    1.6,
+    0
+  ],
+  "target_stage_m": [
+    0,
+    1.65,
+    -5.4
+  ],
+  "lens_mm": 18,
+  "same_lighting": true,
+  "dof": false,
+  "scope": "environment only; NPC/player hands/blade are separate APK resources and were not inserted into either review frame",
+  "images": {
+    "before_static_environment.png": "59a1b220f2105ce641f8a9fc0bdae70024dd5b8dee175988ffd05a55d56d8a53",
+    "after_static_environment.png": "8c46791b49e2a767d6be5ef7e3d34bc69d45dfbd9949d1383826ecf2e82d7a25"
+  }
+}

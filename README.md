@@ -10,16 +10,14 @@
 
 | 内容 | 状态与边界 |
 | --- | --- |
-| 本轮原生组合 | UI精简、取消整身Unlit白闪、局部接触灯、清理无caller特效预载；APK `ca26f4a9837437b05f1d8a3a3b0c0dbb770624656af2eaba148c60dafc605c5c`，242,709,621字节 |
-| 实际主流程 | PICO Emulator真实输入完成失败→重新挑战→三轮角色换入/交战→胜利，结算967分、剩余40生命；SOFT/HARD/GUARDED/PLAYER_HIT与三次fall均有对应日志 |
-| 实际画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-ui-impact-three-rounds-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-ui-impact-contact-2026-11-13.png)、[胜利结算](ArtSource/refinement/presentation/native-ui-impact-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-ui-impact-2026-11-13.json) |
-| 检查 | 构建、安装启动、336项单元测试通过；UI样式0错误/0警告。通用模板架构检查仍报现有game包布局/ViewModel差异，未宣称整个workflow clean |
-| 最新下载 | [native-ui-impact-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ui-impact-2026-11-13)，固定源码a22a216，含APK/52秒实录/两张原生图/manifest，五附件大小与SHA已核对 |
-| 当前品质 | **成品Demo未完成。** 握柄长指、近景肤色/刀面、衣服/发型、宽灰刀轨、近身NPC遮挡终局牌仍有问题；玩家PARRY/HMD闪避/技能处决、暂停恢复与Space Pro实测未完成 |
+| 本轮原生组合 | 精细上劈v9、右手闭握v2、九窗庭院、近场光、薄刀轨及结算面板；APK `1c41cfc30fa79dd391e9c6af329cdfcf8b8d6ad7401465b9f16b90d0016d7b46`，242,706,266字节 |
+| 实际主流程 | PICO Emulator真实SDK输入完成开局、三轮角色轮换、胜利895分／余60生命，再实际点击再挑战回到准备态；8次SOFT_HIT、6次敌方GUARDED_HIT、4次PLAYER_HIT及三次fall有对应日志 |
+| 实际画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4)、[重试短片](ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-visual-v9-combat-2026-11-13.png)、[胜利](ArtSource/refinement/presentation/native-visual-v9-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-visual-v9-2026-11-13.json) |
+| 检查 | 最终包构建、安装启动、349项单元测试通过；7个打包模型SHA匹配。空ECS附件AABB标记UNOBSERVED，不伪报数值PASS；实际纸牌与点击已验证 |
+| 最新下载 | [native-visual-v9-2026-11-13](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-visual-v9-2026-11-13)，固定源码bfaf53b，8附件大小与SHA均核对 |
+| 当前品质 | **成品Demo未完成。** 衣料／发型、近景肤色／刀面反光、腕口／掌背、刀轨与接触反馈可读性仍需打磨；玩家PARRY/HMD闪避/技能处决、部分生命周期和Space Pro实测未完成 |
 
-336项是当前机制测试集：新增局部灯测试，删除随旧白闪/死入口一并退役的测试。完整三轮通过是模拟器流程证据，不等于视觉、手感或终端性能已达标。原生镜像窗口约57fps录制也不代表PICO渲染帧率。
-
-[验收清单](docs/acceptance.md)区分代码、原生运行、视觉品质与终端实测。[分工与审核](docs/agents/README.md)列候选状态；整立面、上劈v9、近场光仍未进入本包。HTML/Web路线保持停止。
+模拟器主流程证据不等于视觉、手感或终端性能达标。录像保持原始时间流，未插帧，主机约56.5fps也不代表PICO渲染帧率；本次录像未录声音。[验收清单](docs/acceptance.md)与[分工审核](docs/agents/README.md)列当前实物、审核边界和续派。上一已发布UI节点为ca26f4a9／a22a216，保留独立证据。
 
 ## 构建与模拟器
 
@@ -27,7 +25,7 @@
 
 ```bash
 ./gradlew :app:assembleDebug :app:testDebugUnitTest
-pico-cli app install app/build/outputs/apk/debug/app-debug.apk --device <device-id> --replace
+pico-cli app install app/build/outputs/apk/debug/app-debug.apk --device <device-id>
 pico-cli app launch com.example.wuxiaarena.p0d2f0182 --activity .platform.LaunchActivity --device <device-id>
 ```
 
@@ -41,7 +39,7 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 参考Blade & Sorcery、荣耀战魂的空间攻防，影之刃零、鬼武者、只狼的蓄势/接触/收势，黑神话悟空的成年写实骨相、交领束带、刀具、木作与湿石材。骑马与砍杀、天国拯救仅提供可信尺度和空间感参考，本Demo不扩开放世界。
 
-正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`1b3e031d6f0510ba9d955cd0eee7b34fbc03dcf256cd23958d252873e9221fe2`，base为`ac7dfbc…`，正式庭院为`9b2598…`。新立面、精细上劈与近场光仍为待合入候选；本轮原生UI与局部接触反馈已合入。
+正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`365578d497f3a592e08cbe158f90777fe326211f8d9593bab85ff807c0ac07ac`，base为`6ca12659…`，正式庭院为`64da2798…`，右手为`3a1be1dd…`。OVERHEAD为211键／120Hz，左右攻击各106键；正式producer按每clip声明的精确时间网格验证。场景静态合批2f9a8774仅保留为未采用A/B备选，不凭提交估算宣称硬件收益。
 
 ## 工程入口
 

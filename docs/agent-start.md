@@ -18,7 +18,7 @@ Spatial SDK 用 Kotlin 写这类应用。平面上的按钮、文字和菜单走
 
 CLI 就是终端里的命令。这里说的 vibe coding，是人描述结果，Agent 按这份手册改工程并自己把命令跑完。
 
-Unity 和 OpenXR 也能做 PICO 内容。创建工程时加上 `--sdk-type unity`，就会走上那条线。新的原生空间应用用 Kotlin 与 Spatial SDK。已经在维护的 Unity 工程继续留在 Unity 里。
+本手册统一使用 Kotlin 与 PICO Spatial SDK 的原生工程路径。
 
 ## 先决定人转头时看见什么
 
@@ -110,7 +110,7 @@ pico-cli project create \
   --package com.example.demo
 ```
 
-面板应用保持 `planar`。整段沉浸空间换成 `stage`。房间里的单件模型用 `volumetric`。`--template` 只接受帮助文本里列出的名字。Spatial 线是 `planar`、`volumetric`、`stage`。Unity 线是 `PICOSpatial`、`OpenXR`、`PICOXR`，并且要同时写上 `--sdk-type unity`。`--sdk <version>` 只在人指定了 SDK 版本时使用，否则跟随当前平台记录。
+面板应用保持 `planar`。整段沉浸空间换成 `stage`。房间里的单件模型用 `volumetric`。`--template` 只接受帮助文本里列出的名字。原生模板为 `planar`、`volumetric`、`stage`。`--sdk <version>` 只在人指定了 SDK 版本时使用，否则跟随当前平台记录。
 
 工程生成之后，先读这版 SDK 模板里的 `.mustache` 骨架，再读工程自己的 `gradle/libs.versions.toml`、`app/build.gradle.kts` 和入口 Kotlin。模板是这版工具实际打出来的结构，比网页上的概述更接近你手里的工程。`pico-cli` 附带的 Agent skills 按主题拆开：SDK 用法、SpatialUI、场景、模拟器和性能各看各的。网页用来补概念。中文文档在 `https://developer-cn.picoxr.com/document/`，英文文档在 `https://developer.picoxr.com/document/`。模板、当前工程和 `--help` 说的不一样时，以后三者为准。
 
@@ -215,7 +215,7 @@ pico-cli capture record --device <id> --time <seconds> --out <path>
 
 人感到卡、掉帧、启动慢，或者 CPU 与 GPU 持续很高时，先跑 `pico-cli perf doctor`，再按帮助录一条 Perfetto。结论引用 trace 里的时间段。头显上的发热、能戴多久、舒不舒服，要在头显上另记。这和是不是游戏无关，只和人要在这段空间里停留多久有关。模拟器的帧率只说明桌面这次跑得怎样。
 
-应用确实要在设备上跑视觉或机器学习时，才进入 `pico-cli spatialml`。先做 `spatialml onboard` 和 `spatialml doctor`，再安装和导入。这条命令族管的是 Kotlin 工程。Unity 工程用 Unity 那套工具。模型包和 Python 侧工具的版本，以医生输出和子命令帮助为准。
+应用确实要在设备上跑视觉或机器学习时，才进入 `pico-cli spatialml`。先做 `spatialml onboard` 和 `spatialml doctor`，再安装和导入。这条命令族用于当前 Kotlin 工程。模型包和 Python 侧工具的版本，以医生输出和子命令帮助为准。
 
 ## 一轮是怎样推进的
 

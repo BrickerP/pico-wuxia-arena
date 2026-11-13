@@ -1,0 +1,60 @@
+{
+  "status": "delivered_native_asset_tradeoff_candidate",
+  "candidate_sha256": "2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b",
+  "source_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "source_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 173982,
+    "active_unique_meshes": 36,
+    "unique_position_stream_vertices": 332980,
+    "unique_attribute_buffer_bytes": 13808688,
+    "unique_index_buffer_bytes": 1136412,
+    "primitive_node_submission_upper_estimate": 109,
+    "materials": 32,
+    "images": 50
+  },
+  "candidate_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 235746,
+    "active_unique_meshes": 35,
+    "unique_position_stream_vertices": 463324,
+    "unique_attribute_buffer_bytes": 19355504,
+    "unique_index_buffer_bytes": 1640616,
+    "primitive_node_submission_upper_estimate": 80,
+    "materials": 32,
+    "images": 50
+  },
+  "source_bytes": 36954180,
+  "candidate_bytes": 42309512,
+  "attribute_vb_delta_bytes": 5546816,
+  "file_delta_bytes": 5355332,
+  "key_judgments": [
+    "submission estimate109→80 with original attribute layouts preserved",
+    "world geometry/normal/UV/tangent/image equivalence and full live-resource repack pass",
+    "geometry storage and file grow; native memory/frame benefit unproven, not an LMK fix"
+  ],
+  "independent_audit": "node41 parent world transform, all9 empty reference nodes, receivers/anchors, all50 image payloads and no unused geometry resources independently confirmed",
+  "validator": {
+    "errors": 0,
+    "warnings": 4,
+    "note": "four inherited generated tangent-space warnings"
+  },
+  "native_gates": [
+    "startup after Root clean emulator state",
+    "measured CPU/draw/frame benefit",
+    "PSS/graphics memory and culling cost"
+  ],
+  "files": {
+    "courtyard_static_batch.glb": "2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b",
+    "build_static_batch.py": "c3d623bcbd9e5f5937272a21b7f020209f36a0a793c7b82c076076619ba2ad36",
+    "verify_static_batch.py": "99cceba74e4a05ad035d6d3d6a92265c96e156cc6f4eff74578cc4954c1a9679",
+    "candidate_manifest.json": "22d320aa802c6d0381471375259ab8d0113477d610efe42e4e383f393e7716e0",
+    "REBUILD.md": "6e94be421c56f92ab5943b49f556d218cea4cf9a62f990c87f0d52d710da525f",
+    "render_equivalence.py": "9fefa40c483c2c1fcf43f7cde6529d90dbc282096cc01abcc0504fe0b525ce31",
+    "make_board.py": "29d5585a6f4f810d8a9e6fb700bb81cc7c32ed66ed06437236f6c5fa4fe15713",
+    "review/equivalence.json": "ef85a830074c286a6cd6b26dc898c99008d30a26eb6b0adec261500ad575294f",
+    "review/gltf-validator.json": "232d8c795a6adf264edcb5083463692a75ccf664408ff775c235c83a432ec792",
+    "review/render_evidence.json": "94ae55cfc6925ef1d41eb3148502a736304d463ce04f09c3b76818000efc6fb4",
+    "review/board_receipt.json": "337374226a8a15152b16ba4dfb335487497ce674022314c290b237f6e851f08c"
+  }
+}

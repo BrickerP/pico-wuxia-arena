@@ -1,0 +1,533 @@
+{
+  "status": "candidate_built_for_equivalence_and_budget_review",
+  "candidate": "courtyard_static_batch.glb",
+  "sha256": "2f9a877437c19dd23e6c3389a7c9df9f222ed09701dca65801838ef3fd66f96b",
+  "source": "ArtSource/refinement/environment-hero/facade-polish/courtyard_facade_polish.glb",
+  "source_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "producer_sha256": "c3d623bcbd9e5f5937272a21b7f020209f36a0a793c7b82c076076619ba2ad36",
+  "source_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 173982,
+    "active_unique_meshes": 36,
+    "unique_position_stream_vertices": 332980,
+    "unique_attribute_buffer_bytes": 13808688,
+    "unique_index_buffer_bytes": 1136412,
+    "primitive_node_submission_upper_estimate": 109,
+    "materials": 32,
+    "images": 50
+  },
+  "candidate_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 235746,
+    "active_unique_meshes": 35,
+    "unique_position_stream_vertices": 463324,
+    "unique_attribute_buffer_bytes": 19355504,
+    "unique_index_buffer_bytes": 1640616,
+    "primitive_node_submission_upper_estimate": 80,
+    "materials": 32,
+    "images": 50
+  },
+  "source_bytes": 36954180,
+  "candidate_bytes": 42309512,
+  "batch_mapping": {
+    "source_mesh_map": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10,
+      "11": 11,
+      "12": 12,
+      "13": 13,
+      "14": 14,
+      "15": 15,
+      "16": 16,
+      "17": 17,
+      "18": 18,
+      "19": 19,
+      "20": 20,
+      "21": 21,
+      "22": 22,
+      "23": 23,
+      "24": 24,
+      "25": 25,
+      "26": 26,
+      "27": 27,
+      "28": 28,
+      "29": 29,
+      "30": 30,
+      "31": 31,
+      "34": 32,
+      "35": 33
+    },
+    "new_batch_mesh": 34,
+    "new_batch_node": 52,
+    "groups": [
+      {
+        "material": 4,
+        "material_name": "EH S2 Windows | layered paper emission",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TANGENT",
+            5126,
+            "VEC4",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 8560,
+        "triangles": 4640,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 45,
+            "primitive": 2,
+            "first_triangle": 0,
+            "triangles": 928
+          },
+          {
+            "node": 46,
+            "primitive": 2,
+            "first_triangle": 928,
+            "triangles": 928
+          },
+          {
+            "node": 47,
+            "primitive": 2,
+            "first_triangle": 1856,
+            "triangles": 928
+          },
+          {
+            "node": 48,
+            "primitive": 2,
+            "first_triangle": 2784,
+            "triangles": 928
+          },
+          {
+            "node": 49,
+            "primitive": 2,
+            "first_triangle": 3712,
+            "triangles": 928
+          }
+        ]
+      },
+      {
+        "material": 4,
+        "material_name": "EH S2 Windows | layered paper emission",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 6848,
+        "triangles": 3712,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 41,
+            "primitive": 2,
+            "first_triangle": 0,
+            "triangles": 928
+          },
+          {
+            "node": 42,
+            "primitive": 2,
+            "first_triangle": 928,
+            "triangles": 928
+          },
+          {
+            "node": 43,
+            "primitive": 2,
+            "first_triangle": 1856,
+            "triangles": 928
+          },
+          {
+            "node": 44,
+            "primitive": 2,
+            "first_triangle": 2784,
+            "triangles": 928
+          }
+        ]
+      },
+      {
+        "material": 29,
+        "material_name": "Method | CC0 directional wood .8m",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TANGENT",
+            5126,
+            "VEC4",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 102605,
+        "triangles": 37690,
+        "index_component_type": 5125,
+        "members": [
+          {
+            "node": 45,
+            "primitive": 0,
+            "first_triangle": 0,
+            "triangles": 7538
+          },
+          {
+            "node": 46,
+            "primitive": 0,
+            "first_triangle": 7538,
+            "triangles": 7538
+          },
+          {
+            "node": 47,
+            "primitive": 0,
+            "first_triangle": 15076,
+            "triangles": 7538
+          },
+          {
+            "node": 48,
+            "primitive": 0,
+            "first_triangle": 22614,
+            "triangles": 7538
+          },
+          {
+            "node": 49,
+            "primitive": 0,
+            "first_triangle": 30152,
+            "triangles": 7538
+          }
+        ]
+      },
+      {
+        "material": 29,
+        "material_name": "Method | CC0 directional wood .8m",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 59136,
+        "triangles": 30240,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 41,
+            "primitive": 0,
+            "first_triangle": 0,
+            "triangles": 7560
+          },
+          {
+            "node": 42,
+            "primitive": 0,
+            "first_triangle": 7560,
+            "triangles": 7560
+          },
+          {
+            "node": 43,
+            "primitive": 0,
+            "first_triangle": 15120,
+            "triangles": 7560
+          },
+          {
+            "node": 44,
+            "primitive": 0,
+            "first_triangle": 22680,
+            "triangles": 7560
+          }
+        ]
+      },
+      {
+        "material": 30,
+        "material_name": "Method | original endgrain .25m",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TANGENT",
+            5126,
+            "VEC4",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 1720,
+        "triangles": 860,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 45,
+            "primitive": 1,
+            "first_triangle": 0,
+            "triangles": 172
+          },
+          {
+            "node": 46,
+            "primitive": 1,
+            "first_triangle": 172,
+            "triangles": 172
+          },
+          {
+            "node": 47,
+            "primitive": 1,
+            "first_triangle": 344,
+            "triangles": 172
+          },
+          {
+            "node": 48,
+            "primitive": 1,
+            "first_triangle": 516,
+            "triangles": 172
+          },
+          {
+            "node": 49,
+            "primitive": 1,
+            "first_triangle": 688,
+            "triangles": 172
+          }
+        ]
+      },
+      {
+        "material": 30,
+        "material_name": "Method | original endgrain .25m",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 1344,
+        "triangles": 688,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 41,
+            "primitive": 1,
+            "first_triangle": 0,
+            "triangles": 172
+          },
+          {
+            "node": 42,
+            "primitive": 1,
+            "first_triangle": 172,
+            "triangles": 172
+          },
+          {
+            "node": 43,
+            "primitive": 1,
+            "first_triangle": 344,
+            "triangles": 172
+          },
+          {
+            "node": 44,
+            "primitive": 1,
+            "first_triangle": 516,
+            "triangles": 172
+          }
+        ]
+      },
+      {
+        "material": 31,
+        "material_name": "Method | dark iron",
+        "layout": [
+          [
+            "NORMAL",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "POSITION",
+            5126,
+            "VEC3",
+            false
+          ],
+          [
+            "TEXCOORD_0",
+            5126,
+            "VEC2",
+            false
+          ]
+        ],
+        "vertices": 2592,
+        "triangles": 1584,
+        "index_component_type": 5123,
+        "members": [
+          {
+            "node": 41,
+            "primitive": 3,
+            "first_triangle": 0,
+            "triangles": 176
+          },
+          {
+            "node": 42,
+            "primitive": 3,
+            "first_triangle": 176,
+            "triangles": 176
+          },
+          {
+            "node": 43,
+            "primitive": 3,
+            "first_triangle": 352,
+            "triangles": 176
+          },
+          {
+            "node": 44,
+            "primitive": 3,
+            "first_triangle": 528,
+            "triangles": 176
+          },
+          {
+            "node": 45,
+            "primitive": 3,
+            "first_triangle": 704,
+            "triangles": 176
+          },
+          {
+            "node": 46,
+            "primitive": 3,
+            "first_triangle": 880,
+            "triangles": 176
+          },
+          {
+            "node": 47,
+            "primitive": 3,
+            "first_triangle": 1056,
+            "triangles": 176
+          },
+          {
+            "node": 48,
+            "primitive": 3,
+            "first_triangle": 1232,
+            "triangles": 176
+          },
+          {
+            "node": 49,
+            "primitive": 3,
+            "first_triangle": 1408,
+            "triangles": 176
+          }
+        ]
+      }
+    ],
+    "preserved_empty_window_nodes": [
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49
+    ],
+    "removed_source_meshes": [
+      32,
+      33
+    ],
+    "all_image_slots_retained": true
+  },
+  "group_policy": "same material and original attribute schema; do not add missing T or delete explicit T",
+  "geometry_policy": "bake source node world translation; preserve normals/UV/explicit tangents and primitive winding",
+  "numeric_policy": "world POSITION rounded once to float32; max world error must stay <=1e-6m; all other attribute bytes identical",
+  "resource_policy": "full active geometry/accessor/view repack, not prefix append; all32 materials/all50 raw image payloads frozen",
+  "risk": "unique VB grows from instance expansion; lower submission estimate is not measured draw count or LMK improvement",
+  "entry": "same single courtyard at Stage origin identity; Root owns app publishing/build/device/Git"
+}

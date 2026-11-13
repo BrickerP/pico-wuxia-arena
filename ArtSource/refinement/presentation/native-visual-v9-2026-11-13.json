@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-13",
+  "source_commit": "bfaf53bf0166999ae33ca7b94597aa69f2fae064",
+  "release_tag": "native-visual-v9-2026-11-13",
+  "apk": {
+    "sha256": "1c41cfc30fa79dd391e9c6af329cdfcf8b8d6ad7401465b9f16b90d0016d7b46",
+    "bytes": 242706266,
+    "name": "pico-wuxia-arena-native-visual-v9.apk"
+  },
+  "stack": "Kotlin + PICO Spatial SDK 6.1.9 / Full Stage",
+  "target_hardware": "Space Pro / OS 6",
+  "observed_target": "PICO Emulator 6.1.0 / emulator-5554",
+  "tests": {
+    "tests": 349,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "assets": {
+    "courtyard_hero.glb": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+    "opponents/base.glb": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24",
+    "opponents/indigo.glb": "27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df",
+    "opponents/veteran.glb": "6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2",
+    "player_hands/right_hand.glb": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+    "player_hands/left_hand.glb": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+    "dao_grip.glb": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+  },
+  "source_unchanged_during_build_and_runtime": true,
+  "real_input": {
+    "source": "SDK_NATIVE",
+    "origin": "DESKTOP",
+    "delivery": "OS physical mouse and Shift key combinations to PICO virtual controllers; no app-state injection",
+    "first_observed_poses": [
+      {
+        "part": "head",
+        "position_metres": [
+          0.0,
+          1.649999976158142,
+          0.0
+        ]
+      },
+      {
+        "part": "left",
+        "position_metres": [
+          -0.20000003278255463,
+          1.350000023841858,
+          -0.34999996423721313
+        ]
+      },
+      {
+        "part": "right",
+        "position_metres": [
+          0.27000001072883606,
+          1.399999976158142,
+          -0.4499998688697815
+        ]
+      }
+    ]
+  },
+  "runtime": {
+    "actual_start": true,
+    "three_sequential_opponents": true,
+    "enemy_fall_generations": [
+      0,
+      1,
+      2
+    ],
+    "terminal": "VICTORY",
+    "score": 895,
+    "player_hp": 60,
+    "actual_terminal_retry_to_ready": true,
+    "contact_event_counts": {
+      "SOFT_HIT": 8,
+      "GUARDED_HIT": 6,
+      "PLAYER_HIT": 4
+    },
+    "terminal_ecs_visual_bounds": "UNOBSERVED: direct entity AABBs zero and queried entity has no AttachmentPanelComponent; actual paper and Retry validated via native pixels/actions, no numeric PASS claimed",
+    "actual_retry_clip": "native-visual-v9-retry-2026-11-13.mp4"
+  },
+  "video": {
+    "seconds": 52.014663,
+    "recording_method": "macOS native PICO Emulator window; 67.963333 second source, first52 seconds exported; no interpolation or time scaling",
+    "host_recording_average_fps": 56.195796679914515,
+    "not_device_render_fps": true,
+    "audio_recorded": false
+  },
+  "media": {
+    "native-visual-v9-victory-2026-11-13.png": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-victory-2026-11-13.png",
+      "sha256": "c969bb9d7975d7ea5d078c67941c8d416dac6e4ff03d4cd6f60c4f4dfac589ae",
+      "bytes": 2595103
+    },
+    "native-visual-v9-ready-2026-11-13.png": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-ready-2026-11-13.png",
+      "sha256": "9f726a588b97d62fb61a3c8a774b0177f1dd7415de0d279719ccaf7c4f1aadba",
+      "bytes": 2824491
+    },
+    "native-visual-v9-retry-2026-11-13.png": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.png",
+      "sha256": "2f2f205e9abb626cdf01a1a304437e2bd6668c26ec1ffad0d9513c355cad151d",
+      "bytes": 2566937
+    },
+    "native-visual-v9-combat-2026-11-13.png": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-combat-2026-11-13.png",
+      "sha256": "ac29384ef0a588adf133138afba7c9585d214b5982986bdcee37e301d474fa20",
+      "bytes": 1736115
+    },
+    "native-visual-v9-three-rounds-2026-11-13.mp4": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4",
+      "sha256": "0230bc7d28403e40e02dc6584438bc1bc52159a0ba3761db11a9297f3f9a8f2c",
+      "bytes": 9006927
+    },
+    "native-visual-v9-retry-2026-11-13.mp4": {
+      "path": "ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.mp4",
+      "sha256": "681289240e7e23729d660f82242a998e59ffacefb140c48942c9f249d44664a2",
+      "bytes": 700231
+    }
+  },
+  "quality_complete": false,
+  "unverified": [
+    "Space Pro device frame timing, memory, comfort, audio and haptics",
+    "actual player parry, HMD dodge, skill and execution input-to-feedback chain",
+    "timeout, pause/resume and tracking loss lifecycle branches",
+    "full grip/forearm appearance, cloth/hair fidelity and all animation blends",
+    "precise short contact-stop and particle/trail pixel timing"
+  ],
+  "local_evidence_directory": "artifacts/native-visual-v9-final-2026-11-13"
+}
