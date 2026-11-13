@@ -184,6 +184,14 @@ class EnemyCombatStateMachine(
         return events
     }
 
+    /** A weapon stop arrests motion phases, while the world clock and idle readiness continue. */
+    fun advanceWhileWeaponStopped(deltaNanos: Long) {
+        require(deltaNanos >= 0L && deltaNanos <= Long.MAX_VALUE - simulationNanos) { "invalid stopped-weapon interval" }
+        if (pauseReason != null || phase == EnemyPhase.DEAD) return
+        simulationNanos += deltaNanos
+        if (phase == EnemyPhase.IDLE) phaseElapsedNanos += deltaNanos
+    }
+
     /**
      * Accepts one already-deduplicated player hit; it does not detect contact. The caller
      * selects any newly armed counterattack's direction without redirecting an existing attack.
@@ -232,7 +240,9 @@ class EnemyCombatStateMachine(
     /** The result must belong to the current attack; a miss is emitted at the window end. */
     fun resolveActiveAttack(attackId: Long, outcome: AttackOutcome): List<EnemyCombatEvent> {
         require(outcome != AttackOutcome.MISSED) { "misses are resolved when the active window ends" }
-        if (pauseReason != null || phase != EnemyPhase.ACTIVE || attack?.id != attackId) return emptyList()
+        val canResolve = phase == EnemyPhase.ACTIVE ||
+            outcome in setOf(AttackOutcome.BLOCKED, AttackOutcome.PARRIED) && phase in setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP)
+        if (pauseReason != null || !canResolve || attack?.id != attackId) return emptyList()
         return mutableListOf<EnemyCombatEvent>().also { resolveAttack(outcome, it) }
     }
 

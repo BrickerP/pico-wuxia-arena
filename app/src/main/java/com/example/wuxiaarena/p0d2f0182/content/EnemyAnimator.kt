@@ -1,15 +1,8 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import android.util.Log
-import com.example.wuxiaarena.core.combat.AttackDirection
-import com.example.wuxiaarena.core.combat.CombatImpact
-import com.example.wuxiaarena.core.combat.CombatImpactKind
-import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
-import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
-import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
-import com.example.wuxiaarena.p0d2f0182.runtime.poseFrame
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
 import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
@@ -25,7 +18,6 @@ internal class EnemyAnimator(enemy: Entity) {
         val round: Long,
         val opponentRound: Int,
         val attackId: Long?,
-        val reacting: Boolean,
     )
 
     private val target = enemy.findSkeletonRootEntity(includeDisabled = true).single()
@@ -37,10 +29,6 @@ internal class EnemyAnimator(enemy: Entity) {
     private var lastPhase: EnemyPhase? = null
     private var lastPaused: Boolean? = null
     private var closed = false
-    private var lastImpactId = Long.MIN_VALUE
-    private var holdingImpactPose = false
-    private var pendingHitRestart = false
-    private var reactionStrength = 0f
 
     init {
         try {
@@ -64,71 +52,31 @@ internal class EnemyAnimator(enemy: Entity) {
         }
     }
 
-    fun present(state: ArenaViewState, events: List<EnemyCombatEvent>) {
+    fun present(state: ArenaViewState) {
         if (closed || !target.valid) return
-        val roundChanged = playbackKey?.let {
-            it.round != state.roundGeneration || it.opponentRound != state.roundNumber
-        } ?: true
-        if (roundChanged) {
-            lastImpactId = Long.MIN_VALUE
-            holdingImpactPose = false
-            pendingHitRestart = false
-            reactionStrength = 0f
+        // Every living pose, including contact hold/withdrawal, comes from the same
+        // effective clip/source that generated the collision blade and body points.
+        // Null means resources/selection unavailable, not an idle-pose fallback.
+        val clip: String
+        val sourceSeconds: Double?
+        if (state.phase == EnemyPhase.DEAD) {
+            clip = if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
+            sourceSeconds = null
+        } else {
+            clip = state.enemyPoseClip ?: run { suspend(); return }
+            sourceSeconds = state.enemyPoseSourceSeconds?.takeIf { it.isFinite() && it >= 0.0 }
+                ?: run { suspend(); return }
         }
-        val impacts = events.filterIsInstance<CombatImpact>()
-        val impact = impacts
-            .filter { it.id > lastImpactId && it.kind.affectsEnemyPose() }
-            .maxByOrNull { it.strength }
-        if (impact != null) {
-            lastImpactId = impacts.maxOf { it.id }
-            reactionStrength = impact.strength.takeIf { it.isFinite() }?.coerceIn(0.0, 1.0)?.toFloat() ?: 0f
-        }
-        val hitReactionStarted = state.phase == EnemyPhase.HIT &&
-            events.any { it is EnemyCombatEvent.HitReactionStarted }
-        pendingHitRestart = pendingHitRestart || hitReactionStarted
-        val existing = controller?.takeIf { it.valid }
-        if (!roundChanged && existing != null && state.hitStop && (impact != null || holdingImpactPose)) {
-            // Keep the pose that was visible at contact. Switching or seeking first would
-            // freeze the beginning of the hurt clip instead of the actual impact pose.
-            holdingImpactPose = true
-            if (!existing.isPaused()) existing.pause()
-            lastPaused = true
-            return
-        }
-        holdingImpactPose = false
-        if (!roundChanged && existing != null &&
-            ((state.pauseReason != null && state.result != TrialResult.VICTORY) || !state.inputReady || !state.sceneReady)
-        ) {
-            if (!existing.isPaused()) existing.pause()
-            lastPaused = true
-            return
-        }
-        val poseFrame = arenaOpponents[state.roundNumber - 1].poseFrame(
-            state.phase, state.phaseElapsedNanos, state.phaseRemainingNanos,
-            state.attackDirection ?: AttackDirection.OVERHEAD, state.guarding,
-            state.enemyMoveDirection != 0f, state.enemyRecoveryFromContact, state.enemyGaitMeters,
-            hitReaction = state.hitReaction, hitZone = state.enemyHitZone,
-        )
-        val clip = when (state.phase) {
-            EnemyPhase.IDLE -> checkNotNull(poseFrame).clip
-            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> checkNotNull(poseFrame).clip
-            EnemyPhase.HIT -> checkNotNull(poseFrame).clip
-            EnemyPhase.DEAD -> if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
-        }
-        val key = PlaybackKey(clip, state.roundGeneration, state.roundNumber, state.attackId, state.phase == EnemyPhase.HIT)
-        val restartHit = state.phase == EnemyPhase.HIT && pendingHitRestart
-        pendingHitRestart = false
-        if (key != playbackKey || restartHit) {
+        val key = PlaybackKey(clip, state.roundGeneration, state.roundNumber, state.attackId)
+        if (key != playbackKey) {
             val resource = playbackClips.getValue(clip)
             val previous = controller
             val next = target.playAnimation(
                 resource,
                 AnimationPlayConfig(
-                    transitionDuration = when {
-                        state.phase == EnemyPhase.HIT -> 0.055f - 0.03f * reactionStrength
-                        clip == "walk" || playbackKey?.clip == "walk" -> 0.18f
-                        else -> 0.12f
-                    },
+                    // Living poses must match the queried frame without blending an old clip.
+                    // Preserve the existing death/fall transition lifecycle.
+                    transitionDuration = if (state.phase == EnemyPhase.DEAD) 0.12f else 0f,
                     transitionMode = AnimationTransitionMode.STOP_AND_CROSSFADE,
                 ),
             )
@@ -143,35 +91,24 @@ internal class EnemyAnimator(enemy: Entity) {
 
         val active = controller ?: return
         if (!active.valid) return
-        when (state.phase) {
-            EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING -> {
-                // The contact proxy and blade markers sample this exact source clock.
-                active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
+        val duration = active.getDuration()
+        check(duration.isFinite() && duration > 0f) { "Enemy animation has no finite duration" }
+        if (state.phase == EnemyPhase.DEAD) {
+            val elapsed = state.deathElapsedSeconds
+            val sourceTime = when {
+                !state.executing -> elapsed
+                elapsed < EXECUTION_RECOIL_SECONDS -> 0.10f + elapsed * 1.1f
+                else -> 0.10f + (elapsed - EXECUTION_RECOIL_SECONDS) * 0.8f
             }
-            EnemyPhase.HIT -> {
-                // Hurt playback and contacts advance only on this same coordinator source clock.
-                val duration = active.getDuration()
-                check(duration.isFinite() && duration > 0f) { "Enemy animation has no finite duration" }
-                active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(duration))
-            }
-            EnemyPhase.DEAD -> {
-                val elapsed = state.deathElapsedSeconds
-                val sourceTime = when {
-                    !state.executing -> elapsed
-                    elapsed < EXECUTION_RECOIL_SECONDS -> 0.10f + elapsed * 1.1f
-                    else -> 0.10f + (elapsed - EXECUTION_RECOIL_SECONDS) * 0.8f
-                }
-                active.setTime(sourceTime.coerceAtMost(active.getDuration()))
-            }
-            // locked idle is constant STEP; walking is sampled from the same signed gait as its proxies.
-            EnemyPhase.IDLE -> active.setTime(checkNotNull(poseFrame).pose.sourceSeconds.toFloat().coerceAtMost(active.getDuration()))
+            active.setTime(sourceTime.coerceAtMost(duration))
+        } else {
+            val source = checkNotNull(sourceSeconds).toFloat()
+            check(source.isFinite()) { "Enemy animation source exceeds SDK time range" }
+            active.setTime(source.coerceAtMost(duration))
         }
-
-        val paused = (state.pauseReason != null && state.result != TrialResult.VICTORY) ||
-            !state.inputReady || state.hitStop || state.result == TrialResult.DEFEAT ||
-            clip == "idle" || clip == "walk" || clip.startsWith("attack_") || state.phase == EnemyPhase.DEAD || state.phase == EnemyPhase.HIT
-        if (paused && !active.isPaused()) active.pause()
-        if (!paused && active.isPaused()) active.resume()
+        // All clips are manually sampled. The state clock owns pause, hit-stop and recovery.
+        val paused = true
+        if (!active.isPaused()) active.pause()
         if (lastPhase != state.phase || lastPaused != paused) {
             Log.i(TAG, "Presented phase=${state.phase}, paused=$paused, clip=$clip, sourceSeconds=${active.getTime()}")
             lastPhase = state.phase
@@ -181,12 +118,6 @@ internal class EnemyAnimator(enemy: Entity) {
 
     fun suspend() {
         controller?.takeIf { it.valid && !it.isPaused() }?.pause()
-    }
-
-    private fun CombatImpactKind.affectsEnemyPose(): Boolean = when (this) {
-        CombatImpactKind.SOFT_HIT, CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
-        CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> true
-        CombatImpactKind.PLAYER_HIT -> false
     }
 
     private companion object {
@@ -202,8 +133,6 @@ internal class EnemyAnimator(enemy: Entity) {
             addAll(importedResources)
         }
         controller = null
-        holdingImpactPose = false
-        pendingHitRestart = false
         playbackClips.clear()
         var failure: Exception? = null
         for (resource in resources) {

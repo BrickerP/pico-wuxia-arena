@@ -1,0 +1,348 @@
+{
+  "kind": "native_development_checkpoint",
+  "stack": "Kotlin + PICO Spatial SDK 6.1.9",
+  "target": "Space Pro / OS 6",
+  "tested_target": {
+    "id": "emulator-5554",
+    "type": "emulator",
+    "model": "swan_arm64",
+    "bundle": "6.1.0"
+  },
+  "apk": {
+    "path": "artifacts/native-real-blade-contact-2026-11-13/native-blade-contact-final.apk",
+    "sha256": "d1b61cb3b9e9643b921cf3262b95a94ce17766f0d19743d239c5559f7e090898",
+    "bytes": 218586373
+  },
+  "tests": {
+    "tests": 417,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "image": {
+    "path": "ArtSource/refinement/presentation/native-blade-contact-stage-2026-11-13.png",
+    "sha256": "76417645dbe2f415f31b2bbed8964d581aa703c958cf0301b4cea65c1a7f7272",
+    "dimensions": [
+      2160,
+      2158
+    ],
+    "capture": "pico-cli capture screenshot ordinary fallback; guest spatial screencap flags unsupported",
+    "shows": "Actual native Full Stage courtyard and first opponent, READY/inputReady=false"
+  },
+  "assets": [
+    {
+      "path": "models/courtyard_hero.glb",
+      "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+      "bytes": 38212212
+    },
+    {
+      "path": "models/dao_grip.glb",
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "bytes": 4332212
+    },
+    {
+      "path": "models/effects/contact-polish/dodge_ground_polish.glb",
+      "sha256": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
+      "bytes": 22332
+    },
+    {
+      "path": "models/effects/contact-polish/landing_ground_polish.glb",
+      "sha256": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b",
+      "bytes": 22424
+    },
+    {
+      "path": "models/effects/contact-polish/metal_contact_polish.glb",
+      "sha256": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce",
+      "bytes": 14624
+    },
+    {
+      "path": "models/effects/contact-polish/soft_contact_polish.glb",
+      "sha256": "19384ff327d9080048ad485422c64b679242281b2b8d7eb77f9f7d6319fce534",
+      "bytes": 23348
+    },
+    {
+      "path": "models/effects/contact-polish/wet_cloth_contact.glb",
+      "sha256": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+      "bytes": 19448
+    },
+    {
+      "path": "models/effects/force_contact.glb",
+      "sha256": "6e27c305132c9bebd617d47446dbd9466667179d9119b4f3ae8d8509503d57c1",
+      "bytes": 31340
+    },
+    {
+      "path": "models/effects/ground_dust.glb",
+      "sha256": "b4cf766d59c8be99dc32c690b55c72cda3ea9c5a440b6b9125d0ea85588b8c95",
+      "bytes": 13432
+    },
+    {
+      "path": "models/effects/metal_contact.glb",
+      "sha256": "8171c6474e1a34be5db14324f10e18b5a4575c0d910b91ffbde4364756ed23e0",
+      "bytes": 12688
+    },
+    {
+      "path": "models/effects/soft_contact.glb",
+      "sha256": "df7238be6a2a8b80a941aab6c5897b2ed628a7d1adc1afa1d5362d2dd5bea002",
+      "bytes": 16128
+    },
+    {
+      "path": "models/opponents/base.glb",
+      "sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24",
+      "bytes": 75474452
+    },
+    {
+      "path": "models/opponents/indigo.glb",
+      "sha256": "27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df",
+      "bytes": 43632444
+    },
+    {
+      "path": "models/opponents/veteran.glb",
+      "sha256": "6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2",
+      "bytes": 45056892
+    },
+    {
+      "path": "models/player_hands/left_hand.glb",
+      "sha256": "cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541",
+      "bytes": 2959296
+    },
+    {
+      "path": "models/player_hands/right_hand.glb",
+      "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "bytes": 2517124
+    },
+    {
+      "path": "models/weather/rain_night_sky.glb",
+      "sha256": "11b80a1337b4d0574fd524a08619a43edab1f30ff6f86284c82d49cf35e12017",
+      "bytes": 37692
+    },
+    {
+      "path": "models/weather/rain_tile.glb",
+      "sha256": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+      "bytes": 10160
+    },
+    {
+      "path": "models/weather/side_haze.glb",
+      "sha256": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9",
+      "bytes": 5656
+    }
+  ],
+  "source_identity": [
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt",
+      "sha256": "90ce756c3f89d76f71f2cf26c23d1aae39b7b7ed92ec8c16a6e30f4e74350ec7"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt",
+      "sha256": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+      "sha256": "c328f1358bb44f43ad30271395879d76454f647f14d312eb29dec55d9ddbbf85"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt",
+      "sha256": "a23fc7634088b5f78857cdced0b67bc134be4a982b6f9c810594f6e91a985cf5"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/WeaponContactConstraint.kt",
+      "sha256": "4a31380c5e073db9ed81a1f93b97557c46ef7318181480b1160ed55d5bed0d23"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt",
+      "sha256": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt",
+      "sha256": "043b18fc3778ba9f26215fb05cb9e8fd3c30ea1c9329fc1568efb6023342d8ec"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt",
+      "sha256": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "sha256": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt",
+      "sha256": "b5c44ab72986b93054d1b9be38fb59188ff10d257a717b0881c11ae4e75feed1"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/Main.kt",
+      "sha256": "e689c605837775e27fd2a008f3d1cb4ba7fc16c1c32a8e5fdc5f8399e66bb727"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ArenaHud.kt",
+      "sha256": "1b45acabea634a966e265ea76926fcdbb8a47f70f66421217cf08a19b0b98f3b"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/BladeTrailGeometry.kt",
+      "sha256": "424e5eecccce9233c90bd3c39d4fa880e42f95edcdee839655ff87cd16c91a2b"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/CombatEffects.kt",
+      "sha256": "f763556e55796a5b17c4f4f3b3b15ec20e5dab0b13af9838adf303cbdc06a6d3"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleEmitter.kt",
+      "sha256": "1be0641695eade5cca612f9968109ae64e5ee87abb971b06d15dbb8fb75287cb"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticleMotion.kt",
+      "sha256": "36298a247585ae613f92041739565067b95560b11b4d7a52743e384124327509"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/ContactParticlePresets.kt",
+      "sha256": "5205fcd942976a3f0a88d6e58246d088347ebcc538e2726332d4d006ee237796"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/DamagePopupText.kt",
+      "sha256": "e336d5cbf45d40eff4d9bfa741a355472caf8c56e51313a26a4ebb054f4dfdc0"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/DamagePopupTimeline.kt",
+      "sha256": "aa8ee347a558aa767157dcfdf5eb83730c6ccffba85aae93a62a9197a696e1dc"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt",
+      "sha256": "221d4edc32f187c9b3bd2328b678c703ec4d2305aec035fe2b76b5560f8bc492"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/HomeStage.kt",
+      "sha256": "eb488c5e6d064ba5e4b4af579601fbbe15fd013b30e0311bceca5190c7ccdcd4"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/NativeImpactLight.kt",
+      "sha256": "11acd12dced420627990c362ca9b71a8d3bfb1bb5d557bcacf9ffd61b84f4da5"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerBladeTrail.kt",
+      "sha256": "87db084de2f6158e53e60c0fe9ddf9787d3c03ee1ea6ecf3bb6b3ea041ae90e4"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerHands.kt",
+      "sha256": "a42fc2556b4f2414a6983878607e03422c014cda92977f8c16cf5728abb908e8"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/PlayerHandsPose.kt",
+      "sha256": "ba84115f23c858a26ceb795fdee0b53dab192f54f4a87a4abcbb04fa30ad0745"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneLighting.kt",
+      "sha256": "8d54c3fccc3fb5370ae2153c4fb0af4c51eb1591d3b20ef9faec6af2ac8dc71a"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SceneWeather.kt",
+      "sha256": "d180d23d7d64c80024a436f03f84057326173050dc9ab993ad3a09a9fdbba253"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/SoftContactEnvelope.kt",
+      "sha256": "4f8fdcb601bd36deac8067c4ce9c623e2170469827e86f1697c322692cc9bf37"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/TerminalControlPlacement.kt",
+      "sha256": "be86a8a8f146708a05b1995fbc18a24b8c9eb410cb4c77c4574b6cf27314a2db"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/input/NativeControllerPoseProbeCache.kt",
+      "sha256": "90d5d31b2842ecba831ce6e453ea89eeb9aa5b19f76ad7ffd80f56b21156ae4b"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/input/PicoTrackingAdapter.kt",
+      "sha256": "62504cd16f740e85d61c6a4e87ebaba6b2b167b34e6f11dceeb71563730c90a3"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/platform/LaunchActivity.kt",
+      "sha256": "7bda22b8b0b9debbf779fbb71098c0487da4e08ee2440ccf01b7afab372ae8db"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/platform/SpatialApplication.kt",
+      "sha256": "5174bd4ae00571b7ef97ffd1696f6e04c4a26ed2dce79095634f9e595cc5400a"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt",
+      "sha256": "81f8e0151c435c0b722f023782e8ef64536cc5022b3242929ccc6415c27be66e"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+      "sha256": "fbe253c4c1d234196d5c06224c95d261b1585a279aa388cd690b2702342ba2ab"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt",
+      "sha256": "7b3158bc426c5af6d290e35cc55ff9aa638d2dfabea64dcde88388fa6a8afbdb"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt",
+      "sha256": "30b19a12837eab568d1d2df252a03800b303e7e5e5f618103d45697bcc5082f2"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatAudio.kt",
+      "sha256": "247b692eab1d013c78ef3c31816674b6c70f495ecc5654938c86b8607dfa6859"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt",
+      "sha256": "9fffc58c09e12092e95152dda07baa82c4bb5b5b9f131d5dcf4a5b033a4d7b3f"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatHapticContacts.kt",
+      "sha256": "ad75619a14644b82409420520d9122e75ca5141479b9e9eb0ea6af784d06a920"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/HudStateProjection.kt",
+      "sha256": "28a4d8d963829fd800d2966d32fbeef66f59f96f5f818fbab0088613ff1c8f31"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/LocomotionProfiles.kt",
+      "sha256": "03fe18536ccd66bfa8cb35190616b4a3bada006e47a58693f0590e1b19e6c4a1"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ReactionProfiles.kt",
+      "sha256": "62108cab996a2ccde98c39b9e50423f695897cc12664bb8e5c73f1dd45a8106b"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/TrackingProcessor.kt",
+      "sha256": "3b113b16cbcb9c21c9cf1a98b7e434c913ba43fdd8831998b0ef0d7fa6abaa46"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/TrackingSession.kt",
+      "sha256": "437d5abeda76245abc8d2c925f921dfdabe3efcf6da0db8926ccb78a2505c79b"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaPresentation.kt",
+      "sha256": "e8cb90eac5f174db56e1900c9da5dcd78726d531209fae2fabf27f04d448f9be"
+    },
+    {
+      "path": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/ui/ArenaUiPalette.kt",
+      "sha256": "95517b55f9933baf78648e3c5bdc3f379fbd91b0848f84963cad01c4cb750c41"
+    }
+  ],
+  "runtime": {
+    "running": true,
+    "pid_at_capture": 9861,
+    "controller_raw_callbacks": 0,
+    "fresh_controller_contact_validation": false,
+    "visual_quality_accepted": false,
+    "full_demo_complete": false
+  },
+  "review": {
+    "continuous_contact_and_pose_wiring": "static review completed; HUD pose-only publish regression repaired",
+    "boss_flat_armor": "rejected; formal veteran preserved",
+    "new_overhead_motion": "source stage only; not included in APK"
+  },
+  "limits": [
+    "No actual hand/dao constraint or parry input proof for this APK.",
+    "No hand anatomical orientation acceptance; actual roots do not prove skinned geometry.",
+    "Old v9 three-round evidence applies only to its old APK.",
+    "Space Pro performance, audio and haptics not tested."
+  ],
+  "main_scene_assets": [
+    "models/courtyard_hero.glb",
+    "models/dao_grip.glb",
+    "models/opponents/base.glb",
+    "models/opponents/indigo.glb",
+    "models/opponents/veteran.glb",
+    "models/player_hands/left_hand.glb",
+    "models/player_hands/right_hand.glb"
+  ],
+  "all_packaged_model_count": 19
+}

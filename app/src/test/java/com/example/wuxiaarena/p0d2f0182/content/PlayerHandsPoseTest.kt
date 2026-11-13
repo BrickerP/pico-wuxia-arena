@@ -1,5 +1,10 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.input.InputOrigin
+import com.example.wuxiaarena.core.input.ObservationStamp
+import com.example.wuxiaarena.core.input.PoseObservation
+import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingQuality
@@ -73,6 +78,57 @@ class PlayerHandsPoseTest {
         assertNull(playerHandTransform(null, Hand.RIGHT))
         assertNotNull(playerHandTransform(pose, Hand.RIGHT))
         assertNull(playerHandTransform(pose.copy(quality = TrackingQuality.SOURCE_REPORTED_INVALID), Hand.LEFT))
+    }
+
+    @Test
+    fun equippedHandUsesFinalGripWhileOffHandKeepsItsRawObservation() {
+        val solved = WeaponGrip(Vector3(0.35, 1.2, -0.4), Quaternion(0.0, 1.0, 0.0, 1.0))
+        for (equipped in Hand.entries) {
+            val snapshot = snapshot(equipped)
+            val rawCopy = snapshot.copy()
+            val offHand = if (equipped == Hand.RIGHT) Hand.LEFT else Hand.RIGHT
+            assertEquals(playerHandTransform(ObservedPose(solved.position, solved.rotation), equipped),
+                presentedPlayerHandTransform(snapshot, solved, equipped))
+            val offPose = (if (offHand == Hand.LEFT) snapshot.left else snapshot.right)?.pose
+            assertEquals(playerHandTransform(offPose, offHand), presentedPlayerHandTransform(snapshot, solved, offHand))
+            assertEquals(rawCopy, snapshot)
+        }
+    }
+
+    @Test
+    fun absentFinalGripAndLostRequiredInputHideEquippedHandWithoutAStaleRawFallback() {
+        val solved = WeaponGrip(Vector3(0.35, 1.2, -0.4), identity)
+        val unrepresentable = WeaponGrip(Vector3(Double.MAX_VALUE, 0.0, 0.0), identity)
+        for (equipped in Hand.entries) {
+            val snapshot = snapshot(equipped)
+            assertNull(presentedPlayerHandTransform(snapshot, null, equipped))
+            assertNull(presentedPlayerHandTransform(snapshot, unrepresentable, equipped))
+            assertNull(presentedPlayerHandTransform(snapshot.copy(head = null), solved, equipped))
+            assertNull(presentedPlayerHandTransform(snapshot.copy(requiredSinceSequence = 2L), solved, equipped))
+            assertNull(presentedPlayerHandTransform(null, solved, equipped))
+        }
+    }
+
+    @Test
+    fun leftDerivedMarkerReconstructsTheFinalGripUsingTheSameWristParentReference() {
+        val grip = WeaponGrip(Vector3(-0.1, 1.2, -0.5), Quaternion(0.1, 0.3, -0.4, 0.7))
+        val wrist = checkNotNull(presentedPlayerHandTransform(snapshot(Hand.LEFT), grip, Hand.LEFT))
+        assertVector(grip.position, wrist.position + checkNotNull(wrist.rotation.rotate(LEFT_DERIVED_GRIP_POSITION)))
+        val axes = listOf(Vector3(1.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0), Vector3(0.0, 0.0, 1.0))
+        for (i in axes.indices) {
+            assertVector(checkNotNull(grip.rotation.rotate(axes[i])),
+                checkNotNull(wrist.rotation.rotate(LEFT_DERIVED_GRIP_AXES[i])))
+        }
+    }
+
+    private fun snapshot(equippedHand: Hand): TrackingSnapshot {
+        val stamp = ObservationStamp(1L, 1L, 0L, InputOrigin.PICO)
+        return TrackingSnapshot(
+            PoseObservation(stamp, ObservedPose(Vector3(0.0, 1.6, 0.0), identity)),
+            PoseObservation(stamp, ObservedPose(Vector3(-0.3, 1.1, -0.2), identity)),
+            PoseObservation(stamp, ObservedPose(Vector3(0.3, 1.1, -0.2), identity)),
+            equippedHand, 0L, 0L, 0L,
+        )
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import androidx.annotation.MainThread
+import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.pico.spatial.core.ecs.CollisionComponent
@@ -13,6 +14,7 @@ import com.pico.spatial.core.ecs.animation.AnimationTransitionMode
 import com.pico.spatial.core.ecs.resource.AnimationResource
 import com.pico.spatial.core.math.Quat
 import com.pico.spatial.core.math.Vector3
+import com.example.wuxiaarena.core.math.Vector3 as TrackingVector3
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.ensureActive
@@ -25,6 +27,7 @@ internal class PlayerHands(private val parent: Entity) {
     private var left: LoadedHand? = null
     private var loadStarted = false
     private var closed = false
+    private var equippedHand = Hand.RIGHT
 
     /** Called once from SpatialView.initial, on the scene's existing main-thread coroutine. */
     suspend fun load(isCurrent: () -> Boolean) {
@@ -71,22 +74,62 @@ internal class PlayerHands(private val parent: Entity) {
         }
     }
 
-    /** Consumes the same accepted controller observations as the existing dao presenter. */
-    fun present(snapshot: TrackingSnapshot?) {
+    /** Raw input can move only the unequipped hand, or hide stale equipped geometry. */
+    fun presentInput(snapshot: TrackingSnapshot?) {
         if (closed || !parent.valid) return
-        val equippedHand = snapshot?.dominantHand ?: Hand.RIGHT
+        val nextHand = snapshot?.dominantHand ?: Hand.RIGHT
+        if (nextHand != equippedHand || snapshot?.hasRequiredObservations != true) {
+            presentHand(right, Hand.RIGHT, null, nextHand)
+            presentHand(left, Hand.LEFT, null, nextHand)
+        }
+        equippedHand = nextHand
+        val offHand = if (equippedHand == Hand.RIGHT) Hand.LEFT else Hand.RIGHT
+        presentHand(if (offHand == Hand.RIGHT) right else left, offHand,
+            presentedPlayerHandTransform(snapshot, null, offHand), equippedHand)
+    }
+
+    /** Both final hand placement and dao placement are owned by the same arena state. */
+    fun present(snapshot: TrackingSnapshot?, grip: WeaponGrip?) {
+        if (closed || !parent.valid) return
+        equippedHand = snapshot?.dominantHand ?: Hand.RIGHT
         var failure: Exception? = null
         try {
-            presentHand(right, Hand.RIGHT, playerHandTransform(snapshot?.right?.pose, Hand.RIGHT), equippedHand)
+            presentHand(right, Hand.RIGHT, presentedPlayerHandTransform(snapshot, grip, Hand.RIGHT), equippedHand)
         } catch (error: Exception) {
             failure = error
         }
         try {
-            presentHand(left, Hand.LEFT, playerHandTransform(snapshot?.left?.pose, Hand.LEFT), equippedHand)
+            presentHand(left, Hand.LEFT, presentedPlayerHandTransform(snapshot, grip, Hand.LEFT), equippedHand)
         } catch (error: Exception) {
             if (failure == null) failure = error else if (failure !== error) failure.addSuppressed(error)
         }
         failure?.let { throw it }
+    }
+
+    /** Read actual Entity transforms in the same null/container reference used by SDK input. */
+    fun diagnosticFrames(dao: Entity): String {
+        fun frame(entity: Entity?, origin: TrackingVector3? = null,
+                  axes: List<TrackingVector3>? = null): String {
+            if (entity == null || !entity.valid || !entity.enabled) return "unavailable"
+            val localOrigin = origin ?: TrackingVector3(0.0, 0.0, 0.0)
+            val localAxes = axes ?: listOf(
+                TrackingVector3(1.0, 0.0, 0.0),
+                TrackingVector3(0.0, 1.0, 0.0),
+                TrackingVector3(0.0, 0.0, 1.0),
+            )
+            fun convert(point: TrackingVector3): TrackingVector3 {
+                val actual = entity.convertPositionTo(Vector3(point.x.toFloat(), point.y.toFloat(), point.z.toFloat()), null)
+                return TrackingVector3(actual.x.toDouble(), actual.y.toDouble(), actual.z.toDouble())
+            }
+            val actualOrigin = convert(localOrigin)
+            val actualAxes = localAxes.map { convert(localOrigin + it) - actualOrigin }
+            return "{origin=$actualOrigin x=${actualAxes[0]} y=${actualAxes[1]} z=${actualAxes[2]}}"
+        }
+        return "reference=container_null_meters parentActual=${frame(parent)} " +
+            "rightRootActual=${frame(right?.model)} leftWristRootActual=${frame(left?.model)} " +
+            "daoRootActual=${frame(dao)} " +
+            "leftGripMarkerAssetDerivedViaActualRoot=${frame(left?.model, LEFT_DERIVED_GRIP_POSITION, LEFT_DERIVED_GRIP_AXES)} " +
+            "bonePose=not_read"
     }
 
     private fun presentHand(loaded: LoadedHand?, hand: Hand, pose: PlayerHandTransform?, equippedHand: Hand) {

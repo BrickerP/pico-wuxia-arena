@@ -27,11 +27,21 @@ class HurtPoseContinuityTest {
         for (zone in listOf(HitZone.BODY, HitZone.HEAD)) {
             val fixture = Fixture()
             fixture.start()
-            val y = if (zone == HitZone.HEAD) 1.55 else .95
-            fixture.tick(20_000_000L, Vector3(-.35, y, -.4))
+            val y = if (zone == HitZone.HEAD) 1.55 else .70
+            // Cut the low torso below the held dao. For the head, use a horizontal
+            // blade behind its guard plane so this is a real unshielded hurt fixture.
+            if (zone == HitZone.HEAD) {
+                val turn = sqrt(.5)
+                fixture.rotation = Quaternion(0.0, -turn, 0.0, turn)
+            }
+            val from = if (zone == HitZone.HEAD) Vector3(-1.35, y, -1.26) else Vector3(-.35, y, -.4)
+            val to = if (zone == HitZone.HEAD) Vector3(-.35, y, -1.26) else Vector3(.35, y, -.4)
+            fixture.tick(20_000_000L, from)
             val idle = fixture.pose()
-            fixture.tick(100_000_000L, Vector3(.35, y, -.4))
-            val impact = fixture.events.filterIsInstance<CombatImpact>().single { it.appliedDamage > 0 }
+            fixture.tick(100_000_000L, to)
+            val impacts = fixture.events.filterIsInstance<CombatImpact>()
+            assertTrue("Expected unshielded $zone contact; impacts=$impacts", impacts.any { it.appliedDamage > 0 })
+            val impact = impacts.single { it.appliedDamage > 0 }
             assertEquals(zone, impact.zone)
             assertEquals(EnemyPhase.HIT, fixture.session.viewState.phase)
             val hold = CombatFeedbackProfile.hitStopNanos(impact)
@@ -56,7 +66,7 @@ class HurtPoseContinuityTest {
     }
 
     @Test
-    fun parryKeepsTheIncomingContactDuring95msThenUsesHitSideWithTheSameRecoilTransform() {
+    fun parryKeepsActualIncomingSourceDuring95msThenRetreatsInTheSameClip() {
         val fixture = Fixture()
         fixture.start()
         fixture.seek { it.phase == EnemyPhase.STARTUP }
@@ -72,7 +82,8 @@ class HurtPoseContinuityTest {
         val hold = CombatFeedbackProfile.hitStopNanos(impact)
         assertEquals(95_000_000L, hold)
         val stateAtContact = fixture.session.viewState
-        val incoming = arenaOpponents[0].attackProfile(AttackDirection.OVERHEAD).sample(1.0)
+        val profile = arenaOpponents[0].attackProfile(AttackDirection.OVERHEAD)
+        val incoming = profile.sample(requireNotNull(stateAtContact.enemyPoseSourceSeconds))
             .inStage(requireNotNull(stateAtContact.enemyPosition), stateAtContact.enemyYawRadians)
         assertEquals(incoming, fixture.pose())
         fixture.tick(hold / 2)
@@ -81,10 +92,9 @@ class HurtPoseContinuityTest {
         fixture.tick(hold - hold / 2 + 100_000_000L)
         val state = fixture.session.viewState
         assertEquals(EnemyPhase.HIT, state.phase)
-        val frame = arenaOpponents[0].reactionProfiles().frame(state.hitReaction, state.enemyHitZone,
-            state.phaseElapsedNanos, state.phaseRemainingNanos)
-        assertEquals("hit_side", frame.clip)
-        assertEquals(frame.pose.inStage(requireNotNull(state.enemyPosition) + state.enemyRecoilOffset,
+        assertEquals(profile.clip, state.enemyPoseClip)
+        assertTrue(requireNotNull(state.enemyPoseSourceSeconds) < incoming.sourceSeconds)
+        assertEquals(profile.sample(requireNotNull(state.enemyPoseSourceSeconds)).inStage(requireNotNull(state.enemyPosition) + state.enemyRecoilOffset,
             state.enemyYawRadians), fixture.pose())
     }
 
@@ -130,7 +140,7 @@ class HurtPoseContinuityTest {
             }
             throw AssertionError("Expected normal combat phase/event was not reached")
         }
-        fun pose(): AttackPoseSample = ArenaSession::class.java.getDeclaredMethod("enemyAttackPose")
-            .apply { isAccessible = true }.invoke(session) as AttackPoseSample
+        fun pose(): AttackPoseSample = ArenaSession::class.java.getDeclaredMethod("enemyAttackPose", Long::class.javaPrimitiveType)
+            .apply { isAccessible = true }.invoke(session, 0L) as AttackPoseSample
     }
 }

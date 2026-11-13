@@ -1,0 +1,182 @@
+{
+  "status": "offline_candidate_for_root_native_review",
+  "input": {
+    "path": "ArtSource/refinement/environment-hero/facade-polish/courtyard_facade_polish.glb",
+    "sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+    "bytes": 36954180
+  },
+  "candidate": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+    "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+    "bytes": 38212212
+  },
+  "budget_before": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 173982,
+    "active_unique_meshes": 36,
+    "unique_position_stream_vertices": 332980,
+    "unique_attribute_buffer_bytes": 13808688,
+    "unique_index_buffer_bytes": 1136412,
+    "primitive_node_submission_upper_estimate": 109,
+    "materials": 32,
+    "images": 50
+  },
+  "budget_after": {
+    "node_expanded_triangles": 243358,
+    "unique_mesh_triangles": 181594,
+    "active_unique_meshes": 37,
+    "unique_position_stream_vertices": 336254,
+    "unique_attribute_buffer_bytes": 14113296,
+    "unique_index_buffer_bytes": 1175868,
+    "primitive_node_submission_upper_estimate": 111,
+    "materials": 32,
+    "images": 50
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/build_entrance_module.py",
+      "sha256": "553c62df2c75aa80d7f61b85e0f54eca26e183aee61d629749687d379525abed",
+      "bytes": 10014
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/build_candidate.py",
+      "sha256": "b9c8f7fc9825d326d48f79f914a1ba621c008c22b41a38285c11a0d2ca1bf1bb",
+      "bytes": 18558
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/verify_entrance.py",
+      "sha256": "bd8e54c1ec18e67afbd6c4f3b81fe92930d1bca845cc4fb7bd9af1e05305b4f3",
+      "bytes": 5793
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/render_entrance.py",
+      "sha256": "b461cb3c3a045b2731bc79dd3ddcc1705d02676cc1a2c36a18d50b173954a7f9",
+      "bytes": 6829
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/finalize_delivery.py",
+      "sha256": "0694dc12361b2dad3c625efa4224e8bb2e4af0ba095d14f2b21af4d6eb224081",
+      "bytes": 3443
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/entrance_editable.blend",
+      "sha256": "66473a14ae0e1582100be25cdc26f8e7e730fad636bcd63f1e10c01dfba60b89",
+      "bytes": 22769737
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/entrance_module.glb",
+      "sha256": "15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264",
+      "bytes": 10197216
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+      "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+      "bytes": 38212212
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/optional_blocker_bounds.json",
+      "sha256": "984dc1883b7760d8b3cba6ae075d7859d3cd9ea313fb35a1835fbec51c532f6d",
+      "bytes": 1329
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/REBUILD.md",
+      "sha256": "3b5366e7a81f81f96afa9903a494db5b3459438702a90e82dcebd1cb66a349c3",
+      "bytes": 4101
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/audit.json",
+      "sha256": "8b82102558ed5d1d38c6ecb4f20469ee018d32259bfa697303f0b680b018d371",
+      "bytes": 5704
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/verification.json",
+      "sha256": "f60a2ac92b6a3438c2da73537878effe43550c7a3de95d245225668b416c9058",
+      "bytes": 622
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/module_audit.json",
+      "sha256": "c8b325a5ec12dd20fb0734a8b1e2ff90b01e7af073c6ea243f2e96a1f5b3a10b",
+      "bytes": 14103
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/gltf-validator.json",
+      "sha256": "038b284a86b6872c4b57f5fd9258c29afba84e1b1eebb3528bd8a99c1e4fb7e5",
+      "bytes": 37843
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/render_manifest.json",
+      "sha256": "d86dedf7415aada04ab915d417f65cb81532edc16fb315f40064a8e93ac2ff3c",
+      "bytes": 4584
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/eye_before.png",
+      "sha256": "099508ed0a79cf1a7ba607ec3f00450244f229f0411b3c5f85219355c0114a0d",
+      "bytes": 1293730
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/eye_after.png",
+      "sha256": "eb88cb82007baead235928110ca3f32d309da18c778fed0b790293c5a7a84617",
+      "bytes": 1288760
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/review/close_after.png",
+      "sha256": "37f1335ab99888e4a0de2bd64b13ea787e89b87edcbc7e42d73615a2798cd7a6",
+      "bytes": 1273349
+    }
+  ],
+  "existing_readonly_dependencies": [
+    {
+      "path": "ArtSource/refinement/environment-hero/method-study-2026-11-12/build_window_sample.py",
+      "sha256": "956412bd78fe905867efd1fd79e3c9a00a5db37ff8d3d11859dc57064c4fd6d5",
+      "bytes": 23567
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/build_courtyard.py",
+      "sha256": "40d37e22ba3ee1203a8969b1a7b508ae317eadadc46c91e963a7daee86d107a8",
+      "bytes": 14183
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/stage2/create_candidate.py",
+      "sha256": "cbeabf52ab60a504b0e2357e06aa4ed28d4ceb21924d874c600472ba4a229d15",
+      "bytes": 17222
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/verify_environment.py",
+      "sha256": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+      "bytes": 6897
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/facade-polish/build_facade.py",
+      "sha256": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+      "bytes": 19163
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+      "sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+      "bytes": 5388
+    }
+  ],
+  "runtime_changes": [],
+  "preserved": [
+    "nine facade windows",
+    "all existing node transforms",
+    "Stage origin and ground Y=0",
+    "ground receivers and anchors",
+    "combat clearance",
+    "32 materials and 50 exact image payloads"
+  ],
+  "replaced": [
+    "closed double doors and handles",
+    "rebated doorway case",
+    "narrow sloped threshold",
+    "two stone post bases with sockets",
+    "two solid under-eave supports",
+    "local obstructing low beam and buried approach steps"
+  ],
+  "limitations": [
+    "Offline Blender images are not native PICO Emulator evidence.",
+    "No runtime collider, navigation or door interaction is installed.",
+    "Closed visual doors remain closed; passability is unverified.",
+    "Space Pro performance, runtime tangent appearance and APK integration are Root-owned and unverified by this delivery."
+  ]
+}

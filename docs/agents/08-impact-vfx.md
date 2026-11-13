@@ -2,13 +2,13 @@
 
 ## 当前Root审核与执行合同
 
-Root已把`native-impact-polish/01-local-native-impact.patch`和`surface-preload/02-remove-unused-surface-route.patch`接入正式app。APK`ca26f4a9…`已构建/安装，336项当前单测通过；真实PICO Emulator完成失败→重开→三轮胜利967分/余40HP。源码已无EnemyHitFlash/BodyFlashMaterial与废时长字段，SOFT/METAL保6槽，头手/输入/伤害/时钟保持。旧候选“未改app/待合入”仅为制作时快照，不再表示当前状态。
+Root已将75d1刀轨补丁合入原生v9：源码bfaf53b，APK1c41cfc3，349测试通过，真实三轮895分／60HP。保6cm尾／1cm芯和透明边，已去旧30cm拒绝门；当前1c41已发布，并如实保留刀轨可读性未验。旧75d1源与patch冻结，不能据旧ca26灰片或API／数值声称v9像素已改善。
 
-Root实际看了交战和胜利画面，整身平色替换路径已退出；细粒子效果和Space Pro触觉仍不能由代码通过推定。主机约57fps窗口录制不等于终端性能。
+本轮只据ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4、其原trial-window.mov、trial.log及当前源码检查实际enable→有效pose/sample→ribbon→create/replace/enable。最多一小段原帧，未证实独立刀轨则先追消费，不扩离线弧线／参数扫描／HTML／材质研究。
 
-下一件只在`ArtSource/refinement/effects/native-blade-trail-polish/`精修现有刀轨：当前`artifacts/native-ui-impact-2026-11-13/contact-detail.png`中的宽灰硬多边形需要变为有渐隐边缘的细亮刃线/短弧。保真实Blade_Base/Tip、65ms寿命、失追踪/换代断史、当前头手与判定，不做新特效系统或相机抖动。优先现有资源和公开SDK材质，交能接入当前APK的最小patch/必需小资产和实际源轨迹检查；不靠离线画弧宣称原生改善。
+Root明确续派为日志-only最小私有补丁：不加无读值证据的setOpacity(1f)。预算从首次有效手pose且正在交战、场景和输入就绪时启动，6秒／每实例最多9条；Ready不耗，不随动作或代次重置。保几何／65ms／深度／输入与规则；正式app／HomeStage／producer／设备／共享构建／Git不碰。当前候选只在native-blade-trail-polish/v9-consumption/，Root下一包据实际材质值再决定修复，不把诊断说成画面已修好。
 
-唯一交付仍为Kotlin + PICO Spatial SDK6.1.9原生APK，PICO Emulator验证、Space Pro/OS6终端。禁止HTML/Web/mock，不能接入的研究/重复渲染停止。Root统一正式源码/构建/设备/Git；本路不碰app。每次最多1Blender2线程，交可见首件再等对应review。
+唯一产品仍是Kotlin＋PICO Spatial SDK6.1.9原生APK，PICO Emulator验证、Space Pro／OS6终端。Root统一构建、设备、Git与发布，无HTML/Web/mock替代验收。
 
 ## 目标
 
@@ -210,3 +210,18 @@ Root已接受顶端6cm尾／1cm芯与两边alpha0的接入方向，明确否决�
 19项必要几何测试重新执行通过；原距离拒绝例已改为同代快速挥刀保反馈，0.30m、nextUp及0.60m在33ms内均继续输出窄带，同时既有65ms／12ms、rest／generation等边界通过。补丁仅在本目录临时三文件fixture里dry-run/apply和SHA核对，正式app源锁原样。
 
 按Root要求不扩或重跑unknown-rest假设组合，不追加研究／渲染。native-replay/的194条原源及6项结果只保留为前版证据，不冒作本版连续原生像素证明。当前结果以isolated-tests/report.json、patch_check.json和delivery.json为准。Root下一轮直接进APK看实际像素；本轮没有发现或暗混其它原断史／真实caller修复。
+
+## 阶段6：v9真实帧消费核对与日志-only候选（2026-11-13）
+
+仅原片22.20–22.75s抽13原帧，实际PTS22.211667–22.703333，含22.545起真实挥动。frames/tip_sequence.png一张紧凑板未叠弧、未插帧。实体黑刀与灰刃面可见，独立暖芯／冷尾和跟刃仍UNPROVEN；离散金粒不算刀轨。原PNG与rawPTS逐像素匹配，发布片相应局部内容接近但不据总时长差推起剪点；不强配event id，VFR可能漏12ms热芯，不见也不等于未提交。
+
+当前逻辑marker和Grip内Blade_Tip差仅1.44e−8m，未发现Tip偏移；Main→presentArena→Player链存在，无正常onTick/HUD节流必然清史证据。v9无ArenaBladeTrail日志仅表无warning，因为旧代码没有成功回执；41条后续Animator到达只能间接证明presentArena被执行。active/rest/nullRibbon/create/replace/enable的运行证据缺失，根因未定，不把旧45cm问题／MeshModel.colors公有类型当本版GPU证明。
+
+6.1.9官方MeshModel页明确线性逐顶点颜色，create/replace adapter复制RGBA；无vertexColor enable/blend mode开关。公有getOpacity/getBaseColor.alpha可读取，并已以exactSDK完整候选类型检查确认；这不证明shader像素，也没有实际opacity错误证据。Root要求取消setOpacity防御，已取消。
+
+新`v9-consumption/02-v9-native-trail-consumption.patch`只在PlayerBladeTrail加有界只读回执并增预算测试。window从owner有效、Base/Tip/speed有效、sceneReady/inputReady、无pause且FIGHTING开始；Ready10分钟不启动，动作／代次不重置。6summary＋1first_submit，另constructor／first_present各1，每实例最多9条。记录实际pose、rest／变化／代次数、nullribbon、create/replace/enable成功、CPU RGBA峰值与实际material opacity/base alpha，读取失败明确记read_unavailable与异常类型，仅在诊断runCatching内处理。不会控制原采样、几何、启用、材质或close。
+
+完整候选以exact6.1.9 core/foundation、Android35和逐字当前生产data声明隔离编译，5项预算JUnit实际通过；不是共享构建或GPU运行。临时fixture dry-run/apply匹配，正式Player／Geometry、旧75d1和material create/clear块原样，源码与patch身份在v9-consumption/source_lock.json/delivery.json。原帧证据frames/inspection_manifest.json，链路pipeline/、姿态核对pose-check/、最少API合同api/api_contract.json。Root下一次原生包读取9条以内回执与实际画面，再判断是否提交成功和材质值／遮挡分支；本轮没有宣称刀轨已修复。
+
+
+阶段6最终getter隔离review修订：实际material.getOpacity与getBaseColor.alpha各自进入独立runCatching，先转换为数值字串／not_created／read_unavailable:异常类，再拼入同一核心Log，不会因一个getter失败丢create/replace/enable回执。新增1项最小失败测试（分别失败／同时失败）通过，加原5项预算共6/6；SDK完整候选类型检查和临时patch应用／SHA再次通过。预算、日志条数、渲染／材质／几何均未变，无setOpacity。最新patch与源码SHA以v9-consumption/delivery.json为准，正式1c41和75d1冻结不碰；候选不声称刀轨已修复，Root下一步与07单参数材质做原生专项取读值。

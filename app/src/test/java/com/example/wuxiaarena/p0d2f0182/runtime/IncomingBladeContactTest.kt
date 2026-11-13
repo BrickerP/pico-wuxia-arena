@@ -14,6 +14,7 @@ import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingEvent
 import com.example.wuxiaarena.core.input.TrackingState
 import com.example.wuxiaarena.core.math.Quaternion
+import com.example.wuxiaarena.core.math.closestPoint
 import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -100,14 +101,21 @@ class IncomingBladeContactTest {
                 AttackDirection.LEFT -> Vector3(-0.3, 1.0, -0.35)
                 AttackDirection.RIGHT -> Vector3(0.3, 1.0, -0.35)
             }
-            // Establish the same orientation out of guard; the later entry is translation, not a tracking jump.
-            fixture.hand = guard + Vector3(0.0, 0.0, 0.4)
+            // Establish orientation first, then record the fast guard admission before
+            // contact. Its receipt must not be borrowed backward from the colliding frame.
+            val staging = (guard + Vector3(0.0, 0.0, 0.23)).let {
+                if (direction == AttackDirection.RIGHT) it.copy(y = 0.0) else it
+            }
+            fixture.hand = if (direction == AttackDirection.OVERHEAD) staging + Vector3(0.0, -0.4, 0.0)
+                else staging.copy(x = 0.0)
             fixture.rotation = rotation
             fixture.observe()
+            fixture.seek { it.phase == EnemyPhase.STARTUP && it.attackDirection == direction &&
+                requireNotNull(it.phaseRemainingNanos) <= 60_000_000L }
+            fixture.tick(20_000_000L, staging)
             fixture.seek { it.phase == EnemyPhase.ACTIVE && it.attackDirection == direction }
             val id = requireNotNull(fixture.session.viewState.attackId)
-            fixture.tick(20_000_000L, guard)
-            assertTrue(!fixture.session.viewState.playerBladeAtRest)
+            fixture.tick(if (direction == AttackDirection.RIGHT) 40_000_000L else 20_000_000L, guard)
             fixture.tick(20_000_000L, guard)
             assertTrue(fixture.session.viewState.playerBladeAtRest)
             fixture.seek { fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().any { e -> e.attackId == id } }
@@ -116,7 +124,14 @@ class IncomingBladeContactTest {
             val impact = fixture.events.filterIsInstance<CombatImpact>().single { it.kind == CombatImpactKind.PARRY }
             assertTrue(fixture.session.viewState.playerBladeAtRest)
             assertEquals(0, impact.appliedDamage)
-            assertDirection(Vector3(0.0, 0.0, -1.0), impact.normal)
+            // The contact normal is the actual steel separation, rather than the old
+            // fabricated head-to-enemy direction. Both rendered blades must witness it.
+            val state = fixture.session.viewState
+            assertEquals(1.0, impact.normal.length(), 1e-9)
+            assertTrue(impact.point.distanceTo(closestPoint(impact.point,
+                requireNotNull(state.playerBladeBase), requireNotNull(state.playerBladeTip))) <= 0.013)
+            assertTrue(impact.point.distanceTo(closestPoint(impact.point,
+                requireNotNull(state.enemyBladeBase), requireNotNull(state.enemyBladeTip))) <= 0.013)
             assertEquals(1.0, requireNotNull(impact.tangent).length(), 1e-9)
         }
     }

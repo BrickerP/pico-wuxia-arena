@@ -1,0 +1,89 @@
+{
+  "status": "reference_only_not_installed",
+  "units": "metres in unchanged Stage coordinates",
+  "floor_y": 0,
+  "npc_y_offset_unchanged": 0.028,
+  "closed_door_geometry_aabb": {
+    "min": [
+      -1.251,
+      0.07,
+      -5.515
+    ],
+    "max": [
+      1.251,
+      2.745,
+      -5.394
+    ]
+  },
+  "stone_bases": [
+    {
+      "min": [
+        -1.6,
+        0,
+        -5.455
+      ],
+      "max": [
+        -1.2,
+        0.32,
+        -5.025
+      ]
+    },
+    {
+      "min": [
+        1.2,
+        0,
+        -5.455
+      ],
+      "max": [
+        1.6,
+        0.32,
+        -5.025
+      ]
+    }
+  ],
+  "threshold_aabb": {
+    "min": [
+      -1.25,
+      0,
+      -5.6
+    ],
+    "max": [
+      1.25,
+      0.065,
+      -5.36
+    ]
+  },
+  "case_aperture_reference": {
+    "x": [
+      -1.2625,
+      1.2625
+    ],
+    "y": [
+      0.065,
+      2.745
+    ]
+  },
+  "combat_clear_volume": {
+    "min": [
+      -1.35,
+      0.05,
+      -3
+    ],
+    "max": [
+      1.35,
+      2.4,
+      0.8
+    ]
+  },
+  "limitation": "Closed visual doors remain closed. These bounds are geometry references for Root; no runtime collider, navmesh, interaction or passability has been implemented or tested.",
+  "front_stop_aperture_reference": {
+    "x": [
+      -1.2475,
+      1.2475
+    ],
+    "y": [
+      0.065,
+      2.73
+    ]
+  }
+}

@@ -1,6 +1,15 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
 import android.util.Log
+import com.example.wuxiaarena.core.combat.BladeContact
+import com.example.wuxiaarena.core.combat.BladeContactUncertainException
+import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.BladeSweep
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.firstBladeContact
+import com.example.wuxiaarena.core.combat.firstRigidBladeContact
+import com.example.wuxiaarena.core.combat.interpolateGrip
+import com.example.wuxiaarena.core.combat.playerBlade
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyCombatStateMachine
@@ -13,6 +22,7 @@ import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
+import com.example.wuxiaarena.core.combat.MotionStrike
 import com.example.wuxiaarena.core.combat.MotionContact
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.input.DiscontinuityReason
@@ -24,6 +34,7 @@ import com.example.wuxiaarena.core.input.TrackingEvent
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingTarget
+import com.example.wuxiaarena.core.math.closestSegmentPoints
 import com.example.wuxiaarena.core.math.Vector3
 import kotlin.math.atan2
 import kotlin.math.hypot
@@ -98,6 +109,14 @@ internal data class ArenaViewState(
     val enemyBladeBase: Vector3? = null,
     val enemyBladeTip: Vector3? = null,
     val enemyRecoveryFromContact: Boolean = false,
+    val playerWeaponGrip: WeaponGrip? = null,
+    val enemyPoseClip: String? = null,
+    val enemyPoseSourceSeconds: Double? = null,
+    val enemyPoseDirection: AttackDirection? = null,
+    /** Read-only receipt provenance. UI batches and application hand receipts are not GPU/device sample clocks. */
+    val diagnosticUiFrameNanos: Long? = null,
+    val diagnosticPublishSource: String = "snapshot",
+    val diagnosticHandStamp: ObservationStamp? = null,
 )
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
@@ -115,8 +134,16 @@ internal class ArenaSession(
     private val motion = PlayerCombatResolver()
     private val pendingMotion = ArrayDeque<PlayerMotionFrame>()
     private var latestMotion: PlayerMotionFrame? = null
-    private var queuedStrikeId = -1L
-    private var lastSkillReceipt = Long.MIN_VALUE
+    private var simulationMotion: PlayerMotionFrame? = null
+    private var contactRecovery: ContactRecovery? = null
+    private var enemyMotionNanos = 0L
+    private var steelContactLatched = false
+    private var contactQueryFailures = 0
+    private var contactUncertainReceipt: Long? = null
+    private data class ContactRecovery(val profile: AttackProfile, val direction: AttackDirection,
+        val sourceSeconds: Double, val startedAtNanos: Long, val durationNanos: Long)
+
+    private var consumedStrikeId = -1L
     private var result = TrialResult.READY
     private var playerHealth = 100
     private var stamina = 100.0
@@ -136,7 +163,7 @@ internal class ArenaSession(
     private var nextImpactId = 1L
     private var recoilElapsedNanos = 0L
     private var recoilVector = Vector3(0.0, 0.0, 0.0)
-    private var heldEnemyContactOffsets: EnemyContactPose? = null
+    private var heldEnemyPoseFrame: EnemyPoseFrame? = null
     private var heldEnemyAttackOffsets: AttackPoseSample? = null
     private var staggerUntil = 0L
     private var feedback: CombatFeedback? = null
@@ -152,7 +179,6 @@ internal class ArenaSession(
     private var observedAttackId: Long? = null
     private var attackSequenceIndex = 0
     private var enemyRecoveryFromContact = false
-    private var attackHeadBaseline: Vector3? = null
     private var resolvedContactId: Long? = null
     private var roundGeneration = 0L
     private var trialStarted = false
@@ -192,6 +218,7 @@ internal class ArenaSession(
             val targetInRange = currentTargetInRange()
             val motionReady = result == TrialResult.FIGHTING && combat.pauseReason == null && actionReady
             val releaseRequired = motionReady && latestMotion?.releaseRequired == true
+            val selectedPose = effectiveEnemyPose()
             val enemyAttackPose = enemyAttackPose()
             return ArenaViewState(
                 roundGeneration = roundGeneration,
@@ -262,12 +289,17 @@ internal class ArenaSession(
                 enemyBladeBase = enemyAttackPose?.bladeBase,
                 enemyBladeTip = enemyAttackPose?.bladeTip,
                 enemyRecoveryFromContact = enemyRecoveryFromContact,
+                playerWeaponGrip = latestMotion?.weaponGrip,
+                enemyPoseClip = selectedPose?.clip,
+                enemyPoseSourceSeconds = selectedPose?.pose?.sourceSeconds,
+                enemyPoseDirection = contactRecovery?.direction ?: combat.currentAttackDirection,
+                diagnosticHandStamp = hand?.stamp,
             )
         }
 
     fun setArenaPresenter(presenter: ArenaPresenter?) {
         arenaPresenter = presenter
-        publish()
+        publish(source = "presenter_bind")
     }
 
     fun startTrial(): Boolean {
@@ -277,7 +309,7 @@ internal class ArenaSession(
         result = TrialResult.COUNTDOWN
         countdownNanos = 0L
         lastTickTime = null
-        publish()
+        publish(source = "start_trial")
         return true
     }
 
@@ -290,13 +322,14 @@ internal class ArenaSession(
         if (combat.pauseReason != null) return false
         if (combat.phase != EnemyPhase.HIT) enemyHitZone = null
         clearMotion()
+        if (combat.phase == EnemyPhase.IDLE) clearEnemyContactPlayback()
         lastTickTime = null
-        publish(events)
+        publish(events, source = "resume")
         return true
     }
 
     /** The input owner calls this once after all drains, using its receipt clock. */
-    fun onTick(nowNanos: Long) {
+    fun onTick(nowNanos: Long, uiFrameNanos: Long? = null) {
         val targetInRange = currentTargetInRange()
         val terminal = result == TrialResult.VICTORY || result == TrialResult.DEFEAT
         val canAdvance = if (result == TrialResult.ROUND_CLEAR) {
@@ -307,26 +340,35 @@ internal class ArenaSession(
         }
         if (!trialStarted || terminal || !canAdvance) {
             lastTickTime = null
-            publish()
+            publish(source = "tick", uiFrameNanos = uiFrameNanos)
             return
         }
         val previous = lastTickTime
         lastTickTime = nowNanos
         if (previous == null || nowNanos < previous) {
-            publish()
+            publish(source = "tick", uiFrameNanos = uiFrameNanos)
             return
         }
         val delta = nowNanos - previous
         if (delta < 0L || delta > Long.MAX_VALUE - combat.simulationNanos) {
             logMessage("Trial clock interval is unavailable; rebuilding its baseline")
-            publish()
+            publish(source = "tick", uiFrameNanos = uiFrameNanos)
             return
         }
         val events = mutableListOf<EnemyCombatEvent>()
         var remaining = delta
         var intervalEnd = previous
         while (remaining > 0L) {
-            val step = minOf(remaining, 100_000_000L)
+            // An already-known hand interval must not be shortened by an arbitrary
+            // outer tick slice: advanceEnemy performs the geometry/source subdivisions.
+            val nextReceipt = pendingMotion.firstOrNull()?.receivedAtNanos
+            if (result == TrialResult.FIGHTING && nextReceipt != null && nextReceipt <= intervalEnd) {
+                advanceFight(0L, intervalEnd, events)
+                continue
+            }
+            val receiptInterval = nextReceipt?.minus(intervalEnd)?.takeIf { it > 0L }
+            val step = if (result == TrialResult.FIGHTING && receiptInterval != null)
+                minOf(remaining, receiptInterval) else minOf(remaining, 100_000_000L)
             intervalEnd += step
             remaining -= step
             when (result) {
@@ -360,7 +402,7 @@ internal class ArenaSession(
             }
             if (combat.pauseReason != null && result != TrialResult.ROUND_CLEAR) break
         }
-        publish(events)
+        publish(events, source = "tick", uiFrameNanos = uiFrameNanos)
     }
 
     private fun advanceFight(delta: Long, now: Long, events: MutableList<EnemyCombatEvent>) {
@@ -368,146 +410,366 @@ internal class ArenaSession(
         val interval = minOf(delta, available)
         val frameStart = now - delta
         val playableUntil = frameStart + interval
+        if (contactUncertainReceipt?.let { it >= frameStart } == true) {
+            contactUncertainReceipt = null
+            pendingMotion.clear()
+            return
+        }
         matchNanos += interval
         val regeneration = if (latestMotion?.guardDirection != null) 4.0 else 14.0
         stamina = (stamina + interval / 1_000_000_000.0 * regeneration).coerceAtMost(100.0)
         if (feedback != null && matchNanos >= feedbackUntil) feedback = null
         if (lastHitAt >= 0L && matchNanos - lastHitAt > COMBO_WINDOW) combo = 0
-        moveEnemy(interval)
         var advanced = 0L
         while (pendingMotion.isNotEmpty()) {
             if (pendingMotion.first().receivedAtNanos > playableUntil) break
             val frame = pendingMotion.removeFirst()
             if (now.toDouble() - frame.receivedAtNanos.toDouble() > 250_000_000.0) continue
             val offset = (frame.receivedAtNanos - frameStart).coerceIn(advanced, interval)
-            advanceEnemy(offset - advanced, events, deferEndContact = true)
+            val stopped = advanceEnemy(offset - advanced, events, receiptStartNanos = frameStart + advanced, endFrame = frame)
             advanced = offset
             if (result != TrialResult.FIGHTING) break
-            if (hitStopNanos == 0L) {
-                applyPlayerMotion(frame, events)
-                resolveEnemyContact(events)
-            }
+            if (hitStopNanos == 0L && !stopped && frame.skillGesture) applyPlayerMotion(simulationMotion ?: frame, events)
         }
-        if (result == TrialResult.FIGHTING) advanceEnemy(interval - advanced, events, deferEndContact = false)
+        if (result == TrialResult.FIGHTING) advanceEnemy(interval - advanced, events, receiptStartNanos = frameStart + advanced)
         if (result == TrialResult.FIGHTING && matchNanos >= MATCH_DURATION) finishDefeat(CombatFeedback.TIMEOUT, events)
     }
 
-    private fun advanceEnemy(delta: Long, events: MutableList<EnemyCombatEvent>, deferEndContact: Boolean) {
+    /** Query before advancing: contacts are inserted on this same simulation/source clock. */
+    private fun advanceEnemy(delta: Long, events: MutableList<EnemyCombatEvent>, receiptStartNanos: Long, endFrame: PlayerMotionFrame? = null): Boolean {
+        val initial = simulationMotion ?: endFrame ?: latestMotion
+        if (initial == null) {
+            enemyMotionNanos += delta
+            collect(combat.advanceBy(delta, currentTargetInRange() == true, nextAttackDirection()), events)
+            collect(combat.tryStartAttack(nextAttackDirection(), currentTargetInRange() == true), events)
+            return false
+        }
+        val target = endFrame?.let(motion::applyWeaponConstraint) ?: initial
+        if (target.motionGeneration != initial.motionGeneration) {
+            simulationMotion = target
+            latestMotion = target
+            return true
+        }
         var remaining = delta
-        while (remaining > 0L && result == TrialResult.FIGHTING && combat.pauseReason == null) {
-            // Normal presentation receives the contact before a later tick consumes its hold.
-            if (hitStopAwaitingPresentation) return
+        var consumed = 0L
+        var stopped = false
+        fun frameAt(fraction: Double, receiptNanos: Long): PlayerMotionFrame =
+            interpolateMotionFrame(initial, target, fraction, receiptNanos)
+        // Zero-time observations still need steel-before-body ordering.
+        var zeroQuery = delta == 0L && endFrame != null
+        while ((remaining > 0L || zeroQuery) && result == TrialResult.FIGHTING && combat.pauseReason == null) {
+            if (hitStopAwaitingPresentation) return true
             val frozen = minOf(remaining, hitStopNanos)
             hitStopNanos -= frozen
             remaining -= frozen
-            if (remaining == 0L) break
+            consumed += frozen
+            if (remaining == 0L && !zeroQuery) break
             synchronizeAttackBaseline()
-            if (contactDue()) resolveEnemyContact(events)
-            if (result != TrialResult.FIGHTING || combat.pauseReason != null) break
-            if (hitStopNanos > 0L) continue
-            val untilContact = if (combat.phase == EnemyPhase.ACTIVE && resolvedContactId != combat.currentAttackId) {
-                (checkNotNull(combat.currentAttackDirection).activeNanos / 2L - combat.phaseElapsedNanos).coerceAtLeast(0L)
+            val maximum = minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, 10_000_000L)
+            val interval = nextPoseInterval(maximum)
+            val fromFrame = simulationMotion ?: initial
+            val toFrame = if (stopped) fromFrame else frameAt(if (delta == 0L) 1.0 else (consumed + interval).toDouble() / delta, receiptStartNanos + consumed + interval)
+            val actorBefore = captureEnemyLocomotion()
+            val before = enemyAttackPose()
+            moveEnemy(interval, toFrame.headPosition)
+            val after = enemyAttackPose(interval)
+            val candidate = try {
+                queryContact(fromFrame, toFrame, before, after)
+            } catch (uncertain: BladeContactUncertainException) {
+                // Never turn an unproved interval into a miss or apply its pending damage.
+                restoreEnemyLocomotion(actorBefore)
+                if (contactQueryFailures++ < 4) logMessage("Contact query held previous pose: ${uncertain.message}")
+                latestMotion = fromFrame.copy(strike = null, skillGesture = false)
+                simulationMotion = latestMotion
+                return true
+            }
+            zeroQuery = false
+            if (candidate != null) {
+                val advance = (interval * candidate.contact.fraction).toLong().coerceIn(0L, interval)
+                restoreEnemyLocomotion(actorBefore)
+                if (advance > 0L) moveEnemy(advance, fromFrame.headPosition * (1.0 - candidate.contact.fraction) + toFrame.headPosition * candidate.contact.fraction)
+                collect(combat.advanceBy(advance, currentTargetInRange() == true, nextAttackDirection()), events)
+                recoilElapsedNanos = (recoilElapsedNanos + advance).coerceAtMost(RECOIL_DURATION)
+                enemyMotionNanos += advance
+                consumed += advance
+                remaining -= advance
+                val fraction = candidate.contact.fraction
+                val atContact = interpolateMotionFrame(fromFrame, toFrame, fraction, receiptStartNanos + consumed)
+                val grip = atContact.weaponGrip
+                if (candidate.steel && steelContactLatched && grip != null) {
+                    // The constraint is an ongoing unilateral stop, not just a one-shot
+                    // effect. Keep the enemy's actor/source clock at this TOI while its
+                    // proposed motion presses into the held dao; only a proven separating
+                    // sweep may advance. Raw head/hand observations remain available.
+                    val held = motion.constrainWeapon(atContact, grip, candidate.contact).copy(
+                        receivedAtNanos = receiptStartNanos + delta, headPosition = target.headPosition,
+                        strike = null, swing = null, skillGesture = false)
+                    latestMotion = held
+                    simulationMotion = held
+                    combat.advanceWhileWeaponStopped(remaining)
+                    return true
+                }
+                if (candidate.steel && grip != null) {
+                    steelContactLatched = true
+                    val held = motion.constrainWeapon(atContact, grip, candidate.contact)
+                    latestMotion = held
+                    simulationMotion = held
+                    resolveSteelContact(candidate.contact, held, events)
+                } else if (candidate.playerAttack) {
+                    val blade = grip?.let(::playerBlade)
+                    val witness = MotionContact(candidate.zone, candidate.contact.enemyPoint, candidate.contact.normal,
+                        candidate.contact.relativeDisplacement.normalizedOrNull())
+                    val striking = atContact.copy(weaponGrip = grip,
+                        bladeBase = blade?.base ?: atContact.bladeBase, bladeTip = blade?.tip ?: atContact.bladeTip,
+                        strike = atContact.swing?.let { MotionStrike(it.id, candidate.zone, it.power, witness) })
+                    latestMotion = striking
+                    simulationMotion = striking
+                    applyPlayerMotion(striking, events)
+                } else {
+                    latestMotion = atContact
+                    simulationMotion = atContact
+                    resolveBodyContact(candidate.contact, candidate.zone, events)
+                }
+                stopped = true
+                // Contacts transition the attack or start hit stop; cannot repeatedly consume t=0.
+                if (hitStopNanos > 0L || hitStopAwaitingPresentation) break
             } else {
-                Long.MAX_VALUE
+                collect(combat.advanceBy(interval, currentTargetInRange() == true, nextAttackDirection()), events)
+                recoilElapsedNanos = (recoilElapsedNanos + interval).coerceAtMost(RECOIL_DURATION)
+                enemyMotionNanos += interval
+                consumed += interval
+                remaining -= interval
+                simulationMotion = toFrame
+                latestMotion = toFrame
+                try { after?.let { motion.releaseWeaponIfSeparated(it.blade()) } }
+                catch (uncertain: BladeContactUncertainException) {
+                    if (contactQueryFailures++ < 4) logMessage("Weapon catchup held: ${uncertain.message}")
+                }
+                if (!motion.weaponConstrained && after != null) {
+                    val pair = closestSegmentPoints(toFrame.bladeBase, toFrame.bladeTip, after.bladeBase, after.bladeTip)
+                    if (pair != null && pair.first.distanceTo(pair.second) > 0.012 + 0.0125 + 0.025)
+                        steelContactLatched = false
+                }
             }
-            val interval = minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, untilContact)
-            if (interval == 0L) {
-                resolveEnemyContact(events)
-                continue
-            }
-            collect(combat.advanceBy(interval, currentTargetInRange() == true, nextAttackDirection()), events)
-            recoilElapsedNanos = (recoilElapsedNanos + interval).coerceAtMost(RECOIL_DURATION)
-            remaining -= interval
-            if (contactDue() && (remaining > 0L || !deferEndContact)) resolveEnemyContact(events)
-            if (result == TrialResult.FIGHTING) {
+            if (result == TrialResult.FIGHTING)
                 collect(combat.tryStartAttack(nextAttackDirection(), currentTargetInRange() == true), events)
-            }
+            if (interval == 0L) break
         }
-        if (delta == 0L && !deferEndContact) resolveEnemyContact(events)
+        return stopped
     }
 
-    // Read-only selection: attempts, ticks, pauses and out-of-range frames do not consume a direction.
-    private fun nextAttackDirection(): AttackDirection = ATTACK_SEQUENCE[attackSequenceIndex]
+    // Split at source sample keys and the piecewise ACTIVE clock bend. Both blade endpoints
+    // are linear inside these intervals; rigid player rotations have their own sagitta bound.
+    private fun nextPoseInterval(maximum: Long): Long {
+        if (maximum == 0L) return maximum
+        val recovery = contactRecovery
+        if (recovery != null) {
+            val elapsed = enemyMotionNanos - recovery.startedAtNanos
+            val bend = CONTACT_STOP_NANOS + ((recovery.durationNanos - CONTACT_STOP_NANOS) * 0.18).toLong()
+            var result = if (elapsed < CONTACT_STOP_NANOS) minOf(maximum, CONTACT_STOP_NANOS - elapsed)
+                else if (elapsed < bend) minOf(maximum, bend - elapsed) else maximum
+            val start = checkNotNull(effectiveEnemyPose()).pose.sourceSeconds
+            val end = checkNotNull(effectiveEnemyPose(result)).pose.sourceSeconds
+            val keys = recovery.profile.samples.map { it.sourceSeconds }.filter {
+                it > minOf(start, end) + 1e-12 && it < maxOf(start, end) - 1e-12
+            }
+            val key = if (end > start) keys.minOrNull() else keys.maxOrNull()
+            if (key != null && end != start) result = maxOf(1L, (result * (key - start) / (end - start)).toLong())
+            return result
+        }
+        if (combat.phase == EnemyPhase.IDLE) {
+            val actor = captureEnemyLocomotion()
+            moveEnemy(maximum)
+            val gaitDelta = enemyGaitMeters - actor.gait
+            restoreEnemyLocomotion(actor)
+            if (gaitDelta == 0.0) return maximum
+            val locomotion = arenaOpponents[roundNumber - 1].locomotionProfile()
+            val start = locomotion.sourceSeconds(true, actor.gait)
+            val span = locomotion.loopEndSeconds - locomotion.loopStartSeconds
+            val nextKey = if (gaitDelta > 0.0) locomotion.walk.samples.firstOrNull {
+                it.sourceSeconds > start + 1e-12 && it.sourceSeconds <= locomotion.loopEndSeconds
+            }?.sourceSeconds ?: locomotion.loopEndSeconds else locomotion.walk.samples.lastOrNull {
+                it.sourceSeconds < start - 1e-12 && it.sourceSeconds >= locomotion.loopStartSeconds
+            }?.sourceSeconds ?: locomotion.loopStartSeconds
+            val sourceDistance = kotlin.math.abs(nextKey - start)
+            if (sourceDistance <= 1e-12) return minOf(maximum, 1L)
+            val gaitToKey = sourceDistance / span * locomotion.strideMeters
+            return minOf(maximum, maxOf(1L, (maximum * gaitToKey / kotlin.math.abs(gaitDelta)).toLong()))
+        }
+        if (combat.currentAttackDirection == null) return maximum
+        val profile = arenaOpponents[roundNumber - 1].attackProfile(checkNotNull(combat.currentAttackDirection))
+        val elapsed = combat.phaseElapsedNanos
+        val remaining = combat.nanosUntilPhaseTransition ?: return maximum
+        var result = maximum
+        if (combat.phase == EnemyPhase.ACTIVE) {
+            val half = checkNotNull(combat.currentAttackDirection).activeNanos / 2L
+            if (elapsed < half) result = minOf(result, half - elapsed)
+        }
+        val start = profile.sourceSeconds(combat.phase, elapsed, remaining)
+        val end = profile.sourceSeconds(combat.phase, elapsed + result, remaining - result)
+        val key = profile.samples.firstOrNull { it.sourceSeconds > start + 1e-12 && it.sourceSeconds < end - 1e-12 }
+        if (key != null && end > start) result = maxOf(1L, (result * (key.sourceSeconds - start) / (end - start)).toLong())
+        return result
+    }
 
-    private fun contactDue(): Boolean = combat.phase == EnemyPhase.ACTIVE &&
-        resolvedContactId != combat.currentAttackId &&
-        combat.phaseElapsedNanos >= checkNotNull(combat.currentAttackDirection).activeNanos / 2L
+    /** Every contact consumer receives the same rigid pose and receipt-clock witness. */
+    internal fun interpolateMotionFrame(from: PlayerMotionFrame, to: PlayerMotionFrame,
+        fraction: Double, receiptNanos: Long): PlayerMotionFrame {
+        val amount = fraction.coerceIn(0.0, 1.0)
+        val grip = if (from.weaponGrip != null && to.weaponGrip != null)
+            interpolateGrip(from.weaponGrip, to.weaponGrip, amount) else to.weaponGrip ?: from.weaponGrip
+        val blade = grip?.let(::playerBlade)
+        val evidence = if (to.guardEnteredAtNanos?.let { it <= receiptNanos } == true) to else from
+        val fast = to.fastGuardAtNanos?.takeIf { to.guardDirection == evidence.guardDirection && it <= receiptNanos }
+            ?: from.fastGuardAtNanos?.takeIf { from.guardDirection == evidence.guardDirection && it <= receiptNanos }
+        return to.copy(receivedAtNanos = receiptNanos, weaponGrip = grip,
+            bladeBase = blade?.base ?: from.bladeBase * (1.0 - amount) + to.bladeBase * amount,
+            bladeTip = blade?.tip ?: from.bladeTip * (1.0 - amount) + to.bladeTip * amount,
+            headPosition = from.headPosition * (1.0 - amount) + to.headPosition * amount,
+            guardDirection = evidence.guardDirection,
+            guardEnteredAtNanos = evidence.guardEnteredAtNanos?.takeIf { it <= receiptNanos },
+            fastGuardAtNanos = fast)
+    }
+
+    private fun separatingSteelSweep(from: WeaponGrip, to: WeaponGrip, enemy: BladeSweep, normal: Vector3): Boolean {
+        // The enemy endpoint support is linear within a source interval. Certify
+        // withdrawal against a fixed contact plane, including the rigid player's
+        // rotation curvature, instead of ignoring every latched steel sweep.
+        val a = checkNotNull(from.rotation.normalizedOrNull())
+        val b = checkNotNull(to.rotation.normalizedOrNull())
+        val angle = 2.0 * kotlin.math.acos(kotlin.math.abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w).coerceIn(0.0, 1.0))
+        val first = playerBlade(from)
+        val last = playerBlade(to)
+        val gripRadius = maxOf(first.base.distanceTo(from.position), first.tip.distanceTo(from.position))
+        // The projection of a rigid endpoint has |second derivative| <= r*angle^2.
+        // Thus its chord error is <= K*t*(1-t), K=r*angle^2/2. Requiring
+        // one end's support gap to cover K proves separation for a rotating withdrawal.
+        val curvatureBound = gripRadius * angle * angle * 0.5
+        fun gap(player: BladeSegment, other: BladeSegment): Double = minOf(
+            (player.base - other.base).dot(normal), (player.base - other.tip).dot(normal),
+            (player.tip - other.base).dot(normal), (player.tip - other.tip).dot(normal),
+        ) - player.radiusMeters - other.radiusMeters
+        val start = gap(first, enemy.previous)
+        val end = gap(last, enemy.current)
+        return start >= -1e-7 && end >= curvatureBound || start >= curvatureBound && end >= -1e-7
+    }
+
+    private data class IncomingContact(val contact: BladeContact, val steel: Boolean, val zone: HitZone, val playerAttack: Boolean = false)
+
+    private fun queryContact(from: PlayerMotionFrame, to: PlayerMotionFrame,
+        before: AttackPoseSample?, after: AttackPoseSample?): IncomingContact? {
+        if (before == null || after == null || combat.phase == EnemyPhase.DEAD) return null
+        val enemySweep = BladeSweep(before.blade(), after.blade())
+        val gripBefore = from.weaponGrip
+        val gripAfter = to.weaponGrip
+        val steel = if (gripBefore != null && gripAfter != null)
+            firstRigidBladeContact(gripBefore, gripAfter, enemySweep)?.takeUnless { contact ->
+                contact.fraction <= 1e-9 && separatingSteelSweep(gripBefore, gripAfter, enemySweep, contact.normal)
+            } else null
+        val candidates = mutableListOf<IncomingContact>()
+        // Enemy damage is live only during ACTIVE, but both visible weapons remain solid.
+        if (combat.phase == EnemyPhase.ACTIVE && resolvedContactId != combat.currentAttackId) {
+            fun body(zone: HitZone): BladeContact? {
+                fun capsule(head: Vector3) = if (zone == HitZone.HEAD) BladeSegment(head, head, 0.16)
+                    else BladeSegment(head + Vector3(0.0, -1.05, 0.0), head + Vector3(0.0, -0.23, 0.0), 0.24)
+                return firstBladeContact(enemySweep, BladeSweep(capsule(from.headPosition), capsule(to.headPosition)))?.let {
+                    it.copy(playerPoint = it.enemyPoint, enemyPoint = it.playerPoint, normal = it.normal * -1.0,
+                        relativeDisplacement = it.relativeDisplacement * -1.0)
+                }
+            }
+            for (zone in HitZone.values()) body(zone)?.let { candidates += IncomingContact(it, false, zone) }
+        }
+        // Outgoing damage uses the same moving body proxy and clock as the steel query.
+        if (to.swing?.id?.let { it > consumedStrikeId } == true && gripBefore != null && gripAfter != null) {
+            for (zone in HitZone.values()) {
+                fun capsule(pose: EnemyContactPose) = if (zone == HitZone.HEAD) BladeSegment(pose.head, pose.head, 0.16)
+                    else BladeSegment(pose.bodyBottom, pose.bodyTop, 0.24)
+                firstRigidBladeContact(gripBefore, gripAfter, BladeSweep(capsule(before.contact), capsule(after.contact)))?.let {
+                    candidates += IncomingContact(it, false, zone, playerAttack = true)
+                }
+            }
+        }
+        val body = candidates.minByOrNull { it.contact.fraction }
+        return when {
+            steel != null && (body == null || steel.fraction <= body.contact.fraction + 1e-9) -> IncomingContact(steel, true, HitZone.BODY)
+            else -> body
+        }
+    }
+
+    // 12 mm dao proxy plus 0.5 mm actor yaw/translation chord envelope. Actor yaw
+    // is bounded to 1 rad/s and intervals to 10 ms; authored source keys split separately.
+    private fun AttackPoseSample.blade() = BladeSegment(bladeBase, bladeTip, 0.0125)
+
+    private fun nextAttackDirection(): AttackDirection = ATTACK_SEQUENCE[attackSequenceIndex]
 
     private fun synchronizeAttackBaseline() {
         val id = combat.currentAttackId ?: return
         if (observedAttackId != id) {
             observedAttackId = id
             resolvedContactId = null
-            attackHeadBaseline = latestTrackingSnapshot?.head?.pose?.position
         }
-        attackHeadBaseline?.let { motion.beginEnemyAttack(id, it) }
+        motion.beginEnemyAttack(id)
     }
 
-    private fun resolveEnemyContact(events: MutableList<EnemyCombatEvent>) {
-        if (hitStopNanos > 0L || !contactDue()) return
-        val id = checkNotNull(combat.currentAttackId)
+    private fun resolveSteelContact(contact: BladeContact, frame: PlayerMotionFrame, events: MutableList<EnemyCombatEvent>) {
+        val id = combat.currentAttackId
+        val direction = combat.currentAttackDirection
         val target = enemyPosition ?: return
-        val frame = latestMotion
-        val receiptNow = lastTickTime ?: return
-        synchronizeAttackBaseline()
-        // Availability changes come from the tracking owner. Missing combat data cannot grant invulnerability.
-        var outcome = if (frame == null) AttackOutcome.HIT_PLAYER else {
-            motion.resolveDefense(id, checkNotNull(combat.currentAttackDirection), target, receiptNow)
-        }
-        resolvedContactId = id
-        if (outcome == AttackOutcome.MISSED) {
-            stamina = (stamina - 15.0).coerceAtLeast(0.0)
-            focus = (focus + 12.0).coerceAtMost(100.0)
-            score += 15
-            notifyFeedback(CombatFeedback.DODGE)
-            return
-        }
+        val active = combat.phase in setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE) && id != null && direction != null
+        val outcome = if (active && combat.phase == EnemyPhase.ACTIVE) motion.resolveDefense(checkNotNull(id), checkNotNull(direction), target,
+            frame.receivedAtNanos, contact) else AttackOutcome.BLOCKED
+        resolveContactOutcome(outcome, contact, HitZone.BODY, frame.hand, events, active)
+    }
+
+    private fun resolveBodyContact(contact: BladeContact, zone: HitZone, events: MutableList<EnemyCombatEvent>) {
+        resolveContactOutcome(AttackOutcome.HIT_PLAYER, contact, zone,
+            simulationMotion?.hand ?: Hand.RIGHT, events, true)
+    }
+
+    private fun resolveContactOutcome(initialOutcome: AttackOutcome, contact: BladeContact, zone: HitZone,
+        hand: Hand, events: MutableList<EnemyCombatEvent>, active: Boolean) {
+        val outcome = initialOutcome
+        val id = combat.currentAttackId
+        if (active && (id == null || resolvedContactId == id)) return
         if (outcome == AttackOutcome.BLOCKED) {
-            if (stamina >= 28.0) {
-                stamina -= 28.0
-                focus = (focus + 10.0).coerceAtMost(100.0)
-                score += 5
-                notifyFeedback(CombatFeedback.BLOCK)
-            } else {
-                stamina = 0.0
-                staggerUntil = matchNanos + 700_000_000L
-                outcome = AttackOutcome.HIT_PLAYER
-                notifyFeedback(CombatFeedback.GUARD_BREAK)
-            }
+            // Steel still arrests the weapons at zero stamina; it cannot create an unobserved body hit.
+            stamina = (stamina - 28.0).coerceAtLeast(0.0)
+            focus = (focus + 10.0).coerceAtMost(100.0)
+            score += 5
+            notifyFeedback(CombatFeedback.BLOCK)
         } else if (outcome == AttackOutcome.PARRIED) {
             stamina = (stamina - 6.0).coerceAtLeast(0.0)
             focus = (focus + 30.0).coerceAtMost(100.0)
             score += 30
             notifyFeedback(CombatFeedback.PARRY)
         }
-        val contactOffsets = captureContactOffsets()
-        val bladePose = enemyAttackPose()
+        val direction = contactRecovery?.direction ?: combat.currentAttackDirection
+        val pose = enemyAttackPose()
+        val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
-        // Capture incoming source motion before resolve changes ACTIVE to its reaction phase.
-        val bladeContact = motion.defenseContact(outcome, target, latestTrackingSnapshot?.head?.pose?.position)?.let {
-            if (bladePose == null) it.copy(tangent = null) else {
-                val point = bladePose.nearestBladePoint(it.point)
-                val profile = arenaOpponents[roundNumber - 1].attackProfile(checkNotNull(combat.currentAttackDirection))
-                it.copy(point = point, tangent = profile.bladeTangentAt(
-                    bladePose.sourceSeconds, point, target + currentRecoilOffset(), enemyYaw,
-                ))
-            }
+        if (active) {
+            resolvedContactId = id
+            collect(combat.resolveActiveAttack(checkNotNull(id), outcome), events)
         }
-        val resolved = combat.resolveActiveAttack(id, outcome)
-        collect(resolved, events)
-        if (resolved.any { it is EnemyCombatEvent.AttackResolved && it.attackId == id }) {
-            heldEnemyContactOffsets = contactOffsets
-            heldEnemyAttackOffsets = attackOffsets
-            val kind = when (outcome) {
-                AttackOutcome.BLOCKED -> CombatImpactKind.BLOCK
-                AttackOutcome.PARRIED -> CombatImpactKind.PARRY
-                AttackOutcome.HIT_PLAYER -> CombatImpactKind.PLAYER_HIT
-                AttackOutcome.MISSED -> return
-            }
-            if (bladeContact != null) emitImpact(kind, bladeContact,
-                if (outcome == AttackOutcome.PARRIED) 1.0 else 0.65,
-                frame?.hand ?: latestTrackingSnapshot?.dominantHand ?: Hand.RIGHT, events)
+        // Same clip returns from the actual source witness; never jump to a preset contact key.
+        if (direction != null && pose != null) {
+            contactRecovery = ContactRecovery(arenaOpponents[roundNumber - 1].attackProfile(direction), direction,
+                pose.sourceSeconds, enemyMotionNanos,
+                if (outcome == AttackOutcome.PARRIED) 550_000_000L else direction.recoveryNanos)
+            enemyRecoveryFromContact = true
         }
+        heldEnemyPoseFrame = poseFrame
+        heldEnemyAttackOffsets = attackOffsets
+        val kind = when (outcome) {
+            AttackOutcome.BLOCKED -> CombatImpactKind.BLOCK
+            AttackOutcome.PARRIED -> CombatImpactKind.PARRY
+            AttackOutcome.HIT_PLAYER -> CombatImpactKind.PLAYER_HIT
+            AttackOutcome.MISSED -> return
+        }
+        val motionContact = MotionContact(zone, if (outcome == AttackOutcome.HIT_PLAYER) contact.enemyPoint
+            else (contact.playerPoint + contact.enemyPoint) * 0.5,
+            contact.normal, (contact.relativeDisplacement * -1.0).normalizedOrNull())
+        emitImpact(kind, motionContact, if (outcome == AttackOutcome.PARRIED) 1.0 else 0.65, hand, events)
     }
 
     private fun applyPlayerMotion(frame: PlayerMotionFrame, events: MutableList<EnemyCombatEvent>) {
@@ -531,6 +793,8 @@ internal class ArenaSession(
             return
         }
         val strike = frame.strike ?: return
+        if (strike.id <= consumedStrikeId) return
+        consumedStrikeId = strike.id
         if (stamina < 12.0) {
             notifyFeedback(CombatFeedback.LOW_STAMINA)
             return
@@ -558,14 +822,14 @@ internal class ArenaSession(
         zone: HitZone = HitZone.BODY,
     ) {
         val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT
-        val contactOffsets = captureContactOffsets()
+        val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
         val outcome = combat.receivePlayerHit(
             damage, breakGuard, armGuard = normal && combo >= 2 && !breakGuard,
             counterDirection = nextAttackDirection(),
         )
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
-        heldEnemyContactOffsets = contactOffsets
+        heldEnemyPoseFrame = poseFrame
         heldEnemyAttackOffsets = attackOffsets
         if (outcome.any { it is EnemyCombatEvent.HitReactionStarted && it.reaction == HitReaction.PLAYER_HIT }) {
             enemyHitZone = zone
@@ -614,7 +878,7 @@ internal class ArenaSession(
         if (stop > 0L) hitStopAwaitingPresentation = true
         if (fatal) deathHitStopNanos = hitStopNanos
         if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK) return
-        val away = if (kind == CombatImpactKind.PARRY) contact.normal else contact.normal * -1.0
+        val away = contact.normal * -1.0
         val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }
         val direction = Vector3(away.x, 0.0, away.z).normalizedOrNull()
             ?: awayFromPlayer?.let { Vector3(it.x, 0.0, it.z).normalizedOrNull() }
@@ -623,38 +887,35 @@ internal class ArenaSession(
         recoilVector = direction * (0.025 + strength * 0.055)
     }
 
-    private fun currentRecoilOffset(): Vector3 {
-        val progress = recoilElapsedNanos.toDouble() / RECOIL_DURATION
+    private fun currentRecoilOffset(aheadNanos: Long = 0L): Vector3 {
+        val progress = (recoilElapsedNanos + aheadNanos).coerceAtMost(RECOIL_DURATION).toDouble() / RECOIL_DURATION
         return recoilVector * (4.0 * progress * (1.0 - progress))
     }
 
-    private fun enemyContactPose(): EnemyContactPose? {
-        val origin = enemyPosition?.plus(currentRecoilOffset()) ?: return null
-        val held = heldEnemyContactOffsets
-        if (hitStopNanos > 0L && held != null) return held.translated(origin)
-        return arenaOpponents[roundNumber - 1].contactPose(
-            combat.phase, combat.phaseElapsedNanos,
-            combat.nanosUntilPhaseTransition, origin, enemyYaw,
-            direction = combat.currentAttackDirection ?: AttackDirection.OVERHEAD,
-            guarding = combat.guarding,
-            moving = enemyMoveDirection != 0f,
-            recoveryFromContact = enemyRecoveryFromContact,
-            gaitMeters = enemyGaitMeters,
-            hitReaction = combat.hitReaction, hitZone = enemyHitZone,
-        )
+    private fun effectiveEnemyPose(aheadNanos: Long = 0L): EnemyPoseFrame? {
+        if (hitStopNanos > 0L && heldEnemyPoseFrame != null) return heldEnemyPoseFrame
+        val recovery = contactRecovery
+        if (recovery != null) {
+            val elapsed = (enemyMotionNanos + aheadNanos - recovery.startedAtNanos - CONTACT_STOP_NANOS).coerceAtLeast(0L)
+            val progress = (elapsed.toDouble() / (recovery.durationNanos - CONTACT_STOP_NANOS)).coerceIn(0.0, 1.0)
+            val retreat = maxOf(recovery.profile.sourcePhaseSeconds.first(), recovery.sourceSeconds - 0.06)
+            val source = if (progress < 0.18) recovery.sourceSeconds + (retreat - recovery.sourceSeconds) * progress / 0.18
+                else retreat + (recovery.profile.sourcePhaseSeconds.last() - retreat) * (progress - 0.18) / 0.82
+            return EnemyPoseFrame(recovery.profile.clip, recovery.profile.sample(source))
+        }
+        return arenaOpponents[roundNumber - 1].poseFrame(combat.phase, combat.phaseElapsedNanos + aheadNanos,
+            combat.nanosUntilPhaseTransition?.minus(aheadNanos)?.coerceAtLeast(0L),
+            combat.currentAttackDirection ?: AttackDirection.OVERHEAD, combat.guarding,
+            enemyMoveDirection != 0f, enemyRecoveryFromContact, enemyGaitMeters, combat.hitReaction, enemyHitZone)
     }
 
-    private fun enemyAttackPose(): AttackPoseSample? {
-        val origin = enemyPosition?.plus(currentRecoilOffset()) ?: return null
+    private fun enemyContactPose(): EnemyContactPose? = enemyAttackPose()?.contact ?: enemyPosition?.let(EnemyContactPose::standing)
+
+    private fun enemyAttackPose(aheadNanos: Long = 0L): AttackPoseSample? {
+        val origin = enemyPosition?.plus(currentRecoilOffset(aheadNanos)) ?: return null
         val held = heldEnemyAttackOffsets
         if (hitStopNanos > 0L && held != null) return held.inStage(origin, 0f)
-        return arenaOpponents[roundNumber - 1].attackPose(
-            combat.phase, combat.phaseElapsedNanos, combat.nanosUntilPhaseTransition,
-            origin, enemyYaw, combat.currentAttackDirection ?: AttackDirection.OVERHEAD,
-            combat.guarding, enemyMoveDirection != 0f, enemyRecoveryFromContact,
-            gaitMeters = enemyGaitMeters,
-            hitReaction = combat.hitReaction, hitZone = enemyHitZone,
-        )
+        return effectiveEnemyPose(aheadNanos)?.pose?.inStage(origin, enemyYaw)
     }
 
     private fun captureAttackOffsets(): AttackPoseSample? {
@@ -662,24 +923,19 @@ internal class ArenaSession(
         return enemyAttackPose()?.inStage(origin * -1.0, 0f)
     }
 
-    private fun captureContactOffsets(): EnemyContactPose? {
-        val origin = enemyPosition?.plus(currentRecoilOffset()) ?: return null
-        return enemyContactPose()?.translated(origin * -1.0)
-    }
-
     private fun collect(incoming: List<EnemyCombatEvent>, events: MutableList<EnemyCombatEvent>) {
         events += incoming
         for (event in incoming) {
             when (event) {
                 is EnemyCombatEvent.AttackStarted -> {
+                    contactRecovery = null
                     attackSequenceIndex = (attackSequenceIndex + 1) % ATTACK_SEQUENCE.size
                     enemyRecoveryFromContact = false
-                    heldEnemyContactOffsets = null
+                    heldEnemyPoseFrame = null
                     heldEnemyAttackOffsets = null
                     observedAttackId = event.attackId
                     resolvedContactId = null
-                    attackHeadBaseline = latestTrackingSnapshot?.head?.pose?.position
-                    attackHeadBaseline?.let { motion.beginEnemyAttack(event.attackId, it) }
+                            motion.beginEnemyAttack(event.attackId)
                 }
                 is EnemyCombatEvent.AttackResolved -> {
                     enemyRecoveryFromContact = event.outcome != AttackOutcome.MISSED
@@ -695,7 +951,8 @@ internal class ArenaSession(
                 }
                 is EnemyCombatEvent.AttackCancelled -> enemyRecoveryFromContact = false
                 is EnemyCombatEvent.PhaseChanged -> {
-                    if (event.current == EnemyPhase.IDLE || event.current == EnemyPhase.HIT || event.current == EnemyPhase.DEAD) {
+                    if (event.current == EnemyPhase.IDLE || event.current == EnemyPhase.DEAD) {
+                        contactRecovery = null
                         enemyRecoveryFromContact = false
                     }
                     if (event.current != EnemyPhase.HIT) enemyHitZone = null
@@ -720,14 +977,30 @@ internal class ArenaSession(
         notifyFeedback(kind)
     }
 
-    private fun moveEnemy(delta: Long) {
+    private data class EnemyLocomotion(val position: Vector3?, val yaw: Float,
+        val travel: Double, val gait: Double, val direction: Float)
+    private fun captureEnemyLocomotion() = EnemyLocomotion(enemyPosition, enemyYaw, enemyTravelMeters, enemyGaitMeters, enemyMoveDirection)
+    private fun restoreEnemyLocomotion(value: EnemyLocomotion) {
+        enemyPosition = value.position
+        enemyYaw = value.yaw
+        enemyTravelMeters = value.travel
+        enemyGaitMeters = value.gait
+        enemyMoveDirection = value.direction
+    }
+
+    private fun moveEnemy(delta: Long, headPosition: Vector3? = simulationMotion?.headPosition ?: latestTrackingSnapshot?.head?.pose?.position) {
+        if (delta == 0L) return
         enemyMoveDirection = 0f
-        val head = latestTrackingSnapshot?.head?.pose?.position ?: return
+        val head = headPosition ?: return
         val enemy = enemyPosition ?: return
         if (hitStopNanos > 0L || combat.phase != EnemyPhase.IDLE) return
         val toward = Vector3(head.x - enemy.x, 0.0, head.z - enemy.z)
         val distance = toward.length()
-        if (distance > 0.01) enemyYaw = atan2(toward.x, toward.z).toFloat()
+        if (distance > 0.01) {
+            val desiredYaw = atan2(toward.x, toward.z)
+            val turn = atan2(kotlin.math.sin(desiredYaw - enemyYaw), kotlin.math.cos(desiredYaw - enemyYaw))
+            enemyYaw += turn.coerceIn(-delta / 1_000_000_000.0, delta / 1_000_000_000.0).toFloat()
+        }
         val direction = toward.normalizedOrNull() ?: return
         // Native slash reaches about 1.2 m from the actor. Leave the remaining contact allowance to the body volume.
         val desired = 1.30
@@ -744,6 +1017,7 @@ internal class ArenaSession(
     private fun beginNextRound(events: MutableList<EnemyCombatEvent>) {
         val resumeRequired = combat.pauseReason != null || !viewState.actionReady
         roundNumber++
+        clearEnemyContactPlayback()
         attackSequenceIndex = 0
         enemyRecoveryFromContact = false
         check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
@@ -763,7 +1037,7 @@ internal class ArenaSession(
         intermissionNanos = 0L
         recoilElapsedNanos = 0L
         recoilVector = Vector3(0.0, 0.0, 0.0)
-        heldEnemyContactOffsets = null
+        heldEnemyPoseFrame = null
         heldEnemyAttackOffsets = null
         playerHealth = (playerHealth + 20).coerceAtMost(100)
         stamina = (stamina + 35.0).coerceAtMost(100.0)
@@ -787,15 +1061,23 @@ internal class ArenaSession(
         (if (executionActive) 5_000_000_000L else 3_200_000_000L) +
             deathHitStopNanos + CombatFeedbackProfile.DEATH_SLOWDOWN_DELAY_NANOS
 
+    private fun clearEnemyContactPlayback() {
+        enemyMotionNanos = 0L
+        contactRecovery = null
+        heldEnemyAttackOffsets = null
+        heldEnemyPoseFrame = null
+    }
+
     private fun clearMotion() {
         motion.reset()
         latestMotion = null
+        simulationMotion = null
+        steelContactLatched = false
+        contactUncertainReceipt = null
         pendingMotion.clear()
         observedAttackId = null
-        attackHeadBaseline = null
         resolvedContactId = null
-        queuedStrikeId = -1L
-        lastSkillReceipt = Long.MIN_VALUE
+        consumedStrikeId = -1L
     }
 
     private companion object {
@@ -805,6 +1087,7 @@ internal class ArenaSession(
         const val COUNTDOWN_DURATION = 3L * SECOND
         const val COMBO_WINDOW = 1_600_000_000L
         const val RECOIL_DURATION = 220_000_000L
+        const val CONTACT_STOP_NANOS = 35_000_000L
     }
 
     fun setPlayerHandPresenter(presenter: HandPosePresenter?) {
@@ -819,12 +1102,13 @@ internal class ArenaSession(
         enemyReachMeters = 0.0
         revokeActionBaseline(lastAcceptedStamp?.sequence ?: -1L)
         lastReportedHead = null
-        publish()
+        publish(source = "opponent_change")
         return true
     }
 
     fun setEnemyGeometry(position: Vector3?, reachMeters: Double) {
         val wasAvailable = sceneAvailable
+        clearEnemyContactPlayback()
         val valid = position?.takeIf { it.isFinite() && reachMeters.isFinite() && reachMeters > 0.0 }
         sceneAvailable = valid != null
         if (valid != null) {
@@ -843,10 +1127,16 @@ internal class ArenaSession(
         } else {
             emptyList()
         }
-        publish(events)
+        publish(events, source = "enemy_geometry")
     }
 
-    fun onTrackingEvent(event: TrackingEvent, accepted: Boolean, snapshot: TrackingSnapshot) {
+    fun onTrackingEvent(event: TrackingEvent, accepted: Boolean, snapshot: TrackingSnapshot, uiFrameNanos: Long? = null) {
+        val publishSource = when (event) {
+            is TrackingEvent.Head -> "tracking_head"
+            is TrackingEvent.Controllers -> "tracking_controllers"
+            is TrackingEvent.Discontinuity -> "tracking_control_${event.reason}"
+            is TrackingEvent.DominantHandChanged -> "tracking_dominant_hand"
+        }
         val previousSnapshot = latestTrackingSnapshot
         val previousStamp = lastAcceptedStamp
         latestTrackingSnapshot = snapshot
@@ -859,6 +1149,7 @@ internal class ArenaSession(
                 check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
                 roundGeneration++
                 trialStarted = false
+                clearEnemyContactPlayback()
                 combat = EnemyCombatStateMachine()
                 enemyHitZone = null
                 initialHealth = combat.health
@@ -882,7 +1173,7 @@ internal class ArenaSession(
                 deathHitStopNanos = 0L
                 recoilElapsedNanos = 0L
                 recoilVector = Vector3(0.0, 0.0, 0.0)
-                heldEnemyContactOffsets = null
+                heldEnemyPoseFrame = null
                 heldEnemyAttackOffsets = null
                 staggerUntil = 0L
                 feedback = null
@@ -932,37 +1223,40 @@ internal class ArenaSession(
                 reportedWaiting = true
                 logMessage("Combat input waiting for head and dominant-hand observations; sequence=${event.stamp.sequence}")
             }
-            publish(events)
+            publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
             return
         }
         if (!newlyAccepted) {
-            publish(events)
+            publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
             return
         }
         establishActionBaseline()
         val target = enemyPosition
         if (sceneAvailable && target != null && viewState.actionReady) {
-            val frame = motion.observe(snapshot, target, checkNotNull(enemyContactPose()))
+            val frame = try { motion.observe(snapshot, target, checkNotNull(enemyContactPose())) }
+                catch (uncertain: BladeContactUncertainException) {
+                    if (contactQueryFailures++ < 4) logMessage("Player contact query held: ${uncertain.message}")
+                    contactUncertainReceipt = event.stamp.receivedAtNanos
+                    null
+                }
             logNativeMotion(event, snapshot, frame)
-            latestMotion = frame
+            if (result != TrialResult.FIGHTING || simulationMotion == null) latestMotion = frame
             if (frame != null && result == TrialResult.FIGHTING && combat.pauseReason == null) {
-                val strikeIsNew = frame.strike?.id?.let { it > queuedStrikeId } == true
-                val skillIsNew = frame.skillGesture && frame.receivedAtNanos != lastSkillReceipt
-                if (strikeIsNew || skillIsNew) {
-                    if (pendingMotion.size >= 16) {
+                fun sameSample(other: PlayerMotionFrame?) = other?.observationSequence == frame.observationSequence &&
+                    other.motionGeneration == frame.motionGeneration
+                if (!sameSample(pendingMotion.lastOrNull()) && !sameSample(simulationMotion)) {
+                    if (pendingMotion.size >= 64) {
                         events += combat.interruptTracking()
                         revokeActionBaseline(event.stamp.sequence)
                     } else {
                         pendingMotion.addLast(frame)
-                        if (strikeIsNew) queuedStrikeId = checkNotNull(frame.strike).id
-                        if (skillIsNew) lastSkillReceipt = frame.receivedAtNanos
                     }
                 }
             }
         }
         reportedWaiting = false
         logInput(event, snapshot)
-        publish(events)
+        publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
     }
 
     private fun establishActionBaseline() {
@@ -1070,9 +1364,10 @@ internal class ArenaSession(
         }
     }
 
-    private fun publish(events: List<EnemyCombatEvent> = emptyList()) {
+    private fun publish(events: List<EnemyCombatEvent> = emptyList(), source: String, uiFrameNanos: Long? = null) {
         try {
-            arenaPresenter?.invoke(viewState, events.toList())
+            val state = viewState.copy(diagnosticUiFrameNanos = uiFrameNanos, diagnosticPublishSource = source)
+            arenaPresenter?.invoke(state, events.toList())
         } catch (error: Exception) {
             logFailure("Arena presentation failed", error)
         } finally {

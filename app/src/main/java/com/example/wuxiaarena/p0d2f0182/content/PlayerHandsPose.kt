@@ -1,8 +1,10 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
+import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingQuality
+import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 
@@ -33,6 +35,30 @@ internal fun playerHandTransform(pose: ObservedPose?, hand: Hand): PlayerHandTra
             it.position.z.toFloat().isFinite()
     }
 }
+
+/** The equipped hand consumes the final virtual grip; the other hand keeps its SDK pose. */
+internal fun presentedPlayerHandTransform(
+    snapshot: TrackingSnapshot?,
+    grip: WeaponGrip?,
+    hand: Hand,
+): PlayerHandTransform? {
+    val equippedHand = snapshot?.dominantHand ?: return null
+    return if (hand == equippedHand) {
+        if (!snapshot.hasRequiredObservations || grip == null) return null
+        playerHandTransform(ObservedPose(grip.position, grip.rotation), hand)
+    } else {
+        playerHandTransform((if (hand == Hand.LEFT) snapshot.left else snapshot.right)?.pose, hand)
+    }
+}
+
+// Asset-local marker from the same left-hand export as the wrist mapping above.
+// These are derived authored coordinates, never a runtime bone measurement.
+internal val LEFT_DERIVED_GRIP_POSITION = Vector3(-0.005627550009326868, -0.03993754136808973, -0.07604742022880186)
+internal val LEFT_DERIVED_GRIP_AXES = listOf(
+    Vector3(-0.23397770924894626, -0.034728356585801964, -0.9716215172707247),
+    Vector3(-0.07438118293574267, -0.995793524018109, 0.05350417879638239),
+    Vector3(-0.9693925268949081, 0.0847891430104413, 0.2304103513904264),
+)
 
 /** Grip and guard input are action intent; the equipped hand keeps holding its dao. */
 internal fun playerHandGripTime(hand: Hand, equippedHand: Hand): Float =

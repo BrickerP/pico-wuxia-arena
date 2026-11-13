@@ -33,6 +33,14 @@ internal fun shouldPublishHudState(previous: ArenaViewState, state: ArenaViewSta
         enemyRecoilOffset = previous.enemyRecoilOffset,
         enemyBladeBase = previous.enemyBladeBase,
         enemyBladeTip = previous.enemyBladeTip,
+        playerWeaponGrip = previous.playerWeaponGrip,
+        enemyPoseClip = previous.enemyPoseClip,
+        enemyPoseSourceSeconds = previous.enemyPoseSourceSeconds,
+        enemyPoseDirection = previous.enemyPoseDirection,
+        enemyRecoveryFromContact = previous.enemyRecoveryFromContact,
+        diagnosticUiFrameNanos = previous.diagnosticUiFrameNanos,
+        diagnosticPublishSource = previous.diagnosticPublishSource,
+        diagnosticHandStamp = previous.diagnosticHandStamp,
     )
     return hudComparable != previous
 }

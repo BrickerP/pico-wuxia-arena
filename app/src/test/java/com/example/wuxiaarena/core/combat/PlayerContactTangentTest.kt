@@ -46,7 +46,10 @@ class PlayerContactTangentTest {
 
         assertEquals(0.0, frame.bladeTipSpeed, 1e-9)
         val target = requireNotNull(resolver.targetContact(frame, enemy, HitZone.BODY).tangent)
-        val guard = requireNotNull(resolver.defenseContact(AttackOutcome.BLOCKED, enemy, null)?.tangent)
+        val blade = playerBlade(requireNotNull(first.weaponGrip))
+        val steel = BladeSegment((blade.base + blade.tip) * 0.5, (blade.base + blade.tip) * 0.5, 0.012)
+        val guard = requireNotNull(firstRigidBladeContact(requireNotNull(first.weaponGrip),
+            requireNotNull(frame.weaponGrip), BladeSweep(steel, steel))?.relativeDisplacement?.normalizedOrNull())
         assertTrue(target.x > 0.9)
         assertTrue(guard.x > 0.9)
         assertEquals(1.0, target.length(), 1e-9)
@@ -85,7 +88,9 @@ class PlayerContactTangentTest {
 
         val resting = requireNotNull(resolver.observe(snapshot(5, 200_000_000L, Vector3(0.001, 0.95, -0.25)), enemy))
         assertNull(resolver.targetContact(resting, enemy, HitZone.BODY).tangent)
-        assertNull(resolver.defenseContact(AttackOutcome.BLOCKED, enemy, null)?.tangent)
+        val still = playerBlade(requireNotNull(resting.weaponGrip))
+        assertNull(firstBladeContact(BladeSweep(still, still), BladeSweep(still, still))
+            ?.relativeDisplacement?.normalizedOrNull())
         assertNull(resting.bladeBaseDelta)
         assertNull(resting.bladeTipDelta)
 
@@ -112,12 +117,14 @@ class PlayerContactTangentTest {
     }
 
     @Test
-    fun anUnguardedPlayerHitNeverBorrowsThePlayersBladeMotion() {
-        val resolver = PlayerCombatResolver()
-        resolver.observe(snapshot(1, 0L, Vector3(-0.35, 0.95, -0.25)), enemy)
-        resolver.observe(snapshot(3, 100_000_000L, Vector3(0.35, 0.95, -0.25)), enemy)
-
-        assertNull(resolver.defenseContact(AttackOutcome.HIT_PLAYER, enemy, null)?.tangent)
+    fun anIncomingBodyContactKeepsTheEnemyBladeMotion() {
+        val head = BladeSegment(Vector3(0.0, 1.6, 0.0), Vector3(0.0, 1.6, 0.0), 0.16)
+        val incoming = BladeSweep(
+            BladeSegment(Vector3(-0.3, 1.6, -1.0), Vector3(0.3, 1.6, -1.0), 0.012),
+            BladeSegment(Vector3(-0.3, 1.6, 1.0), Vector3(0.3, 1.6, 1.0), 0.012))
+        val contact = requireNotNull(firstBladeContact(incoming, BladeSweep(head, head)))
+        assertDirection(Vector3(0.0, 0.0, 1.0), contact.relativeDisplacement.normalizedOrNull())
+        assertTrue(contact.fraction in 0.4..0.5)
     }
 
     private fun assertDirection(expected: Vector3, actual: Vector3?) {

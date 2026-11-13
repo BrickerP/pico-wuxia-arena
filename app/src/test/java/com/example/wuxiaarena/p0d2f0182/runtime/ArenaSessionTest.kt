@@ -261,7 +261,7 @@ class ArenaSessionTest {
         assertEquals(800_000_000L, preparing.simulationNanos)
         assertEquals(0L, preparing.phaseElapsedNanos)
         assertEquals(AttackDirection.OVERHEAD.preparationNanos, preparing.phaseRemainingNanos)
-        assertEquals(preparing, presentations.last().first)
+        assertEquals(preparing.copy(diagnosticPublishSource = "tick"), presentations.last().first)
         assertEquals(
             listOf(
                 EnemyCombatEvent.AttackStarted(attackId, AttackDirection.OVERHEAD, false, preparing.simulationNanos),
@@ -274,8 +274,9 @@ class ArenaSessionTest {
 
         val replay = mutableListOf<Pair<ArenaViewState, List<EnemyCombatEvent>>>()
         session.setArenaPresenter { view, events -> replay += view to events }
-        assertEquals(preparing, replay.single().first)
+        assertEquals(preparing.copy(diagnosticPublishSource = "presenter_bind"), replay.single().first)
         assertTrue(replay.single().second.isEmpty())
+        assertEquals(preparing, session.viewState)
         session.onTick(attackStartedAt + AttackDirection.OVERHEAD.preparationNanos)
         assertEquals(EnemyPhase.STARTUP, replay.last().first.phase)
         assertEquals(attackId, replay.last().first.attackId)

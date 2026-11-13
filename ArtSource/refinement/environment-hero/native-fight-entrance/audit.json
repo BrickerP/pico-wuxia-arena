@@ -1,0 +1,277 @@
+{
+  "status": "built_for_root_verification",
+  "candidate": "courtyard_native_entrance.glb",
+  "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "source_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "module_sha256": "15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264",
+  "producer_sha256": "b9c8f7fc9825d326d48f79f914a1ba621c008c22b41a38285c11a0d2ca1bf1bb",
+  "placement_stage_m": [
+    0,
+    0,
+    0
+  ],
+  "rotation": "identity",
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "source_budget": {
+    "node_expanded_triangles": 235746,
+    "unique_mesh_triangles": 173982,
+    "active_unique_meshes": 36,
+    "unique_position_stream_vertices": 332980,
+    "unique_attribute_buffer_bytes": 13808688,
+    "unique_index_buffer_bytes": 1136412,
+    "primitive_node_submission_upper_estimate": 109,
+    "materials": 32,
+    "images": 50
+  },
+  "candidate_budget": {
+    "node_expanded_triangles": 243358,
+    "unique_mesh_triangles": 181594,
+    "active_unique_meshes": 37,
+    "unique_position_stream_vertices": 336254,
+    "unique_attribute_buffer_bytes": 14113296,
+    "unique_index_buffer_bytes": 1175868,
+    "primitive_node_submission_upper_estimate": 111,
+    "materials": 32,
+    "images": 50
+  },
+  "source_bytes": 36954180,
+  "candidate_bytes": 38212212,
+  "source_binary_prefix_retained": true,
+  "resource_policy": "source BIN including inactive bytes retained; no global repack or batching",
+  "selection": {
+    "door": {
+      "removed_primitives": [
+        0,
+        1,
+        2
+      ],
+      "removed_handles": 2,
+      "removed_triangles": 1976,
+      "preserved": "12 gold sign strokes (528 triangles)"
+    },
+    "trim_caps_keys": [
+      {
+        "primitive": 0,
+        "logical_target_shell_counts": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "removed_triangles": 848
+      },
+      {
+        "primitive": 1,
+        "logical_target_shell_counts": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        "removed_triangles": 36
+      }
+    ],
+    "timber": [
+      {
+        "primitive": 0,
+        "selected_components": {
+          "corbels": 6,
+          "braces": 2,
+          "pads": 0,
+          "post_bases": 2,
+          "low_beam": 1
+        },
+        "output_triangles": 1252,
+        "cut_surfaces": "post Y=.285 and beam X=+/-1.285; covered by the new entrance construction"
+      },
+      {
+        "primitive": 1,
+        "selected_components": {
+          "corbels": 0,
+          "braces": 0,
+          "pads": 2,
+          "post_bases": 0,
+          "low_beam": 0
+        },
+        "output_triangles": 220,
+        "cut_surfaces": "post Y=.285 and beam X=+/-1.285; covered by the new entrance construction"
+      }
+    ],
+    "stone": {
+      "selected_components": {
+        "bases": 2,
+        "steps": 2,
+        "terrace": 1
+      },
+      "terrace_cut_x": [
+        -1.62,
+        1.62
+      ],
+      "closed_terrace_cut_faces": 2,
+      "added_cap_triangles": 12,
+      "output_triangles": 352
+    }
+  },
+  "module_cleanup": [
+    {
+      "mesh": 0,
+      "primitive": 0,
+      "removed_f32_degenerate": 0,
+      "added_tangent": true
+    },
+    {
+      "mesh": 0,
+      "primitive": 1,
+      "removed_f32_degenerate": 0,
+      "added_tangent": true
+    },
+    {
+      "mesh": 0,
+      "primitive": 2,
+      "removed_f32_degenerate": 0,
+      "added_tangent": true
+    },
+    {
+      "mesh": 0,
+      "primitive": 3,
+      "removed_f32_degenerate": 0,
+      "added_tangent": false
+    },
+    {
+      "mesh": 0,
+      "primitive": 4,
+      "removed_f32_degenerate": 0,
+      "added_tangent": true
+    }
+  ],
+  "module_resource_maps": {
+    "view": {
+      "0": 479,
+      "1": 480,
+      "2": 481,
+      "33": 482,
+      "3": 483,
+      "7": 484,
+      "8": 485,
+      "9": 486,
+      "34": 487,
+      "10": 488,
+      "14": 489,
+      "15": 490,
+      "16": 491,
+      "35": 492,
+      "17": 493,
+      "22": 494,
+      "23": 495,
+      "24": 496,
+      "25": 497,
+      "26": 498,
+      "27": 499,
+      "28": 500,
+      "36": 501,
+      "29": 502
+    },
+    "accessor": {
+      "0": 429,
+      "1": 430,
+      "2": 431,
+      "20": 432,
+      "3": 433,
+      "4": 434,
+      "5": 435,
+      "6": 436,
+      "21": 437,
+      "7": 438,
+      "8": 439,
+      "9": 440,
+      "10": 441,
+      "22": 442,
+      "11": 443,
+      "12": 444,
+      "13": 445,
+      "14": 446,
+      "15": 447,
+      "16": 448,
+      "17": 449,
+      "18": 450,
+      "23": 451,
+      "19": 452
+    },
+    "image": {
+      "0": 19,
+      "1": 45,
+      "2": 46,
+      "3": 47,
+      "4": 48,
+      "5": 49,
+      "7": 36,
+      "6": 37,
+      "8": 34,
+      "9": 35,
+      "10": 12,
+      "11": 13,
+      "12": 14
+    },
+    "sampler": {
+      "0": 0,
+      "1": 2
+    },
+    "texture": {
+      "0": 19,
+      "1": 45,
+      "2": 46,
+      "3": 47,
+      "4": 48,
+      "5": 49,
+      "7": 36,
+      "6": 37,
+      "8": 34,
+      "9": 35,
+      "10": 12,
+      "11": 13,
+      "12": 14
+    },
+    "material": {
+      "0": 29,
+      "1": 30,
+      "2": 4,
+      "3": 7,
+      "4": 9
+    },
+    "mesh": {
+      "0": 36
+    },
+    "node": {
+      "0": 52
+    }
+  },
+  "unchanged": [
+    "nine window instances",
+    "ground receivers and Y=0",
+    "all original nodes/transforms/anchors",
+    "NPC placement is a separate Root-owned resource"
+  ],
+  "native_validation": "pending Root; script does not build or operate a device"
+}

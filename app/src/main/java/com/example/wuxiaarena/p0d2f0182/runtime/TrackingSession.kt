@@ -46,10 +46,10 @@ interface TrackingControls {
 private class TrackingSession(
     private val diagnosticsEnabled: Boolean,
     private val inputOrigin: InputOrigin,
-    private val onObservation: (TrackingEvent, Boolean, TrackingSnapshot) -> Unit,
+    private val onObservation: (TrackingEvent, Boolean, TrackingSnapshot, Long?) -> Unit,
     private val onControlsChanged: (TrackingControls?) -> Unit,
     private val onResumeRequested: (Long) -> Boolean,
-    private val onTick: (Long) -> Unit,
+    private val onTick: (Long, Long?) -> Unit,
 ) {
     private enum class PendingControl { PAUSE, ROUND_RESET }
 
@@ -65,6 +65,8 @@ private class TrackingSession(
     private var attempted = false
     private var active = false
     private var lastPollFrame: Long? = null
+    // Compose UI batch provenance only; never a native renderer or hardware sampling timestamp.
+    private var currentUiFrameNanos: Long? = null
     private var observedReady = false
     private var sawHead = false
     private var sawControllers = false
@@ -122,6 +124,7 @@ private class TrackingSession(
             if (stopRequested) stop()
             return
         }
+        currentUiFrameNanos = frameNanos
         try {
             val previous = lastPollFrame
             val pollDue = previous == null || frameNanos < previous || frameNanos - previous >= STATUS_POLL_NANOS
@@ -144,10 +147,12 @@ private class TrackingSession(
                 pendingControlRecovery = !adapter.recoverControlOverflow()
                 drain()
             }
-            if (active) onTick(System.nanoTime())
+            if (active) onTick(System.nanoTime(), frameNanos)
         } catch (error: Exception) {
             Log.e(TAG, "Tracking update failed", error)
             stop()
+        } finally {
+            currentUiFrameNanos = null
         }
     }
 
@@ -387,7 +392,7 @@ private class TrackingSession(
             observedReady = snapshot.hasRequiredObservations
             Log.i(TAG, "Required observations present=$observedReady; hardware tracking quality remains unknown")
         }
-        onObservation(event, accepted, snapshot)
+        onObservation(event, accepted, snapshot, currentUiFrameNanos)
     }
 
     private fun logObservedHeadMovement() {
@@ -406,10 +411,10 @@ private class TrackingSession(
 
 @Composable
 fun ObserveTracking(
-    onEvent: (TrackingEvent, Boolean, TrackingSnapshot) -> Unit,
+    onEvent: (TrackingEvent, Boolean, TrackingSnapshot, Long?) -> Unit,
     onControlsChanged: (TrackingControls?) -> Unit = {},
     onResumeRequested: (Long) -> Boolean = { false },
-    onTick: (Long) -> Unit = {},
+    onTick: (Long, Long?) -> Unit = { _, _ -> },
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
@@ -424,10 +429,12 @@ fun ObserveTracking(
         TrackingSession(
             diagnosticsEnabled,
             inputOrigin,
-            onObservation = { event, accepted, snapshot -> currentOnEvent.value(event, accepted, snapshot) },
+            onObservation = { event, accepted, snapshot, uiFrameNanos ->
+                currentOnEvent.value(event, accepted, snapshot, uiFrameNanos)
+            },
             onControlsChanged = { currentOnControlsChanged.value(it) },
             onResumeRequested = { currentOnResumeRequested.value(it) },
-            onTick = { currentOnTick.value(it) },
+            onTick = { nowNanos, uiFrameNanos -> currentOnTick.value(nowNanos, uiFrameNanos) },
         )
     }
 

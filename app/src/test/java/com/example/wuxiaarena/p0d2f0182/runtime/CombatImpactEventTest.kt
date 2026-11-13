@@ -109,7 +109,8 @@ class CombatImpactEventTest {
     }
 
     private fun publish(session: ArenaSession, events: List<EnemyCombatEvent>) {
-        ArenaSession::class.java.getDeclaredMethod("publish", List::class.java)
-            .apply { isAccessible = true }.invoke(session, events)
+        ArenaSession::class.java.getDeclaredMethod(
+            "publish", List::class.java, String::class.java, java.lang.Long::class.java,
+        ).apply { isAccessible = true }.invoke(session, events, "test_contact_batch", null)
     }
 }

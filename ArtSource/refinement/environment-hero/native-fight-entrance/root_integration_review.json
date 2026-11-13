@@ -1,0 +1,13 @@
+{
+  "decision": "approved_for_native_development_integration",
+  "quality_complete": false,
+  "reviewed_views": [
+    "review/eye_after.png",
+    "review/close_after.png"
+  ],
+  "candidate_sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "actual_native_display": "Displayed with first opponent in final native d1b61cb APK; READY/inputReady=false; native-blade-contact-stage-2026-11-13.png",
+  "environment_collision": "not_claimed; visual closed door and floor heights retained",
+  "scope": "Joinery/central double doors/threshold/post bases only; existing nine windows and current materials/images retained",
+  "actual_native_proof": "ArtSource/refinement/presentation/native-blade-contact-stage-2026-11-13.json"
+}

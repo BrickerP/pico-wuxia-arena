@@ -27,6 +27,8 @@ import com.pico.spatial.ui.foundation.content.AttachmentPanelBuilder
 import com.pico.spatial.ui.foundation.content.SpatialViewAttachments
 import com.pico.spatial.ui.platform.LengthUnit
 import com.pico.spatial.ui.platform.LocalPhysicalLengthConverter
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingQuality
@@ -75,6 +77,11 @@ private class SceneOwner(
     var root: Entity? = null
     var playerWeapon: Entity? = null
     var playerHands: PlayerHands? = null
+    private var latestPlayerSnapshot: TrackingSnapshot? = null
+    private var playerPoseEvidenceCount = 0
+    private var enemySpaceEvidenceCount = 0
+    private var lastEnemySpaceEvidence: Triple<TrackingVector3, Float, String?>? = null
+    private var lastPlayerPoseEvidence: Pair<ObservedPose, WeaponGrip>? = null
     private data class OpponentRequest(val generation: Long, val roundNumber: Int)
 
     private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
@@ -127,6 +134,7 @@ private class SceneOwner(
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
         if (!parent.valid) return
+        presentPlayerWeapon(state)
         terminalControls.update(
             state.roundGeneration,
             terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT,
@@ -161,7 +169,46 @@ private class SceneOwner(
                 placeAttachment(parent, anchor, location, rotation, STATUS_WORLD_SCALE)
             }
         }
-        loaded.animator?.present(state, events)
+        loaded.animator?.present(state)
+        recordEnemySpaceEvidence(parent, enemy, state)
+    }
+
+    /** Container-space root readback only: this does not measure animated/skinned blade points. */
+    private fun recordEnemySpaceEvidence(parent: Entity, enemy: Entity, state: ArenaViewState) {
+        if (enemySpaceEvidenceCount >= 2 || !state.sceneReady || state.enemyPoseClip == null) return
+        val snapshot = latestPlayerSnapshot?.takeIf { it.hasRequiredObservations } ?: return
+        val origin = state.enemyPosition ?: return
+        val expectedRoot = origin + state.enemyRecoilOffset
+        val key = Triple(expectedRoot, state.enemyYawRadians, state.enemyPoseClip)
+        if (lastEnemySpaceEvidence == key) return
+        try {
+            val zero = Vector3(0f, 0f, 0f)
+            val actualRoot = enemy.convertPositionTo(zero, null)
+            val actualRotation = enemy.convertRotationTo(Quat.identity(), null)
+            val parentOrigin = parent.convertPositionTo(zero, null)
+            val parentRotation = parent.convertRotationTo(Quat.identity(), null)
+            val actualRootAxes = listOf(Vector3(1f, 0f, 0f), Vector3(0f, 1f, 0f), Vector3(0f, 0f, 1f)).map { axis ->
+                val point = enemy.convertPositionTo(axis, null)
+                TrackingVector3((point.x - actualRoot.x).toDouble(),
+                    (point.y - actualRoot.y).toDouble(), (point.z - actualRoot.z).toDouble())
+            }
+            val raw = (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right)
+            Log.i(TAG, "NativeEnemySpaceEvidence sample=${enemySpaceEvidenceCount + 1} " +
+                "reference=container_null_meters round=${state.roundNumber} simulationNanos=${state.simulationNanos} " +
+                "parentActualOrigin=$parentOrigin parentActualRotation=$parentRotation " +
+                "coreEnemyRoot=$origin recoil=${state.enemyRecoilOffset} expectedEnemyRoot=$expectedRoot " +
+                "expectedEnemyYawRadians=${state.enemyYawRadians} enemyActualOrigin=$actualRoot " +
+                "enemyActualRotation=$actualRotation enemyActualAxesXYZ=$actualRootAxes " +
+                "rawControllerOrigin=${raw?.stamp?.origin} rawControllerSequence=${raw?.stamp?.sequence} " +
+                "rawControllerPose=${raw?.pose} finalStageGrip=${state.playerWeaponGrip} " +
+                "effectiveClip=${state.enemyPoseClip} sourceSeconds=${state.enemyPoseSourceSeconds} " +
+                "bonePose=not_read skinnedBladePoint=not_measured")
+            lastEnemySpaceEvidence = key
+            enemySpaceEvidenceCount++
+        } catch (error: Exception) {
+            enemySpaceEvidenceCount++
+            Log.w(TAG, "NativeEnemySpaceEvidence actualRoot=UNOBSERVED bonePose=not_read", error)
+        }
     }
 
     /** All initial, Compose-update and arena-update placement uses this same selection. */
@@ -441,45 +488,83 @@ private class SceneOwner(
         if (light.enabled != visible) light.enabled = visible
     }
 
+    /** SDK input remains a cache and the independent off-hand path, never the equipped pose writer. */
     fun presentPlayerHand(snapshot: TrackingSnapshot?) {
+        val equippedChanged = latestPlayerSnapshot?.dominantHand != snapshot?.dominantHand
+        latestPlayerSnapshot = snapshot
         try {
-            playerHands?.present(snapshot)
+            playerHands?.presentInput(snapshot)
         } catch (error: Exception) {
-            Log.w(TAG, "Player-hand presentation failed", error)
+            Log.w(TAG, "Player-hand input presentation failed", error)
         }
-        val pose = if (snapshot?.hasRequiredObservations == true) {
-            (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right)?.pose
-        } else null
+        // Invalidation must hide immediately, even before the next simulation/presentation tick.
+        if (equippedChanged || snapshot?.hasRequiredObservations != true) {
+            playerWeapon?.takeIf { it.valid }?.let { if (it.enabled) it.enabled = false }
+        }
+    }
+
+    private fun presentPlayerWeapon(state: ArenaViewState) {
         val parent = root ?: return
         val weapon = playerWeapon ?: return
         if (!parent.valid || !weapon.valid) return
-        val position = pose?.position
-        val rotation = pose?.rotation?.normalizedOrNull()
-        if (position == null || !position.isFinite() || rotation == null ||
-            pose?.quality == TrackingQuality.SOURCE_REPORTED_INVALID
-        ) {
+        val snapshot = latestPlayerSnapshot
+        val grip = state.playerWeaponGrip.takeIf {
+            state.inputReady && state.sceneReady && snapshot?.hasRequiredObservations == true &&
+                snapshot.dominantHand == state.dominantHand
+        }
+        try {
+            playerHands?.present(snapshot, grip)
+        } catch (error: Exception) {
+            if (weapon.enabled) weapon.enabled = false
+            Log.w(TAG, "Player-hand final-pose presentation failed", error)
+            return
+        }
+        // Dao and equipped hand both consume the final grip from this state publication.
+        val pose = grip?.let { playerHandTransform(
+            ObservedPose(it.position, it.rotation), Hand.RIGHT,
+        ) }
+        if (pose == null) {
             if (weapon.enabled) weapon.enabled = false
             return
         }
-        val x = position.x.toFloat()
-        val y = position.y.toFloat()
-        val z = position.z.toFloat()
-        if (!x.isFinite() || !y.isFinite() || !z.isFinite()) {
-            weapon.enabled = false
-            return
-        }
         val transform = checkNotNull(weapon.components[TransformComponent::class.java])
-        transform.setPosition(parent.convertPositionFrom(Vector3(x, y, z), null))
-        transform.setQuaternion(
-            parent.convertRotationFrom(
-                Quat(rotation.x.toFloat(), rotation.y.toFloat(), rotation.z.toFloat(), rotation.w.toFloat()),
-                null,
-            )
-        )
+        transform.setPosition(parent.convertPositionFrom(Vector3(
+            pose.position.x.toFloat(), pose.position.y.toFloat(), pose.position.z.toFloat(),
+        ), null))
+        transform.setQuaternion(parent.convertRotationFrom(Quat(
+            pose.rotation.x.toFloat(), pose.rotation.y.toFloat(), pose.rotation.z.toFloat(), pose.rotation.w.toFloat(),
+        ), null))
         if (!weapon.enabled) weapon.enabled = true
+        recordPlayerPoseEvidence(snapshot, checkNotNull(grip), weapon)
+    }
+
+    private fun recordPlayerPoseEvidence(snapshot: TrackingSnapshot?, grip: WeaponGrip, weapon: Entity) {
+        if (playerPoseEvidenceCount >= 3 || snapshot == null) return
+        val observation = (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right) ?: return
+        val rawPose = observation.pose ?: return
+        if (playerHandTransform(rawPose, Hand.RIGHT) == null) return
+        val evidence = rawPose to grip
+        if (evidence == lastPlayerPoseEvidence) return
+        // Diagnostic failure must never interrupt input or hide successfully presented geometry.
+        try {
+            val frames = playerHands?.diagnosticFrames(weapon) ?: return
+            Log.i(TAG, "NativePlayerPoseEvidence sample=${playerPoseEvidenceCount + 1} " +
+                "equippedHand=${snapshot.dominantHand} rawOrigin=${observation.stamp.origin} " +
+                "rawSequence=${observation.stamp.sequence} rawSdkStagePose=$rawPose " +
+                "finalStageGrip=$grip $frames")
+            lastPlayerPoseEvidence = evidence
+            playerPoseEvidenceCount++
+        } catch (error: Exception) {
+            playerPoseEvidenceCount++
+            Log.w(TAG, "NativePlayerPoseEvidence actualTransform=UNOBSERVED", error)
+        }
     }
 
     fun release() {
+        latestPlayerSnapshot = null
+        lastPlayerPoseEvidence = null
+        lastEnemySpaceEvidence = null
+        enemySpaceEvidenceCount = 0
         terminalControls.clear()
         terminalBoundsPose = null
         terminalBoundsAttempts = 0
@@ -731,7 +816,7 @@ internal fun HomeStage(
                 return@SpatialView
             }
             onPlayerHandPresenter(owner::presentPlayerHand)
-            Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by shared hand observations")
+            Log.i(TAG, "Player dao attached; grip origin=0, blade forward=-Z, driven by final arena grip with the equipped hand")
 
             val lighting = SceneLighting.attach(root)
             owner.lighting = lighting

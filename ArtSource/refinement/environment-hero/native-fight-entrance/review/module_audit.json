@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "scope": "Final delta-only pure-Python audit as directed: current file SHA pair plus eight brace-side UV-V direction samples. No Blender, build, device or new visual direction.",
+  "input": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/entrance_module.glb",
+    "sha256": "15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264",
+    "bytes": 10197216
+  },
+  "builder": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/build_entrance_module.py",
+    "sha256": "553c62df2c75aa80d7f61b85e0f54eca26e183aee61d629749687d379525abed"
+  },
+  "units": "Stage metres; +Y up; -Z forward",
+  "bbox_m": {
+    "min": [
+      -1.600000023841858,
+      0.0,
+      -5.664999932050705
+    ],
+    "max": [
+      1.5999999046325684,
+      3.0199999809265137,
+      -4.789999961853027
+    ]
+  },
+  "node_count": 1,
+  "active_nodes": 1,
+  "meshes": 1,
+  "materials": 5,
+  "triangles": 11024,
+  "primitives": [
+    {
+      "material": "Method | CC0 directional wood .8m",
+      "vertices": 13928,
+      "triangles": 7030,
+      "float32_zero_area_local": 0,
+      "float32_zero_area_world": 0,
+      "float64_cross_norm_below_1e_12": 0,
+      "min_area_m2": 3.6491152068296646e-10,
+      "all_attributes_finite": true,
+      "uv_finite": true,
+      "normal_max_unit_length_error": 1.1920928955078125e-07,
+      "has_normal_map": true,
+      "has_tangent": false
+    },
+    {
+      "material": "Method | original endgrain .25m",
+      "vertices": 598,
+      "triangles": 314,
+      "float32_zero_area_local": 0,
+      "float32_zero_area_world": 0,
+      "float64_cross_norm_below_1e_12": 0,
+      "min_area_m2": 6.395573978061757e-07,
+      "all_attributes_finite": true,
+      "uv_finite": true,
+      "normal_max_unit_length_error": 1.1920928955078125e-07,
+      "has_normal_map": true,
+      "has_tangent": false
+    },
+    {
+      "material": "EH S2 Windows | layered paper emission",
+      "vertices": 1712,
+      "triangles": 928,
+      "float32_zero_area_local": 0,
+      "float32_zero_area_world": 0,
+      "float64_cross_norm_below_1e_12": 0,
+      "min_area_m2": 8.185601870991377e-05,
+      "all_attributes_finite": true,
+      "uv_finite": true,
+      "normal_max_unit_length_error": 1.1920928955078125e-07,
+      "has_normal_map": true,
+      "has_tangent": false
+    },
+    {
+      "material": "EH Fittings | aged bronze",
+      "vertices": 1260,
+      "triangles": 976,
+      "float32_zero_area_local": 0,
+      "float32_zero_area_world": 0,
+      "float64_cross_norm_below_1e_12": 0,
+      "min_area_m2": 3.6843381085371135e-06,
+      "all_attributes_finite": true,
+      "uv_finite": true,
+      "normal_max_unit_length_error": 5.960464477539063e-08,
+      "has_normal_map": false,
+      "has_tangent": false
+    },
+    {
+      "material": "EH Stone | low damp granite",
+      "vertices": 1424,
+      "triangles": 1776,
+      "float32_zero_area_local": 0,
+      "float32_zero_area_world": 0,
+      "float64_cross_norm_below_1e_12": 0,
+      "min_area_m2": 4.859218701000093e-07,
+      "all_attributes_finite": true,
+      "uv_finite": true,
+      "normal_max_unit_length_error": 1.1920928955078125e-07,
+      "has_normal_map": true,
+      "has_tangent": false
+    }
+  ],
+  "metric_uv": {
+    "Method | CC0 directional wood .8m": {
+      "target_px_per_m": 1280,
+      "area_weighted_percentiles_0_1_50_99_100_px_per_m": [
+        1024.0,
+        1279.893562132392,
+        1279.9999883069206,
+        1280.2113330441032,
+        1461.1240081104484
+      ],
+      "triangles_sampled": 7027,
+      "triangles_excluded_ill_conditioned_or_uv_degenerate": 3,
+      "main_area_p01_p99_within_0p5_percent": true
+    },
+    "Method | original endgrain .25m": {
+      "target_px_per_m": 2048,
+      "area_weighted_percentiles_0_1_50_99_100_px_per_m": [
+        1951.9751144856639,
+        2047.9970379163026,
+        2047.9999749101196,
+        2048.0027779462343,
+        2048.3518399293157
+      ],
+      "triangles_sampled": 314,
+      "triangles_excluded_ill_conditioned_or_uv_degenerate": 0,
+      "main_area_p01_p99_within_0p5_percent": true
+    }
+  },
+  "grain_samples": {
+    "vertical_stile_front": {
+      "triangles": 8,
+      "expected_stage_grain_axis": [
+        0,
+        1,
+        0
+      ],
+      "abs_dot_uv_V_with_axis_min_median": [
+        1.0,
+        1.0
+      ]
+    },
+    "lower_board_front": {
+      "triangles": 20,
+      "expected_stage_grain_axis": [
+        0,
+        1,
+        0
+      ],
+      "abs_dot_uv_V_with_axis_min_median": [
+        1.0,
+        1.0
+      ]
+    },
+    "middle_rail_front": {
+      "triangles": 8,
+      "expected_stage_grain_axis": [
+        1,
+        0,
+        0
+      ],
+      "abs_dot_uv_V_with_axis_min_median": [
+        1.0,
+        1.0
+      ]
+    },
+    "solid_brace_side": {
+      "triangles": 8,
+      "expected_stage_grain_axis": [
+        0.0,
+        0.894427190999916,
+        0.447213595499958
+      ],
+      "abs_dot_uv_V_with_axis_min_median": [
+        0.999999999999972,
+        0.999999999999972
+      ],
+      "basis_input_sha256": "15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264",
+      "freshly_retested": true
+    }
+  },
+  "construction": {
+    "handle_midrail": {
+      "wood_z_hits_at_x_point16_y1point22": [
+        -5.515,
+        -5.44
+      ],
+      "bronze_z_hits_same_ray": [
+        -5.4409999,
+        -5.4325,
+        -5.4289999,
+        -5.3975
+      ],
+      "source_target_overlap_m": 0.001
+    },
+    "paper": {
+      "two_leaf_x_ranges_m": [
+        [
+          -1.165,
+          -0.095
+        ],
+        [
+          0.095,
+          1.165
+        ]
+      ],
+      "actual_combined_y_range_m": [
+        1.3049999475479126,
+        2.615000009536743
+      ],
+      "actual_depth_span_m": 0.0027332305908203125,
+      "only_paper_in_upper_cell_wood_ray_z_hits": [],
+      "paper_ray_z_hits": [
+        -5.4795872,
+        -5.4780239
+      ]
+    },
+    "lower_infill_and_rails": {
+      "lower_board_y_range_m": [
+        0.22,
+        1.155
+      ],
+      "bottom_rail_top_y_m": 0.22,
+      "middle_rail_bottom_y_m": 1.155,
+      "source_relations_touch_exactly": true
+    },
+    "lattice_frame_ends": {
+      "updated_vertical_y_range_m": [
+        1.283,
+        2.637
+      ],
+      "middle_rail_top_y_m": 1.285,
+      "upper_rail_bottom_y_m": 2.635,
+      "source_overlap_m_each_end": 0.002
+    },
+    "threshold": {
+      "source_center_stage_z_m": -5.48,
+      "source_width_m": 2.5,
+      "door_bottom_y_m": 0.07,
+      "actual_top_y_at_door_center_z": [
+        0.0,
+        0.0558125
+      ],
+      "note": "Sloped threshold; report actual clearance at the door centre, not a flat nominal top.",
+      "door_bottom_clearance_m_at_center": 0.014187500000000006
+    },
+    "socket": {
+      "actual_center_down_ray_hits_y_m": [
+        0.0,
+        0.285
+      ],
+      "point_center_y_point31_is_void": true,
+      "adjacent_annulus_y_point31_is_solid": true,
+      "source_socket_width_depth_m": [
+        0.242,
+        0.302
+      ],
+      "retained_post_width_depth_m": [
+        0.23,
+        0.29
+      ],
+      "total_clearance_width_depth_m": [
+        0.012,
+        0.012
+      ],
+      "retained_post_seating_not_certified_by_standalone_module": true
+    },
+    "solidbrace": {
+      "actual_center_is_solid": true
+    },
+    "bedstone_pier_contact": {
+      "bedstone_front_z_m": -5.455,
+      "pier_base_back_z_m": -5.455,
+      "bbox_contact_no_positive_overlap": true,
+      "case_bottom_and_bedstone_top_y_m": 0.12,
+      "note": "Socket base tapers above its low tier; these are source construction dimensions, not a whole-scene boolean clearance proof."
+    },
+    "current_critical_source_lines": [
+      {
+        "line": 41,
+        "text": "# shape=(cross-width offset, front-outward depth). Real closed stepped section."
+      },
+      {
+        "line": 60,
+        "text": "o=w.cube(f'Leaf{side}_RebatedMeetingStile',p((cx+dx,1.4075,-5.4775)),(.075,.075,2.675),WOOD)"
+      },
+      {
+        "line": 61,
+        "text": "cutter=w.cube('MeetingStopRebate',p((.0225,1.395,-5.442)),(.029,.008,2.655))"
+      },
+      {
+        "line": 68,
+        "text": "box(f'Leaf{side}_LowerBoard{i}',(x,.6875,-5.487),(.2172,.935,.040),radius=.002)"
+      },
+      {
+        "line": 70,
+        "text": "for dx in [-.537,.537]:box(f'Leaf{side}_PaperStop',(cx+dx,1.96,-5.486),(.018,1.354,.018),radius=.001)"
+      },
+      {
+        "line": 71,
+        "text": "for y in [1.294,2.626]:box(f'Leaf{side}_PaperStop',(cx,y,-5.486),(1.092,.018,.018),(1,0,0),.001)"
+      },
+      {
+        "line": 73,
+        "text": "o=w.cube(f'Leaf{side}_LatticeVertical',p((cx+dx,1.96,-5.454)),(.022,.028,1.354),WOOD)"
+      },
+      {
+        "line": 78,
+        "text": "o=w.cube(f'Leaf{side}_LatticeHorizontal',p((cx,y,-5.454)),(1.096,.028,.028),WOOD)"
+      },
+      {
+        "line": 84,
+        "text": "# One lapped meeting stile, seated into the opposite rebate; no fake gap decal."
+      },
+      {
+        "line": 85,
+        "text": "profile('MeetingAstragal',(0,1.395,-5.44),[(-.036,-.002),(-.009,-.002),(-.009,-.006),(.036,-.006),(.036,.018),(-.036,.018)],2.65,True)"
+      },
+      {
+        "line": 87,
+        "text": "box(f'Handle{side}_Escutcheon',(x,1.22,-5.435),(.075,.12,.012),material=BRONZE,radius=.004)"
+      },
+      {
+        "line": 88,
+        "text": "cylinder(f'Handle{side}_Pin',(x,1.22,-5.415),.012,.035,BRONZE,'Z',12)"
+      },
+      {
+        "line": 90,
+        "text": "o=bpy.context.object;o.name=f'Handle{side}_Ring';o.rotation_euler.x=math.pi/2"
+      },
+      {
+        "line": 132,
+        "text": "shape=[(-.060,-.006),(-.060,.012),(.045,.012),(.045,-.19),(-.045,-.19),(-.045,-.045),(-.025,-.045),(-.025,-.006)]"
+      },
+      {
+        "line": 134,
+        "text": "profile(f'Jamb{side}_RebatedCase',(side*1.3075,1.4325,-5.435),[(a*side,d) for a,d in shape],2.625,True)"
+      },
+      {
+        "line": 136,
+        "text": "box(f'Jamb{side}_BedStone',(side*1.3075,.06,-5.56),(.11,.12,.21),material=STONE,radius=.006)"
+      },
+      {
+        "line": 137,
+        "text": "profile('Head_RebatedLintel',(0,2.79,-5.435),shape,2.705)"
+      },
+      {
+        "line": 141,
+        "text": "o.location.y=5.48;w.finish(o,(1,0,0),.003);PARTS.append(o)"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "severity": "intermediate-info",
+      "material": "Method | CC0 directional wood .8m",
+      "finding": "Module has a normal map but no TANGENT; final assembly must provide or validate native generated tangent space.",
+      "disposition": "Module intentionally has no tangent stream; Root reports final whole-scene assembly supplies all four normal-mapped TANGENT streams."
+    },
+    {
+      "severity": "intermediate-info",
+      "material": "Method | original endgrain .25m",
+      "finding": "Module has a normal map but no TANGENT; final assembly must provide or validate native generated tangent space.",
+      "disposition": "Module intentionally has no tangent stream; Root reports final whole-scene assembly supplies all four normal-mapped TANGENT streams."
+    },
+    {
+      "severity": "intermediate-info",
+      "material": "EH S2 Windows | layered paper emission",
+      "finding": "Module has a normal map but no TANGENT; final assembly must provide or validate native generated tangent space.",
+      "disposition": "Module intentionally has no tangent stream; Root reports final whole-scene assembly supplies all four normal-mapped TANGENT streams."
+    },
+    {
+      "severity": "intermediate-info",
+      "material": "EH Stone | low damp granite",
+      "finding": "Module has a normal map but no TANGENT; final assembly must provide or validate native generated tangent space.",
+      "disposition": "Module intentionally has no tangent stream; Root reports final whole-scene assembly supplies all four normal-mapped TANGENT streams."
+    }
+  ],
+  "status": "brace_grain_delta_verified_other_checks_explicitly_inherited_from_13da",
+  "limits": [
+    "Standalone module, not full-scene overlap/native visual acceptance",
+    "No Blender/render/build/device used",
+    "Source relation samples and actual-ray samples are distinguished; retained columns are outside this module"
+  ],
+  "previous_input": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/entrance_module.glb",
+    "sha256": "13daaa69b0339b4f3c6b2082bd6cf95ee2dc84a54766eba3080b6267513d6c59",
+    "bytes": 10197216
+  },
+  "inherited_checks": {
+    "input_sha256": "13daaa69b0339b4f3c6b2082bd6cf95ee2dc84a54766eba3080b6267513d6c59",
+    "owner_explicitly_authorized_reuse": true,
+    "freshly_retested": false,
+    "fields": [
+      "bbox_m",
+      "units",
+      "triangles",
+      "node_count",
+      "active_nodes",
+      "meshes",
+      "materials",
+      "primitives",
+      "metric_uv",
+      "construction",
+      "grain_samples other than solid_brace_side"
+    ],
+    "note": "These are 13da snapshot checks retained as directed. This final update independently rechecks only the brace grain direction and final module/whole file identities."
+  },
+  "brace_grain_delta": {
+    "before_input_sha256": "13daaa69b0339b4f3c6b2082bd6cf95ee2dc84a54766eba3080b6267513d6c59",
+    "before_abs_dot_min_median": [
+      0.8944271957793415,
+      0.8944272479183688
+    ],
+    "after_input_sha256": "15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264",
+    "after_abs_dot_min_median": [
+      0.999999999999972,
+      0.999999999999972
+    ],
+    "source_fix_observed": "SolidBrace object rotation is applied before world grain is passed to metric_uv",
+    "passed": true
+  },
+  "root_reported_final_assembly": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+    "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+    "file_sha_independently_verified": true,
+    "all_four_normal_mapped_primitives_have_tangents": "Root verified; not independently rerun in this delta-only audit",
+    "checks": "Root reports 7 tests passed; validator 0 errors, 4 baseline warnings"
+  }
+}

@@ -1,5 +1,42 @@
 # 09 · 正式动作bank与战斗表现接线
 
+## Root当前交接：原生真实刀刀接触（2026-11-13）
+
+本节记录本轮已进入原生源码的战斗契约与验收边界，覆盖下文历史阶段的“ACTIVE中点裁决”“固定source1.00接触”“先方向防御再投射反馈点”及旧手刀呈现路径。下文旧版本、资源身份、测试数与流程录像保留其各自历史含义，不证明当前实刀交互已经通过设备验收。唯一工程、Kotlin／Spatial SDK6.1.9、Space Pro／OS6、Full Stage不变；正式资产、共享Gradle、设备、Git与发布继续由Root统一负责。
+
+### 输入、真实接触与最终呈现
+
+SDK接收的`TrackingSnapshot`始终保存raw头手观察；不能写回SDK坐标或以约束后的手冒充真实手柄位置。`PlayerCombatResolver`识别连续性、挥刀资格和guard证据，`QualifiedSwing`的产生不要求先碰到旧静态身体。`ArenaSession`负责同一运动区间内的实际几何、先后顺序及伤害，输入诊断用的可选`strike`不再作为命中的静态前置闸门。
+
+双方刀根／刀尖、玩家头身代理与敌人prepared body代理连续查询，比较双方身体与钢接触的最早TOI。只有钢接触先发生时才阻断其后的身体伤害；敌刀缺失或未接触不能仅凭方向正确产生BLOCK／PARRY。敌方ACTIVE结束仍未触及玩家时为MISS，不再时间到自动扣血。方向与180ms主动架刀窗口只对已存在的钢接触分级。
+
+TOI统一决定`receivedAtNanos`、head、virtual grip及其刚体blade base／tip；三种接触分支不能保留子区间末端的手刀。guard entered／fast记录只取TOI之前、方向相符的证据，区间末端的未来guard不能授予早期PARRY，也不能抹掉较早仍有效的fast证据。已知pending手观察按receipt边界推进，几何内部再细分，避免把100ms挥刀压缩到最后10ms。
+
+`ArenaViewState.playerWeaponGrip`是Stage米制的最终虚拟握持姿态。主手和dao共同消费这个Grip；raw主手回调仅保留原始目标，副手继续消费其有效raw观察。无接触时final等于raw；接触时手与刀一起停在同一刚体姿态，不能只停刀而让手穿过去。HMD保持原始追踪，不参与武器约束。失追、坐标／动作代次改变、暂停、重开及换轮清玩家约束与待处理运动。
+
+### 持续约束、时钟与反馈
+
+首次接触之后仍查询钢碰撞。事件去重与非穿透是两件事：不能因为`weaponConstrained`已真而关闭钢查询，让敌刀穿到另一侧再解除。持续压力时保留已证明的敌人actor、gait及clip/source；只有支持平面与旋转曲率界能证明整段分离时，才允许卸力推进。raw回撤或敌刀退出后的回到raw路径也须不再穿刀，同一持续接触只发一次反馈。
+
+只停敌人的物理运动时钟，不把拼刀当作整个游戏暂停：`advanceWhileWeaponStopped`继续推进全局simulation及IDLE等待／readiness；actor、gait、反冲和有运动意义的phase/source进度停住。持续压力期间不另起新攻，解除后已满足的readiness可立即进入正常出招。`enemyMotionNanos`单独持有接触恢复进度，防止全局时间前进后把held动画追帧。正常反馈短停、死亡慢动作、用户暂停与追踪暂停继续遵守原有各自时钟。
+
+敌人在实际接触source处短停35ms，再沿同一攻击clip回退至最多早0.06秒并收招，不跳到预设source1.00或另一段反应起点。最终`enemyPoseClip`、`enemyPoseSourceSeconds`、`enemyPoseDirection`和同一origin／yaw／recoil变换同时供模型、身体代理与刀端点消费；Animator不再自行按phase回算另一套时间。零时查询不能改变actor、gait或walk／idle选择。
+
+伤害、FX、声音及触觉继续消费同一实际接触生成的`CombatImpact`身份。持续接触不重复发Impact；玩家HP通过该次真实接触的AttackResolved改变，不能另设定时扣血。实际法向为enemy→player，敌方卸力使用其反向；旧PARRY特判的反冲符号已随真实法向收敛。
+
+### 几何精度与失败边界
+
+判定是米制胶囊代理，不能称为真实三角面精确碰撞。玩家dao半径12mm；敌dao为12mm代理加0.5mm actor变换包络；头部半径0.16m、躯干半径0.24m，沿既有prepared／HMD身高代理构造。玩家刚体旋转按最大0.5mm弧差细分并保守膨胀；敌方按prepared source key／阶段时钟折点和最多10ms子区间分段，actor yaw限制1rad/s。不能沿身体6cm采样步长代替钢碰撞连续查询。
+
+`BladeContactUncertainException`不是MISS：回到上一已证明actor／手刀姿态，停止该步伤害并有界报告；安全追手查询不确定时继续保留约束，不能释放后穿刀。CPU侧胶囊、profile数据及数学误差界不等于模型真实刀面贴合、SDK画面质量或设备性能通过。
+
+### 已验证与待设备验收
+
+隔离Kotlin／JUnit最终185项通过，覆盖持续1秒每10ms非穿透、同侧、同source／actor／gait、唯一Impact与HP不变，同时全局simulation和IDLE readiness继续推进；170ms真实接触／220ms receipt的窗口、未来guard／fast证据、实际ACTIVE受击的内部TOI头手刀、双向高速钢／身体接触排序、移动身体进入挥刀路径、batch与逐receipt同TOI、失追／暂停／重开，以及原伤害／短停／死亡／恢复／呈现失败语义。主要回归入口为`NativeEnemyMotionContactTest`、`ContactTimeWitnessTest`、`WeaponContactOrderingTest`、`PlayerDefenseSnapshotTest`、`BatchMotionClockTest`、`WeaponStoppedClockTest`及`CombatFeedbackTimingTest`。独立源码复核已对三项非穿透／TOI缺口及直接时钟修复闭环；本路未运行共享Gradle或设备，Root正在执行整包组合验证。
+
+**仍待Root用本次最终APK完成PICO Emulator真实输入验收。** 必须由SDK实际头手观察进入同一入口，记录raw目标、final Grip、双方刀端点与实际clip/source的同一接触；正常视距确认手刀一起停止、停顿后保持原始raw目标仍不会穿过、卸力与回撤后连续恢复，覆盖无钢接触不可招架、钢先身体、真实玩家受击和HMD避开。单测fixture、数学查询或旧v9三轮录像不能代替这一验收；不得通过注入应用状态伪造接触结果。原生声音／触觉、Space Pro实际刷新率、延迟、热量、舒适度及真实刀面与胶囊误差仍需对应设备证据，不能从模拟器录像fps或UI receipt时钟推导。
+
+
 ## 当前执行合同：原生APK唯一交付（2026-11-13，覆盖冲突旧授权）
 
 用户最新纠偏立即生效。本仓库唯一产品交付为Kotlin＋PICO Spatial SDK 6.1.9的现有原生APK，使用PICO Emulator验证，最终终端为Space Pro／OS6，Full Stage。Root统一构建、设备操作、Git提交及发布。

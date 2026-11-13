@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "tests": 7,
+  "failures": 0,
+  "errors": 0,
+  "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "budget": {
+    "node_expanded_triangles": 243358,
+    "unique_mesh_triangles": 181594,
+    "active_unique_meshes": 37,
+    "unique_position_stream_vertices": 336254,
+    "unique_attribute_buffer_bytes": 14113296,
+    "unique_index_buffer_bytes": 1175868,
+    "primitive_node_submission_upper_estimate": 111,
+    "materials": 32,
+    "images": 50
+  },
+  "scope": "Offline final-GLB invariants. No collision, navigation, native rendering or headset performance claim."
+}

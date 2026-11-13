@@ -1,6 +1,43 @@
 # 06 · 雨夜酒馆庭院整体场景
 
-## 当前合同：Root保留正式64da，合批备选冻结（2026-11-13）
+## Root收件：96c554进入原生开发整合（2026-11-13）
+
+Root已实际看正常眼高整景与入口近景：门框退让、门扇边挺横档/止口、环把手、柱础与门槛有可见体积收益。接受96c554替换唯一正式开发courtyard，仍需本次原生APK显示/切线与运行成本验证，不等于场景成品品质通过。保持StageY0、NPC+.028、原9窗与32材质50图；没有新增门交互/navmesh或承诺可通行。06冻结本件，不重复渲染/合批；后续据Root原生真实问题继续。
+
+## 当前原生任务：中央入口真实构造（2026-11-13）
+
+用户/Root最新授权覆盖旧阶段冻结，但不重开静态合批实验。唯一新工作目录 `ArtSource/refinement/environment-hero/native-fight-entrance/` 与本交接；以正式64da为输入，保九窗、原点、门洞路线、地面receiver、StageY0、NPC+.028及战斗净空。只重建中央双门/门框/门槛/柱础/檐下连接，移除被替代旧盒/贴片，不叠壳；材质≤32、图≤50，展开≤250k。不新增灯/地点/NPC/Web。Root独占正式app/producer/构建/设备/Git，其他编辑保留。
+
+本轮已交完整庭院候选、可编辑分件源与同机位图；首交超过45分钟目标，耗时在整景装配及接合/截面修复。只做入口授权范围，未重开静态合批、未改正式app/producer/构建/设备/Git。Root可直接核下面同一包，随后决定是否替换唯一庭院并做原生验证。
+
+### 当前入口收件：96c554（离线通过，未原生放行）
+
+前缀 `ArtSource/refinement/environment-hero/native-fight-entrance/`。完整单一庭院 `courtyard_native_entrance.glb`，SHA256 `96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d`，38,212,212B。冻结输入64da保持；制作模块SHA `15af03d653db4e6906236dfbc8f36cbba4cf01dd15882adbb18a03df2d6dc264` 只用于复建，不能作为第二运行场景。
+
+- **直接看图：** [正常眼高前](../../ArtSource/refinement/environment-hero/native-fight-entrance/review/eye_before.png)、[正常眼高后](../../ArtSource/refinement/environment-hero/native-fight-entrance/review/eye_after.png)、[同一处入口近景](../../ArtSource/refinement/environment-hero/native-fight-entrance/review/close_after.png)。均为实际完整GLB重导入的离线图，主眼高Stage1.65m、同灯同相机，包含当前base对手1cc9 PNG／正式6ca对应，idle@0、Stage(0,.028,-2.4)、scale1。没有混用旧ac7/b3角色；未冒充PICO截图、未补旧刀/UI/玩家手刀。相机与全SHA见 `review/render_manifest.json`。
+- **真实构造：** 上芯纸后无满门板；实体框梃/横档/五块下芯板、棂条半搭接、左右镜像止口、右梃开槽与左门压缝、贴框环把手、内退门套、斜顶窄槛、收分柱础与插口、实心斜撑承托。门槛在内退门正下，最大65mm，门中心净缝14.19mm。斜撑木纹方向8面抽检dot最低0.999999999999972；主木纹0.8m/端纹0.25m。
+- **已拆旧：** 旧两门/上格/纸芯/把手1976tri及旧压条/局部corbel/brace/pad/caps/keys，旧两柱础、埋没两踏步；只裁指定长台基中央段、低横梁中央段及两主柱底端。台基两处可见裁口补8点原倒角截面，消除黑洞。酒字、九窗、墙体、地面receiver、锚点、原点、原有node变换与战斗净空经最终GLB比对保持。
+- **可复建：** `entrance_editable.blend`保留命名分件；`build_entrance_module.py`→`build_candidate.py`→`verify_entrance.py`。完整命令及既有helper依赖见 `REBUILD.md`，文件/源码/输入/图片身份清单见 `delivery_manifest.json`，实际拆旧选择见 `audit.json`。只有既有材料与图复用，无新依赖。源BIN保留部分已不引用的旧数据，未把未活跃旧字节说成已做GC。
+- **最终验证：** builder裁剪/全移除/严格边界自测通过；7项独立整景检查通过；官方validator0错误，4条均为原场景继承的运行时切线警告。新增四个需法线贴图的primitive在合景时补T，最终新几何无退化面/非有限属性。50图payload逐字节相等，32材质与texture表完全相同。证据在 `review/verification.json`、`review/module_audit.json`、`review/gltf-validator.json`。
+
+| 完整GLB预算 | 64da | 96c554 | 净变化 |
+| --- | ---: | ---: | ---: |
+| 节点展开三角 | 235746 | 243358 | +7612 |
+| 唯一mesh三角 | 173982 | 181594 | +7612 |
+| 唯一属性VB字节 | 13808688 | 14113296 | +304608 |
+| 唯一索引字节 | 1136412 | 1175868 | +39456 |
+| primitive×node提交估算 | 109 | 111 | +2 |
+| 材质 / 图像 | 32 / 50 | 32 / 50 | 0 / 0 |
+| 文件字节 | 36954180 | 38212212 | +1258032 |
+
+预算符合≤250k/32/50；VB与提交为GLB统计，不是VRAM或SDK实际drawcall。`optional_blocker_bounds.json`只交Root参考：门仍是关闭视觉门，没有添加碰撞/navmesh/门交互，不能据造型宣称通行通过。StageY0与NPC+.028保持；APK实际显示、切线观感、碰撞/路线、Space Pro性能仍未由本路验证。
+
+
+---
+
+## 前阶段收件（原冻结只约束其原件；不覆盖当前入口授权）
+
+### 已结束合批阶段：Root保留64da，备选冻结（2026-11-13）
 
 Root本轮已实际验证正式64da＋v9/手v2三轮通关，干净6.1模拟器未重现前台LMK；目前没有提交瓶颈证据。因此正式courtyard继续保持 `64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605`，不采用静态合批作为本轮正式资源，也不把109→80估算当性能通过。
 

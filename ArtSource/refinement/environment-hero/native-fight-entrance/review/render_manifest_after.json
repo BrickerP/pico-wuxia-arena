@@ -1,0 +1,72 @@
+{
+  "phase": "after",
+  "kind": "offline actual GLB comparison; not native PICO screenshot",
+  "environment_path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+  "environment_sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "baseline_sha256": "64da27985ac4692c3610ef5c6066fa6f9a7775654fe3fd394966c5021cf51605",
+  "actor_png_path": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+  "actor_png_sha256": "1cc9aaba1b7ee18c9c9b4be85c82f6ef93be72f9ffd3d9f18b96da920ab594bb",
+  "runtime_actor_sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24",
+  "actor_pose": "idle@0.0s",
+  "actor_idle_tracks_selected": 1,
+  "actor_stage_position": [
+    0,
+    0.028,
+    -2.4
+  ],
+  "actor_scale": [
+    1,
+    1,
+    1
+  ],
+  "actor_yaw": 0,
+  "excluded_runtime_layers": [
+    "native UI",
+    "player hand/dao",
+    "separately mounted runtime weapon"
+  ],
+  "cameras": {
+    "eye": {
+      "position_stage": [
+        0,
+        1.65,
+        0
+      ],
+      "target_stage": [
+        0,
+        1.55,
+        -5.3
+      ],
+      "lens_mm": 18
+    },
+    "close": {
+      "position_stage": [
+        0.8,
+        1.4,
+        -3.85
+      ],
+      "target_stage": [
+        0.3,
+        0.95,
+        -5.2
+      ],
+      "lens_mm": 18
+    }
+  },
+  "sensor_width_mm": 36,
+  "dof": false,
+  "lighting_source": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+  "lighting_sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+  "lighting_recipe": "stage2 setup night, unchanged between before and after",
+  "renderer": "Cycles CPU",
+  "threads": 2,
+  "samples": 8,
+  "resolution": [
+    960,
+    960
+  ],
+  "images": {
+    "eye_after.png": "eb88cb82007baead235928110ca3f32d309da18c778fed0b790293c5a7a84617",
+    "close_after.png": "37f1335ab99888e4a0de2bd64b13ea787e89b87edcbc7e42d73615a2798cd7a6"
+  }
+}
