@@ -70,7 +70,8 @@ class ContactTimeWitnessTest {
         set(session, "enemySpawn", ENEMY)
         set(session, "playerHealth", 20) // Stop at this real incoming contact, before its remaining interval.
 
-        val endEnemyPose = arenaOpponents.first().attackProfile(AttackDirection.OVERHEAD).sample(1.1).inStage(ENEMY, 0f)
+        val profile = arenaOpponents.first().attackProfile(AttackDirection.OVERHEAD)
+        val endEnemyPose = profile.sample(profile.sourcePhaseSeconds[3]).inStage(ENEMY, 0f)
         val targetHead = (endEnemyPose.bladeBase + endEnemyPose.bladeTip) * 0.5 + Vector3(0.0, 0.2, 0.0)
         val from = movingFrame(0L, WeaponGrip(Vector3(3.0, 1.0, 0.0), IDENTITY), targetHead + Vector3(-0.05, 0.0, 0.0))
         val to = movingFrame(200_000_000L, WeaponGrip(Vector3(3.35, 1.0, 0.0), IDENTITY), targetHead + Vector3(0.05, 0.0, 0.0))

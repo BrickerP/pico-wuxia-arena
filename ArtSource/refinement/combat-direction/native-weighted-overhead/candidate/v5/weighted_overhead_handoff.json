@@ -1,0 +1,1428 @@
+{
+  "status": "v5_final_second_solution_RAW_ready_bounded_checks_passed_pending_Root_review",
+  "clock": {
+    "Root_declared_start_cst": "2026-11-15T13:28:00+08:00",
+    "Root_deadline_cst": "2026-11-15T14:13:00+08:00",
+    "sealed_utc": "2026-11-15T06:16:42.482840+00:00",
+    "sealed_cst": "2026-11-15T14:16:42.482849+08:00",
+    "artifact_mtimes": {
+      "weighted_overhead_raw.glb": {
+        "utc": "2026-11-15T05:53:37.626055+00:00",
+        "cst": "2026-11-15T13:53:37.626055+08:00"
+      },
+      "weighted_overhead_authoring.json": {
+        "utc": "2026-11-15T05:53:54.830171+00:00",
+        "cst": "2026-11-15T13:53:54.830171+08:00"
+      },
+      "veteran_prepared_png.glb": {
+        "utc": "2026-11-15T05:53:50.752719+00:00",
+        "cst": "2026-11-15T13:53:50.752719+08:00"
+      },
+      "weighted_overhead_verification.json": {
+        "utc": "2026-11-15T05:54:17.174636+00:00",
+        "cst": "2026-11-15T13:54:17.174636+08:00"
+      }
+    }
+  },
+  "shared_live_source_path_drift_after_build": [
+    {
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "recorded_build_time_sha256": "3b4d29ade6b058d13c0dac97df5f382a8cda8f47ae2c1d36363ca608e19fffda",
+      "current_live_sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "current_live_mtime": {
+        "utc": "2026-11-15T06:15:53.669176+00:00",
+        "cst": "2026-11-15T14:15:53.669176+08:00"
+      },
+      "interpretation": "Live shared source changed after frozen artifact creation; current source is not claimed to be the executed source. Original authoring pin is preserved; no producer write or scan rerun."
+    },
+    {
+      "file": "ArtSource/tripo-warrior/attack_grounding.py",
+      "recorded_build_time_sha256": "eb18de9011ddba5a334f0c96f99f26f9f84a2b4912fc2f7f16c9241ebe5346ae",
+      "current_live_sha256": "7f08c064aa45807696e7d2c66f80c1f778f21cd9291dbc625ed9fbea7b63cb4d",
+      "current_live_mtime": {
+        "utc": "2026-11-15T06:14:10.443524+00:00",
+        "cst": "2026-11-15T14:14:10.443524+08:00"
+      },
+      "interpretation": "Live shared source changed after frozen artifact creation; current source is not claimed to be the executed source. Original authoring pin is preserved; no producer write or scan rerun."
+    }
+  ],
+  "raw": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+    "bytes": 19192620
+  },
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_authoring.json",
+    "sha256": "6056fddca9407c882fba1a12e2d67b4a0ce4983c7d5511bc00ecca9a0fc07380",
+    "bytes": 996031
+  },
+  "delta": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_delta.json",
+    "sha256": "3e06112398acdff0678817d99b62e0d8c357fa4c427ccdc2b1d62a70095e893d",
+    "bytes": 37315
+  },
+  "frozen_v4": {
+    "raw": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_raw.glb",
+      "sha256": "050c55a2b64726f38ca7d36eec52f5832c370b92be3f80551f7c8249e5a3694f",
+      "bytes": 19192620
+    },
+    "target": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+      "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86",
+      "bytes": 15594580
+    },
+    "authoring": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_authoring.json",
+      "sha256": "a28f6b2980b220793476ecb5bf59b57c77172e71cff4a2e9504745cbaeaa35c9",
+      "bytes": 960966
+    },
+    "unchanged": true
+  },
+  "requested_fault_results": [
+    {
+      "source_seconds": 1.1,
+      "regions": "near-elbow L_forearm core versus Waist part of the chest semantic group",
+      "before_actual_pairs": 21,
+      "reproduced_before_pairs": 21,
+      "final_actual_pairs": 0
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "regions": "near-elbow L_forearm core versus Waist part of the chest semantic group",
+      "before_actual_pairs": 23,
+      "reproduced_before_pairs": 23,
+      "final_actual_pairs": 0
+    }
+  ],
+  "before_local_diagnosis_and_visibility": [
+    {
+      "source_seconds": 1.1,
+      "actual_triangle_pairs": 21,
+      "unique_near_elbow_forearm_triangles": 11,
+      "unique_Waist_triangles": 7,
+      "forearm_region_joint_counts": {
+        "L_Forearm": 14
+      },
+      "chest_classification_actual_joint_counts": {
+        "Waist": 15
+      },
+      "elbow_to_wrist_projection_fraction_bounds": [
+        -0.1365566764488253,
+        0.05147795832264337
+      ],
+      "local_nearest_normal_distance_metres_bounds": [
+        -0.002816117393279098,
+        0.015227229970665935
+      ],
+      "paired_face_plane_vertex_distance_metres_bounds": [
+        -0.008504497078183354,
+        0.016823984517751262
+      ],
+      "visibility": "Actual before closeups show tucked near-elbow armor/sleeve against the waist/belt inner edge, with no obvious exposed cutout or gross outer-contour rupture at that camera. Counts are not a severity score.",
+      "depth_limit": "Signed distances use local triangle/nearest surface normals on open semantic core regions. They bound a local surface excursion, not closed-volume penetration. Visibility requires actual material pixels/camera."
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "actual_triangle_pairs": 23,
+      "unique_near_elbow_forearm_triangles": 15,
+      "unique_Waist_triangles": 6,
+      "forearm_region_joint_counts": {
+        "L_Forearm": 23
+      },
+      "chest_classification_actual_joint_counts": {
+        "Waist": 13
+      },
+      "elbow_to_wrist_projection_fraction_bounds": [
+        -0.14459202320772824,
+        0.08161528522538962
+      ],
+      "local_nearest_normal_distance_metres_bounds": [
+        -0.009326236976800146,
+        0.01584798130432689
+      ],
+      "paired_face_plane_vertex_distance_metres_bounds": [
+        -0.01639653195939425,
+        0.0158674210734087
+      ],
+      "visibility": "Actual before closeups show tucked near-elbow armor/sleeve against the waist/belt inner edge, with no obvious exposed cutout or gross outer-contour rupture at that camera. Counts are not a severity score.",
+      "depth_limit": "Signed distances use local triangle/nearest surface normals on open semantic core regions. They bound a local surface excursion, not closed-volume penetration. Visibility requires actual material pixels/camera."
+    }
+  ],
+  "final_local_clearance_metrics": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_clearance_metrics.json",
+      "sha256": "21ec72a147642887a1594904c043dc84a63f231d72ee3503bf028f558a43e12d",
+      "bytes": 4016
+    },
+    "frames": [
+      {
+        "source_seconds": 1.1,
+        "previously_intersecting_forearm_vertex_indices": [
+          17466,
+          17704,
+          17705,
+          17706,
+          17991,
+          19054,
+          19888,
+          19889,
+          20557,
+          20892,
+          21660,
+          22220,
+          23244,
+          23815
+        ],
+        "before_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.002816117393279098,
+          0.015227229970665935
+        ],
+        "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.0024953655941158718,
+          0.01755364493953718
+        ],
+        "actual_veteran_joint_origin_delta_metres": {
+          "L_Upperarm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "L_Forearm": [
+            -0.010959893465042114,
+            -0.002681910991668701,
+            0.029087111353874207
+          ],
+          "L_Hand": [
+            -0.00012351572513580322,
+            0.001668691635131836,
+            -0.000697702169418335
+          ],
+          "Head": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "R_Hand": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "world_L_hand_rotation_delta_degrees": 0.0,
+        "depth_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence."
+      },
+      {
+        "source_seconds": 1.4666666666666666,
+        "previously_intersecting_forearm_vertex_indices": [
+          17466,
+          17704,
+          17705,
+          17706,
+          17990,
+          17991,
+          18331,
+          19054,
+          19888,
+          19889,
+          20557,
+          20890,
+          20891,
+          20892,
+          21115,
+          21117,
+          21660,
+          22220,
+          23244,
+          23558,
+          23559,
+          23815,
+          24785
+        ],
+        "before_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.009326236976800146,
+          0.01584798130432689
+        ],
+        "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+          0.009404542044164375,
+          0.033518545556860076
+        ],
+        "actual_veteran_joint_origin_delta_metres": {
+          "L_Upperarm": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "L_Forearm": [
+            0.01658305525779724,
+            0.01897728443145752,
+            -0.018385503441095352
+          ],
+          "L_Hand": [
+            0.000994458794593811,
+            -0.002227783203125,
+            -0.0008376091718673706
+          ],
+          "Head": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "R_Hand": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "world_L_hand_rotation_delta_degrees": 0.0,
+        "depth_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence."
+      }
+    ],
+    "important_limit": "At1.1 the old affected vertices still have local nearest-normal signed minimum about-2.50mm despite zero sampled triangle intersections. Open-core normals do not establish closed-volume inside/outside; no complete volumetric clearance is claimed. At44/30 those same previously affected vertices are all locally outward, minimum about+9.4mm."
+  },
+  "finite_validation": {
+    "actual_veteran": {
+      "report": {
+        "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_verification.json",
+        "sha256": "a8949d67da732549e08e980808fb7a88843eed586f9c3ec5da65cf2fc39a216a",
+        "bytes": 77168
+      },
+      "sample_count": 70,
+      "steel_fullbody_overlap_sample_count": 0,
+      "nonadjacent_arm_hand_vs_head_chest_overlap_sample_count": 0,
+      "right_hand_head_at_0p9_still_clear": true
+    },
+    "source_base_context": {
+      "report": {
+        "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_source_finite_verification.json",
+        "sha256": "addbf124d1b08e14dd2af7ac1bde60932892827d0516bbca510fee04381a8e2f",
+        "bytes": 30244
+      },
+      "sample_count": 63,
+      "unmodified_executed_report": {
+        "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_source_finite_verification_executed.json",
+        "sha256": "6042da2f8d58240bf35c9022e9dcc77442d4b8476087f34089f11d1edc540edb",
+        "bytes": 29607
+      },
+      "steel_fullbody_overlap_sample_count": 0,
+      "nonadjacent_arm_hand_vs_head_chest_overlap_sample_count": 0,
+      "method": "In-memory final RAW six-arm rotations applied to frozen v3 base mesh/grip context, including unchanged v4 threeR correction; no generated base target or new retarget."
+    }
+  },
+  "authoring_scope": {
+    "only_geometrically_changed_RAW_streams": [
+      "L_Upperarm.rotation",
+      "L_Forearm.rotation",
+      "L_Hand.rotation"
+    ],
+    "stored_changed_keys_per_stream": 43,
+    "sampling_and_support_precision": {
+      "nominal_windows": [
+        [
+          1.02,
+          1.1,
+          1.2
+        ],
+        [
+          1.38,
+          1.4666666666666666,
+          1.56
+        ]
+      ],
+      "stored_key_groups": [
+        {
+          "indices": [
+            123,
+            143
+          ],
+          "changed_key_times_seconds": [
+            1.024999976158142,
+            1.1916667222976685
+          ],
+          "actual_LINEAR_influence_interval_seconds": [
+            1.0166666507720947,
+            1.2000000476837158
+          ],
+          "influence_endpoints": "unchanged v4 predecessor/successor key values"
+        },
+        {
+          "indices": [
+            166,
+            187
+          ],
+          "changed_key_times_seconds": [
+            1.3833333253860474,
+            1.5583332777023315
+          ],
+          "actual_LINEAR_influence_interval_seconds": [
+            1.375,
+            1.5666667222976685
+          ],
+          "influence_endpoints": "unchanged v4 predecessor/successor key values"
+        }
+      ],
+      "scope": "Stored key payload comparisons are distinct from continuously evaluated t. C2 applies only to analytic scalar authoring envelopes, not the sampled glTF LINEAR clip."
+    },
+    "fixed_swivel_direction_by_window": [
+      -1,
+      1
+    ],
+    "peak_swivel_degrees": 8,
+    "final_added_swivel_maximum_step_degrees_at120Hz_by_window": [
+      1.5392035056436844,
+      1.4239442994481788
+    ],
+    "R_Upperarm_R_Forearm_R_Hand_rotation_payloads": "all original v4 bytes retained across all211 keys",
+    "guard_R15_unbaked_static_rest_actor_grip_weights": "retained original v4 bytes/geometry",
+    "left_RAW_wrist_target_and_world_palm_orientation": "held at original v4; sampled RAW wrist reconstruction error less than0.4micrometre",
+    "actual_veteran_left_hand_origin": "small target-dependent shifts1.813mm and2.579mm at the two fault times; not claimed bit-identical position",
+    "actual_veteran_non_L3_max_float32_component_difference_from_actual_v4": 4.470348358154297e-07
+  },
+  "full211_key_motion_and_Q_signs": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_motion_steps.json",
+      "sha256": "6d06ea82c424f5b61009cda9afb765bf720775d5162b8aaee330df3c58d5e661",
+      "bytes": 629130
+    },
+    "summaries": [
+      {
+        "context": "source_RAW",
+        "stored_Q_hemisphere_checks": {
+          "v4": {
+            "L_Upperarm": {
+              "minimum_actual_stored_adjacent_dot": 0.9861757118812677,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Forearm": {
+              "minimum_actual_stored_adjacent_dot": -1.000000058385985,
+              "key_pair": [
+                0,
+                1
+              ],
+              "source_seconds_pair": [
+                0.0,
+                0.008333333767950535
+              ],
+              "negative_pair_count": 2,
+              "negative_key_pairs": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  209,
+                  210
+                ]
+              ]
+            },
+            "L_Hand": {
+              "minimum_actual_stored_adjacent_dot": 0.9751198216401816,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            }
+          },
+          "v5": {
+            "L_Upperarm": {
+              "minimum_actual_stored_adjacent_dot": 0.9859161465676012,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Forearm": {
+              "minimum_actual_stored_adjacent_dot": -1.000000058385985,
+              "key_pair": [
+                0,
+                1
+              ],
+              "source_seconds_pair": [
+                0.0,
+                0.008333333767950535
+              ],
+              "negative_pair_count": 2,
+              "negative_key_pairs": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  209,
+                  210
+                ]
+              ]
+            },
+            "L_Hand": {
+              "minimum_actual_stored_adjacent_dot": 0.9745128379634687,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            }
+          }
+        },
+        "complete211_key_step_summary": {
+          "L_Forearm": {
+            "local_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 10.762075314583706,
+                "v5": 10.844793736645716,
+                "increase": 0.08271842206201008
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 10.762075314583706,
+                "v5": 10.844793736645716,
+                "increase": 0.08271842206201008
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0583332777023315,
+                  1.0666667222976685
+                ],
+                "v4": 3.3443576435326996,
+                "v5": 3.6500483994664217,
+                "increase": 0.3056907559337221
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 10.762075314583706,
+                  "v5": 10.844793736645716,
+                  "increase": 0.08271842206201008
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 10.516033882296666,
+                  "v5": 10.528836605240814,
+                  "increase": 0.01280272294414786
+                },
+                {
+                  "source_seconds_pair": [
+                    1.1083333492279053,
+                    1.1166666746139526
+                  ],
+                  "v4": 8.818130263733183,
+                  "v5": 8.759843449496236,
+                  "increase": -0.05828681423694704
+                }
+              ]
+            },
+            "world_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.61530646535646,
+                "v5": 25.92718225629299,
+                "increase": 0.3118757909365293
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.61530646535646,
+                "v5": 25.92718225629299,
+                "increase": 0.3118757909365293
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0499999523162842,
+                  1.0583332777023315
+                ],
+                "v4": 3.6846781871574175,
+                "v5": 5.0781102710495345,
+                "increase": 1.393432083892117
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 25.61530646535646,
+                  "v5": 25.92718225629299,
+                  "increase": 0.3118757909365293
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 21.55792237552514,
+                  "v5": 21.83089205854555,
+                  "increase": 0.2729696830204098
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 20.10630000408075,
+                  "v5": 20.617660952659183,
+                  "increase": 0.5113609485784316
+                }
+              ]
+            },
+            "world_position_step_metres": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 0.079466798152373,
+                "v5": 0.08073031903858159,
+                "increase": 0.0012635208862085967
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 0.079466798152373,
+                "v5": 0.08073031903858159,
+                "increase": 0.0012635208862085967
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.4166666269302368,
+                  1.4249999523162842
+                ],
+                "v4": 0.010752623834554593,
+                "v5": 0.01573668329268604,
+                "increase": 0.004984059458131447
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 0.079466798152373,
+                  "v5": 0.08073031903858159,
+                  "increase": 0.0012635208862085967
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 0.06954258121223943,
+                  "v5": 0.07016303096309078,
+                  "increase": 0.0006204497508513485
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 0.06089509842901594,
+                  "v5": 0.06329163915590481,
+                  "increase": 0.002396540726888871
+                }
+              ]
+            }
+          },
+          "L_Hand": {
+            "local_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.615292589071263,
+                "v5": 25.927158011009347,
+                "increase": 0.31186542193808364
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.615292589071263,
+                "v5": 25.927158011009347,
+                "increase": 0.31186542193808364
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0499999523162842,
+                  1.0583332777023315
+                ],
+                "v4": 3.6846744130940325,
+                "v5": 5.078122569343647,
+                "increase": 1.3934481562496148
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 25.615292589071263,
+                  "v5": 25.927158011009347,
+                  "increase": 0.31186542193808364
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 21.557931001413422,
+                  "v5": 21.83092123155763,
+                  "increase": 0.27299023014420953
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 20.106299398501648,
+                  "v5": 20.617670935432535,
+                  "increase": 0.5113715369308878
+                }
+              ]
+            },
+            "world_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.524999976158142,
+                  1.5333333015441895
+                ],
+                "v4": 0.06857428107923268,
+                "v5": 0.06856679150165336,
+                "increase": -7.489577579317119e-06
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.524999976158142,
+                  1.5333333015441895
+                ],
+                "v4": 0.06857428107923268,
+                "v5": 0.06856679150165336,
+                "increase": -7.489577579317119e-06
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0583332777023315,
+                  1.0666667222976685
+                ],
+                "v4": 1.5742808176163252e-05,
+                "v5": 4.9724527722266914e-05,
+                "increase": 3.398171954610366e-05
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.524999976158142,
+                    1.5333333015441895
+                  ],
+                  "v4": 0.06857428107923268,
+                  "v5": 0.06856679150165336,
+                  "increase": -7.489577579317119e-06
+                },
+                {
+                  "source_seconds_pair": [
+                    1.5333333015441895,
+                    1.5416666269302368
+                  ],
+                  "v4": 0.06779475950802953,
+                  "v5": 0.06780211182383669,
+                  "increase": 7.352315807160337e-06
+                },
+                {
+                  "source_seconds_pair": [
+                    1.5833333730697632,
+                    1.5916666984558105
+                  ],
+                  "v4": 0.053843586555545705,
+                  "v5": 0.053843586555545705,
+                  "increase": 0.0
+                }
+              ]
+            },
+            "world_position_step_metres": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.0833333730697632,
+                  1.0916666984558105
+                ],
+                "v4": 0.005060335202718205,
+                "v5": 0.0050605740431758734,
+                "increase": 2.388404576683656e-07
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.0833333730697632,
+                  1.0916666984558105
+                ],
+                "v4": 0.005060335202718205,
+                "v5": 0.0050605740431758734,
+                "increase": 2.388404576683656e-07
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.3916666507720947,
+                  1.399999976158142
+                ],
+                "v4": 0.0027093433472730787,
+                "v5": 0.0027096090709463516,
+                "increase": 2.657236732729433e-07
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.0833333730697632,
+                    1.0916666984558105
+                  ],
+                  "v4": 0.005060335202718205,
+                  "v5": 0.0050605740431758734,
+                  "increase": 2.388404576683656e-07
+                },
+                {
+                  "source_seconds_pair": [
+                    1.0750000476837158,
+                    1.0833333730697632
+                  ],
+                  "v4": 0.0050411090854566385,
+                  "v5": 0.005040873135073932,
+                  "increase": -2.3595038270689955e-07
+                },
+                {
+                  "source_seconds_pair": [
+                    1.0916666984558105,
+                    1.100000023841858
+                  ],
+                  "v4": 0.00501542509795126,
+                  "v5": 0.005015412966009407,
+                  "increase": -1.2131941853031625e-08
+                }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "context": "actual_veteran",
+        "stored_Q_hemisphere_checks": {
+          "v4": {
+            "L_Upperarm": {
+              "minimum_actual_stored_adjacent_dot": 0.9861756736525426,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Forearm": {
+              "minimum_actual_stored_adjacent_dot": 0.9955931636417196,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Hand": {
+              "minimum_actual_stored_adjacent_dot": 0.9751198943345719,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            }
+          },
+          "v5": {
+            "L_Upperarm": {
+              "minimum_actual_stored_adjacent_dot": 0.9859163391153968,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Forearm": {
+              "minimum_actual_stored_adjacent_dot": 0.9955251089803692,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            },
+            "L_Hand": {
+              "minimum_actual_stored_adjacent_dot": 0.9745129229146903,
+              "key_pair": [
+                174,
+                175
+              ],
+              "source_seconds_pair": [
+                1.4500000476837158,
+                1.4583333730697632
+              ],
+              "negative_pair_count": 0,
+              "negative_key_pairs": []
+            }
+          }
+        },
+        "complete211_key_step_summary": {
+          "L_Forearm": {
+            "local_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 10.762064187437518,
+                "v5": 10.844780619655351,
+                "increase": 0.08271643221783265
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 10.762064187437518,
+                "v5": 10.844780619655351,
+                "increase": 0.08271643221783265
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0583332777023315,
+                  1.0666667222976685
+                ],
+                "v4": 3.344358583133285,
+                "v5": 3.650045607969113,
+                "increase": 0.3056870248358279
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 10.762064187437518,
+                  "v5": 10.844780619655351,
+                  "increase": 0.08271643221783265
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 10.516037419946674,
+                  "v5": 10.528837976558922,
+                  "increase": 0.012800556612248215
+                },
+                {
+                  "source_seconds_pair": [
+                    1.1083333492279053,
+                    1.1166666746139526
+                  ],
+                  "v4": 8.81814373305129,
+                  "v5": 8.759841504889573,
+                  "increase": -0.058302228161716485
+                }
+              ]
+            },
+            "world_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.615277468557633,
+                "v5": 25.927165203177875,
+                "increase": 0.31188773462024244
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.615277468557633,
+                "v5": 25.927165203177875,
+                "increase": 0.31188773462024244
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0499999523162842,
+                  1.0583332777023315
+                ],
+                "v4": 3.6846625100213246,
+                "v5": 5.078119458797683,
+                "increase": 1.393456948776358
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 25.615277468557633,
+                  "v5": 25.927165203177875,
+                  "increase": 0.31188773462024244
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 21.557922014398425,
+                  "v5": 21.830893614415057,
+                  "increase": 0.272971600016632
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 20.10628882009199,
+                  "v5": 20.6176414197167,
+                  "increase": 0.5113525996247112
+                }
+              ]
+            },
+            "world_position_step_metres": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 0.08579675973619497,
+                "v5": 0.08673159278549747,
+                "increase": 0.0009348330493025026
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 0.08579675973619497,
+                "v5": 0.08673159278549747,
+                "increase": 0.0009348330493025026
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.4166666269302368,
+                  1.4249999523162842
+                ],
+                "v4": 0.010659246698892382,
+                "v5": 0.016140079021862125,
+                "increase": 0.005480832322969743
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 0.08579675973619497,
+                  "v5": 0.08673159278549747,
+                  "increase": 0.0009348330493025026
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 0.07305573102169384,
+                  "v5": 0.07345410976415048,
+                  "increase": 0.0003983787424566426
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 0.06679646280916453,
+                  "v5": 0.06900900399876601,
+                  "increase": 0.0022125411896014857
+                }
+              ]
+            }
+          },
+          "L_Hand": {
+            "local_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.61527412382474,
+                "v5": 25.927162956215355,
+                "increase": 0.3118888323906148
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.4500000476837158,
+                  1.4583333730697632
+                ],
+                "v4": 25.61527412382474,
+                "v5": 25.927162956215355,
+                "increase": 0.3118888323906148
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0499999523162842,
+                  1.0583332777023315
+                ],
+                "v4": 3.6846501830082286,
+                "v5": 5.0781046043836024,
+                "increase": 1.393454421375374
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.4500000476837158,
+                    1.4583333730697632
+                  ],
+                  "v4": 25.61527412382474,
+                  "v5": 25.927162956215355,
+                  "increase": 0.3118888323906148
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 21.55794998438488,
+                  "v5": 21.830934792246946,
+                  "increase": 0.27298480786206625
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4416667222976685,
+                    1.4500000476837158
+                  ],
+                  "v4": 20.106301802842307,
+                  "v5": 20.617667306945922,
+                  "increase": 0.5113655041036154
+                }
+              ]
+            },
+            "world_rotation_step_degrees": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.524999976158142,
+                  1.5333333015441895
+                ],
+                "v4": 0.06855211576747594,
+                "v5": 0.06854445733976056,
+                "increase": -7.658427715384608e-06
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.524999976158142,
+                  1.5333333015441895
+                ],
+                "v4": 0.06855211576747594,
+                "v5": 0.06854445733976056,
+                "increase": -7.658427715384608e-06
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.4666666984558105,
+                  1.475000023841858
+                ],
+                "v4": 4.360100889887781e-05,
+                "v5": 7.33053055689486e-05,
+                "increase": 2.97042966700708e-05
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.524999976158142,
+                    1.5333333015441895
+                  ],
+                  "v4": 0.06855211576747594,
+                  "v5": 0.06854445733976056,
+                  "increase": -7.658427715384608e-06
+                },
+                {
+                  "source_seconds_pair": [
+                    1.5333333015441895,
+                    1.5416666269302368
+                  ],
+                  "v4": 0.06778797132094723,
+                  "v5": 0.06780258135428481,
+                  "increase": 1.461003333758093e-05
+                },
+                {
+                  "source_seconds_pair": [
+                    1.5833333730697632,
+                    1.5916666984558105
+                  ],
+                  "v4": 0.053854954164930725,
+                  "v5": 0.053854954164930725,
+                  "increase": 0.0
+                }
+              ]
+            },
+            "world_position_step_metres": {
+              "v4": {
+                "source_seconds_pair": [
+                  1.1083333492279053,
+                  1.1166666746139526
+                ],
+                "v4": 0.009770915259962641,
+                "v5": 0.010148308731300446,
+                "increase": 0.00037739347133780403
+              },
+              "v5": {
+                "source_seconds_pair": [
+                  1.1083333492279053,
+                  1.1166666746139526
+                ],
+                "v4": 0.009770915259962641,
+                "v5": 0.010148308731300446,
+                "increase": 0.00037739347133780403
+              },
+              "increase": {
+                "source_seconds_pair": [
+                  1.0916666984558105,
+                  1.100000023841858
+                ],
+                "v4": 0.006321214922488186,
+                "v5": 0.006896888329896911,
+                "increase": 0.0005756734074087253
+              },
+              "largest_existing_v4_steps": [
+                {
+                  "source_seconds_pair": [
+                    1.1083333492279053,
+                    1.1166666746139526
+                  ],
+                  "v4": 0.009770915259962641,
+                  "v5": 0.010148308731300446,
+                  "increase": 0.00037739347133780403
+                },
+                {
+                  "source_seconds_pair": [
+                    1.100000023841858,
+                    1.1083333492279053
+                  ],
+                  "v4": 0.00819480813024442,
+                  "v5": 0.008738337658684325,
+                  "increase": 0.0005435295284399039
+                },
+                {
+                  "source_seconds_pair": [
+                    1.4583333730697632,
+                    1.4666666984558105
+                  ],
+                  "v4": 0.007120754171034284,
+                  "v5": 0.007517940324178949,
+                  "increase": 0.00039718615314466525
+                }
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "existing_motion_limit": "Parent v4 already has about25.615degree forearm-world/wrist-local neighbor rotation at1.45\u21921.45833; final about25.927degree. Largest added geometric neighbor rotation increase is about1.393degree. This local collision repair does not certify overall source motion naturalness or C2.",
+    "inherited_RAW_sign_exception": "Both v4 and final v5 RAW L_Forearm retain negative stored adjacent dot at[0,1] and[209,210], inherited from exact guard packing. No new negative pair is introduced; actual veteran target threeL streams are all same-hemisphere. Root explicitly keeps the original guard/out-of-window payload; SDK/producer packing is a future Root item, not expanded here."
+  },
+  "attempts": {
+    "geometric_localization_solutions": 2,
+    "attempt1": {
+      "status": "rejected_due_added_sign_selection_jumps_despite_surface_clearance",
+      "record": {
+        "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/attempt1/failure.json",
+        "sha256": "684efdcbe4a54ca2e266dfa6066d7326957f97871aaec09a82248963b981aa80",
+        "bytes": 706
+      },
+      "source_and_artifacts": "attempt1/ retained; not final"
+    },
+    "attempt2": {
+      "status": "final_fixed_per_window_direction",
+      "no_third_solution": true
+    }
+  },
+  "RAW_contract": {
+    "stage": "authored_raw",
+    "right_calibration_baked": false,
+    "joints": 78,
+    "channels": 234,
+    "keys": 211,
+    "sample_rate_hz": 120,
+    "duration_seconds": 1.75,
+    "guard_endpoints": "exact v4 float32 values",
+    "R15": "exact v4 unbaked original values"
+  },
+  "actual_target_generation": {
+    "target": "veteran_only",
+    "before_pipeline_reproduction_max_component_error": 0.0,
+    "native_target_grip": {
+      "file": "ArtSource/tripo-warrior/expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
+      "sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
+      "bytes": 9962848
+    },
+    "RAW_retarget_count": 1,
+    "finger_calibration_applications": 1,
+    "canonical_target_idle_root_shift_applications": 1,
+    "canonical_source_timelines": "five original native canonical helper clips through prepare_character canonical_grounding_clips",
+    "already_retargeted_veteran_used_as_RAW": false,
+    "static_checks": {
+      "nodes": true,
+      "scenes": true,
+      "meshes": true,
+      "skins": true,
+      "materials": true,
+      "textures": true,
+      "samplers": true,
+      "images": true
+    },
+    "alignment": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_alignment.json",
+      "sha256": "e16ca08e1250f73297047e0dddaff5ad8c9a2b5c8d24d6664c0b60d60b29468f",
+      "bytes": 957692
+    },
+    "preview": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_prepared_png.glb",
+      "sha256": "f2b5f82cd275ab08df5df894193f46db64356d551493af8bed807d0b08d5496a",
+      "bytes": 15594580
+    },
+    "private_preview_is_not_RAW": true
+  },
+  "phase_and_damage_authority": {
+    "Root_source_phase_seconds": [
+      0,
+      0.65,
+      0.8333333333333334,
+      1.0333333333333334,
+      1.75
+    ],
+    "source1p0": "metadata cue, never automatic damage time",
+    "actual_damage_window": "Root owns actual final sharpened-mesh/target contact evaluation and runtime timing"
+  },
+  "images": {
+    "comparison_manifest": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/comparison_manifest.json",
+      "sha256": "7e2ea89cb9fb7090e772acd5d6204d0c918a6ce2acba8a5dd5aac789caa97bac",
+      "bytes": 14010
+    },
+    "before_after_board": {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_two_fault_times_before_after.png",
+      "sha256": "543d342a50993b5d20caca2dd34d6f2f5a52c46b2609ce53fc1873533dba66a3",
+      "bytes": 2806930
+    },
+    "review_root": "candidate/v5/review/"
+  },
+  "executed_source_snapshots": [
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/build_weighted_overhead.py",
+      "sha256": "2382d48c2a1bd38cd1a430a0b7c7b9204fa330d4e1212545eb9fc2d723df81b9",
+      "bytes": 13609
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/verify_reproduce_veteran.py",
+      "sha256": "afd8f473943c6867812c359727a5e8083066d03dfc7cfa814788fa5c3230e8d9",
+      "bytes": 4716
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/verify_weighted_overhead.py",
+      "sha256": "bd9dfef5ab86a6dfce71bc7a4f43a234a5f361e2aa064f3bb1c6d60e1bbbaf54",
+      "bytes": 10286
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/verify_source_finite.py",
+      "sha256": "7596852dd74c5b2e19c6bce3ba1f64d4bb2bf78f1f134f935710aa75556e0b7e",
+      "bytes": 5102
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/verify_clearance_metrics.py",
+      "sha256": "3892b15e34d2fbf444024db05c76427672191751fc2ef2df6a2aa364adb149d0",
+      "bytes": 2943
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/verify_motion_steps.py",
+      "sha256": "d384fe1424c51507483fc8a9c142aa625ad0b1becdbffc0784eefbc1a1fc0b02",
+      "bytes": 4711
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/source/build_handoff.py",
+      "sha256": "72a145b92a00c72bdaf38333167476fd3a7b5dfc836c8f4860918b3e3aff7cdd",
+      "bytes": 13530
+    }
+  ],
+  "boundaries": {
+    "integration_formal_producer_library_app_device_Git_written": false,
+    "shared_tree_others_preserved": true,
+    "generated_targets": [
+      "veteran"
+    ]
+  },
+  "limits": [
+    "70 actual-veteran and63 source/base discrete triangle checks do not prove continuous-time or all-cloth-volume clearance.",
+    "Semantic cores exclude blend seams, adjacent shoulder junctions and within-region clothing layers.",
+    "Two static local before/after pictures do not replace full playback or native device acceptance.",
+    "No base/indigo production retarget, final library/binding/profile publication, SDK acceptance or overall naturalness approval is claimed."
+  ]
+}

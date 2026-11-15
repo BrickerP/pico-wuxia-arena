@@ -1,0 +1,1864 @@
+{
+  "status": "bounded_target_review_complete_pending_Root_visual_review",
+  "binding_sha256": "713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a",
+  "discrete_times_seconds": [
+    0.0,
+    0.2,
+    0.68,
+    0.8333333333333334,
+    0.9,
+    0.9667,
+    1.0,
+    1.0333333333333334,
+    1.15,
+    1.27,
+    1.34,
+    1.4,
+    1.42,
+    1.5,
+    1.55,
+    1.75
+  ],
+  "source_pins": {
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/production_review_request.json": "e9983e90222d445bb5b2dae2e3c2bff5cc26a93993b6a9dc1725071c05cfa5e5",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review_candidate.py": "cf01c72b828ff9cca7444d04acd4ed264e937c6768fa5da50aa5640f70677862",
+    "ArtSource/refinement/hand-poses/fine-overhead/review/eye-height-v7/camera_set.json": "59071521b2218072eeb45b1edb97f91acc041ff06d481dcf09a44961a02b8814",
+    "ArtSource/tripo-warrior/prepare_character_library.py": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+    "ArtSource/tripo-warrior/attack_profiles.py": "e28720d3d1df117c175f0757badd21635c18b045d23f547d753de35a00169bf6",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+    "ArtSource/refinement/hand-poses/fine-overhead/render_eye_height.py": "c38be432de87449ae7e92156b4d353bde02dbaf6914eda24cc9fa438b9194bc7",
+    "ArtSource/refinement/grip/render_grip_candidates.py": "b0162b8cae0325e48c2eaa92793cf25f43313422dcdf1e9bfc79ba765abcad90",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage8/render_hit_reactions.py": "8919da25646fd693d7d0ad2ae014f5d479e3146850f342b07b24379963f785e7",
+    "ArtSource/refinement/hand-poses/attack-keyposes/render_attack_keyposes.py": "17cfc3ed43e73f84166cb294e6c0c73daa0231fd2c2101010d444d097a487741",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_body.glb": "7d5b546f4e8ea02c91fa84232d0eefebf6fbe679612b2f4a245d4e85e10a8fa4",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_prepared_png.glb": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base.glb": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_attack_profiles.json": "aecf203eb96d55b77d0e539fadb64d215d4cdb559197247105f77bf1f0491b7a",
+    "ArtSource/tripo-warrior/library/base_body.glb": "d6ab31d67e21aecaba7e592d4d29be6a94442ba5e13148ba6dd2ba56c002981d",
+    "ArtSource/tripo-warrior/library/base_prepared_png.glb": "1cc9aaba1b7ee18c9c9b4be85c82f6ef93be72f9ffd3d9f18b96da920ab594bb",
+    "ArtSource/tripo-warrior/library/base.glb": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24",
+    "ArtSource/tripo-warrior/library/base_attack_profiles.json": "c21a05e697ec1a9aba8fc45d5099d148ad61737059efe8c5e4118afa3eaddeff",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/indigo_body.glb": "d93c3e21820e9c8d11cb2dc9b6c79cda12fce10b7634c3da9ceceee0c2f60231",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/indigo_prepared_png.glb": "156e04bf965646c4513eb5bc04232e3d6a826c107bb8a1407097723e1803cf39",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/indigo.glb": "cce030fc4dc37f33c7300fb953d98b7d9a641b5deec8b60f384928d5c116e593",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/indigo_attack_profiles.json": "f721ca6e4f8bc21e4fa1668d3d13ba222aef4c68603ad8c198a6c10e5cd7fde4",
+    "ArtSource/tripo-warrior/library/indigo_body.glb": "d9e05358f1c255ab0244f34ec33944d674af3edaadef21ea990960c6e8acc547",
+    "ArtSource/tripo-warrior/library/indigo_prepared_png.glb": "a40622403fd5001859247d02f100aedfec86173352bc31bd829765ba1d27d81e",
+    "ArtSource/tripo-warrior/library/indigo.glb": "27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df",
+    "ArtSource/tripo-warrior/library/indigo_attack_profiles.json": "d73ad19f7ac1504c0fb51e9696c14def6e320ebdae1bf9f76723be2f7edf8651",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/veteran_body.glb": "7f894538b1fca2d505d47c65736bf5d3dcd0a41c8b1a1ed973aeba0efcc9fa20",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/veteran_prepared_png.glb": "9993a325a8a20c67ab3c2ea8a9812485bade884269ebbdbb9a933c105572e758",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/veteran.glb": "803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/veteran_attack_profiles.json": "a5a0e40a392141d9e9b88a246b7518294d0f1138b1c181d5f4b73d07d8171136",
+    "ArtSource/tripo-warrior/library/veteran_body.glb": "226e8756a4388a112bc4f158b52524368be578f7a4ef5a7de7a1697d134241b8",
+    "ArtSource/tripo-warrior/library/veteran_prepared_png.glb": "9b29e038d8c0122134733a9c621c13c7822bbc621478e902f9cfb1ed113110aa",
+    "ArtSource/tripo-warrior/library/veteran.glb": "6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2",
+    "ArtSource/tripo-warrior/library/veteran_attack_profiles.json": "dcdc496c877f2643e745e4c20d6b05cec3374ac3a7c0d04dc9a38c21f7024d20"
+  },
+  "targets": [
+    {
+      "target": "base",
+      "variants": {
+        "base_body.glb": {
+          "candidate_sha256": "7d5b546f4e8ea02c91fa84232d0eefebf6fbe679612b2f4a245d4e85e10a8fa4",
+          "old_sha256": "d6ab31d67e21aecaba7e592d4d29be6a94442ba5e13148ba6dd2ba56c002981d",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "base_prepared_png.glb": {
+          "candidate_sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+          "old_sha256": "1cc9aaba1b7ee18c9c9b4be85c82f6ef93be72f9ffd3d9f18b96da920ab594bb",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "base.glb": {
+          "candidate_sha256": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+          "old_sha256": "6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        }
+      },
+      "clips": {
+        "base_body.glb": {
+          "candidate": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "530652b57d64688585494420416d660f88dcfd70b06a5e8ee20e7f569846c3fc",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          },
+          "old": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "3bbd0bcad4df19c6d5a6a5ae9e774c61bd08663d9c5a56d753c657c2bf13ac32",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          }
+        },
+        "base_prepared_png.glb": {
+          "candidate": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "530652b57d64688585494420416d660f88dcfd70b06a5e8ee20e7f569846c3fc",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          },
+          "old": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "3bbd0bcad4df19c6d5a6a5ae9e774c61bd08663d9c5a56d753c657c2bf13ac32",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          }
+        },
+        "base.glb": {
+          "candidate": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "530652b57d64688585494420416d660f88dcfd70b06a5e8ee20e7f569846c3fc",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          },
+          "old": {
+            "fall": "29b2f39f4c8ad54ca3450dcbfe60e9211e4ad1a3822f5fff5791abe9b3f4b02e",
+            "turn": "cb15dba71c3fb39b85eb2dc6694f17b514c5bbb08ab8e6527a523f0c8dd2cc2f",
+            "hit_body": "2a0e429d6b85e06bf5d33e9463fe381b94e59b1e6d4b647694417ef964d23ad8",
+            "hit_head": "3ed82559d18c49ff87ab7dc04580d3354c7bcdd2e71f2cd3579049755588e0a9",
+            "hit_side": "9672dbeb6809d8cb8a9a17c36a512fe0f027b46fb4e8bb903f709a5a678c493e",
+            "idle": "e1ccd9d725cc8842247ea1ab6bc60bbfa8f45c0c4f0fc0ec32bd13fd66b7b407",
+            "walk": "3d87738bd6c5dfa7695e13d600f19caa483c2815f8e2f35f7529f75510726624",
+            "attack_overhead": "3bbd0bcad4df19c6d5a6a5ae9e774c61bd08663d9c5a56d753c657c2bf13ac32",
+            "attack_left": "4831662fb89f56f0ed842abdc2b507fdeb7e587416f2fff5080c181c8bc177b8",
+            "attack_right": "1dde10f9d9879b43e885ef0d2ce697e75ac747630a988ee51b1e73b3ca1e1317"
+          }
+        }
+      },
+      "prepared_png_encoded": {
+        "non_image_json_semantics_identical": true,
+        "non_image_bufferViews_byte_identical": 2587,
+        "scope": "PNG versus KTX image payloads intentionally differ; PNG payload unchanged versus same-target old PNG is checked separately"
+      },
+      "overhead_phase_contract": {
+        "source_phase_seconds": [
+          0.0,
+          0.65,
+          0.8333333333333334,
+          1.0333333333333334,
+          1.75
+        ],
+        "runtime_phase_nanos": [
+          650000000,
+          183333333,
+          200000000,
+          716666667
+        ],
+        "contact_source_seconds": 1.0,
+        "source_range_seconds": [
+          0.0,
+          1.75
+        ]
+      },
+      "actual_assembled_target_checks": {
+        "frames": [
+          {
+            "source_seconds": 0.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.2,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.68,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.8333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9667,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.15,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.27,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.34,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.4,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.42,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.5,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.55,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.75,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          }
+        ],
+        "body_primitive_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "body_triangle_count": 97878,
+        "region_triangle_counts": {
+          "head": 47595,
+          "chest": 9497,
+          "R_forearm": 2484,
+          "R_hand": 2131,
+          "L_forearm": 3404,
+          "L_hand": 1927
+        }
+      },
+      "renders": {
+        "prepared_png_path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_prepared_png.glb",
+        "prepared_png_sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+        "size": 480,
+        "samples": 2,
+        "render_threads": 2,
+        "threads_mode": "FIXED",
+        "camera_contract": {
+          "schema_version": 1,
+          "projection": "perspective",
+          "vertical_fov_degrees": 70.0,
+          "horizontal_standoff_metres": 2.75,
+          "eye_height_metres": 1.62,
+          "aim_height_metres": 1.62,
+          "viewport_aspect": 1.0,
+          "camera_shift_xy": [
+            0.0,
+            0.0
+          ],
+          "actor_transform_policy": "unchanged imported source; no recenter, carrier, or lift",
+          "floor_blender_z": -0.028000101447105408,
+          "views": {
+            "three_quarter": {
+              "azimuth_degrees": -45,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -1.9445436482630054,
+                1.62,
+                1.9445436482630059
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            },
+            "side": {
+              "azimuth_degrees": -90,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -2.75,
+                1.62,
+                1.6838893488276108e-16
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            }
+          }
+        },
+        "actual_camera_matrix_blender": [
+          [
+            0.7071068286895752,
+            -3.374861279326069e-09,
+            -0.7071067690849304,
+            -1.9445436000823975
+          ],
+          [
+            -0.7071067690849304,
+            -5.844237804808472e-08,
+            -0.7071068286895752,
+            -1.9445436000823975
+          ],
+          [
+            -3.8938612334504796e-08,
+            1.0,
+            -4.371138828673793e-08,
+            1.6200000047683716
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "frames": [
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/base_load_0p68.png",
+            "sha256": "2a31585fd2f355837a9bb60ed1a0acf1c059a0305d4e6b724c41e1a6b897a26c",
+            "source_seconds": 0.68,
+            "actual_import_action": {
+              "requested_source_seconds": 0.68,
+              "actual_action_frame": 20.400000000000002,
+              "actual_action_seconds": 0.68,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.4034805284472358,
+                -0.39825817715477985,
+                -0.02800352114271487
+              ],
+              "max": [
+                0.35612538374877994,
+                0.5031960376343272,
+                2.2640825962430426
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 72926,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.3460414006296711,
+                0.05452704145297099
+              ],
+              "maximum_ndc_xy": [
+                0.6177503645982504,
+                0.661260000266339
+              ],
+              "minimum_camera_depth_metres": 2.4307804898844347
+            }
+          },
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/base_unload_1p15.png",
+            "sha256": "d95c5c3eeb2a9e89a78336faf7db63eace06b7faef739c624ceb86a495a11eaa",
+            "source_seconds": 1.15,
+            "actual_import_action": {
+              "requested_source_seconds": 1.15,
+              "actual_action_frame": 34.5,
+              "actual_action_seconds": 1.15,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.451177019530586,
+                -1.1640975813847043,
+                -0.028003121162167077
+              ],
+              "max": [
+                0.3038572735188701,
+                0.26781328729449083,
+                1.4625328592714055
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 72926,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.4220555243413032,
+                0.05486605595568783
+              ],
+              "maximum_ndc_xy": [
+                0.7514038084337834,
+                0.45367056016253754
+              ],
+              "minimum_camera_depth_metres": 1.703359482516663
+            }
+          }
+        ],
+        "scope": "actual target prepared PNG import and original pixels; offline Blender, not PICO; no actor recenter/scale/pose correction"
+      }
+    },
+    {
+      "target": "indigo",
+      "variants": {
+        "indigo_body.glb": {
+          "candidate_sha256": "d93c3e21820e9c8d11cb2dc9b6c79cda12fce10b7634c3da9ceceee0c2f60231",
+          "old_sha256": "d9e05358f1c255ab0244f34ec33944d674af3edaadef21ea990960c6e8acc547",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "indigo_prepared_png.glb": {
+          "candidate_sha256": "156e04bf965646c4513eb5bc04232e3d6a826c107bb8a1407097723e1803cf39",
+          "old_sha256": "a40622403fd5001859247d02f100aedfec86173352bc31bd829765ba1d27d81e",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "indigo.glb": {
+          "candidate_sha256": "cce030fc4dc37f33c7300fb953d98b7d9a641b5deec8b60f384928d5c116e593",
+          "old_sha256": "27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        }
+      },
+      "clips": {
+        "indigo_body.glb": {
+          "candidate": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "6a0dab19edebec735b850cc69a0d044fdf0d445db101238f0fe5819ace61bea1",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          },
+          "old": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "0c88cfa9c4910a246fe2291d18af0207179f95794012986d8a2ad83467027c90",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          }
+        },
+        "indigo_prepared_png.glb": {
+          "candidate": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "6a0dab19edebec735b850cc69a0d044fdf0d445db101238f0fe5819ace61bea1",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          },
+          "old": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "0c88cfa9c4910a246fe2291d18af0207179f95794012986d8a2ad83467027c90",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          }
+        },
+        "indigo.glb": {
+          "candidate": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "6a0dab19edebec735b850cc69a0d044fdf0d445db101238f0fe5819ace61bea1",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          },
+          "old": {
+            "fall": "5e4462f65b137988613667a248af22d3e4b5a312e12f74b8b552e562c9409074",
+            "turn": "539b757b3ef351a189ba6f6b5c86b744ae60db1d188de0c8209c67e791cd94ce",
+            "hit_body": "3032dbcc717b7902debe3d62cfba880e4ee6e90a1273d79a23046e72d204fa1d",
+            "hit_head": "12df36b4f4ab0137aad2bf100fa6fa13d2619d5bb6b83f3bbd5803813ecdaa52",
+            "hit_side": "9bb3033bd64c02c5034905d7ec0d22d6171c2d57603276447c49dae54fded9ee",
+            "idle": "17df48aeb4cc16c2698989efa0028297528d042887920f648bd8ca9fe1e554f2",
+            "walk": "ad7bf0ceb8d5f5da91cad49cf509e0af15d89d47f87c1f0483b30d50c6842043",
+            "attack_overhead": "0c88cfa9c4910a246fe2291d18af0207179f95794012986d8a2ad83467027c90",
+            "attack_left": "63f1d4811c39a98c06db68a705c743cb90b4d01821407bd545c538d09f92cd8d",
+            "attack_right": "0ba769a3ca26f930208207ccf8f69a09b70d18c4cd76d7070c1d04d421717274"
+          }
+        }
+      },
+      "prepared_png_encoded": {
+        "non_image_json_semantics_identical": true,
+        "non_image_bufferViews_byte_identical": 2561,
+        "scope": "PNG versus KTX image payloads intentionally differ; PNG payload unchanged versus same-target old PNG is checked separately"
+      },
+      "overhead_phase_contract": {
+        "source_phase_seconds": [
+          0.0,
+          0.65,
+          0.8333333333333334,
+          1.0333333333333334,
+          1.75
+        ],
+        "runtime_phase_nanos": [
+          650000000,
+          183333333,
+          200000000,
+          716666667
+        ],
+        "contact_source_seconds": 1.0,
+        "source_range_seconds": [
+          0.0,
+          1.75
+        ]
+      },
+      "actual_assembled_target_checks": {
+        "frames": [
+          {
+            "source_seconds": 0.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.2,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.68,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.8333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9667,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.15,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.27,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.34,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.4,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.42,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.5,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.55,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.75,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          }
+        ],
+        "body_primitive_indices": [
+          0
+        ],
+        "body_triangle_count": 27515,
+        "region_triangle_counts": {
+          "head": 3523,
+          "chest": 3712,
+          "R_forearm": 1723,
+          "R_hand": 1408,
+          "L_forearm": 1655,
+          "L_hand": 1546
+        }
+      },
+      "renders": {
+        "prepared_png_path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/indigo_prepared_png.glb",
+        "prepared_png_sha256": "156e04bf965646c4513eb5bc04232e3d6a826c107bb8a1407097723e1803cf39",
+        "size": 480,
+        "samples": 2,
+        "render_threads": 2,
+        "threads_mode": "FIXED",
+        "camera_contract": {
+          "schema_version": 1,
+          "projection": "perspective",
+          "vertical_fov_degrees": 70.0,
+          "horizontal_standoff_metres": 2.75,
+          "eye_height_metres": 1.62,
+          "aim_height_metres": 1.62,
+          "viewport_aspect": 1.0,
+          "camera_shift_xy": [
+            0.0,
+            0.0
+          ],
+          "actor_transform_policy": "unchanged imported source; no recenter, carrier, or lift",
+          "floor_blender_z": -0.028000101447105408,
+          "views": {
+            "three_quarter": {
+              "azimuth_degrees": -45,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -1.9445436482630054,
+                1.62,
+                1.9445436482630059
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            },
+            "side": {
+              "azimuth_degrees": -90,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -2.75,
+                1.62,
+                1.6838893488276108e-16
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            }
+          }
+        },
+        "actual_camera_matrix_blender": [
+          [
+            0.7071068286895752,
+            -3.374861279326069e-09,
+            -0.7071067690849304,
+            -1.9445436000823975
+          ],
+          [
+            -0.7071067690849304,
+            -5.844237804808472e-08,
+            -0.7071068286895752,
+            -1.9445436000823975
+          ],
+          [
+            -3.8938612334504796e-08,
+            1.0,
+            -4.371138828673793e-08,
+            1.6200000047683716
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "frames": [
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/indigo_load_0p68.png",
+            "sha256": "da48f9dba2847a1117dd0a756d61c4858d8def5ba4f221ec8b75108959facf59",
+            "source_seconds": 0.68,
+            "actual_import_action": {
+              "requested_source_seconds": 0.68,
+              "actual_action_frame": 20.400000000000002,
+              "actual_action_seconds": 0.68,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.4093481721083335,
+                -0.3929966888067109,
+                -0.023937550821768072
+              ],
+              "max": [
+                0.37213587076857646,
+                0.5688544507651113,
+                2.3109193373127823
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 38756,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.3385176688329919,
+                0.0533939107188699
+              ],
+              "maximum_ndc_xy": [
+                0.6216930586181103,
+                0.6699276115916116
+              ],
+              "minimum_camera_depth_metres": 2.4213006348002195
+            }
+          },
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/indigo_unload_1p15.png",
+            "sha256": "69d9e6a61e051817db14848b92a3e3e5212844b9c764b435b913559a63f14c5d",
+            "source_seconds": 1.15,
+            "actual_import_action": {
+              "requested_source_seconds": 1.15,
+              "actual_action_frame": 34.5,
+              "actual_action_seconds": 1.15,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.4667957555275283,
+                -1.1846927851124787,
+                -0.026408094547867522
+              ],
+              "max": [
+                0.31666239696868764,
+                0.25279433134834806,
+                1.457825166276308
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 38756,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.414988612613585,
+                0.051518925595990084
+              ],
+              "maximum_ndc_xy": [
+                0.7581087510166503,
+                0.4527334468838128
+              ],
+              "minimum_camera_depth_metres": 1.6827951144583877
+            }
+          }
+        ],
+        "scope": "actual target prepared PNG import and original pixels; offline Blender, not PICO; no actor recenter/scale/pose correction"
+      }
+    },
+    {
+      "target": "veteran",
+      "variants": {
+        "veteran_body.glb": {
+          "candidate_sha256": "7f894538b1fca2d505d47c65736bf5d3dcd0a41c8b1a1ed973aeba0efcc9fa20",
+          "old_sha256": "226e8756a4388a112bc4f158b52524368be578f7a4ef5a7de7a1697d134241b8",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "veteran_prepared_png.glb": {
+          "candidate_sha256": "9993a325a8a20c67ab3c2ea8a9812485bade884269ebbdbb9a933c105572e758",
+          "old_sha256": "9b29e038d8c0122134733a9c621c13c7822bbc621478e902f9cfb1ed113110aa",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        },
+        "veteran.glb": {
+          "candidate_sha256": "803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed",
+          "old_sha256": "6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2",
+          "static_checks": {
+            "nodes": true,
+            "scenes": true,
+            "meshes": true,
+            "skins": true,
+            "materials": true,
+            "textures": true,
+            "samplers": true,
+            "images": true
+          },
+          "changed_clips": [
+            "attack_overhead"
+          ],
+          "track_count": 234,
+          "key_count": 211
+        }
+      },
+      "clips": {
+        "veteran_body.glb": {
+          "candidate": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "8a10be2551c3ec157bf9b5731738b2a44cac3e4b53d70b7ae62b61da11629952",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          },
+          "old": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "7518aa7f4f975d97906c0d9030a25c09bf3f7c392a1c5450b922b34b57f8244d",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          }
+        },
+        "veteran_prepared_png.glb": {
+          "candidate": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "8a10be2551c3ec157bf9b5731738b2a44cac3e4b53d70b7ae62b61da11629952",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          },
+          "old": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "7518aa7f4f975d97906c0d9030a25c09bf3f7c392a1c5450b922b34b57f8244d",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          }
+        },
+        "veteran.glb": {
+          "candidate": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "8a10be2551c3ec157bf9b5731738b2a44cac3e4b53d70b7ae62b61da11629952",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          },
+          "old": {
+            "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
+            "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
+            "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
+            "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
+            "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
+            "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
+            "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
+            "attack_overhead": "7518aa7f4f975d97906c0d9030a25c09bf3f7c392a1c5450b922b34b57f8244d",
+            "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
+            "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+          }
+        }
+      },
+      "prepared_png_encoded": {
+        "non_image_json_semantics_identical": true,
+        "non_image_bufferViews_byte_identical": 2521,
+        "scope": "PNG versus KTX image payloads intentionally differ; PNG payload unchanged versus same-target old PNG is checked separately"
+      },
+      "overhead_phase_contract": {
+        "source_phase_seconds": [
+          0.0,
+          0.65,
+          0.8333333333333334,
+          1.0333333333333334,
+          1.75
+        ],
+        "runtime_phase_nanos": [
+          650000000,
+          183333333,
+          200000000,
+          716666667
+        ],
+        "contact_source_seconds": 1.0,
+        "source_range_seconds": [
+          0.0,
+          1.75
+        ]
+      },
+      "actual_assembled_target_checks": {
+        "frames": [
+          {
+            "source_seconds": 0.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.2,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.68,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.8333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 0.9667,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.0333333333333334,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.15,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.27,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.34,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.4,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.42,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.5,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.55,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          },
+          {
+            "source_seconds": 1.75,
+            "steel_fullbody_intersections": [],
+            "nonadjacent_region_triangle_pairs": {
+              "R_forearm__head": 0,
+              "R_forearm__chest": 0,
+              "R_hand__head": 0,
+              "R_hand__chest": 0,
+              "L_forearm__head": 0,
+              "L_forearm__chest": 0,
+              "L_hand__head": 0,
+              "L_hand__chest": 0
+            },
+            "nonadjacent_intersection_details": []
+          }
+        ],
+        "body_primitive_indices": [
+          0
+        ],
+        "body_triangle_count": 25113,
+        "region_triangle_counts": {
+          "head": 1324,
+          "chest": 2876,
+          "R_forearm": 701,
+          "R_hand": 1018,
+          "L_forearm": 938,
+          "L_hand": 942
+        }
+      },
+      "renders": {
+        "prepared_png_path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/veteran_prepared_png.glb",
+        "prepared_png_sha256": "9993a325a8a20c67ab3c2ea8a9812485bade884269ebbdbb9a933c105572e758",
+        "size": 480,
+        "samples": 2,
+        "render_threads": 2,
+        "threads_mode": "FIXED",
+        "camera_contract": {
+          "schema_version": 1,
+          "projection": "perspective",
+          "vertical_fov_degrees": 70.0,
+          "horizontal_standoff_metres": 2.75,
+          "eye_height_metres": 1.62,
+          "aim_height_metres": 1.62,
+          "viewport_aspect": 1.0,
+          "camera_shift_xy": [
+            0.0,
+            0.0
+          ],
+          "actor_transform_policy": "unchanged imported source; no recenter, carrier, or lift",
+          "floor_blender_z": -0.028000101447105408,
+          "views": {
+            "three_quarter": {
+              "azimuth_degrees": -45,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -1.9445436482630054,
+                1.62,
+                1.9445436482630059
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            },
+            "side": {
+              "azimuth_degrees": -90,
+              "actor_side": "weapon side / glTF-X",
+              "location_gltf": [
+                -2.75,
+                1.62,
+                1.6838893488276108e-16
+              ],
+              "aim_gltf": [
+                0.0,
+                1.62,
+                0.0
+              ]
+            }
+          }
+        },
+        "actual_camera_matrix_blender": [
+          [
+            0.7071068286895752,
+            -3.374861279326069e-09,
+            -0.7071067690849304,
+            -1.9445436000823975
+          ],
+          [
+            -0.7071067690849304,
+            -5.844237804808472e-08,
+            -0.7071068286895752,
+            -1.9445436000823975
+          ],
+          [
+            -3.8938612334504796e-08,
+            1.0,
+            -4.371138828673793e-08,
+            1.6200000047683716
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "frames": [
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/veteran_load_0p68.png",
+            "sha256": "923b081dc9046ec523d7a1b8d236367fad9d3a47a3e028c9da0d1b49156eb33c",
+            "source_seconds": 0.68,
+            "actual_import_action": {
+              "requested_source_seconds": 0.68,
+              "actual_action_frame": 20.400000000000002,
+              "actual_action_seconds": 0.68,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.4430419435402889,
+                -0.48237685437043165,
+                -0.032996276444996475
+              ],
+              "max": [
+                0.3497870237562625,
+                0.508327272598849,
+                2.2825147936524957
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 42918,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.3401940663399947,
+                0.044158896971679684
+              ],
+              "maximum_ndc_xy": [
+                0.6400321715738814,
+                0.6666379963860134
+              ],
+              "minimum_camera_depth_metres": 2.39276680791399
+            }
+          },
+          {
+            "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review-v5/veteran_unload_1p15.png",
+            "sha256": "286a27f3bc5b9751b80773cc5c62f0e729b669bb1ef3b240eb103acf83b02c38",
+            "source_seconds": 1.15,
+            "actual_import_action": {
+              "requested_source_seconds": 1.15,
+              "actual_action_frame": 34.5,
+              "actual_action_seconds": 1.15,
+              "owners": [
+                {
+                  "object": "Armature",
+                  "action": "attack_overhead",
+                  "slot_handle": 929201142
+                }
+              ]
+            },
+            "actual_geometry_bounds_blender": {
+              "min": [
+                -0.4906549256039293,
+                -1.0994941745548326,
+                -0.048736433512450716
+              ],
+              "max": [
+                0.3604727942992544,
+                0.23608796820323585,
+                1.482859233241328
+              ],
+              "mesh_names": [
+                "TripoBody_Mesh"
+              ]
+            },
+            "projection": {
+              "vertex_count": 42918,
+              "outside_vertex_count": 0,
+              "minimum_ndc_xy": [
+                0.4161369361093636,
+                0.03659958135544067
+              ],
+              "maximum_ndc_xy": [
+                0.7254807841370953,
+                0.4596939667215267
+              ],
+              "minimum_camera_depth_metres": 1.7465065160431934
+            }
+          }
+        ],
+        "scope": "actual target prepared PNG import and original pixels; offline Blender, not PICO; no actor recenter/scale/pose correction"
+      }
+    }
+  ],
+  "limits": [
+    "Only 16 named discrete poses per target; no continuous-time guarantee.",
+    "LBS evaluated from actual assembled target GLB; no runtime/skinned PICO readback.",
+    "Nonadjacent regions require all triangle vertices to have dominant joint within region; skin blend seams, adjacent upperarm/chest and cloth-layer self intersections are excluded.",
+    "Triangle intersections are geometric evidence, not a claim of perceptual visibility or release approval."
+  ],
+  "intersection_pose_counts": {
+    "base": 0,
+    "indigo": 0,
+    "veteran": 0
+  }
+}

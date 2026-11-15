@@ -10,14 +10,6 @@ import org.junit.Test
 class EnemyCombatStateMachineTest {
     private fun ms(value: Long) = value * 1_000_000L
 
-    private data class Timing(
-        val direction: AttackDirection,
-        val prepareMs: Long,
-        val startupMs: Long,
-        val activeMs: Long,
-        val recoveryMs: Long,
-    )
-
     private fun start(machine: EnemyCombatStateMachine, direction: AttackDirection = AttackDirection.LEFT) {
         machine.advanceBy(ms(800), true)
         assertTrue(machine.tryStartAttack(direction, true).any { it is EnemyCombatEvent.AttackStarted })
@@ -28,18 +20,12 @@ class EnemyCombatStateMachineTest {
 
     @Test
     fun allThreeAttacksFollowTheirBoundariesAndMissOnlyAfterTheActiveWindow() {
-        val timings = listOf(
-            Timing(AttackDirection.LEFT, 550, 180, 200, 600),
-            Timing(AttackDirection.RIGHT, 550, 180, 200, 600),
-            Timing(AttackDirection.OVERHEAD, 650, 250, 200, 650),
-        )
-        for (entry in timings) {
+        for (direction in AttackDirection.entries) {
             val machine = EnemyCombatStateMachine()
-            val direction = entry.direction
-            val prepare = ms(entry.prepareMs)
-            val startup = ms(entry.startupMs)
-            val active = ms(entry.activeMs)
-            val recovery = ms(entry.recoveryMs)
+            val prepare = direction.preparationNanos
+            val startup = direction.startupNanos
+            val active = direction.activeNanos
+            val recovery = direction.recoveryNanos
             start(machine, direction)
             assertEquals(prepare, machine.nanosUntilPhaseTransition)
 

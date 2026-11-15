@@ -6,22 +6,10 @@ import struct
 import numpy as np
 from mathutils import Vector
 
+from production_contract import GROUNDING_POLICY
+
 from attack_profiles import animation_tracks, hierarchy, pose_world
 from prepare_rigged_warrior import animation_signature
-
-
-GROUNDING_POLICY = {
-    'version': 2,
-    'method': 'one constant prepared +Y BoneRoot translation from target idle at source zero',
-    'target_plane_metres': -.028,
-    'region': 'body vertices with total same-side Foot/Toe skin weight greater than 0.5',
-    'canonical_clip': 'idle',
-    'canonical_source_seconds': 0.0,
-    'scope': 'idle, walk and three attacks share one target guard shift; no per-frame grounding or IK',
-    'residual_policy': 'measure keys and midpoints without modifying authored relative foot heights',
-    'runtime_entity_lift_metres': .028,
-    'runtime_entity_lift_application_count': 1,
-}
 
 
 def read_attribute(document, binary, index):

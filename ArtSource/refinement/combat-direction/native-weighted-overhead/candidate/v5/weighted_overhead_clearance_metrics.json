@@ -1,0 +1,145 @@
+{
+  "before": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+    "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86",
+    "bytes": 15594580
+  },
+  "after": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_prepared_png.glb",
+    "sha256": "f2b5f82cd275ab08df5df894193f46db64356d551493af8bed807d0b08d5496a",
+    "bytes": 15594580
+  },
+  "RAW": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+    "bytes": 19192620
+  },
+  "frames": [
+    {
+      "source_seconds": 1.1,
+      "previously_intersecting_forearm_vertex_indices": [
+        17466,
+        17704,
+        17705,
+        17706,
+        17991,
+        19054,
+        19888,
+        19889,
+        20557,
+        20892,
+        21660,
+        22220,
+        23244,
+        23815
+      ],
+      "before_local_nearest_chest_signed_distance_metres_bounds": [
+        -0.002816117393279098,
+        0.015227229970665935
+      ],
+      "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+        -0.0024953655941158718,
+        0.01755364493953718
+      ],
+      "actual_veteran_joint_origin_delta_metres": {
+        "L_Upperarm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "L_Forearm": [
+          -0.010959893465042114,
+          -0.002681910991668701,
+          0.029087111353874207
+        ],
+        "L_Hand": [
+          -0.00012351572513580322,
+          0.001668691635131836,
+          -0.000697702169418335
+        ],
+        "Head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "R_Hand": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "world_L_hand_rotation_delta_degrees": 0.0,
+      "depth_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence."
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "previously_intersecting_forearm_vertex_indices": [
+        17466,
+        17704,
+        17705,
+        17706,
+        17990,
+        17991,
+        18331,
+        19054,
+        19888,
+        19889,
+        20557,
+        20890,
+        20891,
+        20892,
+        21115,
+        21117,
+        21660,
+        22220,
+        23244,
+        23558,
+        23559,
+        23815,
+        24785
+      ],
+      "before_local_nearest_chest_signed_distance_metres_bounds": [
+        -0.009326236976800146,
+        0.01584798130432689
+      ],
+      "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+        0.009404542044164375,
+        0.033518545556860076
+      ],
+      "actual_veteran_joint_origin_delta_metres": {
+        "L_Upperarm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "L_Forearm": [
+          0.01658305525779724,
+          0.01897728443145752,
+          -0.018385503441095352
+        ],
+        "L_Hand": [
+          0.000994458794593811,
+          -0.002227783203125,
+          -0.0008376091718673706
+        ],
+        "Head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "R_Hand": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "world_L_hand_rotation_delta_degrees": 0.0,
+      "depth_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence."
+    }
+  ],
+  "source": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/verify_clearance_metrics.py",
+    "sha256": "3892b15e34d2fbf444024db05c76427672191751fc2ef2df6a2aa364adb149d0",
+    "bytes": 2943
+  }
+}

@@ -2,7 +2,20 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-## 当前开发整合：真实刀刀接触＋入口构造
+## 当前开发节点：全身上劈v5、共同握点与真实换手（2026-11-15）
+
+本轮正式source bank为`713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a`，APK SHA256 `498c9fc325cd50e52f7da14147f4961210c60382c367cf5d8441092929b3a2a7`，220424428 B。全Gradle构建与**436项单元测试通过，0失败／错误／跳过**；当前manifest完整binding及Root receipt校验、typed精确检查通过。该结果覆盖本次完整代码／资产组合，旧v9证据继续只属旧包。
+
+- 新overhead v5保78骨／234轨／211键120Hz，修右手碰头及两处左臂碰胸；三个实际target共48指定姿态未检出声明范围钢／身体或非邻接核心交叉，Root已看六图。它是有限源检查，不证明连续时刻或所有衣料。
+- 旧cue中点折速与cue恢复路径删除；逐方向source／runtime同契约，OH总1.75s，cue只为制作元数据。LEFT／RIGHT原始动作不变。
+- 新左手`d8e9c3cb…`与删除旧腕部C补偿同次整合，闭握拇指11mm穿柄／薄片已去除；实际DAO只余两个约.093mm食指浅点，无新增自交。继承109对指间表面交叉、腕口／掌背粗糙及开中态旧侵入不隐去，整体手部品质仍未通过。
+- 原生准备页左／右入口经真实buffer→reducer→Arena；Root实际点LEFT后先撤旧观察，再收新侧并显示左持，随后RIGHT及Start通过。换手失败不锁存／不延期，战斗／倒计时禁切。
+
+[准备态](../ArtSource/refinement/presentation/native-grip-motion-ready-2026-11-15.png)、[实际左持](../ArtSource/refinement/presentation/native-grip-motion-left-2026-11-15.png)、[26秒原生连续接触片](../ArtSource/refinement/presentation/native-grip-motion-contact-2026-11-15.mp4)、[第二轮](../ArtSource/refinement/presentation/native-grip-motion-round2-2026-11-15.png)、[真实Retry返回准备态](../ArtSource/refinement/presentation/native-grip-motion-retry-2026-11-15.png)和[身份／边界](../ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json)。均来自本次实际PICO Emulator，使用系统原生鼠标／键盘事件进入模拟器、SDK_NATIVE provider与共用判定，未注入应用状态。观察到BLOCK／SOFT_HIT／PLAYER_HIT及对应反馈消费。Controller模式移动为每次按键约1cm，已记录真实双手摆位；不能用日志“发送成功”代替SDK轨迹。
+
+**新APK完整三轮胜利仍未通过。** 当前真实流程已击败首人、进入第二轮，并经历超时／玩家失败及UI Retry。第二次固定鼠标轨迹只产生格挡和受伤，不能把未通关录像说成成品。PARRY、HMD闪避、蓄力／处决、音画／触觉同步、持续拼刀的自然卸力以及Space Pro性能／热量／舒适度仍待验证。Metallic刀面偏黑、人物／肩甲整体细度未达目标品质；solid-shoulder V2因266 REST自交及外表见证退回，未进入正式Boss。
+
+## 上一开发节点：真实刀刀接触＋入口构造（8ac1a78）
 
 2026-11-13，用户确认本轮反手、挥刀卡顿和拼刀无交互发生在PICO Emulator原生版。当前源码已移除按ACTIVE中点自动裁决的防御，双方刀与身体比较最早连续接触；钢先接触才可招架，玩家手与刀消费同一约束后Grip，敌人使用同一实际clip/source卸力。持续顶刀只停止物理运动，规则时钟与攻击就绪继续推进。胶囊代理与离散动作数据仍有误差，不宣称真实三角面接触或完整物理模拟。
 
@@ -58,13 +71,13 @@ Boss外贴平甲候选因观感变平、guard/举臂存在339/443三角交叉对
 
 | 当前正式运行资产 | SHA-256 |
 | --- | --- |
-| base | `6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24` |
-| indigo | `27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df` |
-| veteran | `6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2` |
+| base | `f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd` |
+| indigo | `cce030fc4dc37f33c7300fb953d98b7d9a641b5deec8b60f384928d5c116e593` |
+| veteran | `803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed` |
 | dao_grip | `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0` |
 | courtyard（当前开发资源） | `96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d` |
 | right_hand | `3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0` |
-| left_hand | `cf3203e0ed8e09f279405014c53906f0f457b6a73ebeebea49749d60cd8de541` |
+| left_hand | `d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd` |
 
 三角色的78骨、10clip、KTX2/mips、同源守势/六步行走/三攻击仍保留。本轮v9已通过唯一producer重导，typed/profile/三角色binding为365578…；此前HIT阶段未改运行GLB的事实仅属于旧公开包。离线青衫约18mm、玄甲约14mm足底残余、身体拟合约49mm仍未关闭；不扩大判定体掩盖。`turn`资源尚无实际运行编排，湿布/闪避近地/落地无真实witness，当前已移除无caller入口与无用预载；源资产保留，不按文件存在认定可用。
 

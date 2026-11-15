@@ -1,0 +1,263 @@
+{
+  "status": "complete_two_time_local_visual_comparison",
+  "created_utc8": "2026-11-15T14:04:06.638941+08:00",
+  "target": "actual veteran v4 before / final v5 after",
+  "camera": {
+    "projection": "perspective",
+    "eye_height_metres": 1.62,
+    "aim_height_metres": 0.94,
+    "horizontal_standoff_metres": 1.0,
+    "azimuth_degrees": 55.0,
+    "vertical_fov_degrees": 52.0,
+    "aim_gltf": [
+      0.14,
+      0.94,
+      0.16
+    ],
+    "scope": "local left-elbow/waist diagnosis; actor-left camera; original materials, actor and grip unchanged",
+    "location_gltf": [
+      0.9591520442889918,
+      1.62,
+      0.7335764363510461
+    ],
+    "matrix_world_blender": [
+      [
+        0.5735762715339661,
+        -0.4606173634529114,
+        0.6773787140846252,
+        0.9591520428657532
+      ],
+      [
+        0.8191521763801575,
+        0.32252755761146545,
+        -0.47430548071861267,
+        -0.7335764169692993
+      ],
+      [
+        3.104804235931624e-08,
+        0.8269266486167908,
+        0.5623098611831665,
+        1.6200000047683716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "actual_vertical_fov_degrees": 51.999999170302104,
+    "optical_axis_pitch_degrees": -34.21570213243741
+  },
+  "all_four_frames_same_camera": true,
+  "final_RAW": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+    "bytes": 19192620
+  },
+  "final_authoring": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_authoring.json",
+    "sha256": "6056fddca9407c882fba1a12e2d67b4a0ce4983c7d5511bc00ecca9a0fc07380",
+    "bytes": 996031
+  },
+  "proofs": {
+    "primary": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_verification.json",
+      "sha256": "a8949d67da732549e08e980808fb7a88843eed586f9c3ec5da65cf2fc39a216a"
+    },
+    "source_finite": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_source_finite_verification.json",
+      "sha256": "addbf124d1b08e14dd2af7ac1bde60932892827d0516bbca510fee04381a8e2f"
+    },
+    "clearance": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_clearance_metrics.json",
+      "sha256": "21ec72a147642887a1594904c043dc84a63f231d72ee3503bf028f558a43e12d"
+    },
+    "motion_steps": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_motion_steps.json",
+      "sha256": "6d06ea82c424f5b61009cda9afb765bf720775d5162b8aaee330df3c58d5e661"
+    },
+    "source_finite_executed": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_source_finite_verification_executed.json",
+      "sha256": "6042da2f8d58240bf35c9022e9dcc77442d4b8476087f34089f11d1edc540edb"
+    }
+  },
+  "renders": [
+    {
+      "source_seconds": 1.1,
+      "before": {
+        "manifest": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/before_1100_manifest.json",
+          "sha256": "d6abffe078e33395bdcf08eb7d718ad2734e534c8988c4e88bf6c7490ee1d0d0"
+        },
+        "raw": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1100.png",
+          "sha256": "5b4ad21d241f5197119cad1b71534282b904235b80edd45f40675aaf05694d27"
+        },
+        "labeled": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1100_labeled.png",
+          "sha256": "c87aefba06758ee346cac56ef4b4926e100ff551d60099c667554366d3bd1716"
+        },
+        "actual_target": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+          "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+        },
+        "image_written_utc8": "2026-11-15T13:39:08.394271+08:00",
+        "triangle_pairs": 21
+      },
+      "after": {
+        "manifest": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/after_1100_manifest.json",
+          "sha256": "3c007d2e33b3907c6d4cbaa5f9be608c29507c97869ccbb3601258701a9c1764"
+        },
+        "raw": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_after_source_1100.png",
+          "sha256": "5da8093f87c388b5374a7deb10a0e8aae071b8cd0fac722cea080b582a52e7f4"
+        },
+        "labeled": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_after_source_1100_labeled.png",
+          "sha256": "5d2e1f9e38932d760ea4153ace2cb1c4917f8597fdc750349600d66e842eff03"
+        },
+        "actual_target": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_prepared_png.glb",
+          "sha256": "f2b5f82cd275ab08df5df894193f46db64356d551493af8bed807d0b08d5496a"
+        },
+        "image_written_utc8": "2026-11-15T14:02:31.816401+08:00",
+        "triangle_pairs": 0
+      },
+      "same_camera": true,
+      "same_actor_matrix": true,
+      "same_actual_action_seconds": true,
+      "actual_target_joint_or_blade_origin_delta_metres": {
+        "Head": 0.0,
+        "R_Hand": 0.0,
+        "L_Hand": 0.0018129011144244018,
+        "Blade_Base": 0.0,
+        "Blade_Tip": 0.0
+      },
+      "same_veteran_static_checks": {
+        "nodes": true,
+        "scenes": true,
+        "meshes": true,
+        "skins": true,
+        "materials": true,
+        "textures": true,
+        "samplers": true,
+        "images": true
+      },
+      "local_nearest_open_surface_signed_distances": {
+        "before_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.002816117393279098,
+          0.015227229970665935
+        ],
+        "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.0024953655941158718,
+          0.01755364493953718
+        ]
+      },
+      "signed_distance_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence.",
+      "pair_image": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_source_1100_before_after.png",
+        "sha256": "3c8a570fab49ba3e0378ab8009747ae2cd9eab59309494d6a2ae63ed7c50b021"
+      }
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "before": {
+        "manifest": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/before_1467_manifest.json",
+          "sha256": "62c8299584b351c924a489f235beccd487dec252b2deb4453a5e1c9d1b3c7b8c"
+        },
+        "raw": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1467.png",
+          "sha256": "4c7ecf71c61b10dc98bc677145ad8f1c29c9b6e1ed33b76d464abc25e0726b61"
+        },
+        "labeled": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1467_labeled.png",
+          "sha256": "7c0510632f550d6f03648e61fa36fba257ba850217876f7b20a3ab2dc5783ab7"
+        },
+        "actual_target": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+          "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+        },
+        "image_written_utc8": "2026-11-15T13:39:13.656073+08:00",
+        "triangle_pairs": 23
+      },
+      "after": {
+        "manifest": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/after_1467_manifest.json",
+          "sha256": "cc93261e29063795b693c6ceb4f50940874cbf2c267617288edee3280971f871"
+        },
+        "raw": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_after_source_1467.png",
+          "sha256": "36b50ee0a165fe40a7b7d22c3672e42b7084ab1b229538b39918cb37ede3ec92"
+        },
+        "labeled": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_after_source_1467_labeled.png",
+          "sha256": "253b0ff933d0ce2bcb08ddd2b547d712b755e9d4dea3f33ea3e10799c02151a3"
+        },
+        "actual_target": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_prepared_png.glb",
+          "sha256": "f2b5f82cd275ab08df5df894193f46db64356d551493af8bed807d0b08d5496a"
+        },
+        "image_written_utc8": "2026-11-15T14:02:36.592151+08:00",
+        "triangle_pairs": 0
+      },
+      "same_camera": true,
+      "same_actor_matrix": true,
+      "same_actual_action_seconds": true,
+      "actual_target_joint_or_blade_origin_delta_metres": {
+        "Head": 0.0,
+        "R_Hand": 0.0,
+        "L_Hand": 0.0025793832074248783,
+        "Blade_Base": 0.0,
+        "Blade_Tip": 0.0
+      },
+      "same_veteran_static_checks": {
+        "nodes": true,
+        "scenes": true,
+        "meshes": true,
+        "skins": true,
+        "materials": true,
+        "textures": true,
+        "samplers": true,
+        "images": true
+      },
+      "local_nearest_open_surface_signed_distances": {
+        "before_local_nearest_chest_signed_distance_metres_bounds": [
+          -0.009326236976800146,
+          0.01584798130432689
+        ],
+        "after_same_vertices_local_nearest_chest_signed_distance_metres_bounds": [
+          0.009404542044164375,
+          0.033518545556860076
+        ]
+      },
+      "signed_distance_interpretation": "Local nearest triangle normal signed distances on open semantic core surface, not closed body volume. Positive means outward along that local surface normal; actual pixels and intersections are independent evidence.",
+      "pair_image": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_source_1467_before_after.png",
+        "sha256": "66e4202aeb64ecc77dc2e789e744cdd8f2f1b1c6049eea0a9797c42a439690fe"
+      }
+    }
+  ],
+  "board": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_two_fault_times_before_after.png",
+    "sha256": "543d342a50993b5d20caca2dd34d6f2f5a52c46b2609ce53fc1873533dba66a3"
+  },
+  "visibility_assessment": {
+    "observation": "In this fixed close view the elbow guard shifts slightly forward/outward away from the waist contact area. Both before views already retain continuous-looking outer armor and waist outlines; no distinct new open hole is apparent after.",
+    "limitation": "This is local near-field evidence, not proof of a severe visible defect before or broad visual improvement. Zero tested triangle pairs is not a closed-volume depth claim: source1.1 minimum local open-surface signed distance remains about -2.50mm.",
+    "occlusion": "Exact hidden inner-face exposure was not quantified; no auxiliary triangle view was rendered."
+  },
+  "motion_evidence_scope": "The two stills show the final fixed-direction peak poses only. Between-key swivel-step evidence comes from the separately pinned motion report, not these stills. Inherited source motion and RAW guard-sign exceptions are not claimed removed.",
+  "scope": "Only two source times, one fixed actor-left+X/+Z camera, original materials, no actor/head/right-grip edits by renderer, no movie or extra diagnostic views. Before images retained unchanged; final after rerendered from f2b5f82 actual target.",
+  "source_finite_documentation_correction": {
+    "corrected_method": "In memory only: frozen immutable v3 base prepared mesh/skin/normalization/actual mounted weapon; replace all six local arm rotation streams from final v5 RAW: inherited v4 R_Upperarm/R_Forearm/R_Hand plus the present v5 L_Upperarm/L_Forearm/L_Hand. Preserve original base target finger calibration and canonical root shift bytes. No retarget and no emitted base model.",
+    "changed_top_level_fields": [
+      "method",
+      "documentation_only_addendum"
+    ],
+    "numerical_and_geometry_fields_identical_to_executed": true,
+    "note": "Method wording corrected to six actual arm rotation streams: inherited v4 right arm plus v5 left arm. Original executed numerical report preserved separately. No code, target geometry, numerical scan, image or camera change."
+  }
+}

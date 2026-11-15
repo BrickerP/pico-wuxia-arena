@@ -1,0 +1,98 @@
+{
+  "status": "baseline_two_time_natural_surface_review_only",
+  "camera_identical_for_both_times": true,
+  "camera": {
+    "projection": "perspective",
+    "eye_height_metres": 1.62,
+    "aim_height_metres": 0.94,
+    "horizontal_standoff_metres": 1.0,
+    "azimuth_degrees": 55.0,
+    "vertical_fov_degrees": 52.0,
+    "aim_gltf": [
+      0.14,
+      0.94,
+      0.16
+    ],
+    "scope": "local left-elbow/waist diagnosis; actor-left camera; original materials, actor and grip unchanged",
+    "location_gltf": [
+      0.9591520442889918,
+      1.62,
+      0.7335764363510461
+    ],
+    "matrix_world_blender": [
+      [
+        0.5735762715339661,
+        -0.4606173634529114,
+        0.6773787140846252,
+        0.9591520428657532
+      ],
+      [
+        0.8191521763801575,
+        0.32252755761146545,
+        -0.47430548071861267,
+        -0.7335764169692993
+      ],
+      [
+        3.104804235931624e-08,
+        0.8269266486167908,
+        0.5623098611831665,
+        1.6200000047683716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "actual_vertical_fov_degrees": 51.999999170302104,
+    "optical_axis_pitch_degrees": -34.21570213243741
+  },
+  "renders": [
+    {
+      "source_seconds": 1.1,
+      "raw": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1100.png",
+        "sha256": "5b4ad21d241f5197119cad1b71534282b904235b80edd45f40675aaf05694d27"
+      },
+      "labeled": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1100_labeled.png",
+        "sha256": "c87aefba06758ee346cac56ef4b4926e100ff551d60099c667554366d3bd1716"
+      },
+      "asset": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+        "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+      },
+      "region_triangle_pairs": 21
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "raw": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1467.png",
+        "sha256": "4c7ecf71c61b10dc98bc677145ad8f1c29c9b6e1ed33b76d464abc25e0726b61"
+      },
+      "labeled": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1467_labeled.png",
+        "sha256": "7c0510632f550d6f03648e61fa36fba257ba850217876f7b20a3ab2dc5783ab7"
+      },
+      "asset": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+        "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+      },
+      "region_triangle_pairs": 23
+    }
+  ],
+  "board": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_two_fault_times.png",
+    "sha256": "21bf517e48f51c43710146ebddd84b3fa6380dc8e17d054641779a2119c1c4de"
+  },
+  "fault_source": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/veteran_v4_defect_reproduction.json",
+    "sha256": "3c714ce5b97cde0ebe785f0f819ae83c37d62940d841e09003982ac1e8ea613c"
+  },
+  "visibility_assessment": {
+    "visible_observation": "No distinct open cut or waist-side silhouette break is apparent in this fixed close view. Elbow armor and waist-side layers remain visually continuous.",
+    "scope": "The intersecting faces are near-elbow sleeve/armor and Waist-weighted torso surfaces. Exact inner-face exposure/occlusion is not quantified by these natural-material images; triangle counts alone do not establish visible severity."
+  },
+  "scope": "Exactly two stills at source1.1 and22/15 from one fixed actor-left+X/+Z camera; target, actor, head, grip and materials unchanged. No auxiliary triangle render or movie."
+}

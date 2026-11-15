@@ -183,7 +183,11 @@ class IncomingBladeContactTest {
         fun seek(condition: (ArenaViewState) -> Boolean) {
             repeat(500) {
                 if (condition(session.viewState)) return
-                tick(25_000_000L)
+                // Reach each phase boundary exactly. A fixed 25ms step can skip the
+                // first incoming steel crossing before the fixture raises its guard.
+                val untilTransition = session.viewState.phaseRemainingNanos?.coerceAtLeast(1L)
+                    ?: 25_000_000L
+                tick(minOf(25_000_000L, untilTransition))
             }
             throw AssertionError("Expected existing attack phase/event was not reached")
         }

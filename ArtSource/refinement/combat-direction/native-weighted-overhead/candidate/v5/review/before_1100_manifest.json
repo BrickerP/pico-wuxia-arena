@@ -1,0 +1,253 @@
+{
+  "status": "complete",
+  "target": "veteran",
+  "stage": "before",
+  "clip": "attack_overhead",
+  "source_seconds": 1.1,
+  "inputs": {
+    "asset": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+      "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+    },
+    "actual_veteran_before": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+      "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+    },
+    "renderer": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/render_target_fault.py",
+      "sha256": "f2d7ee451b7ab01fe5c83c132811052cf95593d7b40fbd0c8bffac6ac1d6f39a"
+    },
+    "reused_renderer": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/render_weighted_overhead.py",
+      "sha256": "f527c65fb5d83ab7d942cdb09a51f6f63e4d66edec478e0387a0803132a1e3af"
+    },
+    "review_geometry": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review_candidate.py",
+      "sha256": "6048f9f47d9b02c2fb7e342b3e7cee1c61c61786c8920d0da7c4e8e957745c6c"
+    }
+  },
+  "static_same_veteran_checks": {
+    "nodes": true,
+    "scenes": true,
+    "meshes": true,
+    "skins": true,
+    "materials": true,
+    "textures": true,
+    "samplers": true,
+    "images": true
+  },
+  "camera": {
+    "projection": "perspective",
+    "eye_height_metres": 1.62,
+    "aim_height_metres": 0.94,
+    "horizontal_standoff_metres": 1.0,
+    "azimuth_degrees": 55.0,
+    "vertical_fov_degrees": 52.0,
+    "aim_gltf": [
+      0.14,
+      0.94,
+      0.16
+    ],
+    "scope": "local left-elbow/waist diagnosis; actor-left camera; original materials, actor and grip unchanged",
+    "location_gltf": [
+      0.9591520442889918,
+      1.62,
+      0.7335764363510461
+    ],
+    "matrix_world_blender": [
+      [
+        0.5735762715339661,
+        -0.4606173634529114,
+        0.6773787140846252,
+        0.9591520428657532
+      ],
+      [
+        0.8191521763801575,
+        0.32252755761146545,
+        -0.47430548071861267,
+        -0.7335764169692993
+      ],
+      [
+        3.104804235931624e-08,
+        0.8269266486167908,
+        0.5623098611831665,
+        1.6200000047683716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "actual_vertical_fov_degrees": 51.999999170302104,
+    "optical_axis_pitch_degrees": -34.21570213243741
+  },
+  "actor_world_matrix_blender": [
+    [
+      -2.4393236230935145e-07,
+      1.8155288696289062,
+      0.0,
+      5.4016709327697754e-08
+    ],
+    [
+      -1.8155288696289062,
+      -2.4393236230935145e-07,
+      0.0,
+      2.0605511963367462e-08
+    ],
+    [
+      0.0,
+      0.0,
+      1.8155286312103271,
+      1.6232090160883672e-07
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "source_evaluation": {
+    "requested_source_seconds": 1.1,
+    "actual_action_frame": 33.0,
+    "actual_action_seconds": 1.1,
+    "owners": [
+      {
+        "object": "Armature",
+        "action": "attack_overhead",
+        "slot_handle": 929201142
+      }
+    ]
+  },
+  "anchors_gltf_metres": {
+    "Head": [
+      -0.06482711434364319,
+      1.2426739931106567,
+      0.39659953117370605
+    ],
+    "Hip": [
+      0.019114237278699875,
+      0.7549023032188416,
+      0.100018709897995
+    ],
+    "R_Hand": [
+      -0.1929161697626114,
+      0.9907228350639343,
+      0.30497416853904724
+    ],
+    "L_Hand": [
+      0.20486649870872498,
+      1.1524542570114136,
+      0.2688133120536804
+    ],
+    "R_Foot": [
+      -0.17899511754512787,
+      0.15855105221271515,
+      -0.15775097906589508
+    ],
+    "L_Foot": [
+      0.18720582127571106,
+      0.1680385172367096,
+      0.06907683610916138
+    ],
+    "Blade_Base": [
+      -0.23038028180599213,
+      0.9924806356430054,
+      0.47093215584754944
+    ],
+    "Blade_Tip": [
+      -0.2449304610490799,
+      0.6760133504867554,
+      1.1182421445846558
+    ]
+  },
+  "anchor_projections": {
+    "Head": {
+      "ndc": [
+        0.20052868127822876,
+        0.7581346035003662,
+        1.0656260251998901
+      ],
+      "in_frame": true
+    },
+    "Hip": {
+      "ndc": [
+        0.4854525923728943,
+        0.44381073117256165,
+        1.4237146377563477
+      ],
+      "in_frame": true
+    },
+    "R_Hand": {
+      "ndc": [
+        0.26262232661247253,
+        0.6138436198234558,
+        1.3375238180160522
+      ],
+      "in_frame": true
+    },
+    "L_Hand": {
+      "ndc": [
+        0.44645920395851135,
+        0.6141471266746521,
+        0.9942823648452759
+      ],
+      "in_frame": true
+    },
+    "R_Foot": {
+      "ndc": [
+        0.5393267273902893,
+        0.2981832027435303,
+        2.01550555229187
+      ],
+      "in_frame": true
+    },
+    "L_Foot": {
+      "ndc": [
+        0.5629246234893799,
+        0.10916987806558609,
+        1.6545281410217285
+      ],
+      "in_frame": true
+    },
+    "Blade_Base": {
+      "ndc": [
+        0.12679851055145264,
+        0.5908488035202026,
+        1.2831979990005493
+      ],
+      "in_frame": true
+    },
+    "Blade_Tip": {
+      "ndc": [
+        -0.3857760727405548,
+        0.1917000710964203,
+        1.163983941078186
+      ],
+      "in_frame": false
+    }
+  },
+  "actual_geometry_projection": {
+    "vertex_count": 42918,
+    "outside_vertex_count": 4747,
+    "minimum_ndc_xy": [
+      -0.3876918990736681,
+      -0.05379541799066445
+    ],
+    "maximum_ndc_xy": [
+      0.6378325496592855,
+      1.07122546678649
+    ],
+    "minimum_camera_depth_metres": 0.88521900617806
+  },
+  "actual_geometry_mesh_names": [
+    "TripoBody_Mesh"
+  ],
+  "scope": "One fixed local diagnostic camera; all actual target geometry, no actor, grip, or time modification; full body, head and blade may lie outside this elbow/waist crop.",
+  "image": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_before_source_1100.png",
+    "sha256": "5b4ad21d241f5197119cad1b71534282b904235b80edd45f40675aaf05694d27"
+  }
+}

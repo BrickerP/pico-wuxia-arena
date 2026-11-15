@@ -68,9 +68,7 @@ class TrackingPipelineRegressionTest {
         assertFalse(buffer.offerControllers(InputOrigin.PICO, left, right))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
-        assertThrows(IllegalStateException::class.java) {
-            buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
-        }
+        assertFalse(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
 
         val first = buffer.drain()
         assertEquals(2L, first.droppedEvents)
@@ -86,13 +84,15 @@ class TrackingPipelineRegressionTest {
         accept(state, first)
         assertFalse(state.snapshot.hasRequiredObservations)
 
-        // A pose arriving before the rejected hand-change is retried must not pass it.
-        assertFalse(buffer.offerHead(InputOrigin.PICO, head))
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        // The rejected selection is not a barrier. Tracking can resume on the actual old side.
+        assertTrue(buffer.offerHead(InputOrigin.PICO, head))
+        accept(state, buffer.drain())
+        assertEquals(Hand.RIGHT, state.snapshot.dominantHand)
+        // Only a new successful request changes the side; its sources must still be fresh.
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         val retry = buffer.drain()
-        assertEquals(1L, retry.droppedEvents)
-        assertEquals(DiscontinuityReason.QUEUE_GAP, (retry.events[0] as TrackingEvent.Discontinuity).reason)
-        assertEquals(Hand.LEFT, (retry.events[1] as TrackingEvent.DominantHandChanged).hand)
+        assertEquals(0L, retry.droppedEvents)
+        assertEquals(Hand.LEFT, (retry.events.single() as TrackingEvent.DominantHandChanged).hand)
         accept(state, retry)
         assertEquals(Hand.LEFT, state.snapshot.dominantHand)
         assertFalse(state.snapshot.hasRequiredObservations)

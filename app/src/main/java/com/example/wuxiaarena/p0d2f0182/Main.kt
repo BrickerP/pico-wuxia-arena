@@ -93,6 +93,7 @@ fun mainApp(scope: SpatialAppScope) =
 
                 ObserveTracking(
                     onEvent = arena::onTrackingEvent,
+                    canChangeDominantHand = { arena.viewState.result == TrialResult.READY },
                     onControlsChanged = { controls ->
                         trackingControls.value = controls
                         if (controls == null) pendingControl.value = null
@@ -119,12 +120,24 @@ fun mainApp(scope: SpatialAppScope) =
                             isRanchuHost = Build.HARDWARE == "ranchu",
                             onStart = {
                                 val before = arena.viewState
-                                val accepted = arena.startTrial()
+                                val accepted = trackingControls.value != null && pendingControl.value == null && arena.startTrial()
                                 Log.i("ArenaControls", "Start receipt atNanos=${System.nanoTime()} " +
                                     "generation=${before.roundGeneration} result=${before.result} " +
                                     "sceneReady=${before.sceneReady} inputReady=${before.inputReady} " +
                                     "actionReady=${before.actionReady} pause=${before.pauseReason} " +
                                     "accepted=$accepted nextResult=${arena.viewState.result}")
+                            },
+                            onSelectDominantHand = { hand ->
+                                val before = arena.viewState
+                                val result = if (before.result == TrialResult.READY &&
+                                    pendingControl.value == null && before.dominantHand != hand
+                                ) {
+                                    trackingControls.value?.changeDominantHand(hand) ?: InputControlResult.UNAVAILABLE
+                                } else {
+                                    InputControlResult.UNAVAILABLE
+                                }
+                                Log.i("ArenaControls", "Hand selection requested=$hand result=$result " +
+                                    "actualHand=${arena.viewState.dominantHand} inputReady=${arena.viewState.inputReady}")
                             },
                             onPause = {
                                 val round = viewState.value.roundGeneration

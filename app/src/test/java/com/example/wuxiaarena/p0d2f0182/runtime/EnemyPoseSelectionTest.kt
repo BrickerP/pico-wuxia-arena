@@ -71,14 +71,15 @@ class EnemyPoseSelectionTest {
     }
 
     @Test
-    fun attacksKeepTheirActualMidpointAndSuccessfulRecoveryClock() {
+    fun ordinaryAttackAndRecoverySelectTheirLinearPhaseClockWithoutContactRecovery() {
         val contact = requireNotNull(selectEnemyPose(attack, locomotion, reactions, EnemyPhase.ACTIVE,
             100_000_000L, 100_000_000L, false, false, 0.4))
         val recovery = requireNotNull(selectEnemyPose(attack, locomotion, reactions, EnemyPhase.RECOVERING,
-            0L, 600_000_000L, false, true, 0.9, recoveryFromContact = true))
+            0L, 600_000_000L, false, true, 0.9))
         assertEquals("attack_left", contact.clip)
         assertEquals(1.0, contact.pose.sourceSeconds, 0.0)
-        assertEquals(contact.pose, recovery.pose)
+        assertEquals(1.1, recovery.pose.sourceSeconds, 0.0)
+        assertEquals(attack.sample(1.1), recovery.pose)
     }
 
     @Test

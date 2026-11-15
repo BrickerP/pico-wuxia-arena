@@ -23,6 +23,8 @@ from mathutils import Matrix, Quaternion, Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+from production_contract import HAND_POLICY, LEFT_HAND_POSES, canonical_hash, production_binding
+
 from prepare_rigged_warrior import (
     HERE,
     accessor_bytes,
@@ -149,15 +151,6 @@ def require_same_rest(source, reference):
         other_parent_name = reference['nodes'][other_parent].get('name') if other_parent is not None else None
         if difference > 0.0001 or parent_name != other_parent_name:
             raise ValueError('motion or grip rest frame differs at ' + name)
-
-
-LEFT_HAND_POSES = {
-    'turn': ('loose turning guard', ((0.0, 0.20), (0.5, 0.28), (1.0, 0.20))),
-    'hit_body': ('protect the body', ((0.0, 0.18), (0.22, 0.52), (0.6, 0.32), (1.0, 0.18))),
-    'hit_head': ('open protective palm', ((0.0, 0.18), (0.22, 0.10), (0.55, 0.16), (1.0, 0.18))),
-    'hit_side': ('soft protective curl', ((0.0, 0.18), (0.22, 0.38), (0.6, 0.26), (1.0, 0.18))),
-    'fall': ('release the empty hand', ((0.0, 0.18), (0.4, 0.12), (1.0, 0.04))),
-}
 
 
 def sample_native_hands(target, grip, binary, time):
@@ -374,15 +367,9 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
 
 
 ATTACK_CLIPS = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': 'attack_right'}
-ATTACK_PHASES = {'start': 0.0, 'preparation_end': .65, 'startup_end': .90,
-                 'active_end': 1.10, 'recovery_end': 1.75, 'contact': 1.0}
 MOTION_CLIPS = {'fall', 'turn', 'hit_body', 'hit_head', 'hit_side'}
 LOCOMOTION_CLIPS = {'idle', 'walk'}
 MOVING_LEGS = {side + bone for side in ('L_', 'R_') for bone in ('Thigh', 'Calf', 'Foot')}
-HAND_POLICY = {'version': 1, 'right': 'target native grip sample, then right-only offsets once',
-               'movement_left': LEFT_HAND_POSES, 'movement_left_thumb_multiplier': .55,
-               'attack_left': 'authored dynamic source transferred by world-rest delta',
-               'locomotion_left': 'frozen canonical source transferred by world-rest delta'}
 TEXTURE_SETTINGS = {'codec': 'uastc', 'uastc_quality': 3, 'threads': 2,
                     'zstd': 18, 'mipmap_filter': 'lanczos4', 'full_mips': True,
                     'normal_mode': False, 'normalize': False, 'rdo': False,
@@ -396,11 +383,6 @@ TEXTURE_SETTINGS = {'codec': 'uastc', 'uastc_quality': 3, 'threads': 2,
 ENCODER_SHA = 'abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37'
 LIBKTX_SHA = 'bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947'
 TEXTURE_HELPER_SHA = 'ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4'
-
-
-def canonical_hash(value):
-    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
-                                     ensure_ascii=False).encode()).hexdigest()
 
 
 def inverse_bind_values(document, binary):
@@ -486,6 +468,9 @@ def encode_runtime_glb(source, output, config):
 
 def attack_source_contracts(attacks):
     """Bind each source to its pinned three-attack authoring row, including its exact grid."""
+    from attack_profiles import validate_attack_phase_contract
+    if 'phase_markers' in attacks:
+        raise ValueError('shared attack_source phase_markers are retired; each direction requires its own contract')
     authoring = attacks['authoring_manifest']
     path = HERE / authoring['source']
     if hashlib.sha256(path.read_bytes()).hexdigest() != authoring['source_sha256']:
@@ -499,7 +484,11 @@ def attack_source_contracts(attacks):
         raise ValueError('attack authoring requires exactly its three direction-specific rows')
     result = {}
     for entry in attacks['clips']:
+        markers, runtime = validate_attack_phase_contract(entry)
         row = next(row for row in rows if row['clip'] == aliases[entry['direction']])
+        authoring_markers, authoring_runtime = validate_attack_phase_contract(row)
+        if markers != authoring_markers or runtime != authoring_runtime:
+            raise ValueError('attack direction phase/runtime contract differs from its frozen authoring row: ' + entry['name'])
         raw = row['raw']
         if (raw.get('right_finger_calibration_baked') is not False or
                 raw['sha256'] != entry['source_sha256'] or
@@ -509,7 +498,7 @@ def attack_source_contracts(attacks):
         if (row['source_range_seconds'] != [0, 1.75] or
                 type(rate) is not int or rate <= 0 or type(count) is not int or count < 2 or
                 1.75 * rate != count - 1 or row['interpolation'] != 'LINEAR' or
-                row['contact_source_seconds'] != ATTACK_PHASES['contact']):
+                row['contact_source_seconds'] != markers['contact']):
             raise ValueError('attack authoring has an inconsistent 0..1.75s time contract: ' + entry['name'])
         result[entry['name']] = row
     return result
@@ -574,22 +563,6 @@ def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=
                     if not moving and any(row != values[0] for row in values):
                         raise ValueError('locomotion78 locked track varies: ' + name + '/' + path)
     return tracks
-
-
-def production_binding(manifest):
-    from attack_grounding import GROUNDING_POLICY
-    return {'schema_version': 3, 'motion_source': manifest['motion_source'],
-            'locomotion_source': manifest['locomotion_source'],
-            'body_coverage_calibration': manifest['body_coverage_calibration'],
-            'runtime_texture_encoding': manifest['runtime_texture_encoding'],
-            'player_weapon_source': manifest['player_weapon_source'],
-            'attack_source': manifest['attack_source'], 'hand_policy': HAND_POLICY,
-            'canonical_root_grounding': GROUNDING_POLICY,
-            'weapon_source': manifest['weapon_source'],
-            'characters': [{key: character.get(key) for key in
-                            ('id', 'name', 'source', 'source_sha256', 'grip_source',
-                             'height_metres', 'output', 'grip_frame', 'finger_rotation_offsets')}
-                           for character in manifest['characters']]}
 
 
 def canonical_source_evidence(sources, frozen_locomotion):
@@ -710,8 +683,6 @@ def validate_manifest(manifest):
             raise ValueError('attack actor travel side is unspecified')
         if row.get('stage') != 'authored_raw' or row.get('right_calibration_baked') is not False:
             raise ValueError('attack sources must explicitly identify unbaked authored raw curves')
-    if attacks['phase_markers'] != ATTACK_PHASES:
-        raise ValueError('attack source phase markers differ from the 1.75s source contract')
     attack_source_contracts(attacks)
     for character in characters:
         retired = {'finger_rotation_review', 'offhand_rotation_envelope', 'offhand_rotation_review'}
@@ -859,7 +830,7 @@ def build_library(manifest_path, candidate_dir=None):
                 'prepared_png_sha256': encoding['input']['sha256'],
                 'encoded_sha256': encoding['output']['sha256'], 'preservation': encoding['preservation']}
             document, binary = read_glb(model_path)
-            profiles = export_attack_profiles(document, binary, ATTACK_CLIPS, frozen_locomotion,
+            profiles = export_attack_profiles(document, binary, ATTACK_CLIPS, attack_contracts, frozen_locomotion,
                                               body_coverage[character['id']])
             profiles.update(character_id=character['id'], model_sha256=record['outputs'][-1]['sha256'],
                             directions={entry['direction']: {key: entry[key] for key in

@@ -1,0 +1,23 @@
+{
+  "status": "rejected_first_solution_due_added_elbow_direction_flip",
+  "surface_intersections": "zero at70poses, insufficient for curve quality",
+  "direction_flips": [
+    {
+      "window": 0,
+      "source_seconds": [
+        1.0750000476837158,
+        1.0833333730697632
+      ],
+      "signed_angle_step_degrees": -14.043800121328479
+    },
+    {
+      "window": 1,
+      "source_seconds": [
+        1.4416667222976685,
+        1.4500000476837158
+      ],
+      "signed_angle_step_degrees": 14.397317571801132
+    }
+  ],
+  "reason": "Per-frame surface-normal sign selection changed direction inside a nonzero8degree envelope. Final solution must use a fixed direction chosen at each fault peak."
+}

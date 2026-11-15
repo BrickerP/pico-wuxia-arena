@@ -1,0 +1,512 @@
+{
+  "contract": "Both hand roots receive finalGrip G directly; Left asset and Right/dao share Grip origin and axes.",
+  "source_right_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "reflection_S_rowmajor": [
+    [
+      -1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "outer_root": {
+    "name": "LeftGripRoot",
+    "matrix_rowmajor": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "asset_geometry": "P/N reflect X, tangent.xyz reflect X and tangent.w changes sign, triangle winding swaps last two indices",
+  "rig_and_IBM": "S * M * S; translations reflect X, proper quaternions map (x,y,z,w) to (x,-y,-z,w), positive scales unchanged",
+  "runtime_equation": "pL_world = G * S * pR_Grip; handRootL = G",
+  "runtime_migration": "Root must atomically remove previous LEFT_WRIST_FROM_GRIP and derived-marker placement. This builder does not modify Kotlin.",
+  "legacy_C_or_B_frame_in_asset": false,
+  "legacy_DerivedHandGrip_L_in_asset": false,
+  "names": [
+    {
+      "node": 0,
+      "source": "L_ToeBase",
+      "candidate": "R_ToeBase"
+    },
+    {
+      "node": 1,
+      "source": "L_Foot",
+      "candidate": "R_Foot"
+    },
+    {
+      "node": 2,
+      "source": "L_CalfTwist02",
+      "candidate": "R_CalfTwist02"
+    },
+    {
+      "node": 3,
+      "source": "L_CalfTwist01",
+      "candidate": "R_CalfTwist01"
+    },
+    {
+      "node": 4,
+      "source": "L_KneeShareBone",
+      "candidate": "R_KneeShareBone"
+    },
+    {
+      "node": 5,
+      "source": "L_Calf",
+      "candidate": "R_Calf"
+    },
+    {
+      "node": 6,
+      "source": "L_ThighTwist02",
+      "candidate": "R_ThighTwist02"
+    },
+    {
+      "node": 7,
+      "source": "L_ThighTwist01",
+      "candidate": "R_ThighTwist01"
+    },
+    {
+      "node": 8,
+      "source": "L_Thigh",
+      "candidate": "R_Thigh"
+    },
+    {
+      "node": 9,
+      "source": "R_KneeShareBone",
+      "candidate": "L_KneeShareBone"
+    },
+    {
+      "node": 10,
+      "source": "R_ToeBase",
+      "candidate": "L_ToeBase"
+    },
+    {
+      "node": 11,
+      "source": "R_Foot",
+      "candidate": "L_Foot"
+    },
+    {
+      "node": 12,
+      "source": "R_CalfTwist02",
+      "candidate": "L_CalfTwist02"
+    },
+    {
+      "node": 13,
+      "source": "R_CalfTwist01",
+      "candidate": "L_CalfTwist01"
+    },
+    {
+      "node": 14,
+      "source": "R_Calf",
+      "candidate": "L_Calf"
+    },
+    {
+      "node": 15,
+      "source": "R_ThighTwist02",
+      "candidate": "L_ThighTwist02"
+    },
+    {
+      "node": 16,
+      "source": "R_ThighTwist01",
+      "candidate": "L_ThighTwist01"
+    },
+    {
+      "node": 17,
+      "source": "R_Thigh",
+      "candidate": "L_Thigh"
+    },
+    {
+      "node": 18,
+      "source": "Pelvis",
+      "candidate": "Pelvis"
+    },
+    {
+      "node": 19,
+      "source": "R_Eye",
+      "candidate": "L_Eye"
+    },
+    {
+      "node": 20,
+      "source": "L_Eye",
+      "candidate": "R_Eye"
+    },
+    {
+      "node": 21,
+      "source": "FacialBone",
+      "candidate": "FacialBone"
+    },
+    {
+      "node": 22,
+      "source": "Head",
+      "candidate": "Head"
+    },
+    {
+      "node": 23,
+      "source": "NeckTwist02",
+      "candidate": "NeckTwist02"
+    },
+    {
+      "node": 24,
+      "source": "NeckTwist01",
+      "candidate": "NeckTwist01"
+    },
+    {
+      "node": 25,
+      "source": "L_ForearmTwist02",
+      "candidate": "R_ForearmTwist02"
+    },
+    {
+      "node": 26,
+      "source": "L_ForearmTwist01",
+      "candidate": "R_ForearmTwist01"
+    },
+    {
+      "node": 27,
+      "source": "L_ElbowShareBone",
+      "candidate": "R_ElbowShareBone"
+    },
+    {
+      "node": 28,
+      "source": "L_Pinky3",
+      "candidate": "R_Pinky3"
+    },
+    {
+      "node": 29,
+      "source": "L_Pinky2",
+      "candidate": "R_Pinky2"
+    },
+    {
+      "node": 30,
+      "source": "L_Pinky1",
+      "candidate": "R_Pinky1"
+    },
+    {
+      "node": 31,
+      "source": "L_Ring3",
+      "candidate": "R_Ring3"
+    },
+    {
+      "node": 32,
+      "source": "L_Ring2",
+      "candidate": "R_Ring2"
+    },
+    {
+      "node": 33,
+      "source": "L_Ring1",
+      "candidate": "R_Ring1"
+    },
+    {
+      "node": 34,
+      "source": "L_Mid3",
+      "candidate": "R_Mid3"
+    },
+    {
+      "node": 35,
+      "source": "L_Mid2",
+      "candidate": "R_Mid2"
+    },
+    {
+      "node": 36,
+      "source": "L_Mid1",
+      "candidate": "R_Mid1"
+    },
+    {
+      "node": 37,
+      "source": "L_Index3",
+      "candidate": "R_Index3"
+    },
+    {
+      "node": 38,
+      "source": "L_Index2",
+      "candidate": "R_Index2"
+    },
+    {
+      "node": 39,
+      "source": "L_Index1",
+      "candidate": "R_Index1"
+    },
+    {
+      "node": 40,
+      "source": "L_Thumb3",
+      "candidate": "R_Thumb3"
+    },
+    {
+      "node": 41,
+      "source": "L_Thumb2",
+      "candidate": "R_Thumb2"
+    },
+    {
+      "node": 42,
+      "source": "L_Thumb1",
+      "candidate": "R_Thumb1"
+    },
+    {
+      "node": 43,
+      "source": "L_Hand",
+      "candidate": "R_Hand"
+    },
+    {
+      "node": 44,
+      "source": "L_Forearm",
+      "candidate": "R_Forearm"
+    },
+    {
+      "node": 45,
+      "source": "L_UpperarmTwist02",
+      "candidate": "R_UpperarmTwist02"
+    },
+    {
+      "node": 46,
+      "source": "L_UpperarmTwist01",
+      "candidate": "R_UpperarmTwist01"
+    },
+    {
+      "node": 47,
+      "source": "L_Upperarm",
+      "candidate": "R_Upperarm"
+    },
+    {
+      "node": 48,
+      "source": "L_Clavicle",
+      "candidate": "R_Clavicle"
+    },
+    {
+      "node": 49,
+      "source": "R_ElbowShareBone",
+      "candidate": "L_ElbowShareBone"
+    },
+    {
+      "node": 50,
+      "source": "R_ForearmTwist02",
+      "candidate": "L_ForearmTwist02"
+    },
+    {
+      "node": 51,
+      "source": "R_ForearmTwist01",
+      "candidate": "L_ForearmTwist01"
+    },
+    {
+      "node": 52,
+      "source": "R_Ring3",
+      "candidate": "L_Ring3"
+    },
+    {
+      "node": 53,
+      "source": "R_Ring2",
+      "candidate": "L_Ring2"
+    },
+    {
+      "node": 54,
+      "source": "R_Ring1",
+      "candidate": "L_Ring1"
+    },
+    {
+      "node": 55,
+      "source": "R_Mid3",
+      "candidate": "L_Mid3"
+    },
+    {
+      "node": 56,
+      "source": "R_Mid2",
+      "candidate": "L_Mid2"
+    },
+    {
+      "node": 57,
+      "source": "R_Mid1",
+      "candidate": "L_Mid1"
+    },
+    {
+      "node": 58,
+      "source": "R_Thumb3",
+      "candidate": "L_Thumb3"
+    },
+    {
+      "node": 59,
+      "source": "R_Thumb2",
+      "candidate": "L_Thumb2"
+    },
+    {
+      "node": 60,
+      "source": "R_Thumb1",
+      "candidate": "L_Thumb1"
+    },
+    {
+      "node": 61,
+      "source": "R_Index3",
+      "candidate": "L_Index3"
+    },
+    {
+      "node": 62,
+      "source": "R_Index2",
+      "candidate": "L_Index2"
+    },
+    {
+      "node": 63,
+      "source": "R_Index1",
+      "candidate": "L_Index1"
+    },
+    {
+      "node": 64,
+      "source": "R_Pinky3",
+      "candidate": "L_Pinky3"
+    },
+    {
+      "node": 65,
+      "source": "R_Pinky2",
+      "candidate": "L_Pinky2"
+    },
+    {
+      "node": 66,
+      "source": "R_Pinky1",
+      "candidate": "L_Pinky1"
+    },
+    {
+      "node": 67,
+      "source": "R_Hand",
+      "candidate": "L_Hand"
+    },
+    {
+      "node": 68,
+      "source": "R_Forearm",
+      "candidate": "L_Forearm"
+    },
+    {
+      "node": 69,
+      "source": "R_UpperarmTwist02",
+      "candidate": "L_UpperarmTwist02"
+    },
+    {
+      "node": 70,
+      "source": "R_UpperarmTwist01",
+      "candidate": "L_UpperarmTwist01"
+    },
+    {
+      "node": 71,
+      "source": "R_Upperarm",
+      "candidate": "L_Upperarm"
+    },
+    {
+      "node": 72,
+      "source": "R_Clavicle",
+      "candidate": "L_Clavicle"
+    },
+    {
+      "node": 73,
+      "source": "Spine02",
+      "candidate": "Spine02"
+    },
+    {
+      "node": 74,
+      "source": "Spine01",
+      "candidate": "Spine01"
+    },
+    {
+      "node": 75,
+      "source": "Waist",
+      "candidate": "Waist"
+    },
+    {
+      "node": 76,
+      "source": "Hip",
+      "candidate": "Hip"
+    },
+    {
+      "node": 77,
+      "source": "BoneRoot",
+      "candidate": "BoneRoot"
+    },
+    {
+      "node": 78,
+      "source": "TripoBody_Mesh",
+      "candidate": "TripoBody_Mesh"
+    },
+    {
+      "node": 79,
+      "source": "Armature",
+      "candidate": "Armature"
+    },
+    {
+      "node": 80,
+      "source": "TripoBody_Root",
+      "candidate": "TripoBody_Root"
+    },
+    {
+      "node": 81,
+      "source": "TripoWarrior_Root",
+      "candidate": "TripoWarrior_Root"
+    },
+    {
+      "node": 82,
+      "source": "Weapon_Root",
+      "candidate": "Weapon_Root"
+    },
+    {
+      "node": 83,
+      "source": "Grip",
+      "candidate": "Grip"
+    },
+    {
+      "node": 84,
+      "source": "Blade_Base",
+      "candidate": "Blade_Base"
+    },
+    {
+      "node": 85,
+      "source": "Blade_Tip",
+      "candidate": "Blade_Tip"
+    },
+    {
+      "node": 86,
+      "source": "HandGrip_R",
+      "candidate": "HandGrip_L"
+    },
+    {
+      "node": 87,
+      "source": "SourceHandRigidConversion",
+      "candidate": "SourceHandRigidConversion"
+    },
+    {
+      "node": 88,
+      "source": "RightGripRoot",
+      "candidate": "LeftGripRoot"
+    }
+  ]
+}

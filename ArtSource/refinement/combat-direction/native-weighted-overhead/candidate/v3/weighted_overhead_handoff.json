@@ -1,0 +1,187 @@
+{
+  "status": "source_RAW_and_authoring_ready_for_Root_visual_review",
+  "raw": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_raw.glb",
+    "sha256": "410d5b445bfd59f615a639a1eb2fb8d5bc8f4cf31e5aa541f9b4cfd84140b1c2",
+    "bytes": 19192540
+  },
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_authoring.json",
+    "sha256": "315cd0f0e9a1f0c570d10188a3a0f2bd3b977eda800a616806a2c8d8b8419ce9",
+    "bytes": 461185
+  },
+  "bounded_checks": [
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_verification.json",
+      "sha256": "c42903faaa05b4474a6427de6ee610beaff5cba5a02cb110190efeb61b3d335a",
+      "bytes": 207331
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_regions_verification.json",
+      "sha256": "7e9746e1bb270a9cea5904ff53362094375bdf7d6178c42a4fe4889245f555b8",
+      "bytes": 27752
+    }
+  ],
+  "executed_source_snapshots": [
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/source/build_weighted_overhead.py",
+      "sha256": "efef4a9a625142fa68e005e7a56755dd43c10423062a5d11115e4cb11e10cddb",
+      "bytes": 15646
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/source/verify_weighted_overhead.py",
+      "sha256": "6190375359033a56fc2c461e2d38fd9e092533f14df29ee49771edc7d9f0e9cb",
+      "bytes": 10118
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/source/verify_weighted_regions.py",
+      "sha256": "116e0fe525255008c27c52d3e7f5e9ceb09367246ad988912b0b4b6c8b117ee3",
+      "bytes": 7949
+    }
+  ],
+  "raw_import_contract": {
+    "stage": "authored_raw",
+    "right_calibration_baked": false,
+    "channels": 234,
+    "joints": 78,
+    "samples": 211,
+    "rate_hz": 120,
+    "source_range_seconds": [
+      0,
+      1.75
+    ],
+    "guard_endpoints": "exact parent-v9 original float32 TRS",
+    "R15": "exact original unbaked constant15finger TRS"
+  },
+  "private_preview": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_preview.glb",
+    "sha256": "dd0a0d4caa82f832350bac97dc5f2a6a6ec04308de7f5637a882efea9be07eaa",
+    "bytes": 54380800
+  },
+  "private_preview_is_not_RAW": true,
+  "preview_once_finger_calibration_and_once_root_shift_max_component_error": 0.0,
+  "source_checks": {
+    "actual_steel_vs_full_body_overlap_sample_count": 0,
+    "nonadjacent_forearms_hands_vs_head_chest_overlap_sample_count": 0,
+    "samples_per_check": 63,
+    "actual_shoe_sole_max_error_mm": 0.019836801627978046,
+    "actual_shoe_centre_max_motion_mm": 0.09281573440364481,
+    "bone_length_max_change_mm": 0.0003763299745014858,
+    "rejection_cases_executed": [
+      "time:nan",
+      "time:inf",
+      "time:-0.001",
+      "time:1.751",
+      "time:True",
+      "actual candidate sourceSHA mismatch",
+      "mutated actual exported guard closure"
+    ]
+  },
+  "failed_predecessors": {
+    "v1": "Actual early steel/head overlap at.20s; replaced by sagittal blade lift outside right temple.",
+    "v2": "Actual nonadjacent left forearm/chest and right hand/head overlaps during1.27\u20131.40s recovery, absent in corresponding baseline regions. Replaced by forward elbow pole and outside/forward hand recovery arc."
+  },
+  "production_authority": "Root imports complete RAW for every target, generates actual binding/contact samples and chooses runtime damage time from actual path. Private preview and source planez=.9 are not runtime identity.",
+  "formal_writes_by_this_lane": false,
+  "visual_native_acceptance": "Pending Root; no runtime/APK/device acceptance claimed.",
+  "limits": [
+    "63 discrete poses per check do not prove continuous-time clearance.",
+    "Self region check uses nonadjacent anatomical core triangles with all3 vertices dominant in the declared region; excludes blend seams and within-region clothing layers.",
+    "Root must independently judge timing/weight/intent and actual contact."
+  ],
+  "blade_direction_observation": {
+    "classification": "bounded reference-point orientation diagnostic supplied by Root; not an actual sharpened-mesh contact or face-normal measurement",
+    "raw_sha256": "410d5b445bfd59f615a639a1eb2fb8d5bc8f4cf31e5aa541f9b4cfd84140b1c2",
+    "reference_point": {
+      "weapon_source_name": "dao_refined.glb",
+      "coordinates_source_gltf": [
+        0.0364,
+        0.45,
+        0.0
+      ],
+      "identity": "Selected approximate point near the +X cutting-edge side in source glTF coordinates. It is neither an actual mesh vertex nor a triangle centroid."
+    },
+    "source_axis_definition": {
+      "width_axis": "+X",
+      "longitudinal_axis": "+Y",
+      "thickness_axis": "+Z",
+      "cutting_edge_side": "+X",
+      "edge_reference_vector": [
+        1,
+        0,
+        0
+      ],
+      "longitudinal_reference_vector": [
+        0,
+        1,
+        0
+      ],
+      "face_reference_normal": "normalize(cross(longitudinal_world, edge_world)); equivalent to source -Z. This is a constructed plane reference, not a read mesh-face normal."
+    },
+    "assembled_transform": {
+      "formula": "M(t) = normalization * RAW_RHand_world(t) * grip_local_matrix * T(0, +0.11400000005960464, 0)",
+      "actual_source_Grip_translation": [
+        0,
+        -0.11400000005960464,
+        0
+      ],
+      "Gripshift_policy": "Final +0.11400000005960464 source-Y translation cancels the actual source Grip.translation before the mount; this is included in every diagnostic point sample.",
+      "edge_world": "normalize(M(t).linear3x3 * [1,0,0])",
+      "longitudinal_world": "normalize(M(t).linear3x3 * [0,1,0])",
+      "preview_anchor_crosscheck": "After adding the canonical constant root shift, reconstructed Blade_Base differs from the existing preview dd0a0d4caa82f832350bac97dc5f2a6a6ec04308de7f5637a882efea9be07eaa rendered anchor by less than 0.7 micrometres, as checked by Root."
+    },
+    "velocity_definition": {
+      "half_step_seconds": 0.008333333333333333,
+      "formula": "v = (M(t+h)*p - M(t-h)*p)/(2*h), h=1/120 second",
+      "time_sampling": "Use direct adjacent RAW keys around round(t*120).",
+      "normalization": "edge_cosine = dot(normalize(v), edge_world); absolute_face_cosine = abs(dot(normalize(v), face_reference_normal)). Full point velocity is normalized without projection into the plane perpendicular to the blade longitudinal axis."
+    },
+    "samples": [
+      {
+        "source_seconds": 0.8333333333333334,
+        "raw_key_index": 100,
+        "edge_cosine": 0.991174,
+        "absolute_face_cosine": 0.132158
+      },
+      {
+        "source_seconds": 0.9,
+        "raw_key_index": 108,
+        "edge_cosine": 0.981611,
+        "absolute_face_cosine": 0.060127
+      },
+      {
+        "source_seconds": 0.9666666666666667,
+        "raw_key_index": 116,
+        "edge_cosine": 0.927254,
+        "absolute_face_cosine": 0.109333
+      },
+      {
+        "source_seconds": 1.0,
+        "raw_key_index": 120,
+        "edge_cosine": 0.991676,
+        "absolute_face_cosine": 0.037678
+      },
+      {
+        "source_seconds": 1.0333333333333334,
+        "raw_key_index": 124,
+        "edge_cosine": 0.992368,
+        "absolute_face_cosine": 0.09454
+      },
+      {
+        "source_seconds": 1.1,
+        "raw_key_index": 132,
+        "edge_cosine": -0.187187,
+        "absolute_face_cosine": 0.979395,
+        "point_speed_metres_per_second_approx": 1.37
+      }
+    ],
+    "bounded_interpretation": "The five main-downstroke reference samples support an edge-leading orientation. At source1.1s the decelerating post-cue follow-through is face-leading by this reference diagnostic; it does not support treating every old v9 ACTIVE instant as cutting damage.",
+    "damage_window_authority": "Root must determine the new damage window from actual assembled sharpened-mesh/target contact along the new RAW path. Do not reuse the old v9 ACTIVE interval wholesale as a damaging window.",
+    "separate_mesh_evidence": "The existing 63-pose actual-steel/body triangle scan and the separate nonadjacent body-region scan remain separate evidence. Their zero sampled overlap results do not certify sharp-edge cutting direction throughout the clip.",
+    "limits": [
+      "Approximate reference point and constructed plane axes; not actual sharpened-mesh contact geometry or contact normal.",
+      "Six bounded source-time observations, not a full continuous orientation or collision proof.",
+      "No change to RAW, authoring, verification results, or rendered assets; no v4 generation."
+    ]
+  }
+}

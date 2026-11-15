@@ -1,0 +1,153 @@
+{
+  "status": "complete_source_0p9_diagnosis_only",
+  "camera_identical": true,
+  "actor_matrix_identical": true,
+  "actual_action_seconds_identical": true,
+  "source_seconds": 0.9,
+  "camera": {
+    "projection": "perspective",
+    "eye_height_metres": 1.62,
+    "aim_height_metres": 1.62,
+    "horizontal_standoff_metres": 0.9,
+    "azimuth_degrees": -55.0,
+    "vertical_fov_degrees": 70.0,
+    "aim_gltf": [
+      -0.12,
+      1.62,
+      0.2
+    ],
+    "scope": "local upper-body diagnosis; actor-right camera; actor and grip unchanged",
+    "location_gltf": [
+      -0.8572368398600926,
+      1.62,
+      0.7162187927159416
+    ],
+    "matrix_world_blender": [
+      [
+        0.5735762715339661,
+        -1.334568224820032e-07,
+        -0.8191521763801575,
+        -0.8572368621826172
+      ],
+      [
+        -0.8191521763801575,
+        -9.344743290284896e-08,
+        -0.5735762715339661,
+        -0.7162187695503235
+      ],
+      [
+        0.0,
+        1.0,
+        -1.6292068494294654e-07,
+        1.6200000047683716
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "actual_vertical_fov_degrees": 70.0000065013869,
+    "optical_axis_pitch_degrees": 0.0
+  },
+  "veteran_static_surface_checks": {
+    "nodes": true,
+    "scenes": true,
+    "meshes": true,
+    "skins": true,
+    "materials": true,
+    "textures": true,
+    "samplers": true,
+    "images": true
+  },
+  "verification": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_verification.json",
+    "sha256": "a96206f487380c139eb5080e08bca8e0aaed90c3cdbe88abd684f5a0e4f9613a"
+  },
+  "renders": [
+    {
+      "stage": "before",
+      "raw": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_before_source_0900.png",
+        "sha256": "a44778f0c9930f2d1bd05e00081980a921942827dbacf3a6f3fff78d016aa593"
+      },
+      "labeled": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_before_source_0900_labeled.png",
+        "sha256": "630e7302808abe8e79f069b77e0ab11c5de1f40dbe903ccaaf6ebf7bfb56cc8d"
+      },
+      "actual_target": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library/veteran_prepared_png.glb",
+        "sha256": "e44ac2c334169825e95b99213b0c53d6957cb7ff3b5c10df905f7567d3ebc973"
+      },
+      "source_seconds": 0.9,
+      "R_hand__head_triangle_pairs": 4
+    },
+    {
+      "stage": "after",
+      "raw": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_after_source_0900.png",
+        "sha256": "91ed99e330ce45cf5230363f43acb0902b08d4c3deea44697330fd7089eb3d23"
+      },
+      "labeled": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_after_source_0900_labeled.png",
+        "sha256": "9f0a524309101a9163b88e12c856ce47912c5dc47a3beb388b2800e4e344aeab"
+      },
+      "actual_target": {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/veteran_prepared_png.glb",
+        "sha256": "cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86"
+      },
+      "source_seconds": 0.9,
+      "R_hand__head_triangle_pairs": 0
+    }
+  ],
+  "board": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_source_0900_before_after.png",
+    "sha256": "78e1ada5f46ddaa550ffe22e8e6ebe1b61f0e486af15b60cba97db3e7e50339c"
+  },
+  "scope": "Exactly two still renders, same fixed actor-right horizontal eye-height diagnostic camera; actual veteran before and retargeted v4 after, no base preview, no movie. Blade tip may lie outside upper-body crop.",
+  "executed_numerical_verification": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_verification_executed.json",
+    "sha256": "cbb7db650dd176640ce80cdbca29c88a72bf350adf1b8dbf1b3a8f17974edbcc"
+  },
+  "verification_documentation_only_addendum": {
+    "executed_numerical_report_file": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_verification_executed.json",
+    "executed_numerical_report_sha256": "cbb7db650dd176640ce80cdbca29c88a72bf350adf1b8dbf1b3a8f17974edbcc",
+    "RAW_target_and_numerical_results_unchanged": true,
+    "scan_rerun_for_wording": false
+  },
+  "stored_key_payload_and_LINEAR_influence_interpretation": {
+    "nominal_authoring_envelope_seconds": [
+      0.82,
+      1.0
+    ],
+    "stored_key_payload_change_indices": [
+      99,
+      119
+    ],
+    "stored_key_payload_change_times_seconds": [
+      0.824999988079071,
+      0.9916666746139526
+    ],
+    "actual_gltf_LINEAR_influence_interval_seconds": [
+      0.8166666626930237,
+      1.0
+    ],
+    "interval_definition": "Interpolated output can differ in open intervals from unchanged predecessor key98 through changed keys99\u2013119 to unchanged successor key120; the endpoint key values themselves are unchanged. In particular, t=.82 is between keys98 and99 and can already evaluate a small modified pose.",
+    "outside_comparison_scope": "The outside_source_0p82_1p0_unchanged and outside-open-window assertions compare stored key payloads at their key times, not every continuously evaluated t<=.82.",
+    "continuity_scope": "C2 describes the analytic scalar authoring envelope only. The resulting sampled glTF LINEAR animation, including the inherited v3 curves, is not claimed to be C2.",
+    "geometry_change": false,
+    "additional_numerical_scan_run_for_this_annotation": false
+  },
+  "final_RAW": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_raw.glb",
+    "sha256": "050c55a2b64726f38ca7d36eec52f5832c370b92be3f80551f7c8249e5a3694f",
+    "bytes": 19192620
+  },
+  "final_authoring": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_authoring.json",
+    "sha256": "a28f6b2980b220793476ecb5bf59b57c77172e71cff4a2e9504745cbaeaa35c9",
+    "bytes": 960966
+  },
+  "final_after_render_provenance": "After rerendered once from final cead1124 target at original camera/source .9; before raw and labeled images retained unchanged. Primary wording addendum did not trigger a scene rerender."
+}

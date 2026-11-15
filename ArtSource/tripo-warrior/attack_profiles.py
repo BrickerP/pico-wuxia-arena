@@ -10,14 +10,6 @@ from mathutils import Matrix, Vector
 from prepare_rigged_warrior import accessor_bytes, animation_signature, local_matrix, sample_track
 
 
-ATTACK_PHASES = {
-    'start': 0.0,
-    'preparation_end': .65,
-    'startup_end': .90,
-    'contact': 1.0,
-    'active_end': 1.10,
-    'recovery_end': 1.75,
-}
 REACTION_PLAYBACK = {'hit_body': (.05, .72), 'hit_head': (.05, .72), 'hit_side': (.05, 1.18)}
 
 LANDMARKS = {
@@ -401,7 +393,26 @@ def export_reaction_profiles(document, binary, root, parents, order, landmarks, 
     return result
 
 
-def export_attack_profiles(document, binary, attack_clips, locomotion_contract, body_coverage_contract):
+def validate_attack_phase_contract(row):
+    """Validate one bound direction's source markers and ordered runtime nanoseconds."""
+    names = ('start', 'preparation_end', 'startup_end', 'active_end', 'recovery_end')
+    markers = row.get('phase_markers') if isinstance(row, dict) else None
+    if (not isinstance(markers, dict) or set(markers) != {*names, 'contact'} or
+            not all(type(value) in (int, float) and math.isfinite(value) for value in markers.values())):
+        raise ValueError('each attack requires six finite direction-specific phase markers')
+    phases = [markers[name] for name in names]
+    if (phases[0] != 0.0 or phases[-1] != 1.75 or
+            any(after <= before for before, after in zip(phases, phases[1:])) or
+            not phases[2] < markers['contact'] < phases[3]):
+        raise ValueError('attack phase markers require ordered 0..1.75s phases and an interior ACTIVE contact cue')
+    runtime = row.get('runtime_phase_nanos')
+    if (not isinstance(runtime, list) or len(runtime) != 4 or
+            any(type(value) is not int or not 0 < value <= (1 << 63) - 1 for value in runtime)):
+        raise ValueError('runtime_phase_nanos requires four positive integer Long values in phase order')
+    return dict(markers), list(runtime)
+
+
+def export_attack_profiles(document, binary, attack_clips, attack_contracts, locomotion_contract, body_coverage_contract):
     """Return schema-3 motion and hurt anchors with one final-idle mesh calibration.
 
     Blade markers follow the same R_Hand mount used to bake rigid weapon skinning.
@@ -409,6 +420,9 @@ def export_attack_profiles(document, binary, attack_clips, locomotion_contract, 
     """
     if set(attack_clips) != {'OVERHEAD', 'LEFT', 'RIGHT'} or len(set(attack_clips.values())) != 3:
         raise ValueError('attack profile requires distinct OVERHEAD, LEFT and RIGHT clips')
+    if not isinstance(attack_contracts, dict) or set(attack_contracts) != set(attack_clips.values()):
+        raise ValueError('attack profiles require explicit phase contracts for each clip: ' + ', '.join(attack_clips.values()))
+    phase_contracts = {clip: validate_attack_phase_contract(row) for clip, row in attack_contracts.items()}
     source_contract, frozen_profiles = locomotion_source_contract(locomotion_contract)
     root, parents, order = hierarchy(document)
     landmarks = landmark_indices(document, root, parents)
@@ -431,14 +445,18 @@ def export_attack_profiles(document, binary, attack_clips, locomotion_contract, 
         if clip not in animations:
             raise ValueError('attack clip is absent from the prepared actor: ' + clip)
         animation = animations[clip]
+        markers, runtime = phase_contracts[clip]
+        phases = [markers[name] for name in
+                  ('start', 'preparation_end', 'startup_end', 'active_end', 'recovery_end')]
         tracks, source_times = animation_tracks(document, binary, animation)
         if any(index == root for index, _ in tracks):
             raise ValueError('prepared actor root cannot be animated')
         times = sorted({float32(time) for time in
-                        [*source_times, *ATTACK_PHASES.values(), *[frame / 60 for frame in range(106)]]})
+                        [*source_times, *phases, *[frame / 60 for frame in range(106)]]})
         profiles[direction] = {
             'clip': clip, 'source_range_seconds': [0.0, 1.75],
-            'source_phase_seconds': [0.0, .65, .90, 1.10, 1.75], 'contact_source_seconds': 1.0,
+            'source_phase_seconds': phases,
+            'contact_source_seconds': markers['contact'], 'runtime_phase_nanos': runtime,
             'animation_semantics_sha256': animation_signature(document, binary, animation),
             'samples': [profile_sample(document, tracks, time, parents, order, landmarks, offsets) for time in times],
         }
@@ -474,8 +492,6 @@ def export_attack_profiles(document, binary, attack_clips, locomotion_contract, 
                               'coordinate_frame': 'prepared actor root; bone_local_offsets are local to the named bones'},
         'idle_reference': {field: list(idle_world[landmarks[name]].translation)
                            for field, name in LANDMARKS.items() if name in ('Head', 'Spine02', 'Hip')},
-        'phase_markers_seconds': dict(ATTACK_PHASES),
-        'phase_sample_times_seconds': {name: float32(time) for name, time in ATTACK_PHASES.items()},
         'sample_rate_hz': 60, 'time_encoding': 'float32 source-key/60Hz/phase union; locomotion includes source-key midpoints',
         'direction_labels': 'caller supplied; player-view incoming side requires geometric review',
         'source_contract': source_contract, 'locomotion': locomotion, 'attacks': profiles,

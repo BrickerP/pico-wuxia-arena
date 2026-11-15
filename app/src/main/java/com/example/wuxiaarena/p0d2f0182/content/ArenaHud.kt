@@ -46,6 +46,7 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.input.InputOrigin
+import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.p0d2f0182.R
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
@@ -79,6 +80,7 @@ internal fun ArenaControlPanel(
     controlPending: Boolean,
     isRanchuHost: Boolean,
     onStart: () -> Unit,
+    onSelectDominantHand: (Hand) -> Unit,
     onPause: () -> Unit,
     onResume: () -> Unit,
     onRestart: () -> Unit,
@@ -90,6 +92,7 @@ internal fun ArenaControlPanel(
             controlPending = controlPending,
             isRanchuHost = isRanchuHost,
             onStart = onStart,
+            onSelectDominantHand = onSelectDominantHand,
             onPause = onPause,
             onResume = onResume,
             onRestart = onRestart,
@@ -104,6 +107,7 @@ private fun ArenaControlPanelContent(
     controlPending: Boolean,
     isRanchuHost: Boolean,
     onStart: () -> Unit,
+    onSelectDominantHand: (Hand) -> Unit,
     onPause: () -> Unit,
     onResume: () -> Unit,
     onRestart: () -> Unit,
@@ -254,6 +258,35 @@ private fun ArenaControlPanelContent(
                                 contentColor = ArenaUiPalette.paperIvory,
                             ),
                         ) { showRestartConfirmation = true }
+                    }
+                }
+            }
+            if (state.result == TrialResult.READY) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.arena_ui_weapon_hand, stringResource(
+                            if (state.dominantHand == Hand.LEFT) R.string.arena_ui_hand_left else R.string.arena_ui_hand_right,
+                        )),
+                        modifier = Modifier.weight(1f),
+                        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                        color = secondaryText,
+                        maxLines = 1,
+                    )
+                    for (hand in Hand.entries) {
+                        Button(
+                            onClick = { if (state.result == TrialResult.READY) onSelectDominantHand(hand) },
+                            enabled = controlsEnabled && state.dominantHand != hand,
+                            size = ButtonDefaults.Small,
+                            colors = buttonColors,
+                        ) {
+                            Text(text = stringResource(
+                                if (hand == Hand.LEFT) R.string.arena_ui_hand_left else R.string.arena_ui_hand_right,
+                            ))
+                        }
                     }
                 }
             }

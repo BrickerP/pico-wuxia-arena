@@ -33,7 +33,6 @@ internal fun selectEnemyPose(
     guarding: Boolean,
     moving: Boolean,
     gaitMeters: Double,
-    recoveryFromContact: Boolean = false,
     hitReaction: HitReaction? = null,
     hitZone: HitZone? = null,
 ): EnemyPoseFrame? = when {
@@ -41,7 +40,7 @@ internal fun selectEnemyPose(
     phase == EnemyPhase.HIT && guarding -> EnemyPoseFrame(locomotion.clip(false), locomotion.sample(false, gaitMeters))
     phase == EnemyPhase.HIT -> reactions.frame(hitReaction, hitZone, elapsedNanos, remainingNanos)
     phase in ATTACK_PHASES -> EnemyPoseFrame(attack.clip,
-        attack.sample(attack.sourceSeconds(phase, elapsedNanos, remainingNanos, recoveryFromContact)))
+        attack.sample(attack.sourceSeconds(phase, elapsedNanos, remainingNanos)))
     else -> null
 }
 
@@ -60,12 +59,11 @@ internal fun ArenaOpponent.poseFrame(
     direction: AttackDirection,
     guarding: Boolean,
     moving: Boolean,
-    recoveryFromContact: Boolean,
     gaitMeters: Double,
     hitReaction: HitReaction? = null,
     hitZone: HitZone? = null,
 ): EnemyPoseFrame? = selectEnemyPose(attackProfile(direction), locomotionProfile(), reactionProfiles(), phase,
-    elapsedNanos, remainingNanos, guarding, moving, gaitMeters, recoveryFromContact, hitReaction, hitZone)
+    elapsedNanos, remainingNanos, guarding, moving, gaitMeters, hitReaction, hitZone)
 
 internal fun ArenaOpponent.attackPose(
     phase: EnemyPhase,
@@ -76,7 +74,6 @@ internal fun ArenaOpponent.attackPose(
     direction: AttackDirection,
     guarding: Boolean,
     moving: Boolean = false,
-    recoveryFromContact: Boolean = false,
     gaitMeters: Double,
     hitReaction: HitReaction? = null,
     hitZone: HitZone? = null,
@@ -86,7 +83,7 @@ internal fun ArenaOpponent.attackPose(
         "Contact phase time must be non-negative"
     }
     return poseFrame(phase, elapsedNanos, remainingNanos, direction, guarding, moving,
-        recoveryFromContact, gaitMeters, hitReaction, hitZone)?.pose?.inStage(origin, yaw)
+        gaitMeters, hitReaction, hitZone)?.pose?.inStage(origin, yaw)
 }
 
 internal fun ArenaOpponent.contactPose(
@@ -98,11 +95,10 @@ internal fun ArenaOpponent.contactPose(
     direction: AttackDirection,
     guarding: Boolean,
     moving: Boolean = false,
-    recoveryFromContact: Boolean = false,
     gaitMeters: Double,
     hitReaction: HitReaction? = null,
     hitZone: HitZone? = null,
 ): EnemyContactPose = attackPose(phase, elapsedNanos, remainingNanos, origin, yaw, direction,
-    guarding, moving, recoveryFromContact, gaitMeters, hitReaction, hitZone)?.contact ?: EnemyContactPose.standing(origin)
+    guarding, moving, gaitMeters, hitReaction, hitZone)?.contact ?: EnemyContactPose.standing(origin)
 
 private val ATTACK_PHASES = setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING)

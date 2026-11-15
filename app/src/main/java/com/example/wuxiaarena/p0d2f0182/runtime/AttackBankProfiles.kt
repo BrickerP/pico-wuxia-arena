@@ -71,6 +71,7 @@ internal fun samplePose(samples: List<AttackPoseSample>, sourceSeconds: Double):
 internal class AttackProfile(
     val clip: String,
     sourcePhaseSeconds: List<Double>,
+    /** Authoring cue only; it never bends playback or chooses a contact/recovery time. */
     val contactSourceSeconds: Double,
     samples: List<AttackPoseSample>,
 ) {
@@ -102,7 +103,6 @@ internal class AttackProfile(
         phase: EnemyPhase,
         elapsedNanos: Long,
         remainingNanos: Long?,
-        recoveryFromContact: Boolean = false,
     ): Double {
         require(elapsedNanos >= 0L && (remainingNanos == null || remainingNanos >= 0L)) {
             "Attack phase time must be non-negative"
@@ -117,19 +117,8 @@ internal class AttackProfile(
         // Convert before adding, so valid Long clocks cannot overflow the phase duration.
         val total = elapsedNanos.toDouble() + (remainingNanos ?: 0L).toDouble()
         val progress = if (total > 0.0) elapsedNanos.toDouble() / total else 0.0
-        // A successful contact resolves ACTIVE immediately; continue from that source key.
-        val start = if (phase == EnemyPhase.RECOVERING && recoveryFromContact) contactSourceSeconds
-            else sourcePhaseSeconds[index]
-        val end = sourcePhaseSeconds[index + 1]
-        return if (phase == EnemyPhase.ACTIVE) {
-            if (progress <= 0.5) {
-                interpolate(start, contactSourceSeconds, progress * 2.0)
-            } else {
-                interpolate(contactSourceSeconds, end, (progress - 0.5) * 2.0)
-            }
-        } else {
-            interpolate(start, end, progress)
-        }
+        // The cue is authoring metadata. It never bends playback or grants contact.
+        return interpolate(sourcePhaseSeconds[index], sourcePhaseSeconds[index + 1], progress)
     }
 
     fun sample(sourceSeconds: Double): AttackPoseSample = samplePose(samples, sourceSeconds)

@@ -9,11 +9,31 @@ from pathlib import Path
 
 from mathutils import Quaternion
 import prepare_character_library as library
+from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
     def setUp(self):
         self.manifest = json.loads((library.HERE / 'motion_library.json').read_text())
+        self.original_manifest = copy.deepcopy(self.manifest)
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.bind_phase_rows(self.manifest)
+
+    def bind_phase_rows(self, manifest):
+        """Use existing source GLBs with an explicitly new, isolated reviewed-row fixture."""
+        bank = manifest['attack_source']
+        bank.pop('phase_markers', None)
+        authoring = json.loads((library.HERE / bank['authoring_manifest']['source']).read_text())
+        aliases = {'OVERHEAD': 'overhead', 'LEFT': 'slash_to_left', 'RIGHT': 'slash_to_right'}
+        for entry in bank['clips']:
+            contract = attack_contracts()[entry['name']]
+            entry.update(copy.deepcopy(contract))
+            row = next(row for row in authoring['clips'] if row['clip'] == aliases[entry['direction']])
+            row.update(copy.deepcopy(contract))
+        path = Path(self.temporary.name) / (str(len(list(Path(self.temporary.name).iterdir()))) + '_attack_inputs.json')
+        path.write_text(json.dumps(authoring))
+        bank['authoring_manifest'] = {'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
 
     def test_frozen_manifest_and_retired_fields(self):
         library.validate_manifest(self.manifest)
@@ -21,6 +41,68 @@ class AttackBankContracts(unittest.TestCase):
         broken['characters'][0]['offhand_rotation_envelope'] = {'legacy': True}
         with self.assertRaises(ValueError):
             library.validate_manifest(broken)
+
+    def test_shared_phase_manifest_is_rejected_and_bound_direction_rows_are_distinct(self):
+        with self.assertRaisesRegex(ValueError, 'shared.*phase_markers'):
+            library.validate_manifest(self.original_manifest)
+        contracts = library.attack_source_contracts(self.manifest['attack_source'])
+        expected = attack_contracts()
+        for name, row in contracts.items():
+            self.assertEqual(row['phase_markers'], expected[name]['phase_markers'])
+            self.assertEqual(row['runtime_phase_nanos'], expected[name]['runtime_phase_nanos'])
+        self.assertNotEqual(contracts['attack_overhead']['phase_markers'], contracts['attack_left']['phase_markers'])
+
+    def test_phase_or_runtime_drift_from_the_same_authoring_direction_is_rejected(self):
+        for field in ('phase_markers', 'runtime_phase_nanos'):
+            bank = copy.deepcopy(self.manifest['attack_source'])
+            overhead = next(row for row in bank['clips'] if row['direction'] == 'OVERHEAD')
+            if field == 'phase_markers':
+                overhead[field]['startup_end'] += .001
+            else:
+                overhead[field][0] += 1
+            with self.assertRaisesRegex(ValueError, 'phase/runtime contract differs'):
+                library.attack_source_contracts(bank)
+        for field in ('phase_markers', 'runtime_phase_nanos'):
+            changed = copy.deepcopy(self.manifest)
+            changed['attack_source']['clips'][0][field] = copy.deepcopy(changed['attack_source']['clips'][1][field])
+            self.assertNotEqual(library.canonical_hash(library.production_binding(self.manifest)),
+                                library.canonical_hash(library.production_binding(changed)))
+
+    def test_each_direction_requires_its_own_complete_valid_clock(self):
+        for field, value in [('phase_markers', None), ('runtime_phase_nanos', None),
+                             ('runtime_phase_nanos', [True, 1, 1, 1]),
+                             ('runtime_phase_nanos', [1.0, 1, 1, 1]),
+                             ('runtime_phase_nanos', [0, 1, 1, 1]),
+                             ('runtime_phase_nanos', [1 << 63, 1, 1, 1])]:
+            bank = copy.deepcopy(self.manifest['attack_source'])
+            bank['clips'][0][field] = value
+            with self.assertRaises(ValueError, msg=str(value)):
+                library.attack_source_contracts(bank)
+
+    def test_nonkey_contact_cue_remains_bound_metadata_without_changing_the_raw_grid(self):
+        original_binding = library.canonical_hash(library.production_binding(self.manifest))
+        for cue in (.95, .955):
+            changed = copy.deepcopy(self.manifest)
+            bank = changed['attack_source']
+            authoring = json.loads((library.HERE / bank['authoring_manifest']['source']).read_text())
+            for entry in bank['clips']:
+                entry['phase_markers']['contact'] = cue
+            for row in authoring['clips']:
+                row['phase_markers']['contact'] = cue
+                row['contact_source_seconds'] = cue
+            path = Path(self.temporary.name) / ('cue_' + str(cue) + '.json')
+            path.write_text(json.dumps(authoring))
+            bank['authoring_manifest'] = {'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+            declared = library.attack_source_contracts(bank)
+            self.assertNotEqual(original_binding, library.canonical_hash(library.production_binding(changed)))
+            _, rig, rig_binary = library.pinned_source(bank)
+            for entry in bank['clips']:
+                _, document, binary = library.pinned_source(entry)
+                tracks = library.validate_source_clip(document, binary, rig, rig_binary, 'attack78', entry['name'],
+                                                      declared[entry['name']])
+                self.assertEqual(declared[entry['name']]['contact_source_seconds'], cue)
+                if cue == .955:
+                    self.assertNotIn(float32(cue), next(iter(tracks.values()))[0])
 
     def test_v2_and_motion41_idle_and_baked_locomotion_are_rejected(self):
         for change in ('schema', 'old_idle', 'baked', 'missing', 'missing_coverage', 'coverage_drift'):
@@ -43,6 +125,17 @@ class AttackBankContracts(unittest.TestCase):
         broken['attack_source']['clips'][0]['right_calibration_baked'] = True
         with self.assertRaises(ValueError):
             library.validate_manifest(broken)
+
+    def test_producer_projection_and_calculation_use_one_shared_pure_policy(self):
+        import attack_grounding
+        import production_contract
+        self.assertIs(library.production_binding, production_contract.production_binding)
+        self.assertIs(library.HAND_POLICY, production_contract.HAND_POLICY)
+        self.assertIs(library.LEFT_HAND_POSES, production_contract.LEFT_HAND_POSES)
+        self.assertIs(attack_grounding.GROUNDING_POLICY, production_contract.GROUNDING_POLICY)
+        self.assertEqual(library.HAND_POLICY, library.production_binding(self.manifest)['hand_policy'])
+        self.assertEqual(attack_grounding.GROUNDING_POLICY,
+                         library.production_binding(self.manifest)['canonical_root_grounding'])
 
     def test_manual_review_matches_data_and_rejects_drift(self):
         request = {'binding_sha256': 'frozen-inputs', 'characters': [{'id': 'actor', 'output_sha256': 'sample'}],
@@ -131,6 +224,7 @@ class AttackBankContracts(unittest.TestCase):
         self.assertEqual(len(actual), 234)
         self.assertEqual(len(next(iter(actual.values()))[0]), 106)
         candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        self.bind_phase_rows(candidate)
         library.validate_manifest(candidate)
         attack = candidate['attack_source']
         contracts = library.attack_source_contracts(attack)
@@ -143,6 +237,7 @@ class AttackBankContracts(unittest.TestCase):
 
     def test_v9_wrong_declared_count_or_wrong_clip_contract_is_rejected(self):
         candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        self.bind_phase_rows(candidate)
         bank = candidate['attack_source']
         contracts = library.attack_source_contracts(bank)
         _, rig, rig_binary = library.pinned_source(bank)
@@ -160,6 +255,7 @@ class AttackBankContracts(unittest.TestCase):
 
     def test_v9_off_grid_or_shortened_boundary_source_times_are_rejected(self):
         candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        self.bind_phase_rows(candidate)
         bank = candidate['attack_source']
         row = next(row for row in bank['clips'] if row['direction'] == 'OVERHEAD')
         declared = library.attack_source_contracts(bank)[row['name']]

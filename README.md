@@ -14,8 +14,8 @@
 
 | 内容 | 状态与边界 |
 | --- | --- |
-| 当前开发源码 | 真实刀刀连续接触、手刀共用最终Grip、持续非穿透及同源卸力，中央入口木作换为96c554；构建与417项单测通过，已安装启动；本次虚拟手柄callback仍为0，交互与反手问题未验收 |
-| 当前开发画面 | [PICO Full Stage实图](ArtSource/refinement/presentation/native-blade-contact-stage-2026-11-13.png)与[版本/边界](ArtSource/refinement/presentation/native-blade-contact-stage-2026-11-13.json)：新庭院及首名对手显示，停在等待手柄；不是拼刀成功证据 |
+| 当前开发源码 | 全身上劈v5与逐方向线性时标、common Grip左手、准备页左右持刀入口、非锁存换手恢复；正式binding `713532c0…`；整包与436项单测通过 |
+| 当前开发画面 | [实际右持准备](ArtSource/refinement/presentation/native-grip-motion-ready-2026-11-15.png)、[实际左持](ArtSource/refinement/presentation/native-grip-motion-left-2026-11-15.png)、[26秒原生接触片](ArtSource/refinement/presentation/native-grip-motion-contact-2026-11-15.mp4)、[进入第二轮](ArtSource/refinement/presentation/native-grip-motion-round2-2026-11-15.png)、[版本与边界](ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json)。新包三轮胜利/弹反/身法仍待验 |
 | 上一公开组合 | 精细上劈v9、右手闭握v2、九窗庭院、近场光、薄刀轨及结算面板；APK `1c41cfc30fa79dd391e9c6af329cdfcf8b8d6ad7401465b9f16b90d0016d7b46`，242,706,266字节 |
 | 公开v9主流程 | PICO Emulator真实SDK输入完成开局、三轮角色轮换、胜利895分／余60生命，再实际点击再挑战回到准备态；8次SOFT_HIT、6次敌方GUARDED_HIT、4次PLAYER_HIT及三次fall有对应日志；不证明新刀刀接触实现 |
 | 公开v9画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4)、[重试短片](ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-visual-v9-combat-2026-11-13.png)、[胜利](ArtSource/refinement/presentation/native-visual-v9-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-visual-v9-2026-11-13.json) |
@@ -45,7 +45,7 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 参考Blade & Sorcery、荣耀战魂的空间攻防，影之刃零、鬼武者、只狼的蓄势/接触/收势，黑神话悟空的成年写实骨相、交领束带、刀具、木作与湿石材。骑马与砍杀、天国拯救仅提供可信尺度和空间感参考，本Demo不扩开放世界。
 
-正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`365578d497f3a592e08cbe158f90777fe326211f8d9593bab85ff807c0ac07ac`，base为`6ca12659…`，开发庭院为`96c554cc…`（公开v9为64da），右手为`3a1be1dd…`。OVERHEAD为211键／120Hz，左右攻击各106键；正式producer按每clip声明的精确时间网格验证。场景静态合批2f9a8774仅保留为未采用A/B备选，不凭提交估算宣称硬件收益。
+正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a`，base为`f6bc15d6…`，开发庭院为`96c554cc…`（公开v9为64da），右手为`3a1be1dd…`。OVERHEAD为211键／120Hz，左右攻击各106键；正式producer按每clip声明的精确时间网格验证。场景静态合批2f9a8774仅保留为未采用A/B备选，不凭提交估算宣称硬件收益。
 
 ## 工程入口
 

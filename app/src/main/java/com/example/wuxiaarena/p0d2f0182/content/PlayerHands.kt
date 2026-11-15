@@ -108,11 +108,10 @@ internal class PlayerHands(private val parent: Entity) {
 
     /** Read actual Entity transforms in the same null/container reference used by SDK input. */
     fun diagnosticFrames(dao: Entity): String {
-        fun frame(entity: Entity?, origin: TrackingVector3? = null,
-                  axes: List<TrackingVector3>? = null): String {
+        fun frame(entity: Entity?): String {
             if (entity == null || !entity.valid || !entity.enabled) return "unavailable"
-            val localOrigin = origin ?: TrackingVector3(0.0, 0.0, 0.0)
-            val localAxes = axes ?: listOf(
+            val localOrigin = TrackingVector3(0.0, 0.0, 0.0)
+            val localAxes = listOf(
                 TrackingVector3(1.0, 0.0, 0.0),
                 TrackingVector3(0.0, 1.0, 0.0),
                 TrackingVector3(0.0, 0.0, 1.0),
@@ -126,10 +125,9 @@ internal class PlayerHands(private val parent: Entity) {
             return "{origin=$actualOrigin x=${actualAxes[0]} y=${actualAxes[1]} z=${actualAxes[2]}}"
         }
         return "reference=container_null_meters parentActual=${frame(parent)} " +
-            "rightRootActual=${frame(right?.model)} leftWristRootActual=${frame(left?.model)} " +
+            "rightRootActual=${frame(right?.model)} leftRootActual=${frame(left?.model)} " +
             "daoRootActual=${frame(dao)} " +
-            "leftGripMarkerAssetDerivedViaActualRoot=${frame(left?.model, LEFT_DERIVED_GRIP_POSITION, LEFT_DERIVED_GRIP_AXES)} " +
-            "bonePose=not_read"
+            "assetFrameContract=common_grip_origin bonePose=not_read"
     }
 
     private fun presentHand(loaded: LoadedHand?, hand: Hand, pose: PlayerHandTransform?, equippedHand: Hand) {

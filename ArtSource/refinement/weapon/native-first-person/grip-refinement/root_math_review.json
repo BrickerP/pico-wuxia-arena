@@ -1,0 +1,255 @@
+{
+  "status": "PASS_COMMON_GRIP_REFLECTION_MATH",
+  "source": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/assets/models/player_hands/right_hand.glb",
+    "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0"
+  },
+  "candidate": {
+    "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+    "sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd"
+  },
+  "nodes": 89,
+  "joint_palette_count": 78,
+  "vertices": 3021,
+  "triangles": 4936,
+  "local_matrix_error": 0.0,
+  "inverse_bind_error": 0.0,
+  "accessor_min_max_fields_checked": 28,
+  "image_payloads_equal": true,
+  "tangent_scope": "absent in both real assets; synthetic tangent handedness regression covers the audit branch",
+  "sampling": [
+    {
+      "grip_time": 0.0,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.125,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.25,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.375,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.5,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.625,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.75,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 0.875,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    },
+    {
+      "grip_time": 1.0,
+      "world_matrix_error": 0.0,
+      "primitives": [
+        {
+          "mesh": 0,
+          "primitive": 0,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        },
+        {
+          "mesh": 0,
+          "primitive": 1,
+          "position_error_m": 0.0,
+          "normal_error": 0.0,
+          "oriented_area_error_m2": 0.0,
+          "tangent_error": null
+        }
+      ],
+      "source_right_chirality": -0.19593922031097788,
+      "candidate_left_chirality": 0.19593922031097788
+    }
+  ],
+  "proof": "S*M*S hierarchy and IBM plus S*v imply LBS_L=S*LBS_R; reversed winding and tangent.w retain oriented faces/TBN.",
+  "limits": [
+    "Mathematical audit of this exact pair; not anatomical/art approval.",
+    "Does not test the actual asymmetric dao/hilt or mesh self-intersections.",
+    "Does not prove PICO SDK import/skinning, controller conventions, runtime performance or physical hand comfort.",
+    "The existing Kotlin left-wrist offset must be removed in the same integration as this common-Grip asset."
+  ],
+  "reviewer_script_sha256": "b646b156539b5f336f932e9bffb44d43ba74f1da43f6ccfa75bd45987af794dc",
+  "review_date": "2026-11-15",
+  "regression_tests": {
+    "executed": 14,
+    "passed": 14,
+    "failures": 0,
+    "errors": 0,
+    "script_sha256": "420e3d2db11f067e3ebc6d3d52439504b673052d2434575f3eade698ba45361c",
+    "command": "python3 ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild-math-review_test.py"
+  }
+}

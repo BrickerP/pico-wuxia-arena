@@ -1,14 +1,82 @@
 # 02 · 刀具造型材质与握持
 
+## Root下一阶段规划（2026-11-15）
+
+下一首件为Right源掌背／腕口表面光顺，保闭握与Grip，接受后统一重建Left；不再左右分开摆指。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。
+
+## Root本轮整合review（2026-11-15）
+
+Root已看闭握三视图并完成独立14项数学复核，接受d8e9c3cb…左手与删除旧C补偿同次整合。实际原生准备页已点击LEFT，先撤销旧观察、再收真实左手并显示左手持刀；随后RIGHT选择及开局已通过。持刀侧经真实buffer/reducer/Arena，满载手选择失败不锁存，436组合通过。腕口／掌背折面及继承指间交面未作最终质量通过。新asset与验证冻结；下一轮围绕正常距离原生手背／腕口观感，不继续单指参数循环。
+
+## 当前交付：common Grip 静态左手重建检查完成（2026-11-15）
+
+**本阶段结束，等待对应 Root review。** 从已有实物续做，没有重建或改变 common Grip 契约。[完整 GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb) 仍为 SHA `d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd`、2,627,980 B；[复建脚本／变换映射](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/README.md)／[独立实际检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verification.json)／[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/handoff.json)。
+
+主线程已看实际 KTX＋未镜像 dao 的[正面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_front.png)／[背面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_back.png)／[斜面](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_oblique.png)：左手手性、拇指侧、包柄弧线和虎口体积可读，旧左手横切进柄的薄片未再出现；掌背／腕口粗糙、低多边形折面和源前臂收口仍保留，不声称最终手部质量通过。
+
+28 项核验／坏例全部通过；真实 default 及 grip@0／0.5／1 的全部 primitive LBS、法线、绕序和 78 骨镜像等价误差均为 0，最外 `LeftGripRoot` identity，所有节点正 determinant／无负 scale，完整 R_↔L_ 双向换名且 palette/node ID 不变。实际 source 无 TANGENT，T.xyz 反射／w 反号用合成夹具验证，MikkTSpace 仍待运行端；权重／UV／三 KTX 字节与可信 Right 保持。
+
+实际 db28 的全部部件逐一核拓扑，不假设刀护手对称：closed Left 仅 Index 两浅样本，最大 **0.093440 mm**（Right 0.092522）；Thumb／Mid／Ring／Pinky 核内为 0，护手／collar／ferrule／pommel 等闭合 solid 无入内或 surface-cross。cord 有 1,442 开边，只报表面交叉 Left33／Right38，不假称体积穿入。全手 self open／mid 均 0，closed Left／Right 同为继承 **109 对**（Thumb–Index47、Mid–Ring62），新增 0。固定刀的旧 open／mid Thumb 穿入仍在，Left 约 11.0676／4.87569 mm；不得隐去或宣称整 clip 清核。
+
+**必须原子整合，不能单独换模型。** 新左手 root 直接消费 G，没有旧 C/B 或 DerivedHandGrip_L。当前 app 代码仍有旧左腕偏移；Root 应在同一次切换中换左 GLB并删除旧 `LEFT_WRIST_FROM_GRIP`／派生 marker 转换，使左右均直接 G。本路未改正式 app、右手、刀、公共 producer、设备或 Git；同级 `left-rebuild-math-review.py` 由 Root 独立复审，未触碰。SDK ControllerPose 生理约定和新组合包的原生画面仍待 Root 验证。
+
+## Root方法修正：common Grip坐标中的静态左手重建（2026-11-13）
+
+前一轮两次局部摆指虽将核内最大深度降到.03mm，却新增自交，候选不合入。继续在错误闭握上调单指的风险已由实物确认。下一轮复用已接受右手v2的完整几何／grip曲线，**静态烘焙为真正左手资产**，重建rig／IBM／法线切线／面绕序。这是有解剖与真实握持依据的资产重建，不对SDK朝向盲翻转，不使用运行时负scale。
+
+**最终只保一套common Grip坐标。** 令S=diag(-1,1,1,1)。最外GLB根identity；节点／IBM以S*M*S共轭，mesh POSITION／NORMAL反射，TANGENT.xyz反射且w反号，三角绕序反转；动画translation反射、quaternion共轭、scale保留。Right源保留完整78-joint双侧rig，须在原node ID／palette稳定前提下双向交换R_↔L_骨语义，避免同名；渲染／grip的原R目标成为L。最终pL=S*pR。新左手原点／轴直接与右手／dao的Grip一致；不加B=C^-1帧，也不保旧DerivedHandGrip_L补偿。Root在资产接受后同一整合中删除旧LEFT_WRIST_FROM_GRIP及派生marker转换，左右handRoot都直接消费G，不能只换代码或只换资产，也不留兼容路径。
+
+本轮允许新左手geometry／open姿态改变，覆盖旧保open@0字节及无依据镜像的制作限制；须验证实际左手手性、骨节点det>0、全skin／IBM镜像等价、真正DAO闭握和三视图，不仅检查锚点。所有反射烘入mesh与rig数据，节点不得遗留负scale。保持grip0/1与文件入口契约，图片／材质复用。披露保留掌背／腕口问题。
+
+02仅在grip-refinement/left-rebuild/产完整候选、复建脚本、变换说明、开中闭检查及同机位图；不改Kotlin。Root独立数学复审后统一换资产／转换代码，反射等价不等于SDK实测。45分钟实物阶段、最多一次有定位返修；不碰app、公共producer、右手、刀、设备、Git，保其它会话编辑。
+
+## 当前实物：左拇指／虎口两次修正首件 BLOCK（2026-11-13）
+
+**本轮限定尝试阶段结束，等待对应 Root review；没有修好，不可替换正式左手。** 已交[完整左 GLB](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/left_hand_refined.glb)，SHA `645d153b1afb151ee430843d11b8f64454a680e71a56a8d673d2f8a092e93419`；[三骨 delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/pose_delta.json)／[说明与失败定位](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/README.md)／[独立验证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/verification.json)／[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/handoff.json)。结构合同 PASS、12 测通过，但实际质量守门 BLOCK。
+
+同机位实际 KTX＋正式刀[原 closed](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/renders/L_held1.png)／[候选 closed](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/previews/after_closed1.png)／[候选 mid](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/left-thumb-refinement-2026-11-13/previews/after_mid0.5.png)已由主线程逐图核对。原拇指薄片从柄面退开有局部收益，但拇指挤入食指并新增自身折叠，虎口仍有折面，不符合自然对向夹持，不能据清核数字通过。
+
+在同一原 508 Thumb 顶点／面心样本中，93 核内／最深 11.3766 mm→1／0.0312435 mm；额外 563 边中样本从 91 核内／最深 11.6290 mm→0。**但新增 17 对 Thumb 自交，旧 50 对 Thumb／Index 被移除后换成 75 个全新交面**，不是净增 25 即可忽略。非 Thumb 原 77 核内／最深 9.4184 mm 保留，未改其它指追全手零值。
+
+新虎口异常为 native face4279／source body49233，native vertices1064／1072／1033→source6491／6570／6238；混合 Index1、Thumb1／2 权重使固定 Index 与变化 Thumb 差异拉扯，normal／face signed dot +0.6544→-0.5062。该面面积为原 1.346 倍、未塌为零，不能将其误称面积塌陷。精确权重、UV、实际位置与新增完整 face sets 均已交。
+
+只改 Thumb1／2／3 的 closed 三条旋转，default open、15open@0、其它12指、腕／DerivedHandGrip_L／刀／整体坐标尺度、骨长／IBM、原几何／权重／NORMAL／UV／材质／KTX 和右 v2 保持。没有以保持字节为理由把失败候选宣称修复；本轮两次定向修正后停止，未在未验证 open 保持的前提下继续第三轮网格／权重变体。open 实际 LBS 保留；mid 的原拇指穿入降低且无新增交面或法线异常，closed 的新增交面及折面则明确导致 BLOCK。
+
+本轮不改正式 app、公共 producer、设备、Gradle、Git 或整体手向。完整失败实物已冻结，Root 决定下一步局部真实皮面／权重与骨姿的联合修复；本地试验不等于原生完工。
+
+## Root review与续派：修左闭握拇指根部（2026-11-13）
+
+Root已实际查看本轮`L_held1.png`与`R_held1.png`：左手掌拇根拉成薄片并切进刀柄，右手未出现同类问题；接受“局部闭握／握点组合不匹配”的诊断，不把它升级成SDK整体反手根因。六图与有限指标支持继续修该真实资产缺陷，整体朝向仍须运行验证。
+
+02下一实物只修左手closed@1的拇指／虎口：保持腕、现有DerivedHandGrip_L、刀及整体坐标不动，先检查Thumb1/2/3闭握局部旋转；如必须改局部权重或原皮面，允许明确修改并给vertex/face IDs、理由与变化，不能为保持原字节而留下可见薄片。open@0保留，检查中间姿态过渡，不改变右手及其它已接受指姿。目标是自然绕柄、虎口有体积、无新增可见指间／掌面穿插；核内样本深度是证据之一，不单凭计数放行。
+
+在既有grip-refinement下交一个左手完整GLB、delta/映射、同机位前后图及开／中／闭有限检查，45分钟阶段期限，最多两次有明确根因的修正，避免盲目参数扫描。Root继续独占正式app模型、公共producer、构建、设备与Git；保持其它编辑。原手诊断与右手v2保持冻结，下一首件结束即写入本交接等待Root实物review。
+
 ## 当前执行合同：仅交付原生 APK（2026-11-13）
 
-用户最新纠偏已生效：唯一产品交付是 **Kotlin + PICO Spatial SDK 6.1.9 的 APK**，在 PICO Emulator 验证，目标终端 Space Pro／OS6。唯一工作仓库为 `/Users/yupeng/projects/personal/pico-wuxia-arena`。本节替代下文旧阶段中仍以现在时书写的网页授权。
+02 原生工作的唯一产品交付是 **Kotlin + PICO Spatial SDK 6.1.9 的 APK**，在 PICO Emulator 验证，目标终端 Space Pro／OS6。唯一工作仓库为 `/Users/yupeng/projects/personal/pico-wuxia-arena`。本节约束当前原生分工；独立 Web 线按 `docs/collaboration-boundaries.md` 保留并维护，本路不因而切回 Web。
 
-停止 HTML／Web／Three.js 游戏开发、浏览器试玩、网页材质／光照调试及新 HTML mock 页面。已有 HTML 文件和他人工作保留，不删除、不继续维护；浏览器仅用于必要的官方资料／账号服务，不作为游戏验收。禁止新建仓库、分支或页面，不修改 `/Users/yupeng/projects/personal/pico` 或网站仓库。
+本路不做 HTML／Web／Three.js 游戏开发、浏览器试玩、网页材质／光照调试及新 HTML mock 页面。已有 HTML 文件和他人工作保留、不覆盖或删除；浏览器仅用于必要的官方资料／账号服务，不作为原生游戏验收。禁止新建仓库、分支或页面，不修改 `/Users/yupeng/projects/personal/pico` 或网站仓库。
 
 02 后续只执行 Root 已授权、能进入现有原生 APK 的源码补丁、GLB／贴图／动作／原生 UI 资源，并给出明确接入点。不能接入的研究、报告和重复渲染停止。Root 统一构建、模拟器／设备、Git 提交与发布，其他责任方的代码和资产保持各自所有权。
 
-Root 已完成 v2 三视图与独立复审，接受 `3a1be1dd…` 进入正式开发资源，右手 app GLB 已由 Root 替换。待新包验证，不能记为原生或最终手部质量通过；不恢复旧网页队列。下文浏览器交付仅为已有证据，其 APPROVE 不代表原生 APK 通过。
+Root 已完成 v2 开发整合，本轮续派的原生手模型变换诊断已交实物与结论，阶段结束，等待对应 review。旧 v2 源与证据继续冻结；不恢复本路旧网页队列。下文浏览器证据不代表原生 APK 通过。
+
+## 当前交付：按实际 PlayerHandsPose 的双手三视图诊断（2026-11-13）
+
+**45 分钟内的实物诊断阶段结束，等待对应 Root review。** [六张同机位实际 3D 图及说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/README.md)／[数值核验](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/verification.json)／[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/handoff.json)。主线程已逐张查看最终 R/L 掌心、掌背、握刀六图，未复现整体手性反转／镜像或无效 skin／IBM；实际拇指侧和腕指方向互补。手性指标 R `+0.959660`、L `-0.960006`，两侧都是 proper rotation，骨／皮面对应实际各侧，不仅比较名字。
+
+**确定复现的是左闭握局部质量问题。** [左 held@1](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/renders/L_held1.png)有拇指掌根拉薄／柄面相交；当前代码映射到共同 Grip 后，左拇指实际 vertex＋face-centroid 508 样本中 **93 样本核内**，最大约 **11.3766 mm**、核内 P95 9.9204 mm；右拇指同类 516 样本均在核外。左手全手 3,272 样本中 170 核内。原掌背硬脊、腕口硬边／低多边形折面仍可见。刚体 Offset 不会改变三角面积或制造局部拉扯，但会决定相对刀的位置；本轮定位为“左派生闭握／皮面与既有握点组合不匹配”，不唯一归咎 IBM、权重或 SDK。
+
+本轮没有改模型、没有发整体翻转候选：整体反手未复现，不能盲转 180°／镜像／负 scale。10 项实际资产／损坏／有符号接触测试和渲染工具 4 项 guard 通过；最终六图使用统一诊断补光，左右同机位／同材质／同映射，实际 KTX 像素，未用旧右手5fb companion。只作一次掌背可读性补光修正，未做姿态参数扫描。SDK 原始 ControllerPose 与 daoGrip 生理约定、实际 PICO skinning 及站姿仍待 Root 运行证明，代数锚点重建不代表解剖通过。
+
+Root 确认用户问题发生于 PICO Emulator 原生。本轮仅用当前正式 R `3a1be1dd…`、L `cf3203e0…` 与 dao `db28d426…`，按 `content/PlayerHandsPose.kt` 的实际变换生成左右各掌心／掌背／握刀的同机位 3D 图，核真实 skin／IBM、拇指侧、腕指轴与手性。先判断能否复现资产自身反手／扭曲；有确定资产问题才在自有精修目录产候选，不能盲转 180°、镜像、负 scale 或改 app 姿态。
+
+本轮产物限 `ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/` 与本交接；不动正式模型、公共 producer、Gradle、设备、Git 或他人修改。只读资料／代码／图像判定由本路主线程自行核查；当前可用子任务模型未提供 DeepSeek，未将只读任务换成其他模型。并行任务仅实现可执行的渲染／验证代码，不代替主线程只读诊断。
+
+已从当前 Kotlin 解析 Rroot＝G、Lroot＝G×资产派生腕偏移，保其精确平移和 quaternion；复现统一声明的 neutral G，左右每种视图相机／光照／镜头一致。掌心／掌背用 open@0 检查解剖结构，握刀用各侧分别装备的 closed@1；不是声称游戏同时双持，也不是 SDK 原始 ControllerPose 的实测记录。输入和代码 SHA 绑定于 `runtime_mapping.json`。Root 仍需运行证明 ControllerPose 与 daoGrip 的生理约定，代数锚点重建不能当作解剖通过。
+
+本轮实际六图、工具与核验均已完成并冻结；未改正式模型、公共 producer、app、Gradle、设备、Git 或 Web，等待对应 review 再推进获派的局部修复。
 
 ## Root review：v2已进入开发资源，等待原生验收（2026-11-13）
 

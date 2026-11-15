@@ -1,0 +1,75 @@
+{
+  "status": "source_contract_validation_passed",
+  "tests_run": 16,
+  "test_cases": [
+    "__main__.CandidateContracts.test_actual_baked_finger_correction_breaks_the_existing_canonical_raw_family",
+    "__main__.CandidateContracts.test_actual_private_preview_cannot_masquerade_as_raw",
+    "__main__.CandidateContracts.test_actual_raw_byte_tampering_is_rejected_before_parsing",
+    "__main__.CandidateContracts.test_baked_finger_flag_in_rehashed_authoring_is_rejected",
+    "__main__.CandidateContracts.test_baked_finger_flag_in_source_descriptor_is_rejected",
+    "__main__.CandidateContracts.test_consistent_non_midpoint_cue_is_metadata_rather_than_a_fixed_one_second_gate",
+    "__main__.CandidateContracts.test_direction_phase_and_runtime_cannot_drift_from_bound_authoring",
+    "__main__.CandidateContracts.test_direction_runtime_contracts_match_the_actual_kotlin_enum",
+    "__main__.CandidateContracts.test_existing_canonical_guard_and_locomotion_contract_still_closes",
+    "__main__.CandidateContracts.test_frozen_authoring_hash_tampering_is_rejected",
+    "__main__.CandidateContracts.test_legacy_shared_phase_contract_is_rejected",
+    "__main__.CandidateContracts.test_manifest_raw_hash_tampering_is_rejected",
+    "__main__.CandidateContracts.test_manifest_uses_the_existing_validator_and_only_allowed_changes",
+    "__main__.CandidateContracts.test_no_formal_publication_or_review_can_be_inherited",
+    "__main__.CandidateContracts.test_three_complete_raw_sources_keep_their_exact_authoring_grids",
+    "__main__.CandidateContracts.test_wrong_grid_is_rejected_by_existing_source_validation"
+  ],
+  "failures": 0,
+  "errors": 0,
+  "producer_functions_executed": [
+    "validate_manifest",
+    "attack_source_contracts",
+    "pinned_source",
+    "validate_source_clip",
+    "canonical_source_evidence",
+    "validate_production_review",
+    "build_library without approval: rejected before model generation"
+  ],
+  "candidate_target_models_generated": false,
+  "formal_publication_executed": false,
+  "negative_fixture_policy": "Temporary GLB/JSON mutations under integration only; removed after tests.",
+  "production_review": "absent; Root target-output inspection and approval still required",
+  "inputs": {
+    "manifest": {
+      "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/motion_library.json",
+      "sha256": "51b19617cf937d8d8248b2821b341ea82af3b14f4a9ec5e34c63cf003b76db1a"
+    },
+    "three_direction_authoring": {
+      "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/attack_bank_inputs.json",
+      "sha256": "41e8f8f783d675e83f4516e7010fa88dce7b970f7416baf23a0bf354691464a7"
+    },
+    "input_contract": {
+      "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/input_contract.json",
+      "sha256": "e21de9cb07ee39706ee984cd5fde29d23a8d9e8ca734eadbeaad7801db5b44ac"
+    },
+    "validation_script": {
+      "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/validate_candidate.py",
+      "sha256": "bbf6e32ba37a2ee3bf10408c54a32a3ce73bc94b30ed7bc621daa5311e765c85"
+    },
+    "producer": {
+      "path": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449"
+    },
+    "production_contract": {
+      "path": "ArtSource/tripo-warrior/production_contract.py",
+      "sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8"
+    },
+    "typed_generator": {
+      "path": "ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py",
+      "sha256": "d228742906f446ee30996cbd65c1f3f9650a6b4164fb0247c8475ed0ab993dd2"
+    },
+    "actual_runtime_enum": {
+      "path": "app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+      "sha256": "f42269be77b0ad1e8f7e5bb53416bb95d8b29dc46b92e4d75addfa5b1a238106"
+    }
+  },
+  "limits": [
+    "Root-reviewed per-direction development window; bounded reference samples do not prove full sharpened-mesh cutting direction.",
+    "No target retargeting, KTX encoding, output profiles, formal/app writes, runtime or device validation."
+  ]
+}

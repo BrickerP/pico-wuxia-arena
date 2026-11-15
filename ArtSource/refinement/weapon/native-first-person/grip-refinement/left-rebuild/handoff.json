@@ -1,0 +1,113 @@
+{
+  "phase": "阶段结束，等待对应Root review",
+  "status": "READY_FOR_ROOT_COMMON_GRIP_ATOMIC_INTEGRATION_REVIEW",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+    "sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+    "bytes": 2627980
+  },
+  "default_and_grip": "default mirroredacceptedRightclosed; onegrip clip0open/1closed",
+  "root": "LeftGripRoot identity, new commonGrip only",
+  "required_atomic_integration": [
+    "Root replacesapp/src/main/assets/models/player_hands/left_hand.glb",
+    "Root removes old LEFT_WRIST_FROM_GRIP/Derived marker code, both handRoot=G",
+    "Root validatesnew combination inPICO Emulator before release"
+  ],
+  "asset_alone_replacement_safe": false,
+  "formal_app_source_changed_by_this_session": false,
+  "SDK_physiological_calibration_claimed": false,
+  "numeric_verification_passed": true,
+  "actual_three_view_main_thread_review": "ready forRootreview with inheritedlimits",
+  "result": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/result.json",
+    "sha256": "4fa64ae3ab7bddb2fe537c4eaf14f130a9063bcba931cb54ebdc34c8c0df4b80",
+    "bytes": 4403
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/README.md",
+      "sha256": "042334cbf2f19325243140e5f4d365917b28cfe4a474697150008ffb7186f665",
+      "bytes": 6853
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/result.json",
+      "sha256": "4fa64ae3ab7bddb2fe537c4eaf14f130a9063bcba931cb54ebdc34c8c0df4b80",
+      "bytes": 4403
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+      "sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+      "bytes": 2627980
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt_decoded.glb",
+      "sha256": "488c9308457371fde7b78d3295d91ba5ecae95361cc6035b27fec59fa8d1e5a5",
+      "bytes": 2358900
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/build_left.py",
+      "sha256": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+      "bytes": 18272
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/rebuild_manifest.json",
+      "sha256": "ade6b2346afef08c6ccff7ff6847a8dca326ae2b8766b78573d49dcd516d2114",
+      "bytes": 9402
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/mapping.json",
+      "sha256": "004dc4a178f1a88f95aec8471582c94c5fd4aac944a6e6f8142297a37c2dfccc",
+      "bytes": 9623
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verify_left_rebuild.py",
+      "sha256": "4cd634d3c854825cd4761e2e78df75c169ad80b1ca673eb7dfacacaf80340447",
+      "bytes": 29040
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/test_verify_left_rebuild.py",
+      "sha256": "425c7f9b50571810181ca61353e4d5b5b812e347760de8c1251f340d392317f7",
+      "bytes": 11546
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verification.json",
+      "sha256": "71a35faac011efbb5b7d742e41c8dfa12a9271d8d59f3618d1c509fb9bfed423",
+      "bytes": 240247
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/make_companion.py",
+      "sha256": "abe272d5a9e16509a2043e9f35817d7bd36aa05fe544087ea8839988ccb6edf6",
+      "bytes": 6431
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/decode_manifest.json",
+      "sha256": "5d73c8bbfb0c949746d754ac6551f65cb4930f69185e9616a942eb11da0e0ef6",
+      "bytes": 14239
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/render_left_rebuild.py",
+      "sha256": "f843a189deaaa4efbb460fee252f98c22f153dc8a8f6a88c55bbef1a692643dd",
+      "bytes": 11920
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/render_manifest.json",
+      "sha256": "c3ae5ff5fd96453297b455ee20db8927893eca5eae5fb44e9d85e4c1587c04ef",
+      "bytes": 45687
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_front.png",
+      "sha256": "46f35cce55a8dd01414c9c22a77d6e79ad77df6e036269e8c3f523cbff634afc",
+      "bytes": 1336846
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_back.png",
+      "sha256": "9f0c77aee91801818288953a719ebc652dc402e0bcee31193d3fc580b5391de1",
+      "bytes": 1221628
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_oblique.png",
+      "sha256": "0262a19a7b480f1f52eb4e91f48ef3db267e1d81e851da4be84f094c465ff12f",
+      "bytes": 1348233
+    }
+  ]
+}

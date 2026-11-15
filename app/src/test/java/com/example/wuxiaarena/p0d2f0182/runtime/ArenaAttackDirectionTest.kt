@@ -73,7 +73,6 @@ class ArenaAttackDirectionTest {
         val contacts = fixture.contactsAtResolution.take(3)
         assertEquals(3, contacts.size)
         for ((state, batch, body) in contacts) {
-            assertTrue(state.enemyRecoveryFromContact)
             assertTrue(state.phaseElapsedNanos >= 0L)
             val profile = arenaOpponents[state.roundNumber - 1].attackProfile(requireNotNull(state.enemyPoseDirection))
             val origin = requireNotNull(state.enemyPosition) + state.enemyRecoilOffset

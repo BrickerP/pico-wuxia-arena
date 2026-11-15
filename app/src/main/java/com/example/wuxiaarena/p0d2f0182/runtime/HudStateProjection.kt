@@ -37,7 +37,6 @@ internal fun shouldPublishHudState(previous: ArenaViewState, state: ArenaViewSta
         enemyPoseClip = previous.enemyPoseClip,
         enemyPoseSourceSeconds = previous.enemyPoseSourceSeconds,
         enemyPoseDirection = previous.enemyPoseDirection,
-        enemyRecoveryFromContact = previous.enemyRecoveryFromContact,
         diagnosticUiFrameNanos = previous.diagnosticUiFrameNanos,
         diagnosticPublishSource = previous.diagnosticPublishSource,
         diagnosticHandStamp = previous.diagnosticHandStamp,

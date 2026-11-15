@@ -1,4 +1,7 @@
 <resources>
+    <string name="arena_ui_weapon_hand">持刀手：%1$s</string>
+    <string name="arena_ui_hand_left">左手</string>
+    <string name="arena_ui_hand_right">右手</string>
     <string name="arena_ui_seal">试</string>
     <string name="arena_ui_damage_fatal">致命</string>
     <string name="arena_ui_damage_head">要害</string>
@@ -12,9 +15,9 @@
     <string name="arena_ui_technique_next">下一式</string>
     <string name="arena_ui_emulator_guide">模拟器操作</string>
     <string name="arena_ui_emulator_setup_title">控制模式</string>
-    <string name="arena_ui_emulator_setup_detail">右下选择 Right Controller。\n启用 Controller Button Mode。\n关闭 Keyboard 文本模式。\n按住 Shift 配合 W/A/S/D/Q/E 移动虚拟手。</string>
+    <string name="arena_ui_emulator_setup_detail">右下选择与持刀手相同的 Left / Right Controller。\n启用 Controller Button Mode。\n关闭 Keyboard 文本模式。\n按住 Shift 配合 W/A/S/D/Q/E 移动虚拟手。</string>
     <string name="arena_ui_emulator_hand_title">移动虚拟手</string>
-    <string name="arena_ui_emulator_hand_detail">按住 Shift+W/A/S/D/Q/E 平移右手。\n用鼠标转腕或瞄准，左键确认。</string>
+    <string name="arena_ui_emulator_hand_detail">按住 Shift+W/A/S/D/Q/E 平移所选虚拟手。\n用鼠标转腕或瞄准，左键确认。</string>
     <string name="arena_ui_emulator_motion_title">动作识别</string>
     <string name="arena_ui_emulator_motion_detail">虚拟手柄的连续位姿用于出刀和架刀。\n让刀锋实际经过对手；迎锋时转腕成架。\n动作仍由位姿识别。</string>
     <string name="arena_ui_emulator_head_title">头手分开</string>

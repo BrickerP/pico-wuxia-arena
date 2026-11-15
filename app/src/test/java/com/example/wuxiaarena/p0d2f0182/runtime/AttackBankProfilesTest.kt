@@ -13,6 +13,8 @@ import org.junit.Test
 class AttackBankProfilesTest {
     private val assets = listOf("base", "indigo", "veteran").map { "asset://models/opponents/$it.glb" }
     private val phaseTimes = listOf(0.0, 0.65, 0.90, 1.10, 1.75)
+    private fun phaseTimes(direction: AttackDirection) = if (direction == AttackDirection.OVERHEAD)
+        listOf(0.0, 0.65, 5.0 / 6.0, 31.0 / 30.0, 1.75) else phaseTimes
     private val phases = listOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE, EnemyPhase.RECOVERING)
 
     private fun ms(value: Long) = value * 1_000_000L
@@ -37,13 +39,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("365578d497f3a592e08cbe158f90777fe326211f8d9593bab85ff807c0ac07ac", AttackBankProfileData.bindingSha256)
-        assertEquals("6ca12659ef6705b2fba43ace092fb8eb567df090c55849b87869e79a9031df24", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("c21a05e697ec1a9aba8fc45d5099d148ad61737059efe8c5e4118afa3eaddeff", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("27782bbe11bfff327d4635a1c5276053dda012c12bf2911047fbe880653121df", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("d73ad19f7ac1504c0fb51e9696c14def6e320ebdae1bf9f76723be2f7edf8651", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("6d4211c8ed07dffb3f683748688120c581e2ee82b12559941b68a6d7170fcee2", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("dcdc496c877f2643e745e4c20d6b05cec3374ac3a7c0d04dc9a38c21f7024d20", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a", AttackBankProfileData.bindingSha256)
+        assertEquals("f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("aecf203eb96d55b77d0e539fadb64d215d4cdb559197247105f77bf1f0491b7a", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("cce030fc4dc37f33c7300fb953d98b7d9a641b5deec8b60f384928d5c116e593", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("f721ca6e4f8bc21e4fa1668d3d13ba222aef4c68603ad8c198a6c10e5cd7fde4", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("a5a0e40a392141d9e9b88a246b7518294d0f1138b1c181d5f4b73d07d8171136", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -63,7 +65,7 @@ class AttackBankProfilesTest {
                 val profile = AttackBankProfiles.forAsset(asset, direction)
                 assertSame(character.attacks.getValue(direction), profile)
                 assertEquals(clip, profile.clip)
-                assertEquals(phaseTimes, profile.sourcePhaseSeconds)
+                assertEquals(phaseTimes(direction), profile.sourcePhaseSeconds)
                 assertEquals(if (direction == AttackDirection.OVERHEAD) 211 else 106, profile.samples.size)
                 assertEquals(0.0, profile.samples.first().sourceSeconds, 0.0)
                 assertEquals(1.75, profile.samples.last().sourceSeconds, 0.0)
@@ -74,30 +76,36 @@ class AttackBankProfilesTest {
     }
 
     @Test
-    fun everyActorDirectionMapsPhaseBoundariesAndContactAtTheActualActiveMidpoint() {
+    fun everyActorDirectionMapsItsLinearPhaseBoundariesWithoutBendingAtTheCue() {
         for (asset in assets) for (direction in AttackDirection.entries) {
             val profile = AttackBankProfiles.forAsset(asset, direction)
             val durations = listOf(direction.preparationNanos, direction.startupNanos, direction.activeNanos, direction.recoveryNanos)
+            val expectedTimes = phaseTimes(direction)
             for ((index, phase) in phases.withIndex()) {
                 val duration = durations[index]
-                assertEquals(phaseTimes[index], profile.sourceSeconds(phase, 0L, duration), 0.0)
-                assertEquals(phaseTimes[index + 1], profile.sourceSeconds(phase, duration, 0L), 0.0)
+                assertEquals(expectedTimes[index], profile.sourceSeconds(phase, 0L, duration), 0.0)
+                assertEquals(expectedTimes[index + 1], profile.sourceSeconds(phase, duration, 0L), 0.0)
+                for (fraction in listOf(0.25, 0.5, 0.75)) {
+                    val elapsed = (duration * fraction).toLong()
+                    val expected = expectedTimes[index] + (expectedTimes[index + 1] - expectedTimes[index]) * elapsed.toDouble() / duration
+                    assertEquals(expected, profile.sourceSeconds(phase, elapsed, duration - elapsed), 1e-12)
+                }
             }
-            assertEquals(1.0, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(100), ms(100)), 0.0)
-            assertEquals(profile.contactSourceSeconds, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(100), ms(100)), 0.0)
-            assertEquals(0.95, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(50), ms(150)), 1e-12)
-            assertEquals(1.05, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(150), ms(50)), 1e-12)
-            val contact = profile.samples.single { it.sourceSeconds == profile.contactSourceSeconds }
-            assertSame(contact, profile.sample(profile.sourceSeconds(EnemyPhase.ACTIVE, ms(100), ms(100))))
+            val cue = profile.samples.single { it.sourceSeconds == profile.contactSourceSeconds }
+            assertSame(cue, profile.sample(profile.contactSourceSeconds))
         }
     }
 
     @Test
-    fun asymmetricActiveSourceTimingStillContactsExactlyAtTheGameMidpoint() {
-        val profile = profile(contact = 0.97)
-        assertEquals(0.97, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(100), ms(100)), 0.0)
-        assertEquals(0.935, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(50), ms(150)), 1e-12)
-        assertEquals(1.035, profile.sourceSeconds(EnemyPhase.ACTIVE, ms(150), ms(50)), 1e-12)
+    fun changingTheAuthoringCueCannotChangeActivePlayback() {
+        val earlier = profile(contact = 0.97)
+        val later = profile(contact = 1.03)
+        for (elapsed in listOf(0L, ms(50), ms(100), ms(150), ms(200))) {
+            val expected = 0.9 + 0.2 * elapsed.toDouble() / ms(200)
+            assertEquals(expected, earlier.sourceSeconds(EnemyPhase.ACTIVE, elapsed, ms(200) - elapsed), 1e-12)
+            assertEquals(earlier.sourceSeconds(EnemyPhase.ACTIVE, elapsed, ms(200) - elapsed),
+                later.sourceSeconds(EnemyPhase.ACTIVE, elapsed, ms(200) - elapsed), 0.0)
+        }
     }
 
     @Test
@@ -218,17 +226,17 @@ class AttackBankProfilesTest {
     }
 
     @Test
-    fun successfulContactsContinueFromContactWhileMissesUseTheFullActiveExit() {
+    fun ordinaryRecoveryStartsAtItsOwnBoundaryAndNeverAtTheAuthoringCue() {
         for (asset in assets) for (direction in AttackDirection.entries) {
             val profile = AttackBankProfiles.forAsset(asset, direction)
-            assertEquals(1.0, profile.sourceSeconds(EnemyPhase.RECOVERING, 0L, direction.recoveryNanos, true), 0.0)
-            assertEquals(1.10, profile.sourceSeconds(EnemyPhase.RECOVERING, 0L, direction.recoveryNanos, false), 0.0)
-            assertEquals(1.75, profile.sourceSeconds(EnemyPhase.RECOVERING, direction.recoveryNanos, 0L, true), 0.0)
+            val recoveryStart = profile.sourcePhaseSeconds[3]
+            assertEquals(recoveryStart, profile.sourceSeconds(EnemyPhase.RECOVERING, 0L, direction.recoveryNanos), 0.0)
+            assertEquals(1.75, profile.sourceSeconds(EnemyPhase.RECOVERING, direction.recoveryNanos, 0L), 0.0)
             val origin = Vector3(0.15, 0.028, -1.3)
             val opponent = arenaOpponents.single { it.asset == asset }
             val recovered = requireNotNull(opponent.attackPose(EnemyPhase.RECOVERING, 0L, direction.recoveryNanos,
-                origin, 0.5f, direction, guarding = false, recoveryFromContact = true, gaitMeters = 0.0))
-            assertEquals(profile.sample(1.0).inStage(origin, 0.5f), recovered)
+                origin, 0.5f, direction, guarding = false, gaitMeters = 0.0))
+            assertEquals(profile.sample(recoveryStart).inStage(origin, 0.5f), recovered)
         }
     }
 
@@ -271,7 +279,7 @@ class AttackBankProfilesTest {
             assertEquals(1.45, locomotion.strideMeters, 0.0)
             for (moving in listOf(false, true)) for (gait in listOf(-2.9, -0.4, 0.0, 0.4, 1.45, 2.9)) {
                 val frame = requireNotNull(opponent.poseFrame(EnemyPhase.IDLE, 0L, null,
-                    AttackDirection.OVERHEAD, false, moving, false, gait))
+                    AttackDirection.OVERHEAD, false, moving, gait))
                 val expected = locomotion.sample(moving, gait)
                 assertEquals(if (moving) "walk" else "idle", frame.clip)
                 assertEquals(expected, frame.pose)

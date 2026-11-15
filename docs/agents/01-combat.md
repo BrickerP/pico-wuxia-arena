@@ -1,6 +1,113 @@
 # 01 · 动作源与战斗姿态
 
-## Root最新review：v3 RAW阶段接受，等待实际接入反馈（2026-11-13）
+## Root下一阶段规划（2026-11-15）
+
+下一首件为自然左护手与微呼吸idle，Root接受guard后才统一更新canonical family与运行idle时钟；v5正式不变。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。
+
+## Root本轮整合review（2026-11-15）
+
+Root已源审v5 RAW85d633ec…并通过唯一producer将三target正式重导，binding713532c0…。全套436单测、typed精确检查通过；Root看过六正常视图，三target48指定pose钢／非邻接核心相交0。实际SDK输入已开局、击败首人并进入第二轮；新三轮胜利仍未验，不扩大源净空结论为连续／所有衣物通过。保v5身份冻结，下一轮据本次原生接触片打磨动作可读性，勿再扫参数。
+
+## 当前执行合同：v5仅修veteran左肘／腰侧净空（2026-11-15 13:28）
+
+**本阶段结束，等待 review。** v5已完成两处局部净空整理，最终真实veteran相交21→0、23→0；不等同整体动作自然度、闭体积或原生验收通过。 用户11月15日恢复总目标，Root已收v4右手／头4→0，冻结RAW `050c55a2b64726f38ca7d36eec52f5832c370b92be3f80551f7c8249e5a3694f`；本轮只继续同一上劈剩余source1.10、1.4666667的L_forearm／chest区域相交，覆盖此前左手不在权限内的限制。
+
+输出仅在既有 `native-weighted-overhead/candidate/v5/`及01交接，不覆盖v4、不改integration／producer／formal／app，不操作设备或Git，保留共享工作树他人修改。首件／修正交付截止14:13 CST，最多两次有定位修正，不加招、不另开美术session或仓库。
+
+先在实际v4 veteran `cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86` 复现21／23对三角并出两时点真实局部before。初步解剖定位为近肘袖／护甲根部与Waist腰侧，非左手穿胸：1.10秒交叠bounds约x[.100,.154]／y[.881,.931]／z[.205,.253]m，1.4667秒约x[.143,.170]／y[.944,.996]／z[.026,.085]m。局部最近面法向负距离估计约2.8／9.3mm，不等同封闭体积深度；实际可见性、是否被衣甲遮挡需与原材质before图一起判断，不能只凭21／23总数称严重穿模。
+
+只修必要左肘／腕路径，优先保持左腕目标和world掌姿、由肘外侧净空解决根部交叠；不移动头／actor、不改握点或权重。保78骨、234轨、211键120Hz、首尾guard、R15 UNBAKED及v4三右臂轨和.9已清净空。用真正target私有重导复查两故障及有限邻近／全段，不以base预览代替；Root并行整合手部和phase接口，不作为本路等待理由。
+
+最终RAW／authoring、两时点前后图和有限检查已交；本轮使用两次定位修正，未追加第三版。**阶段结束，等待 review**，Root依据本轮实际target与新产线再决定正式接入。
+
+
+## v5交付：近肘袖／护甲与腰侧净空整理
+
+**阶段结束，等待 review。** [两时点真实veteran前后板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/review/veteran_two_fault_times_before_after.png)保留原材质和相同相机。修前没有明显开洞或外轮廓破裂，相交主要藏在护肘／腰带相贴内侧；修后仅可见护肘略向前／外退开，不能凭21／23对把它描述为严重可见穿模或巨大视觉收益。
+
+- [完整RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb) SHA `85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076`。
+- [Authoring声明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_authoring.json) SHA `6056fddca9407c882fba1a12e2d67b4a0ce4983c7d5511bc00ecca9a0fc07380`。
+- [Delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_delta.json)与[唯一交接清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_handoff.json)，handoff SHA `3589a3164e68cb0e001243a003793fc1093582858297bb24ea493cd771e36112`。
+
+### 实际修正和检查
+
+从冻结v4出发，只改L_Upperarm／L_Forearm／L_Hand三条rotation，每轨43个stored key，两个局部窗口绕合法肩—腕两骨圆小幅调肘，峰值8°；RAW左腕目标和world掌姿保持，未改头／actor／握点／权重。78骨、234轨、211键120Hz、首尾guard、R15 UNBAKED、三条右臂轨的全部原字节保留，右手.9净空未退步。
+
+真实v4 veteran before私有重导的完整OH轨与冻结cead1124…逐分量差为0，确认本target原生握指／一次指校正／一次idle-root与timeline匹配。最终私有target为 `f2b5f82cd275ab08df5df894193f46db64356d551493af8bed807d0b08d5496a`，不能作为RAW二次重导。原材质、几何、skin／weights及静态装配保持。
+
+[实际target检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_verification.json)最终70个离散姿态的Steel／fullbody与指定非邻接core自体区域均0；两请求时点21→0、23→0，右手／头.9仍0。[原source/base检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_source_finite_verification.json)在冻结v3实际上下文内存应用六条臂旋转（含继承v4右侧及本v5左侧），63姿态均0；未另生成base target。原执行报告封存，six-arm方法文本勘误另列，不冒称重扫。
+
+名义窗口为(1.02,1.10,1.20)、(1.38,44/30,1.56)。修改key分别123–143和166–187，LINEAR实际插值影响范围约[1.01666665,1.20000005]、[1.375,1.56666672]；窗外位同指stored key，C2仅描述标量包络。
+
+### 可见性、深度与动作边界
+
+[局部距离记录](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_clearance_metrics.json)将语义L_forearm／chest落实为近肘袖／护甲根部与Waist。修前局部nearest-normal负距离约2.82mm／9.3mm；1.4667修后旧受影响顶点最小转为约+9.4mm，1.10修后三角交叉为0但同类开放面距离仍最小约−2.50mm。该法向距离不是封闭体积inside判据，不能把三角清零写成全体积净空。真实target左手原点因重定向骨长有1.813／2.579mm小位移；Head／右手／真实刀基与刀尖点差均0，不声称target左腕逐分量不动。
+
+第一版逐帧按法向选旋转正负，虽有限表面样本0却产生窗内约14°附加翻向，已拒绝。第二版固定每窗方向，保8°峰值，附加swivel每120Hz步最大约1.539°／1.424°；只用了授权两次修正。[211键完整步进与Q检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_motion_steps.json)仍列出v4既有1.45→1.4583约25.615°大步，v5约25.927°，不作整招自然或C2声明。RAW L_Forearm的两处旧guard符号边界原样保留，无新增窗内符号翻向；actual target三左臂轨同半球。未为包装旧问题扩大改guard或窗外payload。
+
+最终图14:04:06 CST完成，同一诊断相机eye1.62m／aim腰侧.94m、水平距离1m、VFOV52°；修前原图13:39:08／13保留，修后按最终f2b5…真实重渲，无新movie或扩大机位。RAW生成于13:53:37，最终target／70+63检查与图在14:13窗口内已交；汇总handoff于14:16:42封存，未把封存时间写成窗口内。
+
+### 执行来源与Root接入边界
+
+封存期间两份共享live源码已变化，handoff分别记录执行时pin与当前pin：prepare_character_library.py `3b4d29…→71c303…`（live mtime14:15:53），attack_grounding.py `eb18de…→7f08c0…`（14:14:10）。这些变更晚于本RAW生成，本路未写公共源码，也未把新live代码冒充旧执行身份；本次冻结RAW／target／数值报告与图像身份独立保持。Root应以当前统一产线重导复验，不把本私有结果当新产线／三target已通过。
+
+v4 RAW、authoring和真实target哈希复核未改。没有移动头／actor、改握点、权重、右臂路径，没有改integration／producer／formal／app／设备／Git。70／63有限采样不证明连续时间、全部衣物体积、三target或原生组合通过；Root统一现有phase、接触、手部和最终发布。**阶段结束，等待 review。**
+
+## v4历史返修合同：右手／头净空（现已续派v5左侧）
+
+**本轮局部修复阶段结束，等待 review。** 实际veteran source.9的右手／头相交已由4对降为0；整体target仍有两处v3继承的左前臂／胸相交，不宣称全target净空通过。 Root已用v3真实重导三target，veteran source.90检出新增右手／头4对真实三角相交，旧同target／v9同刻0；base／indigo的16关键时点0，三target的Steel／body共48pose为0。此明确续派覆盖上轮不自行v4的冻结，其余v3全身意图保持。
+
+只写本目录既有制作源、`native-weighted-overhead/candidate/v4/`及01交接；integration全部只读，禁止改唯一producer、正式库、app、设备或Git，保留他人共享修改。输入为[integration实际veteran](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library/veteran_prepared_png.glb)，SHA `e44ac2c334169825e95b99213b0c53d6957cb7ff3b5c10df905f7567d3ebc973`，四对三角坐标见[Root报告](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review/review_report.json)。已在该实际target复现，掌缘／小指根区域875／906与头区域624／625相交，世界bounds x[−.16671,−.15368]、y[1.41280,1.46047]、z[.18583,.21026]m。
+
+仅修source约.82–1.0右手刀路必要外侧净空，优先腕肘自然联动；不缩头、不改握点或权重、不整体抬头／搬actor，左手不动。保持78骨／234轨／211键120Hz、首尾guard及R15 UNBAKED，封存v3。最多两次有定位修正，不扫参数、不扩新招；45分钟截止18:59前交修正RAW／authoring／delta及最少source.9前后图。
+
+必须用实际veteran重导结果检验.9附近，不能以base preview零碰撞替代。允许复用现有retarget_clip／prepare_character在v4目录生成一个target私有校验件，正确应用该target原生握指、一次指校正及一次root；因grounding合同需要idle／walk／三攻共同canonical，私有单target校验透传其真实source timeline，不调用全库build或3target正式生成。若必须调用真正producer，先告Root。Root独占正式三target发布与逐方向phase契约更新，OH边界将为(.65,5/6,31/30,1.75)，cue1.0只元数据；本路不改判定接口，也不等待另一路SDK整体反手验证。
+
+本轮仅一次几何定位修正，采用局部C2外侧16mm腕弧／8mm肘pole联动；真实veteran请求点及附近10个离散姿态已通过，遗留两处失败另列。source1.0端点权重显式归零，保证该原key位同。**阶段结束，等待 review**，不扩大改左手或收招。
+
+## Root三target实物返修：veteran右手／头部净空（2026-11-13）
+
+v3已由唯一producer实际导出三target，48个指定姿态的钢刃／身体交叉均0，base／indigo非邻接核心均0；veteran在source.9右手／头部新增4对三角交叉，旧同target/v9同刻0。真实位置／面坐标见`native-weighted-overhead/integration/review/review_report.json`，不是从base私有preview推断。Root已看new veteran .68与1.15，保整体蓄重卸力收益，当前5d44候选尚未正式批准。
+
+这一新实物问题授权01做**唯一一轮v4局部修正**，覆盖下方禁止自行v4的冻结：仅在.82–1.0附近给右手刀路必要外侧净空与自然肘腕联动，不缩头、抬头、改握点或搬actor；左手暂不改。保全78骨/234轨/211键120Hz、首尾guard和R15unbaked，保v3证据。45分钟、最多两次有定位的修改，交RAW/authoring/delta、故障前后图和真正veteran retarget私有校验；明确一次指校正／一次root，不把base零交叉当veteran通过。Root独占正式producer/库/app/Git，01不得修改integration同伴目录；仅在自身candidate/v4做私有结果。
+
+方向时点已在当前源码收敛：OH source0/.65/5/6/31/30/1.75，运行总1.75秒，ACTIVE线性，cue1.0不控制时钟或伤害；这不是完整锐刃或实际SDK通过。新RAW接受后Root统一更新配置/正式导出与typed，暂不批准v3头部相交为最终成品。
+
+
+## v4交付：请求点修复，整体target仍含继承相交
+
+**阶段结束，等待 review。** [真实veteran source.9故障前后图](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/review/veteran_source_0900_before_after.png)于18:26首交，最终after已按最终target身份实际重渲，未仅替换旧图字幕；18:41完成封存，在18:59截止前交付。
+
+- [RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_raw.glb) SHA `050c55a2b64726f38ca7d36eec52f5832c370b92be3f80551f7c8249e5a3694f`。
+- [Authoring](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_authoring.json) SHA `a28f6b2980b220793476ecb5bf59b57c77172e71cff4a2e9504745cbaeaa35c9`。
+- [Delta](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_delta.json)逐key声明改动；[唯一交接清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_handoff.json) SHA `3139ddd4c3d37cb684f40c9d3615199348ec74f31d16a0f3f86180ec917ceeb4`，将请求点、附近窗口与整体target状态分开。
+
+### 修正范围与真实target闭环
+
+先在Root实际e44ac2… veteran复现source.9原4对，再从同v3 RAW用现有retarget_clip／prepare_character私有重导。复现件的完整overhead轨对Root实际target逐float32分量最大差为0，证明使用了实际target原生握指、一次指校正和一次target idle-root grounding，而非base预览替代。私有生成只包含该veteran所需五canonical及真实timeline，未调用全库producer／三target正式生成。
+
+最终RAW仅改 `R_Upperarm／R_Forearm／R_Hand.rotation` 三轨、key99–119共21个局部key；其余TRS payload、78骨／234轨／211键120Hz、首尾guard、R15 UNBAKED及静态rig／mesh／skin保持。头、左手、握点、权重与actor未改，全身蓄重与卸力意图不变。名义腕弧峰值16mm向外，肘pole联动8mm；实际veteran .9手心delta约(−16.404,+1.600,+.491)mm，手世界朝向变化测值0°，Head／L_Hand／右肩原点位移0。非右臂重导分量最大浮点差约2.98e−7，未把它声称逐bit全同。
+
+C2仅描述解析权重包络(.82,1.0)。.82不在120Hz网格，glTF LINEAR实际受影响的插值区间为[.8166666626930237,1.0]，两端原key值保持；“窗外不变”仅指存储key payload比较，不是每个连续t≤.82求值完全不变，也不声称整招LINEAR曲线C2。此为证据精度说明，没有追加几何尝试或参数扫描。
+
+### 两层检查与Root待决项
+
+[原source/base有限检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_source_finite_verification.json)沿冻结v3实际mesh／skin／grip／一次校正／root上下文，内存只替换新RAW三条旋转，原63姿态的Steel／fullbody及指定自体core区域均0；未重导或导出另一base模型。
+
+[实际veteran检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_verification.json)对最终私有target `cead1124ab1c3453f6fae2f98e0be275a39792be3de98e6888edaf83a4aabb86` 实际重跑64姿态。请求source.9右手／头4→0，附近10个离散姿态Steel及指定自体区域均0，全64的Steel／body均0。**整体target检查仍失败**，新增采样范围揭示以下两处同actual v3已有的core区域交叠，v4与v3同刻计数相同，均在本轮delta之外：
+
+| clip/source | 区域 | 实际v3 | v4 |
+| --- | --- | --- | --- |
+| attack_overhead／1.100000s | L_forearm／chest | 21对 | 21对 |
+| attack_overhead／1.4666667s | L_forearm／chest | 23对 | 23对 |
+
+[继承相交报告](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v4/weighted_overhead_inherited_overlaps.json)及handoff含全部44对实际三角／坐标，交Root决定是否及如何续派；本轮没有越权修左手或扩大收招。63／64检查仅证明有限姿态和声明core区域，不证明连续时间、全部衣物体积或三target最终组合通过。base／indigo最终重导仍归Root，未在本路重新生成。
+
+最终故障图为同相机／同actor／同Action source.900000的真实veteran before／after，静态nodes／mesh／skin／weights／grip／材质贴图一致。仅一机位两张图，水平眼高1.62m、局部距离.90m、方位−55°、VFOV70；头、手和刀柄在框，刀尖裁切在局部画面外，不能将近景当完整刀路图。没有新movie或扩大姿态集。旧64执行JSON另原样保存，primary仅补LINEAR窗口解释，未伪称为文字说明重扫；图manifest核对最终primary与执行报告身份。
+
+v3 RAW／authoring与Root integration输入e44ac2…哈希复核未改。本轮只做一次定位几何修正；source1.0零权重边界的数值收口不改原16mm方案。源码快照与交接引用均已核对。Root统一更新逐方向phase、三target正式发布与新proxy／实际接触判定，source1.0仅元数据；本路未改integration／producer／library／app／设备／Git。**本轮局部阶段结束，等待Root review，整体target未宣称通过。**
+
+## v3历史review：RAW阶段接受（现已据目标缺陷续派v4）
 
 Root已实际审看完整53帧板与两侧面姿态，确认全身蓄重、主斩、卸力收守较旧姿态有改进，接受RAW几何阶段供下一轮正式接入；这不等同原生或最终审美过关。
 

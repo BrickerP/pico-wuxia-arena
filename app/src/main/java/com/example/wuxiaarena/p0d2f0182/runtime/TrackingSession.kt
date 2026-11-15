@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.example.wuxiaarena.core.input.DiscontinuityReason
+import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingControlOverflowException
@@ -41,6 +42,7 @@ interface TrackingControls {
     @MainThread fun pause(): InputControlResult
     @MainThread fun resume(confirmedPauseId: Long): Boolean
     @MainThread fun resetRound(): InputControlResult
+    @MainThread fun changeDominantHand(hand: Hand): InputControlResult
 }
 
 private class TrackingSession(
@@ -49,6 +51,7 @@ private class TrackingSession(
     private val onObservation: (TrackingEvent, Boolean, TrackingSnapshot, Long?) -> Unit,
     private val onControlsChanged: (TrackingControls?) -> Unit,
     private val onResumeRequested: (Long) -> Boolean,
+    private val canChangeDominantHand: () -> Boolean,
     private val onTick: (Long, Long?) -> Unit,
 ) {
     private enum class PendingControl { PAUSE, ROUND_RESET }
@@ -239,6 +242,7 @@ private class TrackingSession(
             override fun pause(): InputControlResult = requestControl(token, PendingControl.PAUSE)
             override fun resetRound(): InputControlResult = requestControl(token, PendingControl.ROUND_RESET)
             override fun resume(confirmedPauseId: Long): Boolean = requestResume(token, confirmedPauseId)
+            override fun changeDominantHand(hand: Hand): InputControlResult = requestDominantHand(token, hand)
         }
         publishedControls = controls
         notifyControls(controls)
@@ -349,6 +353,36 @@ private class TrackingSession(
         }
     }
 
+    /** Like resume, this drains synchronously and never stores a hand change for a later trial. */
+    private fun requestDominantHand(token: Long, hand: Hand): InputControlResult {
+        if (!controlsAreCurrent(token) || controlInProgress || pendingControl != null || !canChangeDominantHand()) {
+            return InputControlResult.UNAVAILABLE
+        }
+        controlInProgress = true
+        try {
+            for (attempt in 0 until STOP_ATTEMPTS) {
+                drain()
+                pendingControlRecovery = !adapter.recoverControlOverflow()
+                drain()
+                if (!controlsAreCurrent(token) || !canChangeDominantHand()) return InputControlResult.UNAVAILABLE
+                if (!pendingControlRecovery) {
+                    val enqueued = enqueueReadyHandSelection(buffer, inputOrigin, hand, canChangeDominantHand)
+                    if (!enqueued) return InputControlResult.UNAVAILABLE
+                    drain()
+                    return if (controlsAreCurrent(token)) InputControlResult.APPLIED else InputControlResult.UNAVAILABLE
+                }
+            }
+            return InputControlResult.UNAVAILABLE
+        } catch (error: Exception) {
+            Log.e(TAG, "Unable to select dominant hand", error)
+            stop()
+            return InputControlResult.UNAVAILABLE
+        } finally {
+            controlInProgress = false
+            if (stopRequested && !stopInProgress) stop()
+        }
+    }
+
     private fun drain() {
         val batch = buffer.drain()
         if (batch.droppedEvents > 0) Log.w(TAG, "Tracking queue dropped ${batch.droppedEvents} observations")
@@ -412,6 +446,7 @@ private class TrackingSession(
 @Composable
 fun ObserveTracking(
     onEvent: (TrackingEvent, Boolean, TrackingSnapshot, Long?) -> Unit,
+    canChangeDominantHand: () -> Boolean,
     onControlsChanged: (TrackingControls?) -> Unit = {},
     onResumeRequested: (Long) -> Boolean = { false },
     onTick: (Long, Long?) -> Unit = { _, _ -> },
@@ -424,6 +459,7 @@ fun ObserveTracking(
     val currentOnEvent = rememberUpdatedState(onEvent)
     val currentOnControlsChanged = rememberUpdatedState(onControlsChanged)
     val currentOnResumeRequested = rememberUpdatedState(onResumeRequested)
+    val currentCanChangeDominantHand = rememberUpdatedState(canChangeDominantHand)
     val currentOnTick = rememberUpdatedState(onTick)
     val session = remember(diagnosticsEnabled, inputOrigin) {
         TrackingSession(
@@ -434,6 +470,7 @@ fun ObserveTracking(
             },
             onControlsChanged = { currentOnControlsChanged.value(it) },
             onResumeRequested = { currentOnResumeRequested.value(it) },
+            canChangeDominantHand = { currentCanChangeDominantHand.value() },
             onTick = { nowNanos, uiFrameNanos -> currentOnTick.value(nowNanos, uiFrameNanos) },
         )
     }

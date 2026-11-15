@@ -43,7 +43,7 @@ class TrackingEventBufferTest {
         assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
         assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
         assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
-        buffer.changeDominantHand(InputOrigin.DESKTOP, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.DESKTOP, Hand.LEFT))
         assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
         buffer.discontinuity(InputOrigin.DESKTOP, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
         assertTrue(buffer.offerControllers(InputOrigin.DESKTOP, null, pose))
@@ -106,7 +106,7 @@ class TrackingEventBufferTest {
         assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
         assertTrue(buffer.offerControllers(InputOrigin.PICO, null, pose))
         assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.APP_PAUSED)
         assertFalse(buffer.offerControllers(InputOrigin.PICO, null, pose))
 
@@ -139,7 +139,7 @@ class TrackingEventBufferTest {
     fun overflowPreservesAHandSelectionBeforeTheGap() {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
 
         val batch = buffer.drain()
@@ -188,7 +188,7 @@ class TrackingEventBufferTest {
         assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.RIGHT_HAND, DiscontinuityReason.PROVIDER_UNAVAILABLE)
 
         val events = buffer.drain().events
@@ -226,7 +226,7 @@ class TrackingEventBufferTest {
         val clock = AtomicLong(0)
         val buffer = TrackingEventBuffer(2) { clock.getAndIncrement() }
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
 
@@ -268,16 +268,14 @@ class TrackingEventBufferTest {
             buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
         }
         buffer.drain()
-        assertThrows(TrackingControlOverflowException::class.java) {
-            buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
-        }
+        assertFalse(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.RECENTERED)
         val retried = buffer.drain()
         assertEquals(1, retried.droppedEvents)
         assertEquals(DiscontinuityReason.QUEUE_GAP, (retried.events[0] as TrackingEvent.Discontinuity).reason)
         assertEquals(DiscontinuityReason.RECENTERED, (retried.events[1] as TrackingEvent.Discontinuity).reason)
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         assertEquals(Hand.LEFT, (buffer.drain().events.single() as TrackingEvent.DominantHandChanged).hand)
     }
 
@@ -288,7 +286,7 @@ class TrackingEventBufferTest {
         buffer.offerHead(InputOrigin.PICO, pose)
         buffer.offerHead(InputOrigin.PICO, pose)
         buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
-        buffer.changeDominantHand(InputOrigin.PICO, Hand.LEFT)
+        assertTrue(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
         assertThrows(TrackingControlOverflowException::class.java) {
             buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
         }
@@ -334,5 +332,42 @@ class TrackingEventBufferTest {
         val buffer = TrackingEventBuffer(2) { values.removeFirst() }
         buffer.offerHead(InputOrigin.PICO, pose)
         assertThrows(IllegalStateException::class.java) { buffer.offerHead(InputOrigin.PICO, pose) }
+    }
+
+    @Test
+    fun rejectedHandSelectionAtPoseCapacityLeavesClockQueueAndStopRecoveryUntouched() {
+        val clock = AtomicLong()
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
+        val before = clock.get()
+        assertFalse(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
+        assertEquals(before, clock.get())
+        val preserved = buffer.drain()
+        assertEquals(0L, preserved.droppedEvents)
+        assertEquals(0L, (preserved.events.single() as TrackingEvent.Head).stamp.sequence)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.APP_PAUSED)
+        assertEquals(DiscontinuityReason.APP_PAUSED,
+            (buffer.drain().events.single() as TrackingEvent.Discontinuity).reason)
+        assertTrue(buffer.offerControllers(InputOrigin.PICO, pose, pose))
+    }
+
+    @Test
+    fun rejectedHandSelectionAtControlCapacityDoesNotRequireAHandRetry() {
+        val clock = AtomicLong()
+        val buffer = TrackingEventBuffer(1) { clock.getAndIncrement() }
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
+        assertFalse(buffer.offerHead(InputOrigin.PICO, pose))
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.ROUND_RESET)
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.HEAD, DiscontinuityReason.PROVIDER_UNAVAILABLE)
+        val before = clock.get()
+        assertFalse(buffer.tryChangeDominantHand(InputOrigin.PICO, Hand.LEFT))
+        assertEquals(before, clock.get())
+        val batch = buffer.drain()
+        assertTrue(batch.events.none { it is TrackingEvent.DominantHandChanged })
+        assertEquals(listOf(DiscontinuityReason.QUEUE_GAP, DiscontinuityReason.ROUND_RESET,
+            DiscontinuityReason.PROVIDER_UNAVAILABLE), batch.events.map { (it as TrackingEvent.Discontinuity).reason })
+        buffer.discontinuity(InputOrigin.PICO, TrackingTarget.ALL, DiscontinuityReason.APP_PAUSED)
+        assertEquals(1L, buffer.drain().events.single().stamp.coordinateEpoch)
+        assertTrue(buffer.offerHead(InputOrigin.PICO, pose))
     }
 }

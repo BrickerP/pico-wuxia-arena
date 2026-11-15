@@ -108,7 +108,6 @@ internal data class ArenaViewState(
     val playerMotionGeneration: Long = 0L,
     val enemyBladeBase: Vector3? = null,
     val enemyBladeTip: Vector3? = null,
-    val enemyRecoveryFromContact: Boolean = false,
     val playerWeaponGrip: WeaponGrip? = null,
     val enemyPoseClip: String? = null,
     val enemyPoseSourceSeconds: Double? = null,
@@ -178,7 +177,6 @@ internal class ArenaSession(
     private var enemyMoveDirection = 0f
     private var observedAttackId: Long? = null
     private var attackSequenceIndex = 0
-    private var enemyRecoveryFromContact = false
     private var resolvedContactId: Long? = null
     private var roundGeneration = 0L
     private var trialStarted = false
@@ -288,7 +286,6 @@ internal class ArenaSession(
                 enemyRecoilOffset = currentRecoilOffset(),
                 enemyBladeBase = enemyAttackPose?.bladeBase,
                 enemyBladeTip = enemyAttackPose?.bladeTip,
-                enemyRecoveryFromContact = enemyRecoveryFromContact,
                 playerWeaponGrip = latestMotion?.weaponGrip,
                 enemyPoseClip = selectedPose?.clip,
                 enemyPoseSourceSeconds = selectedPose?.pose?.sourceSeconds,
@@ -601,10 +598,6 @@ internal class ArenaSession(
         val elapsed = combat.phaseElapsedNanos
         val remaining = combat.nanosUntilPhaseTransition ?: return maximum
         var result = maximum
-        if (combat.phase == EnemyPhase.ACTIVE) {
-            val half = checkNotNull(combat.currentAttackDirection).activeNanos / 2L
-            if (elapsed < half) result = minOf(result, half - elapsed)
-        }
         val start = profile.sourceSeconds(combat.phase, elapsed, remaining)
         val end = profile.sourceSeconds(combat.phase, elapsed + result, remaining - result)
         val key = profile.samples.firstOrNull { it.sourceSeconds > start + 1e-12 && it.sourceSeconds < end - 1e-12 }
@@ -756,7 +749,6 @@ internal class ArenaSession(
             contactRecovery = ContactRecovery(arenaOpponents[roundNumber - 1].attackProfile(direction), direction,
                 pose.sourceSeconds, enemyMotionNanos,
                 if (outcome == AttackOutcome.PARRIED) 550_000_000L else direction.recoveryNanos)
-            enemyRecoveryFromContact = true
         }
         heldEnemyPoseFrame = poseFrame
         heldEnemyAttackOffsets = attackOffsets
@@ -906,7 +898,7 @@ internal class ArenaSession(
         return arenaOpponents[roundNumber - 1].poseFrame(combat.phase, combat.phaseElapsedNanos + aheadNanos,
             combat.nanosUntilPhaseTransition?.minus(aheadNanos)?.coerceAtLeast(0L),
             combat.currentAttackDirection ?: AttackDirection.OVERHEAD, combat.guarding,
-            enemyMoveDirection != 0f, enemyRecoveryFromContact, enemyGaitMeters, combat.hitReaction, enemyHitZone)
+            enemyMoveDirection != 0f, enemyGaitMeters, combat.hitReaction, enemyHitZone)
     }
 
     private fun enemyContactPose(): EnemyContactPose? = enemyAttackPose()?.contact ?: enemyPosition?.let(EnemyContactPose::standing)
@@ -930,15 +922,13 @@ internal class ArenaSession(
                 is EnemyCombatEvent.AttackStarted -> {
                     contactRecovery = null
                     attackSequenceIndex = (attackSequenceIndex + 1) % ATTACK_SEQUENCE.size
-                    enemyRecoveryFromContact = false
                     heldEnemyPoseFrame = null
                     heldEnemyAttackOffsets = null
                     observedAttackId = event.attackId
                     resolvedContactId = null
-                            motion.beginEnemyAttack(event.attackId)
+                    motion.beginEnemyAttack(event.attackId)
                 }
                 is EnemyCombatEvent.AttackResolved -> {
-                    enemyRecoveryFromContact = event.outcome != AttackOutcome.MISSED
                     if (event.outcome == AttackOutcome.HIT_PLAYER) {
                         playerHealth = (playerHealth - if (matchNanos < staggerUntil) 30 else 20).coerceAtLeast(0)
                         combo = 0
@@ -949,11 +939,9 @@ internal class ArenaSession(
                 is EnemyCombatEvent.HitReactionStarted -> if (event.reaction == HitReaction.PARRIED) {
                     enemyHitZone = null
                 }
-                is EnemyCombatEvent.AttackCancelled -> enemyRecoveryFromContact = false
                 is EnemyCombatEvent.PhaseChanged -> {
                     if (event.current == EnemyPhase.IDLE || event.current == EnemyPhase.DEAD) {
                         contactRecovery = null
-                        enemyRecoveryFromContact = false
                     }
                     if (event.current != EnemyPhase.HIT) enemyHitZone = null
                     if (event.current == EnemyPhase.DEAD && result == TrialResult.FIGHTING) {
@@ -1019,7 +1007,6 @@ internal class ArenaSession(
         roundNumber++
         clearEnemyContactPlayback()
         attackSequenceIndex = 0
-        enemyRecoveryFromContact = false
         check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
         roundGeneration++
         initialHealth = 100 + (roundNumber - 1) * 25
@@ -1163,7 +1150,6 @@ internal class ArenaSession(
                 lastHitAt = -1L
                 roundNumber = 1
                 attackSequenceIndex = 0
-                enemyRecoveryFromContact = false
                 matchNanos = 0L
                 countdownNanos = 0L
                 intermissionNanos = 0L
@@ -1207,7 +1193,9 @@ internal class ArenaSession(
                 if (requiredControl || changedContinuity || changedEpoch || lostRequiredInput) {
                     val boundary = maxOf(event.stamp.sequence, previousStamp?.sequence ?: -1L, snapshot.requiredSinceSequence)
                     revokeActionBaseline(boundary)
-                    if (hadReadyInput || trialStarted || combat.pauseReason != null) {
+                    val selectingReadyHand = newlyAccepted && event is TrackingEvent.DominantHandChanged &&
+                        result == TrialResult.READY && !trialStarted && combat.pauseReason == null
+                    if (!selectingReadyHand && (hadReadyInput || trialStarted || combat.pauseReason != null)) {
                         events += combat.interruptTracking()
                     }
                 }

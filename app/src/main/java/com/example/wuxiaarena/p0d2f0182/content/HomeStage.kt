@@ -521,7 +521,7 @@ private class SceneOwner(
         }
         // Dao and equipped hand both consume the final grip from this state publication.
         val pose = grip?.let { playerHandTransform(
-            ObservedPose(it.position, it.rotation), Hand.RIGHT,
+            ObservedPose(it.position, it.rotation),
         ) }
         if (pose == null) {
             if (weapon.enabled) weapon.enabled = false
@@ -542,7 +542,7 @@ private class SceneOwner(
         if (playerPoseEvidenceCount >= 3 || snapshot == null) return
         val observation = (if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right) ?: return
         val rawPose = observation.pose ?: return
-        if (playerHandTransform(rawPose, Hand.RIGHT) == null) return
+        if (playerHandTransform(rawPose) == null) return
         val evidence = rawPose to grip
         if (evidence == lastPlayerPoseEvidence) return
         // Diagnostic failure must never interrupt input or hide successfully presented geometry.

@@ -1,0 +1,88 @@
+{
+  "decision": "READY_FOR_ROOT_COMMON_GRIP_ATOMIC_INTEGRATION_REVIEW",
+  "phase": "阶段结束，等待对应Root review",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+    "sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+    "bytes": 2627980
+  },
+  "candidate_unchanged_since_2026_11_13": true,
+  "final_native_or_hand_quality_accepted": false,
+  "required_atomic_integration": [
+    "Root replacesapp/src/main/assets/models/player_hands/left_hand.glb",
+    "Root removes old LEFT_WRIST_FROM_GRIP/Derived marker code, both handRoot=G",
+    "Root validatesnew combination inPICO Emulator before release"
+  ],
+  "asset_alone_replacement_safe": false,
+  "runtime_C_or_B_in_asset": false,
+  "actual_skin_IBM_normal_winding_and_handedness_passed": true,
+  "source_mesh_missing_TANGENT": [
+    0,
+    1
+  ],
+  "tangent_w_negative_sign_synthetic_tested": true,
+  "actual_dao_is_not_reflected": true,
+  "closed_actual_dao": {
+    "Left_core_inside_samples": 2,
+    "Left_maximum_depth_mm": 0.09344047,
+    "Right_maximum_depth_mm": 0.09252216,
+    "inside_digits": [
+      "Index"
+    ],
+    "other_solid_fittings_inside_or_surface_cross": 0,
+    "open_cord_surface_cross_Left": 33,
+    "open_cord_surface_cross_Right": 38,
+    "cord_open_edges": 1442
+  },
+  "actual_self": {
+    "open": 0,
+    "mid": 0,
+    "closed_inherited_Right_and_Left": 109,
+    "Thumb_Index_inherited": 47,
+    "Mid_Ring_inherited": 62,
+    "new_face_pairs": 0
+  },
+  "visual_main_thread_conclusion": "Three actual KTX views show left chirality, natural wrap, readable digit separation and thumb/web volume without the former cf3203 cross-handle membrane. Existing low-poly dorsal/cuff/proximal closure roughness remains. Camera-only corresponding-side selection, no model/dao runtime reflection or scale.",
+  "four_pass_self_review": {
+    "correctness": "Actual allprimitive default/0/.5/1LBS+IBM+normal+winding equality and28damage/actualDAO tests verified; actual asymmetric DAO checked rather than assumed.",
+    "maintainability": "Existing frozen candidate/producer unchanged, only owned verifier/companion/three-view evidence added; one commonGrip ABI, noB/C/legacy fallback.",
+    "visual_anatomy": "Mainthread inspectedall3closed views; left-handed thumb andvolume read coherently, no new obvious folds or skinbreak; inherited109surface intersections not hidden.",
+    "drift": "No publicasset/right/dao/app/producer/device/Git edits, Root-owned math-review files not touched. Sourcebindings/28tests/sourceKTX pixels pinned."
+  },
+  "limits": [
+    "Existing source Right hard dorsal/cuff edges/lowpoly geometry and inherited intersections remain",
+    "Fixed-dao oldopen/mid Thumb penetrations remain, finite3pose tests notcontinuous collision proof",
+    "Default mirrorsRightclosed; consumer mustexplicitly setoffhand grip0",
+    "No actual PICO/SDK ControllerPose physiological proof or final release acceptance",
+    "OldC Kotlin stillrequiresRoot atomic change; model-only switch invalid"
+  ],
+  "evidence": {
+    "verification": {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verification.json",
+      "sha256": "71a35faac011efbb5b7d742e41c8dfa12a9271d8d59f3618d1c509fb9bfed423",
+      "bytes": 240247
+    },
+    "renders": {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/render_manifest.json",
+      "sha256": "c3ae5ff5fd96453297b455ee20db8927893eca5eae5fb44e9d85e4c1587c04ef",
+      "bytes": 45687
+    },
+    "images": [
+      {
+        "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_front.png",
+        "sha256": "46f35cce55a8dd01414c9c22a77d6e79ad77df6e036269e8c3f523cbff634afc",
+        "bytes": 1336846
+      },
+      {
+        "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_back.png",
+        "sha256": "9f0c77aee91801818288953a719ebc652dc402e0bcee31193d3fc580b5391de1",
+        "bytes": 1221628
+      },
+      {
+        "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_oblique.png",
+        "sha256": "0262a19a7b480f1f52eb4e91f48ef3db267e1d81e851da4be84f094c465ff12f",
+        "bytes": 1348233
+      }
+    ]
+  }
+}

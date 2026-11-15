@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "status": "v5_source_reviewed_pending_complete_three_target_and_native_validation",
+  "baseline_manifest": {
+    "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/baseline_motion_library_8ac1a78.json",
+    "sha256": "106cbcc8c38f728a6a27740a3d2341e90f96b95b56bace7c050254d2bd2a084f"
+  },
+  "baseline_attack_authoring": {
+    "path": "ArtSource/refinement/combat-direction/overhead-v9-candidate/attack_bank_inputs.json",
+    "sha256": "28ad4bef880b78102f4801f2f2b5b5c22f048fb674e1449041f6593adce5626b"
+  },
+  "source_authoring": {
+    "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_authoring.json",
+    "sha256": "6056fddca9407c882fba1a12e2d67b4a0ce4983c7d5511bc00ecca9a0fc07380"
+  },
+  "raw": {
+    "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076"
+  },
+  "producer": {
+    "path": "ArtSource/tripo-warrior/prepare_character_library.py",
+    "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449"
+  },
+  "allowed_manifest_changes": [
+    "attack_source.clips[OVERHEAD].source",
+    "attack_source.clips[OVERHEAD].source_sha256",
+    "attack_source.authoring_manifest",
+    "remove attack_source.phase_markers",
+    "attack_source.clips[*].phase_markers",
+    "attack_source.clips[*].runtime_phase_nanos",
+    "remove production_review"
+  ],
+  "unchanged_targets": [
+    "base",
+    "indigo",
+    "veteran"
+  ],
+  "candidate_output_authority": "Root exclusively invokes existing producer with --candidate-dir and generates typed formal data; validation never generates target outputs or formal approval",
+  "per_direction_development_contracts": {
+    "OVERHEAD": {
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.8333333333333334,
+        "active_end": 1.0333333333333334,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        650000000,
+        183333333,
+        200000000,
+        716666667
+      ]
+    },
+    "LEFT": {
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.9,
+        "active_end": 1.1,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        550000000,
+        180000000,
+        200000000,
+        600000000
+      ]
+    },
+    "RIGHT": {
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.9,
+        "active_end": 1.1,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        550000000,
+        180000000,
+        200000000,
+        600000000
+      ]
+    }
+  },
+  "runtime_duration_order": [
+    "PREPARING",
+    "STARTUP",
+    "ACTIVE",
+    "RECOVERING"
+  ],
+  "contact_cue_semantics": "authoring cue strictly inside ACTIVE; source mapping is linear and never bends at cue",
+  "existing_candidate_before_cue_metadata_fix": {
+    "binding_sha256": "5d44baf321f80b42825a1b0d9f635a0847799f925defb172a8b6023ea9701402",
+    "directory": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library",
+    "files": {
+      "base.glb": "a666f1e262fb1dd2a251d7cf45dc1459a8c1c4c1fbeb32259b731ae78167de84",
+      "base_alignment.json": "38496c545d23c7987a6a74b0270d5ad8ddead39a3f4e2923fe9b3aa56ec06958",
+      "base_attack_profiles.json": "f6d12a2bec8d4f4373eaae2fdc139110ee5d42ac4ee11f16de6a944049e50974",
+      "base_body.glb": "b118f543b43140c7becd21e36d76b39645dff5900c25c8a32b56a0d87f495019",
+      "base_prepared_png.glb": "7dd6331740ba1d9d04fbb4690bf51cd360643b35b66a93b91f39c6e73cebb6ad",
+      "base_texture_encoding.json": "ed96a443491bd40b25587955be142b2e96b05e803a1706be8417eb678bba65ce",
+      "characters.json": "4212c4798326051b0124111ae5a5f45f93af17c67f8313860514c92d5b7d1333",
+      "dao_grip.glb": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "dao_grip_texture_encoding.json": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab",
+      "indigo.glb": "ccdfd8d47988e41238734dbe6fd5fbb5038530e0dfa7ea0439a99e4a08ae0dba",
+      "indigo_alignment.json": "1bd8d670946d66ef21fe60c1848fd8df99f1155db5048a826d8799dbcc293137",
+      "indigo_attack_profiles.json": "5759babcaf3c1d22f9ad9aac18894d8411abe53ed89a518fec435ee0ebaa80d6",
+      "indigo_body.glb": "fca46efb48cd6b6d1776a517d5d39edf88e2cab8de741f23040fdf396022fd1e",
+      "indigo_prepared_png.glb": "fd2b2b196a251c60232b8edd21e9bcf2f9fbb3d125d18fad8f448371d97d6780",
+      "indigo_texture_encoding.json": "a78118dc4e60b8cb79f65cc6afe870ac0ea5b8defc2d2f8e3b5397b4cba216c9",
+      "player_weapon_manifest.json": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f",
+      "production_review_request.json": "6540bbd7aa6ec1894871ac794b60407932cd88c22eb779f38a9e881946a8e4cb",
+      "veteran.glb": "3cb6acc6334849442bc981d21ce29a36750b46862f244c96946162bb1c7fbc98",
+      "veteran_alignment.json": "ac034695c1845b086c9bc5abd30ad7bc768289155562e4af9f4abe36ab11a977",
+      "veteran_attack_profiles.json": "9654c43f9f0913f042753b857dca445988f2de6569728ea46210ae65d37eeb4c",
+      "veteran_body.glb": "52678c69b8a46acd6907ca10d7b37e66e88d6659be56c9a8f7f52c6852ccff30",
+      "veteran_prepared_png.glb": "e44ac2c334169825e95b99213b0c53d6957cb7ff3b5c10df905f7567d3ebc973",
+      "veteran_texture_encoding.json": "898f7ca1c7cdba2590258e89edce0e9a24714429db43a3af868644e568ad6e00"
+    }
+  },
+  "profile_exporter": {
+    "path": "ArtSource/tripo-warrior/attack_profiles.py",
+    "sha256": "e28720d3d1df117c175f0757badd21635c18b045d23f547d753de35a00169bf6"
+  },
+  "typed_generator": {
+    "path": "ArtSource/refinement/combat-direction/generate_attack_bank_profiles.py",
+    "sha256": "d228742906f446ee30996cbd65c1f3f9650a6b4164fb0247c8475ed0ab993dd2"
+  },
+  "production_contract": {
+    "path": "ArtSource/tripo-warrior/production_contract.py",
+    "sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8"
+  }
+}

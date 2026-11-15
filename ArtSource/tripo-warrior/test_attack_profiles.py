@@ -1,6 +1,7 @@
 """Pure offline synthetic checks for attack anchor export, run with Blender Python."""
 
 import copy
+import importlib.util
 import json
 import struct
 import sys
@@ -12,6 +13,26 @@ from attack_profiles import export_attack_profiles, float32, locomotion_source_c
 
 
 BANK = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': 'attack_right'}
+
+
+def typed_generator():
+    path = Path(__file__).resolve().parents[1] / 'refinement/combat-direction/generate_attack_bank_profiles.py'
+    spec = importlib.util.spec_from_file_location('attack_runtime_contract_fixture', path)
+    generator = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(generator)
+    return generator
+
+
+def attack_contracts():
+    generator = typed_generator()
+    runtime = generator.runtime_phase_nanos_from_enum()
+    return {clip: {
+        'phase_markers': {'start': 0.0, 'preparation_end': .65,
+                          'startup_end': 5 / 6 if direction == 'OVERHEAD' else .9,
+                          'active_end': 31 / 30 if direction == 'OVERHEAD' else 1.1,
+                          'recovery_end': 1.75, 'contact': 1.0},
+        'runtime_phase_nanos': runtime[direction],
+    } for direction, clip in BANK.items()}
 
 
 def actor():
@@ -85,10 +106,84 @@ def coverage_contract():
 
 
 class AttackProfileTests(unittest.TestCase):
+    def test_contact_cue_is_metadata_without_resampling_geometry_or_the_phase_clock(self):
+        document, binary = actor()
+        original_contracts = attack_contracts()
+        original = export_attack_profiles(document, binary, BANK, original_contracts, frozen_contract(), coverage_contract())
+        generator = typed_generator()
+        for cue in (.95, .955):
+            contracts = copy.deepcopy(original_contracts)
+            for row in contracts.values():
+                row['phase_markers']['contact'] = cue
+            result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+            binding_rows = []
+            for direction, clip in BANK.items():
+                binding_rows.append({'name': clip, 'direction': direction, 'incoming_guard_side': direction,
+                    'actor_travel_side': 'DOWN' if direction == 'OVERHEAD' else direction,
+                    'source_sha256': '1' * 64, **contracts[clip]})
+            bound = generator.validate_attack_contracts({'attack_source': {'clips': binding_rows}})
+            for direction, clip in BANK.items():
+                profile = result['attacks'][direction]
+                baseline = original['attacks'][direction]
+                self.assertEqual(profile['samples'], baseline['samples'])
+                self.assertEqual(profile['source_phase_seconds'], baseline['source_phase_seconds'])
+                self.assertEqual(profile['runtime_phase_nanos'], baseline['runtime_phase_nanos'])
+                self.assertEqual(profile['contact_source_seconds'], cue)
+                metadata = {key: bound[direction][key] for key in
+                            ('incoming_guard_side', 'actor_travel_side', 'source_sha256')}
+                generator.validate_attack_profile(profile, metadata, bound[direction])
+                if cue == .955:
+                    self.assertNotIn(float32(cue), [sample['source_seconds'] for sample in profile['samples']])
+
+    def test_each_exported_direction_uses_only_its_bound_phase_and_runtime_contract(self):
+        document, binary = actor()
+        contracts = attack_contracts()
+        original = copy.deepcopy(contracts)
+        result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+        self.assertEqual(contracts, original)
+        self.assertNotIn('phase_markers_seconds', result)
+        self.assertNotIn('phase_sample_times_seconds', result)
+        names = ('start', 'preparation_end', 'startup_end', 'active_end', 'recovery_end')
+        for direction, clip in BANK.items():
+            profile = result['attacks'][direction]
+            markers = contracts[clip]['phase_markers']
+            self.assertEqual(profile['source_phase_seconds'], [markers[name] for name in names])
+            self.assertEqual(profile['contact_source_seconds'], markers['contact'])
+            self.assertEqual(profile['runtime_phase_nanos'], contracts[clip]['runtime_phase_nanos'])
+            for name, marker in markers.items():
+                if name == 'contact':
+                    continue
+                self.assertIn(float32(marker), [sample['source_seconds'] for sample in profile['samples']])
+        self.assertNotEqual(result['attacks']['OVERHEAD']['source_phase_seconds'],
+                            result['attacks']['LEFT']['source_phase_seconds'])
+
+    def test_missing_direction_clock_and_invalid_phase_and_runtime_contracts_are_rejected(self):
+        document, binary = actor()
+        invalid = []
+        missing = attack_contracts()
+        del missing['attack_left']
+        invalid.append(missing)
+        for field, value in [('phase_markers', {}), ('runtime_phase_nanos', [1, 2, 3]),
+                             ('runtime_phase_nanos', [False, 1, 1, 1]),
+                             ('runtime_phase_nanos', [1.5, 1, 1, 1]),
+                             ('runtime_phase_nanos', [1, -1, 1, 1]),
+                             ('runtime_phase_nanos', [1 << 63, 1, 1, 1])]:
+            contracts = attack_contracts()
+            contracts['attack_overhead'][field] = value
+            invalid.append(contracts)
+        for field, value in [('startup_end', float('nan')), ('startup_end', .65),
+                             ('contact', 31 / 30), ('start', False), ('recovery_end', 2.0)]:
+            contracts = attack_contracts()
+            contracts['attack_overhead']['phase_markers'][field] = value
+            invalid.append(contracts)
+        for contracts in invalid:
+            with self.assertRaises(ValueError):
+                export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+
     def test_final_hierarchy_drives_mounted_blade_and_normalized_body(self):
         document, binary = actor()
         original = copy.deepcopy(document)
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         self.assertEqual(document, original)
         self.assertEqual(result['axes'], {'up': '+Y', 'forward': '+Z', 'actor_left': '+X'})
         self.assertEqual(set(result['attacks']), set(BANK))
@@ -106,13 +201,16 @@ class AttackProfileTests(unittest.TestCase):
             self.assertAlmostEqual(contact['blade_tip'][1], 2.02, places=6)
             self.assertEqual(contact['torso_lower'], contact['hip'])
             self.assertEqual(contact['torso_upper'], contact['spine02'])
-            for marker in result['phase_sample_times_seconds'].values():
-                self.assertIn(marker, [sample['time_seconds'] for sample in profile['samples']])
+            markers = attack_contracts()[profile['clip']]['phase_markers']
+            for name, marker in markers.items():
+                if name == 'contact':
+                    continue
+                self.assertIn(float32(marker), [sample['time_seconds'] for sample in profile['samples']])
         json.dumps(result, allow_nan=False)
 
     def test_schema3_locomotion_uses_one_actual_mesh_calibration_and_exact_phase_samples(self):
         document, binary = actor()
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         self.assertEqual(result['schema_version'], 3)
         self.assertEqual(set(result['locomotion']), {'idle', 'walk'})
         contract = result['source_contract']
@@ -136,7 +234,7 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         animation = next(row for row in document['animations'] if row['name'] == 'hit_body')
         animation['channels'][0]['target']['node'] = 3
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         self.assertEqual(set(result['reactions']), {'hit_body', 'hit_head', 'hit_side'})
         for name, clip in result['reactions'].items():
             self.assertEqual(clip['clip'], name)
@@ -158,7 +256,7 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         document['animations'] = [row for row in document['animations'] if row['name'] != 'hit_head']
         with self.assertRaisesRegex(ValueError, 'reaction clip is absent.*hit_head'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         document, binary = actor()
         animation = next(row for row in document['animations'] if row['name'] == 'hit_side')
         # Reuse an existing accessor but make its second source time unable to cover 1.18s.
@@ -180,7 +278,7 @@ class AttackProfileTests(unittest.TestCase):
 
     def test_final_mesh_change_moves_proxy_without_editing_constants(self):
         document, binary = actor()
-        original = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        original = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         accessor = document['meshes'][0]['primitives'][0]['attributes']['POSITION']
         view = document['bufferViews'][document['accessors'][accessor]['bufferView']]
         changed = bytearray(binary)
@@ -188,7 +286,7 @@ class AttackProfileTests(unittest.TestCase):
             offset = view['byteOffset'] + vertex * 12
             x = struct.unpack_from('<f', changed, offset)[0]
             struct.pack_into('<f', changed, offset, x + .15)
-        updated = export_attack_profiles(document, bytes(changed), BANK, frozen_contract(), coverage_contract())
+        updated = export_attack_profiles(document, bytes(changed), BANK, attack_contracts(), frozen_contract(), coverage_contract())
         self.assertAlmostEqual(updated['proxy_calibration']['idle_centres_metres']['head'][0] -
                                original['proxy_calibration']['idle_centres_metres']['head'][0], .3, places=6)
         self.assertNotEqual(updated['proxy_calibration']['bone_local_offsets']['head'],
@@ -204,11 +302,11 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         document['meshes'][0]['extras'].pop('body_primitive_indices')
         with self.assertRaisesRegex(ValueError, 'explicit body primitive'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         document, binary = actor()
         document['animations'][-1]['samplers'][0]['input'] = 0
         with self.assertRaisesRegex(ValueError, '0 to 1.5'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_body_coverage_preserves_prior_anchor_relative_y_and_measures_xz(self):
         document, binary = actor()
@@ -216,7 +314,7 @@ class AttackProfileTests(unittest.TestCase):
         prior['idle_reference']['hip'][1] -= .2
         prior['idle_reference']['spine02'][1] -= .1
         original = copy.deepcopy(prior)
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), prior)
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
         centres = result['proxy_calibration']['idle_centres_metres']
         self.assertAlmostEqual(centres['body_bottom'][1], .75, places=6)
         self.assertAlmostEqual(centres['body_top'][1], 1.5, places=6)
@@ -232,18 +330,18 @@ class AttackProfileTests(unittest.TestCase):
         for prior, message in [(None, 'explicit'), ({}, 'explicit')]:
             document, binary = actor()
             with self.assertRaisesRegex(ValueError, message):
-                export_attack_profiles(document, binary, BANK, frozen_contract(), prior)
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
         for field, value in [('body_bottom', float('nan')), ('body_bottom', 1.5)]:
             document, binary = actor()
             prior = coverage_contract()
             prior['idle_centres_metres'][field][1] = value
             with self.assertRaises(ValueError):
-                export_attack_profiles(document, binary, BANK, frozen_contract(), prior)
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
         document, binary = actor()
         prior = coverage_contract()
         prior['source_profile']['sha256'] = 'unbound'
         with self.assertRaisesRegex(ValueError, 'pinned'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), prior)
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
 
     def test_invalid_skin_and_nonfinite_surface_are_rejected(self):
         for attribute, value, message in [('WEIGHTS_0', .2, 'normalized'), ('POSITION', float('nan'), 'finite')]:
@@ -253,14 +351,14 @@ class AttackProfileTests(unittest.TestCase):
             binary = bytearray(binary)
             struct.pack_into('<f', binary, offset, value)
             with self.assertRaisesRegex(ValueError, message):
-                export_attack_profiles(document, bytes(binary), BANK, frozen_contract(), coverage_contract())
+                export_attack_profiles(document, bytes(binary), BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_blade_marker_outside_hand_is_rejected(self):
         document, binary = actor()
         document['nodes'][7]['children'].remove(9)
         document['nodes'][0]['children'].append(9)
         with self.assertRaisesRegex(ValueError, 'mounted R_Hand'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_head_proxy_uses_idle_calibrated_local_offset_during_rotation(self):
         document, binary = actor()
@@ -272,7 +370,7 @@ class AttackProfileTests(unittest.TestCase):
         animation = document['animations'][0]
         animation['samplers'].append({'input': 0, 'output': len(document['accessors']) - 1})
         animation['channels'].append({'sampler': 1, 'target': {'node': 4, 'path': 'rotation'}})
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         end = result['attacks']['OVERHEAD']['samples'][-1]
         self.assertAlmostEqual(end['head_origin'][1], 1.6, places=6)
         self.assertAlmostEqual(end['head'][1], 1.5, places=6)
@@ -287,7 +385,7 @@ class AttackProfileTests(unittest.TestCase):
         animation = document['animations'][0]
         animation['samplers'].append({'input': 0, 'output': len(document['accessors']) - 1})
         animation['channels'].append({'sampler': 1, 'target': {'node': 5, 'path': 'rotation'}})
-        result = export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         end = result['attacks']['OVERHEAD']['samples'][-1]
         self.assertAlmostEqual(end['blade_base'][1], 1.08, places=6)
         self.assertAlmostEqual(end['blade_tip'][1], .38, places=6)
@@ -297,32 +395,32 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         binary = struct.pack('<2f', 0, 2.0) + binary[8:]
         with self.assertRaisesRegex(ValueError, '0 to 1.75'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_nonfinite_source_and_duplicate_times_are_rejected(self):
         for first, last in [(0, float('nan')), (0, 0)]:
             document, binary = actor()
             binary = struct.pack('<2f', first, last) + binary[8:]
             with self.assertRaises(ValueError):
-                export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_incomplete_bank_and_missing_clip_are_rejected(self):
         document, binary = actor()
         with self.assertRaisesRegex(ValueError, 'OVERHEAD'):
-            export_attack_profiles(document, binary, {'OVERHEAD': 'attack_overhead'}, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, {'OVERHEAD': 'attack_overhead'}, {}, frozen_contract(), coverage_contract())
         broken = dict(BANK, LEFT='absent')
         with self.assertRaisesRegex(ValueError, 'absent'):
-            export_attack_profiles(document, binary, broken, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, broken, attack_contracts(), frozen_contract(), coverage_contract())
 
     def test_scene_root_transform_and_hierarchy_cycle_are_rejected(self):
         document, binary = actor()
         document['nodes'][0]['translation'] = [10, 0, 0]
         with self.assertRaisesRegex(ValueError, 'identity'):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
         document, binary = actor()
         document['nodes'][9]['children'] = [7]
         with self.assertRaises(ValueError):
-            export_attack_profiles(document, binary, BANK, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
 
 
 if __name__ == '__main__':

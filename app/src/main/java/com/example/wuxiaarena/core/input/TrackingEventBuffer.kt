@@ -9,8 +9,8 @@ class TrackingControlOverflowException : IllegalStateException("tracking control
 /**
  * Serializes application observations from multiple producer threads.
  * A full buffer stops accepting poses until the consumer receives an explicit gap.
- * Controls keep their original order; an overloaded control queue rejects the new
- * control explicitly instead of overwriting an earlier reset or pause.
+ * Accepted controls keep their original order. Required discontinuities retain a
+ * retry barrier on overflow; optional hand selections fail without latching one.
  */
 class TrackingEventBuffer(
     private val capacity: Int,
@@ -67,16 +67,18 @@ class TrackingEventBuffer(
         true
     }
 
-    fun changeDominantHand(origin: InputOrigin, hand: Hand) = synchronized(lock) {
-        val request = ControlRequest.HandChange(origin, hand)
-        prepareControl(request)
+    /** A rejected UI selection changes no queue, epoch, receipt clock or retry barrier. */
+    fun tryChangeDominantHand(origin: InputOrigin, hand: Hand): Boolean = synchronized(lock) {
+        if (blockedControl != null) return@synchronized false
+        if (gap == null && events.size >= capacity) return@synchronized false
+        if (gap != null && controlsAfterGap.size >= controlCapacity) return@synchronized false
         val event = TrackingEvent.DominantHandChanged(stamp(origin), hand)
         if (gap == null) {
             events.addLast(event)
         } else {
             controlsAfterGap.addLast(event)
         }
-        if (blockedControl == request) blockedControl = null
+        true
     }
 
     fun discontinuity(
@@ -84,7 +86,7 @@ class TrackingEventBuffer(
         target: TrackingTarget,
         reason: DiscontinuityReason,
     ) = synchronized(lock) {
-        val request = ControlRequest.Discontinuity(origin, target, reason)
+        val request = ControlRequest(origin, target, reason)
         prepareControl(request)
         if (reason == DiscontinuityReason.RECENTERED || reason == DiscontinuityReason.ROUND_RESET) coordinateEpoch++
         val event = TrackingEvent.Discontinuity(stamp(origin), target, reason)
@@ -152,16 +154,11 @@ class TrackingEventBuffer(
         }
     }
 
-    private sealed interface ControlRequest {
-        val origin: InputOrigin
-
-        data class HandChange(override val origin: InputOrigin, val hand: Hand) : ControlRequest
-        data class Discontinuity(
-            override val origin: InputOrigin,
-            val target: TrackingTarget,
-            val reason: DiscontinuityReason,
-        ) : ControlRequest
-    }
+    private data class ControlRequest(
+        val origin: InputOrigin,
+        val target: TrackingTarget,
+        val reason: DiscontinuityReason,
+    )
 
     private fun stamp(origin: InputOrigin): ObservationStamp {
         val now = clockNanos()

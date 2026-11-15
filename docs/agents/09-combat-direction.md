@@ -1,5 +1,37 @@
 # 09 · 正式动作bank与战斗表现接线
 
+## 2026-11-15 整合最终复核：phase／cue、common Grip与准备态换手
+
+本路先前报告的typed当前manifest批准缺口和LEFT产品入口缺失现已闭环。对新增准备态换手、溢出和暂停门槛的最终静态复核，**未再发现确定的P1／P2**。本结论不等于原生效果、成品或Space Pro通过；Root最终组合构建与真实输入仍须独立完成。本路未运行共享Gradle、设备或Git，只修改本review段及Root随后明确授权的IncomingBladeContactTest。
+
+### 正式数据批准与方向契约
+
+`production_contract.py`为producer和typed generator共享不依赖Blender的binding投影及canonical hash，包含真实source、角色／grip／手指校正、覆盖、纹理／武器与制作策略。`generate_attack_bank_profiles.validate_app_publication`现在先比较当前manifest的完整binding与request.binding及SHA，再验证正式status、Root receipt文件SHA、approved decision、characters和player_weapon。此前“manifest只换RAW B而仍拿旧A receipt／bank写app”的缺口已关闭；缺少真实production输入的receipt-only manifest也不再放行。app目标仍按最终resolved路径检查并写同一位置，私有输出与只读check保留原语义。
+
+逐方向phase／runtime仍从manifest→profile→正式request→typed严格匹配，实际Kotlin enum四个Long纳秒值也参与交叉核。ACTIVE播放为单一线性映射；cue只作制作元数据，既不进入采样网格也不控制恢复。真实ContactRecovery以实际TOI source及独立enemy motion clock工作，旧recoveryFromContact／half-fold链已删除。新typed与Root实际批准bank713532c0…同步后，旧.9／1.1数据导致的两项phase失败不再作为当前预期残项；不得从旧测试数推定当前全组合已绿。
+
+### LEFT入口、实时门槛与UI事实
+
+产品调用链已实际存在：`ArenaHud.ArenaControlPanelContent`仅在READY显示左右按钮 → `Main.onSelectDominantHand`重新读取`arena.viewState`并拒绝非READY、已有pending控制及同侧无变化 → 当前TrackingControls token → `TrackingSession.requestDominantHand` → `enqueueReadyHandSelection`／真实buffer → TrackingProcessor／TrackingState → ArenaSession → 最终Grip、模型与UI状态。ArenaViewState是选择结果的事实来源，没有额外Compose乐观手别。
+
+旧READY UI闭包在COUNTDOWN／FIGHTING后被点击，即使旧UI仍调用了回调，也会被Main与TrackingSession的实时gate拒绝。controls token在停止／重启时作废；`controlInProgress`及已有pending pause/reset阻止控制重入。手请求在最多4次同步drain／recovery后立即接受或返回UNAVAILABLE，不加入PendingControl（该enum只有PAUSE／ROUND_RESET），也不由未来帧重放旧手选择。
+
+入队竞态曾有一个确定问题：严格control overflow会锁住被拒的HandChange，而catch→stop无法用另一APP_PAUSED控制解锁。当前已收敛为`TrackingEventBuffer.tryChangeDominantHand`：锁内原子检查blocked／pose容量／gap控制容量，拒绝时不改队列、epoch、receipt时钟或retry barrier。Ready helper使用该try入口，因此provider在drain期间重新填满槽也不会留下延期手请求或永久阻塞stop；必需discontinuity仍保留原严格重试barrier。
+
+换手经真实TrackingState失效两侧旧观察，并要求hand事件之后的新head／选中侧观察；不能拿旧左手缓存直接开局。ArenaSession只对“新接受HandChanged＋READY＋未开局＋原本无暂停”的窄场景跳过初次tracking pause，仍撤销旧action基线。已有USER／TRACKING暂停不会被换手清除；原resume confirmation会失效，必须按新基线显式恢复。round reset／recenter只清观察与基线，当前TrackingProcessor所持手别保留；同一session设备停止／恢复也不重建为默认RIGHT。
+
+新左GLB d8e9c3cb…已随删除旧左腕补偿一起进入app。左右根直接消费共同Grip，装备手和dao用最终约束姿态，副手仍按自身真实观察更新。这里证明的是产品接线和状态边界；首次实际LEFT选择、SDK新侧姿态、模型朝向、刀路及反馈仍要以对应APK的原生操作验收，不能用19项／14项等旁路数字代替。
+
+### 最后一项失败的定位与修复范围
+
+Root完整构建的唯一失败为`IncomingBladeContactTest.fastGuardThenRestStillEmitsParryWithIncomingTangentForAllThreeDirections`的RIGHT期望PARRIED、实际HIT_PLAYER。本路用同一已编译生产类＋单独新编译该test复现5项中1项失败。实际actor origin仍(0,0,-1.3)、yaw0，RIGHT源未变化；问题在fixture.seek固定25ms导致首次看到RIGHT ACTIVE时已过去20ms。来刀此时已接近守刀线，但fixture仍把手放在低位，随后40ms升刀错过钢交叉，约ACTIVE56.86ms先撞玩家身体；这是时间夹具误过相位边界，不是生产时序或胶囊缺陷。
+
+只修改该Fixture.seek步长为`min(25ms, phaseRemaining至少1ns)`，让它精确到达相位边界。原guard坐标、40ms升刀、弹反窗口、胶囊及所有PARRY／静止blade／双方钢witness／零伤害／归一tangent断言全部保留；临时诊断打印已移除。修后该5项及NativeBladeInteraction、NativeEnemyMotionContact、WeaponContactOrdering、ContactTimeWitness、BatchMotionClock共25项隔离JUnit全绿。证据为`/var/folders/hg/n939g6k139q2fc457t753_b80000gp/T/incoming-contact-review-48v4u3_a/`的compile、junit与near-contact-regressions文本；这些是本次局部验证，Root还需在最后buffer/UI变化后完成唯一完整组合。
+
+### 保留验收边界
+
+正确性／维护性／用户入口／依赖漂移四面已查；未增加新的SDK、Gradle依赖、容器模型或兼容回退。少量历史注释若仍写“piecewise ACTIVE clock bend”，应随收口改成源键及真实接触恢复折点，不能据注释重新加入cue时钟。美术／动态净空、真实SDK手刀朝向、持续顶刀／回撤／弹反、声音触觉、Space Pro性能与舒适度不在静态通过范围；源端数学和单元测试不得升级为成品完成。
+
 ## Root当前交接：原生真实刀刀接触（2026-11-13）
 
 本节记录本轮已进入原生源码的战斗契约与验收边界，覆盖下文历史阶段的“ACTIVE中点裁决”“固定source1.00接触”“先方向防御再投射反馈点”及旧手刀呈现路径。下文旧版本、资源身份、测试数与流程录像保留其各自历史含义，不证明当前实刀交互已经通过设备验收。唯一工程、Kotlin／Spatial SDK6.1.9、Space Pro／OS6、Full Stage不变；正式资产、共享Gradle、设备、Git与发布继续由Root统一负责。

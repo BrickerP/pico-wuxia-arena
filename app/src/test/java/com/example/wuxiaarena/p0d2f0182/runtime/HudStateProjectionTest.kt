@@ -59,7 +59,6 @@ class HudStateProjectionTest {
             rendered.copy(enemyPoseClip = "attack_left"),
             rendered.copy(enemyPoseSourceSeconds = 0.52),
             rendered.copy(enemyPoseDirection = AttackDirection.LEFT),
-            rendered.copy(enemyRecoveryFromContact = true),
             rendered.copy(enemyPoseClip = null, enemyPoseSourceSeconds = null, enemyPoseDirection = null),
         )
         assertFalse(shouldPublishHudState(state, rendered))
@@ -73,7 +72,7 @@ class HudStateProjectionTest {
         val pose = state.copy(
             playerWeaponGrip = WeaponGrip(Vector3(0.3, 1.2, -0.4), Quaternion(0.0, 0.0, 0.0, 1.0)),
             enemyPoseClip = "attack_overhead", enemyPoseSourceSeconds = 0.52,
-            enemyPoseDirection = AttackDirection.OVERHEAD, enemyRecoveryFromContact = true,
+            enemyPoseDirection = AttackDirection.OVERHEAD,
         )
         for (visibleChange in listOf(
             pose.copy(score = state.score + 10),

@@ -1,0 +1,307 @@
+{
+  "source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+  "source_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "candidate": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+  "candidate_sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+  "dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "mapping_sha256": "004dc4a178f1a88f95aec8471582c94c5fd4aac944a6e6f8142297a37c2dfccc",
+  "producer_sha256": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+  "accessor_transform_mapping": [
+    {
+      "source_accessor": 0,
+      "candidate_accessor": 41,
+      "operation": "POSITION_reflect_X",
+      "count": 2741,
+      "componentType": 5126,
+      "byte_length": 32892
+    },
+    {
+      "source_accessor": 1,
+      "candidate_accessor": 42,
+      "operation": "NORMAL_reflect_X",
+      "count": 2741,
+      "componentType": 5126,
+      "byte_length": 32892
+    },
+    {
+      "source_accessor": 5,
+      "candidate_accessor": 43,
+      "operation": "triangle_reverse_winding",
+      "count": 14043,
+      "componentType": 5123,
+      "byte_length": 28086
+    },
+    {
+      "source_accessor": 23,
+      "candidate_accessor": 44,
+      "operation": "POSITION_reflect_X",
+      "count": 280,
+      "componentType": 5126,
+      "byte_length": 3360
+    },
+    {
+      "source_accessor": 24,
+      "candidate_accessor": 45,
+      "operation": "NORMAL_reflect_X",
+      "count": 280,
+      "componentType": 5126,
+      "byte_length": 3360
+    },
+    {
+      "source_accessor": 28,
+      "candidate_accessor": 46,
+      "operation": "triangle_reverse_winding",
+      "count": 765,
+      "componentType": 5123,
+      "byte_length": 1530
+    },
+    {
+      "source_accessor": 6,
+      "candidate_accessor": 47,
+      "operation": "IBM_S_M_S",
+      "count": 78,
+      "componentType": 5126,
+      "byte_length": 4992
+    },
+    {
+      "source_accessor": 29,
+      "candidate_accessor": 48,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 30,
+      "candidate_accessor": 49,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 36,
+      "candidate_accessor": 50,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 11,
+      "candidate_accessor": 51,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 12,
+      "candidate_accessor": 52,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 13,
+      "candidate_accessor": 53,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 14,
+      "candidate_accessor": 54,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 15,
+      "candidate_accessor": 55,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 35,
+      "candidate_accessor": 56,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 17,
+      "candidate_accessor": 57,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 33,
+      "candidate_accessor": 58,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 34,
+      "candidate_accessor": 59,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 38,
+      "candidate_accessor": 60,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 39,
+      "candidate_accessor": 61,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 40,
+      "candidate_accessor": 62,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    }
+  ],
+  "checks": {
+    "passed": true,
+    "real_skin_comparison": "Lskin = S * Rskin in common Grip; no C/B factor",
+    "default_pose": "complete mirrored accepted Right source default closed; grip@0 remains open",
+    "grip_times": [
+      {
+        "grip_time": 0,
+        "joint_world_S_M_S_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2741,
+            "triangles": 4681,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          }
+        ]
+      },
+      {
+        "grip_time": 0.5,
+        "joint_world_S_M_S_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2741,
+            "triangles": 4681,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          }
+        ]
+      },
+      {
+        "grip_time": 1,
+        "joint_world_S_M_S_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2741,
+            "triangles": 4681,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "actual_LBS_max_coordinate_error_m": 0.0,
+            "actual_inverse_transpose_skin_NORMAL_max_error": 0.0,
+            "actual_winding_geometric_area_vector_max_error_m2": 0.0
+          }
+        ]
+      }
+    ],
+    "triangles_total": 4936,
+    "full_joint_palette": 78,
+    "palette_and_weight_bytes_preserved": true,
+    "local_S_M_S_max_error": 0.0,
+    "proper_local_determinant_range": [
+      0.1659280435742413,
+      6.0267088800810384
+    ],
+    "UV_material_and_three_KTX_payloads_byte_exact": true,
+    "source_original_BIN_prefix_exact": true,
+    "all_outer_scene_roots_identity": true,
+    "legacy_DerivedHandGrip_L_present": false
+  },
+  "control_tests": {
+    "passed": true,
+    "cases": [
+      "proper quaternion S conjugation",
+      "tangent xyz reflection and w sign"
+    ]
+  },
+  "source_KTX_payload_sha256": [
+    "a2b332d38651a6b7d05b171797f1b66c7801e186321d27b079e2766c4cef5c52",
+    "01b657ec892427e2cf5481b79d39346ebeb7a9be705d7f5d73a839e7e268f312",
+    "d9750fe4dcabc1fed5e762ef86a8b879d80c4f01f33028ddd151306cec8b561a"
+  ],
+  "candidate_KTX_payload_sha256": [
+    "a2b332d38651a6b7d05b171797f1b66c7801e186321d27b079e2766c4cef5c52",
+    "01b657ec892427e2cf5481b79d39346ebeb7a9be705d7f5d73a839e7e268f312",
+    "d9750fe4dcabc1fed5e762ef86a8b879d80c4f01f33028ddd151306cec8b561a"
+  ],
+  "source_missing_TANGENT": [
+    0,
+    1
+  ],
+  "normal_mapping": "Original UV/KTX and NORMAL retained under reflection; missing TANGENT remains the existing runtime MikkTSpace generation contract.",
+  "rebuild_command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/build_left.py",
+  "limits": [
+    "Natural-grip quality and actual rendering require Root review.",
+    "The rebuilt hand inherits accepted Right source contacts/intersections; reflection is not an automatic anatomical approval.",
+    "Current Kotlin still uses its old offset until Root atomically switches app and asset."
+  ],
+  "status": "\u5b9e\u73b0\u9636\u6bb5\u7ed3\u675f\uff0c\u7b49\u5f85 Root review\uff1bcommon-Grip asset only, no public/runtime publication"
+}

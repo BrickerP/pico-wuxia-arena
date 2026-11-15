@@ -1,0 +1,30 @@
+{
+  "decision": "approved_for_development_integration",
+  "date": "2026-11-15",
+  "quality_complete": false,
+  "candidate_sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+  "candidate_bytes": 2627980,
+  "contract": "Both assets and runtime roots use common Grip; remove old left C/B and derived marker in same integration.",
+  "reviewed_images": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_back.png",
+      "sha256": "9f0c77aee91801818288953a719ebc652dc402e0bcee31193d3fc580b5391de1"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_front.png",
+      "sha256": "46f35cce55a8dd01414c9c22a77d6e79ad77df6e036269e8c3f523cbff634afc"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/previews/left_closed_oblique.png",
+      "sha256": "0262a19a7b480f1f52eb4e91f48ef3db267e1d81e851da4be84f094c465ff12f"
+    }
+  ],
+  "independent_math_report": "ArtSource/refinement/weapon/native-first-person/grip-refinement/root_math_review.json",
+  "actual_contact_report": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verification.json",
+  "accepted_gain": "Closed thumb volume and grip restored; no old11mm thumb-through-core fold.",
+  "limits": [
+    "Inherited wrist/palm faceting and pre-existing finger surface intersections remain.",
+    "Two shallow Index/core samples about0.093mm retained.",
+    "Actual native left/right equipment and SDK pose not yet verified."
+  ]
+}

@@ -1,0 +1,937 @@
+{
+  "status": "sampled_nonadjacent_regions_clear",
+  "raw": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_raw.glb",
+    "sha256": "410d5b445bfd59f615a639a1eb2fb8d5bc8f4cf31e5aa541f9b4cfd84140b1c2",
+    "bytes": 19192540
+  },
+  "preview": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_preview.glb",
+    "sha256": "dd0a0d4caa82f832350bac97dc5f2a6a6ec04308de7f5637a882efea9be07eaa",
+    "bytes": 54380800
+  },
+  "source_authoring": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v3/weighted_overhead_authoring.json",
+    "sha256": "315cd0f0e9a1f0c570d10188a3a0f2bd3b977eda800a616806a2c8d8b8419ce9",
+    "bytes": 461185
+  },
+  "parent_v9_preview": {
+    "file": "ArtSource/refinement/hand-poses/fine-overhead/candidate/v9/fine_overhead_preview.glb",
+    "sha256": "84786acc2956da2fb6d7382a70bfaba906f3b93b1ea925eaf857d88c68a2d253",
+    "bytes": 54380800
+  },
+  "sample_count": 63,
+  "overlap_sample_count": 0,
+  "scope": "63 discrete poses: full30Hz plus named critical times. Actual skinned body material triangles for R/L forearm and hand versus head/chest.",
+  "semantic_region_rule": "All3 triangle vertices must have dominant skin joint in same explicit anatomical region. Shared boundary and adjacent upperarm/neck triangles are excluded; within-region cloth layers never tested against each other.",
+  "region_triangle_counts": {
+    "head": 47595,
+    "chest": 9497,
+    "L_forearm": 3404,
+    "L_hand": 1927,
+    "R_forearm": 2484,
+    "R_hand": 2131
+  },
+  "rejection_cases_actually_run": [
+    "time:nan",
+    "time:inf",
+    "time:-0.001",
+    "time:1.751",
+    "time:True",
+    "actual candidate sourceSHA mismatch",
+    "mutated actual exported guard closure"
+  ],
+  "limits": [
+    "Not continuous-time/volumetric proof.",
+    "Dominant-weight core regions exclude skinning blend seams and upperarm-to-chest adjacent junction.",
+    "Zero region overlap does not certify every cloth layer or every body-body pair."
+  ],
+  "frames": [
+    {
+      "source_seconds": 0.0,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.03333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.06666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.1,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.13333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.16666666666666666,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.2,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.23333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.26666666666666666,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.3,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.3333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.36666666666666664,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.4,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.43333333333333335,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.4666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.5,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.5333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.5666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.6,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.6333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.6666666666666666,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.68,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.7,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.7333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.75,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.7666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.8,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.82,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.8333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.8666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.9,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.93,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.9333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 0.9666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.0,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.0333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.0666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.1,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.1333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.15,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.16,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.1666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.2,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.2333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.2666666666666666,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.3,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.3333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.34,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.3666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.4,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.42,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.4333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.5,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.5333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.55,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.5666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.6,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.6333333333333333,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.6666666666666667,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.7,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.7333333333333334,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    },
+    {
+      "source_seconds": 1.75,
+      "candidate_true_triangle_pair_counts": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "same_time_parent_v9_counts_when_candidate_overlap": null
+    }
+  ],
+  "source_pins": {
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/verify_weighted_regions.py": "116e0fe525255008c27c52d3e7f5e9ceb09367246ad988912b0b4b6c8b117ee3",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3"
+  }
+}
