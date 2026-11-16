@@ -2,9 +2,11 @@
 
 ## Root实物review：冻结厚甲、联修动作与袖筒（2026-11-17）
 
-Root已看real-source-refit修正渲染的旧953f，确认黑甲实际向前竖立，旧material过滤证据已纠正；新v5_crown_skirt（prepared2bab2416／raw ec82e24f）真实曲甲与旧铜边可读，接受为动作协作冻结件，非正式角色通过。冠/裙刚性随Clavicle/Upperarm，不得再变动该cap让动作线程追版本。
+Root已看real-source-refit修正渲染的旧953f，确认黑甲实际向前竖立，旧material过滤证据已纠正；Root已看v5_crown_skirt真实曲甲与旧铜边，但双骨冠/裙随动作新增相对自交，已退出当前联修基线。当前固定single Upperarm完整2100面cap（prepared6dcc9650／raw62c51a96），同guard重表达误差约0.000101mm；不改源形状/PBR，源12 proper组保持披露。接受为联修冻结件，非正式角色通过，不再改甲让动作线程追版本。
 
 原5180空手路径会穿过该甲，OH/RIGHT见证归属前臂/手/拇指，并非可删除的肩布；旧原甲也有对应交叉。Root已让动作lane按同cap改可信空手回收，03不得扩大删除域切掉手臂或豁免冲突。袖几何另从真实上臂衣料1854面、近61/远33边两条接缝重建1118面实体筒，Root最新图确认灰色方翼已减少，但近端折返/小裂与UV仍未好，未通过/未进app。先normal/neutral曲面与无新增穿插，再真实衣料UV/normal/MR；单灰色诊断片不是最终材质。
+
+新见证14213/14287等已证为Forearm主导的内肘棕布，不是皮肤/硬护臂；原按Upperarm mass选择的1854面域漏掉它。Root授权仅该最小真实布域先修沿肘轴非单调混权，保P/UV/骨与皮肤/手/前臂形体，交ledger/权重空间图与同动作/同cap交叉图，不通过扩大删除域或豁免过关。
 
 当前由Root写作subagent boss_refit_finish 续同一real-source-refit目录；之前writer因接口Bad Request终止，已核无遗留实进程后接续原产物，没有重做Tripo或复制仓库。正式新手APKc5仍不含本甲。
 

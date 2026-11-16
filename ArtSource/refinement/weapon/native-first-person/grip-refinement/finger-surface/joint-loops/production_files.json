@@ -2255,7 +2255,8 @@
       "required_repo_code": [
         "ArtSource/refinement/weapon/native-first-person/compress_hands.py",
         "ArtSource/refinement/pbr-compression/compress_pbr.py"
-      ]
+      ],
+      "documented_command_not_executed": "python3 -B -c 'import importlib.util,sys\nfrom pathlib import Path\nsys.dont_write_bytecode=True\np=Path('\"'\"'ArtSource/refinement/weapon/native-first-person/compress_hands.py'\"'\"')\ns=importlib.util.spec_from_file_location('\"'\"'frozen_ktx_decode'\"'\"',p)\nm=importlib.util.module_from_spec(s)\ns.loader.exec_module(m)\nr=m.decode_companion(m.helper(),Path('\"'\"'ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb'\"'\"'),Path('\"'\"'ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded.glb'\"'\"'))\nprint(r['\"'\"'sha256'\"'\"'])'"
     },
     {
       "id": "decode_DAO",
@@ -2492,7 +2493,10 @@
     "git_commands_executed": false,
     "index_snapshot_sha256": "2407b41c00dbeca1e416e15724b10cb175e52afa3f2a19e88c0620b569f9c325",
     "index_format_version": 2,
-    "index_branch_reference": "ref: refs/heads/main"
+    "index_branch_reference": "ref: refs/heads/main",
+    "lightweight_final_recheck_passed": true,
+    "declared_runtime_pins_checked": 10,
+    "documented_cache_bootstrap_syntax_checked_only": true
   },
   "manifest_self_hash": "The manifest itself is intentionally not self-hashed; it is listed only in git_add_paths to avoid a circular digest."
 }

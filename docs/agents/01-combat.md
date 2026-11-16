@@ -4,9 +4,9 @@
 
 静态18薄条已交（41tests），不再以漏45mm的单轴代理作最终视觉证明。新完整Grip制作60tests通过：4281原rows保留，按实际FK曲率新增370行，总4651；key刚性误差≤0.462µm、mid插值≤0.846mm、连续离线工程界≤1mm。旧60Hz多层FK即使端点准也可在中点差14.56mm，不能从base/tip猜roll或放大门掩盖。
 
-`blade-chain-runtime/` 正制作完整consumer候选：6组broadphase/18caps CCD、身体与Steel排序、全链constraint/release、有限yaw+后退和未来恢复认证；需守真实OH主动反例、静持不刷impact、玩家0强迫位移与全部生命周期。528×4同批host查询已计数，空挥0窄相，误差/性能均不能称PICO已过。全链plan早版过慢及OH后续gap尚在修，未装入app，不以安全hold当交付。
+`blade-chain-runtime/` 正制作完整consumer候选：6组broadphase/18caps CCD、身体与Steel排序、全链constraint/release、有限yaw+后退和未来恢复认证；需守真实OH主动反例、静持不刷impact、玩家0强迫位移与全部生命周期。528×4同批host查询已计数，空挥0窄相，误差/性能均不能称PICO已过。私有完整候选34项已过，含真实OH、45秒walking与Tracking边缘入招；主产线schema4/正式fixture迁移及APK仍待Root。host plan OH中位15.11ms/最大32.33ms、walking最大63.71ms，性能是明确未解决风险，未装入app，不以安全hold或host数字称终端通过。
 
-Boss cap与动作共同冻结v5_2100face，native_clearance_integration另在 `natural-guard/boss-armor-arm-clearance/` 修空手左臂：OH/LEFT/RIGHT实际回收撞肩冠/裙，旧源也有。不得删前臂/手或加入豁免；保右手钢刀、phase、根头脚、guard，交真实曲线与甲网格审图。Root统一canonical producer/数据/场景合入，不让候选覆盖已发布5180。
+Boss cap与动作共同冻结single Upperarm的2100面cap（prepared6dcc9650/raw62c51a96），native_clearance_integration另在 `natural-guard/boss-armor-arm-clearance/` 修空手左臂：OH/LEFT/RIGHT实际回收撞肩冠/裙，旧源也有。不得删前臂/手或加入豁免；保右手钢刀、phase、根头脚、guard，交真实曲线与甲网格审图。Root统一canonical producer/数据/场景合入，不让候选覆盖已发布5180。
 
 ## Root 当前评审与下一任务（2026-11-17）
 
