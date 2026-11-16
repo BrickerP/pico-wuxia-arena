@@ -2,6 +2,12 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
+## 最新手部源码节点（8c3ad53，尚未发布运行包）
+
+主掌背V沟定位为MCP前皮面被错误按指部权重保护；只修14个授权掌背混权点，Right为a9809a45、Left为ecc07136，同源一次镜像，common Grip与手写SDK/frame代码不变。原材质和neutral前后图显示长沟消失，Right15项验证与Left28独立正负例通过；实际Source/T/S/UV/3KTX与保护指体/内掌均保持，继承109指间交面继续披露。
+
+APK `2f22e50ac382f6974b7607689f6b8cde562cc5c65697ee6820a5cd833182067d`，220514633 B，已在同一模拟器安装启动，19GLB装包SHA匹配。应用代码沿用add9f3f的446测试通过组合，另有资产专项；本次没有为资产替换重复宣称新测试数。[实际加载画面](../ArtSource/refinement/presentation/native-hand-polish-ready-2026-11-16.png)尚未正确展示手背，不构成原生精修观感通过。左右切换、SDK TBN和实际流畅性仍待验，未更新公开下载包。
+
 ## 当前开发预览：自然守势、呼吸与湿石（2026-11-16）
 
 已公开为[自然守势与呼吸开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)，固定源码`add9f3f3b070081b52fd0fdbd3d0a3375aa0f023`。APK/校验文件/原生PNG/版本JSON四附件均核对服务端SHA、字节数及uploaded状态；这是pre-release，不是成品验收。

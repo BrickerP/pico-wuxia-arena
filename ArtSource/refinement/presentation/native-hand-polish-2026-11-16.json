@@ -48,5 +48,6 @@
     "Operator mouse/keyboard may affect HMD/shared camera basis as well as controllers. Actual SDK trajectory must be checked; a POSTED line is insufficient.",
     "Body/armor, three inherited slash/chest contacts, smoothness/audio/haptics and Space Pro remain unaccepted."
   ],
-  "offline_visual_evidence": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_after.png"
+  "offline_visual_evidence": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_after.png",
+  "source_assets_commit": "8c3ad53"
 }
