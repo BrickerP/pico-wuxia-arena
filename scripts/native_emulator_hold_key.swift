@@ -2,6 +2,7 @@
 // No focus change, global keyboard injection, or application pose injection.
 // https://developer.apple.com/documentation/coregraphics/cgevent/posttopid(_:)
 import AppKit
+import ApplicationServices
 import CoreGraphics
 import Carbon.HIToolbox
 import Foundation
@@ -26,6 +27,23 @@ func perform() throws {
         throw InputFailure(description: "selected PID is not the live emulator")
     }
     guard CGPreflightPostEventAccess() else { throw InputFailure(description: "existing macOS event-post access unavailable") }
+    // Qt delivers keys to its focused window, including the controller-settings dialog.
+    // The emulator PID alone does not prove that a movement key reaches the viewport.
+    func verifyViewportFocus() throws {
+        let application = AXUIElementCreateApplication(pid)
+        var focused: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(application, kAXFocusedWindowAttribute as CFString, &focused) == .success,
+              let focused, CFGetTypeID(focused) == AXUIElementGetTypeID() else {
+            throw InputFailure(description: "emulator focused window unavailable; no movement key posted")
+        }
+        let window = unsafeBitCast(focused, to: AXUIElement.self)
+        var title: CFTypeRef?
+        guard AXUIElementCopyAttributeValue(window, kAXTitleAttribute as CFString, &title) == .success,
+              let title = title as? String, title.hasPrefix("PICO Emulator - ") else {
+            throw InputFailure(description: "emulator viewport is not its focused window; focus the main viewport before movement")
+        }
+    }
+    try verifyViewportFocus()
     if args.contains("--dry-run") { print("READY pid=\(pid) key=\(args[1]) shifted=\(shifted) seconds=\(duration); no input posted"); return }
     func event(_ code: Int, _ down: Bool, _ flags: CGEventFlags) throws -> CGEvent {
         guard let value = CGEvent(keyboardEventSource: nil, virtualKey: CGKeyCode(code), keyDown: down) else {
@@ -51,6 +69,7 @@ func perform() throws {
     let until = Date().addingTimeInterval(duration)
     while Date() < until {
         guard !app.isTerminated else { throw InputFailure(description: "selected emulator exited") }
+        try verifyViewportFocus()
         RunLoop.current.run(until: min(until, Date().addingTimeInterval(0.01)))
     }
     print("POSTED delivery=process_targeted pid=\(pid) key=\(args[1]) shifted=\(shifted) seconds=\(duration); verify SDK trajectory separately")

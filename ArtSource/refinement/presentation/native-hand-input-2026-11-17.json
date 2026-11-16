@@ -1,0 +1,112 @@
+{
+  "status": "native_development_inspection_not_final_acceptance",
+  "source_base_commit": "519f2c67e39978e4e13400db0c4feaf0c39fd7c1",
+  "source_delta": "HomeStage bounded NativePlayerPoseEvidence adds observed SDK head pose only",
+  "home_stage_sha256": "d770dd1a6af88f5cd1d620bd0a3954538c1f4ea10cd83754900d92b362697b6e",
+  "apk_sha256": "62b2ece822b7749413ff076b31cbb07575808b5034c41ebd9209bb1c77cef2bd",
+  "apk_bytes": 220966944,
+  "installed_apk_sha256_matches": true,
+  "packaged_models": {
+    "models/dao_grip.glb": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "models/courtyard_hero.glb": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "models/opponents/base.glb": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+    "models/opponents/indigo.glb": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a",
+    "models/opponents/veteran.glb": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87",
+    "models/player_hands/left_hand.glb": "ecc071364b89d6ec64fad5a8924f2c65d2e787822a28e3088a2aa7c35a0a02ab",
+    "models/player_hands/right_hand.glb": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+    "models/weather/rain_night_sky.glb": "11b80a1337b4d0574fd524a08619a43edab1f30ff6f86284c82d49cf35e12017",
+    "models/weather/side_haze.glb": "7a15675be61dfe56cbd1962d90a514a78ce52639939809910d7b09d1b8a452f9",
+    "models/weather/rain_tile.glb": "6c89ce09b8202c7ff640bb1113f7b64eb5fe3c9e1d007b611fb7a55a0074a695",
+    "models/effects/metal_contact.glb": "8171c6474e1a34be5db14324f10e18b5a4575c0d910b91ffbde4364756ed23e0",
+    "models/effects/ground_dust.glb": "b4cf766d59c8be99dc32c690b55c72cda3ea9c5a440b6b9125d0ea85588b8c95",
+    "models/effects/soft_contact.glb": "df7238be6a2a8b80a941aab6c5897b2ed628a7d1adc1afa1d5362d2dd5bea002",
+    "models/effects/force_contact.glb": "6e27c305132c9bebd617d47446dbd9466667179d9119b4f3ae8d8509503d57c1",
+    "models/effects/contact-polish/dodge_ground_polish.glb": "cfca84cc04b880031f6ba0e0e8279bd9ba1a10d54d92060e4405e0f1b12f184c",
+    "models/effects/contact-polish/metal_contact_polish.glb": "dfa1ab15ceb141fc132c8633871722c4dbc36c902ca8c1b940d1578054c514ce",
+    "models/effects/contact-polish/wet_cloth_contact.glb": "9d8990c4d66c612182763107c757b42bfee0668dbf555b007d1d1c34a11c27af",
+    "models/effects/contact-polish/soft_contact_polish.glb": "19384ff327d9080048ad485422c64b679242281b2b8d7eb77f9f7d6319fce534",
+    "models/effects/contact-polish/landing_ground_polish.glb": "f802ca73ff953432e6afb9a3951247fc236292198414e4f1aeda37d7d600218b"
+  },
+  "head_m": [
+    0,
+    1.65,
+    0
+  ],
+  "right_grip_m": [
+    0.28,
+    1.4,
+    -0.45
+  ],
+  "raw_sdk_equals_actual_hand_and_dao_root": true,
+  "keyboard_focus_verification": {
+    "positive": "focused viewport Shift+D changes SDK right x .28 to .29m",
+    "negative": "Controller Setting focused: helper exits3 before movement",
+    "restored_x_m": 0.28
+  },
+  "native_event_receipts": [
+    "11-17 01:37:39.000 11220 11220 I ArenaControls: Start receipt atNanos=4901572926544 generation=0 result=READY sceneReady=true inputReady=true actionReady=true pause=null accepted=true nextResult=COUNTDOWN",
+    "11-17 01:37:45.529 11220 11220 I ArenaEffects: Contact consumed id=1 kind=SOFT_HIT family=SOFT accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:45.910 11220 11220 I ArenaEffects: Contact consumed id=2 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:47.640 11220 11220 I ArenaEffects: Contact consumed id=3 kind=SOFT_HIT family=SOFT accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:47.972 11220 11220 I ArenaEffects: Contact consumed id=4 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:56.981 11220 11220 I ArenaEffects: Contact consumed id=5 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:57.192 11220 11220 I ArenaEffects: Contact consumed id=6 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:57.420 11220 11220 I ArenaEffects: Contact consumed id=7 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:57.673 11220 11220 I ArenaEffects: Contact consumed id=8 kind=BLOCK family=METAL accepted=true mode=core_particles ageNs=0 round=0 origin=DESKTOP",
+    "11-17 01:37:59.617 11220 11220 I ArenaEffects: Contact consumed id=9 kind=PLAYER_HIT family=SOFT accepted=true mode=core_particles ageNs=22539583 round=0 origin=DESKTOP",
+    "11-17 01:38:01.983 11220 11220 I ArenaEffects: Contact consumed id=10 kind=PLAYER_HIT family=SOFT accepted=true mode=core_particles ageNs=59905127 round=0 origin=DESKTOP"
+  ],
+  "proof_scope": [
+    "restored actual SDK head/hand placement",
+    "paired a980/ecc hand assets loaded",
+    "real Start accepted",
+    "SOFT_HIT and BLOCK contact effects consumed"
+  ],
+  "not_proven": [
+    "full three rounds in this APK",
+    "PARRY or HMD dodge",
+    "overall hand/character/motion quality",
+    "SDK tangent shading",
+    "Space Pro performance/comfort"
+  ],
+  "image": {
+    "path": "ArtSource/refinement/presentation/native-hand-input-ready-2026-11-17.png",
+    "sha256": "4883366c0fd7bebd623e1717219f4d2f0b93f184cfc790b7ca9418d018a87765",
+    "capture": "pico-cli ordinary screenshot; previously unsupported spatial flag fallback",
+    "target": "PICO Emulator6.1.0, managed Pico_Emulator_6_1, emulator-5554",
+    "dimensions": [
+      2160,
+      2158
+    ]
+  },
+  "raw_recording": {
+    "path": "artifacts/native-hand-pose-review-2026-11-17/native-hover-confirmed-contact.mov",
+    "sha256": "e439bcd90356119ce228d9ec07609ed5a603c086481b8c0fbf66f886b0f8ad5d",
+    "audio": false,
+    "time_scale": 1,
+    "interpolated": false
+  },
+  "public_apk_updated": false,
+  "video": {
+    "path": "ArtSource/refinement/presentation/native-hand-input-contact-2026-11-17.mp4",
+    "sha256": "fbb8e788eba41b4d3f1afd8328be5a52faa26b5307f053bdae9dcf9eaa82696f",
+    "bytes": 2692142,
+    "source_probe": {
+      "width": 1376,
+      "height": 1376,
+      "avg_frame_rate": "368700/7201",
+      "duration": "23.988333",
+      "nb_frames": "1229"
+    },
+    "published_probe": {
+      "width": 1376,
+      "height": 1376,
+      "avg_frame_rate": "147480/2881",
+      "duration": "24.000000",
+      "nb_frames": "1229"
+    },
+    "frame_count_and_duration_preserved": true,
+    "full_decode_passed": true,
+    "host_recording_fps_is_not_PICO_render_performance": true
+  }
+}

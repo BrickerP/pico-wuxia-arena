@@ -13,12 +13,13 @@
 当前开发预览已接入自然守势与共用呼吸时钟，binding为`dc0df17b…`；446项测试与APK构建通过，已在真实PICO Emulator显示。画面、版本与未通过项见[验收清单](docs/acceptance.md)。整体美术和完整攻防体验仍未验收。
 
 
-当前main另已接入掌背解剖混权修复与同源左手（Right `a9809a45…`／Left `ecc07136…`，提交`8c3ad53`）。掌背主V沟在离线原材质/neutral对照中消失，15项专项与28项镜像检查通过；对应APK已安装。专门原生手背取景、左右切换及整体手部画质仍未通过。该手部更新不包含在下面`add9f3f`公开下载包中。
+当前main另已接入掌背解剖混权修复与同源左手（Right `a9809a45…`／Left `ecc07136…`，提交`8c3ad53`）。掌背主V沟在离线原材质/neutral对照中消失，15项专项与28项镜像检查通过；最新诊断包`62b2ece8…`已核安装及19模型身份，恢复真实模拟器手位并取得原生交战短片。整体手部画质、左右切换及SDK TBN仍未通过；手部与诊断更新尚未进入`add9f3f`公开下载APK。
 
 ## 当前交付
 
 | 内容 | 状态与边界 |
 | --- | --- |
+| 最新手部/输入检查 | [实际握刀画面](ArtSource/refinement/presentation/native-hand-input-ready-2026-11-17.png)、[24秒原生交战片](ArtSource/refinement/presentation/native-hand-input-contact-2026-11-17.mp4)、[安装身份与事件](ArtSource/refinement/presentation/native-hand-input-2026-11-17.json)。真实Start、软接触与金属反馈已记录；持续架刀数秒僵持正在修复，三轮/弹反/品质仍未通过 |
 | 当前公开开发预览源码 | `add9f3f`：自然守势、完整呼吸与共用显示/判定时钟，湿石材质；binding `dc0df17b…`；446项测试及构建通过，19模型装包SHA匹配 |
 | 当前开发画面 | [原生Full Stage](ArtSource/refinement/presentation/native-natural-guard-ready-2026-11-16.png)、[实际版本与边界](ArtSource/refinement/presentation/native-natural-guard-2026-11-16.json)。准备态已验，完整攻防/画质仍未验 |
 | 上一握持预览源码 | `6d35519`：全身上劈v5与逐方向线性时标、common Grip左手、准备页左右持刀入口、非锁存换手恢复；正式binding `713532c0…`；整包与436项单测通过 |

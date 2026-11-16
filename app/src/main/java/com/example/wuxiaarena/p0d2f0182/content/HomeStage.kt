@@ -550,6 +550,7 @@ private class SceneOwner(
             val frames = playerHands?.diagnosticFrames(weapon) ?: return
             Log.i(TAG, "NativePlayerPoseEvidence sample=${playerPoseEvidenceCount + 1} " +
                 "equippedHand=${snapshot.dominantHand} rawOrigin=${observation.stamp.origin} " +
+                "rawSdkHeadPose=${snapshot.head?.pose} " +
                 "rawSequence=${observation.stamp.sequence} rawSdkStagePose=$rawPose " +
                 "finalStageGrip=$grip $frames")
             lastPlayerPoseEvidence = evidence

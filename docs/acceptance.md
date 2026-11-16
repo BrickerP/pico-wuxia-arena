@@ -2,11 +2,15 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-## 最新手部源码节点（8c3ad53，尚未发布运行包）
+## 最新手部与输入原生检查（2026-11-17，运行包尚未公开）
 
 主掌背V沟定位为MCP前皮面被错误按指部权重保护；只修14个授权掌背混权点，Right为a9809a45、Left为ecc07136，同源一次镜像，common Grip与手写SDK/frame代码不变。原材质和neutral前后图显示长沟消失，Right15项验证与Left28独立正负例通过；实际Source/T/S/UV/3KTX与保护指体/内掌均保持，继承109指间交面继续披露。
 
-APK `2f22e50ac382f6974b7607689f6b8cde562cc5c65697ee6820a5cd833182067d`，220514633 B，已在同一模拟器安装启动，19GLB装包SHA匹配。应用代码沿用add9f3f的446测试通过组合，另有资产专项；本次没有为资产替换重复宣称新测试数。[实际加载画面](../ArtSource/refinement/presentation/native-hand-polish-ready-2026-11-16.png)尚未正确展示手背，不构成原生精修观感通过。左右切换、SDK TBN和实际流畅性仍待验，未更新公开下载包。
+当前诊断APK `62b2ece822b7749413ff076b31cbb07575808b5034c41ebd9209bb1c77cef2bd`，220966944 B，已核设备安装包SHA与19个装包GLB。源码基点519f2c6仅新增有界诊断里的实际SDK头姿记录，战斗代码仍沿用446测试通过组合；本次没有为资产或日志变动重复宣称新测试数。此前2f22包的取景没有清楚展示手部，不作为精修观感通过。
+
+已定位模拟器前台进程与实际Qt焦点的差异：Controller Setting窗口吞掉移动键，导致手柄仍在头部原点；主视口恢复焦点后，一次Shift+D的实际SDK右手x从.28到.29m，设置窗负例被helper拒绝。真实头眼高为1.65m，右手(.28,1.4,-.45)，原始SDK、实际手Root与刀Root一致。[当前实际画面](../ArtSource/refinement/presentation/native-hand-input-ready-2026-11-17.png)可查看新握刀手；肤色偏亮、指节棱角仍在，整体手部品质未通过，SDK TBN与左持仍待验。
+
+[24秒原生交战片](../ArtSource/refinement/presentation/native-hand-input-contact-2026-11-17.mp4)与[精确身份及事件](../ArtSource/refinement/presentation/native-hand-input-2026-11-17.json)来自同一有界录制/输入调度：真实UI Start accepted，2次SOFT_HIT、6次BLOCK金属反馈、2次PLAYER_HIT有同时间窗消费收据。主机窗口录制1229帧、24秒，压缩后帧数/时长保持且完整解码通过，无插帧/改速/声音；这不是PICO渲染帧率。片中持续架刀存在数秒同姿态，Root已续派接触卸力诊断；不能据BLOCK日志认定玩家弹反或整体拼刀手感通过。本包仍未完成三轮胜利/身法/技能处决/Space Pro验收，公开APK没有更新。
 
 ## 当前开发预览：自然守势、呼吸与湿石（2026-11-16）
 
