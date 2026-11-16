@@ -10,28 +10,21 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-当前开发预览已接入自然守势与共用呼吸时钟，binding为`dc0df17b…`；446项测试与APK构建通过，已在真实PICO Emulator显示。画面、版本与未通过项见[验收清单](docs/acceptance.md)。整体美术和完整攻防体验仍未验收。
-
-
-当前main另已接入掌背解剖混权修复与同源左手（Right `a9809a45…`／Left `ecc07136…`，提交`8c3ad53`）。掌背主V沟在离线原材质/neutral对照中消失，15项专项与28项镜像检查通过；最新诊断包`62b2ece8…`已核安装及19模型身份，恢复真实模拟器手位并取得原生交战短片。整体手部画质、左右切换及SDK TBN仍未通过；手部与诊断更新尚未进入`add9f3f`公开下载APK。
+当前开发组合已接入左右攻击净空修正、有限拼刀卸力与新灯笼庭院，binding `51807084…`。**成品 Demo 未完成。** 460 项单测与 APK 构建通过；真实模拟器输入已打倒前两敌并进入第三轮，未完成本版本三轮胜利验收。
 
 ## 当前交付
 
-| 内容 | 状态与边界 |
+| 内容 | 当前事实 |
 | --- | --- |
-| 最新手部/输入检查 | [实际握刀画面](ArtSource/refinement/presentation/native-hand-input-ready-2026-11-17.png)、[24秒原生交战片](ArtSource/refinement/presentation/native-hand-input-contact-2026-11-17.mp4)、[安装身份与事件](ArtSource/refinement/presentation/native-hand-input-2026-11-17.json)。真实Start、软接触与金属反馈已记录；持续架刀数秒僵持正在修复，三轮/弹反/品质仍未通过 |
-| 当前公开开发预览源码 | `add9f3f`：自然守势、完整呼吸与共用显示/判定时钟，湿石材质；binding `dc0df17b…`；446项测试及构建通过，19模型装包SHA匹配 |
-| 当前开发画面 | [原生Full Stage](ArtSource/refinement/presentation/native-natural-guard-ready-2026-11-16.png)、[实际版本与边界](ArtSource/refinement/presentation/native-natural-guard-2026-11-16.json)。准备态已验，完整攻防/画质仍未验 |
-| 上一握持预览源码 | `6d35519`：全身上劈v5与逐方向线性时标、common Grip左手、准备页左右持刀入口、非锁存换手恢复；正式binding `713532c0…`；整包与436项单测通过 |
-| 上一握持开发画面 | [实际右持准备](ArtSource/refinement/presentation/native-grip-motion-ready-2026-11-15.png)、[实际左持](ArtSource/refinement/presentation/native-grip-motion-left-2026-11-15.png)、[26秒原生接触片](ArtSource/refinement/presentation/native-grip-motion-contact-2026-11-15.mp4)、[进入第二轮](ArtSource/refinement/presentation/native-grip-motion-round2-2026-11-15.png)、[版本与边界](ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json)。新包三轮胜利/弹反/身法仍待验 |
-| 上一公开组合 | 精细上劈v9、右手闭握v2、九窗庭院、近场光、薄刀轨及结算面板；APK `1c41cfc30fa79dd391e9c6af329cdfcf8b8d6ad7401465b9f16b90d0016d7b46`，242,706,266字节 |
-| 公开v9主流程 | PICO Emulator真实SDK输入完成开局、三轮角色轮换、胜利895分／余60生命，再实际点击再挑战回到准备态；8次SOFT_HIT、6次敌方GUARDED_HIT、4次PLAYER_HIT及三次fall有对应日志；不证明新刀刀接触实现 |
-| 公开v9画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4)、[重试短片](ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-visual-v9-combat-2026-11-13.png)、[胜利](ArtSource/refinement/presentation/native-visual-v9-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-visual-v9-2026-11-13.json) |
-| 公开v9检查 | 构建、安装启动、349项单元测试通过；7个打包模型SHA匹配。空ECS附件AABB标记UNOBSERVED，不伪报数值PASS；实际纸牌与点击已验证 |
-| 最新下载 | [native-natural-guard-2026-11-16](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)，固定源码`add9f3f`；APK `e13f370c…`、220,019,997 B，4附件服务端SHA/大小均核对。上一握持预览仍保留独立证据 |
-| 当前品质 | **成品Demo未完成。** 衣料／发型、近景肤色／刀面反光、腕口／掌背、刀轨与接触反馈可读性仍需打磨；玩家PARRY/HMD闪避/技能处决、部分生命周期和Space Pro实测未完成 |
+| 原生画面与录像 | [Full Stage准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒实际交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[版本、源文件身份与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
+| 开发 APK | SHA256 `57f7cb12286aa9b466bb75c8e53d87b8c31ee6adc887186f6b1adc2e26e9d8e2`，220863361 B；19 个 GLB 装包身份一致；460 测试，0失败/错误/跳过 |
+| 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
+| 拼刀 | 首次接触停顿后由敌人有限后退/转身/恢复，玩家手不承担敌方强制位移；同一最终actor/source用于显示和判定。极端不可证路径仍安全保持 |
+| 当前阻断 | **真实刀刃与单胶囊不贴合**：静态玩家刀局部漏覆盖约45mm，正在制作资产派生形状；胶囊测试通过不等于画面无穿刀 |
+| 手与场景 | Right `a9809a45…` / Left `ecc07136…`；庭院 `c7f2e2b2…`。新指关节、Tripo厚甲和场景IBL仍是私有制作候选，未装入本APK |
+| 已有公开下载 | [自然守势预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)固定旧源码 `add9f3f`，不含本轮组合。新 APK 发布后另列独立 release |
 
-模拟器主流程证据不等于视觉、手感或终端性能达标。录像保持原始时间流，未插帧，主机约56.5fps也不代表PICO渲染帧率；本次录像未录声音。[验收清单](docs/acceptance.md)与[分工审核](docs/agents/README.md)列当前实物、审核边界和续派。上一已发布UI节点为ca26f4a9／a22a216，保留独立证据。
+录像保持原始时间流和帧数，无插帧/改速，本次未录声音；主机窗口录制帧率不是PICO渲染性能。完整本版本胜利、玩家弹反/头部闪避/技能处决、音画触觉同步，以及 Space Pro 性能/热量/舒适度均未通过。[验收清单](docs/acceptance.md)列证据与未完成项，[四路交接](docs/agents/README.md)承接制作与评审。
 
 ## 构建与模拟器
 
@@ -53,7 +46,7 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 参考Blade & Sorcery、荣耀战魂的空间攻防，影之刃零、鬼武者、只狼的蓄势/接触/收势，黑神话悟空的成年写实骨相、交领束带、刀具、木作与湿石材。骑马与砍杀、天国拯救仅提供可信尺度和空间感参考，本Demo不扩开放世界。
 
-正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a`，base为`f6bc15d6…`，开发庭院为`96c554cc…`（公开v9为64da），右手为`3a1be1dd…`。OVERHEAD为211键／120Hz，左右攻击各106键；正式producer按每clip声明的精确时间网格验证。场景静态合批2f9a8774仅保留为未采用A/B备选，不凭提交估算宣称硬件收益。
+正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33`，base为`871b5521…`、indigo为`0c148e95…`、veteran为`9a392e2e…`。OVERHEAD为211键/120Hz；veteran LEFT准备曲线130键，其余左右各106键，时序不变。正式producer验证逐clip精确时间网格与末端约束；生成数据来自同一份模型。
 
 ## 工程入口
 

@@ -39,13 +39,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("dc0df17be4b24504f7a21e3b2192e3c1ed5264b58be3f62a752f0ce83aaf8872", AttackBankProfileData.bindingSha256)
-        assertEquals("b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33", AttackBankProfileData.bindingSha256)
+        assertEquals("871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -66,7 +66,12 @@ class AttackBankProfilesTest {
                 assertSame(character.attacks.getValue(direction), profile)
                 assertEquals(clip, profile.clip)
                 assertEquals(phaseTimes(direction), profile.sourcePhaseSeconds)
-                assertEquals(if (direction == AttackDirection.OVERHEAD) 211 else 106, profile.samples.size)
+                val expectedSamples = when {
+                    direction == AttackDirection.OVERHEAD -> 211
+                    asset == "asset://models/opponents/veteran.glb" && direction == AttackDirection.LEFT -> 130
+                    else -> 106
+                }
+                assertEquals(expectedSamples, profile.samples.size)
                 assertEquals(0.0, profile.samples.first().sourceSeconds, 0.0)
                 assertEquals(1.75, profile.samples.last().sourceSeconds, 0.0)
                 assertTrue(profile.samples.zipWithNext().all { (before, after) -> before.sourceSeconds < after.sourceSeconds })

@@ -1,0 +1,236 @@
+{
+  "binding_sha256": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+  "source_pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/render_local.py": "360b4b2a556c86c30f29eb420cb92f4a6ca9351d8900267071d947115c0351c8",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/review_combined.py": "06af3e7401134292e8a1a11c0e583f87b800db41216bfed64f70a322516c0910",
+    "ArtSource/refinement/grip/render_grip_candidates.py": "b0162b8cae0325e48c2eaa92793cf25f43313422dcdf1e9bfc79ba765abcad90",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage8/render_hit_reactions.py": "8919da25646fd693d7d0ad2ae014f5d479e3146850f342b07b24379963f785e7",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_prepared_png.glb": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/production_review_request.json": "5a46a4dc625ac0c348a2c25b0a0e51591592e7d9d411dcece4c1f76345ac7fed"
+  },
+  "frames": [
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_guard.png",
+      "sha256": "59316a82539fdf2b66b1314f1b16606815115ffd4f1e2e6da5a0a9c7abc70bdb",
+      "actual_model_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+      "clip": "idle",
+      "source_seconds": 0.0,
+      "actual_action": {
+        "requested_source_seconds": 0.0,
+        "actual_action_frame": 0.0,
+        "actual_action_seconds": 0.0,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "idle",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        -0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        -0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          0.04791521281003952,
+          -0.41538920998573303,
+          -0.7799999713897705
+        ],
+        [
+          -0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_1p1.png",
+      "sha256": "dd7fc6054738b72d3f63688c8fbc5b2f4c08223d7d0919283faaa5d4dc15c42c",
+      "actual_model_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+      "clip": "attack_left",
+      "source_seconds": 1.1,
+      "actual_action": {
+        "requested_source_seconds": 1.1,
+        "actual_action_frame": 33.0,
+        "actual_action_seconds": 1.1,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_left",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        -0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        -0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          0.04791521281003952,
+          -0.41538920998573303,
+          -0.7799999713897705
+        ],
+        [
+          -0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_1p2.png",
+      "sha256": "2312718f1cd28123a0d0c63a057faac1983982910c98c7d3ae9e899e53e974bb",
+      "actual_model_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+      "clip": "attack_left",
+      "source_seconds": 1.2,
+      "actual_action": {
+        "requested_source_seconds": 1.2,
+        "actual_action_frame": 36.0,
+        "actual_action_seconds": 1.2,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_left",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        -0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        -0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          0.04791521281003952,
+          -0.41538920998573303,
+          -0.7799999713897705
+        ],
+        [
+          -0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_return.png",
+      "sha256": "9a7d07dd0f872377595fb58b54c8411907f5ff0001db772a44ec12931ebef020",
+      "actual_model_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+      "clip": "attack_left",
+      "source_seconds": 1.75,
+      "actual_action": {
+        "requested_source_seconds": 1.75,
+        "actual_action_frame": 52.5,
+        "actual_action_seconds": 1.75,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_left",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        -0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        -0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          0.04791521281003952,
+          -0.41538920998573303,
+          -0.7799999713897705
+        ],
+        [
+          -0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "original_material": true,
+  "geometry_or_pose_override": false,
+  "scope": "Offline original-material constrained actual veteran; no native SDK playback or aesthetics approval"
+}

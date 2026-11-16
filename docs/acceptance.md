@@ -2,7 +2,21 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-## 最新手部与输入原生检查（2026-11-17，运行包尚未公开）
+## 当前组合开发节点：攻击回收、有限卸力与灯笼（2026-11-17）
+
+当前APK `57f7cb12286aa9b466bb75c8e53d87b8c31ee6adc887186f6b1adc2e26e9d8e2`，220863361 B，binding `51807084…`。完整构建和460项单测通过，0失败/错误/跳过；19个装包GLB与正式资源匹配，全部Kotlin主源码逐文件SHA固定。移除了SDK骨骼写入探针，未采用失败的玩家推手候选。[精确版本与边界](../ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json)记录实际APK/源文件/模型和媒体身份。
+
+**已通过的开发检查：** 三角色LEFT+RIGHT组合726个有限姿态检查通过，包含声明范围内Steel与8个非邻接核心区域；veteran LEFT保头/root/脚与guard，关键帧全钢偏差小于1µm，中间采样小于0.624mm。范围不含相邻肩胸、所有衣料自碰、连续时间或GPU最终蒙皮，脚底原有毫米级偏差仍在。庭院c7f2e2b2的新纸罩灯笼已真实显示。
+
+**实际原生观察：** [准备态](../ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)与[45秒交战录像](../ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)来自同一APK。真实UI Start和鼠标/虚拟手柄轨迹经SDK_NATIVE进入共用判定；前两敌倒下，第三敌加载。4次有回执的卸力持续约0.111/0.730/0.895/0.111秒，画面中姿态与actor继续变化。仅证明有限路径实际运行，不代表最终流畅度。该次继续静候后是正常比赛超时；另一次更长尝试第三敌余69/150、玩家死亡，均不是完整胜利。45秒内未出现无可证路径，后一次实际有一次该保持情形，不能隐去。
+
+**新增阻断：真实刀形覆盖。** 正式dao默认scene实际5533个Steel顶点中，4469个超出当前12mm半径单胶囊，最大离轴56.994mm，即局部漏覆盖约44.994mm。当前证据仅静态玩家握点空间，不能推广为敌方/动态蒙皮通过。旧CCD和卸力回归只证明代理几何，不能证明视觉无穿刀；Root正在制作资产派生分段形状、整片覆盖/过覆盖量化，并要求显示、CCD与恢复使用一致形状后再验收。
+
+**仍未完成：** 本版本三轮胜利/Retry全流程、玩家PARRY、HMD闪避、双手技能与处决、音画/触觉同步、整体模型/材质/特效/动作观感及Space Pro实测。新199c指关节、真实Tripo护甲拟合、场景反射IBL与私有技能误触修复均未装入本包。宿主录像没有声音，帧率不是PICO GPU指标，不能宣称终端性能通过。
+
+下文为各独立历史节点的证据，不计为本包验收。
+
+## 上一手部与输入原生检查（2026-11-17，运行包尚未公开）
 
 主掌背V沟定位为MCP前皮面被错误按指部权重保护；只修14个授权掌背混权点，Right为a9809a45、Left为ecc07136，同源一次镜像，common Grip与手写SDK/frame代码不变。原材质和neutral前后图显示长沟消失，Right15项验证与Left28独立正负例通过；实际Source/T/S/UV/3KTX与保护指体/内掌均保持，继承109指间交面继续披露。
 
@@ -12,7 +26,7 @@
 
 [24秒原生交战片](../ArtSource/refinement/presentation/native-hand-input-contact-2026-11-17.mp4)与[精确身份及事件](../ArtSource/refinement/presentation/native-hand-input-2026-11-17.json)来自同一有界录制/输入调度：真实UI Start accepted，2次SOFT_HIT、6次BLOCK金属反馈、2次PLAYER_HIT有同时间窗消费收据。主机窗口录制1229帧、24秒，压缩后帧数/时长保持且完整解码通过，无插帧/改速/声音；这不是PICO渲染帧率。片中持续架刀存在数秒同姿态，Root已续派接触卸力诊断；不能据BLOCK日志认定玩家弹反或整体拼刀手感通过。本包仍未完成三轮胜利/身法/技能处决/Space Pro验收，公开APK没有更新。
 
-## 当前开发预览：自然守势、呼吸与湿石（2026-11-16）
+## 上一开发预览：自然守势、呼吸与湿石（2026-11-16）
 
 已公开为[自然守势与呼吸开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)，固定源码`add9f3f3b070081b52fd0fdbd3d0a3375aa0f023`。APK/校验文件/原生PNG/版本JSON四附件均核对服务端SHA、字节数及uploaded状态；这是pre-release，不是成品验收。
 

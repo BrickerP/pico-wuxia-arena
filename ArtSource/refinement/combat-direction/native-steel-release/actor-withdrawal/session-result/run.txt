@@ -1,0 +1,8 @@
+JUnit version 4.13.2
+.............STEEL_RELEASE idle sourceResumedMs=150 retreatMm=49.49999999999988 maximumVirtualOffsetMm=0.0
+.......ACTOR_STEEL_SESSION sourceResumedMs=1310 guardMs=1990 retreatMm=49.50000000000009 yawDegrees=-3.9889969611484655 maxYawStep=0.010000109672546387 minimumGapMm=-9.999998398790844E-7 maxPlayerOffsetMm=0.0
+........................
+Time: 0.797
+
+OK (44 tests)
+

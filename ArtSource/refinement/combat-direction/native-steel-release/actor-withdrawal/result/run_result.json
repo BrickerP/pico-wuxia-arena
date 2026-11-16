@@ -1,0 +1,34 @@
+{
+  "exit_code": 0,
+  "input_stable_during_run": true,
+  "sources": {
+    "app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt": "b5c44ab72986b93054d1b9be38fb59188ff10d257a717b0881c11ae4e75feed1",
+    "app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt": "90ce756c3f89d76f71f2cf26c23d1aae39b7b7ed92ec8c16a6e30f4e74350ec7",
+    "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawal.kt": "4cf56965342683f48b46585f58e3fc40d0a208ae09f25aa39b2a2a08ca4f2408",
+    "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawalFixtureTest.kt": "239fe0d227187394ce44eeebd2584dce69f9f46146edfeec99152c9ae8a3a93b"
+  },
+  "fixture_sha256": "67146106cfec0b0db55ad6ab51c0a32c735c0bc72f6eb507e98cf76151854976",
+  "witness_sha256": "5ae7324c17f7c4303b7c621ec5ffd138a528b0b07479e4bc951a8134218f8524",
+  "command": [
+    "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/effects/runtime-polish/testing/run_jvm_tests.py",
+    "--java",
+    "/Users/yupeng/.pico/primer-cli/jdk/jdk-21.0.13+9/Contents/Home/bin/java",
+    "--output",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/result",
+    "--source",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+    "--source",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt",
+    "--source",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt",
+    "--source",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawal.kt",
+    "--source",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawalFixtureTest.kt",
+    "--test",
+    "com.example.wuxiaarena.prototype.withdrawal.ActorWithdrawalFixtureTest"
+  ],
+  "pure_math_no_sdk": true
+}

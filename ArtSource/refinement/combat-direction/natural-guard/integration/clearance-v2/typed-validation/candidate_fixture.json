@@ -1,0 +1,9 @@
+{
+  "binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "source_runner": "ArtSource/refinement/combat-direction/run_isolated_tests.py",
+  "fixture_changes": "Only seven exact binding/model/profile SHA literals replaced; all original behavioral assertions preserved",
+  "additional_existing_source": "ReactionProfiles.kt (omitted by old isolated runner)",
+  "app_sources_modified": false,
+  "gradle_used": false,
+  "exit_code": 0
+}

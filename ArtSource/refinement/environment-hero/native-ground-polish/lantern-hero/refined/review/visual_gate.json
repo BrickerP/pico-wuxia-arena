@@ -1,0 +1,21 @@
+{
+  "status": "offline_refined_module_candidate_for_root_composition_review",
+  "adoption_recommendation": "do_not_replace_formal_bd5d21ef_until_root_composes_module_and_checks_native_kTX_lighting",
+  "positioning_revisions": 1,
+  "further_iteration_authorized": false,
+  "observations": [
+    "The 1.65m view restores a rounded lantern body and continuous vertical ribs while preserving original anchors and lights.",
+    "The 0.5m view shows cap, collar, continuous ribs, bottom closure and tassel as connected physical parts; no detached pointed rib ends remain.",
+    "The short cord and closed hanging eye are retained but partially occluded by the unchanged porch beam at the prescribed source hang location."
+  ],
+  "constraints_satisfied": [
+    "48 paper circumference segments and 12 continuous ribs.",
+    "Two-instance planned budget 246454 expanded triangles, 32 materials and 50 images.",
+    "No formal GLB/app/light/layout/Stage change, no new texture or material type."
+  ],
+  "preview_limitations": [
+    "Blender preview uses the PNG-equivalent wet-stone scene because it cannot import formal KHR_texture_basisu.",
+    "Current actor identity was excluded from both images because Root reimport changed it during preview."
+  ],
+  "conclusion": "Offline refined module is acceptable for Root composition review; formal composition and native KTX/lighting remain unverified."
+}

@@ -178,15 +178,16 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
+      "keyframe_semantics_sha256": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "20c68babedb9696a8d24d487c55a37969517731a0bd39aee90ed9459e87e7374",
+      "pre_prepared_wrist_constraint_semantics_sha256": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
       "retargeted_clip_sha256": "0b0a9c182ab7714fca3b1f35f4faa83f3be64de94350e8647e244f00879f1d55"
     },
     {
       "name": "attack_right",
-      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.0,
@@ -195,10 +196,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "9f836442e63dd95b602dfa3a09ded05c8a399fc1036c4b14c647af9341b480de",
+      "keyframe_semantics_sha256": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "356e1630374a8c679afd65a9227b8636a42cbc4ec0f1f2754fc9540937817201",
-      "retargeted_clip_sha256": "80c736f2ab93a62cdd24054181a0abf1d9c313bce4f2161d3e0f49211262f48c"
+      "source_keyframe_semantics_sha256": "d5e527ab81c7a7212cb04068d2bb98aefad49640ec3a3b598e33a71bd4d057c0",
+      "retargeted_clip_sha256": "8c6b8c67a24ee64899a79c91dbf34f8ee9ed8edac911f71e23dfb63bc24d5008"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -382,18 +383,18 @@
   "outputs": [
     {
       "file": "veteran_body.glb",
-      "bytes": 14346256,
-      "sha256": "e519dde4f81544907ef28a0457049aaada36dfc9b7fa8c9fd741863b894fe0ba"
+      "bytes": 14354052,
+      "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55"
     },
     {
       "file": "veteran_prepared_png.glb",
-      "bytes": 17439336,
-      "sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363"
+      "bytes": 17447128,
+      "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
     },
     {
       "file": "veteran.glb",
-      "bytes": 45350060,
-      "sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87"
+      "bytes": 45357856,
+      "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a"
     }
   ],
   "finger_rotation_calibration": {
@@ -25798,7 +25799,7 @@
       },
       {
         "clip": "attack_right",
-        "before_semantics_sha256": "f169bff598dfc95c6af16400261b702c043f712979cd2037da76e0259fbeb81c",
+        "before_semantics_sha256": "58708f8d578a2df564d8145f712637050722a6f4c83218e91a25a220e7ec6210",
         "foot_vertex_counts": {
           "L": 879,
           "R": 931
@@ -29788,7 +29789,115 @@
         },
         "maximum_plane_error_metres": 0.005484857071143021,
         "maximum_opposite_foot_height_metres": 0.01390715700678553,
-        "after_semantics_sha256": "9f836442e63dd95b602dfa3a09ded05c8a399fc1036c4b14c647af9341b480de"
+        "after_semantics_sha256": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36"
+      }
+    ]
+  },
+  "prepared_wrist_constraint": {
+    "applied": true,
+    "prepared_space": "after canonical normalization/finger/root grounding; before KTX/profile",
+    "combined_rigid_steel_vertex_count": 5533,
+    "body_and_combined_share_wrist_reference": true,
+    "assets": [
+      {
+        "applied": true,
+        "recipe": {
+          "schema_version": 1,
+          "character_id": "veteran",
+          "clip": "attack_left",
+          "arm_bones": [
+            "R_Upperarm",
+            "R_Forearm",
+            "R_Hand"
+          ],
+          "swivel_degrees": -12.0,
+          "window_source_seconds": [
+            0.9,
+            1.06,
+            1.235,
+            1.3
+          ],
+          "local_sample_rate_hz": 120,
+          "key_steel_budget_metres": 5e-06,
+          "subkey_steel_budget_metres": 0.001,
+          "reference": "unconstrained_same_target_prepared_fk"
+        },
+        "unconstrained_same_target_wrist_sha256": "4b7e9f5987c7c8ac39353ae48c7f313212be41a0d7688710016f0c7b9e60820c",
+        "before_animation_semantics_sha256": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
+        "after_animation_semantics_sha256": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
+        "baseline_replay_error": 0.0,
+        "original_key_union_count": 106,
+        "prepared_key_union_count": 130,
+        "changed_rotation_streams": [
+          "R_Upperarm",
+          "R_Forearm",
+          "R_Hand"
+        ],
+        "untouched_LEFT_TRS_tracks": 231,
+        "other9_clips_unchanged": true,
+        "steel_reference": "validated_combined_png_hand_local",
+        "full_steel_reference_vertex_count": 5533,
+        "key_wrist_max_m": 2.1747528790423905e-07,
+        "subkey_wrist_max_m": 0.0002297301732404477,
+        "key_full_steel_max_m": 6.689254867989342e-07,
+        "subkey_full_steel_max_m": 0.0006235917532083305,
+        "key_wrist_orientation_max_radians": 1.0371130352299478e-06,
+        "subkey_wrist_orientation_max_radians": 0.0006359809891113709,
+        "key_wrist_orientation_at_steel_radius_m": 9.060274398960162e-07,
+        "subkey_wrist_orientation_at_steel_radius_m": 0.000555596562900394,
+        "bone_world_length_max_delta_m": 1.254881820678122e-07,
+        "file": "veteran_body.glb",
+        "asset_role": "body"
+      },
+      {
+        "applied": true,
+        "recipe": {
+          "schema_version": 1,
+          "character_id": "veteran",
+          "clip": "attack_left",
+          "arm_bones": [
+            "R_Upperarm",
+            "R_Forearm",
+            "R_Hand"
+          ],
+          "swivel_degrees": -12.0,
+          "window_source_seconds": [
+            0.9,
+            1.06,
+            1.235,
+            1.3
+          ],
+          "local_sample_rate_hz": 120,
+          "key_steel_budget_metres": 5e-06,
+          "subkey_steel_budget_metres": 0.001,
+          "reference": "unconstrained_same_target_prepared_fk"
+        },
+        "unconstrained_same_target_wrist_sha256": "4b7e9f5987c7c8ac39353ae48c7f313212be41a0d7688710016f0c7b9e60820c",
+        "before_animation_semantics_sha256": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
+        "after_animation_semantics_sha256": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
+        "baseline_replay_error": 0.0,
+        "original_key_union_count": 106,
+        "prepared_key_union_count": 130,
+        "changed_rotation_streams": [
+          "R_Upperarm",
+          "R_Forearm",
+          "R_Hand"
+        ],
+        "untouched_LEFT_TRS_tracks": 231,
+        "other9_clips_unchanged": true,
+        "steel_reference": "validated_combined_png_hand_local",
+        "full_steel_reference_vertex_count": 5533,
+        "key_wrist_max_m": 2.1747528790423905e-07,
+        "subkey_wrist_max_m": 0.0002297301732404477,
+        "key_full_steel_max_m": 6.689254867989342e-07,
+        "subkey_full_steel_max_m": 0.0006235917532083305,
+        "key_wrist_orientation_max_radians": 1.0371130352299478e-06,
+        "subkey_wrist_orientation_max_radians": 0.0006359809891113709,
+        "key_wrist_orientation_at_steel_radius_m": 9.060274398960162e-07,
+        "subkey_wrist_orientation_at_steel_radius_m": 0.000555596562900394,
+        "bone_world_length_max_delta_m": 1.254881820678122e-07,
+        "file": "veteran_prepared_png.glb",
+        "asset_role": "combined_png"
       }
     ]
   },
@@ -30119,9 +30228,9 @@
     },
     {
       "name": "attack_right",
-      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
-      "retargeted_clip_sha256": "80c736f2ab93a62cdd24054181a0abf1d9c313bce4f2161d3e0f49211262f48c",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+      "retargeted_clip_sha256": "8c6b8c67a24ee64899a79c91dbf34f8ee9ed8edac911f71e23dfb63bc24d5008",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -30140,7 +30249,7 @@
       "target_inverse_binds_sha256": "c000ebe7cd78fb75ce18c060cbab67e8fea0585efa43e4f404fbeda29d720107",
       "target_mesh_sha256": "147e5202e8c0b13dfd7961a39b949d1084b507467d690168842e7309fa6c6f69",
       "interpolation_policy": "LINEAR",
-      "maximum_quaternion_step_radians": 0.6439459919929504
+      "maximum_quaternion_step_radians": 0.51186203956604
     }
   ],
   "grip_source": {
@@ -30256,17 +30365,17 @@
   },
   "prepared_png": {
     "file": "veteran_prepared_png.glb",
-    "bytes": 17439336,
-    "sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363"
+    "bytes": 17447128,
+    "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
   },
   "runtime_texture_encoding": {
     "file": "veteran_texture_encoding.json",
-    "sha256": "d1723b9758ec20dbb31a45beb5653a12dda39495fd1699a25589999ecffc25fe",
-    "prepared_png_sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363",
-    "encoded_sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87",
+    "sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
+    "prepared_png_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+    "encoded_sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
     "preservation": {
-      "non_image_bufferViews_byte_identical": 2521,
-      "accessors_semantics_and_payloads_unchanged": 2521,
+      "non_image_bufferViews_byte_identical": 2525,
+      "accessors_semantics_and_payloads_unchanged": 2525,
       "non_image_json_semantics_identical": true,
       "images": [
         {
@@ -30589,6 +30698,6 @@
   },
   "attack_profiles": {
     "file": "veteran_attack_profiles.json",
-    "sha256": "cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0"
+    "sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
   }
 }

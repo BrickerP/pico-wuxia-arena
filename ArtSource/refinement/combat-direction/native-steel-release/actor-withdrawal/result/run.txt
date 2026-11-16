@@ -1,0 +1,7 @@
+JUnit version 4.13.2
+.ACTOR_WITHDRAWAL duration=1.2416132907462978 retreat=0.0495 yawDeg=-62.76520280289274 gap=3.254821017983911E-7 sweeps=213 contacts=0 speed=0.6500000000000014 yawSpeed=1.0000000000000056
+..
+Time: 0.239
+
+OK (3 tests)
+

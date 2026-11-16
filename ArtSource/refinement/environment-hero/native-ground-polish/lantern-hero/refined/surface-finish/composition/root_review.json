@@ -1,0 +1,24 @@
+{
+  "decision": "accepted_for_native_development_integration",
+  "quality_passed": false,
+  "Root_image_review": [
+    "review/eye_after.png",
+    "../review/close_after.png"
+  ],
+  "source_manifest_sha256": "272ddf95981b7d9992fa83c1e175dd59addb5072832d9f2c5ba265a7165cbfe7",
+  "ktx_sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+  "target_asset": "app/src/main/assets/models/courtyard_hero.glb",
+  "verified_delivery_files": 15,
+  "budget": {
+    "node_expanded_triangles": 249958,
+    "unique_mesh_triangles": 182694,
+    "active_unique_meshes": 41,
+    "unique_position_stream_vertices": 344300,
+    "unique_attribute_buffer_bytes": 14499504,
+    "unique_index_buffer_bytes": 1208868,
+    "primitive_node_submission_upper_estimate": 119,
+    "materials": 32,
+    "images": 50
+  },
+  "native_loading_and_lighting": "pending same APK"
+}

@@ -15,6 +15,7 @@ import com.example.wuxiaarena.core.input.TrackingState
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -73,7 +74,7 @@ class HurtPoseContinuityTest {
     }
 
     @Test
-    fun parryKeepsActualIncomingSourceDuring95msThenRetreatsInTheSameClip() {
+    fun parryKeepsIncomingSourceThroughHitStopAndActorWithdrawalThenRetreatsInTheSameClip() {
         val fixture = Fixture()
         fixture.start()
         fixture.seek { it.phase == EnemyPhase.STARTUP }
@@ -100,9 +101,25 @@ class HurtPoseContinuityTest {
         val state = fixture.session.viewState
         assertEquals(EnemyPhase.HIT, state.phase)
         assertEquals(profile.clip, state.enemyPoseClip)
-        assertTrue(requireNotNull(state.enemyPoseSourceSeconds) < incoming.sourceSeconds)
+        assertEquals(incoming.sourceSeconds, requireNotNull(state.enemyPoseSourceSeconds), 1e-9)
+        assertTrue("The actor withdraws while its actual contact source is held",
+            requireNotNull(state.enemyPosition).distanceTo(requireNotNull(stateAtContact.enemyPosition)) > 0.0 ||
+                state.enemyYawRadians != stateAtContact.enemyYawRadians)
         assertEquals(profile.sample(requireNotNull(state.enemyPoseSourceSeconds)).inStage(requireNotNull(state.enemyPosition) + state.enemyRecoilOffset,
             state.enemyYawRadians), fixture.pose())
+        var retreated: ArenaViewState? = null
+        repeat(120) {
+            if (retreated == null) {
+                fixture.tick(25_000_000L)
+                val next = fixture.session.viewState
+                if (next.enemyPoseClip == profile.clip && requireNotNull(next.enemyPoseSourceSeconds) < incoming.sourceSeconds)
+                    retreated = next
+            }
+        }
+        assertNotNull("Finite actor withdrawal must resume the real source within three seconds", retreated)
+        val resumed = requireNotNull(retreated)
+        assertEquals(profile.sample(requireNotNull(resumed.enemyPoseSourceSeconds)).inStage(requireNotNull(resumed.enemyPosition) + resumed.enemyRecoilOffset,
+            resumed.enemyYawRadians), fixture.pose())
     }
 
     private class Fixture {

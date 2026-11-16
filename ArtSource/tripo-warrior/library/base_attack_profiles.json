@@ -77955,7 +77955,7 @@
         200000000,
         600000000
       ],
-      "animation_semantics_sha256": "83046f1c781b4fee5455dd4d0601f19ebf4d83de0e23b781edbb34bdf75a2f97",
+      "animation_semantics_sha256": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -105533,7 +105533,7 @@
     }
   },
   "character_id": "base",
-  "model_sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+  "model_sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",
@@ -105548,7 +105548,7 @@
     "RIGHT": {
       "incoming_guard_side": "RIGHT",
       "actor_travel_side": "RIGHT",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9"
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4"
     }
   }
 }

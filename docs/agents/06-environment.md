@@ -1,12 +1,53 @@
 # 06 · 雨夜酒馆庭院整体场景
 
-## Root 当前审核与执行合同（2026-11-16）
+## Root 当前收件与原生验收边界（2026-11-17）
 
-湿石bd5d21ef已获Root离线收件，正在与dc0动作组构建原生包；尚不宣称端内反射/真机通过。Root实际看过178d1bfc灯笼正常/局部图，当前不组合：轮廓比原灯更方、更有低面数折角，竹肋两端像断开的尖条，未连接收口圈；实体数量和省三角不能替代精致感。该模块封存。
+灯笼完整庭院c7f2e2b2已在当前组合APK实际显示。新 `scene-reflections/scene_reflections_ibl.ktx`（`7d970ca4…`）私有环境反射候选及同条件金属球对照已交，正式IBL未改。源包含实际庭院门窗／灯笼反射结构，尚待Root核线性×4与现有环境强度的配对，再验证原生面向、曝光和实际刀身效果；不能仅凭离线金属球称原生湿石／金属材质已达标。
 
-下一轮Ownership仅lantern-hero/refined/及06。恢复原前门灯笼的圆润轮廓与悬挂包络，做有连续曲率的纸罩（环向至少48段、合理纵向曲线、正确平滑法线），竹肋薄且连续连接顶/底圈，不悬空/尖刺；圈帽和绳结有真实收口。可以用更多必要面数，组合仍<=250k展开tri，材质<=32，原两实例/光源锚不变。可增最多一张1024纸纤维图及mips（总图<=51），从已有CC0纸材或明确可复建程序纹理衍生，不烘焙固定高光、不过度全局发光；不能只换颜色或压面数。
+06本阶段保持封口，Root统一做候选加载和同视角A/B；不新增灯光、场景或布局，不覆盖当前正式庭院。整场视觉与Space Pro性能／舒适性仍未通过。
 
-先一个单件+同一1.65m正常视角和0.5m局部对照，旧原形为before；Root接受后才组合当前湿石庭院。45分钟首件最多一次定位修正，不改灯/布局/Stage/正式GLB/app/公共producer/Git/设备。保已冻结湿石和旧模块及他人修改，不重开第二庭院。结束明确可采用或拒绝，不拿离线当设备证据。
+## 下一制作：实际庭院的反射环境源（2026-11-17）
+
+c7f2e2b2灯笼庭院已获Root实际原生加载审核，旧组合冻结，不再重做灯笼。当前刀面偏黑、湿石高光缺少环境形状，Root确认SceneLighting的StageEnvironmentLighting已实际接入；不能再以“IBL未开启/节点兄弟关系”当根因。实时加灯/阴影会带来新运行成本，本轮选择为同一全局IBL制作真实静态庭院环境源，先证明反射形状收益。
+
+Ownership仅 `environment-hero/native-ground-polish/scene-reflections/` 与06。用固定完整PNG d935d818庭院（与正式c7 KTX已验证等价）和既有夜间灯位，在实际战斗中心约Stage(0,1.4,-1.1)捕获静态环境；不含敌人/玩家手/UI，不加新灯、不改材质/布局/湿石或app。复用当前 `app/src/main/assets/textures/rain_night_ibl.ktx` 的真实格式、轴向/面顺序/mips及仓内 `lookdev/ibl/`、`lighting/stage3/ibl/` 已验证生成链，先核输出模板身份；不造Web预览入口，不把单反射源说成实时镜面或有视差的反射。
+
+45分钟交一个真实场景HDR/最终私有KTX与可复建脚本、线性色彩/亮度分布/面向/头格式/mip检查及输入输出身份。用同相机/材质/曝光/灯对比既有IBL与新IBL的金属球或现dao，需读到门窗/灯色等真实环境形状，不只整体提亮或烘固定高光。不得将显示变换/AgX烘进线性辐射，不用新增补光制造收益。Root另做实际APK A/B与强度选择；本路不写正式IBL/SceneLighting/代码产线/Git/设备。你不独自在仓库，保留他人修改，Blender仍走共享锁与有界队列。
+
+## 实际庭院反射环境源：私有KTX候选已交（2026-11-17）
+
+本合同已完成并封口，唯一目录 `environment-hero/native-ground-polish/scene-reflections/`。私有候选 `scene_reflections_ibl.ktx`，SHA256 `7d970ca40ea1660d5514b632b9b3e2e234fe471ac60f13711d486b6174489312`，状态 `private_scene_ibl_candidate_for_root_native_ab`；正式 `app/src/main/assets/textures/rain_night_ibl.ktx` 与SceneLighting/app均未改。
+
+- **真实来源/线性边界：** 固定完整d935 PNG庭院在Stage `(0,1.4,-1.1)` equirectangular 1024×512捕获；静态GLB且没有NPC/手/UI，复用既有stage2夜灯/原灯笼位置、不加捕获灯。原始EXR保留，Standard/None/exposure0/gamma1输出32bit线性EXR。原HDR峰值1.027在cmgen预滤后落到严格KTX阈值以下，故另存一个严格线性×4单位归一化HDR以保方向/色彩比例；不是AgX/显示变换、固定高光、补灯或最终原生强度选择，Root仍控制IBL exponent。
+- **KTX/面向：** 复用正式模板格式和已验证cmgen链：KTX1规范头、128方形面、六面、四级预滤mip、SH元数据、packed11/11/10 HDR。cmgen原始产物仅重写三个模板既有头字段，offset64后的SH/mip payload逐字节不变。默认mirror未关闭，面向仍交Root原生A/B。所有线性值有限、峰值3.1875；截断KTX错误输入被验证器拒绝。
+- **真实形状收益：** [旧IBL金属球](../../ArtSource/refinement/environment-hero/native-ground-polish/scene-reflections/review/metal_probe_old.png)只有宽暖/冷光斑；[新场景IBL金属球](../../ArtSource/refinement/environment-hero/native-ground-polish/scene-reflections/review/metal_probe_new.png)出现真实门窗格、暖灯色与庭院明暗形状。两图相同金属球/相机/显示/exposure、无动态灯，显示变换只用于探针图且没写进HDR。因此证明的是环境方向/形状，不是单纯整体提亮。
+- **验证/收件：** 5项捕获/头格式/六面mip/线性统计/面向模板/探针及负例检查通过。`capture_scene_hdr.py`、`generate_scene_ibl.py`、`render_reflection_probe.py`、`verify_scene_reflections.py`、`REBUILD.md`和`capture_manifest.json`、`generation_manifest.json`、`review/{verification,probe_manifest,visual_gate}.json`、`delivery_manifest.json`完整记录输入/输出/工具身份。Root下一步做私有KTX原生加载、面向与强度A/B；06不再改候选或正式IBL，等待review。
+
+## Root 当前审核与执行合同（2026-11-17）
+
+本节由2026-11-17 Root实物复审更新。Root已核完整组合15项产物身份并采用c7f2e2b2到正式开发场景，在新原生包实际加载并取图；两盏圆润纸罩、连续肋/收口和穗已可见，正式32材质/50图及249958tri保持。完整画面为 `artifacts/native-right-lantern-2026-11-17/native-stage.png`。这只证明加载/显示；湿石反射、整体夜间配光、帧率/内存与Space Pro品质仍未通过。
+
+下一轮Ownership仅 `lantern-hero/refined/surface-finish/composition/` 与06：用不可变bd5d21ef庭院和c2ae86e模块，按清单精确拆旧、原两实例矩阵和材质映射组合完整私有PNG/KTX GLB。复用既有正式KTX编码链；material10只更新指定纸图绑定，32材质/50图，<=250k展开tri，非灯笼几何、湿石图、所有锚点、布局和灯不变。输出可复建脚本、输入/输出身份、结构/预算与非目标不变检查（正常及错误输入负例）、1.65m正常前后图；不要再修改单件外形或表面参数。
+
+30分钟首件。不得写app/正式GLB/公共producer/Git/设备，Root审核后统一装包。几何预算与离线PNG不能声称原生反射、流畅度或Space Pro性能通过。你不独自在仓库，保留其他人的修改。
+
+## 灯笼纸罩表面：完整私有PNG/KTX组合已交（2026-11-17）
+
+组合合同已完成并封口，唯一输出在 `lantern-hero/refined/surface-finish/composition/`。私有KTX完整候选 `courtyard_lantern_surface_ktx.glb`，SHA256 `c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78`；同像素PNG完整复核场景 `courtyard_lantern_surface_png.glb`，SHA256 `d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d`。状态 `private_full_composition_candidate_for_root_review`，不是正式app替换或设备通过。
+
+- **精确组合：** 从bd5d21ef正式湿石KTX庭院拆旧前门木2936、铜504、纸960三角，只在两份相同module mesh上建立左/右实例矩阵。material10仅变更baseColorTexture/emissiveTexture为texture41，image41替换为新增纸纤维图；MR39与normal40保持。KTX texture41正确迁入KHR_texture_basisu，图/texture表均仍50、材料32；非目标mesh、node变换、湿石图、锚点、布局和灯经检查保持。
+- **预算/验证：** 展开249958tri（≤250k）、唯一182694tri、属性VB14499504B、索引1208868B、提交估算119。5项组合检查含正常输入与错误sha负例、材料/图像绑定、非目标字节/节点不变、精确拆旧/新增、tangent/退化/无灯检查，全部通过。PNG/KTX GLB validator均0错误；KTX10条提示来自KHR扩展/继承资源，不是阻断错误。KTX fiber为1024×512 UASTC/Zstd、11mips，既有官方编码链与实际map hash在 `composition_manifest.json`。
+- **图与边界：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/eye_before.png)、[后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/eye_after.png)。PNG预览是完整组合场景；正式bd5 KTX无法由Blender导入，故预览输入为已验PNG等价5619，不证明KTX加载、原生反射/照明、性能、内存、碰撞或Space Pro。当前角色身份变化，双方图均不加载角色，避免混旧actor。
+- **Root收件/停止：** `compose_lantern.py`、`verify_composition.py`、`render_composition.py`、`REBUILD.md`、`composition_manifest.json`、`review/{verification,png_gltf_validator,ktx_gltf_validator,render_manifest,visual_gate}.json`及`delivery_manifest.json`完整钉输入、输出和边界。Root后续仅需私有KTX候选原生加载与灯光检查后决定；06不再改该组合、模块、湿石或正式源，等待review。
+
+## 灯笼纸罩表面首件：离线可评审，等待Root材质绑定/组合（2026-11-17）
+
+本合同已完成并阶段结束，唯一新目录 `lantern-hero/refined/surface-finish/`。模块 `lantern_surface_module.glb`，SHA256 `c2ae86e490ef4fb56a6111ff1bbc6ee693262c1e44ab2a4e890d472062d89c4a`，状态 `offline_surface_finish_candidate_for_root_composition_review`。正式bd5d/app/湿石KTX、灯位、Stage和0268模块均未改。
+
+- **表面实际变化：** 纸罩沿环向48段、纵向17圈重建并启用平滑法线，消除0268局部图中明显的纵向硬折；12根连续竹肋/圈帽仍锐边。新图仅一张程序派生的1024×512中性纤维图，来自既有纸baseColor image38，纵向微纤维和低频透光不均因子0.979–1.020，无AI/外部下载、固定高光、反射或全局发光。
+- **Root组合要求：** 以相同两实例/拆旧范围组合，并在material10中把baseColorTexture与emissiveTexture绑定这张图、替换既有image41 payload；MR/normal保持。不得把模块预览材质新增为第33个材质。正式材质计数/图片计数保持32/50，纹理绑定细节在 `module_manifest.json` 与 `delivery_manifest.json`。
+- **预算/检查：** 单件5500tri、双实例11000；替旧4400，净+6600，计划组合249958展开tri，低于250k。3项结构/法线/UV/tangent/材质/预算检查通过，模块validator0错误/0警告。正式bd5为KHR_texture_basisu，Blender不能导入，所以同机位图采用验证过的PNG等价场景5619，明确不是KTX加载或设备证据。
+- **图与收件：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/review/eye_before.png)、[后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/review/eye_after.png)、[0.5m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/review/close_before.png)、[后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/review/close_after.png)。当前角色身份在Root重导期间变化，双方图均排除角色而不混旧版本。`make_paper_fiber.py`、`build_surface_finish.py`、`verify_surface_finish.py`、`render_surface_finish.py`、`lantern_surface_editable.blend`、`REBUILD.md`和`review/{verification,module_gltf_validator,render_manifest,visual_gate}.json`可复建/审核。Root验实际KTX、材质绑定和端内配光后再定；本路不再改参或重渲。
 
 ## 正门灯笼圆润精修：离线可评审，等待Root组合（2026-11-16）
 

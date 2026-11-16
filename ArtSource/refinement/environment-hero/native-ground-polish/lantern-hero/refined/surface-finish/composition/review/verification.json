@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "formal_sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+  "png_candidate_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+  "ktx_candidate_sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+  "budget": {
+    "node_expanded_triangles": 249958,
+    "unique_mesh_triangles": 182694,
+    "active_unique_meshes": 41,
+    "unique_position_stream_vertices": 344300,
+    "unique_attribute_buffer_bytes": 14499504,
+    "unique_index_buffer_bytes": 1208868,
+    "primitive_node_submission_upper_estimate": 119,
+    "materials": 32,
+    "images": 50
+  },
+  "scope": "Full private composition structural contract, not native KTX/device/light/performance proof."
+}

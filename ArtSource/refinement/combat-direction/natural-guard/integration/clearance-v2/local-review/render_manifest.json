@@ -1,0 +1,509 @@
+{
+  "binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "source_pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/render_local.py": "25dd7464f8be4e3f318bde0b09565a5720bb22e533fbd34a3d8253621e5dbdd2",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/review_candidate.py": "eb72e699e5e0be2cf5131448e4309e620f07e6bab8666c25cc76524b99ad3df9",
+    "ArtSource/refinement/grip/render_grip_candidates.py": "b0162b8cae0325e48c2eaa92793cf25f43313422dcdf1e9bfc79ba765abcad90",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage8/render_hit_reactions.py": "8919da25646fd693d7d0ad2ae014f5d479e3146850f342b07b24379963f785e7"
+  },
+  "original_material": true,
+  "geometry_override": false,
+  "frames": [
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/base_RIGHT_1000.png",
+      "sha256": "ffcf4b82bb9e503fb029f47d79ec5426f25f3e603b0cdc8b850160ef5dbfe3f4",
+      "target": "base",
+      "source_seconds": 1.0,
+      "actual_model_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "actual_action": {
+        "requested_source_seconds": 1.0,
+        "actual_action_frame": 30.0,
+        "actual_action_seconds": 1.0,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/base_RIGHT_1150.png",
+      "sha256": "3c5d3ce9d46036697220d7423f461b4393cee5455c7088c192a96b06b9cd719e",
+      "target": "base",
+      "source_seconds": 1.15,
+      "actual_model_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "actual_action": {
+        "requested_source_seconds": 1.15,
+        "actual_action_frame": 34.5,
+        "actual_action_seconds": 1.15,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/base_RIGHT_1250.png",
+      "sha256": "40b7961015a74cd0dc390b976e818c31119259ee319ba15c5216bfa4f157aa53",
+      "target": "base",
+      "source_seconds": 1.25,
+      "actual_model_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "actual_action": {
+        "requested_source_seconds": 1.25,
+        "actual_action_frame": 37.5,
+        "actual_action_seconds": 1.25,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/indigo_RIGHT_1000.png",
+      "sha256": "c24d1e3ffc24eebfb3dc48ab749f55e5f089fc7ebb5554211eb1968fae704423",
+      "target": "indigo",
+      "source_seconds": 1.0,
+      "actual_model_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "actual_action": {
+        "requested_source_seconds": 1.0,
+        "actual_action_frame": 30.0,
+        "actual_action_seconds": 1.0,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/indigo_RIGHT_1150.png",
+      "sha256": "206d906184978bd9bb3672cfe3d315602136e843f087d2d713a66de04e38ed6a",
+      "target": "indigo",
+      "source_seconds": 1.15,
+      "actual_model_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "actual_action": {
+        "requested_source_seconds": 1.15,
+        "actual_action_frame": 34.5,
+        "actual_action_seconds": 1.15,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/indigo_RIGHT_1250.png",
+      "sha256": "4e5f1699ad31c720ea109a449a8b229cfdd215bc080794fbd81f7823322a438a",
+      "target": "indigo",
+      "source_seconds": 1.25,
+      "actual_model_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "actual_action": {
+        "requested_source_seconds": 1.25,
+        "actual_action_frame": 37.5,
+        "actual_action_seconds": 1.25,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/veteran_RIGHT_1000.png",
+      "sha256": "ce7320a9fd7d1cbe213300c0ce08175e7db3d67e1e0a6e50220cff6854176b64",
+      "target": "veteran",
+      "source_seconds": 1.0,
+      "actual_model_sha256": "fbadad4318c840c9a5d8445827d3f3e5f301e3d9963fd92d9379f8ff262296b2",
+      "actual_action": {
+        "requested_source_seconds": 1.0,
+        "actual_action_frame": 30.0,
+        "actual_action_seconds": 1.0,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/veteran_RIGHT_1150.png",
+      "sha256": "052cade14bd454bfb98eb12f76cbb6ce69812895859d50f8a535426c02551f0d",
+      "target": "veteran",
+      "source_seconds": 1.15,
+      "actual_model_sha256": "fbadad4318c840c9a5d8445827d3f3e5f301e3d9963fd92d9379f8ff262296b2",
+      "actual_action": {
+        "requested_source_seconds": 1.15,
+        "actual_action_frame": 34.5,
+        "actual_action_seconds": 1.15,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/local-review/veteran_RIGHT_1250.png",
+      "sha256": "dd319cc6e43c8411103c6e1f8227414956fa4d02dfed810f8dcbb2cc48abc639",
+      "target": "veteran",
+      "source_seconds": 1.25,
+      "actual_model_sha256": "fbadad4318c840c9a5d8445827d3f3e5f301e3d9963fd92d9379f8ff262296b2",
+      "actual_action": {
+        "requested_source_seconds": 1.25,
+        "actual_action_frame": 37.5,
+        "actual_action_seconds": 1.25,
+        "owners": [
+          {
+            "object": "Armature",
+            "action": "attack_right",
+            "slot_handle": 929201142
+          }
+        ]
+      },
+      "camera_eye_actor_m": [
+        0.7799999713897705,
+        1.4700000286102295,
+        1.399999976158142
+      ],
+      "camera_aim_actor_m": [
+        0.20000000298023224,
+        1.309999942779541,
+        0.14000000059604645
+      ],
+      "camera_matrix_blender": [
+        [
+          0.908380925655365,
+          -0.04791521281003952,
+          0.41538920998573303,
+          0.7799999713897705
+        ],
+        [
+          0.4181436002254486,
+          0.10409168154001236,
+          -0.9023972749710083,
+          -1.399999976158142
+        ],
+        [
+          -2.6418902621117013e-09,
+          0.9934128522872925,
+          0.11459033936262131,
+          1.4700000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  ],
+  "scope": "Offline original-material actual canonical target; no PICO or continuous-time claim"
+}

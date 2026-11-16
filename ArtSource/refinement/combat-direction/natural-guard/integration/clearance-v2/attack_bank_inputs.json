@@ -1,0 +1,227 @@
+{
+  "coordinate_frame": "prepared glTF metres before enemy entity transform; +X actor left, +Y up, +Z forward",
+  "direction_semantics": "slash_to_left/right name the actor cutting direction; player-view enum mapping belongs to Root",
+  "rig_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+  "native_grip_reference": {
+    "path": "ArtSource/tripo-warrior/refined-base60k/slash.glb",
+    "sha256": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+    "use": "grip sampling only"
+  },
+  "freeze_status": "Private RIGHT clearance replacement; Root review pending; LEFT unresolved",
+  "baseline": {
+    "commit": "6d3551903440039afbef75a322dd66a6842c1e65",
+    "source": "ArtSource/tripo-warrior/motion_library.json",
+    "sha256": "1d2dd4fdc03b66ebdda954319dc93fbd0adc6fbdede8d5d875ba5ede6cd09ba0",
+    "frozen_copy": "ArtSource/refinement/combat-direction/natural-guard/integration/baseline_motion_library_6d35519.json"
+  },
+  "clips": [
+    {
+      "clip": "overhead",
+      "actor_direction": "weighted overhead complete RAW with hip/chest/arms and real dao path",
+      "source_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "sample_rate_hz": 120,
+      "interpolation": "LINEAR",
+      "raw": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+        "sha256": "9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696",
+        "bytes": 19192956,
+        "right_finger_calibration_baked": false
+      },
+      "sample_count": 211,
+      "animation_channel_count": 234,
+      "source_handoff": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+        "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+        "bytes": 83015
+      },
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.8333333333333334,
+        "active_end": 1.0333333333333334,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        650000000,
+        183333333,
+        200000000,
+        716666667
+      ],
+      "contact_source_seconds": 1.0,
+      "source_scope": "New canonical entry/return; original0.20..1.50s key payloads identical. No old preview or full-clip metrics reused.",
+      "inherited_interior_provenance": {
+        "old_authoring": {
+          "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/attack_bank_inputs.json",
+          "sha256": "41e8f8f783d675e83f4516e7010fa88dce7b970f7416baf23a0bf354691464a7",
+          "bytes": 18563
+        },
+        "old_raw": {
+          "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+          "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+          "bytes": 19192620,
+          "right_finger_calibration_baked": false
+        },
+        "source_range_seconds": [
+          0.2,
+          1.5
+        ],
+        "payload_identity_evidence": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+          "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+          "bytes": 110376
+        }
+      }
+    },
+    {
+      "clip": "slash_to_left",
+      "actor_direction": "toward actor +X left",
+      "source_range_seconds": [
+        0,
+        1.75
+      ],
+      "sample_rate_hz": 60,
+      "interpolation": "LINEAR",
+      "raw": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+        "sha256": "ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc",
+        "bytes": 18864780,
+        "right_finger_calibration_baked": false
+      },
+      "sample_count": 106,
+      "animation_channel_count": 234,
+      "source_handoff": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+        "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+        "bytes": 83015
+      },
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.9,
+        "active_end": 1.1,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        550000000,
+        180000000,
+        200000000,
+        600000000
+      ],
+      "contact_source_seconds": 1.0,
+      "source_scope": "New canonical entry/return; original0.20..1.50s key payloads identical. No old preview or full-clip metrics reused.",
+      "inherited_interior_provenance": {
+        "old_authoring": {
+          "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/attack_bank_inputs.json",
+          "sha256": "41e8f8f783d675e83f4516e7010fa88dce7b970f7416baf23a0bf354691464a7",
+          "bytes": 18563
+        },
+        "old_raw": {
+          "path": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
+          "sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+          "bytes": 18864444,
+          "right_finger_calibration_baked": false
+        },
+        "source_range_seconds": [
+          0.2,
+          1.5
+        ],
+        "payload_identity_evidence": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+          "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+          "bytes": 110376
+        }
+      }
+    },
+    {
+      "clip": "slash_to_right",
+      "actor_direction": "toward actor -X right",
+      "source_range_seconds": [
+        0,
+        1.75
+      ],
+      "sample_rate_hz": 60,
+      "interpolation": "LINEAR",
+      "raw": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+        "sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+        "bytes": 18864780,
+        "right_finger_calibration_baked": false
+      },
+      "sample_count": 106,
+      "animation_channel_count": 234,
+      "source_handoff": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/handoff.json",
+        "sha256": "d82b4d08da5d55bfbe4bcfe58712bba1c966d3b8dab1b31081b8cc730d032547",
+        "bytes": 56351
+      },
+      "phase_markers": {
+        "start": 0.0,
+        "preparation_end": 0.65,
+        "startup_end": 0.9,
+        "active_end": 1.1,
+        "recovery_end": 1.75,
+        "contact": 1.0
+      },
+      "runtime_phase_nanos": [
+        550000000,
+        180000000,
+        200000000,
+        600000000
+      ],
+      "contact_source_seconds": 1.0,
+      "source_scope": "RIGHT empty left-arm continuous chest-exterior return .9–1.5 seconds only; three-target canonical export required; not production approval",
+      "inherited_interior_provenance": {
+        "previous_raw": {
+          "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+          "sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+          "bytes": 18864780,
+          "right_finger_calibration_baked": false
+        },
+        "scope": "Only RIGHT empty left-arm rotations change; original full-interior identity no longer applies",
+        "sealed_source_evidence": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/handoff.json",
+          "sha256": "d82b4d08da5d55bfbe4bcfe58712bba1c966d3b8dab1b31081b8cc730d032547",
+          "bytes": 56351
+        }
+      }
+    }
+  ],
+  "inherited_unchanged_family_source_verification": {
+    "authoring": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+      "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+      "bytes": 83015
+    },
+    "endpoints": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+      "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+      "bytes": 110376
+    },
+    "finite_base_surfaces": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_surfaces.json",
+      "sha256": "139c1607e714e7c5177a505e05ab1c57c5c6e5171ccaf310ac9a957e52b99d5b",
+      "bytes": 123283
+    },
+    "scope": "Five RAW endpoints and finite private base only; no three-target or native acceptance."
+  },
+  "source_verification": {
+    "right_handoff": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/handoff.json",
+      "sha256": "d82b4d08da5d55bfbe4bcfe58712bba1c966d3b8dab1b31081b8cc730d032547",
+      "bytes": 56351
+    },
+    "right_raw": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+      "bytes": 18864780
+    },
+    "scope": "Sealed numeric RIGHT source only; old family evidence applies only to unchanged sources. Actual canonical target review required.",
+    "production_approved": false,
+    "left_integrated": false
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "status": "FUTURE_DOMAIN_REVIEW_FIX_PASSED_PENDING_ROOT_NATIVE_REVIEW",
+  "app_sources": [
+    {
+      "file": "app/src/main/java/com/example/wuxiaarena/core/combat/ActorWithdrawal.kt",
+      "sha256": "4cf56965342683f48b46585f58e3fc40d0a208ae09f25aa39b2a2a08ca4f2408",
+      "bytes": 9164
+    },
+    {
+      "file": "app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+      "sha256": "d2e413b7de645f6dd2f85454d9fbecad405e13d2bb0fee40c7effcd2f6905055",
+      "bytes": 79691
+    },
+    {
+      "file": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/NativeEnemyMotionContactTest.kt",
+      "sha256": "0202d954862c8ff1bfc2a20a18283698d6a97aba38d90f713b1bf015f6c8bc40",
+      "bytes": 15187
+    },
+    {
+      "file": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ActorSteelWithdrawalSessionTest.kt",
+      "sha256": "49aac9391470dd6da029d50416d57512408fbb14f53238f491975312b88e12bb",
+      "bytes": 12935
+    },
+    {
+      "file": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/HurtPoseContinuityTest.kt",
+      "sha256": "91cb1d45eac515a7323e6a36456354669f0a2248c942a25bcc12c36628c60c6c",
+      "bytes": 9157
+    },
+    {
+      "file": "app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/SteelRecoveryDomainTest.kt",
+      "sha256": "3c8d2b64316feb69e4d7216b212057d23f82e518df6142c5d7a5329f8366c60f",
+      "bytes": 10579
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/README.md",
+      "sha256": "808e69784f32b5016454d3e10d403cea342006d3fa09cb4a4f0b5713dcad73be",
+      "bytes": 3229
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawal.kt",
+      "sha256": "4cf56965342683f48b46585f58e3fc40d0a208ae09f25aa39b2a2a08ca4f2408",
+      "bytes": 9164
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/ActorWithdrawalFixtureTest.kt",
+      "sha256": "239fe0d227187394ce44eeebd2584dce69f9f46146edfeec99152c9ae8a3a93b",
+      "bytes": 11585
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/run.py",
+      "sha256": "0733c0b383d209db8a975fb8a829d74990c0531fcb6155ea62ab571ef147db4b",
+      "bytes": 2600
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/run_session.py",
+      "sha256": "93b582930dc692bf7916203826cbbaf5ea73e84d0b1d869442484d086197c633",
+      "bytes": 2398
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/result/withdrawal.json",
+      "sha256": "9d5a9c1a3eb9915cb629cb9e8fa34380e5a2d024c6c114800b43035f3f6c09f1",
+      "bytes": 63381
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/result/run.txt",
+      "sha256": "0dae2b2bc3dfcfeaff3920c4fe9c5fe916a248cdc54d2d3230f40d7a26b52746",
+      "bytes": 238
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/result/report.json",
+      "sha256": "c32f39b326d575147a1267ccfee85667f9144886e7a5334e7a11c696b6958b79",
+      "bytes": 5464
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/run.txt",
+      "sha256": "7d99bd7acfd934b2e6035f5b9bf2670ffb60753586947a9ec526b312e9453745",
+      "bytes": 747
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/report.json",
+      "sha256": "3993e1a5344ff2c60ee44c46dbabd5615298b1f4a3ea4d9c2b17228e243370c0",
+      "bytes": 15150
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/receipt.json",
+      "sha256": "5bce290301770820270a6a82ede1dc78143fff66d6959b4c335bfca5af505dca",
+      "bytes": 7982
+    }
+  ],
+  "private_tests": 3,
+  "session_tests": 48,
+  "ignored_tests": 0,
+  "session_overhead": {
+    "source_resumed_ms": 1310,
+    "guard_ms": 1990,
+    "player_offset_m": 0,
+    "actor_speed_mps": 0.65,
+    "actor_yaw_rate_radps": 1
+  },
+  "source_execution_pins": {
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/ActorWithdrawal.kt": "4cf56965342683f48b46585f58e3fc40d0a208ae09f25aa39b2a2a08ca4f2408",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt": "90ce756c3f89d76f71f2cf26c23d1aae39b7b7ed92ec8c16a6e30f4e74350ec7",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt": "f42269be77b0ad1e8f7e5bb53416bb95d8b29dc46b92e4d75addfa5b1a238106",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt": "a23fc7634088b5f78857cdced0b67bc134be4a982b6f9c810594f6e91a985cf5",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/WeaponContactConstraint.kt": "4a31380c5e073db9ed81a1f93b97557c46ef7318181480b1160ed55d5bed0d23",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt": "1f49d37c09111bb63243af8291b1fc462d5fba4d27573e2590f8aac32b02ecc9",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt": "b5c44ab72986b93054d1b9be38fb59188ff10d257a717b0881c11ae4e75feed1",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt": "d2e413b7de645f6dd2f85454d9fbecad405e13d2bb0fee40c7effcd2f6905055",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt": "06fbeb1c9de9113c5cf6f5dd72cc258245fa2f598c596fa8f569dbf129d6cc06",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt": "9fffc58c09e12092e95152dda07baa82c4bb5b5b9f131d5dcf4a5b033a4d7b3f",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt": "0264cd2a643bbf57c31ce1838980b10e98f5ca54717f12f3c46ccd6710765b11",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt": "f6f23d900101c8f4ac199579a9298f51b5d5013d1054358d711cacb8c77ed079",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/LocomotionProfiles.kt": "ed7ed2a502221d94b59141ec0c9c0ecfe55d187e2879ad12ae0c4134051e032a",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ReactionProfiles.kt": "62108cab996a2ccde98c39b9e50423f695897cc12664bb8e5c73f1dd45a8106b",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt": "51f4205df0cdad89b31b52ae0c0d18e5a8bc09afee3ae4f750f96141776c8eea",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/core/combat/WeaponContactConstraintTest.kt": "3f7c5b187790e3866cc383823a4bad64cb0232eeafb0245f4ad58e0c949f99da",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/NativeEnemyMotionContactTest.kt": "0202d954862c8ff1bfc2a20a18283698d6a97aba38d90f713b1bf015f6c8bc40",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ActorSteelWithdrawalSessionTest.kt": "49aac9391470dd6da029d50416d57512408fbb14f53238f491975312b88e12bb",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ContactTimeWitnessTest.kt": "208c155e9f66d1aedd56df5ad16d6de4c287a5e46d0d94c7600844850bc661d9",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/WeaponContactOrderingTest.kt": "466c245bc8075d429b7568e04ced54981c5a3a36938cec1f36284916806609de",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatImpactEventTest.kt": "8701c52339adc4a399d10ac468ac6f0c70c5c9869bddca7b202e0805f1b8a21c",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSessionTest.kt": "5c29d6e74fdcb67065d8190eaaf7a7ae3e43946000c4209cc7a5d2ff3d4689e3",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/HurtPoseContinuityTest.kt": "91cb1d45eac515a7323e6a36456354669f0a2248c942a25bcc12c36628c60c6c",
+    "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/SteelRecoveryDomainTest.kt": "3c8d2b64316feb69e4d7216b212057d23f82e518df6142c5d7a5329f8366c60f"
+  },
+  "sdk_verified": false,
+  "device_touched": false,
+  "limits": [
+    "Root must review the63degree whole-actor turn and about2second total rhythm in native rendering.",
+    "Endpoint-linear CCD plus held-pose analytic separating bound is not full animated skin self-collision proof.",
+    "Unprovable/degenerate geometry holds the last safe pose; no forced separation guarantee for arbitrary tracking geometry."
+  ],
+  "historical_private_geometry": {
+    "retreat_m": 0.0495,
+    "yaw_degrees": -62.76520280289274,
+    "duration_s": 1.2416132907462978,
+    "capsule_sweeps": 213,
+    "contacts": 0,
+    "dataset": "prior90_actual_FK_full_domain_kernel_benchmark"
+  },
+  "current_runtime_plan": {
+    "dataset": "current runtime profile, actual future recovery domain",
+    "yaw_degrees": -61.93100461085428,
+    "duration_s": 1.2270537856810428,
+    "retreat_m": 0.0495
+  },
+  "review_fix": {
+    "status": "FUTURE_DOMAIN_REVIEW_FIX_PASSED_PENDING_ROOT_NATIVE_REVIEW",
+    "recorded_at_utc": "2026-11-16T19:56:51.379568+00:00",
+    "tests": {
+      "passed": 48,
+      "failed": 0,
+      "ignored": 0
+    },
+    "future_domain": {
+      "contact_source_seconds": 0.8333333333333334,
+      "retreat_seconds": 0.7733333333333334,
+      "end_seconds": 1.75,
+      "witnesses": [
+        "exact interpolated retreat",
+        "exact end including non-key end",
+        "current non-key TOI, priority at equal time",
+        "all in-domain authored keys"
+      ],
+      "idle": "full loop and current witness"
+    },
+    "paired_same_runtime_profile": {
+      "oldSamples": 212,
+      "futureSamples": 120,
+      "oldYawDegrees": -61.93100461085428,
+      "newYawDegrees": -61.93100461085428,
+      "oldSeconds": 1.2270537856810428,
+      "newSeconds": 1.2270537856810428,
+      "oldRetreatMm": 49.5,
+      "newRetreatMm": 49.5
+    },
+    "measured_angle_or_duration_reduction": false,
+    "app_observation": {
+      "source_resumed_ms": 1310,
+      "guard_ms": 1990,
+      "player_raw_displacement_m": 0,
+      "player_held_displacement_m": 0
+    },
+    "regressions": [
+      "unvisited windup mutation leaves selection and plan unchanged",
+      "retreat/end geometry must invalidate the old certificate",
+      "full idle loop retained",
+      "all previous actor/contact/lifecycle checks"
+    ],
+    "execution_sources": {
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/ActorWithdrawal.kt": "4cf56965342683f48b46585f58e3fc40d0a208ae09f25aa39b2a2a08ca4f2408",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt": "90ce756c3f89d76f71f2cf26c23d1aae39b7b7ed92ec8c16a6e30f4e74350ec7",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt": "f42269be77b0ad1e8f7e5bb53416bb95d8b29dc46b92e4d75addfa5b1a238106",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt": "a23fc7634088b5f78857cdced0b67bc134be4a982b6f9c810594f6e91a985cf5",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/combat/WeaponContactConstraint.kt": "4a31380c5e073db9ed81a1f93b97557c46ef7318181480b1160ed55d5bed0d23",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt": "1f49d37c09111bb63243af8291b1fc462d5fba4d27573e2590f8aac32b02ecc9",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt": "b5c44ab72986b93054d1b9be38fb59188ff10d257a717b0881c11ae4e75feed1",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt": "d2e413b7de645f6dd2f85454d9fbecad405e13d2bb0fee40c7effcd2f6905055",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt": "06fbeb1c9de9113c5cf6f5dd72cc258245fa2f598c596fa8f569dbf129d6cc06",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt": "9fffc58c09e12092e95152dda07baa82c4bb5b5b9f131d5dcf4a5b033a4d7b3f",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt": "0264cd2a643bbf57c31ce1838980b10e98f5ca54717f12f3c46ccd6710765b11",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfileData.kt": "f6f23d900101c8f4ac199579a9298f51b5d5013d1054358d711cacb8c77ed079",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/LocomotionProfiles.kt": "ed7ed2a502221d94b59141ec0c9c0ecfe55d187e2879ad12ae0c4134051e032a",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ReactionProfiles.kt": "62108cab996a2ccde98c39b9e50423f695897cc12664bb8e5c73f1dd45a8106b",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt": "51f4205df0cdad89b31b52ae0c0d18e5a8bc09afee3ae4f750f96141776c8eea",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/core/combat/WeaponContactConstraintTest.kt": "3f7c5b187790e3866cc383823a4bad64cb0232eeafb0245f4ad58e0c949f99da",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/NativeEnemyMotionContactTest.kt": "0202d954862c8ff1bfc2a20a18283698d6a97aba38d90f713b1bf015f6c8bc40",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ActorSteelWithdrawalSessionTest.kt": "49aac9391470dd6da029d50416d57512408fbb14f53238f491975312b88e12bb",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ContactTimeWitnessTest.kt": "208c155e9f66d1aedd56df5ad16d6de4c287a5e46d0d94c7600844850bc661d9",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/WeaponContactOrderingTest.kt": "466c245bc8075d429b7568e04ced54981c5a3a36938cec1f36284916806609de",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatImpactEventTest.kt": "8701c52339adc4a399d10ac468ac6f0c70c5c9869bddca7b202e0805f1b8a21c",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSessionTest.kt": "5c29d6e74fdcb67065d8190eaaf7a7ae3e43946000c4209cc7a5d2ff3d4689e3",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/HurtPoseContinuityTest.kt": "91cb1d45eac515a7323e6a36456354669f0a2248c942a25bcc12c36628c60c6c",
+      "/Users/yupeng/projects/personal/pico-wuxia-arena/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/SteelRecoveryDomainTest.kt": "3c8d2b64316feb69e4d7216b212057d23f82e518df6142c5d7a5329f8366c60f"
+    },
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/report.json",
+      "sha256": "3993e1a5344ff2c60ee44c46dbabd5615298b1f4a3ea4d9c2b17228e243370c0",
+      "bytes": 15150
+    },
+    "run": {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/run.txt",
+      "sha256": "7d99bd7acfd934b2e6035f5b9bf2670ffb60753586947a9ec526b312e9453745",
+      "bytes": 747
+    },
+    "baseline_archive": {
+      "file": "ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/archive/full-clip-44/archive_identity.json",
+      "sha256": "6ec322dc8ffaa87bd447124355b0d35f609c6358ccc9b5f8f6c308b2e9fd2a12",
+      "bytes": 1702
+    },
+    "limits": [
+      "This is a certificate-input correction, not a measured feel/angle improvement for the fixed counterexample.",
+      "No new native image/performance/skinning/aesthetic acceptance claimed."
+    ]
+  }
+}

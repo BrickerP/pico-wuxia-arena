@@ -1,0 +1,102 @@
+{
+  "status": "private_combined_candidate_inputs_pinned",
+  "expected_binding_sha256": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+  "reference_binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "pins": [
+    {
+      "file": "ArtSource/tripo-warrior/motion_library.json",
+      "sha256": "a31babd7fa5eabd31c38910115e87abd6370f8e607985e95f3d526d862da544c",
+      "bytes": 13697
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/production_review_request.json",
+      "sha256": "e149f2ab0cfb90c7e4f886a63ff98cb096aa9a7edd44daf5eeed35e5f29d8e3c",
+      "bytes": 29922
+    },
+    {
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "sha256": "3705c446e3a36cd63fc6ac06128a079ec89875d16a33e2d5012db089ce69b4d7",
+      "bytes": 60191
+    },
+    {
+      "file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "bytes": 42376
+    },
+    {
+      "file": "ArtSource/tripo-warrior/target_wrist_constraint.py",
+      "sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d",
+      "bytes": 18997
+    },
+    {
+      "file": "ArtSource/tripo-warrior/production_contract.py",
+      "sha256": "8b455aabfa0c8685793df9e21fc5ccace4cacadab9d058ec91fbd28ab9090f67",
+      "bytes": 3269
+    },
+    {
+      "file": "ArtSource/tripo-warrior/attack_profiles.py",
+      "sha256": "5f7bf1fe3d5adda541f0cc0d906a3ba148028745b3db5ad6073658917154ad47",
+      "bytes": 31714
+    },
+    {
+      "file": "ArtSource/tripo-warrior/attack_grounding.py",
+      "sha256": "6a7fa808743844c40b4359a8da34443d7a2cdcef6732c8b65bde03fa2dd2d08a",
+      "bytes": 14837
+    },
+    {
+      "file": "ArtSource/tripo-warrior/target_wrist_constraint.py",
+      "sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d",
+      "bytes": 18997
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
+      "sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e",
+      "bytes": 411
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base_body.glb",
+      "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5",
+      "bytes": 55126688
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "bytes": 58219808
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base.glb",
+      "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
+      "bytes": 75769044
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo_body.glb",
+      "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152",
+      "bytes": 14862948
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo_prepared_png.glb",
+      "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "bytes": 17956016
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo.glb",
+      "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+      "bytes": 43931240
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran_body.glb",
+      "sha256": "b8c6865eab444688891a8c404d674b0a3053b130e1569989cd11d6aa5c4a4886",
+      "bytes": 14346260
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran_prepared_png.glb",
+      "sha256": "fbadad4318c840c9a5d8445827d3f3e5f301e3d9963fd92d9379f8ff262296b2",
+      "bytes": 17439340
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran.glb",
+      "sha256": "b7a2d92dab18f881bc0e5a9914b78381f0b0ff4492fdb0b47e7cdcfbad7e5644",
+      "bytes": 45350064
+    }
+  ]
+}

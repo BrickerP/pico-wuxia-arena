@@ -1,0 +1,1060 @@
+{
+  "schema": "pico-wuxia-engineering-handoff-v1",
+  "status": "combined_LEFT_RIGHT_actual_checks_passed_pending_Root_approval_and_native",
+  "binding_sha256": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+  "reference_binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "scope": "Only private combined-left-right candidate, tests, snapshots and render outputs; no formal/library/app/public producer/Git state/device writes",
+  "candidate_manifest": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/motion_library_candidate.json",
+    "sha256": "a31babd7fa5eabd31c38910115e87abd6370f8e607985e95f3d526d862da544c",
+    "bytes": 13697
+  },
+  "production_review_request": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/production_review_request.json",
+    "sha256": "5a46a4dc625ac0c348a2c25b0a0e51591592e7d9d411dcece4c1f76345ac7fed",
+    "bytes": 30429
+  },
+  "typed_data": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/AttackBankProfileData.kt",
+    "sha256": "6ff97d567c912bf330349c8091b800799460c5e897fd4744f2ccfb3bfd32d207",
+    "bytes": 1516046
+  },
+  "public_solver_descriptor": {
+    "implementation": {
+      "source": "target_wrist_constraint.py",
+      "source_sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d"
+    },
+    "recipe": {
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
+      "source_sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e"
+    }
+  },
+  "actual_character_outputs": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 55126688,
+          "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5"
+        },
+        {
+          "file": "base_prepared_png.glb",
+          "bytes": 58219808,
+          "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 75769044,
+          "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "90777f7e0711deca2391274935d0cf1a1e2a653d6c1ab0c63a1ab89b1ff91a4b",
+        "turn": "4de8d15d68c77db67951e6b94f51475c62021059be7c4e4cec88d45796325f62",
+        "hit_body": "da2e58a7fe2d1e87980e5e7547c512a6ef0591a4c869d92c2f5b85cdc617ae98",
+        "hit_head": "bbc1a841b04ae6acef0890500bcd7b6e660bbd1211caca3a993fa6f1aa143ecf",
+        "hit_side": "836462c5e120be689fe4abcfaba0a014ab0db18d80d98fa53ee408ccd411fa25",
+        "idle": "c53cb8185c579e8ac8ddaa164e4f25a0d3e4e827f2c7030b38bbc924a390274e",
+        "walk": "03d1beb66df9b06742febf3aa42d6f9e1a5698fb2a6c662d76105b729c67967a",
+        "attack_overhead": "d8c2e82bb40d1bac3b173037afa9f690649afe2aae7526b03e000baf7641df40",
+        "attack_left": "55d3d6d146f68f92595638839111d32dbf9759058f5481f9894f312679574135",
+        "attack_right": "43a7ee335db8e65b15818ab9200b6c27f8cb0b7d2daba13eb235112876592e79"
+      },
+      "clip_semantic_signatures": {
+        "fall": "f1c60b10cca80a329adeee5a56c5dc84cb8be3ab3e00a8783862e2539afb566e",
+        "turn": "6dc6358f9dc8dd41fea83065cece4d779ec558b9484489727c7d9a0de73aae8d",
+        "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
+        "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
+        "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479",
+        "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+        "walk": "6fa7d2b97c7c14dac44b15867ec83b01b4616222c3f3ef46ccb5abe30ad270d8",
+        "attack_overhead": "d508d28f18230d44470868dc8c04d62dd18a93c89c72ee0889b8a7a4807f34c9",
+        "attack_left": "dbaa22fd5d24d3f65f27c53fc87de02ca0cd09f63e68c6377d7213ace8540662",
+        "attack_right": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52"
+      },
+      "texture_encoding_manifest_sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
+      "attack_profiles_sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 14862948,
+          "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
+        },
+        {
+          "file": "indigo_prepared_png.glb",
+          "bytes": 17956016,
+          "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 43931240,
+          "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "ee1fe2532e2946e1f5ef34c657d5227d5141dec2485570c201f37186338d1ddb",
+        "turn": "a4bfb270f90d50035a2160aad510e40af8a341ce474a5369d57dd558eb76c78e",
+        "hit_body": "3eeb942ee659b625882262f959a8a5b317d2f8b26fd79d6e3b1a430ce6c56964",
+        "hit_head": "3b57f26b6311d98ec35e6a36e5abc566b24ce7bc65184ff08cbbbe49da816dcf",
+        "hit_side": "c949179e07e7c6e93aa8175f41cffcf8ffcdb346c6cd052ad815a78020f00b77",
+        "idle": "e2ecc07033fc487152a5797884adf1f18dde97a95dd07e4c9a0ac209ba6c24a0",
+        "walk": "d622c648529317b37d770274149e7e0268489dd93cebf12942d784a8f41a26ac",
+        "attack_overhead": "8a408b06e05effd10c8df3932a7c08463bc038d679fa80b7846ef2f0f35b9dc9",
+        "attack_left": "05b8d0f7dcd8ca01b4babe16c9409a7a4acdf7351d4f813933a8b5f71bc6c43e",
+        "attack_right": "3ae0cd76946eee170b26967775566853556eb8a99be8c6c5de3a091b2457adc0"
+      },
+      "clip_semantic_signatures": {
+        "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
+        "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
+        "hit_body": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
+        "hit_head": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
+        "hit_side": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4",
+        "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+        "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
+        "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
+        "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
+        "attack_right": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
+      },
+      "texture_encoding_manifest_sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
+      "attack_profiles_sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 14354052,
+          "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55"
+        },
+        {
+          "file": "veteran_prepared_png.glb",
+          "bytes": 17447128,
+          "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 45357856,
+          "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "52f562634e0a50c93327761bc63f7e2aca582bbe030f275f9b8cd5c867735262",
+        "turn": "3e7139ddcc127af7cc387039560da1ad6ff51010d07a5d742a9983d58b5f41f2",
+        "hit_body": "fcc4c8e0b5dbe069660051bad36307a29a1ef991209dde66d371e687c2762ed7",
+        "hit_head": "bacc194909872ee185dbc80bc26e698ca2da7681cb0c955eda59c1105eb2c528",
+        "hit_side": "5d9bf26b806682474778ac78c24d04b690e08c89e7d11a5433e0a67b8ea33962",
+        "idle": "ab0d3c025548051d21e783c895608983a66b4539588ee7d12b7e030fb50f5744",
+        "walk": "cfb7856f9361d65d2f4f2aeced43948e870b1dbdd6a56277ef1fc70ce9e4b8e9",
+        "attack_overhead": "bd3d6f558b4d09cb1a2668488fd95f5b489f170d84f16348bb5c8f6e7151f63c",
+        "attack_left": "b8583809f9e60a7c0210aa5b413dd26e6267746db51ccc9efdf7e65e9866047c",
+        "attack_right": "7d4f61d0bbe6aaa28978387dcafb69ba15af75946fb6e8ce510567fb622c4f4d"
+      },
+      "clip_semantic_signatures": {
+        "fall": "8289550fb8e87d4a40e6443e9a7214ed4dcd692e2d42eddec7a9b6ee27b1192c",
+        "turn": "48f21c373116743712126a55ba07b34f885f1bcb8b1cc051ba4724b769e4a8b8",
+        "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+        "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+        "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f",
+        "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+        "walk": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
+        "attack_overhead": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
+        "attack_left": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
+        "attack_right": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36"
+      },
+      "texture_encoding_manifest_sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
+      "attack_profiles_sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
+    }
+  ],
+  "executed_before_export_source_pins": [
+    {
+      "file": "ArtSource/tripo-warrior/motion_library.json",
+      "sha256": "a31babd7fa5eabd31c38910115e87abd6370f8e607985e95f3d526d862da544c",
+      "bytes": 13697
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/production_review_request.json",
+      "sha256": "e149f2ab0cfb90c7e4f886a63ff98cb096aa9a7edd44daf5eeed35e5f29d8e3c",
+      "bytes": 29922
+    },
+    {
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "sha256": "3705c446e3a36cd63fc6ac06128a079ec89875d16a33e2d5012db089ce69b4d7",
+      "bytes": 60191
+    },
+    {
+      "file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "bytes": 42376
+    },
+    {
+      "file": "ArtSource/tripo-warrior/target_wrist_constraint.py",
+      "sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d",
+      "bytes": 18997
+    },
+    {
+      "file": "ArtSource/tripo-warrior/production_contract.py",
+      "sha256": "8b455aabfa0c8685793df9e21fc5ccace4cacadab9d058ec91fbd28ab9090f67",
+      "bytes": 3269
+    },
+    {
+      "file": "ArtSource/tripo-warrior/attack_profiles.py",
+      "sha256": "5f7bf1fe3d5adda541f0cc0d906a3ba148028745b3db5ad6073658917154ad47",
+      "bytes": 31714
+    },
+    {
+      "file": "ArtSource/tripo-warrior/attack_grounding.py",
+      "sha256": "6a7fa808743844c40b4359a8da34443d7a2cdcef6732c8b65bde03fa2dd2d08a",
+      "bytes": 14837
+    },
+    {
+      "file": "ArtSource/tripo-warrior/target_wrist_constraint.py",
+      "sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d",
+      "bytes": 18997
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
+      "sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e",
+      "bytes": 411
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base_body.glb",
+      "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5",
+      "bytes": 55126688
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "bytes": 58219808
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/base.glb",
+      "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
+      "bytes": 75769044
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo_body.glb",
+      "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152",
+      "bytes": 14862948
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo_prepared_png.glb",
+      "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "bytes": 17956016
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/indigo.glb",
+      "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+      "bytes": 43931240
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran_body.glb",
+      "sha256": "b8c6865eab444688891a8c404d674b0a3053b130e1569989cd11d6aa5c4a4886",
+      "bytes": 14346260
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran_prepared_png.glb",
+      "sha256": "fbadad4318c840c9a5d8445827d3f3e5f301e3d9963fd92d9379f8ff262296b2",
+      "bytes": 17439340
+    },
+    {
+      "file": "ArtSource/tripo-warrior/library/veteran.glb",
+      "sha256": "b7a2d92dab18f881bc0e5a9914b78381f0b0ff4492fdb0b47e7cdcfbad7e5644",
+      "bytes": 45350064
+    }
+  ],
+  "producer_execution": "Current public prepare_character_library.py through shared run_blender.py -b --factory-startup --threads 2; snapshot manifest, private --candidate-dir; original fixed encoder/settings",
+  "passed": {
+    "binding_change": "Only prepared_wrist_constraint descriptor added to c300 binding; original RAW identities, durations, phase contracts and target body/weapon configuration retained.",
+    "base_indigo": "All three GLBs per actor are byte-identical to c300; all ten animation signatures unchanged.",
+    "veteran": "Only LEFT R_Upperarm/R_Forearm/R_Hand rotations change; three tracks130 keys, other231 tracks exact106; other9 clips including RIGHT exact.",
+    "static": "All target geometry/rest/skin/inverse binds/material/image semantics unchanged; prepared PNG to KTX non-image semantics and payloads exact.",
+    "actual_motion": {
+      "base": {
+        "attack_left": {
+          "track_count": 234,
+          "key_union_count": 106,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 211,
+          "changed_tracks": [],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 0.0,
+          "subkey_steel_max_m": 0.0,
+          "key_wrist_max_m": 0.0,
+          "subkey_wrist_max_m": 0.0,
+          "key_wrist_orientation_radians": 0.0,
+          "subkey_wrist_orientation_radians": 0.0,
+          "key_wrist_orientation_at_steel_radius_m": 0.0,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.0,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 0.0,
+          "all77_bone_length_max_temporal_delta_m": 1.6653787915377194e-07
+        },
+        "attack_right": {
+          "track_count": 234,
+          "key_union_count": 106,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 211,
+          "changed_tracks": [],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 0.0,
+          "subkey_steel_max_m": 0.0,
+          "key_wrist_max_m": 0.0,
+          "subkey_wrist_max_m": 0.0,
+          "key_wrist_orientation_radians": 0.0,
+          "subkey_wrist_orientation_radians": 0.0,
+          "key_wrist_orientation_at_steel_radius_m": 0.0,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.0,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 0.0,
+          "all77_bone_length_max_temporal_delta_m": 1.6709468320108556e-07
+        }
+      },
+      "indigo": {
+        "attack_left": {
+          "track_count": 234,
+          "key_union_count": 106,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 211,
+          "changed_tracks": [],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 0.0,
+          "subkey_steel_max_m": 0.0,
+          "key_wrist_max_m": 0.0,
+          "subkey_wrist_max_m": 0.0,
+          "key_wrist_orientation_radians": 0.0,
+          "subkey_wrist_orientation_radians": 0.0,
+          "key_wrist_orientation_at_steel_radius_m": 0.0,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.0,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 0.0,
+          "all77_bone_length_max_temporal_delta_m": 4.1884052970342367e-07
+        },
+        "attack_right": {
+          "track_count": 234,
+          "key_union_count": 106,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 211,
+          "changed_tracks": [],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 0.0,
+          "subkey_steel_max_m": 0.0,
+          "key_wrist_max_m": 0.0,
+          "subkey_wrist_max_m": 0.0,
+          "key_wrist_orientation_radians": 0.0,
+          "subkey_wrist_orientation_radians": 0.0,
+          "key_wrist_orientation_at_steel_radius_m": 0.0,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.0,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 0.0,
+          "all77_bone_length_max_temporal_delta_m": 3.9086831046808435e-07
+        }
+      },
+      "veteran": {
+        "attack_left": {
+          "track_count": 234,
+          "key_union_count": 130,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 259,
+          "changed_tracks": [
+            "R_Upperarm/rotation",
+            "R_Forearm/rotation",
+            "R_Hand/rotation"
+          ],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 6.689254867989342e-07,
+          "subkey_steel_max_m": 0.0006235917532083775,
+          "key_wrist_max_m": 2.1747528790423905e-07,
+          "subkey_wrist_max_m": 0.0002297301732404477,
+          "key_wrist_orientation_radians": 1.0371130352299478e-06,
+          "subkey_wrist_orientation_radians": 0.0006359809891113709,
+          "key_wrist_orientation_at_steel_radius_m": 9.06027439896016e-07,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.000555596562900394,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 1.413270726557947e-07,
+          "all77_bone_length_max_temporal_delta_m": 3.3443156083334813e-07
+        },
+        "attack_right": {
+          "track_count": 234,
+          "key_union_count": 106,
+          "old_key_union_count": 106,
+          "key_and_midpoint_count": 211,
+          "changed_tracks": [],
+          "steel_vertex_count": 5533,
+          "all_234_guard_endpoint_max_component_delta": 0.0,
+          "key_steel_max_m": 0.0,
+          "subkey_steel_max_m": 0.0,
+          "key_wrist_max_m": 0.0,
+          "subkey_wrist_max_m": 0.0,
+          "key_wrist_orientation_radians": 0.0,
+          "subkey_wrist_orientation_radians": 0.0,
+          "key_wrist_orientation_at_steel_radius_m": 0.0,
+          "subkey_wrist_orientation_at_steel_radius_m": 0.0,
+          "head_root_hip_foot_world_max_component_delta": 0.0,
+          "foot_surface_max_delta_m": 0.0,
+          "all77_bone_length_max_same_time_delta_m": 0.0,
+          "all77_bone_length_max_temporal_delta_m": 3.248085210794116e-07
+        }
+      }
+    },
+    "finite_clearance_poses": 726,
+    "finite_pose_counts": {
+      "base": {
+        "idle": 5,
+        "walk": 5,
+        "attack_overhead": 15,
+        "attack_left": 103,
+        "attack_right": 98
+      },
+      "indigo": {
+        "idle": 5,
+        "walk": 5,
+        "attack_overhead": 15,
+        "attack_left": 103,
+        "attack_right": 98
+      },
+      "veteran": {
+        "idle": 5,
+        "walk": 5,
+        "attack_overhead": 15,
+        "attack_left": 151,
+        "attack_right": 98
+      }
+    },
+    "intersection_pose_counts": {
+      "base": {
+        "idle": 0,
+        "walk": 0,
+        "attack_overhead": 0,
+        "attack_left": 0,
+        "attack_right": 0
+      },
+      "indigo": {
+        "idle": 0,
+        "walk": 0,
+        "attack_overhead": 0,
+        "attack_left": 0,
+        "attack_right": 0
+      },
+      "veteran": {
+        "idle": 0,
+        "walk": 0,
+        "attack_overhead": 0,
+        "attack_left": 0,
+        "attack_right": 0
+      }
+    },
+    "full_steel_gate": "All5533 actual same-target LBS vertices; key budget5µm and subkey1mm unchanged; complete wrist orientation checked at actual Steel radius. Body/combined curves exact and canonical receipt verifies shared full Steel reference.",
+    "new_public_contract_tests": {
+      "run": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    "typed": "Existing generator and --check exact; six Python fixture/count boundary tests pass; complete179-test old-runtime JVM suite passes with only seven identity fixture literals plus explicit veteran/LEFT130 sampling expectation updated.",
+    "compiled_inputs": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/input-manifest.json",
+      "sha256": "f3b1b63ff9c10bd632fed875b6b476684210280548b41aa70376b38dac831b39",
+      "bytes": 31900
+    },
+    "compiled_inputs_scope": "37 exact per-file inputs retained;35 public sources equal stable HEAD5c9843ed0440528fe6a8d2b514dc8d3371d3481e,2 private candidate typed/test fixtures. These179 tests do not validate ongoing contact-unload changes.",
+    "images": "4 normal and4 local original-material actual veteran LEFT guard/1.10/1.20/return images; RIGHT images preserved in prior c300 handoff."
+  },
+  "inherited_foot_plane_residuals_mm": {
+    "base": {
+      "attack_left": {
+        "L": {
+          "minimum_signed_mm": -0.07951592682376232,
+          "maximum_signed_mm": 0.000242518628755517
+        },
+        "R": {
+          "minimum_signed_mm": -0.11668449991666593,
+          "maximum_signed_mm": 0.00028901148215951245
+        }
+      },
+      "attack_right": {
+        "L": {
+          "minimum_signed_mm": -0.09754065667385778,
+          "maximum_signed_mm": 0.0002842080716290718
+        },
+        "R": {
+          "minimum_signed_mm": -0.12848982385700244,
+          "maximum_signed_mm": 0.00026798231747907075
+        }
+      }
+    },
+    "indigo": {
+      "attack_left": {
+        "L": {
+          "minimum_signed_mm": 10.521542498869865,
+          "maximum_signed_mm": 12.600397082955867
+        },
+        "R": {
+          "minimum_signed_mm": -5.886027069915912,
+          "maximum_signed_mm": 1.9134741475609203
+        }
+      },
+      "attack_right": {
+        "L": {
+          "minimum_signed_mm": 7.052616905538982,
+          "maximum_signed_mm": 16.334751618861652
+        },
+        "R": {
+          "minimum_signed_mm": -4.008960713250766,
+          "maximum_signed_mm": 0.6971173910815149
+        }
+      }
+    },
+    "veteran": {
+      "attack_left": {
+        "L": {
+          "minimum_signed_mm": 9.748294791738978,
+          "maximum_signed_mm": 12.061808391719136
+        },
+        "R": {
+          "minimum_signed_mm": -8.043831739538012,
+          "maximum_signed_mm": 1.3243191482717915
+        }
+      },
+      "attack_right": {
+        "L": {
+          "minimum_signed_mm": 6.041618988322128,
+          "maximum_signed_mm": 13.90715700678553
+        },
+        "R": {
+          "minimum_signed_mm": -5.484857071143021,
+          "maximum_signed_mm": 3.352927936683958e-05
+        }
+      }
+    }
+  },
+  "limits": [
+    "Finite actual exported target samples, not continuous-time proof or native SDK skinned playback.",
+    "Eight regions are dominant-weight-only nonadjacent forearm/hand vs head/chest; adjacent upperarm/chest, mixed-weight seams and cloth-layer self intersections excluded.",
+    "Existing foot-plane residuals retained; grounding preservation does not establish dual-foot contact.",
+    "Original target hand shapes, sleeve/cuff roughness and armor geometry remain unchanged.",
+    "RIGHT .9s local second-difference source limitation remains; no aesthetics or native acceptance.",
+    "No idle2mm micromotion allowance was used for either dynamic blade check.",
+    "No new contact-unload feature tests or app build; Root owns complete combined-app suite.",
+    "No PICO Emulator SDK skinned playback, APK or Space Pro evidence was produced by this integration lane."
+  ],
+  "remaining_for_Root": [
+    "Review finite original-material LEFT views and motion aesthetics.",
+    "Approve the exact new production request before formal canonical re-export and typed/assets publication.",
+    "Run full current app tests/build and verify SDK playback/native input on PICO Emulator and Space Pro."
+  ],
+  "artifact_identities": [
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/actual-review.log",
+      "sha256": "ec33815c1b46bf3dee0b5bcfe0fb889fe5fb6de3e8a69ed900248314bd98f5c6",
+      "bytes": 37828
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base.glb",
+      "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
+      "bytes": 75769044
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base_alignment.json",
+      "sha256": "b06bd60c199bd73edba44cc758fb13093c675f9b992d06a6dd2e0e27fed4b67a",
+      "bytes": 1096685
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base_attack_profiles.json",
+      "sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542",
+      "bytes": 2931997
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base_body.glb",
+      "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5",
+      "bytes": 55126688
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base_prepared_png.glb",
+      "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+      "bytes": 58219808
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/base_texture_encoding.json",
+      "sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
+      "bytes": 75524
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/characters.json",
+      "sha256": "900de5d62f0aa1f78228d7ceeb8f85561e134fa1539302ef379870904538ec20",
+      "bytes": 37879
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/dao_grip.glb",
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "bytes": 4332212
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/dao_grip_texture_encoding.json",
+      "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab",
+      "bytes": 48618
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo.glb",
+      "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+      "bytes": 43931240
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo_alignment.json",
+      "sha256": "87c4ac44e90474f6ac1da637ea565b344d019309e42542b64e31f05a8a2d108f",
+      "bytes": 1083754
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo_attack_profiles.json",
+      "sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379",
+      "bytes": 2925693
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo_body.glb",
+      "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152",
+      "bytes": 14862948
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo_prepared_png.glb",
+      "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+      "bytes": 17956016
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/indigo_texture_encoding.json",
+      "sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
+      "bytes": 57161
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/player_weapon_manifest.json",
+      "sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f",
+      "bytes": 2581
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/production_review_request.json",
+      "sha256": "5a46a4dc625ac0c348a2c25b0a0e51591592e7d9d411dcece4c1f76345ac7fed",
+      "bytes": 30429
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran.glb",
+      "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
+      "bytes": 45357856
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_alignment.json",
+      "sha256": "3617173f735c4a56f49a62da389d8977b1183189513c508434a94b5d75ed520c",
+      "bytes": 1087617
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_attack_profiles.json",
+      "sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33",
+      "bytes": 2982287
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_body.glb",
+      "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55",
+      "bytes": 14354052
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_prepared_png.glb",
+      "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+      "bytes": 17447128
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library/veteran_texture_encoding.json",
+      "sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
+      "bytes": 57163
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/attack_grounding.py",
+      "sha256": "6a7fa808743844c40b4359a8da34443d7a2cdcef6732c8b65bde03fa2dd2d08a",
+      "bytes": 14837
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/attack_profiles.py",
+      "sha256": "5f7bf1fe3d5adda541f0cc0d906a3ba148028745b3db5ad6073658917154ad47",
+      "bytes": 31714
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/prepare_character_library.py",
+      "sha256": "3705c446e3a36cd63fc6ac06128a079ec89875d16a33e2d5012db089ce69b4d7",
+      "bytes": 60191
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/prepare_rigged_warrior.py",
+      "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "bytes": 42376
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/production_contract.py",
+      "sha256": "8b455aabfa0c8685793df9e21fc5ccace4cacadab9d058ec91fbd28ab9090f67",
+      "bytes": 3269
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/executed-source-pins/target_wrist_constraint.py",
+      "sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d",
+      "bytes": 18997
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/input_receipt.json",
+      "sha256": "adf6b1fe7a55df2d8f3a3305f136b2b50c57e28b36a22135eff1152cfa85d286",
+      "bytes": 3918
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-render.log",
+      "sha256": "746fdd65a54169a052b0de01a439b04b6291979cf7a660791f4b038d9ee13673",
+      "bytes": 36163
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/render_manifest.json",
+      "sha256": "3a22f07571f87b2916e821064ec5e733724223a385e69bfd3c826c7bf8f6a527",
+      "bytes": 7433
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_1p1.png",
+      "sha256": "dd7fc6054738b72d3f63688c8fbc5b2f4c08223d7d0919283faaa5d4dc15c42c",
+      "bytes": 545577
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_1p2.png",
+      "sha256": "2312718f1cd28123a0d0c63a057faac1983982910c98c7d3ae9e899e53e974bb",
+      "bytes": 546748
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_LEFT_return.png",
+      "sha256": "9a7d07dd0f872377595fb58b54c8411907f5ff0001db772a44ec12931ebef020",
+      "bytes": 562496
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/local-review/veteran_guard.png",
+      "sha256": "59316a82539fdf2b66b1314f1b16606815115ffd4f1e2e6da5a0a9c7abc70bdb",
+      "bytes": 562496
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/motion_library_candidate.json",
+      "sha256": "a31babd7fa5eabd31c38910115e87abd6370f8e607985e95f3d526d862da544c",
+      "bytes": 13697
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/package_handoff.py",
+      "sha256": "2bfdfacedb55e7779f626c636b9be43ea75f5ce28b3993a5005d5394b994fa6e",
+      "bytes": 7292
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/producer.log",
+      "sha256": "936137ac7c7622362936f16ec2adc8e465b2ea558fc4f2e5c8b54c751421a525",
+      "bytes": 20764
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/reference_request_c300.json",
+      "sha256": "e149f2ab0cfb90c7e4f886a63ff98cb096aa9a7edd44daf5eeed35e5f29d8e3c",
+      "bytes": 29922
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/render_local.py",
+      "sha256": "360b4b2a556c86c30f29eb420cb92f4a6ca9351d8900267071d947115c0351c8",
+      "bytes": 2651
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/review_combined.py",
+      "sha256": "06af3e7401134292e8a1a11c0e583f87b800db41216bfed64f70a322516c0910",
+      "bytes": 15301
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/run_typed_validation.py",
+      "sha256": "3cd7aadab83fbd8f7614e73182fdf7382d4955865f70ea53ba4b5440eb509cc1",
+      "bytes": 5632
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/public_contract_tests.txt",
+      "sha256": "8732c3b5b42cfc2b27322083eb09fe64a27e32199ea02d0a4e75ac6ca51d4a3a",
+      "bytes": 664
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/review_report.json",
+      "sha256": "64969e0fffba9324b555d2de2cabda2154065537a60f6dc2302e03f57883bd36",
+      "bytes": 878054
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/veteran_LEFT_1p1.png",
+      "sha256": "94476cd668482793a88d088cd0901db3e097c67f4737f512c6e2768bd896e9f0",
+      "bytes": 260754
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/veteran_LEFT_1p2.png",
+      "sha256": "8c93d9336704797f83129bb5f632843984ffaa0892936b7a335a9d03a8eb93a7",
+      "bytes": 261614
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/veteran_LEFT_return.png",
+      "sha256": "4d4268879558ae749e0e6c340ef0e335512fe355be59b2eeb4e044b5ebe6f204",
+      "bytes": 263778
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/target-review/veteran_guard.png",
+      "sha256": "f7926c32d2644642f2ed2faf25ed07f19455b392eca9b262d2299956bf63d256",
+      "bytes": 263778
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/AttackBankProfileData.kt",
+      "sha256": "6ff97d567c912bf330349c8091b800799460c5e897fd4744f2ccfb3bfd32d207",
+      "bytes": 1516046
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/AttackBankProfilesTest.kt",
+      "sha256": "701a36b0f2ae967f6615d762c420dee78e1cb18b9702e9603b29a68f88169622",
+      "bytes": 20984
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/candidate_fixture.json",
+      "sha256": "6409618a5b4f8f71e0ee2898cd28e7ef51aa6fde5bddfe06469c1f687b3b6e9f",
+      "bytes": 3845
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compile.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/combat/BladeContact.kt",
+      "sha256": "90ce756c3f89d76f71f2cf26c23d1aae39b7b7ed92ec8c16a6e30f4e74350ec7",
+      "bytes": 10152
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/combat/CombatImpact.kt",
+      "sha256": "7382ebbe830bee35c43ab652089b20a7c0569fc99c05509517b18dd2169fad55",
+      "bytes": 1067
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachine.kt",
+      "sha256": "f42269be77b0ad1e8f7e5bb53416bb95d8b29dc46b92e4d75addfa5b1a238106",
+      "bytes": 15547
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/combat/PlayerCombatResolver.kt",
+      "sha256": "a23fc7634088b5f78857cdced0b67bc134be4a982b6f9c810594f6e91a985cf5",
+      "bytes": 26146
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/combat/WeaponContactConstraint.kt",
+      "sha256": "4a31380c5e073db9ed81a1f93b97557c46ef7318181480b1160ed55d5bed0d23",
+      "bytes": 7698
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEvent.kt",
+      "sha256": "396958c4e7abe6823f5fbb1ce7c2c93635aa28690f66d56a436c9b85e95da98c",
+      "bytes": 1942
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/input/TrackingEventBuffer.kt",
+      "sha256": "1f49d37c09111bb63243af8291b1fc462d5fba4d27573e2590f8aac32b02ecc9",
+      "bytes": 7418
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/input/TrackingState.kt",
+      "sha256": "8747335a64d1d6dddb48f1ebf5a91572d5bab85d8fbb6bbc239f848a91e1fb99",
+      "bytes": 7463
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/math/PoseMath.kt",
+      "sha256": "a5a94c4543098f6f02a4771492d774edbe172d3de42c4c48faf81f87bc2c0409",
+      "bytes": 2604
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/core/math/SegmentGeometry.kt",
+      "sha256": "b5c44ab72986b93054d1b9be38fb59188ff10d257a717b0881c11ae4e75feed1",
+      "bytes": 2359
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/content/EnemyAnimator.kt",
+      "sha256": "51f4205df0cdad89b31b52ae0c0d18e5a8bc09afee3ae4f750f96141776c8eea",
+      "bytes": 7153
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt",
+      "sha256": "06fbeb1c9de9113c5cf6f5dd72cc258245fa2f598c596fa8f569dbf129d6cc06",
+      "bytes": 4240
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt",
+      "sha256": "d373e3a7dd0fcd8e5b19cd89bdbad4d7d84bced526f5b5f8342853a9410b77c3",
+      "bytes": 72099
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt",
+      "sha256": "0264cd2a643bbf57c31ce1838980b10e98f5ca54717f12f3c46ccd6710765b11",
+      "bytes": 7955
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackProfile.kt",
+      "sha256": "9fffc58c09e12092e95152dda07baa82c4bb5b5b9f131d5dcf4a5b033a4d7b3f",
+      "bytes": 4034
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/LocomotionProfiles.kt",
+      "sha256": "ed7ed2a502221d94b59141ec0c9c0ecfe55d187e2879ad12ae0c4134051e032a",
+      "bytes": 5742
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ReactionProfiles.kt",
+      "sha256": "62108cab996a2ccde98c39b9e50423f695897cc12664bb8e5c73f1dd45a8106b",
+      "bytes": 1812
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/BladeContactTest.kt",
+      "sha256": "3b45ec7fc20151a32ef0307682f7e358b048c3802f1245108f61eb3fac465aa1",
+      "bytes": 10532
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/EnemyCombatStateMachineTest.kt",
+      "sha256": "d3c281dcf42087f068d77c9e8bd262b69da6aaaf1a528914f40d313ec6629266",
+      "bytes": 20287
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/PlayerCombatImpactTest.kt",
+      "sha256": "727adabdbb94f201c35fc01eabd3a6580b416cdf5c6585a49d00480af552172f",
+      "bytes": 5089
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/PlayerContactTangentTest.kt",
+      "sha256": "ae3707729631da8fe7a6031975b6b9309e608cf19744af7aa98d1add8790c012",
+      "bytes": 7682
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/PlayerDefenseSnapshotTest.kt",
+      "sha256": "23aee91933b8b49eeebc721d9f3ad33756c9c34cfeda27f4a412a428a35c70a1",
+      "bytes": 3557
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/PlayerMotionContinuityTest.kt",
+      "sha256": "2d226357478f7f5d1a7b44bc70d57cba9af112e8ee2d28a92b558e3a845fd063",
+      "bytes": 7018
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/WeaponContactConstraintTest.kt",
+      "sha256": "3f7c5b187790e3866cc383823a4bad64cb0232eeafb0245f4ad58e0c949f99da",
+      "bytes": 5181
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/combat/WeaponStoppedClockTest.kt",
+      "sha256": "e8820abe128514b387eaee4c18d79ac1ec031439301a0cecbb180c2884616320",
+      "bytes": 2176
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/input/ObservationStampTest.kt",
+      "sha256": "100d0f099cdb6a3c0877ebd1adc511555e1d0067a0f41770d6df2dc9623304a8",
+      "bytes": 701
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/input/TrackingEventBufferTest.kt",
+      "sha256": "f16ede7532967d29aaffe4d7784c2225cd1690095bb4b85d9d281b57c8ad20a2",
+      "bytes": 19710
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/input/TrackingStateTest.kt",
+      "sha256": "573a0f305d4b14e07c3a1ab67d219e2b7fa210f65db5aca178a087ffae6b5303",
+      "bytes": 10988
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/core/math/PoseMathTest.kt",
+      "sha256": "14ecd5caeb7a58b9d481f34f3a13e109cd9eafe71187bbe32a8b9d2a31b8a423",
+      "bytes": 1266
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaAttackDirectionTest.kt",
+      "sha256": "cf7cf9ff0ade43edfc58f479437cd72cfc35fef3019218498259c27f5cb225bf",
+      "bytes": 8451
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSessionTest.kt",
+      "sha256": "5c29d6e74fdcb67065d8190eaaf7a7ae3e43946000c4209cc7a5d2ff3d4689e3",
+      "bytes": 22561
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatFeedbackTimingTest.kt",
+      "sha256": "430fd4c1a0ce925968d9517ac069a5c5f53c769255307a2ea36ee942acccb585",
+      "bytes": 16381
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/CombatImpactEventTest.kt",
+      "sha256": "8701c52339adc4a399d10ac468ac6f0c70c5c9869bddca7b202e0805f1b8a21c",
+      "bytes": 5739
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt",
+      "sha256": "069dfe9fb917a52a74dea26313abed9b2b2f822a47cc942b43798b4d55f2c860",
+      "bytes": 8637
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/LocomotionProfilesTest.kt",
+      "sha256": "2007768421877410d55ceb0e2cb196d089efde1118ef0aae44a14948c7fdf4b9",
+      "bytes": 17204
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/input-manifest.json",
+      "sha256": "f3b1b63ff9c10bd632fed875b6b476684210280548b41aa70376b38dac831b39",
+      "bytes": 31900
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/private/AttackBankProfileData.kt",
+      "sha256": "6ff97d567c912bf330349c8091b800799460c5e897fd4744f2ccfb3bfd32d207",
+      "bytes": 1516046
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-inputs/private/AttackBankProfilesTest.kt",
+      "sha256": "701a36b0f2ae967f6615d762c420dee78e1cb18b9702e9603b29a68f88169622",
+      "bytes": 20984
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/compiled-sources.json",
+      "sha256": "c8c0e654caf2a76d5a8fbfe330bdd18d8f492f640f038fdc8bd8b7942404cb24",
+      "bytes": 5704
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/generate-check.txt",
+      "sha256": "0d3a927226af38e3e2c573a77d37e661a30602a379d82f8b3ebd1fd3779c12af",
+      "bytes": 97
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/generate.txt",
+      "sha256": "c8db17bb120d5f7427049f88dafc0ef529612634344b8ee1c3415334420a95eb",
+      "bytes": 219
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/junit-all-core.txt",
+      "sha256": "35504822e72b9668360539be3ec3ee4658cd9bb3ab3bdae8ea8ea481a1796e95",
+      "bytes": 230
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/python-self-tests.txt",
+      "sha256": "05ecd5ac67b60b4e767a98e9f7c456f8a6120b8ac973e18d974ffe80c68472d4",
+      "bytes": 582
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/python-validation.json",
+      "sha256": "0312c6c3388e51b8391a14ce6d16fb53777e420ac31cee7d15cccf0e9d2d69d1",
+      "bytes": 1464
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/result-all-core.json",
+      "sha256": "89ce4616af50cbc57d9e656ef7f9001eff7d751cfd1ae21484c876e6542770e3",
+      "bytes": 1373
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/validate_typed.py",
+      "sha256": "cec8bf2029793eaa42f47169b840e3e31605d90ead3d108b2705bd181a15771e",
+      "bytes": 9036
+    }
+  ]
+}

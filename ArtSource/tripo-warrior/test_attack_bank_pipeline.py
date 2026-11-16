@@ -76,6 +76,67 @@ class AttackBankContracts(unittest.TestCase):
         result['buffers'][0]['byteLength'] = len(packed)
         return result, bytes(packed)
 
+    def test_prepared_wrist_requires_actual_combined_steel_before_writing(self):
+        solver, recipe = library.prepared_wrist_contract(self.manifest)
+        original, binary = library.read_glb(library.HERE / 'library/veteran_prepared_png.glb')
+        points = solver.combined_steel_hand_points(original, binary)
+        self.assertEqual(points.shape, (5533, 4))
+        missing = copy.deepcopy(original)
+        for material in missing['materials']:
+            material['name'] = material.get('name', '').replace('Steel', 'Rubber')
+        folder = Path(self.temporary.name)
+        body = folder / 'body.glb'
+        combined = folder / 'combined.glb'
+        body.write_bytes((library.HERE / 'library/veteran_body.glb').read_bytes())
+        combined.write_bytes(solver.encode_glb(missing, binary))
+        before = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (body, combined)]
+        with self.assertRaisesRegex(ValueError, 'no Steel weapon surface'):
+            solver.apply_prepared_character('veteran', body, combined, recipe)
+        self.assertEqual(before, [hashlib.sha256(path.read_bytes()).hexdigest()
+                                  for path in (body, combined)])
+
+    def test_prepared_wrist_rejects_normalized_steel_weight_outside_hand(self):
+        solver, recipe = library.prepared_wrist_contract(self.manifest)
+        document, binary = library.read_glb(library.HERE / 'library/veteran_prepared_png.glb')
+        names = {node['name']: index for index, node in enumerate(document['nodes'])}
+        hand = document['skins'][0]['joints'].index(names['R_Hand'])
+        primitive = next(primitive for mesh in document['meshes']
+                         for primitive in mesh['primitives']
+                         if 'Steel' in document['materials'][primitive['material']].get('name', ''))
+        attributes = primitive['attributes']
+        weights = solver.skin_attribute(document, binary, attributes['WEIGHTS_0']).copy()
+        joints = solver.skin_attribute(document, binary, attributes['JOINTS_0'])
+        hand_slot = next(slot for slot, joint in enumerate(joints[0]) if joint == hand)
+        other_slot = next(slot for slot, joint in enumerate(joints[0]) if joint != hand)
+        weights[0] = 0
+        weights[0, hand_slot] = .75
+        weights[0, other_slot] = .25
+        binary, attributes['WEIGHTS_0'] = solver.append_accessor(
+            document, binary, weights.tolist(), 'VEC4')
+        folder = Path(self.temporary.name)
+        body = folder / 'body.glb'
+        combined = folder / 'combined.glb'
+        body.write_bytes((library.HERE / 'library/veteran_body.glb').read_bytes())
+        combined.write_bytes(solver.encode_glb(document, binary))
+        before = [hashlib.sha256(path.read_bytes()).hexdigest() for path in (body, combined)]
+        with self.assertRaisesRegex(ValueError, 'not rigid to R_Hand'):
+            solver.apply_prepared_character('veteran', body, combined, recipe)
+        self.assertEqual(before, [hashlib.sha256(path.read_bytes()).hexdigest()
+                                  for path in (body, combined)])
+
+    def test_prepared_wrist_recipe_and_implementation_are_binding_inputs(self):
+        original = library.canonical_hash(library.production_binding(self.manifest))
+        for role in ('implementation', 'recipe'):
+            broken = copy.deepcopy(self.manifest)
+            broken['prepared_wrist_constraint'][role]['source_sha256'] = '0' * 64
+            self.assertNotEqual(original, library.canonical_hash(library.production_binding(broken)))
+            with self.assertRaisesRegex(ValueError, 'constraint identity changed'):
+                library.prepared_wrist_contract(broken)
+        broken = copy.deepcopy(self.manifest)
+        broken.pop('prepared_wrist_constraint')
+        with self.assertRaisesRegex(ValueError, 'requires its pinned prepared wrist constraint'):
+            library.prepared_wrist_contract(broken)
+
     def test_frozen_manifest_and_retired_fields(self):
         library.validate_manifest(self.manifest)
         broken = copy.deepcopy(self.manifest)
@@ -267,6 +328,8 @@ class AttackBankContracts(unittest.TestCase):
         self.assertEqual(len(actual), 234)
         self.assertEqual(len(next(iter(actual.values()))[0]), 106)
         candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
+        # Keep the historical source grid while satisfying today's prepared-space admission contract.
+        candidate['prepared_wrist_constraint'] = copy.deepcopy(self.manifest['prepared_wrist_constraint'])
         self.bind_phase_rows(candidate)
         library.validate_manifest(candidate)
         attack = candidate['attack_source']

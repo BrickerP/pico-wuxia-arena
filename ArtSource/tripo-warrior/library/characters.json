@@ -21,24 +21,24 @@
         {
           "file": "base_body.glb",
           "bytes": 55126688,
-          "sha256": "2f994b6315c669a375bf8ed59d2cea33031768074822b074f5c3e80e058a2f3d"
+          "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 58219812,
-          "sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e"
+          "bytes": 58219808,
+          "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
         },
         {
           "file": "base.glb",
-          "bytes": 75769048,
-          "sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1"
+          "bytes": 75769044,
+          "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3"
         }
       ],
       "runtime_texture_encoding": {
         "file": "base_texture_encoding.json",
-        "sha256": "f2b5d832961cbc6979fc238220217e77f247e58b563809353f4c2aa5fb907ff8",
-        "prepared_png_sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e",
-        "encoded_sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+        "sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
+        "prepared_png_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+        "encoded_sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
         "preservation": {
           "non_image_bufferViews_byte_identical": 2587,
           "accessors_semantics_and_payloads_unchanged": 2587,
@@ -439,7 +439,7 @@
       },
       "attack_profiles": {
         "file": "base_attack_profiles.json",
-        "sha256": "5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4"
+        "sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542"
       }
     },
     {
@@ -462,25 +462,25 @@
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 14862940,
-          "sha256": "08261b8d4264417b4c8b708bcf7b1505a91d0858fc8bbad8ecf9bb55268cd060"
+          "bytes": 14862948,
+          "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
         },
         {
           "file": "indigo_prepared_png.glb",
-          "bytes": 17956012,
-          "sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7"
+          "bytes": 17956016,
+          "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
         },
         {
           "file": "indigo.glb",
-          "bytes": 43931232,
-          "sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a"
+          "bytes": 43931240,
+          "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
         }
       ],
       "runtime_texture_encoding": {
         "file": "indigo_texture_encoding.json",
-        "sha256": "6672e0d8c2200a2ef9fff311968b230d89bf18b09cc4a2fbd81da678e36ad885",
-        "prepared_png_sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7",
-        "encoded_sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a",
+        "sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
+        "prepared_png_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+        "encoded_sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
         "preservation": {
           "non_image_bufferViews_byte_identical": 2561,
           "accessors_semantics_and_payloads_unchanged": 2561,
@@ -806,7 +806,7 @@
       },
       "attack_profiles": {
         "file": "indigo_attack_profiles.json",
-        "sha256": "b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb"
+        "sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
       }
     },
     {
@@ -829,28 +829,28 @@
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 14346256,
-          "sha256": "e519dde4f81544907ef28a0457049aaada36dfc9b7fa8c9fd741863b894fe0ba"
+          "bytes": 14354052,
+          "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55"
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 17439336,
-          "sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363"
+          "bytes": 17447128,
+          "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
         },
         {
           "file": "veteran.glb",
-          "bytes": 45350060,
-          "sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87"
+          "bytes": 45357856,
+          "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a"
         }
       ],
       "runtime_texture_encoding": {
         "file": "veteran_texture_encoding.json",
-        "sha256": "d1723b9758ec20dbb31a45beb5653a12dda39495fd1699a25589999ecffc25fe",
-        "prepared_png_sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363",
-        "encoded_sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87",
+        "sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
+        "prepared_png_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
+        "encoded_sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2521,
-          "accessors_semantics_and_payloads_unchanged": 2521,
+          "non_image_bufferViews_byte_identical": 2525,
+          "accessors_semantics_and_payloads_unchanged": 2525,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -1173,7 +1173,7 @@
       },
       "attack_profiles": {
         "file": "veteran_attack_profiles.json",
-        "sha256": "cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0"
+        "sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
       }
     }
   ],

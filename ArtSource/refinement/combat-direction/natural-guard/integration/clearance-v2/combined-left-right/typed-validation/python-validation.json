@@ -1,0 +1,34 @@
+{
+  "binding_sha256": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+  "typed_sha256": "6ff97d567c912bf330349c8091b800799460c5e897fd4744f2ccfb3bfd32d207",
+  "typed_source": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/typed-validation/AttackBankProfileData.kt",
+  "candidate_bank": "ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/candidate-library",
+  "sample_counts": {
+    "base": {
+      "OVERHEAD": 211,
+      "LEFT": 106,
+      "RIGHT": 106
+    },
+    "indigo": {
+      "OVERHEAD": 211,
+      "LEFT": 106,
+      "RIGHT": 106
+    },
+    "veteran": {
+      "OVERHEAD": 211,
+      "LEFT": 130,
+      "RIGHT": 106
+    }
+  },
+  "identities": {
+    "binding": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+    "base/model": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
+    "base/profile": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542",
+    "indigo/model": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+    "indigo/profile": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379",
+    "veteran/model": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
+    "veteran/profile": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
+  },
+  "manifest_binding_matches": true,
+  "exact_generated_data_matches": true
+}

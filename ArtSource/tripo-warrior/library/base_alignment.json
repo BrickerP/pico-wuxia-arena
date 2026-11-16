@@ -185,8 +185,8 @@
     },
     {
       "name": "attack_right",
-      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.0,
@@ -195,10 +195,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "83046f1c781b4fee5455dd4d0601f19ebf4d83de0e23b781edbb34bdf75a2f97",
+      "keyframe_semantics_sha256": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "5cda547aaae74e3feb09bdf2b2062b0a932c20a71a460f93e0614998210617e1",
-      "retargeted_clip_sha256": "1caad3d557aef4ebd3bf2be6ccd10c69d84c4a8b70f8bfcf3d0d9b9d161a1fee"
+      "source_keyframe_semantics_sha256": "5d7911c4696a315d1bc8be9fd59e5af406efd56fbba1abeb5fb1cd834792fa29",
+      "retargeted_clip_sha256": "318caa1f47cf2891d27194ab4ebff51f68d71c003f5b0a3ed4c3cf55bc851d51"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -399,17 +399,17 @@
     {
       "file": "base_body.glb",
       "bytes": 55126688,
-      "sha256": "2f994b6315c669a375bf8ed59d2cea33031768074822b074f5c3e80e058a2f3d"
+      "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5"
     },
     {
       "file": "base_prepared_png.glb",
-      "bytes": 58219812,
-      "sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e"
+      "bytes": 58219808,
+      "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
     },
     {
       "file": "base.glb",
-      "bytes": 75769048,
-      "sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1"
+      "bytes": 75769044,
+      "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3"
     }
   ],
   "finger_rotation_calibration": {
@@ -25818,7 +25818,7 @@
       },
       {
         "clip": "attack_right",
-        "before_semantics_sha256": "20ec08c123e75c86debca950ad5f7b766a04a67c23fd46c694d7c7270945737a",
+        "before_semantics_sha256": "4458bf9d8aa5d9651c1a063f94f7958122f6175fc70b629623faa205d03afacd",
         "foot_vertex_counts": {
           "L": 1478,
           "R": 1420
@@ -29808,9 +29808,14 @@
         },
         "maximum_plane_error_metres": 0.00012848982385700244,
         "maximum_opposite_foot_height_metres": 2.842080716290718e-07,
-        "after_semantics_sha256": "83046f1c781b4fee5455dd4d0601f19ebf4d83de0e23b781edbb34bdf75a2f97"
+        "after_semantics_sha256": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52"
       }
     ]
+  },
+  "prepared_wrist_constraint": {
+    "applied": false,
+    "reason": "Constraint only targets veteran",
+    "combined_rigid_steel_vertex_count": 5533
   },
   "id": "base",
   "name": "试刀客",
@@ -30139,9 +30144,9 @@
     },
     {
       "name": "attack_right",
-      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
-      "retargeted_clip_sha256": "1caad3d557aef4ebd3bf2be6ccd10c69d84c4a8b70f8bfcf3d0d9b9d161a1fee",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+      "retargeted_clip_sha256": "318caa1f47cf2891d27194ab4ebff51f68d71c003f5b0a3ed4c3cf55bc851d51",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -30160,7 +30165,7 @@
       "target_inverse_binds_sha256": "d15b7834cd6b033a9a37fdd601a39fa535cca28483d4fcca3728d002284a624d",
       "target_mesh_sha256": "141ff1ff4752216187f1f45726752b6c811c79f5c3ab34eb6ba2262a856de83e",
       "interpolation_policy": "LINEAR",
-      "maximum_quaternion_step_radians": 0.6439464092254639
+      "maximum_quaternion_step_radians": 0.51186203956604
     }
   ],
   "grip_source": {
@@ -30276,14 +30281,14 @@
   },
   "prepared_png": {
     "file": "base_prepared_png.glb",
-    "bytes": 58219812,
-    "sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e"
+    "bytes": 58219808,
+    "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
   },
   "runtime_texture_encoding": {
     "file": "base_texture_encoding.json",
-    "sha256": "f2b5d832961cbc6979fc238220217e77f247e58b563809353f4c2aa5fb907ff8",
-    "prepared_png_sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e",
-    "encoded_sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+    "sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
+    "prepared_png_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
+    "encoded_sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
     "preservation": {
       "non_image_bufferViews_byte_identical": 2587,
       "accessors_semantics_and_payloads_unchanged": 2587,
@@ -30684,6 +30689,6 @@
   },
   "attack_profiles": {
     "file": "base_attack_profiles.json",
-    "sha256": "5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4"
+    "sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542"
   }
 }

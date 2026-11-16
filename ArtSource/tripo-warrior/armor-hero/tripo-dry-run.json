@@ -1,0 +1,44 @@
+{
+  "dry_run": true,
+  "valid": true,
+  "input": "One single cohesive wearable LEFT shoulder pauldron for a realistic adult Chinese martial artist, original Ming-inspired wuxia design. Anatomically curved dome wraps the outer deltoid, concave underside and open medial side for arm motion, thick rolled rim and three rounded shallow curved reinforcing ribs integrated into the same solid shell. Layered blackened forged iron with restrained worn bronze edging and small flush rivets, subtle hammered metal grain and physically based materials. A continuous dark fabric backing hugs the shoulder opening, no loose floating tabs. Real manufactured thickness and clean edges, refined silhouette suitable for first person VR close inspection. Only the isolated shoulder armor component, no human, no mannequin, no body, no weapon, no letters, no stand, no ground plane, no detached spikes or disconnected parts.",
+  "scenario": "game-mobile",
+  "model": "v3.1-20260211",
+  "model_reason": "explicit --model",
+  "steps": [
+    {
+      "name": "text-to-model",
+      "endpoint": "/v3/generation/text-to-model",
+      "task_type": "text_to_model",
+      "payload": {
+        "prompt": "One single cohesive wearable LEFT shoulder pauldron for a realistic adult Chinese martial artist, original Ming-inspired wuxia design. Anatomically curved dome wraps the outer deltoid, concave underside and open medial side for arm motion, thick rolled rim and three rounded shallow curved reinforcing ribs integrated into the same solid shell. Layered blackened forged iron with restrained worn bronze edging and small flush rivets, subtle hammered metal grain and physically based materials. A continuous dark fabric backing hugs the shoulder opening, no loose floating tabs. Real manufactured thickness and clean edges, refined silhouette suitable for first person VR close inspection. Only the isolated shoulder armor component, no human, no mannequin, no body, no weapon, no letters, no stand, no ground plane, no detached spikes or disconnected parts.",
+        "texture": true,
+        "texture_quality": "standard",
+        "face_limit": 15000,
+        "pbr": true,
+        "model": "v3.1-20260211"
+      }
+    },
+    {
+      "name": "texture",
+      "endpoint": "/v3/models/texture",
+      "task_type": "texture_model",
+      "payload": {
+        "input": "<upstream>",
+        "pbr": true,
+        "model": "v3.0-20250812"
+      }
+    }
+  ],
+  "pending_uploads": [],
+  "deliverables": [],
+  "candidates": 1,
+  "warnings": [
+    "--then overrides the default game-mobile processing chain"
+  ],
+  "errors": [],
+  "generation_credits_estimate": 20,
+  "cost_notes": [
+    "estimated generation cost: 20 credits (official list price; chain steps not estimated)"
+  ]
+}

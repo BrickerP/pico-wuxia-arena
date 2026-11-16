@@ -1,0 +1,20 @@
+{
+  "status": "generated",
+  "source_png_equivalent_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+  "source_image_index": 38,
+  "source_image_sha256": "8cce9207c27bc4cf9ea92a040283f8428f9bad82143195cbc5dc7823b6d01b1d",
+  "output": {
+    "path": "textures/paper_fiber_1024x512.png",
+    "sha256": "054203ca807221a352acdb7dda0cb94b29fb08d5b40194f7a8c89745823f6ec0",
+    "size": [
+      1024,
+      512
+    ]
+  },
+  "algorithm": "seeded neutral vertical fiber plus low-frequency transmission variation; no fixed light, reflection, hue or AI generation",
+  "seed": 20261116,
+  "factor_min": 0.9785588383674622,
+  "factor_max": 1.0203745365142822,
+  "factor_mean": 1.000375509262085,
+  "license": "derived procedural modification of existing project lantern paper base map; no external download"
+}

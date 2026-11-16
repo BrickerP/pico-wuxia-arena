@@ -1,0 +1,12 @@
+{
+  "status": "native_45s_first_two_opponents_cleared_third_loaded",
+  "apk_sha256": "57f7cb12286aa9b466bb75c8e53d87b8c31ee6adc887186f6b1adc2e26e9d8e2",
+  "recording": "artifacts/native-combined-2026-11-17/native-steel-withdrawal.mov",
+  "observed_withdrawal_receipts": [
+    "11-17 04:12:38.632 29450 29450 I ArenaCombat: Steel actor withdrawal duration=0.11127216774950816 yaw=-1.0E-7 retreat=0.04950000000000042",
+    "11-17 04:12:40.743 29450 29450 I ArenaCombat: Steel actor withdrawal duration=0.7296620377537681 yaw=0.583508191599922 retreat=0.10486263651214257",
+    "11-17 04:12:59.617 29450 29450 I ArenaCombat: Steel actor withdrawal duration=0.8947723294000851 yaw=-0.7486184832462389 retreat=0.0495",
+    "11-17 04:13:15.219 29450 29450 I ArenaCombat: Steel actor withdrawal duration=0.11127216774950816 yaw=1.0E-7 retreat=0.0495"
+  ],
+  "Root_visual_review": "Actual poses change during clashes/recovery; first two fall animations completed, veteran loaded. Full victory not yet captured; later idle ended by normal match timeout, not health depletion. Whole-model/material quality remains insufficient."
+}

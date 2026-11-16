@@ -8,6 +8,7 @@ empty-hand fingers are authored independently for each retargeted clip.
 """
 
 import argparse
+import importlib.util
 import copy
 import hashlib
 import json
@@ -632,6 +633,28 @@ def canonical_source_evidence(sources, frozen_locomotion):
     return reports
 
 
+def prepared_wrist_contract(manifest):
+    entry = manifest.get('prepared_wrist_constraint')
+    if not isinstance(entry, dict) or set(entry) != {'implementation', 'recipe'}:
+        raise ValueError('the canonical producer requires its pinned prepared wrist constraint')
+    paths = {}
+    for role in ('implementation', 'recipe'):
+        row = entry[role]
+        if not isinstance(row, dict) or set(row) != {'source', 'source_sha256'}:
+            raise ValueError('invalid prepared wrist constraint ' + role)
+        path = (HERE / row['source']).resolve()
+        if not path.is_relative_to(HERE.parent.parent.resolve()):
+            raise ValueError('prepared wrist input escapes the repository')
+        if hashlib.sha256(path.read_bytes()).hexdigest() != row['source_sha256']:
+            raise ValueError('prepared wrist constraint identity changed: ' + role)
+        paths[role] = path
+    spec = importlib.util.spec_from_file_location('canonical_prepared_wrist_solver', paths['implementation'])
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    recipe = module.validate_recipe(json.loads(paths['recipe'].read_text()))
+    return module, recipe
+
+
 def validate_manifest(manifest):
     if manifest.get('schema_version') != 3:
         raise ValueError('the canonical ten-clip bank requires manifest schema_version 3; v2 is retired')
@@ -719,6 +742,7 @@ def validate_manifest(manifest):
                    for segment in (1, 2, 3)}
         if not set(character.get('finger_rotation_offsets', {})).issubset(allowed):
             raise ValueError('the bank permits reviewed right-finger offsets only')
+    prepared_wrist_contract(manifest)
     return frozen_locomotion, coverage['characters']
 
 
@@ -755,6 +779,7 @@ def build_library(manifest_path, candidate_dir=None):
     from attack_profiles import export_attack_profiles
     manifest = json.loads(manifest_path.read_text())
     frozen_locomotion, body_coverage = validate_manifest(manifest)
+    wrist_solver, wrist_recipe = prepared_wrist_contract(manifest)
     formal = HERE / 'library'
     runtime = HERE.parent.parent / 'app/src/main/assets/models/opponents'
     destination = Path(candidate_dir).resolve() if candidate_dir is not None else formal
@@ -840,6 +865,25 @@ def build_library(manifest_path, candidate_dir=None):
                                        finger_rotation_offsets=character.get('finger_rotation_offsets'),
                                        canonical_grounding_clips=source_timelines,
                                        weapon_source=weapon_source)
+            # One prepared-space constraint stage for both outputs, before all
+            # KTX/profile/receipt identities are computed. No old formal input.
+            wrist_report = wrist_solver.apply_prepared_character(character['id'],
+                output_folder / (stem + '_body.glb'), prepared_png, wrist_recipe)
+            record['prepared_wrist_constraint'] = wrist_report
+            if wrist_report['applied']:
+                constrained_doc, constrained_binary = read_glb(prepared_png)
+                final_signatures = {clip['name']: animation_signature(constrained_doc, constrained_binary, clip)
+                                    for clip in constrained_doc['animations']}
+                for animation in record['animations']:
+                    previous = animation['keyframe_semantics_sha256']
+                    final = final_signatures[animation['name']]
+                    if previous != final:
+                        animation['pre_prepared_wrist_constraint_semantics_sha256'] = previous
+                        animation['keyframe_semantics_sha256'] = final
+                for output in record['outputs']:
+                    path = output_folder / output['file']
+                    output.update(bytes=path.stat().st_size,
+                                  sha256=hashlib.sha256(path.read_bytes()).hexdigest())
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']
                 animation['source_sha256'] = source['source_sha256']

@@ -1,5 +1,35 @@
 # 02 · 刀具造型材质与握持
 
+## Root 当前收件与合入边界（2026-11-17）
+
+`finger-surface/joint-loops/right_hand_joint.glb`（`199c228c…`，6222三角）已交，16项私有测试及四态几何检查通过；169原位置／权重与192原法线改动有保护边界证据。旧109对映射自交保留，不能称无自交。它尚未进入app；Root须看三列原材质对照，确认收益后使用同一输入派生匹配左手，并验证真实握刀。当前APK仍为a980右／ecc左，不把私有新手计作当前画面。
+
+双手技能头部后退误触修复另在 `native-steel-release/skill-motion-correction/`，候选7项回归通过但未装入APK。下一步由Root评审、整合，外部02保持封口，不重复旧粗糙度材质结论或自行覆盖正式手模型。
+
+## Root实物审核：48e指侧首件与下一步关节形体（2026-11-17）
+
+外部02连续两次新任务只读后复述旧材质结论，未创建finger-surface产物，Root已停止该轮写入并改由fresh专项实际制作。现 `finger-surface/right_hand_finger.glb` 为48e99daf、5536tri，13项独立检查与四态接触通过；仅合法Pinky指侧1475 normal约4°调整，原位置/UV/骨权及其余normal保持。旧109父面交叉完整保留，不能因细分raw计数129而当新增或改善。Root已实际看open/closed原材质与neutral对照：轮廓略圆顺，PIP/DIP大片折面仍显著，因此只收为技术基线，**不作为整体手部品质通过，也暂不装正式左右手**。
+
+下一阶段由Root同一专项执行 `finger-surface/joint-loops/`：以冻结a980为父源、48e作对照，重建真实MCP/PIP/DIP背侧/侧面的关节环线与曲率过渡，不再只给旧三角边添小PN中点。允许移动真实非保护指背/侧原点并更新必要normal/局部插值骨权，保真实指骨长度和关节体积；内掌/握柄指腹、拇指支撑、14点掌背与腕口的既定保护不动，78骨/IBM/Grip/原动画/UV语义不变。不能把关节磨成圆管。Right预算<=12000tri，实际必要曲率可以用预算，不能只拿省面数当成果。
+
+先20分钟一个可看的完整首件，0.3m open/mid/closed原材质与neutral，Root看PIP/DIP轮廓与弯折后再完整验。四态几何/normal/父面交叉/DAO新问题继续不允许；有具体因果时完成必要修复，不因人为一次次数空停、不做无依据参数扫。新骨权/原点/normal改动须精确列出与解剖证据，不能沿用48e“原点全零”的旧结论。Root接受才统一Left派生/装包；不碰formal/app/SDK/Git/设备。
+
+## Root审核与指部表面重建合同（2026-11-17）
+
+skin-material首件技术成立但无可见收益，封存不进正式手；原4K源已1:1进入hand atlas，停止放大图或只调roughness。Root已在原生近手图确认偏亮、指节棱角仍明显；原生视口恢复/交战证据见presentation/native-hand-input-2026-11-17.json。灯光A/B归Root，02不改配光或SDK坐标。
+
+新Ownership仅 `grip-refinement/finger-surface/` 与02。以冻结a980 Right为唯一源，只制作指背/指侧轮廓与真实关节表面：先结合MCP/PIP/DIP实际骨位、表面拓扑、剖面确认棱角来源，不按dominant权重冒充解剖ROI。可以局部重构必要环线/新增采样并由原面插值得到UV/权重，保真实关节起伏，不能把手指磨成圆管。保持内掌/握柄指腹、拇指支撑与腕口已通过修复；原点/米制/骨架IBM/Grip/原贴图/原动画不变，不额外改14点掌背权重。Right总三角<=9000，新增几何必须在0.3m原材质及neutral同机位可辨收益；这不是设备性能放行。
+
+45分钟单一首件、最多一次实际定位修正，交真实完整GLB、open/mid/closed原材质与neutral近景对照、ROI与保护点/握柄/新增自交检查及可复建入口，含一个保护区越界负例。闭握旧109对及open/mid旧DAO问题保留为基线，不能藏起；新增手指扭曲/碰柄必须拒绝。先交Right供Root看图，Root接受才统一Left派生/装包。不得写正式资源/app/坐标代码/公共producer/Git/设备，你不独自在仓库，保留他人修改。
+
+## 当前交付：Right 皮肤材质首件无可见收益（2026-11-17）
+
+**本阶段结束，等待 Root review。** [候选、真实来源量化与四图对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/skin-material/README.md)已完成。候选 SHA `2d78819b379ee67928fef760803a30a8b2138cb76d535d1457e2a78c929e4b64`，技术装配与 KTX 验证通过，但原材质／中性材质的固定 0.3 m 对照都没有可辨改善，不能替换正式 Right 或单侧发布。
+
+当前 Tripo 4K 是最高真实源，但 1536 hand atlas 已按 1:1 source texel density 裁切，放大不增加皮肤细节。本候选仅以 1 张1024 MR 衍生图调整 hand／finger 三角粗糙度：2,213 skin triangles 用新材质，2,550 袖口／混合 triangles 保原材质；base color／normal、指甲和袖口语义保留。四图显示它未实质改善统一发白／塑料感或低面数指节，继续加重粗糙度只会压平高光，故停止，不伪造皱纹或贴图细节。
+
+triangle partition、原顶点／UV／权重／78骨／IBM／动画／Grip、closure 和三张现有 KTX 均检查保持；新 KTX 通过验证。Root 的 native main viewport 已确认左右手加载和手位移动，但肤色偏亮、指节低面数仍是原生后续质量项，本候选不覆盖该事实。正式 app、公共 producer、设备、构建和 Git 未动。
+
 ## 新交付：MCP前掌背混权修复 a980（2026-11-16）
 
 **本阶段结束，待 Root 实物 review、左右同步派生与原生验收。** 新首件仅在 `production-patch/anatomical-crease/`，完整入口为该目录 `handoff.json`。Right GLB为 `a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862`，仍5,018三角，保健康3000腕口/面流；3000旧GLB未改，也未沿687/9f叠层。

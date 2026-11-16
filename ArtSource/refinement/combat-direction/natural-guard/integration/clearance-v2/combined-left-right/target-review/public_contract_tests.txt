@@ -1,0 +1,8 @@
+test_prepared_wrist_requires_actual_combined_steel_before_writing (actual_public_pipeline_tests.AttackBankContracts.test_prepared_wrist_requires_actual_combined_steel_before_writing) ... ok
+test_prepared_wrist_rejects_normalized_steel_weight_outside_hand (actual_public_pipeline_tests.AttackBankContracts.test_prepared_wrist_rejects_normalized_steel_weight_outside_hand) ... ok
+test_prepared_wrist_recipe_and_implementation_are_binding_inputs (actual_public_pipeline_tests.AttackBankContracts.test_prepared_wrist_recipe_and_implementation_are_binding_inputs) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.792s
+
+OK

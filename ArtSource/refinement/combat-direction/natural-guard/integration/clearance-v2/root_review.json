@@ -1,0 +1,32 @@
+{
+  "decision": "ACCEPT_RIGHT_FOR_DEVELOPMENT_INTEGRATION_ONLY",
+  "handoff_sha256": "1d81f5e471439103ab816d4cb6089604ab89add3f5773ab2c9c594b077e8d7a9",
+  "binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "actual_identity_checks": 65,
+  "root_visual_review": [
+    "source veteran original-material four-time before/after reviewed; empty-hand return is less abrupt but sleeve/armor/skin quality remains insufficient",
+    "native current APK shows sustained steel contact can hold enemy pose for seconds; this is a separate runtime bug being fixed"
+  ],
+  "source_scope": "RIGHT empty left-arm return only; existing right blade path, head, feet preserved; other9 motions unchanged",
+  "canonical_evidence": {
+    "targets": [
+      "base",
+      "indigo",
+      "veteran"
+    ],
+    "right_finite_pose_count_each": 98,
+    "bone_keys_and_midpoints_checked_each": 211,
+    "steel_head_right_wrist_feet_delta_m": 0,
+    "python_checks": 4,
+    "private_jvm_tests": 179
+  },
+  "quality_approved": false,
+  "left_integrated": false,
+  "unresolved": [
+    "LEFT veteran forearm/chest intersects at1.10/1.15/1.20; source-only8deg fails dynamic blade protection and1.5deg fails clearance",
+    "RIGHT .9s join retains local second-difference peak; C1 not proven",
+    "inherited foot-plane and garment/hand mesh defects",
+    "final native frame/shading/complete-flow/hardware acceptance missing"
+  ],
+  "next": "Root uses the existing canonical production contract for formal adoption; private receipt is not final product approval; combine only reviewed environment and runtime changes before one new APK"
+}

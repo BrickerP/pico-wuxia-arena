@@ -1,5 +1,97 @@
 # 01 · 动作源与战斗姿态
 
+## Root 当前评审与下一任务（2026-11-17）
+
+本地组合开发包 binding `51807084…` / APK `57f7cb12…` 已完成460项单测（0失败、0跳过）与模拟器实际输入检查。原生录像证明前两敌倒下、第三敌加载；未证明三轮胜利。有限actor卸力已出现实际后退／转身／恢复，不能据此称所有穿刀已修好。
+
+新增阻断：正式玩家dao默认scene中的5533个Steel顶点，4469个超出当前12mm胶囊；最远离轴56.994mm，即形状局部漏覆盖约44.994mm。证据 `artifacts/native-combined-2026-11-17/player-blade-proxy-audit.json` 仅静态玩家握点空间，不代表敌人／动态蒙皮已审计。Root已启动 `native-steel-release/blade-shape-fit/` 私有制作：先复核模型到query的同空间变换，再交资产派生分段胶囊、全三角覆盖证明、过度覆盖量和叠加图。保持stroke资格轴与碰撞形状语义分开；链形状未接入CCD和恢复认证前，不替换正式判定。不得靠扩大单胶囊或降低HP使验收通过。
+
+## Root review修正：真实未来恢复域（2026-11-17）
+
+**新源码48专项全过、无Ignore；正式构建／原生审图由Root接手。** beginSteelWithdrawal现只认证 `[max(first, contactSource−.06), last]`，精确插入retreat／end／当前TOI及域内keys，保首18%反向0.06；idle保持全loop。当前见证在相同时点优先。没有放宽半空间／CCD／速度或改几何参数。
+
+四项新回归覆盖：真正未访问windup（不改插值必需的左支撑key）扰动不影响selected samples／计划；精确非key retreat、current、end与所有域内keys保全；真实retreat／end几何改变必须重认证；idle完整loop保持。原主动反例、pause／失追／击杀／过期／同ID／真新Swing／新enemy attack及parry停顿等旧专项继续过。
+
+**配对实测没有降角收益。** 同一当前runtime profile由212样本缩到120；原／新均−61.93100461°、1.227053786s、49.5mm，主导约束仍在真实未来域。Source1310ms恢复／1990ms回guard／玩家0位移保持。旧private90点的−62.765°不能拿来冒作修正前runtime数值。
+
+旧44证据及源码已冻结`actor-withdrawal/archive/full-clip-44/`；新版[receipt](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/receipt.json)与[编译测试原文](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/future-domain-result/run.txt)绑定当前48项源码。更新[handoff](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/handoff.json) SHA `cff0f204c76f97f2c2f25758ae707411b5890f076998130ad95a79cb79150f8e`。下面44项正文是历史收件，不能把其旧SHA称新验证。约62°转身与约2秒节奏仍待原生观感评审；本路未做SDK／设备／构建／Git操作。
+
+
+## 有限actor卸力收件（2026-11-17）
+
+**本阶段已实现并过专项，待Root原生审图／构建／合入，不宣称成品手感或设备通过。** 旧推手方案保持拒绝归档；骨骼Entity写入不驱动最终蒙皮的Root结论已接受，本轮只复用现有actor根位姿。[交接](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/handoff.json) SHA `87fcc932e13d264ad572bc5d1973eb9e7021533ae52084b04d438bcdd23e7fd9`；[说明与入口](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/actor-withdrawal/README.md)。
+
+真实有限刀段解析选择一侧退出，不用旧无限平面推玩家手。原90姿态／213 CCD全无接触；49.5mm回撤、−62.765°转身。0.65m/s和1rad/s直接来自旧moveEnemy，改同一路径时间参数为35ms起止速度斜坡＋原满速，actor1.241613s。源姿只在该有限actor阶段暂持，之后既有contactRecovery接回；同一position／yaw／clip／source同时用于query和Scene／EnemyAnimator。玩家raw／held没有敌方强制位移。
+
+private3tests与当前协调器44tests全部通过、无Ignore。实际OH .833333反例source1310ms恢复、1990ms回guard，10ms刀间gap／actor速度、原命中stop和玩家位移0均守门；IDLE顶刀150ms恢复、静止续持不再循环退步／刷impact。真新挥击／新enemy attack重装，同ID补伤／过期receipt拒绝，暂停继续／失追／击杀、parry95ms停顿和新命中打断旧恢复均验。输入基线失效解锁物理，但不清已接受战斗ID以免暂停刷事件。
+
+实际代码仅ActorWithdrawal.kt／ArenaSession.kt及专属tests；未碰HomeStage／EnemyAnimator／数据／SDK／其它候选／Git／设备。新旧失败阶段正文保留历史，不作为本轮状态。Root下一步：看63°转身和约2秒节奏是否自然，确认同APK原生真实输入到最终画面，再决定合入；设备性能与Space Pro另验。无可证路径或CCD不确定仍安全保持，不硬解锁／把不确定当MISS，不承诺任意极端手位都自动退出。
+
+
+## Root当前合入与接触修复边界（2026-11-17）
+
+RIGHT a726已由Root核对65项身份、审三target实际图，并经同一canonical producer正式重导为binding c3009af3；typed与7项身份fixture已同步，446单测0失败/跳过，正执行新包原生检查。LEFT的target末端约束补丁已经收件，尚待Root审核/合入，不把私有首件计入当前APK。
+
+持续拼刀projection候选因主动OVERHEAD恢复会要求过大的玩家虚拟手位移而拒绝。四个旧app/test文件及新增SustainedSteelDamageTest已从正式树移回冻结归档 `native-steel-release/failed-projection/`，可自含重放失败；不留下Ignore，也不把行走顶刀通过当主动接触通过。当前APK保留已知持续顶刀局限，没有装失败候选。
+
+下一实现由Root专项在 `native-steel-release/enemy-arm-prototype/` 制作：保持玩家实际手位，通过敌方刀方向分离半空间约束与本target两骨IK求腕目标，再让判定和原生骨骼消费同一最终姿态。先交真实OVERHEAD反例的Kotlin求解器/骨长/可达性/刀面gap/玩家位移0数据与坏例，不新造通用物理框架。Root已实际读到6.1.9骨骼Entity，但首读可能是bind pose；正在验证后续时点与写入能否驱动最终蒙皮，尚不能宣称SDK骨骼控制已打通。
+
+## 持续拼刀卸力修复 · 本阶段未完成（2026-11-17）
+
+**30分钟阶段交接：不要将本工作区候选当正式通过。** 实际专项编译通过；首次完整41项中40过／1失败，最终普通suite为40过／1项明确Ignore诊断；未解决的是主动攻击被架住后的恢复仍无法在保持合理虚拟手偏移时完成，未放宽断言。Root已收到禁止按“41项曾全绿”部署的说明。a726／全部资产、正式producer、HomeStage、输入脚本、Git与设备均未碰。
+
+**入口到出口已查实。** `Main`正常TrackingControls把accepted TrackingEvent送`ArenaSession.onTrackingEvent`；只接受当前epoch／continuity／sequence基线，经`PlayerCombatResolver.observe`入pendingMotion；`advanceFight→advanceEnemy`做steel-before-body TOI。首次钢接触锁虚拟Grip并发原BLOCK／PARRY和命中停顿。后续旧`steelContactLatched`分支却只`combat.advanceWhileWeaponStopped`，不增`enemyMotionNanos`、不推进`contactRecovery`，可把实际actor／source无限停在原架刀姿。`viewState.playerWeaponGrip`由HomeStage同时驱动玩家手／刀；`enemyPoseSourceSeconds`由EnemyAnimator主动setTime，Main向Scene转发完整state，不受HUD限流。因此这是可达时钟／约束逻辑缺陷，不能先归模型；旧Native测试还明确断言1秒source／actor／gait完全冻结。Root提供的24秒原生片及9／12／15秒同姿态与该缺陷相容，本路未把新代码当已在设备复现／修好。
+
+**当前候选实物。** 仅改WeaponContactConstraint.kt／ArenaSession.kt及专属测试：固定真实接触支持平面，保持玩家刀旋转，按敌人下一线性刀段对虚拟Grip作单向外推，证明两端支持平面不穿后才推进原恢复钟；首次TOI／命中停顿保留。敌actor只按原0.65m/s走一次49.5mm水平回撤，保持地面高度。钢碰触消费原swing ID；静止物理分开不重装同episode，新合格玩家Swing或正常state machine新enemy attack ID才开始新接触。追踪不改；自动无碰撞catchup重建原motion baseline／清pending，防止虚拟位移变成假挥击；击杀清锁，暂停／失追／过期receipt仍守原门。
+
+**已实际通过。** 真实Tracking Fixture行走顶刀：40ms内source开始推进、49.5mm一次回撤、虚拟Grip与raw最大偏差0；每10ms检查1秒steel gap≥−0.0006m／原接触平面不越过，双方HP100；再静持2秒不刷impact／不再退。慢撤回后不重装，安静后真快速新挥击才有第2次钢接触。暂停／失追冻结与旧事件不重播、过期qualified receipt拒绝、碰钢同swing ID补身体伤害拒绝、带锁击杀释放均通过。core固定平面运动的happy与非法起始平面坏例通过；原接触排序、真实TOI判定、ArenaSession已有恢复／暂停专项也已跑。
+
+**未通过的关键反例，不能掩盖。** 新主动OH真实profile夹具：原forward recovery虽结束，却把静止raw的虚拟手推远1168mm；唯一定位修改改为持续受压时沿原source反向回canonical guard，仍会推远481.6mm。这两版虽“41 tests全绿”，视觉／VR自然性不合格。当前保守门拒绝把玩家手推过既有一接触净空49.5mm，实测最大32.01mm，source90ms开始动，但1.2秒后仍RECOVERING，`aBlockedActiveAttackCompletesRecoveryInsteadOfFreezingItsSourceClock`真实失败（预期IDLE，实际RECOVERING）。这是尚未解决的敌方几何卸力路径，不是需再调大手偏移上限；不能用丢steel／超时硬解锁／更长动作掩盖。初始平面不可证分离或超手位预算时保安全hold并有限警告，故不能宣称全部接触均有限退出。
+
+**测试与复核。** 用现有isolated Kotlin2.1.20/JUnit runner，仅编译必要production依赖，运行7个专项类，最终40tests通过、1个已知限制诊断显式Ignore；主动恢复断言没有删除或放宽，独立诊断包装器实际调用它并确认IDLE-vs-RECOVERING失败。没有全局Gradle／设备／全测试扫描。最终日志：[run.txt](/tmp/pico-steel-release-tests/run.txt)，含完整源码SHA与编译／JUnit原文的[report.json](/tmp/pico-steel-release-tests/report.json)；复跑入口[/tmp/pico-steel-release-runner.py](/tmp/pico-steel-release-runner.py)。最终源码身份与report记录逐一重算一致。测试壁钟不是设备帧率，BLOCK也未称玩家弹反验收。
+
+**Root要求的固定反例已交。** [结构化见证](/tmp/pico-steel-release-diagnostic/contact-witness.json)、[完整诊断输出](/tmp/pico-steel-release-diagnostic/run.txt)和[源码身份／断言报告](/tmp/pico-steel-release-diagnostic/report.json)。profile为`asset://models/opponents/base.glb`／`attack_overhead`，首次contact source=`0.8333333333333334`；首个超预算proposal发生于反向恢复`0.273284624560741→0.27098614534426113`。raw／held／proposed Grip、初始及当前normal、enemy blade previous／current完整米制数值和当前profile源码SHA均入JSON。这里raw是用真实当前profile构造的几何夹具，并非伪称从原生片读取了用户控制器。
+
+普通suite不挂永远失败项：`aBlockedActiveAttackCompletesRecoveryInsteadOfFreezingItsSourceClock`保留原断言并显式Ignore；`python3 /tmp/pico-steel-release-runner.py --diagnostic`以独立[/tmp/PicoSteelDiagnosticTest.kt](/tmp/PicoSteelDiagnosticTest.kt)实际调用，捕获并报告该特定未解决失败。诊断包装器自身绿仅证明失败可重复，不是主动接触通过。候选添加安全预算而非继续推手，未进行第三轮路径／参数试验；后续由Root选择敌腕肘或真实回撤承受接触。
+
+**下一阶段须补。** 在保持raw玩家手及真实steel支持面的前提下，让敌方刀路／root回撤／现有恢复source真正绕开该主动接触；先用上述反例求空间出路，再作原生实物评审。禁止放宽49.5mm预算、删除该失败或只验IDLE夹具。Root应先审这份未完成候选，不能将active路径merge／安装为最终交付；人物动作a726和LEFT专项由各自既定产线继续，不能拿来抵消这个机制失败。当前未跑新APK／新原生片／Space Pro。
+
+源码SHA：
+
+- `app/src/main/java/com/example/wuxiaarena/core/combat/WeaponContactConstraint.kt`：`22cf280a339fc418b83f360526e959d2f35e8513febfbd0b25ecc573edd21e39`
+- `app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaSession.kt`：`fef60311ac063d07e566c9ef9c1e34bcc2c429e5290000a9cc14a2f017df6c72`
+- `app/src/test/java/com/example/wuxiaarena/core/combat/WeaponContactConstraintTest.kt`：`90ac19710cb66c93a6c8c8b3eb180e6056fa94373fa01ebf90c2e2e1faa432c3`
+- `app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/NativeEnemyMotionContactTest.kt`：`ce74e75859b80ac3616421590ac4ce87456a81bf02c379e0d65f694cf875473e`
+- `app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/SustainedSteelDamageTest.kt`：`998b3e8e69c7d51ba103be321bdf6c37b61b6119ad4fe077aeee4d1678eb65fb`
+
+
+## 当前专项收件：RIGHT 空手连续回收（2026-11-17）
+
+**本阶段结束，21项独立数值门通过，等待 Root 动态审图／三角色重导／原生验收。** [完整RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb) SHA `a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4`，[authoring](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/authoring.json)与[唯一handoff](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/handoff.json)已交；handoff SHA `d82b4d08da5d55bfbe4bcfe58712bba1c966d3b8dab1b31081b8cc730d032547`。Root已拒绝e7df作为最终动作，该版仅作冻结净空起点，下面旧收件不代表本轮状态。
+
+`.9–1.5`只重做L_Upperarm／L_Forearm／L_Hand三rotation：normalized actor-world腕／肘Hermite曲线经逆normalization作两骨IK，空手world方向连续过渡，指local／右刀时标／root／头／脚／rest／IBM／guard／窗口外保持。仍106键／234TRS／78骨、1.75秒、R15 UNBAKED；没有局部q低通代替空间净空，也没有延长整招。仅一次首件，未用定位返修额度／未扫参。
+
+[完整独立复核](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/verification.json)已在共享wrapper实际完成并退出，不是仅28姿态初检：两actual target各45姿态Steel／fullbody＋8区域全0，各39个60Hz完整邻接采样；21门全true，篡改右腕1.1／上臂guard0／左腕窗尾1.5三坏例真实拒绝。实际全部刀点／Head／R_Hand差0；全骨段最大差source5.65e−8m、indigo1.33e−7m、veteran2.20e−7m。private prepared只作验证，不能覆盖Root并行LEFT或其它正式clip。
+
+源三关节最大角步Upper／Fore／Hand由19.63／22.86／36.90°降至15.03／18.75／10.06°；旧1.033→1.05腕36.90°降至7.61°。真实全hand整窗最大跨步indigo87.42→27.30mm、veteran102.76→31.26mm，最大二阶差分97.05→16.81mm／118.07→19.18mm。这里旧全窗峰高于此前特定时点75.73／91.61mm，不能混用。具体point IDs／weights／时域及finger-only另列report，图绑定正式验证JSON。
+
+能看：[Indigo原速对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/indigo_before_after_realtime.mp4)／[四时点板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/indigo_four_times_before_after.png)，[Veteran原速对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/veteran_before_after_realtime.mp4)／[四时点板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/veteran_four_times_before_after.png)。共148张真实原材质PNG，同机位.9–1.5／60Hz；视频左e7df右首件，原速三次重复、111帧／1.85秒，不是延长游戏动作或PICO录像。[源角步曲线](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/source_joint_steps.png)／[同target手部曲线](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/review/actual_hand_motion.png)已出，无第二轮Blender渲染。
+
+**未放宽的边界。** 新二阶差分局部峰在`.8833/.9/.9167`接合，虽全局峰显著下降，不能写成C1／连续时间无尖峰或最终动态审美通过；原角色指形、腕袖源缺口仍粗糙。Root第三角色base、最新全family／并行LEFT组合、profile／typed／binding及PICO原生蒙皮／Space Pro仍待验收。e7df及全部旧证据冻结，本路未动LEFT专项／正式producer／integration／app／设备／Gradle／Git。详见continuity/README。
+
+## 当前专项收件：RIGHT 左空手／胸净空（2026-11-17）
+
+**本阶段结束，等待 Root 独立 review；不自动扩到 LEFT／新动作。** 完整 [RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/candidate-final/attack_right_raw.glb) SHA `e7dfc4ddb5ab85c39be4b23edf8a06f9edca07f0660301eae24785b4d130d8c7`；[authoring](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/candidate-final/authoring.json)、[唯一交接](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/handoff.json)和[制作说明](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/README.md)已封存。handoff SHA `4bf645d49f83ab1a5d27d12729c0e93659cacf69a9145c101b7a932788a53c4e`。下方 attempt1 的18→6是历史失败，不是当前结果。
+
+**实际修正。** 先在当前 dc0 真实indigo／veteran取得完整18／53对triangle／材质／权重／可见性见证，确定是腕远端的掌／小指侧，不靠权重名称把它当护腕。兼容胸面分离方向主要向前；首件30.56mm使indigo清零，veteran剩28对。对实际原来完全埋入、未落在旧53对边界的点作正向出口测量，唯一定位返修再加10.27mm，总规范actor腕偏移 `[+16.2447,−.27825,+37.4638]mm`，经normalization逆矩阵回RAW。Root明确授权包络 `.95→1.05→1.35→1.5`，覆盖原veteran1.25／1.3仍有59／62对的时域；不是旧1.2截断。
+
+**实际通过。** 只改 `L_Upperarm.rotation`／`L_Forearm.rotation`，`L_Hand` local轨、原234TRS结构及其余轨payload、78骨／IBM、模型权重、新guard首尾及窗外key保持；R15仍UNBAKED。两真实target各106姿态完整0–1.75秒（总212）Steel／fullbody及8组手前臂—头胸区域均0；原9个残留出口见证最终nearest均为正约8.23–18.85mm、外向无胸面再交。独立保持检查实际全部刀顶点／Head／R_Hand差均0；目标左臂段长最大差1.55e−7m，source6.54e−8m。happy和篡改右腕／guard两坏例均运行。证据分别为 `candidate-final/full_clip_and_motion.json`、`contract_verification.json`、`exit_verification.json`，没有用base替代。
+
+**能看的原材质图。** 同机位source1.1，无透明／覆盖：[indigo修前](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/review-final/indigo_before_right1p1_close.png)／[修后](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/review-final/indigo_after_right1p1_close.png)，[veteran修前](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/review-final/veteran_before_right1p1_close.png)／[修后](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/review-final/veteran_after_right1p1_close.png)。manifest固定相机、actual action／source time与target SHA。原indigo正常前视交线中点多被遮挡，不凭18对夸大可见收益；veteran三分之四诊断角有可见穿胸，图呈现手离胸变化。
+
+**明确未通过。** 本次是净空修复，不是整招流畅度／手部建模验收：原 `L_Hand` local轨在1.03333→1.05秒仍有36.895°最短弧步进，源手指形体、腕袖口缺口仍粗糙。[具体连续性见证](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/candidate-final/wrist_continuity_witness.json)含第62／63键原XYZW四元数和dot=.94861289，确非符号等价。相同16.67ms实际指顶点最大位移indigo70.09→75.73mm、veteran76.42→91.61mm；本轮指标增加，包含整臂／腕／指运动，不只腕q贡献。下一阶段如修空手腕连续性，须固定本轮已净空左臂轨与右刀轨，另复核净空；本轮未提前修改。LEFT105对未改；base第三角色、Root整family／当前producer重导、profile／typed／binding正式发布、PICO原生蒙皮画面和Space Pro仍待Root。有限离散0交叉和局部开放胸面出口不等于连续时间／全衣料体积证明。本路未动integration／public producer／formal／app／设备／Gradle／Git；family-v1保持冻结。
+
+
 ## Root 当前审核与执行合同（2026-11-16）
 
 family-v1 已源审接收并完成三target重导，当前自然守势/共享idle时钟正构建原生预览。最终binding为dc0df17b，已修共享旋转采样的exact-key归一化，完整234TRS和361样本五锚首尾闭合；旧91/STEP门已移除，不再等待迁移。旧family-v1和Root integration保持冻结。
@@ -8,11 +100,11 @@ family-v1 已源审接收并完成三target重导，当前自然守势/共享idl
 
 Ownership仅natural-guard/candidate/family-clearance-v2/与01。本轮允许必要约1.0..1.2中段修改：RIGHT局部左腕/前臂外侧净空；LEFT优先肩肘pole调整，保右腕与真实刀轨。不动头/actor/78骨IBM/Grip/权重/碰撞体，不改idle/walk/OH及新guard首尾。用当前formal dc0库真实indigo/veteran准备PNG作为参考并pin SHA，复现实际交叉位置与可见性，不能用base替代。
 
-**本轮第一且唯一授权的RIGHT定位修正失败，阶段结束，等待 review。** 在真实indigo target中，source1.10的 `L_hand__chest` 从18对仅降至6对，1.15为15→9、1.20为8→6，未清零。依据“最多一次定位修正”，本路不继续改第二方向，不开始LEFT修正，也不创建第二个几何候选。失败中间件、实际测量与同相机前后图已保存在candidate/family-clearance-v2；Root需明确新的几何权限后再续派。
+**attempt1失败已收件，专项子任务接手RIGHT修复。** 在真实indigo target中，source1.10的 `L_hand__chest` 从18对仅降至6对，1.15为15→9、1.20为8→6，未清零。旧RAW与失败证据保持冻结。Root已安排专项实现子任务在 `family-clearance-v2/deep-contact/` 处理真实交叉三角和近景定位；01当前不并行写该目录、不生成新RAW，等待Root将专项结论写回本通路。
 
 ## family-clearance-v2失败收件（2026-11-16）
 
-**阶段结束，等待 review。** [失败证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/attempt1_failure.json)记录唯一尝试：只改attack_right的左上臂／前臂／手旋转，在[.98,1.10,1.22]窗口峰值将左腕移动约(+26,0,+8)mm、肘pole约(+18,0,+14)mm；头、actor、Grip、权重、右臂、78骨与IBM未改。
+**阶段结束，等待专项结论与Root review。** [失败证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/attempt1_failure.json)记录唯一尝试：只改attack_right的左上臂／前臂／手旋转，在[.98,1.10,1.22]窗口峰值将左腕移动约(+26,0,+8)mm、肘pole约(+18,0,+14)mm；头、actor、Grip、权重、右臂、78骨与IBM未改。
 
 实际indigo before的18对来自当前candidate-library prepared PNG，after为同一target私有重导，保指校正和root流程。 [before](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/review/indigo_before_right_1100_before.png)与[失败after](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/review/indigo_after_attempt1_right_1100_after.png)仅作上下文，完整视角无法证明局部净空；有限真实表面测量才给出未清零结论。
 
@@ -828,3 +920,26 @@ Root已查看阶段4的v2三视角板，接受更宽战斗站姿、屈膝、上�
 六步按.65m/s载体前进1.45m，约2.230769秒完成。随后停止载体，源准确钳在1.50秒／Action frame45，实际再渲染12帧canonical guard保持.4秒；相机水平距始终1.50m，停步后cameraZ=2.95。末帧没有复用较早的source1.484步态帧。实际静守与核心链稳定可见，脚下世界网格保持固定。
 
 本轮按Root最新优先交新源after-only，原先旧资产完整前后对照尚未作为最终证据交付。FOV90°看胸构图里刀尖部分贴近／超出上边，头、双手、脚与完整停稳动作可见，限制需随片保留。此片示范整循环结束后保持同canonical pose，并未运行SDK两controller的180ms过渡或任意步相停步。15:50首模型在45分钟窗口内出现，完整可见交付明显延后，已保留实际时间与限制，未用数值代替画面结论。
+
+## LEFT肘部专项（2026-11-17 · 首件封口，未合入）
+
+本节只属 `family-clearance-v2/left-elbow/`，不修改 RIGHT／deep-contact 或01顶部合同。Root明确允许必要的 `R_Hand` 局部Q反补偿，以保源腕世界朝向；不是锁死局部腕Q。只改 LEFT 的 `R_Upperarm/R_Forearm/R_Hand.rotation`，其它源JSON、TRS、手指、root/head/脚、78骨/IBM/权重几何与其它四RAW保持。
+
+实际 veteran `attack_left@1.1` 的105对均严格跨越两三角面平面：40个参与臂顶点全dominant `R_Forearm`，130个胸顶点全 `Waist`，范围x[-.109,.0014]/y[.964,1.090]/z[.182,.255]m，约在肘→腕前3%–49%。原材质局部图可辨近肘袖／腰前接触，不以helper或整肩排除清零。
+
+本轮只做一首件和一次定位修正，均**不合入**。−8°负swivel（.98/1.10/1.22）峰值105→0，但同target5533个全钢刃顶点最大偏移base1.162／indigo3.101／veteran4.915mm，且1.15／1.20／1.22仍10／48／17对。唯一修正减至−1.5°并把尾窗延到1.28，刀轨最大偏移0.213／0.582／0.923mm，均满足Root为本攻击明确制定的1mm保护（约刀长0.14%，非碰撞精度；未使用idle2mm预算），但veteran峰仍78对，四处窗口未清。
+
+RAW首件 `3f51c41d…`；修正 `f95ad3a9…`。源关键钢刃误差分别0.867／0.706µm，子键钢刃差分别1.162／0.213mm，说明逐键IK不保证60Hz分段SLERP的任意时刻末端恒等。源/三target head/root/脚、首末全节点world及骨长证据见独立收件，不作连续净空或完整视觉通过声明。
+
+已交原材质正常／局部 before/after四图；正常视距收益几乎不可辨，局部仍见袖／腰接触。`left-elbow/handoff.json` 状态为 `stage_ended_failed_do_not_integrate`；禁止以105→78当修复成功。阶段超出30分钟窗口，包含5分钟实际排锁及本路runpy路径封存错误；已停止源角度尝试。
+
+随后按Root新授权仅进入 `left-elbow/target-wrist-constraint/`：使用各自冻结原LEFT世界腕TR与刀轨，按该target真实骨长作两骨IK／腕Q反补偿，可对三旋转局部加密120Hz；保时长/时序与其它9clip/root/head/脚/fingers/骨架/几何。它是唯一canonical producer目标末端约束的私有原型，Root接受后再收进正式产线，不能永久并存两条生产线或扩1mm保护。
+
+
+目标末端约束首件现已封口，状态 `private_finite_target_constraint_first_piece_complete_pending_Root`。每个target使用冻结原LEFT自身FK，不跨体型借臂长。仅veteran使用−12°肘pole及必要腕Q反补偿；base／indigo字节不变。三旋转仅在.9–1.3s局部120Hz加密，union106→130键，其它231轨与9clip、静态骨架/IBM/权重几何、root/head/脚/fingers、首末world保持。三target的.9–1.3s 120Hz有限窗口中，八类非相邻身体分区与全钢刃/身体检查均0对；另有六个实际腕向/骨长坏例被抓住。四张原材质前后正常／局部图已实际查看，不等同原生设备通过。
+
+同target全5533钢刃顶点：veteran关键点最大0.669µm，子键最大0.624mm，低于本攻击5µm/1mm保护；world骨长数值差最大0.126µm。首件冻结原LEFT语义`032a552e…`，修后`3d17f011…`。Root随后整合RIGHT导致整文件SHA变化不影响此LEFT参考；新算法运行时从当次未改的同target prepared资产在内存取目标，不读取旧formal。
+
+生产接入候选已交 `left-elbow/target-wrist-constraint/canonical-integration/handoff.json`。私有`target_wrist_constraint.py`＋固定`constraint_recipe.json`和四文件最小`canonical-integration.patch`，接在唯一producer的prepared归一化/指校正/grounding之后、KTX/profile输出之前；body与PNG同处理，最终输出语义/bytes/SHA同步。源代码和recipe均进新binding，不兼容缺失旧manifest，不复用旧批准。
+
+真实module检查重现首件LEFT语义；3个非法recipe及3个缺失/错身份被拒。补丁loader/binding在内存实跑，真实profile生成130 samples包含全部130 prepared时点，source phase／runtime nanos／1.75s时长保持。完整RIGHT＋LEFT候选统一导出、全套typed/构建与模拟器验收仍由Root执行；本路未写公共producer、正式库、manifest或app。详细可复建命令、边界与所有身份见该目录README及handoff，不以私有prepared拷贝代替产线。

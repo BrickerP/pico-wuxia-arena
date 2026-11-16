@@ -1,0 +1,335 @@
+{
+  "status": "private_full_composition_candidate_for_root_review",
+  "adoption_recommendation": "do_not_replace_formal_bd5d21ef_until_root_validates_private_ktx_candidate_in_native_apk",
+  "formal_input": {
+    "path": "app/src/main/assets/models/courtyard_hero.glb",
+    "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "bytes": 39413100
+  },
+  "png_preview_input": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+    "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+    "bytes": 38774920
+  },
+  "module": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/lantern_surface_module.glb",
+    "sha256": "c2ae86e490ef4fb56a6111ff1bbc6ee693262c1e44ab2a4e890d472062d89c4a",
+    "bytes": 2943704
+  },
+  "fiber_map": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/textures/paper_fiber_1024x512.png",
+    "sha256": "054203ca807221a352acdb7dda0cb94b29fb08d5b40194f7a8c89745823f6ec0",
+    "bytes": 176672
+  },
+  "png_full_candidate": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb",
+    "sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+    "bytes": 39262132
+  },
+  "ktx_full_candidate": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_ktx.glb",
+    "sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+    "bytes": 40059936
+  },
+  "budget": {
+    "node_expanded_triangles": 249958,
+    "unique_mesh_triangles": 182694,
+    "active_unique_meshes": 41,
+    "unique_position_stream_vertices": 344300,
+    "unique_attribute_buffer_bytes": 14499504,
+    "unique_index_buffer_bytes": 1208868,
+    "primitive_node_submission_upper_estimate": 119,
+    "materials": 32,
+    "images": 50
+  },
+  "composition": {
+    "status": "private_full_composition_for_root_review",
+    "formal_input_sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "png_preview_input_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+    "module_sha256": "c2ae86e490ef4fb56a6111ff1bbc6ee693262c1e44ab2a4e890d472062d89c4a",
+    "fiber_sha256": "054203ca807221a352acdb7dda0cb94b29fb08d5b40194f7a8c89745823f6ec0",
+    "ktx_record": {
+      "roles": [
+        "baseColor",
+        "emissive"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "source_sha256": "054203ca807221a352acdb7dda0cb94b29fb08d5b40194f7a8c89745823f6ec0",
+      "decoded_pixels_sha256": "a62936ab1a36c7dea948fd280ca13d3d4562a48573c11b99f7c39fc884956b70",
+      "source_mode": "RGB",
+      "width": 1024,
+      "height": 512,
+      "sha256": "52a79eef7c955fe2106db0e96774c4d367e2a7b9dd431a9bbd6d68e382924889",
+      "ktx2_bytes": 336258,
+      "ktx2": {
+        "vk_format": 0,
+        "type_size": 1,
+        "width": 1024,
+        "height": 512,
+        "depth": 0,
+        "layers": 0,
+        "faces": 1,
+        "levels": 11,
+        "supercompression": 2,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "level_uncompressed_bytes": 699088
+      },
+      "validation": "",
+      "mip_provenance": {
+        "source": "ktx-cli-generate-mipmap",
+        "wrap_s": "wrap",
+        "wrap_t": "wrap"
+      },
+      "mip_inputs": [
+        {
+          "level": 0,
+          "size": [
+            1024,
+            512
+          ],
+          "pixels_sha256": "a62936ab1a36c7dea948fd280ca13d3d4562a48573c11b99f7c39fc884956b70"
+        }
+      ],
+      "command_template": [
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "create",
+        "--format",
+        "R8G8B8_SRGB",
+        "--assign-tf",
+        "srgb",
+        "--assign-primaries",
+        "bt709",
+        "--assign-texcoord-origin",
+        "top-left",
+        "--generate-mipmap",
+        "--mipmap-filter",
+        "lanczos4",
+        "--mipmap-wrap",
+        "wrap",
+        "--encode",
+        "uastc",
+        "--uastc-quality",
+        "3",
+        "--threads",
+        "2",
+        "--zstd",
+        "18",
+        "--testrun",
+        "<losslessly-decoded-source.png>",
+        "<output.ktx2>"
+      ],
+      "cache_key": "0a2228d8f61fe109d208e4f1def31b1136a934d67d800263566579d7a865ddbb"
+    },
+    "outputs": {
+      "png": {
+        "path": "courtyard_lantern_surface_png.glb",
+        "sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+        "bytes": 39262132,
+        "report": {
+          "removed": {
+            "wood": 2936,
+            "bronze": 504,
+            "paper": 960
+          },
+          "removed_total": 4400,
+          "copied_meshes": {
+            "0": 37,
+            "1": 38,
+            "2": 39,
+            "3": 40
+          },
+          "mode": "png"
+        }
+      },
+      "ktx": {
+        "path": "courtyard_lantern_surface_ktx.glb",
+        "sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+        "bytes": 40059936,
+        "report": {
+          "removed": {
+            "wood": 2936,
+            "bronze": 504,
+            "paper": 960
+          },
+          "removed_total": 4400,
+          "copied_meshes": {
+            "0": 37,
+            "1": 38,
+            "2": 39,
+            "3": 40
+          },
+          "mode": "ktx"
+        }
+      }
+    },
+    "material10_update": {
+      "baseColorTexture_index": 41,
+      "emissiveTexture_index": 41,
+      "replaced_image_index": 41,
+      "unchanged_mr_index": 39,
+      "unchanged_normal_index": 40
+    },
+    "instances": [
+      [
+        -2.15,
+        2.7,
+        -4.78
+      ],
+      [
+        2.15,
+        2.7,
+        -4.78
+      ]
+    ],
+    "removed": {
+      "wood": 2936,
+      "bronze": 504,
+      "paper": 960
+    }
+  },
+  "visual_gate": {
+    "status": "private_full_composition_candidate_for_root_review",
+    "adoption_recommendation": "do_not_replace_formal_bd5d21ef_until_root_validates_private_ktx_candidate_in_native_apk",
+    "positioning_revisions": 0,
+    "further_iteration_authorized": false,
+    "observations": [
+      "The normal eye PNG composition replaces only the two front lanterns and retains layout, anchors and lighting.",
+      "Rounded paper, continuous ribs, hard collars and modest fiber variation remain readable at normal distance without a light change.",
+      "KTX image41 uses the exact fiber source encoded through the existing official UASTC chain."
+    ],
+    "constraints_satisfied": [
+      "249958 expanded triangles, 32 materials and 50 images/textures.",
+      "Only old front lantern components, material10 binding/image41 and appended module nodes/meshes differ.",
+      "No app, formal source, light, Stage, collision or device change."
+    ],
+    "limitations": [
+      "PNG render uses a verified PNG-equivalent source because Blender cannot import formal KHR_texture_basisu.",
+      "Private KTX composition has not loaded in PICO or been reviewed under native light."
+    ],
+    "conclusion": "Complete private composition is ready for Root native KTX/material review, not release or device-quality acceptance."
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/compose_lantern.py",
+      "sha256": "008895e70c0d8aa802cfff7731de56376848c06e5ed1791ba69bfa60e9d08416",
+      "bytes": 6859
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/verify_composition.py",
+      "sha256": "704aff8eef59a8398a681ae097d914a300a032d2e98812de2a27a20c65d68a43",
+      "bytes": 5744
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/render_composition.py",
+      "sha256": "435834e8ed3bf9fad91f2b37e643f94ee91f8d6358e9b8151e4bf951d3baf911",
+      "bytes": 1857
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/finalize_delivery.py",
+      "sha256": "c47356994e8c073ffd6802054eccd8c1ffd764eb3b8a4f7459eb5411547320a3",
+      "bytes": 3013
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb",
+      "sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "bytes": 39262132
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_ktx.glb",
+      "sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+      "bytes": 40059936
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/composition_manifest.json",
+      "sha256": "5b1e55e97caf529eef98b05cce51be0020da31bfdf84b9a56b949349c7f8d110",
+      "bytes": 3766
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/REBUILD.md",
+      "sha256": "927d53bd7fb599374243f830405e728fc81a7433f9a96a72c7560f9f24694f24",
+      "bytes": 3629
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/verification.json",
+      "sha256": "6e301c2c443f67599025742b18e119e715bd36d41e0746170f6c582cfcc83fc9",
+      "bytes": 807
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/png_gltf_validator.json",
+      "sha256": "25123c351b5f3eb994aeacc382b251ac52cebc4209d8d19f5f910168034f8f17",
+      "bytes": 39318
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/ktx_gltf_validator.json",
+      "sha256": "89b6ae8cb8dbccc1a6e49f317c689deefa5b62682d8e3d88877d28ee67746db2",
+      "bytes": 40616
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/render_manifest.json",
+      "sha256": "29a55a430d13da3c41df05e68708f7d0afd8c580ac7fb35482c13062550b8775",
+      "bytes": 6769
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/visual_gate.json",
+      "sha256": "d823ce8dacb12af8055dc28e9ace8ec4a8a474535ad77d8cf81e2b1cb95defda",
+      "bytes": 1286
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/eye_before.png",
+      "sha256": "4978b69a3b6f5603b5027ca1348143818818ea5130e58013719c31b9e5aa7fd5",
+      "bytes": 1276479
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/review/eye_after.png",
+      "sha256": "296e56dab280fe5d25d15b563fb1515cbecb32dd30776594c9c4abb427c0ba13",
+      "bytes": 1276515
+    }
+  ],
+  "existing_dependencies": [
+    {
+      "path": "app/src/main/assets/models/courtyard_hero.glb",
+      "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+      "bytes": 39413100
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+      "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "bytes": 38774920
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/lantern_surface_module.glb",
+      "sha256": "c2ae86e490ef4fb56a6111ff1bbc6ee693262c1e44ab2a4e890d472062d89c4a",
+      "bytes": 2943704
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/textures/paper_fiber_1024x512.png",
+      "sha256": "054203ca807221a352acdb7dda0cb94b29fb08d5b40194f7a8c89745823f6ec0",
+      "bytes": 176672
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/verify_environment.py",
+      "sha256": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+      "bytes": 6897
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/facade-polish/build_facade.py",
+      "sha256": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+      "bytes": 19163
+    },
+    {
+      "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+      "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4",
+      "bytes": 22175
+    }
+  ],
+  "runtime_changes": [],
+  "limitations": [
+    "Root has not replaced formal app asset.",
+    "PNG render cannot prove KTX loading/native lighting/device behavior.",
+    "No performance, memory, collision, navmesh or Space Pro claim."
+  ]
+}

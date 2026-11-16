@@ -1,0 +1,8 @@
+{
+  "binding_sha256": "c3009af39766bf9dce50181db351b356999aaafc3761ca8eea7f8f4012162f31",
+  "canonical_export_completed": true,
+  "candidate_outputs_and_signatures_exact": true,
+  "formal_status": "approved_for_development_integration",
+  "typed_generator_check": true,
+  "native_load": "pending"
+}

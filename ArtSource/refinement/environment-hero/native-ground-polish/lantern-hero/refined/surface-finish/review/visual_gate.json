@@ -1,0 +1,21 @@
+{
+  "status": "offline_surface_finish_candidate_for_root_composition_review",
+  "adoption_recommendation": "do_not_replace_formal_bd5d21ef_until_root_composes_module_and_applies_material10_one_map_binding",
+  "positioning_revisions": 0,
+  "further_iteration_authorized": false,
+  "observations": [
+    "Normal eye keeps the rounded lantern and readable ribs without a layout or light change.",
+    "Close view removes the visible longitudinal hard folds; neutral fiber/transmission variation is present without a painted reflection or uniform plastic sheet.",
+    "Hard collar/rib edges are intentionally preserved while paper normals are smooth."
+  ],
+  "constraints_satisfied": [
+    "One procedural 1024x512 fiber image, zero external downloads.",
+    "48 paper circumference segments, 17 longitudinal rings, 12 continuous ribs.",
+    "Planned composition 249958 expanded triangles, 32 materials and 50 images."
+  ],
+  "limitations": [
+    "Preview uses PNG equivalent because Blender cannot import formal KHR_texture_basisu.",
+    "Root must apply the one-image material10 binding and validate actual KTX/light behavior."
+  ],
+  "conclusion": "Offline surface finish is acceptable for Root composition review; it is not native-device acceptance."
+}

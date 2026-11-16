@@ -1,0 +1,9 @@
+from pathlib import Path
+import hashlib,importlib.util,json,sys
+HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[7]
+FORMAL=ROOT/'app/src/main/assets/models/courtyard_hero.glb';FORMAL_SHA='bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667';PNG=ROOT/'ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb';PNG_SHA='5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392';CANDIDATE=HERE/'courtyard_lantern_surface_png.glb'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+spec=importlib.util.spec_from_file_location('ground_renderer',ROOT/'ArtSource/refinement/environment-hero/native-ground-polish/render_ground.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);m.HERE=HERE;m.OUT=HERE/'review';m.SOURCE=PNG;m.CANDIDATE=CANDIDATE;m.SOURCE_SHA=PNG_SHA;m.VIEWS={'eye':{'position_stage':[0,1.65,0],'target_stage':[0,1.55,-5.3],'lens_mm':18}}
+if __name__=='__main__':
+ if sha(FORMAL)!=FORMAL_SHA or sha(PNG)!=PNG_SHA:raise SystemExit('formal/PNG identity changed')
+ m.main();phase=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else '';path=HERE/'review'/f'render_manifest_{phase}.json';d=json.loads(path.read_text());d['formal_source_sha256']=FORMAL_SHA;d['png_preview_source_sha256']=PNG_SHA;d['full_composition_png_sha256']=sha(CANDIDATE);d['preview_source_note']='Actual full PNG composition; formal KTX remains unimportable in Blender.';path.write_text(json.dumps(d,indent=2)+'\n');combined=HERE/'review'/'render_manifest.json';d=json.loads(combined.read_text());d['formal_source_sha256']=FORMAL_SHA;d['png_preview_source_sha256']=PNG_SHA;d['full_composition_png_sha256']=sha(CANDIDATE);d['preview_source_note']='Actual full PNG composition; formal KTX remains unimportable in Blender.';combined.write_text(json.dumps(d,indent=2)+'\n')

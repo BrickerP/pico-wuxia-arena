@@ -242,8 +242,8 @@
     "source": "refined-base60k/rig.glb",
     "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
     "authoring_manifest": {
-      "source": "../refinement/combat-direction/natural-guard/integration/attack_bank_inputs.json",
-      "source_sha256": "ab9515b41c0c14c7f987cb95025e35ec7961b534cc9b73835c575861f520f940"
+      "source": "../refinement/combat-direction/natural-guard/integration/clearance-v2/attack_bank_inputs.json",
+      "source_sha256": "188ad8f291917a49cdace3641bd957279441c9958989d7c2f8ce553c2de8968b"
     },
     "clips": [
       {
@@ -299,8 +299,8 @@
         "direction": "RIGHT",
         "incoming_guard_side": "RIGHT",
         "actor_travel_side": "RIGHT",
-        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-        "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+        "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
         "stage": "authored_raw",
         "right_calibration_baked": false,
         "phase_markers": {
@@ -410,8 +410,18 @@
     "source": "../refinement/weapon/stage2/dao_grip_refined.glb",
     "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
   },
+  "prepared_wrist_constraint": {
+    "implementation": {
+      "source": "target_wrist_constraint.py",
+      "source_sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d"
+    },
+    "recipe": {
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
+      "source_sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e"
+    }
+  },
   "production_review": {
-    "source": "../refinement/combat-direction/natural-guard/integration/production_review.json",
-    "source_sha256": "7ce6df1e820ac416e36cdca7ebabb3af385d9006fa65d86ee540cbd12f7e5524"
+    "source": "../refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/production_review.json",
+    "source_sha256": "c14f6b1928fdb656b2aac90181b32d0023d488e57f4ebe4404b4fb19c03f15dd"
   }
 }

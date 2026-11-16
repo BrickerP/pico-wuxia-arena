@@ -1,0 +1,7 @@
+JUnit version 4.13.2
+.ACTOR_PLAN duration=1.757419936119447 yaw=-62.76520280289274 retreat=0.0495 side=PLAYER_BASE end=ActorWithdrawalPose(position=Vector3(x=0.002142988915168344, y=0.0, z=-1.349453590350039), yawRadians=-1.0954594445924517)
+
+Time: 0.13
+
+OK (1 test)
+

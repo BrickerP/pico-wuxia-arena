@@ -1,0 +1,184 @@
+{
+  "kind": "offline ground review, not native runtime proof",
+  "pair_complete": true,
+  "phases": {
+    "before": {
+      "phase": "before",
+      "kind": "offline actual GLB comparison; not native PICO screenshot",
+      "environment_path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+      "environment_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "baseline_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "actor": {
+        "included": false,
+        "input_sha256": {
+          "ArtSource/tripo-warrior/library/base_prepared_png.glb": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e",
+          "app/src/main/assets/models/opponents/base.glb": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+          "ArtSource/tripo-warrior/library/base_texture_encoding.json": "f2b5d832961cbc6979fc238220217e77f247e58b563809353f4c2aa5fb907ff8",
+          "ArtSource/tripo-warrior/library/base_alignment.json": "3c36703466a923290e5bb26ee450c9bad78feed2a9e8d92612ad395135fe2a00"
+        },
+        "exclusion_reason": "PNG/runtime hashes differ from frozen current v5/commonGrip pair; actor excluded, no old substitute"
+      },
+      "actor_png_path": null,
+      "actor_png_sha256": null,
+      "runtime_actor_sha256": null,
+      "actor_pose": "idle@0.0s",
+      "actor_idle_tracks_selected": 0,
+      "actor_stage_position": [
+        0,
+        0.028,
+        -2.4
+      ],
+      "actor_scale": [
+        1,
+        1,
+        1
+      ],
+      "actor_yaw": 0,
+      "excluded_runtime_layers": [
+        "native UI",
+        "player hand/dao",
+        "separately mounted runtime weapon"
+      ],
+      "cameras": {
+        "eye": {
+          "position_stage": [
+            0,
+            1.65,
+            0
+          ],
+          "target_stage": [
+            0,
+            1.55,
+            -5.3
+          ],
+          "lens_mm": 18
+        }
+      },
+      "sensor_width_mm": 36,
+      "dof": false,
+      "target_area_stage": {
+        "x_m": [
+          -1.195,
+          0.895
+        ],
+        "z_m": [
+          -2.295,
+          -0.305
+        ],
+        "rows": 4,
+        "whole_slabs": 10,
+        "preserve_staggered_joints": true
+      },
+      "render_script_sha256": "ce36865b1f380dfa0ea2aec9fb5fe4f2624816c6aaffa65a9564aaddd10da4c5",
+      "lighting_source": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+      "lighting_sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+      "lighting_recipe": "stage2 setup night, unchanged between before and after",
+      "renderer": "Cycles CPU",
+      "threads": 2,
+      "samples": 8,
+      "resolution": [
+        960,
+        960
+      ],
+      "images": {
+        "eye_before.png": "4978b69a3b6f5603b5027ca1348143818818ea5130e58013719c31b9e5aa7fd5"
+      },
+      "formal_source_sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+      "png_preview_source_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "full_composition_png_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "preview_source_note": "Actual full PNG composition; formal KTX remains unimportable in Blender."
+    },
+    "after": {
+      "phase": "after",
+      "kind": "offline actual GLB comparison; not native PICO screenshot",
+      "environment_path": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb",
+      "environment_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "baseline_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "actor": {
+        "included": false,
+        "input_sha256": {
+          "ArtSource/tripo-warrior/library/base_prepared_png.glb": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e",
+          "app/src/main/assets/models/opponents/base.glb": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1",
+          "ArtSource/tripo-warrior/library/base_texture_encoding.json": "f2b5d832961cbc6979fc238220217e77f247e58b563809353f4c2aa5fb907ff8",
+          "ArtSource/tripo-warrior/library/base_alignment.json": "3c36703466a923290e5bb26ee450c9bad78feed2a9e8d92612ad395135fe2a00"
+        },
+        "exclusion_reason": "PNG/runtime hashes differ from frozen current v5/commonGrip pair; actor excluded, no old substitute"
+      },
+      "actor_png_path": null,
+      "actor_png_sha256": null,
+      "runtime_actor_sha256": null,
+      "actor_pose": "idle@0.0s",
+      "actor_idle_tracks_selected": 0,
+      "actor_stage_position": [
+        0,
+        0.028,
+        -2.4
+      ],
+      "actor_scale": [
+        1,
+        1,
+        1
+      ],
+      "actor_yaw": 0,
+      "excluded_runtime_layers": [
+        "native UI",
+        "player hand/dao",
+        "separately mounted runtime weapon"
+      ],
+      "cameras": {
+        "eye": {
+          "position_stage": [
+            0,
+            1.65,
+            0
+          ],
+          "target_stage": [
+            0,
+            1.55,
+            -5.3
+          ],
+          "lens_mm": 18
+        }
+      },
+      "sensor_width_mm": 36,
+      "dof": false,
+      "target_area_stage": {
+        "x_m": [
+          -1.195,
+          0.895
+        ],
+        "z_m": [
+          -2.295,
+          -0.305
+        ],
+        "rows": 4,
+        "whole_slabs": 10,
+        "preserve_staggered_joints": true
+      },
+      "render_script_sha256": "ce36865b1f380dfa0ea2aec9fb5fe4f2624816c6aaffa65a9564aaddd10da4c5",
+      "lighting_source": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+      "lighting_sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+      "lighting_recipe": "stage2 setup night, unchanged between before and after",
+      "renderer": "Cycles CPU",
+      "threads": 2,
+      "samples": 8,
+      "resolution": [
+        960,
+        960
+      ],
+      "images": {
+        "eye_after.png": "296e56dab280fe5d25d15b563fb1515cbecb32dd30776594c9c4abb427c0ba13"
+      }
+    }
+  },
+  "same_actor_camera_lighting": true,
+  "assertions": {
+    "same_camera": true,
+    "same_lighting": true,
+    "same_actor": true
+  },
+  "formal_source_sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+  "png_preview_source_sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+  "full_composition_png_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+  "preview_source_note": "Actual full PNG composition; formal KTX remains unimportable in Blender."
+}

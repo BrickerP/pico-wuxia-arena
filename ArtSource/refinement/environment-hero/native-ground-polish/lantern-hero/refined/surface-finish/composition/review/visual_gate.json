@@ -1,0 +1,21 @@
+{
+  "status": "private_full_composition_candidate_for_root_review",
+  "adoption_recommendation": "do_not_replace_formal_bd5d21ef_until_root_validates_private_ktx_candidate_in_native_apk",
+  "positioning_revisions": 0,
+  "further_iteration_authorized": false,
+  "observations": [
+    "The normal eye PNG composition replaces only the two front lanterns and retains layout, anchors and lighting.",
+    "Rounded paper, continuous ribs, hard collars and modest fiber variation remain readable at normal distance without a light change.",
+    "KTX image41 uses the exact fiber source encoded through the existing official UASTC chain."
+  ],
+  "constraints_satisfied": [
+    "249958 expanded triangles, 32 materials and 50 images/textures.",
+    "Only old front lantern components, material10 binding/image41 and appended module nodes/meshes differ.",
+    "No app, formal source, light, Stage, collision or device change."
+  ],
+  "limitations": [
+    "PNG render uses a verified PNG-equivalent source because Blender cannot import formal KHR_texture_basisu.",
+    "Private KTX composition has not loaded in PICO or been reviewed under native light."
+  ],
+  "conclusion": "Complete private composition is ready for Root native KTX/material review, not release or device-quality acceptance."
+}

@@ -1,0 +1,43 @@
+{
+  "task_id": "b9f6ed09-638a-4d35-967b-4eb9fe787dc3",
+  "type": "texture_model",
+  "status": "success",
+  "credits_consumed": 40,
+  "output_dir": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09",
+  "files": [
+    "model.glb",
+    "rendered_image.webp",
+    "preview.png"
+  ],
+  "model_file": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09/model.glb",
+  "preview": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09/preview.png",
+  "chain": [
+    {
+      "task_id": "b9f6ed09-638a-4d35-967b-4eb9fe787dc3",
+      "type": "texture_model",
+      "status": "success",
+      "credits_consumed": 10,
+      "output_dir": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09",
+      "files": [
+        "model.glb",
+        "rendered_image.webp",
+        "preview.png"
+      ],
+      "model_file": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09/model.glb",
+      "preview": "ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09/preview.png"
+    }
+  ],
+  "source_task_id": "ec0d1a96-6cda-4e3b-84b9-71b3f39579b3",
+  "credits_breakdown": [
+    {
+      "task_id": "ec0d1a96-6cda-4e3b-84b9-71b3f39579b3",
+      "type": "text_to_model",
+      "credits_consumed": 30
+    },
+    {
+      "task_id": "b9f6ed09-638a-4d35-967b-4eb9fe787dc3",
+      "type": "texture_model",
+      "credits_consumed": 10
+    }
+  ]
+}

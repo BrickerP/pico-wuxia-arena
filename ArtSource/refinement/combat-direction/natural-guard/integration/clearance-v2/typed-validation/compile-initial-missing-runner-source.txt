@@ -1,0 +1,116 @@
+ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/AttackBankProfileData.kt:54:25: error: unresolved reference 'ReactionProfiles'.
+            reactions = ReactionProfiles(
+                        ^^^^^^^^^^^^^^^^
+ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/AttackBankProfileData.kt:104:25: error: unresolved reference 'ReactionProfiles'.
+            reactions = ReactionProfiles(
+                        ^^^^^^^^^^^^^^^^
+ArtSource/refinement/combat-direction/natural-guard/integration/clearance-v2/AttackBankProfileData.kt:154:25: error: unresolved reference 'ReactionProfiles'.
+            reactions = ReactionProfiles(
+                        ^^^^^^^^^^^^^^^^
+app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt:29:16: error: unresolved reference 'ReactionProfiles'.
+    reactions: ReactionProfiles,
+               ^^^^^^^^^^^^^^^^
+app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt:41:42: error: unresolved reference 'frame'.
+    phase == EnemyPhase.HIT -> reactions.frame(hitReaction, hitZone, elapsedNanos, remainingNanos)
+                                         ^^^^^
+app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/ArenaOpponents.kt:53:48: error: unresolved reference 'ReactionProfiles'.
+internal fun ArenaOpponent.reactionProfiles(): ReactionProfiles = AttackBankProfiles.reactionsForAsset(asset)
+                                               ^^^^^^^^^^^^^^^^
+app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt:159:20: error: unresolved reference 'ReactionProfiles'.
+    val reactions: ReactionProfiles,
+                   ^^^^^^^^^^^^^^^^
+app/src/main/java/com/example/wuxiaarena/p0d2f0182/runtime/AttackBankProfiles.kt:163:43: error: unresolved reference 'ReactionProfiles'.
+    fun reactionsForAsset(asset: String): ReactionProfiles =
+                                          ^^^^^^^^^^^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:31:29: error: unresolved reference 'ReactionProfiles'.
+    private val reactions = ReactionProfiles(
+                            ^^^^^^^^^^^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:118:43: error: cannot infer type for this parameter. Specify it explicitly.
+        for ((reaction, zone, profile) in listOf(
+                                          ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:118:43: error: not enough information to infer type argument for 'T'.
+        for ((reaction, zone, profile) in listOf(
+                                          ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:118:43: error: function 'component1()' is ambiguous for this expression: 
+fun <T> Array<out T>.component1(): T
+fun ByteArray.component1(): Byte
+fun ShortArray.component1(): Short
+fun IntArray.component1(): Int
+fun LongArray.component1(): Long
+fun FloatArray.component1(): Float
+fun DoubleArray.component1(): Double
+fun BooleanArray.component1(): Boolean
+fun CharArray.component1(): Char
+fun <T> List<T>.component1(): T
+fun <K, V> Map.Entry<K, V>.component1(): K
+fun UIntArray.component1(): UInt
+fun ULongArray.component1(): ULong
+fun UByteArray.component1(): UByte
+fun UShortArray.component1(): UShort.
+        for ((reaction, zone, profile) in listOf(
+                                          ^^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:118:43: error: function 'component2()' is ambiguous for this expression: 
+fun <T> Array<out T>.component2(): T
+fun ByteArray.component2(): Byte
+fun ShortArray.component2(): Short
+fun IntArray.component2(): Int
+fun LongArray.component2(): Long
+fun FloatArray.component2(): Float
+fun DoubleArray.component2(): Double
+fun BooleanArray.component2(): Boolean
+fun CharArray.component2(): Char
+fun <T> List<T>.component2(): T
+fun <K, V> Map.Entry<K, V>.component2(): V
+fun UIntArray.component2(): UInt
+fun ULongArray.component2(): ULong
+fun UByteArray.component2(): UByte
+fun UShortArray.component2(): UShort.
+        for ((reaction, zone, profile) in listOf(
+                                          ^^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:118:43: error: function 'component3()' is ambiguous for this expression: 
+fun <T> Array<out T>.component3(): T
+fun ByteArray.component3(): Byte
+fun ShortArray.component3(): Short
+fun IntArray.component3(): Int
+fun LongArray.component3(): Long
+fun FloatArray.component3(): Float
+fun DoubleArray.component3(): Double
+fun BooleanArray.component3(): Boolean
+fun CharArray.component3(): Char
+fun <T> List<T>.component3(): T
+fun UIntArray.component3(): UInt
+fun ULongArray.component3(): ULong
+fun UByteArray.component3(): UByte
+fun UShortArray.component3(): UShort.
+        for ((reaction, zone, profile) in listOf(
+                                          ^^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:119:13: error: cannot infer type for this parameter. Specify it explicitly.
+            Triple(HitReaction.PLAYER_HIT, HitZone.BODY, reactions.body),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:119:13: error: not enough information to infer type argument for 'C'.
+            Triple(HitReaction.PLAYER_HIT, HitZone.BODY, reactions.body),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:120:13: error: cannot infer type for this parameter. Specify it explicitly.
+            Triple(HitReaction.PLAYER_HIT, HitZone.HEAD, reactions.head),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:120:13: error: not enough information to infer type argument for 'C'.
+            Triple(HitReaction.PLAYER_HIT, HitZone.HEAD, reactions.head),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:121:13: error: cannot infer type for this parameter. Specify it explicitly.
+            Triple(HitReaction.PARRIED, HitZone.HEAD, reactions.side),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:121:13: error: not enough information to infer type argument for 'C'.
+            Triple(HitReaction.PARRIED, HitZone.HEAD, reactions.side),
+            ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:129:38: error: unresolved reference 'clip'.
+                assertEquals(profile.clip, frame.clip)
+                                     ^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:131:38: error: unresolved reference 'sample'.
+                assertEquals(profile.sample(time).contact, frame.pose.contact)
+                                     ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:132:38: error: unresolved reference 'sample'.
+                assertEquals(profile.sample(time).bladeTip, frame.pose.bladeTip)
+                                     ^^^^^^
+app/src/test/java/com/example/wuxiaarena/p0d2f0182/runtime/EnemyPoseSelectionTest.kt:150:13: error: unresolved reference 'ReactionProfiles'.
+            ReactionProfiles(reactions.body, reactions.head,
+            ^^^^^^^^^^^^^^^^

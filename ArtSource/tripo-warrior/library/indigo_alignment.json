@@ -185,8 +185,8 @@
     },
     {
       "name": "attack_right",
-      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+      "source_glb": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
       "channels": 234,
       "keyframe_time_range_seconds": [
         0.0,
@@ -195,10 +195,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "0ab0a92b3d384f006acfb908a943e6caa439803f3ab63a108f1dbaaf526e3e9a",
+      "keyframe_semantics_sha256": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c",
       "max_default_local_matrix_difference": 0.0,
-      "source_keyframe_semantics_sha256": "eb50993b3188e5dd2bcf56a161e09408806015f163f6915f5c4f5b885804a07d",
-      "retargeted_clip_sha256": "6429e874c49c12f5172cdc24e12a6836b08f43feec24a3ac76425939a9ef268c"
+      "source_keyframe_semantics_sha256": "234150054ac606990eeafae4fae9e7a2180e5d8bfc52b744cebf50edaed14e67",
+      "retargeted_clip_sha256": "ecac0015824f417ebe8eca956c00fe2e23422df08c685901abb3809297169914"
     }
   ],
   "body_bounds_node": "TripoBody_Mesh",
@@ -382,18 +382,18 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 14862940,
-      "sha256": "08261b8d4264417b4c8b708bcf7b1505a91d0858fc8bbad8ecf9bb55268cd060"
+      "bytes": 14862948,
+      "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
     },
     {
       "file": "indigo_prepared_png.glb",
-      "bytes": 17956012,
-      "sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7"
+      "bytes": 17956016,
+      "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
     },
     {
       "file": "indigo.glb",
-      "bytes": 43931232,
-      "sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a"
+      "bytes": 43931240,
+      "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
     }
   ],
   "finger_rotation_calibration": {
@@ -25814,7 +25814,7 @@
       },
       {
         "clip": "attack_right",
-        "before_semantics_sha256": "52aa16eb6daafa0c09a1357521ad5c71ac7beb4b02b74cbcd4c5e7256cbb7712",
+        "before_semantics_sha256": "acddf0f6aedb98327e59879d7f13227986b57b83c083365e9838ed33b2d442c4",
         "foot_vertex_counts": {
           "L": 1197,
           "R": 1156
@@ -29804,9 +29804,14 @@
         },
         "maximum_plane_error_metres": 0.004008960713250766,
         "maximum_opposite_foot_height_metres": 0.01633475161886165,
-        "after_semantics_sha256": "0ab0a92b3d384f006acfb908a943e6caa439803f3ab63a108f1dbaaf526e3e9a"
+        "after_semantics_sha256": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
       }
     ]
+  },
+  "prepared_wrist_constraint": {
+    "applied": false,
+    "reason": "Constraint only targets veteran",
+    "combined_rigid_steel_vertex_count": 5533
   },
   "id": "indigo",
   "name": "青衫护院",
@@ -30135,9 +30140,9 @@
     },
     {
       "name": "attack_right",
-      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
-      "retargeted_clip_sha256": "6429e874c49c12f5172cdc24e12a6836b08f43feec24a3ac76425939a9ef268c",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+      "retargeted_clip_sha256": "ecac0015824f417ebe8eca956c00fe2e23422df08c685901abb3809297169914",
       "method": "world-space bind-rotation delta, target local bone lengths preserved",
       "source_joints": 78,
       "target_joints": 78,
@@ -30156,7 +30161,7 @@
       "target_inverse_binds_sha256": "2ae0d1969cdb4e1aca8432aabe6cd16d789c716ed8e4afc86be456a0b69bf580",
       "target_mesh_sha256": "52e9aa15b384296cda62504f83d1e187717af146c07986c07a06f4d91c739b6c",
       "interpolation_policy": "LINEAR",
-      "maximum_quaternion_step_radians": 0.6439464092254639
+      "maximum_quaternion_step_radians": 0.5118615627288818
     }
   ],
   "grip_source": {
@@ -30272,14 +30277,14 @@
   },
   "prepared_png": {
     "file": "indigo_prepared_png.glb",
-    "bytes": 17956012,
-    "sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7"
+    "bytes": 17956016,
+    "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
   },
   "runtime_texture_encoding": {
     "file": "indigo_texture_encoding.json",
-    "sha256": "6672e0d8c2200a2ef9fff311968b230d89bf18b09cc4a2fbd81da678e36ad885",
-    "prepared_png_sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7",
-    "encoded_sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a",
+    "sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
+    "prepared_png_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
+    "encoded_sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
     "preservation": {
       "non_image_bufferViews_byte_identical": 2561,
       "accessors_semantics_and_payloads_unchanged": 2561,
@@ -30605,6 +30610,6 @@
   },
   "attack_profiles": {
     "file": "indigo_attack_profiles.json",
-    "sha256": "b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb"
+    "sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
   }
 }

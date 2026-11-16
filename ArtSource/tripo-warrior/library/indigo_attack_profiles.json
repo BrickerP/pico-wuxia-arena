@@ -77947,7 +77947,7 @@
         200000000,
         600000000
       ],
-      "animation_semantics_sha256": "0ab0a92b3d384f006acfb908a943e6caa439803f3ab63a108f1dbaaf526e3e9a",
+      "animation_semantics_sha256": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -105525,7 +105525,7 @@
     }
   },
   "character_id": "indigo",
-  "model_sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a",
+  "model_sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",
@@ -105540,7 +105540,7 @@
     "RIGHT": {
       "incoming_guard_side": "RIGHT",
       "actor_travel_side": "RIGHT",
-      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9"
+      "source_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4"
     }
   }
 }

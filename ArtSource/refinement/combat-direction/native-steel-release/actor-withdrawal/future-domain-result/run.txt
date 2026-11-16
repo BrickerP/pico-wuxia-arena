@@ -1,0 +1,10 @@
+JUnit version 4.13.2
+.............STEEL_RELEASE idle sourceResumedMs=150 retreatMm=49.49999999999988 maximumVirtualOffsetMm=0.0
+.......ACTOR_FUTURE_DOMAIN_PLAN contactSource=0.8333333333333334 yawDegrees=-61.931004610854195 durationSeconds=1.2270537856810413 retreatMm=49.5
+ACTOR_STEEL_SESSION sourceResumedMs=1310 guardMs=1990 retreatMm=49.50000000000009 yawDegrees=-3.9889969611484655 maxYawStep=0.010000109672546387 minimumGapMm=-9.999998398790844E-7 maxPlayerOffsetMm=0.0
+............................STEEL_DOMAIN_PAIRED oldSamples=212 futureSamples=120 oldYawDegrees=-61.93100461085428 newYawDegrees=-61.93100461085428 oldSeconds=1.2270537856810428 newSeconds=1.2270537856810428 oldRetreatMm=49.5 newRetreatMm=49.5
+
+Time: 0.68
+
+OK (48 tests)
+

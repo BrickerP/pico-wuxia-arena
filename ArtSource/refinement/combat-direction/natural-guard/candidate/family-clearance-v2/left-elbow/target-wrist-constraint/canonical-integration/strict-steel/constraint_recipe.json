@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "character_id": "veteran",
+  "clip": "attack_left",
+  "arm_bones": [
+    "R_Upperarm",
+    "R_Forearm",
+    "R_Hand"
+  ],
+  "swivel_degrees": -12.0,
+  "window_source_seconds": [
+    0.9,
+    1.06,
+    1.235,
+    1.3
+  ],
+  "local_sample_rate_hz": 120,
+  "key_steel_budget_metres": 5e-06,
+  "subkey_steel_budget_metres": 0.001,
+  "reference": "unconstrained_same_target_prepared_fk"
+}

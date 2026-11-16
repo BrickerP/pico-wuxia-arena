@@ -1,0 +1,1 @@
+Verified exact generated attack data: 3 actors × 3 attacks + actual idle/walk and HIT reactions

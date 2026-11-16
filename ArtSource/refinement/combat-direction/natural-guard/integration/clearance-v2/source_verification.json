@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "original_raw_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+  "candidate_raw_sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+  "changed_tracks": [
+    "L_Upperarm/rotation",
+    "L_Forearm/rotation",
+    "L_Hand/rotation"
+  ],
+  "track_count": 234,
+  "all_other_channel_payloads_exact": true,
+  "all_234_guard_endpoint_values_exact": true,
+  "all_time_payloads_exact": true,
+  "all_raw_JSON_rest_skin_material_descriptors_exact": true,
+  "all_BIN_bytes_outside_three_rotation_payloads_exact": true,
+  "in_memory_negative_fixtures_rejected": [
+    "R_Hand@60",
+    "L_Upperarm@0"
+  ]
+}

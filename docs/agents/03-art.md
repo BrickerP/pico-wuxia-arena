@@ -1,5 +1,132 @@
 # 03 · 服装结构与装配精修
 
+## Root返修合同修正：先修渲染证据（2026-11-17）
+
+Root已核旧 `segmented-design/render/render_material_guard.py` 确实按 `material_index > 0` 删除所有面；新增Tripo甲使用新材质，旧前后图因此不足以证明“被旧甲遮住”。此前不可见原因保持未定，不再据该图改安装坐标。新 `shoulder-rebuild/real-source-refit/` 独立生产任务先修renderer，仅按明确DAO节点/primitive过滤，保留所有角色与甲PBR；重画同一个953f候选并列实际材质/面计数后再修几何。
+
+本轮可在有真实证据的局部肩域移除被替换旧硬甲、扩必要布料边界并记录逐面ledger，不以固定106标签保留可见破口；保全其余角色、78骨、IBM、刀与时序。取消“一次修正就停”的人为限制，改为有因果见证的正常制作迭代；不扫描参数或发新付费任务。目标是实际厚曲面/PBR可见、袖身连续，并以当前5180同域OH/LEFT/RIGHT审计。所有输出仅新私有目录，Root统一review/app/Git。
+
+## Root 当前收件与返修条件（2026-11-17）
+
+Tripo已实际生成5753三角PBR硬甲源（`8dbfc771…`），并非已进入Boss。当前 `tripo-cap-fit/delivery_handoff.json` 明确guard拟合失败，`connected-sleeve/delivery_handoff.json` 连续袖身造型也未通过；两份候选均不得进入producer或APK。Root接手审源part与角色安装方向，再确定单一有依据的返修；当前不继续无目标平移／缩放，不再提交收费生成任务。
+
+后续实际使用的新基线是组合binding `51807084…`，须同时检查RIGHT新源a726的空手左臂回收，以及OVERHEAD／LEFT。成功标准为正常视角读得出的厚甲轮廓、与既有衣料可信连续的收口，以及同一角色动作域无新增穿插；预算或源预览均不代替角色与原生画面验收。
+
+## Tripo 硬护肩拟合首件：阶段结束，等待 Root review（2026-11-17）
+
+**阶段结束，等待对应 Root review。真实 Tripo 源已导入，但 guard 拟合未通过，候选冻结，不进入 producer／APK。** 唯一入口：`ArtSource/refinement/character/veteran-boss-refinement/shoulder-rebuild/tripo-cap-fit/delivery_handoff.json`。固定源为 `armor-hero/.../model.glb`（`8dbfc771…`，5,753 三角、1 材质／3 图）；实际三视图确认其有厚度、三肋和完整 PBR，不把生成预览当作 Boss 端验证。
+
+拟合只选择该源角色左侧连通护甲，采用正旋转、0.25 均匀尺度和一次向外 +Z 85mm 平移；无负 scale。候选 RAW `953f4956…`、v5 预览 `563a7b65…`，硬甲 2,598 三角、整人 36,413 三角，复制源 PBR 三图，统一刚性挂接 `L_Upperarm`。原身体、78 骨／REST／IBM、动作、DAO 和 connected-sleeve 文件均保留，106 域没有扩大。
+
+已实际看原材质 normal／local guard 对照：`render/images/guard_normal_before_after.png` 与 `guard_local_before_after.png`。首次轴向拟合被原护肩遮住；唯一外移修正后仍没有形成可读的外侧厚甲轮廓，也无法验证与连续袖身的可信收口。故不进入三 OH／LEFT 净空、不再重选连通网格、平移或缩放，也不发起新的 Tripo 任务。
+
+正式资源、公共 producer、library／app、构建、设备和 Git 未改。当前候选与三视图保留为真实拟合失败证据，等待 Root 重新选择护肩子集／挂接方向。
+
+## Root新Tripo硬甲源：接入真实护肩，保留袖身修复（2026-11-17）
+
+Root已通过ov CLI doctor（生成前4200credits，0冻结）并完成单件tripo-v3.1/detailed/6000面→PBR texture链，实付40credits。唯一新硬甲源为 `ArtSource/tripo-warrior/armor-hero/tripo-out/one-single-cohesive-wearable-lef-2-b9f6ed09/model.glb`，SHA `8dbfc771b429328f964d648dda8cdea287c5f508c6e31deb6f5a0a793f455637`，5753tri、1材质/3图、5583692B；任务ec0d1a96→b9f6ed09，完整plan/result在armor-hero。Root实际看preview：有整体弧面、三肋、厚包边与黑铁旧铜质感，接受为拟合源，不是Boss已采用或原生通过。
+
+03继续 `shoulder-rebuild/connected-sleeve/` 的真实53边界袖身工作；硬护肩造型改用这一固定Tripo GLB，不再制作512面平板。新增拟合输出归 `shoulder-rebuild/tripo-cap-fit/`。先实际导入GLB检查正/侧/内侧，做米制/轴向/原点与原L_Upperarm/Clavicle安装对齐；保弧面与材质，不能负scale或把厚甲压成平条。布身必须与原边界连续，不用浮动tab遮缝。可按真实需要把肩部最终预算改为<=7000tri（5753硬甲＋必要袖身），whole仍<=40000；最多3张1024局部PBR图，保normal/base/MR语义并复用KTX链，不凭预算称性能通过。
+
+先交固定guard正常/局部及源part三视图，再同一首件审三OH/LEFT与body/片间/DAO/袖口。旧失败cap冻结，已做袖身脚本保留；45分钟首件、一次有实见证的定位修正，不扩106豁免，不再提交Tripo收费任务，不改formal/app/公共producer/Git/设备。Root统一合入。
+
+## 连续袖身返修首件：阶段结束，等待 Root review（2026-11-17）
+
+**阶段结束，等待对应 Root review。硬件 REST 通过，但连续袖身造型未通过，候选冻结，不进入 producer／APK。** 唯一入口：`ArtSource/refinement/character/veteran-boss-refinement/shoulder-rebuild/connected-sleeve/delivery_handoff.json`。本轮将原 969 面拆为 868 个硬甲替换面与 **101 个保留原衣料接口面**，未扩大固定 106 面安装域；硬护肩与三条浅肋统一挂接 `L_Upperarm`，局部使用两张 1024 黑铁／旧铜图，符合材质额度。
+
+硬件 REST 门通过：四个硬组件闭合、绕序一致、组合相交 0；RAW `75db96d9…`、v5 预览 `5d21be1d…`，新增硬面 592 三角、整人 33,539 三角。原 78 骨／REST／IBM、动作、DAO、全身其余部位保持。该门只验证硬件，不证明保留衣料已经成为真实连续袖身。
+
+已实际看原材质 normal／local guard 对照：`render/images/guard_normal_before_after.png` 和 `guard_local_before_after.png`。黑缝没有被两条遮挡片掩盖，但新的证据更明确：即使保留 101 面原衣料，硬护肩下方仍有大面积黑洞，说明原面保留不是“沿 53 边界焊接重建连续袖身”。硬片、浅肋和局部材质无法补足这个结构断口。
+
+按合同停止于 guard 门：未进入 guard／三 OH／LEFT 动态、未继续添加遮挡垫片、不再调 UV／材质或烘焙。正式资源、公共 producer、library／app、构建、设备与 Git 未改；本件作为真实失败首件保留，等待 Root 重新界定袖身接口／层序设计方向。
+
+## Root具体返修：先补真实袖身，再做护肩收口（2026-11-17）
+
+Root已实际看512tri首件正常/局部对照。新件仍是悬空的近乎平板，粗糙来源UV被拉成条纹，黑缝来自移除融合衣甲后没有重建袖身；两条悬空tab不能替代衣料。这不改变“需要完成精修”的目标，旧停止态只封存旧件。
+
+下一轮仍在 `shoulder-rebuild/connected-sleeve/`：先沿真实53边界拓扑重建并焊接连续袖身/衣甲过渡，复用相邻衣料材质与骨权，不能加独立遮挡垫片。再在真实肩—肘骨轴/外侧三角肌包络上做有体积的弧形护肩，保内侧活动空间；板体有2–3mm厚度、可读倒角/收口与三条钝端浅肋，不再输出500面平条。需要的曲率/倒角可用现6000tri预算；以0.3–0.5m真实局部图的轮廓/连接/材质收益验收，面数省不能当收益。护甲局部UV需重新展开，禁止直接把旧皱折atlas拉伸到新板；最多两张1024图衍生黑铁/旧铜材质，不烘固定高光。原Tripo全身及78骨/IBM/动作不变。
+
+这是针对已见黑缝/平板/条纹的明确结构返修，允许完成必要的衣料网格与UV修改；不得拿上轮次数额度结束新合同。45分钟交同一连贯首件，原正常/局部机位对比及guard/三OH/LEFT实际检查；不扩大106域，不把孔盖住冒充真实袖身。Root另外重试ov Tripo CLI网络/余额，余额未证实前不发收费任务；本路不提交Tripo任务，也不拿Quaternius替代。
+
+## 真实穿着结构首件：阶段结束，等待 Root review（2026-11-17）
+
+**阶段结束，等待对应 Root review。REST 通过但 guard 造型未通过，候选冻结，不进入 producer／APK。** 唯一入口：`ArtSource/refinement/character/veteran-boss-refinement/shoulder-rebuild/delivery_handoff.json`。本轮在原 969 面范围内构建外侧硬护肩、三条浅肋与两条软连接，固定 106 面安装域未扩张；硬件统一 `L_Upperarm` 刚性挂接，软连接才使用明确的 Clavicle／Upperarm 过渡权重。
+
+REST 门通过：六个组件分别闭合、绕序一致，组合体相交 0；RAW `48730421…`、v5 预览 `d3897238…`，总肩部新增 512 三角、整人 33,358 三角。原骨架／REST／IBM、动作、DAO、全身其它部件、刀轨及贴图保持；这些事实只证明结构与资源保全，不构成可穿戴或美术通过。
+
+已实际看原材质 normal／local guard 对照：`render/images/guard_normal_before_after.png` 与 `guard_local_before_after.png`。结果未过形体门：硬片与软连接之间露出明显黑缝，连接片像浮动薄片，肋纹／旧铜纹理无法形成可信的衣甲收口。按合同不以更多软片、垫片或安装域豁免遮盖缺口，停止于 guard 门；没有进入 six-pose 动态、UV／材质生成或烘焙。
+
+正式资源、公共 producer、library／app、构建、设备和 Git 未改。下一步需由 Root 选择新的衣甲接口／层序设计方向；本轮候选和图像作为实际失败证据保留。
+
+## Root拒绝切块拼装，改做真实穿着结构（2026-11-17）
+
+共同基座试制仍有neutral161、OH1.15共724片间交叉，guard硬—布最大开口约59mm；原Tripo体切成三闭块再拟合的路线封存，不再调角或改变检查门。新阶段由外部03实际制作，Root专项coupled-assembly已结束，双方不并行写同一模型。
+
+新Ownership仅 `ArtSource/refinement/character/veteran-boss-refinement/shoulder-rebuild/` 与03。本轮不再继承皱折/自交的实体切块几何，利用原Boss外侧轮廓与肋形作为设计参考，重建可穿着的中式外侧护肩：外侧弧形硬甲有真实厚度、明确层序与收口，内侧留人体活动空间；软连接与原53接口构成真实衣甲过渡，不能补假垫片遮盖穿插。原Tripo肩甲以外全身不动，保78骨/IBM/米制/动作及刀轨。先用共同rest frame和原骨归属建干净表面，不独立Kabsch追姿态；可重做原授权肩甲与53边界过渡网格及局部UV/材质，移除该部位原法线褶皱，保整体黑铁/旧铜、肋纹与衣料身份。局部最多两张1024图、肩部<=6000tri、whole<=40000，不加新灯/骨/人物。
+
+45分钟一个完整可看首件，先同一原材质正常游戏视距与局部图看护肩形体/边沿，再核rest、guard、OH.68/.9/1.15、LEFT1.1的硬片/身体/软接口/DAO与净空；三角数和闭体不代表精致。需要失败时给真实位置与本轮图，不复用旧图、参数扫或扩106豁免。不改正式资源/app/公共producer/Git/设备；Root接受后统一原生产线接入。你不独自在仓库，保留其他人的修改。
+
+## 耦合装配首件：实际画面已交，本轮封口拒绝（2026-11-17）
+
+**阶段结束，等待Root review；不得进入formal／APK。** 唯一入口`voxel-safe/articulated/coupled-assembly/delivery_handoff.json`。实际RAW `e13d8a0c…`、preview `eb4879c7…`，当前1d4176c2源未改。新件仍5548硬面＋原接口101软面＝5649tri，whole38495，未扩6000／40000预算或106安装域。
+
+本轮使用原共同肋形坐标、同一个guard基座，分别逆绑定到既有Clavicle30／Upperarm31／Upperarm31，没有再独立Kabsch。guard各片与同一基座最大偏差约0.238µm，guard和OH.9片间交叉均降为0；但neutral仍161对、OH1.15仍724对（其中0→1为714、0→2为10），因此不能称耦合装配可行。实际GLB回读中第0片还有3对自交，定位切口tri1730与461／462／1223，第1／2片独立过；闭合／单连通不抵消该失败，所有门保持false。
+
+六个实际采样（neutral＋既定五pose）完整交付：
+
+| 姿态 | 新硬件对身体 | 对软接口 | 片间 | DAO | 固定106域外 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| neutral | 304 | 106 | 161 | 0 | 518 |
+| guard | 173 | 111 | 0 | 0 | 249 |
+| OH .68 | 181 | 4 | 0 | 0 | 183 |
+| OH .9 | 102 | 6 | 0 | 0 | 106 |
+| OH 1.15 | 1084 | 52 | 724 | 0 | 1860 |
+| LEFT 1.1 | 142 | 35 | 0 | 0 | 172 |
+
+这些是交叉对数，不是穿透深度、肉眼面积或严重度。`failure_localization.json`提供全部31组关系的实际world包围范围、triangle／source face ID与线段见证。骨骼world差0，单骨相对SVD误差最大9.90e-7；未新建骨或多骨混权。
+
+原53条布面—身体接口由原101面恢复，原位置／UV／材质／skin权重保持，源别名缝隙0；**这不等于新硬甲—布面封口**。实际原53边界点对序列化硬表面的最近距离guard中位7.158mm／最大59.241mm，OH.9中位17.590mm／最大59.908mm。软面OH.9的38、OH1.15的61、LEFT的21对身体交叉，逐source face核对全部已在原969基线中，仍保留为问题而非放行豁免；未加假遮盖垫片或扩衣袖。
+
+已实际看`coupled-assembly/render/diagnostic_guard_{normal,local}_{before,after}.png`四图，均由本轮实际模型重渲，有图片／相机／GLB hash。原肋纹身份保住，守势不再互相挤压；但切缝、前下沿断口和袖口开口明显，整体品质拒绝。两张normal使用同一1.65m眼高，两张local同机位；原材质保留，DAO仅显示隐藏。这是Blender诊断画面，不能冒称PICO截图。
+
+实际build→私有拒绝诊断导出→六采样→四图已完成；本轮没有再完整重放第二遍组合流水线，未宣称byte-identical重建。新增有限距离工具的5个正常／边界／退化／薄三角测试通过，公共精确门与物理容差未改。当前候选封存，不再扫参数；若继续，需要重新界定真实锁骨／上臂运动边界及柔性接口，不把本候选失败扩大成数学上所有方案均不可行。正式资源、公共producer、app、设备、Git及他人工作均未改。
+
+## Root实物拒绝与耦合装配合同（2026-11-17）
+
+Root已实际看拒绝诊断局部图：肋纹保留，但三片挤压、底沿与袖口断开，不能以闭体或面数通过代替采用。三片各自Kabsch拟合破坏了片间关系，禁止继续独立拟合后拼装，也不放宽几何门或扩大106域。保留当前5cd99/9675及全部失败证据。
+
+继续由Root专项 `armor_solid_repair` 负责，外部03不并行改模型。新Ownership仅 `voxel-safe/articulated/coupled-assembly/` 及03，公共验收器修改另经Root审核。先读取真实片间交点与三个切口边界，用原共同坐标系建立一套耦合装配：共同基座变换、真实肋谷关节/重叠层序、必要的局部净空和原53接口过渡，不将三片分别追着骨骼摆正。保留源肋形/UV/材质和原78骨/IBM，明确铰接随动关系；允许在授权肩甲与53接口范围重构必要间距和边界，不新增骨、假垫片或全身改形。
+
+30分钟交一个可看的完整首件与同机位正常/局部图，五个既定姿态同时审身体/片间/DAO/接口；总肩部<=6000tri、whole<=40000。先计算中性装配和至少guard/OH.9是否可满足，再决定是否执行完整导出。不能同时满足则交具体失败位置和图后封口，不参数扫、不伪造通过。不得写正式资源/app/公共producer/Git/设备；你不独自在仓库，保留其他人的修改。
+
+## EXACT CSG及精确验收器修复：拒绝诊断实物已交（2026-11-17）
+
+**阶段结束，不进入formal。** 当前入口`voxel-safe/articulated/delivery_handoff.json`。真实三片闭体CSG及guard刚性fit已执行，原纹理/肋形保留，骨归属Clavicle30／Upperarm31／Upperarm31；硬片5548tri＋原53接口一环101tri＝5649，whole38495，符合Root新6000／40000预算，但预算不等于设备性能通过。
+
+实际拒绝诊断RAW `5cd99b1d…`、preview `9675a27a…`与`render/rejected_diagnostic_guard_{normal,local}_after.png`已交。原材质正常/局部图已实际看：肋纹身份保住，但层间挤压交叉、袖口不齐，组合品质不通过。authoring/serialized片间均233对；实际序列化第0/2片独立通过，第1片出现1个3.0282e-14m²退化三角。失败状态没有改true，仅隔离诊断出口允许可视化/数值计算，正式门仍拒绝。
+
+五pose实际拒绝诊断已跑：guard总412（hard-body143／soft165／片间104／DAO0，固定域外359）；OH.68总262／域外260，OH.9总156／域外135，OH1.15总1587／域外1587，LEFT1.1总249／域外245。DAO五姿态全0；数值不是可见深度/严重度，不沿用上轮单片数字。不扩大106豁免、不改原78骨/IBM/Grip，其余源与正式资源不动。
+
+本轮经Root授权另修了公共`audit/rest_gate.py`：旧cross面积量直接比较米制TOL会造共面假面积，旧近面section也会把合法共享点造假线段。actual float32独立Fraction oracle证明两例；现在polygon裁剪、3Dsections、dominant-axis区间、shared拓扑关系均精确，面积平方判定后才转JSON float。物理1nm/1e-13m²不变；旧10＋独立coplanar10＋exact3D9共29测试全过，真穿越/非shared点触/微小真面积仍拒。旧源码/执行事实保存在`before_coplanar_fix/`和`before_exact_3d/`，不追改历史为通过，Root另审工具维护diff。
+
+## 肋谷关节化首件：阶段结束，切口实体未成立（2026-11-16）
+
+本轮25分钟固定方案已执行并停止。入口`voxel-safe/articulated/delivery_handoff.json`。在同一健康3898面肋纹实体上按实际半径profile谷x=.256/.308米切三层，拟用Clavicle30／Upperarm31／Upperarm31刚性承载，层间留1mm；没有再画椭圆板、改外表或扩大106域。
+
+第一片1734tri已通过原1nm门；中片1674tri闭合/绕序一致/单连通，但切口仍有6对共面正面积重叠，故不放行。已把两个非共面切口分别填充（避免一次triangle-fill桥接两端），仍无法正确处理薄体积截面的嵌套环。第一片的30nm共享顶点零长见证经质心条件化/循环面首点规范化解决，实际p/f几何与绕序未变；这不覆盖中片真实正面积重叠。
+
+未生成assembly、未绑定/导出GLB、没有新guard图或五pose动态结果，不沿用上轮单片图/数字冒充。三片导出/53边界软接口/多片5pose脚本已备好但输入未齐。下一具体技术点应使用健康闭体的稳健Boolean/CSG切分或有孔约束截面三角化，不应再重复普通扇形封口或放宽相交门。正式/公共产线/设备/Git均未改，等待Root review。
+
+## 守势刚性挂接接力：阶段结束，外部净空未通过（2026-11-16）
+
+Root授权后已对同一voxel-safe实体作实际guard面积加权Kabsch统一刚体安装，不改形、不加厚、不逐点压形、不多骨混权。入口`voxel-safe/mount-fit/delivery_handoff.json`；RAW `46deb4de…`、当前PNG预览`d8d4daee…`。完整组合脚本已真正重放，最终两GLB SHA逐字节复现，旧未完整重放问题已补齐。
+
+安装旋转约9.410°，对应点RMS25.424→18.125mm，53点边界投影中位11.779→7.170mm，最大仍59.261mm。正常/局部guard原材质图已实际看：顶角更接近原甲，肋峰身份保持，但下沿露缝没有消除，不算装配或品质通过。
+
+有限五姿态真实诊断：guard新甲对retained身体169对（35固定安装关系、134域外）/旧969同域基线0；OH.68为78/旧29，OH.9为84/旧48，OH1.15为1055/旧449，LEFT1.1为169/旧37。DAO五姿态均0。单骨相对SVD误差仍约9.9e-7，source/candidate原骨骼world/骨长差0；这些不能抵消外部穿插。数字是交叉对，不冒称肉眼深度；未扩106域或略去outer/rim。
+
+原融合式网格在拆掉969面后有53条新开放接口边，顶点ID和实际guard位置见`junction_analysis.json`。一个刚体不能复现原混权形变；后续需重新界定刚性金属与柔性接口／挂接，再考虑原footprint内保边界原权重的柔性内衬。不能通过内衬掩盖现有真正交叉；本轮没有添加软垫或扩大衣袖。候选保持私有，不进producer/APK，Root决定下一结构任务。
+
 ## Root专项接手：肋峰实体已通过REST，guard装配未通过（2026-11-16）
 
 **阶段结束，等待Root review；不进入正式producer/APK。** 实物入口为`rib-preserving/voxel-safe/delivery_handoff.json`，RAW `b805c428…`、当前dc0动作PNG预览 `7ed57a12…`。新甲3898tri，只拆原969面，106面安装域不扩；78骨/REST/IBM、原材质/图片与其它源流保全。

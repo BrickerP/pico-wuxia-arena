@@ -5,6 +5,7 @@ import com.example.wuxiaarena.core.combat.BladeContact
 import com.example.wuxiaarena.core.combat.BladeContactUncertainException
 import com.example.wuxiaarena.core.combat.BladeSegment
 import com.example.wuxiaarena.core.combat.BladeSweep
+import com.example.wuxiaarena.core.combat.ActorWithdrawalPlan
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.firstBladeContact
 import com.example.wuxiaarena.core.combat.firstRigidBladeContact
@@ -137,6 +138,12 @@ internal class ArenaSession(
     private var contactRecovery: ContactRecovery? = null
     private var enemyMotionNanos = 0L
     private var steelContactLatched = false
+    private var steelWithdrawal: SteelWithdrawal? = null
+    private data class SteelWithdrawal(val plan: ActorWithdrawalPlan, val source: EnemyPoseFrame,
+        var elapsedNanos: Long = 0L) {
+        val durationNanos = kotlin.math.ceil(plan.durationSeconds * 1_000_000_000.0).toLong()
+        val complete: Boolean get() = elapsedNanos >= durationNanos
+    }
     private var contactQueryFailures = 0
     private var contactUncertainReceipt: Long? = null
     private data class ContactRecovery(val profile: AttackProfile, val direction: AttackDirection,
@@ -241,7 +248,7 @@ internal class ArenaSession(
                 headQuality = snapshot?.head?.pose?.quality,
                 dominantHandQuality = hand?.pose?.quality,
                 targetInRange = targetInRange,
-                canStartAttack = targetInRange?.let(combat::canStartAttack),
+                canStartAttack = targetInRange?.let { steelWithdrawal?.complete != false && !motion.weaponConstrained && combat.canStartAttack(it) },
                 result = result,
                 playerHealth = playerHealth,
                 playerStamina = stamina.roundToInt(),
@@ -453,6 +460,11 @@ internal class ArenaSession(
             latestMotion = target
             return true
         }
+        if (steelContactLatched && !motion.weaponConstrained &&
+            target.swing?.id?.let { it > consumedStrikeId } == true) {
+            steelContactLatched = false
+            steelWithdrawal = null
+        }
         var remaining = delta
         var consumed = 0L
         var stopped = false
@@ -468,6 +480,51 @@ internal class ArenaSession(
             consumed += frozen
             if (remaining == 0L && !zeroQuery) break
             synchronizeAttackBaseline()
+            val withdrawal = steelWithdrawal
+            if (withdrawal != null && !withdrawal.complete && remaining > 0L) {
+                val step = minOf(remaining, 10_000_000L, withdrawal.durationNanos - withdrawal.elapsedNanos)
+                val fromFrame = simulationMotion ?: initial
+                val toFrame = if (stopped) fromFrame else frameAt((consumed + step).toDouble() / delta,
+                    receiptStartNanos + consumed + step)
+                val actorBefore = captureEnemyLocomotion()
+                val before = enemyAttackPose()
+                val next = withdrawal.plan.at((withdrawal.elapsedNanos + step) / 1_000_000_000.0)
+                val previousPosition = checkNotNull(enemyPosition)
+                enemyPosition = next.position
+                enemyYaw = next.yawRadians.toFloat()
+                enemyTravelMeters += previousPosition.distanceTo(next.position)
+                enemyMoveDirection = 0f
+                val after = enemyAttackPose()
+                val contact = try { queryContact(fromFrame, toFrame, before, after) }
+                catch (uncertain: BladeContactUncertainException) {
+                    restoreEnemyLocomotion(actorBefore)
+                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal query held: ${uncertain.message}")
+                    combat.advanceWhileWeaponStopped(remaining)
+                    return true
+                }
+                if (contact != null) {
+                    restoreEnemyLocomotion(actorBefore)
+                    steelWithdrawal = null
+                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal met a new contact; keeping the proven pose")
+                    combat.advanceWhileWeaponStopped(remaining)
+                    return true
+                }
+                withdrawal.elapsedNanos += step
+                combat.advanceWhileWeaponStopped(step)
+                consumed += step
+                remaining -= step
+                simulationMotion = toFrame.copy(strike = null, swing = null, skillGesture = false)
+                latestMotion = simulationMotion
+                if (withdrawal.complete) {
+                    try { after?.let { releaseSeparatedWeapon(it.blade()) } }
+                    catch (uncertain: BladeContactUncertainException) {
+                        if (contactQueryFailures++ < 4) logMessage("Weapon catchup held: ${uncertain.message}")
+                    }
+                }
+                stopped = true
+                zeroQuery = false
+                continue
+            }
             val maximum = minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, 10_000_000L)
             val interval = nextPoseInterval(maximum)
             val fromFrame = simulationMotion ?: initial
@@ -500,24 +557,26 @@ internal class ArenaSession(
                 val atContact = interpolateMotionFrame(fromFrame, toFrame, fraction, receiptStartNanos + consumed)
                 val grip = atContact.weaponGrip
                 if (candidate.steel && steelContactLatched && grip != null) {
-                    // The constraint is an ongoing unilateral stop, not just a one-shot
-                    // effect. Keep the enemy's actor/source clock at this TOI while its
-                    // proposed motion presses into the held dao; only a proven separating
-                    // sweep may advance. Raw head/hand observations remain available.
                     val held = motion.constrainWeapon(atContact, grip, candidate.contact).copy(
                         receivedAtNanos = receiptStartNanos + delta, headPosition = target.headPosition,
                         strike = null, swing = null, skillGesture = false)
                     latestMotion = held
                     simulationMotion = held
+                    if (beginSteelWithdrawal(candidate.contact, grip) && remaining > 0L) {
+                        stopped = true
+                        continue
+                    }
                     combat.advanceWhileWeaponStopped(remaining)
                     return true
                 }
                 if (candidate.steel && grip != null) {
                     steelContactLatched = true
+                    atContact.swing?.let { consumedStrikeId = maxOf(consumedStrikeId, it.id) }
                     val held = motion.constrainWeapon(atContact, grip, candidate.contact)
                     latestMotion = held
                     simulationMotion = held
                     resolveSteelContact(candidate.contact, held, events)
+                    beginSteelWithdrawal(candidate.contact, grip)
                 } else if (candidate.playerAttack) {
                     val blade = grip?.let(::playerBlade)
                     val witness = MotionContact(candidate.zone, candidate.contact.enemyPoint, candidate.contact.normal,
@@ -544,21 +603,74 @@ internal class ArenaSession(
                 remaining -= interval
                 simulationMotion = toFrame
                 latestMotion = toFrame
-                try { after?.let { motion.releaseWeaponIfSeparated(it.blade()) } }
+                try { if (after != null && releaseSeparatedWeapon(after.blade())) stopped = true }
                 catch (uncertain: BladeContactUncertainException) {
                     if (contactQueryFailures++ < 4) logMessage("Weapon catchup held: ${uncertain.message}")
                 }
-                if (!motion.weaponConstrained && after != null) {
-                    val pair = closestSegmentPoints(toFrame.bladeBase, toFrame.bladeTip, after.bladeBase, after.bladeTip)
-                    if (pair != null && pair.first.distanceTo(pair.second) > 0.012 + 0.0125 + 0.025)
-                        steelContactLatched = false
-                }
+
             }
-            if (result == TrialResult.FIGHTING)
+            if (result == TrialResult.FIGHTING && steelWithdrawal?.complete != false && !motion.weaponConstrained)
                 collect(combat.tryStartAttack(nextAttackDirection(), currentTargetInRange() == true), events)
             if (interval == 0L) break
         }
         return stopped
+    }
+
+    private fun beginSteelWithdrawal(contact: BladeContact, grip: WeaponGrip): Boolean {
+        if (steelWithdrawal?.complete == false) return true
+        val frame = effectiveEnemyPose() ?: heldEnemyPoseFrame ?: return false
+        val position = enemyPosition ?: return false
+        val origin = position + currentRecoilOffset()
+        val recovery = steelRecoverySamples(frame.pose)
+        val plan = ActorWithdrawalPlan.create(origin, enemyYaw.toDouble(), frame.pose.blade(), playerBlade(grip),
+            contact.normal, recovery.map { it.blade() })
+        if (plan == null) {
+            if (contactQueryFailures++ < 4) logMessage("No finite actor withdrawal can be certified; keep steel solid")
+            return false
+        }
+        // Absorb an existing recoil offset without moving the visible/query actor.
+        // Otherwise its later decay would invalidate the certified actor route.
+        enemyPosition = origin
+        recoilVector = Vector3(0.0, 0.0, 0.0)
+        recoilElapsedNanos = RECOIL_DURATION
+        steelWithdrawal = SteelWithdrawal(plan, frame)
+        logMessage("Steel actor withdrawal duration=${plan.durationSeconds} yaw=${plan.yawDeltaRadians} retreat=${plan.retreatMeters}")
+        return true
+    }
+
+    private fun steelRecoverySamples(current: AttackPoseSample): List<AttackPoseSample> {
+        val recovery = contactRecovery
+        val samples = if (recovery != null) {
+            val profile = recovery.profile
+            val retreat = maxOf(profile.sourcePhaseSeconds.first(), recovery.sourceSeconds - 0.06)
+            // Only this retreat and the following return-to-guard can still play.
+            // Preserve the exact interpolated retreat, not its preceding windup key.
+            listOf(profile.sample(retreat), profile.sample(profile.sourcePhaseSeconds.last())) + profile.samples.filter {
+                it.sourceSeconds >= retreat && it.sourceSeconds <= profile.sourcePhaseSeconds.last()
+            }
+        } else arenaOpponents[roundNumber - 1].locomotionProfile().idle.samples
+        // Give the current non-key TOI witness priority over an equal-time stored key.
+        return (listOf(current) + samples).sortedBy { it.sourceSeconds }.distinctBy { it.sourceSeconds }
+    }
+
+    private fun releaseSeparatedWeapon(enemyBlade: BladeSegment): Boolean {
+        val wasConstrained = motion.weaponConstrained
+        motion.releaseWeaponIfSeparated(enemyBlade)
+        if (!wasConstrained || motion.weaponConstrained) return false
+        // Catching up to unchanged raw tracking is not a fresh physical stroke.
+        motion.reset()
+        pendingMotion.clear()
+        latestMotion = latestMotion?.let { frame ->
+            val raw = frame.rawWeaponGrip ?: return@let null
+            val blade = playerBlade(raw)
+            frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,
+                strike = null, swing = null, skillGesture = false, guardDirection = null,
+                guardEnteredAtNanos = null, fastGuardAtNanos = null,
+                bladeAtRest = true, bladeTipSpeed = 0.0, bladeBaseDelta = null, bladeTipDelta = null,
+                motionGeneration = motion.motionGeneration)
+        }
+        simulationMotion = latestMotion
+        return true
     }
 
     // Split at source sample keys and contact recovery bends. Both blade endpoints
@@ -615,8 +727,9 @@ internal class ArenaSession(
     internal fun interpolateMotionFrame(from: PlayerMotionFrame, to: PlayerMotionFrame,
         fraction: Double, receiptNanos: Long): PlayerMotionFrame {
         val amount = fraction.coerceIn(0.0, 1.0)
-        val grip = if (from.weaponGrip != null && to.weaponGrip != null)
-            interpolateGrip(from.weaponGrip, to.weaponGrip, amount) else to.weaponGrip ?: from.weaponGrip
+        val grip = if (from.weaponGrip == to.weaponGrip) from.weaponGrip
+            else if (from.weaponGrip != null && to.weaponGrip != null)
+                interpolateGrip(from.weaponGrip, to.weaponGrip, amount) else to.weaponGrip ?: from.weaponGrip
         val blade = grip?.let(::playerBlade)
         val evidence = if (to.guardEnteredAtNanos?.let { it <= receiptNanos } == true) to else from
         val fast = to.fastGuardAtNanos?.takeIf { to.guardDirection == evidence.guardDirection && it <= receiptNanos }
@@ -892,6 +1005,7 @@ internal class ArenaSession(
 
     private fun effectiveEnemyPose(aheadNanos: Long = 0L): EnemyPoseFrame? {
         if (hitStopNanos > 0L && heldEnemyPoseFrame != null) return heldEnemyPoseFrame
+        steelWithdrawal?.takeIf { !it.complete }?.let { return it.source }
         val recovery = contactRecovery
         if (recovery != null) {
             val elapsed = (enemyMotionNanos + aheadNanos - recovery.startedAtNanos - CONTACT_STOP_NANOS).coerceAtLeast(0L)
@@ -927,6 +1041,8 @@ internal class ArenaSession(
         for (event in incoming) {
             when (event) {
                 is EnemyCombatEvent.AttackStarted -> {
+                    steelContactLatched = false
+                    steelWithdrawal = null
                     contactRecovery = null
                     attackSequenceIndex = (attackSequenceIndex + 1) % ATTACK_SEQUENCE.size
                     heldEnemyPoseFrame = null
@@ -945,6 +1061,11 @@ internal class ArenaSession(
                 }
                 is EnemyCombatEvent.HitReactionStarted -> if (event.reaction == HitReaction.PARRIED) {
                     enemyHitZone = null
+                } else {
+                    // A new accepted body hit interrupts the older steel recovery;
+                    // the short hit stop still presents its captured contact pose.
+                    steelWithdrawal = null
+                    contactRecovery = null
                 }
                 is EnemyCombatEvent.PhaseChanged -> {
                     if (event.current == EnemyPhase.IDLE || event.current == EnemyPhase.DEAD) {
@@ -952,6 +1073,9 @@ internal class ArenaSession(
                     }
                     if (event.current != EnemyPhase.HIT) enemyHitZone = null
                     if (event.current == EnemyPhase.DEAD && result == TrialResult.FIGHTING) {
+                        steelContactLatched = false
+                        steelWithdrawal = null
+                        motion.reset()
                         result = TrialResult.ROUND_CLEAR
                         intermissionNanos = 0L
                         combo = 0
@@ -991,11 +1115,14 @@ internal class ArenaSession(
         if (hitStopNanos > 0L || combat.phase != EnemyPhase.IDLE) return
         val toward = Vector3(head.x - enemy.x, 0.0, head.z - enemy.z)
         val distance = toward.length()
-        if (distance > 0.01) {
+        if (distance > 0.01 && !(steelContactLatched && steelWithdrawal?.complete == true && distance > 1.35)) {
             val desiredYaw = atan2(toward.x, toward.z)
             val turn = atan2(kotlin.math.sin(desiredYaw - enemyYaw), kotlin.math.cos(desiredYaw - enemyYaw))
             enemyYaw += turn.coerceIn(-delta / 1_000_000_000.0, delta / 1_000_000_000.0).toFloat()
         }
+        // A settled pressure episode may face the player, but must not walk back
+        // into the same motionless blade and repeat its withdrawal indefinitely.
+        if (steelContactLatched) return
         val direction = toward.normalizedOrNull() ?: return
         // Native slash reaches about 1.2 m from the actor. Leave the remaining contact allowance to the body volume.
         val desired = 1.30
@@ -1019,6 +1146,7 @@ internal class ArenaSession(
         roundGeneration++
         initialHealth = 100 + (roundNumber - 1) * 25
         combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L)
+        resetCombatContactIdentity()
         enemyHitZone = null
         enemyPosition = enemySpawn
         enemyYaw = 0f
@@ -1057,6 +1185,7 @@ internal class ArenaSession(
             deathHitStopNanos + CombatFeedbackProfile.DEATH_SLOWDOWN_DELAY_NANOS
 
     private fun clearEnemyContactPlayback() {
+        steelWithdrawal = null
         contactRecovery = null
         heldEnemyAttackOffsets = null
         heldEnemyPoseFrame = null
@@ -1066,9 +1195,15 @@ internal class ArenaSession(
         motion.reset()
         latestMotion = null
         simulationMotion = null
-        steelContactLatched = false
+        steelWithdrawal = null
         contactUncertainReceipt = null
         pendingMotion.clear()
+        // Input invalidation unlocks physics but cannot erase an accepted combat
+        // episode/damage ID. Pause/reacquisition alone is not a new sword stroke.
+    }
+
+    private fun resetCombatContactIdentity() {
+        steelContactLatched = false
         observedAttackId = null
         resolvedContactId = null
         consumedStrikeId = -1L
@@ -1146,6 +1281,7 @@ internal class ArenaSession(
                 clearEnemyContactPlayback()
                 enemyMotionNanos = 0L
                 combat = EnemyCombatStateMachine()
+                resetCombatContactIdentity()
                 enemyHitZone = null
                 initialHealth = combat.health
                 events += combat.resetRound()

@@ -1,0 +1,26 @@
+{
+  "exit_code": 0,
+  "test_classes": [
+    "com.example.wuxiaarena.core.combat.BladeContactTest",
+    "com.example.wuxiaarena.core.combat.EnemyCombatStateMachineTest",
+    "com.example.wuxiaarena.core.combat.PlayerCombatImpactTest",
+    "com.example.wuxiaarena.core.combat.PlayerContactTangentTest",
+    "com.example.wuxiaarena.core.combat.PlayerDefenseSnapshotTest",
+    "com.example.wuxiaarena.core.combat.PlayerMotionContinuityTest",
+    "com.example.wuxiaarena.core.combat.WeaponContactConstraintTest",
+    "com.example.wuxiaarena.core.combat.WeaponStoppedClockTest",
+    "com.example.wuxiaarena.core.input.ObservationStampTest",
+    "com.example.wuxiaarena.core.input.TrackingEventBufferTest",
+    "com.example.wuxiaarena.core.input.TrackingStateTest",
+    "com.example.wuxiaarena.core.math.PoseMathTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.ArenaSessionTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.ArenaAttackDirectionTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.AttackBankProfilesTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackTimingTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.CombatImpactEventTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.LocomotionProfilesTest",
+    "com.example.wuxiaarena.p0d2f0182.runtime.EnemyPoseSelectionTest"
+  ],
+  "compiler": "Kotlin 2.1.20",
+  "shared_gradle_used": false
+}

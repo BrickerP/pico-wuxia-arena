@@ -1,0 +1,45 @@
+{
+  "status": "private_RIGHT_only_inputs_not_approval",
+  "handoff": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/handoff.json",
+    "sha256": "d82b4d08da5d55bfbe4bcfe58712bba1c966d3b8dab1b31081b8cc730d032547",
+    "bytes": 56351
+  },
+  "raw": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/deep-contact/continuity/candidate/attack_right_raw.glb",
+    "sha256": "a726b0f65680b7ac8ed2f4dac15e23d9525054786f398d0068712e7c42705aa4",
+    "bytes": 18864780
+  },
+  "formal_manifest_before": {
+    "file": "ArtSource/tripo-warrior/motion_library.json",
+    "sha256": "36faf1c1c3a9d6408b75cf372757ff46946f5e0580190462fb0d6a5aec6ba878",
+    "bytes": 13351
+  },
+  "existing_input_builder": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/integration/prepare_integration_inputs.py",
+    "sha256": "abbcdb45866d83085f898f91f9c7e4dd38547f67fdc6b93d9c99499601a72ad6",
+    "bytes": 15600
+  },
+  "left_integrated": false,
+  "left_status": "unsealed; original LEFT preserved",
+  "preserved_formal_fields": [
+    "motion_source",
+    "characters",
+    "schema_version",
+    "weapon_source",
+    "locomotion_source",
+    "body_coverage_calibration",
+    "runtime_texture_encoding",
+    "player_weapon_source"
+  ],
+  "files": {
+    "attack_bank_inputs.json": {
+      "sha256": "188ad8f291917a49cdace3641bd957279441c9958989d7c2f8ce553c2de8968b",
+      "bytes": 9624
+    },
+    "motion_library_candidate.json": {
+      "sha256": "6041903b307cfb68cbb4d256873717a67090ed4fa30d99d8d0502fc2ef830fa1",
+      "bytes": 13193
+    }
+  }
+}

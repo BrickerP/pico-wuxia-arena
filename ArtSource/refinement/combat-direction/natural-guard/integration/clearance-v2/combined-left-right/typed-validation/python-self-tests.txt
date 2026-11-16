@@ -1,0 +1,11 @@
+test_exact_identity_and_only_veteran_left_sample_adjustment (__main__.ValidationTests) ... ok
+test_missing_original_count_assertion_is_rejected (__main__.ValidationTests) ... ok
+test_missing_published_identity_is_rejected (__main__.ValidationTests) ... ok
+test_other_lateral_sample_growth_is_rejected (__main__.ValidationTests) ... ok
+test_overhead_sample_loss_is_rejected (__main__.ValidationTests) ... ok
+test_veteran_left_requires_all_130_samples (__main__.ValidationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+OK
