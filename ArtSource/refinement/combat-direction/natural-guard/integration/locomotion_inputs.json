@@ -1,0 +1,256 @@
+{
+  "scope": "Natural guard breathing idle and original six-step walk; private producer candidate",
+  "source_assets_frozen": true,
+  "baseline": {
+    "commit": "6d3551903440039afbef75a322dd66a6842c1e65",
+    "source": "ArtSource/tripo-warrior/motion_library.json",
+    "sha256": "1d2dd4fdc03b66ebdda954319dc93fbd0adc6fbdede8d5d875ba5ede6cd09ba0",
+    "frozen_copy": "ArtSource/refinement/combat-direction/natural-guard/integration/baseline_motion_library_6d35519.json"
+  },
+  "source_rig": {
+    "path": "ArtSource/tripo-warrior/refined-base60k/rig.glb",
+    "sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+    "skin_joint_count": 78
+  },
+  "coordinate_frame": "prepared actor glTF metres; +X actor left, +Y up, +Z forward; outer entity motion belongs to Root",
+  "canonical_ref": {
+    "clip": "guard_pose",
+    "source_seconds": 0,
+    "raw": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+      "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+      "bytes": 18538720
+    },
+    "role": "source reference only; never a new runtime mode"
+  },
+  "profiles": [
+    {
+      "profile": "natural_guard_idle",
+      "clip_alias": "idle",
+      "raw": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+        "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+        "bytes": 19098860,
+        "right_finger_calibration_baked": false
+      },
+      "source_range_seconds": [
+        0,
+        1.5
+      ],
+      "source_loop_seconds": [
+        0,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.5,
+      "sample_count": 181,
+      "base_sample_rate_hz": 120,
+      "canonical_234_marker_source_seconds": [
+        0,
+        1.5
+      ],
+      "right_finger_policy": "R15_UNBAKED; target grip and right-only calibration applied once by producer",
+      "source_verification": {
+        "authoring": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+          "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+          "bytes": 83015
+        },
+        "endpoints": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+          "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+          "bytes": 110376
+        },
+        "finite_base_surfaces": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_surfaces.json",
+          "sha256": "139c1607e714e7c5177a505e05ab1c57c5c6e5171ccaf310ac9a957e52b99d5b",
+          "bytes": 123283
+        },
+        "scope": "Five RAW endpoints and finite private base only; no three-target or native acceptance."
+      },
+      "interpolation": "LINEAR",
+      "stance_intervals_seconds": {
+        "L_": [
+          [
+            0,
+            1.5
+          ]
+        ],
+        "R_": [
+          [
+            0,
+            1.5
+          ]
+        ]
+      },
+      "swing_intervals_seconds": {},
+      "steps_per_loop": 0
+    },
+    {
+      "profile": "natural_guard_walk",
+      "clip_alias": "walk",
+      "raw": {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+        "sha256": "5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462",
+        "bytes": 19111184,
+        "right_finger_calibration_baked": false
+      },
+      "source_range_seconds": [
+        0,
+        1.5
+      ],
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667,
+      "sample_count": 185,
+      "base_sample_rate_hz": 120,
+      "canonical_234_marker_source_seconds": [
+        0,
+        0.3333333333333333,
+        1.5
+      ],
+      "right_finger_policy": "R15_UNBAKED; target grip and right-only calibration applied once by producer",
+      "source_verification": {
+        "authoring": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+          "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+          "bytes": 83015
+        },
+        "endpoints": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+          "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+          "bytes": 110376
+        },
+        "finite_base_surfaces": {
+          "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_surfaces.json",
+          "sha256": "139c1607e714e7c5177a505e05ab1c57c5c6e5171ccaf310ac9a957e52b99d5b",
+          "bytes": 123283
+        },
+        "scope": "Five RAW endpoints and finite private base only; no three-target or native acceptance."
+      },
+      "stance_intervals_seconds": {
+        "L_": [
+          [
+            0.3333333333333333,
+            0.5277777777777778
+          ],
+          [
+            0.7222222222222222,
+            0.9166666666666666
+          ],
+          [
+            1.1111111111111112,
+            1.3055555555555556
+          ]
+        ],
+        "R_": [
+          [
+            0.5277777777777778,
+            0.7222222222222222
+          ],
+          [
+            0.9166666666666666,
+            1.1111111111111112
+          ],
+          [
+            1.3055555555555556,
+            1.5
+          ]
+        ]
+      },
+      "swing_intervals_seconds": {
+        "L_": [
+          [
+            0.5277777777777778,
+            0.7222222222222222
+          ],
+          [
+            0.9166666666666666,
+            1.1111111111111112
+          ],
+          [
+            1.3055555555555556,
+            1.5
+          ]
+        ],
+        "R_": [
+          [
+            0.3333333333333333,
+            0.5277777777777778
+          ],
+          [
+            0.7222222222222222,
+            0.9166666666666666
+          ],
+          [
+            1.1111111111111112,
+            1.3055555555555556
+          ]
+        ]
+      },
+      "steps_per_loop": 6,
+      "step_pairs_per_loop": 3,
+      "whole_loop_carrier_distance_metres": 1.45,
+      "distance_per_pair_metres": 0.48333333333333334,
+      "carrier_distance_per_half_step_metres": 0.24166666666666667,
+      "carrier_curve": "1.45 * clamp((source_seconds - 1/3) / (7/6), 0, 1)",
+      "source_root_forward_accumulation_metres": 0,
+      "swing_sole_clearance_metres": 0.05,
+      "pair_guard_source_seconds": [
+        0.3333333333333333,
+        0.7222222222222222,
+        1.1111111111111112,
+        1.5
+      ],
+      "moving_bone_rotations": [
+        "L_Calf",
+        "L_Foot",
+        "L_Thigh",
+        "R_Calf",
+        "R_Foot",
+        "R_Thigh"
+      ],
+      "constant_track_interpolation": "STEP",
+      "moving_leg_rotation_interpolation": "LINEAR",
+      "upper_body": "same new guard; original six leg TRS curves and time grid preserved"
+    }
+  ],
+  "runtime_contract": {
+    "WALK_STRIDE_METERS": 1.45,
+    "WALK_LOOP_START": 0.3333333333333333,
+    "WALK_LOOP_DURATION": 1.1666666666666667,
+    "physical_steps_per_loop": 6,
+    "source_time_formula": "1/3 + ((enemyGaitMeters / 1.45) mod 1) * (7/6)",
+    "IDLE_LOOP_START": 0,
+    "IDLE_LOOP_DURATION": 1.5,
+    "idle_source_time_formula": "(enemyMotionNanos % 1500000000) / 1000000000.0; same profile/proxy/SDK sample"
+  },
+  "inherited_walk_metadata": {
+    "source": {
+      "file": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json",
+      "sha256": "3a3090ba4181f84169df9e8d7374505ddab5ff4cf3948d183800b116143feab6",
+      "bytes": 14883
+    },
+    "scope": "Six unchanged leg curves, original gait/foot support timing only; old proxy/lock audits are not acceptance."
+  },
+  "source_verification": {
+    "authoring": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+      "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+      "bytes": 83015
+    },
+    "endpoints": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+      "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+      "bytes": 110376
+    },
+    "finite_base_surfaces": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_surfaces.json",
+      "sha256": "139c1607e714e7c5177a505e05ab1c57c5c6e5171ccaf310ac9a957e52b99d5b",
+      "bytes": 123283
+    },
+    "scope": "Five RAW endpoints and finite private base only; no three-target or native acceptance."
+  },
+  "validation_scope": "Finite base source checks only; Root must retarget and review all three targets."
+}

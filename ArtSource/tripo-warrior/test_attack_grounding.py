@@ -5,6 +5,7 @@ import math
 import struct
 import sys
 import unittest
+from unittest import mock
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -12,13 +13,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from attack_grounding import CANONICAL_CLIPS, GROUNDING_POLICY, ground_canonical_guard_feet
 from attack_profiles import animation_tracks, hierarchy, pose_world
 from prepare_rigged_warrior import accessor_bytes, animation_signature
+from attack_profiles import sample_source_track
 
 
 def source_timelines(overhead_rate=60):
     timelines = {}
     for name in CANONICAL_CLIPS:
         if name == 'idle':
-            times = [frame / 60 for frame in range(91)]
+            times = [frame / 120 for frame in range(181)]
         elif name == 'walk':
             times = sorted({*[frame / 120 for frame in range(181)], 19 / 36, 26 / 36, 40 / 36, 47 / 36})
         else:
@@ -28,7 +30,7 @@ def source_timelines(overhead_rate=60):
     return timelines
 
 
-def fixture(animate_parent=False, overhead_rate=60):
+def fixture(animate_parent=False, overhead_rate=60, breathing=False, idle_root_drift=False):
     """Two real weighted sole surfaces, different key grids and a nonunit parent."""
     document = {
         'nodes': [{'name': 'Actor', 'children': [1, 5]},
@@ -40,6 +42,11 @@ def fixture(animate_parent=False, overhead_rate=60):
         'accessors': [], 'bufferViews': [], 'buffers': [{'byteLength': 0}], 'animations': [],
     }
     binary = bytearray()
+    if breathing:
+        document['nodes'][2]['children'].append(6)
+        document['nodes'].extend([{'name': 'Spine02', 'translation': [0, .5, 0], 'children': [7]},
+                                  {'name': 'Head', 'translation': [0, .5, 0]}])
+        document['skins'][0]['joints'].extend([6, 7])
 
     def accessor(rows, kind):
         binary.extend(b'\0' * (-len(binary) % 4))
@@ -56,22 +63,32 @@ def fixture(animate_parent=False, overhead_rate=60):
     palettes = accessor([[1, 0, 0, 0], [1, 0, 0, 0], [2, 0, 0, 0], [2, 0, 0, 0]], 'VEC4')
     weights = accessor([[1, 0, 0, 0]] * 4, 'VEC4')
     identity = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-    document['skins'][0]['inverseBindMatrices'] = accessor([identity] * 3, 'MAT4')
+    document['skins'][0]['inverseBindMatrices'] = accessor([identity] * len(document['skins'][0]['joints']), 'MAT4')
     document['meshes'][0]['primitives'].append({'attributes': {
         'POSITION': positions, 'JOINTS_0': palettes, 'WEIGHTS_0': weights}})
     for name in CANONICAL_CLIPS:
         times = source_timelines(overhead_rate)[name]
         values = [(0, .1 if name in {'idle', 'walk'} else .1 + .04 * math.sin(math.pi * time / 1.75), 0)
                   for time in times]
+        if name == 'idle' and idle_root_drift:
+            values = [(0, .1 + .004 * math.sin(math.pi * time / 1.5) ** 2, 0) for time in times]
         document['animations'].append({'name': name,
             'samplers': [{'input': accessor([(time,) for time in times], 'SCALAR'),
                           'output': accessor(values, 'VEC3'),
-                          'interpolation': 'STEP' if name in {'idle', 'walk'} else 'LINEAR'}],
+                          'interpolation': 'STEP' if name == 'walk' else 'LINEAR'}],
             'channels': [{'sampler': 0, 'target': {'node': 2, 'path': 'translation'}}]})
         animation = document['animations'][-1]
         animation['samplers'].append({'input': animation['samplers'][0]['input'],
             'output': accessor([(0, 0, 0, 1)] * len(times), 'VEC4'), 'interpolation': 'STEP'})
         animation['channels'].append({'sampler': 1, 'target': {'node': 3, 'path': 'rotation'}})
+        if breathing and name == 'idle':
+            angles = [.01 * math.sin(math.pi * time / 1.5) ** 2 for time in times]
+            angles[0] = angles[-1] = 0
+            animation['samplers'].append({'input': animation['samplers'][0]['input'],
+                'output': accessor([(0, 0, math.sin(angle / 2), math.cos(angle / 2)) for angle in angles], 'VEC4'),
+                'interpolation': 'LINEAR'})
+            animation['channels'].append({'sampler': len(animation['samplers']) - 1,
+                                         'target': {'node': 6, 'path': 'rotation'}})
         if animate_parent and name == 'idle':
             animation['samplers'].append({'input': animation['samplers'][0]['input'],
                 'output': accessor([(1 + time * .01, 1, 1) for time in times], 'VEC3'), 'interpolation': 'LINEAR'})
@@ -117,7 +134,7 @@ class CanonicalGroundingTests(unittest.TestCase):
                     self.assertAlmostEqual(difference.y, report['constant_world_root_shift_metres'], places=6)
                     self.assertAlmostEqual(difference.z, 0, places=6)
                 self.assertAlmostEqual(sample['root_shift_metres'], report['constant_world_root_shift_metres'], places=6)
-            expected_count = {'idle': 91, 'walk': 185}.get(after['name'], 106)
+            expected_count = {'idle': 181, 'walk': 185}.get(after['name'], 106)
             self.assertEqual(clip_report['key_count'], expected_count)
             self.assertEqual(len(clip_report['samples']), 2 * expected_count - 1)
             # Authored attack lift survives; no per-frame plane clamp is permitted.
@@ -134,7 +151,7 @@ class CanonicalGroundingTests(unittest.TestCase):
         timelines = source_timelines(overhead_rate=120)
         result, report = ground_canonical_guard_feet(document, binary, timelines)
         self.assertAlmostEqual(report['constant_world_root_shift_metres'], -.078, places=6)
-        expected = {'idle': 91, 'walk': 185, 'attack_overhead': 211, 'attack_left': 106, 'attack_right': 106}
+        expected = {'idle': 181, 'walk': 185, 'attack_overhead': 211, 'attack_left': 106, 'attack_right': 106}
         for before, after, row in zip(original['animations'], document['animations'], report['clips']):
             self.assertEqual(row['key_count'], expected[row['clip']])
             self.assertEqual(len(row['samples']), expected[row['clip']] * 2 - 1)
@@ -169,11 +186,52 @@ class CanonicalGroundingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'fixed root parent frame'):
             ground_canonical_guard_feet(document, binary, source_timelines())
 
+    def test_breathing_body_remains_dynamic_while_one_shift_preserves_planted_feet(self):
+        document, binary = fixture(breathing=True)
+        original = copy.deepcopy(document)
+        result, report = ground_canonical_guard_feet(document, binary, source_timelines())
+        idle = report['clips'][0]
+        self.assertEqual(idle['root_interpolation'], 'LINEAR')
+        self.assertEqual(idle['key_count'], 181)
+        self.assertGreater(idle['maximum_body_anchor_difference_from_idle_guard']['Head'], .002)
+        self.assertLess(idle['maximum_body_anchor_difference_from_idle_guard']['BoneRoot'], 1e-7)
+        self.assertLess(idle['maximum_plane_error_metres'], 1e-6)
+        old_clip, new_clip = original['animations'][0], document['animations'][0]
+        self.assertEqual(old_clip['samplers'][2], new_clip['samplers'][2])
+        self.assertEqual(accessor_bytes(original, binary, old_clip['samplers'][2]['output']),
+                         accessor_bytes(document, result, new_clip['samplers'][2]['output']))
+
+    def test_breathing_cannot_disguise_root_drift_as_a_new_grounding_offset(self):
+        document, binary = fixture(breathing=True, idle_root_drift=True)
+        with self.assertRaisesRegex(ValueError, 'preserve its root and planted foot frames'):
+            ground_canonical_guard_feet(document, binary, source_timelines())
+
+    def test_nearly_unit_constant_quaternion_reproduces_old_end_key_failure_without_weakening_gate(self):
+        document, binary = fixture()
+        packed = bytearray(binary)
+        rotation = document['animations'][0]['samplers'][1]['output']
+        document['animations'][0]['samplers'][1]['interpolation'] = 'LINEAR'
+        accessor = document['accessors'][rotation]
+        view = document['bufferViews'][accessor['bufferView']]
+        q = tuple(value * 1.00001 for value in (.2, .3, .4, math.sqrt(.71)))
+        for key in range(accessor['count']):
+            struct.pack_into('<4f', packed, view.get('byteOffset', 0) + accessor.get('byteOffset', 0) + key * 16, *q)
+        raw = bytes(packed)
+        original = copy.deepcopy(document)
+        with mock.patch('attack_profiles.sample_track', sample_source_track):
+            with self.assertRaisesRegex(ValueError, 'preserve its root and planted foot frames'):
+                ground_canonical_guard_feet(copy.deepcopy(document), raw, source_timelines())
+        result, report = ground_canonical_guard_feet(document, raw, source_timelines())
+        self.assertEqual(result[:len(raw)], raw)
+        self.assertEqual(document['nodes'], original['nodes'])
+        self.assertEqual(document['skins'], original['skins'])
+        self.assertEqual(report['clips'][0]['maximum_body_anchor_difference_from_idle_guard']['BoneRoot'], 0)
+
     def test_refuses_old_timeline_or_changed_root_interpolation(self):
         for clip_name in ('idle', 'walk', 'attack_overhead'):
             document, binary = fixture()
             clip = next(row for row in document['animations'] if row['name'] == clip_name)
-            clip['samplers'][0]['interpolation'] = 'LINEAR' if clip_name in {'idle', 'walk'} else 'STEP'
+            clip['samplers'][0]['interpolation'] = 'LINEAR' if clip_name == 'walk' else 'STEP'
             with self.assertRaisesRegex(ValueError, 'unchanged .* root keys'):
                 ground_canonical_guard_feet(document, binary, source_timelines())
         document, binary = fixture()

@@ -35,6 +35,12 @@ GROUNDING_POLICY = {
     'runtime_entity_lift_application_count': 1,
 }
 
+ANIMATION_SAMPLING_POLICY = {
+    'version': 1,
+    'rotation': 'normalize the stored quaternion at every exact key; SLERP only strictly inside nonconstant LINEAR spans',
+    'translation_and_scale': 'preserve exact keys and authored LINEAR or STEP interpolation',
+}
+
 
 def canonical_hash(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
@@ -49,6 +55,7 @@ def production_binding(manifest):
             'player_weapon_source': manifest['player_weapon_source'],
             'attack_source': manifest['attack_source'], 'hand_policy': HAND_POLICY,
             'canonical_root_grounding': GROUNDING_POLICY,
+            'animation_sampling': ANIMATION_SAMPLING_POLICY,
             'weapon_source': manifest['weapon_source'],
             'characters': [{key: character.get(key) for key in
                             ('id', 'name', 'source', 'source_sha256', 'grip_source',

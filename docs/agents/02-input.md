@@ -1,14 +1,50 @@
 # 02 · 刀具造型材质与握持
 
+## 当前交付：production-patch 前置 crease-remesh BLOCK（2026-11-16）
+
+**本轮一次定位修正阶段结束，等待 Root review。** [失败候选与完整定位](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/crease-remesh/README.md)已冻结。候选 `9f946add…` 为 7,496 面，未超过预算，未扩指部、掌内握柄、Grip、78 骨／IBM、动画、UV、权重或 KTX；不能替换 Right 或派生 Left。
+
+一轮局部共形重拓扑在 687 的同一掌背／第一腕带范围内执行。动态检查发现 candidate face3570（source parent1886）在 default／mid／closed 存在新法线与面绕序反向。一次按所有相邻面、三姿态 inverse-LBS 的局部回投仍无法满足共享角；继续需拆 normal seam 或更深的面重投影，超出本轮一次修正合同，故停止。687 与正式资源不动，现有 687 图不作为 9f 通过证据。
+
+此失败不掩盖：候选顶点／ROI／脚本／失败验证和固定收件均已写入。等待 Root 明确是否授权下一轮对 source face1886 邻域做 normal seam／重投影；本路不再扩域、渲染或参数扫描。
+
+## Root 当前审核与执行合同（2026-11-16，已执行）
+
+已收9f946add crease-remesh失败包，确认不能进入正式Right或派生Left。原face1886的新子面出现默认/中/闭姿态法线反向，不能并入源13个坏角限制，也不以增加面数作为收益。687与9f候选封存。
+
+下一实物从可信Right v2 3a1be1dd重新制作，不能在687/9f上累加细分。Ownership仅palm-wrist-surface/production-patch/及02。允许在必要掌背/腕袖ROI重建有解剖曲率的局部面片、重投射UV/权重，并按需要拆分per-corner normal/UV seam。先区分几何真翻折/退化和共享法线冲突：几何不合法就修面/权重，只有几何健康时才拆法线缝；不能反转整面、关背剔除或翻normal去掩盖。
+
+保护指部、掌内握柄、Grip、78骨/IBM/所有动画与三张原KTX；原109对指间交叉继续披露。允许重建而不是仅细分，面数<=8000；位置焊接后的接缝闭合，原UV/权重在保护域逐值不变。先过default/open/mid/closed实际几何与normal/winding，再交0.3m同机位无材质/原材质各一对，必须去掉长斜折沟、腕口有顺畅过渡。60分钟单首件，最多一次定位修正；不改app/公共producer/formal/设备/Git，不派生Left，不复制仓库。你不是独占工作树，保他人修改。
+
 ## Root实物评审与下一步（2026-11-16）
 
 已实际看掌背before／after和修后腕口0.3m图。候选687aea63有轻微轮廓圆顺收益，但掌背长斜折痕、掌骨大平面与腕口生硬收口仍明显。不作整体手部质量通过，暂不替换正式Right／派生Left。35项制作检查与保护区域零差值只证明声明范围保全，不代表外观精致；正式Right3a1be1dd／Leftd8e9c3cb保持。
 
 先封存现有首件身份与检查，不重渲。下一轮应围绕掌背解剖曲面和腕袖过渡做局部重拓扑／权重投射，保闭握、Grip与指部保护域；不只加细分或全局平滑，不将UV／肤色问题称为几何解决。先有正常距离可见收益，再由Root原子整合左右手。模型账号错误已处理，本次续现有收件。
 
-## Root下一阶段规划（2026-11-15）
+## 当前交付：crease-remesh 一次定位修正 BLOCK（2026-11-16）
 
-下一首件为Right源掌背／腕口表面光顺，保闭握与Grip，接受后统一重建Left；不再左右分开摆指。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。
+**本轮阶段结束，等待 review。** [失败候选、ROI 映射与动态法线证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/crease-remesh/README.md)已冻结。候选 SHA `9f946addb905de04051883d3a1cd6bee7d56aac1ec39a37ed9064d1b7f491eaa`，7,496 面，未超预算；不替换 Right，也不派生 Left。
+
+687 为源的一次局部共形重拓扑保留掌背／第一腕带范围与三姿态混权边预检，但新增 child face3570（source face1886）在 default／mid／closed 有动态法线与面绕序反向。联合所有相邻面后的单次法线回投仍不能同时解除该共享角矛盾。继续需拆法线或更深面重投影，已超出本轮一次定位修正，故停止，不把“细分与面数增加”包装为质量通过。现有 687 四图不复用于此候选验收。
+
+正式 app、公共 producer、构建、设备、Git、Right v2、左重建和 687 收件未动。等待 Root 决定是否授权下一轮更深的局部 normal seam／重投影；本路不继续扩域、渲染或参数扫描。
+
+## 已封存：687 现候选，续派 crease-remesh（2026-11-16）
+
+Root 已看 687 的 0.3 m 实物：掌背／腕口收益过小，暂不换 Right 或派生 Left。现候选连同[固定收件](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/handoff.json)封存，不再渲染、调参或改其身份。
+
+新首件只在 `ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/crease-remesh/` 制作，目标是掌背长斜折沟及腕袖交界的大平面／锯齿轮廓。先区分实际几何折沟、UV／法线缝或蒙皮混权根因，再按根因局部重拓扑、重投射权重或连续法线；不再全局细分，也不只平滑 64 个控制点。允许扩掌背／腕口必要 ROI，必须记录保护映射；禁动指部、掌内握柄区、Grip、78 骨／IBM、动画键和刀。
+
+总面数不超过 8,000。优先重投射原 UV／三张 1536² KTX；若纹理必须改变，报告而不把它包装为几何解决。default／open／mid／closed 保护区不得新增核心侵入或自交，旧 109 对继承面交叉继续披露。交无材质法线与有材质的同机位前后各一对，0.3 m 必须有可见曲面收益；最多一次定位修正、60 分钟，不参数扫描或新增镜头。Root 接受 Right 后才统一派生 Left 和整合原生包，本路不改 app、公共 producer、正式资源、构建、设备、Git。
+
+## 已封存交付：Right 掌背／腕口表面候选 687（2026-11-16）
+
+**本阶段结束，等待 review。** [完整候选、ROI 映射、三姿态验证与四图对照](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/README.md)已冻结。Right 候选 SHA `687aea63eabfd4c08401a0a207f23e3740b9dad6348e9ebd6b7cce61f1c31e9e`，5,598 面；源 Right v2 `3a1be1dd…` 保留，正式 app 未替换。本轮只改掌背硬脊和手邻第一袖口带，64 个原顶点与 352 个新增点都具映射，掌腹／指腹、握姿、腕／Grip、78 IBM、贴图和三张 1536² KTX 未动。
+
+四张固定机位图显示掌背折角减弱、腕口第一带更圆顺，但收益有限；掌背长脊、腕口硬边、低多边形折面及远端收口仍可见，不能包装为整体手部质量通过。35 项检查通过，非 ROI 动态皮肤无变化，ROI 造型位移已列；开／中／闭不新增 dao 或 self face-pair，旧 open／mid 穿入和 closed 109 对继承表面交叉仍明确保留。源无 TANGENT，运行端 MikkTSpace 与原生观感待验。
+
+Root 决定是否接受这份 Right 形体后，才从其统一静态重建 Left；当前不派生 Left，不再生成或渲染。本路不改正式 app、公共 producer、构建、设备或 Git。
 
 ## Root本轮整合review（2026-11-15）
 

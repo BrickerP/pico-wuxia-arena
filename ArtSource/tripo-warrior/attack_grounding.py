@@ -92,8 +92,8 @@ def surface_heights(document, world, surface):
 
 
 CANONICAL_CLIPS = ('idle', 'walk', 'attack_overhead', 'attack_left', 'attack_right')
-LOCKED_CHAIN = ('Armature', 'BoneRoot', 'Hip', 'Waist', 'Spine01', 'Spine02',
-                'NeckTwist01', 'NeckTwist02', 'Head')
+BODY_ANCHOR_CHAIN = ('Armature', 'BoneRoot', 'Hip', 'Waist', 'Spine01', 'Spine02',
+                     'NeckTwist01', 'NeckTwist02', 'Head')
 
 
 def grounding_tracks(document, binary, animation, root, expected_times):
@@ -108,7 +108,7 @@ def grounding_tracks(document, binary, animation, root, expected_times):
     if len(channels) != 1 or key not in tracks:
         raise ValueError('grounding requires one BoneRoot translation channel')
     times, values, interpolation = tracks[key]
-    expected_interpolation = 'STEP' if locomotion else 'LINEAR'
+    expected_interpolation = 'STEP' if name == 'walk' else 'LINEAR'
     if set(times) != timeline or interpolation != expected_interpolation:
         raise ValueError('grounding requires unchanged ' + expected_interpolation + ' root keys: ' + name)
     return tracks, times, values, channels[0]['sampler']
@@ -118,7 +118,7 @@ def ground_canonical_guard_feet(document, binary, clip_timelines):
     """Shift the whole canonical family by its target idle's one measured +Y offset.
 
     Only BoneRoot translation outputs are appended. Keeping the same constant
-    shift on every source key preserves authored head locks, guard endpoints and
+    shift on every source key preserves authored breathing, guard endpoints and
     relative foot heights, including any residual from different target shapes.
     """
     clips = {animation['name']: animation for animation in document['animations']}
@@ -146,10 +146,15 @@ def ground_canonical_guard_feet(document, binary, clip_timelines):
     idle_tracks, idle_times, idle_values, _ = decoded['idle']
     grounded_idle_tracks = copy.copy(idle_tracks)
     grounded_idle_tracks[root, 'translation'] = (idle_times,
-        [struct.unpack('<3f', struct.pack('<3f', *(Vector(row) + local_shift))) for row in idle_values], 'STEP')
+        [struct.unpack('<3f', struct.pack('<3f', *(Vector(row) + local_shift))) for row in idle_values],
+        idle_tracks[root, 'translation'][2])
     grounded_canonical_world = pose_world(document, grounded_idle_tracks, 0.0, parents, order)
     chain = {node.get('name'): index for index, node in enumerate(document['nodes'])
-             if node.get('name') in LOCKED_CHAIN}
+             if node.get('name') in BODY_ANCHOR_CHAIN}
+    idle_support = {node.get('name'): index for index, node in enumerate(document['nodes'])
+                    if node.get('name') in {'BoneRoot', 'Hip'} or
+                    node.get('name', '').startswith(tuple(side + bone for side in ('L_', 'R_')
+                        for bone in ('Thigh', 'Calf', 'Foot', 'Toe', 'KneeShareBone')))}
     guard_nodes = {node.get('name'): index for index, node in enumerate(document['nodes'])
                    if node.get('name') in {'BoneRoot', 'Hip', 'Spine02', 'Head', 'L_Hand', 'R_Hand'}}
     for name in CANONICAL_CLIPS:
@@ -167,14 +172,17 @@ def ground_canonical_guard_feet(document, binary, clip_timelines):
                   'key_count': len(times), 'midpoint_count': len(times) - 1,
                   'root_interpolation': interpolation, 'constant_world_root_shift_metres': shift,
                   'constant_local_root_shift': list(local_shift), 'samples': [], 'guard_endpoints': [],
-                  'maximum_locked_chain_difference_from_idle_guard': {joint: 0.0 for joint in chain},
-                  'maximum_grounded_locked_chain_difference_from_idle_guard': {joint: 0.0 for joint in chain}}
+                  'maximum_body_anchor_difference_from_idle_guard': {joint: 0.0 for joint in chain},
+                  'maximum_grounded_body_anchor_difference_from_idle_guard': {joint: 0.0 for joint in chain}}
         for time in samples:
             before_world = pose_world(document, tracks, time, parents, order)
             if max(abs(before_world[parents[root]][row][col] - parent_frame[row][col])
                    for row in range(3) for col in range(3)) > 1e-6:
                 raise ValueError('one canonical root shift requires a fixed root parent frame: ' + name)
             after_world = pose_world(document, corrected, time, parents, order)
+            if name == 'idle' and any(max(abs(before_world[index][row][col] - canonical_world[index][row][col])
+                    for row in range(4) for col in range(4)) > 1e-6 for index in idle_support.values()):
+                raise ValueError('breathing idle must preserve its root and planted foot frames')
             before = surface_heights(document, before_world, surface)
             after = surface_heights(document, after_world, surface)
             report['samples'].append({'source_seconds': time, 'source_key': time in times,
@@ -185,12 +193,12 @@ def ground_canonical_guard_feet(document, binary, clip_timelines):
             for joint, index in chain.items():
                 difference = max(abs(before_world[index][row][col] - canonical_world[index][row][col])
                                  for row in range(4) for col in range(4))
-                report['maximum_locked_chain_difference_from_idle_guard'][joint] = max(
-                    report['maximum_locked_chain_difference_from_idle_guard'][joint], difference)
+                report['maximum_body_anchor_difference_from_idle_guard'][joint] = max(
+                    report['maximum_body_anchor_difference_from_idle_guard'][joint], difference)
                 grounded_difference = max(abs(after_world[index][row][col] - grounded_canonical_world[index][row][col])
                                           for row in range(4) for col in range(4))
-                report['maximum_grounded_locked_chain_difference_from_idle_guard'][joint] = max(
-                    report['maximum_grounded_locked_chain_difference_from_idle_guard'][joint], grounded_difference)
+                report['maximum_grounded_body_anchor_difference_from_idle_guard'][joint] = max(
+                    report['maximum_grounded_body_anchor_difference_from_idle_guard'][joint], grounded_difference)
             if time == times[0] or time == times[-1]:
                 report['guard_endpoints'].append({'source_seconds': time,
                     'before_foot_min_metres': before, 'after_foot_min_metres': after,

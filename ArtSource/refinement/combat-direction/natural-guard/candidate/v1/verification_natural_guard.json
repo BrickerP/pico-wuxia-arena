@@ -1,0 +1,4984 @@
+{
+  "status": "bounded_base_source_checks_passed",
+  "checks": {
+    "nonstatic_chest_or_shoulder": true,
+    "small_chest_and_shoulder_motion": true,
+    "stable_right_wrist": true,
+    "stable_actual_steel_vertices": true,
+    "actual_shoe_floor": true,
+    "actual_shoe_centres": true,
+    "bone_lengths": true,
+    "sampled_steel_and_nonadjacent_regions_clear": true
+  },
+  "scope": "Private base target only. Static guard plus full idle 0\u20131.5s at30Hz and .375/.75/1.125s breathing samples.",
+  "assets": {
+    "guard_raw.glb": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+      "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+      "bytes": 18538720
+    },
+    "idle_raw.glb": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb",
+      "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "bytes": 19098860
+    },
+    "guard_preview.glb": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_preview.glb",
+      "sha256": "c5c45dcf04131bfd4c443f60efa4cd41b974f69c08f82bd4ff8e1f9d4bb71b4e",
+      "bytes": 53700156
+    },
+    "idle_preview.glb": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_preview.glb",
+      "sha256": "42179676c7bb97a48f2ca2f1a06350b044974431c64e481d8f2736d7f72163f3",
+      "bytes": 54283228
+    }
+  },
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/natural_guard_authoring.json",
+    "sha256": "b1cf520197890027f57db26ac02d0d0a0766ce793d1b90f9db9607d353b4b6a8",
+    "bytes": 92747
+  },
+  "source_v5": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+    "bytes": 19192620
+  },
+  "sample_count": 49,
+  "overlap_sample_count": 0,
+  "new_guard_changed_channels_from_source_v5_guard": [
+    "Spine01.rotation",
+    "Head.rotation",
+    "L_Clavicle.rotation",
+    "L_Upperarm.rotation",
+    "L_Forearm.rotation",
+    "L_Hand.rotation",
+    "L_Pinky1.rotation",
+    "L_Pinky2.rotation",
+    "L_Pinky3.rotation",
+    "L_Ring1.rotation",
+    "L_Ring2.rotation",
+    "L_Ring3.rotation",
+    "L_Mid1.rotation",
+    "L_Mid2.rotation",
+    "L_Mid3.rotation",
+    "L_Index1.rotation",
+    "L_Index2.rotation",
+    "L_Index3.rotation",
+    "L_Thumb1.rotation",
+    "L_Thumb2.rotation",
+    "L_Thumb3.rotation",
+    "R_Clavicle.rotation",
+    "R_Upperarm.rotation",
+    "R_Forearm.rotation",
+    "R_Hand.rotation"
+  ],
+  "interior_changed_channels_from_guard": {
+    "0.5": [
+      "Spine01.rotation",
+      "Head.rotation",
+      "L_Clavicle.rotation",
+      "L_Upperarm.rotation",
+      "L_Forearm.rotation",
+      "R_Clavicle.rotation",
+      "R_Upperarm.rotation",
+      "R_Forearm.rotation",
+      "R_Hand.rotation"
+    ],
+    "1.0": [
+      "Spine01.rotation",
+      "Head.rotation",
+      "L_Clavicle.rotation",
+      "L_Upperarm.rotation",
+      "L_Forearm.rotation",
+      "R_Clavicle.rotation",
+      "R_Upperarm.rotation",
+      "R_Forearm.rotation",
+      "R_Hand.rotation"
+    ]
+  },
+  "existing_production_locomotion78_gate": {
+    "actual_call": "validate_source_clip(actual idle_raw, original rig, locomotion78, idle)",
+    "actual_result": "rejected",
+    "actual_rejection": "locomotion78 requires its frozen 91/185-key 0..1.5s raw source",
+    "additional_existing_gate_from_source_inspection": "Current idle requires every track STEP and constant; moving leg LINEAR is allowed only for walk. The breathing body LINEAR curves also need a coherent contract replacement. This later gate was not reached because the actual181-key source fails the91-key check first.",
+    "source_keys_and_interpolation_modified_for_probe": false,
+    "production_source": {
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "bytes": 55490
+    }
+  },
+  "contract": {
+    "raw_skin_joints": 78,
+    "raw_TRS_channels": 234,
+    "guard_keys": 2,
+    "idle_keys": 181,
+    "idle_rate_hz": 120,
+    "duration_seconds": 1.5,
+    "exact_float32_endpoints_match_new_guard": true,
+    "R15_exact_constant_source_v5_UNBAKED": true,
+    "raw_rest_static_payload_unchanged": true,
+    "base_preview_mesh_and_materials_unchanged": true
+  },
+  "once_finger_calibration_and_once_root_shift_max_component_error": {
+    "guard": 0.0,
+    "idle": 0.0
+  },
+  "maximum_guard_relative_joint_displacement_metres": {
+    "Hip": 0.0,
+    "Spine02": 0.001885695212196718,
+    "R_Upperarm": 0.002684711318240052,
+    "L_Upperarm": 0.002577678254607578,
+    "R_Hand": 4.0535540904806387e-07,
+    "L_Hand": 0.001802863976412208
+  },
+  "maximum_guard_relative_joint_rotation_degrees": {
+    "Hip": 0.0,
+    "Spine02": 0.6988526828795398,
+    "R_Upperarm": 0.6852814171638418,
+    "L_Upperarm": 0.9977864773540203,
+    "R_Hand": 0.0,
+    "L_Hand": 0.4545638702205993
+  },
+  "maximum_actual_steel_vertex_motion_metres": 9.035864859894855e-07,
+  "maximum_actual_shoe_sole_plane_error_metres": 1.0202253993146781e-06,
+  "actual_shoe_reference_plane_metres": -0.028,
+  "maximum_actual_shoe_centre_motion_metres": 3.066184029253878e-07,
+  "maximum_bone_length_change_metres": 1.2240870395635872e-07,
+  "semantic_region_triangle_counts": {
+    "head": 47595,
+    "chest": 9497,
+    "R_forearm": 2484,
+    "R_hand": 2131,
+    "L_forearm": 3404,
+    "L_hand": 1927
+  },
+  "rejection_cases_actually_run": [
+    "invalid source time nan",
+    "invalid source time -0.001",
+    "invalid source time 1.501",
+    "invalid source time True",
+    "wrong SHA of actual exported idle",
+    "actual exported last guard translation mutated by 10mm",
+    "actual exported final timeline key mutated to 1.6s"
+  ],
+  "limits": [
+    "Discrete posed triangle surfaces do not prove continuous-time or volume clearance.",
+    "Anatomical regions require all three vertices to have dominant joints within the named region; adjacent upperarm/neck seams and within-region cloth layers are excluded.",
+    "No family retarget, runtime blend, PICO playback or device acceptance is claimed.",
+    "Small breathing amplitude checks do not approve the rendered aesthetic."
+  ],
+  "frames": [
+    {
+      "source_seconds": 0.0,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.217302680015564,
+          -0.008990113623440266
+        ],
+        "R_Upperarm": [
+          -0.145565003156662,
+          1.2640886306762695,
+          -0.10575476288795471
+        ],
+        "L_Upperarm": [
+          0.1776435673236847,
+          1.273973822593689,
+          -0.012354517355561256
+        ],
+        "R_Hand": [
+          -0.1299954354763031,
+          1.2419570684432983,
+          0.2699907124042511
+        ],
+        "L_Hand": [
+          0.2399999499320984,
+          1.2120012044906616,
+          0.24999995529651642
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016664600181,
+          1.3989271245914323,
+          0.27704809003614483
+        ],
+        "max": [
+          -0.15689768029062606,
+          1.9399355635145024,
+          0.7861338787773325
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.03333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217301845550537,
+          -0.00899924710392952
+        ],
+        "R_Upperarm": [
+          -0.14556601643562317,
+          1.2640832662582397,
+          -0.1057666763663292
+        ],
+        "L_Upperarm": [
+          0.17764444649219513,
+          1.2739741802215576,
+          -0.012367019429802895
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.23999986052513123,
+          1.2120059728622437,
+          0.2500072717666626
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166668676543,
+          1.398926997407898,
+          0.2770480482831295
+        ],
+        "max": [
+          -0.15689768055083603,
+          1.9399352061206345,
+          0.7861339984445435
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.06666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.2172993421554565,
+          -0.009026513434946537
+        ],
+        "R_Upperarm": [
+          -0.14556916058063507,
+          1.2640676498413086,
+          -0.10580223798751831
+        ],
+        "L_Upperarm": [
+          0.17764714360237122,
+          1.2739758491516113,
+          -0.012404344975948334
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419568300247192,
+          0.2699907124042511
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.2120203971862793,
+          0.250029057264328
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330170511630165,
+          1.3989268806867985,
+          0.2770481626830956
+        ],
+        "max": [
+          -0.15689772199114393,
+          1.9399350958510602,
+          0.786134222410528
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.1,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.2172952890396118,
+          -0.009071297012269497
+        ],
+        "R_Upperarm": [
+          -0.14557436108589172,
+          1.264041781425476,
+          -0.105860635638237
+        ],
+        "L_Upperarm": [
+          0.1776515692472458,
+          1.273978590965271,
+          -0.01246563345193863
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.2120444774627686,
+          0.25006479024887085
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166500819435,
+          1.3989268726160522,
+          0.27704807516160795
+        ],
+        "max": [
+          -0.1568976732543056,
+          1.9399351534526659,
+          0.7861338979938444
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.13333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217289686203003,
+          -0.009132797829806805
+        ],
+        "R_Upperarm": [
+          -0.1455814242362976,
+          1.26400625705719,
+          -0.10594084113836288
+        ],
+        "L_Upperarm": [
+          0.17765763401985168,
+          1.2739821672439575,
+          -0.01254979893565178
+        ],
+        "R_Hand": [
+          -0.12999552488327026,
+          1.2419567108154297,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.212077021598816,
+          0.25011399388313293
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330177307168542,
+          1.3989267454697019,
+          0.27704798381729573
+        ],
+        "max": [
+          -0.15689779584328734,
+          1.939934993255768,
+          0.7861337614523688
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.16666666666666666,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.217282772064209,
+          -0.00920979306101799
+        ],
+        "R_Upperarm": [
+          -0.14559032022953033,
+          1.263961911201477,
+          -0.10604120045900345
+        ],
+        "L_Upperarm": [
+          0.17766521871089935,
+          1.273987054824829,
+          -0.012655183672904968
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2121182680130005,
+          0.25017547607421875
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330159818103346,
+          1.3989268100486512,
+          0.27704810166261346
+        ],
+        "max": [
+          -0.15689759845229578,
+          1.939934927261963,
+          0.7861339130733104
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.2,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.2172744274139404,
+          -0.009300780482590199
+        ],
+        "R_Upperarm": [
+          -0.1456008106470108,
+          1.2639093399047852,
+          -0.10615979880094528
+        ],
+        "L_Upperarm": [
+          0.17767417430877686,
+          1.2739923000335693,
+          -0.012779712677001953
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.212166666984558,
+          0.25024813413619995
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166246745087,
+          1.3989269389140935,
+          0.27704804950432105
+        ],
+        "max": [
+          -0.15689766604097016,
+          1.9399350455249516,
+          0.7861338156594027
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.23333333333333334,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172648906707764,
+          -0.009404012002050877
+        ],
+        "R_Upperarm": [
+          -0.1456127017736435,
+          1.2638496160507202,
+          -0.10629428178071976
+        ],
+        "L_Upperarm": [
+          0.17768435180187225,
+          1.2739983797073364,
+          -0.012921003624796867
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.26999056339263916
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.212221622467041,
+          0.2503305673599243
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330162932378348,
+          1.3989268092795537,
+          0.27704798959437843
+        ],
+        "max": [
+          -0.1568976374574328,
+          1.9399348763883388,
+          0.786133801751043
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.26666666666666666,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2172542810440063,
+          -0.009517449885606766
+        ],
+        "R_Upperarm": [
+          -0.14562581479549408,
+          1.2637838125228882,
+          -0.10644204169511795
+        ],
+        "L_Upperarm": [
+          0.17769546806812286,
+          1.2740048170089722,
+          -0.013076266273856163
+        ],
+        "R_Hand": [
+          -0.12999558448791504,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.2122819423675537,
+          0.2504211962223053
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330174856192994,
+          1.3989269677518021,
+          0.2770480423632666
+        ],
+        "max": [
+          -0.15689775472173806,
+          1.9399352257331008,
+          0.7861338077723804
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.3,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.217242956161499,
+          -0.009638868272304535
+        ],
+        "R_Upperarm": [
+          -0.1456398069858551,
+          1.2637134790420532,
+          -0.10660015046596527
+        ],
+        "L_Upperarm": [
+          0.17770741879940033,
+          1.2740117311477661,
+          -0.0132424496114254
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.23999987542629242,
+          1.2123466730117798,
+          0.25051820278167725
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330164574100642,
+          1.3989267967491943,
+          0.27704809692546506
+        ],
+        "max": [
+          -0.15689764918128607,
+          1.9399348007291928,
+          0.7861339479961256
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.3333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.2172309160232544,
+          -0.009765923954546452
+        ],
+        "R_Upperarm": [
+          -0.14565452933311462,
+          1.2636394500732422,
+          -0.1067655086517334
+        ],
+        "L_Upperarm": [
+          0.17771989107131958,
+          1.27401864528656,
+          -0.013416342437267303
+        ],
+        "R_Hand": [
+          -0.1299954354763031,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999997973442078,
+          1.212414264678955,
+          0.25061967968940735
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330165817737435,
+          1.398926990234921,
+          0.27704798480366616
+        ],
+        "max": [
+          -0.15689766806839273,
+          1.939935337151108,
+          0.7861338210383728
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.36666666666666664,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172185182571411,
+          -0.009896155446767807
+        ],
+        "R_Upperarm": [
+          -0.1456695944070816,
+          1.2635635137557983,
+          -0.10693492740392685
+        ],
+        "L_Upperarm": [
+          0.1777326762676239,
+          1.274025797843933,
+          -0.013594601303339005
+        ],
+        "R_Hand": [
+          -0.1299954056739807,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999987542629242,
+          1.2124837636947632,
+          0.25072386860847473
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330158446571075,
+          1.3989269977889007,
+          0.2770479371143184
+        ],
+        "max": [
+          -0.15689758635699558,
+          1.9399353949308233,
+          0.7861335399266952
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.375,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2172154188156128,
+          -0.009928938001394272
+        ],
+        "R_Upperarm": [
+          -0.14567337930202484,
+          1.2635444402694702,
+          -0.10697759687900543
+        ],
+        "L_Upperarm": [
+          0.17773588001728058,
+          1.2740275859832764,
+          -0.01363946683704853
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419570684432983,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2125011682510376,
+          0.2507500648498535
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633015804914454,
+          1.3989270973470798,
+          0.27704796883550303
+        ],
+        "max": [
+          -0.15689758209945867,
+          1.9399354032750393,
+          0.7861337258654003
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.4,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172058820724487,
+          -0.01002703420817852
+        ],
+        "R_Upperarm": [
+          -0.14568471908569336,
+          1.2634871006011963,
+          -0.10710515826940536
+        ],
+        "L_Upperarm": [
+          0.1777454912662506,
+          1.274032711982727,
+          -0.013773731887340546
+        ],
+        "R_Hand": [
+          -0.12999555468559265,
+          1.2419567108154297,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.24000002443790436,
+          1.2125532627105713,
+          0.2508283257484436
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016971285653,
+          1.3989266905005568,
+          0.2770481048195804
+        ],
+        "max": [
+          -0.15689770695725508,
+          1.939934695294998,
+          0.7861340674639264
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.43333333333333335,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217193365097046,
+          -0.010155962780117989
+        ],
+        "R_Upperarm": [
+          -0.14569967985153198,
+          1.2634117603302002,
+          -0.10727276653051376
+        ],
+        "L_Upperarm": [
+          0.1777581125497818,
+          1.274039387702942,
+          -0.013950198888778687
+        ],
+        "R_Hand": [
+          -0.12999555468559265,
+          1.2419569492340088,
+          0.26999056339263916
+        ],
+        "L_Hand": [
+          0.2399999499320984,
+          1.2126221656799316,
+          0.25093141198158264
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330171156588313,
+          1.398927015429326,
+          0.27704793189212623
+        ],
+        "max": [
+          -0.15689771287419682,
+          1.9399353898801863,
+          0.7861336881760559
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.4666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2171812057495117,
+          -0.010280480608344078
+        ],
+        "R_Upperarm": [
+          -0.14571408927440643,
+          1.2633386850357056,
+          -0.10743458569049835
+        ],
+        "L_Upperarm": [
+          0.17777025699615479,
+          1.274045705795288,
+          -0.014120643958449364
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.23999986052513123,
+          1.2126885652542114,
+          0.25103089213371277
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166098018084,
+          1.3989269450054622,
+          0.2770480367656148
+        ],
+        "max": [
+          -0.15689767237042446,
+          1.9399355984492819,
+          0.7861337524433062
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.5,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2171696424484253,
+          -0.010398111306130886
+        ],
+        "R_Upperarm": [
+          -0.1457277089357376,
+          1.2632697820663452,
+          -0.10758739709854126
+        ],
+        "L_Upperarm": [
+          0.17778176069259644,
+          1.2740516662597656,
+          -0.014281637966632843
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419569492340088,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.2127511501312256,
+          0.25112494826316833
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330163694868083,
+          1.3989269756938763,
+          0.27704807243410784
+        ],
+        "max": [
+          -0.15689764053488497,
+          1.9399351455762517,
+          0.786133933749797
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.5333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573968317359686,
+          1.2171587944030762,
+          -0.010506648570299149
+        ],
+        "R_Upperarm": [
+          -0.1457403004169464,
+          1.263205885887146,
+          -0.10772833228111267
+        ],
+        "L_Upperarm": [
+          0.17779238522052765,
+          1.2740566730499268,
+          -0.014430198818445206
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999984562397003,
+          1.2128089666366577,
+          0.2512117624282837
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330163934521658,
+          1.3989269892506775,
+          0.27704796917619684
+        ],
+        "max": [
+          -0.1568976472665009,
+          1.9399353172195095,
+          0.7861337522066147
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.5666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217149019241333,
+          -0.010603899136185646
+        ],
+        "R_Upperarm": [
+          -0.14575159549713135,
+          1.263148546218872,
+          -0.10785458981990814
+        ],
+        "L_Upperarm": [
+          0.17780184745788574,
+          1.2740614414215088,
+          -0.014563314616680145
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2128608226776123,
+          0.251289427280426
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016399309784,
+          1.3989268646789914,
+          0.2770480570397614
+        ],
+        "max": [
+          -0.1568976446956879,
+          1.9399351124650575,
+          0.7861338890556339
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.6,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.217140555381775,
+          -0.010688033886253834
+        ],
+        "R_Upperarm": [
+          -0.14576134085655212,
+          1.2630990743637085,
+          -0.10796377807855606
+        ],
+        "L_Upperarm": [
+          0.17781004309654236,
+          1.2740654945373535,
+          -0.0146784707903862
+        ],
+        "R_Hand": [
+          -0.12999558448791504,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.212905764579773,
+          0.25135672092437744
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330169893554675,
+          1.3989268950657854,
+          0.2770480547248151
+        ],
+        "max": [
+          -0.15689769892365893,
+          1.9399347440313226,
+          0.7861339339187816
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.6333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2171335220336914,
+          -0.010757382027804852
+        ],
+        "R_Upperarm": [
+          -0.1457694172859192,
+          1.2630579471588135,
+          -0.1080537661910057
+        ],
+        "L_Upperarm": [
+          0.17781679332256317,
+          1.2740685939788818,
+          -0.014773393049836159
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419567108154297,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.2129426002502441,
+          0.25141221284866333
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.163301690423521,
+          1.3989267495483122,
+          0.27704805000596283
+        ],
+        "max": [
+          -0.15689770245520412,
+          1.9399349377063309,
+          0.7861339359720916
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.6666666666666666,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2171281576156616,
+          -0.010810611769557
+        ],
+        "R_Upperarm": [
+          -0.14577558636665344,
+          1.263026475906372,
+          -0.1081228256225586
+        ],
+        "L_Upperarm": [
+          0.17782199382781982,
+          1.2740709781646729,
+          -0.014846250414848328
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399999499320984,
+          1.2129709720611572,
+          0.25145477056503296
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016655794791,
+          1.3989268624009341,
+          0.27704806837954354
+        ],
+        "max": [
+          -0.15689767547883293,
+          1.939935193727774,
+          0.7861338835785314
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.7,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2171244621276855,
+          -0.010846670717000961
+        ],
+        "R_Upperarm": [
+          -0.1457798033952713,
+          1.263005256652832,
+          -0.10816960781812668
+        ],
+        "L_Upperarm": [
+          0.17782548069953918,
+          1.2740727663040161,
+          -0.014895612373948097
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.2129900455474854,
+          0.2514835298061371
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330172495483958,
+          1.3989269087946719,
+          0.27704811418511
+        ],
+        "max": [
+          -0.15689774319156008,
+          1.9399352167802602,
+          0.7861341331911862
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.7333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2171226739883423,
+          -0.010864900425076485
+        ],
+        "R_Upperarm": [
+          -0.14578190445899963,
+          1.2629945278167725,
+          -0.10819324105978012
+        ],
+        "L_Upperarm": [
+          0.17782728374004364,
+          1.274073600769043,
+          -0.014920556917786598
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.23999997973442078,
+          1.212999939918518,
+          0.25149813294410706
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330156329070017,
+          1.398926801901458,
+          0.2770480942516571
+        ],
+        "max": [
+          -0.15689756054696252,
+          1.9399347960719233,
+          0.7861340229200728
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.75,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.2171224355697632,
+          -0.010867174714803696
+        ],
+        "R_Upperarm": [
+          -0.14578218758106232,
+          1.2629932165145874,
+          -0.1081961914896965
+        ],
+        "L_Upperarm": [
+          0.17782746255397797,
+          1.2740737199783325,
+          -0.014923686161637306
+        ],
+        "R_Hand": [
+          -0.12999555468559265,
+          1.2419567108154297,
+          0.26999056339263916
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2130013704299927,
+          0.2514999508857727
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330173543629134,
+          1.3989267470179243,
+          0.2770480010414163
+        ],
+        "max": [
+          -0.15689774719738803,
+          1.9399348527141023,
+          0.7861338510774206
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.7666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2171226739883423,
+          -0.010864900425076485
+        ],
+        "R_Upperarm": [
+          -0.14578190445899963,
+          1.2629945278167725,
+          -0.10819324105978012
+        ],
+        "L_Upperarm": [
+          0.17782728374004364,
+          1.274073600769043,
+          -0.014920556917786598
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.23999997973442078,
+          1.212999939918518,
+          0.25149813294410706
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330156329070017,
+          1.398926801901458,
+          0.2770480942516571
+        ],
+        "max": [
+          -0.15689756054696252,
+          1.9399347960719233,
+          0.7861340229200728
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.8,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2171244621276855,
+          -0.010846670717000961
+        ],
+        "R_Upperarm": [
+          -0.1457798033952713,
+          1.263005256652832,
+          -0.10816960781812668
+        ],
+        "L_Upperarm": [
+          0.17782548069953918,
+          1.2740727663040161,
+          -0.014895612373948097
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.2129900455474854,
+          0.2514835298061371
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330172495483958,
+          1.3989269087946719,
+          0.27704811418511
+        ],
+        "max": [
+          -0.15689774319156008,
+          1.9399352167802602,
+          0.7861341331911862
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.8333333333333334,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2171281576156616,
+          -0.010810611769557
+        ],
+        "R_Upperarm": [
+          -0.14577558636665344,
+          1.263026475906372,
+          -0.1081228256225586
+        ],
+        "L_Upperarm": [
+          0.17782199382781982,
+          1.2740709781646729,
+          -0.014846250414848328
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399999499320984,
+          1.2129709720611572,
+          0.25145477056503296
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016655794791,
+          1.3989268624009341,
+          0.27704806837954354
+        ],
+        "max": [
+          -0.15689767547883293,
+          1.939935193727774,
+          0.7861338835785314
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.8666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2171335220336914,
+          -0.010757382027804852
+        ],
+        "R_Upperarm": [
+          -0.1457694172859192,
+          1.2630579471588135,
+          -0.1080537661910057
+        ],
+        "L_Upperarm": [
+          0.17781679332256317,
+          1.2740685939788818,
+          -0.014773393049836159
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419567108154297,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.2129426002502441,
+          0.25141221284866333
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.163301690423521,
+          1.3989267495483122,
+          0.27704805000596283
+        ],
+        "max": [
+          -0.15689770245520412,
+          1.9399349377063309,
+          0.7861339359720916
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.9,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.217140555381775,
+          -0.010688033886253834
+        ],
+        "R_Upperarm": [
+          -0.14576134085655212,
+          1.2630990743637085,
+          -0.10796377807855606
+        ],
+        "L_Upperarm": [
+          0.17781004309654236,
+          1.2740654945373535,
+          -0.0146784707903862
+        ],
+        "R_Hand": [
+          -0.12999558448791504,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.212905764579773,
+          0.25135672092437744
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330169893554675,
+          1.3989268950657854,
+          0.2770480547248151
+        ],
+        "max": [
+          -0.15689769892365893,
+          1.9399347440313226,
+          0.7861339339187816
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.9333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217149019241333,
+          -0.010603899136185646
+        ],
+        "R_Upperarm": [
+          -0.14575159549713135,
+          1.263148546218872,
+          -0.10785458981990814
+        ],
+        "L_Upperarm": [
+          0.17780184745788574,
+          1.2740614414215088,
+          -0.014563314616680145
+        ],
+        "R_Hand": [
+          -0.1299954503774643,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2128608226776123,
+          0.251289427280426
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016399309784,
+          1.3989268646789914,
+          0.2770480570397614
+        ],
+        "max": [
+          -0.1568976446956879,
+          1.9399351124650575,
+          0.7861338890556339
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 0.9666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573968317359686,
+          1.2171587944030762,
+          -0.010506648570299149
+        ],
+        "R_Upperarm": [
+          -0.1457403004169464,
+          1.263205885887146,
+          -0.10772833228111267
+        ],
+        "L_Upperarm": [
+          0.17779238522052765,
+          1.2740566730499268,
+          -0.014430198818445206
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999984562397003,
+          1.2128089666366577,
+          0.2512117624282837
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330163934521658,
+          1.3989269892506775,
+          0.27704796917619684
+        ],
+        "max": [
+          -0.1568976472665009,
+          1.9399353172195095,
+          0.7861337522066147
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.0,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2171696424484253,
+          -0.010398111306130886
+        ],
+        "R_Upperarm": [
+          -0.1457277089357376,
+          1.2632697820663452,
+          -0.10758739709854126
+        ],
+        "L_Upperarm": [
+          0.17778176069259644,
+          1.2740516662597656,
+          -0.014281637966632843
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419569492340088,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.2127511501312256,
+          0.25112494826316833
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330163694868083,
+          1.3989269756938763,
+          0.27704807243410784
+        ],
+        "max": [
+          -0.15689764053488497,
+          1.9399351455762517,
+          0.786133933749797
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.0333333333333334,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2171812057495117,
+          -0.010280480608344078
+        ],
+        "R_Upperarm": [
+          -0.14571408927440643,
+          1.2633386850357056,
+          -0.10743458569049835
+        ],
+        "L_Upperarm": [
+          0.17777025699615479,
+          1.274045705795288,
+          -0.014120643958449364
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.23999986052513123,
+          1.2126885652542114,
+          0.25103089213371277
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166098018084,
+          1.3989269450054622,
+          0.2770480367656148
+        ],
+        "max": [
+          -0.15689767237042446,
+          1.9399355984492819,
+          0.7861337524433062
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.0666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217193365097046,
+          -0.010155962780117989
+        ],
+        "R_Upperarm": [
+          -0.14569967985153198,
+          1.2634117603302002,
+          -0.10727276653051376
+        ],
+        "L_Upperarm": [
+          0.1777581125497818,
+          1.274039387702942,
+          -0.013950198888778687
+        ],
+        "R_Hand": [
+          -0.12999555468559265,
+          1.2419569492340088,
+          0.26999056339263916
+        ],
+        "L_Hand": [
+          0.2399999499320984,
+          1.2126221656799316,
+          0.25093141198158264
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330171156588313,
+          1.398927015429326,
+          0.27704793189212623
+        ],
+        "max": [
+          -0.15689771287419682,
+          1.9399353898801863,
+          0.7861336881760559
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.1,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172058820724487,
+          -0.01002703420817852
+        ],
+        "R_Upperarm": [
+          -0.14568471908569336,
+          1.2634871006011963,
+          -0.10710515826940536
+        ],
+        "L_Upperarm": [
+          0.1777454912662506,
+          1.274032711982727,
+          -0.013773731887340546
+        ],
+        "R_Hand": [
+          -0.12999555468559265,
+          1.2419567108154297,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.24000002443790436,
+          1.2125532627105713,
+          0.2508283257484436
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633016971285653,
+          1.3989266905005568,
+          0.2770481048195804
+        ],
+        "max": [
+          -0.15689770695725508,
+          1.939934695294998,
+          0.7861340674639264
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.125,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573954347521067,
+          1.2172154188156128,
+          -0.009928938001394272
+        ],
+        "R_Upperarm": [
+          -0.14567337930202484,
+          1.2635444402694702,
+          -0.10697759687900543
+        ],
+        "L_Upperarm": [
+          0.17773588001728058,
+          1.2740275859832764,
+          -0.01363946683704853
+        ],
+        "R_Hand": [
+          -0.1299954205751419,
+          1.2419570684432983,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2125011682510376,
+          0.2507500648498535
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.1633015804914454,
+          1.3989270973470798,
+          0.27704796883550303
+        ],
+        "max": [
+          -0.15689758209945867,
+          1.9399354032750393,
+          0.7861337258654003
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.1333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172185182571411,
+          -0.009896155446767807
+        ],
+        "R_Upperarm": [
+          -0.1456695944070816,
+          1.2635635137557983,
+          -0.10693492740392685
+        ],
+        "L_Upperarm": [
+          0.1777326762676239,
+          1.274025797843933,
+          -0.013594601303339005
+        ],
+        "R_Hand": [
+          -0.1299954056739807,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999987542629242,
+          1.2124837636947632,
+          0.25072386860847473
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330158446571075,
+          1.3989269977889007,
+          0.2770479371143184
+        ],
+        "max": [
+          -0.15689758635699558,
+          1.9399353949308233,
+          0.7861335399266952
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.1666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.2172309160232544,
+          -0.009765923954546452
+        ],
+        "R_Upperarm": [
+          -0.14565452933311462,
+          1.2636394500732422,
+          -0.1067655086517334
+        ],
+        "L_Upperarm": [
+          0.17771989107131958,
+          1.27401864528656,
+          -0.013416342437267303
+        ],
+        "R_Hand": [
+          -0.1299954354763031,
+          1.2419569492340088,
+          0.26999059319496155
+        ],
+        "L_Hand": [
+          0.23999997973442078,
+          1.212414264678955,
+          0.25061967968940735
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330165817737435,
+          1.398926990234921,
+          0.27704798480366616
+        ],
+        "max": [
+          -0.15689766806839273,
+          1.939935337151108,
+          0.7861338210383728
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.2,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.217242956161499,
+          -0.009638868272304535
+        ],
+        "R_Upperarm": [
+          -0.1456398069858551,
+          1.2637134790420532,
+          -0.10660015046596527
+        ],
+        "L_Upperarm": [
+          0.17770741879940033,
+          1.2740117311477661,
+          -0.0132424496114254
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.23999987542629242,
+          1.2123466730117798,
+          0.25051820278167725
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330164574100642,
+          1.3989267967491943,
+          0.27704809692546506
+        ],
+        "max": [
+          -0.15689764918128607,
+          1.9399348007291928,
+          0.7861339479961256
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.2333333333333334,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.2172542810440063,
+          -0.009517449885606766
+        ],
+        "R_Upperarm": [
+          -0.14562581479549408,
+          1.2637838125228882,
+          -0.10644204169511795
+        ],
+        "L_Upperarm": [
+          0.17769546806812286,
+          1.2740048170089722,
+          -0.013076266273856163
+        ],
+        "R_Hand": [
+          -0.12999558448791504,
+          1.2419568300247192,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.2122819423675537,
+          0.2504211962223053
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330174856192994,
+          1.398926842277333,
+          0.2770480423632666
+        ],
+        "max": [
+          -0.15689775472173806,
+          1.9399350686942385,
+          0.7861338077723804
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.2666666666666666,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.2172648906707764,
+          -0.009404012002050877
+        ],
+        "R_Upperarm": [
+          -0.1456127017736435,
+          1.2638496160507202,
+          -0.10629428178071976
+        ],
+        "L_Upperarm": [
+          0.17768435180187225,
+          1.2739983797073364,
+          -0.012921003624796867
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.26999056339263916
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.212221622467041,
+          0.2503305673599243
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330162932378348,
+          1.3989268092795537,
+          0.27704798959437843
+        ],
+        "max": [
+          -0.1568976374574328,
+          1.9399348763883388,
+          0.786133801751043
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.3,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.2172744274139404,
+          -0.009300780482590199
+        ],
+        "R_Upperarm": [
+          -0.1456008106470108,
+          1.2639093399047852,
+          -0.10615979880094528
+        ],
+        "L_Upperarm": [
+          0.17767417430877686,
+          1.2739923000335693,
+          -0.012779712677001953
+        ],
+        "R_Hand": [
+          -0.12999549508094788,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.239999920129776,
+          1.212166666984558,
+          0.25024813413619995
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166246745087,
+          1.3989269389140935,
+          0.27704804950432105
+        ],
+        "max": [
+          -0.15689766604097016,
+          1.9399350455249516,
+          0.7861338156594027
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.3333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573956675827503,
+          1.217282772064209,
+          -0.00920979306101799
+        ],
+        "R_Upperarm": [
+          -0.14559032022953033,
+          1.263961911201477,
+          -0.10604120045900345
+        ],
+        "L_Upperarm": [
+          0.17766521871089935,
+          1.273987054824829,
+          -0.012655183672904968
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.2699906826019287
+        ],
+        "L_Hand": [
+          0.2399998903274536,
+          1.2121182680130005,
+          0.25017547607421875
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330159818103346,
+          1.3989268100486512,
+          0.27704810166261346
+        ],
+        "max": [
+          -0.15689759845229578,
+          1.939934927261963,
+          0.7861339130733104
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.3666666666666667,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217289686203003,
+          -0.009132797829806805
+        ],
+        "R_Upperarm": [
+          -0.1455814242362976,
+          1.26400625705719,
+          -0.10594084113836288
+        ],
+        "L_Upperarm": [
+          0.17765763401985168,
+          1.2739821672439575,
+          -0.01254979893565178
+        ],
+        "R_Hand": [
+          -0.12999552488327026,
+          1.2419567108154297,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.212077021598816,
+          0.25011399388313293
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330177307168542,
+          1.3989267454697019,
+          0.27704798381729573
+        ],
+        "max": [
+          -0.15689779584328734,
+          1.939934993255768,
+          0.7861337614523688
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.4,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.001357395201921463,
+          1.2172952890396118,
+          -0.009071297012269497
+        ],
+        "R_Upperarm": [
+          -0.14557436108589172,
+          1.264041781425476,
+          -0.105860635638237
+        ],
+        "L_Upperarm": [
+          0.1776515692472458,
+          1.273978590965271,
+          -0.01246563345193863
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.2699906527996063
+        ],
+        "L_Hand": [
+          0.2399999350309372,
+          1.2120444774627686,
+          0.25006479024887085
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166500819435,
+          1.3989268726160522,
+          0.27704807516160795
+        ],
+        "max": [
+          -0.1568976732543056,
+          1.9399351534526659,
+          0.7861338979938444
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.4333333333333333,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573961332440376,
+          1.2172993421554565,
+          -0.009026513434946537
+        ],
+        "R_Upperarm": [
+          -0.14556916058063507,
+          1.2640676498413086,
+          -0.10580223798751831
+        ],
+        "L_Upperarm": [
+          0.17764714360237122,
+          1.2739758491516113,
+          -0.012404344975948334
+        ],
+        "R_Hand": [
+          -0.12999548017978668,
+          1.2419568300247192,
+          0.2699907124042511
+        ],
+        "L_Hand": [
+          0.2399999052286148,
+          1.2120203971862793,
+          0.250029057264328
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330170511630165,
+          1.3989268806867985,
+          0.2770481626830956
+        ],
+        "max": [
+          -0.15689772199114393,
+          1.9399350958510602,
+          0.786134222410528
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.4666666666666666,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.1599942037296233,
+            -0.02799918654222655,
+            0.11999587616863068
+          ],
+          "sole_height_metres": -0.02799918654222655,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156923279265773,
+          "front_minimum_metres": -0.023136580521520032,
+          "heel_front_height_difference_metres": -2.0342757745740736e-05,
+          "actual_shoe_pca_heading_degrees": 5.370684701544771,
+          "sole_normal_roll_degrees": -0.5718838595576604,
+          "sole_area_weighted_normal": [
+            0.001557457671784854,
+            -0.9965850582389871,
+            0.0825578343974414
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999453058367952,
+            -0.02799906903942605,
+            -0.11999575202637029
+          ],
+          "sole_height_metres": -0.02799906903942605,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020575003645194642,
+          "front_minimum_metres": -0.021963897642593155,
+          "heel_front_height_difference_metres": 0.0013888939973985132,
+          "actual_shoe_pca_heading_degrees": -1.2326760720558032,
+          "sole_normal_roll_degrees": -0.17690484982576266,
+          "sole_area_weighted_normal": [
+            -0.01197404476397313,
+            -0.9979378883785386,
+            0.0630602346219382
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573963660746813,
+          1.217301845550537,
+          -0.00899924710392952
+        ],
+        "R_Upperarm": [
+          -0.14556601643562317,
+          1.2640832662582397,
+          -0.1057666763663292
+        ],
+        "L_Upperarm": [
+          0.17764444649219513,
+          1.2739741802215576,
+          -0.012367019429802895
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419569492340088,
+          0.26999062299728394
+        ],
+        "L_Hand": [
+          0.23999986052513123,
+          1.2120059728622437,
+          0.2500072717666626
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330166668676543,
+          1.398926997407898,
+          0.2770480482831295
+        ],
+        "max": [
+          -0.15689768055083603,
+          1.9399352061206345,
+          0.7861339984445435
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    },
+    {
+      "source_seconds": 1.5,
+      "foot_surfaces": {
+        "L_": {
+          "centre_metres": [
+            0.15999422601583924,
+            -0.027999195003953453,
+            0.11999558942485924
+          ],
+          "sole_height_metres": -0.027999195003953453,
+          "surface_vertex_count": 1478,
+          "heel_minimum_metres": -0.023156892253305847,
+          "front_minimum_metres": -0.023136601048898035,
+          "heel_front_height_difference_metres": -2.0291204407812263e-05,
+          "actual_shoe_pca_heading_degrees": 5.370679176378614,
+          "sole_normal_roll_degrees": -0.5718819562559868,
+          "sole_area_weighted_normal": [
+            0.0015574431964135095,
+            -0.9965850840958465,
+            0.08255752254255586
+          ]
+        },
+        "R_": {
+          "centre_metres": [
+            -0.15999437062527125,
+            -0.027998979774600686,
+            -0.1199959979124081
+          ],
+          "sole_height_metres": -0.027998979774600686,
+          "surface_vertex_count": 1420,
+          "heel_minimum_metres": -0.020574875564751644,
+          "front_minimum_metres": -0.021963818230071007,
+          "heel_front_height_difference_metres": 0.0013889426653193628,
+          "actual_shoe_pca_heading_degrees": -1.2326845011195922,
+          "sole_normal_roll_degrees": -0.17690136673396156,
+          "sole_area_weighted_normal": [
+            -0.011973949657483414,
+            -0.9979379093564846,
+            0.06305992070093827
+          ]
+        }
+      },
+      "joint_origins_metres": {
+        "Hip": [
+          0.0,
+          0.841970682144165,
+          2.427259460091591e-08
+        ],
+        "Spine02": [
+          0.0013573651667684317,
+          1.2173025608062744,
+          -0.008989999070763588
+        ],
+        "R_Upperarm": [
+          -0.1455649882555008,
+          1.26408851146698,
+          -0.10575465112924576
+        ],
+        "L_Upperarm": [
+          0.17764349281787872,
+          1.2739735841751099,
+          -0.012354351580142975
+        ],
+        "R_Hand": [
+          -0.1299954652786255,
+          1.2419568300247192,
+          0.2699907124042511
+        ],
+        "L_Hand": [
+          0.23999983072280884,
+          1.2120007276535034,
+          0.25000008940696716
+        ]
+      },
+      "steel_bounds_metres": {
+        "min": [
+          -0.16330171296385043,
+          1.3989268187598225,
+          0.2770481517758617
+        ],
+        "max": [
+          -0.1568977360393803,
+          1.9399348979787379,
+          0.7861339376165808
+        ]
+      },
+      "actual_steel_body_triangle_overlaps": [],
+      "nonadjacent_region_triangle_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      }
+    }
+  ],
+  "verification_source_pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+    "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+    "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+    "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+    "ArtSource/tripo-warrior/prepare_character_library.py": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+    "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a"
+  }
+}

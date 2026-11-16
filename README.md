@@ -10,6 +10,8 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
+当前开发预览已接入自然守势与共用呼吸时钟，binding为`dc0df17b…`；446项测试与APK构建通过，已在真实PICO Emulator显示。画面、版本与未通过项见[验收清单](docs/acceptance.md)。整体美术和完整攻防体验仍未验收。
+
 ## 当前交付
 
 | 内容 | 状态与边界 |

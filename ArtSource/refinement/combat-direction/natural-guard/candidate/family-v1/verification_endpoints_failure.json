@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "error": "invalid quaternion",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/verify_family.py\", line 372, in main\n    report, metadata, assets, originals = endpoints()\n  File \"/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/verify_family.py\", line 248, in endpoints\n    tracks = check_raw(doc, binary, clip, old_tracks, guard, rig, rig_binary)\n  File \"/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/verify_family.py\", line 125, in check_raw\n    require(np.max(np.abs(np.linalg.norm(values, axis=1) - 1.)) < 2e-5, 'invalid quaternion')\n  File \"/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/verify_family.py\", line 48, in require\n    raise ValueError(message)\nValueError: invalid quaternion\n",
+  "verifier": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/verify_family.py",
+    "sha256": "f0b3e2d81130a28eb170651107643e55fbe123dfc42db1153f2ac8fce7817f50",
+    "bytes": 22846
+  }
+}

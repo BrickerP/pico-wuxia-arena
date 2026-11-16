@@ -372,7 +372,7 @@ internal class CombatAudio(
 internal fun latestAudioFootfall(profile: LocomotionProfile, previousGait: Double, gait: Double): EnemyFoot? {
     val delta = gait - previousGait
     if (!previousGait.isFinite() || !gait.isFinite() || delta == 0.0) return null
-    val source = profile.sourceSeconds(moving = true, gaitMeters = gait)
+    val source = profile.sourceSeconds(moving = true, gaitMeters = gait, motionNanos = 0L)
     val phase = (source - profile.loopStartSeconds) / (profile.loopEndSeconds - profile.loopStartSeconds)
     val forward = delta > 0.0
     val cycle = kotlin.math.round(gait / profile.strideMeters - phase)

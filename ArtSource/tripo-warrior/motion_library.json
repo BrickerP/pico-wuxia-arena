@@ -242,8 +242,8 @@
     "source": "refined-base60k/rig.glb",
     "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
     "authoring_manifest": {
-      "source": "../refinement/combat-direction/native-weighted-overhead/integration/attack_bank_inputs.json",
-      "source_sha256": "41e8f8f783d675e83f4516e7010fa88dce7b970f7416baf23a0bf354691464a7"
+      "source": "../refinement/combat-direction/natural-guard/integration/attack_bank_inputs.json",
+      "source_sha256": "ab9515b41c0c14c7f987cb95025e35ec7961b534cc9b73835c575861f520f940"
     },
     "clips": [
       {
@@ -251,8 +251,8 @@
         "direction": "OVERHEAD",
         "incoming_guard_side": "OVERHEAD",
         "actor_travel_side": "DOWN",
-        "source": "../refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
-        "source_sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+        "source_sha256": "9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696",
         "stage": "authored_raw",
         "right_calibration_baked": false,
         "phase_markers": {
@@ -275,8 +275,8 @@
         "direction": "LEFT",
         "incoming_guard_side": "LEFT",
         "actor_travel_side": "LEFT",
-        "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
-        "source_sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+        "source_sha256": "ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc",
         "stage": "authored_raw",
         "right_calibration_baked": false,
         "phase_markers": {
@@ -299,8 +299,8 @@
         "direction": "RIGHT",
         "incoming_guard_side": "RIGHT",
         "actor_travel_side": "RIGHT",
-        "source": "../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
-        "source_sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+        "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
         "stage": "authored_raw",
         "right_calibration_baked": false,
         "phase_markers": {
@@ -329,21 +329,21 @@
     "source": "refined-base60k/rig.glb",
     "source_sha256": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
     "authoring_manifest": {
-      "source": "../refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json",
-      "source_sha256": "3a3090ba4181f84169df9e8d7374505ddab5ff4cf3948d183800b116143feab6"
+      "source": "../refinement/combat-direction/natural-guard/integration/locomotion_inputs.json",
+      "source_sha256": "c546fe37fced7216770de527695b95a05db5233e556ff4a43d3dc4343a40b993"
     },
     "clips": [
       {
         "name": "idle",
-        "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_idle_raw.glb",
-        "source_sha256": "f1aa9efbb2060c36df2047021fcdc1d1b1127a25bae876513c755aa73da486b1",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+        "source_sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
         "stage": "authored_raw",
         "right_calibration_baked": false
       },
       {
         "name": "walk",
-        "source": "../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
-        "source_sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
+        "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+        "source_sha256": "5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462",
         "stage": "authored_raw",
         "right_calibration_baked": false
       }
@@ -411,7 +411,7 @@
     "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
   },
   "production_review": {
-    "source": "../refinement/combat-direction/native-weighted-overhead/integration/production_review_v5.json",
-    "source_sha256": "bb8de88755a1d3ba920c93d81e488d8071bdf66a3d426576e937833439381f93"
+    "source": "../refinement/combat-direction/natural-guard/integration/production_review.json",
+    "source_sha256": "7ce6df1e820ac416e36cdca7ebabb3af385d9006fa65d86ee540cbd12f7e5524"
   }
 }

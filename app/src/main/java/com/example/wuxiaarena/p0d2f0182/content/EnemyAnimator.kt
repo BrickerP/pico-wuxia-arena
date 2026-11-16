@@ -28,6 +28,8 @@ internal class EnemyAnimator(enemy: Entity) {
     private var playbackKey: PlaybackKey? = null
     private var lastPhase: EnemyPhase? = null
     private var lastPaused: Boolean? = null
+    private var idleEvidenceCount = 0
+    private var lastIdleEvidenceSeconds: Double? = null
     private var closed = false
 
     init {
@@ -109,6 +111,16 @@ internal class EnemyAnimator(enemy: Entity) {
         // All clips are manually sampled. The state clock owns pause, hit-stop and recovery.
         val paused = true
         if (!active.isPaused()) active.pause()
+        val idleSource = sourceSeconds
+        if (clip == "idle" && idleSource != null && idleEvidenceCount < 3 &&
+            (lastIdleEvidenceSeconds == null || kotlin.math.abs(idleSource - checkNotNull(lastIdleEvidenceSeconds)) >= .25)) {
+            Log.i(TAG, "SharedIdlePlaybackEvidence sample=${idleEvidenceCount + 1} result=${state.result} " +
+                "requestedSourceSeconds=$idleSource sdkTimeSeconds=${active.getTime()} " +
+                "queryBladeBase=${state.enemyBladeBase} queryBladeTip=${state.enemyBladeTip} " +
+                "skinnedMeshReadback=not_measured")
+            lastIdleEvidenceSeconds = idleSource
+            idleEvidenceCount++
+        }
         if (lastPhase != state.phase || lastPaused != paused) {
             Log.i(TAG, "Presented phase=${state.phase}, paused=$paused, clip=$clip, sourceSeconds=${active.getTime()}")
             lastPhase = state.phase

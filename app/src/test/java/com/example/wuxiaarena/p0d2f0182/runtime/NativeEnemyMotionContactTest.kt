@@ -110,7 +110,7 @@ class NativeEnemyMotionContactTest {
         init {
             // Fix the player's transverse dao where the walking actor's true sampled
             // blade will arrive after 0.75 m of locomotion, well before attack range.
-            val arriving = arenaOpponents.first().locomotionProfile().sample(true, 0.75)
+            val arriving = arenaOpponents.first().locomotionProfile().sample(true, 0.75, 0L)
                 .inStage(Vector3(0.0, 0.0, -2.25), 0f)
             val rotation = Quaternion(0.0, -sqrt(0.5), 0.0, sqrt(0.5))
             val localBlade = playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))

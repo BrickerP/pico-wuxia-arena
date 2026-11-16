@@ -3,13 +3,13 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "veteran_prepared_png.glb",
-    "sha256": "9993a325a8a20c67ab3c2ea8a9812485bade884269ebbdbb9a933c105572e758",
-    "bytes": 17146168
+    "sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363",
+    "bytes": 17439336
   },
   "output": {
     "path": "veteran.glb",
-    "sha256": "803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed",
-    "bytes": 45056896
+    "sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87",
+    "bytes": 45350060
   },
   "encoder": {
     "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -2009,15 +2009,15 @@
     "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
   },
   "animation_semantic_signatures": {
-    "fall": "007e2adb847cdfcdce5b6b7285d3903a9fe201648bc94ed37097f805921dde6d",
-    "turn": "de24831abec31755d35c2e398a273ed44ac13dcbcfea1dbebeeb96fa292c35bd",
-    "hit_body": "ca595df62c78c8329c66c3331c18f516dc93e5ada45c11c4d16a98330b4055ee",
-    "hit_head": "3622f140874f59eee1a8c9edef6928062332ddef7b7b9111998a8635f9a03ed3",
-    "hit_side": "6e64cb90d9df19462c40e0f55bed0d2a5f18776c0b2e36e48fc8281df66343f6",
-    "idle": "fc5edd26dfd158b22691e0cdcd9715d883f49ddca34db15b425c040e3d3984f5",
-    "walk": "7c7a3e312f246017f44b8f3ed9a04ce578c6e6624bbd9ef6f5b0c7789090fe4d",
-    "attack_overhead": "8a10be2551c3ec157bf9b5731738b2a44cac3e4b53d70b7ae62b61da11629952",
-    "attack_left": "d201c04d207db358e79310645f6ac526c0789422e531422f0c7d06e46ccb608a",
-    "attack_right": "fb015c01f2e1f31fb6ffb76abd9c9476a4a8e20450298ea58c2ec65a4cbeb1a9"
+    "fall": "8289550fb8e87d4a40e6443e9a7214ed4dcd692e2d42eddec7a9b6ee27b1192c",
+    "turn": "48f21c373116743712126a55ba07b34f885f1bcb8b1cc051ba4724b769e4a8b8",
+    "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+    "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+    "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f",
+    "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+    "walk": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
+    "attack_overhead": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
+    "attack_left": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
+    "attack_right": "9f836442e63dd95b602dfa3a09ded05c8a399fc1036c4b14c647af9341b480de"
   }
 }

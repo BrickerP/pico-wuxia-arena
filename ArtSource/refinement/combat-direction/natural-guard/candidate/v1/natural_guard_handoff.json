@@ -1,0 +1,472 @@
+{
+  "status": "source_guard_and_breathing_idle_ready_for_Root_review_no_family_or_native_acceptance",
+  "clock": {
+    "Root_start_cst": "2026-11-15T16:40:00+08:00",
+    "Root_deadline_cst": "2026-11-15T17:25:00+08:00",
+    "sealed_utc": "2026-11-15T09:15:33.514169+00:00",
+    "sealed_cst": "2026-11-15T17:15:33.514487+08:00",
+    "RAW_mtimes_cst": {
+      "guard_raw.glb": "2026-11-15T16:53:28.077488+08:00",
+      "idle_raw.glb": "2026-11-15T16:53:28.171932+08:00"
+    }
+  },
+  "RAW": {
+    "guard": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+      "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+      "bytes": 18538720
+    },
+    "idle": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb",
+      "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "bytes": 19098860
+    }
+  },
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/natural_guard_authoring.json",
+    "sha256": "b1cf520197890027f57db26ac02d0d0a0766ce793d1b90f9db9607d353b4b6a8",
+    "bytes": 92747
+  },
+  "canonical_guard_role": "guard_pose is an offline canonical reference pose only, not a new runtime guard clip or mode.",
+  "idle_role": "Real breathing source remains named idle and is intended for the existing idle entry after Root accepts and coherently updates the family and its clock.",
+  "source_contract": {
+    "raw_skin_joints": 78,
+    "raw_TRS_channels": 234,
+    "guard_keys": 2,
+    "idle_keys": 181,
+    "idle_rate_hz": 120,
+    "duration_seconds": 1.5,
+    "exact_float32_endpoints_match_new_guard": true,
+    "R15_exact_constant_source_v5_UNBAKED": true,
+    "raw_rest_static_payload_unchanged": true,
+    "base_preview_mesh_and_materials_unchanged": true
+  },
+  "source_interpolation": "All234TRS tracks complete; guard2keys and idle181keys0..1.5s@120Hz, LINEAR. Analytic cosine breath is periodic, exported LINEAR data is not claimed globally C2.",
+  "guard_pose_intent": {
+    "clavicle_release_degrees": 3.0,
+    "left_wrist_target_metres": [
+      0.23999999463558197,
+      1.2400000095367432,
+      0.25
+    ],
+    "left_elbow_pole_metres": [
+      0.4000000059604645,
+      1.1399999856948853,
+      0.10000000149011612
+    ],
+    "left_wrist": "actual rest forearm->hand local relation, no old dangling world Q",
+    "left_finger_native_curl_blend": {
+      "L_Pinky1": 0.27,
+      "L_Pinky2": 0.27,
+      "L_Pinky3": 0.27,
+      "L_Ring1": 0.24,
+      "L_Ring2": 0.24,
+      "L_Ring3": 0.24,
+      "L_Mid1": 0.21,
+      "L_Mid2": 0.21,
+      "L_Mid3": 0.21,
+      "L_Index1": 0.18,
+      "L_Index2": 0.18,
+      "L_Index3": 0.18,
+      "L_Thumb1": 0.3,
+      "L_Thumb2": 0.3,
+      "L_Thumb3": 0.3
+    },
+    "right_wrist_and_weapon": "original v5guard world hand position/quaternion held through shoulder release and every breath sample",
+    "foot_policy": "all original root/hip/leg/foot local TRS payloads fixed, no root travel or foot IK drift"
+  },
+  "breath_intent": {
+    "clip": "idle",
+    "duration_seconds": 1.5,
+    "sample_rate_hz": 120,
+    "sample_count": 181,
+    "curve": "one small periodic1.5s inhale/exhale, exact closed guard endpoints; scalar cosine is smooth, exported glTF LINEAR is not globally C2",
+    "breath_peak_spine_pitch_degrees": -0.7,
+    "breath_peak_clavicle_lift_degrees": 0.18,
+    "left_wrist_target_follow_metres": [
+      0,
+      0.001,
+      0.0015
+    ]
+  },
+  "bounded_verification": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/verification_natural_guard.json",
+      "sha256": "4893e100d0ef46f982a4a03a83deddf44baa929f2695aa1879e1bbedcd44513d",
+      "bytes": 149952
+    },
+    "sample_count": 49,
+    "actual_steel_fullbody_overlap_sample_count": 0,
+    "nonadjacent_forearm_hand_vs_head_chest_overlap_sample_count": 0,
+    "all_checks": {
+      "nonstatic_chest_or_shoulder": true,
+      "small_chest_and_shoulder_motion": true,
+      "stable_right_wrist": true,
+      "stable_actual_steel_vertices": true,
+      "actual_shoe_floor": true,
+      "actual_shoe_centres": true,
+      "bone_lengths": true,
+      "sampled_steel_and_nonadjacent_regions_clear": true
+    },
+    "guard_and_idle_endpoint_234_TRS_float32_exact": true,
+    "RAW_R15_exact_constant_v5_UNBAKED": true,
+    "preview_once_finger_and_once_root_shift_max_component_errors": {
+      "guard": 0.0,
+      "idle": 0.0
+    },
+    "maximum_guard_relative_joint_displacement_metres": {
+      "Hip": 0.0,
+      "Spine02": 0.001885695212196718,
+      "R_Upperarm": 0.002684711318240052,
+      "L_Upperarm": 0.002577678254607578,
+      "R_Hand": 4.0535540904806387e-07,
+      "L_Hand": 0.001802863976412208
+    },
+    "maximum_guard_relative_joint_rotation_degrees": {
+      "Hip": 0.0,
+      "Spine02": 0.6988526828795398,
+      "R_Upperarm": 0.6852814171638418,
+      "L_Upperarm": 0.9977864773540203,
+      "R_Hand": 0.0,
+      "L_Hand": 0.4545638702205993
+    },
+    "maximum_actual_steel_vertex_motion_metres": 9.035864859894855e-07,
+    "maximum_actual_shoe_sole_plane_error_metres": 1.0202253993146781e-06,
+    "maximum_actual_shoe_centre_motion_metres": 3.066184029253878e-07,
+    "maximum_bone_length_change_metres": 1.2240870395635872e-07,
+    "actual_rejections": [
+      "invalid source time nan",
+      "invalid source time -0.001",
+      "invalid source time 1.501",
+      "invalid source time True",
+      "wrong SHA of actual exported idle",
+      "actual exported last guard translation mutated by 10mm",
+      "actual exported final timeline key mutated to 1.6s"
+    ]
+  },
+  "absolute_legacy_marker": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/verification_legacy_marker.json",
+      "sha256": "ad3a0057c1e271d512106caed1547aca1ad4918c3e880ec281852009c5614b46",
+      "bytes": 3202
+    },
+    "source_seconds": 0.3333333333333333,
+    "actual_nearest_key_seconds": 0.3333333432674408,
+    "changed_rotation_track_count": 9,
+    "joint_displacement_metres": {
+      "Hip": 0.0,
+      "Spine02": 0.0007791224168538377,
+      "R_Upperarm": 0.001109677948507042,
+      "L_Upperarm": 0.0010655078096331832,
+      "R_Hand": 1.6858739404357614e-07,
+      "L_Hand": 0.0007447664353240125
+    },
+    "result": "Absolute source1/3 is intentionally not frozen to guard. Only0/1.5 endpoints are exact guard. Reuses the same executed49-pose scan, no extra surface pass."
+  },
+  "before_after_grip_evidence": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/before_after_actual_anchor_deltas.json",
+      "sha256": "1b2a27fc0c10cf71e6d5bb8256551fc79a572ce30b4edeb6e046cae4ea264b9a",
+      "bytes": 4610
+    },
+    "scope": "Actual current formal base idle0 versus new private base guard0, full existing Grip binding and shift included. Existing before/after node measurements give RHand/BladeBase/BladeTip differences about1.5\u20131.7micrometres; does not independently assert a full RHand rotation matrix identity."
+  },
+  "private_previews": {
+    "guard": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_preview.glb",
+      "sha256": "c5c45dcf04131bfd4c443f60efa4cd41b974f69c08f82bd4ff8e1f9d4bb71b4e",
+      "bytes": 53700156
+    },
+    "idle": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_preview.glb",
+      "sha256": "42179676c7bb97a48f2ca2f1a06350b044974431c64e481d8f2736d7f72163f3",
+      "bytes": 54283228
+    },
+    "not_RAW": true,
+    "base_only": true,
+    "right_finger_offset_applications": 1,
+    "target_canonical_root_shift_applications": 1,
+    "no_family_or_three_target_generation": true
+  },
+  "existing_producer_gate_probe": {
+    "actual_call": "validate_source_clip(actual idle_raw, original rig, locomotion78, idle)",
+    "actual_result": "rejected",
+    "actual_rejection": "locomotion78 requires its frozen 91/185-key 0..1.5s raw source",
+    "additional_existing_gate_from_source_inspection": "Current idle requires every track STEP and constant; moving leg LINEAR is allowed only for walk. The breathing body LINEAR curves also need a coherent contract replacement. This later gate was not reached because the actual181-key source fails the91-key check first.",
+    "source_keys_and_interpolation_modified_for_probe": false,
+    "production_source": {
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "bytes": 55490
+    }
+  },
+  "Root_integration_gates_to_replace": [
+    "frozen idle91/walk185 source count convention",
+    "non-leg STEP and constant idle body tracks",
+    "locked_head_ancestor_chain",
+    "canonical source markers[0,1/3,1.5] all equal attack0",
+    "LocomotionProfile locked-idle contact/blade anchor constructor requirements while preserving intended held-knife constraint",
+    "idle first-sample source time selection and EnemyAnimator manual setTime must share the simulation idle clock",
+    "unified natural guard in idle/walk/three attacks, profiles, typed data and binding"
+  ],
+  "Root_acceptance_then_single_path_migration": {
+    "family": "Unify the accepted natural canonical guard in idle/walk and all three attack endpoints, then regenerate typed/proxy/binding together. Do not add an old/new fallback or force this idle to91/STEP to satisfy the retired locked assumption.",
+    "source_contract": "Replace the current frozen91-key idle gate, non-leg STEP/constant gate and canonical_source_evidence idle0/1/3/1.5+locked_head_ancestor_chain assumptions coherently. guard_pose remains a source reference.",
+    "runtime_actual_chain": "ArenaSession.effectiveEnemyPose -> ArenaOpponents.selectEnemyPose(IDLE/guardedHIT) -> LocomotionProfile.sourceSeconds(moving=false) returns idle.samples.first().sourceSeconds; EnemyAnimator alive pauses and setTime(state.enemyPoseSourceSeconds). A simulation/idle clock must drive both profile/proxy and SDK; repeat(-1) alone will not breathe.",
+    "runtime_clock": "Current moving=false returns idle.samples.first and EnemyAnimator alive pauses+setTime(state.enemyPoseSourceSeconds). A shared simulation/idle source clock must drive both profile/proxy and SDK; SDK repeat(-1) alone is insufficient.",
+    "anchor_contract": "This source holds actual knife/RHand fixed while chest/head breathe. Root must replace incompatible locked-body expectations in the profile/generator with the same source clock, preserving the actual contact/knife constraints.",
+    "public_paths_modified_here": false
+  },
+  "visual_evidence": {
+    "before_after_board": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/natural_guard_before_after.png",
+      "sha256": "675a6bd72175e21cabda8a71182026c55bbbf143eb2d75113412d321f79fbe2e",
+      "bytes": 1065148
+    },
+    "idle_movie": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/after/movie/natural_idle_1p5s_30fps.mp4",
+      "sha256": "6752c16d42455d73b2a6592c2d870ee31f87beb0deecd12c16194993f3da1deb",
+      "bytes": 39562
+    },
+    "movie_contract": "1.500s/30fps45 video frames from46 actual source samples0..1.5; endpoint closure still is separate. No slow-down/time stretch.",
+    "render_manifests": [
+      {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/after/movie/render_manifest.json",
+        "sha256": "8b09119c7d78efe1733bce315a291425f513603712301f3935cd1328b149650f",
+        "bytes": 188777
+      },
+      {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/after/pose/render_manifest.json",
+        "sha256": "3698d65310233eebbbe23a544671f856e7161ab3559263bf64d68f33939a9a8e",
+        "bytes": 9250
+      },
+      {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/before/pose/render_manifest.json",
+        "sha256": "26d9bbdaf2a07c4bb9cba8bf42cdc808868ff6425d6e13cd9710608f2a3de3d8",
+        "bytes": 8312
+      },
+      {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/review/v1/review_manifest.json",
+        "sha256": "81c162b4c6ff0e3639b467ceaab24779ba83a4a019b8e6a011f183653ce71d9d",
+        "bytes": 6763
+      }
+    ],
+    "aesthetic_authority": "Independent same-camera source review only; Root judges naturalness and whether the light breath is perceptible. Numeric nonstatic checks do not replace aesthetic or PICO acceptance."
+  },
+  "frozen_v5_parent": {
+    "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+    "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+    "bytes": 19192620
+  },
+  "source_live_path_drift_after_build": [],
+  "execution_dependency_pins": {
+    "build": {
+      "ArtSource/refinement/combat-direction/natural-guard/build_natural_guard.py": "3a90a09e010bfe629c8663f059855569fcd52c476b715ea8201ec8fd91202afc",
+      "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+      "ArtSource/tripo-warrior/refined-base60k/rig.glb": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "ArtSource/tripo-warrior/motion_library.json": "1d2dd4fdc03b66ebdda954319dc93fbd0adc6fbdede8d5d875ba5ede6cd09ba0",
+      "ArtSource/tripo-warrior/production_contract.py": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+      "ArtSource/tripo-warrior/prepare_character_library.py": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "ArtSource/tripo-warrior/refine_character_grips.py": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+      "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "ArtSource/tripo-warrior/../refinement/material-direction/integration/base_albedo_tangent_raw.glb": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
+      "ArtSource/tripo-warrior/refined-base60k/slash.glb": "98e785d73a5d6cb767cebd5b79ec2bb9af9a2b717ae2d2576f3a0b7e07ea370a",
+      "ArtSource/tripo-warrior/library/base_alignment.json": "a89e1c7bebf00f7cc4127f6a0e367538c391931a05b5ffcc00cecb4609f942c6",
+      "ArtSource/refinement/hand-poses/run_blender.py": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1"
+    },
+    "verification": {
+      "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+      "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+      "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+      "ArtSource/tripo-warrior/prepare_character_library.py": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a"
+    }
+  },
+  "matched_executed_dependency_snapshots": [
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/build_natural_guard.py",
+      "execution_sha256": "3a90a09e010bfe629c8663f059855569fcd52c476b715ea8201ec8fd91202afc",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/combat-direction/natural-guard/build_natural_guard.py",
+        "sha256": "3a90a09e010bfe629c8663f059855569fcd52c476b715ea8201ec8fd91202afc",
+        "bytes": 14279
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/production_contract.py",
+      "execution_sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/production_contract.py",
+        "sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+        "bytes": 2860
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "execution_sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/prepare_character_library.py",
+        "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+        "bytes": 55490
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "execution_sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+        "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+        "bytes": 42376
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/refine_character_grips.py",
+      "execution_sha256": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/refine_character_grips.py",
+        "sha256": "526487c7b32c2a54d85338134dbe665e96342d853afc7bc73a1737037cc6c39f",
+        "bytes": 13181
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+      "execution_sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+        "sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+        "bytes": 24812
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py",
+      "execution_sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py",
+        "sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+        "bytes": 23451
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/run_blender.py",
+      "execution_sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/run_blender.py",
+        "sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+        "bytes": 898
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py",
+      "execution_sha256": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py",
+        "sha256": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+        "bytes": 26032
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py",
+      "execution_sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py",
+        "sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+        "bytes": 23451
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py",
+      "execution_sha256": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py",
+        "sha256": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+        "bytes": 18969
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+      "execution_sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+        "sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+        "bytes": 24812
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py",
+      "execution_sha256": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/refinement/hand-poses/attack-keyposes/stage4/build_overhead.py",
+        "sha256": "a5b2a4fcdaaf82b6586c0ee612f5be039c262f9a09e102e8c966a8c2d4e27a0e",
+        "bytes": 22001
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "execution_sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/prepare_character_library.py",
+        "sha256": "71c30362eb5d101365894e63508c04792cbae50ca4a062a697710d6b873c7449",
+        "bytes": 55490
+      }
+    },
+    {
+      "stage": "verification",
+      "original_file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "execution_sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/executed-dependencies/ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+        "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+        "bytes": 42376
+      }
+    }
+  ],
+  "executed_source_snapshots": [
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/build_natural_guard.py",
+      "sha256": "3a90a09e010bfe629c8663f059855569fcd52c476b715ea8201ec8fd91202afc",
+      "bytes": 14279
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/verify_natural_guard.py",
+      "sha256": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+      "bytes": 26032
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/source/build_handoff.py",
+      "sha256": "158f2d2d35c6cfd0ae8b2f983e465006fe7c3610d7a6a05c6a34969f2e116343",
+      "bytes": 9138
+    }
+  ],
+  "boundaries": {
+    "geometry_localization_corrections_used": 0,
+    "v5_old_family_producer_formal_app_device_Git_written": false,
+    "generated_targets": [
+      "private_base_preview"
+    ]
+  },
+  "limits": [
+    "Discrete posed triangle surfaces do not prove continuous-time or volume clearance.",
+    "Anatomical regions require all three vertices to have dominant joints within the named region; adjacent upperarm/neck seams and within-region cloth layers are excluded.",
+    "No family retarget, runtime blend, PICO playback or device acceptance is claimed.",
+    "Small breathing amplitude checks do not approve the rendered aesthetic.",
+    "The two RAW sources are authoring candidates; current producer rejection is intentional evidence of the required coherent migration, not bypassed acceptance."
+  ]
+}

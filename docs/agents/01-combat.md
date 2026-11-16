@@ -1,12 +1,60 @@
 # 01 · 动作源与战斗姿态
 
+## Root 当前审核与执行合同（2026-11-16）
+
+family-v1 已源审接收并完成三target重导，当前自然守势/共享idle时钟正构建原生预览。最终binding为dc0df17b，已修共享旋转采样的exact-key归一化，完整234TRS和361样本五锚首尾闭合；旧91/STEP门已移除，不再等待迁移。旧family-v1和Root integration保持冻结。
+
+现在正式执行 family-clearance-v2，不能只重复封存v1：indigo RIGHT@1.1左手/胸18对，veteran LEFT@1.1右前臂/胸105对，veteran RIGHT@1.1左手/胸53对。Root实际旧6d35519同target同刻比对完全相同，属于既有左右攻击缺陷，不是新守势回归。证据在integration/target-review及target-review-final。
+
+Ownership仅natural-guard/candidate/family-clearance-v2/与01。本轮允许必要约1.0..1.2中段修改：RIGHT局部左腕/前臂外侧净空；LEFT优先肩肘pole调整，保右腕与真实刀轨。不动头/actor/78骨IBM/Grip/权重/碰撞体，不改idle/walk/OH及新guard首尾。用当前formal dc0库真实indigo/veteran准备PNG作为参考并pin SHA，复现实际交叉位置与可见性，不能用base替代。
+
+**本轮第一且唯一授权的RIGHT定位修正失败，阶段结束，等待 review。** 在真实indigo target中，source1.10的 `L_hand__chest` 从18对仅降至6对，1.15为15→9、1.20为8→6，未清零。依据“最多一次定位修正”，本路不继续改第二方向，不开始LEFT修正，也不创建第二个几何候选。失败中间件、实际测量与同相机前后图已保存在candidate/family-clearance-v2；Root需明确新的几何权限后再续派。
+
+## family-clearance-v2失败收件（2026-11-16）
+
+**阶段结束，等待 review。** [失败证据](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/attempt1_failure.json)记录唯一尝试：只改attack_right的左上臂／前臂／手旋转，在[.98,1.10,1.22]窗口峰值将左腕移动约(+26,0,+8)mm、肘pole约(+18,0,+14)mm；头、actor、Grip、权重、右臂、78骨与IBM未改。
+
+实际indigo before的18对来自当前candidate-library prepared PNG，after为同一target私有重导，保指校正和root流程。 [before](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/review/indigo_before_right_1100_before.png)与[失败after](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-clearance-v2/review/indigo_after_attempt1_right_1100_after.png)仅作上下文，完整视角无法证明局部净空；有限真实表面测量才给出未清零结论。
+
+family-v1、idle、walk、OH、attack_left和正式产线未覆盖。没有修改integration／producer／formal／app／设备／Git；不把“18→6”写成通过，也不凭全局图像宣称可见性已修复。
+
+## 当前执行合同：自然canonical family私有RAW（2026-11-16）
+
+**阶段结束，等待 review。** family-v1已冻结，guard `c9a96738…`／idle `0cac7c29…` 仍为候选身份，未替换正式资源。五条私有RAW已把现walk、LEFT／RIGHT及v5 OVERHEAD的首尾守势迁移到新guard，同时保留每clip中段时标、主攻击轨迹、78骨／IBM、脚支撑和实际持刀Grip。不做新招、公用接口、正式producer／app／构建／设备／Git改动。
+
+采用局部首尾过渡并统一family，而不是仅挂新idle。只替换idle会使idle→攻击跳回旧守势；整段重做又会破坏步法和攻击中段。本轮walk只迁移守势上身、原腿部和脚步曲线保留；不把旧source1／3锁点迁移到呼吸idle。右指保持UNBAKED，私有preview最多一次校正规则检验。
+
+natural idle的181键LINEAR／1.5秒保持，不能削回旧91键STEP。现producer的idle／walk与三攻canonical门仍不接受它，Root接受family候选后统一迁移contract、typed、profile、binding、代理和shared idle clock。当前运行IDLE／guarded HIT仍取idle首样本并手动setTime，候选呼吸不应宣称已在APK播放。完整family RAW、authoring、端点逐分量闭合、有限净空与关键过渡板均已交；本阶段结束，等待Root私有bank与实物review。
+
+## 自然canonical family v1收件（2026-11-16）
+
+**阶段结束，等待 review。** [最终交接](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_handoff.json) SHA `8903cacaad715fde2d1ec96421df81dfa3ae53b47bb3d66a2a9168cfc5508f45`，authoring SHA `3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585`。其中production输入路径已明确以 `ArtSource/tripo-warrior` 为基准，Root可从family_authoring及outputs构造正式私有bank。
+
+| clip | RAW SHA-256 | 采样与约束 |
+| --- | --- | --- |
+| idle | `0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6` | 181键、120Hz、LINEAR、loop `[0,1.5]` |
+| walk | `5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462` | 185键、原六腿轨／时间、loop `[1/3,1.5]`、7/6 |
+| attack_overhead | `9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696` | 211键、120Hz |
+| attack_left | `ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc` | 106键、原中段保持 |
+| attack_right | `e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9` | 106键、原中段保持 |
+
+五条RAW均为78骨、234TRS，首尾逐分量精确闭合到新自然guard，R15仍UNBAKED。walk六腿轨和185键时间保持，三攻仅在0至.20、1.50至1.75的局部端点过渡叠加新guard差，中段主攻击轨迹仍是原曲线。idle沿已审1.5秒呼吸候选，未因旧生产门降采样。
+
+[关键过渡板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/review/family-v1/overhead_four_times_formal_vs_family.png)对照source0／.20／1.50／1.75。端点左手随新guard变化约70.7mm，右刀握为微米级差；中段实际锚点差约1.5至3.1微米。板中8个真实采样几何均入框、静态body／材质等8项一致；它不替代全部动态审美与接触验收。
+
+[最终渲染manifest](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/review/family-v1/review_manifest.json) SHA `2a4e555bfdce424b1a7a3310a3995dd65859dffa2e8d2a8ef0899b237d2ef6b9`绑定最终handoff与检查。过渡图完成后，共享 `integration/review_candidate.py` 的live字节在18:42:29发生变化；manifest分列渲染执行pin `cf01c72b…` 与事后live `91b8541d…`，执行原字节快照缺失，不把新live源码冒充为执行身份，也不为这项事后漂移重渲。
+
+[端点检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json)通过234轨、78骨、采样网格、R15、walk六腿原轨与三攻核心原值保全，并实际拒绝7项错误输入。[有限净空检查](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_finite.json)覆盖五clip共272姿态，Steel／fullbody和8组手前臂对头胸声明区域均为0。有限检查不证明连续时间、全部衣料体积、三target或运行组合通过。
+
+idle的source1／3仍保真实呼吸而非旧guard锁点，相关报告只识别9条实际旋转曲线，未将旧归一化统计冒充动作。当前producer的91键／STEP、locked head ancestor和旧marker门必须由Root随family一并替换；不要加旧新fallback。实际运行仍需既有enemyMotionNanos以同一clock驱动idle profile／proxy／SDK，在准备、倒计时、暂停、命中停顿和持续钢接触时共冻，walk继续signed gait。guard_pose仅是canonical参考，不能注册新运行时模式或让SDK独立repeat。
+
 ## Root实物评审与下一步（2026-11-16）
 
 已实际看natural_guard_before_after图：左手由垂腕改为自然护手，正常距离有可见收益。接受设计首件继续整合准备，尚未批准正式资源替换；guard c9a96738、idle 0cac7c29保持身份。49离散源姿态报告不能代替三target或端内验证。实际旧入口会将alive idle停在首帧，单有GLB不算呼吸已接入。
 
 下一步统一迁移idle／walk／三攻击canonical端点，保攻击中段、脚支撑与持刀Grip，再由Root原子迁移producer／typed／共享idle时钟并重导三target；不新增招或独立SDK自播。上一轮因账号不支持所选模型退出，现已使用账号可用开发模型续现有文件，不重做已有渲染。
 
-## 当前执行合同：自然守势首件与轻呼吸idle（2026-11-15 16:40）
+## 自然守势首件历史合同（Root已接受设计，现续派family候选）
 
 **阶段结束，等待 review。** 自然guard与轻呼吸idle v1已在17:15 CST封存，首姿态板17:00、1.5秒片17:12，均早于17:25首件截止。Root已接受v5源审，正式三target重导binding713532c0…，48targetpose无交叉、436组合通过，并取得新APK首人击败到第二轮、实际BLOCK／命中／换手／Retry回执；这些是Root收件，不推作最终动作审美或真机通过。v5 RAW与全部已交身份冻结。
 

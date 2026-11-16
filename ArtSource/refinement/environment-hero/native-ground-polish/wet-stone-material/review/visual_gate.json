@@ -1,0 +1,19 @@
+{
+  "status": "offline_candidate_for_root_native_material_review",
+  "adoption_recommendation": "do_not_replace_formal_96c554_until_native_ktx_material_review",
+  "positioning_revisions": 0,
+  "further_iteration_authorized": false,
+  "normal_eye_height_m": 1.65,
+  "close_eye_height_m": 0.5,
+  "observations": [
+    "Normal-eye view gains neutral nonuniform dampness while keeping the existing tile layout and joints legible.",
+    "Close view preserves granite grain and shallow groove scale through the unchanged normal map; the roughness partition reads as damp stone rather than green pooled water or mirror plastic.",
+    "The fixed offline light does not create a reliable bright wet reflection. Native IBL/light and KTX loading determine whether that aspect is acceptable on PICO."
+  ],
+  "constraints_satisfied": [
+    "No new light, geometry, water overlay, material type, node, map count or layout.",
+    "Only two generated 1024 square maps replace material8 base-color and MR images; material8 normal stays unchanged.",
+    "Material count remains 32 and image count remains 50."
+  ],
+  "conclusion": "Offline visual first piece is acceptable for Root native material review. It is not an APK, device, KTX-loading, reflection, collision or Space Pro performance acceptance."
+}

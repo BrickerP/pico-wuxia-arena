@@ -1,0 +1,296 @@
+{
+  "status": "constructed_for_visual_gate",
+  "input": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+    "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d"
+  },
+  "png_scene": {
+    "path": "courtyard_wet_stone_png.glb",
+    "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+    "bytes": 38774920
+  },
+  "ktx_scene": {
+    "path": "courtyard_wet_stone_ktx.glb",
+    "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "bytes": 39413100
+  },
+  "material": {
+    "index": 8,
+    "name": "EH Stone | walked granite",
+    "replaced_images": [
+      10,
+      11
+    ],
+    "unchanged_normal_image": 9,
+    "unchanged_texture_count": 50,
+    "unchanged_material_count": 32
+  },
+  "build_execution": {
+    "script": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/build_wet_stone.py",
+    "script_sha256": "8871662bf1922965889c37862e1a35a08ea9ae9e2716dcfc124f61f88c1d7a78",
+    "input_policy": "One immutable authoring asset; downstream runtime GLB is not read."
+  },
+  "generated_images": [
+    {
+      "path": "textures/wet_stone_basecolor_1024.png",
+      "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+      "bytes": 652243,
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "textures/wet_stone_metallic_roughness_1024.png",
+      "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+      "bytes": 312532,
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "source_images": {
+    "baseColor_image10_sha256": "8ce697542f7fb03d4e3a9587036297ac65f443155cc1b146eba6cb09ff364a04",
+    "mr_image11_sha256": "706f6a61b3567e93305913536d9a48e94086f46e47fcd4b56033bb011edac9d6",
+    "normal_image9_sha256": "70d28807950a554cd42608336a3f3816d63b61f0ca1394ab1f09ca7f3b32c2df"
+  },
+  "authoring": {
+    "mask_min": 0.0,
+    "mask_max": 1.0,
+    "mask_mean": 0.3492392301559448,
+    "base_darkening_min": 0.8400000333786011,
+    "base_darkening_max": 0.9850000143051147,
+    "roughness_source_mean": 0.5194094777107239,
+    "roughness_wet_mean": 0.41026467084884644,
+    "fixed_light_baked": false,
+    "new_normal_map": false
+  },
+  "license": {
+    "derived_from": "existing embedded material8 maps; no external download",
+    "original_source": "Poly Haven Granite Tile by Charlotte Baglioni",
+    "license": "CC0",
+    "repo_evidence": "ArtSource/tavern/README.md lines 22-25",
+    "modification": "procedural neutral darkening and roughness partition; no fixed light/reflection baked into albedo"
+  },
+  "compression": {
+    "encoder": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+      "version": "ktx version: v4.4.2",
+      "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+      "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+    },
+    "settings": {
+      "codec": "uastc",
+      "uastc_quality": 3,
+      "threads": 2,
+      "zstd": 18,
+      "mipmap_filter": "lanczos4",
+      "full_mips": true,
+      "normal_mode": false,
+      "normalize": false,
+      "rdo": false,
+      "orientation": "top-left",
+      "pixel_resize": false,
+      "mip_source": {
+        "same_axis": "ktx-cli-generate-mipmap",
+        "different_axes": "explicit-axis-lanczos4-v1"
+      },
+      "axis_mips": {
+        "version": 1,
+        "precision": "float64",
+        "support": 4,
+        "centers": "half-pixel",
+        "antialias": "support-scaled-by-source/target",
+        "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+        "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+        "alpha_filter": "linear-straight",
+        "quantization": "clip-0-1-round-half-up-uint8",
+        "top": "original-decoded-pixels"
+      }
+    },
+    "baseColor": {
+      "image": 10,
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "source_sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+      "decoded_pixels_sha256": "e601e2c406f1ec8555e6a6243985eb6cfc8fa37cd937ace417ec5e7896bb3e22",
+      "source_mode": "RGB",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "c0e23cc5ec3fa138594bd3d6dcd1eba13b3b9e2a1da1738c80c0710513884f99",
+      "ktx2_bytes": 934793,
+      "ktx2": {
+        "vk_format": 0,
+        "type_size": 1,
+        "width": 1024,
+        "height": 1024,
+        "depth": 0,
+        "layers": 0,
+        "faces": 1,
+        "levels": 11,
+        "supercompression": 2,
+        "dfd_model": 166,
+        "dfd_primaries": 1,
+        "dfd_transfer": 2,
+        "level_uncompressed_bytes": 1398128
+      },
+      "validation": "",
+      "mip_provenance": {
+        "source": "ktx-cli-generate-mipmap",
+        "wrap_s": "wrap",
+        "wrap_t": "wrap"
+      },
+      "mip_inputs": [
+        {
+          "level": 0,
+          "size": [
+            1024,
+            1024
+          ],
+          "pixels_sha256": "e601e2c406f1ec8555e6a6243985eb6cfc8fa37cd937ace417ec5e7896bb3e22"
+        }
+      ],
+      "command_template": [
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "create",
+        "--format",
+        "R8G8B8_SRGB",
+        "--assign-tf",
+        "srgb",
+        "--assign-primaries",
+        "bt709",
+        "--assign-texcoord-origin",
+        "top-left",
+        "--generate-mipmap",
+        "--mipmap-filter",
+        "lanczos4",
+        "--mipmap-wrap",
+        "wrap",
+        "--encode",
+        "uastc",
+        "--uastc-quality",
+        "3",
+        "--threads",
+        "2",
+        "--zstd",
+        "18",
+        "--testrun",
+        "<losslessly-decoded-source.png>",
+        "<output.ktx2>"
+      ],
+      "cache_key": "bd7ef84d55d9afbd87f3e3ad6be0bdb63616bd4503275d0bb065e05da295b6a0"
+    },
+    "metallicRoughness": {
+      "image": 11,
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "wrap",
+      "wrap_t": "wrap",
+      "source_sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+      "decoded_pixels_sha256": "59f601881439af103f1ecb52824f9a1514adeff8fe91baa87446142ea0a82f52",
+      "source_mode": "RGB",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "5f013ffeb61006b3cf763a6a67fb8aacb8206d4a4843003c221cd44da9d8eeca",
+      "ktx2_bytes": 667980,
+      "ktx2": {
+        "vk_format": 0,
+        "type_size": 1,
+        "width": 1024,
+        "height": 1024,
+        "depth": 0,
+        "layers": 0,
+        "faces": 1,
+        "levels": 11,
+        "supercompression": 2,
+        "dfd_model": 166,
+        "dfd_primaries": 0,
+        "dfd_transfer": 1,
+        "level_uncompressed_bytes": 1398128
+      },
+      "validation": "",
+      "mip_provenance": {
+        "source": "ktx-cli-generate-mipmap",
+        "wrap_s": "wrap",
+        "wrap_t": "wrap"
+      },
+      "mip_inputs": [
+        {
+          "level": 0,
+          "size": [
+            1024,
+            1024
+          ],
+          "pixels_sha256": "59f601881439af103f1ecb52824f9a1514adeff8fe91baa87446142ea0a82f52"
+        }
+      ],
+      "command_template": [
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "create",
+        "--format",
+        "R8G8B8_UNORM",
+        "--assign-tf",
+        "linear",
+        "--assign-primaries",
+        "none",
+        "--assign-texcoord-origin",
+        "top-left",
+        "--generate-mipmap",
+        "--mipmap-filter",
+        "lanczos4",
+        "--mipmap-wrap",
+        "wrap",
+        "--encode",
+        "uastc",
+        "--uastc-quality",
+        "3",
+        "--threads",
+        "2",
+        "--zstd",
+        "18",
+        "--testrun",
+        "<losslessly-decoded-source.png>",
+        "<output.ktx2>"
+      ],
+      "cache_key": "71a81db2ecc1a8dd0d4fbbc6edf78a18b43db7ba4387f06fa6e7a09eab0c9065"
+    }
+  },
+  "maintenance_rebuild": {
+    "scope": "Current maintained builder executed against immutable authoring source while runtime deployment was already bd5; candidate/maps retained in place.",
+    "runtime_observation": {
+      "path": "app/src/main/assets/models/courtyard_hero.glb",
+      "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+      "role": "Downstream deployment observation only; never an authoring input"
+    },
+    "compared_outputs": {
+      "courtyard_wet_stone_png.glb": {
+        "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+        "bytes": 38774920,
+        "private_rebuild_byte_identical": true
+      },
+      "courtyard_wet_stone_ktx.glb": {
+        "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+        "bytes": 39413100,
+        "private_rebuild_byte_identical": true
+      },
+      "textures/wet_stone_basecolor_1024.png": {
+        "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+        "bytes": 652243,
+        "private_rebuild_byte_identical": true
+      },
+      "textures/wet_stone_metallic_roughness_1024.png": {
+        "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+        "bytes": 312532,
+        "private_rebuild_byte_identical": true
+      }
+    },
+    "render_rerun": false
+  }
+}

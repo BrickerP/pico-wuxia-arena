@@ -2,6 +2,8 @@
 import copy
 import hashlib
 import json
+import math
+import struct
 import tempfile
 import unittest
 from unittest import mock
@@ -35,6 +37,45 @@ class AttackBankContracts(unittest.TestCase):
         path.write_text(json.dumps(authoring))
         bank['authoring_manifest'] = {'source': str(path), 'source_sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
 
+    def breathing_idle(self):
+        """Real rig/REST/IBM plus a synthetic closed chest curve; never writes a model."""
+        bank = self.manifest['locomotion_source']
+        row = next(row for row in bank['clips'] if row['name'] == 'idle')
+        _, document, binary = library.pinned_source(row)
+        tracks, _ = library.decode_animation(document, binary)
+        result, packed = copy.deepcopy(document), bytearray(binary)
+        times = [float32(index / 120) for index in range(181)]
+
+        def accessor(rows, kind):
+            width = len(rows[0])
+            packed.extend(b'\0' * (-len(packed) % 4))
+            start = len(packed)
+            for value in rows:
+                packed.extend(struct.pack('<' + 'f' * width, *value))
+            view = len(result['bufferViews'])
+            result['bufferViews'].append({'buffer': 0, 'byteOffset': start, 'byteLength': len(packed) - start})
+            index = len(result['accessors'])
+            result['accessors'].append({'bufferView': view, 'componentType': 5126,
+                                        'type': kind, 'count': len(rows)})
+            return index
+
+        time_index = accessor([(time,) for time in times], 'SCALAR')
+        animation = {'name': 'idle', 'samplers': [], 'channels': []}
+        for (index, path), (_, original, _) in tracks.items():
+            values = [original[0]] * len(times)
+            if result['nodes'][index]['name'] == 'Spine02' and path == 'rotation':
+                q = Quaternion((original[0][3], *original[0][:3]))
+                for key in range(1, len(times) - 1):
+                    value = q @ Quaternion((1, 0, 0), math.radians(.7) * math.sin(math.pi * times[key] / 1.5) ** 2)
+                    values[key] = (value.x, value.y, value.z, value.w)
+            sampler = len(animation['samplers'])
+            animation['samplers'].append({'input': time_index, 'output': accessor(values, 'VEC4' if path == 'rotation' else 'VEC3'),
+                                           'interpolation': 'LINEAR'})
+            animation['channels'].append({'sampler': sampler, 'target': {'node': index, 'path': path}})
+        result['animations'] = [animation]
+        result['buffers'][0]['byteLength'] = len(packed)
+        return result, bytes(packed)
+
     def test_frozen_manifest_and_retired_fields(self):
         library.validate_manifest(self.manifest)
         broken = copy.deepcopy(self.manifest)
@@ -43,8 +84,10 @@ class AttackBankContracts(unittest.TestCase):
             library.validate_manifest(broken)
 
     def test_shared_phase_manifest_is_rejected_and_bound_direction_rows_are_distinct(self):
+        shared = copy.deepcopy(self.original_manifest)
+        shared['attack_source']['phase_markers'] = copy.deepcopy(self.manifest['attack_source']['clips'][0]['phase_markers'])
         with self.assertRaisesRegex(ValueError, 'shared.*phase_markers'):
-            library.validate_manifest(self.original_manifest)
+            library.validate_manifest(shared)
         contracts = library.attack_source_contracts(self.manifest['attack_source'])
         expected = attack_contracts()
         for name, row in contracts.items():
@@ -289,6 +332,14 @@ class AttackBankContracts(unittest.TestCase):
         broken['animations'][0]['samplers'][channel['sampler']]['interpolation'] = 'LINEAR'
         with self.assertRaisesRegex(ValueError, 'interpolation'):
             library.validate_source_clip(broken, motion_binary, rig, rig_binary, 'locomotion78', 'walk')
+        original_times = list(next(iter(tracks.values()))[0])
+        shifted_times = list(original_times)
+        shifted_times[50] += .00001
+        shifted_tracks = {key: (shifted_times, values, interpolation)
+                          for key, (_, values, interpolation) in tracks.items()}
+        with mock.patch.object(library, 'decode_animation', return_value=(shifted_tracks, shifted_times)):
+            with self.assertRaisesRegex(ValueError, 'unchanged 185-key six-step source time grid'):
+                library.validate_source_clip(motion, motion_binary, rig, rig_binary, 'locomotion78', 'walk')
         output, record = library.retarget_clip(motion, motion_binary, rig, target, target_binary,
                                               native, 'walk', source_contract='locomotion78')
         import struct
@@ -308,6 +359,60 @@ class AttackBankContracts(unittest.TestCase):
                     self.assertEqual(len(set(actual[index, path][1])), 1)
         self.assertEqual(record['sample_count'], 185)
 
+    def test_breathing_idle_keeps_all181_linear_keys_and_real_body_motion_after_retarget(self):
+        bank = self.manifest['locomotion_source']
+        _, rig, rig_binary = library.pinned_source(bank)
+        motion, binary = self.breathing_idle()
+        tracks = library.validate_source_clip(motion, binary, rig, rig_binary, 'locomotion78', 'idle')
+        self.assertEqual(len(tracks), 234)
+        self.assertEqual(len(next(iter(tracks.values()))[0]), 181)
+        spine = library.joint_nodes(motion)['Spine02']
+        self.assertNotEqual(tracks[spine, 'rotation'][1][0], tracks[spine, 'rotation'][1][90])
+        target_row = self.manifest['characters'][0]
+        _, target, target_binary = library.pinned_source(target_row)
+        _, grip, grip_binary = library.pinned_source(target_row['grip_source'])
+        native = library.sample_native_hands(target, grip, grip_binary, 2.117)
+        output, record = library.retarget_clip(motion, binary, rig, target, target_binary,
+                                              native, 'idle', source_contract='locomotion78')
+        size = struct.unpack_from('<I', output, 12)[0]
+        result, result_binary = json.loads(output[20:20+size]), output[28+size:]
+        actual, times = library.decode_animation(result, result_binary)
+        self.assertEqual(len(times), 181)
+        self.assertTrue(all(track[2] == 'LINEAR' for track in actual.values()))
+        actual_spine = library.joint_nodes(result)['Spine02']
+        self.assertNotEqual(actual[actual_spine, 'rotation'][1][0], actual[actual_spine, 'rotation'][1][90])
+        self.assertEqual(result['skins'], target['skins'])
+        self.assertEqual(result['nodes'], target['nodes'])
+        self.assertEqual(record['sample_count'], 181)
+
+    def test_idle_rejects_old_step_grid_bad_loop_root_motion_and_weapon_finger_motion(self):
+        bank = self.manifest['locomotion_source']
+        _, rig, rig_binary = library.pinned_source(bank)
+        motion, binary = self.breathing_idle()
+        names = library.joint_nodes(motion)
+        tracks, times = library.decode_animation(motion, binary)
+        for issue in ('old_count', 'step', 'endpoint', 'root', 'weapon_finger'):
+            altered = copy.deepcopy(tracks)
+            altered_times = list(times)
+            if issue == 'old_count':
+                altered_times = altered_times[::2]
+                altered = {key: (altered_times, values[::2], interpolation)
+                           for key, (_, values, interpolation) in altered.items()}
+            else:
+                joint, path = ('Spine02', 'rotation') if issue in ('step', 'endpoint') else (
+                    ('BoneRoot', 'translation') if issue == 'root' else ('R_Index1', 'rotation'))
+                key = names[joint], path
+                grid, values, interpolation = altered[key]
+                if issue == 'step':
+                    interpolation = 'STEP'
+                else:
+                    at = -1 if issue == 'endpoint' else 90
+                    values[at] = tuple(value + (.001 if axis == 0 else 0) for axis, value in enumerate(values[at]))
+                altered[key] = grid, values, interpolation
+            with self.subTest(issue=issue), mock.patch.object(library, 'decode_animation', return_value=(altered, altered_times)):
+                with self.assertRaises(ValueError):
+                    library.validate_source_clip(motion, binary, rig, rig_binary, 'locomotion78', 'idle')
+
     def test_raw_canonical_234_markers_and_ancestor_midpoints(self):
         frozen, _ = library.validate_manifest(self.manifest)
         sources = []
@@ -315,8 +420,12 @@ class AttackBankContracts(unittest.TestCase):
             for entry in self.manifest[family]['clips']:
                 _, document, binary = library.pinned_source(entry)
                 sources.append((entry, document, binary, None, self.manifest[family]['contract']))
+        idle, binary = self.breathing_idle()
+        entry = next(row for row in self.manifest['locomotion_source']['clips'] if row['name'] == 'idle')
+        sources[0] = (entry, idle, binary, None, 'locomotion78')
         evidence = library.canonical_source_evidence(sources, frozen)
-        self.assertEqual(evidence['idle']['key_and_midpoint_count'], 181)
+        self.assertEqual(evidence['idle']['key_and_midpoint_count'], 361)
+        self.assertEqual(evidence['idle']['marker_source_seconds'], [0, 1.5])
         self.assertEqual(evidence['walk']['key_and_midpoint_count'], 369)
         broken = copy.deepcopy(sources)
         idle = broken[0][1]

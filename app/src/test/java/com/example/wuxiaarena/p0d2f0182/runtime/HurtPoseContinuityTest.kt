@@ -46,10 +46,17 @@ class HurtPoseContinuityTest {
             assertEquals(EnemyPhase.HIT, fixture.session.viewState.phase)
             val hold = CombatFeedbackProfile.hitStopNanos(impact)
             assertEquals(if (zone == HitZone.HEAD) 90_000_000L else 70_000_000L, hold)
-            assertEquals(idle, fixture.pose())
+            // Idle may breathe before TOI. Freeze the actual contact sample, not
+            // the earlier observation's frame or a stationary source-time zero.
+            val stateAtContact = fixture.session.viewState
+            val contact = arenaOpponents[0].locomotionProfile()
+                .sample(false, stateAtContact.enemyGaitMeters, 3_000_000_000L + impact.atNanos)
+                .inStage(requireNotNull(stateAtContact.enemyPosition) + stateAtContact.enemyRecoilOffset,
+                    stateAtContact.enemyYawRadians)
+            assertEquals(contact, fixture.pose())
             fixture.tick(hold / 2)
             assertTrue(fixture.session.viewState.hitStop)
-            assertEquals(idle, fixture.pose())
+            assertEquals(contact, fixture.pose())
             assertEquals(0L, fixture.session.viewState.phaseElapsedNanos)
             fixture.tick(hold - hold / 2 + 100_000_000L)
             assertTrue(!fixture.session.viewState.hitStop)

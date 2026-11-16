@@ -1,0 +1,33 @@
+{
+  "decision": "approved_for_development_native_material_review",
+  "quality_passed": false,
+  "date": "2026-11-16",
+  "input": {
+    "path": "app/src/main/assets/models/courtyard_hero.glb",
+    "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+    "bytes": 38212212
+  },
+  "candidate": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_ktx.glb",
+    "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "bytes": 39413100
+  },
+  "Root_images_viewed": {
+    "eye_before.png": "c6b5a18ab6ea75d3de05ad568efd8657abb967b1a9e43d57f6418ca57009676c",
+    "eye_after.png": "0a780587de676e76041c3ec9119ab7be8265ba413de3f740f2cd13080e261229",
+    "close_before.png": "864b77ea631ce15a758d271c9ac9f069fd6b103a5f648eebb526c755a3d61527",
+    "close_after.png": "c55767610bd071affe92dc1e6955415638d1f843fc99197dc6e5aa8a65bb3023"
+  },
+  "budget": {
+    "node_expanded_triangles": 243358,
+    "unique_mesh_triangles": 181594,
+    "active_unique_meshes": 37,
+    "unique_position_stream_vertices": 336254,
+    "unique_attribute_buffer_bytes": 14113296,
+    "unique_index_buffer_bytes": 1175868,
+    "primitive_node_submission_upper_estimate": 111,
+    "materials": 32,
+    "images": 50
+  },
+  "limits": "Normal-view neutral dampness and stone grain accepted; actual native KTX appearance, reflection and hardware performance remain to verify. No geometry, layout or light change."
+}

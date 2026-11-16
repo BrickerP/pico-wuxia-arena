@@ -1,0 +1,3718 @@
+{
+  "status": "all_five_raw_endpoints_passed",
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+    "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+    "bytes": 83015
+  },
+  "master_guard": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+    "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+    "bytes": 18538720
+  },
+  "clips": {
+    "idle": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+        "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+        "bytes": 19098860
+      },
+      "source": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb",
+        "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+        "bytes": 19098860
+      },
+      "channel_count": 234,
+      "key_count": 181,
+      "exact_master_guard_markers_seconds": [
+        0.0,
+        1.5
+      ],
+      "stored_Q_negative_dot_events_all_adjacent_keys": {
+        "old": [],
+        "new": []
+      },
+      "inherited_quaternion_norm_deviations_at_or_above_2e_minus5": [],
+      "join_neighbor_key_measurements": [
+        {
+          "key_indices": [
+            0,
+            1
+          ],
+          "source_seconds": [
+            0.0,
+            0.008333333767950535
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.0003953405299232723,
+            "maximum_world_shortest_angle_degrees": 0.00033611800888533566,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.0003953405299232723
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003628568129633185
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021785118295897121
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.0002172413579427608
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00020127340237535027
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.000172580580827984
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.0003361093340886716
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.00022230272209027732
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002213102502541859
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.00021785787485050726
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.0003953405299232723,
+            "maximum_world_shortest_angle_degrees": 0.00033611800888533566,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.0003953405299232723
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003628568129633185
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021785118295897121
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.0002172413579427608
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00020127340237535027
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.000172580580827984
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.0003361093340886716
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.00022230272209027732
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002213102502541859
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.00021785787485050726
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            89,
+            90
+          ],
+          "source_seconds": [
+            0.7416666746139526,
+            0.75
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.00042239626055827354,
+            "maximum_world_shortest_angle_degrees": 0.000315900864072162,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.00042239626055827354
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003829324710594235
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.00022205994391553377
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021927859338393346
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021907904962308083
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00019991433986423318
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.000315900864072162
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.0002265446179972157
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002239687662969146
+              },
+              {
+                "joint": "NeckTwist02",
+                "degrees": 0.00021908570400988844
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.00042239626055827354,
+            "maximum_world_shortest_angle_degrees": 0.000315900864072162,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.00042239626055827354
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003829324710594235
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.00022205994391553377
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021927859338393346
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021907904962308083
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00019991433986423318
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.000315900864072162
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.0002265446179972157
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002239687662969146
+              },
+              {
+                "joint": "NeckTwist02",
+                "degrees": 0.00021908570400988844
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            90,
+            91
+          ],
+          "source_seconds": [
+            0.75,
+            0.7583333253860474
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.00042239626055827354,
+            "maximum_world_shortest_angle_degrees": 0.000315900864072162,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.00042239626055827354
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003829324710594235
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.00022205994391553377
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021927859338393346
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021907904962308083
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00019991433986423318
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.000315900864072162
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.0002265446179972157
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002239687662969146
+              },
+              {
+                "joint": "NeckTwist02",
+                "degrees": 0.00021908570400988844
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.00042239626055827354,
+            "maximum_world_shortest_angle_degrees": 0.000315900864072162,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.00042239626055827354
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.0003829324710594235
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.00022205994391553377
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021927859338393346
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021907904962308083
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00019991433986423318
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.000315900864072162
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00031589624911318974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.0002265446179972157
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002239687662969146
+              },
+              {
+                "joint": "NeckTwist02",
+                "degrees": 0.00021908570400988844
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            179,
+            180
+          ],
+          "source_seconds": [
+            1.4916666746139526,
+            1.5
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.0003953405299232723,
+            "maximum_world_shortest_angle_degrees": 0.0003361223461997115,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.0003953405299232723
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.00036286083066604594
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021785118295897121
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021724806861873558
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00020127340237535027
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00017258902803098596
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.0003361223461997115
+              },
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00033611367151498974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.00022230272209027732
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002213102502541859
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.00021785787485050726
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.0003953405299232723,
+            "maximum_world_shortest_angle_degrees": 0.0003361223461997115,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.0003953405299232723
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.00036286083066604594
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.00021785118295897121
+              },
+              {
+                "joint": "Head",
+                "degrees": 0.00021724806861873558
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.00020127340237535027
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.00017258902803098596
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.0003361223461997115
+              },
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 0.00033611800888533566
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 0.00033611367151498974
+              },
+              {
+                "joint": "R_Clavicle",
+                "degrees": 0.00022230272209027732
+              },
+              {
+                "joint": "L_Clavicle",
+                "degrees": 0.0002213102502541859
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.00021785787485050726
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        }
+      ]
+    },
+    "walk": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+        "sha256": "5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462",
+        "bytes": 19111184
+      },
+      "source": {
+        "file": "ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
+        "sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
+        "bytes": 19110828
+      },
+      "channel_count": 234,
+      "key_count": 185,
+      "exact_master_guard_markers_seconds": [
+        0.0,
+        0.3333333333333333,
+        1.5
+      ],
+      "stored_Q_negative_dot_events_all_adjacent_keys": {
+        "old": [],
+        "new": []
+      },
+      "inherited_quaternion_norm_deviations_at_or_above_2e_minus5": [],
+      "join_neighbor_key_measurements": [
+        {
+          "key_indices": [
+            0,
+            1
+          ],
+          "source_seconds": [
+            0.0,
+            0.008333333767950535
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 2.4148365394514667e-06,
+            "maximum_world_shortest_angle_degrees": 0.0,
+            "top_local_joints": [
+              {
+                "joint": "R_ToeBase",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.4148365394514667e-06
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "Waist",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 2.4148365394514667e-06,
+            "maximum_world_shortest_angle_degrees": 0.0,
+            "top_local_joints": [
+              {
+                "joint": "R_ToeBase",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.4148365394514667e-06
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "Waist",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            39,
+            40
+          ],
+          "source_seconds": [
+            0.32499998807907104,
+            0.3333333432674408
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 2.4148365394514667e-06,
+            "maximum_world_shortest_angle_degrees": 0.0,
+            "top_local_joints": [
+              {
+                "joint": "R_ToeBase",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.4148365394514667e-06
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "Waist",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 2.4148365394514667e-06,
+            "maximum_world_shortest_angle_degrees": 0.0,
+            "top_local_joints": [
+              {
+                "joint": "R_ToeBase",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.4148365394514667e-06
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.4148365394514667e-06
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "Waist",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "Spine01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist02",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_UpperarmTwist01",
+                "degrees": 0.0
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            40,
+            41
+          ],
+          "source_seconds": [
+            0.3333333432674408,
+            0.34166666865348816
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 1.0486589535185373,
+            "maximum_world_shortest_angle_degrees": 1.0486589535199276,
+            "top_local_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 0.8784419286699044
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 0.8129720629388287
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8041132117929413
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 0.2627732422533767
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.09523806476709037
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.0486589535199276
+              },
+              {
+                "joint": "R_ThighTwist02",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "R_ThighTwist01",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 0.8784275595100061
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.8784275595100061
+              },
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 0.8784275595083464
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 1.0486589535185373,
+            "maximum_world_shortest_angle_degrees": 1.0486589535199276,
+            "top_local_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 0.8784419286699044
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 0.8129720629388287
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8041132117929413
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 0.2627732422533767
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.09523806476709037
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.0486589535199276
+              },
+              {
+                "joint": "R_ThighTwist02",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "R_ThighTwist01",
+                "degrees": 1.0486589535185373
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 0.8784275595100061
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.8784275595100061
+              },
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 0.8784275595083464
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            183,
+            184
+          ],
+          "source_seconds": [
+            1.4916666746139526,
+            1.5
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 1.6889320678908835,
+            "maximum_world_shortest_angle_degrees": 1.6889320678900204,
+            "top_local_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.6889320678908835
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 1.6597237935412197
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8146983889128764
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 0.48763686254705213
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.33928990365400624
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 0.1555811628187843
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_ThighTwist01",
+                "degrees": 1.6889320678900204
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.6889320678900204
+              },
+              {
+                "joint": "R_ThighTwist02",
+                "degrees": 1.688932067889157
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8146983889146658
+              },
+              {
+                "joint": "L_ThighTwist01",
+                "degrees": 0.8146983889128764
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 0.8146983889110869
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 1.6889320678908835,
+            "maximum_world_shortest_angle_degrees": 1.6889320678900204,
+            "top_local_joints": [
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.6889320678908835
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 1.6597237935412197
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8146983889128764
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 0.48763686254705213
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 0.33928990365400624
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 0.1555811628187843
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_ThighTwist01",
+                "degrees": 1.6889320678900204
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.6889320678900204
+              },
+              {
+                "joint": "R_ThighTwist02",
+                "degrees": 1.688932067889157
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 0.8146983889146658
+              },
+              {
+                "joint": "L_ThighTwist01",
+                "degrees": 0.8146983889128764
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 0.8146983889110869
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        }
+      ]
+    },
+    "attack_overhead": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+        "sha256": "9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696",
+        "bytes": 19192956
+      },
+      "source": {
+        "file": "ArtSource/refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+        "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+        "bytes": 19192620
+      },
+      "channel_count": 234,
+      "key_count": 211,
+      "exact_master_guard_markers_seconds": [
+        0.0,
+        1.75
+      ],
+      "stored_Q_negative_dot_events_all_adjacent_keys": {
+        "old": [
+          {
+            "joint": "R_Thigh",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -0.9998560159322655,
+            "shortest_orientation_angle_degrees": 1.9450216307316723
+          },
+          {
+            "joint": "R_Thigh",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -0.999855981974452,
+            "shortest_orientation_angle_degrees": 1.9450292681574717
+          },
+          {
+            "joint": "R_Calf",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -0.9995674702976507,
+            "shortest_orientation_angle_degrees": 3.370856620335341
+          },
+          {
+            "joint": "R_Calf",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -0.9995673945075392,
+            "shortest_orientation_angle_degrees": 3.370852481747347
+          },
+          {
+            "joint": "L_Forearm",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -1.000000058385985,
+            "shortest_orientation_angle_degrees": 0.0011968627618616544
+          },
+          {
+            "joint": "L_Forearm",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -1.0000000241544593,
+            "shortest_orientation_angle_degrees": 0.0006156933464895745
+          },
+          {
+            "joint": "R_Hand",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -1.0000002668062211,
+            "shortest_orientation_angle_degrees": 0.0032290477801975356
+          }
+        ],
+        "new": [
+          {
+            "joint": "R_Thigh",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -0.9998560159322655,
+            "shortest_orientation_angle_degrees": 1.9450216307316723
+          },
+          {
+            "joint": "R_Thigh",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -0.999855981974452,
+            "shortest_orientation_angle_degrees": 1.9450292681574717
+          },
+          {
+            "joint": "R_Calf",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -0.9995674702976507,
+            "shortest_orientation_angle_degrees": 3.370856620335341
+          },
+          {
+            "joint": "R_Calf",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -0.9995673945075392,
+            "shortest_orientation_angle_degrees": 3.370852481747347
+          },
+          {
+            "joint": "L_Forearm",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -1.0000000337657182,
+            "shortest_orientation_angle_degrees": 0.013152770947265507
+          },
+          {
+            "joint": "L_Forearm",
+            "key_indices": [
+              209,
+              210
+            ],
+            "source_seconds": [
+              1.7416666746139526,
+              1.75
+            ],
+            "stored_float32_Q_dot": -1.0000000898128536,
+            "shortest_orientation_angle_degrees": 0.006834808018830927
+          },
+          {
+            "joint": "R_Hand",
+            "key_indices": [
+              0,
+              1
+            ],
+            "source_seconds": [
+              0.0,
+              0.008333333767950535
+            ],
+            "stored_float32_Q_dot": -1.0000000885471905,
+            "shortest_orientation_angle_degrees": 0.0031773862731085895
+          }
+        ]
+      },
+      "inherited_quaternion_norm_deviations_at_or_above_2e_minus5": [
+        {
+          "joint": "R_ToeBase",
+          "old_maximum_norm_deviation": 2.279100078084184e-05,
+          "new_maximum_norm_deviation": 2.279100078084184e-05,
+          "whole_track_float32_values_unchanged": true
+        },
+        {
+          "joint": "Head",
+          "old_maximum_norm_deviation": 2.2653436994368725e-05,
+          "new_maximum_norm_deviation": 2.2653436994368725e-05,
+          "whole_track_float32_values_unchanged": false
+        },
+        {
+          "joint": "L_ElbowShareBone",
+          "old_maximum_norm_deviation": 2.4413699892589236e-05,
+          "new_maximum_norm_deviation": 2.4413699892589236e-05,
+          "whole_track_float32_values_unchanged": true
+        },
+        {
+          "joint": "R_ElbowShareBone",
+          "old_maximum_norm_deviation": 2.274276877178849e-05,
+          "new_maximum_norm_deviation": 2.274276877178849e-05,
+          "whole_track_float32_values_unchanged": true
+        }
+      ],
+      "join_neighbor_key_measurements": [
+        {
+          "key_indices": [
+            0,
+            1
+          ],
+          "source_seconds": [
+            0.0,
+            0.008333333767950535
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.043664374653074,
+            "maximum_world_shortest_angle_degrees": 2.5763261849200263,
+            "top_local_joints": [
+              {
+                "joint": "L_Calf",
+                "degrees": 4.043664374653074
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 3.3708566203349086
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 2.5763238194461913
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265293462822126
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.945021630730173
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 1.9164947496127234
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 2.5763261849200263
+              },
+              {
+                "joint": "L_CalfTwist02",
+                "degrees": 2.5763221112069106
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 2.576322111206345
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 2.5763221095697157
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 2.4265200854375633
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265200854375633
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": [
+              "R_Thigh",
+              "R_Calf",
+              "L_Forearm",
+              "R_Hand"
+            ]
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.043664374653074,
+            "maximum_world_shortest_angle_degrees": 2.5763261849200263,
+            "top_local_joints": [
+              {
+                "joint": "L_Calf",
+                "degrees": 4.043664374653074
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 3.3708566203349086
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 2.5763238194461913
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265293462822126
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.945021630730173
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 1.9164947496127234
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 2.5763261849200263
+              },
+              {
+                "joint": "L_CalfTwist02",
+                "degrees": 2.5763221112069106
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 2.576322111206345
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 2.5763221095697157
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 2.4265200854375633
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265200854375633
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": [
+              "R_Thigh",
+              "R_Calf",
+              "L_Forearm",
+              "R_Hand"
+            ]
+          }
+        },
+        {
+          "key_indices": [
+            23,
+            24
+          ],
+          "source_seconds": [
+            0.19166666269302368,
+            0.20000000298023224
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 22.445345451625656,
+            "maximum_world_shortest_angle_degrees": 20.175590678047147,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 22.445345451625656
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 7.101404217183123
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.494072760780836
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 5.304779343273277
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 4.607323608881342
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 3.206729151339514
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Mid3",
+                "degrees": 20.175590678047147
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 20.175590678047147
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 20.175590678047147
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 20.175590678047076
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 20.175590678047
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 20.175590678046927
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 22.445437086109045,
+            "maximum_world_shortest_angle_degrees": 20.175435320403796,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 22.445437086109045
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 7.1000305662216405
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.49083432990631
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 5.306710459068177
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 4.615153787875147
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 3.2075829304024173
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Mid1",
+                "degrees": 20.175435320403796
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 20.175435320403796
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 20.17543532040372
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 20.17543532040365
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 20.175435320403576
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 20.175435320403576
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            24,
+            25
+          ],
+          "source_seconds": [
+            0.20000000298023224,
+            0.2083333283662796
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 24.16455437513293,
+            "maximum_world_shortest_angle_degrees": 21.38270888163505,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 24.16455437513293
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 7.572354313863626
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.680677332922893
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 5.289426940530908
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 4.667358059080866
+              },
+              {
+                "joint": "Head",
+                "degrees": 2.8084825187386233
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Index1",
+                "degrees": 21.38270888163505
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 21.382708881634912
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 21.38270888163464
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 24.16455437513293,
+            "maximum_world_shortest_angle_degrees": 21.38270888163505,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 24.16455437513293
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 7.572354313863626
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.680677332922893
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 5.289426940530908
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 4.667358059080866
+              },
+              {
+                "joint": "Head",
+                "degrees": 2.8084825187386233
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Index1",
+                "degrees": 21.38270888163505
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 21.382708881634912
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 21.382708881634777
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 21.38270888163464
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            179,
+            180
+          ],
+          "source_seconds": [
+            1.4916666746139526,
+            1.5
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 5.236350072367996,
+            "maximum_world_shortest_angle_degrees": 4.568208725469575,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.236350072367996
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.971509169756305
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.713800762837635
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.1138770818125545
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 3.465123793554459
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.7862319276989378
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 4.568208725469575
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 4.568208721845836
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.568208674078999
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.46988025121879
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 4.4698792431929135
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 4.469879092071649
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 5.236350072367996,
+            "maximum_world_shortest_angle_degrees": 4.568208725469575,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 5.236350072367996
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.971509169756305
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.713800762837635
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.1138770818125545
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 3.465123793554459
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.7862319276989378
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 4.568208725469575
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 4.568208721845836
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.568208674078999
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.46988025121879
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 4.4698792431929135
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 4.469879092071649
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            180,
+            181
+          ],
+          "source_seconds": [
+            1.5,
+            1.5083333253860474
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.94299591819939,
+            "maximum_world_shortest_angle_degrees": 4.337744717851871,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.94299591819939
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.60937034870053
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.2027189469645
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 3.5833585839986193
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.997064435299906
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.792761227710678
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 4.337744717851871
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 4.337744707157723
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.3377446805080755
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.214539464717021
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 4.214538425107895
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 4.2145382763312105
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.944193267448683,
+            "maximum_world_shortest_angle_degrees": 4.338460540554846,
+            "top_local_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.944193267448683
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.609512474934467
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.202659203069451
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 3.5847808304765474
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.9750238497756714
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.7922823607755942
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_UpperarmTwist01",
+                "degrees": 4.338460540554846
+              },
+              {
+                "joint": "L_UpperarmTwist02",
+                "degrees": 4.338460529847672
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 4.338460503186958
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 4.213976119314617
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 4.2139750796184785
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 4.213974930842331
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            209,
+            210
+          ],
+          "source_seconds": [
+            1.7416666746139526,
+            1.75
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.0436496608183266,
+            "maximum_world_shortest_angle_degrees": 2.5763214026693264,
+            "top_local_joints": [
+              {
+                "joint": "L_Calf",
+                "degrees": 4.0436496608183266
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 3.3708524817469145
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 2.5763246571787617
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.426507427086508
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.9450292681574717
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 1.9164730062124078
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 2.5763214026693264
+              },
+              {
+                "joint": "L_CalfTwist02",
+                "degrees": 2.5763173285332672
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 2.5763173285332672
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 2.5763173273737037
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265038172548445
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 2.4265038172542437
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": [
+              "R_Thigh",
+              "R_Calf",
+              "L_Forearm"
+            ]
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.0436496608183266,
+            "maximum_world_shortest_angle_degrees": 2.5763214026693264,
+            "top_local_joints": [
+              {
+                "joint": "L_Calf",
+                "degrees": 4.0436496608183266
+              },
+              {
+                "joint": "R_Calf",
+                "degrees": 3.3708524817469145
+              },
+              {
+                "joint": "L_Foot",
+                "degrees": 2.5763246571787617
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.426507427086508
+              },
+              {
+                "joint": "R_Thigh",
+                "degrees": 1.9450292681574717
+              },
+              {
+                "joint": "R_Foot",
+                "degrees": 1.9164730062124078
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_KneeShareBone",
+                "degrees": 2.5763214026693264
+              },
+              {
+                "joint": "L_CalfTwist02",
+                "degrees": 2.5763173285332672
+              },
+              {
+                "joint": "L_CalfTwist01",
+                "degrees": 2.5763173285332672
+              },
+              {
+                "joint": "L_Calf",
+                "degrees": 2.5763173273737037
+              },
+              {
+                "joint": "L_Thigh",
+                "degrees": 2.4265038172548445
+              },
+              {
+                "joint": "L_ThighTwist02",
+                "degrees": 2.4265038172542437
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": [
+              "R_Thigh",
+              "R_Calf",
+              "L_Forearm"
+            ]
+          }
+        }
+      ]
+    },
+    "attack_left": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+        "sha256": "ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc",
+        "bytes": 18864780
+      },
+      "source": {
+        "file": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
+        "sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+        "bytes": 18864444
+      },
+      "channel_count": 234,
+      "key_count": 106,
+      "exact_master_guard_markers_seconds": [
+        0.0,
+        1.75
+      ],
+      "stored_Q_negative_dot_events_all_adjacent_keys": {
+        "old": [],
+        "new": []
+      },
+      "inherited_quaternion_norm_deviations_at_or_above_2e_minus5": [],
+      "join_neighbor_key_measurements": [
+        {
+          "key_indices": [
+            0,
+            1
+          ],
+          "source_seconds": [
+            0.0,
+            0.01666666753590107
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.2541547470184541,
+            "maximum_world_shortest_angle_degrees": 0.16393187021139663,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 0.2541547470184541
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.13705608687269372
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.09863563759692653
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.08713964522094944
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 0.06524431671871567
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.058292999104133804
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 0.16393187021139663
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 0.16393187020250355
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 0.16393187020250355
+              },
+              {
+                "joint": "R_Pinky1",
+                "degrees": 0.16393187020250355
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 0.16393187020250355
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 0.16393187019361044
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.6646839421231688,
+            "maximum_world_shortest_angle_degrees": 0.5319167034082065,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 0.6646839421231688
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.2547209214584075
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.21133483349636334
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.09013537875158058
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.08086622841476816
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.058292999104133804
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Thumb1",
+                "degrees": 0.5319167034082065
+              },
+              {
+                "joint": "L_Thumb2",
+                "degrees": 0.5254163081739567
+              },
+              {
+                "joint": "L_Pinky3",
+                "degrees": 0.5219499761023297
+              },
+              {
+                "joint": "L_Pinky2",
+                "degrees": 0.5194494659651161
+              },
+              {
+                "joint": "L_Thumb3",
+                "degrees": 0.5188981153792792
+              },
+              {
+                "joint": "L_Pinky1",
+                "degrees": 0.5182112132292546
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            11,
+            12
+          ],
+          "source_seconds": [
+            0.18333333730697632,
+            0.20000000298023224
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.323039060035915,
+            "maximum_world_shortest_angle_degrees": 2.7041920284570007,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 4.323039060035915
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.097342585783979
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.6468571214605308
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 1.3658673070328955
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 0.9890950188286285
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.9151934961784005
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.7041920284570007
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.7041920284570007
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.7041920284564616
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 2.7041920284564616
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.7041920284564616
+              },
+              {
+                "joint": "R_Pinky1",
+                "degrees": 2.7041920284564616
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.3236399643548635,
+            "maximum_world_shortest_angle_degrees": 2.7042420329366137,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 4.3236399643548635
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.159750685821766
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.6371732957843756
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 1.5841853585533054
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 1.3572311794730205
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.9151934961784005
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.7042420329366137
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.704242032935535
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.704242032935535
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 2.704242032935535
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 2.704242032935535
+              },
+              {
+                "joint": "R_Mid2",
+                "degrees": 2.704242032935535
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            12,
+            13
+          ],
+          "source_seconds": [
+            0.20000000298023224,
+            0.21666666865348816
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.550578483365322,
+            "maximum_world_shortest_angle_degrees": 2.8325227619905395,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 4.550578483365322
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.171985862898343
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.7262024701681387
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 1.4230987314065615
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 1.026770933808311
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.9521449797444382
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.8325227619905395
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.8325227619905395
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 2.832522761990025
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.550578483365322,
+            "maximum_world_shortest_angle_degrees": 2.8325227619905395,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 4.550578483365322
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.171985862898343
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 1.7262024701681387
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 1.4230987314065615
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 1.026770933808311
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.9521449797444382
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Ring2",
+                "degrees": 2.8325227619905395
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 2.8325227619905395
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 2.832522761990025
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 2.832522761990025
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            89,
+            90
+          ],
+          "source_seconds": [
+            1.4833333492279053,
+            1.5
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 3.233855850831362,
+            "maximum_world_shortest_angle_degrees": 4.79066603958228,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.233855850831362
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.9905825112522186
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.7963307472703165
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.7814082212994853
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 1.8236094466522106
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 1.7108256824342736
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.79066603958228
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.79066603958228
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Index1",
+                "degrees": 4.790666039581976
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 3.233855850831362,
+            "maximum_world_shortest_angle_degrees": 4.79066603958228,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.233855850831362
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.9905825112522186
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.7963307472703165
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.7814082212994853
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 1.8236094466522106
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 1.7108256824342736
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.79066603958228
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.79066603958228
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 4.790666039581976
+              },
+              {
+                "joint": "R_Index1",
+                "degrees": 4.790666039581976
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            90,
+            91
+          ],
+          "source_seconds": [
+            1.5,
+            1.5166666507720947
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 3.1699848778524413,
+            "maximum_world_shortest_angle_degrees": 4.672273987147614,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.1699848778524413
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.8270883180600657
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.6976321352782575
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.6405138772872685
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 1.733243484706151
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 1.7030844361956312
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Thumb2",
+                "degrees": 4.672273987147614
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.672273987147614
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.672273987147614
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 4.672273987147614
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.672273987147302
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.672273987147302
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 3.1703117657100517,
+            "maximum_world_shortest_angle_degrees": 4.671767185996607,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.1703117657100517
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.8133835163367107
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.6457893292565546
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.533582677885621
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 1.733243484706151
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 1.6973838679429705
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.671767185996607
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.671767185996295
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.671767185996295
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.671767185996295
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 4.671767185996295
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 4.671767185995982
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            104,
+            105
+          ],
+          "source_seconds": [
+            1.7333333492279053,
+            1.75
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.21650031353125904,
+            "maximum_world_shortest_angle_degrees": 0.25215064259394343,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 0.21650031353125904
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 0.11940922625937389
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0789607209909233
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.07570451749611073
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.018593342845101248
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.0067332985147282
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Index1",
+                "degrees": 0.25215064259394343
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 0.2521506425881617
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 0.2521506425881617
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 0.2521506425881617
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 0.2521506425881617
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 0.2521506425881617
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.24424997468150653,
+            "maximum_world_shortest_angle_degrees": 0.24953705825999078,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 0.24424997468150653
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.21658229848000127
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.0826077662311252
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.07260059454301812
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.05311047059117221
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.0215189196024419
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Ring2",
+                "degrees": 0.24953705825999078
+              },
+              {
+                "joint": "R_Mid2",
+                "degrees": 0.24953705825999078
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 0.24953705825999078
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 0.24953705825999078
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.24953705825999078
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 0.24953705825414854
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        }
+      ]
+    },
+    "attack_right": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+        "sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+        "bytes": 18864780
+      },
+      "source": {
+        "file": "ArtSource/refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
+        "sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+        "bytes": 18864448
+      },
+      "channel_count": 234,
+      "key_count": 106,
+      "exact_master_guard_markers_seconds": [
+        0.0,
+        1.75
+      ],
+      "stored_Q_negative_dot_events_all_adjacent_keys": {
+        "old": [],
+        "new": []
+      },
+      "inherited_quaternion_norm_deviations_at_or_above_2e_minus5": [
+        {
+          "joint": "Waist",
+          "old_maximum_norm_deviation": 2.320486585827286e-05,
+          "new_maximum_norm_deviation": 2.320486585827286e-05,
+          "whole_track_float32_values_unchanged": true
+        }
+      ],
+      "join_neighbor_key_measurements": [
+        {
+          "key_indices": [
+            0,
+            1
+          ],
+          "source_seconds": [
+            0.0,
+            0.01666666753590107
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.23309883553560082,
+            "maximum_world_shortest_angle_degrees": 0.23859225096828945,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 0.23309883553560082
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.19889827532569326
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.19089459320059854
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.16608039260330865
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.1427089429188517
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.13106541180896722
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_ElbowShareBone",
+                "degrees": 0.23859225096828945
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 0.23859025912012247
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 0.23859025910790188
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.23859025910790188
+              },
+              {
+                "joint": "L_ElbowShareBone",
+                "degrees": 0.216742045813345
+              },
+              {
+                "joint": "L_ForearmTwist02",
+                "degrees": 0.2167374633501813
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.7355159919679559,
+            "maximum_world_shortest_angle_degrees": 0.6017775898848344,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 0.7355159919679559
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.20027759706270667
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.19575693650716347
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.19171642068967681
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.1608081575764339
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 0.13106541180896722
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Pinky3",
+                "degrees": 0.6017775898848344
+              },
+              {
+                "joint": "L_Pinky2",
+                "degrees": 0.5982136629756548
+              },
+              {
+                "joint": "L_Pinky1",
+                "degrees": 0.5965137992694867
+              },
+              {
+                "joint": "L_Ring3",
+                "degrees": 0.5945691806887489
+              },
+              {
+                "joint": "L_Ring2",
+                "degrees": 0.592842770844903
+              },
+              {
+                "joint": "L_Thumb1",
+                "degrees": 0.5910425018579138
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            11,
+            12
+          ],
+          "source_seconds": [
+            0.18333333730697632,
+            0.20000000298023224
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.227719504566831,
+            "maximum_world_shortest_angle_degrees": 4.123810714762227,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 4.227719504566831
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 3.1714229136331005
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 2.882168471205642
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.079164700236592
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 2.067076990956422
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 2.0577571588372683
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.123810714762227
+              },
+              {
+                "joint": "L_ForearmTwist02",
+                "degrees": 4.1238107116806155
+              },
+              {
+                "joint": "L_ForearmTwist01",
+                "degrees": 4.1238107116806155
+              },
+              {
+                "joint": "L_ElbowShareBone",
+                "degrees": 4.123807625769879
+              },
+              {
+                "joint": "R_ElbowShareBone",
+                "degrees": 3.413551899718852
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 3.4135513631653716
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.458005162571939,
+            "maximum_world_shortest_angle_degrees": 4.114603955811118,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 4.458005162571939
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 3.1680443534372924
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 2.8829692089694756
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.0795083148831783
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 2.060452771818316
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 2.0577571588372683
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.114603955811118
+              },
+              {
+                "joint": "L_ForearmTwist02",
+                "degrees": 4.11460395266095
+              },
+              {
+                "joint": "L_ForearmTwist01",
+                "degrees": 4.1146039526605955
+              },
+              {
+                "joint": "L_ElbowShareBone",
+                "degrees": 4.1146009046664584
+              },
+              {
+                "joint": "R_ElbowShareBone",
+                "degrees": 3.4173039571331696
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 3.4173034205793913
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            12,
+            13
+          ],
+          "source_seconds": [
+            0.20000000298023224,
+            0.21666666865348816
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 4.492885816987936,
+            "maximum_world_shortest_angle_degrees": 4.404825302037407,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 4.492885816987936
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 3.472294333976047
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 2.9737868170522597
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 2.1408123155956167
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 2.0957842981151638
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.0361642584037076
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_ForearmTwist01",
+                "degrees": 4.404825302037407
+              },
+              {
+                "joint": "L_ForearmTwist02",
+                "degrees": 4.404825302037076
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.404825302036746
+              },
+              {
+                "joint": "L_ElbowShareBone",
+                "degrees": 4.404824091351849
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 3.5300738262611113
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 3.5300738262602853
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 4.492885816987936,
+            "maximum_world_shortest_angle_degrees": 4.404825302037407,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 4.492885816987936
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 3.472294333976047
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 2.9737868170522597
+              },
+              {
+                "joint": "NeckTwist01",
+                "degrees": 2.1408123155956167
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 2.0957842981151638
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.0361642584037076
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "L_ForearmTwist01",
+                "degrees": 4.404825302037407
+              },
+              {
+                "joint": "L_ForearmTwist02",
+                "degrees": 4.404825302037076
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 4.404825302036746
+              },
+              {
+                "joint": "L_ElbowShareBone",
+                "degrees": 4.404824091351849
+              },
+              {
+                "joint": "R_ForearmTwist02",
+                "degrees": 3.5300738262611113
+              },
+              {
+                "joint": "R_ForearmTwist01",
+                "degrees": 3.5300738262602853
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            89,
+            90
+          ],
+          "source_seconds": [
+            1.4833333492279053,
+            1.5
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 3.246106707401492,
+            "maximum_world_shortest_angle_degrees": 4.831885610754213,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.246106707401492
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.9507649348635048
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.4718144611968254
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.1186745752503904
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.0729632285211865
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.9897430618646732
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.831885610754213
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Mid2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.831885610753609
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 3.246106707401492,
+            "maximum_world_shortest_angle_degrees": 4.831885610754213,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.246106707401492
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.9507649348635048
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.4718144611968254
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.1186745752503904
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.0729632285211865
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.9897430618646732
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Pinky3",
+                "degrees": 4.831885610754213
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Mid2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 4.83188561075391
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.831885610753609
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            90,
+            91
+          ],
+          "source_seconds": [
+            1.5,
+            1.5166666507720947
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 3.2101719426151463,
+            "maximum_world_shortest_angle_degrees": 4.712460364808859,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.2101719426151463
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.829674373684333
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.3427766552281986
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.016152835045813
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 2.0136654220868127
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.9526970349761474
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.712460364808859
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 4.712460364808859
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.712460364808859
+              },
+              {
+                "joint": "R_Index2",
+                "degrees": 4.712460364808859
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.712460364808859
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 4.71246036480855
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 3.2105864154124353,
+            "maximum_world_shortest_angle_degrees": 4.713029921304572,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 3.2105864154124353
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 2.8588182906130757
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 2.3392729995955768
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 2.009558593555593
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 1.8410633361590447
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.9520139538028299
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Index2",
+                "degrees": 4.713029921304572
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 4.713029921304262
+              },
+              {
+                "joint": "R_Mid3",
+                "degrees": 4.713029921304262
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 4.713029921304262
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 4.713029921304262
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 4.713029921303953
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        },
+        {
+          "key_indices": [
+            104,
+            105
+          ],
+          "source_seconds": [
+            1.7333333492279053,
+            1.75
+          ],
+          "old": {
+            "maximum_local_shortest_angle_degrees": 0.19566370319804746,
+            "maximum_world_shortest_angle_degrees": 0.2543120092317499,
+            "top_local_joints": [
+              {
+                "joint": "R_Hand",
+                "degrees": 0.19566370319804746
+              },
+              {
+                "joint": "L_Hand",
+                "degrees": 0.10208456461099757
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.051223462384259386
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.033252769470778855
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.026795537404957607
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.024640261942679355
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Index1",
+                "degrees": 0.2543120092317499
+              },
+              {
+                "joint": "R_Thumb2",
+                "degrees": 0.2543120092260174
+              },
+              {
+                "joint": "R_Ring3",
+                "degrees": 0.2543120092260174
+              },
+              {
+                "joint": "R_Ring2",
+                "degrees": 0.2543120092260174
+              },
+              {
+                "joint": "R_Pinky3",
+                "degrees": 0.2543120092260174
+              },
+              {
+                "joint": "R_Pinky2",
+                "degrees": 0.2543120092260174
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          },
+          "new": {
+            "maximum_local_shortest_angle_degrees": 0.25968696413553427,
+            "maximum_world_shortest_angle_degrees": 0.2534303824443467,
+            "top_local_joints": [
+              {
+                "joint": "L_Hand",
+                "degrees": 0.25968696413553427
+              },
+              {
+                "joint": "R_Hand",
+                "degrees": 0.19605838886188448
+              },
+              {
+                "joint": "L_Forearm",
+                "degrees": 0.07815379677716912
+              },
+              {
+                "joint": "R_Upperarm",
+                "degrees": 0.05276459188804764
+              },
+              {
+                "joint": "L_Upperarm",
+                "degrees": 0.02572905895407763
+              },
+              {
+                "joint": "R_Forearm",
+                "degrees": 0.025350927704610473
+              }
+            ],
+            "top_world_joints": [
+              {
+                "joint": "R_Mid2",
+                "degrees": 0.2534303824443467
+              },
+              {
+                "joint": "R_Thumb1",
+                "degrees": 0.2534303824385942
+              },
+              {
+                "joint": "R_Ring1",
+                "degrees": 0.2534303824385942
+              },
+              {
+                "joint": "R_Mid1",
+                "degrees": 0.2534303824385942
+              },
+              {
+                "joint": "R_Index3",
+                "degrees": 0.2534303824385942
+              },
+              {
+                "joint": "R_Thumb3",
+                "degrees": 0.25343038243284166
+              }
+            ],
+            "stored_float32_Q_negative_dot_joints": []
+          }
+        }
+      ]
+    }
+  },
+  "idle": {
+    "source_loop_seconds": [
+      0.0,
+      1.5
+    ],
+    "loop_duration_seconds": 1.5,
+    "keys": 181,
+    "interpolation": "LINEAR",
+    "absolute_one_third_changed_channels": [
+      "BoneRoot.rotation",
+      "Hip.rotation",
+      "Pelvis.rotation",
+      "L_Thigh.rotation",
+      "L_Calf.rotation",
+      "L_Foot.rotation",
+      "L_ToeBase.rotation",
+      "L_CalfTwist01.rotation",
+      "L_KneeShareBone.rotation",
+      "L_ThighTwist01.rotation",
+      "L_ThighTwist02.rotation",
+      "R_Thigh.rotation",
+      "R_Calf.rotation",
+      "R_KneeShareBone.rotation",
+      "R_Foot.rotation",
+      "R_ToeBase.rotation",
+      "R_CalfTwist01.rotation",
+      "R_CalfTwist02.rotation",
+      "R_ThighTwist01.rotation",
+      "R_ThighTwist02.rotation",
+      "Waist.rotation",
+      "Spine01.rotation",
+      "Spine02.rotation",
+      "NeckTwist01.rotation",
+      "NeckTwist02.rotation",
+      "Head.rotation",
+      "FacialBone.rotation",
+      "R_Eye.rotation",
+      "L_Eye.rotation",
+      "L_Clavicle.rotation",
+      "L_Upperarm.rotation",
+      "L_Forearm.rotation",
+      "L_ForearmTwist01.rotation",
+      "L_ForearmTwist02.rotation",
+      "L_ElbowShareBone.rotation",
+      "L_Hand.rotation",
+      "L_Pinky1.rotation",
+      "L_Pinky2.rotation",
+      "L_Pinky3.rotation",
+      "L_Ring1.rotation",
+      "L_Ring2.rotation",
+      "L_Ring3.rotation",
+      "L_Mid1.rotation",
+      "L_Mid2.rotation",
+      "L_Mid3.rotation",
+      "L_Index1.rotation",
+      "L_Index2.rotation",
+      "L_Index3.rotation",
+      "L_Thumb1.rotation",
+      "L_Thumb2.rotation",
+      "L_Thumb3.rotation",
+      "L_UpperarmTwist01.rotation",
+      "L_UpperarmTwist02.rotation",
+      "R_Clavicle.rotation",
+      "R_Upperarm.rotation",
+      "R_Forearm.rotation",
+      "R_ElbowShareBone.rotation",
+      "R_ForearmTwist01.rotation",
+      "R_ForearmTwist02.rotation",
+      "R_Hand.rotation",
+      "R_Ring1.rotation",
+      "R_Ring2.rotation",
+      "R_Ring3.rotation",
+      "R_Mid1.rotation",
+      "R_Mid2.rotation",
+      "R_Mid3.rotation",
+      "R_Thumb1.rotation",
+      "R_Thumb2.rotation",
+      "R_Thumb3.rotation",
+      "R_Index1.rotation",
+      "R_Index2.rotation",
+      "R_Index3.rotation",
+      "R_Pinky1.rotation",
+      "R_Pinky2.rotation",
+      "R_Pinky3.rotation",
+      "R_UpperarmTwist01.rotation",
+      "R_UpperarmTwist02.rotation"
+    ]
+  },
+  "walk": {
+    "source_loop_seconds": [
+      0.3333333333333333,
+      1.5
+    ],
+    "loop_duration_seconds": 1.1666666666666667,
+    "six_original_leg_TRS_curves_and_time_grid_exact": true,
+    "original_mixed_interpolation_preserved": true
+  },
+  "all_raw_original_rest_and_payload_exact": true,
+  "all_234_TRS_marker_values_float32_exact": true,
+  "constant_R15_master_UNBAKED_exact": true,
+  "three_attack_interiors_0p20_to1p50_exact_source": true,
+  "rejection_cases_actually_run": [
+    "invalid time nan",
+    "invalid time True",
+    "invalid time -0.001",
+    "invalid time 1.751",
+    "actual idle file wrong SHA",
+    "actual exported last endpoint +10mm",
+    "actual exported last timeline +100ms"
+  ],
+  "Q_measurement_semantics": "Shortest orientation angle uses abs(normalized Q dot). Stored negative Q dot is separately listed; q and -q encode the same orientation. Adjacent source keys are measured, not interpolated coarse30Hz frames.",
+  "limits": [
+    "Endpoint/source preservation proof only; joins are measured rather than declared aesthetically approved.",
+    "No production family gate, native SDK playback, blend, retarget or device acceptance."
+  ],
+  "verification_source_pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/verify_family.py": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+    "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0"
+  }
+}

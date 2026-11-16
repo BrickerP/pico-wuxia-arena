@@ -36,8 +36,8 @@ internal fun selectEnemyPose(
     hitReaction: HitReaction? = null,
     hitZone: HitZone? = null,
 ): EnemyPoseFrame? = when {
-    phase == EnemyPhase.IDLE -> EnemyPoseFrame(locomotion.clip(moving), locomotion.sample(moving, gaitMeters))
-    phase == EnemyPhase.HIT && guarding -> EnemyPoseFrame(locomotion.clip(false), locomotion.sample(false, gaitMeters))
+    phase == EnemyPhase.IDLE -> EnemyPoseFrame(locomotion.clip(moving), locomotion.sample(moving, gaitMeters, elapsedNanos))
+    phase == EnemyPhase.HIT && guarding -> EnemyPoseFrame(locomotion.clip(false), locomotion.sample(false, gaitMeters, 0L))
     phase == EnemyPhase.HIT -> reactions.frame(hitReaction, hitZone, elapsedNanos, remainingNanos)
     phase in ATTACK_PHASES -> EnemyPoseFrame(attack.clip,
         attack.sample(attack.sourceSeconds(phase, elapsedNanos, remainingNanos)))

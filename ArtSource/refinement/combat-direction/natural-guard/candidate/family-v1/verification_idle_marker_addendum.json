@@ -1,0 +1,23 @@
+{
+  "actual_source_seconds": 0.3333333333333333,
+  "actual_nearest_raw_key": 40,
+  "actual_stored_changed_rotation_channels": [
+    "Spine01.rotation",
+    "Head.rotation",
+    "L_Clavicle.rotation",
+    "L_Upperarm.rotation",
+    "L_Forearm.rotation",
+    "R_Clavicle.rotation",
+    "R_Upperarm.rotation",
+    "R_Forearm.rotation",
+    "R_Hand.rotation"
+  ],
+  "actual_changed_count": 9,
+  "proof": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/verification_legacy_marker.json",
+    "sha256": "ad3a0057c1e271d512106caed1547aca1ad4918c3e880ec281852009c5614b46",
+    "bytes": 3202
+  },
+  "proof_applicability": "Family idle is byte-identical to the immutable natural-guard v1 idle. Actual stored float32key40 comparison has9 rotation streams; do not count normalization-only changes when sampling other constant quaternions.",
+  "new_surface_scan_performed": false
+}

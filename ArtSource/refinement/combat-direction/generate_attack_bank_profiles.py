@@ -117,6 +117,9 @@ def validate_attack_profile(attack, metadata, contract):
 
 def gait_step_events(profile):
     contract = profile['source_contract']
+    if any(type(contract.get(field)) not in (int, float) or contract[field] != wanted for field, wanted in (
+            ('idle_loop_start_seconds', 0.0), ('idle_loop_end_seconds', 1.5), ('idle_loop_duration_seconds', 1.5))):
+        raise ValueError('Expected the complete 0..1.5s breathing idle loop')
     if (contract.get('contract') != 'locomotion78' or contract['stride_metres'] != 1.45 or
             contract['steps_per_loop'] != 6 or contract['loop_start_seconds'] != 1 / 3 or
             contract['loop_end_seconds'] != 1.5):
@@ -194,9 +197,12 @@ def sampled_fields(samples, time):
 
 def validate_canonical_boundaries(profile):
     idle = profile['locomotion']['idle']['samples'][0]
-    walk = sampled_fields(profile['locomotion']['walk']['samples'], profile['source_contract']['loop_start_seconds'])
-    if any(walk[field] != idle[field] for field in FIELDS):
-        raise ValueError('Final idle and walk canonical boundary anchors differ')
+    if any(profile['locomotion']['idle']['samples'][-1][field] != idle[field] for field in FIELDS):
+        raise ValueError('Final idle loop endpoints must have exactly matching body and blade anchors')
+    walk = profile['locomotion']['walk']['samples']
+    for time in (0.0, profile['source_contract']['loop_start_seconds'], profile['source_contract']['loop_end_seconds']):
+        if any(sampled_fields(walk, time)[field] != idle[field] for field in FIELDS):
+            raise ValueError('Final idle and walk canonical boundary anchors differ')
     # Retargeted float32 attack entries can differ by sub-micrometre rounding only.
     for attack in profile['attacks'].values():
         for sample in [attack['samples'][0], attack['samples'][-1]]:
@@ -241,8 +247,11 @@ def load_bank(bank, review=None):
             raise ValueError('The canonical bank requires actual idle and walk profiles')
         gait_step_events(profile)
         for name, clip in profile['locomotion'].items():
+            loop = [0.0, 1.5] if name == 'idle' else [1 / 3, 1.5]
+            duration = 1.5 if name == 'idle' else 7 / 6
             if (clip['clip'] != name or clip['source_range_seconds'] != [0, 1.5] or
-                    clip['source_loop_seconds'] != [1 / 3, 1.5] or
+                    clip['source_loop_seconds'] != loop or any(type(value) not in (int, float)
+                        for value in clip['source_loop_seconds']) or clip['source_loop_duration_seconds'] != duration or
                     clip['animation_semantics_sha256'] != reviewed[character['id']]['clip_semantic_signatures'][name]):
                 raise ValueError('Locomotion clip identity/timing differs from the reviewed model')
             validate_pose_samples(clip['samples'], 0.0, 1.5)
@@ -285,6 +294,7 @@ def generate(bank, review=None):
     ]
     for character, profile, profile_sha in loaded:
         cid = character['id']
+        sample_owner = cid.title() + 'AttackSamples'
         lines += [
             f'        "asset://models/opponents/{cid}.glb" to CharacterAttackProfiles(',
             f'            modelSha256 = "{profile["model_sha256"]}",',
@@ -300,12 +310,12 @@ def generate(bank, review=None):
                 f'                    clip = "{attack["clip"]}",',
                 f'                    sourcePhaseSeconds = listOf({phases}),',
                 f'                    contactSourceSeconds = {float(attack["contact_source_seconds"])},',
-                f'                    samples = {cid}{direction.title()}(),',
+                f'                    samples = {sample_owner}.{direction.lower()}(),',
                 '                ),',
             ]
         lines += ['            ),', '            locomotion = LocomotionProfile(',
-                  f'                idle = PoseClipProfile("idle", {cid}Idle()),',
-                  f'                walk = PoseClipProfile("walk", {cid}Walk()),',
+                  f'                idle = PoseClipProfile("idle", {sample_owner}.idle()),',
+                  f'                walk = PoseClipProfile("walk", {sample_owner}.walk()),',
                   f'                loopStartSeconds = {kotlin_double(profile["source_contract"]["loop_start_seconds"])},',
                   f'                loopEndSeconds = {kotlin_double(profile["source_contract"]["loop_end_seconds"])},',
                   f'                strideMeters = {kotlin_double(profile["source_contract"]["stride_metres"])},',
@@ -317,7 +327,7 @@ def generate(bank, review=None):
             clip = profile['reactions'][name]
             title = name.title().replace('_', '')
             lines += [f'                // Animation semantics SHA-256 {clip["animation_semantics_sha256"]}',
-                      f'                {field} = PoseClipProfile("{name}", {cid}{title}()),']
+                      f'                {field} = PoseClipProfile("{name}", {sample_owner}.{title[0].lower() + title[1:]}()),']
         lines += ['            ),', '        ),']
     lines += ['    )', '}', '',
               '// Columns: source seconds, head xyz, lower torso xyz, upper torso xyz, blade base xyz, blade tip xyz.',
@@ -329,15 +339,21 @@ def generate(bank, review=None):
               '            vector(offset + 10), vector(offset + 13))',
               '    }', '}', '']
     for character, profile, _ in loaded:
+        sample_owner = character['id'].title() + 'AttackSamples'
+        # Each actor owns a separate JVM constant pool. Keep literal precision and
+        # each clip's existing factory size; only their class ownership changes.
+        lines.append(f'private object {sample_owner} {{')
         clips = [(direction.title(), profile['attacks'][direction]) for direction in DIRECTIONS]
         clips += [(name.title(), clip) for name, clip in profile['locomotion'].items()]
         clips += [(name.title().replace('_', ''), profile['reactions'][name]) for name in REACTIONS]
         for title, clip in clips:
-            lines.append(f'private fun {character["id"]}{title}(): List<AttackPoseSample> = decodeAttackSamples(doubleArrayOf(')
+            method = title[0].lower() + title[1:]
+            lines.append(f'    fun {method}(): List<AttackPoseSample> = decodeAttackSamples(doubleArrayOf(')
             for sample in clip['samples']:
                 values = [sample['source_seconds'], *[v for field in FIELDS for v in sample[field]]]
-                lines.append('    ' + ', '.join(kotlin_double(v) for v in values) + ',')
-            lines += ['))', '']
+                lines.append('        ' + ', '.join(kotlin_double(v) for v in values) + ',')
+            lines += ['    ))', '']
+        lines += ['}', '']
     return '\n'.join(lines)
 
 

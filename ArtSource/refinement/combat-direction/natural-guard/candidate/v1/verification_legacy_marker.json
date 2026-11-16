@@ -1,0 +1,98 @@
+{
+  "status": "absolute_source_one_third_not_frozen_to_guard",
+  "marker_semantics": "Legacy canonical marker1/3 is absolute source1/3 second, not one-third of the1.5s cycle.",
+  "requested_source_seconds": 0.3333333333333333,
+  "nearest_actual_raw_key_index": 40,
+  "actual_float32_raw_key_seconds": 0.3333333432674408,
+  "raw_changed_channels_from_guard_at_key40": [
+    "Spine01.rotation",
+    "Head.rotation",
+    "L_Clavicle.rotation",
+    "L_Upperarm.rotation",
+    "L_Forearm.rotation",
+    "R_Clavicle.rotation",
+    "R_Upperarm.rotation",
+    "R_Forearm.rotation",
+    "R_Hand.rotation"
+  ],
+  "exact_endpoint_payload_comparisons": {
+    "TRS_channels_checked": 234,
+    "source0_and1p5_equal_new_guard_float32_values": true
+  },
+  "same_executed_30Hz_scan_frame_seconds": 0.3333333333333333,
+  "joint_displacement_vectors_from_guard_metres": {
+    "Hip": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Spine02": [
+      9.313225746154785e-10,
+      -7.176399230957031e-05,
+      -0.0007758103311061859
+    ],
+    "R_Upperarm": [
+      -8.952617645263672e-05,
+      -0.00044918060302734375,
+      -0.0010107457637786865
+    ],
+    "L_Upperarm": [
+      7.63237476348877e-05,
+      4.482269287109375e-05,
+      -0.001061825081706047
+    ],
+    "R_Hand": [
+      0.0,
+      -1.1920928955078125e-07,
+      -1.1920928955078125e-07
+    ],
+    "L_Hand": [
+      2.9802322387695312e-08,
+      0.00041306018829345703,
+      0.0006197243928909302
+    ]
+  },
+  "joint_displacement_lengths_from_guard_metres": {
+    "Hip": 0.0,
+    "Spine02": 0.0007791224168538377,
+    "R_Upperarm": 0.001109677948507042,
+    "L_Upperarm": 0.0010655078096331832,
+    "R_Hand": 1.6858739404357614e-07,
+    "L_Hand": 0.0007447664353240125
+  },
+  "same_scan_actual_steel_body_triangle_overlaps": [],
+  "same_scan_nonadjacent_region_triangle_pairs": {
+    "R_forearm__head": 0,
+    "R_forearm__chest": 0,
+    "R_hand__head": 0,
+    "R_hand__chest": 0,
+    "L_forearm__head": 0,
+    "L_forearm__chest": 0,
+    "L_hand__head": 0,
+    "L_hand__chest": 0
+  },
+  "new_surface_scan_performed": false,
+  "evidence": [
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+      "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+      "bytes": 18538720
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb",
+      "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "bytes": 19098860
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/verification_natural_guard.json",
+      "sha256": "4893e100d0ef46f982a4a03a83deddf44baa929f2695aa1879e1bbedcd44513d",
+      "bytes": 149952
+    },
+    {
+      "file": "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py",
+      "sha256": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+      "bytes": 19192
+    }
+  ],
+  "method": "Read actual raw float32key40 and compare all234TRS with guard; derive world deltas from the existing successful49-pose source scan frame10/30. No animation bytes, interpolation, authoring metadata or main report modified."
+}

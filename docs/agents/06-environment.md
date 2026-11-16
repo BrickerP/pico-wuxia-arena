@@ -1,5 +1,46 @@
 # 06 · 雨夜酒馆庭院整体场景
 
+## Root 当前审核与执行合同（2026-11-16）
+
+湿石bd5d21ef已获Root离线收件，正在与dc0动作组构建原生包；尚不宣称端内反射/真机通过。Root实际看过178d1bfc灯笼正常/局部图，当前不组合：轮廓比原灯更方、更有低面数折角，竹肋两端像断开的尖条，未连接收口圈；实体数量和省三角不能替代精致感。该模块封存。
+
+下一轮Ownership仅lantern-hero/refined/及06。恢复原前门灯笼的圆润轮廓与悬挂包络，做有连续曲率的纸罩（环向至少48段、合理纵向曲线、正确平滑法线），竹肋薄且连续连接顶/底圈，不悬空/尖刺；圈帽和绳结有真实收口。可以用更多必要面数，组合仍<=250k展开tri，材质<=32，原两实例/光源锚不变。可增最多一张1024纸纤维图及mips（总图<=51），从已有CC0纸材或明确可复建程序纹理衍生，不烘焙固定高光、不过度全局发光；不能只换颜色或压面数。
+
+先一个单件+同一1.65m正常视角和0.5m局部对照，旧原形为before；Root接受后才组合当前湿石庭院。45分钟首件最多一次定位修正，不改灯/布局/Stage/正式GLB/app/公共producer/Git/设备。保已冻结湿石和旧模块及他人修改，不重开第二庭院。结束明确可采用或拒绝，不拿离线当设备证据。
+
+## 正门灯笼圆润精修：离线可评审，等待Root组合（2026-11-16）
+
+本合同已完成并阶段结束。唯一新目录 `native-ground-polish/lantern-hero/refined/`，正式bd5d21ef/app不改。模块 `lantern_refined_module.glb`，SHA256 `0268b056a20422ce439a9bb8720776a0760e733a09193d19a43c87db37ddd3e2`，状态 `offline_refined_module_candidate_for_root_composition_review`；不自行组合或替换正式庭院。
+
+- **构造与限制：** 48段连续曲率纸罩、12根连续扫掠竹肋、四圈收口、顶/底帽、闭合挂耳、短悬绳、穗结/五束流苏；肋端实际接入圈体，没有尖刺悬空。无新图或材质，复用paper10/wood0/bronze7/rope24，不加灯/透射/全局发光。模块按现有两实例/灯锚原位：左/右Stage `[-2.15,2.70,-4.78]`与`[2.15,2.70,-4.78]`。
+- **预算/拆旧：** 单件3748tri，双实例7496tri；精确替旧前门木2936、铜504、纸960，共4400tri，净+3096，计划组合展开246454tri，低于250k。32材质/50图不变。正式KTX场景当前为bd5d；Blender不能导入KHR_texture_basisu，离线预览只用同湿石map、非图像语义对应的PNG场景5619，明确不作为KTX加载证明。
+- **视觉与验证：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/review/eye_before.png)、[后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/review/eye_after.png)、[0.5m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/review/close_before.png)、[后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/review/close_after.png)。正常距离可读圆润轮廓/肋，局部可读帽、圈、肋、底收口和穗；挂耳/短绳保在原前檐下，部分被梁遮挡，不用移位或加灯强显。当前角色重导使身份变化，图中双方均排除角色，未混旧actor。4项结构/预算/UV/tangent检查通过，模块validator0错误/0警告。
+- **Root收件：** `module_manifest.json`有矩阵、材料映射、包络和拆旧选择；`lantern_refined_editable.blend`、`build_refined_lantern.py`、`verify_refined_lantern.py`、`render_refined_lantern.py`、`REBUILD.md`可复建；`review/{verification,module_gltf_validator,render_manifest,visual_gate}.json`与`delivery_manifest.json`钉全部身份和边界。Root后续组合bd5d并验实际KTX/端内照明；本路不再改参、重渲或造第二版。
+
+## 正门灯笼模块首件：离线可评审，等待Root组合（2026-11-16）
+
+湿石KTX候选继续冻结，Root另验APK；本轮只交一件可复用正门灯笼模块，不改正式96c554/app/公共producer/设备/构建/Git，不扩场景、不加灯、不做全场替换。目录唯一为 `ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/`。
+
+模块 `lantern_hero_module.glb`，SHA256 `178d1bfc1d68461be6aa6deb33507214d2179bef6d7b0d37c719bd3eed0f283b`，状态 `offline_module_candidate_for_root_composition_review`。它不是第二庭院，Root只能按 `module_manifest.json` 的identity矩阵在正式96c554中各实例一次：左 `[-2.15,2.70,-4.78]`、右 `[2.15,2.70,-4.78]`。
+
+- **实体构造：** 纸壳、十根三段木肋、四道顶/底收口圈、顶底帽、闭合挂耳、短悬绳、穗绳和五束流苏均为实体。只复用material10纸、material0木、material7铜、material24绳；没有新图、材质种类、全局发光、透射扩展或灯。模块局部包络X/Z±.267m、Y[-.626,.739]m，保原吊挂位置和原灯色/光源锚点。
+- **拆旧/预算：** Root组合时只移除node7/mesh6的前门木/铜组件和node8/mesh7的两片前门纸罩，保持其他两盏。旧前门组件4400tri，模块双实例2856tri，净−1544；预览组合展开241814tri，低于250k。32材质/50图与Stage/净空不变。实际source选择范围、源材质索引与矩阵均写入 `module_manifest.json`，不允许按近似AABB误删其他灯笼。
+- **同机位证据：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/review/eye_before.png)、[1.65m后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/review/eye_after.png)、[0.5m前](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/review/close_before.png)、[0.5m后](../../ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/review/close_after.png)。后图仅在内存中以正式96c554删除两盏旧件、导入模块两次，未输出或替换整景。正常距离能读肋/收口；局部图在一次取景修正后可读顶帽、圈边、肋、底部和穗。挂耳/短绳实体存在但被保留前檐部分遮挡，未为强显另加灯或移位。
+- **验证/边界：** 5项模块检查通过，finite/退化/UV/tangent、既有材质绑定、局部包络、双实例预算和原灯锚点均核对；validator0错误/0警告。`lantern_hero_editable.blend` 与 `build_lantern_module.py` 可复建；`REBUILD.md`、`review/{verification,module_gltf_validator,render_manifest,visual_gate}.json` 和 `delivery_manifest.json`完整记录输入/模块/预览身份。离线图不等于设备显示，不证明纸透射、原生点灯、性能/内存/Space Pro、碰撞或正式合入；等待Root组合和原生review，不再参数扫或制作第二版。
+
+## 湿石材质首件：离线接受，待Root原生KTX复核（2026-11-16）
+
+本轮是材料首件，不恢复11月15日的2mm地形/积水实验；绿斑候选 `b0bf…` 继续冻结且不得整合。当前正式庭院仍为96c554，Root独占app/正式GLB、构建、设备与Git。本路只写 `ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/` 和本交接，未动其他资源。
+
+完整私有KTX候选 `courtyard_wet_stone_ktx.glb`，SHA256 `bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667`；完整PNG复核场景 `courtyard_wet_stone_png.glb`，SHA256 `5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392`。状态是 `offline_candidate_for_root_native_material_review`，不是正式替换或原生放行。
+
+- **实际更改：** 只替换material8 `EH Stone | walked granite` 的嵌入baseColor和MR两张图为各1024²；原法线仍保持，R/B通道保持，MR仅改G粗糙度。中性潮湿暗化和连续粗糙度分区来自现有Granite Tile纹理，未烘焙固定灯/反射、未画绿色斑、未做镜面塑料；正常/近景能读出非均匀潮湿、现有石粒和浅沟缝。无新灯、布局、几何、水面、材质种类、节点或路径变动。
+- **同机位证据：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_before.png)、[1.65m后](../../ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_after.png)、[0.5m前](../../ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_before.png)、[0.5m后](../../ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_after.png)。实际完整PNG GLB重导入、同相机同既有stage2夜灯，当前6649302a PNG／f6bc15d6正式v5/commonGrip对手idle@0、Stage(0,.028,-2.4)。离线PNG图不是KTX已在PICO加载的证据；KTX与PNG使用同两张map，KTX需要Root实际APK加载再验。
+- **纹理来源/压缩：** 现有material8嵌入图来自Poly Haven Granite Tile（Charlotte Baglioni，CC0），本地出处在 `ArtSource/tavern/README.md`第22–25行；无新下载。两张新图、源图hash、算法、像素统计和许可写在 `texture_provenance.json`。KTX复用仓库官方KTX-Software4.4.2 Darwin arm64链：UASTC quality3、Zstd18、2线程、11层完整mip；两图均经 `ktx validate --gltf-basisu --warnings-as-errors`。`KHR_texture_basisu`只用于texture10/11；其余48图仍为原PNG。
+- **验证与预算：** 五项独立测试通过：正式96c554输入、所有node/mesh/geometry/布局逐字节不变、只两张image/texture绑定可变、32材质/50图、原法线不变、1024map非均匀/中性/roughness边界、KTX header/mip和无运行时内容。PNG GLB validator0错误/4继承切线警告；KTX GLB validator0错误/8条警告（含KHR_texture_basisu的工具不支持提示与既有切线提示）。展开243358tri、唯一181594tri、属性VB14113296B、索引1175868B、提交估算111均和96c554完全相同；PNG文件38,774,920B，KTX文件39,413,100B。文件/纹理字节不是PICO GPU内存或性能实测。
+- **明确边界：** 当前既有离线灯没有可靠的亮反射，不能从roughness数值或PNG推断端内湿石高光。Root下一步仅需KTX候选实际APK加载、近地面材质/切线/IBL检查及内存日志；不要加新灯来制造离线收益。没有碰撞/navmesh、Stage/战斗净空或Space Pro性能通过结论。
+- **复建/清单：** `build_wet_stone.py`、`verify_wet_stone.py`、`render_wet_stone.py`、`REBUILD.md`；实际校验在 `review/{verification,png_gltf_validator,ktx_gltf_validator,render_manifest,visual_gate}.json`，完整输入/输出/许可/依赖hash在 `delivery_manifest.json`。等待Root review，不再做参数扫或第二版本。
+
 ## Root实物评审与下一步（2026-11-16）
 
 已实际看1.65m新路面图，认可b0bf视觉拒绝：两处绿斑没有形成可信浅水，2mm微起伏在正常距离收益不足。正式96c554不变，技术13项通过不转为采用许可，拒绝件封存。

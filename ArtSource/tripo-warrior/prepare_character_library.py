@@ -35,9 +35,9 @@ from prepare_rigged_warrior import (
     prepare_character,
     publish_outputs,
     read_glb,
-    sample_track,
     world_matrix,
 )
+from attack_profiles import sample_track
 
 
 def pinned_source(entry):
@@ -126,7 +126,6 @@ def sampled_local(node, index, tracks, time):
     if rotation_track is not None:
         x, y, z, w = sample_track(rotation_track, time, True)
         rotation = Quaternion((w, x, y, z))
-        rotation.normalize()
     if scale_track is not None:
         scale = Vector(sample_track(scale_track, time, False))
     return Matrix.LocRotScale(location, rotation, scale)
@@ -360,7 +359,7 @@ def retarget_clip(source, source_binary, motion_rig, target, target_binary, nati
               'target_skin_sha256': canonical_hash(target['skins']),
               'target_inverse_binds_sha256': canonical_hash(inverse_bind_values(target, target_binary)),
               'target_mesh_sha256': canonical_hash(target['meshes']),
-              'interpolation_policy': 'preserved locked STEP and six moving leg LINEAR rotations'
+              'interpolation_policy': 'preserved authored idle LINEAR and walk STEP/leg LINEAR curves'
                                       if source_contract == 'locomotion78' else 'LINEAR',
               'maximum_quaternion_step_radians': maximum_rotation_step}
     return encode_glb(result, bytes(packed)), record
@@ -370,6 +369,10 @@ ATTACK_CLIPS = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': '
 MOTION_CLIPS = {'fall', 'turn', 'hit_body', 'hit_head', 'hit_side'}
 LOCOMOTION_CLIPS = {'idle', 'walk'}
 MOVING_LEGS = {side + bone for side in ('L_', 'R_') for bone in ('Thigh', 'Calf', 'Foot')}
+IDLE_FIXED_JOINTS = {'BoneRoot', 'Hip'}
+IDLE_FIXED_PREFIXES = tuple(side + bone for side in ('L_', 'R_')
+    for bone in ('Thigh', 'Calf', 'Foot', 'Toe', 'KneeShareBone')) + tuple(
+    'R_' + finger for finger in ('Thumb', 'Index', 'Mid', 'Ring', 'Pinky'))
 TEXTURE_SETTINGS = {'codec': 'uastc', 'uastc_quality': 3, 'threads': 2,
                     'zstd': 18, 'mipmap_filter': 'lanczos4', 'full_mips': True,
                     'normal_mode': False, 'normalize': False, 'rdo': False,
@@ -541,9 +544,16 @@ def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=
         if contract == 'locomotion78':
             if clip_name not in LOCOMOTION_CLIPS:
                 raise ValueError('locomotion78 requires an explicit idle/walk alias')
-            count = 91 if clip_name == 'idle' else 185
+            count = 181 if clip_name == 'idle' else 185
             if len(times) != count or times[0] != 0 or abs(times[-1] - 1.5) > 1e-7:
-                raise ValueError('locomotion78 requires its frozen 91/185-key 0..1.5s raw source')
+                raise ValueError('locomotion78 requires its authored 181/185-key 0..1.5s raw source')
+            if clip_name == 'idle' and times != [struct.unpack('<f', struct.pack('<f', index / 120))[0]
+                                                for index in range(181)]:
+                raise ValueError('idle requires its complete 120Hz source time grid')
+            if clip_name == 'walk':
+                walk_times = sorted({*[index / 120 for index in range(181)], 19 / 36, 26 / 36, 40 / 36, 47 / 36})
+                if times != [struct.unpack('<f', struct.pack('<f', value))[0] for value in walk_times]:
+                    raise ValueError('walk requires its unchanged 185-key six-step source time grid')
         if any(track[0] != times for track in tracks.values()):
             raise ValueError(contract + ' joint tracks must share the source time grid')
         for name, index in source_joints.items():
@@ -557,6 +567,15 @@ def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=
             if contract == 'locomotion78':
                 for path in ('translation', 'rotation', 'scale'):
                     _, values, interpolation = tracks[index, path]
+                    if clip_name == 'idle':
+                        if interpolation != 'LINEAR':
+                            raise ValueError('breathing idle requires authored LINEAR tracks: ' + name)
+                        if values[0] != values[-1]:
+                            raise ValueError('idle loop endpoints must match exactly: ' + name + '/' + path)
+                        fixed = path != 'rotation' or name in IDLE_FIXED_JOINTS or name.startswith(IDLE_FIXED_PREFIXES)
+                        if fixed and any(row != values[0] for row in values):
+                            raise ValueError('idle root, feet, translations, scale and weapon fingers must remain fixed: ' + name + '/' + path)
+                        continue
                     moving = clip_name == 'walk' and path == 'rotation' and name in MOVING_LEGS
                     if interpolation != ('LINEAR' if moving else 'STEP'):
                         raise ValueError('locomotion78 interpolation differs from frozen locked/leg semantics: ' + name)
@@ -566,41 +585,49 @@ def validate_source_clip(document, binary, rig, rig_binary, contract, clip_name=
 
 
 def canonical_source_evidence(sources, frozen_locomotion):
-    """Check the pinned raw family's exact guard markers and locked ancestor TRS."""
+    """Check shared guard endpoints without treating breathing body motion as drift."""
+    if {row['clip_alias'] for row in frozen_locomotion['profiles']} != LOCOMOTION_CLIPS:
+        raise ValueError('canonical source evidence requires authored idle and walk profiles')
     by_name = {entry['name']: (document, binary) for entry, document, binary, _, _ in sources}
     reference, reference_binary = by_name['attack_overhead']
     reference_tracks, _ = decode_animation(reference, reference_binary)
     reference_names = {node['name']: index for index, node in enumerate(reference['nodes'])}
     reports = {}
-    for profile in frozen_locomotion['profiles']:
-        name = profile['clip_alias']
+    for name in ('idle', 'walk', *ATTACK_CLIPS.values()):
         document, binary = by_name[name]
         tracks, times = decode_animation(document, binary)
         names = {node['name']: index for index, node in enumerate(document['nodes'])}
-        markers = [min(times, key=lambda value: abs(value - marker)) for marker in (0, 1/3, 1.5)]
+        wanted_markers = (0, 1/3, 1.5) if name == 'walk' else (0, 1.5 if name == 'idle' else 1.75)
+        markers = [min(times, key=lambda value: abs(value - marker)) for marker in wanted_markers]
         for joint in joint_nodes(document):
             for path in ('translation', 'rotation', 'scale'):
                 expected = reference_tracks[reference_names[joint], path][1][0]
                 if any(tuple(tracks[names[joint], path][1][times.index(time)]) != tuple(expected)
                        for time in markers):
-                    raise ValueError('locomotion raw guard marker differs from canonical attack: ' + name + '/' + joint)
+                    raise ValueError('raw guard marker differs from canonical attack: ' + name + '/' + joint)
         sample_times = sorted([*times, *((a+b)/2 for a, b in zip(times, times[1:]))])
-        for joint in profile['locked_head_ancestor_chain']:
+        parents, _ = node_order(document)
+        root = names['BoneRoot']
+        ancestor_names = []
+        while root in parents:
+            root = parents[root]
+            ancestor_names.append(document['nodes'][root]['name'])
+        for joint in ancestor_names:
             for path in ('translation', 'rotation', 'scale'):
                 key = names[joint], path
                 reference_key = reference_names[joint], path
                 if key not in tracks:
                     if local_matrix(document['nodes'][names[joint]]) != local_matrix(reference['nodes'][reference_names[joint]]):
-                        raise ValueError('locomotion raw static ancestor differs from canonical guard: ' + joint)
+                        raise ValueError('raw static ancestor differs from canonical guard: ' + joint)
                     continue
                 expected = reference_tracks[reference_key][1][0]
                 if any(tuple(sample_track(tracks[key], time, path == 'rotation')) != tuple(expected)
                        for time in sample_times):
-                    raise ValueError('locomotion raw ancestor differs from canonical guard: ' + name + '/' + joint)
+                    raise ValueError('raw ancestor differs from canonical guard: ' + name + '/' + joint)
         reports[name] = {'canonical_clip': 'attack_overhead', 'canonical_source_seconds': 0,
                          'canonical_234_trs_markers_exact': True, 'marker_source_seconds': markers,
-                         'locked_ancestor_local_trs_exact': True,
-                         'locked_ancestor_chain': profile['locked_head_ancestor_chain'],
+                         'root_ancestor_local_trs_exact': True,
+                         'root_ancestor_chain': ancestor_names,
                          'source_key_count': len(times), 'key_and_midpoint_count': len(sample_times)}
     return reports
 

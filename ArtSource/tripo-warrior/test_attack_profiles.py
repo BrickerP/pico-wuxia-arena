@@ -3,13 +3,14 @@
 import copy
 import importlib.util
 import json
+import math
 import struct
 import sys
 import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from attack_profiles import export_attack_profiles, float32, locomotion_source_contract
+from attack_profiles import export_attack_profiles, float32, locomotion_source_contract, sample_track, hierarchy, pose_world
 
 
 BANK = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': 'attack_right'}
@@ -94,8 +95,12 @@ def actor():
 
 
 def frozen_contract():
-    return json.loads((Path(__file__).resolve().parents[1] /
-                       'refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json').read_text())
+    result = json.loads((Path(__file__).resolve().parents[1] /
+                         'refinement/hand-poses/attack-keyposes/stage10/candidate/locked_locomotion_inputs.json').read_text())
+    idle = next(row for row in result['profiles'] if row['clip_alias'] == 'idle')
+    idle['source_loop_seconds'] = [0, 1.5]
+    idle['source_loop_duration_seconds'] = 1.5
+    return result
 
 
 def coverage_contract():
@@ -106,6 +111,45 @@ def coverage_contract():
 
 
 class AttackProfileTests(unittest.TestCase):
+    def test_constant_nearly_unit_linear_Q_has_identical_first_middle_last_world_without_raw_edits(self):
+        document, _ = actor()
+        q = tuple(value * 1.000001 for value in (.2, .3, .4, math.sqrt(.71)))
+        tracks = {(3, 'rotation'): ([0.0, .75, 1.5], [q, q, q], 'LINEAR')}
+        original = copy.deepcopy(tracks)
+        _, parents, order = hierarchy(document)
+        worlds = [pose_world(document, tracks, time, parents, order) for time in (0, .375, .75, 1.125, 1.5)]
+        for world in worlds[1:]:
+            for index in world:
+                self.assertEqual(world[index], worlds[0][index])
+        self.assertEqual(tracks, original)
+
+    def test_dynamic_unit_Q_keeps_its_short_arc_interpolation(self):
+        track = ([0.0, 1.0], [(0, 0, 0, 1), (0, 0, math.sqrt(.5), math.sqrt(.5))], 'LINEAR')
+        halfway = sample_track(track, .5, True)
+        self.assertAlmostEqual(halfway[2], math.sin(math.pi / 8), places=6)
+        self.assertAlmostEqual(halfway[3], math.cos(math.pi / 8), places=6)
+        self.assertNotEqual(halfway, sample_track(track, 0, True))
+        self.assertNotEqual(halfway, sample_track(track, 1, True))
+
+    def test_dynamic_nearly_unit_closed_Q_uses_exact_stored_keys_and_closes_all_world_matrices(self):
+        document, _ = actor()
+        start = tuple(float32(value * 1.000001) for value in (.2, .3, .4, math.sqrt(.71)))
+        middle = tuple(float32(value * 1.000002) for value in (.201, .299, .401, math.sqrt(1 - .201**2 - .299**2 - .401**2)))
+        curve = ([0.0, .75, 1.5], [start, middle, start], 'LINEAR')
+        original = copy.deepcopy(curve)
+        self.assertEqual(sample_track(curve, 0, True), sample_track(curve, 1.5, True))
+        for time, value in zip(curve[0], curve[1]):
+            constant = ([0.0, 1.5], [value, value], 'LINEAR')
+            self.assertEqual(sample_track(curve, time, True), sample_track(constant, 0, True))
+        tracks = {(3, 'rotation'): curve}
+        _, parents, order = hierarchy(document)
+        first = pose_world(document, tracks, 0, parents, order)
+        last = pose_world(document, tracks, 1.5, parents, order)
+        for index in first:
+            self.assertEqual(first[index], last[index])
+        self.assertNotEqual(pose_world(document, tracks, .75, parents, order)[4], first[4])
+        self.assertEqual(curve, original)
+
     def test_contact_cue_is_metadata_without_resampling_geometry_or_the_phase_clock(self):
         document, binary = actor()
         original_contracts = attack_contracts()
@@ -216,6 +260,9 @@ class AttackProfileTests(unittest.TestCase):
         contract = result['source_contract']
         self.assertEqual(contract['steps_per_loop'], 6)
         self.assertEqual(contract['loop_duration_seconds'], 7 / 6)
+        self.assertEqual(contract['idle_loop_start_seconds'], 0)
+        self.assertEqual(contract['idle_loop_duration_seconds'], 1.5)
+        self.assertEqual(result['locomotion']['idle']['source_loop_seconds'], [0, 1.5])
         self.assertEqual(contract['distance_per_step_metres'], 1.45 / 6)
         bounds = result['proxy_calibration']['measurement']['anatomical_bounds_metres']
         self.assertEqual(bounds['head']['vertex_count'], 3)
@@ -223,12 +270,46 @@ class AttackProfileTests(unittest.TestCase):
         for profile in [*result['locomotion'].values(), *result['attacks'].values()]:
             for field in ('head', 'body_bottom', 'body_top'):
                 self.assertEqual(profile['samples'][0][field], reference[field])
-        for profile in result['locomotion'].values():
+        for name, profile in result['locomotion'].items():
             times = [row['source_seconds'] for row in profile['samples']]
-            for phase in contract['contact_source_seconds']:
-                self.assertIn(float32(phase), times)
+            if name == 'walk':
+                for phase in contract['contact_source_seconds']:
+                    self.assertIn(float32(phase), times)
             self.assertEqual(times[0], 0)
             self.assertEqual(times[-1], 1.5)
+
+    def test_dynamic_idle_exports_actual_body_and_blade_on_the_same_source_time(self):
+        document, binary = actor()
+        packed = bytearray(binary)
+
+        def append(rows, kind):
+            packed.extend(b'\0' * (-len(packed) % 4))
+            start = len(packed)
+            for row in rows:
+                packed.extend(struct.pack('<' + 'f' * len(row), *row))
+            view = len(document['bufferViews'])
+            document['bufferViews'].append({'buffer': 0, 'byteOffset': start, 'byteLength': len(packed) - start})
+            index = len(document['accessors'])
+            document['accessors'].append({'bufferView': view, 'componentType': 5126,
+                                          'type': kind, 'count': len(rows)})
+            return index
+
+        idle = next(row for row in document['animations'] if row['name'] == 'idle')
+        idle['channels'][0]['target']['node'] = 3
+        idle['samplers'][0] = {'input': append([(0,), (.75,), (1.5,)], 'SCALAR'),
+                               'output': append([(0, .15, 0), (0, .152, 0), (0, .15, 0)], 'VEC3'),
+                               'interpolation': 'LINEAR'}
+        document['buffers'][0]['byteLength'] = len(packed)
+        result = export_attack_profiles(document, bytes(packed), BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        samples = result['locomotion']['idle']['samples']
+        start, end = samples[0], samples[-1]
+        middle = next(row for row in samples if row['source_seconds'] == .75)
+        for field in ('head', 'body_bottom', 'body_top', 'blade_base', 'blade_tip'):
+            self.assertEqual(start[field], end[field])
+        for field in ('head', 'body_top', 'blade_base', 'blade_tip'):
+            self.assertAlmostEqual(middle[field][1] - start[field][1], .004, places=6)
+        self.assertEqual(middle['body_bottom'], start['body_bottom'])
+        self.assertEqual(result['locomotion']['idle']['source_loop_seconds'], [0, 1.5])
 
     def test_reaction_samples_follow_actual_hurt_bones_with_the_same_calibration(self):
         document, binary = actor()
@@ -298,6 +379,10 @@ class AttackProfileTests(unittest.TestCase):
         frozen = frozen_contract()
         frozen['runtime_contract']['physical_steps_per_loop'] = 2
         with self.assertRaisesRegex(ValueError, 'six-step'):
+            locomotion_source_contract(frozen)
+        frozen = frozen_contract()
+        next(row for row in frozen['profiles'] if row['clip_alias'] == 'idle')['source_loop_seconds'] = [1 / 3, 1.5]
+        with self.assertRaisesRegex(ValueError, 'idle/walk source domain'):
             locomotion_source_contract(frozen)
         document, binary = actor()
         document['meshes'][0]['extras'].pop('body_primitive_indices')

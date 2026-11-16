@@ -1,0 +1,848 @@
+{
+  "status": "offline_candidate_for_root_native_material_review",
+  "adoption_recommendation": "do_not_replace_formal_96c554_until_native_ktx_material_review",
+  "input": {
+    "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+    "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+    "bytes": 38212212
+  },
+  "png_review_scene": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+    "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+    "bytes": 38774920
+  },
+  "ktx_private_candidate": {
+    "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_ktx.glb",
+    "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+    "bytes": 39413100
+  },
+  "budget": {
+    "node_expanded_triangles": 243358,
+    "unique_mesh_triangles": 181594,
+    "active_unique_meshes": 37,
+    "unique_position_stream_vertices": 336254,
+    "unique_attribute_buffer_bytes": 14113296,
+    "unique_index_buffer_bytes": 1175868,
+    "primitive_node_submission_upper_estimate": 111,
+    "materials": 32,
+    "images": 50
+  },
+  "generated_image_count": 2,
+  "generated_maps": [
+    {
+      "path": "textures/wet_stone_basecolor_1024.png",
+      "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+      "bytes": 652243,
+      "size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "path": "textures/wet_stone_metallic_roughness_1024.png",
+      "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+      "bytes": 312532,
+      "size": [
+        1024,
+        1024
+      ]
+    }
+  ],
+  "license": {
+    "derived_from": "existing embedded material8 maps; no external download",
+    "original_source": "Poly Haven Granite Tile by Charlotte Baglioni",
+    "license": "CC0",
+    "repo_evidence": "ArtSource/tavern/README.md lines 22-25",
+    "modification": "procedural neutral darkening and roughness partition; no fixed light/reflection baked into albedo"
+  },
+  "compression": {
+    "settings": {
+      "codec": "uastc",
+      "uastc_quality": 3,
+      "threads": 2,
+      "zstd": 18,
+      "mipmap_filter": "lanczos4",
+      "full_mips": true,
+      "normal_mode": false,
+      "normalize": false,
+      "rdo": false,
+      "orientation": "top-left",
+      "pixel_resize": false,
+      "mip_source": {
+        "same_axis": "ktx-cli-generate-mipmap",
+        "different_axes": "explicit-axis-lanczos4-v1"
+      },
+      "axis_mips": {
+        "version": 1,
+        "precision": "float64",
+        "support": 4,
+        "centers": "half-pixel",
+        "antialias": "support-scaled-by-source/target",
+        "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+        "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+        "alpha_filter": "linear-straight",
+        "quantization": "clip-0-1-round-half-up-uint8",
+        "top": "original-decoded-pixels"
+      }
+    },
+    "encoder": {
+      "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+      "version": "ktx version: v4.4.2",
+      "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+      "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+    }
+  },
+  "visual_gate": {
+    "status": "offline_candidate_for_root_native_material_review",
+    "adoption_recommendation": "do_not_replace_formal_96c554_until_native_ktx_material_review",
+    "positioning_revisions": 0,
+    "further_iteration_authorized": false,
+    "normal_eye_height_m": 1.65,
+    "close_eye_height_m": 0.5,
+    "observations": [
+      "Normal-eye view gains neutral nonuniform dampness while keeping the existing tile layout and joints legible.",
+      "Close view preserves granite grain and shallow groove scale through the unchanged normal map; the roughness partition reads as damp stone rather than green pooled water or mirror plastic.",
+      "The fixed offline light does not create a reliable bright wet reflection. Native IBL/light and KTX loading determine whether that aspect is acceptable on PICO."
+    ],
+    "constraints_satisfied": [
+      "No new light, geometry, water overlay, material type, node, map count or layout.",
+      "Only two generated 1024 square maps replace material8 base-color and MR images; material8 normal stays unchanged.",
+      "Material count remains 32 and image count remains 50."
+    ],
+    "conclusion": "Offline visual first piece is acceptable for Root native material review. It is not an APK, device, KTX-loading, reflection, collision or Space Pro performance acceptance."
+  },
+  "files": [
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/build_wet_stone.py",
+      "sha256": "8871662bf1922965889c37862e1a35a08ea9ae9e2716dcfc124f61f88c1d7a78",
+      "bytes": 8770
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/verify_wet_stone.py",
+      "sha256": "e2eb80d1a1ffee61f698308c60df115e7d913c0a0376367fa973bc5a5066b2c7",
+      "bytes": 6713
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/render_wet_stone.py",
+      "sha256": "88243589cd66c9e88bd9539e2be4e4bd14ba6262aead1b36da635d861d894228",
+      "bytes": 1293
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/finalize_delivery.py",
+      "sha256": "14d34c6abd0096e74d4aa1ac69249fcecc47be14df2cf8db5e7777071a3d958a",
+      "bytes": 5020
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+      "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+      "bytes": 38774920
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_ktx.glb",
+      "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+      "bytes": 39413100
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/texture_provenance.json",
+      "sha256": "e891e77887f67cec8e62bdb27587496385fa409a380f6ae35c29e0244d4c9e2a",
+      "bytes": 9700
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/REBUILD.md",
+      "sha256": "ad8ee8f69bbe4f4ff0a5d290a395a5905f336b36482ae6f7e7b57993952ddebd",
+      "bytes": 6640
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/textures/wet_stone_basecolor_1024.png",
+      "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+      "bytes": 652243
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/textures/wet_stone_metallic_roughness_1024.png",
+      "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+      "bytes": 312532
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/verification.json",
+      "sha256": "9a5e8914dcb5b5c5122e08c3a671c8ec6450deb1369d075c680d330b98b05102",
+      "bytes": 1162
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/png_gltf_validator.json",
+      "sha256": "199195e06f1735ccf125adb66e4e3809c76109f01bb9651b720cb1ad2ba6639e",
+      "bytes": 37845
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/ktx_gltf_validator.json",
+      "sha256": "91fbef53d390dbc2edb06cca5926e144498c20b759c2050d31dd48685ffce362",
+      "bytes": 38827
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/render_manifest.json",
+      "sha256": "5d0060ee02a1d3ceaa0288c6c6bd71bf2881eb197ee2f26d257a88d7fa209634",
+      "bytes": 7197
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/visual_gate.json",
+      "sha256": "c52e53146d6f672bdd9ce18b7c8abadce09b30d7374be3978373589f7e5bfe83",
+      "bytes": 1289
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_before.png",
+      "sha256": "c6b5a18ab6ea75d3de05ad568efd8657abb967b1a9e43d57f6418ca57009676c",
+      "bytes": 1408313
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_after.png",
+      "sha256": "0a780587de676e76041c3ec9119ab7be8265ba413de3f740f2cd13080e261229",
+      "bytes": 1425411
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_before.png",
+      "sha256": "864b77ea631ce15a758d271c9ac9f069fd6b103a5f648eebb526c755a3d61527",
+      "bytes": 1298176
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_after.png",
+      "sha256": "c55767610bd071affe92dc1e6955415638d1f843fc99197dc6e5aa8a65bb3023",
+      "bytes": 1318052
+    }
+  ],
+  "existing_dependencies": [
+    {
+      "path": "ArtSource/refinement/environment-hero/verify_environment.py",
+      "sha256": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+      "bytes": 6897
+    },
+    {
+      "path": "ArtSource/refinement/environment-hero/facade-polish/build_facade.py",
+      "sha256": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+      "bytes": 19163
+    },
+    {
+      "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+      "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4",
+      "bytes": 22175
+    },
+    {
+      "path": "ArtSource/refinement/pbr-compression/tooling/validate-glb.cjs",
+      "sha256": "7a35040916e21155d5163ea38ea65a4d1d447c0cc278f5486b908c7dd75f2d0c",
+      "bytes": 1730
+    },
+    {
+      "path": "ArtSource/tavern/README.md",
+      "sha256": "b418e1f6f0d421239296a7678a1541fb78a2c515eeba275f29d0ea0991653915",
+      "bytes": 2295
+    }
+  ],
+  "runtime_changes": [],
+  "limitations": [
+    "PNG review is not PICO KTX loading proof.",
+    "No native light or IBL change was made; reflection remains an explicit native dependency.",
+    "No collision, path, performance, Space Pro, device or APK claim. Root owns formal integration, build, device and Git."
+  ],
+  "original_authoring_execution": {
+    "scope": "Historical original authoring/render execution before this immutable-input maintenance; these code hashes are not current-code claims.",
+    "delivery_manifest_sha256": "bbbd9fe2f944276e3685f1fb5465c944ce577dbd0cf4ea2881acd0959a8121ff",
+    "delivery_manifest": {
+      "status": "offline_candidate_for_root_native_material_review",
+      "adoption_recommendation": "do_not_replace_formal_96c554_until_native_ktx_material_review",
+      "input": {
+        "path": "app/src/main/assets/models/courtyard_hero.glb",
+        "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+        "bytes": 38212212
+      },
+      "png_review_scene": {
+        "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+        "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+        "bytes": 38774920
+      },
+      "ktx_private_candidate": {
+        "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_ktx.glb",
+        "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+        "bytes": 39413100
+      },
+      "budget": {
+        "node_expanded_triangles": 243358,
+        "unique_mesh_triangles": 181594,
+        "active_unique_meshes": 37,
+        "unique_position_stream_vertices": 336254,
+        "unique_attribute_buffer_bytes": 14113296,
+        "unique_index_buffer_bytes": 1175868,
+        "primitive_node_submission_upper_estimate": 111,
+        "materials": 32,
+        "images": 50
+      },
+      "generated_image_count": 2,
+      "generated_maps": [
+        {
+          "path": "textures/wet_stone_basecolor_1024.png",
+          "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+          "bytes": 652243,
+          "size": [
+            1024,
+            1024
+          ]
+        },
+        {
+          "path": "textures/wet_stone_metallic_roughness_1024.png",
+          "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+          "bytes": 312532,
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "license": {
+        "derived_from": "existing embedded material8 maps; no external download",
+        "original_source": "Poly Haven Granite Tile by Charlotte Baglioni",
+        "license": "CC0",
+        "repo_evidence": "ArtSource/tavern/README.md lines 22-25",
+        "modification": "procedural neutral darkening and roughness partition; no fixed light/reflection baked into albedo"
+      },
+      "compression": {
+        "settings": {
+          "codec": "uastc",
+          "uastc_quality": 3,
+          "threads": 2,
+          "zstd": 18,
+          "mipmap_filter": "lanczos4",
+          "full_mips": true,
+          "normal_mode": false,
+          "normalize": false,
+          "rdo": false,
+          "orientation": "top-left",
+          "pixel_resize": false,
+          "mip_source": {
+            "same_axis": "ktx-cli-generate-mipmap",
+            "different_axes": "explicit-axis-lanczos4-v1"
+          },
+          "axis_mips": {
+            "version": 1,
+            "precision": "float64",
+            "support": 4,
+            "centers": "half-pixel",
+            "antialias": "support-scaled-by-source/target",
+            "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+            "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+            "alpha_filter": "linear-straight",
+            "quantization": "clip-0-1-round-half-up-uint8",
+            "top": "original-decoded-pixels"
+          }
+        },
+        "encoder": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+          "version": "ktx version: v4.4.2",
+          "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+          "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+        }
+      },
+      "visual_gate": {
+        "status": "offline_candidate_for_root_native_material_review",
+        "adoption_recommendation": "do_not_replace_formal_96c554_until_native_ktx_material_review",
+        "positioning_revisions": 0,
+        "further_iteration_authorized": false,
+        "normal_eye_height_m": 1.65,
+        "close_eye_height_m": 0.5,
+        "observations": [
+          "Normal-eye view gains neutral nonuniform dampness while keeping the existing tile layout and joints legible.",
+          "Close view preserves granite grain and shallow groove scale through the unchanged normal map; the roughness partition reads as damp stone rather than green pooled water or mirror plastic.",
+          "The fixed offline light does not create a reliable bright wet reflection. Native IBL/light and KTX loading determine whether that aspect is acceptable on PICO."
+        ],
+        "constraints_satisfied": [
+          "No new light, geometry, water overlay, material type, node, map count or layout.",
+          "Only two generated 1024 square maps replace material8 base-color and MR images; material8 normal stays unchanged.",
+          "Material count remains 32 and image count remains 50."
+        ],
+        "conclusion": "Offline visual first piece is acceptable for Root native material review. It is not an APK, device, KTX-loading, reflection, collision or Space Pro performance acceptance."
+      },
+      "files": [
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/build_wet_stone.py",
+          "sha256": "d938502ae223f1a6ac8c2970402cc68f8721153f77ad37face72bfc69251947b",
+          "bytes": 8126
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/verify_wet_stone.py",
+          "sha256": "1b553a9c71ea7a6c9d07349ba29ddbccd1e96a2722177b5f5e93e2ce18af07cc",
+          "bytes": 6326
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/render_wet_stone.py",
+          "sha256": "c0c6573b22406e29febe2c428e4ac3f4c0cc6355e0a5c9be9097812cd3c32718",
+          "bytes": 669
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/finalize_delivery.py",
+          "sha256": "1901b8af5e4545c5a83a955ca7d0e5d604e1c5dfaf3f48efbc433ce9f819b0b1",
+          "bytes": 3178
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_png.glb",
+          "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+          "bytes": 38774920
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/courtyard_wet_stone_ktx.glb",
+          "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+          "bytes": 39413100
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/texture_provenance.json",
+          "sha256": "d4029a75c5f2116a2d31cbf55bd9ee263682f4e408984a2353c2681a2d3092a4",
+          "bytes": 7962
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/REBUILD.md",
+          "sha256": "c8af41812d71e58dcf12354591a0036ed910426e6610580bbfef7b97679bd24c",
+          "bytes": 4930
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/textures/wet_stone_basecolor_1024.png",
+          "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+          "bytes": 652243
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/textures/wet_stone_metallic_roughness_1024.png",
+          "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+          "bytes": 312532
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/verification.json",
+          "sha256": "34800a5b96137f87bd5b6b0b35d70f3484cf964e3c9c1806dd54c02f6065bc2c",
+          "bytes": 831
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/png_gltf_validator.json",
+          "sha256": "199195e06f1735ccf125adb66e4e3809c76109f01bb9651b720cb1ad2ba6639e",
+          "bytes": 37845
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/ktx_gltf_validator.json",
+          "sha256": "91fbef53d390dbc2edb06cca5926e144498c20b759c2050d31dd48685ffce362",
+          "bytes": 38827
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/render_manifest.json",
+          "sha256": "5d0060ee02a1d3ceaa0288c6c6bd71bf2881eb197ee2f26d257a88d7fa209634",
+          "bytes": 7197
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/visual_gate.json",
+          "sha256": "c52e53146d6f672bdd9ce18b7c8abadce09b30d7374be3978373589f7e5bfe83",
+          "bytes": 1289
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_before.png",
+          "sha256": "c6b5a18ab6ea75d3de05ad568efd8657abb967b1a9e43d57f6418ca57009676c",
+          "bytes": 1408313
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/eye_after.png",
+          "sha256": "0a780587de676e76041c3ec9119ab7be8265ba413de3f740f2cd13080e261229",
+          "bytes": 1425411
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_before.png",
+          "sha256": "864b77ea631ce15a758d271c9ac9f069fd6b103a5f648eebb526c755a3d61527",
+          "bytes": 1298176
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/review/close_after.png",
+          "sha256": "c55767610bd071affe92dc1e6955415638d1f843fc99197dc6e5aa8a65bb3023",
+          "bytes": 1318052
+        }
+      ],
+      "existing_dependencies": [
+        {
+          "path": "ArtSource/refinement/environment-hero/verify_environment.py",
+          "sha256": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+          "bytes": 6897
+        },
+        {
+          "path": "ArtSource/refinement/environment-hero/facade-polish/build_facade.py",
+          "sha256": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+          "bytes": 19163
+        },
+        {
+          "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+          "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4",
+          "bytes": 22175
+        },
+        {
+          "path": "ArtSource/refinement/pbr-compression/tooling/validate-glb.cjs",
+          "sha256": "7a35040916e21155d5163ea38ea65a4d1d447c0cc278f5486b908c7dd75f2d0c",
+          "bytes": 1730
+        },
+        {
+          "path": "ArtSource/tavern/README.md",
+          "sha256": "b418e1f6f0d421239296a7678a1541fb78a2c515eeba275f29d0ea0991653915",
+          "bytes": 2295
+        }
+      ],
+      "runtime_changes": [],
+      "limitations": [
+        "PNG review is not PICO KTX loading proof.",
+        "No native light or IBL change was made; reflection remains an explicit native dependency.",
+        "No collision, path, performance, Space Pro, device or APK claim. Root owns formal integration, build, device and Git."
+      ]
+    },
+    "texture_provenance_sha256": "d4029a75c5f2116a2d31cbf55bd9ee263682f4e408984a2353c2681a2d3092a4",
+    "texture_provenance": {
+      "status": "constructed_for_visual_gate",
+      "input": {
+        "path": "app/src/main/assets/models/courtyard_hero.glb",
+        "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d"
+      },
+      "png_scene": {
+        "path": "courtyard_wet_stone_png.glb",
+        "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+        "bytes": 38774920
+      },
+      "ktx_scene": {
+        "path": "courtyard_wet_stone_ktx.glb",
+        "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+        "bytes": 39413100
+      },
+      "material": {
+        "index": 8,
+        "name": "EH Stone | walked granite",
+        "replaced_images": [
+          10,
+          11
+        ],
+        "unchanged_normal_image": 9,
+        "unchanged_texture_count": 50,
+        "unchanged_material_count": 32
+      },
+      "generated_images": [
+        {
+          "path": "textures/wet_stone_basecolor_1024.png",
+          "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+          "bytes": 652243,
+          "size": [
+            1024,
+            1024
+          ]
+        },
+        {
+          "path": "textures/wet_stone_metallic_roughness_1024.png",
+          "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+          "bytes": 312532,
+          "size": [
+            1024,
+            1024
+          ]
+        }
+      ],
+      "source_images": {
+        "baseColor_image10_sha256": "8ce697542f7fb03d4e3a9587036297ac65f443155cc1b146eba6cb09ff364a04",
+        "mr_image11_sha256": "706f6a61b3567e93305913536d9a48e94086f46e47fcd4b56033bb011edac9d6",
+        "normal_image9_sha256": "70d28807950a554cd42608336a3f3816d63b61f0ca1394ab1f09ca7f3b32c2df"
+      },
+      "authoring": {
+        "mask_min": 0.0,
+        "mask_max": 1.0,
+        "mask_mean": 0.3492392301559448,
+        "base_darkening_min": 0.8400000333786011,
+        "base_darkening_max": 0.9850000143051147,
+        "roughness_source_mean": 0.5194094777107239,
+        "roughness_wet_mean": 0.41026467084884644,
+        "fixed_light_baked": false,
+        "new_normal_map": false
+      },
+      "license": {
+        "derived_from": "existing embedded material8 maps; no external download",
+        "original_source": "Poly Haven Granite Tile by Charlotte Baglioni",
+        "license": "CC0",
+        "repo_evidence": "ArtSource/tavern/README.md lines 22-25",
+        "modification": "procedural neutral darkening and roughness partition; no fixed light/reflection baked into albedo"
+      },
+      "compression": {
+        "encoder": {
+          "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+          "version": "ktx version: v4.4.2",
+          "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+          "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+        },
+        "settings": {
+          "codec": "uastc",
+          "uastc_quality": 3,
+          "threads": 2,
+          "zstd": 18,
+          "mipmap_filter": "lanczos4",
+          "full_mips": true,
+          "normal_mode": false,
+          "normalize": false,
+          "rdo": false,
+          "orientation": "top-left",
+          "pixel_resize": false,
+          "mip_source": {
+            "same_axis": "ktx-cli-generate-mipmap",
+            "different_axes": "explicit-axis-lanczos4-v1"
+          },
+          "axis_mips": {
+            "version": 1,
+            "precision": "float64",
+            "support": 4,
+            "centers": "half-pixel",
+            "antialias": "support-scaled-by-source/target",
+            "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+            "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+            "alpha_filter": "linear-straight",
+            "quantization": "clip-0-1-round-half-up-uint8",
+            "top": "original-decoded-pixels"
+          }
+        },
+        "baseColor": {
+          "image": 10,
+          "roles": [
+            "baseColor"
+          ],
+          "domain": "srgb",
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "source_sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+          "decoded_pixels_sha256": "e601e2c406f1ec8555e6a6243985eb6cfc8fa37cd937ace417ec5e7896bb3e22",
+          "source_mode": "RGB",
+          "width": 1024,
+          "height": 1024,
+          "sha256": "c0e23cc5ec3fa138594bd3d6dcd1eba13b3b9e2a1da1738c80c0710513884f99",
+          "ktx2_bytes": 934793,
+          "ktx2": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1024,
+            "height": 1024,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 1,
+            "dfd_transfer": 2,
+            "level_uncompressed_bytes": 1398128
+          },
+          "validation": "",
+          "mip_provenance": {
+            "source": "ktx-cli-generate-mipmap",
+            "wrap_s": "wrap",
+            "wrap_t": "wrap"
+          },
+          "mip_inputs": [
+            {
+              "level": 0,
+              "size": [
+                1024,
+                1024
+              ],
+              "pixels_sha256": "e601e2c406f1ec8555e6a6243985eb6cfc8fa37cd937ace417ec5e7896bb3e22"
+            }
+          ],
+          "command_template": [
+            "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+            "create",
+            "--format",
+            "R8G8B8_SRGB",
+            "--assign-tf",
+            "srgb",
+            "--assign-primaries",
+            "bt709",
+            "--assign-texcoord-origin",
+            "top-left",
+            "--generate-mipmap",
+            "--mipmap-filter",
+            "lanczos4",
+            "--mipmap-wrap",
+            "wrap",
+            "--encode",
+            "uastc",
+            "--uastc-quality",
+            "3",
+            "--threads",
+            "2",
+            "--zstd",
+            "18",
+            "--testrun",
+            "<losslessly-decoded-source.png>",
+            "<output.ktx2>"
+          ],
+          "cache_key": "bd7ef84d55d9afbd87f3e3ad6be0bdb63616bd4503275d0bb065e05da295b6a0"
+        },
+        "metallicRoughness": {
+          "image": 11,
+          "roles": [
+            "metallicRoughness"
+          ],
+          "domain": "linear",
+          "wrap_s": "wrap",
+          "wrap_t": "wrap",
+          "source_sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+          "decoded_pixels_sha256": "59f601881439af103f1ecb52824f9a1514adeff8fe91baa87446142ea0a82f52",
+          "source_mode": "RGB",
+          "width": 1024,
+          "height": 1024,
+          "sha256": "5f013ffeb61006b3cf763a6a67fb8aacb8206d4a4843003c221cd44da9d8eeca",
+          "ktx2_bytes": 667980,
+          "ktx2": {
+            "vk_format": 0,
+            "type_size": 1,
+            "width": 1024,
+            "height": 1024,
+            "depth": 0,
+            "layers": 0,
+            "faces": 1,
+            "levels": 11,
+            "supercompression": 2,
+            "dfd_model": 166,
+            "dfd_primaries": 0,
+            "dfd_transfer": 1,
+            "level_uncompressed_bytes": 1398128
+          },
+          "validation": "",
+          "mip_provenance": {
+            "source": "ktx-cli-generate-mipmap",
+            "wrap_s": "wrap",
+            "wrap_t": "wrap"
+          },
+          "mip_inputs": [
+            {
+              "level": 0,
+              "size": [
+                1024,
+                1024
+              ],
+              "pixels_sha256": "59f601881439af103f1ecb52824f9a1514adeff8fe91baa87446142ea0a82f52"
+            }
+          ],
+          "command_template": [
+            "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+            "create",
+            "--format",
+            "R8G8B8_UNORM",
+            "--assign-tf",
+            "linear",
+            "--assign-primaries",
+            "none",
+            "--assign-texcoord-origin",
+            "top-left",
+            "--generate-mipmap",
+            "--mipmap-filter",
+            "lanczos4",
+            "--mipmap-wrap",
+            "wrap",
+            "--encode",
+            "uastc",
+            "--uastc-quality",
+            "3",
+            "--threads",
+            "2",
+            "--zstd",
+            "18",
+            "--testrun",
+            "<losslessly-decoded-source.png>",
+            "<output.ktx2>"
+          ],
+          "cache_key": "71a81db2ecc1a8dd0d4fbbc6edf78a18b43db7ba4387f06fa6e7a09eab0c9065"
+        }
+      }
+    }
+  },
+  "maintenance": {
+    "purpose": "Repair authoring-input reachability after downstream runtime promotion; not new material art.",
+    "authoring_input": {
+      "path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+      "sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+      "bytes": 38212212
+    },
+    "build_execution": {
+      "script": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/build_wet_stone.py",
+      "script_sha256": "8871662bf1922965889c37862e1a35a08ea9ae9e2716dcfc124f61f88c1d7a78",
+      "input_policy": "One immutable authoring asset; downstream runtime GLB is not read."
+    },
+    "verification_execution": {
+      "script": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/verify_wet_stone.py",
+      "script_sha256": "e2eb80d1a1ffee61f698308c60df115e7d913c0a0376367fa973bc5a5066b2c7",
+      "input": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb"
+    },
+    "private_rebuild": {
+      "scope": "Current maintained builder executed against immutable authoring source while runtime deployment was already bd5; candidate/maps retained in place.",
+      "runtime_observation": {
+        "path": "app/src/main/assets/models/courtyard_hero.glb",
+        "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+        "role": "Downstream deployment observation only; never an authoring input"
+      },
+      "compared_outputs": {
+        "courtyard_wet_stone_png.glb": {
+          "sha256": "5619ce1cc910622da40d2a53ef3341a06aced58b2b94b148fd96bee5f7b63392",
+          "bytes": 38774920,
+          "private_rebuild_byte_identical": true
+        },
+        "courtyard_wet_stone_ktx.glb": {
+          "sha256": "bd5d21efc71799cabe85681bc8ca5d32856c5604158bc19919da6c617a259667",
+          "bytes": 39413100,
+          "private_rebuild_byte_identical": true
+        },
+        "textures/wet_stone_basecolor_1024.png": {
+          "sha256": "85ac56c59e0f3390ec593310fbe8d486a74c768a2ff5640a479eb80d825bba8f",
+          "bytes": 652243,
+          "private_rebuild_byte_identical": true
+        },
+        "textures/wet_stone_metallic_roughness_1024.png": {
+          "sha256": "f4f4c9d196590bf8ef4b1c80060fe84757741f8ac729e8a1322a11eba8b1038e",
+          "bytes": 312532,
+          "private_rebuild_byte_identical": true
+        }
+      },
+      "render_rerun": false
+    },
+    "sealer_code": {
+      "path": "ArtSource/refinement/environment-hero/native-ground-polish/wet-stone-material/finalize_delivery.py",
+      "sha256": "14d34c6abd0096e74d4aa1ac69249fcecc47be14df2cf8db5e7777071a3d958a",
+      "bytes": 5020
+    },
+    "render_rerun": false,
+    "original_images_and_assets_byte_identical": true,
+    "historical_actor_authoring_source": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5; exact original6649/f6 pair, no runtime input or exclusion fallback",
+    "visual_gate_scope": "Original offline images and original review decision retained. Current code file hashes are maintenance identities, not a claim that images were rerendered.",
+    "render_reproduction_inputs": [
+      {
+        "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_prepared_png.glb",
+        "sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+        "bytes": 57925204
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base.glb",
+        "sha256": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+        "bytes": 75474440
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_texture_encoding.json",
+        "sha256": "6ebed96bcbec40d97db803ffa914ce9e312e420db75b12097bc888e4e03055e6",
+        "bytes": 75524
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/candidate-library-v5/base_alignment.json",
+        "sha256": "a89e1c7bebf00f7cc4127f6a0e367538c391931a05b5ffcc00cecb4609f942c6",
+        "bytes": 978722
+      },
+      {
+        "path": "ArtSource/refinement/environment-hero/native-ground-polish/render_ground.py",
+        "sha256": "ce36865b1f380dfa0ea2aec9fb5fe4f2624816c6aaffa65a9564aaddd10da4c5",
+        "bytes": 11604
+      },
+      {
+        "path": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+        "sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+        "bytes": 5388
+      },
+      {
+        "path": "ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json",
+        "sha256": "3549b1ebe1c92c7fb8b9b7c943c8126732339a5d387efde30e2504d0d7c8a9c1",
+        "bytes": 13557
+      }
+    ]
+  }
+}

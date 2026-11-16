@@ -1,4 +1,6 @@
-// Real macOS keyboard input into the selected PICO Emulator, never application pose injection.
+// Native keyboard events routed only to the selected emulator process.
+// No focus change, global keyboard injection, or application pose injection.
+// https://developer.apple.com/documentation/coregraphics/cgevent/posttopid(_:)
 import AppKit
 import CoreGraphics
 import Carbon.HIToolbox
@@ -25,19 +27,6 @@ func perform() throws {
     }
     guard CGPreflightPostEventAccess() else { throw InputFailure(description: "existing macOS event-post access unavailable") }
     if args.contains("--dry-run") { print("READY pid=\(pid) key=\(args[1]) shifted=\(shifted) seconds=\(duration); no input posted"); return }
-    guard CGEventSource.flagsState(.combinedSessionState).intersection([.maskShift, .maskControl, .maskAlternate, .maskCommand]).isEmpty,
-          !CGEventSource.keyState(.combinedSessionState, key: CGKeyCode(key)) else {
-        throw InputFailure(description: "movement key or modifiers currently down; no input posted")
-    }
-    if NSWorkspace.shared.frontmostApplication?.processIdentifier != pid {
-        app.unhide()
-        _ = app.activate(options: [.activateAllWindows])
-    }
-    let deadline = Date().addingTimeInterval(2)
-    while NSWorkspace.shared.frontmostApplication?.processIdentifier != pid && Date() < deadline {
-        RunLoop.current.run(until: Date().addingTimeInterval(0.02))
-    }
-    guard NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { throw InputFailure(description: "emulator foreground could not be confirmed") }
     func event(_ code: Int, _ down: Bool, _ flags: CGEventFlags) throws -> CGEvent {
         guard let value = CGEvent(keyboardEventSource: nil, virtualKey: CGKeyCode(code), keyDown: down) else {
             throw InputFailure(description: "keyboard event allocation failed")
@@ -51,17 +40,19 @@ func perform() throws {
     let shiftUp = try event(kVK_Shift, false, [])
     var modifierPosted = false, keyPosted = false
     defer {
-        if keyPosted { up.post(tap: .cghidEventTap) }
-        if modifierPosted { shiftUp.post(tap: .cghidEventTap) }
+        if !app.isTerminated {
+            if keyPosted { up.postToPid(pid) }
+            if modifierPosted { shiftUp.postToPid(pid) }
+        }
         RunLoop.current.run(until: Date().addingTimeInterval(0.02))
     }
-    if shifted { shiftDown.post(tap: .cghidEventTap); modifierPosted = true }
-    try event(key, true, flags).post(tap: .cghidEventTap); keyPosted = true
+    if shifted { shiftDown.postToPid(pid); modifierPosted = true }
+    try event(key, true, flags).postToPid(pid); keyPosted = true
     let until = Date().addingTimeInterval(duration)
     while Date() < until {
-        guard NSWorkspace.shared.frontmostApplication?.processIdentifier == pid else { throw InputFailure(description: "foreground changed; releasing keys") }
+        guard !app.isTerminated else { throw InputFailure(description: "selected emulator exited") }
         RunLoop.current.run(until: min(until, Date().addingTimeInterval(0.01)))
     }
-    print("POSTED pid=\(pid) key=\(args[1]) shifted=\(shifted) seconds=\(duration); verify SDK trajectory separately")
+    print("POSTED delivery=process_targeted pid=\(pid) key=\(args[1]) shifted=\(shifted) seconds=\(duration); verify SDK trajectory separately")
 }
 do { try perform() } catch { fputs("\(error)\n", stderr); exit(3) }

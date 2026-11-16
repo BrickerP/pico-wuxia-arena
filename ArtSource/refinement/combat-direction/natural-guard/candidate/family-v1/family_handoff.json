@@ -1,0 +1,636 @@
+{
+  "status": "five_RAW_family_and_authoring_frozen_ready_for_Root_private_bank_input",
+  "sealed_utc": "2026-11-16T10:38:51.304199+00:00",
+  "sealed_cst": "2026-11-16T18:38:51.304503+08:00",
+  "family_authoring": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+    "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+    "bytes": 83015
+  },
+  "raw_identity_creation_record": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_raw_identity.json",
+    "sha256": "0fa7c6d3853bc4d9b3127dc1d008eb082c33506d96cf1a754ffaa461c3bc7377",
+    "bytes": 76087
+  },
+  "master_natural_guard": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb",
+    "sha256": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+    "bytes": 18538720
+  },
+  "outputs": {
+    "idle": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+        "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+        "bytes": 19098860
+      },
+      "clip": "idle",
+      "track_count": 234,
+      "joint_count": 78,
+      "sample_count": 181,
+      "source_range_seconds": [
+        0.0,
+        1.5
+      ],
+      "endpoint_max_component_difference_from_natural_guard": 0.0,
+      "source_loop_seconds": [
+        0.0,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.5,
+      "interpolation": "LINEAR",
+      "source_sample_rate_hz": 120
+    },
+    "walk": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+        "sha256": "5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462",
+        "bytes": 19111184
+      },
+      "clip": "walk",
+      "track_count": 234,
+      "joint_count": 78,
+      "sample_count": 185,
+      "source_range_seconds": [
+        0.0,
+        1.5
+      ],
+      "endpoint_max_component_difference_from_natural_guard": 0.0,
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667,
+      "source_sample_rate_hz": "original185-key grid preserved, includes authored special-time samples"
+    },
+    "attack_overhead": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+        "sha256": "9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696",
+        "bytes": 19192956
+      },
+      "clip": "attack_overhead",
+      "track_count": 234,
+      "joint_count": 78,
+      "sample_count": 211,
+      "source_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "endpoint_max_component_difference_from_natural_guard": 0.0,
+      "source_sample_rate_hz": 120
+    },
+    "attack_left": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+        "sha256": "ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc",
+        "bytes": 18864780
+      },
+      "clip": "attack_left",
+      "track_count": 234,
+      "joint_count": 78,
+      "sample_count": 106,
+      "source_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "endpoint_max_component_difference_from_natural_guard": 0.0,
+      "source_sample_rate_hz": 60
+    },
+    "attack_right": {
+      "raw": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+        "sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+        "bytes": 18864780
+      },
+      "clip": "attack_right",
+      "track_count": 234,
+      "joint_count": 78,
+      "sample_count": 106,
+      "source_range_seconds": [
+        0.0,
+        1.75
+      ],
+      "endpoint_max_component_difference_from_natural_guard": 0.0,
+      "source_sample_rate_hz": 60
+    }
+  },
+  "production_input_descriptors": {
+    "idle": {
+      "name": "idle",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+      "source_resolution_base": "ArtSource/tripo-warrior",
+      "repository_relative_file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/idle_raw.glb",
+      "source_sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "stage": "authored_raw",
+      "right_calibration_baked": false,
+      "source_loop_seconds": [
+        0.0,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.5
+    },
+    "walk": {
+      "name": "walk",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+      "source_resolution_base": "ArtSource/tripo-warrior",
+      "repository_relative_file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/walk_raw.glb",
+      "source_sha256": "5c60c6588442beb4f7d287c7621efce8c9621113bf4ded01980815e56bf2f462",
+      "stage": "authored_raw",
+      "right_calibration_baked": false,
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667
+    },
+    "attack_overhead": {
+      "name": "attack_overhead",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+      "source_resolution_base": "ArtSource/tripo-warrior",
+      "repository_relative_file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_overhead_raw.glb",
+      "source_sha256": "9ce928b478360d23db60e16d613658853a7856994dcbfa03e7a505777d359696",
+      "stage": "authored_raw",
+      "right_calibration_baked": false
+    },
+    "attack_left": {
+      "name": "attack_left",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+      "source_resolution_base": "ArtSource/tripo-warrior",
+      "repository_relative_file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_left_raw.glb",
+      "source_sha256": "ca9c1192def0284f84b2b7c418165c93480b68af0146cb8921b4488b2a0ebecc",
+      "stage": "authored_raw",
+      "right_calibration_baked": false
+    },
+    "attack_right": {
+      "name": "attack_right",
+      "source": "../refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+      "source_resolution_base": "ArtSource/tripo-warrior",
+      "repository_relative_file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/attack_right_raw.glb",
+      "source_sha256": "e53f0d7e9fa4c0f9a5ea93e1f2cccb5e25b0d4527a66d94f97dc41f6434f35b9",
+      "stage": "authored_raw",
+      "right_calibration_baked": false
+    }
+  },
+  "frozen_inputs": {
+    "idle": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb",
+      "sha256": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "bytes": 19098860
+    },
+    "walk": {
+      "file": "ArtSource/tripo-warrior/../../ArtSource/refinement/hand-poses/attack-keyposes/stage10/candidate/locked_guard_walk_raw.glb",
+      "sha256": "0e3a6c60c557cfbdfa979ffd9c98098c4d0306474f8e18dc7ae46f327ceb534e",
+      "bytes": 19110828
+    },
+    "attack_overhead": {
+      "file": "ArtSource/tripo-warrior/../refinement/combat-direction/native-weighted-overhead/candidate/v5/weighted_overhead_raw.glb",
+      "sha256": "85d633ec61534c62f59269c1d9f02854e829d1b84db33a91e3a3afac2e779076",
+      "bytes": 19192620
+    },
+    "attack_left": {
+      "file": "ArtSource/tripo-warrior/../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_left_raw.glb",
+      "sha256": "d0c850d4cb3fba0bff744a2714cc3310f98df4cc6e694d5b34dfc60cb815de65",
+      "bytes": 18864444
+    },
+    "attack_right": {
+      "file": "ArtSource/tripo-warrior/../refinement/hand-poses/attack-keyposes/stage5/candidate/slash_to_right_raw.glb",
+      "sha256": "a4ae7f07c11f96c5a2d9b81c571a5eaedd01cd628983146708926e516768263a",
+      "bytes": 18864448
+    }
+  },
+  "frozen_natural_idle_copied_byte_for_byte": true,
+  "canonical_endpoint_proof": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+      "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+      "bytes": 110376
+    },
+    "all_five_234_TRS_float32_markers_exact": true,
+    "idle_markers_seconds": [
+      0,
+      1.5
+    ],
+    "walk_markers_seconds": [
+      0,
+      0.3333333333333333,
+      1.5
+    ],
+    "attack_markers_seconds": [
+      0,
+      1.75
+    ],
+    "idle_absolute_one_third": "intentionally breathing, not a guard marker",
+    "idle_marker_addendum": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_idle_marker_addendum.json",
+      "sha256": "763ff83fc7b3ada983b5251b50bbd6c53eab789bc90b6e30485c960ae9619185",
+      "bytes": 900
+    },
+    "R15_master_native2p117_UNBAKED_exact": true,
+    "old_rest_mesh_skin_static_payload_retained": true,
+    "walk_original_six_leg_TRS_and185_time_grid_and_interpolation_retained": true,
+    "attack_interior_key_values_0p20_through1p50_retained": true,
+    "actual_bad_input_rejections": [
+      "invalid time nan",
+      "invalid time True",
+      "invalid time -0.001",
+      "invalid time 1.751",
+      "actual idle file wrong SHA",
+      "actual exported last endpoint +10mm",
+      "actual exported last timeline +100ms"
+    ]
+  },
+  "source_loops": {
+    "idle": {
+      "source_loop_seconds": [
+        0,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.5,
+      "keys": 181,
+      "interpolation": "LINEAR"
+    },
+    "walk": {
+      "source_loop_seconds": [
+        0.3333333333333333,
+        1.5
+      ],
+      "source_loop_duration_seconds": 1.1666666666666667,
+      "keys": 185,
+      "original_gait_curves_and_clock": "preserved signed-gait family"
+    }
+  },
+  "attack_migration": {
+    "method": "Bounded local minimum-angle guard difference applied on top of original motion, not full-pose blending that would flatten the original windup.",
+    "nominal_correction_windows_seconds": [
+      [
+        0,
+        0.2
+      ],
+      [
+        1.5,
+        1.75
+      ]
+    ],
+    "stored_key_preservation": "All original per-channel key values at source.20..1.50 retained; exact new guard endpoint payloads override0/1.75.",
+    "continuity_limit": "C2 describes scalar correction envelopes; complete original and modified LINEAR animations are not globally C2. Actual interpolation influence can extend into the neighboring segments at the first/last modified key."
+  },
+  "join_measurements": {
+    "summary": {
+      "idle": {
+        "maximum_old_world_neighbor_step_degrees": 0.0003361223461997115,
+        "maximum_new_world_neighbor_step_degrees": 0.0003361223461997115,
+        "stored_negative_Q_event_counts": {
+          "old": 0,
+          "new": 0
+        },
+        "inherited_source_norm_deviations": []
+      },
+      "walk": {
+        "maximum_old_world_neighbor_step_degrees": 1.6889320678900204,
+        "maximum_new_world_neighbor_step_degrees": 1.6889320678900204,
+        "stored_negative_Q_event_counts": {
+          "old": 0,
+          "new": 0
+        },
+        "inherited_source_norm_deviations": []
+      },
+      "attack_overhead": {
+        "maximum_old_world_neighbor_step_degrees": 21.38270888163505,
+        "maximum_new_world_neighbor_step_degrees": 21.38270888163505,
+        "stored_negative_Q_event_counts": {
+          "old": 7,
+          "new": 7
+        },
+        "inherited_source_norm_deviations": [
+          {
+            "joint": "R_ToeBase",
+            "old_maximum_norm_deviation": 2.279100078084184e-05,
+            "new_maximum_norm_deviation": 2.279100078084184e-05,
+            "whole_track_float32_values_unchanged": true
+          },
+          {
+            "joint": "Head",
+            "old_maximum_norm_deviation": 2.2653436994368725e-05,
+            "new_maximum_norm_deviation": 2.2653436994368725e-05,
+            "whole_track_float32_values_unchanged": false
+          },
+          {
+            "joint": "L_ElbowShareBone",
+            "old_maximum_norm_deviation": 2.4413699892589236e-05,
+            "new_maximum_norm_deviation": 2.4413699892589236e-05,
+            "whole_track_float32_values_unchanged": true
+          },
+          {
+            "joint": "R_ElbowShareBone",
+            "old_maximum_norm_deviation": 2.274276877178849e-05,
+            "new_maximum_norm_deviation": 2.274276877178849e-05,
+            "whole_track_float32_values_unchanged": true
+          }
+        ]
+      },
+      "attack_left": {
+        "maximum_old_world_neighbor_step_degrees": 4.79066603958228,
+        "maximum_new_world_neighbor_step_degrees": 4.79066603958228,
+        "stored_negative_Q_event_counts": {
+          "old": 0,
+          "new": 0
+        },
+        "inherited_source_norm_deviations": []
+      },
+      "attack_right": {
+        "maximum_old_world_neighbor_step_degrees": 4.831885610754213,
+        "maximum_new_world_neighbor_step_degrees": 4.831885610754213,
+        "stored_negative_Q_event_counts": {
+          "old": 0,
+          "new": 0
+        },
+        "inherited_source_norm_deviations": [
+          {
+            "joint": "Waist",
+            "old_maximum_norm_deviation": 2.320486585827286e-05,
+            "new_maximum_norm_deviation": 2.320486585827286e-05,
+            "whole_track_float32_values_unchanged": true
+          }
+        ]
+      }
+    },
+    "full_evidence": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_endpoints.json",
+      "sha256": "10387f4137dbbb0d096c5fc090496f6a040028b7fef1bbef9010c5da89323746",
+      "bytes": 110376
+    },
+    "interpretation": "Original and new source-key local/world shortest-angle steps are listed independently from stored quaternion signs. Old large motion and source sign/norm exceptions are not silently repackaged or claimed newly fixed."
+  },
+  "finite_private_base": {
+    "report": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/verification_surfaces.json",
+      "sha256": "139c1607e714e7c5177a505e05ab1c57c5c6e5171ccaf310ac9a957e52b99d5b",
+      "bytes": 123283
+    },
+    "preview": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/base_family_preview.glb",
+      "sha256": "c4e96ed20bb1a61143ba3499cc2de80da80f5da66f5e720019387a6425339424",
+      "bytes": 56490628
+    },
+    "alignment": {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/base_family_alignment.json",
+      "sha256": "f8e0cea31621cce6da4f4f4e80370e73df947b89d041ce8ac2db41a374bf42bf",
+      "bytes": 12726
+    },
+    "sample_counts": {
+      "idle": 49,
+      "walk": 49,
+      "attack_overhead": 58,
+      "attack_left": 58,
+      "attack_right": 58
+    },
+    "total_sample_count": 272,
+    "all_actual_Steel_full_body_and_declared8_self_regions_overlap_counts": 0,
+    "once_finger_and_once_root_shift_max_component_error_by_clip": {
+      "idle": 0.0,
+      "walk": 0.0,
+      "attack_overhead": 0.0,
+      "attack_left": 0.0,
+      "attack_right": 0.0
+    },
+    "same_base_static_rest_mesh_skin_materials_verified_against": {
+      "file": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+      "sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+      "bytes": 57925204
+    },
+    "preview_is_not_RAW": true
+  },
+  "Root_clock_contract": {
+    "idle_driver": "existing enemyMotionNanos, shared source time for idle profile/proxy/SDK",
+    "idle_loop_seconds": [
+      0,
+      1.5
+    ],
+    "idle_loop_duration_seconds": 1.5,
+    "preparation_and_countdown": "same enemyMotionNanos clock",
+    "pause_hit_stop_sustained_steel_contact": "freeze that shared clock together",
+    "walk_driver": "existing signed gait distance",
+    "walk_loop_seconds": [
+      0.3333333333333333,
+      1.5
+    ],
+    "walk_loop_duration_seconds": 1.1666666666666667,
+    "SDK": "manual shared-source time consumption, no independently running repeat"
+  },
+  "Root_production_contract_boundary": {
+    "guard_pose": "canonical reference only; never register a new runtime guard mode/clip",
+    "idle_constraints": "No locked-head ancestor constraint is emitted or migrated for idle. Keep181LINEAR and genuine closed breathing cycle; no91/STEP downgrade.",
+    "single_path_migration": "Root consumes these five sources through the accepted updated locomotion/attack family contracts and regenerates profiles/typed/binding together, without old/new fallback.",
+    "three_target_and_runtime_acceptance": "Root-owned private production bank, real target contact, SDK and native validation; this lane has not performed them."
+  },
+  "execution_dependency_pins": {
+    "build": {
+      "ArtSource/refinement/combat-direction/natural-guard/build_natural_guard_family.py": "88b00727af04936d13edeee826e8f24d40a69e4b4576fd68571446286fe5b759",
+      "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb": "c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4",
+      "ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb": "0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6",
+      "ArtSource/tripo-warrior/refined-base60k/rig.glb": "43a34e3ab236e42a96510ccd07f72bab4090bad805c4d883cde21f395d2b81e6",
+      "ArtSource/tripo-warrior/motion_library.json": "1d2dd4fdc03b66ebdda954319dc93fbd0adc6fbdede8d5d875ba5ede6cd09ba0",
+      "ArtSource/tripo-warrior/prepare_character_library.py": "855ee7d779d72ef0d5569815127e3156962423f6fe820a8e5fe6f8e05b242185",
+      "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "ArtSource/tripo-warrior/production_contract.py": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+      "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "ArtSource/tripo-warrior/../refinement/material-direction/integration/base_albedo_tangent_raw.glb": "a4280be15191970a6271a127bf862adee0ea7b7a93174d1b82c83304e49d52ec",
+      "ArtSource/tripo-warrior/library/base_alignment.json": "a89e1c7bebf00f7cc4127f6a0e367538c391931a05b5ffcc00cecb4609f942c6",
+      "ArtSource/refinement/hand-poses/run_blender.py": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1"
+    },
+    "endpoints": {
+      "ArtSource/refinement/combat-direction/natural-guard/verify_family.py": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+      "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0"
+    },
+    "surfaces": {
+      "ArtSource/refinement/combat-direction/natural-guard/verify_family.py": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+      "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+      "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+      "ArtSource/tripo-warrior/prepare_character_library.py": "74b0eb0ff5fd3b66423e72344bcb14f64942c387ddbc16d0b4397135f3b3c9db",
+      "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a"
+    }
+  },
+  "matched_executed_dependency_snapshots": [
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/build_natural_guard_family.py",
+      "execution_sha256": "88b00727af04936d13edeee826e8f24d40a69e4b4576fd68571446286fe5b759",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/88b00727af04/build_natural_guard_family.py",
+        "sha256": "88b00727af04936d13edeee826e8f24d40a69e4b4576fd68571446286fe5b759",
+        "bytes": 12726
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "execution_sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/321728d0d1d0/prepare_rigged_warrior.py",
+        "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+        "bytes": 42376
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/tripo-warrior/production_contract.py",
+      "execution_sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/da93ff646f90/production_contract.py",
+        "sha256": "da93ff646f9068ca931d075ae4fa88d3eb2a4d6c4d1da1d8349261177561fff8",
+        "bytes": 2860
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+      "execution_sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/37a77531631e/build_keyposes.py",
+        "sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+        "bytes": 24812
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/build_fine_overhead.py",
+      "execution_sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/decfd775232c/build_fine_overhead.py",
+        "sha256": "decfd775232c0dec3e58960b030ecea4ff2e906a226aafb1198e6de73f96868f",
+        "bytes": 23451
+      }
+    },
+    {
+      "stage": "build",
+      "original_file": "ArtSource/refinement/hand-poses/run_blender.py",
+      "execution_sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/5fe11e476c54/run_blender.py",
+        "sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+        "bytes": 898
+      }
+    },
+    {
+      "stage": "endpoints",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/verify_family.py",
+      "execution_sha256": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/e3342b8fb12c/verify_family.py",
+        "sha256": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+        "bytes": 23799
+      }
+    },
+    {
+      "stage": "endpoints",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/build_neck_refinement.py",
+      "execution_sha256": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/b418c2b6052d/build_neck_refinement.py",
+        "sha256": "b418c2b6052dba98be22f89889081a90d9bc35b76f82d85e318e4bedee130bf0",
+        "bytes": 19192
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/verify_family.py",
+      "execution_sha256": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/e3342b8fb12c/verify_family.py",
+        "sha256": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+        "bytes": 23799
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py",
+      "execution_sha256": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/68d78a380135/verify_natural_guard.py",
+        "sha256": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+        "bytes": 26032
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py",
+      "execution_sha256": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/e31452b77f1e/verify_fine_overhead.py",
+        "sha256": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+        "bytes": 18969
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "execution_sha256": "74b0eb0ff5fd3b66423e72344bcb14f64942c387ddbc16d0b4397135f3b3c9db",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/74b0eb0ff5fd/prepare_character_library.py",
+        "sha256": "74b0eb0ff5fd3b66423e72344bcb14f64942c387ddbc16d0b4397135f3b3c9db",
+        "bytes": 57523
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py",
+      "execution_sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/37a77531631e/build_keyposes.py",
+        "sha256": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+        "bytes": 24812
+      }
+    },
+    {
+      "stage": "surfaces",
+      "original_file": "ArtSource/tripo-warrior/prepare_rigged_warrior.py",
+      "execution_sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+      "snapshot": {
+        "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/executed-dependencies/321728d0d1d0/prepare_rigged_warrior.py",
+        "sha256": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a",
+        "bytes": 42376
+      }
+    }
+  ],
+  "live_source_drift_not_substituted": [
+    {
+      "stage": "build",
+      "file": "ArtSource/tripo-warrior/prepare_character_library.py",
+      "execution_sha256": "855ee7d779d72ef0d5569815127e3156962423f6fe820a8e5fe6f8e05b242185",
+      "current_live_sha256": "74b0eb0ff5fd3b66423e72344bcb14f64942c387ddbc16d0b4397135f3b3c9db",
+      "note": "Live source is not substituted for the execution pin."
+    }
+  ],
+  "local_source_snapshots": [
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/build_natural_guard_family.py",
+      "sha256": "88b00727af04936d13edeee826e8f24d40a69e4b4576fd68571446286fe5b759",
+      "bytes": 12726
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/verify_family.py",
+      "sha256": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+      "bytes": 23799
+    },
+    {
+      "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/source/build_handoff.py",
+      "sha256": "372f1eb3f5ee6e47a1347477ea03cca2b3b255ba7d6aa227ee97848a9de03e75",
+      "bytes": 10307
+    }
+  ],
+  "boundaries": {
+    "old_natural_v1_and_overhead_v5_and_old_family_sources_overwritten": false,
+    "producer_formal_app_device_Git_written": false,
+    "generated_target_preview": "private base only",
+    "visual_deliverable_not_a_dependency_of_this_handoff": true
+  },
+  "limits": [
+    "No continuous-time or volume proof; dominant-joint regions exclude adjacent neck/upperarm seams and within-region cloth layers.",
+    "Original source overlaps are shown in the identical base context when candidate overlap is found; they are not silently waived.",
+    "No three-target retarget or native device acceptance.",
+    "Exact source endpoints and finite surfaces do not prove runtime blends, transition aesthetics or continuous collision freedom. Existing source Q-sign and norm deviations are listed, not hidden by global normalization."
+  ]
+}

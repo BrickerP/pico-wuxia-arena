@@ -1,13 +1,37 @@
 """Export motion anchors and mesh-calibrated proxies from the final prepared actor."""
 
 import copy
+import bisect
 import math
 import struct
 
 import numpy as np
-from mathutils import Matrix, Vector
+from mathutils import Matrix, Quaternion, Vector
 
-from prepare_rigged_warrior import accessor_bytes, animation_signature, local_matrix, sample_track
+from prepare_rigged_warrior import accessor_bytes, animation_signature, local_matrix, sample_track as sample_source_track
+
+
+def sample_track(track, time, rotation):
+    """Evaluate an animated rotation consistently at keys, intervals and the final key.
+
+    glTF float32 quaternions need normalization before building a rotation matrix.
+    Constant LINEAR segments must not acquire motion from repeated SLERP rounding.
+    Exact stored keys also bypass SLERP(0), so closed dynamic curves stay closed.
+    """
+    if not rotation:
+        return sample_source_track(track, time, False)
+    times, values, interpolation = track
+    after = bisect.bisect_right(times, time)
+    if after == 0:
+        value = values[0]
+    elif (after == len(times) or times[after - 1] == time or interpolation == 'STEP' or
+          values[after - 1] == values[after]):
+        value = values[after - 1]
+    else:
+        value = sample_source_track(track, time, True)
+    q = Quaternion((value[3], *value[:3]))
+    q.normalize()
+    return q.x, q.y, q.z, q.w
 
 
 REACTION_PLAYBACK = {'hit_body': (.05, .72), 'hit_head': (.05, .72), 'hit_side': (.05, 1.18)}
@@ -263,7 +287,7 @@ def mesh_proxy_calibration(document, binary, world, landmarks, parents):
 
 
 def locomotion_source_contract(frozen):
-    """Use the locked manifest's six-step contract without accepting legacy gait timing."""
+    """Use full-loop breathing idle and the unchanged distance-driven six-step walk."""
     if not isinstance(frozen, dict):
         raise ValueError('profile schema 3 requires the frozen locomotion source contract')
     runtime = frozen.get('runtime_contract', {})
@@ -286,14 +310,18 @@ def locomotion_source_contract(frozen):
                 for value, desired in zip(actual, target)) for actual, target in zip(intervals, wanted))):
             raise ValueError('locomotion source contract has invalid six-step contact phases')
     for name, row in profiles.items():
+        loop = [0, 1.5] if name == 'idle' else [1 / 3, 1.5]
+        duration = 1.5 if name == 'idle' else 7 / 6
         if (row.get('source_range_seconds') != [0, 1.5] or
-                row.get('source_loop_seconds') != [1 / 3, 1.5] or
-                row.get('source_loop_duration_seconds') != 7 / 6 or
+                row.get('source_loop_seconds') != loop or
+                any(type(value) not in (int, float) for value in row['source_loop_seconds']) or
+                row.get('source_loop_duration_seconds') != duration or
                 row.get('raw', {}).get('right_finger_calibration_baked') is not False):
-            raise ValueError('locomotion profile requires the unbaked locked source domain: ' + name)
+            raise ValueError('locomotion profile requires its unbaked idle/walk source domain: ' + name)
     return {'contract': 'locomotion78', 'source_rig_sha256': frozen['source_rig']['sha256'],
             'raw_source_sha256': {name: row['raw']['sha256'] for name, row in profiles.items()},
             'source_range_seconds': [0.0, 1.5],
+            'idle_loop_start_seconds': 0.0, 'idle_loop_end_seconds': 1.5, 'idle_loop_duration_seconds': 1.5,
             'loop_start_seconds': 1 / 3, 'loop_end_seconds': 1.5, 'loop_duration_seconds': 7 / 6,
             'stride_metres': 1.45, 'steps_per_loop': 6, 'step_pairs_per_loop': 3,
             'distance_per_step_metres': 1.45 / 6,
@@ -469,12 +497,14 @@ def export_attack_profiles(document, binary, attack_clips, attack_contracts, loc
         if any(index == root for index, _ in tracks):
             raise ValueError('prepared actor root cannot be animated')
         keys = sorted(source_times)
+        contact_times = source_contract['contact_source_seconds'] if name == 'walk' else []
         times = sorted({float32(time) for time in
                         [*keys, *((a + b) / 2 for a, b in zip(keys, keys[1:])),
-                         *source_contract['contact_source_seconds'], *[frame / 60 for frame in range(91)]]})
+                         *contact_times, *[frame / 60 for frame in range(91)]]})
         source = frozen_profiles[name]
         locomotion[name] = {'clip': name, 'source_range_seconds': [0.0, 1.5],
-                            'source_loop_seconds': [1 / 3, 1.5], 'source_loop_duration_seconds': 7 / 6,
+                            'source_loop_seconds': list(source['source_loop_seconds']),
+                            'source_loop_duration_seconds': source['source_loop_duration_seconds'],
                             'stance_intervals_seconds': copy.deepcopy(source['stance_intervals_seconds']),
                             'swing_intervals_seconds': copy.deepcopy(source['swing_intervals_seconds']),
                             'animation_semantics_sha256': animation_signature(document, binary, animation),

@@ -167,9 +167,9 @@ def compare_assets(target, request):
 
 
 class ActualTargetSurface:
-    def __init__(self, asset, body_primitives):
+    def __init__(self, asset, body_primitives, clip_name):
         self.doc, binary = asset
-        _, self.tracks, _ = clip(self.doc, binary, CLIP)
+        _, self.tracks, _ = clip(self.doc, binary, clip_name)
         self.parents, self.order = library.node_order(self.doc)
         self.steel = UTILITY.surface(self.doc, binary)
         self.joints = self.doc['skins'][0]['joints']
@@ -251,7 +251,7 @@ class ActualTargetSurface:
                 'nonadjacent_region_triangle_pairs': region_hits, 'nonadjacent_intersection_details': examples}
 
 
-def render_target(target, prepared, report):
+def render_target(target, prepared, report, frames):
     import bpy
     from mathutils import Vector
     scene, camera = STUDIO.setup_scene(480, 2)
@@ -271,15 +271,15 @@ def render_target(target, prepared, report):
     bpy.ops.mesh.primitive_plane_add(size=20, location=(0, 0, camera_contract['floor_blender_z'] - .006))
     bpy.context.object.data.materials.append(floor)
     rows = []
-    for seconds in (.68, 1.15):
-        evaluation = DIRECT.select_action(scene, CLIP, seconds)
+    for clip_name, seconds, label in frames:
+        evaluation = DIRECT.select_action(scene, clip_name, seconds)
         points, meshes = EYE.geometry_points(imported)
         framing = EYE.projection(points, camera, camera_contract['vertical_fov_degrees'])
         require(framing['outside_vertex_count'] == 0, 'actual target outside unchanged fixed camera: ' + target + ' ' + str(framing))
-        name = target + ('_load_0p68.png' if seconds == .68 else '_unload_1p15.png')
+        name = target + '_' + label + '.png'
         scene.render.filepath = str(OUT / name)
         bpy.ops.render.render(write_still=True)
-        rows.append({'path': str((OUT / name).relative_to(REPO)), 'sha256': sha(OUT / name), 'source_seconds': seconds,
+        rows.append({'path': str((OUT / name).relative_to(REPO)), 'sha256': sha(OUT / name), 'clip': clip_name, 'source_seconds': seconds,
                      'actual_import_action': evaluation, 'actual_geometry_bounds_blender': {'min': points.min(axis=0).tolist(), 'max': points.max(axis=0).tolist(), 'mesh_names': meshes},
                      'projection': framing})
         print('TARGET_RENDER', target, seconds, flush=True)
@@ -325,8 +325,8 @@ def main():
         result['targets'].append(report)
         save(OUT / 'review_report.json', result)
         body_primitives = profile['proxy_calibration']['measurement']['body_primitive_indices']
-        new = ActualTargetSurface(candidate, body_primitives)
-        old = ActualTargetSurface(library.read_glb(FORMAL / (target + '_prepared_png.glb')), body_primitives)
+        new = ActualTargetSurface(candidate, body_primitives, CLIP)
+        old = ActualTargetSurface(library.read_glb(FORMAL / (target + '_prepared_png.glb')), body_primitives, CLIP)
         frames = []
         for seconds in TIMES:
             frame = new.evaluate(seconds)
@@ -338,7 +338,8 @@ def main():
             'body_primitive_indices': body_primitives, 'body_triangle_count': len(new.faces),
             'region_triangle_counts': {name: len(value[1]) for name, value in new.regions.items()}}
         save(OUT / 'review_report.json', result)
-        render_target(target, CANDIDATE / (target + '_prepared_png.glb'), report)
+        render_target(target, CANDIDATE / (target + '_prepared_png.glb'), report,
+                      ((CLIP, .68, 'load_0p68'), (CLIP, 1.15, 'unload_1p15')))
         save(OUT / 'review_report.json', result)
     for path, digest in pins.items():
         require(sha(REPO / path) == digest, 'input/source hash drift during review: ' + path)

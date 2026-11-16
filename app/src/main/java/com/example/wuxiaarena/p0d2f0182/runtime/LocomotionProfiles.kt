@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
 import kotlin.math.abs
+import kotlin.math.roundToLong
 
 /** Actual actor-local samples for one prepared idle or walk clip. */
 internal class PoseClipProfile(val clip: String, samples: List<AttackPoseSample>) {
@@ -30,7 +31,7 @@ internal data class GaitStepEvent(
     }
 }
 
-/** Signed distance is the shared clock for playback, body/blade samples and foot markers. */
+/** Motion time drives idle; signed distance drives walk. Playback and contact share both. */
 internal class LocomotionProfile(
     val idle: PoseClipProfile,
     val walk: PoseClipProfile,
@@ -40,6 +41,10 @@ internal class LocomotionProfile(
     stepEvents: List<GaitStepEvent>,
 ) {
     val stepEvents: List<GaitStepEvent> = stepEvents.toList()
+    private val idleStartSeconds = idle.samples.first().sourceSeconds
+    private val idleEndSeconds = idle.samples.last().sourceSeconds
+    private val idleDurationNanos: Long
+    private val constantIdleAnchors = idle.samples.all { sameAnchors(it, idle.samples.first()) }
 
     init {
         require(idle.clip == "idle" && walk.clip == "walk") { "Locomotion requires the prepared idle and walk clips" }
@@ -50,8 +55,13 @@ internal class LocomotionProfile(
         require(strideMeters.isFinite() && strideMeters > 0.0) { "Walk stride must be finite and positive" }
         require(walk.samples.first().sourceSeconds <= loopStartSeconds &&
             walk.samples.last().sourceSeconds >= loopEndSeconds) { "Walk samples must cover the complete loop" }
-        require(idle.samples.all { sameAnchors(it, idle.samples.first()) }) {
-            "Locked idle must preserve the first sample's body and blade anchors"
+        val idleDuration = (idleEndSeconds - idleStartSeconds) * 1_000_000_000.0
+        require(idleDuration.isFinite() && idleDuration >= 1.0 && idleDuration < Long.MAX_VALUE.toDouble()) {
+            "Idle loop requires a positive duration representable on the motion clock"
+        }
+        idleDurationNanos = idleDuration.roundToLong()
+        require(sameAnchors(idle.samples.first(), idle.samples.last())) {
+            "Idle loop endpoints must have exactly matching body and blade anchors"
         }
         require(sameAnchors(walk.sample(loopStartSeconds), walk.sample(loopEndSeconds))) {
             "Walk loop endpoints must have exactly matching body and blade anchors"
@@ -67,9 +77,13 @@ internal class LocomotionProfile(
 
     fun clip(moving: Boolean): String = if (moving) walk.clip else idle.clip
 
-    fun sourceSeconds(moving: Boolean, gaitMeters: Double): Double {
+    fun sourceSeconds(moving: Boolean, gaitMeters: Double, motionNanos: Long): Double {
         require(gaitMeters.isFinite()) { "Gait distance must be finite" }
-        if (!moving) return idle.samples.first().sourceSeconds
+        require(motionNanos >= 0L) { "Motion time must be non-negative" }
+        if (!moving) {
+            val seconds = idleStartSeconds + (motionNanos % idleDurationNanos) / 1_000_000_000.0
+            return if (seconds >= idleEndSeconds) Math.nextDown(idleEndSeconds) else seconds
+        }
         // Take the remainder first: a finite distance divided by a tiny stride can overflow.
         val signedPhase = (gaitMeters % strideMeters) / strideMeters
         val phase = if (signedPhase < 0.0) signedPhase + 1.0 else signedPhase
@@ -78,8 +92,16 @@ internal class LocomotionProfile(
         return if (seconds >= loopEndSeconds) Math.nextDown(loopEndSeconds) else seconds
     }
 
-    fun sample(moving: Boolean, gaitMeters: Double): AttackPoseSample =
-        (if (moving) walk else idle).sample(sourceSeconds(moving, gaitMeters))
+    fun sample(moving: Boolean, gaitMeters: Double, motionNanos: Long): AttackPoseSample =
+        (if (moving) walk else idle).sample(sourceSeconds(moving, gaitMeters, motionNanos))
+
+    /** End contact sweeps at the next idle key, including the closed loop seam. */
+    fun nanosUntilIdleSample(motionNanos: Long): Long {
+        val source = sourceSeconds(false, 0.0, motionNanos)
+        if (constantIdleAnchors) return Long.MAX_VALUE
+        val next = idle.samples.firstOrNull { it.sourceSeconds > source + 1e-12 }?.sourceSeconds ?: idleEndSeconds
+        return maxOf(1L, ((next - source) * 1_000_000_000.0).toLong())
+    }
 
     private fun sameAnchors(first: AttackPoseSample, second: AttackPoseSample): Boolean =
         first.contact == second.contact && first.bladeBase == second.bladeBase && first.bladeTip == second.bladeTip

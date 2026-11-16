@@ -4,6 +4,7 @@ import io
 import json
 import os
 import re
+import struct
 import subprocess
 import sys
 import tempfile
@@ -13,6 +14,18 @@ from pathlib import Path
 from unittest.mock import patch
 
 import generate_attack_bank_profiles as generator
+
+
+def generated_sample_factories(source):
+    """Read numeric payloads independently of the generator's formatting helpers."""
+    owners = {}
+    for owner, body in re.findall(r'^private object (\w+) \{\n(.*?)^\}', source, flags=re.MULTILINE | re.DOTALL):
+        methods = {}
+        for name, numbers in re.findall(r'\bfun\s+(\w+)\(\)\s*:\s*List<AttackPoseSample>\s*=\s*'
+                r'decodeAttackSamples\(doubleArrayOf\((.*?)\)\)', body, flags=re.DOTALL):
+            methods[name] = [float(value.strip()) for value in numbers.split(',') if value.strip()]
+        owners[owner] = methods
+    return owners
 
 
 def reaction_fixture():
@@ -55,11 +68,15 @@ class ReactionBankFixture:
             profile.pop('phase_markers_seconds', None)
             profile.pop('phase_sample_times_seconds', None)
             profile['model_sha256'] = generator.sha256(model)
+            profile['source_contract'].update(idle_loop_start_seconds=0.0, idle_loop_end_seconds=1.5,
+                                              idle_loop_duration_seconds=1.5)
             for name, clip in profile['locomotion'].items():
                 start = copy.deepcopy(source['locomotion']['idle']['samples'][0])
                 end = copy.deepcopy(start)
                 end['source_seconds'] = 1.5
                 clip['samples'] = [start, end]
+                clip['source_loop_seconds'] = [0.0, 1.5] if name == 'idle' else [1 / 3, 1.5]
+                clip['source_loop_duration_seconds'] = 1.5 if name == 'idle' else 7 / 6
             for direction, clip in profile['attacks'].items():
                 contract = next(row for row in contracts if row['direction'] == direction)
                 clip['source_phase_seconds'] = [contract['phase_markers'][key] for key in generator.PHASE_MARKERS[:5]]
@@ -148,6 +165,82 @@ def run_cli(bank, output=None, manifest=None, check=False):
 
 
 class GenerateAttackBankProfilesTest(unittest.TestCase):
+    def test_real_bank_factories_have_three_class_owners_and_preserve_every_double_bit(self):
+        output = generator.generate(generator.DEFAULT_BANK)
+        factories = generated_sample_factories(output)
+        self.assertEqual(set(factories), {'BaseAttackSamples', 'IndigoAttackSamples', 'VeteranAttackSamples'})
+        self.assertEqual(re.findall(r'^private fun (\w+)\(', output, flags=re.MULTILINE), ['decodeAttackSamples'])
+        for character, profile, _ in generator.load_bank(generator.DEFAULT_BANK):
+            owner = character['id'].title() + 'AttackSamples'
+            clips = {direction.lower(): profile['attacks'][direction] for direction in generator.DIRECTIONS}
+            clips.update(profile['locomotion'])
+            clips.update({name.split('_')[0] + name.split('_')[1].title(): clip
+                          for name, clip in profile['reactions'].items()})
+            self.assertEqual(set(factories[owner]), set(clips))
+            for method, clip in clips.items():
+                expected = [value for sample in clip['samples'] for value in
+                            [sample['source_seconds'], *[v for field in generator.FIELDS for v in sample[field]]]]
+                actual = factories[owner][method]
+                self.assertEqual(len(actual), len(clip['samples']) * 16)
+                self.assertEqual(b''.join(struct.pack('>d', value) for value in actual),
+                                 b''.join(struct.pack('>d', value) for value in expected), (owner, method))
+            for direction in generator.DIRECTIONS:
+                self.assertIn(f'samples = {owner}.{direction.lower()}(),', output)
+
+    def test_grouping_keeps_signed_zero_adjacent_double_and_tiny_finite_values(self):
+        with ReactionBankFixture() as bank:
+            clip = bank.profiles['base']['reactions']['hit_body']
+            clip['samples'][0]['head'][0] = -0.0
+            clip['samples'][0]['body_top'][0] = 1.0000000000000002
+            clip['samples'][-1]['blade_tip'][2] = 1e-300
+            bank.write()
+            actual = generated_sample_factories(generator.generate(bank.path))['BaseAttackSamples']['hitBody']
+            self.assertEqual(struct.pack('>d', actual[1]), struct.pack('>d', -0.0))
+            self.assertEqual(struct.pack('>d', actual[7]), struct.pack('>d', 1.0000000000000002))
+            self.assertEqual(struct.pack('>d', actual[-1]), struct.pack('>d', 1e-300))
+
+    def test_dynamic_idle_body_samples_survive_typed_generation_with_one_closed_loop(self):
+        with ReactionBankFixture() as bank:
+            for profile in bank.profiles.values():
+                idle = profile['locomotion']['idle']['samples']
+                middle = copy.deepcopy(idle[0])
+                middle['source_seconds'] = .75
+                middle['head'][2] += .002
+                middle['body_top'][1] += .001
+                idle.insert(1, middle)
+            bank.write()
+            rows = generator.load_bank(bank.path)
+            output = generator.generate(bank.path)
+            for _, profile, _ in rows:
+                idle = profile['locomotion']['idle']['samples']
+                self.assertNotEqual(idle[0]['head'], idle[1]['head'])
+                self.assertEqual(idle[0]['head'], idle[-1]['head'])
+                self.assertEqual(idle[0]['blade_base'], idle[1]['blade_base'])
+            factories = generated_sample_factories(output)
+            for methods in factories.values():
+                self.assertEqual(methods['idle'][::16], [0.0, .75, 1.5])
+
+    def test_idle_loop_must_close_and_cannot_keep_the_retired_walk_phase_domain(self):
+        for change in ('endpoint', 'old_loop', 'duration', 'missing_clock', 'boolean_clock', 'boolean_loop'):
+            with self.subTest(change=change), ReactionBankFixture() as bank:
+                profile = bank.profiles['base']
+                idle = profile['locomotion']['idle']
+                if change == 'endpoint':
+                    idle['samples'][-1]['head'][0] += .0001
+                elif change == 'old_loop':
+                    idle['source_loop_seconds'] = [1 / 3, 1.5]
+                elif change == 'duration':
+                    idle['source_loop_duration_seconds'] = 7 / 6
+                elif change == 'boolean_clock':
+                    profile['source_contract']['idle_loop_start_seconds'] = False
+                elif change == 'boolean_loop':
+                    idle['source_loop_seconds'][0] = False
+                else:
+                    profile['source_contract'].pop('idle_loop_duration_seconds')
+                bank.write()
+                with self.assertRaises(ValueError):
+                    generator.load_bank(bank.path)
+
     def test_reviewed_per_direction_bank_generates_typed_source_phases_without_runtime_duplication(self):
         self.assertEqual(generator.REPO / 'ArtSource/tripo-warrior/library', generator.DEFAULT_BANK)
         with ReactionBankFixture() as bank:
@@ -307,8 +400,9 @@ class GenerateAttackBankProfilesTest(unittest.TestCase):
             for cid in bank.profiles:
                 for name, (field, _) in generator.REACTIONS.items():
                     title = name.title().replace('_', '')
-                    self.assertIn(f'{field} = PoseClipProfile("{name}", {cid}{title}()),', output)
-                    self.assertIn(f'private fun {cid}{title}(): List<AttackPoseSample> = decodeAttackSamples(', output)
+                    method = title[0].lower() + title[1:]
+                    self.assertIn(f'{field} = PoseClipProfile("{name}", {cid.title()}AttackSamples.{method}()),', output)
+                    self.assertIn(f'    fun {method}(): List<AttackPoseSample> = decodeAttackSamples(', output)
 
     def test_cli_relative_output_writes_successfully_and_passes_check(self):
         with ReactionBankFixture() as bank:
@@ -394,9 +488,8 @@ class GenerateAttackBankProfilesTest(unittest.TestCase):
                     generator.load_bank(bank.path)
 
     def test_old_two_step_or_misaligned_contact_contract_is_rejected(self):
-        bank = generator.DEFAULT_BANK
-        character = json.loads((bank / 'characters.json').read_text())['characters'][0]
-        profile = json.loads((bank / character['attack_profiles']['file']).read_text())
+        with ReactionBankFixture() as bank:
+            profile = copy.deepcopy(bank.profiles['base'])
         self.assertEqual(6, len(generator.gait_step_events(profile)))
         two_steps = copy.deepcopy(profile)
         two_steps['source_contract']['steps_per_loop'] = 2

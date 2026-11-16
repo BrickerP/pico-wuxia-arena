@@ -45,13 +45,31 @@ class EnemyPoseSelectionTest {
     }
 
     @Test
+    fun breathingIdleSelectsItsActualMovingBodyAndBladeOnTheSuppliedMotionClock() {
+        val breathing = LocomotionProfile(
+            PoseClipProfile("idle", listOf(sample(0.0, 1.0), sample(.75, 1.5), sample(1.5, 1.0))),
+            locomotion.walk, locomotion.loopStartSeconds, locomotion.loopEndSeconds,
+            locomotion.strideMeters, locomotion.stepEvents)
+        val frame = requireNotNull(selectEnemyPose(attack, breathing, reactions, EnemyPhase.IDLE,
+            375_000_000L, null, guarding = false, moving = false, gaitMeters = 100.0))
+        assertEquals("idle", frame.clip)
+        assertEquals(.375, frame.pose.sourceSeconds, 0.0)
+        assertEquals(sample(.375, 1.25), frame.pose)
+        assertNotEquals(breathing.idle.samples.first().contact, frame.pose.contact)
+        assertNotEquals(breathing.idle.samples.first().bladeTip, frame.pose.bladeTip)
+        val seam = requireNotNull(selectEnemyPose(attack, breathing, reactions, EnemyPhase.IDLE,
+            1_500_000_000L, null, guarding = false, moving = false, gaitMeters = 100.0))
+        assertEquals(breathing.idle.samples.first(), seam.pose)
+    }
+
+    @Test
     fun movingIdleUsesTheSameSignedGaitClockForItsClipBodyAndBlade() {
         for (gait in listOf(0.0, 1.45 / 4.0, -1.45 / 4.0, 1.45, -1.45, 10.0)) {
             val frame = requireNotNull(selectEnemyPose(attack, locomotion, reactions, EnemyPhase.IDLE, 777L, null,
                 guarding = false, moving = true, gaitMeters = gait))
             assertEquals("walk", frame.clip)
-            assertEquals(locomotion.sourceSeconds(true, gait), frame.pose.sourceSeconds, 0.0)
-            assertEquals(locomotion.sample(true, gait), frame.pose)
+            assertEquals(locomotion.sourceSeconds(true, gait, 0L), frame.pose.sourceSeconds, 0.0)
+            assertEquals(locomotion.sample(true, gait, 0L), frame.pose)
         }
     }
 

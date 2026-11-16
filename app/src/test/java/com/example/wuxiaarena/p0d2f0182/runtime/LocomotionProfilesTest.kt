@@ -47,8 +47,8 @@ class LocomotionProfilesTest {
         val profile = profile()
         for (gait in listOf(0.0, 0.725, -0.725, 1.45, -2.9)) {
             assertEquals("idle", profile.clip(false))
-            assertEquals(0.125, profile.sourceSeconds(false, gait), 0.0)
-            assertSame(profile.idle.samples.first(), profile.sample(false, gait))
+            assertEquals(0.125, profile.sourceSeconds(false, gait, 0L), 0.0)
+            assertSame(profile.idle.samples.first(), profile.sample(false, gait, 0L))
         }
         assertEquals("walk", profile.clip(true))
     }
@@ -59,26 +59,26 @@ class LocomotionProfilesTest {
         val start = profile.loopStartSeconds
         val span = profile.loopEndSeconds - start
         for (gait in listOf(0.0, 1.45, -1.45, 2.9, -2.9)) {
-            assertEquals(start, profile.sourceSeconds(true, gait), 0.0)
+            assertEquals(start, profile.sourceSeconds(true, gait, 0L), 0.0)
         }
-        assertEquals(start + span * 0.25, profile.sourceSeconds(true, 1.45 * 0.25), 1e-12)
-        assertEquals(start + span * 0.75, profile.sourceSeconds(true, -1.45 * 0.25), 1e-12)
-        assertEquals(start + span * 0.5, profile.sourceSeconds(true, 1.45 * 0.5), 1e-12)
-        assertEquals(start + span * 0.5, profile.sourceSeconds(true, -1.45 * 0.5), 1e-12)
-        assertEquals(profile.sourceSeconds(true, 0.2), profile.sourceSeconds(true, 1.65), 1e-12)
-        assertEquals(profile.sourceSeconds(true, -0.2), profile.sourceSeconds(true, -1.65), 1e-12)
+        assertEquals(start + span * 0.25, profile.sourceSeconds(true, 1.45 * 0.25, 0L), 1e-12)
+        assertEquals(start + span * 0.75, profile.sourceSeconds(true, -1.45 * 0.25, 0L), 1e-12)
+        assertEquals(start + span * 0.5, profile.sourceSeconds(true, 1.45 * 0.5, 0L), 1e-12)
+        assertEquals(start + span * 0.5, profile.sourceSeconds(true, -1.45 * 0.5, 0L), 1e-12)
+        assertEquals(profile.sourceSeconds(true, 0.2, 0L), profile.sourceSeconds(true, 1.65, 0L), 1e-12)
+        assertEquals(profile.sourceSeconds(true, -0.2, 0L), profile.sourceSeconds(true, -1.65, 0L), 1e-12)
     }
 
     @Test
     fun crossingTheLoopSeamNeverSamplesTheExclusiveEndKey() {
         val profile = profile()
-        val before = profile.sourceSeconds(true, Math.nextDown(profile.strideMeters))
-        val after = profile.sourceSeconds(true, Math.nextUp(profile.strideMeters))
+        val before = profile.sourceSeconds(true, Math.nextDown(profile.strideMeters), 0L)
+        val after = profile.sourceSeconds(true, Math.nextUp(profile.strideMeters), 0L)
         assertTrue(before >= profile.loopStartSeconds && before < profile.loopEndSeconds)
         assertTrue(after >= profile.loopStartSeconds && after < profile.loopEndSeconds)
-        assertTrue(before > profile.sourceSeconds(true, 0.725))
-        assertTrue(after < profile.sourceSeconds(true, 0.725))
-        assertTrue(profile.sourceSeconds(true, -Double.MIN_VALUE) < profile.loopEndSeconds)
+        assertTrue(before > profile.sourceSeconds(true, 0.725, 0L))
+        assertTrue(after < profile.sourceSeconds(true, 0.725, 0L))
+        assertTrue(profile.sourceSeconds(true, -Double.MIN_VALUE, 0L) < profile.loopEndSeconds)
     }
 
     @Test
@@ -87,18 +87,18 @@ class LocomotionProfilesTest {
         for ((index, event) in profile.stepEvents.withIndex()) {
             val positive = profile.strideMeters * event.phase
             val expected = profile.loopStartSeconds + (profile.loopEndSeconds - profile.loopStartSeconds) * event.phase
-            assertEquals(expected, profile.sourceSeconds(true, positive), 1e-12)
-            assertEquals(expected, profile.sourceSeconds(true, positive - profile.strideMeters), 1e-12)
+            assertEquals(expected, profile.sourceSeconds(true, positive, 0L), 1e-12)
+            assertEquals(expected, profile.sourceSeconds(true, positive - profile.strideMeters, 0L), 1e-12)
             assertEquals(if (index % 2 == 0) EnemyFoot.LEFT else EnemyFoot.RIGHT, event.forwardFoot)
             assertEquals(if (index % 2 == 0) EnemyFoot.RIGHT else EnemyFoot.LEFT, event.reverseFoot)
         }
         val gait = 0.731
-        val beforePause = profile.sample(true, gait)
+        val beforePause = profile.sample(true, gait, 0L)
         repeat(3) {
-            assertEquals(beforePause, profile.sample(true, gait))
-            profile.sample(false, gait)
+            assertEquals(beforePause, profile.sample(true, gait, 0L))
+            profile.sample(false, gait, 0L)
         }
-        assertEquals(beforePause, profile.sample(true, gait))
+        assertEquals(beforePause, profile.sample(true, gait, 0L))
         assertEquals(0.24166666666666667, profile.strideMeters / profile.stepEvents.size, 0.0)
     }
 
@@ -106,19 +106,19 @@ class LocomotionProfilesTest {
     fun movingSamplesInterpolateActualHeadBodyAndBladeTogether() {
         val profile = profile()
         for (gait in listOf(0.0, 0.2175, 0.725, 1.2, -0.2175, -1.2)) {
-            val source = profile.sourceSeconds(true, gait)
-            val actual = profile.sample(true, gait)
+            val source = profile.sourceSeconds(true, gait, 0L)
+            val actual = profile.sample(true, gait, 0L)
             val phase = (source - profile.loopStartSeconds) / (profile.loopEndSeconds - profile.loopStartSeconds)
             val offset = if (phase <= 0.5) phase * 8.0 else (1.0 - phase) * 8.0
             assertEquals(source, actual.sourceSeconds, 0.0)
             assertPose(pose(source, offset), actual)
         }
-        assertTrue(profile.sample(true, 0.0).contact != profile.sample(true, 0.725).contact)
-        assertTrue(profile.sample(true, 0.0).bladeTip != profile.sample(true, 0.725).bladeTip)
+        assertTrue(profile.sample(true, 0.0, 0L).contact != profile.sample(true, 0.725, 0L).contact)
+        assertTrue(profile.sample(true, 0.0, 0L).bladeTip != profile.sample(true, 0.725, 0L).bladeTip)
     }
 
     @Test
-    fun lockedIdleRejectsAnyChangedBodyOrBladeAnchorWhileIgnoringSampleTime() {
+    fun idleRejectsAnyChangedLoopEndpointButAllowsActualBreathingInsideTheLoop() {
         val first = idle().samples.first()
         assertEquals(50.0, first.contact.head.x - 1.0, 0.0)
         for (anchor in 0 until 5) {
@@ -128,7 +128,41 @@ class LocomotionProfilesTest {
             }
         }
         val profile = profile()
-        assertSame(profile.idle.samples.first(), profile.sample(false, 0.725))
+        assertSame(profile.idle.samples.first(), profile.sample(false, 0.725, 0L))
+        val breathing = profile(idle = PoseClipProfile("idle", listOf(first, pose(.8125, 51.0),
+            first.copy(sourceSeconds = 1.5))))
+        assertPose(pose(.8125, 51.0), breathing.sample(false, 123.0, 687_500_000L))
+    }
+
+    @Test
+    fun breathingUsesMotionTimeAndWrapsExactlyWithoutDependingOnGaitOrWallTime() {
+        val first = idle().samples.first()
+        val profile = profile(idle = PoseClipProfile("idle", listOf(first, pose(.8125, 51.0),
+            first.copy(sourceSeconds = 1.5))))
+        for (gait in listOf(-Double.MAX_VALUE, 0.0, Double.MAX_VALUE)) {
+            assertEquals(.125, profile.sourceSeconds(false, gait, 0L), 0.0)
+            assertEquals(.8125, profile.sourceSeconds(false, gait, 687_500_000L), 0.0)
+            assertEquals(.125, profile.sourceSeconds(false, gait, 1_375_000_000L), 0.0)
+            assertEquals(.8125, profile.sourceSeconds(false, gait, 2_062_500_000L), 0.0)
+            assertEquals(.125 + (Long.MAX_VALUE % 1_375_000_000L) / 1_000_000_000.0,
+                profile.sourceSeconds(false, gait, Long.MAX_VALUE), 0.0)
+        }
+        assertThrows(IllegalArgumentException::class.java) { profile.sourceSeconds(false, 0.0, -1L) }
+        assertThrows(IllegalArgumentException::class.java) { profile.sample(true, 0.0, -1L) }
+    }
+
+    @Test
+    fun idleSweepsStopAtTheNextActualSampleAndAtTheClosedLoopSeam() {
+        assertEquals(Long.MAX_VALUE, profile().nanosUntilIdleSample(600_000_000L))
+        val first = idle().samples.first()
+        val profile = profile(idle = PoseClipProfile("idle", listOf(first, pose(.8125, 51.0),
+            first.copy(sourceSeconds = 1.5))))
+        assertEquals(687_500_000L, profile.nanosUntilIdleSample(0L))
+        assertEquals(87_500_000L, profile.nanosUntilIdleSample(600_000_000L))
+        assertEquals(687_500_000L, profile.nanosUntilIdleSample(687_500_000L))
+        assertEquals(1L, profile.nanosUntilIdleSample(1_374_999_999L))
+        assertEquals(687_500_000L, profile.nanosUntilIdleSample(1_375_000_000L))
+        assertThrows(IllegalArgumentException::class.java) { profile.nanosUntilIdleSample(-1L) }
     }
 
     @Test
@@ -146,7 +180,7 @@ class LocomotionProfilesTest {
         assertEquals(first.contact, last.contact)
         assertEquals(first.bladeBase, last.bladeBase)
         assertEquals(first.bladeTip, last.bladeTip)
-        assertTrue(profile.sample(true, 0.725).contact != first.contact)
+        assertTrue(profile.sample(true, 0.725, 0L).contact != first.contact)
     }
 
     @Test
@@ -175,7 +209,7 @@ class LocomotionProfilesTest {
         val origin = Vector3(0.35, 0.028, -1.5)
         val recoil = Vector3(-0.04, 0.0, -0.16)
         for (moving in listOf(false, true)) {
-            val local = profile.sample(moving, -0.2175)
+            val local = profile.sample(moving, -0.2175, 0L)
             val stage = local.inStage(origin + recoil, (Math.PI / 2.0).toFloat())
             val localPoints = listOf(local.contact.head, local.contact.bodyBottom, local.contact.bodyTop, local.bladeBase, local.bladeTip)
             val stagePoints = listOf(stage.contact.head, stage.contact.bodyBottom, stage.contact.bodyTop, stage.bladeBase, stage.bladeTip)
@@ -241,8 +275,8 @@ class LocomotionProfilesTest {
             assertThrows(IllegalArgumentException::class.java) { GaitStepEvent(invalid, EnemyFoot.LEFT, EnemyFoot.RIGHT) }
             assertThrows(IllegalArgumentException::class.java) { walk().sample(invalid) }
             for (moving in listOf(false, true)) {
-                assertThrows(IllegalArgumentException::class.java) { profile().sourceSeconds(moving, invalid) }
-                assertThrows(IllegalArgumentException::class.java) { profile().sample(moving, invalid) }
+                assertThrows(IllegalArgumentException::class.java) { profile().sourceSeconds(moving, invalid, 0L) }
+                assertThrows(IllegalArgumentException::class.java) { profile().sample(moving, invalid, 0L) }
             }
         }
     }
@@ -252,7 +286,7 @@ class LocomotionProfilesTest {
         for (stride in listOf(Double.MIN_VALUE, 1e-200, 1.45, Double.MAX_VALUE)) {
             val profile = profile(stride = stride)
             for (gait in listOf(-Double.MAX_VALUE, -Double.MIN_VALUE, 0.0, Double.MIN_VALUE, Double.MAX_VALUE)) {
-                val source = profile.sourceSeconds(true, gait)
+                val source = profile.sourceSeconds(true, gait, 0L)
                 assertTrue(source.isFinite())
                 assertTrue(source >= profile.loopStartSeconds && source < profile.loopEndSeconds)
             }

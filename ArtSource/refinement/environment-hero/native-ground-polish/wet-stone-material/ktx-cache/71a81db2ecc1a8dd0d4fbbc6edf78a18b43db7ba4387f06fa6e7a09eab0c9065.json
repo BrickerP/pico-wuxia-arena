@@ -1,0 +1,14 @@
+{
+  "sha256": "5f013ffeb61006b3cf763a6a67fb8aacb8206d4a4843003c221cd44da9d8eeca",
+  "encoder_output": "",
+  "mip_inputs": [
+    {
+      "level": 0,
+      "size": [
+        1024,
+        1024
+      ],
+      "pixels_sha256": "59f601881439af103f1ecb52824f9a1514adeff8fe91baa87446142ea0a82f52"
+    }
+  ]
+}

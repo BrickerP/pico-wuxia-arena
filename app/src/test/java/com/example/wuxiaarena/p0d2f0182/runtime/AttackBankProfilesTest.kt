@@ -39,13 +39,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("713532c0f047573a77632a55a0178d79a9833a04a9bdb25ef986cc161caa598a", AttackBankProfileData.bindingSha256)
-        assertEquals("f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("aecf203eb96d55b77d0e539fadb64d215d4cdb559197247105f77bf1f0491b7a", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("cce030fc4dc37f33c7300fb953d98b7d9a641b5deec8b60f384928d5c116e593", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("f721ca6e4f8bc21e4fa1668d3d13ba222aef4c68603ad8c198a6c10e5cd7fde4", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("803d88201a47da9c73a9a95845a5749915dc29b6eb733f4b5212da13b04f9bed", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("a5a0e40a392141d9e9b88a246b7518294d0f1138b1c181d5f4b73d07d8171136", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("dc0df17be4b24504f7a21e3b2192e3c1ed5264b58be3f62a752f0ce83aaf8872", AttackBankProfileData.bindingSha256)
+        assertEquals("b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -245,10 +245,10 @@ class AttackBankProfilesTest {
         val origin = Vector3(0.0, 0.028, -1.3)
         for (opponent in arenaOpponents) for (direction in AttackDirection.entries) {
             val profile = opponent.attackProfile(direction)
-            val guard = opponent.locomotionProfile().sample(false, 0.0).inStage(origin, 0.3f)
+            val guard = opponent.locomotionProfile().sample(false, 0.0, 0L).inStage(origin, 0.3f)
             assertEquals(guard.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null, origin, 0.3f, direction, false, gaitMeters = 0.0))
             assertEquals(guard.contact, opponent.contactPose(EnemyPhase.HIT, ms(200), ms(100), origin, 0.3f, direction, true, gaitMeters = 0.0))
-            val walk = opponent.locomotionProfile().sample(true, 0.4).inStage(origin, 0.3f)
+            val walk = opponent.locomotionProfile().sample(true, 0.4, 0L).inStage(origin, 0.3f)
             assertEquals(walk.contact, opponent.contactPose(EnemyPhase.IDLE, 0L, null,
                 origin, 0.3f, direction, false, moving = true, gaitMeters = 0.4))
             if (direction != AttackDirection.OVERHEAD) {
@@ -273,14 +273,14 @@ class AttackBankProfilesTest {
         val origin = Vector3(0.2, 0.028, -1.3) + Vector3(-0.03, 0.0, -0.04)
         for (opponent in arenaOpponents) {
             val locomotion = opponent.locomotionProfile()
-            assertEquals(185, locomotion.idle.samples.size)
+            assertEquals(361, locomotion.idle.samples.size)
             assertEquals(369, locomotion.walk.samples.size)
             assertEquals(6, locomotion.stepEvents.size)
             assertEquals(1.45, locomotion.strideMeters, 0.0)
             for (moving in listOf(false, true)) for (gait in listOf(-2.9, -0.4, 0.0, 0.4, 1.45, 2.9)) {
                 val frame = requireNotNull(opponent.poseFrame(EnemyPhase.IDLE, 0L, null,
                     AttackDirection.OVERHEAD, false, moving, gait))
-                val expected = locomotion.sample(moving, gait)
+                val expected = locomotion.sample(moving, gait, 0L)
                 assertEquals(if (moving) "walk" else "idle", frame.clip)
                 assertEquals(expected, frame.pose)
                 val actual = requireNotNull(opponent.attackPose(EnemyPhase.IDLE, 0L, null,
@@ -293,12 +293,35 @@ class AttackBankProfilesTest {
     }
 
     @Test
+    fun actualBreathingKeepsTheBladeRigidWithinItsMotionBudgetAndClosesTheCompleteLoop() {
+        for (opponent in arenaOpponents) {
+            val profile = opponent.locomotionProfile()
+            val start = profile.sample(false, 0.0, 0L)
+            val peak = profile.sample(false, 0.0, 750_000_000L)
+            val seam = profile.sample(false, 0.0, 1_500_000_000L)
+            assertEquals(start, seam)
+            assertTrue("Actual exported idle must breathe", start.contact.head.distanceTo(peak.contact.head) > .0001)
+            // Retargeting preserves each actor's arm lengths. Their FK wrist
+            // motion may differ from the source's near-fixed wrist; allow 2 mm
+            // (under 0.3% of this dao's length), while checking the rigid mount.
+            val idleWeaponMotionBudgetMeters = .002
+            assertTrue(start.bladeBase.distanceTo(peak.bladeBase) < idleWeaponMotionBudgetMeters)
+            assertTrue(start.bladeTip.distanceTo(peak.bladeTip) < idleWeaponMotionBudgetMeters)
+            assertPoint(peak.bladeBase - start.bladeBase, peak.bladeTip - start.bladeTip, 1e-6)
+            assertEquals(start.bladeBase.distanceTo(start.bladeTip), peak.bladeBase.distanceTo(peak.bladeTip), 1e-6)
+            assertEquals(profile.idle.samples.first().contact, profile.idle.samples.last().contact)
+            assertEquals(profile.idle.samples.first().bladeBase, profile.idle.samples.last().bladeBase)
+            assertEquals(profile.idle.samples.first().bladeTip, profile.idle.samples.last().bladeTip)
+        }
+    }
+
+    @Test
     fun actualCanonicalIdleWalkAndAttackEntriesShareTheFinalCalibratedBodyAndBlade() {
         for (opponent in arenaOpponents) {
             val locomotion = opponent.locomotionProfile()
-            val idle = locomotion.sample(false, 0.0)
+            val idle = locomotion.sample(false, 0.0, 0L)
             for (gait in listOf(-0.4, 0.0, 0.4, 1.45)) {
-                val walk = locomotion.sample(true, gait)
+                val walk = locomotion.sample(true, gait, 0L)
                 assertEquals(idle.contact, walk.contact)
                 assertEquals(idle.bladeBase, walk.bladeBase)
                 assertEquals(idle.bladeTip, walk.bladeTip)

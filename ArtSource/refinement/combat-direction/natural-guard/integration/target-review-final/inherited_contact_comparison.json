@@ -1,0 +1,110 @@
+{
+  "scope": "Only the finite poses that failed the new target review; not a clearance approval.",
+  "baseline_binding_sha256": "a1ce822bba5cc0e6a503aca71975e5dca0ab9fbf847fb9329f11423fbf0f78b3",
+  "binding_sha256": "dc0df17be4b24504f7a21e3b2192e3c1ed5264b58be3f62a752f0ce83aaf8872",
+  "pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/review_report.json": "8c47f22f7a62b12073c507ef0202c802affed6e2db7992f617bed424e3274740",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/production_review_request.json": "f380770863ca3792af32c38bd5f3bdca42cc9d85a76ccae86c2ce44ff589cd03",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/compare_inherited_contacts.py": "d9fa6602d14d060f52eb970df1544f302d82677c78966657ce89368e1b826527",
+    "ArtSource/refinement/combat-direction/native-weighted-overhead/integration/review_candidate.py": "91b8541dfec91c2471811be316b5e8d455da680b9492c67c71122e2f66e0713f",
+    "ArtSource/tripo-warrior/library/base_prepared_png.glb": "aa687e2e068664d8fd67da9dd9a498faad2fad2358e02175b5f4da1199af57ef",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/base_prepared_png.glb": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/base_attack_profiles.json": "5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4",
+    "ArtSource/tripo-warrior/library/indigo_prepared_png.glb": "881891d672a21dfdde508d8dd90abe1a5c80b2b49697a58d55bc5ac7788ef2e7",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/indigo_prepared_png.glb": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/indigo_attack_profiles.json": "b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb",
+    "ArtSource/tripo-warrior/library/veteran_prepared_png.glb": "f0a2e84f64dc52076a36ae67182336cd3a03092f606ef0a46d43520aedef92c9",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/veteran_prepared_png.glb": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363",
+    "ArtSource/refinement/combat-direction/natural-guard/integration/candidate-library-final/veteran_attack_profiles.json": "cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0"
+  },
+  "poses": [
+    {
+      "target": "indigo",
+      "clip": "attack_right",
+      "source_seconds": 1.1,
+      "new_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 18
+      },
+      "previous_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 18
+      },
+      "new_steel": [],
+      "previous_steel": [],
+      "joint_world_matrix_max_component_difference": 2.086162567138672e-06,
+      "identical_sampled_contacts": true
+    },
+    {
+      "target": "veteran",
+      "clip": "attack_left",
+      "source_seconds": 1.1,
+      "new_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 105,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "previous_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 105,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 0
+      },
+      "new_steel": [],
+      "previous_steel": [],
+      "joint_world_matrix_max_component_difference": 1.0728836059570312e-06,
+      "identical_sampled_contacts": true
+    },
+    {
+      "target": "veteran",
+      "clip": "attack_right",
+      "source_seconds": 1.1,
+      "new_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 53
+      },
+      "previous_core_pairs": {
+        "R_forearm__head": 0,
+        "R_forearm__chest": 0,
+        "R_hand__head": 0,
+        "R_hand__chest": 0,
+        "L_forearm__head": 0,
+        "L_forearm__chest": 0,
+        "L_hand__head": 0,
+        "L_hand__chest": 53
+      },
+      "new_steel": [],
+      "previous_steel": [],
+      "joint_world_matrix_max_component_difference": 2.4437904357910156e-06,
+      "identical_sampled_contacts": true
+    }
+  ],
+  "all_failed_poses_have_identical_previous_contacts": true
+}

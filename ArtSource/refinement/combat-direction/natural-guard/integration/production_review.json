@@ -1,0 +1,609 @@
+{
+  "decision": "approved",
+  "scope": "development_integration_only",
+  "date": "2026-11-16",
+  "quality_passed": false,
+  "binding_sha256": "dc0df17be4b24504f7a21e3b2192e3c1ed5264b58be3f62a752f0ce83aaf8872",
+  "characters": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 55126688,
+          "sha256": "2f994b6315c669a375bf8ed59d2cea33031768074822b074f5c3e80e058a2f3d"
+        },
+        {
+          "file": "base_prepared_png.glb",
+          "bytes": 58219812,
+          "sha256": "7472b9044f60acc2bf802441e45ce0031cab318e1af35e86c3cd613ea03ad47e"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 75769048,
+          "sha256": "b8b3ee1692e9a922fcb8038c693f17eaf934751f805fac2221afc899eaa6e2e1"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "90777f7e0711deca2391274935d0cf1a1e2a653d6c1ab0c63a1ab89b1ff91a4b",
+        "turn": "4de8d15d68c77db67951e6b94f51475c62021059be7c4e4cec88d45796325f62",
+        "hit_body": "da2e58a7fe2d1e87980e5e7547c512a6ef0591a4c869d92c2f5b85cdc617ae98",
+        "hit_head": "bbc1a841b04ae6acef0890500bcd7b6e660bbd1211caca3a993fa6f1aa143ecf",
+        "hit_side": "836462c5e120be689fe4abcfaba0a014ab0db18d80d98fa53ee408ccd411fa25",
+        "idle": "c53cb8185c579e8ac8ddaa164e4f25a0d3e4e827f2c7030b38bbc924a390274e",
+        "walk": "03d1beb66df9b06742febf3aa42d6f9e1a5698fb2a6c662d76105b729c67967a",
+        "attack_overhead": "d8c2e82bb40d1bac3b173037afa9f690649afe2aae7526b03e000baf7641df40",
+        "attack_left": "55d3d6d146f68f92595638839111d32dbf9759058f5481f9894f312679574135",
+        "attack_right": "7b5edfb37989669a9cab1f999aec3f209566b56103497d71034b5c3821ef6af5"
+      },
+      "clip_semantic_signatures": {
+        "fall": "f1c60b10cca80a329adeee5a56c5dc84cb8be3ab3e00a8783862e2539afb566e",
+        "turn": "6dc6358f9dc8dd41fea83065cece4d779ec558b9484489727c7d9a0de73aae8d",
+        "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
+        "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
+        "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479",
+        "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+        "walk": "6fa7d2b97c7c14dac44b15867ec83b01b4616222c3f3ef46ccb5abe30ad270d8",
+        "attack_overhead": "d508d28f18230d44470868dc8c04d62dd18a93c89c72ee0889b8a7a4807f34c9",
+        "attack_left": "dbaa22fd5d24d3f65f27c53fc87de02ca0cd09f63e68c6377d7213ace8540662",
+        "attack_right": "83046f1c781b4fee5455dd4d0601f19ebf4d83de0e23b781edbb34bdf75a2f97"
+      },
+      "texture_encoding_manifest_sha256": "f2b5d832961cbc6979fc238220217e77f247e58b563809353f4c2aa5fb907ff8",
+      "attack_profiles_sha256": "5929bb76a06b14e1010184ce7dc7418f3bf7f71a310fe6ea81f3ad9819603fe4"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 14862940,
+          "sha256": "08261b8d4264417b4c8b708bcf7b1505a91d0858fc8bbad8ecf9bb55268cd060"
+        },
+        {
+          "file": "indigo_prepared_png.glb",
+          "bytes": 17956012,
+          "sha256": "6b95389cd4593f05e668f0490d7e053f7144ed1ddc54990c192c889dceaf8fb7"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 43931232,
+          "sha256": "0137cbe804dc52d6f5468d0686920f872e2db84158975001a897d8a401044f4a"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "ee1fe2532e2946e1f5ef34c657d5227d5141dec2485570c201f37186338d1ddb",
+        "turn": "a4bfb270f90d50035a2160aad510e40af8a341ce474a5369d57dd558eb76c78e",
+        "hit_body": "3eeb942ee659b625882262f959a8a5b317d2f8b26fd79d6e3b1a430ce6c56964",
+        "hit_head": "3b57f26b6311d98ec35e6a36e5abc566b24ce7bc65184ff08cbbbe49da816dcf",
+        "hit_side": "c949179e07e7c6e93aa8175f41cffcf8ffcdb346c6cd052ad815a78020f00b77",
+        "idle": "e2ecc07033fc487152a5797884adf1f18dde97a95dd07e4c9a0ac209ba6c24a0",
+        "walk": "d622c648529317b37d770274149e7e0268489dd93cebf12942d784a8f41a26ac",
+        "attack_overhead": "8a408b06e05effd10c8df3932a7c08463bc038d679fa80b7846ef2f0f35b9dc9",
+        "attack_left": "05b8d0f7dcd8ca01b4babe16c9409a7a4acdf7351d4f813933a8b5f71bc6c43e",
+        "attack_right": "db1afc2efb1b3c12f14c65d73dc03d78d30e9f635584a08a952d0ed7cb7d7bbe"
+      },
+      "clip_semantic_signatures": {
+        "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
+        "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
+        "hit_body": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
+        "hit_head": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
+        "hit_side": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4",
+        "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+        "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
+        "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
+        "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
+        "attack_right": "0ab0a92b3d384f006acfb908a943e6caa439803f3ab63a108f1dbaaf526e3e9a"
+      },
+      "texture_encoding_manifest_sha256": "6672e0d8c2200a2ef9fff311968b230d89bf18b09cc4a2fbd81da678e36ad885",
+      "attack_profiles_sha256": "b6033f72c70776e89acbbf7720daf2b91e82b8e878fc853538a17374739b52bb"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 14346256,
+          "sha256": "e519dde4f81544907ef28a0457049aaada36dfc9b7fa8c9fd741863b894fe0ba"
+        },
+        {
+          "file": "veteran_prepared_png.glb",
+          "bytes": 17439336,
+          "sha256": "1d4176c2cfff9310bc3fb3417fd87eb63caf1103b63b271a78fdd2f5b5e7a363"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 45350060,
+          "sha256": "3240392281ab5da0e7c571b1b074064034e0154f9fae45630f61a261829bec87"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "52f562634e0a50c93327761bc63f7e2aca582bbe030f275f9b8cd5c867735262",
+        "turn": "3e7139ddcc127af7cc387039560da1ad6ff51010d07a5d742a9983d58b5f41f2",
+        "hit_body": "fcc4c8e0b5dbe069660051bad36307a29a1ef991209dde66d371e687c2762ed7",
+        "hit_head": "bacc194909872ee185dbc80bc26e698ca2da7681cb0c955eda59c1105eb2c528",
+        "hit_side": "5d9bf26b806682474778ac78c24d04b690e08c89e7d11a5433e0a67b8ea33962",
+        "idle": "ab0d3c025548051d21e783c895608983a66b4539588ee7d12b7e030fb50f5744",
+        "walk": "cfb7856f9361d65d2f4f2aeced43948e870b1dbdd6a56277ef1fc70ce9e4b8e9",
+        "attack_overhead": "bd3d6f558b4d09cb1a2668488fd95f5b489f170d84f16348bb5c8f6e7151f63c",
+        "attack_left": "38ae5239167c7465b6b2ea0a369d39c703870f036fcd9715aeec6bf5ef1a6144",
+        "attack_right": "7ca0a6e3813483d63cfc4a47f5d17564767fb6f224bc1ae35c3701917588fee5"
+      },
+      "clip_semantic_signatures": {
+        "fall": "8289550fb8e87d4a40e6443e9a7214ed4dcd692e2d42eddec7a9b6ee27b1192c",
+        "turn": "48f21c373116743712126a55ba07b34f885f1bcb8b1cc051ba4724b769e4a8b8",
+        "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+        "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+        "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f",
+        "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+        "walk": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
+        "attack_overhead": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
+        "attack_left": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
+        "attack_right": "9f836442e63dd95b602dfa3a09ded05c8a399fc1036c4b14c647af9341b480de"
+      },
+      "texture_encoding_manifest_sha256": "d1723b9758ec20dbb31a45beb5653a12dda39495fd1699a25589999ecffc25fe",
+      "attack_profiles_sha256": "cf138a8a0ccb516f40961d0e6b275ecc838aebf7b920027c4ed6e6b60022afe0"
+    }
+  ],
+  "player_weapon": {
+    "schema_version": 1,
+    "source": {
+      "source": "../refinement/weapon/stage2/dao_grip_refined.glb",
+      "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
+    },
+    "runtime_texture_encoding": {
+      "format": "KHR_texture_basisu",
+      "settings": {
+        "codec": "uastc",
+        "uastc_quality": 3,
+        "threads": 2,
+        "zstd": 18,
+        "mipmap_filter": "lanczos4",
+        "full_mips": true,
+        "normal_mode": false,
+        "normalize": false,
+        "rdo": false,
+        "orientation": "top-left",
+        "pixel_resize": false,
+        "mip_source": {
+          "same_axis": "ktx-cli-generate-mipmap",
+          "different_axes": "explicit-axis-lanczos4-v1"
+        },
+        "axis_mips": {
+          "version": 1,
+          "precision": "float64",
+          "support": 4,
+          "centers": "half-pixel",
+          "antialias": "support-scaled-by-source/target",
+          "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+          "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+          "alpha_filter": "linear-straight",
+          "quantization": "clip-0-1-round-half-up-uint8",
+          "top": "original-decoded-pixels"
+        }
+      },
+      "helper": {
+        "source": "../refinement/pbr-compression/compress_pbr.py",
+        "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+      },
+      "encoder": {
+        "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "source_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+        "version": "ktx version: v4.4.2",
+        "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+      },
+      "release_identity": {
+        "source": "../refinement/pbr-compression/tooling/download-identity.json",
+        "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
+      },
+      "host_python": {
+        "source": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+        "source_sha256": "bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e",
+        "version": "3.9.6",
+        "pillow_version": "11.3.0",
+        "numpy_version": "2.0.2"
+      }
+    },
+    "output": {
+      "file": "dao_grip.glb",
+      "bytes": 4332212,
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+    },
+    "texture_encoding_manifest": {
+      "file": "dao_grip_texture_encoding.json",
+      "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab"
+    },
+    "manifest_sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f"
+  },
+  "review_request_sha256": "f380770863ca3792af32c38bd5f3bdca42cc9d85a76ccae86c2ce44ff589cd03",
+  "Root_visual_review": {
+    "actual_target_images_viewed": [
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/base_natural_guard.png",
+        "sha256": "573b8998a3f791f76bd625854c4e0cd26a273b8ab9d957f5f87f693f27eecdec",
+        "clip": "idle",
+        "source_seconds": 0.0,
+        "actual_import_action": {
+          "requested_source_seconds": 0.0,
+          "actual_action_frame": 0.0,
+          "actual_action_seconds": 0.0,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "idle",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.3087948931827039,
+            -0.7861337193989583,
+            -0.02800027892751178
+          ],
+          "max": [
+            0.4076957389580649,
+            0.26867109017540247,
+            1.9399335876616277
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 72926,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.4211418181266238,
+            0.0539694794289744
+          ],
+          "maximum_ndc_xy": [
+            0.6519184202802669,
+            0.6097750109521891
+          ],
+          "minimum_camera_depth_metres": 2.080958637337267
+        }
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/base_overhead_load.png",
+        "sha256": "345bd4518863a592c5967a39bb8ed7b03f6a090cfe43391d19318645da2404d7",
+        "clip": "attack_overhead",
+        "source_seconds": 0.68,
+        "actual_import_action": {
+          "requested_source_seconds": 0.68,
+          "actual_action_frame": 20.400000000000002,
+          "actual_action_seconds": 0.68,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "attack_overhead",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.403480528447264,
+            -0.3982583940933529,
+            -0.028003405894082456
+          ],
+          "max": [
+            0.3561252481621463,
+            0.5031960376343417,
+            2.2640821623658383
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 72926,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.34604135371173944,
+            0.054527086618177956
+          ],
+          "maximum_ndc_xy": [
+            0.6177503627711113,
+            0.661259895972466
+          ],
+          "minimum_camera_depth_metres": 2.430780413185022
+        }
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/indigo_natural_guard.png",
+        "sha256": "1f0fa071afbf86a7a8bec97c1d69285f7e4be4fc51824ab24b457cdb6d58f65a",
+        "clip": "idle",
+        "source_seconds": 0.0,
+        "actual_import_action": {
+          "requested_source_seconds": 0.0,
+          "actual_action_frame": 0.0,
+          "actual_action_seconds": 0.0,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "idle",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.33120379134997835,
+            -0.8059327384064374,
+            -0.027999397202399745
+          ],
+          "max": [
+            0.4232411689845698,
+            0.23925294466980104,
+            2.010225200247419
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 38756,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.4228505109594418,
+            0.05345857079874239
+          ],
+          "maximum_ndc_xy": [
+            0.6518423838855064,
+            0.636239822027367
+          ],
+          "minimum_camera_depth_metres": 2.0451153857682876
+        }
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/indigo_overhead_load.png",
+        "sha256": "ca1f1e26cff926a2891d2ac1e81b3a8420645620bbea1497f9dab32d3db55e8c",
+        "clip": "attack_overhead",
+        "source_seconds": 0.68,
+        "actual_import_action": {
+          "requested_source_seconds": 0.68,
+          "actual_action_frame": 20.400000000000002,
+          "actual_action_seconds": 0.68,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "attack_overhead",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.409348066012096,
+            -0.3929968479510743,
+            -0.023936755099986273
+          ],
+          "max": [
+            0.3721358707685551,
+            0.5688545568613204,
+            2.3109208226601083
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 38756,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.3385177454186794,
+            0.053394152650497295
+          ],
+          "maximum_ndc_xy": [
+            0.6216930762740351,
+            0.6699279505595449
+          ],
+          "minimum_camera_depth_metres": 2.4213006816886256
+        }
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/veteran_natural_guard.png",
+        "sha256": "1c1950a63511c6f903df38aa05b55a9080939ef6c078a7de5bdea404e2463067",
+        "clip": "idle",
+        "source_seconds": 0.0,
+        "actual_import_action": {
+          "requested_source_seconds": 0.0,
+          "actual_action_frame": 0.0,
+          "actual_action_seconds": 0.0,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "idle",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.33745708189200674,
+            -0.8412394849020411,
+            -0.02799944707979174
+          ],
+          "max": [
+            0.4212885962543224,
+            0.25074135400278125,
+            1.8563492556546919
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 42918,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.41510775364334185,
+            0.045934307376178485
+          ],
+          "maximum_ndc_xy": [
+            0.6667047916980793,
+            0.5829063675489619
+          ],
+          "minimum_camera_depth_metres": 2.03550707859335
+        }
+      },
+      {
+        "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/veteran_overhead_load.png",
+        "sha256": "70dedb509faec831ded724c8f720203ca508c759e5271ce6358884d347048a40",
+        "clip": "attack_overhead",
+        "source_seconds": 0.68,
+        "actual_import_action": {
+          "requested_source_seconds": 0.68,
+          "actual_action_frame": 20.400000000000002,
+          "actual_action_seconds": 0.68,
+          "owners": [
+            {
+              "object": "Armature",
+              "action": "attack_overhead",
+              "slot_handle": 929201142
+            }
+          ]
+        },
+        "actual_geometry_bounds_blender": {
+          "min": [
+            -0.4430419435402871,
+            -0.4823768543704171,
+            -0.032995843589239904
+          ],
+          "max": [
+            0.3497870237562698,
+            0.5083273808128024,
+            2.2825147936524957
+          ],
+          "mesh_names": [
+            "TripoBody_Mesh"
+          ]
+        },
+        "projection": {
+          "vertex_count": 42918,
+          "outside_vertex_count": 0,
+          "minimum_ndc_xy": [
+            0.34019401264334703,
+            0.044159022929189884
+          ],
+          "maximum_ndc_xy": [
+            0.6400321545139729,
+            0.6666379874032919
+          ],
+          "minimum_camera_depth_metres": 2.3927668270437166
+        }
+      }
+    ],
+    "accepted_increment": "Natural guard, full-loop breathing idle, and consistent exact-key quaternion sampling. Full native appearance and combat remain to verify.",
+    "finite_surface_review": {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/review_report.json",
+      "sha256": "8c47f22f7a62b12073c507ef0202c802affed6e2db7992f617bed424e3274740",
+      "status": "finite_actual_target_checks_failed_not_approved"
+    },
+    "inherited_contact_comparison": {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review-final/inherited_contact_comparison.json",
+      "sha256": "29d69bf1954785971d0c98ca54890c34800067a62c699830d9d9927787e65a79",
+      "poses": [
+        {
+          "target": "indigo",
+          "clip": "attack_right",
+          "source_seconds": 1.1,
+          "new_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 18
+          },
+          "previous_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 18
+          },
+          "new_steel": [],
+          "previous_steel": [],
+          "joint_world_matrix_max_component_difference": 2.086162567138672e-06,
+          "identical_sampled_contacts": true
+        },
+        {
+          "target": "veteran",
+          "clip": "attack_left",
+          "source_seconds": 1.1,
+          "new_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 105,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          },
+          "previous_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 105,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          },
+          "new_steel": [],
+          "previous_steel": [],
+          "joint_world_matrix_max_component_difference": 1.0728836059570312e-06,
+          "identical_sampled_contacts": true
+        },
+        {
+          "target": "veteran",
+          "clip": "attack_right",
+          "source_seconds": 1.1,
+          "new_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 53
+          },
+          "previous_core_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 53
+          },
+          "new_steel": [],
+          "previous_steel": [],
+          "joint_world_matrix_max_component_difference": 2.4437904357910156e-06,
+          "identical_sampled_contacts": true
+        }
+      ]
+    },
+    "original_6d35519_contact_comparison": {
+      "path": "ArtSource/refinement/combat-direction/natural-guard/integration/target-review/inherited_contact_comparison.json",
+      "sha256": "4c30728a03c1f0ca3fbc8c2ee13e0ff300129f05c46411f87380d2eeaf6a2d46"
+    },
+    "known_failed_quality_gate": "Three inherited LEFT/RIGHT mid-attack arm/chest contacts remain. They are not cleared or excluded; 01 is repairing a frozen separate candidate. Approval is for a development preview, not final visual quality or competition submission."
+  },
+  "retargeted_idle_weapon_motion": {
+    "report": "ArtSource/refinement/combat-direction/natural-guard/integration/target-motion-review/measurement.json",
+    "sha256": "b79a1b51a5ebbf33d104d456e83d5bf2aa570b5ced3905303197fd61dca7a93d",
+    "budget_metres": 0.002,
+    "reason": "Preserve each target arm length. Source near-fixed wrist does not imply an absolute target wrist lock. Full 181-key/361-profile FK prediction and rigid mount checks passed; maximum target dao translation 1.050836mm.",
+    "root_foot_and_loop_gates": "unchanged"
+  }
+}

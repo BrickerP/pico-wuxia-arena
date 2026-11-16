@@ -329,13 +329,13 @@ internal class ArenaSession(
     fun onTick(nowNanos: Long, uiFrameNanos: Long? = null) {
         val targetInRange = currentTargetInRange()
         val terminal = result == TrialResult.VICTORY || result == TrialResult.DEFEAT
-        val canAdvance = if (result == TrialResult.ROUND_CLEAR) {
+        val canAdvance = if (result == TrialResult.READY || result == TrialResult.ROUND_CLEAR) {
             val state = viewState
             combat.pauseReason == null && state.inputReady && state.sceneReady
         } else {
             targetInRange != null && combat.pauseReason == null && viewState.actionReady
         }
-        if (!trialStarted || terminal || !canAdvance) {
+        if ((!trialStarted && result != TrialResult.READY) || terminal || !canAdvance) {
             lastTickTime = null
             publish(source = "tick", uiFrameNanos = uiFrameNanos)
             return
@@ -347,8 +347,13 @@ internal class ArenaSession(
             return
         }
         val delta = nowNanos - previous
-        if (delta < 0L || delta > Long.MAX_VALUE - combat.simulationNanos) {
+        if (delta < 0L || delta > Long.MAX_VALUE - combat.simulationNanos || delta > Long.MAX_VALUE - enemyMotionNanos) {
             logMessage("Trial clock interval is unavailable; rebuilding its baseline")
+            publish(source = "tick", uiFrameNanos = uiFrameNanos)
+            return
+        }
+        if (result == TrialResult.READY) {
+            enemyMotionNanos += delta
             publish(source = "tick", uiFrameNanos = uiFrameNanos)
             return
         }
@@ -370,6 +375,7 @@ internal class ArenaSession(
             remaining -= step
             when (result) {
                 TrialResult.COUNTDOWN -> {
+                    enemyMotionNanos += step
                     countdownNanos += step
                     if (countdownNanos >= COUNTDOWN_DURATION) {
                         result = TrialResult.FIGHTING
@@ -555,7 +561,7 @@ internal class ArenaSession(
         return stopped
     }
 
-    // Split at source sample keys and the piecewise ACTIVE clock bend. Both blade endpoints
+    // Split at source sample keys and contact recovery bends. Both blade endpoints
     // are linear inside these intervals; rigid player rotations have their own sagitta bound.
     private fun nextPoseInterval(maximum: Long): Long {
         if (maximum == 0L) return maximum
@@ -579,9 +585,9 @@ internal class ArenaSession(
             moveEnemy(maximum)
             val gaitDelta = enemyGaitMeters - actor.gait
             restoreEnemyLocomotion(actor)
-            if (gaitDelta == 0.0) return maximum
             val locomotion = arenaOpponents[roundNumber - 1].locomotionProfile()
-            val start = locomotion.sourceSeconds(true, actor.gait)
+            if (gaitDelta == 0.0) return minOf(maximum, locomotion.nanosUntilIdleSample(enemyMotionNanos))
+            val start = locomotion.sourceSeconds(true, actor.gait, enemyMotionNanos)
             val span = locomotion.loopEndSeconds - locomotion.loopStartSeconds
             val nextKey = if (gaitDelta > 0.0) locomotion.walk.samples.firstOrNull {
                 it.sourceSeconds > start + 1e-12 && it.sourceSeconds <= locomotion.loopEndSeconds
@@ -895,7 +901,8 @@ internal class ArenaSession(
                 else retreat + (recovery.profile.sourcePhaseSeconds.last() - retreat) * (progress - 0.18) / 0.82
             return EnemyPoseFrame(recovery.profile.clip, recovery.profile.sample(source))
         }
-        return arenaOpponents[roundNumber - 1].poseFrame(combat.phase, combat.phaseElapsedNanos + aheadNanos,
+        val elapsed = if (combat.phase == EnemyPhase.IDLE) enemyMotionNanos else combat.phaseElapsedNanos
+        return arenaOpponents[roundNumber - 1].poseFrame(combat.phase, elapsed + aheadNanos,
             combat.nanosUntilPhaseTransition?.minus(aheadNanos)?.coerceAtLeast(0L),
             combat.currentAttackDirection ?: AttackDirection.OVERHEAD, combat.guarding,
             enemyMoveDirection != 0f, enemyGaitMeters, combat.hitReaction, enemyHitZone)
@@ -1006,6 +1013,7 @@ internal class ArenaSession(
         val resumeRequired = combat.pauseReason != null || !viewState.actionReady
         roundNumber++
         clearEnemyContactPlayback()
+        enemyMotionNanos = 0L
         attackSequenceIndex = 0
         check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
         roundGeneration++
@@ -1049,7 +1057,6 @@ internal class ArenaSession(
             deathHitStopNanos + CombatFeedbackProfile.DEATH_SLOWDOWN_DELAY_NANOS
 
     private fun clearEnemyContactPlayback() {
-        enemyMotionNanos = 0L
         contactRecovery = null
         heldEnemyAttackOffsets = null
         heldEnemyPoseFrame = null
@@ -1137,6 +1144,7 @@ internal class ArenaSession(
                 roundGeneration++
                 trialStarted = false
                 clearEnemyContactPlayback()
+                enemyMotionNanos = 0L
                 combat = EnemyCombatStateMachine()
                 enemyHitZone = null
                 initialHealth = combat.health

@@ -1,0 +1,3885 @@
+{
+  "status": "finite_base_scan_passed",
+  "preview": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/base_family_preview.glb",
+    "sha256": "c4e96ed20bb1a61143ba3499cc2de80da80f5da66f5e720019387a6425339424",
+    "bytes": 56490628
+  },
+  "authoring": {
+    "file": "ArtSource/refinement/combat-direction/natural-guard/candidate/family-v1/family_authoring.json",
+    "sha256": "3c579d6bd9d910c6779603dc5894733405afa6509489f43d6e992be5add3e585",
+    "bytes": 83015
+  },
+  "same_base_rest_mesh_skin_materials_verified_against": {
+    "file": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+    "sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+    "bytes": 57925204
+  },
+  "clips": {
+    "idle": {
+      "sample_count": 49,
+      "overlap_sample_count": 0,
+      "once_finger_calibration_and_root_shift_max_component_error": 0.0,
+      "frames": [
+        {
+          "source_seconds": 0.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.03333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.06666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.13333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.16666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.18333333333333332,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.21666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.23333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.26666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.36666666666666664,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.43333333333333335,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4833333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        }
+      ]
+    },
+    "walk": {
+      "sample_count": 49,
+      "overlap_sample_count": 0,
+      "once_finger_calibration_and_root_shift_max_component_error": 0.0,
+      "frames": [
+        {
+          "source_seconds": 0.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.03333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.06666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.13333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.16666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.18333333333333332,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.21666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.23333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.26666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.36666666666666664,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.43333333333333335,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4833333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        }
+      ]
+    },
+    "attack_overhead": {
+      "sample_count": 58,
+      "overlap_sample_count": 0,
+      "once_finger_calibration_and_root_shift_max_component_error": 0.0,
+      "frames": [
+        {
+          "source_seconds": 0.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.03333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.06666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.13333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.16666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.18333333333333332,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.21666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.23333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.26666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.36666666666666664,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.43333333333333335,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4833333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5166666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        }
+      ]
+    },
+    "attack_left": {
+      "sample_count": 58,
+      "overlap_sample_count": 0,
+      "once_finger_calibration_and_root_shift_max_component_error": 0.0,
+      "frames": [
+        {
+          "source_seconds": 0.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.03333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.06666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.13333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.16666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.18333333333333332,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.21666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.23333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.26666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.36666666666666664,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.43333333333333335,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4833333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5166666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        }
+      ]
+    },
+    "attack_right": {
+      "sample_count": 58,
+      "overlap_sample_count": 0,
+      "once_finger_calibration_and_root_shift_max_component_error": 0.0,
+      "frames": [
+        {
+          "source_seconds": 0.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.03333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.06666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.13333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.16666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.18333333333333332,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.21666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.23333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.26666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.36666666666666664,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.43333333333333335,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.4666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.6666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.7666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.8666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 0.9666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.0666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.1666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.2666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.3666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4666666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.4833333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5166666666666666,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.5666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6333333333333333,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.6666666666666667,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.7333333333333334,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        },
+        {
+          "source_seconds": 1.75,
+          "actual_steel_body_triangle_overlaps": [],
+          "nonadjacent_region_triangle_pairs": {
+            "R_forearm__head": 0,
+            "R_forearm__chest": 0,
+            "R_hand__head": 0,
+            "R_hand__chest": 0,
+            "L_forearm__head": 0,
+            "L_forearm__chest": 0,
+            "L_hand__head": 0,
+            "L_hand__chest": 0
+          }
+        }
+      ]
+    }
+  },
+  "semantic_region_triangle_counts": {
+    "head": 47595,
+    "chest": 9497,
+    "R_forearm": 2484,
+    "R_hand": 2131,
+    "L_forearm": 3404,
+    "L_hand": 1927
+  },
+  "scope": "Actual private base preview: full30Hz for each of the five clips plus endpoint-window/loop seams. Actual posed steel/body triangles and R/L hands/forearms versus head/chest.",
+  "limits": [
+    "No continuous-time or volume proof; dominant-joint regions exclude adjacent neck/upperarm seams and within-region cloth layers.",
+    "Original source overlaps are shown in the identical base context when candidate overlap is found; they are not silently waived.",
+    "No three-target retarget or native device acceptance."
+  ],
+  "verification_source_pins": {
+    "ArtSource/refinement/combat-direction/natural-guard/verify_family.py": "e3342b8fb12c79f0598e02021ca6e26525b686609bfd233ea0395067b658d763",
+    "ArtSource/refinement/combat-direction/natural-guard/verify_natural_guard.py": "68d78a380135334fb8e3b3961665f0393a9bbbccf6b8a5b394d179972e4648c1",
+    "ArtSource/refinement/hand-poses/fine-overhead/verify_fine_overhead.py": "e31452b77f1ee7ec8ee836acfb1d329f5859d67802d5eb5737b0298500ddf3d3",
+    "ArtSource/tripo-warrior/prepare_character_library.py": "74b0eb0ff5fd3b66423e72344bcb14f64942c387ddbc16d0b4397135f3b3c9db",
+    "ArtSource/refinement/hand-poses/attack-keyposes/build_keyposes.py": "37a77531631e9cd883750b92ea6c9f1d5c3d4c64c7aed6dd7768094e1aad892e",
+    "ArtSource/tripo-warrior/prepare_rigged_warrior.py": "321728d0d1d02d42c9f72dabd557de46487542a301f69528cc61e01c59be9a2a"
+  }
+}

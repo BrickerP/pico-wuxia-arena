@@ -1,0 +1,98 @@
+{
+  "phase": "before",
+  "kind": "offline actual GLB comparison; not native PICO screenshot",
+  "environment_path": "ArtSource/refinement/environment-hero/native-fight-entrance/courtyard_native_entrance.glb",
+  "environment_sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "baseline_sha256": "96c554cc73bfe4b654cc9045e3d0f6464838c6a7517f59da0dd4bb8c65ab242d",
+  "actor": {
+    "included": true,
+    "input_sha256": {
+      "ArtSource/tripo-warrior/library/base_prepared_png.glb": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+      "app/src/main/assets/models/opponents/base.glb": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+      "ArtSource/tripo-warrior/library/base_texture_encoding.json": "6ebed96bcbec40d97db803ffa914ce9e312e420db75b12097bc888e4e03055e6",
+      "ArtSource/tripo-warrior/library/base_alignment.json": "a89e1c7bebf00f7cc4127f6a0e367538c391931a05b5ffcc00cecb4609f942c6"
+    },
+    "png_sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+    "runtime_sha256": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+    "identity_basis": "Current v5 bank; published PNG-to-runtime encoding chain"
+  },
+  "actor_png_path": "ArtSource/tripo-warrior/library/base_prepared_png.glb",
+  "actor_png_sha256": "6649302a095e341670c4305901b0c4864d9b10e4b4196da3e69b6dd78449bd2a",
+  "runtime_actor_sha256": "f6bc15d6c46c0a3e61d27ed21f76a9c120942d9cee5eece2309cf25073ad6ffd",
+  "actor_pose": "idle@0.0s",
+  "actor_idle_tracks_selected": 1,
+  "actor_stage_position": [
+    0,
+    0.028,
+    -2.4
+  ],
+  "actor_scale": [
+    1,
+    1,
+    1
+  ],
+  "actor_yaw": 0,
+  "excluded_runtime_layers": [
+    "native UI",
+    "player hand/dao",
+    "separately mounted runtime weapon"
+  ],
+  "cameras": {
+    "eye": {
+      "position_stage": [
+        0,
+        1.65,
+        0
+      ],
+      "target_stage": [
+        0,
+        0.7,
+        -2.1
+      ],
+      "lens_mm": 18
+    },
+    "close": {
+      "position_stage": [
+        0,
+        0.5,
+        -0.55
+      ],
+      "target_stage": [
+        0,
+        0,
+        -1.4
+      ],
+      "lens_mm": 23
+    }
+  },
+  "sensor_width_mm": 36,
+  "dof": false,
+  "target_area_stage": {
+    "x_m": [
+      -1.195,
+      0.895
+    ],
+    "z_m": [
+      -2.295,
+      -0.305
+    ],
+    "rows": 4,
+    "whole_slabs": 10,
+    "preserve_staggered_joints": true
+  },
+  "render_script_sha256": "ce36865b1f380dfa0ea2aec9fb5fe4f2624816c6aaffa65a9564aaddd10da4c5",
+  "lighting_source": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+  "lighting_sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+  "lighting_recipe": "stage2 setup night, unchanged between before and after",
+  "renderer": "Cycles CPU",
+  "threads": 2,
+  "samples": 8,
+  "resolution": [
+    960,
+    960
+  ],
+  "images": {
+    "eye_before.png": "c6b5a18ab6ea75d3de05ad568efd8657abb967b1a9e43d57f6418ca57009676c",
+    "close_before.png": "864b77ea631ce15a758d271c9ac9f069fd6b103a5f648eebb526c755a3d61527"
+  }
+}
