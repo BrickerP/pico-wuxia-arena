@@ -1,0 +1,76 @@
+{
+  "candidate_sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+  "open_surface_max_error_from_healthy3000_m": 1.0233950244187273e-07,
+  "closed_palm_controls": [
+    {
+      "source_vertex": 37,
+      "old_finger_driven_motion_mm": 12.965842135203792,
+      "new_motion_mm": 0.7779505698208882
+    },
+    {
+      "source_vertex": 87,
+      "old_finger_driven_motion_mm": 13.696863308221726,
+      "new_motion_mm": 9.73135028119225
+    },
+    {
+      "source_vertex": 106,
+      "old_finger_driven_motion_mm": 0.9650712620927817,
+      "new_motion_mm": 0.057997377537009585
+    },
+    {
+      "source_vertex": 350,
+      "old_finger_driven_motion_mm": 1.3515904703137598,
+      "new_motion_mm": 0.6486473587363316
+    },
+    {
+      "source_vertex": 364,
+      "old_finger_driven_motion_mm": 13.329067672848465,
+      "new_motion_mm": 0.7997441726984834
+    },
+    {
+      "source_vertex": 438,
+      "old_finger_driven_motion_mm": 15.305655282434355,
+      "new_motion_mm": 7.392834464287282
+    },
+    {
+      "source_vertex": 546,
+      "old_finger_driven_motion_mm": 14.833467203630805,
+      "new_motion_mm": 0.8900080497940753
+    },
+    {
+      "source_vertex": 631,
+      "old_finger_driven_motion_mm": 10.113025118374201,
+      "new_motion_mm": 0.606781606739747
+    },
+    {
+      "source_vertex": 728,
+      "old_finger_driven_motion_mm": 12.354087786941832,
+      "new_motion_mm": 6.342699550937795
+    },
+    {
+      "source_vertex": 729,
+      "old_finger_driven_motion_mm": 12.354087786941832,
+      "new_motion_mm": 6.342699550937795
+    },
+    {
+      "source_vertex": 836,
+      "old_finger_driven_motion_mm": 11.682277641520782,
+      "new_motion_mm": 10.304972216337953
+    },
+    {
+      "source_vertex": 837,
+      "old_finger_driven_motion_mm": 11.682277641520782,
+      "new_motion_mm": 10.304972216337953
+    },
+    {
+      "source_vertex": 1236,
+      "old_finger_driven_motion_mm": 9.23363836200124,
+      "new_motion_mm": 4.459847346152665
+    },
+    {
+      "source_vertex": 1349,
+      "old_finger_driven_motion_mm": 17.677475802623583,
+      "new_motion_mm": 15.755663849754413
+    }
+  ]
+}

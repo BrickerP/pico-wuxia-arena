@@ -1,0 +1,32 @@
+{
+  "decision": "approved_for_native_development_integration",
+  "quality_passed": false,
+  "date": "2026-11-16",
+  "right_visuals_viewed": [
+    "dorsal_original_before.png",
+    "dorsal_original_after.png",
+    "dorsal_neutral_after.png"
+  ],
+  "scope": "Remove the anatomical dorsal crease with14 MCP-proximal weight repairs; common Grip stays unchanged. Left statically rebuilt from the same accepted Right.",
+  "assets": [
+    {
+      "source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb",
+      "target": "app/src/main/assets/models/player_hands/right_hand.glb",
+      "sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+      "previous_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "bytes": 2954512
+    },
+    {
+      "source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/left_hand_anatomical.glb",
+      "target": "app/src/main/assets/models/player_hands/left_hand.glb",
+      "sha256": "ecc071364b89d6ec64fad5a8924f2c65d2e787822a28e3088a2aa7c35a0a02ab",
+      "previous_sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+      "bytes": 3097392
+    }
+  ],
+  "limits": [
+    "Native appearance still pending for this pair.",
+    "Closed109 inherited finger intersections and old open/mid fixed-dao intrusion remain.",
+    "No SDK skinned normal/TBN readback or hardware hand-pose acceptance."
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "decision": "offline_source_first_piece_accepted_for_Root_review",
+  "candidate_sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+  "images_actually_viewed": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_before.png",
+      "sha256": "b290284fbdc1b4d51648ec14ba7b94743490524a307d0294bb77e55791a77a54",
+      "stage": "before",
+      "material": "original",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_after.png",
+      "sha256": "4add14a262b62ea79b78d8ba333b82558cc10dca5a4ea701e3c4b2ea727ebf18",
+      "stage": "after",
+      "material": "original",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_neutral_before.png",
+      "sha256": "94d9fb449c6edba5c1608718ec427fd2c2524937d1102c74e05c469b89e15cfb",
+      "stage": "before",
+      "material": "neutral",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_neutral_after.png",
+      "sha256": "8c225a16c7f32cbc272a26fd7854dd00d7cbd5c312951ec4cc2a9b0b173658b7",
+      "stage": "after",
+      "material": "neutral",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9"
+    }
+  ],
+  "observations": [
+    "原材质与neutral同机位图的主长V沟均明显消除，保有合理掌背体积。",
+    "没有用新纹理或材质遮盖；3张KTX和UV保持，主要修正14源掌背混权点。",
+    "源低面数指节、袖口部分硬边及肤色/纹理仍待整体品质打磨。"
+  ],
+  "native_verified": false,
+  "limits": "Finite source poses and offline images only. Root must independently inspect, derive Left atomically and verify native appearance."
+}

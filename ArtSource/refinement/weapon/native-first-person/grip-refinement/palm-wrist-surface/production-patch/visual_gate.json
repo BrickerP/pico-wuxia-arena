@@ -1,0 +1,26 @@
+{
+  "decision": "not_ready_for_visual_integration",
+  "candidate_sha256": "3000b6be1abdfb9b003f8d67048fae39a63a3400eb48d4b37adf4b3e46a5d01c",
+  "technical_checks_passed": true,
+  "images_reviewed": [
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/dorsal_original_before.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/dorsal_original_after.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/dorsal_neutral_before.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/dorsal_neutral_after.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/cuff_original_before.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/cuff_original_after.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/cuff_neutral_before.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/renders/cuff_neutral_after.png"
+  ],
+  "observations": [
+    "主长斜沟在原材质与neutral图仍存在，本轮未解决主要可见缺陷。",
+    "腕口仅局部变顺，neutral图仍有硬平面；不把面数或技术pass当精致度通过。",
+    "实际像素射线定位到此前被digit-spill保护阈值遗漏的掌背混权区，下一轮需按MCP解剖/可见问题定位，而非仅凭蒙皮权重。"
+  ],
+  "diagnosis": {
+    "file": "visual_roi_diagnosis.json",
+    "sha256": "6987c4a16f3c3a1d49b9b08fd5d16521f22bbb2771730367f1115516a991e1f3"
+  },
+  "adoption_recommendation": "do_not_replace_formal_Right_or_derive_Left",
+  "native_verified": false
+}

@@ -1,5 +1,15 @@
 # 02 · 刀具造型材质与握持
 
+## 新交付：MCP前掌背混权修复 a980（2026-11-16）
+
+**本阶段结束，待 Root 实物 review、左右同步派生与原生验收。** 新首件仅在 `production-patch/anatomical-crease/`，完整入口为该目录 `handoff.json`。Right GLB为 `a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862`，仍5,018三角，保健康3000腕口/面流；3000旧GLB未改，也未沿687/9f叠层。
+
+Root已明确授权实际MCP之前的掌背混权皮面修复。新制仅14个源掌背控制点：原631/546/37/364被finger spill随卷指拉动10–14.8mm，造成长V沟；将这一经独立MCP/背侧/一环证实的源区少量混权平滑回投到R_Hand并保持实际open表面，主要点卷指位移降至约0.61–0.89mm。原材质与neutral同机位0.3m真实GLB图均显示主长沟消失，未靠贴图遮盖；图在 `anatomical-crease/renders/`，README列四图。
+
+独立15项正/坏例及完整default/open/mid/closed通过：14点均从源实际MCP骨位与皮面重新证明在关节之前至少3mm、背侧depth<-10mm及source1101/1075必要一环内；真正远端指体/指腹与内掌保持保护。无新增geometry/normal/seam/self/Dao问题，保护LBS误差0；self仍109/0/0/109，继承bad-normal角34/13/19/34→33/13/19/33。UV、骨架/IBM/动画/Grip与3KTX保持。本新阶段首件通过源检查，未使用定位返修；此前次数限制不用于拒绝本新授权。
+
+尚未证明连续时间、SDK TBN或PICO端内观感；源低面数指节/远袖口与肤色纹理仍在。Root需看图后才派生Left及装APK。本路未改正式app、Left、刀、公共producer、Gradle、设备或Git。下方9f/3000等均是已结束的历史阶段，不覆盖当前a980实物。
+
 ## 当前交付：production-patch 前置 crease-remesh BLOCK（2026-11-16）
 
 **本轮一次定位修正阶段结束，等待 Root review。** [失败候选与完整定位](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/crease-remesh/README.md)已冻结。候选 `9f946add…` 为 7,496 面，未超过预算，未扩指部、掌内握柄、Grip、78 骨／IBM、动画、UV、权重或 KTX；不能替换 Right 或派生 Left。

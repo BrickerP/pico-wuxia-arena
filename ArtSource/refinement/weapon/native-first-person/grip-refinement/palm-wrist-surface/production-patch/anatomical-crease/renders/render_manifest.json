@@ -1,0 +1,343 @@
+{
+  "status": "four_matched_actual_renders_complete",
+  "candidate_sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+  "source_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "source_pins": {
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2_decoded.glb": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch_decoded.glb": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/patch_delta.json": "c79f1dd226ae5f1593e9aa2fdfb1dcb87992205ba9278ab5ece20e8937f0d35d",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/decode_manifest.json": "19ed5f662779e610f1518e882465169adccf02bb3c2d5e682c3bbe229c09cf40",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/build_anatomical.py": "c42e31bb6f5e7916b64a0491b7c1553b3201c293aed4864a4558246e7bd42019",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/make_companion.py": "c51072ecfe2be33ad54872ecb8657989a6582ed0e6a33ada15700af61ac0f394",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/render_anatomical.py": "e12cf3f01cc74d2ce3b060623724391c6f73ef19b4cee0959868ab21194ff68d",
+    "ArtSource/refinement/weapon/native-first-person/render_hands.py": "b155bf82b710161c6935e01b274489f5dd57a60bc28772490a6bfd0d6a3ab8df"
+  },
+  "source_fixed_cameras": {
+    "dorsal": {
+      "center_blender": [
+        0.04645105078816414,
+        0.0018978783627972007,
+        -0.0624019019305706
+      ],
+      "distance_m": 0.3,
+      "matrix_world": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "lens_mm": 45,
+      "type": "PERSP"
+    }
+  },
+  "images": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_before.png",
+      "sha256": "b290284fbdc1b4d51648ec14ba7b94743490524a307d0294bb77e55791a77a54",
+      "stage": "before",
+      "material": "original",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_original_after.png",
+      "sha256": "4add14a262b62ea79b78d8ba333b82558cc10dca5a4ea701e3c4b2ea727ebf18",
+      "stage": "after",
+      "material": "original",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_neutral_before.png",
+      "sha256": "94d9fb449c6edba5c1608718ec427fd2c2524937d1102c74e05c469b89e15cfb",
+      "stage": "before",
+      "material": "neutral",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/renders/dorsal_neutral_after.png",
+      "sha256": "8c225a16c7f32cbc272a26fd7854dd00d7cbd5c312951ec4cc2a9b0b173658b7",
+      "stage": "after",
+      "material": "neutral",
+      "view": "dorsal",
+      "pose_seconds": 1.0,
+      "camera_matrix": [
+        [
+          0.6138646602630615,
+          0.7745437026023865,
+          0.15248696506023407,
+          0.09219716489315033
+        ],
+        [
+          0.7894113063812256,
+          -0.6023033261299133,
+          -0.11857710033655167,
+          -0.03367537632584572
+        ],
+        [
+          2.5503405254312383e-07,
+          0.19316522777080536,
+          -0.9811662435531616,
+          -0.35675176978111267
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "asset_sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9"
+    }
+  ],
+  "lighting": [
+    {
+      "name": "Warm key",
+      "matrix_world": [
+        [
+          0.8320503234863281,
+          0.34521177411079407,
+          -0.43419012427330017,
+          -3.0
+        ],
+        [
+          -0.5547001361846924,
+          0.5178177356719971,
+          -0.6512853503227234,
+          -4.5
+        ],
+        [
+          -1.646873037941532e-08,
+          0.7827475070953369,
+          0.6223394274711609,
+          5.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "energy": 900.0,
+      "color": [
+        1.0,
+        0.8399999737739563,
+        0.6899999976158142
+      ],
+      "size": 5.0
+    },
+    {
+      "name": "Cool fill",
+      "matrix_world": [
+        [
+          0.42993369698524475,
+          -0.40015697479248047,
+          0.8093401193618774,
+          4.199999809265137
+        ],
+        [
+          0.9028604626655579,
+          0.19055090844631195,
+          -0.3854002356529236,
+          -2.0
+        ],
+        [
+          8.914938831594554e-08,
+          0.8964177370071411,
+          0.4432101547718048,
+          3.5
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "energy": 650.0,
+      "color": [
+        0.6200000047683716,
+        0.7599999904632568,
+        1.0
+      ],
+      "size": 4.0
+    },
+    {
+      "name": "Edge",
+      "matrix_world": [
+        [
+          -0.9284766912460327,
+          -0.2432209849357605,
+          0.280668169260025,
+          1.2000000476837158
+        ],
+        [
+          0.3713907301425934,
+          -0.6080521941184998,
+          0.7016705274581909,
+          3.0
+        ],
+        [
+          -1.0319775611833393e-07,
+          0.7557222247123718,
+          0.6548922657966614,
+          4.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "energy": 1100.0,
+      "color": [
+        0.8799999952316284,
+        0.9399999976158142,
+        1.0
+      ],
+      "size": 3.0
+    },
+    {
+      "name": "Source fixed dorsal fill",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          -0.9230769276618958,
+          -0.38461530208587646,
+          -0.25
+        ],
+        [
+          0.0,
+          0.38461530208587646,
+          -0.9230769276618958,
+          -0.6000000238418579
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "energy": 45.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "size": 0.6499999761581421
+    }
+  ],
+  "limits": "Offline Blender GLBs, actual decoded KTX pixels and actual skeleton; not PICO or continuous clearance."
+}

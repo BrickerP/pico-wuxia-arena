@@ -1,0 +1,34 @@
+{
+  "phase": "阶段结束，等待 review",
+  "status": "surface_candidate_frozen_visual_gain_limited",
+  "candidate_sha256": "687aea63eabfd4c08401a0a207f23e3740b9dad6348e9ebd6b7cce61f1c31e9e",
+  "source_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "formal_integration_allowed": false,
+  "left_derivation_allowed": false,
+  "formal_app_changed_by_this_task": false,
+  "rendering_complete": true,
+  "no_more_generation_or_rendering_authorized_in_this_stage": true,
+  "result": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/result.json"
+  },
+  "files": [
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/README.md","sha256":"4b261e0075789e627d215a831fa9ec6454c7b7b8921f42cd527498e1a314130e"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/right_hand_surface.glb","sha256":"687aea63eabfd4c08401a0a207f23e3740b9dad6348e9ebd6b7cce61f1c31e9e"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/right_hand_surface_decoded.glb","sha256":"7567b0dea12c44991ff6bfa43893b67242f185018f250a6031f57f6042d54843"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/build_surface.py","sha256":"f644c3dc52f29f15c5e49dfcba763ca55e261c44b43ce70cc8b0ff2eef4583c8"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/manifest.json","sha256":"c87bb30548180324770606a58a312ab9a55fa8dad8a5fcd3c58c9e3cd44313bc"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/roi_delta.json","sha256":"42271048884fc41e1a04f7c11f3c5096076ebe2853c23c29b277acab739a651a"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/roi_constraints.json","sha256":"a9ec997ebd027408a5d18beff8b544aa05ea773fea32af578b1341c118d0626c"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/verify_surface.py","sha256":"ae6a8fcb11cd8d1e2f3207cf8d409e294874a3972196da6130dedeff0bd18017"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/test_verify_surface.py","sha256":"b24df1df12caf7d526b2e65592851da844e58315a5555dd966fe50055b2684c3"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/verification.json","sha256":"27ff6183c0416a7bb763dfad14b534e7136b392ab017b3dacea78c9cb0d027f1"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/make_companion.py","sha256":"90ee0ef684740b28efe73b41f40ff6797993285ead7ebe9afec746be47fe9483"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/decode_manifest.json","sha256":"86cfaf487c48e4351ca90f78dd8be7bf38e6d6ea1dd84905043857846a5ca2b2"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/render_surface.py","sha256":"736db0361660c557a6c3b730618ca85afe71df8651ed423978b9b8142cefc7e7"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/previews/render_manifest.json","sha256":"b05bbff75f4d887ad60a712ea31d6073a3424bc33e36ebb1db1654b61dfed0ae"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/previews/before_dorsal_back_closed1_0.3m.png","sha256":"2e737d17c6181c2062ca818a32978cba9700b8b2aaf9a560161861293b41af57"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/previews/after_dorsal_back_closed1_0.3m.png","sha256":"2f674b9c2476e1d317241ab05fd75b3c4bd03efeb9b9d8b52f1725c9ba79805a"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/previews/before_wrist_cuff_closed1_0.3m.png","sha256":"d53e0a209e04f232ecafbb344f16558ba0cc8437479d084926cb43aefe9f51c8"},
+    {"path":"ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/previews/after_wrist_cuff_closed1_0.3m.png","sha256":"49eaf5a9a0495e42a6be0432fe5494b22025af0aec61a34350503ffdd1c2c1e1"}
+  ]
+}

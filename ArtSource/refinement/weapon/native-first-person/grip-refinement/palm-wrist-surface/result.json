@@ -1,0 +1,49 @@
+{
+  "decision": "REQUEST_ROOT_VISUAL_REVIEW_SURFACE_CANDIDATE",
+  "phase": "阶段结束，等待 review",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/right_hand_surface.glb",
+    "sha256": "687aea63eabfd4c08401a0a207f23e3740b9dad6348e9ebd6b7cce61f1c31e9e",
+    "triangles": 5598
+  },
+  "source": {
+    "path": "app/src/main/assets/models/player_hands/right_hand.glb",
+    "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+    "triangles": 4936
+  },
+  "scope": {
+    "changed_rois": [
+      "dorsal ridge: 16 source vertices / 54 source faces",
+      "hand-adjacent first cuff band: 51 source vertices / 125 source faces"
+    ],
+    "changed_old_vertices": 64,
+    "new_vertices": 352,
+    "finger_curves_wrist_grip_bones_ibm_animations": "unchanged",
+    "three_1536_ktx_payloads": "unchanged",
+    "formal_asset_or_app_changed": false
+  },
+  "verification": {
+    "tests_passed": 35,
+    "verification_sha256": "27ff6183c0416a7bb763dfad14b534e7136b392ab017b3dacea78c9cb0d027f1",
+    "new_dao_or_self_face_pairs": 0,
+    "non_roi_skin_error_default_0_mid_closed": 0,
+    "roi_declared_parent_surface_offset_max_m": [0.001954, 0.001965, 0.001973],
+    "inherited_core_max_mm_default_open_mid_closed": [11.077612, 11.077612, 4.880923, 0.092522],
+    "inherited_closed_surface_pairs": {
+      "thumb_index": 47,
+      "mid_ring": 62
+    },
+    "source_tangent": "absent; only synthetic tangent handedness fixture passed"
+  },
+  "visual_review": {
+    "matched_actual_ktx_views": 4,
+    "dorsal": "long ridge remains visible but its sharp fold is reduced",
+    "cuff": "first cuff band is rounder but silhouette gain is limited",
+    "not_accepted_as": [
+      "overall hand quality pass",
+      "native runtime or PICO acceptance",
+      "formal app asset publication"
+    ]
+  },
+  "next": "Root alone decides whether the visible gain justifies accepting this Right candidate and then deriving Left from it. Do not derive Left before that review."
+}

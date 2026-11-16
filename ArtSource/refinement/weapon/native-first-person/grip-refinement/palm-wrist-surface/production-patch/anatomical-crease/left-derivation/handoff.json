@@ -1,0 +1,66 @@
+{
+  "status": "stage_ended_private_Left_derivation_ready_for_Root_integration_review",
+  "source": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb",
+    "sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+    "bytes": 2954512
+  },
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/left_hand_anatomical.glb",
+    "sha256": "ecc071364b89d6ec64fad5a8924f2c65d2e787822a28e3088a2aa7c35a0a02ab",
+    "bytes": 3097392
+  },
+  "source_technical_evidence": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/verification.json",
+    "sha256": "d11c9bd6a86481701a9f33dfe8d6c428f82976f2f979844e42b27dcc66c784cf",
+    "bytes": 76846
+  },
+  "source_delta": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/patch_delta.json",
+    "sha256": "c79f1dd226ae5f1593e9aa2fdfb1dcb87992205ba9278ab5ece20e8937f0d35d",
+    "bytes": 117869
+  },
+  "verification": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/verification.json",
+    "sha256": "6adeb93083fa1910a94d4a114ccbdd22a2772612ebb9b92c1d50c284157023ea",
+    "bytes": 242809
+  },
+  "mapping": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/mapping.json",
+    "sha256": "732a198e69b4065f4676d587382d4ddf2966128fc8154acdcf79756ee90de4a2",
+    "bytes": 13045
+  },
+  "implementation": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/derive_left.py",
+    "sha256": "e589d0d24d9dc5b0e99e96e6c904e7b4d52e2f361ac05450d68ffbdcd01478e2",
+    "bytes": 10918
+  },
+  "reused_frozen_code": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/build_left.py",
+      "sha256": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+      "bytes": 18272
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verify_left_rebuild.py",
+      "sha256": "4cd634d3c854825cd4761e2e78df75c169ad80b1ca673eb7dfacacaf80340447",
+      "bytes": 29040
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/test_verify_left_rebuild.py",
+      "sha256": "425c7f9b50571810181ca61353e4d5b5b812e347760de8c1251f340d392317f7",
+      "bytes": 11546
+    }
+  ],
+  "normal_and_winding_LBS_reflection_error": 0,
+  "authorized14_weights_preserved": true,
+  "inherited_closed_finger_self_pairs": 109,
+  "new_self_pairs": 0,
+  "rebuild_command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/derive_left.py",
+  "integration": "Root replaces current Right and derived Left together; commonGrip/SDK frame unchanged. This task never writes app/formal assets.",
+  "limits": [
+    "Mirror equivalence does not repair inherited finger intersections or old fixed-DAO open/mid contacts.",
+    "The actual dao is not mirrored and is independently measured by component topology.",
+    "No render, Blender, native SDK tracking physiology, tangent generator or final hand-quality pass is claimed."
+  ]
+}

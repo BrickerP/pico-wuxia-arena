@@ -1,0 +1,192 @@
+{
+  "status": "stage_ended_technical_pass_visual_rejected_waiting_Root_review",
+  "source_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "candidate": {
+    "file": "right_hand_patch.glb",
+    "sha256": "3000b6be1abdfb9b003f8d67048fae39a63a3400eb48d4b37adf4b3e46a5d01c",
+    "triangles": 5018,
+    "vertices": 2867
+  },
+  "technical_verification": {
+    "file": "verification.json",
+    "sha256": "b8e048d620fd80de8d8fe45410568e39b061af7dfb7a1054e42edf9f2a54b19a",
+    "passed": true,
+    "test_count": 12
+  },
+  "visual_gate": {
+    "file": "visual_gate.json",
+    "sha256": "3aa19063bf268655cac9678aaa51ebde73fe0c76f0a828a39bc0b6db7820a9d7",
+    "decision": "not_ready_for_visual_integration"
+  },
+  "render_evidence": {
+    "file": "renders/render_manifest.json",
+    "sha256": "e03156949e80166f0190c39b7d6cf0f72eb4d53658f9c13b85b93f12d95f39d1",
+    "views": 8,
+    "perspective_distance_m": 0.3
+  },
+  "attempts": {
+    "new_3a_candidate": "b1bade2971ee1d4247b1d1a675f03d2ebefa9b488f057748daf7a17581008b5c",
+    "one_localized_repair": {
+      "attempt1_sha256": "b1bade2971ee1d4247b1d1a675f03d2ebefa9b488f057748daf7a17581008b5c",
+      "source_face": 1226,
+      "reason": "Actual mid-pose child1244 became a thin turned triangle; retain this original mixed-skin fan and its one-ring without remeshing, no validation exclusion.",
+      "source_faces_retained": [
+        1130,
+        1140,
+        1154,
+        1167,
+        1220,
+        1221,
+        1226,
+        1227,
+        1228,
+        1234,
+        1235,
+        1244
+      ],
+      "source_vertices_retained": [
+        1583,
+        1615,
+        1666,
+        1740,
+        1745,
+        1764,
+        1794,
+        1805,
+        1814,
+        1870,
+        1910
+      ]
+    },
+    "archive": "attempt1/",
+    "first_render_issue": "Initial orthographic images are marked misframed and not used for acceptance."
+  },
+  "unchanged": "No app/formal model/left/dao/public producer/Gradle/device/Git changes. Original source3a, rig/IBM/animation and3KTX maintained.",
+  "files": [
+    {
+      "file": "README.md",
+      "sha256": "9eeac15cb10bc497ca7cd68546d4237b33197d0dcce34ee5a7120bdcf1360afd",
+      "bytes": 5062
+    },
+    {
+      "file": "build_patch.py",
+      "sha256": "44829f748267fd4f689e107370c327c73e0093308db256bd55b60f210302f907",
+      "bytes": 13272
+    },
+    {
+      "file": "contact_diagnostics_initial.json",
+      "sha256": "139a49f69c2829cb830714138f4cc2b48a3214866c4b70ab054770e6ba3017a9",
+      "bytes": 58827
+    },
+    {
+      "file": "decode_manifest.json",
+      "sha256": "e2d6981b478293107cb609995e77d3b482d4eadc5d5760cc09d578ec80675859",
+      "bytes": 24676
+    },
+    {
+      "file": "diagnose_visual_roi.py",
+      "sha256": "19010c296233cea1a9c80ee90c088347df69f5c5086c2755dc893547bfe2a4c8",
+      "bytes": 4207
+    },
+    {
+      "file": "make_companion_patch.py",
+      "sha256": "d32f4f1156b860eed2041cce4481754a690438ff10bcc867b13e36e4e9fd34fd",
+      "bytes": 1110
+    },
+    {
+      "file": "patch_delta.json",
+      "sha256": "ee0ab21e08063057d60a10017a7f0cc516c820c6e7dd56f18086e54ea7f9db99",
+      "bytes": 116519
+    },
+    {
+      "file": "posed_failure_diagnostics.json",
+      "sha256": "821759d6f3188f250b1f1e6e0c8d9157bab0db17cdcc0fa7172fae55d9dbebbb",
+      "bytes": 1458
+    },
+    {
+      "file": "render_patch.py",
+      "sha256": "c2bbbe31d89a41ce563b593534951775f2e54913f2188a76027e12ff77072df3",
+      "bytes": 5226
+    },
+    {
+      "file": "renders/cuff_neutral_after.png",
+      "sha256": "1f18ae73ee41366416bab66d4e033ddc9551d1e58e2963ac1bffe666d406170b",
+      "bytes": 778632
+    },
+    {
+      "file": "renders/cuff_neutral_before.png",
+      "sha256": "2fa2c1de20a4e5a4df8429d9f5f19790af1adb9f35d1f8a0af665e983f6b6c53",
+      "bytes": 777550
+    },
+    {
+      "file": "renders/cuff_original_after.png",
+      "sha256": "d4523a7ebf3e2f5cd917e4eb1c8bc8ba38b5b76db70ae43fa8129ceb6719da23",
+      "bytes": 870793
+    },
+    {
+      "file": "renders/cuff_original_before.png",
+      "sha256": "cac2e02dfce544eb71ef7c1292e4469aca6ff21255ba9c6d129936b7f7c8c226",
+      "bytes": 869944
+    },
+    {
+      "file": "renders/dorsal_neutral_after.png",
+      "sha256": "152bc07e2c4688c9f6c9a27ae6183efc8226f44dbf97f6cb2e0874969907b6aa",
+      "bytes": 777832
+    },
+    {
+      "file": "renders/dorsal_neutral_before.png",
+      "sha256": "ae4e2f4badfd2399837174b89e2cb651ceaecbdc4811f663156f59b7dff4d3b1",
+      "bytes": 776822
+    },
+    {
+      "file": "renders/dorsal_original_after.png",
+      "sha256": "81e3f4e44318acb7d6d43b97261a876a6fca3d94878e7796afb7f8dbe19db635",
+      "bytes": 864361
+    },
+    {
+      "file": "renders/dorsal_original_before.png",
+      "sha256": "6e962e5a7ee89222b06130c792dc08edc10a6de0516d3596343620e411adb348",
+      "bytes": 863512
+    },
+    {
+      "file": "renders/render_manifest.json",
+      "sha256": "e03156949e80166f0190c39b7d6cf0f72eb4d53658f9c13b85b93f12d95f39d1",
+      "bytes": 14190
+    },
+    {
+      "file": "right_hand_patch.glb",
+      "sha256": "3000b6be1abdfb9b003f8d67048fae39a63a3400eb48d4b37adf4b3e46a5d01c",
+      "bytes": 2735820
+    },
+    {
+      "file": "right_hand_patch_decoded.glb",
+      "sha256": "39ad9bc63ff8cba53502ad8151d2fe34ca4dfc04070868a3373904c49eea80c4",
+      "bytes": 2466740
+    },
+    {
+      "file": "test_verify_patch.py",
+      "sha256": "e8c21ae530376c5728918682c0bc41503f8aa2cca3a5911dd737d9a64c588927",
+      "bytes": 9017
+    },
+    {
+      "file": "verification.json",
+      "sha256": "b8e048d620fd80de8d8fe45410568e39b061af7dfb7a1054e42edf9f2a54b19a",
+      "bytes": 69498
+    },
+    {
+      "file": "verify_patch.py",
+      "sha256": "5263e37c3a31b6c0578bf957444f7b81bdb16c87dc2b0fec2094380ce2069ba3",
+      "bytes": 15516
+    },
+    {
+      "file": "visual_gate.json",
+      "sha256": "3aa19063bf268655cac9678aaa51ebde73fe0c76f0a828a39bc0b6db7820a9d7",
+      "bytes": 1962
+    },
+    {
+      "file": "visual_roi_diagnosis.json",
+      "sha256": "6987c4a16f3c3a1d49b9b08fd5d16521f22bbb2771730367f1115516a991e1f3",
+      "bytes": 7321
+    }
+  ]
+}

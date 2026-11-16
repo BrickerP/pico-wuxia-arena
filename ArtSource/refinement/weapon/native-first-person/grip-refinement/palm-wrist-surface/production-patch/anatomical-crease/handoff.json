@@ -1,0 +1,373 @@
+{
+  "status": "stage_ended_source_checks_and_visual_first_piece_passed_waiting_Root_review",
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb",
+    "sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+    "bytes": 2954512,
+    "triangles": 5018,
+    "vertices": 2867
+  },
+  "original_source": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+    "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0"
+  },
+  "healthy_surface_base": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/right_hand_patch.glb",
+    "sha256": "3000b6be1abdfb9b003f8d67048fae39a63a3400eb48d4b37adf4b3e46a5d01c"
+  },
+  "authorized_anatomical_source_vertices": [
+    37,
+    87,
+    106,
+    350,
+    364,
+    438,
+    546,
+    631,
+    728,
+    729,
+    836,
+    837,
+    1236,
+    1349
+  ],
+  "independent_source_mcp_proof": {
+    "Root_wrist_delta_sha256": "ee0ab21e08063057d60a10017a7f0cc516c820c6e7dd56f18086e54ea7f9db99",
+    "frame": {
+      "origin_m": [
+        0.089636300494008,
+        -0.030120659194416442,
+        0.018117968926224345
+      ],
+      "axes": [
+        [
+          0.285470284014261,
+          -0.07113900815951676,
+          -0.9557436677597698
+        ],
+        [
+          -0.946178852743133,
+          -0.17958887321183292,
+          -0.2692460124870802
+        ],
+        [
+          -0.15248703409308573,
+          0.9811661827318471,
+          -0.11857751176723899
+        ]
+      ],
+      "MCP_bones": {
+        "R_Index1": [
+          0.028075554832358036,
+          0.11193384088999776,
+          0.0024664291225078567
+        ],
+        "R_Mid1": [
+          0.004487745133014041,
+          0.11630277462013,
+          -0.0049328582450157065
+        ],
+        "R_Pinky1": [
+          -0.03256329996537207,
+          0.10075792384758686,
+          0.0024664291225078593
+        ]
+      },
+      "source_seed_faces": [
+        1101,
+        1075
+      ],
+      "vertex_one_ring_faces": [
+        853,
+        883,
+        899,
+        907,
+        925,
+        977,
+        985,
+        1002,
+        1003,
+        1073,
+        1075,
+        1084,
+        1101,
+        1103,
+        1135,
+        1148,
+        1217,
+        1241
+      ],
+      "radial_MCP_boundary": "linear between joint centres, nearest endpoint held laterally"
+    },
+    "declared_vertex_evidence": {
+      "37": {
+        "source_open_anatomical_m": [
+          -0.00398807055771444,
+          0.09731933605385071,
+          -0.02102627648272225
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11274672674784764,
+        "MCP_proximal_margin_m": 0.015427390693996929,
+        "eligible": true
+      },
+      "87": {
+        "source_open_anatomical_m": [
+          -0.0045612218057399624,
+          0.10680583173107075,
+          -0.01928699520844831
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11250625982992413,
+        "MCP_proximal_margin_m": 0.005700428098853377,
+        "eligible": true
+      },
+      "106": {
+        "source_open_anatomical_m": [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11603769401445146,
+        "MCP_proximal_margin_m": 0.044216176661449835,
+        "eligible": true
+      },
+      "350": {
+        "source_open_anatomical_m": [
+          0.01470896494506386,
+          0.06478725800275893,
+          -0.021212304302890603
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11440960045223758,
+        "MCP_proximal_margin_m": 0.04962234244947865,
+        "eligible": true
+      },
+      "364": {
+        "source_open_anatomical_m": [
+          0.007480662798664581,
+          0.09458068669930746,
+          -0.023647926891981627
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11574842645861617,
+        "MCP_proximal_margin_m": 0.021167739759308718,
+        "eligible": true
+      },
+      "438": {
+        "source_open_anatomical_m": [
+          0.006285748303433007,
+          0.10798438873430732,
+          -0.02337296342971314
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.1159697485020523,
+        "MCP_proximal_margin_m": 0.007985359767744976,
+        "eligible": true
+      },
+      "546": {
+        "source_open_anatomical_m": [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11521725567178204,
+        "MCP_proximal_margin_m": 0.008767707408497485,
+        "eligible": true
+      },
+      "631": {
+        "source_open_anatomical_m": [
+          0.017699233440823765,
+          0.09173045616438617,
+          -0.020181701080040144
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11385574296992795,
+        "MCP_proximal_margin_m": 0.02212528680554178,
+        "eligible": true
+      },
+      "728": {
+        "source_open_anatomical_m": [
+          0.019465527392970947,
+          0.10626587393287457,
+          -0.0185437831344191
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11352859003274451,
+        "MCP_proximal_margin_m": 0.007262716099869948,
+        "eligible": true
+      },
+      "729": {
+        "source_open_anatomical_m": [
+          0.019465527392970947,
+          0.10626587393287457,
+          -0.0185437831344191
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11352859003274451,
+        "MCP_proximal_margin_m": 0.007262716099869948,
+        "eligible": true
+      },
+      "836": {
+        "source_open_anatomical_m": [
+          0.028448217613793604,
+          0.10738645690716433,
+          -0.017818356905849292
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11193384088999776,
+        "MCP_proximal_margin_m": 0.004547383982833428,
+        "eligible": true
+      },
+      "837": {
+        "source_open_anatomical_m": [
+          0.028448217613793604,
+          0.10738645690716433,
+          -0.017818356905849292
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.11193384088999776,
+        "MCP_proximal_margin_m": 0.004547383982833428,
+        "eligible": true
+      },
+      "1236": {
+        "source_open_anatomical_m": [
+          -0.0030989298741609323,
+          0.08247388423082219,
+          -0.022108766168308907
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.1131197677566757,
+        "MCP_proximal_margin_m": 0.030645883525853512,
+        "eligible": true
+      },
+      "1349": {
+        "source_open_anatomical_m": [
+          -0.014081295513828281,
+          0.10403488521423275,
+          -0.02067138661576137
+        ],
+        "inside_vertex_one_ring": true,
+        "radially_interpolated_MCP_forward_m": 0.10851209111638654,
+        "MCP_proximal_margin_m": 0.004477205902153794,
+        "eligible": true
+      }
+    }
+  },
+  "test_count": 15,
+  "verification": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/verification.json",
+    "sha256": "d11c9bd6a86481701a9f33dfe8d6c428f82976f2f979844e42b27dcc66c784cf",
+    "passed": true
+  },
+  "visual_gate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/visual_gate.json",
+    "sha256": "8168378d214e328c4e11c4a3ea9e4f0f27ddcbc9cf9517aa974379dd0b436710"
+  },
+  "source_limits": [
+    "Finite default/open/mid/closed checks, not continuous-time or native acceptance.",
+    "Normals use the mathematical inverse-transpose blended-LBS transform, not SDK TBN readback.",
+    "The accepted wrist domain is fixed to the immutable 3000 packet. Any extension needs independently reconstructed source MCP/dorsal/one-ring evidence. Digit-dominated vertices remain protected except those proven metacarpal exceptions; joint weights alone are not anatomy."
+  ],
+  "iteration_budget": {
+    "initial_piece_passed": true,
+    "localized_repair_used": false
+  },
+  "Root_handoff": "No app/formal model/Left/dao/public producer/Gradle/device/Git changes. Root independent review, Left derivation and actual PICO validation remain.",
+  "shared_validator": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/verify_patch.py",
+    "sha256": "f66402cd95eab3c014e9ef627972506d71affbfa8432d90a557c80b7094c1827",
+    "tests": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/test_verify_patch.py",
+    "tests_sha256": "a268fe32de4594d042c7956cbda4df118ae703f0b80d2931595dac9e68b56e9e"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "34f1bcec83053106c555689e26553ef935e0109c44247aa135f86cd31333f009",
+      "bytes": 4303
+    },
+    {
+      "path": "build_anatomical.py",
+      "sha256": "c42e31bb6f5e7916b64a0491b7c1553b3201c293aed4864a4558246e7bd42019",
+      "bytes": 7896
+    },
+    {
+      "path": "decode_manifest.json",
+      "sha256": "19ed5f662779e610f1518e882465169adccf02bb3c2d5e682c3bbe229c09cf40",
+      "bytes": 25630
+    },
+    {
+      "path": "legacy3000_verification.json",
+      "sha256": "39c0cdbda59017dc44d99a2c2f0a979f8da7fc5aa81a82a113639a30fed8906a",
+      "bytes": 71353
+    },
+    {
+      "path": "make_companion.py",
+      "sha256": "c51072ecfe2be33ad54872ecb8657989a6582ed0e6a33ada15700af61ac0f394",
+      "bytes": 1053
+    },
+    {
+      "path": "patch_delta.json",
+      "sha256": "c79f1dd226ae5f1593e9aa2fdfb1dcb87992205ba9278ab5ece20e8937f0d35d",
+      "bytes": 117869
+    },
+    {
+      "path": "render_anatomical.py",
+      "sha256": "e12cf3f01cc74d2ce3b060623724391c6f73ef19b4cee0959868ab21194ff68d",
+      "bytes": 5217
+    },
+    {
+      "path": "renders/dorsal_neutral_after.png",
+      "sha256": "8c225a16c7f32cbc272a26fd7854dd00d7cbd5c312951ec4cc2a9b0b173658b7",
+      "bytes": 775814
+    },
+    {
+      "path": "renders/dorsal_neutral_before.png",
+      "sha256": "94d9fb449c6edba5c1608718ec427fd2c2524937d1102c74e05c469b89e15cfb",
+      "bytes": 776822
+    },
+    {
+      "path": "renders/dorsal_original_after.png",
+      "sha256": "4add14a262b62ea79b78d8ba333b82558cc10dca5a4ea701e3c4b2ea727ebf18",
+      "bytes": 862296
+    },
+    {
+      "path": "renders/dorsal_original_before.png",
+      "sha256": "b290284fbdc1b4d51648ec14ba7b94743490524a307d0294bb77e55791a77a54",
+      "bytes": 863512
+    },
+    {
+      "path": "renders/render_manifest.json",
+      "sha256": "5b689331aa1386da089650d9b22fad91819f1be3f74a4a63305414d9c841f521",
+      "bytes": 9692
+    },
+    {
+      "path": "right_hand_patch.glb",
+      "sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+      "bytes": 2954512
+    },
+    {
+      "path": "right_hand_patch_decoded.glb",
+      "sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9",
+      "bytes": 2685432
+    },
+    {
+      "path": "skinning_effect.json",
+      "sha256": "0c3714868fc9fa0093e1a887d92464d783df3911b274979703804851b0dabae2",
+      "bytes": 2149
+    },
+    {
+      "path": "verification.json",
+      "sha256": "d11c9bd6a86481701a9f33dfe8d6c428f82976f2f979844e42b27dcc66c784cf",
+      "bytes": 76846
+    },
+    {
+      "path": "visual_gate.json",
+      "sha256": "8168378d214e328c4e11c4a3ea9e4f0f27ddcbc9cf9517aa974379dd0b436710",
+      "bytes": 4713
+    }
+  ],
+  "Root_parallel_work": "Root-owned left-derivation/ is intentionally excluded from this source Right packet; this task did not write or verify those changing files."
+}

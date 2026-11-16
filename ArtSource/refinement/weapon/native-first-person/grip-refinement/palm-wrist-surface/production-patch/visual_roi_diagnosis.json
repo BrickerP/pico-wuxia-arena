@@ -1,0 +1,289 @@
+{
+  "source_sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+  "source_view": "renders/dorsal_original_before.png",
+  "source_view_sha256": "6e962e5a7ee89222b06130c792dc08edc10a6de0516d3596343620e411adb348",
+  "render_manifest_sha256": "e03156949e80166f0190c39b7d6cf0f72eb4d53658f9c13b85b93f12d95f39d1",
+  "diagnostic_sha256": "19010c296233cea1a9c80ee90c088347df69f5c5086c2755dc893547bfe2a4c8",
+  "camera": {
+    "center_blender": [
+      0.04645105078816414,
+      0.0018978783627972007,
+      -0.0624019019305706
+    ],
+    "distance_m": 0.3,
+    "matrix_world": [
+      [
+        0.6138646602630615,
+        0.7745437026023865,
+        0.15248696506023407,
+        0.09219716489315033
+      ],
+      [
+        0.7894113063812256,
+        -0.6023033261299133,
+        -0.11857710033655167,
+        -0.03367537632584572
+      ],
+      [
+        2.5503405254312383e-07,
+        0.19316522777080536,
+        -0.9811662435531616,
+        -0.35675176978111267
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "lens_mm": 45,
+    "type": "PERSP"
+  },
+  "image_size": [
+    1000,
+    750
+  ],
+  "pose_seconds": 1.0,
+  "knuckle_bone_positions_in_anatomical_frame_m": {
+    "R_Index1": [
+      0.028075554832358036,
+      0.11193384088999776,
+      0.0024664291225078563
+    ],
+    "R_Mid1": [
+      0.004487745133014039,
+      0.11630277462013,
+      -0.004932858245015705
+    ],
+    "R_Pinky1": [
+      -0.03256329996537207,
+      0.10075792384758686,
+      0.0024664291225078593
+    ]
+  },
+  "pixel_surface_hits": [
+    {
+      "pixel_xy": [
+        450,
+        480
+      ],
+      "source_face": 1101,
+      "source_vertices": [
+        631,
+        106,
+        546
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.017699233440823765,
+          0.09173045616438617,
+          -0.020181701080040144
+        ],
+        [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ]
+      ],
+      "average_weights": {
+        "R_Hand": 0.5860276420911152,
+        "R_Mid1": 0.2550009886423747,
+        "R_Index1": 0.13337576047827798,
+        "R_Ring1": 0.021383079312120877,
+        "R_Pinky1": 0.004212544610102971,
+        "BoneRoot": 0.0
+      }
+    },
+    {
+      "pixel_xy": [
+        445,
+        530
+      ],
+      "source_face": 1101,
+      "source_vertices": [
+        631,
+        106,
+        546
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.017699233440823765,
+          0.09173045616438617,
+          -0.020181701080040144
+        ],
+        [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ]
+      ],
+      "average_weights": {
+        "R_Hand": 0.5860276420911152,
+        "R_Mid1": 0.2550009886423747,
+        "R_Index1": 0.13337576047827798,
+        "R_Ring1": 0.021383079312120877,
+        "R_Pinky1": 0.004212544610102971,
+        "BoneRoot": 0.0
+      }
+    },
+    {
+      "pixel_xy": [
+        430,
+        570
+      ],
+      "source_face": 1101,
+      "source_vertices": [
+        631,
+        106,
+        546
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.017699233440823765,
+          0.09173045616438617,
+          -0.020181701080040144
+        ],
+        [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ]
+      ],
+      "average_weights": {
+        "R_Hand": 0.5860276420911152,
+        "R_Mid1": 0.2550009886423747,
+        "R_Index1": 0.13337576047827798,
+        "R_Ring1": 0.021383079312120877,
+        "R_Pinky1": 0.004212544610102971,
+        "BoneRoot": 0.0
+      }
+    },
+    {
+      "pixel_xy": [
+        428,
+        570
+      ],
+      "source_face": 1101,
+      "source_vertices": [
+        631,
+        106,
+        546
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.017699233440823765,
+          0.09173045616438617,
+          -0.020181701080040144
+        ],
+        [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ]
+      ],
+      "average_weights": {
+        "R_Hand": 0.5860276420911152,
+        "R_Mid1": 0.2550009886423747,
+        "R_Index1": 0.13337576047827798,
+        "R_Ring1": 0.021383079312120877,
+        "R_Pinky1": 0.004212544610102971,
+        "BoneRoot": 0.0
+      }
+    },
+    {
+      "pixel_xy": [
+        422,
+        570
+      ],
+      "source_face": 1075,
+      "source_vertices": [
+        106,
+        37,
+        364
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.005918911469689743,
+          0.07182151735300163,
+          -0.023976532511031875
+        ],
+        [
+          -0.00398807055771444,
+          0.09731933605385071,
+          -0.02102627648272225
+        ],
+        [
+          0.007480662798664581,
+          0.09458068669930746,
+          -0.023647926891981627
+        ]
+      ],
+      "average_weights": {
+        "R_Hand": 0.6408597926298777,
+        "R_Mid1": 0.20777849356333417,
+        "R_Ring1": 0.08498548336016636,
+        "R_Index1": 0.0348438685759902,
+        "R_Pinky1": 0.03153236582875252
+      }
+    },
+    {
+      "pixel_xy": [
+        415,
+        610
+      ],
+      "source_face": 907,
+      "source_vertices": [
+        546,
+        364,
+        438
+      ],
+      "source_open_anatomical_coordinates_m": [
+        [
+          0.010348446155340812,
+          0.10644954826328455,
+          -0.02315656405902087
+        ],
+        [
+          0.007480662798664581,
+          0.09458068669930746,
+          -0.023647926891981627
+        ],
+        [
+          0.006285748303433007,
+          0.10798438873430732,
+          -0.02337296342971314
+        ]
+      ],
+      "average_weights": {
+        "R_Mid1": 0.5262479384740194,
+        "R_Hand": 0.2951841453711192,
+        "R_Index1": 0.11019153396288553,
+        "R_Ring1": 0.06837638095021248
+      }
+    }
+  ],
+  "conclusion": "The remaining visible long crease is not a normal-texture-only problem: it also appears in the neutral-material images. Pixel rays hit native source faces1101/1075 near anatomical forward0.088..0.090m, before MCP joints at0.101..0.116m. These are mixed metacarpal skin, not an all-digit region; the production brush digit-spill cutoff0.18 was too conservative and left most of this defect unchanged.",
+  "next_requirement": "Derive the dorsal ROI from visible pixels plus actual MCP positions, then examine mixed finger skinning/normal continuity there. Weight percentages alone do not define anatomy. No extra correction was performed after the one localized thin-fan repair.",
+  "limits": "Ray hits and weights locate the defect; they do not alone prove whether local geometry, authored normals or mixed skinning is the dominant cause."
+}
