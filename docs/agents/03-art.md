@@ -1,5 +1,25 @@
 # 03 · 服装结构与装配精修
 
+## Root实物评审与下一步（2026-11-16）
+
+已实际看clean-surface正常距离前后白模：新肩甲成为单片光滑椭圆壳，原有肋纹和分片结构丢失，仍像纸壳。视觉拒绝，不进入正式Boss；2ba54391候选及源码封存，不继续同法重建或扩大安装排除域。
+
+同一候选最新serialized_rest_gate为REST_EMBEDDED_SOLID_FAILED／2个nonlocal_surface_contact，最终收件须覆盖较早render/final_verification中的REST passes说法并列清时序。保留旧执行事实，不伪装重跑；即使REST成立，动态外露相交和造型收益也需各自通过。
+
+下一轮回到原Boss设计：保可识别肋纹／多片搭接，重建有分片厚度、铆接／皮带挂点及合理抬臂自由度的单侧小总成，先交有对应材质的正常距离设计首件。不能用一块光板替换设计。具体制作合同在当前证据收口后续派；本次只补已有交接，不新增几何。
+
+## 清洁曲面肩甲收件：阶段结束，等待 Root review（2026-11-16）
+
+**阶段结束，等待对应 Root review。最终候选拒绝合入，保持冻结。** 收件入口为 `ArtSource/refinement/character/veteran-boss-refinement/solid-shoulder/clean-surface/final_receipt.json`。本节只校正现有证据时序与结论；没有重建、重渲或新增版本。
+
+最终 RAW 候选为 `a850160c…`，v5 动作预览为 `2ba54391…`；替换原左肩 **969 面**、新增 4,160 三角、固定 106 面安装域，并把新板统一挂接 `L_Upperarm`。旧固定双骨混权试验已归档，不是最终候选。原骨架、REST／IBM、尺度、头手、其它资源及面映射仍可复核，但这些保全不构成验收。
+
+此前 `rest_gate.json` 对导出前 `clean_geometry.npz` 得到零 proper intersection，只是抽象几何门。随后对同一预览候选 `2ba54391…` 序列化三角面复核的 `serialized_rest_gate.json` 检出 **2 个 nonlocal_surface_contact**：rim `3892↔3894` 与 `3896↔3898`；因此 `REST_EMBEDDED_SOLID_FAILED`、`allow_skin_and_review_render=false`。此后任何“REST pass”措辞均不再适用于候选交付，最终正确结论以序列化 gate 为准。
+
+Root 已实际看当前正常／局部白模对照：去掉原肋纹后，肩甲变成过于光滑的单片壳，视觉身份不通过。现有五姿态外部净空诊断继续作为失败辅助证据，不将其覆盖 REST 拒绝结论。两张图和所有旧执行事实保留，但不得再用作候选可用的证明。
+
+本轮不再调整几何、权重、安装域或相机，不做 UV／烘焙、全人重渲或正式接入。后续装甲设计路径由 Root 另定；正式 producer、library／app、构建、设备和 Git 未改。
+
 ## Root下一阶段规划（2026-11-15）
 
 V2拒绝合入。下一单块肩甲先重建连续干净曲面／闭合拓扑，再按物理合理固定挂接复核；REST自身尚不成立不得继续烘焙／全人渲染。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。

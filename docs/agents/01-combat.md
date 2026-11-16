@@ -1,5 +1,37 @@
 # 01 · 动作源与战斗姿态
 
+## Root实物评审与下一步（2026-11-16）
+
+已实际看natural_guard_before_after图：左手由垂腕改为自然护手，正常距离有可见收益。接受设计首件继续整合准备，尚未批准正式资源替换；guard c9a96738、idle 0cac7c29保持身份。49离散源姿态报告不能代替三target或端内验证。实际旧入口会将alive idle停在首帧，单有GLB不算呼吸已接入。
+
+下一步统一迁移idle／walk／三攻击canonical端点，保攻击中段、脚支撑与持刀Grip，再由Root原子迁移producer／typed／共享idle时钟并重导三target；不新增招或独立SDK自播。上一轮因账号不支持所选模型退出，现已使用账号可用开发模型续现有文件，不重做已有渲染。
+
+## 当前执行合同：自然守势首件与轻呼吸idle（2026-11-15 16:40）
+
+**阶段结束，等待 review。** 自然guard与轻呼吸idle v1已在17:15 CST封存，首姿态板17:00、1.5秒片17:12，均早于17:25首件截止。Root已接受v5源审，正式三target重导binding713532c0…，48targetpose无交叉、436组合通过，并取得新APK首人击败到第二轮、实际BLOCK／命中／换手／Retry回执；这些是Root收件，不推作最终动作审美或真机通过。v5 RAW与全部已交身份冻结。
+
+本轮只在既有 `ArtSource/refinement/combat-direction/natural-guard/` 制作同一43a原78骨frame的新自然左护手、双肩放松guard RAW及0..1.5秒轻呼吸idle，不是新招、模式或新family正式发布。首件截止17:25 CST，一姿态前后图与一段1.5秒短片；最多一次有定位修正，不多镜头／参数扫，不构建／设备／Git。保脚支撑不滑、持刀腕与实际刀不脱，右15指仍UNBAKED；preview只为私有目视，不能当RAW。
+
+初选胸肩小幅起伏而非整根上下搬动，保既有脚位与持刀腕世界位姿，左腕按前臂中立关系重建，15指自然轻弯。完整family、producer、app均不提前改；Root接受首件后才统一迁移idle／walk／三攻canonical端点、typed／profile／binding与同源时钟。
+
+实际HAND_POLICY在production_contract.py。motion41只对turn／hit_body／hit_head／hit_side／fall生成其空手curl；attack78／locomotion78仅覆盖目标native右15，左手曲线取authored source。locomotion retarget保留source interpolation，但现validate_source_clip仍要求idle91／walk185的frozen STEP／锁头祖先／canonical marker合同，新呼吸不能直接套现family宣称可正式发布，也不能把motion41的空手生成当本idle的最终规则。
+
+运行入口已查实：ArenaSession.effectiveEnemyPose→ArenaOpponents.selectEnemyPose(IDLE或guarded HIT)→LocomotionProfile.sourceSeconds(moving=false)返回idle首样本；EnemyAnimator对alive clip一直pause并setTime(state.enemyPoseSourceSeconds)。因此只把GLB设repeat(-1)不会播放呼吸；Root后续必须用同一模拟／idle clock同时驱动实际profile与SDK显示，并迁移Locked idle anchor恒定门与相关代理，不能交无人调用动画或独立让SDK自跑。
+
+本轮只交新guard／idle RAW、明确producer规则与后续接线声明、有限源验证和首件图／片。现已收口，Root对应实物review后再续；下方上劈各阶段仅作既有交接。
+
+## 自然guard／idle v1收件（2026-11-15）
+
+**阶段结束，等待 review。** 推荐先看[自然guard前后板](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/review/v1/natural_guard_before_after.png)和[1.5秒呼吸片](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/review/v1/after/movie/natural_idle_1p5s_30fps.mp4)。左腕由折垂改为中立护胸，掌指自然轻弯，双肩小幅放松；右刀握、头和脚保持。46个真实源样本覆盖0至1.5秒，视频为45帧、精确1.500000秒；当前片仅证明候选的可见变化，正常视距的呼吸自然度仍由Root播放审定。
+
+- [Guard RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/v1/guard_raw.glb) SHA `c9a9673852343f922c7c5cfc026dc63a5c21b89b037f2729c5ea42cdf9a23ee4`。
+- [Idle RAW](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/v1/idle_raw.glb) SHA `0cac7c29e9fd9445e3b1e1825c60e885323b870181df33c5242fc0b6b40d95a6`。
+- [Authoring与接入清单](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/natural-guard/candidate/v1/natural_guard_handoff.json) SHA `ef4a5aff2bf11a1acbf6c5dd659b7135212c04f44579120f6851f04db0c2b01a`。
+
+Guard为2键canonical参考姿态，idle为181键、120Hz、1.5秒闭合LINEAR候选，首尾234条TRS float32精确等于新guard。呼吸峰值为Spine约0.699°、胸部约1.886mm，右手／真实钢刀及脚面为微米级漂移。49个有限源姿态的Steel／fullbody与声明自体区域均为0，R15保持UNBAKED，私有preview的一次指校正和一次root shift误差为0。有限采样不证明连续时间、全部衣料或三target组合通过。
+
+现有producer已实际拒绝该idle，因为locomotion78要求冻结的91键idle与非腿STEP恒定轨。它不能通过重采样或伪装为旧锁定idle接入。当前运行链在IDLE／guarded HIT固定取idle首样本，EnemyAnimator手动采时，因此repeat动画自身不会呼吸。Root接受后需一次性迁移自然guard家族、idle／walk／三攻端点、profile／typed／binding、旧locked marker与祖先门，并把同一模拟idle时钟接到profile／proxy与SDK；guard_pose不新增运行时模式。正式family、producer、app、构建、设备和Git均未由本路修改。
+
 ## Root下一阶段规划（2026-11-15）
 
 下一首件为自然左护手与微呼吸idle，Root接受guard后才统一更新canonical family与运行idle时钟；v5正式不变。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。
@@ -8,7 +40,7 @@
 
 Root已源审v5 RAW85d633ec…并通过唯一producer将三target正式重导，binding713532c0…。全套436单测、typed精确检查通过；Root看过六正常视图，三target48指定pose钢／非邻接核心相交0。实际SDK输入已开局、击败首人并进入第二轮；新三轮胜利仍未验，不扩大源净空结论为连续／所有衣物通过。保v5身份冻结，下一轮据本次原生接触片打磨动作可读性，勿再扫参数。
 
-## 当前执行合同：v5仅修veteran左肘／腰侧净空（2026-11-15 13:28）
+## v5历史合同：左肘／腰侧净空（Root已源审接收）
 
 **本阶段结束，等待 review。** v5已完成两处局部净空整理，最终真实veteran相交21→0、23→0；不等同整体动作自然度、闭体积或原生验收通过。 用户11月15日恢复总目标，Root已收v4右手／头4→0，冻结RAW `050c55a2b64726f38ca7d36eec52f5832c370b92be3f80551f7c8249e5a3694f`；本轮只继续同一上劈剩余source1.10、1.4666667的L_forearm／chest区域相交，覆盖此前左手不在权限内的限制。
 

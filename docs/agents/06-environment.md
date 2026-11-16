@@ -1,5 +1,35 @@
 # 06 · 雨夜酒馆庭院整体场景
 
+## Root实物评审与下一步（2026-11-16）
+
+已实际看1.65m新路面图，认可b0bf视觉拒绝：两处绿斑没有形成可信浅水，2mm微起伏在正常距离收益不足。正式96c554不变，技术13项通过不转为采用许可，拒绝件封存。
+
+已续派wet-stone-material单一材质首件：几何／布局／Stage不变，在现material8石材上制作有纹理依据的非均匀潮湿／粗糙度／微法线，允许最多两张1024新图及mips，复用现KTX链；不加叠水面、新灯或烘焙固定反射。完整私有GLB及同机位前后图供Root选择，Root另验端内材质配光。45分钟单首件，最多一次定位修正，不参数扫。
+
+## 湿石路首件：视觉收益不足，停止（2026-11-15）
+
+本轮已在单一首件窗口内完成完整GLB、同机位1.65m眼高/0.5m近景、一次定位修正及自审。结论为 **不建议采用，停止制作，正式96c554不变**。不再重复路面返修、立面、合批或渲染。下方Root规划是本次已执行的输入，不是继续迭代指令。
+
+唯一制作目录 `ArtSource/refinement/environment-hero/native-ground-polish/`。完整失败首件 `courtyard_ground_polish.glb`，SHA256 `b0bf9fe79487aae1c4159be3e54bf93c721153dd9b3a5d5c1264745d7332e880`。`delivery_manifest.json` 的状态为 `visually_rejected_stop`，采用建议 `do_not_integrate_keep_formal_96c554`。这不是正式资源或原生放行件。
+
+- **视觉门槛未达：** 原路面本已有6mm倒角。新2.05mm顶面微起伏、边缘变化在正常眼高收益过弱；复用现有不透明浅水材质形成绿色均色色块，不能据低roughness数值声称有可信浅水反光。初版锯齿水斑已拒绝；唯一一次修正将水缩为两处约0.051m²小洼地、轮廓按几何等高线平滑、移向现有灯的反射位置，最终仍像硬色斑，因此不继续。
+- **直接对照：** [1.65m前](../../ArtSource/refinement/environment-hero/native-ground-polish/review/eye_before.png)、[1.65m后](../../ArtSource/refinement/environment-hero/native-ground-polish/review/eye_after.png)、[0.5m前](../../ArtSource/refinement/environment-hero/native-ground-polish/review/close_before.png)、[0.5m后](../../ArtSource/refinement/environment-hero/native-ground-polish/review/close_after.png)。实际完整GLB重导入、同相机同既有灯、当前6649302a PNG／f6bc15d6正式对手idle@0，Stage(0,.028,-2.4)。非PICO截图，未混用13日旧1cc/6ca角色；原生手刀/UI/另挂武器不参与。
+- **几何/来源：** 原路10整砖，保错缝与位置，范围2.09×1.99m（X[-1.195,.895]、Z[-2.295,-.305]）；每块拆原上表面/上倒角14tri，共拆140tri。原侧底30tri/砖、未选路石、非地面、全部原node及变换、receiver/anchors/战斗净空保持。新水石共边界分割、无旧top或水面叠面，水高.55mm、最高石面2.05mm。原material8石材/0.65m UV与material12浅水复用，32mat/50图/texture表及50图payload完全相同，无新图/材质/灯/地图/依赖。
+- **技术通过不等于视觉采用：** 13项测试通过（含错误水高/非法索引/截断GLB/重叠拒绝等负例），官方validator0错误、4条继承切线警告。原StageY0/NPC+.028与原生代码未改，没有碰撞/navmesh/通行或Space Pro性能证明。Root独占正式app/资源、设备、构建和Git，本路均未改。
+- **复核材料：** `build_ground.py`、`verify_ground.py`、`render_ground.py`、`save_editable.py`、`courtyard_ground_editable.blend`、`REBUILD.md`；`audit.json` 和 `review/{verification,gltf-validator,render_manifest,visual_gate}.json`。初版拒绝图名为 `review/rejected_water_paint_*`，只作失败证据。完整清单与依赖SHA在 `delivery_manifest.json`；只保留一个最终失败首件GLB，不推荐Root切换正式资源。
+
+| 完整GLB统计 | 96c554正式源 | 本轮拒绝首件 | 净变化 |
+| --- | ---: | ---: | ---: |
+| 节点展开三角 | 243358 | 246242 | +2884 |
+| 唯一mesh三角 | 181594 | 184478 | +2884 |
+| 唯一属性VB字节 | 14113296 | 14548752 | +435456 |
+| 唯一索引字节 | 1175868 | 1236348 | +60480 |
+| primitive×node估算 | 111 | 112 | +1 |
+| 材质 / 图片 | 32 / 50 | 32 / 50 | 0 / 0 |
+| 文件字节 | 38212212 | 39187436 | +975224 |
+
+保留源BIN中未活跃旧数据，不声称做了GC；统计不是设备VRAM/drawcall实测。`review/visual_gate.json` 已绑定实际仍为96c554的正式app资源SHA，明确停止状态。
+
 ## Root下一阶段规划（2026-11-15）
 
 下一单一首件为现庭院前方2×2m近景湿石路倒角／接缝／浅水层次，保布局／米制／战斗净空，最高0–3mm，≤250k/32材质/50图。 45分钟单一首件，最多一次定位返修；仅各自制作目录／本交接，Root统一正式资源、构建、设备与Git。

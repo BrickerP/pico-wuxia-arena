@@ -74,7 +74,7 @@
   "actual_observations": [
     "Real native UI LEFT selected, old-hand observations revoked, then fresh LEFT SDK observation became active.",
     "Actual held left model/dao shown; RIGHT selection and start used real UI controller clicks.",
-    "Real native key pulses changed SDK head/hand trajectory, shared ArenaCombat and final hand/dao rendering.",
+    "Real native key pulses changed SDK controller trajectory with live HMD observations, shared ArenaCombat and final hand/dao rendering.",
     "First opponent defeated and second indigo opponent loaded in continuous26s native window recording.",
     "Observed BLOCK, SOFT_HIT and PLAYER_HIT feedback consumption from real contacts.",
     "Timeout result and actual Retry returning to READY observed."
