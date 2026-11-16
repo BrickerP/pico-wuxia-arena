@@ -1,0 +1,18 @@
+{
+  "candidate_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "panels": [
+    {
+      "path": "open_three_way.png",
+      "sha256": "d4f412ca475fc50a0962d3fe8b05c4cdc41a981ecd3b057fc5c688e6b9587849"
+    },
+    {
+      "path": "mid_three_way.png",
+      "sha256": "bf72f0bbca9f00e55ad9b858a4f6f014ff4ca42a8b9eae23416c37c488703a88"
+    },
+    {
+      "path": "closed_three_way.png",
+      "sha256": "41293e7cc75794debe05320a725f85bcb16c9801ac7db07d2a0508661a713848"
+    }
+  ],
+  "frames_unretouched": true
+}

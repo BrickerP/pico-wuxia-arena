@@ -1,0 +1,838 @@
+{
+  "status": "six_actual_paired_closed_renders_complete",
+  "source_right_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "left_sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+  "plans": [
+    {
+      "side": "R",
+      "view": "front",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_front.png",
+      "camera_blender_metres": [
+        0.007374756969511509,
+        -0.020910127088427544,
+        0.2991794943809509
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0
+    },
+    {
+      "view": "front",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_front.png",
+      "camera_blender_metres": [
+        -0.007374756969511509,
+        -0.020910127088427544,
+        0.2991794943809509
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.29999998385542453,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L"
+    },
+    {
+      "side": "R",
+      "view": "back",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_back.png",
+      "camera_blender_metres": [
+        -0.009217382408678532,
+        -0.19601814448833466,
+        -0.22691833972930908
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0
+    },
+    {
+      "view": "back",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_back.png",
+      "camera_blender_metres": [
+        0.009217382408678532,
+        -0.19601814448833466,
+        -0.22691833972930908
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.30000001002103915,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L"
+    },
+    {
+      "side": "R",
+      "view": "oblique",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_oblique.png",
+      "camera_blender_metres": [
+        -0.07639557123184204,
+        0.16285084187984467,
+        0.24009022116661072
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0
+    },
+    {
+      "view": "oblique",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_oblique.png",
+      "camera_blender_metres": [
+        0.07639557123184204,
+        0.16285084187984467,
+        0.24009022116661072
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.2999999905077426,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L"
+    }
+  ],
+  "source_camera_manifest": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json",
+  "camera_rule": "Existing source3-camera plans; Left camera/target X reflect only, actual Left GLB and actual unreflected DAO both at identity commonGrip",
+  "FILL": {
+    "name": "Neutral dorsal readability fill",
+    "type": "AREA",
+    "shape": "DISK",
+    "position_blender_metres": [
+      0.0,
+      -0.25,
+      -0.6
+    ],
+    "target_blender_metres": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "power_watts": 45.0,
+    "size_metres": 0.65,
+    "color_linear_rgb": [
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "input_pins": {
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint.glb": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint_decoded.glb": "1551189a30c713f9d3ef3cd6b9b8968ec6992bdb3a03219a906f5dcee098f7c3",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint.glb": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint_decoded.glb": "b9da43c10db4aef2bad915e2176dce73ef6c18df94d22b78f683584d154435dd",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/decode_manifest.json": "3a0c764eeddc0f337affb601ffa2a149304259b654746e6eddd84622e050548f",
+    "ArtSource/tripo-warrior/library/dao_grip.glb": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+    "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.glb": "f983ee7463db688febcec5fd75b90109eb13afa2c4c5564d221659b98a12aa0c",
+    "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.manifest.json": "6944ebc820f957118c05bab1d3b1b443741cb97421baa6cb4e30bfd35c4a4a56",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json": "24f6a999143e6fd3b0f875fbaa685bf787d3392cdd27806cdb4ea6e4a2f25655",
+    "ArtSource/refinement/weapon/native-first-person/render_hands.py": "b155bf82b710161c6935e01b274489f5dd57a60bc28772490a6bfd0d6a3ab8df",
+    "ArtSource/refinement/grip/render_grip_candidates.py": "b0162b8cae0325e48c2eaa92793cf25f43313422dcdf1e9bfc79ba765abcad90",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/render_left_rebuild.py": "f843a189deaaa4efbb460fee252f98c22f153dc8a8f6a88c55bbef1a692643dd",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/render_pair.py": "822559822e407ee990efa7845b10484bc094d21c5ee69cc4e0fbc885f9782f40"
+  },
+  "dao_decoded": "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.glb",
+  "images": [
+    {
+      "side": "R",
+      "view": "front",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_front.png",
+      "camera_blender_metres": [
+        0.007374756969511509,
+        -0.020910127088427544,
+        0.2991794943809509
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0,
+      "sha256": "18135f3de297266fd81e6a327e2605916685665bb0b1d19321dc5b1f50949d3c",
+      "camera_matrix_world": [
+        [
+          0.9430651664733887,
+          -0.3316984176635742,
+          0.024582475423812866,
+          0.007374756969511509
+        ],
+        [
+          0.33260810375213623,
+          0.9404858946800232,
+          -0.06970036029815674,
+          -0.020910127088427544
+        ],
+        [
+          3.010730509345194e-08,
+          0.07390831410884857,
+          0.9972650408744812,
+          0.2991794943809509
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.05279367044568062,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.3671119511127472,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "fc53371235a4c076a999501b142eb3984ddfcff9309a00bf8309e1680236109b"
+      }
+    },
+    {
+      "view": "front",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_front.png",
+      "camera_blender_metres": [
+        -0.007374756969511509,
+        -0.020910127088427544,
+        0.2991794943809509
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.29999998385542453,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L",
+      "sha256": "c60bbe02638b7c720c695fbe0c305662783d403bfb37870ad7cf3711a18e965c",
+      "camera_matrix_world": [
+        [
+          0.9430651664733887,
+          0.3316984176635742,
+          -0.024582475423812866,
+          -0.007374756969511509
+        ],
+        [
+          -0.33260810375213623,
+          0.9404858946800232,
+          -0.06970036029815674,
+          -0.020910127088427544
+        ],
+        [
+          -3.010730509345194e-08,
+          0.07390831410884857,
+          0.9972650408744812,
+          0.2991794943809509
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.3671119511127472,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.05279367044568062,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "593c33875df168fa1de9e9130b983d03546042ff6cbc80d357629842f80b1e68"
+      }
+    },
+    {
+      "side": "R",
+      "view": "back",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_back.png",
+      "camera_blender_metres": [
+        -0.009217382408678532,
+        -0.19601814448833466,
+        -0.22691833972930908
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0,
+      "sha256": "abe8b471d3b2e3d714b5ad40fe723f3e55cb283a3c689d90d6186ba45e8f53fc",
+      "camera_matrix_world": [
+        [
+          0.9988962411880493,
+          -0.035528764128685,
+          -0.030724603682756424,
+          -0.009217382408678532
+        ],
+        [
+          -0.04697120934724808,
+          -0.7555596828460693,
+          -0.6533936262130737,
+          -0.19601814448833466
+        ],
+        [
+          -1.875686717056624e-09,
+          0.654115617275238,
+          -0.7563945651054382,
+          -0.22691833972930908
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.05279367044568062,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.3671119511127472,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "fc53371235a4c076a999501b142eb3984ddfcff9309a00bf8309e1680236109b"
+      }
+    },
+    {
+      "view": "back",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_back.png",
+      "camera_blender_metres": [
+        0.009217382408678532,
+        -0.19601814448833466,
+        -0.22691833972930908
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.30000001002103915,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L",
+      "sha256": "54e581441c4077ab6bd9fd6aca8428cc6495270917423ebd557104b80aa2e39c",
+      "camera_matrix_world": [
+        [
+          0.9988962411880493,
+          0.035528764128685,
+          0.030724603682756424,
+          0.009217382408678532
+        ],
+        [
+          0.04697120934724808,
+          -0.7555596828460693,
+          -0.6533936262130737,
+          -0.19601814448833466
+        ],
+        [
+          1.875686717056624e-09,
+          0.654115617275238,
+          -0.7563945651054382,
+          -0.22691833972930908
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.3671119511127472,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.05279367044568062,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "593c33875df168fa1de9e9130b983d03546042ff6cbc80d357629842f80b1e68"
+      }
+    },
+    {
+      "side": "R",
+      "view": "oblique",
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_oblique.png",
+      "camera_blender_metres": [
+        -0.07639557123184204,
+        0.16285084187984467,
+        0.24009022116661072
+      ],
+      "camera_target_blender_metres": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "lens_mm": 30.0,
+      "grip_seconds": 1.0,
+      "sha256": "48e704ce083738a9e8abf413bfd13a6d6970c433a3c4e17fec6ab3428fdd93cc",
+      "camera_matrix_world": [
+        [
+          -0.9053323268890381,
+          0.33989083766937256,
+          -0.2546519339084625,
+          -0.07639557123184204
+        ],
+        [
+          -0.4247038960456848,
+          -0.7245380878448486,
+          0.5428362488746643,
+          0.16285084187984467
+        ],
+        [
+          3.21466515629254e-08,
+          0.5995988249778748,
+          0.8003007173538208,
+          0.24009022116661072
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.05279367044568062,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.3671119511127472,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "fc53371235a4c076a999501b142eb3984ddfcff9309a00bf8309e1680236109b"
+      }
+    },
+    {
+      "view": "oblique",
+      "grip_seconds": 1.0,
+      "dao_visible": true,
+      "file": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_oblique.png",
+      "camera_blender_metres": [
+        0.07639557123184204,
+        0.16285084187984467,
+        0.24009022116661072
+      ],
+      "camera_target_blender_metres": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "camera_distance_to_common_grip_metres": 0.2999999905077426,
+      "lens_mm": 30.0,
+      "sensor_width_mm": 36.0,
+      "side": "L",
+      "sha256": "c66aadcff7071d421be7d1f283730521da88f50ca1260d9fc21249b97b1a57df",
+      "camera_matrix_world": [
+        [
+          -0.9053323268890381,
+          -0.33989083766937256,
+          0.2546519339084625,
+          0.07639557123184204
+        ],
+        [
+          0.4247038960456848,
+          -0.7245380878448486,
+          0.5428362488746643,
+          0.16285084187984467
+        ],
+        [
+          -3.21466515629254e-08,
+          0.5995988249778748,
+          0.8003007173538208,
+          0.24009022116661072
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "hand_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "dao_root_matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "evaluated_hand_geometry": {
+        "face_referenced_vertices": 3807,
+        "ignored_loose_vertices": 0,
+        "bounds_min": [
+          -0.3671119511127472,
+          -0.1461188942193985,
+          -0.07369548827409744
+        ],
+        "bounds_max": [
+          0.05279367044568062,
+          0.06610580533742905,
+          0.1272049844264984
+        ],
+        "position_digest": "593c33875df168fa1de9e9130b983d03546042ff6cbc80d357629842f80b1e68"
+      }
+    }
+  ],
+  "hand_and_dao_runtime_negative_scale": false,
+  "lighting_changed_from_frozen_review": false,
+  "blender_version": "4.5.15 LTS"
+}

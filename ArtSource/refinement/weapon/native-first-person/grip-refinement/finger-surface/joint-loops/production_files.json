@@ -1,0 +1,2498 @@
+{
+  "schema": "pico-wuxia-joint-loops-production-closure-v1",
+  "status": "complete_inputs_present_and_hash_consistent",
+  "scope": "Rebuild/verify/render currentRight199c andLeft0295 plus frozen48e/a980 comparisons, using existingtracked dependencies; no archive or texture-cache staging.",
+  "current_assets": {
+    "Right_SHA256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+    "Left_SHA256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7"
+  },
+  "repository_files": [
+    {
+      "path": "ArtSource/refinement/character/design/upperbody-2026-11-12/source-prep/prepare_source.py",
+      "sha256": "a96808e43afe41d5a8e2d8043f687cbdf65a570ab657cb1f78c45be33716d5ca",
+      "bytes": 15247,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "640ede526a6a67beccccc62b2a4969455e9d5cc3",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/grip/measure_weapon_surface.py",
+      "sha256": "3879ccf36da82eed5d5997a20b7db2255d9aadeac3de62a4e7415d5c56ff138f",
+      "bytes": 13910,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "dd13df324249d73fed74fad79e43ca46195dbd6a",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/grip/render_grip_candidates.py",
+      "sha256": "b0162b8cae0325e48c2eaa92793cf25f43313422dcdf1e9bfc79ba765abcad90",
+      "bytes": 12935,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "85cd6371efa88df090d7f3de39f24df1feff5a26",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/hand-poses/run_blender.py",
+      "sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+      "bytes": 898,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "ad7f366a13504f82296ef4af44809b2c647eacb4",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/hero-face/method-study-2026-11-12/verify_specimen.py",
+      "sha256": "8902e4cd26014f4a1ff9fb07d973371454bd252a515842355dd49a66b5849fbb",
+      "bytes": 23850,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "f1d321d2b409549ab9fd6d148a16abca36d90ddb",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+      "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4",
+      "bytes": 22175,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "1a930cc563c6bbcb92160173bd6e09f4a0356570",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/build_weapon.py",
+      "sha256": "e342fd41d55b8258423c07ec4aa81122f8351f4d0c98e29e30b033c5d21176cc",
+      "bytes": 12442,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "732a3cd4c0a2c36a12bb837cd970b8234b23bdb2",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compress_hands.py",
+      "sha256": "ae7cd3de9eddbf267ceb4fc6f6ed4187fd836647be6ab24cd98457d79cac58a4",
+      "bytes": 13373,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "17a501b1de2bcb3347244839063af56b155b5025",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/compression_manifest.json",
+      "sha256": "86c145ff2b9bab8bcd68634d073d584f2e3b0bb803400e27c08c259c1795964f",
+      "bytes": 14943,
+      "roles": [
+        "frozen_texture_decode_provenance"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "285ca83ece4d87178ab98fad5ff22dd490ede849",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb",
+      "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d",
+      "bytes": 2515388,
+      "roles": [
+        "frozen_compressed_texture_provenance_input"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "f6b3a483fb98ea5f385b79078246bd6ff4be2651",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/build_grip.py",
+      "sha256": "c84ee57351888f2d303dfb3814ce08c7ca6a7c35d83c99291a4476ce66e52f76",
+      "bytes": 14686,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "17ed9c0e7f65557bc28dd55ca8a7d5e6adb0821c",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/assemble_review.py",
+      "sha256": "a1f54330354061ba59716d9e5ec33f836ebd070ccc7bd025ba3b7f124fb61571",
+      "bytes": 1870,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/build_finger.py",
+      "sha256": "a9ebc29b3608b071218da67b0c8ac0ec1b69a32857de0c80cbeabe4e3d18b7e6",
+      "bytes": 14566,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/decode_manifest.json",
+      "sha256": "e2902e927ee2de8be9f981eea76327ea7268011896565c7f7de65f23a6a71201",
+      "bytes": 26291,
+      "roles": [
+        "frozen48e_pixel_provenance"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/finalize.py",
+      "sha256": "cca21fc6861f8d5f5fa90d7c7083a72b6d13cd1366ce00556568f48eb96639a7",
+      "bytes": 9858,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/finger_delta.json",
+      "sha256": "ca6fda7dd25da902560b9d14873c2ef5a9d3d2d297229daf0e0568094361c267",
+      "bytes": 251234,
+      "roles": [
+        "frozen48e_correspondence"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/inspect_roi.py",
+      "sha256": "37b4439cd98e1025e71ddf82d19be57c4e677f371248c3b4667a2d399dcff5b3",
+      "bytes": 4985,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/README.md",
+      "sha256": "1509b1abc42922f084f00ec53668dcb3f82afa4dac17fe6539e10610e7fbc3d7",
+      "bytes": 6795,
+      "roles": [
+        "production_documentation"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/assemble_review.py",
+      "sha256": "83d49c3cec2be8d80b6b102c5d279e6d3a912fdd8337909529e4a3109602c624",
+      "bytes": 1554,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/build_joint.py",
+      "sha256": "52507870f289b8b5f46f246b26a6673a208bd0fc348fd514b5bcc6a14dd1e0e7",
+      "bytes": 26110,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/closed_joint_sections.png",
+      "sha256": "7cf0f7c41bf531d0e6edc4a87ed37150f54160fce0c0180c278a37d432404142",
+      "bytes": 30472,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/decode_manifest.json",
+      "sha256": "cdc5f273d1d7ec257e44e2e0103292ec2b67dd63cae9de52bea8adeb8b6ffe36",
+      "bytes": 26313,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/export_evidence.py",
+      "sha256": "67654a0491685453f715b631540b2a1438e83b1b21c95055a1ba3b13262b0029",
+      "bytes": 4382,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/finalize.py",
+      "sha256": "9c283feb4ee46f6973553aea079a2f9cd16df175a426e94d620a732468b39a00",
+      "bytes": 10166,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/handoff.json",
+      "sha256": "1b48acee0f77a6ac950efcc70fb124d7de9865f6c602ce95d792434c56c92f49",
+      "bytes": 32627,
+      "roles": [
+        "sealed_delivery_packet"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/inspect_sections.py",
+      "sha256": "796eee074ea7ddd9fe2c047342c50b12dc30270ab9a313998abc9c260578fe6d",
+      "bytes": 3843,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/joint_delta.json",
+      "sha256": "4d367944130eaed3636613d693563cee20a02f5d41a3ce7026b77521a1d853cb",
+      "bytes": 757884,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/joint_loops_topology.png",
+      "sha256": "783b598380250eb22ec838a3737965acbaddfa9bd68bb38230e163fd9a796783",
+      "bytes": 104491,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/README.md",
+      "sha256": "e66473dc5e135c7d99b2a26b1b7150e45f8eb6ae4512805faa6845071061632a",
+      "bytes": 5216,
+      "roles": [
+        "production_documentation"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/assemble_pairs.py",
+      "sha256": "2b93c37ddf95bc209867fbef42ca270d694f4bd791ee9e8ef2e8a37b530fbbe5",
+      "bytes": 1388,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/construction.json",
+      "sha256": "e8db509a7ff0b1b0c2215b7b3f0019d5bdff2608418cdc875b8871a4b8f07d20",
+      "bytes": 5536,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/decode_manifest.json",
+      "sha256": "3a0c764eeddc0f337affb601ffa2a149304259b654746e6eddd84622e050548f",
+      "bytes": 17553,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/derive_left.py",
+      "sha256": "ed1f11c61894ded6a39c4923760ac46bac7c51dcbe0411daf4882efd33231c6e",
+      "bytes": 3628,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/finalize.py",
+      "sha256": "ce54c8fddc1a99e69d56d59614446f4261376e339e67893158d4d208f88f5b36",
+      "bytes": 10053,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/handoff.json",
+      "sha256": "439d446bd92ecebe1c44470eb0cad4df813813ce445a0816853bcc3a2c532a0b",
+      "bytes": 11344,
+      "roles": [
+        "sealed_delivery_packet"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint.glb",
+      "sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+      "bytes": 3397780,
+      "roles": [
+        "candidate_asset"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/make_companion.py",
+      "sha256": "99c0beb874c928cda67388b61444ea9043012cf14911029b300de04cabf1159e",
+      "bytes": 1493,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/mapping.json",
+      "sha256": "140b07c615adb176775502d70fc880eee967f6068d1a7395d2a8ca585d973eaf",
+      "bytes": 12878,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/render_pair.py",
+      "sha256": "822559822e407ee990efa7845b10484bc094d21c5ee69cc4e0fbc885f9782f40",
+      "bytes": 5386,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/render_plan.json",
+      "sha256": "c24504fa83bc7d775cfc9892fd557a37e1676f016360c78a58b52b9931f2cf30",
+      "bytes": 6625,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/comparison_manifest.json",
+      "sha256": "f7ac9f49cf1abb1515894e26a80e384bf961e9e3691df40bfb503b36f0f42940",
+      "bytes": 648,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_back.png",
+      "sha256": "54e581441c4077ab6bd9fd6aca8428cc6495270917423ebd557104b80aa2e39c",
+      "bytes": 1224182,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_front.png",
+      "sha256": "c60bbe02638b7c720c695fbe0c305662783d403bfb37870ad7cf3711a18e965c",
+      "bytes": 1336496,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_oblique.png",
+      "sha256": "c66aadcff7071d421be7d1f283730521da88f50ca1260d9fc21249b97b1a57df",
+      "bytes": 1349525,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_back.png",
+      "sha256": "16ff5e910c92c5556d17982c2c90277cf9e2872ccfa4fc85ddf78cd605fe3b53",
+      "bytes": 1364996,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_front.png",
+      "sha256": "fc422619d08f6e3c9bc535c4e86df43f7d222e1a239be3c8d02782b1421875b2",
+      "bytes": 1593665,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_oblique.png",
+      "sha256": "9e145b0785fb3d5db39fbce307bfdc69cd64d25d494bac039715d3f866d414e4",
+      "bytes": 1671503,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/render_manifest.json",
+      "sha256": "07cfcc79acc5b886218a5d8b487b82d175b7cc2eb0d62bca0f7ee8c740de9f1a",
+      "bytes": 20912,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_back.png",
+      "sha256": "abe8b471d3b2e3d714b5ad40fe723f3e55cb283a3c689d90d6186ba45e8f53fc",
+      "bytes": 1228544,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_front.png",
+      "sha256": "18135f3de297266fd81e6a327e2605916685665bb0b1d19321dc5b1f50949d3c",
+      "bytes": 1302700,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_oblique.png",
+      "sha256": "48e704ce083738a9e8abf413bfd13a6d6970c433a3c4e17fec6ab3428fdd93cc",
+      "bytes": 1334942,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/test_left.py",
+      "sha256": "9316b992710f1203e8a37146d0913ab14caa33573959b2d86434f0489c22b685",
+      "bytes": 2739,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification.json",
+      "sha256": "36b52d8d68409667060389661ee4ca66260c1c115845c8aea445d75e94244b20",
+      "bytes": 584494,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_actual_baseline.json",
+      "sha256": "3d70d1263179e4e277c0f3384feb8c40aec6efdb8e024d92c4cb6d92d76b73aa",
+      "bytes": 173603,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_actual_contacts.json",
+      "sha256": "b707645032bddae38df2fecde7789e50d3f845d9405e8230dfd3365512976d10",
+      "bytes": 237917,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_contract.json",
+      "sha256": "a4845416e9943da4b1bd099ff8b58c2ddadf66502a01c6350e03f324dca75b8b",
+      "bytes": 5835,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_mirror_dao.json",
+      "sha256": "f9c55514a592a849f52dc820e76061a2129722d2ff691ae7f31b484f4d740ee4",
+      "bytes": 70783,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_tests.json",
+      "sha256": "6a34b6c78b82f4568a1b57e07dd908c37509cba4b93f263a31792694e5c78463",
+      "bytes": 4109,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verify_left.py",
+      "sha256": "8c329ccc047bfd9d6ef9ac0097eb3cc41648651eeb0634a4401ace2fac922ad7",
+      "bytes": 15896,
+      "roles": [
+        "candidate_source",
+        "paired_left_entrypoint"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/make_companion.py",
+      "sha256": "498274e41ba7880df1c50f2d4f488e95edb2c1bf64299b53ee4173b0a64b29d4",
+      "bytes": 839,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/mid_joint_sections.png",
+      "sha256": "052f14ad15d579f3b7b25428a5aef53272a5b90586c0890452b742652e689703",
+      "bytes": 29612,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/open_joint_sections.png",
+      "sha256": "d0278173b9134e645d46d3ffe84a1fc3aa4f95af7e4b21375a4d39573507f4e2",
+      "bytes": 29225,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/original_change_ledger.json",
+      "sha256": "5ba27860aaee5f243af35df7f9873fc6833732fd567bbae33c0a04ccdc4f46e3",
+      "bytes": 337318,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/render_joint.py",
+      "sha256": "37e5651e95eb0964ae90ba3148dbfd26755e3e6f21ef3c6a6b33556ce84508bf",
+      "bytes": 3597,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_neutral_joint_0.3m.png",
+      "sha256": "4f53826172e4fc8a4a9460907bf1f27fc0f49f376f1a720b185595cfed00123e",
+      "bytes": 1127011,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_original_joint_0.3m.png",
+      "sha256": "477782bcabcb138cace5925710ef827e29a7fbe6b1c62ae54ec7a50f2aa72c1e",
+      "bytes": 1164157,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_three_way.png",
+      "sha256": "41293e7cc75794debe05320a725f85bcb16c9801ac7db07d2a0508661a713848",
+      "bytes": 2512170,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/comparison_manifest.json",
+      "sha256": "6fc5138f959042c78221248a513ca56170171eb22697305b2f0236120bb7318c",
+      "bytes": 538,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_neutral_joint_0.3m.png",
+      "sha256": "5168fd689e40ebaecb18c27841380c7aea5c3d04da64df9846d8e51c9516091e",
+      "bytes": 1130549,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_original_joint_0.3m.png",
+      "sha256": "3afd35bffd4c9947bf1d7bfe2c822da84e80280db08513c27cb8dff8d10868fe",
+      "bytes": 1189862,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_three_way.png",
+      "sha256": "bf72f0bbca9f00e55ad9b858a4f6f014ff4ca42a8b9eae23416c37c488703a88",
+      "bytes": 2866535,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_neutral_joint_0.3m.png",
+      "sha256": "b29ae95f2450911fd6275bfa30c518f90fb4f5f4e1f92488856ca3ef16f7b51b",
+      "bytes": 1137283,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_original_joint_0.3m.png",
+      "sha256": "5b09a1814b9b27d6c3ab3d30da82962d4c9d578d0aa0099e8b9830b4aa7d7ed5",
+      "bytes": 1188736,
+      "roles": [
+        "approved_render_frame"
+      ],
+      "used_by_or_reason": [
+        "actual current render evidence"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_three_way.png",
+      "sha256": "d4f412ca475fc50a0962d3fe8b05c4cdc41a981ecd3b057fc5c688e6b9587849",
+      "bytes": 2783284,
+      "roles": [
+        "approved_review_panel"
+      ],
+      "used_by_or_reason": [
+        "actual reviewed comparison"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/render_manifest.json",
+      "sha256": "1bc88db8b342fe9d838a3eeef2ff000ccda7870c1bbbe5096270df01efd6d9b0",
+      "bytes": 21459,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint.glb",
+      "sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+      "bytes": 3224612,
+      "roles": [
+        "candidate_asset"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/section_diagnostics.json",
+      "sha256": "4d6856663ac11fa9b70b7b66512fa26c66a470200e61af914476367fb24bde18",
+      "bytes": 759055,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/test_verify_joint.py",
+      "sha256": "980c9793070c0a68e7847985c7495d2fea8b373f07f2c871b9df682358cb4139",
+      "bytes": 10744,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification.json",
+      "sha256": "fb606370526b9af78bf3c7f9d9ec15069427d76e7f89dd6c7899bd9fcc45aacd",
+      "bytes": 1263569,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification_geometry.json",
+      "sha256": "118df4397cc13848ef62a2ee5b9bbdf12fbfae813c82c8558b1978c7c18f3943",
+      "bytes": 1078717,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification_tests.json",
+      "sha256": "86c520c1e43960017e7ffe9f1770eb1323cc46d1fd9f7df2653c0faa6ac2588c",
+      "bytes": 648,
+      "roles": [
+        "approved_evidence"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verify_joint.py",
+      "sha256": "2212d9375f6a5fadb067ba36e075d4af2bcaef181cb13a535e994bcc8f64a979",
+      "bytes": 34096,
+      "roles": [
+        "candidate_entrypoint",
+        "candidate_source"
+      ],
+      "used_by_or_reason": [
+        "sealed handoff file closure"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/make_companion.py",
+      "sha256": "9348f42cf18132962b078b68e8ea5ac18acac0dff76c81f698440e9f016c2847",
+      "bytes": 1636,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/render_finger.py",
+      "sha256": "066cbd3e8f0b275781ad5832a318792e575c2d6667a51598c4fc25f36fe6cb54",
+      "bytes": 5488,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/render_guides.json",
+      "sha256": "7fd6c0cb0cc1ab79a5decab00428fa63b51aeb220ac8b5bc14c222278711569f",
+      "bytes": 8820,
+      "roles": [
+        "frozen48e_camera_guides"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_neutral_after_0.3m.png",
+      "sha256": "ce3232b13e6b402a1ef9698f4a904f28991731cf8e8f5aafc404c8da55d3abfe",
+      "bytes": 1131232,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_neutral_before_0.3m.png",
+      "sha256": "b224577b0c479cd783ecd73bed297335cb5f11a69613c0e34820693115bdedf5",
+      "bytes": 1128620,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_original_after_0.3m.png",
+      "sha256": "3376e4f26f8f2f3cceada2471bc49ddec1a09e7c607dc0612fb86b348240c299",
+      "bytes": 1167283,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_original_before_0.3m.png",
+      "sha256": "d89e0232de4c06efbf0ff70da5531bd5e7fbaf12be54a03b0cccef51d0f992ef",
+      "bytes": 1165628,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_neutral_after_0.3m.png",
+      "sha256": "f0859173d4311ab0dd9235fba22c98c6be464a570c5b426c299678e2910e8a4a",
+      "bytes": 1131516,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_neutral_before_0.3m.png",
+      "sha256": "e7f36ec0230ca27546d68c4c89438bfe893a081e48da8e5771c67db4593da988",
+      "bytes": 1131000,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_original_after_0.3m.png",
+      "sha256": "987639d6e4c1d7fceb88c9dc02cf360eed85ed5471f1146ff1e9a5245e601f5c",
+      "bytes": 1188685,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_original_before_0.3m.png",
+      "sha256": "cba6c60e605f88c60279aff0c04a16ce0863c1c8a401a720fc14d8535508f35d",
+      "bytes": 1187654,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_neutral_after_0.3m.png",
+      "sha256": "bb583751258dc15dee4994dd15d807f71c25990d528aba98791053552b3ab1ee",
+      "bytes": 1136891,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_neutral_before_0.3m.png",
+      "sha256": "f84c7ba62a5b59990c53562a319d586198224e157771b8dfcb113a5fc51d2c6b",
+      "bytes": 1136387,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_original_after_0.3m.png",
+      "sha256": "21346fe2a914b1d9dd729376387dc01109d7e07ba8092b0aaf4ffbad5ee88274",
+      "bytes": 1189092,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_original_before_0.3m.png",
+      "sha256": "53be6eb45405500bb29aedecdb964088d0fb42f22443a0afba6a23ce2e45b82e",
+      "bytes": 1190109,
+      "roles": [
+        "frozen48e_or_a980_comparison_frame"
+      ],
+      "used_by_or_reason": [
+        "three-way current candidate comparison input"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/render_manifest.json",
+      "sha256": "01250bba7452d2c89f557de197830cadc97d1ed99de039c7c5c1bead1cdb13bb",
+      "bytes": 26568,
+      "roles": [
+        "frozen48e_comparison_camera_and_frame_manifest"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/right_hand_finger.glb",
+      "sha256": "48e99dafb3d5049354569b3a25b055db79569c408aeb81d89f2a95d9f5c51355",
+      "bytes": 3195436,
+      "roles": [
+        "frozen48e_comparison"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/test_verify_finger.py",
+      "sha256": "c1e7739aaed2d55a48271dfbe1fa9000700129cb8b94f8c1c5e828593fb8d8bb",
+      "bytes": 8788,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/verify_finger.py",
+      "sha256": "50070ad3f51a4e3091dc46344683360c8f10bed9c755864b193eff5e50bc49f2",
+      "bytes": 25179,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/build_left.py",
+      "sha256": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+      "bytes": 18272,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "b94b867f9ee38565559b194941cd51c3a0eecfb7",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+      "sha256": "d8e9c3cb034f465e4527c13aad84e7ba283c3efcc537ab254c6295717cd1bbfd",
+      "bytes": 2627980,
+      "roles": [
+        "old_d8_negative_fixture_only"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "aa3e786989384b8272f6e5255724d6fec27ae019",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/make_companion.py",
+      "sha256": "abe272d5a9e16509a2043e9f35817d7bd36aa05fe544087ea8839988ccb6edf6",
+      "bytes": 6431,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "51723d38660e883cce4b59b0961b84835c749b66",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/render_left_rebuild.py",
+      "sha256": "f843a189deaaa4efbb460fee252f98c22f153dc8a8f6a88c55bbef1a692643dd",
+      "bytes": 11920,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "2c14a6ea1d957de6971a096855f585ca50569421",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/test_verify_left_rebuild.py",
+      "sha256": "425c7f9b50571810181ca61353e4d5b5b812e347760de8c1251f340d392317f7",
+      "bytes": 11546,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "e210dfbf0d8d6dd4bc926ec2b2fd32cf304edf6b",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verify_left_rebuild.py",
+      "sha256": "4cd634d3c854825cd4761e2e78df75c169ad80b1ca673eb7dfacacaf80340447",
+      "bytes": 29040,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "319c07a2c2538f7311df6981a6327da4798d659b",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion.py",
+      "sha256": "add35e6ff0b27ee6d1d42af3ac058729e4796aa6ad2478582d07b0ff3e4938d6",
+      "bytes": 11317,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "d62c55d0c97375f70837a9162f73922a490828d3",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion_v2.py",
+      "sha256": "336c4175df2cdcea303dc7bce0f5b890c1b3ade9ebeea2f797a0f7732eaf0f00",
+      "bytes": 3674,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "8388f5935faa5388b0c3115969e4d514a7641f6d",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/build_surface.py",
+      "sha256": "f644c3dc52f29f15c5e49dfcba763ca55e261c44b43ce70cc8b0ff2eef4583c8",
+      "bytes": 24740,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "b109108bb25ef21674edcf447d2321dbad8bce8c",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/make_companion.py",
+      "sha256": "90ee0ef684740b28efe73b41f40ff6797993285ead7ebe9afec746be47fe9483",
+      "bytes": 9885,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "97ecfbd5a4a23dbbe74d64d4bb1d9f6414fbe4bc",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/left_hand_anatomical.glb",
+      "sha256": "ecc071364b89d6ec64fad5a8924f2c65d2e787822a28e3088a2aa7c35a0a02ab",
+      "bytes": 3097392,
+      "roles": [
+        "correct_ecc_Left_contact_reference"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "700ce54ad69bab84f1eeb3753b6248d93c0940a3",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/make_companion.py",
+      "sha256": "c51072ecfe2be33ad54872ecb8657989a6582ed0e6a33ada15700af61ac0f394",
+      "bytes": 1053,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "91a84f21fa3738a3607acf092d9b3bdb39522768",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/patch_delta.json",
+      "sha256": "c79f1dd226ae5f1593e9aa2fdfb1dcb87992205ba9278ab5ece20e8937f0d35d",
+      "bytes": 117869,
+      "roles": [
+        "frozen14_metacarpal_protection_map"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "5ef8dabb48db146515b8903692fa1e25d883a5fd",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb",
+      "sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+      "bytes": 2954512,
+      "roles": [
+        "frozen_a980_parent"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "21fdc3c194f2b4722743949e7243c1d6083a7ca3",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/build_patch.py",
+      "sha256": "44829f748267fd4f689e107370c327c73e0093308db256bd55b60f210302f907",
+      "bytes": 13272,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "cdf8572b632898c94b20b4bc8ee63a4cb1b831ba",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/verify_patch.py",
+      "sha256": "f66402cd95eab3c014e9ef627972506d71affbfa8432d90a557c80b7094c1827",
+      "bytes": 21044,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "f6fa04fe6ed641d49136c3fbc211bcaa924fe4ce",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/verify_surface.py",
+      "sha256": "ae6a8fcb11cd8d1e2f3207cf8d409e294874a3972196da6130dedeff0bd18017",
+      "bytes": 41401,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "30aebc1c862828f7a1845d62d7374ea093793d19",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json",
+      "sha256": "24f6a999143e6fd3b0f875fbaa685bf787d3392cdd27806cdb4ea6e4a2f25655",
+      "bytes": 2720,
+      "roles": [
+        "frozen_three_camera_plan"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "e552653605577c079865e72785d4f123e13a3af3",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+      "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "bytes": 2517124,
+      "roles": [
+        "frozen_texture_preservation_input"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "56771d110c6b7728045104f8bf0b1f7a17c5e733",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/verify_hand_models.py",
+      "sha256": "73fa258439ad889753f1d8904f37f729910ebba68b2a9bb4c19e3231081aae18",
+      "bytes": 26470,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": false,
+      "index_blob_sha1": null,
+      "index_content_matches_worktree": false,
+      "packaging_action": "untracked_required"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/verify_grip.py",
+      "sha256": "cae0bc385230f48490daa9915fb301923ea2a6a763657bee9e10756aa266f8cd",
+      "bytes": 31246,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "7f4a47c01c13a15bdf92aedbc7dafb27cb338f35",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/render_hands.py",
+      "sha256": "b155bf82b710161c6935e01b274489f5dd57a60bc28772490a6bfd0d6a3ab8df",
+      "bytes": 9360,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "89119a61f6ff388ff49734454a48157e17b30e06",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/verify_hands.py",
+      "sha256": "4726712c3eefd705682905aa4c6fed9e4c9117ce77660b787b1a24e37b600df3",
+      "bytes": 57593,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "8970607c24d76a56a83eea16945c5310f23d403d",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/verify_weapon.py",
+      "sha256": "990126287d0027d5471926181b1c9810c46548ffee440f6b82b9107279deb67e",
+      "bytes": 14022,
+      "roles": [
+        "shared_dynamic_import_or_regeneration_source"
+      ],
+      "used_by_or_reason": [
+        "runtime import/AST source or deterministic cache regeneration"
+      ],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "077f4640805b64cd1825fe7a5425f79ab90c1c2c",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "ArtSource/tripo-warrior/library/dao_grip.glb",
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "bytes": 4332212,
+      "roles": [
+        "actual_DAO_input"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "d13ea4b5e5b962045ebd40bb2066816c30033db7",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    },
+    {
+      "path": "app/src/main/assets/models/dao_grip.glb",
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+      "bytes": 4332212,
+      "roles": [
+        "tracked_DAO_alias_used_by_frozen_verifier"
+      ],
+      "used_by_or_reason": [],
+      "exists": true,
+      "index_tracked": true,
+      "index_blob_sha1": "d13ea4b5e5b962045ebd40bb2066816c30033db7",
+      "index_content_matches_worktree": true,
+      "packaging_action": "reuse_index_tracked_identical"
+    }
+  ],
+  "dynamic_import_edges": [
+    [
+      "joint-loops/build_joint.py",
+      "finger-surface/build_finger.py",
+      "importlib: old.anatomy, old.b, old.nt"
+    ],
+    [
+      "finger-surface/build_finger.py",
+      "palm-wrist-surface/build_surface.py",
+      "importlib: GLB/LBS/adjacency/stream functions"
+    ],
+    [
+      "finger-surface/build_finger.py",
+      "palm-wrist-surface/production-patch/build_patch.py",
+      "importlib: feasible_normal"
+    ],
+    [
+      "palm-wrist-surface/build_surface.py",
+      "native-first-person/verify_hands.py",
+      "sys.path import"
+    ],
+    [
+      "native-first-person/verify_hands.py",
+      "weapon/verify_weapon.py",
+      "read/values/local imports"
+    ],
+    [
+      "palm-wrist-surface/build_surface.py",
+      "weapon/build_weapon.py",
+      "encode_glb import"
+    ],
+    [
+      "joint-loops/verify_joint.py",
+      "finger-surface/verify_finger.py",
+      "importlib: frozen audit"
+    ],
+    [
+      "finger-surface/verify_finger.py",
+      "palm-wrist-surface/production-patch/verify_patch.py",
+      "importlib"
+    ],
+    [
+      "production-patch/verify_patch.py",
+      "palm-wrist-surface/verify_surface.py",
+      "importlib"
+    ],
+    [
+      "left-derivation/derive_left.py",
+      "left-rebuild/build_left.py",
+      "frozen rebuild/verify/control_tests"
+    ],
+    [
+      "left-rebuild/build_left.py",
+      "grip-refinement/build_grip.py",
+      "sys.path common; imports helpers and encode_glb"
+    ],
+    [
+      "left-derivation/verify_left.py",
+      "left-rebuild/verify_left_rebuild.py",
+      "bound SOURCE/CANDIDATE/PINS"
+    ],
+    [
+      "left-rebuild/verify_left_rebuild.py",
+      "grip-refinement/verify_grip.py",
+      "surface helpers"
+    ],
+    [
+      "left-rebuild/verify_left_rebuild.py",
+      "transform-diagnostic-2026-11-13/verify_hand_models.py",
+      "anatomy helpers"
+    ],
+    [
+      "grip-refinement/verify_grip.py",
+      "character/design/upperbody-2026-11-12/source-prep/prepare_source.py",
+      "AST-only point_triangle_candidates"
+    ],
+    [
+      "grip-refinement/verify_grip.py",
+      "hero-face/method-study-2026-11-12/verify_specimen.py",
+      "AST-only contains"
+    ],
+    [
+      "grip-refinement/verify_grip.py",
+      "grip/measure_weapon_surface.py",
+      "AST-only _point_in_triangle/_triangles_cross"
+    ],
+    [
+      "joint-loops/make_companion.py",
+      "palm-wrist-surface/make_companion.py",
+      "importlib derive"
+    ],
+    [
+      "palm-wrist-surface/make_companion.py",
+      "grip-refinement/make_render_companion.py",
+      "load_driver"
+    ],
+    [
+      "grip-refinement/make_render_companion.py",
+      "pbr-compression/compress_pbr.py",
+      "helper() importlib"
+    ],
+    [
+      "left-derivation/make_companion.py",
+      "left-rebuild/make_companion.py",
+      "bound current Right/Left/output paths"
+    ],
+    [
+      "left-rebuild/make_companion.py",
+      "grip-refinement/make_render_companion.py",
+      "load_driver"
+    ],
+    [
+      "joint-loops/render_joint.py",
+      "native-first-person/render_hands.py",
+      "import_at/pose/STUDIO"
+    ],
+    [
+      "native-first-person/render_hands.py",
+      "grip/render_grip_candidates.py",
+      "importlib STUDIO"
+    ],
+    [
+      "left-derivation/render_pair.py",
+      "left-rebuild/render_left_rebuild.py",
+      "existing camera_plans/FILL only"
+    ],
+    [
+      "left-derivation/test_left.py",
+      "left-rebuild/test_verify_left_rebuild.py",
+      "frozen28 negative controls"
+    ],
+    [
+      "joint-loops/inspect_sections.py",
+      "finger-surface/inspect_roi.py",
+      "sections() importlib"
+    ]
+  ],
+  "excluded_rebuildable_runtime_inputs": [
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2_decoded.glb",
+      "sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+      "expected_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode_v2"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch_decoded.glb",
+      "sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9",
+      "expected_sha256": "6e8fdd8a6273ce1ced3a72a5e760accca81ba984370d9f4f6ab919b2b91b73d9",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode_a980"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/right_hand_finger_decoded.glb",
+      "sha256": "1ba042ff05f51fb044fd5e039ee23ad9804fe53b8e0aa1f2fa13e4c440559473",
+      "expected_sha256": "1ba042ff05f51fb044fd5e039ee23ad9804fe53b8e0aa1f2fa13e4c440559473",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode48e"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint_decoded.glb",
+      "sha256": "1551189a30c713f9d3ef3cd6b9b8968ec6992bdb3a03219a906f5dcee098f7c3",
+      "expected_sha256": "1551189a30c713f9d3ef3cd6b9b8968ec6992bdb3a03219a906f5dcee098f7c3",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode199c"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint_decoded.glb",
+      "sha256": "b9da43c10db4aef2bad915e2176dce73ef6c18df94d22b78f683584d154435dd",
+      "expected_sha256": "b9da43c10db4aef2bad915e2176dce73ef6c18df94d22b78f683584d154435dd",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode0295"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.glb",
+      "sha256": "f983ee7463db688febcec5fd75b90109eb13afa2c4c5564d221659b98a12aa0c",
+      "expected_sha256": "f983ee7463db688febcec5fd75b90109eb13afa2c4c5564d221659b98a12aa0c",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode_DAO"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/dao_grip_decoded.manifest.json",
+      "sha256": "6944ebc820f957118c05bab1d3b1b443741cb97421baa6cb4e30bfd35c4a4a56",
+      "expected_sha256": "6944ebc820f957118c05bab1d3b1b443741cb97421baa6cb4e30bfd35c4a4a56",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "decode_DAO"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-0.png",
+      "sha256": "c91c15a12d1e8fa172f25f233aed392f38d0dc4985789bffbc1d794a0b8d72ec",
+      "expected_sha256": "c91c15a12d1e8fa172f25f233aed392f38d0dc4985789bffbc1d794a0b8d72ec",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "bootstrap_hand_pixels"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-1.png",
+      "sha256": "354713703353c3d201e4cdc5c6b2cbffb41496b5d48a2b080c66cb07bb9d5c8d",
+      "expected_sha256": "354713703353c3d201e4cdc5c6b2cbffb41496b5d48a2b080c66cb07bb9d5c8d",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "bootstrap_hand_pixels"
+    },
+    {
+      "path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-2.png",
+      "sha256": "e43f6eac481a0a3a60906415f4c1744a728f53209bb6057e75db6737f85b4374",
+      "expected_sha256": "e43f6eac481a0a3a60906415f4c1744a728f53209bb6057e75db6737f85b4374",
+      "role": "excluded_rebuildable_runtime_input",
+      "exists": true,
+      "git_add": false,
+      "regeneration_recipe": "bootstrap_hand_pixels"
+    }
+  ],
+  "regeneration_recipes": [
+    {
+      "id": "bootstrap_hand_pixels",
+      "source": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb",
+      "method": "Load native-first-person/compress_hands.py, call decode_companion(helper(), source, compression/decoded/71c39091c0859a357ed6/right_hand_decoded.glb). Uses officialKTX4.4.2 and exact pinned Pillow version; produces3required PNGs. Do not recompress or publish aliases.",
+      "required_repo_code": [
+        "ArtSource/refinement/weapon/native-first-person/compress_hands.py",
+        "ArtSource/refinement/pbr-compression/compress_pbr.py"
+      ]
+    },
+    {
+      "id": "decode_DAO",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/compress_hands.py --decode-dao ArtSource/tripo-warrior/library/dao_grip.glb --dao-sha256 db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+    },
+    {
+      "id": "decode_v2",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion_v2.py --candidate-sha256 3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+      "after": [
+        "bootstrap_hand_pixels"
+      ]
+    },
+    {
+      "id": "decode_a980",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/make_companion.py",
+      "after": [
+        "decode_v2"
+      ]
+    },
+    {
+      "id": "decode48e",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/make_companion.py",
+      "after": [
+        "decode_v2"
+      ]
+    },
+    {
+      "id": "decode199c",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/make_companion.py",
+      "after": [
+        "decode_v2"
+      ]
+    },
+    {
+      "id": "decode0295",
+      "command": "python3 -B ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/make_companion.py",
+      "after": [
+        "decode199c"
+      ]
+    }
+  ],
+  "runtime_prerequisites": {
+    "python": "3.9.6 (default, May 22 2026, 11:13:45) \n[Clang 21.0.0 (clang-2100.1.1.101)]",
+    "numpy": "2.0.2",
+    "Pillow": "11.3.0",
+    "platform": "macOS-26.2-arm64-arm-64bit",
+    "tools": [
+      {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "role": "external_installed_officialKTX4.4.2",
+        "sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+        "expected_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+        "exists": true,
+        "git_add": false
+      },
+      {
+        "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/lib/libktx.4.4.2.dylib",
+        "role": "external_installed_libktx4.4.2",
+        "sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947",
+        "expected_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947",
+        "exists": true,
+        "git_add": false
+      },
+      {
+        "path": "/Users/yupeng/Applications/Blender-4.5.15-LTS.app/Contents/MacOS/Blender",
+        "role": "external_Blender4.5.15_LTS",
+        "sha256": "d85bac46c9cc9ae7e64ecdc5a647db28af60959eb7df65e030657ff9e0ed8299",
+        "expected_sha256": null,
+        "exists": true,
+        "git_add": false
+      }
+    ]
+  },
+  "git_add_paths": [
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/assemble_review.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/build_finger.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/decode_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/finalize.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/finger_delta.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/inspect_roi.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/README.md",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/assemble_review.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/build_joint.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/closed_joint_sections.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/decode_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/export_evidence.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/finalize.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/handoff.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/inspect_sections.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/joint_delta.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/joint_loops_topology.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/README.md",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/assemble_pairs.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/construction.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/decode_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/derive_left.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/finalize.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/handoff.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/mapping.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/render_pair.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/render_plan.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/comparison_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_back.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_front.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/left_closed_oblique.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_back.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_front.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/paired_closed_oblique.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/render_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_back.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_front.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/renders/right_closed_oblique.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/test_left.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_actual_baseline.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_actual_contacts.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_contract.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_mirror_dao.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verification_tests.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/verify_left.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/mid_joint_sections.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/open_joint_sections.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/original_change_ledger.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/production_files.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/render_joint.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_neutral_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_original_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/closed_three_way.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/comparison_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_neutral_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_original_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/mid_three_way.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_neutral_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_original_joint_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/open_three_way.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/renders/render_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/section_diagnostics.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/test_verify_joint.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification_geometry.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verification_tests.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/verify_joint.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/render_finger.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/render_guides.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_neutral_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_neutral_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_original_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/closed_original_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_neutral_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_neutral_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_original_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/mid_original_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_neutral_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_neutral_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_original_after_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/open_original_before_0.3m.png",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/renders/render_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/right_hand_finger.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/test_verify_finger.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/verify_finger.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/transform-diagnostic-2026-11-13/verify_hand_models.py"
+  ],
+  "reuse_existing_index_paths": [
+    "ArtSource/refinement/character/design/upperbody-2026-11-12/source-prep/prepare_source.py",
+    "ArtSource/refinement/grip/measure_weapon_surface.py",
+    "ArtSource/refinement/grip/render_grip_candidates.py",
+    "ArtSource/refinement/hand-poses/run_blender.py",
+    "ArtSource/refinement/hero-face/method-study-2026-11-12/verify_specimen.py",
+    "ArtSource/refinement/pbr-compression/compress_pbr.py",
+    "ArtSource/refinement/weapon/build_weapon.py",
+    "ArtSource/refinement/weapon/native-first-person/compress_hands.py",
+    "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/compression_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/build_grip.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/build_left.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/left_hand_rebuilt.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/render_left_rebuild.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/test_verify_left_rebuild.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/left-rebuild/verify_left_rebuild.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion_v2.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/build_surface.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/left-derivation/left_hand_anatomical.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/make_companion.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/patch_delta.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/anatomical-crease/right_hand_patch.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/build_patch.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/production-patch/verify_patch.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/verify_surface.py",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/previews_v2/render_manifest.json",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+    "ArtSource/refinement/weapon/native-first-person/grip-refinement/verify_grip.py",
+    "ArtSource/refinement/weapon/native-first-person/render_hands.py",
+    "ArtSource/refinement/weapon/native-first-person/verify_hands.py",
+    "ArtSource/refinement/weapon/verify_weapon.py",
+    "ArtSource/tripo-warrior/library/dao_grip.glb",
+    "app/src/main/assets/models/dao_grip.glb"
+  ],
+  "excluded_patterns": [
+    "*/initial/*",
+    "*/attempt*/*",
+    "*/repair-*/*",
+    "*/before-*/*",
+    "*/skin-material/*",
+    "*/cache/*",
+    "*.ktx2",
+    "*_decoded.glb",
+    "render_output.txt",
+    "__pycache__/*",
+    "Root receipts and appRight/Left formal deployment assets"
+  ],
+  "optional_archive_reference": "finger-surface/render_finger.py before-normal-repair/renders/render_manifest.json is optional. If absent the sourcebefore frames render fresh; it is deliberately not staged.",
+  "validation": {
+    "repository_files_checked": 127,
+    "frozen_pins_checked": 81,
+    "all_required_repository_files_exist": true,
+    "all_observed_frozen_hashes_match": true,
+    "missing_required_files": [],
+    "hash_mismatches": [],
+    "decoded_runtime_inputs_present": true,
+    "observed_dynamic_imports": "Read-only Python audit hook traced imports/loaders/AST providers and non-heavy contract/mapping/preflight input reads; all write/process events denied beforemutation. Static module edges also cover .pyc-backed/unregistered importlib modules and deferred decode/recovery functions.",
+    "read_only_trace_expected_stops": [
+      "jointmake_companion output write denied",
+      "finger48make_companion output write denied",
+      "pairedrender preflight plan write denied"
+    ],
+    "git_commands_executed": false,
+    "index_snapshot_sha256": "2407b41c00dbeca1e416e15724b10cb175e52afa3f2a19e88c0620b569f9c325",
+    "index_format_version": 2,
+    "index_branch_reference": "ref: refs/heads/main"
+  },
+  "manifest_self_hash": "The manifest itself is intentionally not self-hashed; it is listed only in git_add_paths to avoid a circular digest."
+}

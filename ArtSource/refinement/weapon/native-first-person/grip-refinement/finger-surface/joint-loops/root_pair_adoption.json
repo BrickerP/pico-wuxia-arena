@@ -1,0 +1,28 @@
+{
+  "status": "root_adopted_matched_pair_for_development_build_not_final_quality",
+  "root_visual_review": [
+    "closed_three_way.png: local joint convexity improves",
+    "open_three_way.png: broad facets remain",
+    "left-derivation/renders/paired_closed_oblique.png: actual unreflected dao in each hand, identity commonGrip"
+  ],
+  "hand_pair": {
+    "right_hand.glb": {
+      "source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint.glb",
+      "sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+      "replaced_sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+      "bytes": 3224612
+    },
+    "left_hand.glb": {
+      "source": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint.glb",
+      "sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+      "replaced_sha256": "ecc071364b89d6ec64fad5a8924f2c65d2e787822a28e3088a2aa7c35a0a02ab",
+      "bytes": 3397780
+    }
+  },
+  "private_files_rehashed": 52,
+  "known_limits": [
+    "Inherited109 mapped self pairs remain",
+    "Open and mid grip inherit dao intrusions; equipped runtime uses closed grip",
+    "SDK/native TBN and overall hand appearance not yet accepted"
+  ]
+}

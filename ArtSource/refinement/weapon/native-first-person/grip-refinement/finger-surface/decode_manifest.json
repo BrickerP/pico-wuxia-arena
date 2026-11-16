@@ -1,0 +1,846 @@
+{
+  "schema": 1,
+  "status": "offline_companion_verified_render_pending",
+  "candidate_sha256": "48e99dafb3d5049354569b3a25b055db79569c408aeb81d89f2a95d9f5c51355",
+  "baseline": {
+    "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/right_hand.glb",
+    "sha256": "5fbde4a7d432768fb3b0cbd77a7846e5cd49b221acb829616e7b3051a46c1a1d"
+  },
+  "decode_provenance": {
+    "path": "ArtSource/refinement/weapon/native-first-person/compression/versions/71c39091c0859a357ed6/compression_manifest.json",
+    "sha256": "86c145ff2b9bab8bcd68634d073d584f2e3b0bb803400e27c08c259c1795964f",
+    "decoder": "official KTX-Software 4.4.2 extract --transcode rgba8 --level 0"
+  },
+  "helper": {
+    "path": "ArtSource/refinement/pbr-compression/compress_pbr.py",
+    "sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+  },
+  "output": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/right_hand_finger_decoded.glb",
+    "sha256": "1ba042ff05f51fb044fd5e039ee23ad9804fe53b8e0aa1f2fa13e4c440559473",
+    "bytes": 2926356
+  },
+  "images": [
+    {
+      "image": 0,
+      "name": "R_normal_atlas",
+      "ktx_sha256": "a2b332d38651a6b7d05b171797f1b66c7801e186321d27b079e2766c4cef5c52",
+      "ktx_bytes": 672531,
+      "source_and_candidate_ktx_byte_identical": true,
+      "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-0.png",
+      "png_sha256": "c91c15a12d1e8fa172f25f233aed392f38d0dc4985789bffbc1d794a0b8d72ec",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "actual_ktx_decode_level": 0,
+      "decode_reused_without_reencoding_or_resampling": true,
+      "roles": [
+        "normal"
+      ],
+      "domain": "linear",
+      "wrap_s": "clamp",
+      "wrap_t": "clamp"
+    },
+    {
+      "image": 1,
+      "name": "R_base_color_atlas",
+      "ktx_sha256": "01b657ec892427e2cf5481b79d39346ebeb7a9be705d7f5d73a839e7e268f312",
+      "ktx_bytes": 873143,
+      "source_and_candidate_ktx_byte_identical": true,
+      "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-1.png",
+      "png_sha256": "354713703353c3d201e4cdc5c6b2cbffb41496b5d48a2b080c66cb07bb9d5c8d",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "actual_ktx_decode_level": 0,
+      "decode_reused_without_reencoding_or_resampling": true,
+      "roles": [
+        "baseColor"
+      ],
+      "domain": "srgb",
+      "wrap_s": "clamp",
+      "wrap_t": "clamp"
+    },
+    {
+      "image": 2,
+      "name": "R_metallic_roughness_atlas",
+      "ktx_sha256": "d9750fe4dcabc1fed5e762ef86a8b879d80c4f01f33028ddd151306cec8b561a",
+      "ktx_bytes": 749149,
+      "source_and_candidate_ktx_byte_identical": true,
+      "png_path": "ArtSource/refinement/weapon/native-first-person/compression/decoded/71c39091c0859a357ed6/right_hand_decoded-image-2.png",
+      "png_sha256": "e43f6eac481a0a3a60906415f4c1744a728f53209bb6057e75db6737f85b4374",
+      "dimensions": [
+        1536,
+        1536
+      ],
+      "actual_ktx_decode_level": 0,
+      "decode_reused_without_reencoding_or_resampling": true,
+      "roles": [
+        "metallicRoughness"
+      ],
+      "domain": "linear",
+      "wrap_s": "clamp",
+      "wrap_t": "clamp"
+    }
+  ],
+  "preservation": {
+    "candidate_non_image_json_semantics_identical": true,
+    "candidate_all_accessors_identical": 59,
+    "candidate_non_image_bufferViews_byte_identical": 59,
+    "non_image_bufferViews": [
+      {
+        "bufferView": 0,
+        "bytes": 32892,
+        "sha256": "00122d5ec5f680631dd8b70b0bbb9d6915f18f31962f0a1c0b984f83f7a5a7ce"
+      },
+      {
+        "bufferView": 1,
+        "bytes": 32892,
+        "sha256": "56e779153c0b830c6b90ba4953740395920b5f0ddb6eeeeec91f73a739694d75"
+      },
+      {
+        "bufferView": 2,
+        "bytes": 21928,
+        "sha256": "05858e5d5c86b83932b57a8601b7aa2e0894ce275b471ef86c11c655afc3d00c"
+      },
+      {
+        "bufferView": 3,
+        "bytes": 10964,
+        "sha256": "32b817f6d2d97b9494c49cb28bd2f6622ec2b802e39b5f67e91a5cd2a1bb25af"
+      },
+      {
+        "bufferView": 4,
+        "bytes": 43856,
+        "sha256": "cb9216760d0926e9affcb476e8e43b6525f73a26baddc1e03d6df2d060728256"
+      },
+      {
+        "bufferView": 5,
+        "bytes": 28086,
+        "sha256": "656aea1144e89f92bf99c679b31b0a6a65740c080ceb51cea1c586724342e4d9"
+      },
+      {
+        "bufferView": 9,
+        "bytes": 4992,
+        "sha256": "e7a32323bb55744e4bfa341103480f167b71d36a302e2ba6e648924a8870e8cb"
+      },
+      {
+        "bufferView": 10,
+        "bytes": 8,
+        "sha256": "22b6f43bd8d27738d3213f29e96b62d01d9d6c0ab4f9732aaae803186f51eab7"
+      },
+      {
+        "bufferView": 11,
+        "bytes": 32,
+        "sha256": "0635b64f23da29b671fd8c8ac8539c547e82abb035adae7d766f6014d4dd3325"
+      },
+      {
+        "bufferView": 12,
+        "bytes": 32,
+        "sha256": "0792b6ab3e7d6a5a6a75f51b138893abce2ac1744244956f2cdd9d5ba64c507f"
+      },
+      {
+        "bufferView": 13,
+        "bytes": 32,
+        "sha256": "16fe3d13598064367bd6a9c93ee2dafe45d1fc19790672d8b413e44f214c4cf5"
+      },
+      {
+        "bufferView": 14,
+        "bytes": 32,
+        "sha256": "e9aedfa4d432ecd3f312b4ab3ef47a95214bf29828eb9ffbf0d13d3f6bc363be"
+      },
+      {
+        "bufferView": 15,
+        "bytes": 32,
+        "sha256": "c890b2bba7f72906cbf9c06ef313b08e056d80306de464b09f83dc8680aaea7c"
+      },
+      {
+        "bufferView": 16,
+        "bytes": 32,
+        "sha256": "f9ea34a64c142b997008a9f4f3f8144eeac581f835359fd2f6534204f92a40a1"
+      },
+      {
+        "bufferView": 17,
+        "bytes": 32,
+        "sha256": "44c48d82f77d4e9f89f3d147ecc5ad1ba2e2ba43bd169cb71999418257c9c6d7"
+      },
+      {
+        "bufferView": 18,
+        "bytes": 32,
+        "sha256": "205f4c68c0c335e8d013d4d7a123ab12399eed67e021aaa1091ac9b0af6724ee"
+      },
+      {
+        "bufferView": 19,
+        "bytes": 32,
+        "sha256": "43e526d2067ab972e5066bb0d668eff074566905e4ae50aa60d557b41db48029"
+      },
+      {
+        "bufferView": 20,
+        "bytes": 32,
+        "sha256": "ca90382b0c771102f5916f7fcdb0824f0694a986496f6143d681406108677581"
+      },
+      {
+        "bufferView": 21,
+        "bytes": 32,
+        "sha256": "2545a4fc26a224993075e9059363a14ea17e2497b1a42fc43e372546929eb5c1"
+      },
+      {
+        "bufferView": 22,
+        "bytes": 32,
+        "sha256": "60d42a0e0e8fc660b3ae642ce91f0f66eca08d0c7882ef96774920a6efe0d2fc"
+      },
+      {
+        "bufferView": 23,
+        "bytes": 32,
+        "sha256": "1831c47ffc4594ad47cfda5ff0260d36c1b19e1a5c170ab20cd72f4a5547144a"
+      },
+      {
+        "bufferView": 24,
+        "bytes": 32,
+        "sha256": "84e167b747ed808b58d3c7e87841b3d7a613598307d9e7e7716d8cda5c2da28b"
+      },
+      {
+        "bufferView": 25,
+        "bytes": 32,
+        "sha256": "fdf5c65ad9f195c72cfba7502ebe153ed726297b7d9ba8c9472ab6cafc2d64a4"
+      },
+      {
+        "bufferView": 26,
+        "bytes": 3360,
+        "sha256": "164c0fbca7f38e5236dcfc43bf0f6495b29a57779a6af6ee2de5408d6d4fc5a5"
+      },
+      {
+        "bufferView": 27,
+        "bytes": 3360,
+        "sha256": "c258e227550e7fe8ff56002cd7b35a19eaefa2a162d5e72dcf5c8d143e5ec542"
+      },
+      {
+        "bufferView": 28,
+        "bytes": 2240,
+        "sha256": "4e6c25c43eead95b6feaaccf022491ae335c8c2e58d4f4d335564fccf79a1f9e"
+      },
+      {
+        "bufferView": 29,
+        "bytes": 1120,
+        "sha256": "178303b8643bfa6dccb4ea67a7c60eb038046c215c40cdb201b831bb3da334bd"
+      },
+      {
+        "bufferView": 30,
+        "bytes": 4480,
+        "sha256": "ba66064b70176fc1a4ab9a32ffc576354d554d7e33509660d221fad58016d418"
+      },
+      {
+        "bufferView": 31,
+        "bytes": 1530,
+        "sha256": "36621dd99e79a759539131455da30677f6df761bf477c13966ed9a0d5c8cf24c"
+      },
+      {
+        "bufferView": 32,
+        "bytes": 32,
+        "sha256": "15059cbc08e449afed6c3e0cddde7e75334e3663867340a5f1940a329c4686ca"
+      },
+      {
+        "bufferView": 33,
+        "bytes": 32,
+        "sha256": "3c229a2c99fd6627c7b653f964e58572694a94f407e0b300d20745e618bd32d2"
+      },
+      {
+        "bufferView": 34,
+        "bytes": 32,
+        "sha256": "880b990cb016f69fc1f548255bb9b4e21e0ea8472b31ed2b48190beb2d4aa394"
+      },
+      {
+        "bufferView": 35,
+        "bytes": 32,
+        "sha256": "25742c880072f18b1507395ccc7d644cc7481bd7c17430b5f8e673c11a3922b6"
+      },
+      {
+        "bufferView": 36,
+        "bytes": 32,
+        "sha256": "636b4d5741224a5e993f3cc8728be1f487bfc371aefb2924fa73a8f753a0018c"
+      },
+      {
+        "bufferView": 37,
+        "bytes": 32,
+        "sha256": "62804ba6dbbf60f3c16eb61bdd0df43529d5f1d4c447f5ce85ffce7b276edbf8"
+      },
+      {
+        "bufferView": 38,
+        "bytes": 32,
+        "sha256": "6f91efcd18836a75c1f3c9d2993da8beff7767711071390c257d477f823f7333"
+      },
+      {
+        "bufferView": 39,
+        "bytes": 32,
+        "sha256": "0e1f992d44af7c86055f590c1664f9bcff8ad2be27cdab27e9ca9ab28a8c25e1"
+      },
+      {
+        "bufferView": 40,
+        "bytes": 32,
+        "sha256": "d1fb86cd58f10831e25618004d9ec7380c432688a6a5f44baaa0315348eb977f"
+      },
+      {
+        "bufferView": 41,
+        "bytes": 32,
+        "sha256": "1bc53a0470de0c0d6f721fa21c14e6755d60fae8403f3a23ee87bb796bdf5fe3"
+      },
+      {
+        "bufferView": 42,
+        "bytes": 32,
+        "sha256": "6b084a74385901b70abd62bb15b5891d8ff1dcf560844bd35240830485fceaf2"
+      },
+      {
+        "bufferView": 43,
+        "bytes": 32,
+        "sha256": "f0c586ca2e7b5f4d83a87586af94dbc72f4cc9786c3f61b850795f916586791a"
+      },
+      {
+        "bufferView": 44,
+        "bytes": 34404,
+        "sha256": "b88041b7dd6129d3ef883296066a3f7313698e5ef17c01a920ccff41d597fbbc"
+      },
+      {
+        "bufferView": 45,
+        "bytes": 34404,
+        "sha256": "ff6f91cc79dcc67735d6a4c79079f34b245359cddc3b7571095be4d600681a54"
+      },
+      {
+        "bufferView": 46,
+        "bytes": 22936,
+        "sha256": "fd43e648054ac39c70c98279d9fb5e8d99f668b3a9b087b98fecbf243e5e4ce3"
+      },
+      {
+        "bufferView": 47,
+        "bytes": 22936,
+        "sha256": "1b3675a660318171ee9b5dc501dc2bbec0516f6eb0c1b33df566b3e4865716cb"
+      },
+      {
+        "bufferView": 48,
+        "bytes": 45872,
+        "sha256": "40208b640e4c865692503a7148b297e60b137423923935ce4ed9202e00d6bb20"
+      },
+      {
+        "bufferView": 49,
+        "bytes": 57156,
+        "sha256": "6a1117963db9575cf4ba0871dbb221421e4d53d74f9f4b690a75b1fcb2e8e9d6"
+      },
+      {
+        "bufferView": 50,
+        "bytes": 34404,
+        "sha256": "f82ec1e93868a0456bba6860b8541d57c5285661394317843320c1305f571c0e"
+      },
+      {
+        "bufferView": 51,
+        "bytes": 34404,
+        "sha256": "cc7575473afc141222cb3fdc0c912fbebeda8b434b03133c8d347c24b40deb9d"
+      },
+      {
+        "bufferView": 52,
+        "bytes": 22936,
+        "sha256": "fd43e648054ac39c70c98279d9fb5e8d99f668b3a9b087b98fecbf243e5e4ce3"
+      },
+      {
+        "bufferView": 53,
+        "bytes": 22936,
+        "sha256": "6bb624fd2571863e696839376970bc48747bacbda63e27ab5fb9c2c70a3071f2"
+      },
+      {
+        "bufferView": 54,
+        "bytes": 45872,
+        "sha256": "1a6fb3a29aff0c62268902d3cc1b75c3e48282d9fc0755ad331ba0bf460afa5b"
+      },
+      {
+        "bufferView": 55,
+        "bytes": 57156,
+        "sha256": "6a1117963db9575cf4ba0871dbb221421e4d53d74f9f4b690a75b1fcb2e8e9d6"
+      },
+      {
+        "bufferView": 56,
+        "bytes": 37836,
+        "sha256": "31961852ee37941b6915affd9fbbd7c6b9da6b0dac2b9b122e950a6ae4e759fb"
+      },
+      {
+        "bufferView": 57,
+        "bytes": 37836,
+        "sha256": "3763f38940ea0f59f704c7c8e4383ddc8bc1f2cb57c33f6fb86857efb4960212"
+      },
+      {
+        "bufferView": 58,
+        "bytes": 25224,
+        "sha256": "255512b8b706f7358bcc6be9feddd0b15aadd377bf2b96162340b7d3b6d4fa3b"
+      },
+      {
+        "bufferView": 59,
+        "bytes": 25224,
+        "sha256": "960a99f72912cce8580f9da79da551c583c4c8e078e040ccfda0d2b7349a339b"
+      },
+      {
+        "bufferView": 60,
+        "bytes": 50448,
+        "sha256": "9e3ce038d957c66c84e7b25d9fb388fdc6142c6f3559ba65898267d83997740e"
+      },
+      {
+        "bufferView": 61,
+        "bytes": 63372,
+        "sha256": "5591955ec94c99a0363258416518f8aedca544ba11f7344a951492d3be275129"
+      }
+    ],
+    "fresh_candidate_nodes_meshes_skins_animations_accessors_exact": true,
+    "all_three_embedded_PNG_payloads_match_source_actual_KTX": true,
+    "scope": "Fresh surface candidate owns every non-image JSON field and bufferView; no source mesh substitution."
+  },
+  "scope": "Offline PNG companion uses actual compressed top-mip pixels and the new candidate mesh/skin/nodes/animations. Native runtime appearance remains unverified.",
+  "candidate_path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/right_hand_finger.glb",
+  "reused_driver": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/make_render_companion.py",
+    "sha256": "add35e6ff0b27ee6d1d42af3ac058729e4796aa6ad2478582d07b0ff3e4938d6"
+  },
+  "companion_builder": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/palm-wrist-surface/make_companion.py",
+    "sha256": "90ee0ef684740b28efe73b41f40ff6797993285ead7ebe9afec746be47fe9483"
+  },
+  "source_right": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2.glb",
+    "sha256": "3a1be1dd9b46a9baed21914006c2a48d0fe63651b5a0f8174e509584ce3599a0",
+    "decoded_path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/right_hand_refined_v2_decoded.glb",
+    "decoded_sha256": "ad2463fa1379faecca84e8f6b72ffca978d4e282cf7bce0e0dd77222729051d3",
+    "actual_ktx_preservation": {
+      "non_image_bufferViews_byte_identical": 41,
+      "accessors_semantics_and_payloads_unchanged": 41,
+      "non_image_json_semantics_identical": true,
+      "images": [
+        {
+          "vk_format": 0,
+          "type_size": 1,
+          "width": 1536,
+          "height": 1536,
+          "depth": 0,
+          "layers": 0,
+          "faces": 1,
+          "levels": 11,
+          "supercompression": 2,
+          "dfd_model": 166,
+          "dfd_primaries": 0,
+          "dfd_transfer": 1,
+          "level_uncompressed_bytes": 3145776
+        },
+        {
+          "vk_format": 0,
+          "type_size": 1,
+          "width": 1536,
+          "height": 1536,
+          "depth": 0,
+          "layers": 0,
+          "faces": 1,
+          "levels": 11,
+          "supercompression": 2,
+          "dfd_model": 166,
+          "dfd_primaries": 1,
+          "dfd_transfer": 2,
+          "level_uncompressed_bytes": 3145776
+        },
+        {
+          "vk_format": 0,
+          "type_size": 1,
+          "width": 1536,
+          "height": 1536,
+          "depth": 0,
+          "layers": 0,
+          "faces": 1,
+          "levels": 11,
+          "supercompression": 2,
+          "dfd_model": 166,
+          "dfd_primaries": 0,
+          "dfd_transfer": 1,
+          "level_uncompressed_bytes": 3145776
+        }
+      ]
+    }
+  },
+  "geometry_change": {
+    "candidate_mesh_attribute_data_changed_from_source": true,
+    "source_mesh_payloads": [
+      [
+        {
+          "JOINTS_0": {
+            "accessor": {
+              "componentType": 5121,
+              "type": "VEC4",
+              "bufferView": 3,
+              "count": 2741
+            },
+            "payloads": [
+              "32b817f6d2d97b9494c49cb28bd2f6622ec2b802e39b5f67e91a5cd2a1bb25af"
+            ]
+          },
+          "NORMAL": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 1,
+              "count": 2741,
+              "min": [
+                -0.999813437461853,
+                -0.9998908638954163,
+                -0.9996632933616638
+              ],
+              "max": [
+                0.9981293082237244,
+                0.9999720454216003,
+                0.9967740774154663
+              ]
+            },
+            "payloads": [
+              "56e779153c0b830c6b90ba4953740395920b5f0ddb6eeeeec91f73a739694d75"
+            ]
+          },
+          "POSITION": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 0,
+              "count": 2741,
+              "min": [
+                -0.07029448449611664,
+                0.6935280561447144,
+                0.20625470578670502
+              ],
+              "max": [
+                0.04946696013212204,
+                0.7824240922927856,
+                0.44741445779800415
+              ]
+            },
+            "payloads": [
+              "00122d5ec5f680631dd8b70b0bbb9d6915f18f31962f0a1c0b984f83f7a5a7ce"
+            ]
+          },
+          "TEXCOORD_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC2",
+              "bufferView": 2,
+              "count": 2741
+            },
+            "payloads": [
+              "05858e5d5c86b83932b57a8601b7aa2e0894ce275b471ef86c11c655afc3d00c"
+            ]
+          },
+          "WEIGHTS_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC4",
+              "bufferView": 4,
+              "count": 2741
+            },
+            "payloads": [
+              "cb9216760d0926e9affcb476e8e43b6525f73a26baddc1e03d6df2d060728256"
+            ]
+          },
+          "indices": {
+            "accessor": {
+              "componentType": 5123,
+              "type": "SCALAR",
+              "bufferView": 5,
+              "count": 14043,
+              "min": [
+                0
+              ],
+              "max": [
+                2740
+              ]
+            },
+            "payloads": [
+              "656aea1144e89f92bf99c679b31b0a6a65740c080ceb51cea1c586724342e4d9"
+            ]
+          }
+        },
+        {
+          "JOINTS_0": {
+            "accessor": {
+              "componentType": 5121,
+              "type": "VEC4",
+              "bufferView": 29,
+              "count": 280
+            },
+            "payloads": [
+              "178303b8643bfa6dccb4ea67a7c60eb038046c215c40cdb201b831bb3da334bd"
+            ]
+          },
+          "NORMAL": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 27,
+              "count": 280,
+              "min": [
+                -0.9124591946601868,
+                -0.9033008217811584,
+                -0.9754055738449097
+              ],
+              "max": [
+                0.9937955141067505,
+                0.9820689558982849,
+                0.9366469383239746
+              ]
+            },
+            "payloads": [
+              "c258e227550e7fe8ff56002cd7b35a19eaefa2a162d5e72dcf5c8d143e5ec542"
+            ]
+          },
+          "POSITION": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 26,
+              "count": 280,
+              "min": [
+                -0.07778621464967728,
+                0.6806391477584839,
+                0.18297211825847626
+              ],
+              "max": [
+                0.01809781603515148,
+                0.7848524451255798,
+                0.22655229270458221
+              ]
+            },
+            "payloads": [
+              "164c0fbca7f38e5236dcfc43bf0f6495b29a57779a6af6ee2de5408d6d4fc5a5"
+            ]
+          },
+          "TEXCOORD_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC2",
+              "bufferView": 28,
+              "count": 280
+            },
+            "payloads": [
+              "4e6c25c43eead95b6feaaccf022491ae335c8c2e58d4f4d335564fccf79a1f9e"
+            ]
+          },
+          "WEIGHTS_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC4",
+              "bufferView": 30,
+              "count": 280
+            },
+            "payloads": [
+              "ba66064b70176fc1a4ab9a32ffc576354d554d7e33509660d221fad58016d418"
+            ]
+          },
+          "indices": {
+            "accessor": {
+              "componentType": 5123,
+              "type": "SCALAR",
+              "bufferView": 31,
+              "count": 765,
+              "min": [
+                0
+              ],
+              "max": [
+                279
+              ]
+            },
+            "payloads": [
+              "36621dd99e79a759539131455da30677f6df761bf477c13966ed9a0d5c8cf24c"
+            ]
+          }
+        }
+      ]
+    ],
+    "candidate_mesh_payloads": [
+      [
+        {
+          "JOINTS_0": {
+            "accessor": {
+              "bufferView": 59,
+              "componentType": 5123,
+              "count": 3153,
+              "type": "VEC4"
+            },
+            "payloads": [
+              "960a99f72912cce8580f9da79da551c583c4c8e078e040ccfda0d2b7349a339b"
+            ]
+          },
+          "NORMAL": {
+            "accessor": {
+              "bufferView": 57,
+              "componentType": 5126,
+              "count": 3153,
+              "type": "VEC3",
+              "min": [
+                -0.999813437461853,
+                -0.9999837875366211,
+                -0.9996632933616638
+              ],
+              "max": [
+                0.9981293082237244,
+                0.9999720454216003,
+                0.9989345669746399
+              ]
+            },
+            "payloads": [
+              "3763f38940ea0f59f704c7c8e4383ddc8bc1f2cb57c33f6fb86857efb4960212"
+            ]
+          },
+          "POSITION": {
+            "accessor": {
+              "bufferView": 56,
+              "componentType": 5126,
+              "count": 3153,
+              "type": "VEC3",
+              "min": [
+                -0.07029448449611664,
+                0.6935280561447144,
+                0.20625470578670502
+              ],
+              "max": [
+                0.04946696013212204,
+                0.7824240922927856,
+                0.44741445779800415
+              ]
+            },
+            "payloads": [
+              "31961852ee37941b6915affd9fbbd7c6b9da6b0dac2b9b122e950a6ae4e759fb"
+            ]
+          },
+          "TEXCOORD_0": {
+            "accessor": {
+              "bufferView": 58,
+              "componentType": 5126,
+              "count": 3153,
+              "type": "VEC2"
+            },
+            "payloads": [
+              "255512b8b706f7358bcc6be9feddd0b15aadd377bf2b96162340b7d3b6d4fa3b"
+            ]
+          },
+          "WEIGHTS_0": {
+            "accessor": {
+              "bufferView": 60,
+              "componentType": 5126,
+              "count": 3153,
+              "type": "VEC4"
+            },
+            "payloads": [
+              "9e3ce038d957c66c84e7b25d9fb388fdc6142c6f3559ba65898267d83997740e"
+            ]
+          },
+          "indices": {
+            "accessor": {
+              "bufferView": 61,
+              "componentType": 5125,
+              "count": 15843,
+              "type": "SCALAR"
+            },
+            "payloads": [
+              "5591955ec94c99a0363258416518f8aedca544ba11f7344a951492d3be275129"
+            ]
+          }
+        },
+        {
+          "JOINTS_0": {
+            "accessor": {
+              "componentType": 5121,
+              "type": "VEC4",
+              "bufferView": 29,
+              "count": 280
+            },
+            "payloads": [
+              "178303b8643bfa6dccb4ea67a7c60eb038046c215c40cdb201b831bb3da334bd"
+            ]
+          },
+          "NORMAL": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 27,
+              "count": 280,
+              "min": [
+                -0.9124591946601868,
+                -0.9033008217811584,
+                -0.9754055738449097
+              ],
+              "max": [
+                0.9937955141067505,
+                0.9820689558982849,
+                0.9366469383239746
+              ]
+            },
+            "payloads": [
+              "c258e227550e7fe8ff56002cd7b35a19eaefa2a162d5e72dcf5c8d143e5ec542"
+            ]
+          },
+          "POSITION": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC3",
+              "bufferView": 26,
+              "count": 280,
+              "min": [
+                -0.07778621464967728,
+                0.6806391477584839,
+                0.18297211825847626
+              ],
+              "max": [
+                0.01809781603515148,
+                0.7848524451255798,
+                0.22655229270458221
+              ]
+            },
+            "payloads": [
+              "164c0fbca7f38e5236dcfc43bf0f6495b29a57779a6af6ee2de5408d6d4fc5a5"
+            ]
+          },
+          "TEXCOORD_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC2",
+              "bufferView": 28,
+              "count": 280
+            },
+            "payloads": [
+              "4e6c25c43eead95b6feaaccf022491ae335c8c2e58d4f4d335564fccf79a1f9e"
+            ]
+          },
+          "WEIGHTS_0": {
+            "accessor": {
+              "componentType": 5126,
+              "type": "VEC4",
+              "bufferView": 30,
+              "count": 280
+            },
+            "payloads": [
+              "ba66064b70176fc1a4ab9a32ffc576354d554d7e33509660d221fad58016d418"
+            ]
+          },
+          "indices": {
+            "accessor": {
+              "componentType": 5123,
+              "type": "SCALAR",
+              "bufferView": 31,
+              "count": 765,
+              "min": [
+                0
+              ],
+              "max": [
+                279
+              ]
+            },
+            "payloads": [
+              "36621dd99e79a759539131455da30677f6df761bf477c13966ed9a0d5c8cf24c"
+            ]
+          }
+        }
+      ]
+    ],
+    "source_accessor_count": 41,
+    "candidate_accessor_count": 59,
+    "source_mesh_metadata_reused_as_candidate": false
+  },
+  "adapter_sha256": "9348f42cf18132962b078b68e8ea5ac18acac0dff76c81f698440e9f016c2847"
+}

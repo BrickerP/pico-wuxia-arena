@@ -114,7 +114,7 @@ class PlayerCombatResolver {
     private var chargeStartedAt: Long? = null
     private var chargeOrigin: Vector3? = null
     private var chargeForward: Vector3? = null
-    private var previousHandsOffset: Vector3? = null
+    private var previousHands: Vector3? = null
     private var previousHandsAt: Long? = null
     private var skillLatched = false
     private var lastSkillAt: Long? = null
@@ -412,17 +412,18 @@ class PlayerCombatResolver {
             skillLatched = false
             return false
         }
-        val offset = (left + right) * 0.5 - head
+        val hands = (left + right) * 0.5
+        val offset = hands - head
         val forward = horizontal(enemy - head).normalizedOrNull() ?: return false
-        val previousOffset = previousHandsOffset
+        val previousCenter = previousHands
         val previousTime = previousHandsAt
         val pairElapsed = previousTime?.let { secondsBetween(now, it) } ?: 0.0
-        val forwardSpeed = if (previousOffset != null && pairElapsed > 0.0) {
-            (offset - previousOffset).dot(forward) / pairElapsed
+        val forwardSpeed = if (previousCenter != null && pairElapsed > 0.0) {
+            (hands - previousCenter).dot(forward) / pairElapsed
         } else {
             0.0
         }
-        previousHandsOffset = offset
+        previousHands = hands
         previousHandsAt = now
         val origin = chargeOrigin
         val heading = chargeForward
@@ -456,7 +457,7 @@ class PlayerCombatResolver {
         chargeStartedAt = null
         chargeOrigin = null
         chargeForward = null
-        previousHandsOffset = null
+        previousHands = null
         previousHandsAt = null
     }
 

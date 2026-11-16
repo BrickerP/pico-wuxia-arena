@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "tests_run": 33,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "output": "test_KTX_byte_mutation_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_actual_pinned_common_Grip (left_joint_frozen_tests.ContractTests) ... ok\ntest_changed_joint_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_changed_weight_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_extra_frame_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_legacy_derived_marker_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_negative_scale_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_one_way_rename_duplicate_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_original_winding_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_palette_pruning_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_palette_reordering_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_shifted_root_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_synthetic_missing_tangent_w_flip_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_synthetic_missing_tangent_x_flip_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_synthetic_tangent_xyz_w_and_bitangent (left_joint_frozen_tests.ContractTests) ... ok\ntest_unchanged_uv_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_unconjugated_IBM_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_unmirrored_normal_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_unmirrored_position_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_wrong_animation_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_wrong_quaternion_conjugation_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_wrong_side_name_rejected (left_joint_frozen_tests.ContractTests) ... ok\ntest_actual_DAO_topology_controls_solid_vs_surface (left_joint_frozen_tests.GeometryControls) ... ok\ntest_actual_anatomical_chirality_is_opposite (left_joint_frozen_tests.GeometryControls) ... ok\ntest_closed_tetrahedron_inside_outside (left_joint_frozen_tests.GeometryControls) ... ok\ntest_coplanar_positive_area_overlap (left_joint_frozen_tests.GeometryControls) ... ok\ntest_nonadjacent_triangle_crossing_and_adjacent_UV_seam (left_joint_frozen_tests.GeometryControls) ... ok\ntest_open_surface_never_claims_volume (left_joint_frozen_tests.GeometryControls) ... ok\ntest_old_Right_certification_cannot_authorize_199c (joint_left_adapter_tests.CurrentSourceControls) ... ok\ntest_old_a980_Right_cannot_supply_new_Left (joint_left_adapter_tests.CurrentSourceControls) ... ok\ntest_old_anatomical_ecc_Left_rejected (joint_left_adapter_tests.CurrentSourceControls) ... ok\ntest_old_d8_Left_rejected (joint_left_adapter_tests.CurrentSourceControls) ... ok\ntest_reference_barycentric_orientation_matches_actual_mirror (joint_left_adapter_tests.CurrentSourceControls) ... ok\n\n----------------------------------------------------------------------\nRan 33 tests in 0.900s\n\nOK\n",
+  "legacy_negative_controls_reused": 28,
+  "additional_adapter_controls": 5,
+  "source_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "candidate_sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+  "actual_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "verifier_sha256": "8c329ccc047bfd9d6ef9ac0097eb3cc41648651eeb0634a4401ace2fac922ad7",
+  "tests_sha256": "9316b992710f1203e8a37146d0913ab14caa33573959b2d86434f0489c22b685",
+  "source_certification_sha256": "fb606370526b9af78bf3c7f9d9ec15069427d76e7f89dd6c7899bd9fcc45aacd",
+  "source_delta_sha256": "4d367944130eaed3636613d693563cee20a02f5d41a3ce7026b77521a1d853cb",
+  "frozen_dependencies": {
+    "build_left.py": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+    "verify_left_rebuild.py": "4cd634d3c854825cd4761e2e78df75c169ad80b1ca673eb7dfacacaf80340447",
+    "test_verify_left_rebuild.py": "425c7f9b50571810181ca61353e4d5b5b812e347760de8c1251f340d392317f7"
+  }
+}

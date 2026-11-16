@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "tests_run": 16,
+  "errors": [],
+  "failures": [],
+  "source_sha256": "a9809a4515c4448033797847c7b42f2dfe556d323e33b2a185facffc4ac1f862",
+  "candidate_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "verifier_sha256": "2212d9375f6a5fadb067ba36e075d4af2bcaef181cb13a535e994bcc8f64a979",
+  "tests_sha256": "980c9793070c0a68e7847985c7495d2fea8b373f07f2c871b9df682358cb4139",
+  "inner_palm_negative_case": {
+    "source_vertex": 521,
+    "open_hand_local_m": [
+      0.01379269553847949,
+      0.06500281078421703,
+      0.032348513212998434
+    ],
+    "palmar_normal_dot": 0.8386795666999536
+  }
+}

@@ -1,0 +1,665 @@
+{
+  "source": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/right_hand_joint.glb",
+    "sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+    "bytes": 3224612
+  },
+  "candidate": {
+    "path": "ArtSource/refinement/weapon/native-first-person/grip-refinement/finger-surface/joint-loops/left-derivation/left_hand_joint.glb",
+    "sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+    "bytes": 3397780
+  },
+  "reflection_S_rowmajor": [
+    [
+      -1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "common_Grip_root": "LeftGripRoot identity",
+  "legacy_C_B_negative_scale": false,
+  "node_name_map": [
+    {
+      "node": 0,
+      "right": "L_ToeBase",
+      "left": "R_ToeBase"
+    },
+    {
+      "node": 1,
+      "right": "L_Foot",
+      "left": "R_Foot"
+    },
+    {
+      "node": 2,
+      "right": "L_CalfTwist02",
+      "left": "R_CalfTwist02"
+    },
+    {
+      "node": 3,
+      "right": "L_CalfTwist01",
+      "left": "R_CalfTwist01"
+    },
+    {
+      "node": 4,
+      "right": "L_KneeShareBone",
+      "left": "R_KneeShareBone"
+    },
+    {
+      "node": 5,
+      "right": "L_Calf",
+      "left": "R_Calf"
+    },
+    {
+      "node": 6,
+      "right": "L_ThighTwist02",
+      "left": "R_ThighTwist02"
+    },
+    {
+      "node": 7,
+      "right": "L_ThighTwist01",
+      "left": "R_ThighTwist01"
+    },
+    {
+      "node": 8,
+      "right": "L_Thigh",
+      "left": "R_Thigh"
+    },
+    {
+      "node": 9,
+      "right": "R_KneeShareBone",
+      "left": "L_KneeShareBone"
+    },
+    {
+      "node": 10,
+      "right": "R_ToeBase",
+      "left": "L_ToeBase"
+    },
+    {
+      "node": 11,
+      "right": "R_Foot",
+      "left": "L_Foot"
+    },
+    {
+      "node": 12,
+      "right": "R_CalfTwist02",
+      "left": "L_CalfTwist02"
+    },
+    {
+      "node": 13,
+      "right": "R_CalfTwist01",
+      "left": "L_CalfTwist01"
+    },
+    {
+      "node": 14,
+      "right": "R_Calf",
+      "left": "L_Calf"
+    },
+    {
+      "node": 15,
+      "right": "R_ThighTwist02",
+      "left": "L_ThighTwist02"
+    },
+    {
+      "node": 16,
+      "right": "R_ThighTwist01",
+      "left": "L_ThighTwist01"
+    },
+    {
+      "node": 17,
+      "right": "R_Thigh",
+      "left": "L_Thigh"
+    },
+    {
+      "node": 18,
+      "right": "Pelvis",
+      "left": "Pelvis"
+    },
+    {
+      "node": 19,
+      "right": "R_Eye",
+      "left": "L_Eye"
+    },
+    {
+      "node": 20,
+      "right": "L_Eye",
+      "left": "R_Eye"
+    },
+    {
+      "node": 21,
+      "right": "FacialBone",
+      "left": "FacialBone"
+    },
+    {
+      "node": 22,
+      "right": "Head",
+      "left": "Head"
+    },
+    {
+      "node": 23,
+      "right": "NeckTwist02",
+      "left": "NeckTwist02"
+    },
+    {
+      "node": 24,
+      "right": "NeckTwist01",
+      "left": "NeckTwist01"
+    },
+    {
+      "node": 25,
+      "right": "L_ForearmTwist02",
+      "left": "R_ForearmTwist02"
+    },
+    {
+      "node": 26,
+      "right": "L_ForearmTwist01",
+      "left": "R_ForearmTwist01"
+    },
+    {
+      "node": 27,
+      "right": "L_ElbowShareBone",
+      "left": "R_ElbowShareBone"
+    },
+    {
+      "node": 28,
+      "right": "L_Pinky3",
+      "left": "R_Pinky3"
+    },
+    {
+      "node": 29,
+      "right": "L_Pinky2",
+      "left": "R_Pinky2"
+    },
+    {
+      "node": 30,
+      "right": "L_Pinky1",
+      "left": "R_Pinky1"
+    },
+    {
+      "node": 31,
+      "right": "L_Ring3",
+      "left": "R_Ring3"
+    },
+    {
+      "node": 32,
+      "right": "L_Ring2",
+      "left": "R_Ring2"
+    },
+    {
+      "node": 33,
+      "right": "L_Ring1",
+      "left": "R_Ring1"
+    },
+    {
+      "node": 34,
+      "right": "L_Mid3",
+      "left": "R_Mid3"
+    },
+    {
+      "node": 35,
+      "right": "L_Mid2",
+      "left": "R_Mid2"
+    },
+    {
+      "node": 36,
+      "right": "L_Mid1",
+      "left": "R_Mid1"
+    },
+    {
+      "node": 37,
+      "right": "L_Index3",
+      "left": "R_Index3"
+    },
+    {
+      "node": 38,
+      "right": "L_Index2",
+      "left": "R_Index2"
+    },
+    {
+      "node": 39,
+      "right": "L_Index1",
+      "left": "R_Index1"
+    },
+    {
+      "node": 40,
+      "right": "L_Thumb3",
+      "left": "R_Thumb3"
+    },
+    {
+      "node": 41,
+      "right": "L_Thumb2",
+      "left": "R_Thumb2"
+    },
+    {
+      "node": 42,
+      "right": "L_Thumb1",
+      "left": "R_Thumb1"
+    },
+    {
+      "node": 43,
+      "right": "L_Hand",
+      "left": "R_Hand"
+    },
+    {
+      "node": 44,
+      "right": "L_Forearm",
+      "left": "R_Forearm"
+    },
+    {
+      "node": 45,
+      "right": "L_UpperarmTwist02",
+      "left": "R_UpperarmTwist02"
+    },
+    {
+      "node": 46,
+      "right": "L_UpperarmTwist01",
+      "left": "R_UpperarmTwist01"
+    },
+    {
+      "node": 47,
+      "right": "L_Upperarm",
+      "left": "R_Upperarm"
+    },
+    {
+      "node": 48,
+      "right": "L_Clavicle",
+      "left": "R_Clavicle"
+    },
+    {
+      "node": 49,
+      "right": "R_ElbowShareBone",
+      "left": "L_ElbowShareBone"
+    },
+    {
+      "node": 50,
+      "right": "R_ForearmTwist02",
+      "left": "L_ForearmTwist02"
+    },
+    {
+      "node": 51,
+      "right": "R_ForearmTwist01",
+      "left": "L_ForearmTwist01"
+    },
+    {
+      "node": 52,
+      "right": "R_Ring3",
+      "left": "L_Ring3"
+    },
+    {
+      "node": 53,
+      "right": "R_Ring2",
+      "left": "L_Ring2"
+    },
+    {
+      "node": 54,
+      "right": "R_Ring1",
+      "left": "L_Ring1"
+    },
+    {
+      "node": 55,
+      "right": "R_Mid3",
+      "left": "L_Mid3"
+    },
+    {
+      "node": 56,
+      "right": "R_Mid2",
+      "left": "L_Mid2"
+    },
+    {
+      "node": 57,
+      "right": "R_Mid1",
+      "left": "L_Mid1"
+    },
+    {
+      "node": 58,
+      "right": "R_Thumb3",
+      "left": "L_Thumb3"
+    },
+    {
+      "node": 59,
+      "right": "R_Thumb2",
+      "left": "L_Thumb2"
+    },
+    {
+      "node": 60,
+      "right": "R_Thumb1",
+      "left": "L_Thumb1"
+    },
+    {
+      "node": 61,
+      "right": "R_Index3",
+      "left": "L_Index3"
+    },
+    {
+      "node": 62,
+      "right": "R_Index2",
+      "left": "L_Index2"
+    },
+    {
+      "node": 63,
+      "right": "R_Index1",
+      "left": "L_Index1"
+    },
+    {
+      "node": 64,
+      "right": "R_Pinky3",
+      "left": "L_Pinky3"
+    },
+    {
+      "node": 65,
+      "right": "R_Pinky2",
+      "left": "L_Pinky2"
+    },
+    {
+      "node": 66,
+      "right": "R_Pinky1",
+      "left": "L_Pinky1"
+    },
+    {
+      "node": 67,
+      "right": "R_Hand",
+      "left": "L_Hand"
+    },
+    {
+      "node": 68,
+      "right": "R_Forearm",
+      "left": "L_Forearm"
+    },
+    {
+      "node": 69,
+      "right": "R_UpperarmTwist02",
+      "left": "L_UpperarmTwist02"
+    },
+    {
+      "node": 70,
+      "right": "R_UpperarmTwist01",
+      "left": "L_UpperarmTwist01"
+    },
+    {
+      "node": 71,
+      "right": "R_Upperarm",
+      "left": "L_Upperarm"
+    },
+    {
+      "node": 72,
+      "right": "R_Clavicle",
+      "left": "L_Clavicle"
+    },
+    {
+      "node": 73,
+      "right": "Spine02",
+      "left": "Spine02"
+    },
+    {
+      "node": 74,
+      "right": "Spine01",
+      "left": "Spine01"
+    },
+    {
+      "node": 75,
+      "right": "Waist",
+      "left": "Waist"
+    },
+    {
+      "node": 76,
+      "right": "Hip",
+      "left": "Hip"
+    },
+    {
+      "node": 77,
+      "right": "BoneRoot",
+      "left": "BoneRoot"
+    },
+    {
+      "node": 78,
+      "right": "TripoBody_Mesh",
+      "left": "TripoBody_Mesh"
+    },
+    {
+      "node": 79,
+      "right": "Armature",
+      "left": "Armature"
+    },
+    {
+      "node": 80,
+      "right": "TripoBody_Root",
+      "left": "TripoBody_Root"
+    },
+    {
+      "node": 81,
+      "right": "TripoWarrior_Root",
+      "left": "TripoWarrior_Root"
+    },
+    {
+      "node": 82,
+      "right": "Weapon_Root",
+      "left": "Weapon_Root"
+    },
+    {
+      "node": 83,
+      "right": "Grip",
+      "left": "Grip"
+    },
+    {
+      "node": 84,
+      "right": "Blade_Base",
+      "left": "Blade_Base"
+    },
+    {
+      "node": 85,
+      "right": "Blade_Tip",
+      "left": "Blade_Tip"
+    },
+    {
+      "node": 86,
+      "right": "HandGrip_R",
+      "left": "HandGrip_L"
+    },
+    {
+      "node": 87,
+      "right": "SourceHandRigidConversion",
+      "left": "SourceHandRigidConversion"
+    },
+    {
+      "node": 88,
+      "right": "RightGripRoot",
+      "left": "LeftGripRoot"
+    }
+  ],
+  "accessor_transforms": [
+    {
+      "source_accessor": 53,
+      "candidate_accessor": 59,
+      "operation": "POSITION_reflect_X",
+      "count": 3527,
+      "componentType": 5126,
+      "byte_length": 42324
+    },
+    {
+      "source_accessor": 54,
+      "candidate_accessor": 60,
+      "operation": "NORMAL_reflect_X",
+      "count": 3527,
+      "componentType": 5126,
+      "byte_length": 42324
+    },
+    {
+      "source_accessor": 58,
+      "candidate_accessor": 61,
+      "operation": "triangle_reverse_winding",
+      "count": 17901,
+      "componentType": 5125,
+      "byte_length": 71604
+    },
+    {
+      "source_accessor": 23,
+      "candidate_accessor": 62,
+      "operation": "POSITION_reflect_X",
+      "count": 280,
+      "componentType": 5126,
+      "byte_length": 3360
+    },
+    {
+      "source_accessor": 24,
+      "candidate_accessor": 63,
+      "operation": "NORMAL_reflect_X",
+      "count": 280,
+      "componentType": 5126,
+      "byte_length": 3360
+    },
+    {
+      "source_accessor": 28,
+      "candidate_accessor": 64,
+      "operation": "triangle_reverse_winding",
+      "count": 765,
+      "componentType": 5123,
+      "byte_length": 1530
+    },
+    {
+      "source_accessor": 6,
+      "candidate_accessor": 65,
+      "operation": "IBM_S_M_S",
+      "count": 78,
+      "componentType": 5126,
+      "byte_length": 4992
+    },
+    {
+      "source_accessor": 29,
+      "candidate_accessor": 66,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 30,
+      "candidate_accessor": 67,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 36,
+      "candidate_accessor": 68,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 11,
+      "candidate_accessor": 69,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 12,
+      "candidate_accessor": 70,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 13,
+      "candidate_accessor": 71,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 14,
+      "candidate_accessor": 72,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 15,
+      "candidate_accessor": 73,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 35,
+      "candidate_accessor": 74,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 17,
+      "candidate_accessor": 75,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 33,
+      "candidate_accessor": 76,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 34,
+      "candidate_accessor": 77,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 38,
+      "candidate_accessor": 78,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 39,
+      "candidate_accessor": 79,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    },
+    {
+      "source_accessor": 40,
+      "candidate_accessor": 80,
+      "operation": "animation_rotation_reflect_X",
+      "count": 2,
+      "componentType": 5126,
+      "byte_length": 32
+    }
+  ]
+}

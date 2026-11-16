@@ -1,5 +1,13 @@
 # 03 · 服装结构与装配精修
 
+## Root实物review：冻结厚甲、联修动作与袖筒（2026-11-17）
+
+Root已看real-source-refit修正渲染的旧953f，确认黑甲实际向前竖立，旧material过滤证据已纠正；新v5_crown_skirt（prepared2bab2416／raw ec82e24f）真实曲甲与旧铜边可读，接受为动作协作冻结件，非正式角色通过。冠/裙刚性随Clavicle/Upperarm，不得再变动该cap让动作线程追版本。
+
+原5180空手路径会穿过该甲，OH/RIGHT见证归属前臂/手/拇指，并非可删除的肩布；旧原甲也有对应交叉。Root已让动作lane按同cap改可信空手回收，03不得扩大删除域切掉手臂或豁免冲突。袖几何另从真实上臂衣料1854面、近61/远33边两条接缝重建1118面实体筒，Root最新图确认灰色方翼已减少，但近端折返/小裂与UV仍未好，未通过/未进app。先normal/neutral曲面与无新增穿插，再真实衣料UV/normal/MR；单灰色诊断片不是最终材质。
+
+当前由Root写作subagent boss_refit_finish 续同一real-source-refit目录；之前writer因接口Bad Request终止，已核无遗留实进程后接续原产物，没有重做Tripo或复制仓库。正式新手APKc5仍不含本甲。
+
 ## Root返修合同修正：先修渲染证据（2026-11-17）
 
 Root已核旧 `segmented-design/render/render_material_guard.py` 确实按 `material_index > 0` 删除所有面；新增Tripo甲使用新材质，旧前后图因此不足以证明“被旧甲遮住”。此前不可见原因保持未定，不再据该图改安装坐标。新 `shoulder-rebuild/real-source-refit/` 独立生产任务先修renderer，仅按明确DAO节点/primitive过滤，保留所有角色与甲PBR；重画同一个953f候选并列实际材质/面计数后再修几何。

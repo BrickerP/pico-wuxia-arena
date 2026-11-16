@@ -1,5 +1,13 @@
 # 01 · 动作源与战斗姿态
 
+## Root续派：真实刀形链与完整Grip（2026-11-17）
+
+静态18薄条已交（41tests），不再以漏45mm的单轴代理作最终视觉证明。新完整Grip制作60tests通过：4281原rows保留，按实际FK曲率新增370行，总4651；key刚性误差≤0.462µm、mid插值≤0.846mm、连续离线工程界≤1mm。旧60Hz多层FK即使端点准也可在中点差14.56mm，不能从base/tip猜roll或放大门掩盖。
+
+`blade-chain-runtime/` 正制作完整consumer候选：6组broadphase/18caps CCD、身体与Steel排序、全链constraint/release、有限yaw+后退和未来恢复认证；需守真实OH主动反例、静持不刷impact、玩家0强迫位移与全部生命周期。528×4同批host查询已计数，空挥0窄相，误差/性能均不能称PICO已过。全链plan早版过慢及OH后续gap尚在修，未装入app，不以安全hold当交付。
+
+Boss cap与动作共同冻结v5_2100face，native_clearance_integration另在 `natural-guard/boss-armor-arm-clearance/` 修空手左臂：OH/LEFT/RIGHT实际回收撞肩冠/裙，旧源也有。不得删前臂/手或加入豁免；保右手钢刀、phase、根头脚、guard，交真实曲线与甲网格审图。Root统一canonical producer/数据/场景合入，不让候选覆盖已发布5180。
+
 ## Root 当前评审与下一任务（2026-11-17）
 
 本地组合开发包 binding `51807084…` / APK `57f7cb12…` 已完成460项单测（0失败、0跳过）与模拟器实际输入检查。原生录像证明前两敌倒下、第三敌加载；未证明三轮胜利。有限actor卸力已出现实际后退／转身／恢复，不能据此称所有穿刀已修好。

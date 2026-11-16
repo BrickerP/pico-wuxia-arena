@@ -2,7 +2,17 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
-## 当前组合开发节点：攻击回收、有限卸力与灯笼（2026-11-17）
+## 最新main：成对关节手与技能误触修复（2026-11-17）
+
+Right `199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64` / Left `0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7` 已成对接入既有assets入口，无SDK transform补偿或负scale。各6222三角，Right16项/Left33项制作检查通过；Root重核52项收据条目并看原材质/neutral与成对握刀图。旧109父面对指间自交、open/mid旧DAO侵入保留，不宣称全姿态零穿模。
+
+双手技能只将前推速度改由世界手中心计算；胸前蓄势/伸出距离仍按头部相对坐标，阈值/HP/伤害不变。真实TrackingState入口的7项回归覆盖头退误触、真实推手、共身平移与失追/过期/epoch；当前完整467项单测及APK构建通过，0失败/错误/跳过。
+
+APK `c5c28446ea443d14a3ce7d96fd4abb5f48aa5a81666f5f9f3c60a881a33cb9b6` / 221191753 B 已安装启动；设备base.apk实算SHA一致，19个装包模型与正式资源一致。[当前实际右持画面](../ArtSource/refinement/presentation/native-hand-joints-right-2026-11-17.png)和[精确身份](../ArtSource/refinement/presentation/native-hand-joints-2026-11-17.json)只证明新Right握刀显示；Left原生、整体画质、技能实际动作与本包完整胜利均未验。刀形链/Tripo甲/场景IBL仍未装入。
+
+此前57f7/7abefa5组合已经作为[独立开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)公开，5附件服务端SHA/字节数/uploaded及源码目标全部相符；其45秒录像不冒作本包新手/技能证明。
+
+## 上一公开组合节点：攻击回收、有限卸力与灯笼（2026-11-17）
 
 当前APK `57f7cb12286aa9b466bb75c8e53d87b8c31ee6adc887186f6b1adc2e26e9d8e2`，220863361 B，binding `51807084…`。完整构建和460项单测通过，0失败/错误/跳过；19个装包GLB与正式资源匹配，全部Kotlin主源码逐文件SHA固定。移除了SDK骨骼写入探针，未采用失败的玩家推手候选。[精确版本与边界](../ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json)记录实际APK/源文件/模型和媒体身份。
 

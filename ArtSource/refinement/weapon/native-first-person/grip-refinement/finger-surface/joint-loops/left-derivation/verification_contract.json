@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "independent_contract": {
+    "passed": true,
+    "contract": "Lskin = S * Rskin in common Grip; identity outer root; no B/C frame",
+    "full_palette_joints": 78,
+    "TANGENT_primitives_in_actual_source": 0,
+    "default_vs_closed_actual_LBS_max_error_m": 0.0,
+    "missing_TANGENT_scope": "Source has no tangent; synthetic controls cover tangent.xyz and tangent.w. Runtime tangent generation remains unverified.",
+    "KTX_payload_sha256": [
+      "a2b332d38651a6b7d05b171797f1b66c7801e186321d27b079e2766c4cef5c52",
+      "01b657ec892427e2cf5481b79d39346ebeb7a9be705d7f5d73a839e7e268f312",
+      "d9750fe4dcabc1fed5e762ef86a8b879d80c4f01f33028ddd151306cec8b561a"
+    ],
+    "states": [
+      {
+        "time": "default",
+        "joint_world_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3527,
+            "triangles": 5967,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          }
+        ]
+      },
+      {
+        "time": 0.0,
+        "joint_world_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3527,
+            "triangles": 5967,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          }
+        ]
+      },
+      {
+        "time": 0.5,
+        "joint_world_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3527,
+            "triangles": 5967,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          }
+        ]
+      },
+      {
+        "time": 1.0,
+        "joint_world_max_error": 0.0,
+        "primitives": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 3527,
+            "triangles": 5967,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 280,
+            "triangles": 255,
+            "LBS_max_error_m": 0.0,
+            "inverse_transpose_normal_max_error": 0.0,
+            "winding_area_vector_max_error_m2": 0.0
+          }
+        ]
+      }
+    ]
+  },
+  "protected_domain": [
+    {
+      "time": "default",
+      "protected_source_controls": 2675,
+      "protected_current_Right_vertices": 2675,
+      "LBS_mirror_error_m": 0.0
+    },
+    {
+      "time": 0.0,
+      "protected_source_controls": 2675,
+      "protected_current_Right_vertices": 2675,
+      "LBS_mirror_error_m": 0.0
+    },
+    {
+      "time": 0.5,
+      "protected_source_controls": 2675,
+      "protected_current_Right_vertices": 2675,
+      "LBS_mirror_error_m": 0.0
+    },
+    {
+      "time": 1.0,
+      "protected_source_controls": 2675,
+      "protected_current_Right_vertices": 2675,
+      "LBS_mirror_error_m": 0.0
+    }
+  ],
+  "source_original_BIN_prefix_exact": true,
+  "default_closed_equivalence": {
+    "R": {
+      "default_vs_closed_LBS_error_m": 0.0,
+      "default_vs_closed_normal_error": 0.0,
+      "all_primitive_topology_equal": true
+    },
+    "L": {
+      "default_vs_closed_LBS_error_m": 0.0,
+      "default_vs_closed_normal_error": 0.0,
+      "all_primitive_topology_equal": true
+    }
+  },
+  "source_inherited_self_baseline": {
+    "None": {
+      "raw": 136,
+      "source_parent_mapped": 109
+    },
+    "0.0": {
+      "raw": 0,
+      "source_parent_mapped": 0
+    },
+    "0.5": {
+      "raw": 0,
+      "source_parent_mapped": 0
+    },
+    "1.0": {
+      "raw": 136,
+      "source_parent_mapped": 109
+    }
+  },
+  "limits": [
+    "Actual mathematical default/open/mid/closed mirror equivalence, not SDK TBN or native visual acceptance."
+  ],
+  "source_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "candidate_sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+  "actual_dao_sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0",
+  "verifier_sha256": "8c329ccc047bfd9d6ef9ac0097eb3cc41648651eeb0634a4401ace2fac922ad7",
+  "tests_sha256": "9316b992710f1203e8a37146d0913ab14caa33573959b2d86434f0489c22b685",
+  "source_certification_sha256": "fb606370526b9af78bf3c7f9d9ec15069427d76e7f89dd6c7899bd9fcc45aacd",
+  "source_delta_sha256": "4d367944130eaed3636613d693563cee20a02f5d41a3ce7026b77521a1d853cb",
+  "frozen_dependencies": {
+    "build_left.py": "f23797a0af98f26b83f032aff1540fc7d81b070351d33ab89ddb074de058c29f",
+    "verify_left_rebuild.py": "4cd634d3c854825cd4761e2e78df75c169ad80b1ca673eb7dfacacaf80340447",
+    "test_verify_left_rebuild.py": "425c7f9b50571810181ca61353e4d5b5b812e347760de8c1251f340d392317f7"
+  }
+}

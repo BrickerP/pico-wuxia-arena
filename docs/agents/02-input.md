@@ -1,5 +1,11 @@
 # 02 · 刀具造型材质与握持
 
+## Root已成对接入与原生右持收件（2026-11-17）
+
+199c Right／0295 Left已进入app既有资源入口；Root重哈52收据条目，审三列与paired oblique，接受闭握局部关节弧面改善。Right16＋Left33制作测试通过，完整467测试及构建通过；c5c28446 APK设备SHA核对，实际Right已显示在 `presentation/native-hand-joints-right-2026-11-17.png`。Left仅装包和制作检查通过，原生显示/切换仍待Root，不把镜像等价当全局零穿入；整体手与shader品质仍未过。
+
+本路正补最小production文件闭包，Root统一Git。模型写入封口，不再为当前首件改Right/Left/handoff；之后材质与手姿任务须基于已采用这一对，不覆盖回a980/ecc。技能world-hands误触修复已由Root接入并过467总suite，阈值/guard/HP/伤害未改。
+
 ## Root 当前收件与合入边界（2026-11-17）
 
 `finger-surface/joint-loops/right_hand_joint.glb`（`199c228c…`，6222三角）已交，16项私有测试及四态几何检查通过；169原位置／权重与192原法线改动有保护边界证据。旧109对映射自交保留，不能称无自交。它尚未进入app；Root须看三列原材质对照，确认收益后使用同一输入派生匹配左手，并验证真实握刀。当前APK仍为a980右／ecc左，不把私有新手计作当前画面。

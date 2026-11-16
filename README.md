@@ -10,19 +10,20 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-当前开发组合已接入左右攻击净空修正、有限拼刀卸力与新灯笼庭院，binding `51807084…`。**成品 Demo 未完成。** 460 项单测与 APK 构建通过；真实模拟器输入已打倒前两敌并进入第三轮，未完成本版本三轮胜利验收。
+当前开发组合已接入左右攻击净空修正、有限拼刀卸力与新灯笼庭院，binding `51807084…`。**成品 Demo 未完成。** 467 项单测与 APK 构建通过；当前main另接入Right199c/Left0295关节形体与双手技能头退误触修复，APK `c5c28446…` 已安装并取得右持原生画面。前两敌倒下/第三轮录像属于此前公开7abefa5包，不能代替当前包完整流程验收。
 
 ## 当前交付
 
 | 内容 | 当前事实 |
 | --- | --- |
-| 原生画面与录像 | [Full Stage准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒实际交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[版本、源文件身份与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
-| 开发 APK | SHA256 `57f7cb12286aa9b466bb75c8e53d87b8c31ee6adc887186f6b1adc2e26e9d8e2`，220863361 B；19 个 GLB 装包身份一致；460 测试，0失败/错误/跳过 |
+| 最新main画面 | [新手部原生右持](ArtSource/refinement/presentation/native-hand-joints-right-2026-11-17.png)、[精确版本与未验收项](ArtSource/refinement/presentation/native-hand-joints-2026-11-17.json)。当前Left尚未端内验收 |
+| 已公开组合画面 | [7abefa5准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[57f7版本与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
+| 最新main APK | SHA256 `c5c28446ea443d14a3ce7d96fd4abb5f48aa5a81666f5f9f3c60a881a33cb9b6`，221191753 B；设备安装包SHA及19个GLB核对，467测试，0失败/错误/跳过 |
 | 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
 | 拼刀 | 首次接触停顿后由敌人有限后退/转身/恢复，玩家手不承担敌方强制位移；同一最终actor/source用于显示和判定。极端不可证路径仍安全保持 |
 | 当前阻断 | **真实刀刃与单胶囊不贴合**：静态玩家刀局部漏覆盖约45mm，正在制作资产派生形状；胶囊测试通过不等于画面无穿刀 |
-| 手与场景 | Right `a9809a45…` / Left `ecc07136…`；庭院 `c7f2e2b2…`。新指关节、Tripo厚甲和场景IBL仍是私有制作候选，未装入本APK |
-| 已有公开下载 | [自然守势预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)固定旧源码 `add9f3f`，不含本轮组合。新 APK 发布后另列独立 release |
+| 手与场景 | Right `199c228c…` / Left `0295c147…`，各6222三角；闭握局部关节弧面改善，整体手品质未过。庭院 `c7f2e2b2…`；Tripo厚甲和场景IBL仍未装入本APK |
+| 当前公开下载 | [有限拼刀卸力开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)固定源码 `7abefa5` / APK `57f7cb12…`，5附件SHA/大小/状态已核；不含最新199c/0295手与技能误触修复 |
 
 录像保持原始时间流和帧数，无插帧/改速，本次未录声音；主机窗口录制帧率不是PICO渲染性能。完整本版本胜利、玩家弹反/头部闪避/技能处决、音画触觉同步，以及 Space Pro 性能/热量/舒适度均未通过。[验收清单](docs/acceptance.md)列证据与未完成项，[四路交接](docs/agents/README.md)承接制作与评审。
 

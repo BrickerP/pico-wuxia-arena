@@ -1,0 +1,19 @@
+{
+  "right_sha256": "199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64",
+  "left_sha256": "0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7",
+  "images_not_mirrored_or_retouched": true,
+  "panels": [
+    {
+      "path": "paired_closed_front.png",
+      "sha256": "fc422619d08f6e3c9bc535c4e86df43f7d222e1a239be3c8d02782b1421875b2"
+    },
+    {
+      "path": "paired_closed_back.png",
+      "sha256": "16ff5e910c92c5556d17982c2c90277cf9e2872ccfa4fc85ddf78cd605fe3b53"
+    },
+    {
+      "path": "paired_closed_oblique.png",
+      "sha256": "9e145b0785fb3d5db39fbce307bfdc69cd64d25d494bac039715d3f866d414e4"
+    }
+  ]
+}
