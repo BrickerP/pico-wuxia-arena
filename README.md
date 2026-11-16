@@ -16,13 +16,15 @@
 
 | 内容 | 状态与边界 |
 | --- | --- |
-| 当前公开开发预览源码 | `6d35519`：全身上劈v5与逐方向线性时标、common Grip左手、准备页左右持刀入口、非锁存换手恢复；正式binding `713532c0…`；整包与436项单测通过 |
-| 当前开发画面 | [实际右持准备](ArtSource/refinement/presentation/native-grip-motion-ready-2026-11-15.png)、[实际左持](ArtSource/refinement/presentation/native-grip-motion-left-2026-11-15.png)、[26秒原生接触片](ArtSource/refinement/presentation/native-grip-motion-contact-2026-11-15.mp4)、[进入第二轮](ArtSource/refinement/presentation/native-grip-motion-round2-2026-11-15.png)、[版本与边界](ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json)。新包三轮胜利/弹反/身法仍待验 |
+| 当前公开开发预览源码 | `add9f3f`：自然守势、完整呼吸与共用显示/判定时钟，湿石材质；binding `dc0df17b…`；446项测试及构建通过，19模型装包SHA匹配 |
+| 当前开发画面 | [原生Full Stage](ArtSource/refinement/presentation/native-natural-guard-ready-2026-11-16.png)、[实际版本与边界](ArtSource/refinement/presentation/native-natural-guard-2026-11-16.json)。准备态已验，完整攻防/画质仍未验 |
+| 上一握持预览源码 | `6d35519`：全身上劈v5与逐方向线性时标、common Grip左手、准备页左右持刀入口、非锁存换手恢复；正式binding `713532c0…`；整包与436项单测通过 |
+| 上一握持开发画面 | [实际右持准备](ArtSource/refinement/presentation/native-grip-motion-ready-2026-11-15.png)、[实际左持](ArtSource/refinement/presentation/native-grip-motion-left-2026-11-15.png)、[26秒原生接触片](ArtSource/refinement/presentation/native-grip-motion-contact-2026-11-15.mp4)、[进入第二轮](ArtSource/refinement/presentation/native-grip-motion-round2-2026-11-15.png)、[版本与边界](ArtSource/refinement/presentation/native-grip-motion-2026-11-15.json)。新包三轮胜利/弹反/身法仍待验 |
 | 上一公开组合 | 精细上劈v9、右手闭握v2、九窗庭院、近场光、薄刀轨及结算面板；APK `1c41cfc30fa79dd391e9c6af329cdfcf8b8d6ad7401465b9f16b90d0016d7b46`，242,706,266字节 |
 | 公开v9主流程 | PICO Emulator真实SDK输入完成开局、三轮角色轮换、胜利895分／余60生命，再实际点击再挑战回到准备态；8次SOFT_HIT、6次敌方GUARDED_HIT、4次PLAYER_HIT及三次fall有对应日志；不证明新刀刀接触实现 |
 | 公开v9画面 | [52秒连续交战片](ArtSource/refinement/presentation/native-visual-v9-three-rounds-2026-11-13.mp4)、[重试短片](ArtSource/refinement/presentation/native-visual-v9-retry-2026-11-13.mp4)、[交战状态](ArtSource/refinement/presentation/native-visual-v9-combat-2026-11-13.png)、[胜利](ArtSource/refinement/presentation/native-visual-v9-victory-2026-11-13.png)、[版本与边界](ArtSource/refinement/presentation/native-visual-v9-2026-11-13.json) |
 | 公开v9检查 | 构建、安装启动、349项单元测试通过；7个打包模型SHA匹配。空ECS附件AABB标记UNOBSERVED，不伪报数值PASS；实际纸牌与点击已验证 |
-| 最新下载 | [native-grip-motion-2026-11-15](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-grip-motion-2026-11-15)，2026-11-16公开的开发预览，固定源码`6d35519`；APK `498c9fc3…`、220,424,428 B，8附件大小、服务端SHA及uploaded状态均核对 |
+| 最新下载 | [native-natural-guard-2026-11-16](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)，固定源码`add9f3f`；APK `e13f370c…`、220,019,997 B，4附件服务端SHA/大小均核对。上一握持预览仍保留独立证据 |
 | 当前品质 | **成品Demo未完成。** 衣料／发型、近景肤色／刀面反光、腕口／掌背、刀轨与接触反馈可读性仍需打磨；玩家PARRY/HMD闪避/技能处决、部分生命周期和Space Pro实测未完成 |
 
 模拟器主流程证据不等于视觉、手感或终端性能达标。录像保持原始时间流，未插帧，主机约56.5fps也不代表PICO渲染帧率；本次录像未录声音。[验收清单](docs/acceptance.md)与[分工审核](docs/agents/README.md)列当前实物、审核边界和续派。上一已发布UI节点为ca26f4a9／a22a216，保留独立证据。

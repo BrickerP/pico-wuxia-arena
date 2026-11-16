@@ -113,5 +113,6 @@
     "Guest recording is sparse: 8 video frames over7.8501seconds, silent; it cannot prove action smoothness."
   ],
   "standby_weapon_budget_metres": 0.002,
-  "standby_weapon_motion_evidence": "ArtSource/refinement/combat-direction/natural-guard/integration/target-motion-review/measurement.json"
+  "standby_weapon_motion_evidence": "ArtSource/refinement/combat-direction/natural-guard/integration/target-motion-review/measurement.json",
+  "source_commit": "add9f3f3b070081b52fd0fdbd3d0a3375aa0f023"
 }

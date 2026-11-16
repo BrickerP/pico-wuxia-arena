@@ -4,6 +4,8 @@
 
 ## 当前开发预览：自然守势、呼吸与湿石（2026-11-16）
 
+已公开为[自然守势与呼吸开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-natural-guard-2026-11-16)，固定源码`add9f3f3b070081b52fd0fdbd3d0a3375aa0f023`。APK/校验文件/原生PNG/版本JSON四附件均核对服务端SHA、字节数及uploaded状态；这是pre-release，不是成品验收。
+
 本节点使用binding `dc0df17be4b24504f7a21e3b2192e3c1ed5264b58be3f62a752f0ce83aaf8872`，APK SHA256 `e13f370c875aba54e119a4aeb60daa66cdfdff8cd212484da6d7f27f5875f9d9`，220019997 B。构建与446项单元测试通过，0失败/错误/跳过；19个打包GLB与工作树逐字节匹配，生成数据精确检查通过。
 
 - 新自然守势统一idle/walk/三攻击首尾；idle为181键120Hz/1.5秒LINEAR，代理保361个真实采样，准备态/倒计时/交战的显示与判定共用动作时钟，暂停/击中停顿/持续拼刀同冻。
