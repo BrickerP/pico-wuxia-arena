@@ -88,8 +88,11 @@ class SteelRecoveryDomainTest {
         val p=profile;val current=p.sample(contactSeconds);val f=contactFixture(current)
         val original=checkNotNull(plan(current,select(p,current),f))
         val final=original.at(original.durationSeconds)
-        val overlapBase=rotate(f.player.base-final.position,-final.yawRadians)
-        val overlapTip=rotate(f.player.tip-final.position,-final.yawRadians)
+        // Deliberately put the changed enemy boundary on an actual chain part;
+        // certification and clearance below still cover the complete union.
+        val overlappedPart=f.player.maxBy { it.base.distanceTo(it.tip) }
+        val overlapBase=rotate(overlappedPart.base-final.position,-final.yawRadians)
+        val overlapTip=rotate(overlappedPart.tip-final.position,-final.yawRadians)
         for(edge in listOf(contactSeconds-.06,p.sourcePhaseSeconds.last())) {
             val bad=p.sample(edge).copy(bladeBase=overlapBase,bladeTip=overlapTip)
             val samples=(p.samples.filter { it.sourceSeconds!=edge }+bad).sortedBy { it.sourceSeconds }
@@ -98,7 +101,11 @@ class SteelRecoveryDomainTest {
             assertEquals("The exact recovery boundary must survive selection at $edge",bad,
                 selected.single { it.sourceSeconds==edge })
             val oldWorld=world(bad,final.position,final.yawRadians)
-            assertTrue("The deliberately changed boundary must invalidate the old plan",gap(f.player,oldWorld)<-.024)
+            val fullOverlap=-overlappedPart.radiusMeters-oldWorld.radiusMeters
+            assertEquals("The changed boundary must fully overlap an actual player part",
+                fullOverlap,gap(listOf(overlappedPart),oldWorld),1e-9)
+            assertTrue("The complete union must invalidate the old certificate",
+                gap(f.player,oldWorld)<=fullOverlap+1e-9)
             val replacement=plan(current,selected,f)
             if(replacement!=null) {
                 assertFalse("Boundary corruption cannot retain the old certificate at $edge",
@@ -125,16 +132,23 @@ class SteelRecoveryDomainTest {
         assertEquals(idle.samples.last(),selected.last())
     }
 
-    private data class ContactFixture(val player:BladeSegment,val normal:Vector3)
+    private data class ContactFixture(val player:List<BladeSegment>,val normal:Vector3)
     private fun contactFixture(current:AttackPoseSample):ContactFixture {
         val pose=current.inStage(origin,0f)
         val rotation=Quaternion(0.0,-sqrt(.5),0.0,sqrt(.5))
         val local=playerBlade(WeaponGrip(Vector3(0.0,0.0,0.0),rotation))
-        var n=requireNotNull((local.tip-local.base).cross(pose.bladeTip-pose.bladeBase).normalizedOrNull())
+        val reference=local.maxBy { it.base.distanceTo(it.tip) }
+        var n=requireNotNull((reference.tip-reference.base).cross(pose.bladeTip-pose.bladeBase).normalizedOrNull())
         if(n.z<0.0)n=n*-1.0
-        val grip=WeaponGrip((pose.bladeBase+pose.bladeTip-local.base-local.tip)*.5+
-            n*(local.radiusMeters+.0125-1e-9),rotation)
-        return ContactFixture(playerBlade(grip),n)
+        val center=(pose.bladeBase+pose.bladeTip-reference.base-reference.tip)*.5
+        val centered=playerBlade(WeaponGrip(center,rotation))
+        val playerSupport=centered.minOf { minOf(it.base.dot(n),it.tip.dot(n))-it.radiusMeters }
+        val enemySupport=maxOf(pose.bladeBase.dot(n),pose.bladeTip.dot(n))+.0125
+        val grip=WeaponGrip(center+n*(enemySupport-playerSupport-1e-9),rotation)
+        val player=playerBlade(grip)
+        assertEquals("Fixture must touch the actual chain without a buried second part",-1e-9,
+            gap(player,BladeSegment(pose.bladeBase,pose.bladeTip,.0125)),1e-7)
+        return ContactFixture(player,n)
     }
     private fun plan(current:AttackPoseSample,samples:List<AttackPoseSample>,f:ContactFixture)=
         ActorWithdrawalPlan.create(origin,0.0,BladeSegment(current.bladeBase,current.bladeTip,.0125),f.player,f.normal,
@@ -157,7 +171,7 @@ class SteelRecoveryDomainTest {
 private fun rotate(v:Vector3,yaw:Double)=Vector3(v.x*cos(yaw)+v.z*sin(yaw),v.y,-v.x*sin(yaw)+v.z*cos(yaw))
 private fun world(sample:AttackPoseSample,position:Vector3,yaw:Double)=BladeSegment(
     position+rotate(sample.bladeBase,yaw),position+rotate(sample.bladeTip,yaw),.0125)
-private fun gap(a:BladeSegment,b:BladeSegment):Double {
+private fun gap(parts:List<BladeSegment>,b:BladeSegment):Double = parts.minOf { a ->
     val pair=checkNotNull(closestSegmentPoints(a.base,a.tip,b.base,b.tip))
-    return pair.first.distanceTo(pair.second)-a.radiusMeters-b.radiusMeters
+    pair.first.distanceTo(pair.second)-a.radiusMeters-b.radiusMeters
 }

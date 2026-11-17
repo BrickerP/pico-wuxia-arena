@@ -13,8 +13,8 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
 import com.example.wuxiaarena.core.combat.WeaponGrip
-import com.example.wuxiaarena.core.combat.firstBladeContact
-import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.firstRigidBladeContact
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
@@ -110,10 +110,10 @@ class ContactTimeWitnessTest {
     }
 
     private fun realGuardContact(grip: WeaponGrip): BladeContact {
-        val player = playerBlade(grip)
+        val player = playerBladeAxis(grip)
         val midpoint = (player.base + player.tip) * 0.5
         val enemy = BladeSegment(midpoint + Vector3(0.0, -0.2, 0.0), midpoint + Vector3(0.0, 0.2, 0.0), 0.0125)
-        return requireNotNull(firstBladeContact(BladeSweep(player, player), BladeSweep(enemy, enemy)))
+        return requireNotNull(firstRigidBladeContact(grip, grip, BladeSweep(enemy, enemy)))
     }
 
     private fun guardFrame(receipt: Long, enteredAt: Long?): PlayerMotionFrame {
@@ -123,7 +123,7 @@ class ContactTimeWitnessTest {
     }
 
     private fun movingFrame(receipt: Long, grip: WeaponGrip, head: Vector3): PlayerMotionFrame {
-        val blade = playerBlade(grip)
+        val blade = playerBladeAxis(grip)
         return PlayerMotionFrame(receipt, blade.base, blade.tip, 2.0, null, false, head,
             rawWeaponGrip = grip, weaponGrip = grip)
     }

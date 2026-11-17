@@ -39,9 +39,11 @@ class ActorSteelWithdrawalSessionTest {
             val held=requireNotNull(state.playerWeaponGrip)
             val player=playerBlade(held)
             val raw=playerBlade(f.grip)
-            val pair=requireNotNull(closestSegmentPoints(player.base,player.tip,
-                requireNotNull(state.enemyBladeBase),requireNotNull(state.enemyBladeTip)))
-            val gap=pair.first.distanceTo(pair.second)-player.radiusMeters-.0125
+            val enemy=BladeSegment(requireNotNull(state.enemyBladeBase),requireNotNull(state.enemyBladeTip),.0125)
+            val gap=player.minOf { part ->
+                val pair=requireNotNull(closestSegmentPoints(part.base,part.tip,enemy.base,enemy.tip))
+                pair.first.distanceTo(pair.second)-part.radiusMeters-enemy.radiusMeters
+            }
             minimumGap=minOf(minimumGap,gap)
             assertTrue("Native capsule penetrated at ${(index+1)*10}ms; gap=$gap",gap>=-.0006)
             val step=position.distanceTo(requireNotNull(previous.enemyPosition))
@@ -57,8 +59,7 @@ class ActorSteelWithdrawalSessionTest {
                 abs(state.enemyYawRadians.toDouble()-initial.enemyYawRadians.toDouble())<=Math.PI/2+1e-6)
             assertEquals("Raw player pose must remain fixed",f.grip,f.frame.rawWeaponGrip)
             assertEquals("Held player grip must not be projected",f.grip.position,held.position)
-            assertTrue(raw.base.distanceTo(player.base)<1e-12)
-            assertTrue(raw.tip.distanceTo(player.tip)<1e-12)
+            assertEquals("Every held contact part must remain at the raw tracked pose",raw,player)
             maxVirtualOffset=maxOf(maxVirtualOffset,held.position.distanceTo(f.grip.position))
             if(index<3) {
                 assertEquals("The first 30ms retain original hit stop",initialPosition,position)
@@ -179,11 +180,21 @@ class ActorSteelWithdrawalSessionTest {
             val pose=profile.sample(profile.sourcePhaseSeconds[2]).inStage(origin,0f)
             val rotation=Quaternion(0.0,-sqrt(.5),0.0,sqrt(.5))
             val local=playerBlade(WeaponGrip(Vector3(0.0,0.0,0.0),rotation))
-            var normal=requireNotNull((local.tip-local.base).cross(pose.bladeTip-pose.bladeBase).normalizedOrNull())
+            val reference=local.maxBy { it.base.distanceTo(it.tip) }
+            var normal=requireNotNull((reference.tip-reference.base).cross(pose.bladeTip-pose.bladeBase).normalizedOrNull())
             if(normal.z<0.0)normal=normal*-1.0
-            grip=WeaponGrip((pose.bladeBase+pose.bladeTip-local.base-local.tip)*.5+
-                normal*(local.radiusMeters+.0125-1e-9),rotation)
-            val blade=playerBlade(grip)
+            val center=(pose.bladeBase+pose.bladeTip-reference.base-reference.tip)*.5
+            val centered=playerBlade(WeaponGrip(center,rotation))
+            val playerSupport=centered.minOf { minOf(it.base.dot(normal),it.tip.dot(normal))-it.radiusMeters }
+            val enemySupport=maxOf(pose.bladeBase.dot(normal),pose.bladeTip.dot(normal))+.0125
+            grip=WeaponGrip(center+normal*(enemySupport-playerSupport-1e-9),rotation)
+            val enemy=BladeSegment(pose.bladeBase,pose.bladeTip,.0125)
+            val gap=playerBlade(grip).minOf { part ->
+                val pair=requireNotNull(closestSegmentPoints(part.base,part.tip,enemy.base,enemy.tip))
+                pair.first.distanceTo(pair.second)-part.radiusMeters-enemy.radiusMeters
+            }
+            assertEquals("Fixture must touch the actual chain without a buried second part",-1e-9,gap,1e-7)
+            val blade=playerBladeAxis(grip)
             frame=PlayerMotionFrame(0L,blade.base,blade.tip,0.0,null,false,Vector3(0.0,1.6,0.0),rawWeaponGrip=grip,weaponGrip=grip,swing=swingId?.let { QualifiedSwing(it,1.0) })
             set(session,"simulationMotion",frame);set(session,"latestMotion",frame)
             assertEquals(EnemyPhase.ACTIVE,combat.phase)

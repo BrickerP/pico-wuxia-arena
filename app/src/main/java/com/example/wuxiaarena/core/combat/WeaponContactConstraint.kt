@@ -16,11 +16,18 @@ data class WeaponGrip(val position: Vector3, val rotation: Quaternion) {
     }
 }
 
-/** The dao's authored cutting span, in metres from its controller/hand grip. */
-fun playerBlade(grip: WeaponGrip): BladeSegment = BladeSegment(
+/** The sole player contact shape, rigidly placed from the asset-derived local capsules. */
+fun playerBlade(grip: WeaponGrip): List<BladeSegment> = PlayerBladeShape.capsules.map { local ->
+    BladeSegment(grip.position + checkNotNull(grip.rotation.rotate(local.base)),
+        grip.position + checkNotNull(grip.rotation.rotate(local.tip)), local.radiusMeters)
+}
+
+data class BladeAxis(val base: Vector3, val tip: Vector3)
+
+/** Unchanged motion/trail landmarks only. This axis is never a collision capsule. */
+fun playerBladeAxis(grip: WeaponGrip) = BladeAxis(
     grip.position + checkNotNull(grip.rotation.rotate(PLAYER_BLADE_BASE)),
     grip.position + checkNotNull(grip.rotation.rotate(PLAYER_BLADE_TIP)),
-    PLAYER_BLADE_RADIUS_METERS,
 )
 
 fun interpolateGrip(from: WeaponGrip, to: WeaponGrip, fraction: Double): WeaponGrip {
@@ -62,23 +69,38 @@ fun firstRigidBladeContact(
     val a = checkNotNull(previousGrip.rotation.normalizedOrNull())
     val b = checkNotNull(currentGrip.rotation.normalizedOrNull())
     val angle = 2.0 * acos(abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w).coerceIn(0.0, 1.0))
-    val maximumStep = 2.0 * acos(1.0 - RIGID_ARC_ERROR_METERS / PLAYER_GRIP_RADIUS_METERS)
+    val gripRadius = PlayerBladeShape.gripRadius
+    val maximumStep = 2.0 * acos(1.0 - RIGID_ARC_ERROR_METERS / gripRadius)
     val steps = ceil(angle / maximumStep).toInt().coerceAtLeast(1)
-    val sagitta = PLAYER_GRIP_RADIUS_METERS * (1.0 - cos(angle / steps / 2.0))
+    val sagitta = gripRadius * (1.0 - cos(angle / steps / 2.0))
     var previousBlade = playerBlade(previousGrip)
     for (index in 0 until steps) {
         val start = index.toDouble() / steps
         val end = (index + 1).toDouble() / steps
         val currentBlade = playerBlade(interpolateGrip(previousGrip, currentGrip, end))
-        val playerSweep = BladeSweep(
-            previousBlade.copy(radiusMeters = previousBlade.radiusMeters + sagitta),
-            currentBlade.copy(radiusMeters = currentBlade.radiusMeters + sagitta),
-        )
-        val contact = try {
-            firstBladeContact(playerSweep, BladeSweep(enemySweep.atFraction(start), enemySweep.atFraction(end)))
-        } catch (uncertain: BladeContactUncertainException) {
+        val other = BladeSweep(enemySweep.atFraction(start), enemySweep.atFraction(end))
+        var earliest: BladeContact? = null
+        var unresolved: BladeContactUncertainException? = null
+        for (part in previousBlade.indices) {
+            val playerSweep = BladeSweep(
+                previousBlade[part].copy(radiusMeters = previousBlade[part].radiusMeters + sagitta),
+                currentBlade[part].copy(radiusMeters = currentBlade[part].radiusMeters + sagitta),
+            )
+            try {
+                firstBladeContact(playerSweep, other)?.let { contact ->
+                    if (earliest == null || contact.fraction < checkNotNull(earliest).fraction) earliest = contact
+                }
+            } catch (uncertain: BladeContactUncertainException) {
+                if (unresolved == null || uncertain.earliestUnresolvedFraction < checkNotNull(unresolved).earliestUnresolvedFraction) {
+                    unresolved = uncertain
+                }
+            }
+        }
+        val contact = earliest
+        val uncertain = unresolved
+        if (uncertain != null && (contact == null || uncertain.earliestUnresolvedFraction < contact.fraction)) {
             throw BladeContactUncertainException(start + uncertain.earliestUnresolvedFraction / steps,
-                "Rigid blade interval unresolved: ${uncertain.message}")
+                "Rigid blade chain interval unresolved: ${uncertain.message}")
         }
         if (contact != null) return contact.copy(
             fraction = start + contact.fraction / steps,
@@ -98,25 +120,38 @@ fun firstRigidBladeContact(
  * the other blade has withdrawn, [releaseIfSeparated] releases it as well.
  */
 class WeaponContactConstraint {
-    private data class Stop(val grip: WeaponGrip, val normal: Vector3, val axisFraction: Double)
+    private data class Stop(val grip: WeaponGrip, val normal: Vector3, val localPoint: Vector3)
     private var stop: Stop? = null
 
     val constrained: Boolean get() = stop != null
 
-    fun lock(rawGrip: WeaponGrip, contactGrip: WeaponGrip, normal: Vector3, playerAxisFraction: Double = 0.5): WeaponGrip {
+    fun lock(rawGrip: WeaponGrip, contactGrip: WeaponGrip, normal: Vector3, contactPoint: Vector3): WeaponGrip {
         // Validate both values; raw is intentionally not replaced or returned as the SDK pose.
         playerBlade(rawGrip)
-        require(playerAxisFraction.isFinite() && playerAxisFraction in 0.0..1.0)
-        stop = Stop(contactGrip, requireNotNull(normal.normalizedOrNull()), playerAxisFraction)
+        require(contactPoint.isFinite())
+        val placed = playerBlade(contactGrip)
+        var closest = Double.POSITIVE_INFINITY
+        var localPoint: Vector3? = null
+        for ((index, part) in placed.withIndex()) {
+            val axis = part.tip - part.base
+            val fraction = if (axis.dot(axis) == 0.0) 0.0 else
+                ((contactPoint - part.base).dot(axis) / axis.dot(axis)).coerceIn(0.0, 1.0)
+            val point = part.base + axis * fraction
+            val gap = point.distanceTo(contactPoint) - part.radiusMeters
+            if (gap < closest) {
+                closest = gap
+                val local = PlayerBladeShape.capsules[index]
+                localPoint = local.base * (1.0 - fraction) + local.tip * fraction
+            }
+        }
+        stop = Stop(contactGrip, requireNotNull(normal.normalizedOrNull()), checkNotNull(localPoint))
         return contactGrip
     }
 
     fun apply(rawGrip: WeaponGrip): WeaponGrip {
         val held = stop ?: return rawGrip
-        val heldBlade = playerBlade(held.grip)
-        val rawBlade = playerBlade(rawGrip)
-        val heldPoint = heldBlade.base * (1.0 - held.axisFraction) + heldBlade.tip * held.axisFraction
-        val rawPoint = rawBlade.base * (1.0 - held.axisFraction) + rawBlade.tip * held.axisFraction
+        val heldPoint = held.grip.position + checkNotNull(held.grip.rotation.rotate(held.localPoint))
+        val rawPoint = rawGrip.position + checkNotNull(rawGrip.rotation.rotate(held.localPoint))
         if ((rawPoint - heldPoint).dot(held.normal) >= RELEASE_WITHDRAWAL_METERS) {
             reset()
             return rawGrip
@@ -128,8 +163,10 @@ class WeaponContactConstraint {
         require(clearanceMeters.isFinite() && clearanceMeters >= 0.0)
         val held = stop ?: return false
         val player = playerBlade(held.grip)
-        val pair = requireNotNull(closestSegmentPoints(player.base, player.tip, enemyBlade.base, enemyBlade.tip))
-        if (pair.first.distanceTo(pair.second) <= player.radiusMeters + enemyBlade.radiusMeters + clearanceMeters) return false
+        if (player.any { part ->
+            val pair = requireNotNull(closestSegmentPoints(part.base, part.tip, enemyBlade.base, enemyBlade.tip))
+            pair.first.distanceTo(pair.second) <= part.radiusMeters + enemyBlade.radiusMeters + clearanceMeters
+        }) return false
         // Catching the real hand must itself be collision-free; a separated held blade
         // does not prove the raw hand's route has cleared the withdrawing enemy dao.
         if (rawGrip != null && firstRigidBladeContact(held.grip, rawGrip, BladeSweep(enemyBlade, enemyBlade)) != null) return false
@@ -148,8 +185,5 @@ private fun BladeSweep.atFraction(fraction: Double) = BladeSegment(
 
 private val PLAYER_BLADE_BASE = Vector3(0.022, 0.0, -0.129)
 private val PLAYER_BLADE_TIP = Vector3(0.0532, 0.0, -0.849)
-private const val PLAYER_BLADE_RADIUS_METERS = 0.012
-// Authored tip length is 0.850665 m; bound the complete rigid span from the grip.
-private const val PLAYER_GRIP_RADIUS_METERS = 0.851
 private const val RIGID_ARC_ERROR_METERS = 0.0005
 private const val RELEASE_WITHDRAWAL_METERS = 0.025

@@ -9,7 +9,7 @@ import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
 import com.example.wuxiaarena.core.combat.QualifiedSwing
 import com.example.wuxiaarena.core.combat.WeaponGrip
-import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
@@ -139,7 +139,7 @@ class WeaponContactOrderingTest {
 
     private fun frame(x: Double, swing: QualifiedSwing? = null): PlayerMotionFrame {
         val grip = WeaponGrip(Vector3(x, 1.2, 0.0), IDENTITY)
-        val blade = playerBlade(grip)
+        val blade = playerBladeAxis(grip)
         return PlayerMotionFrame(1L, blade.base, blade.tip, 2.0, null, false,
             Vector3(0.0, 1.6, 3.0), weaponGrip = grip, rawWeaponGrip = grip, swing = swing)
     }

@@ -14,6 +14,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.acos
+import kotlin.math.ceil
+import kotlin.math.floor
 
 class PlayerContactTangentTest {
     private val enemy = Vector3(0.0, 0.0, -1.2)
@@ -46,7 +49,7 @@ class PlayerContactTangentTest {
 
         assertEquals(0.0, frame.bladeTipSpeed, 1e-9)
         val target = requireNotNull(resolver.targetContact(frame, enemy, HitZone.BODY).tangent)
-        val blade = playerBlade(requireNotNull(first.weaponGrip))
+        val blade = playerBladeAxis(requireNotNull(first.weaponGrip))
         val steel = BladeSegment((blade.base + blade.tip) * 0.5, (blade.base + blade.tip) * 0.5, 0.012)
         val guard = requireNotNull(firstRigidBladeContact(requireNotNull(first.weaponGrip),
             requireNotNull(frame.weaponGrip), BladeSweep(steel, steel))?.relativeDisplacement?.normalizedOrNull())
@@ -68,12 +71,47 @@ class PlayerContactTangentTest {
         val contact = requireNotNull(frame.strike).contact
         val tangent = requireNotNull(contact.tangent)
 
-        // The first rigid-blade substep has a steeper backward component than the whole
-        // frame: hand translation is linear while the blade rotates around it.
-        val wholeFrameDirection = requireNotNull(requireNotNull(frame.bladeBaseDelta).normalizedOrNull())
-        assertTrue(wholeFrameDirection.z > -0.15)
-        assertTrue(tangent.x > 0.95)
-        assertTrue(tangent.z < -0.15)
+        val from = requireNotNull(first.weaponGrip)
+        val to = requireNotNull(frame.weaponGrip)
+        val body = requireNotNull(frame.targetPose)
+        val target = if (contact.zone == HitZone.HEAD) BladeSegment(body.head, body.head, 0.16)
+            else BladeSegment(body.bodyBottom, body.bodyTop, 0.24)
+        val witness = requireNotNull(firstRigidBladeContact(from, to, BladeSweep(target, target)))
+        // This fixture starts touching the body, so its first valid witness may
+        // be t=0; motion at that material point still uses the first substep.
+        assertTrue(witness.fraction >= 0.0 && witness.fraction < 1.0)
+        assertTrue(witness.enemyPoint.distanceTo(contact.point) < 1e-10)
+
+        // Independently place a material point using the fixture's analytic
+        // 0.3-radian Y rotation and linear hand path. The actual TOI identifies
+        // its source substep; its tangent is not the whole observation chord.
+        val pieces = ceil(0.3 / (2.0 * acos(1.0 - 0.0005 / PlayerBladeShape.gripRadius))).toInt()
+        val piece = floor(witness.fraction * pieces).toInt().coerceAtMost(pieces - 1)
+        val start = piece.toDouble() / pieces
+        val end = (piece + 1).toDouble() / pieces
+        val fraction = witness.fraction * pieces - piece
+        val sagitta = PlayerBladeShape.gripRadius * (1.0 - cos(0.3 / pieces / 2.0))
+        fun place(point: Vector3, time: Double): Vector3 {
+            val angle = 0.3 * time
+            return from.position * (1.0 - time) + to.position * time + Vector3(
+                cos(angle) * point.x + sin(angle) * point.z, point.y,
+                -sin(angle) * point.x + cos(angle) * point.z)
+        }
+        val candidates = PlayerBladeShape.capsules.map { part ->
+            val localPoint = part.base * (1.0 - witness.playerAxisFraction) + part.tip * witness.playerAxisFraction
+            val chordPoint = place(localPoint, start) * (1.0 - fraction) + place(localPoint, end) * fraction
+            val witnessAxis = witness.playerPoint + witness.normal * (part.radiusMeters + sagitta)
+            localPoint to chordPoint.distanceTo(witnessAxis)
+        }
+        val matched = requireNotNull(candidates.minByOrNull { it.second })
+        assertTrue("The TOI must identify a material point on an actual chain part", matched.second < 1e-9)
+        val expected = requireNotNull((place(matched.first, end) - place(matched.first, start)).normalizedOrNull())
+        val whole = requireNotNull((place(matched.first, 1.0) - place(matched.first, 0.0)).normalizedOrNull())
+        assertDirection(expected, tangent)
+        assertTrue("A whole-frame direction must not replace the real TOI substep material motion",
+            tangent.distanceTo(whole) > 0.001)
+        println("CHAIN_CONTACT_TANGENT toi=${witness.fraction} piece=$piece/$pieces local=${matched.first} " +
+            "actual=$tangent expected=$expected whole=$whole")
         assertEquals(1.0, tangent.length(), 1e-9)
     }
 
@@ -89,7 +127,7 @@ class PlayerContactTangentTest {
         val resting = requireNotNull(resolver.observe(snapshot(5, 200_000_000L, Vector3(0.001, 0.95, -0.25)), enemy))
         assertNull(resolver.targetContact(resting, enemy, HitZone.BODY).tangent)
         val still = playerBlade(requireNotNull(resting.weaponGrip))
-        assertNull(firstBladeContact(BladeSweep(still, still), BladeSweep(still, still))
+        for (part in still) assertNull(firstBladeContact(BladeSweep(part, part), BladeSweep(part, part))
             ?.relativeDisplacement?.normalizedOrNull())
         assertNull(resting.bladeBaseDelta)
         assertNull(resting.bladeTipDelta)
