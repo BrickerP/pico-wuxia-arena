@@ -11,6 +11,7 @@ import com.example.wuxiaarena.core.combat.firstBladeContact
 import com.example.wuxiaarena.core.combat.firstRigidBladeContact
 import com.example.wuxiaarena.core.combat.interpolateGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyCombatStateMachine
@@ -542,7 +543,7 @@ internal class ArenaSession(
                 if (contact != null) {
                     restoreEnemyLocomotion(actorBefore)
                     if (contactQueryFailures++ < 4) logMessage("Actor withdrawal met a new contact; forced guard retreat")
-                    ensureForcedRetreat(contact.normal)
+                    ensureForcedRetreat(contact.contact.normal)
                     if (forcedRetreat == null) {
                         releaseSteelHold("retreat unavailable")
                         combat.advanceWhileWeaponStopped(remaining)
@@ -640,7 +641,7 @@ internal class ArenaSession(
                     resolveSteelContact(candidate.contact, held, events)
                     beginSteelWithdrawal(candidate.contact, grip)
                 } else if (candidate.playerAttack) {
-                    val blade = grip?.let(::playerBlade)
+                    val blade = grip?.let(::playerBladeAxis)
                     val witness = MotionContact(candidate.zone, candidate.contact.enemyPoint, candidate.contact.normal,
                         candidate.contact.relativeDisplacement.normalizedOrNull())
                     val striking = atContact.copy(weaponGrip = grip,
@@ -716,7 +717,7 @@ internal class ArenaSession(
         val frame = simulationMotion
         val raw = frame?.rawWeaponGrip
         if (frame != null && raw != null) {
-            val blade = playerBlade(raw)
+            val blade = playerBladeAxis(raw)
             val freed = frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,
                 strike = null, swing = null, skillGesture = false)
             simulationMotion = freed
@@ -784,7 +785,7 @@ internal class ArenaSession(
         pendingMotion.clear()
         latestMotion = latestMotion?.let { frame ->
             val raw = frame.rawWeaponGrip ?: return@let null
-            val blade = playerBlade(raw)
+            val blade = playerBladeAxis(raw)
             frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,
                 strike = null, swing = null, skillGesture = false, guardDirection = null,
                 guardEnteredAtNanos = null, fastGuardAtNanos = null,
@@ -852,7 +853,7 @@ internal class ArenaSession(
         val grip = if (from.weaponGrip == to.weaponGrip) from.weaponGrip
             else if (from.weaponGrip != null && to.weaponGrip != null)
                 interpolateGrip(from.weaponGrip, to.weaponGrip, amount) else to.weaponGrip ?: from.weaponGrip
-        val blade = grip?.let(::playerBlade)
+        val blade = grip?.let(::playerBladeAxis)
         val evidence = if (to.guardEnteredAtNanos?.let { it <= receiptNanos } == true) to else from
         val fast = to.fastGuardAtNanos?.takeIf { to.guardDirection == evidence.guardDirection && it <= receiptNanos }
             ?: from.fastGuardAtNanos?.takeIf { from.guardDirection == evidence.guardDirection && it <= receiptNanos }
@@ -874,7 +875,7 @@ internal class ArenaSession(
         val angle = 2.0 * kotlin.math.acos(kotlin.math.abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w).coerceIn(0.0, 1.0))
         val first = playerBlade(from)
         val last = playerBlade(to)
-        val gripRadius = maxOf(first.base.distanceTo(from.position), first.tip.distanceTo(from.position))
+        val gripRadius = first.maxOf { maxOf(it.base.distanceTo(from.position), it.tip.distanceTo(from.position)) }
         // The projection of a rigid endpoint has |second derivative| <= r*angle^2.
         // Thus its chord error is <= K*t*(1-t), K=r*angle^2/2. Requiring
         // one end's support gap to cover K proves separation for a rotating withdrawal.
@@ -883,8 +884,8 @@ internal class ArenaSession(
             (player.base - other.base).dot(normal), (player.base - other.tip).dot(normal),
             (player.tip - other.base).dot(normal), (player.tip - other.tip).dot(normal),
         ) - player.radiusMeters - other.radiusMeters
-        val start = gap(first, enemy.previous)
-        val end = gap(last, enemy.current)
+        val start = first.minOf { gap(it, enemy.previous) }
+        val end = last.minOf { gap(it, enemy.current) }
         return start >= -1e-7 && end >= curvatureBound || start >= curvatureBound && end >= -1e-7
     }
 

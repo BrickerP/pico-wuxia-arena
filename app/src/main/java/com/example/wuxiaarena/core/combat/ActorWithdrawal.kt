@@ -32,22 +32,23 @@ class ActorWithdrawalPlan private constructor(
         private const val MAX_YAW=PI/2
         private const val MAX_RETREAT=.35
         private data class Range(val lo:Double,val hi:Double)
-        fun create(origin:Vector3,yawRadians:Double,heldLocalBlade:BladeSegment,playerBlade:BladeSegment,
+        fun create(origin:Vector3,yawRadians:Double,heldLocalBlade:BladeSegment,playerBlade:List<BladeSegment>,
             normal:Vector3,recoveryLocalBlades:List<BladeSegment>):ActorWithdrawalPlan? {
-            if(!origin.isFinite() || !yawRadians.isFinite() || !normal.isFinite() || normal.length()<1e-9 || recoveryLocalBlades.isEmpty())return null
+            if(!origin.isFinite() || !yawRadians.isFinite() || !normal.isFinite() || normal.length()<1e-9 || recoveryLocalBlades.isEmpty() || playerBlade.isEmpty())return null
             val n=normal.normalizedOrNull() ?: return null
-            val playerAxis=(playerBlade.tip-playerBlade.base).normalizedOrNull() ?: return null
+            val playerAxis=playerBlade.map { it.tip-it.base }.reduce { a,b->a+b }.normalizedOrNull() ?: return null
             if((heldLocalBlade.tip-heldLocalBlade.base).length()<1e-9)return null
             val held=listOf(rotate(heldLocalBlade.base,yawRadians),rotate(heldLocalBlade.tip,yawRadians))
-            val radius=playerBlade.radiusMeters+heldLocalBlade.radiusMeters
-            val initialLimit=minOf(playerBlade.base.dot(n),playerBlade.tip.dot(n))-radius
+            // Support planes enclose the complete capsule union, not a replacement
+            // centre capsule. Each part contributes its actual radius.
+            val initialLimit=playerBlade.minOf { minOf(it.base.dot(n),it.tip.dot(n))-it.radiusMeters }-heldLocalBlade.radiusMeters
             if(initialLimit-maxOf((origin+held[0]).dot(n),(origin+held[1]).dot(n))< -1e-6)return null
             val horizontal=Vector3(n.x,0.0,n.z)
             val away=horizontal.normalizedOrNull()?.times(-1.0) ?: rotate(Vector3(0.0,0.0,-1.0),yawRadians)
             val normalRetreat=-n.dot(away)
             val hulls=mutableListOf<List<Vector3>>()
-            val yLow=minOf(playerBlade.base.y,playerBlade.tip.y)-radius-CLEARANCE-origin.y
-            val yHigh=maxOf(playerBlade.base.y,playerBlade.tip.y)+radius+CLEARANCE-origin.y
+            val yLow=playerBlade.minOf { minOf(it.base.y,it.tip.y)-it.radiusMeters }-heldLocalBlade.radiusMeters-CLEARANCE-origin.y
+            val yHigh=playerBlade.maxOf { maxOf(it.base.y,it.tip.y)+it.radiusMeters }+heldLocalBlade.radiusMeters+CLEARANCE-origin.y
             val ordered=recoveryLocalBlades
             for(i in ordered.indices) {
                 val a=ordered[i];val b=ordered[minOf(i+1,ordered.lastIndex)]
@@ -64,7 +65,8 @@ class ActorWithdrawalPlan private constructor(
                 // Choose a finite endpoint side from the actual rotating blade motion.
                 for(exitSign in listOf(-1.0,1.0)) {
                     val t=playerAxis*exitSign
-                    val endpoint=if(exitSign>0)playerBlade.tip else playerBlade.base
+                    val exitLimit=playerBlade.maxOf { maxOf(it.base.dot(t),it.tip.dot(t))+it.radiusMeters }+
+                        heldLocalBlade.radiusMeters+CLEARANCE
                     var allowed=listOf(Range(0.0,MAX_YAW))
                     for(hull in hulls) {
                         var behind=listOf(Range(0.0,MAX_YAW));var beyond=listOf(Range(0.0,MAX_YAW))
@@ -77,7 +79,7 @@ class ActorWithdrawalPlan private constructor(
                             val tc=t.x*p.x+t.z*p.z-tu*h
                             val ts=sign*(t.x*p.z-t.z*p.x)+tu*k
                             val constantExit=t.dot(origin)+tu*(INITIAL_RETREAT+h)+t.y*p.y
-                            beyond=intersect(beyond,trig(tc,ts,t.dot(endpoint)+radius+CLEARANCE-constantExit))
+                            beyond=intersect(beyond,trig(tc,ts,exitLimit-constantExit))
                         }
                         allowed=intersect(allowed,merge(behind+beyond))
                         if(allowed.isEmpty())break
