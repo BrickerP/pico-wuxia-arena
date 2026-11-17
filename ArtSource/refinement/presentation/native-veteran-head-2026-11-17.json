@@ -1,0 +1,50 @@
+{
+  "status": "native_candidate_model_inspection_not_playable_demo_acceptance",
+  "apk": {
+    "status": "candidate_new_boss_native_diagnostic_not_release",
+    "apk_sha256": "ffed2187dc4500515adee533852a39482660edb8e2366a0668b78d21b3fce084",
+    "bytes": 222531925,
+    "model_sha256": "cc926c4960535891385a53c1414d2101a4ea119d3ecfa32b2a5bb334711c88c1",
+    "environment_exponent": 7,
+    "one_actor": true
+  },
+  "raw_source_sha256": "ec67ae3c649752e9e6a2f1f676e7d3e74dc94e9607f721a6440af20e5f52d776",
+  "native_evidence": {
+    "capture_receipt": {
+      "serial": "emulator-5554",
+      "reason": "probe-cleaned",
+      "timeout_seconds": 300,
+      "elapsed_seconds": 48.055405667,
+      "log_bytes": 1089150,
+      "log_lines": 1946,
+      "launch_component": "com.example.wuxiaarena.p0d2f0182/.platform.LaunchActivity",
+      "events": 1945,
+      "status": "OBSERVED_RECEIPTS",
+      "scope": "Explicit Root run only. No install, shared Gradle, log clearing, adb-server mutation or game damage/state changes. Captures owned tag and stops on cleanup/deadline/size limit."
+    },
+    "scope": "SDK Full Stage independent actor; controls and9 held poses observed, not three-round gameplay",
+    "source_note": "Diagnostic APK uses uncommitted Root runtime work based on d4906eb; this asset-only Git checkpoint does not claim to reproduce or release that APK."
+  },
+  "media": {
+    "idle": {
+      "file": "ArtSource/refinement/presentation/native-veteran-head-idle-2026-11-17.png",
+      "sha256": "6e0c7a19da17aff5cfaaff533233e5c0a11084211994480008adfb7205811b67",
+      "bytes": 1221631
+    },
+    "left": {
+      "file": "ArtSource/refinement/presentation/native-veteran-head-left-2026-11-17.png",
+      "sha256": "20316d8f6dbbccf75b53455cc26c19060a24513ddfd7905e58e6e2f7d24d0a93",
+      "bytes": 1220116
+    },
+    "overhead": {
+      "file": "ArtSource/refinement/presentation/native-veteran-head-overhead-2026-11-17.png",
+      "sha256": "689ae376078d8545a6901a6aafbaf987b5a35a030607420ef0b4a3df9e273d85",
+      "bytes": 1229237
+    }
+  },
+  "visual_review": [
+    "Root observed new face/hair/armor in idle/LEFT/OH.",
+    "Control panel obscures part of shoulder/arm; whole-character art and fluent combat remain unaccepted.",
+    "All temporary diagnostic source/model substitutions restored; game runtime assets are unchanged by this checkpoint."
+  ]
+}

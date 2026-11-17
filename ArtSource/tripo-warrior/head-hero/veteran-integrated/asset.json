@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "role": "canonical authored input; not runtime-ready until existing prepare_character_library normalization/target constraint/texture/profile stages",
+  "model_sha256": "ec67ae3c649752e9e6a2f1f676e7d3e74dc94e9607f721a6440af20e5f52d776",
+  "bytes": 33043188,
+  "animations": 0,
+  "original_joint_palette": 78,
+  "source": "Tripo CLI ov; original head generated with tripo-v3.1 and detailed PBR texture; Blender integrated head/neck, cap and connected sleeve",
+  "tripo_head_geometry_task": "9fdbd2f7-01b2-456f-8f39-05e75d5e8744",
+  "tripo_head_texture_task": "4a4549f7-18e7-4e1f-9ee7-1bbfaa50dd4a",
+  "source_texture_size": 4096,
+  "normalization_frame": {
+    "height_m": 1.78,
+    "scale": 1.8155286383,
+    "preserve_authored_frame": true
+  },
+  "review": {
+    "geometry_protection_checks": 75,
+    "overall_character_art_accepted": false,
+    "limitations": [
+      "Skin reads smooth/young; close neck transition remains visible.",
+      "Inherited garment and cap surface intersections are not declared zero.",
+      "Raw input is not the animated runtime model."
+    ]
+  },
+  "gltf_validation": {
+    "errors": 0,
+    "warnings": 16490,
+    "warning_codes": {
+      "ACCESSOR_JOINTS_USED_ZERO_WEIGHT": 16484,
+      "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 5,
+      "NODE_SKINNED_MESH_NON_ROOT": 1
+    },
+    "interpretation": "Zero-influence joint indices remain semantically inert and intentionally preserved; explicit tangent authoring is a separate pending material-portability refinement."
+  },
+  "source_axes": "Authored raw forward +X; existing canonical preparation supplies target metres/+Z orientation."
+}
