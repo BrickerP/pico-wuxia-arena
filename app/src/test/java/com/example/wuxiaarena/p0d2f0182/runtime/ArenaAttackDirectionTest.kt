@@ -2,7 +2,7 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.WeaponGrip
-import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyContactPose
@@ -125,7 +125,7 @@ class ArenaAttackDirectionTest {
             val future = profile.sourceSeconds(state.phase, state.phaseElapsedNanos + 80_000_000L,
                 requireNotNull(state.phaseRemainingNanos) - 80_000_000L)
             val pose = profile.sample(future).inStage(requireNotNull(state.enemyPosition), state.enemyYawRadians)
-            val local = playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))
+            val local = playerBladeAxis(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))
             val mid = (local.base + local.tip) * 0.5
             val normal = requireNotNull((pose.bladeTip - pose.bladeBase).cross(local.tip - local.base).normalizedOrNull())
             val before = contactsAtResolution.size

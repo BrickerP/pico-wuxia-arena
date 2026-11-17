@@ -268,8 +268,8 @@ class PlayerCombatResolver {
     /** Keep tracking untouched; replace the simulation/render hand and blade together. */
     fun constrainWeapon(frame: PlayerMotionFrame, grip: WeaponGrip, contact: BladeContact): PlayerMotionFrame {
         val raw = frame.rawWeaponGrip ?: grip
-        weaponConstraint.lock(raw, grip, contact.normal, contact.playerAxisFraction)
-        val blade = playerBlade(grip)
+        weaponConstraint.lock(raw, grip, contact.normal, contact.playerPoint)
+        val blade = playerBladeAxis(grip)
         previous = previous?.copy(base = blade.base, tip = blade.tip, rotation = grip.rotation)
         strokeHasHit = true
         return frame.copy(bladeBase = blade.base, bladeTip = blade.tip, weaponGrip = grip,
@@ -281,7 +281,7 @@ class PlayerCombatResolver {
         val raw = frame.rawWeaponGrip ?: return frame
         val grip = weaponConstraint.apply(raw)
         if (!weaponConstraint.constrained) return frame
-        val blade = playerBlade(grip)
+        val blade = playerBladeAxis(grip)
         return frame.copy(weaponGrip = grip, bladeBase = blade.base, bladeTip = blade.tip,
             strike = null, swing = null, skillGesture = false, bladeAtRest = true, bladeTipSpeed = 0.0,
             bladeBaseDelta = null, bladeTipDelta = null)
@@ -297,7 +297,7 @@ class PlayerCombatResolver {
         weaponConstraint.reset()
         val frame = latestFrame ?: return
         val raw = frame.rawWeaponGrip ?: return
-        val blade = playerBlade(raw)
+        val blade = playerBladeAxis(raw)
         // The held sample must not become a new stroke when the raw hand was buried behind it.
         previous = previous?.copy(base = blade.base, tip = blade.tip, rotation = raw.rotation)
         latestFrame = frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,

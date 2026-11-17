@@ -37,10 +37,10 @@ class PlayerDefenseSnapshotTest {
         // Replaying an earlier real contact after future observations must use that
         // earlier frame's immutable grading data, not the recognizer's newest guard.
         val grip = requireNotNull(earlier.weaponGrip)
-        val player = playerBlade(grip)
+        val player = playerBladeAxis(grip)
         val midpoint = (player.base + player.tip) * 0.5
         val enemy = BladeSegment(midpoint + Vector3(0.0, -0.2, 0.0), midpoint + Vector3(0.0, 0.2, 0.0), 0.012)
-        val contact = requireNotNull(firstBladeContact(BladeSweep(player, player), BladeSweep(enemy, enemy)))
+        val contact = requireNotNull(firstRigidBladeContact(grip, grip, BladeSweep(enemy, enemy)))
         fixture.resolver.constrainWeapon(earlier, grip, contact)
         assertEquals(AttackOutcome.BLOCKED, fixture.resolver.resolveDefense(1L, AttackDirection.OVERHEAD,
             fixture.enemy, earlier.receivedAtNanos, contact))

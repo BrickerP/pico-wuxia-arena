@@ -1,11 +1,13 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
+import com.example.wuxiaarena.core.combat.BladeSegment
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.InputOrigin
@@ -48,8 +50,8 @@ class NativeEnemyMotionContactTest {
                     contactPosition.z < fullEndpoint - 1e-6)
                 val held = requireNotNull(contact.playerWeaponGrip)
                 assertEquals(fixture.rawGrip.position, held.position)
-                assertTrue(playerBlade(fixture.rawGrip).base.distanceTo(playerBlade(held).base) < 1e-12)
-                assertTrue(playerBlade(fixture.rawGrip).tip.distanceTo(playerBlade(held).tip) < 1e-12)
+                assertEquals("Every held contact part must remain at the raw tracked pose",
+                    playerBlade(fixture.rawGrip), playerBlade(held))
                 assertEquals(fixture.rawGrip.position, fixture.tracking.snapshot.right?.pose?.position)
                 assertEquals(0.0, contact.playerBladeTipSpeed, 0.0)
                 assertTrue(contact.playerBladeAtRest)
@@ -74,9 +76,13 @@ class NativeEnemyMotionContactTest {
             fixture.tick(10_000_000L)
             val state = fixture.session.viewState
             val player = playerBlade(requireNotNull(state.playerWeaponGrip))
-            val (playerAxis, enemyAxis) = requireNotNull(closestSegmentPoints(player.base, player.tip,
-                requireNotNull(state.enemyBladeBase), requireNotNull(state.enemyBladeTip)))
-            val separation = playerAxis.distanceTo(enemyAxis) - player.radiusMeters - 0.0125
+            val enemy = BladeSegment(requireNotNull(state.enemyBladeBase),
+                requireNotNull(state.enemyBladeTip), 0.0125)
+            val separation = player.minOf { part ->
+                val (playerAxis, enemyAxis) = requireNotNull(closestSegmentPoints(
+                    part.base, part.tip, enemy.base, enemy.tip))
+                playerAxis.distanceTo(enemyAxis) - part.radiusMeters - enemy.radiusMeters
+            }
             assertTrue("Persistent steel must not overlap after ${(index + 1) * 10} ms; signed gap=$separation",
                 separation >= -geometryTolerance)
             val origin = requireNotNull(state.enemyPosition)
@@ -84,15 +90,13 @@ class NativeEnemyMotionContactTest {
             assertTrue("Enemy origin must remain on its original side of the held blade",
                 if (originSide < 0.0) currentSide <= geometryTolerance else currentSide >= -geometryTolerance)
             assertTrue("Walking actor must not cross the fixed transverse blade plane",
-                origin.z <= heldBlade.base.z + geometryTolerance)
+                origin.z <= heldBlade.minOf { minOf(it.base.z, it.tip.z) - it.radiusMeters } + geometryTolerance)
             maximumVirtualOffset = maxOf(maximumVirtualOffset, requireNotNull(state.playerWeaponGrip).position.distanceTo(fixture.rawGrip.position))
             if (sourceResumedMillis == null && state.enemyPoseSourceSeconds != firstContact.enemyPoseSourceSeconds) sourceResumedMillis = (index+1)*10
             assertEquals("Actor withdrawal must not move the held player grip", fixture.rawGrip.position,
                 requireNotNull(state.playerWeaponGrip).position)
-            assertTrue("The held player blade base must remain at the raw tracked pose",
-                player.base.distanceTo(playerBlade(fixture.rawGrip).base) < 1e-12)
-            assertTrue("The held player blade tip must remain at the raw tracked pose",
-                player.tip.distanceTo(playerBlade(fixture.rawGrip).tip) < 1e-12)
+            assertEquals("Every held player blade part must remain at the raw tracked pose",
+                playerBlade(fixture.rawGrip), player)
             val stepDistance = origin.distanceTo(requireNotNull(previousState.enemyPosition))
             assertTrue("Actor withdrawal must obey .65 m/s: $stepDistance m per 10ms",
                 stepDistance <= .65 * .01 + 1e-9)
@@ -183,7 +187,7 @@ class NativeEnemyMotionContactTest {
         assertEquals(100, fixture.session.viewState.health)
         val state = fixture.session.viewState
         val enemyMiddle = (requireNotNull(state.enemyBladeBase) + requireNotNull(state.enemyBladeTip)) * .5
-        val local = playerBlade(original.copy(position = Vector3(0.0, 0.0, 0.0)))
+        val local = playerBladeAxis(original.copy(position = Vector3(0.0, 0.0, 0.0)))
         val center = enemyMiddle - (local.base + local.tip) * .5
         val start = fixture.rawGrip.position
         val outside = center + first.normal * .20
@@ -232,7 +236,7 @@ class NativeEnemyMotionContactTest {
             val arriving = arenaOpponents.first().locomotionProfile().sample(true, 0.75, 0L)
                 .inStage(Vector3(0.0, 0.0, -2.25), 0f)
             val rotation = Quaternion(0.0, -sqrt(0.5), 0.0, sqrt(0.5))
-            val localBlade = playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))
+            val localBlade = playerBladeAxis(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))
             rawGrip = WeaponGrip((arriving.bladeBase + arriving.bladeTip - localBlade.base - localBlade.tip) * 0.5, rotation)
             session.setArenaPresenter { _, batch -> events.addAll(batch) }
             session.setEnemyGeometry(Vector3(0.0, 0.0, -3.0), 1.55)
