@@ -10,7 +10,7 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-当前开发组合已接入左右攻击净空修正、有限拼刀卸力与新灯笼庭院，binding `51807084…`。**成品 Demo 未完成。** 467 项单测与 APK 构建通过；当前main另接入Right199c/Left0295关节形体与双手技能头退误触修复，APK `c5c28446…` 已安装并取得右持原生画面。前两敌倒下/第三轮录像属于此前公开7abefa5包，不能代替当前包完整流程验收。
+**成品 Demo 未完成。** 当前只有一道门，写在 [docs/agents/README.md](docs/agents/README.md)：先让钢交叠在 220ms 内回守，再让刀的显示和判定共用一个网格形状，然后用同一个 APK 打完三轮并重开。旧包录像不能代替这一包。
 
 ## 当前交付
 
@@ -20,12 +20,12 @@
 | 已公开组合画面 | [7abefa5准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[57f7版本与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
 | 最新main APK | SHA256 `c5c28446ea443d14a3ce7d96fd4abb5f48aa5a81666f5f9f3c60a881a33cb9b6`，221191753 B；设备安装包SHA及19个GLB核对，467测试，0失败/错误/跳过 |
 | 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
-| 拼刀 | 首次接触停顿后由敌人有限后退/转身/恢复，玩家手不承担敌方强制位移；同一最终actor/source用于显示和判定。极端不可证路径仍安全保持 |
-| 当前阻断 | **真实刀刃与单胶囊不贴合**：静态玩家刀局部漏覆盖约45mm，正在制作资产派生形状；胶囊测试通过不等于画面无穿刀 |
+| 拼刀 | 解析卸力优先。证不出来、再次接触或连续不可证查询改为一次最长 220ms 的强制回守，然后把刀交还跟踪。同一次重叠不连打出伤。玩家手不吃敌人的强制位移 |
+| 当前阻断 | **刀的形状仍是 12mm 单胶囊**，静态刀面局部漏覆盖约 45mm。下一提交只做网格分段，并让显示、CCD、恢复读它。手部、衣片、Tripo、IBL 暂停 |
 | 手与场景 | Right `199c228c…` / Left `0295c147…`，各6222三角；闭握局部关节弧面改善，整体手品质未过。庭院 `c7f2e2b2…`；Tripo厚甲和场景IBL仍未装入本APK |
 | 当前公开下载 | [有限拼刀卸力开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)固定源码 `7abefa5` / APK `57f7cb12…`，5附件SHA/大小/状态已核；不含最新199c/0295手与技能误触修复 |
 
-录像保持原始时间流和帧数，无插帧/改速，本次未录声音；主机窗口录制帧率不是PICO渲染性能。完整本版本胜利、玩家弹反/头部闪避/技能处决、音画触觉同步，以及 Space Pro 性能/热量/舒适度均未通过。[验收清单](docs/acceptance.md)列证据与未完成项，[四路交接](docs/agents/README.md)承接制作与评审。
+录像保持原始时间流和帧数。主机窗口帧率不是 PICO 渲染性能，无声录像不能判断卡肉。弹反、头闪、技能、处决和 Space Pro 排在三轮通关之后。[当前门](docs/acceptance.md)只认正在构建的这一包。[目标](docs/agents/README.md)是 Codex 的唯一派工单。
 
 ## 构建与模拟器
 

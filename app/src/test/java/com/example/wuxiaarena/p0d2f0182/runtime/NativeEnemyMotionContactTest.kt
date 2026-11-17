@@ -196,6 +196,27 @@ class NativeEnemyMotionContactTest {
         assertEquals(100, fixture.session.viewState.health)
     }
 
+    @Test
+    fun buriedOverlapReturnsTheHandInsideOneSecondAndDoesNotFarmImpact() {
+        val fixture = Fixture()
+        fixture.contact()
+        val impact = fixture.impacts().single()
+        val contact = fixture.session.viewState
+        val locked = requireNotNull(contact.playerWeaponGrip)
+        val buried = locked.copy(position = locked.position - impact.normal * 0.20)
+        val contactEnemy = requireNotNull(contact.enemyPosition)
+        repeat(100) { fixture.tick(10_000_000L, buried) }
+        val state = fixture.session.viewState
+        assertEquals("A steel hold must give the raw hand back within one second", buried.position,
+            requireNotNull(state.playerWeaponGrip).position)
+        assertEquals("The same overlap must not emit another impact", 1, fixture.impacts().size)
+        assertEquals(100, state.playerHealth)
+        assertEquals(100, state.health)
+        val retreat = requireNotNull(state.enemyPosition).distanceTo(contactEnemy)
+        assertTrue("The actor must leave the contact instead of freezing", retreat > 0.001)
+        assertTrue("One overlap gets one retreat, not a repeating shove: ${retreat}m", retreat <= 0.50)
+    }
+
     private class Fixture {
         val session = ArenaSession(logMessage = {}, logFailure = { _, error -> throw error })
         val tracking = TrackingState(Hand.RIGHT)

@@ -138,11 +138,22 @@ internal class ArenaSession(
     private var contactRecovery: ContactRecovery? = null
     private var enemyMotionNanos = 0L
     private var steelContactLatched = false
+    private var steelGuardReleased = false
+    private var uncertainHoldNanos = 0L
+    private var forcedRetreat: ForcedGuardRetreat? = null
     private var steelWithdrawal: SteelWithdrawal? = null
     private data class SteelWithdrawal(val plan: ActorWithdrawalPlan, val source: EnemyPoseFrame,
         var elapsedNanos: Long = 0L) {
         val durationNanos = kotlin.math.ceil(plan.durationSeconds * 1_000_000_000.0).toLong()
         val complete: Boolean get() = elapsedNanos >= durationNanos
+    }
+    /** Uncertified overlap. The actor steps away at the existing locomotion speed, then the hand is returned. */
+    private data class ForcedGuardRetreat(val origin: Vector3, val away: Vector3, var elapsedNanos: Long = 0L) {
+        val complete: Boolean get() = elapsedNanos >= STEEL_HOLD_LIMIT_NANOS
+        fun position(): Vector3 {
+            val seconds = elapsedNanos.coerceAtMost(STEEL_HOLD_LIMIT_NANOS) / 1_000_000_000.0
+            return origin + away * (ActorWithdrawalPlan.LINEAR_SPEED * seconds)
+        }
     }
     private var contactQueryFailures = 0
     private var contactUncertainReceipt: Long? = null
@@ -464,6 +475,8 @@ internal class ArenaSession(
             target.swing?.id?.let { it > consumedStrikeId } == true) {
             steelContactLatched = false
             steelWithdrawal = null
+            steelGuardReleased = false
+            forcedRetreat = null
         }
         var remaining = delta
         var consumed = 0L
@@ -480,6 +493,23 @@ internal class ArenaSession(
             consumed += frozen
             if (remaining == 0L && !zeroQuery) break
             synchronizeAttackBaseline()
+            val retreat = forcedRetreat
+            if (retreat != null && !retreat.complete && remaining > 0L) {
+                val step = minOf(remaining, 10_000_000L, STEEL_HOLD_LIMIT_NANOS - retreat.elapsedNanos)
+                stepForcedRetreat(step)
+                combat.advanceWhileWeaponStopped(step)
+                consumed += step
+                remaining -= step
+                stopped = true
+                zeroQuery = false
+                continue
+            }
+            if (retreatIfRawHandIsBuried(target)) {
+                stopped = true
+                zeroQuery = false
+                if (remaining == 0L) break
+                continue
+            }
             val withdrawal = steelWithdrawal
             if (withdrawal != null && !withdrawal.complete && remaining > 0L) {
                 val step = minOf(remaining, 10_000_000L, withdrawal.durationNanos - withdrawal.elapsedNanos)
@@ -498,16 +528,29 @@ internal class ArenaSession(
                 val contact = try { queryContact(fromFrame, toFrame, before, after) }
                 catch (uncertain: BladeContactUncertainException) {
                     restoreEnemyLocomotion(actorBefore)
-                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal query held: ${uncertain.message}")
-                    combat.advanceWhileWeaponStopped(remaining)
-                    return true
+                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal query unproved; forced guard retreat: ${uncertain.message}")
+                    ensureForcedRetreat(Vector3(0.0, 0.0, 0.0))
+                    if (forcedRetreat == null) {
+                        releaseSteelHold("retreat unavailable")
+                        combat.advanceWhileWeaponStopped(remaining)
+                        return true
+                    }
+                    stopped = true
+                    zeroQuery = false
+                    continue
                 }
                 if (contact != null) {
                     restoreEnemyLocomotion(actorBefore)
-                    steelWithdrawal = null
-                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal met a new contact; keeping the proven pose")
-                    combat.advanceWhileWeaponStopped(remaining)
-                    return true
+                    if (contactQueryFailures++ < 4) logMessage("Actor withdrawal met a new contact; forced guard retreat")
+                    ensureForcedRetreat(contact.normal)
+                    if (forcedRetreat == null) {
+                        releaseSteelHold("retreat unavailable")
+                        combat.advanceWhileWeaponStopped(remaining)
+                        return true
+                    }
+                    stopped = true
+                    zeroQuery = false
+                    continue
                 }
                 withdrawal.elapsedNanos += step
                 combat.advanceWhileWeaponStopped(step)
@@ -536,14 +579,33 @@ internal class ArenaSession(
             val candidate = try {
                 queryContact(fromFrame, toFrame, before, after)
             } catch (uncertain: BladeContactUncertainException) {
-                // Never turn an unproved interval into a miss or apply its pending damage.
                 restoreEnemyLocomotion(actorBefore)
-                if (contactQueryFailures++ < 4) logMessage("Contact query held previous pose: ${uncertain.message}")
-                latestMotion = fromFrame.copy(strike = null, skillGesture = false)
-                simulationMotion = latestMotion
-                return true
+                uncertainHoldNanos += remaining
+                if (uncertainHoldNanos < STEEL_HOLD_LIMIT_NANOS) {
+                    if (contactQueryFailures++ < 4) logMessage("Contact query held previous pose: ${uncertain.message}")
+                    latestMotion = fromFrame.copy(strike = null, skillGesture = false)
+                    simulationMotion = latestMotion
+                    return true
+                }
+                if (contactQueryFailures++ < 4) logMessage("Contact query budget expired; skipping unproved interval")
+                releaseSteelHold("unproved contact budget")
+                collect(combat.advanceBy(remaining, currentTargetInRange() == true, nextAttackDirection()), events)
+                enemyMotionNanos += remaining
+                return false
             }
+            uncertainHoldNanos = 0L
             zeroQuery = false
+            if (candidate != null && candidate.steel && steelGuardReleased) {
+                collect(combat.advanceBy(interval, currentTargetInRange() == true, nextAttackDirection()), events)
+                recoilElapsedNanos = (recoilElapsedNanos + interval).coerceAtMost(RECOIL_DURATION)
+                enemyMotionNanos += interval
+                consumed += interval
+                remaining -= interval
+                simulationMotion = toFrame
+                latestMotion = toFrame
+                if (interval == 0L) break
+                continue
+            }
             if (candidate != null) {
                 val advance = (interval * candidate.contact.fraction).toLong().coerceIn(0L, interval)
                 restoreEnemyLocomotion(actorBefore)
@@ -616,6 +678,64 @@ internal class ArenaSession(
         return stopped
     }
 
+    private fun ensureForcedRetreat(normal: Vector3) {
+        if (forcedRetreat != null || steelGuardReleased) return
+        val origin = enemyPosition ?: return
+        val horizontal = Vector3(normal.x, 0.0, normal.z)
+        val away = horizontal.normalizedOrNull()?.times(-1.0) ?: awayFromPlayer()
+        forcedRetreat = ForcedGuardRetreat(origin, away)
+        steelWithdrawal = null
+    }
+
+    private fun awayFromPlayer(): Vector3 {
+        val origin = enemyPosition ?: return Vector3(0.0, 0.0, 1.0)
+        val head = simulationMotion?.headPosition ?: latestMotion?.headPosition
+        val horizontal = if (head != null) Vector3(origin.x - head.x, 0.0, origin.z - head.z) else Vector3(0.0, 0.0, 1.0)
+        return horizontal.normalizedOrNull() ?: Vector3(0.0, 0.0, 1.0)
+    }
+
+    private fun stepForcedRetreat(step: Long) {
+        val retreat = forcedRetreat ?: return
+        retreat.elapsedNanos += step
+        val previous = checkNotNull(enemyPosition)
+        val next = retreat.position()
+        enemyPosition = next
+        enemyTravelMeters += previous.distanceTo(next)
+        enemyMoveDirection = 0f
+        if (retreat.complete) releaseSteelHold("forced retreat complete")
+    }
+
+    /** The same overlap keeps its latch, so it cannot farm another impact. The hand and the attack clock do not stay frozen. */
+    private fun releaseSteelHold(reason: String) {
+        logMessage("Steel hold released: $reason")
+        forcedRetreat = null
+        steelWithdrawal = null
+        motion.releaseWeaponHold()
+        steelGuardReleased = true
+        uncertainHoldNanos = 0L
+        val frame = simulationMotion
+        val raw = frame?.rawWeaponGrip
+        if (frame != null && raw != null) {
+            val blade = playerBlade(raw)
+            val freed = frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,
+                strike = null, swing = null, skillGesture = false)
+            simulationMotion = freed
+            latestMotion = freed
+        }
+    }
+
+    /** A raw hand buried past the held pose is an overlap the ghost grip cannot certify. Retreat once and give the hand back. */
+    private fun retreatIfRawHandIsBuried(frame: PlayerMotionFrame): Boolean {
+        if (!steelContactLatched || forcedRetreat != null || steelGuardReleased || !motion.weaponConstrained) return false
+        val raw = frame.rawWeaponGrip ?: return false
+        val held = frame.weaponGrip ?: return false
+        if (raw.position.distanceTo(held.position) < 0.05) return false
+        simulationMotion = frame
+        latestMotion = frame
+        ensureForcedRetreat(held.position - raw.position)
+        return forcedRetreat != null
+    }
+
     private fun beginSteelWithdrawal(contact: BladeContact, grip: WeaponGrip): Boolean {
         if (steelWithdrawal?.complete == false) return true
         val frame = effectiveEnemyPose() ?: heldEnemyPoseFrame ?: return false
@@ -625,8 +745,10 @@ internal class ArenaSession(
         val plan = ActorWithdrawalPlan.create(origin, enemyYaw.toDouble(), frame.pose.blade(), playerBlade(grip),
             contact.normal, recovery.map { it.blade() })
         if (plan == null) {
-            if (contactQueryFailures++ < 4) logMessage("No finite actor withdrawal can be certified; keep steel solid")
-            return false
+            if (contactQueryFailures++ < 4) logMessage("No finite actor withdrawal can be certified; forced guard retreat")
+            ensureForcedRetreat(contact.normal)
+            if (forcedRetreat == null) releaseSteelHold("no actor position for retreat")
+            return forcedRetreat != null
         }
         // Absorb an existing recoil offset without moving the visible/query actor.
         // Otherwise its later decay would invalidate the certified actor route.
@@ -1043,6 +1165,8 @@ internal class ArenaSession(
                 is EnemyCombatEvent.AttackStarted -> {
                     steelContactLatched = false
                     steelWithdrawal = null
+                    steelGuardReleased = false
+                    forcedRetreat = null
                     contactRecovery = null
                     attackSequenceIndex = (attackSequenceIndex + 1) % ATTACK_SEQUENCE.size
                     heldEnemyPoseFrame = null
@@ -1075,6 +1199,8 @@ internal class ArenaSession(
                     if (event.current == EnemyPhase.DEAD && result == TrialResult.FIGHTING) {
                         steelContactLatched = false
                         steelWithdrawal = null
+                        steelGuardReleased = false
+                        forcedRetreat = null
                         motion.reset()
                         result = TrialResult.ROUND_CLEAR
                         intermissionNanos = 0L
@@ -1186,6 +1312,7 @@ internal class ArenaSession(
 
     private fun clearEnemyContactPlayback() {
         steelWithdrawal = null
+        forcedRetreat = null
         contactRecovery = null
         heldEnemyAttackOffsets = null
         heldEnemyPoseFrame = null
@@ -1196,6 +1323,8 @@ internal class ArenaSession(
         latestMotion = null
         simulationMotion = null
         steelWithdrawal = null
+        forcedRetreat = null
+        if (steelContactLatched) steelGuardReleased = true
         contactUncertainReceipt = null
         pendingMotion.clear()
         // Input invalidation unlocks physics but cannot erase an accepted combat
@@ -1204,6 +1333,8 @@ internal class ArenaSession(
 
     private fun resetCombatContactIdentity() {
         steelContactLatched = false
+        steelGuardReleased = false
+        forcedRetreat = null
         observedAttackId = null
         resolvedContactId = null
         consumedStrikeId = -1L
@@ -1217,6 +1348,7 @@ internal class ArenaSession(
         const val COMBO_WINDOW = 1_600_000_000L
         const val RECOIL_DURATION = 220_000_000L
         const val CONTACT_STOP_NANOS = 35_000_000L
+        const val STEEL_HOLD_LIMIT_NANOS = 220_000_000L
     }
 
     fun setPlayerHandPresenter(presenter: HandPosePresenter?) {

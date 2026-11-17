@@ -291,6 +291,19 @@ class PlayerCombatResolver {
         weaponConstraint.releaseIfSeparated(enemyBlade, rawGrip = latestFrame?.rawWeaponGrip)
     }
 
+    /** End a steel pose lock. Stroke identity and raw tracking stay; only the held grip is dropped. */
+    fun releaseWeaponHold() {
+        if (!weaponConstraint.constrained) return
+        weaponConstraint.reset()
+        val frame = latestFrame ?: return
+        val raw = frame.rawWeaponGrip ?: return
+        val blade = playerBlade(raw)
+        // The held sample must not become a new stroke when the raw hand was buried behind it.
+        previous = previous?.copy(base = blade.base, tip = blade.tip, rotation = raw.rotation)
+        latestFrame = frame.copy(weaponGrip = raw, bladeBase = blade.base, bladeTip = blade.tip,
+            strike = null, swing = null, skillGesture = false)
+    }
+
     fun reset() {
         check(motionGeneration < Long.MAX_VALUE) { "motion generation overflow" }
         motionGeneration++
