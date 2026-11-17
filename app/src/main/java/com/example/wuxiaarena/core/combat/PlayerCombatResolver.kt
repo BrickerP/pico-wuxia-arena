@@ -11,6 +11,7 @@ import com.example.wuxiaarena.core.math.closestPoint
 import com.example.wuxiaarena.core.math.closestSegmentPoints
 import kotlin.math.abs
 import kotlin.math.acos
+import kotlin.math.cos
 
 enum class HitZone { BODY, HEAD }
 
@@ -119,6 +120,8 @@ class PlayerCombatResolver {
     private var skillLatched = false
     private var lastSkillAt: Long? = null
     private var skillHandContinuity: Long? = null
+    private data class StaticContactMemo(val grip: WeaponGrip, val pose: EnemyContactPose, val contact: MotionContact?)
+    private var staticContactMemo: StaticContactMemo? = null
 
     /** First samples and duplicate hand observations cannot produce a strike. */
     fun observe(
@@ -193,7 +196,7 @@ class PlayerCombatResolver {
             return establish(sample, headPosition, enemyPosition, contactPose, rawGrip)
         }
         val contact = contactZone(sample, old, contactPose)
-        val inside = contactZone(sample, null, contactPose) != null
+        val inside = staticContact(sample, contactPose) != null
         val direction = movement.normalizedOrNull()
         updateStroke(sample, speed, direction, inside)
         strokeTravel += distance
@@ -268,7 +271,7 @@ class PlayerCombatResolver {
     /** Keep tracking untouched; replace the simulation/render hand and blade together. */
     fun constrainWeapon(frame: PlayerMotionFrame, grip: WeaponGrip, contact: BladeContact): PlayerMotionFrame {
         val raw = frame.rawWeaponGrip ?: grip
-        weaponConstraint.lock(raw, grip, contact.normal, contact.playerAxisFraction)
+        weaponConstraint.lock(raw, grip, contact.normal)
         val blade = playerBlade(grip)
         previous = previous?.copy(base = blade.base, tip = blade.tip, rotation = grip.rotation)
         strokeHasHit = true
@@ -287,8 +290,12 @@ class PlayerCombatResolver {
             bladeBaseDelta = null, bladeTipDelta = null)
     }
 
-    fun releaseWeaponIfSeparated(enemyBlade: BladeSegment) {
-        weaponConstraint.releaseIfSeparated(enemyBlade, rawGrip = latestFrame?.rawWeaponGrip)
+    fun releaseWeaponIfSeparated(enemyBlade:BladeShapeSweep,rawGrip:WeaponGrip?) {
+        weaponConstraint.releaseIfSeparated(enemyBlade,rawGrip=rawGrip)
+    }
+
+    fun releaseWeaponForPlayerWithdrawal(enemyBlade:BladeShapeSweep,rawGrip:WeaponGrip?) {
+        weaponConstraint.releaseForPlayerWithdrawal(enemyBlade,rawGrip)
     }
 
     fun reset() {
@@ -316,6 +323,7 @@ class PlayerCombatResolver {
         skillLatched = false
         lastSkillAt = null
         skillHandContinuity = null
+        staticContactMemo = null
     }
 
     private fun clearUnavailable(): PlayerMotionFrame? {
@@ -463,12 +471,15 @@ class PlayerCombatResolver {
 
     private fun contactZone(current: BladeSample, old: BladeSample?, pose: EnemyContactPose): MotionContact? {
         val origin = old ?: current
-        fun grip(sample: BladeSample) = WeaponGrip(sample.base - checkNotNull(sample.rotation.rotate(BLADE_BASE)), sample.rotation)
-        val previousGrip = grip(origin)
-        val currentGrip = grip(current)
+        if (origin.base == current.base && origin.tip == current.tip && origin.rotation == current.rotation) {
+            return staticContact(current, pose)
+        }
+        val previousGrip = sampleGrip(origin)
+        val currentGrip = sampleGrip(current)
         fun contact(zone: HitZone, start: Vector3, end: Vector3, radius: Double): Pair<BladeContact, HitZone>? {
             val capsule = BladeSegment(start, end, radius)
-            return firstRigidBladeContact(previousGrip, currentGrip, BladeSweep(capsule, capsule))?.let { it to zone }
+            return firstBladeShapeBodyContact(BladeShapeSweep(DaoBladeShape.shape,previousGrip,currentGrip,0.0),
+                BladeSweep(capsule,capsule))?.let { it.contact to zone }
         }
         val first = listOfNotNull(contact(HitZone.HEAD, pose.head, pose.head, HEAD_RADIUS),
             contact(HitZone.BODY, pose.bodyBottom, pose.bodyTop, BODY_RADIUS)).minByOrNull { it.first.fraction }
@@ -476,6 +487,63 @@ class PlayerCombatResolver {
         val witness = first.first
         return MotionContact(first.second, witness.enemyPoint, witness.normal,
             witness.relativeDisplacement.normalizedOrNull())
+    }
+
+    private fun sampleGrip(sample: BladeSample) =
+        WeaponGrip(sample.base - checkNotNull(sample.rotation.rotate(BLADE_BASE)), sample.rotation)
+
+    /** Zero-motion specialization of the same full-shape body query used above. */
+    private fun staticContact(sample: BladeSample, pose: EnemyContactPose): MotionContact? {
+        val grip = sampleGrip(sample)
+        staticContactMemo?.let { if (it.grip == grip && it.pose == pose) return it.contact }
+        val shape = DaoBladeShape.shape
+        val parts = shape.at(grip)
+        // The generic self-sweep can have a nonzero self angle from normalization
+        // roundoff. Preserve that exact sagitta instead of silently tightening steel.
+        val q = checkNotNull(grip.rotation.normalizedOrNull())
+        val angle = 2.0 * acos(abs(q.x*q.x+q.y*q.y+q.z*q.z+q.w*q.w).coerceIn(0.0,1.0))
+        val inflation = shape.gripRadius*(1.0-cos(angle*1.0*0.5))+0.0
+        val head = staticZoneContact(parts, inflation, pose.head, pose.head, HEAD_RADIUS, HitZone.HEAD)
+        val body = staticZoneContact(parts, inflation, pose.bodyBottom, pose.bodyTop, BODY_RADIUS, HitZone.BODY)
+        // Every static TOI is zero, so the original ordered minimum gives HEAD priority.
+        val contact = head ?: body
+        staticContactMemo = StaticContactMemo(grip, pose, contact)
+        return contact
+    }
+
+    private fun staticZoneContact(parts: List<BladeSegment>, inflation: Double,
+        start: Vector3, end: Vector3, radius: Double, zone: HitZone): MotionContact? {
+        val bodyPad = radius+1e-7
+        val lowX = minOf(start.x,end.x)-bodyPad; val highX = maxOf(start.x,end.x)+bodyPad
+        val lowY = minOf(start.y,end.y)-bodyPad; val highY = maxOf(start.y,end.y)+bodyPad
+        val lowZ = minOf(start.z,end.z)-bodyPad; val highZ = maxOf(start.z,end.z)+bodyPad
+        val bodyScale = maxOf(abs(start.x),abs(start.y),abs(start.z),abs(end.x),abs(end.y),abs(end.z),radius,1.0)
+        for (part in parts) {
+            val partRadius = part.radiusMeters+inflation
+            val partPad = partRadius+1e-7
+            if (!(minOf(part.base.x,part.tip.x)-partPad<=highX && maxOf(part.base.x,part.tip.x)+partPad>=lowX &&
+                    minOf(part.base.y,part.tip.y)-partPad<=highY && maxOf(part.base.y,part.tip.y)+partPad>=lowY &&
+                    minOf(part.base.z,part.tip.z)-partPad<=highZ && maxOf(part.base.z,part.tip.z)+partPad>=lowZ)) continue
+            val pair = requireNotNull(closestSegmentPoints(part.base,part.tip,start,end)) {
+                "Blade geometry exceeds finite distance range"
+            }
+            val gap = pair.first.distanceTo(pair.second)-partRadius-radius
+            require(gap.isFinite()) { "Blade separation exceeds finite geometry range" }
+            val scale = maxOf(bodyScale,abs(part.base.x),abs(part.base.y),abs(part.base.z),
+                abs(part.tip.x),abs(part.tip.y),abs(part.tip.z),partRadius,1.0)
+            // firstBladeContact accepts its t=0 sample iff gap <= this roundoff;
+            // with identical endpoints/radii its Lipschitz bound is exactly zero.
+            if (gap>64.0*Math.ulp(scale)) continue
+            val inflated = part.copy(radiusMeters=partRadius)
+            val capsule = BladeSegment(start,end,radius)
+            val witness = checkNotNull(firstBladeContact(BladeSweep(inflated,inflated),BladeSweep(capsule,capsule)))
+            // Match shapeQuery's material-axis reconstruction, rather than returning
+            // the narrowphase's original closest-point bits as a different witness.
+            val axis = start*(1-witness.enemyAxisFraction)+end*witness.enemyAxisFraction
+            return MotionContact(zone,axis+witness.normal*radius,witness.normal,
+                witness.relativeDisplacement.normalizedOrNull())
+        }
+        return null
     }
 
     private fun surfaceContact(

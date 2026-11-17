@@ -42,7 +42,7 @@ func perform() throws {
         throw Failure(description: "selected window is not owned by this emulator or point is outside its bounds; no event posted")
     }
     let click = args[2] == "click"
-    if click {
+    func validateClickTarget() throws {
         guard NSWorkspace.shared.frontmostApplication?.processIdentifier == pid,
               !CGEventSource.buttonState(.combinedSessionState, button: .left) else {
             throw Failure(description: "click needs the foreground emulator with no physical button held")
@@ -56,8 +56,10 @@ func perform() throws {
         var title: CFTypeRef?
         let focusedWindow = unsafeBitCast(focused, to: AXUIElement.self)
         guard AXUIElementCopyAttributeValue(focusedWindow, kAXTitleAttribute as CFString, &title) == .success,
-              let title = title as? String, title.hasPrefix("PICO Emulator - ") else {
-            throw Failure(description: "click needs the main emulator viewport, not its settings")
+              let title = title as? String,
+              title.hasPrefix("PICO Emulator - ") ||
+                (title == "PicoExtendedWindow" && owned[kCGWindowName as String] as? String == "PicoExtendedWindow") else {
+            throw Failure(description: "click needs the emulator viewport or its explicitly selected settings window")
         }
         var hit: AXUIElement?
         var owner: pid_t = 0
@@ -66,6 +68,7 @@ func perform() throws {
             throw Failure(description: "click point is covered by another app; no click posted")
         }
     }
+    if click { try validateClickTarget() }
     func event(_ type: CGEventType, at position: CGPoint) throws -> CGEvent {
         guard let value = CGEvent(mouseEventSource: nil, mouseType: type, mouseCursorPosition: position, mouseButton: .left) else { throw Failure(description: "event allocation failed") }
         value.flags = []
@@ -93,6 +96,7 @@ func perform() throws {
     if click {
         // Publish the hover ray before the trigger consumes it.
         RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        try validateClickTarget()
         let up = try event(.leftMouseUp, at: point)
         defer { up.post(tap: .cghidEventTap) }
         try event(.leftMouseDown, at: point).post(tap: .cghidEventTap)

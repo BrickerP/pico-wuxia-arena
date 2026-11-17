@@ -1,5 +1,37 @@
 # 01 · 动作源与战斗姿态
 
+## Root当前评审：前两轮已跑，Boss source交接仍待修（2026-11-17）
+
+正式binding7af35f02、APK ddacc7a6（124839117B）已整合新头/甲袖/紧凑HEAD/纸墨HUD/7f配光。typed生成/check、544 JVM、71 Blender产线与42 KTX测试全部通过。HEAD胸13.64°/颈10.25°，原300ms刀速降至5.78–5.92m/s；不凭源门/单测称手感或成品通过。
+
+真实Start14:54:46.907 accepted，49实际事件/55秒window-only录像、15次接触；前两敌倒下，第3场新Boss150HP、玩家100/100可见。随后virtual约16.267秒固定/raw变，两次No finite actor，仍失败。精确证据artifacts/native-compact-reaction-2026-11-17/aim-settled-trial；一条日志时间回退保留。第一轮同包NO_ACCEPTED_START不计交战。
+
+只读JDI新Boss idle1.076918782、同actor/held gap−0.159972mm，而walk源+0.183934mm、E约2.3µm；无注入，断点/VM/转发已清理。不是旧HIT翻刀。战斗路续修native-escape-repair-ddac：accepted作为当前物理/显示真实source，override结束/TOI/未来域统一admit，不放宽容差或推手解锁。新29定向正在全防线；Root正式与native复验后才合入。
+
+2mm仅Steel/Grip微接缝制作预算，身体按真实guard呼吸包络，不等750ms呼吸周期、不把5mm呼吸叫浮点噪声。动态源仍1×回guard再完整hurt，延迟与观感继续实测。其余身体精度与CPU影子见下节。
+
+### 身体命中范围、SDK实测与蒙皮代理首件
+
+旧HEAD／躯干caps只覆盖45%–68%实际body三角面积；120条历史可见面轨迹曾70 MISS／50伤害，肩臂小腿有10–20cm缺口。该基线是固定source query阶段，不能等同完整onTick实战。粗17／14 limb胶囊空碰明显，已拒绝，不作为新判定兜底。
+
+**第三轮真实SDK探针ffed2187已完成，不再写待第三轮。** `artifacts/native-body-query-2026-11-17/new-boss/capture/`共1945 events：required controls过、9次120帧hold、189条末样本ray和cleanup齐，scope仅OWNED_ROOT，24条null路径负例保留。RAW_IMPORTED全MISS；一次STATIC三pose各12／21 hit、rawMesh预期21／21匹配，animated只1–4项；REBUILT idle／OH同raw，LEFT却0 hit，保留为不利结果，不能总结所有pose稳定REST或SDK普遍不支持。Root已取9张原生姿态图，新Boss真实SDK加载、idle新头可见；左面板遮部分肩臂，180秒录像不是完整战斗。所有临时probe资源／接线已由Root撤回。
+
+**正式方向已改为真实indexed full mesh＋eager BVH refit；不继续为8k预算牺牲体表精度。** 最新正式`42e89a29…`／binding`7af35f02…`的8 living（idle／walk／三attack／三hurt）已导出，几何／skin／rest身份仍`40763b6a…`，motion为`e101742f…`。38,389 body三角、19,183实际引用去重点，shape rounding＝0；2,402实际source连续界，chord最大0.5015mm，完整skin中点抽查最大0.0900mm、32帧逐点host FK差≤0.173µm。source／world双端动态；未知wrap／clipjoin／world曲率仍UNRESOLVED，不把KEY点当连续证明。HURT使用这次最新bank，不导旧包冒验。
+
+[full-mesh交接](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/body-contact-fit/skinned-proxy/full-mesh/handoff.json)已先封可测Android影子baseline：五Kotlin＋CPU资产＋精确临时hook，private Android35／实际6.1.9 AAR和patchedSession源独立编译过，不读共享compiled classes。原queryContact／HP／attack ID／steel comparator函数逐字保留；旁观在真实before／after source-frame捕获点，避免prospective walk gait丢时间来源。96受控CPU样本与最多128匹配Boss的LIVE样本分开，冷样本、全部UNRES、最大延迟、ART进程分配／GC／threadCPU均保留；尚无worker原生成本结论。静态1.38ms不能替代动态：首轮动态host中位约5ms／最大16.5ms、线程分配中位5.47MB／最大10.94MB，完整raw已冻结。
+
+同一精确算法的实例workspace候选只复用TRS／world／palette／quat／2pose／BVH bounds／cuts，不换LOD／误差。cache以clip＋source时间／actor originXYZ／yaw的Double原始bits精确匹配，单coordinator owner。201条逐结果／TOI／点法线bary误差／zone／UNRES理由及BVH工作顺序bit-exact，保留witness跨后续调用不变；8项共同host测试过。200次动态clear-MISS host压力baseline分配2.148GB／13GC、workspace13.93MB／0GC，最大8.40→4.65ms；这个host收益不等于PICO终端通过，Root先测冻结baseline再换五source作实测对照。
+
+**有限蒙皮代理首件：可复建、未准入正式伤害。** [handoff](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/body-contact-fit/skinned-proxy/handoff.json)以cc926实际default-scene body的38,389三角为真值（full47,091含DAO，不能混计），严格排除未引用旧prefix点后为19,183实际去重skin顶点。输出7,727 contact feature／3,665真实source代表点，全部位置、4权重、78个IBMs、rest和四clip曲线来自同源；HEAD／BODY按实际Head-family权重标记，不猜骨型。少量退化edge／point保留或归入同zone凸面，未以丢三角掩盖空洞。每个原面角点映射到一个代理面内的固定凸组合，用source关键点／实际FK细分和骨链加速度界认证idle／LEFT／RIGHT／OH共1,948段；每段代理chord界≤约0.502mm。实数glTF LINEAR／SLERP＋2µm工程余量，不称正式IEEE或GPU证明。
+
+**误差尾部和失败保留。** 八个关键／中间／最坏姿态逐实际source顶点及面心量最近面：raw proxy中位约2mm、P95约7.9mm、最大约24.9mm；代理面心／边中点向真实面的最大约18.7mm。连续保守局部cover半径中位约9mm、P95约20mm、最大41.9mm，不能把这个半径当已满足画面精度。5cm格点的rounded envelope接受样本中，距所有真实三角>20mm仍有样本、>40mm为0；这是表面空隙采样，与旧14caps的front/back-hull空体积百分比定义不同，不直接比较成提升率。最坏真实source曲线、三时点几何与假hit图均在handoff。
+
+120条旧轨迹统一重放在这一个cc926上，完整body三角＋既有18钢刀查询有119 hit／1 MISS，代理120 hit：0 false MISS、**1 false HIT**、0 UNRESOLVED。该失败为历史`indigo-guard-R_forearm`跨角色轨迹；仅40条原veteran为同角色直接对照，其他80条作压力样本，不写“原70MISS全部修复”。首件已交纯Kotlin FK／LBS＋BVH refit＋capsule/triangle CCD，host成本与full mesh同算法真值有记录；后者是eager全量skin／refit上界，尚未实现／实测优化lazy-skin，不能把它冒称③最优成本。7项JVM、7项Python通过；无共享Gradle／设备／public app／schema／producer修改。真实跟踪资格、一次攻击消费、钢刀更早／相同优先仍由现caller统一，首件不写HP／技能／新玩法。
+
+身份仅分实际geometry／skin／rest和已证四clip motion内容，整GLB SHA作收据。HURT／walk／fall／跨clip过渡及最新reaction3没有旧曲线冒验；Root后续须使用最新同source时钟与对应身份。完全处于开放mesh内部、未穿任何边界的inside-only stroke没有solid内外分类证明。native skin一致、设备成本、完整排序／去重接入仍未验证；有1假hit和42mm保守尾部，当前不作为最终damage形状发布。
+
+**landmark顺带核实。** 当前formal `build_library→export_attack_profiles→mesh_proxy_calibration`已按body primitive indices选p／j／w，未渲染旧HEAD vertex741改(1000,2000,-3000)对当前／提案中心完全无影响，已引用20033变动则HEAD明显变；34mm新head差是形体变化证据。另证唯一mesh脱离default scene仍被旧函数校准，已交仅增加reachable fail-closed guard的[最小patch](/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/combat-direction/native-steel-release/body-contact-fit/skinned-proxy/landmark-default-scene.patch)，真实Blender／mathutils同锁7项断言过。实际当前scene输出bit-exact不变，Root随下一bank统一评审接入；本路未改公共producer／黄金。
+
 ## Root续派：真实刀形链与完整Grip（2026-11-17）
 
 静态18薄条已交（41tests），不再以漏45mm的单轴代理作最终视觉证明。新完整Grip制作60tests通过：4281原rows保留，按实际FK曲率新增370行，总4651；key刚性误差≤0.462µm、mid插值≤0.846mm、连续离线工程界≤1mm。旧60Hz多层FK即使端点准也可在中点差14.56mm，不能从base/tip猜roll或放大门掩盖。

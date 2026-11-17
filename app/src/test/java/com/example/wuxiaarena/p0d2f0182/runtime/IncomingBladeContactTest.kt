@@ -1,6 +1,6 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.AttackDirection
+import com.example.wuxiaarena.core.combat.*
 import com.example.wuxiaarena.core.combat.AttackOutcome
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
@@ -30,60 +30,53 @@ class IncomingBladeContactTest {
 
     @Test
     fun exactContactKeyUsesArrivingMotionEvenWhenTheNextKeyRecoils() {
-        val attack = profile(listOf(
-            pose(0.0, Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
-            pose(1.0, Vector3(1.0, 0.0, 0.0), Vector3(1.0, 1.0, 0.0)),
-            pose(2.0, Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
-        ))
-        assertDirection(Vector3(1.0, 0.0, 0.0), attack.bladeTangentAt(1.0, Vector3(1.0, 0.5, 0.0), zero, 0f))
-        val origin = Vector3(3.0, 0.2, -4.0)
-        val yaw = (PI / 2.0).toFloat()
-        val rotated = attack.sample(1.0).inStage(origin, yaw)
-        val tangent = requireNotNull(attack.bladeTangentAt(1.0, (rotated.bladeBase + rotated.bladeTip) * 0.5, origin, yaw))
-        assertTrue(tangent.z < -0.999999)
-        assertTrue(kotlin.math.abs(tangent.x) < 1e-6)
+        val q=Quaternion(0.0,0.0,0.0,1.0);val chain=DaoBladeShape.shape
+        val before=WeaponGrip(Vector3(-1.0,0.0,0.0),q);val key=WeaponGrip(zero,q)
+        val target=chain.at(key)[7].let { BladeSegment((it.base+it.tip)*.5,(it.base+it.tip)*.5,.001) }
+        val arriving=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,before,key,0.0),BladeSweep(target,target)))
+        val recoil=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,key,before,0.0),BladeSweep(target,target)))
+        assertDirection(Vector3(1.0,0.0,0.0),arriving.contact.relativeDisplacement.normalizedOrNull())
+        assertDirection(Vector3(-1.0,0.0,0.0),recoil.contact.relativeDisplacement.normalizedOrNull())
+        val yaw=Quaternion(0.0,kotlin.math.sin(PI/4),0.0,kotlin.math.cos(PI/4));val origin=Vector3(3.0,.2,-4.0)
+        fun stage(g:WeaponGrip)=WeaponGrip(origin+checkNotNull(yaw.rotate(g.position)),yaw*g.rotation)
+        val point=origin+checkNotNull(yaw.rotate(target.base));val sphere=BladeSegment(point,point,.001)
+        val rotated=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,stage(before),stage(key),0.0),BladeSweep(sphere,sphere)))
+        assertTrue(checkNotNull(rotated.contact.relativeDisplacement.normalizedOrNull()).z<-.999999)
     }
-
     @Test
     fun contactWitnessUsesItsOwnBladeFractionWhenTheTipStaysStill() {
-        val attack = profile(listOf(
-            pose(0.0, Vector3(-1.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
-            pose(1.0, Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
-            pose(2.0, Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
-        ))
-        assertDirection(Vector3(1.0, 0.0, 0.0), attack.bladeTangentAt(1.0, Vector3(0.0, 0.5, 0.0), zero, 0f))
-        assertDirection(Vector3(1.0, 0.0, 0.0), attack.bladeTangentAt(1.0, Vector3(0.0, -5.0, 0.0), zero, 0f))
-        assertNull(attack.bladeTangentAt(1.0, Vector3(0.0, 1.0, 0.0), zero, 0f))
-        assertNull(attack.bladeTangentAt(1.0, Vector3(0.0, 5.0, 0.0), zero, 0f))
+        val chain=DaoBladeShape.shape;val before=WeaponGrip(zero,Quaternion(0.0,0.0,0.0,1.0))
+        val tip=playerBlade(before).tip;val q=Quaternion(0.0,kotlin.math.sin(.05),0.0,kotlin.math.cos(.05))
+        val after=WeaponGrip(tip-checkNotNull(q.rotate(tip)),q)
+        assertTrue(playerBlade(after).tip.distanceTo(tip)<1e-12)
+        val part=chain.at(before)[12];val point=(part.base+part.tip)*.5;val sphere=BladeSegment(point,point,.001)
+        val hit=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,before,after,0.0),BladeSweep(sphere,sphere)))
+        assertTrue(checkNotNull(hit.contact.relativeDisplacement.normalizedOrNull()).x>.9)
+        assertTrue(hit.playerPartIndex in 0..17);assertTrue(hit.contact.playerAxisFraction in 0.0..1.0)
     }
-
     @Test
     fun missingIntervalsRestAndDegenerateBladesCannotInventASparkDirection() {
-        val still = profile(listOf(pose(0.0, zero, Vector3(0.0, 1.0, 0.0)),
-            pose(2.0, zero, Vector3(0.0, 1.0, 0.0))))
-        assertNull(still.bladeTangentAt(0.0, zero, zero, 0f))
-        assertNull(still.bladeTangentAt(-0.1, zero, zero, 0f))
-        assertNull(still.bladeTangentAt(2.1, zero, zero, 0f))
-        assertNull(still.bladeTangentAt(1.0, zero, zero, 0f))
-        val collapsed = profile(listOf(pose(0.0, zero, zero), pose(2.0, Vector3(1.0, 0.0, 0.0), Vector3(1.0, 0.0, 0.0))))
-        assertNull(collapsed.bladeTangentAt(1.0, zero, zero, 0f))
-        assertThrows(IllegalArgumentException::class.java) { still.bladeTangentAt(Double.NaN, zero, zero, 0f) }
+        val g=WeaponGrip(zero,Quaternion(0.0,0.0,0.0,1.0));val chain=DaoBladeShape.shape
+        val point=chain.at(g)[12].base;val sphere=BladeSegment(point,point,.001)
+        val still=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,g,g,0.0),BladeSweep(sphere,sphere)))
+        assertNull(still.contact.relativeDisplacement.normalizedOrNull())
+        assertNull(checkNotNull(firstBladeContact(BladeSweep(sphere,sphere),BladeSweep(sphere,sphere))).relativeDisplacement.normalizedOrNull())
+        assertThrows(IllegalArgumentException::class.java) {BladeShapeSweep(chain,g,g,Double.NaN)}
     }
-
     @Test
     fun everyCurrentActorAndAttackHasIncomingMotionAtItsActualContactKey() {
-        for (opponent in arenaOpponents) for (direction in AttackDirection.values()) {
-            val attack = opponent.attackProfile(direction)
-            val time = attack.contactSourceSeconds
-            val origin = Vector3(2.0, 0.0, -3.0)
-            val yaw = 0.7f
-            val current = attack.sample(time).inStage(origin, yaw)
-            val witness = current.bladeBase * 0.65 + current.bladeTip * 0.35
-            val tangent = requireNotNull(attack.bladeTangentAt(time, witness, origin, yaw))
-            val prior = attack.sample(time - 1e-6).inStage(origin, yaw)
-            val incoming = requireNotNull((witness - (prior.bladeBase * 0.65 + prior.bladeTip * 0.35)).normalizedOrNull())
-            assertEquals(1.0, tangent.length(), 1e-9)
-            assertTrue("${opponent.name}/$direction must use incoming source motion", tangent.dot(incoming) > 0.999)
+        val chain=DaoBladeShape.shape;val origin=Vector3(2.0,0.0,-3.0)
+        for(opponent in arenaOpponents)for(direction in AttackDirection.entries) {
+            val profile=opponent.attackProfile(direction);val time=profile.contactSourceSeconds
+            val prior=profile.sample(time-1e-6).inStage(origin,.7f);val current=profile.sample(time).inStage(origin,.7f)
+            val p=chain.at(current.bladeGrip)[10];val point=(p.base+p.tip)*.5;val sphere=BladeSegment(point,point,.001)
+            val hit=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(chain,prior.bladeGrip,current.bladeGrip,
+                maxOf(prior.bladeGripInterpolationErrorToNextMeters,current.bladeGripInterpolationErrorToNextMeters)),BladeSweep(sphere,sphere)))
+            val a=chain.at(prior.bladeGrip)[hit.playerPartIndex];val b=chain.at(current.bladeGrip)[hit.playerPartIndex]
+            val u=hit.contact.playerAxisFraction
+            val incoming=checkNotNull(((b.base-a.base)*(1-u)+(b.tip-a.tip)*u).normalizedOrNull())
+            val tangent=checkNotNull(hit.contact.relativeDisplacement.normalizedOrNull())
+            assertEquals(1.0,tangent.length(),1e-9);assertTrue(tangent.dot(incoming)>.999)
         }
     }
 
@@ -128,16 +121,15 @@ class IncomingBladeContactTest {
             // fabricated head-to-enemy direction. Both rendered blades must witness it.
             val state = fixture.session.viewState
             assertEquals(1.0, impact.normal.length(), 1e-9)
-            assertTrue(impact.point.distanceTo(closestPoint(impact.point,
-                requireNotNull(state.playerBladeBase), requireNotNull(state.playerBladeTip))) <= 0.013)
-            assertTrue(impact.point.distanceTo(closestPoint(impact.point,
-                requireNotNull(state.enemyBladeBase), requireNotNull(state.enemyBladeTip))) <= 0.013)
+            val stagePose=ArenaSession::class.java.getDeclaredMethod("enemyAttackPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(fixture.session,0L) as AttackPoseSample
+            fun gap(grip:WeaponGrip)=DaoBladeShape.shape.at(grip).minOf {part->impact.point.distanceTo(closestPoint(impact.point,part.base,part.tip))-part.radiusMeters}
+            val envelope=stagePose.bladeGripInterpolationErrorToNextMeters+.000501
+            assertTrue(gap(checkNotNull(state.playerWeaponGrip))<=envelope)
+            assertTrue(gap(stagePose.bladeGrip)<=envelope)
             assertEquals(1.0, requireNotNull(impact.tangent).length(), 1e-9)
         }
     }
 
-    private fun pose(time: Double, base: Vector3, tip: Vector3) = AttackPoseSample(time, body, base, tip)
-    private fun profile(samples: List<AttackPoseSample>) = AttackProfile("attack", listOf(0.0, 0.2, 0.8, 1.2, 2.0), 1.0, samples)
     private fun assertDirection(expected: Vector3, actual: Vector3?) {
         val value = requireNotNull(actual)
         assertEquals(expected.x, value.x, 1e-9)

@@ -177,8 +177,8 @@
     {
       "id": "veteran",
       "name": "玄甲守擂",
-      "source": "expanded/veteran-refined/model.glb",
-      "source_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+      "source": "head-hero/veteran-integrated/model.glb",
+      "source_sha256": "ec67ae3c649752e9e6a2f1f676e7d3e74dc94e9607f721a6440af20e5f52d776",
       "grip_source": {
         "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
         "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
@@ -233,6 +233,9 @@
           "x_degrees": -1.5,
           "z_degrees": 0.0
         }
+      },
+      "runtime_texture_material_overrides": {
+        "HeroHead_": 2048
       }
     }
   ],
@@ -366,7 +369,11 @@
       "normalize": false,
       "rdo": false,
       "orientation": "top-left",
-      "pixel_resize": false,
+      "pixel_resize": {
+        "default_max_dimension": 1024,
+        "filter": "explicit-axis-lanczos4-v1",
+        "upsample": false
+      },
       "mip_source": {
         "same_axis": "ktx-cli-generate-mipmap",
         "different_axes": "explicit-axis-lanczos4-v1"
@@ -381,12 +388,12 @@
         "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
         "alpha_filter": "linear-straight",
         "quantization": "clip-0-1-round-half-up-uint8",
-        "top": "original-decoded-pixels"
+        "top": "runtime-sized-domain-filtered-pixels"
       }
     },
     "helper": {
       "source": "../refinement/pbr-compression/compress_pbr.py",
-      "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+      "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
     },
     "encoder": {
       "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -413,15 +420,15 @@
   "prepared_wrist_constraint": {
     "implementation": {
       "source": "target_wrist_constraint.py",
-      "source_sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d"
+      "source_sha256": "397f45f398ec646f99da002c0f39f26e91095ddf12f2d7c8fe2e05a60d8e9bc0"
     },
     "recipe": {
-      "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
-      "source_sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e"
+      "source": "../refinement/combat-direction/reaction-guard-continuity/head-refinement/canonical-integration/constraint_recipe.json",
+      "source_sha256": "093f06cc0b8390536c4a9ff4cbd85b65838b92aaedc188f3e6353608cf9ce192"
     }
   },
   "production_review": {
-    "source": "../refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/production_review.json",
-    "source_sha256": "c14f6b1928fdb656b2aac90181b32d0023d488e57f4ebe4404b4fb19c03f15dd"
+    "source": "../refinement/combat-direction/reaction-guard-continuity/head-refinement/root-production-review.json",
+    "source_sha256": "d6681fab2393e79741d4503e3adb4547f8a479e1b3f1efc83036b69c66b7540e"
   }
 }

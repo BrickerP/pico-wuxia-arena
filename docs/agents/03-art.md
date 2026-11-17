@@ -1,5 +1,13 @@
 # 03 · 服装结构与装配精修
 
+## Root当前集成与原生review（2026-11-17）
+
+新头/发/Tripo护肩/连续袖身/834左臂与grounded紧凑受击已在唯一产线正式发布：binding7af35f02，veteran42e89a29；头3图2048/其余1024，4K源保留。Root退回旧仰天HEAD，0.35身体/0.11颈头版本胸13.64°/颈10.25°；BODY/SIDE及非reaction保全。旧dcb/f826明确退回。
+
+KTX报告路径resolve后42真实编码检查过；source397f45与批准a8fdc99仅EOF不同、AST exact。严格重新审批/正式发布/typed check/544 JVM/71 Blender闭环，没有放宽review gate。ddac实际前两敌倒下并第3场Boss显示，新脸发/甲袖真实进入比赛；Boss长hold仍未过。原图/55秒MP4与身份在presentation/native-compact-reaction-*。
+
+raw ec67与3早期原生帧已推main9cf3f35；不拿这个素材commit冒称新APK源码全已发布。Tangent-finish仍独立候选（106保全/15正负、134必要split、逐角LBS/UV0差，Mikk＋1显式退化角），角色缺T警告5→0；不清原零权索引。它基于旧926准备体，不能直接覆盖新模型而回退受击，须作用当前prepared并复核10clip后原生A/B。皮肤平滑年轻、颈接色及整体写实度仍未过。
+
 ## Root实物review：冻结厚甲、联修动作与袖筒（2026-11-17）
 
 Root已看real-source-refit修正渲染的旧953f，确认黑甲实际向前竖立，旧material过滤证据已纠正；Root已看v5_crown_skirt真实曲甲与旧铜边，但双骨冠/裙随动作新增相对自交，已退出当前联修基线。当前固定single Upperarm完整2100面cap（prepared6dcc9650／raw62c51a96），同guard重表达误差约0.000101mm；不改源形状/PBR，源12 proper组保持披露。接受为联修冻结件，非正式角色通过，不再改甲让动作线程追版本。

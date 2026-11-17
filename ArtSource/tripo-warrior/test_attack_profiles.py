@@ -7,6 +7,8 @@ import math
 import struct
 import sys
 import unittest
+
+import numpy as np
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -14,6 +16,13 @@ from attack_profiles import export_attack_profiles, float32, locomotion_source_c
 
 
 BANK = {'OVERHEAD': 'attack_overhead', 'LEFT': 'attack_left', 'RIGHT': 'attack_right'}
+COMMON_SUPPORT_RADIUS_M = 1.0
+
+
+def common_blade_points():
+    """A real rigid Steel rectangle; body calibration remains an independent mesh."""
+    return np.array([[-.015, 0, -.2], [.015, 0, -.2], [.015, 0, -.9],
+                     [-.015, 0, -.2], [.015, 0, -.9], [-.015, 0, -.9]])
 
 
 def typed_generator():
@@ -46,10 +55,10 @@ def actor():
             {'name': 'Spine02', 'translation': [0, .15, 0], 'children': [4, 5]},
             {'name': 'Head', 'translation': [0, .20, 0]},
             {'name': 'R_Hand', 'translation': [.2, 0, 0], 'children': [6]},
-            {'name': 'HandGrip_R', 'translation': [0, .01, .05], 'children': [7]},
-            {'name': 'Weapon_Root', 'translation': [0, -.05, 0], 'children': [8, 9]},
-            {'name': 'Blade_Base', 'translation': [0, .10, 0]},
-            {'name': 'Blade_Tip', 'translation': [0, .45, 0]},
+            {'name': 'HandGrip_R', 'translation': [0, .01, .05], 'scale': [.5, .5, .5], 'children': [7]},
+            {'name': 'Weapon_Root', 'translation': [0, -.10, 0], 'children': [8, 9]},
+            {'name': 'Blade_Base', 'translation': [0, .20, 0]},
+            {'name': 'Blade_Tip', 'translation': [0, .90, 0]},
         ],
         'skins': [{'joints': [2, 3, 4, 5]}], 'buffers': [{'byteLength': 32}],
         'bufferViews': [{'buffer': 0, 'byteOffset': 0, 'byteLength': 8},
@@ -86,9 +95,20 @@ def actor():
     weights = append([(1, 0, 0, 0)] * 9, 'VEC4')
     inverse_bind = append([tuple(1 if row == column else 0 for column in range(4) for row in range(4))] * 4, 'MAT4')
     document['skins'][0]['inverseBindMatrices'] = inverse_bind
-    document['meshes'] = [{'primitives': [{'attributes': {'POSITION': position, 'JOINTS_0': palettes,
-                                                         'WEIGHTS_0': weights}}],
-                           'extras': {'body_primitive_indices': [0], 'weapon_primitive_indices': []}}]
+    # Inverse HandGrip scale cancels the prepared actor's uniform scale. The
+    # baked Steel shares R_Hand's IBM, not the authoring marker subtree.
+    steel = common_blade_points().copy()
+    steel = np.column_stack((steel[:, 0] / 2, -steel[:, 2] / 2 - .04, steel[:, 1] / 2 + .05))
+    steel_position = append(steel.tolist(), 'VEC3')
+    steel_joints = append([(3, 0, 0, 0)] * len(steel), 'VEC4', 5121)
+    steel_weights = append([(1, 0, 0, 0)] * len(steel), 'VEC4')
+    document['materials'] = [{'name': 'Body'}, {'name': 'Steel | forged body'}]
+    document['meshes'] = [{'primitives': [
+        {'attributes': {'POSITION': position, 'JOINTS_0': palettes, 'WEIGHTS_0': weights}, 'material': 0},
+        {'attributes': {'POSITION': steel_position, 'JOINTS_0': steel_joints, 'WEIGHTS_0': steel_weights}, 'material': 1}],
+        'extras': {'body_primitive_indices': [0], 'weapon_primitive_indices': [1]}}]
+    document['nodes'][7]['children'].append(len(document['nodes']))
+    document['nodes'].append({'name': 'Grip'})
     document['nodes'][0]['children'].append(len(document['nodes']))
     document['nodes'].append({'name': 'TripoBody_Mesh', 'mesh': 0, 'skin': 0})
     return document, binary
@@ -153,13 +173,13 @@ class AttackProfileTests(unittest.TestCase):
     def test_contact_cue_is_metadata_without_resampling_geometry_or_the_phase_clock(self):
         document, binary = actor()
         original_contracts = attack_contracts()
-        original = export_attack_profiles(document, binary, BANK, original_contracts, frozen_contract(), coverage_contract())
+        original = export_attack_profiles(document, binary, BANK, original_contracts, frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         generator = typed_generator()
         for cue in (.95, .955):
             contracts = copy.deepcopy(original_contracts)
             for row in contracts.values():
                 row['phase_markers']['contact'] = cue
-            result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+            result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
             binding_rows = []
             for direction, clip in BANK.items():
                 binding_rows.append({'name': clip, 'direction': direction, 'incoming_guard_side': direction,
@@ -183,7 +203,7 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         contracts = attack_contracts()
         original = copy.deepcopy(contracts)
-        result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         self.assertEqual(contracts, original)
         self.assertNotIn('phase_markers_seconds', result)
         self.assertNotIn('phase_sample_times_seconds', result)
@@ -222,12 +242,12 @@ class AttackProfileTests(unittest.TestCase):
             invalid.append(contracts)
         for contracts in invalid:
             with self.assertRaises(ValueError):
-                export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract())
+                export_attack_profiles(document, binary, BANK, contracts, frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_final_hierarchy_drives_mounted_blade_and_normalized_body(self):
         document, binary = actor()
         original = copy.deepcopy(document)
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         self.assertEqual(document, original)
         self.assertEqual(result['axes'], {'up': '+Y', 'forward': '+Z', 'actor_left': '+X'})
         self.assertEqual(set(result['attacks']), set(BANK))
@@ -252,10 +272,10 @@ class AttackProfileTests(unittest.TestCase):
                 self.assertIn(float32(marker), [sample['time_seconds'] for sample in profile['samples']])
         json.dumps(result, allow_nan=False)
 
-    def test_schema3_locomotion_uses_one_actual_mesh_calibration_and_exact_phase_samples(self):
+    def test_schema4_locomotion_uses_one_actual_mesh_calibration_and_exact_phase_samples(self):
         document, binary = actor()
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
-        self.assertEqual(result['schema_version'], 3)
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
+        self.assertEqual(result['schema_version'], 4)
         self.assertEqual(set(result['locomotion']), {'idle', 'walk'})
         contract = result['source_contract']
         self.assertEqual(contract['steps_per_loop'], 6)
@@ -300,7 +320,7 @@ class AttackProfileTests(unittest.TestCase):
                                'output': append([(0, .15, 0), (0, .152, 0), (0, .15, 0)], 'VEC3'),
                                'interpolation': 'LINEAR'}
         document['buffers'][0]['byteLength'] = len(packed)
-        result = export_attack_profiles(document, bytes(packed), BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, bytes(packed), BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         samples = result['locomotion']['idle']['samples']
         start, end = samples[0], samples[-1]
         middle = next(row for row in samples if row['source_seconds'] == .75)
@@ -315,7 +335,7 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         animation = next(row for row in document['animations'] if row['name'] == 'hit_body')
         animation['channels'][0]['target']['node'] = 3
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         self.assertEqual(set(result['reactions']), {'hit_body', 'hit_head', 'hit_side'})
         for name, clip in result['reactions'].items():
             self.assertEqual(clip['clip'], name)
@@ -337,7 +357,7 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         document['animations'] = [row for row in document['animations'] if row['name'] != 'hit_head']
         with self.assertRaisesRegex(ValueError, 'reaction clip is absent.*hit_head'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         document, binary = actor()
         animation = next(row for row in document['animations'] if row['name'] == 'hit_side')
         # Reuse an existing accessor but make its second source time unable to cover 1.18s.
@@ -359,7 +379,7 @@ class AttackProfileTests(unittest.TestCase):
 
     def test_final_mesh_change_moves_proxy_without_editing_constants(self):
         document, binary = actor()
-        original = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        original = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         accessor = document['meshes'][0]['primitives'][0]['attributes']['POSITION']
         view = document['bufferViews'][document['accessors'][accessor]['bufferView']]
         changed = bytearray(binary)
@@ -367,7 +387,7 @@ class AttackProfileTests(unittest.TestCase):
             offset = view['byteOffset'] + vertex * 12
             x = struct.unpack_from('<f', changed, offset)[0]
             struct.pack_into('<f', changed, offset, x + .15)
-        updated = export_attack_profiles(document, bytes(changed), BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        updated = export_attack_profiles(document, bytes(changed), BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         self.assertAlmostEqual(updated['proxy_calibration']['idle_centres_metres']['head'][0] -
                                original['proxy_calibration']['idle_centres_metres']['head'][0], .3, places=6)
         self.assertNotEqual(updated['proxy_calibration']['bone_local_offsets']['head'],
@@ -387,11 +407,11 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         document['meshes'][0]['extras'].pop('body_primitive_indices')
         with self.assertRaisesRegex(ValueError, 'explicit body primitive'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         document, binary = actor()
         document['animations'][-1]['samplers'][0]['input'] = 0
         with self.assertRaisesRegex(ValueError, '0 to 1.5'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_body_coverage_preserves_prior_anchor_relative_y_and_measures_xz(self):
         document, binary = actor()
@@ -399,7 +419,7 @@ class AttackProfileTests(unittest.TestCase):
         prior['idle_reference']['hip'][1] -= .2
         prior['idle_reference']['spine02'][1] -= .1
         original = copy.deepcopy(prior)
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior, common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         centres = result['proxy_calibration']['idle_centres_metres']
         self.assertAlmostEqual(centres['body_bottom'][1], .75, places=6)
         self.assertAlmostEqual(centres['body_top'][1], 1.5, places=6)
@@ -415,18 +435,18 @@ class AttackProfileTests(unittest.TestCase):
         for prior, message in [(None, 'explicit'), ({}, 'explicit')]:
             document, binary = actor()
             with self.assertRaisesRegex(ValueError, message):
-                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior, common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         for field, value in [('body_bottom', float('nan')), ('body_bottom', 1.5)]:
             document, binary = actor()
             prior = coverage_contract()
             prior['idle_centres_metres'][field][1] = value
             with self.assertRaises(ValueError):
-                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior, common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         document, binary = actor()
         prior = coverage_contract()
         prior['source_profile']['sha256'] = 'unbound'
         with self.assertRaisesRegex(ValueError, 'pinned'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior)
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), prior, common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_invalid_skin_and_nonfinite_surface_are_rejected(self):
         for attribute, value, message in [('WEIGHTS_0', .2, 'normalized'), ('POSITION', float('nan'), 'finite')]:
@@ -436,14 +456,14 @@ class AttackProfileTests(unittest.TestCase):
             binary = bytearray(binary)
             struct.pack_into('<f', binary, offset, value)
             with self.assertRaisesRegex(ValueError, message):
-                export_attack_profiles(document, bytes(binary), BANK, attack_contracts(), frozen_contract(), coverage_contract())
+                export_attack_profiles(document, bytes(binary), BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_blade_marker_outside_hand_is_rejected(self):
         document, binary = actor()
         document['nodes'][7]['children'].remove(9)
         document['nodes'][0]['children'].append(9)
         with self.assertRaisesRegex(ValueError, 'mounted R_Hand'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_head_proxy_uses_idle_calibrated_local_offset_during_rotation(self):
         document, binary = actor()
@@ -455,7 +475,7 @@ class AttackProfileTests(unittest.TestCase):
         animation = document['animations'][0]
         animation['samplers'].append({'input': 0, 'output': len(document['accessors']) - 1})
         animation['channels'].append({'sampler': 1, 'target': {'node': 4, 'path': 'rotation'}})
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         end = result['attacks']['OVERHEAD']['samples'][-1]
         self.assertAlmostEqual(end['head_origin'][1], 1.6, places=6)
         self.assertAlmostEqual(end['head'][1], 1.5, places=6)
@@ -470,7 +490,7 @@ class AttackProfileTests(unittest.TestCase):
         animation = document['animations'][0]
         animation['samplers'].append({'input': 0, 'output': len(document['accessors']) - 1})
         animation['channels'].append({'sampler': 1, 'target': {'node': 5, 'path': 'rotation'}})
-        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+        result = export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         end = result['attacks']['OVERHEAD']['samples'][-1]
         self.assertAlmostEqual(end['blade_base'][1], 1.08, places=6)
         self.assertAlmostEqual(end['blade_tip'][1], .38, places=6)
@@ -480,32 +500,32 @@ class AttackProfileTests(unittest.TestCase):
         document, binary = actor()
         binary = struct.pack('<2f', 0, 2.0) + binary[8:]
         with self.assertRaisesRegex(ValueError, '0 to 1.75'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_nonfinite_source_and_duplicate_times_are_rejected(self):
         for first, last in [(0, float('nan')), (0, 0)]:
             document, binary = actor()
             binary = struct.pack('<2f', first, last) + binary[8:]
             with self.assertRaises(ValueError):
-                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+                export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_incomplete_bank_and_missing_clip_are_rejected(self):
         document, binary = actor()
         with self.assertRaisesRegex(ValueError, 'OVERHEAD'):
-            export_attack_profiles(document, binary, {'OVERHEAD': 'attack_overhead'}, {}, frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, {'OVERHEAD': 'attack_overhead'}, {}, frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         broken = dict(BANK, LEFT='absent')
         with self.assertRaisesRegex(ValueError, 'absent'):
-            export_attack_profiles(document, binary, broken, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, broken, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
     def test_scene_root_transform_and_hierarchy_cycle_are_rejected(self):
         document, binary = actor()
         document['nodes'][0]['translation'] = [10, 0, 0]
         with self.assertRaisesRegex(ValueError, 'identity'):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
         document, binary = actor()
         document['nodes'][9]['children'] = [7]
         with self.assertRaises(ValueError):
-            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract())
+            export_attack_profiles(document, binary, BANK, attack_contracts(), frozen_contract(), coverage_contract(), common_blade_points(), COMMON_SUPPORT_RADIUS_M)
 
 
 if __name__ == '__main__':

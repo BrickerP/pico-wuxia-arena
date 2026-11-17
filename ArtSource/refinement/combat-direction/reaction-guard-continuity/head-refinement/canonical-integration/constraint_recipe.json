@@ -1,0 +1,70 @@
+{
+  "schema_version": 3,
+  "right_wrist": {
+    "schema_version": 1,
+    "character_id": "veteran",
+    "clip": "attack_left",
+    "arm_bones": [
+      "R_Upperarm",
+      "R_Forearm",
+      "R_Hand"
+    ],
+    "swivel_degrees": -12.0,
+    "window_source_seconds": [
+      0.9,
+      1.06,
+      1.235,
+      1.3
+    ],
+    "local_sample_rate_hz": 120,
+    "key_steel_budget_metres": 5e-06,
+    "subkey_steel_budget_metres": 0.001,
+    "reference": "unconstrained_same_target_prepared_fk"
+  },
+  "prepared_left_arm": {
+    "source": "../refinement/combat-direction/natural-guard/boss-armor-arm-clearance/canonical-integration/asset/prepared_left_arm_rotations.json",
+    "source_sha256": "d2f0b51143fac41c9778cc00a8b2b874e4df80f6c21e4bf5709d66cba64245a5",
+    "bytes": 305131
+  },
+  "prepared_reaction_guard": {
+    "schema_version": 1,
+    "method": "same_target_guard_rebased_reaction_delta_with_chest_relative_offhand",
+    "playback_windows": {
+      "hit_body": [
+        0.05,
+        0.72
+      ],
+      "hit_head": [
+        0.05,
+        0.72
+      ],
+      "hit_side": [
+        0.05,
+        1.18
+      ]
+    },
+    "sample_rate_hz": 120,
+    "input_animation_signatures": {
+      "base": {
+        "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+        "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
+        "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
+        "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479"
+      },
+      "indigo": {
+        "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+        "hit_body": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
+        "hit_head": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
+        "hit_side": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4"
+      },
+      "veteran": {
+        "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+        "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+        "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+        "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f"
+      }
+    },
+    "head_relative_amplitude": 0.35,
+    "head_neck_relative_amplitude": 0.11
+  }
+}

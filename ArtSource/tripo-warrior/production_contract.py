@@ -42,6 +42,20 @@ ANIMATION_SAMPLING_POLICY = {
 }
 
 
+BLADE_GRIP_PROFILE_POLICY = {
+    'version': 1,
+    'profile_schema_version': 4,
+    'space': 'player common Grip metres to prepared actor root',
+    'support_radius_m': 0.851625346651626,
+    'maximum_interval_error_m': .001,
+    'offline_numeric_allowance_m': .000002,
+    'proof_subdivisions_per_source_span': 8,
+    'refinement': 'float32 source-time midpoint bisection; preserve every canonical seed row',
+    'field': 'required blade_grip position_m, rotation_xyzw, interpolation_error_to_next_m',
+    'runtime_packing_doubles': 24,
+}
+
+
 def canonical_hash(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':'),
                                      ensure_ascii=False).encode()).hexdigest()
@@ -49,6 +63,7 @@ def canonical_hash(value):
 
 def production_binding(manifest):
     return {'schema_version': 3, 'prepared_wrist_constraint': manifest['prepared_wrist_constraint'],
+            'blade_grip_sampling': BLADE_GRIP_PROFILE_POLICY,
             'motion_source': manifest['motion_source'],
             'locomotion_source': manifest['locomotion_source'],
             'body_coverage_calibration': manifest['body_coverage_calibration'],
@@ -60,5 +75,6 @@ def production_binding(manifest):
             'weapon_source': manifest['weapon_source'],
             'characters': [{key: character.get(key) for key in
                             ('id', 'name', 'source', 'source_sha256', 'grip_source',
-                             'height_metres', 'output', 'grip_frame', 'finger_rotation_offsets')}
+                             'height_metres', 'output', 'grip_frame', 'finger_rotation_offsets',
+                             'runtime_texture_material_overrides')}
                            for character in manifest['characters']]}

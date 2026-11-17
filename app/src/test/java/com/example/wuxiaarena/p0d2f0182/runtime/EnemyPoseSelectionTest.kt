@@ -5,6 +5,14 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.combat.firstBladeShapeBodyContact
+import com.example.wuxiaarena.core.combat.BladeShapeSweep
+import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.BladeSweep
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
@@ -13,9 +21,10 @@ import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class EnemyPoseSelectionTest {
-    private fun sample(time: Double, offset: Double) = AttackPoseSample(time,
-        EnemyContactPose(Vector3(offset, 1.6, 0.0), Vector3(offset, 0.55, 0.0), Vector3(offset, 1.4, 0.0)),
-        Vector3(offset + 0.2, 1.0, 0.3), Vector3(offset + 0.3, 1.3, 1.0))
+    private fun sample(time:Double,offset:Double):AttackPoseSample {
+        val grip=WeaponGrip(Vector3(offset,1.0,.3),Quaternion(0.0,0.0,0.0,1.0));val axis=playerBlade(grip)
+        return AttackPoseSample(time,EnemyContactPose(Vector3(offset,1.6,0.0),Vector3(offset,.55,0.0),Vector3(offset,1.4,0.0)),axis.base,axis.tip,grip,0.0)
+    }
 
     private val attack = AttackProfile("attack_left", listOf(0.0, 0.65, 0.90, 1.10, 1.75), 1.0,
         listOf(sample(0.0, 10.0), sample(1.75, 11.75)))

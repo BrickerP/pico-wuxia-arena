@@ -125,9 +125,21 @@ class NativeBladeInteractionTest {
         // asserting that the same clip can unload and continue from its actual TOI.
         fixture.hand = requireNotNull(contact.playerWeaponGrip).position + impact.normal * 0.15
         fixture.tick(35_000_000L)
-        val retreated = fixture.session.viewState
-        assertEquals(contact.enemyPoseClip, retreated.enemyPoseClip)
-        val nextSource = requireNotNull(retreated.enemyPoseSourceSeconds)
+        val released=fixture.session.viewState
+        val recognizer=ArenaSession::class.java.getDeclaredField("motion").apply {isAccessible=true}.get(fixture.session) as PlayerCombatResolver
+        assertFalse("Real raw withdrawal must release before the obsolete actor plan ends",recognizer.weaponConstrained)
+        assertEquals(fixture.hand,checkNotNull(released.playerWeaponGrip).position)
+        val clock=ArenaSession::class.java.getDeclaredField("enemyMotionNanos").apply {isAccessible=true}.getLong(fixture.session)
+        val recovery=checkNotNull(ArenaSession::class.java.getDeclaredField("contactRecovery").apply {isAccessible=true}.get(fixture.session))
+        val started=recovery.javaClass.getDeclaredField("startedAtNanos").apply {isAccessible=true}.getLong(recovery)
+        assertEquals("The unchanged contact-stop gate ends exactly at 35ms",35_000_000L,clock-started)
+        assertEquals(source,checkNotNull(released.enemyPoseSourceSeconds),1e-9)
+        // Catchup resets physical stroke history. One fresh observation establishes it;
+        // the first subsequent nanosecond advances the original source, never a preset.
+        fixture.tick(1L);fixture.tick(1L)
+        val retreated=fixture.session.viewState
+        assertEquals(contact.enemyPoseClip,retreated.enemyPoseClip)
+        val nextSource=checkNotNull(retreated.enemyPoseSourceSeconds)
         assertTrue("Recovery must start from the actual witness, not a preset key", nextSource < source)
         assertTrue(source - nextSource <= 0.06)
         val nextExpected = profile.sample(nextSource).inStage(requireNotNull(retreated.enemyPosition) + retreated.enemyRecoilOffset,

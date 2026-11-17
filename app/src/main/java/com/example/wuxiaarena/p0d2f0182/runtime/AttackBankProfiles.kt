@@ -4,7 +4,10 @@ import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.math.Vector3
-import kotlin.math.cos
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.interpolateGrip
+import com.example.wuxiaarena.core.math.Quaternion
+import kotlin.math.*
 import kotlin.math.sin
 
 /** Body contacts and the actual blade endpoints sampled from the same actor-local pose. */
@@ -13,19 +16,17 @@ internal data class AttackPoseSample(
     val contact: EnemyContactPose,
     val bladeBase: Vector3,
     val bladeTip: Vector3,
+    val bladeGrip: WeaponGrip,
+    val bladeGripInterpolationErrorToNextMeters: Double,
+    // Runtime placement provenance; complete source rotation is always required above.
+    val bladeGripSource: WeaponGrip = bladeGrip,
+    val bladeGripActorOrigin: Vector3 = Vector3(0.0,0.0,0.0),
+    val bladeGripActorYaw: Double = 0.0,
 ) {
     init {
+        require(bladeGripInterpolationErrorToNextMeters.isFinite() && bladeGripInterpolationErrorToNextMeters>=0.0)
         require(sourceSeconds.isFinite() && sourceSeconds >= 0.0) { "Sample time must be finite and non-negative" }
         require(contact.isFinite() && bladeBase.isFinite() && bladeTip.isFinite()) { "Sample points must be finite" }
-    }
-
-    fun nearestBladePoint(point: Vector3): Vector3 {
-        require(point.isFinite()) { "Blade contact target must be finite" }
-        val blade = bladeTip - bladeBase
-        val lengthSquared = blade.dot(blade)
-        if (lengthSquared == 0.0) return bladeBase
-        val fraction = ((point - bladeBase).dot(blade) / lengthSquared).coerceIn(0.0, 1.0)
-        return bladeBase + blade * fraction
     }
 
     fun inStage(origin: Vector3, yaw: Float): AttackPoseSample {
@@ -41,6 +42,9 @@ internal data class AttackPoseSample(
             contact = EnemyContactPose(point(contact.head), point(contact.bodyBottom), point(contact.bodyTop)),
             bladeBase = point(bladeBase),
             bladeTip = point(bladeTip),
+            bladeGrip = WeaponGrip(point(bladeGrip.position),Quaternion(0.0,sin(yaw.toDouble()*.5),0.0,cos(yaw.toDouble()*.5))*bladeGrip.rotation),
+            bladeGripActorOrigin = point(bladeGripActorOrigin),
+            bladeGripActorYaw = bladeGripActorYaw+yaw.toDouble(),
         )
     }
 }
@@ -64,6 +68,8 @@ internal fun samplePose(samples: List<AttackPoseSample>, sourceSeconds: Double):
         ),
         point(before.bladeBase, after.bladeBase),
         point(before.bladeTip, after.bladeTip),
+        interpolateGrip(before.bladeGrip,after.bladeGrip,progress),
+        before.bladeGripInterpolationErrorToNextMeters,
     )
 }
 
@@ -123,27 +129,6 @@ internal class AttackProfile(
 
     fun sample(sourceSeconds: Double): AttackPoseSample = samplePose(samples, sourceSeconds)
 
-    /** Incoming motion of this blade's same witness fraction, before contact resolves ACTIVE. */
-    fun bladeTangentAt(sourceSeconds: Double, point: Vector3, origin: Vector3, yaw: Float): Vector3? {
-        require(sourceSeconds.isFinite() && point.isFinite() && origin.isFinite() && yaw.isFinite()) {
-            "Blade motion requires a finite source time and Stage transform"
-        }
-        // At an exact source key use the arriving interval, never the post-contact recoil.
-        val found = samples.binarySearchBy(sourceSeconds) { it.sourceSeconds }
-        val afterIndex = if (found >= 0) found else -found - 1
-        if (afterIndex <= 0 || afterIndex >= samples.size) return null
-        val pose = sample(sourceSeconds).inStage(origin, yaw)
-        val axis = pose.bladeTip - pose.bladeBase
-        val lengthSquared = axis.dot(axis)
-        if (!lengthSquared.isFinite() || lengthSquared == 0.0) return null
-        val along = ((point - pose.bladeBase).dot(axis) / lengthSquared).coerceIn(0.0, 1.0)
-        val before = samples[afterIndex - 1].inStage(origin, yaw)
-        val after = samples[afterIndex].inStage(origin, yaw)
-        val baseDelta = after.bladeBase - before.bladeBase
-        val tipDelta = after.bladeTip - before.bladeTip
-        return (baseDelta + (tipDelta - baseDelta) * along).normalizedOrNull()
-    }
-
     private fun interpolate(start: Double, end: Double, progress: Double): Double = when (progress) {
         0.0 -> start
         1.0 -> end
@@ -168,4 +153,23 @@ internal object AttackBankProfiles {
 
     fun forAsset(asset: String, direction: AttackDirection): AttackProfile =
         AttackBankProfileData.characters.getValue(asset).attacks.getValue(direction)
+}
+
+/** Difference between the actual actor-yaw x local-SLERP curve and Stage grip SLERP.
+ * Both share endpoint chords. |curve-chord| <= sup|curve''|/8; source FK error is separate.
+ * Actor position and yaw are committed by the coordinator's exact planned interpolation.
+ */
+internal fun stageGripCompositionError(a:AttackPoseSample,b:AttackPoseSample):Double {
+    fun angle(a:Quaternion,b:Quaternion):Double {
+        val x=checkNotNull(a.normalizedOrNull());val y=checkNotNull(b.normalizedOrNull())
+        return 2*acos(abs(x.x*y.x+x.y*y.y+x.z*y.z+x.w*y.w).coerceIn(0.0,1.0))
+    }
+    val yaw=abs(b.bladeGripActorYaw-a.bladeGripActorYaw)
+    if(yaw==0.0)return 0.0
+    val local=angle(a.bladeGripSource.rotation,b.bladeGripSource.rotation)
+    val stage=angle(a.bladeGrip.rotation,b.bladeGrip.rotation)
+    val r=com.example.wuxiaarena.core.combat.DaoBladeShape.shape.gripRadius
+    val p=maxOf(a.bladeGripSource.position.length(),b.bladeGripSource.position.length())
+    val dp=a.bladeGripSource.position.distanceTo(b.bladeGripSource.position)
+    return (yaw*yaw*(p+r)+2*yaw*(dp+local*r)+local*local*r+stage*stage*r)/8.0
 }

@@ -15,6 +15,9 @@ class ActorSteelWithdrawalSessionTest {
         val f=ActiveFixture()
         f.contact()
         val initial=f.session.viewState
+        val source=ArenaSession::class.java.getDeclaredMethod("effectiveEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(f.session,0L) as EnemyPoseFrame
+        @Suppress("UNCHECKED_CAST") val domain=ArenaSession::class.java.getDeclaredMethod("steelRecoverySamples",AttackPoseSample::class.java).apply {isAccessible=true}.invoke(f.session,source.pose) as List<AttackPoseSample>
+        BladePlanBenchmark.record("actual_overhead_pressure",checkNotNull(initial.enemyPosition),initial.enemyYawRadians.toDouble(),source.pose,f.grip,f.impacts().single().normal,domain)
         val initialPosition=requireNotNull(initial.enemyPosition)
         val initialSource=initial.enemyPoseSourceSeconds
         val withdrawal=requireNotNull(field(f.session,"steelWithdrawal"))
@@ -39,9 +42,13 @@ class ActorSteelWithdrawalSessionTest {
             val held=requireNotNull(state.playerWeaponGrip)
             val player=playerBlade(held)
             val raw=playerBlade(f.grip)
-            val pair=requireNotNull(closestSegmentPoints(player.base,player.tip,
-                requireNotNull(state.enemyBladeBase),requireNotNull(state.enemyBladeTip)))
-            val gap=pair.first.distanceTo(pair.second)-player.radiusMeters-.0125
+            val stagePose=ArenaSession::class.java.getDeclaredMethod("enemyAttackPose",java.lang.Long.TYPE)
+                .apply { isAccessible=true }.invoke(f.session,0L) as AttackPoseSample
+            val pp=DaoBladeShape.shape.at(held);val ee=DaoBladeShape.shape.at(stagePose.bladeGrip)
+            val gap=pp.minOf { p -> ee.minOf { e ->
+                val pair=requireNotNull(closestSegmentPoints(p.base,p.tip,e.base,e.tip))
+                pair.first.distanceTo(pair.second)-p.radiusMeters-e.radiusMeters
+            } }
             minimumGap=minOf(minimumGap,gap)
             assertTrue("Native capsule penetrated at ${(index+1)*10}ms; gap=$gap",gap>=-.0006)
             val step=position.distanceTo(requireNotNull(previous.enemyPosition))
@@ -176,13 +183,24 @@ class ActorSteelWithdrawalSessionTest {
             set(session,"result",TrialResult.FIGHTING)
             set(session,"combat",combat)
             val profile=arenaOpponents.first().attackProfile(AttackDirection.OVERHEAD)
-            val pose=profile.sample(profile.sourcePhaseSeconds[2]).inStage(origin,0f)
+            val source=profile.sample(profile.sourcePhaseSeconds[2])
+            // This fixture injects an already-ACTIVE timeline; retain the corresponding
+            // real accepted source rather than an unrelated IDLE frame from scene setup.
+            set(session,"acceptedEnemySource",EnemyPoseFrame(profile.clip,source))
+            val pose=source.inStage(origin,0f)
             val rotation=Quaternion(0.0,-sqrt(.5),0.0,sqrt(.5))
             val local=playerBlade(WeaponGrip(Vector3(0.0,0.0,0.0),rotation))
             var normal=requireNotNull((local.tip-local.base).cross(pose.bladeTip-pose.bladeBase).normalizedOrNull())
             if(normal.z<0.0)normal=normal*-1.0
-            grip=WeaponGrip((pose.bladeBase+pose.bladeTip-local.base-local.tip)*.5+
+            val target=WeaponGrip((pose.bladeBase+pose.bladeTip-local.base-local.tip)*.5+
                 normal*(local.radiusMeters+.0125-1e-9),rotation)
+            val clear=target.copy(position=target.position+normal*.15)
+            val chain=DaoBladeShape.shape
+            val witness=checkNotNull(firstBladeShapeContact(BladeShapeSweep(chain,clear,target,0.0),
+                BladeShapeSweep(chain,pose.bladeGrip,pose.bladeGrip,pose.bladeGripInterpolationErrorToNextMeters)))
+            // Same real OH pose and transverse direction. Locate the full-chain TOI instead
+            // of starting at the old single-axis stop, which can already penetrate new steel.
+            grip=interpolateGrip(clear,target,(witness.contact.fraction+2*(witness.contact.errorBoundMeters-pose.bladeGripInterpolationErrorToNextMeters)/clear.position.distanceTo(target.position)).coerceAtMost(1.0))
             val blade=playerBlade(grip)
             frame=PlayerMotionFrame(0L,blade.base,blade.tip,0.0,null,false,Vector3(0.0,1.6,0.0),rawWeaponGrip=grip,weaponGrip=grip,swing=swingId?.let { QualifiedSwing(it,1.0) })
             set(session,"simulationMotion",frame);set(session,"latestMotion",frame)

@@ -1,6 +1,6 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.ActorWithdrawalPlan
+import com.example.wuxiaarena.core.combat.*
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.BladeSegment
 import com.example.wuxiaarena.core.combat.WeaponGrip
@@ -29,7 +29,7 @@ class SteelRecoveryDomainTest {
             p.samples.any { it.sourceSeconds==retreat })
         val time=contactSeconds+.002137
         assertFalse(p.samples.any { it.sourceSeconds==time })
-        val current=p.sample(time).copy(bladeBase=p.sample(time).bladeBase+Vector3(.000123,0.0,0.0))
+        val current=translated(p.sample(time),Vector3(.000123,0.0,0.0))
         val selected=select(p,current)
         assertEquals(p.sample(retreat),selected.first())
         assertEquals(current,selected.single { it.sourceSeconds==time })
@@ -47,7 +47,7 @@ class SteelRecoveryDomainTest {
             ended.sample(nonKeyEnd),select(ended,current).last())
         assertTrue(selected.zipWithNext().all { (a,b)->a.sourceSeconds<b.sourceSeconds })
         val stored=p.samples.first { it.sourceSeconds>retreat }
-        val measured=stored.copy(bladeTip=stored.bladeTip+Vector3(0.0,.000321,0.0))
+        val measured=translated(stored,Vector3(0.0,.000321,0.0))
         assertEquals("An actual equal-time TOI witness wins over a stored key",measured,
             select(p,measured).single { it.sourceSeconds==measured.sourceSeconds })
     }
@@ -59,9 +59,7 @@ class SteelRecoveryDomainTest {
         val untouchedSupport=p.samples.single { it.sourceSeconds==interpolationSupport }
         val changed=p.samples.map { sample ->
             // Keep the lower interpolation support intact. Only truly unvisited keys are corrupted.
-            if(sample.sourceSeconds<interpolationSupport)sample.copy(
-                bladeBase=sample.bladeBase+Vector3(800.0,-500.0,900.0),
-                bladeTip=sample.bladeTip+Vector3(-700.0,400.0,-600.0)) else sample
+            if(sample.sourceSeconds<interpolationSupport)translated(sample,Vector3(800.0,-500.0,900.0)) else sample
         }
         assertTrue(changed.zip(p.samples).any { (a,b)->a!=b })
         val mutated=copyProfile(p,changed)
@@ -88,17 +86,17 @@ class SteelRecoveryDomainTest {
         val p=profile;val current=p.sample(contactSeconds);val f=contactFixture(current)
         val original=checkNotNull(plan(current,select(p,current),f))
         val final=original.at(original.durationSeconds)
-        val overlapBase=rotate(f.player.base-final.position,-final.yawRadians)
-        val overlapTip=rotate(f.player.tip-final.position,-final.yawRadians)
+        val inverse=Quaternion(0.0,sin(-final.yawRadians*.5),0.0,cos(-final.yawRadians*.5))
+        val overlap=WeaponGrip(checkNotNull(inverse.rotate(f.grip.position-final.position)),inverse*f.grip.rotation)
         for(edge in listOf(contactSeconds-.06,p.sourcePhaseSeconds.last())) {
-            val bad=p.sample(edge).copy(bladeBase=overlapBase,bladeTip=overlapTip)
+            val bad=withGrip(p.sample(edge),overlap)
             val samples=(p.samples.filter { it.sourceSeconds!=edge }+bad).sortedBy { it.sourceSeconds }
             val changed=copyProfile(p,samples)
             val selected=select(changed,current)
             assertEquals("The exact recovery boundary must survive selection at $edge",bad,
                 selected.single { it.sourceSeconds==edge })
             val oldWorld=world(bad,final.position,final.yawRadians)
-            assertTrue("The deliberately changed boundary must invalidate the old plan",gap(f.player,oldWorld)<-.024)
+            assertTrue("The deliberately changed boundary must invalidate the old plan",kotlin.math.abs(gap(DaoBladeShape.shape.at(f.grip),oldWorld)+2*DaoBladeShape.shape.parts.maxOf {it.radiusMeters})<1e-6)
             val replacement=plan(current,selected,f)
             if(replacement!=null) {
                 assertFalse("Boundary corruption cannot retain the old certificate at $edge",
@@ -106,7 +104,7 @@ class SteelRecoveryDomainTest {
                         replacement.retreatMeters==original.retreatMeters && replacement.durationSeconds==original.durationSeconds)
                 val exit=replacement.at(replacement.durationSeconds)
                 assertTrue("A replacement certificate must actually clear the changed boundary at $edge",
-                    gap(f.player,world(bad,exit.position,exit.yawRadians))>=0.0)
+                    gap(DaoBladeShape.shape.at(f.grip),world(bad,exit.position,exit.yawRadians))>=0.0)
             }
         }
     }
@@ -115,7 +113,7 @@ class SteelRecoveryDomainTest {
         val session=ArenaSession(logMessage={},logFailure={_,e->throw e})
         val idle=arenaOpponents.first().locomotionProfile().idle
         val time=(idle.samples[0].sourceSeconds+idle.samples[1].sourceSeconds)*.5
-        val current=idle.sample(time).copy(bladeTip=idle.sample(time).bladeTip+Vector3(.00017,0.0,0.0))
+        val current=translated(idle.sample(time),Vector3(.00017,0.0,0.0))
         val selected=invokeSelection(session,current)
         assertEquals(current,selected.single { it.sourceSeconds==time })
         for(sample in idle.samples)assertEquals("Idle key ${sample.sourceSeconds} must remain in its full loop",
@@ -125,7 +123,7 @@ class SteelRecoveryDomainTest {
         assertEquals(idle.samples.last(),selected.last())
     }
 
-    private data class ContactFixture(val player:BladeSegment,val normal:Vector3)
+    private data class ContactFixture(val grip:WeaponGrip,val normal:Vector3)
     private fun contactFixture(current:AttackPoseSample):ContactFixture {
         val pose=current.inStage(origin,0f)
         val rotation=Quaternion(0.0,-sqrt(.5),0.0,sqrt(.5))
@@ -134,11 +132,16 @@ class SteelRecoveryDomainTest {
         if(n.z<0.0)n=n*-1.0
         val grip=WeaponGrip((pose.bladeBase+pose.bladeTip-local.base-local.tip)*.5+
             n*(local.radiusMeters+.0125-1e-9),rotation)
-        return ContactFixture(playerBlade(grip),n)
+        val clear=grip.copy(position=grip.position+n*.15)
+        val chain=DaoBladeShape.shape
+        val hit=checkNotNull(firstBladeShapeContact(BladeShapeSweep(chain,clear,grip,0.0),BladeShapeSweep(chain,pose.bladeGrip,pose.bladeGrip,current.bladeGripInterpolationErrorToNextMeters)))
+        val numeric=hit.contact.errorBoundMeters-current.bladeGripInterpolationErrorToNextMeters
+        val held=interpolateGrip(clear,grip,(hit.contact.fraction+2*numeric/clear.position.distanceTo(grip.position)).coerceAtMost(1.0))
+        return ContactFixture(held,hit.contact.normal)
     }
     private fun plan(current:AttackPoseSample,samples:List<AttackPoseSample>,f:ContactFixture)=
-        ActorWithdrawalPlan.create(origin,0.0,BladeSegment(current.bladeBase,current.bladeTip,.0125),f.player,f.normal,
-            samples.map { BladeSegment(it.bladeBase,it.bladeTip,.0125) })
+        ActorWithdrawalPlan.create(origin,0.0,current.bladeGrip,f.grip,f.normal,current.bladeGripInterpolationErrorToNextMeters,
+            samples.map {it.bladeGrip to it.bladeGripInterpolationErrorToNextMeters})
     private fun copyProfile(p:AttackProfile,samples:List<AttackPoseSample>)=
         AttackProfile(p.clip,p.sourcePhaseSeconds,p.contactSourceSeconds,samples)
     private fun select(profile:AttackProfile,current:AttackPoseSample):List<AttackPoseSample> {
@@ -155,9 +158,15 @@ class SteelRecoveryDomainTest {
             .apply { isAccessible=true }.invoke(session,current) as List<AttackPoseSample>
 }
 private fun rotate(v:Vector3,yaw:Double)=Vector3(v.x*cos(yaw)+v.z*sin(yaw),v.y,-v.x*sin(yaw)+v.z*cos(yaw))
-private fun world(sample:AttackPoseSample,position:Vector3,yaw:Double)=BladeSegment(
-    position+rotate(sample.bladeBase,yaw),position+rotate(sample.bladeTip,yaw),.0125)
-private fun gap(a:BladeSegment,b:BladeSegment):Double {
-    val pair=checkNotNull(closestSegmentPoints(a.base,a.tip,b.base,b.tip))
-    return pair.first.distanceTo(pair.second)-a.radiusMeters-b.radiusMeters
+private fun world(sample:AttackPoseSample,position:Vector3,yaw:Double):List<BladeSegment> {
+    val q=Quaternion(0.0,sin(yaw*.5),0.0,cos(yaw*.5))
+    return DaoBladeShape.shape.at(WeaponGrip(position+checkNotNull(q.rotate(sample.bladeGrip.position)),q*sample.bladeGrip.rotation))
 }
+private fun gap(a:List<BladeSegment>,b:List<BladeSegment>):Double=a.minOf {x->b.minOf {y->
+    val pair=checkNotNull(closestSegmentPoints(x.base,x.tip,y.base,y.tip));pair.first.distanceTo(pair.second)-x.radiusMeters-y.radiusMeters
+} }
+private fun withGrip(sample:AttackPoseSample,grip:WeaponGrip):AttackPoseSample {
+    val axis=playerBlade(grip)
+    return sample.copy(bladeGrip=grip,bladeGripSource=grip,bladeBase=axis.base,bladeTip=axis.tip)
+}
+private fun translated(sample:AttackPoseSample,offset:Vector3)=withGrip(sample,sample.bladeGrip.copy(position=sample.bladeGrip.position+offset))

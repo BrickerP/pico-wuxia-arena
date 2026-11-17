@@ -2,6 +2,16 @@
 
 当前为可运行的开发预览，**整体人物、动作与打击品质未通过，成品 Demo 未完成**。唯一工程使用 Kotlin + PICO Spatial SDK 6.1.9，目标 Space Pro / OS 6、Full Stage。只打磨既有雨夜庭院、持刀攻防与三轮短 PVE。
 
+## 整合检查点：前两轮已跑，Boss架刀仍阻塞（2026-11-17）
+
+正式binding7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6；APK ddacc7a60d23f96a1f85338bf85a33bc80bd0dc0ec213777111e9d15aa532b02，124839117B/ZIP开销94062B，19GLB＋3profile与正式匹配。Roottyped生成/check、完整544 JVM（0失败/错误/跳过）、71 Blender产线、42 KTX检查过。新头/甲袖/紧凑受击/纸墨HUD/7f同包。
+
+真实Start14:54:46.907 accepted、49事件/55秒window-only录像、15contact，前两敌倒下、第3场新Boss150HP/玩家100可见。随后约16.267秒virtual固定/raw变，两次No finite actor，完整胜利/流畅性未通过。同包首个input-only录制NO_ACCEPTED_START不计交战。presentation/native-compact-reaction-2026-11-17.json绑定画面/MP4；3102原帧与归一化PTS精确保留，无音频，不当PICO GPU帧率/音画触觉证明；一条原日志时间回退保留，不从缺日志推正常。
+
+只读JDI新cache idle1.076918782 gap−0.159972mm、walk却+0.183934mm、E约2.3µm；无pose/HP写入且清断点/resume/quit/owned转发。战斗路收敛accepted为当前物理/显示source，override交接不能跳过admission；修后再全量和有限真实复验，不放宽碰撞/撤手容差。
+
+身体仍HEAD/torso。低面代理尾部42mm/1falseHit未准入；8 living完整索引蒙皮mesh＋BVH为私有精确候选，外扩0、host workspace逐bit等价且大幅减分配，但Android影子未测、不消费正式伤害。Tangent和入口木构也未合入，整体写实/动作/场景未过。实际Left、HMD闪避、双手技能、处决、胜利/Retry、音画触觉与Space Pro均未完整证明，成品Demo未完成。
+
 ## 最新main：成对关节手与技能误触修复（2026-11-17）
 
 Right `199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64` / Left `0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7` 已成对接入既有assets入口，无SDK transform补偿或负scale。各6222三角，Right16项/Left33项制作检查通过；Root重核52项收据条目并看原材质/neutral与成对握刀图。旧109父面对指间自交、open/mid旧DAO侵入保留，不宣称全姿态零穿模。

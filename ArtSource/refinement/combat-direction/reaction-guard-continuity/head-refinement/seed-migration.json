@@ -1,0 +1,30 @@
+{
+  "binding_sha256": "7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6",
+  "HEAD_only_migrations": [
+    {
+      "key": "base/hit_head",
+      "previous_sha256": "63d20e62ce2066f140a0b585249ad7260cf324925dcc93c3b9b903422fd9fbfe",
+      "new_sha256": "3d163bf095c4cdb4e085272210e21fd3dc004b9213799fb1e0b176639822f314",
+      "reason": "Root-reviewed compactHEAD source amplitude .35 / head-neck .11; same exact legacy sample times retained",
+      "model_sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38",
+      "profile_sha256": "32de662655acb458a6e7f09b62ae5741a5d1ad5968b1a72c35d439d8f25260e7"
+    },
+    {
+      "key": "indigo/hit_head",
+      "previous_sha256": "e1b632c6ae2f0a125b83a511e31105ed6813b88f47946342a2c88ca4e4f9fb6e",
+      "new_sha256": "8c61eb5979cdb394df96ab532d08a62732b5bcaa161f833ca545fef09390a43c",
+      "reason": "Root-reviewed compactHEAD source amplitude .35 / head-neck .11; same exact legacy sample times retained",
+      "model_sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6",
+      "profile_sha256": "e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908"
+    },
+    {
+      "key": "veteran/hit_head",
+      "previous_sha256": "dcb90b41937039464fa72f2a506119fadc191c04ee4c1fb246158e691ea98649",
+      "new_sha256": "ea1603471e222cd2a63e54d558065a8ffffaf2d913aa9c95de5bb3ac3098a965",
+      "reason": "Root-reviewed compactHEAD source amplitude .35 / head-neck .11; same exact legacy sample times retained",
+      "model_sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
+      "profile_sha256": "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170"
+    }
+  ],
+  "unchanged": "All sample times, BODY/SIDE seed hashes, and existing nonreaction split-head/torso/Steel checks retained."
+}

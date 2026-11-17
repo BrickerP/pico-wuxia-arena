@@ -17,7 +17,11 @@
       "normalize": false,
       "rdo": false,
       "orientation": "top-left",
-      "pixel_resize": false,
+      "pixel_resize": {
+        "default_max_dimension": 1024,
+        "filter": "explicit-axis-lanczos4-v1",
+        "upsample": false
+      },
       "mip_source": {
         "same_axis": "ktx-cli-generate-mipmap",
         "different_axes": "explicit-axis-lanczos4-v1"
@@ -32,12 +36,12 @@
         "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
         "alpha_filter": "linear-straight",
         "quantization": "clip-0-1-round-half-up-uint8",
-        "top": "original-decoded-pixels"
+        "top": "runtime-sized-domain-filtered-pixels"
       }
     },
     "helper": {
       "source": "../refinement/pbr-compression/compress_pbr.py",
-      "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+      "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
     },
     "encoder": {
       "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -64,6 +68,6 @@
   },
   "texture_encoding_manifest": {
     "file": "dao_grip_texture_encoding.json",
-    "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab"
+    "sha256": "a69fd3ba0621937d38160f4f8588bce616d7da2b191019777a9cc51e6ad1ca12"
   }
 }

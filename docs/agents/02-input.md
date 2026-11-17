@@ -1,5 +1,23 @@
 # 02 · 刀具造型材质与握持
 
+## Root当前输入与HUD review（2026-11-17）
+
+7af/ddacc7a6已544正式全过并实际前两轮/第3场Boss。第一次55秒只有输入，Start未接受；Root用SDK实值确认瞄准晚于点击到达，改为先等实际rawRight quaternion到位，再发真实trigger。第二次Start14:54:46.907 accepted/15contact，Boss随后16.267秒长hold，01继续修source交接。原始目录artifacts/native-compact-reaction-2026-11-17/aim-settled-trial。
+
+冷启动后Root自行恢复Right Controller Mode；窗口级toolbar实际描述证Controller Button Mode开启、Keyboard Mode关闭。定向Shift D/Q/W真实键校准手位(.278000027,1.4,-.449999839)，只读JDI证HEAD/RIGHT SDK snapshot与observedReady=true。没有应用pose/HP/胜负注入。旧71308窗口失去surface后仅重启同AVD一次，新84747/w4212 ready，无擦除。
+
+Qt菜单AXPress可能success却未选中，必须看实际菜单/SDK。Root工具现用AXFrontmost核实PID；点击前及hover后再验证前台/标题/命中owner，菜单不存在即停。一张误截其他窗口的画面已删除。图/视频改window ID或设备FOV，不用桌面区域取图；3102原视频帧与归一化PTS精确保留，无音频，不当GPU帧率证明。
+
+纸墨HUD已合入并正式编译/测试、原生准备态/FIGHTING可见；全部入口/回调/四帮助页保留。长反馈/较大字号/追踪结算全态与Space Pro可读性尚未全部原生验收。下节为候选来源和测试，不再重复应用旧patch。
+
+## UI候选：原生纸墨 HUD 精修（2026-11-17）
+
+`ArtSource/refinement/ui/native-hud-polish/ArenaHud.patch` 已交单文件原生候选，尚未合入或通过模拟器实物审图。保留400×400／160控制、500×260状态 Attachment，全部回调、禁用门、原三轮状态和资源绑定；不改 HomeStage／玩法／伤害／输入。仅恢复已有status-surface有界墨底，拉开纸墨字级与敌名／敌血／轮次时间层次，数字Badge透明底，次操作降为灰纸墨字。原四页模拟器帮助全部保留，只把“动作识别”置于默认，技术控制模式仍可用原上一式／下一式到达。
+
+PicoTheme／内建Button、Badge、进度与AlertDialog复用，无Material或新依赖。官方6.1.9真实AAR类型核对，私有Kotlin＋Compose编译与34个现有UI／state测试通过；风格门0error／0warning。纸墨14.30:1、朱砂按钮5.50:1，墨底旧铜最低静态对比4.73:1；fontScale1最满状态源码预算259/260dp。状态展示与实际入口/出口、尺寸依据见 `ArtSource/refinement/ui/native-hud-polish/state-display-table.md`。
+
+未生成HTML或假原生图，未跑共享Gradle／设备／Git。Root统一编译与PICO模拟器审READY、帮助首末页、最长反馈＋蓄势、追踪中断／暂停、换轮、普通／超时落败、胜利和确认框；字体回退、较大字号、禁用态、裁切与视线遮挡仍未验。8f参考光影非最终，不把静态对比计算当原生品质通过。
+
 ## Root已成对接入与原生右持收件（2026-11-17）
 
 199c Right／0295 Left已进入app既有资源入口；Root重哈52收据条目，审三列与paired oblique，接受闭握局部关节弧面改善。Right16＋Left33制作测试通过，完整467测试及构建通过；c5c28446 APK设备SHA核对，实际Right已显示在 `presentation/native-hand-joints-right-2026-11-17.png`。Left仅装包和制作检查通过，原生显示/切换仍待Root，不把镜像等价当全局零穿入；整体手与shader品质仍未过。

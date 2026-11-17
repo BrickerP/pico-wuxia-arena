@@ -48,8 +48,8 @@ class PlayerContactTangentTest {
         val target = requireNotNull(resolver.targetContact(frame, enemy, HitZone.BODY).tangent)
         val blade = playerBlade(requireNotNull(first.weaponGrip))
         val steel = BladeSegment((blade.base + blade.tip) * 0.5, (blade.base + blade.tip) * 0.5, 0.012)
-        val guard = requireNotNull(firstRigidBladeContact(requireNotNull(first.weaponGrip),
-            requireNotNull(frame.weaponGrip), BladeSweep(steel, steel))?.relativeDisplacement?.normalizedOrNull())
+        val guard = requireNotNull(firstBladeShapeBodyContact(BladeShapeSweep(DaoBladeShape.shape,requireNotNull(first.weaponGrip),
+            requireNotNull(frame.weaponGrip),0.0),BladeSweep(steel,steel))?.contact?.relativeDisplacement?.normalizedOrNull())
         assertTrue(target.x > 0.9)
         assertTrue(guard.x > 0.9)
         assertEquals(1.0, target.length(), 1e-9)

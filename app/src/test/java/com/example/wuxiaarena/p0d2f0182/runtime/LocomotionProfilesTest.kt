@@ -2,6 +2,14 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.combat.firstBladeShapeBodyContact
+import com.example.wuxiaarena.core.combat.BladeShapeSweep
+import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.BladeSweep
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertThrows
@@ -10,16 +18,13 @@ import org.junit.Test
 
 /** Synthetic changing poses exercise the sampling contract; these are not final actor data. */
 class LocomotionProfilesTest {
-    private fun pose(time: Double, offset: Double = 4.0 * time) = AttackPoseSample(
-        time,
-        EnemyContactPose(
-            Vector3(1.0 + offset, 2.0 + offset, 3.0 + offset),
-            Vector3(4.0 + offset, 5.0 + offset, 6.0 + offset),
-            Vector3(7.0 + offset, 8.0 + offset, 9.0 + offset),
-        ),
-        Vector3(10.0 + offset, 11.0 + offset, 12.0 + offset),
-        Vector3(13.0 + offset, 14.0 + offset, 15.0 + offset),
-    )
+    private fun pose(time:Double,offset:Double=4.0*time):AttackPoseSample {
+        val grip=WeaponGrip(Vector3(10.0+offset,11.0,12.0),Quaternion(0.0,0.0,0.0,1.0))
+        val axis=playerBlade(grip)
+        return AttackPoseSample(time,EnemyContactPose(Vector3(1.0+offset,2.0+offset,3.0+offset),
+            Vector3(4.0+offset,5.0+offset,6.0+offset),Vector3(7.0+offset,8.0+offset,9.0+offset)),
+            axis.base,axis.tip,grip,0.0)
+    }
 
     private fun idle() = PoseClipProfile("idle", listOf(pose(0.125, 50.0), pose(1.5, 50.0)))
     private fun walk() = PoseClipProfile("walk", listOf(

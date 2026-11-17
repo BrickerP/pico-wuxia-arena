@@ -3,6 +3,8 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.math.closestPoint
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyContactPose
@@ -83,7 +85,8 @@ class ArenaAttackDirectionTest {
             assertEquals(expected.bladeBase, state.enemyBladeBase)
             assertEquals(expected.bladeTip, state.enemyBladeTip)
             val point = batch.filterIsInstance<CombatImpact>().single().point
-            assertTrue("${state.enemyPoseDirection}: distance=${expected.nearestBladePoint(point).distanceTo(point)} source=$sourceSeconds impact=${batch.filterIsInstance<CombatImpact>().single()}", expected.nearestBladePoint(point).distanceTo(point) <= 0.013)
+            val signedGap=DaoBladeShape.shape.at(expected.bladeGrip).minOf {part->point.distanceTo(closestPoint(point,part.base,part.tip))-part.radiusMeters}
+            assertTrue("${state.enemyPoseDirection}: full-chain feedback gap=$signedGap source=$sourceSeconds",signedGap<=expected.bladeGripInterpolationErrorToNextMeters+.000501)
         }
     }
 
@@ -131,7 +134,10 @@ class ArenaAttackDirectionTest {
             val before = contactsAtResolution.size
             playerHand = (pose.bladeBase + pose.bladeTip) * 0.5 - mid + normal * 0.20
             tick(80_000_000L)
-            if (contactsAtResolution.size > before) return
+            if(contactsAtResolution.size>before) {
+                playerHand=Vector3(2.0,1.3,0.0)
+                return
+            }
             val current = session.viewState
             val source = profile.sourceSeconds(current.phase, current.phaseElapsedNanos + 20_000_000L,
                 requireNotNull(current.phaseRemainingNanos) - 20_000_000L)
