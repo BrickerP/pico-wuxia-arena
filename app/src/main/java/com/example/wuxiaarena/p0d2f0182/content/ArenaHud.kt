@@ -62,7 +62,7 @@ import com.pico.spatial.ui.design.PicoTheme
 import com.pico.spatial.ui.design.Text
 import com.pico.spatial.ui.design.windows.AlertDialog
 
-private val HudTextShadow = Shadow(ArenaUiPalette.inkBlack, Offset(0f, 1f), 3f)
+private val HudTextShadow = Shadow(ArenaUiPalette.inkBlack, Offset(0f, 1f), 2f)
 
 internal fun arenaControlsAreCompact(result: TrialResult, pauseReason: PauseReason?): Boolean =
     pauseReason == null && when (result) {
@@ -118,7 +118,7 @@ private fun ArenaControlPanelContent(
     val compact = arenaControlsAreCompact(state.result, state.pauseReason)
     val showEmulatorGuide = arenaShowsEmulatorGuide(state.inputOrigin, isRanchuHost)
     val surfaceText = ArenaUiPalette.inkBlack
-    val secondaryText = ArenaUiPalette.mutedInk
+    val secondaryText = surfaceText
     val buttonColors = ButtonDefaults.buttonColors(
         containerColor = ArenaUiPalette.cinnabar,
         contentColor = ArenaUiPalette.paperIvory,
@@ -167,8 +167,8 @@ private fun ArenaControlPanelContent(
                             text = stringResource(R.string.arena_control_title),
                             modifier = Modifier.weight(1f),
                             style = PicoTheme.typography.titleSmall.copy(
-                                fontSize = 28.sp,
-                                lineHeight = 34.sp,
+                                fontSize = 30.sp,
+                                lineHeight = 36.sp,
                                 fontFamily = FontFamily.Serif,
                                 fontWeight = FontWeight.SemiBold,
                             ),
@@ -178,14 +178,14 @@ private fun ArenaControlPanelContent(
                     }
                     Text(
                         text = stringResource(R.string.arena_control_round, state.roundNumber, state.roundCount),
-                        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                        style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp, fontWeight = FontWeight.Medium),
                         color = secondaryText,
                         maxLines = 1,
                     )
                 }
                 Text(
                     text = controlStateLabel(state),
-                    style = PicoTheme.typography.bodyLarge.copy(fontSize = 24.sp, lineHeight = 28.sp),
+                    style = PicoTheme.typography.bodyLarge.copy(fontSize = 24.sp, lineHeight = 28.sp, fontWeight = FontWeight.SemiBold),
                     color = surfaceText,
                     maxLines = 1,
                 )
@@ -196,7 +196,7 @@ private fun ArenaControlPanelContent(
                         !state.inputReady || state.pauseReason == PauseReason.TRACKING_INTERRUPTION -> inputSummary(state)
                         else -> stringResource(R.string.arena_trial_objective)
                     },
-                    style = PicoTheme.typography.labelSmall.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                    style = PicoTheme.typography.bodyMedium.copy(fontSize = 16.sp, lineHeight = 20.sp),
                     color = secondaryText,
                     maxLines = 1,
                 )
@@ -272,7 +272,7 @@ private fun ArenaControlPanelContent(
                             if (state.dominantHand == Hand.LEFT) R.string.arena_ui_hand_left else R.string.arena_ui_hand_right,
                         )),
                         modifier = Modifier.weight(1f),
-                        style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                        style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp, fontWeight = FontWeight.Medium),
                         color = secondaryText,
                         maxLines = 1,
                     )
@@ -281,7 +281,10 @@ private fun ArenaControlPanelContent(
                             onClick = { if (state.result == TrialResult.READY) onSelectDominantHand(hand) },
                             enabled = controlsEnabled && state.dominantHand != hand,
                             size = ButtonDefaults.Small,
-                            colors = buttonColors,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = ArenaUiPalette.paleAsh,
+                                contentColor = ArenaUiPalette.inkBlack,
+                            ),
                         ) {
                             Text(text = stringResource(
                                 if (hand == Hand.LEFT) R.string.arena_ui_hand_left else R.string.arena_ui_hand_right,
@@ -321,11 +324,12 @@ private fun ArenaControlPanelContent(
 private fun TechniqueGuide(showEmulatorGuide: Boolean, modifier: Modifier = Modifier) {
     val lessons = remember(showEmulatorGuide) {
         if (showEmulatorGuide) {
+            // Begin with the existing combat lesson. Setup stays in this same four-page guide.
             listOf(
-                R.string.arena_ui_emulator_setup_title to R.string.arena_ui_emulator_setup_detail,
-                R.string.arena_ui_emulator_hand_title to R.string.arena_ui_emulator_hand_detail,
                 R.string.arena_ui_emulator_motion_title to R.string.arena_ui_emulator_motion_detail,
                 R.string.arena_ui_emulator_head_title to R.string.arena_ui_emulator_head_detail,
+                R.string.arena_ui_emulator_hand_title to R.string.arena_ui_emulator_hand_detail,
+                R.string.arena_ui_emulator_setup_title to R.string.arena_ui_emulator_setup_detail,
             )
         } else {
             listOf(
@@ -348,20 +352,20 @@ private fun TechniqueGuide(showEmulatorGuide: Boolean, modifier: Modifier = Modi
             Text(
                 text = stringResource(if (showEmulatorGuide) R.string.arena_ui_emulator_guide else R.string.arena_technique_title),
                 style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
-                color = ArenaUiPalette.mutedInk,
+                color = ArenaUiPalette.inkBlack,
                 maxLines = 1,
             )
             Text(
                 text = stringResource(title),
                 modifier = Modifier.weight(1f),
-                style = PicoTheme.typography.titleSmall.copy(fontSize = 20.sp, lineHeight = 24.sp),
+                style = PicoTheme.typography.titleSmall.copy(fontSize = 20.sp, lineHeight = 24.sp, fontWeight = FontWeight.SemiBold),
                 color = ArenaUiPalette.inkBlack,
                 maxLines = 1,
             )
             Text(
                 text = stringResource(R.string.arena_ui_technique_page, page + 1, lessons.size),
                 style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
-                color = ArenaUiPalette.mutedInk,
+                color = ArenaUiPalette.inkBlack,
                 maxLines = 1,
             )
         }
@@ -374,7 +378,7 @@ private fun TechniqueGuide(showEmulatorGuide: Boolean, modifier: Modifier = Modi
             ) {
                 Text(
                     text = stringResource(description),
-                    style = PicoTheme.typography.bodyMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
+                    style = PicoTheme.typography.bodyMedium.copy(fontSize = 18.sp, lineHeight = 24.sp),
                     color = ArenaUiPalette.inkBlack,
                 )
 
@@ -385,8 +389,8 @@ private fun TechniqueGuide(showEmulatorGuide: Boolean, modifier: Modifier = Modi
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             val colors = ButtonDefaults.buttonColors(
-                containerColor = ArenaUiPalette.cinnabar,
-                contentColor = ArenaUiPalette.paperIvory,
+                containerColor = ArenaUiPalette.paleAsh,
+                contentColor = ArenaUiPalette.inkBlack,
             )
             Button(
                 onClick = { selectedLesson = (page - 1).coerceAtLeast(0) },
@@ -415,7 +419,7 @@ private fun MatchSummary(state: ArenaViewState) {
     Text(
         text = stringResource(R.string.arena_ui_score),
         style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
-        color = ArenaUiPalette.mutedInk,
+        color = ArenaUiPalette.inkBlack,
     )
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp),
         verticalAlignment = Alignment.Bottom) {
@@ -425,14 +429,14 @@ private fun MatchSummary(state: ArenaViewState) {
             color = ArenaUiPalette.inkBlack, maxLines = 1)
         Text(text = stringResource(R.string.arena_ui_best, state.bestScore),
             style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 24.sp),
-            color = ArenaUiPalette.mutedInk, maxLines = 1)
+            color = ArenaUiPalette.inkBlack, maxLines = 1)
     }
     Text(
         text = stringResource(R.string.arena_settlement_detail,
             state.roundNumber.coerceIn(1, state.roundCount.coerceAtLeast(1)), state.roundCount,
             state.playerHealth.coerceAtLeast(0)),
         style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
-        color = ArenaUiPalette.mutedInk,
+        color = ArenaUiPalette.inkBlack,
         maxLines = 2,
     )
     Text(
@@ -455,7 +459,11 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
         // The Attachment remains 500 x 260; its outer region stays transparent.
         Box(modifier = Modifier.size(width = 500.dp, height = 260.dp)) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(4.dp).padding(16.dp),
+                modifier = Modifier.fillMaxWidth().padding(4.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    // design-style: design-surface status-surface
+                    .background(ArenaUiPalette.inkVeil)
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Row(
@@ -466,15 +474,17 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     Text(
                         text = state.enemyName,
                         modifier = Modifier.weight(1f),
-                        style = PicoTheme.typography.titleSmall.copy(fontSize = 24.sp, lineHeight = 28.sp, fontFamily = FontFamily.Serif, shadow = HudTextShadow),
+                        style = PicoTheme.typography.titleSmall.copy(fontSize = 26.sp, lineHeight = 30.sp,
+                            fontFamily = FontFamily.Serif, fontWeight = FontWeight.SemiBold, shadow = HudTextShadow),
                         color = ArenaUiPalette.paperIvory,
                         maxLines = 1,
                     )
                     Text(
                         text = stringResource(R.string.arena_round_time, state.roundNumber, state.roundCount,
                             state.remainingSeconds.coerceAtLeast(0) / 60, state.remainingSeconds.coerceAtLeast(0) % 60),
-                        style = PicoTheme.typography.labelLarge.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
-                        color = ArenaUiPalette.paleAsh,
+                        style = PicoTheme.typography.labelLarge.copy(fontSize = 18.sp, lineHeight = 22.sp,
+                            fontWeight = FontWeight.SemiBold, shadow = HudTextShadow),
+                        color = ArenaUiPalette.antiqueGold,
                         maxLines = 1,
                     )
                 }
@@ -484,6 +494,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     maximum = state.initialHealth,
                     color = ArenaUiPalette.ember,
                     modifier = Modifier.fillMaxWidth(),
+                    emphasized = true,
                 )
                 if (state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT) return@Column
                 Row(
@@ -493,7 +504,8 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                 ) {
                     Text(
                         text = phaseLabel(state),
-                        style = PicoTheme.typography.titleSmall.copy(fontSize = 22.sp, lineHeight = 26.sp, shadow = HudTextShadow),
+                        style = PicoTheme.typography.titleSmall.copy(fontSize = 24.sp, lineHeight = 28.sp,
+                            fontWeight = FontWeight.SemiBold, shadow = HudTextShadow),
                         color = if (arenaShowsIncomingStrike(state.result, state.pauseReason, state.inputReady, state.phase))
                             ArenaUiPalette.ember else ArenaUiPalette.paperIvory,
                         maxLines = 1,
@@ -510,7 +522,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
                 } else {
-                    Text(text = phaseHint(state), style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
+                    Text(text = phaseHint(state), style = PicoTheme.typography.labelMedium.copy(fontSize = 18.sp, lineHeight = 22.sp, shadow = HudTextShadow),
                         color = ArenaUiPalette.paleAsh, maxLines = 1)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -540,7 +552,8 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                                     scaleX = emphasis
                                     scaleY = emphasis
                                 },
-                                style = PicoTheme.typography.labelLarge.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
+                                style = PicoTheme.typography.labelLarge.copy(fontSize = 17.sp, lineHeight = 20.sp,
+                                    fontWeight = FontWeight.Medium, shadow = HudTextShadow),
                                 color = when (state.feedback) {
                                     CombatFeedback.PARRY, CombatFeedback.EXECUTION, CombatFeedback.HEADSHOT -> ArenaUiPalette.antiqueGold
                                     CombatFeedback.PLAYER_HIT, CombatFeedback.GUARD_BREAK, CombatFeedback.LOW_STAMINA -> ArenaUiPalette.ember
@@ -594,7 +607,7 @@ private fun MotionChargeHint(state: ArenaViewState) {
     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
         Text(
             text = label,
-            style = PicoTheme.typography.labelSmall.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
+            style = PicoTheme.typography.labelSmall.copy(fontSize = 18.sp, lineHeight = 22.sp, shadow = HudTextShadow),
             color = ArenaUiPalette.paperIvory,
             maxLines = 1,
         )
@@ -619,6 +632,7 @@ private fun ResourceMeter(
     maximum: Int,
     color: Color,
     modifier: Modifier = Modifier,
+    emphasized: Boolean = false,
 ) {
     val fraction = if (maximum > 0) (value.toFloat() / maximum).coerceIn(0f, 1f) else 0f
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -629,34 +643,36 @@ private fun ResourceMeter(
         ) {
             Text(
                 text = label,
-                style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp, shadow = HudTextShadow),
+                style = PicoTheme.typography.labelMedium.copy(fontSize = if (emphasized) 16.sp else 15.sp,
+                    lineHeight = if (emphasized) 20.sp else 18.sp, shadow = HudTextShadow),
                 color = ArenaUiPalette.paleAsh,
                 maxLines = 1,
             )
             Badge(
                 badgeColor = BadgeDefaults.badgeColors(
-                    backgroundColor = ArenaUiPalette.inkVeil,
+                    backgroundColor = Color.Transparent,
                     contentColor = ArenaUiPalette.paperIvory,
                 ),
-                badgeSize = BadgeDefaults.badgeSize(width = 76.dp, height = 22.dp),
+                badgeSize = BadgeDefaults.badgeSize(width = if (emphasized) 96.dp else 76.dp, height = if (emphasized) 24.dp else 22.dp),
                 radius = 3.dp,
                 contentPadding = PaddingValues(horizontal = 4.dp),
             ) {
                 Text(
                     text = stringResource(R.string.arena_resource_amount, value.coerceAtLeast(0), maximum.coerceAtLeast(0)),
-                    style = PicoTheme.typography.labelMedium.copy(fontSize = 14.sp, lineHeight = 18.sp),
+                    style = PicoTheme.typography.labelMedium.copy(fontSize = if (emphasized) 18.sp else 15.sp,
+                        lineHeight = if (emphasized) 22.sp else 18.sp, fontWeight = FontWeight.SemiBold),
                     maxLines = 1,
                 )
             }
         }
         LinearProgressIndicator(
             progress = { fraction },
-            modifier = Modifier.fillMaxWidth().height(6.dp),
+            modifier = Modifier.fillMaxWidth().height(if (emphasized) 8.dp else 6.dp),
             colors = LinearProgressDefaults.linearProgressColors(
                 indicatorColor = color,
                 backgroundColor = ArenaUiPalette.mutedInk,
             ),
-            height = LinearProgressDefaults.linearProgressHeight(6.dp),
+            height = LinearProgressDefaults.linearProgressHeight(if (emphasized) 8.dp else 6.dp),
         )
     }
 }

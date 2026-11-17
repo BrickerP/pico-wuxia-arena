@@ -24,7 +24,7 @@ from mathutils import Matrix, Quaternion, Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from production_contract import HAND_POLICY, LEFT_HAND_POSES, canonical_hash, production_binding
+from production_contract import HAND_POLICY, LEFT_HAND_POSES, canonical_hash, production_binding, BLADE_GRIP_PROFILE_POLICY
 
 from prepare_rigged_warrior import (
     HERE,
@@ -39,6 +39,7 @@ from prepare_rigged_warrior import (
     world_matrix,
 )
 from attack_profiles import sample_track
+from prepared_tangents import validate_prepared_tangents, apply_prepared_tangents
 
 
 def pinned_source(entry):
@@ -377,16 +378,17 @@ IDLE_FIXED_PREFIXES = tuple(side + bone for side in ('L_', 'R_')
 TEXTURE_SETTINGS = {'codec': 'uastc', 'uastc_quality': 3, 'threads': 2,
                     'zstd': 18, 'mipmap_filter': 'lanczos4', 'full_mips': True,
                     'normal_mode': False, 'normalize': False, 'rdo': False,
-                    'orientation': 'top-left', 'pixel_resize': False,
+                    'orientation': 'top-left', 'pixel_resize': {'default_max_dimension': 1024,
+                                  'filter': 'explicit-axis-lanczos4-v1', 'upsample': False},
                     'mip_source': {'same_axis': 'ktx-cli-generate-mipmap', 'different_axes': 'explicit-axis-lanczos4-v1'},
                     'axis_mips': {'version': 1, 'precision': 'float64', 'support': 4,
                                   'centers': 'half-pixel', 'antialias': 'support-scaled-by-source/target',
                                   'sequence': 'S-then-T-recursive-unquantized-clipped-linear',
                                   'color_filter': 'IEC-sRGB-EOTF-linear-filter-OETF', 'alpha_filter': 'linear-straight',
-                                  'quantization': 'clip-0-1-round-half-up-uint8', 'top': 'original-decoded-pixels'}}
+                                  'quantization': 'clip-0-1-round-half-up-uint8', 'top': 'runtime-sized-domain-filtered-pixels'}}
 ENCODER_SHA = 'abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37'
 LIBKTX_SHA = 'bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947'
-TEXTURE_HELPER_SHA = 'ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4'
+TEXTURE_HELPER_SHA = '2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d'
 
 
 def inverse_bind_values(document, binary):
@@ -418,7 +420,7 @@ def host_python_command(config, arguments):
 def validate_texture_encoding(config):
     if (not isinstance(config, dict) or config.get('format') != 'KHR_texture_basisu' or
             config.get('settings') != TEXTURE_SETTINGS):
-        raise ValueError('schema 3 requires fixed full-resolution UASTC3/Zstd18 runtime_texture_encoding')
+        raise ValueError('schema 3 requires material-limited UASTC3/Zstd18 runtime_texture_encoding')
     for field in ('helper', 'encoder', 'release_identity', 'host_python'):
         entry = config.get(field)
         if not isinstance(entry, dict) or not {'source', 'source_sha256'}.issubset(entry):
@@ -437,17 +439,20 @@ def validate_texture_encoding(config):
         raise ValueError('host Python/Pillow/NumPy identity differs from runtime encoding contract')
 
 
-def encode_runtime_glb(source, output, config):
+def encode_runtime_glb(source, output, config, material_overrides=None):
     """Use the pinned host encoder; geometry authors retain the original PNG GLB."""
     raw_sha = hashlib.sha256(source.read_bytes()).hexdigest()
     print('ENCODING', source.name, '->', output.name, flush=True)
+    expected_overrides = {} if material_overrides is None else material_overrides
     host_python_command(config, [HERE / config['helper']['source'], '--input', source,
-        '--sha256', raw_sha, '--output', output, '--encoder', HERE / config['encoder']['source']])
+        '--sha256', raw_sha, '--output', output, '--encoder', HERE / config['encoder']['source'],
+        '--material-overrides-json', json.dumps(expected_overrides, sort_keys=True)])
     report_path = output.with_suffix('.manifest.json')
     report = json.loads(report_path.read_text())
     encoded_sha = hashlib.sha256(output.read_bytes()).hexdigest()
     if (report['input']['sha256'] != raw_sha or report['output']['sha256'] != encoded_sha or
-            report['settings'] != TEXTURE_SETTINGS or report['encoder']['sha256'] != ENCODER_SHA or
+            report['settings'] != TEXTURE_SETTINGS or report.get('material_overrides') != expected_overrides or
+            report['encoder']['sha256'] != ENCODER_SHA or
             report['encoder']['libktx_sha256'] != LIBKTX_SHA or
             report['preservation']['non_image_json_semantics_identical'] is not True):
         raise ValueError('encoded GLB does not match the source, tool or preservation contract')
@@ -659,6 +664,7 @@ def validate_manifest(manifest):
     if manifest.get('schema_version') != 3:
         raise ValueError('the canonical ten-clip bank requires manifest schema_version 3; v2 is retired')
     validate_texture_encoding(manifest.get('runtime_texture_encoding'))
+    validate_prepared_tangents(manifest, HERE)
     player_weapon = manifest.get('player_weapon_source')
     if (not isinstance(player_weapon, dict) or set(player_weapon) != {'source', 'source_sha256'} or
             player_weapon['source_sha256'] != 'a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637'):
@@ -672,6 +678,11 @@ def validate_manifest(manifest):
     characters = manifest['characters']
     if not characters or len({c['id'] for c in characters}) != len(characters):
         raise ValueError('manifest requires uniquely identified characters')
+    for character in characters:
+        overrides = character.get('runtime_texture_material_overrides', {})
+        if (not isinstance(overrides, dict) or any(not isinstance(prefix, str) or not prefix or
+                type(limit) is not int or limit != 2048 for prefix, limit in overrides.items())):
+            raise ValueError('character runtime_texture_material_overrides require nonempty prefixes with a 2048 maximum')
     outputs = [c['output'] for c in characters]
     if len(set(outputs)) != len(outputs) or any(Path(name).name != name or not name.endswith('.glb') for name in outputs):
         raise ValueError('characters require distinct local GLB output names')
@@ -831,6 +842,9 @@ def build_library(manifest_path, candidate_dir=None):
         files, summaries = [], []
         player_path = output_folder / 'dao_grip.glb'
         player_encoding = encode_runtime_glb(player_source_path, player_path, texture_encoding)
+        from blade_grip_profiles import common_grip_steel_points
+        player_document, player_binary = read_glb(player_path)
+        common_player_points = common_grip_steel_points(player_document, player_binary)
         player_encoding_bytes = (json.dumps(player_encoding, ensure_ascii=False, indent=2) + '\n').encode()
         player_manifest = {'schema_version': 1, 'source': player_weapon_source,
                            'runtime_texture_encoding': texture_encoding,
@@ -884,6 +898,12 @@ def build_library(manifest_path, candidate_dir=None):
                     path = output_folder / output['file']
                     output.update(bytes=path.stat().st_size,
                                   sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            tangent_report = apply_prepared_tangents(character['id'], prepared_png,
+                manifest['prepared_tangents'], HERE)
+            record['prepared_tangents'] = tangent_report
+            if tangent_report['applied']:
+                record['outputs'][-1].update(bytes=prepared_png.stat().st_size,
+                    sha256=hashlib.sha256(prepared_png.read_bytes()).hexdigest())
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']
                 animation['source_sha256'] = source['source_sha256']
@@ -891,7 +911,9 @@ def build_library(manifest_path, candidate_dir=None):
             record.update(id=character['id'], name=character['name'], retargeting=retargeting,
                           grip_source=character['grip_source'], hand_policy=HAND_POLICY)
             model_path = output_folder / character['output']
-            encoding = encode_runtime_glb(prepared_png, model_path, texture_encoding)
+            material_overrides = character.get('runtime_texture_material_overrides', {})
+            encoding = encode_runtime_glb(prepared_png, model_path, texture_encoding, material_overrides)
+            record['runtime_texture_material_overrides'] = material_overrides
             encoding_bytes = (json.dumps(encoding, ensure_ascii=False, indent=2) + '\n').encode()
             record['prepared_png'] = record['outputs'][-1]
             record['outputs'].append({'file': character['output'], 'bytes': model_path.stat().st_size,
@@ -902,7 +924,8 @@ def build_library(manifest_path, candidate_dir=None):
                 'encoded_sha256': encoding['output']['sha256'], 'preservation': encoding['preservation']}
             document, binary = read_glb(model_path)
             profiles = export_attack_profiles(document, binary, ATTACK_CLIPS, attack_contracts, frozen_locomotion,
-                                              body_coverage[character['id']])
+                                              body_coverage[character['id']], common_player_points,
+                                              BLADE_GRIP_PROFILE_POLICY['support_radius_m'])
             profiles.update(character_id=character['id'], model_sha256=record['outputs'][-1]['sha256'],
                             directions={entry['direction']: {key: entry[key] for key in
                                          ('incoming_guard_side', 'actor_travel_side', 'source_sha256')}
@@ -918,6 +941,7 @@ def build_library(manifest_path, candidate_dir=None):
                           (stem + '_texture_encoding.json', encoding_bytes)))
             signatures = hand_track_signatures(document, binary)
             request['characters'].append({'id': character['id'], 'outputs': record['outputs'],
+                                            'prepared_tangents': tangent_report,
                                            'hand_track_signatures': signatures,
                                            'clip_semantic_signatures': {clip['name']: animation_signature(document, binary, clip)
                                                                         for clip in document['animations']},

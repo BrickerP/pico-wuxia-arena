@@ -75,9 +75,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
+      "keyframe_semantics_sha256": "c6373be5aa755fad0cc85694619b5602d9191d124fd8e3d9463546d572e6210b",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "778b5c415c0f44b3a1adb8d54a056267d933492600e2e11ae8c19c4109b341a2",
+      "pre_prepared_wrist_constraint_semantics_sha256": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
       "retargeted_clip_sha256": "526f09ebafd26ee9f77e049302c7f394b80e000b1a416c464b68a365a01a848f"
     },
     {
@@ -92,9 +93,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
+      "keyframe_semantics_sha256": "66346e8faf6ba03b6dcd8d19657ef7e6e4ec935fe8b06f03cd3fe241ea812647",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "e57d8a7e79cf1c7af3779422e08c8ba8aca44a14e0d4651e88fe7308d324882f",
+      "pre_prepared_wrist_constraint_semantics_sha256": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
       "retargeted_clip_sha256": "a78418f7bd09ec41cb9be81459f6e21f5e65e14385144210e628c1c1c63b6fa0"
     },
     {
@@ -109,9 +111,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4",
+      "keyframe_semantics_sha256": "dbcea4f5ab0f2639bee05a5824bbb6e35730aa7bf6db41339c4507dd468ba185",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "405250cafb19e73b45c05452ea51b0bdc9aa95f3493734765a1da2682ab2f434",
+      "pre_prepared_wrist_constraint_semantics_sha256": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4",
       "retargeted_clip_sha256": "0f3493d27f86471ac0e4a678ee6b467b538397b6a10e0337c2862b79cf67eda8"
     },
     {
@@ -382,18 +385,18 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 14862948,
-      "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
+      "bytes": 16178852,
+      "sha256": "d76cbbc12548c10c596229fe92e21fdc517dc41fb3171752592c97656c9357ae"
     },
     {
       "file": "indigo_prepared_png.glb",
-      "bytes": 17956016,
-      "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
+      "bytes": 19271924,
+      "sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db"
     },
     {
       "file": "indigo.glb",
-      "bytes": 43931240,
-      "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
+      "bytes": 15088200,
+      "sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6"
     }
   ],
   "finger_rotation_calibration": {
@@ -29809,9 +29812,239 @@
     ]
   },
   "prepared_wrist_constraint": {
-    "applied": false,
-    "reason": "Constraint only targets veteran",
-    "combined_rigid_steel_vertex_count": 5533
+    "applied": true,
+    "prepared_space": "after canonical normalization/finger/root grounding; before KTX/profile",
+    "combined_rigid_steel_vertex_count": 5533,
+    "body_and_combined_share_wrist_reference": true,
+    "prepared_left_asset": {
+      "source": "../refinement/combat-direction/natural-guard/boss-armor-arm-clearance/canonical-integration/asset/prepared_left_arm_rotations.json",
+      "source_sha256": "d2f0b51143fac41c9778cc00a8b2b874e4df80f6c21e4bf5709d66cba64245a5",
+      "bytes": 305131
+    },
+    "prepared_reaction_guard": {
+      "schema_version": 1,
+      "method": "same_target_guard_rebased_reaction_delta_with_chest_relative_offhand",
+      "playback_windows": {
+        "hit_body": [
+          0.05,
+          0.72
+        ],
+        "hit_head": [
+          0.05,
+          0.72
+        ],
+        "hit_side": [
+          0.05,
+          1.18
+        ]
+      },
+      "sample_rate_hz": 120,
+      "input_animation_signatures": {
+        "base": {
+          "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+          "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
+          "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
+          "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479"
+        },
+        "indigo": {
+          "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+          "hit_body": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
+          "hit_head": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
+          "hit_side": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4"
+        },
+        "veteran": {
+          "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+          "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+          "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+          "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f"
+        }
+      },
+      "head_relative_amplitude": 0.35,
+      "head_neck_relative_amplitude": 0.11
+    },
+    "assets": [
+      {
+        "file": "indigo_body.glb",
+        "asset_role": "body",
+        "right_wrist": {
+          "applied": false,
+          "reason": "Arm correction targets veteran"
+        },
+        "prepared_left": {
+          "applied": false,
+          "reason": "Arm correction targets veteran"
+        },
+        "reactions": {
+          "applied": true,
+          "clips": {
+            "hit_body": {
+              "keys": 102,
+              "original_keys": 39,
+              "window": [
+                0.05000000074505806,
+                0.7200000286102295
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            },
+            "hit_head": {
+              "keys": 119,
+              "original_keys": 56,
+              "window": [
+                0.05000000074505806,
+                0.7200000286102295
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            },
+            "hit_side": {
+              "keys": 142,
+              "original_keys": 38,
+              "window": [
+                0.05000000074505806,
+                1.1799999475479126
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            }
+          },
+          "full_steel_endpoint_max_m": 2.613608636155968e-07,
+          "all_other7_clips_exact": true,
+          "reference": "same_target_idle0",
+          "left_hand_chest_offset_m": [
+            -0.025,
+            0,
+            0.025
+          ],
+          "left_elbow_chest_offset_m": [
+            -0.04,
+            0,
+            0.02
+          ],
+          "side_right_elbow_swivel_degrees": -45,
+          "veteran_side_upperarm_axial_roll_degrees": -30,
+          "support_foot_selection": "lowest actual same-target guard sole",
+          "hip_weight_absorption_m": 0.025,
+          "free_foot_lift_m": 0.015
+        },
+        "final_animation_signatures": {
+          "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
+          "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
+          "hit_body": "c6373be5aa755fad0cc85694619b5602d9191d124fd8e3d9463546d572e6210b",
+          "hit_head": "66346e8faf6ba03b6dcd8d19657ef7e6e4ec935fe8b06f03cd3fe241ea812647",
+          "hit_side": "dbcea4f5ab0f2639bee05a5824bbb6e35730aa7bf6db41339c4507dd468ba185",
+          "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+          "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
+          "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
+          "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
+          "attack_right": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
+        }
+      },
+      {
+        "file": "indigo_prepared_png.glb",
+        "asset_role": "combined_png",
+        "right_wrist": {
+          "applied": false,
+          "reason": "Arm correction targets veteran"
+        },
+        "prepared_left": {
+          "applied": false,
+          "reason": "Arm correction targets veteran"
+        },
+        "reactions": {
+          "applied": true,
+          "clips": {
+            "hit_body": {
+              "keys": 102,
+              "original_keys": 39,
+              "window": [
+                0.05000000074505806,
+                0.7200000286102295
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            },
+            "hit_head": {
+              "keys": 119,
+              "original_keys": 56,
+              "window": [
+                0.05000000074505806,
+                0.7200000286102295
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            },
+            "hit_side": {
+              "keys": 142,
+              "original_keys": 38,
+              "window": [
+                0.05000000074505806,
+                1.1799999475479126
+              ],
+              "support_side": "R_",
+              "guard_sole_height_m": {
+                "L_": -0.015469445470043123,
+                "R_": -0.028000025446328534
+              },
+              "relative_motion": "guard_local * inverse(reaction_entry_local) * reaction_local; all234TRS source deltas; quintic envelope"
+            }
+          },
+          "full_steel_endpoint_max_m": 2.613608636155968e-07,
+          "all_other7_clips_exact": true,
+          "reference": "same_target_idle0",
+          "left_hand_chest_offset_m": [
+            -0.025,
+            0,
+            0.025
+          ],
+          "left_elbow_chest_offset_m": [
+            -0.04,
+            0,
+            0.02
+          ],
+          "side_right_elbow_swivel_degrees": -45,
+          "veteran_side_upperarm_axial_roll_degrees": -30,
+          "support_foot_selection": "lowest actual same-target guard sole",
+          "hip_weight_absorption_m": 0.025,
+          "free_foot_lift_m": 0.015
+        },
+        "final_animation_signatures": {
+          "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
+          "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
+          "hit_body": "c6373be5aa755fad0cc85694619b5602d9191d124fd8e3d9463546d572e6210b",
+          "hit_head": "66346e8faf6ba03b6dcd8d19657ef7e6e4ec935fe8b06f03cd3fe241ea812647",
+          "hit_side": "dbcea4f5ab0f2639bee05a5824bbb6e35730aa7bf6db41339c4507dd468ba185",
+          "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+          "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
+          "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
+          "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
+          "attack_right": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
+        }
+      }
+    ]
+  },
+  "prepared_tangents": {
+    "applied": false
   },
   "id": "indigo",
   "name": "青衫护院",
@@ -30275,65 +30508,66 @@
     "attack_left": "authored dynamic source transferred by world-rest delta",
     "locomotion_left": "frozen canonical source transferred by world-rest delta"
   },
+  "runtime_texture_material_overrides": {},
   "prepared_png": {
     "file": "indigo_prepared_png.glb",
-    "bytes": 17956016,
-    "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
+    "bytes": 19271924,
+    "sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db"
   },
   "runtime_texture_encoding": {
     "file": "indigo_texture_encoding.json",
-    "sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
-    "prepared_png_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
-    "encoded_sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+    "sha256": "78dd01ec9ce5bce7a9a2ba58c0a2ea83f162432575a8981eedae99bbb9ddc615",
+    "prepared_png_sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db",
+    "encoded_sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6",
     "preservation": {
-      "non_image_bufferViews_byte_identical": 2561,
-      "accessors_semantics_and_payloads_unchanged": 2561,
+      "non_image_bufferViews_byte_identical": 3266,
+      "accessors_semantics_and_payloads_unchanged": 3266,
       "non_image_json_semantics_identical": true,
       "images": [
         {
           "vk_format": 0,
           "type_size": 1,
-          "width": 4096,
-          "height": 4096,
+          "width": 1024,
+          "height": 1024,
           "depth": 0,
           "layers": 0,
           "faces": 1,
-          "levels": 13,
+          "levels": 11,
           "supercompression": 2,
           "dfd_model": 166,
           "dfd_primaries": 0,
           "dfd_transfer": 1,
-          "level_uncompressed_bytes": 22369648
+          "level_uncompressed_bytes": 1398128
         },
         {
           "vk_format": 0,
           "type_size": 1,
-          "width": 4096,
-          "height": 4096,
+          "width": 1024,
+          "height": 1024,
           "depth": 0,
           "layers": 0,
           "faces": 1,
-          "levels": 13,
+          "levels": 11,
           "supercompression": 2,
           "dfd_model": 166,
           "dfd_primaries": 1,
           "dfd_transfer": 2,
-          "level_uncompressed_bytes": 22369648
+          "level_uncompressed_bytes": 1398128
         },
         {
           "vk_format": 0,
           "type_size": 1,
-          "width": 4096,
-          "height": 4096,
+          "width": 1024,
+          "height": 1024,
           "depth": 0,
           "layers": 0,
           "faces": 1,
-          "levels": 13,
+          "levels": 11,
           "supercompression": 2,
           "dfd_model": 166,
           "dfd_primaries": 0,
           "dfd_transfer": 1,
-          "level_uncompressed_bytes": 22369648
+          "level_uncompressed_bytes": 1398128
         },
         {
           "vk_format": 0,
@@ -30610,6 +30844,6 @@
   },
   "attack_profiles": {
     "file": "indigo_attack_profiles.json",
-    "sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
+    "sha256": "e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908"
   }
 }

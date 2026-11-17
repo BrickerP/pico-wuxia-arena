@@ -1,6 +1,6 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.AttackDirection
+import com.example.wuxiaarena.core.combat.*
 import com.example.wuxiaarena.core.combat.AttackOutcome
 import com.example.wuxiaarena.core.combat.BladeContact
 import com.example.wuxiaarena.core.combat.BladeSegment
@@ -110,10 +110,13 @@ class ContactTimeWitnessTest {
     }
 
     private fun realGuardContact(grip: WeaponGrip): BladeContact {
-        val player = playerBlade(grip)
-        val midpoint = (player.base + player.tip) * 0.5
-        val enemy = BladeSegment(midpoint + Vector3(0.0, -0.2, 0.0), midpoint + Vector3(0.0, 0.2, 0.0), 0.0125)
-        return requireNotNull(firstBladeContact(BladeSweep(player, player), BladeSweep(enemy, enemy)))
+        val player=playerBlade(grip);val midpoint=(player.base+player.tip)*.5
+        val rotation=Quaternion(sqrt(.5),0.0,0.0,sqrt(.5))
+        val local=playerBlade(WeaponGrip(Vector3(0.0,0.0,0.0),rotation))
+        val target=WeaponGrip(midpoint-(local.base+local.tip)*.5,rotation)
+        val clear=target.copy(position=target.position+Vector3(0.0,0.0,-.3))
+        return checkNotNull(firstBladeShapeContact(BladeShapeSweep(DaoBladeShape.shape,grip,grip,0.0),
+            BladeShapeSweep(DaoBladeShape.shape,clear,target,0.0))).contact
     }
 
     private fun guardFrame(receipt: Long, enteredAt: Long?): PlayerMotionFrame {

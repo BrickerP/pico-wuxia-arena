@@ -6,11 +6,72 @@
     "prepared_wrist_constraint": {
       "implementation": {
         "source": "target_wrist_constraint.py",
-        "source_sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d"
+        "source_sha256": "397f45f398ec646f99da002c0f39f26e91095ddf12f2d7c8fe2e05a60d8e9bc0"
       },
       "recipe": {
-        "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
-        "source_sha256": "5785e0c68e792d5d6c586316a91dbceb3d13c0745e241d3ce0ac7c6d87efba4e"
+        "source": "../refinement/combat-direction/reaction-guard-continuity/head-refinement/canonical-integration/constraint_recipe.json",
+        "source_sha256": "093f06cc0b8390536c4a9ff4cbd85b65838b92aaedc188f3e6353608cf9ce192"
+      }
+    },
+    "blade_grip_sampling": {
+      "version": 1,
+      "profile_schema_version": 4,
+      "space": "player common Grip metres to prepared actor root",
+      "support_radius_m": 0.851625346651626,
+      "maximum_interval_error_m": 0.001,
+      "offline_numeric_allowance_m": 2e-06,
+      "proof_subdivisions_per_source_span": 8,
+      "refinement": "float32 source-time midpoint bisection; preserve every canonical seed row",
+      "field": "required blade_grip position_m, rotation_xyzw, interpolation_error_to_next_m",
+      "runtime_packing_doubles": 24
+    },
+    "prepared_tangents": {
+      "stage": "prepared_png_after_wrist_before_texture_v1",
+      "targets": [
+        "veteran"
+      ],
+      "implementation": {
+        "source": "prepared_tangents.py",
+        "source_sha256": "6ce842ca31efc37f997d96b22de1fcaba4473258fe37038d3f9dbe9771292581"
+      },
+      "tools": {
+        "build_tangents.mjs": {
+          "source": "../tooling/mikktspace/build_tangents.mjs",
+          "source_sha256": "d44a7b7b33c4c926a78484b6a0392236cee982c1a3fd356d53bfc4af177d6723"
+        },
+        "glb_io.mjs": {
+          "source": "../tooling/mikktspace/glb_io.mjs",
+          "source_sha256": "c1ca3f5539e77d898e38e77a6b1c8e43ca8f3552cdf7bc9fc3f8209e53ce00b9"
+        },
+        "mikktspace.mjs": {
+          "source": "../tooling/mikktspace/mikktspace.mjs",
+          "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+        },
+        "geometry_contract.json": {
+          "source": "../tooling/mikktspace/geometry_contract.json",
+          "source_sha256": "a36a1fff85f9453c69d56a2bcb59c9cff247ab1d087e2e612061cc4922df2175"
+        },
+        "degenerate_policy.json": {
+          "source": "../tooling/mikktspace/degenerate_policy.json",
+          "source_sha256": "aac181096d4fa7ffc2e5a079e4bc4d9ddd2fa293e4a2ae343b3d999c7df95710"
+        },
+        "licenses/MikkTSpace-original-zlib-notice.txt": {
+          "source": "../tooling/mikktspace/licenses/MikkTSpace-original-zlib-notice.txt",
+          "source_sha256": "9ae731b25215baa2b2d6047bf537fb2312f2003a6a05d3d4552010455b1e9fb0"
+        },
+        "licenses/mikktspace-wasm-MIT.txt": {
+          "source": "../tooling/mikktspace/licenses/mikktspace-wasm-MIT.txt",
+          "source_sha256": "28159675e3ae5d17f9f9349e1ff9323001cfba3ee068cf1c197afc9418c17653"
+        },
+        "licenses/three-MIT.txt": {
+          "source": "../tooling/mikktspace/licenses/three-MIT.txt",
+          "source_sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+        }
+      },
+      "host_node": {
+        "source": "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+        "source_sha256": "245e0321af97d3c21dd4e7104457334dfe3c3ba7982d0db75363e354565f8cbb",
+        "version": "v22.22.1"
       }
     },
     "motion_source": {
@@ -87,7 +148,11 @@
         "normalize": false,
         "rdo": false,
         "orientation": "top-left",
-        "pixel_resize": false,
+        "pixel_resize": {
+          "default_max_dimension": 1024,
+          "filter": "explicit-axis-lanczos4-v1",
+          "upsample": false
+        },
         "mip_source": {
           "same_axis": "ktx-cli-generate-mipmap",
           "different_axes": "explicit-axis-lanczos4-v1"
@@ -102,12 +167,12 @@
           "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
           "alpha_filter": "linear-straight",
           "quantization": "clip-0-1-round-half-up-uint8",
-          "top": "original-decoded-pixels"
+          "top": "runtime-sized-domain-filtered-pixels"
         }
       },
       "helper": {
         "source": "../refinement/pbr-compression/compress_pbr.py",
-        "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+        "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
       },
       "encoder": {
         "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -405,7 +470,8 @@
             "x_degrees": -1.5,
             "z_degrees": 0.0
           }
-        }
+        },
+        "runtime_texture_material_overrides": null
       },
       {
         "id": "indigo",
@@ -482,13 +548,14 @@
             "x_degrees": -4.5,
             "z_degrees": 12.0
           }
-        }
+        },
+        "runtime_texture_material_overrides": null
       },
       {
         "id": "veteran",
         "name": "玄甲守擂",
-        "source": "expanded/veteran-refined/model.glb",
-        "source_sha256": "b308c5d386cff54d01c125df90d939e4dc476541781c87b12fffe4084bf52ee3",
+        "source": "head-hero/veteran-integrated/model.glb",
+        "source_sha256": "ec67ae3c649752e9e6a2f1f676e7d3e74dc94e9607f721a6440af20e5f52d776",
         "grip_source": {
           "source": "expanded/veteran-refined/tripo-out/baf40635-retarget-ab0b61cc/model.glb",
           "source_sha256": "764ea0b9bf0953bc81549cfa2852a780d156b62157874308a725762b1322d606",
@@ -543,11 +610,14 @@
             "x_degrees": -1.5,
             "z_degrees": 0.0
           }
+        },
+        "runtime_texture_material_overrides": {
+          "HeroHead_": 2048
         }
       }
     ]
   },
-  "binding_sha256": "51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33",
+  "binding_sha256": "c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2",
   "source_contract_evidence": {
     "idle": {
       "canonical_clip": "attack_overhead",
@@ -632,26 +702,29 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 55126688,
-          "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5"
+          "bytes": 56443344,
+          "sha256": "767ebf1580ee26579a41715aed02c035d7d13db81eefa08ae7785fe114c48faa"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 58219808,
-          "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
+          "bytes": 59536464,
+          "sha256": "4fc0cb53478a9e4636981265218932691033a3774ceed06c4b1e5a7e3531bb4c"
         },
         {
           "file": "base.glb",
-          "bytes": 75769044,
-          "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3"
+          "bytes": 26047876,
+          "sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38"
         }
       ],
+      "prepared_tangents": {
+        "applied": false
+      },
       "hand_track_signatures": {
         "fall": "90777f7e0711deca2391274935d0cf1a1e2a653d6c1ab0c63a1ab89b1ff91a4b",
         "turn": "4de8d15d68c77db67951e6b94f51475c62021059be7c4e4cec88d45796325f62",
-        "hit_body": "da2e58a7fe2d1e87980e5e7547c512a6ef0591a4c869d92c2f5b85cdc617ae98",
-        "hit_head": "bbc1a841b04ae6acef0890500bcd7b6e660bbd1211caca3a993fa6f1aa143ecf",
-        "hit_side": "836462c5e120be689fe4abcfaba0a014ab0db18d80d98fa53ee408ccd411fa25",
+        "hit_body": "0a7e36f9dacec45a39b7fc1eb11fcf845fedb446baf38da735e64d9828b170ab",
+        "hit_head": "1c8aa51c800c3a9c28f3eae07dbd7db17286779e50a71f62fa0d8fc6e3284fa5",
+        "hit_side": "229d65c53a41e40542b21b06292f70b31a39a1364929e24cee1a6b8f0672a050",
         "idle": "c53cb8185c579e8ac8ddaa164e4f25a0d3e4e827f2c7030b38bbc924a390274e",
         "walk": "03d1beb66df9b06742febf3aa42d6f9e1a5698fb2a6c662d76105b729c67967a",
         "attack_overhead": "d8c2e82bb40d1bac3b173037afa9f690649afe2aae7526b03e000baf7641df40",
@@ -661,43 +734,46 @@
       "clip_semantic_signatures": {
         "fall": "f1c60b10cca80a329adeee5a56c5dc84cb8be3ab3e00a8783862e2539afb566e",
         "turn": "6dc6358f9dc8dd41fea83065cece4d779ec558b9484489727c7d9a0de73aae8d",
-        "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
-        "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
-        "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479",
+        "hit_body": "a64328719ade8314546e0d3256e466911d1cda446f04cc85f5784d7b8924ecda",
+        "hit_head": "313ac48448e596065fffa30b9fba48480181ecfb046063d0932e8f12ea4eabb9",
+        "hit_side": "b485702e911477406cbad967f9227c134fa7d144cd60091328658eee4129a707",
         "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
         "walk": "6fa7d2b97c7c14dac44b15867ec83b01b4616222c3f3ef46ccb5abe30ad270d8",
         "attack_overhead": "d508d28f18230d44470868dc8c04d62dd18a93c89c72ee0889b8a7a4807f34c9",
         "attack_left": "dbaa22fd5d24d3f65f27c53fc87de02ca0cd09f63e68c6377d7213ace8540662",
         "attack_right": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52"
       },
-      "texture_encoding_manifest_sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
-      "attack_profiles_sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542"
+      "texture_encoding_manifest_sha256": "1751cc2c3c0faec4a53931af7dcb6bfd375799da707bea5f0215bba974376d43",
+      "attack_profiles_sha256": "32de662655acb458a6e7f09b62ae5741a5d1ad5968b1a72c35d439d8f25260e7"
     },
     {
       "id": "indigo",
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 14862948,
-          "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
+          "bytes": 16178852,
+          "sha256": "d76cbbc12548c10c596229fe92e21fdc517dc41fb3171752592c97656c9357ae"
         },
         {
           "file": "indigo_prepared_png.glb",
-          "bytes": 17956016,
-          "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
+          "bytes": 19271924,
+          "sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db"
         },
         {
           "file": "indigo.glb",
-          "bytes": 43931240,
-          "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
+          "bytes": 15088200,
+          "sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6"
         }
       ],
+      "prepared_tangents": {
+        "applied": false
+      },
       "hand_track_signatures": {
         "fall": "ee1fe2532e2946e1f5ef34c657d5227d5141dec2485570c201f37186338d1ddb",
         "turn": "a4bfb270f90d50035a2160aad510e40af8a341ce474a5369d57dd558eb76c78e",
-        "hit_body": "3eeb942ee659b625882262f959a8a5b317d2f8b26fd79d6e3b1a430ce6c56964",
-        "hit_head": "3b57f26b6311d98ec35e6a36e5abc566b24ce7bc65184ff08cbbbe49da816dcf",
-        "hit_side": "c949179e07e7c6e93aa8175f41cffcf8ffcdb346c6cd052ad815a78020f00b77",
+        "hit_body": "174fa093fd1fa2be9c09305088d4873d4ae8575846dab7c25b5b77361fac5cb1",
+        "hit_head": "9d647745e9fa7cdcaa8c27f7f10d900e1da6ae1811b435ced910789cd843287c",
+        "hit_side": "fcd1dce1837ed7395ffe07f893f42ce5fec14b566b5ccbc35544f34d8f9738d6",
         "idle": "e2ecc07033fc487152a5797884adf1f18dde97a95dd07e4c9a0ac209ba6c24a0",
         "walk": "d622c648529317b37d770274149e7e0268489dd93cebf12942d784a8f41a26ac",
         "attack_overhead": "8a408b06e05effd10c8df3932a7c08463bc038d679fa80b7846ef2f0f35b9dc9",
@@ -707,63 +783,337 @@
       "clip_semantic_signatures": {
         "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
         "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
-        "hit_body": "e1331a19bd6deaf7308eb1a22b4b517992c3f01e36b24b1b78ea2b2b6533cfa0",
-        "hit_head": "0d617b91cea6a7503b8fde5d05488836ef41d8869ee60967e4aa7167bc1fbc6d",
-        "hit_side": "20fe69bbc379f291947eed233dfd9783202e5cd94721ba779fb3b7cc7883e5f4",
+        "hit_body": "c6373be5aa755fad0cc85694619b5602d9191d124fd8e3d9463546d572e6210b",
+        "hit_head": "66346e8faf6ba03b6dcd8d19657ef7e6e4ec935fe8b06f03cd3fe241ea812647",
+        "hit_side": "dbcea4f5ab0f2639bee05a5824bbb6e35730aa7bf6db41339c4507dd468ba185",
         "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
         "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
         "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
         "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
         "attack_right": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
       },
-      "texture_encoding_manifest_sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
-      "attack_profiles_sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
+      "texture_encoding_manifest_sha256": "78dd01ec9ce5bce7a9a2ba58c0a2ea83f162432575a8981eedae99bbb9ddc615",
+      "attack_profiles_sha256": "e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908"
     },
     {
       "id": "veteran",
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 14354052,
-          "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55"
+          "bytes": 38959728,
+          "sha256": "efb1429e01273f9c27cf3ce23afd36c43b3dcffb3f1a2b9674a0783aa4f28077"
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 17447128,
-          "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
+          "bytes": 45733888,
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
         },
         {
           "file": "veteran.glb",
-          "bytes": 45357856,
-          "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a"
+          "bytes": 34616152,
+          "sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
         }
       ],
+      "prepared_tangents": {
+        "applied": true,
+        "stage": "prepared_png_after_wrist_before_texture_v1",
+        "status": "PASS",
+        "input": {
+          "file": "veteran_prepared_png.glb",
+          "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+        },
+        "geometry_contract_sha256": "9bc0c3b528a45eaf1ee486b5e5c1f7a294cd95a05383ec75acc88d308736e1a1",
+        "algorithm": "MikkTSpace + 1 explicit source-validated degenerate UV corner",
+        "generator": {
+          "name": "Three0.185.1 bundled MikkTSpace WASM",
+          "module_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac",
+          "glTF_w_conversion": "negate Mikk W exactly, per official API",
+          "space": "mesh-local P/N/UV of prepared PNG; scene normalization retained",
+          "module": {
+            "source": "../tooling/mikktspace/mikktspace.mjs",
+            "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+          }
+        },
+        "primitives": [
+          {
+            "primitive": 0,
+            "material": "tripo_material_d077622d-e63a-48d6-964b-8c388d5934ae",
+            "corners": 66177,
+            "maximum_unit_error": 1.578446178207571e-07,
+            "maximum_source_normal_error": 1.2481641409323174e-07,
+            "maximum_abs_normal_dot_tangent": 6.715136728008275e-06,
+            "exact_zero_UV_faces": 1,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 22058,
+            "degenerate_UV_face_ids": [
+              4108
+            ],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 1,
+            "explicit_degenerate_corner_repairs": [
+              {
+                "corner": 12326,
+                "face": 4108,
+                "source_normal": [
+                  -0.7542074918746948,
+                  -0.4617045819759369,
+                  -0.4669046401977539
+                ],
+                "source_positions": [
+                  [
+                    -0.08610564470291138,
+                    0.27984338998794556,
+                    -0.09784719347953796
+                  ],
+                  [
+                    -0.08610565215349197,
+                    0.28767117857933044,
+                    -0.09001944959163666
+                  ],
+                  [
+                    -0.08610565215349197,
+                    0.2857142686843872,
+                    -0.09197639673948288
+                  ]
+                ],
+                "source_uv": [
+                  [
+                    0.2931020259857178,
+                    0.9812909960746765
+                  ],
+                  [
+                    0.2888277769088745,
+                    0.9800919890403748
+                  ],
+                  [
+                    0.2898963391780853,
+                    0.9803917407989502
+                  ]
+                ],
+                "UV_determinant": 0,
+                "old_glTF_mikk_tangent": [
+                  1,
+                  0,
+                  0,
+                  1
+                ],
+                "new_tangent": [
+                  0.656618058681488,
+                  -0.5355778336524963,
+                  -0.5310453176498413,
+                  1
+                ],
+                "chosen_edge": {
+                  "corners": [
+                    0,
+                    1
+                  ],
+                  "delta_u": -0.004274249076843262,
+                  "positive_u_derivative": [
+                    1.7431320884497836e-06,
+                    -1.8313833475112915,
+                    -1.831372857093811
+                  ],
+                  "projected_unit": [
+                    0.656618058681488,
+                    -0.5355778336524963,
+                    -0.5310453176498413
+                  ]
+                },
+                "all_projected_U_edges": [
+                  {
+                    "corners": [
+                      0,
+                      1
+                    ],
+                    "delta_u": -0.004274249076843262,
+                    "positive_u_derivative": [
+                      1.7431320884497836e-06,
+                      -1.8313833475112915,
+                      -1.831372857093811
+                    ],
+                    "projected_unit": [
+                      0.656618058681488,
+                      -0.5355778336524963,
+                      -0.5310453176498413
+                    ]
+                  },
+                  {
+                    "corners": [
+                      2,
+                      0
+                    ],
+                    "delta_u": 0.0032056868076324463,
+                    "positive_u_derivative": [
+                      2.3241759663505945e-06,
+                      -1.8313950300216675,
+                      -1.831369400024414
+                    ],
+                    "projected_unit": [
+                      0.6566179990768433,
+                      -0.5355817079544067,
+                      -0.5310413837432861
+                    ]
+                  },
+                  {
+                    "corners": [
+                      1,
+                      2
+                    ],
+                    "delta_u": 0.0010685622692108154,
+                    "positive_u_derivative": [
+                      0,
+                      -1.8313485383987427,
+                      -1.8313833475112915
+                    ],
+                    "projected_unit": [
+                      0.6566181182861328,
+                      -0.5355662703514099,
+                      -0.531056821346283
+                    ]
+                  }
+                ],
+                "handedness_unchanged": true,
+                "policy": "Root-approved exact-zero-UV corner only; maximum-|dU| source edge projected to original N, no averaging",
+                "source_vertex": 28170
+              }
+            ],
+            "original_vertices": 33194,
+            "referenced_vertices": 29096,
+            "unreferenced_vertices_preserved": 4098,
+            "split_vertices": 62
+          },
+          {
+            "primitive": 1,
+            "material": "continuous_sleeve_source_cloth",
+            "corners": 5970,
+            "maximum_unit_error": 1.303346336412048e-07,
+            "maximum_source_normal_error": 4.0570453885280244e-08,
+            "maximum_abs_normal_dot_tangent": 1.2829072870701452e-07,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 1940,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 1065,
+            "referenced_vertices": 1065,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 55
+          },
+          {
+            "primitive": 2,
+            "material": "tripo_left_cap_blackiron_oldbronze",
+            "corners": 6300,
+            "maximum_unit_error": 1.33197683327424e-07,
+            "maximum_source_normal_error": 4.571132539155087e-08,
+            "maximum_abs_normal_dot_tangent": 1.3068071673671966e-06,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 2100,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 1791,
+            "referenced_vertices": 1791,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 3
+          },
+          {
+            "primitive": 3,
+            "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+            "corners": 35280,
+            "maximum_unit_error": 1.5770459049768704e-07,
+            "maximum_source_normal_error": 4.234701567185084e-08,
+            "maximum_abs_normal_dot_tangent": 2.388988801449443e-06,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 11760,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 8279,
+            "referenced_vertices": 8279,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 2
+          },
+          {
+            "primitive": 4,
+            "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+            "corners": 1440,
+            "maximum_unit_error": 1.1616292550087337e-07,
+            "maximum_source_normal_error": 3.19651711766511e-08,
+            "maximum_abs_normal_dot_tangent": 1.0716675780120255e-07,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 470,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 288,
+            "referenced_vertices": 288,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 12
+          }
+        ],
+        "preservation": {
+          "pass": true,
+          "original_BIN_prefix_exact": true,
+          "root_JSON_except_appended_storage_exact": true,
+          "original_accessors_and_views_exact": true,
+          "mesh_and_primitive_metadata_exact": true,
+          "indexed_corner_attributes_exact": 100,
+          "indexed_attribute_corner_rows_checked": 706365,
+          "nodes_skins_animations_images_materials_JSON_exact": true,
+          "animation_sampler_accessors_exact": 4680,
+          "static_indexed_corner_contract_exact": true
+        },
+        "output": {
+          "file": "veteran_prepared_png.glb",
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+          "bytes": 45733888
+        }
+      },
       "hand_track_signatures": {
         "fall": "52f562634e0a50c93327761bc63f7e2aca582bbe030f275f9b8cd5c867735262",
         "turn": "3e7139ddcc127af7cc387039560da1ad6ff51010d07a5d742a9983d58b5f41f2",
-        "hit_body": "fcc4c8e0b5dbe069660051bad36307a29a1ef991209dde66d371e687c2762ed7",
-        "hit_head": "bacc194909872ee185dbc80bc26e698ca2da7681cb0c955eda59c1105eb2c528",
-        "hit_side": "5d9bf26b806682474778ac78c24d04b690e08c89e7d11a5433e0a67b8ea33962",
+        "hit_body": "4ff797f525fef2444a0704ace126f717c5bac515dadff9e300fb8425c5807ce7",
+        "hit_head": "6892d926003492f72935c223ecb44b40280353868f98e4e41541e058be376907",
+        "hit_side": "5975697b72dbc633ad99339d1683da00fda825a7f23a5c8f68fe2af16690b97f",
         "idle": "ab0d3c025548051d21e783c895608983a66b4539588ee7d12b7e030fb50f5744",
         "walk": "cfb7856f9361d65d2f4f2aeced43948e870b1dbdd6a56277ef1fc70ce9e4b8e9",
-        "attack_overhead": "bd3d6f558b4d09cb1a2668488fd95f5b489f170d84f16348bb5c8f6e7151f63c",
-        "attack_left": "b8583809f9e60a7c0210aa5b413dd26e6267746db51ccc9efdf7e65e9866047c",
-        "attack_right": "7d4f61d0bbe6aaa28978387dcafb69ba15af75946fb6e8ce510567fb622c4f4d"
+        "attack_overhead": "2f184abd723d896c17f5e3177de6f076420abcc72cd6a80ffa73307359847496",
+        "attack_left": "d24d15e350d05b0d3cefbf683cecf843bc7a166653632773cdc67ea3336fbf12",
+        "attack_right": "7d4404a3d2dae88f07840c9f2db0cd4f4133612805efd34a62bc1a5253452fdf"
       },
       "clip_semantic_signatures": {
         "fall": "8289550fb8e87d4a40e6443e9a7214ed4dcd692e2d42eddec7a9b6ee27b1192c",
         "turn": "48f21c373116743712126a55ba07b34f885f1bcb8b1cc051ba4724b769e4a8b8",
-        "hit_body": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
-        "hit_head": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
-        "hit_side": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f",
+        "hit_body": "07e1c2d1dcaa952e3faac0f092f91583ef5875e90d5e281003612fb74b41f2c4",
+        "hit_head": "969f9293aaf6b23a74dc3deee4ac133d4055f9e11cdf4e2251664ae5f4aa164d",
+        "hit_side": "045f804ffd1e6922215c1de4a3b6d1b1a0453ce73b4be3a760c1451cbeb34d7c",
         "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
         "walk": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
-        "attack_overhead": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
-        "attack_left": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
-        "attack_right": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36"
+        "attack_overhead": "d08b75e40bd176b59a44aea8e48cdc9f554d07b8a54dee0283db008ecf0d4d5c",
+        "attack_left": "9dfb4737b1e4fcf00e8eb392a3d1cb52b2a8ce8c7b7bb9d20138184e1934a136",
+        "attack_right": "cccae52863c7d8f2ee795611f11b1ec603d81eafde0333e74d6f8a57d76909cd"
       },
-      "texture_encoding_manifest_sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
-      "attack_profiles_sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
+      "texture_encoding_manifest_sha256": "6ec93a10ca029a6d2f6b444a1bd22a3c85c59881330a54897584d92af037d242",
+      "attack_profiles_sha256": "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263"
     }
   ],
   "player_weapon": {
@@ -785,7 +1135,11 @@
         "normalize": false,
         "rdo": false,
         "orientation": "top-left",
-        "pixel_resize": false,
+        "pixel_resize": {
+          "default_max_dimension": 1024,
+          "filter": "explicit-axis-lanczos4-v1",
+          "upsample": false
+        },
         "mip_source": {
           "same_axis": "ktx-cli-generate-mipmap",
           "different_axes": "explicit-axis-lanczos4-v1"
@@ -800,12 +1154,12 @@
           "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
           "alpha_filter": "linear-straight",
           "quantization": "clip-0-1-round-half-up-uint8",
-          "top": "original-decoded-pixels"
+          "top": "runtime-sized-domain-filtered-pixels"
         }
       },
       "helper": {
         "source": "../refinement/pbr-compression/compress_pbr.py",
-        "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+        "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
       },
       "encoder": {
         "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -832,8 +1186,8 @@
     },
     "texture_encoding_manifest": {
       "file": "dao_grip_texture_encoding.json",
-      "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab"
+      "sha256": "a69fd3ba0621937d38160f4f8588bce616d7da2b191019777a9cc51e6ad1ca12"
     },
-    "manifest_sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f"
+    "manifest_sha256": "a00f17481dee8a1d2901b0c10cd7c8f02c7baf88bb052b9f5583e23bdc6bdc18"
   }
 }

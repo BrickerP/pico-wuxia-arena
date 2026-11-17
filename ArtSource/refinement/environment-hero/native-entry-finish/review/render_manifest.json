@@ -1,0 +1,76 @@
+{
+  "kind": "Actual full PNG GLB offline before/after; not native screenshots",
+  "phases": {
+    "before": {
+      "scene": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb",
+      "scene_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "images": {
+        "player_1p65_before.png": "a19c90a9578a912bd0e1b763e8d871602bc987d6bda2e4db138a2056fbbf2cd0",
+        "joint_oblique_before.png": "54da5cf979ecba3ac495b2b8e0e916780e6476b30c761ad0696e187da5fa6df5",
+        "foot_oblique_before.png": "34de70523750fbfbebe6b667502b3b61ce2217370308ab52b6851064457f7125"
+      }
+    },
+    "after": {
+      "scene": "ArtSource/refinement/environment-hero/native-entry-finish/courtyard_entry_finish_png.glb",
+      "scene_sha256": "dfc6cf82ff58f4f845305eefb9180cf5a9868741b667fe89dec8e9e2cb6db04c",
+      "images": {
+        "player_1p65_after.png": "fcbb0f17f20e479252e167930b86386a9cdf792b17fc97b1ba9b91ab0dacebba",
+        "joint_oblique_after.png": "3f674219a7ac1b27d05fb8a3c8cdf55f1775b5ae3177744df94bfa2512988206",
+        "foot_oblique_after.png": "71d3cbe55692398c057336829d353876ed2e50a00b10b97062829ab6978f13dd"
+      }
+    }
+  },
+  "views": {
+    "player_1p65": {
+      "position_stage": [
+        0,
+        1.65,
+        0
+      ],
+      "target_stage": [
+        0,
+        1.65,
+        -5.35
+      ],
+      "lens_mm": 18
+    },
+    "joint_oblique": {
+      "position_stage": [
+        -0.55,
+        2.4,
+        -3.8
+      ],
+      "target_stage": [
+        -1.4,
+        2.8,
+        -5.13
+      ],
+      "lens_mm": 34
+    },
+    "foot_oblique": {
+      "position_stage": [
+        -0.7,
+        0.72,
+        -3.8
+      ],
+      "target_stage": [
+        -1.4,
+        0.45,
+        -5.24
+      ],
+      "lens_mm": 38
+    }
+  },
+  "lighting_source": "ArtSource/refinement/environment-hero/stage2/render_review.py",
+  "lighting_sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+  "same_camera_lighting": true,
+  "renderer": "Cycles CPU",
+  "threads": 2,
+  "samples": 12,
+  "resolution": [
+    960,
+    960
+  ],
+  "actors_UI_hand": "Excluded in both phases; no old actor substitution",
+  "runtime_boundary": "No device or 7f light calibration claim; original scene textures/lights unchanged by composition."
+}

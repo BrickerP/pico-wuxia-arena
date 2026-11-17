@@ -1,0 +1,22 @@
+{
+  "all_ten_clip_and_hand_signatures_exact": true,
+  "base_and_indigo_outputs_exact": true,
+  "player_weapon_exact": true,
+  "veteran_profile_scalar_differences": [
+    [
+      "/model_sha256",
+      "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
+      "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
+    ],
+    [
+      "/proxy_calibration/measurement/anatomical_bounds_metres/body/vertex_count",
+      3956,
+      3964
+    ],
+    [
+      "/proxy_calibration/measurement/anatomical_bounds_metres/head/vertex_count",
+      7851,
+      7857
+    ]
+  ]
+}

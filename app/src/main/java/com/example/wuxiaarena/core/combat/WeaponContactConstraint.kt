@@ -5,8 +5,6 @@ import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.core.math.closestSegmentPoints
 import kotlin.math.abs
 import kotlin.math.acos
-import kotlin.math.ceil
-import kotlin.math.cos
 import kotlin.math.sin
 
 /** A virtual Stage grip. SDK observations remain separate and are never modified. */
@@ -45,111 +43,55 @@ fun interpolateGrip(from: WeaponGrip, to: WeaponGrip, fraction: Double): WeaponG
 }
 
 /**
- * Sweeps a rigid player dao against a linearly moving enemy capsule. Angular steps come
- * from the farthest authored grip radius and a 0.5 mm maximum arc-to-chord error; they
- * do not depend on body hit-volume sampling. Inflating each chord by its sagitta makes
- * this conservative for the rigid arc. This remains capsule contact, not mesh contact.
- *
- * [BladeContact.fraction] is over the complete interval. Its spatial error also includes
- * the chord inflation. The relative displacement is the local chord velocity multiplied
- * by the complete interval duration. An unresolved child query propagates explicitly.
- */
-fun firstRigidBladeContact(
-    previousGrip: WeaponGrip,
-    currentGrip: WeaponGrip,
-    enemySweep: BladeSweep,
-): BladeContact? {
-    val a = checkNotNull(previousGrip.rotation.normalizedOrNull())
-    val b = checkNotNull(currentGrip.rotation.normalizedOrNull())
-    val angle = 2.0 * acos(abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w).coerceIn(0.0, 1.0))
-    val maximumStep = 2.0 * acos(1.0 - RIGID_ARC_ERROR_METERS / PLAYER_GRIP_RADIUS_METERS)
-    val steps = ceil(angle / maximumStep).toInt().coerceAtLeast(1)
-    val sagitta = PLAYER_GRIP_RADIUS_METERS * (1.0 - cos(angle / steps / 2.0))
-    var previousBlade = playerBlade(previousGrip)
-    for (index in 0 until steps) {
-        val start = index.toDouble() / steps
-        val end = (index + 1).toDouble() / steps
-        val currentBlade = playerBlade(interpolateGrip(previousGrip, currentGrip, end))
-        val playerSweep = BladeSweep(
-            previousBlade.copy(radiusMeters = previousBlade.radiusMeters + sagitta),
-            currentBlade.copy(radiusMeters = currentBlade.radiusMeters + sagitta),
-        )
-        val contact = try {
-            firstBladeContact(playerSweep, BladeSweep(enemySweep.atFraction(start), enemySweep.atFraction(end)))
-        } catch (uncertain: BladeContactUncertainException) {
-            throw BladeContactUncertainException(start + uncertain.earliestUnresolvedFraction / steps,
-                "Rigid blade interval unresolved: ${uncertain.message}")
-        }
-        if (contact != null) return contact.copy(
-            fraction = start + contact.fraction / steps,
-            relativeDisplacement = contact.relativeDisplacement * steps.toDouble(),
-            separationMeters = contact.separationMeters + sagitta,
-            errorBoundMeters = contact.errorBoundMeters + sagitta,
-        )
-        previousBlade = currentBlade
-    }
-    return null
-}
-
-/**
  * A hard unilateral stop for the virtual hand and dao together. Raw tracking continues
  * unchanged. The caller locks the actual contact pose once, after choosing the earliest
  * steel/body contact. A withdrawal toward the contact normal releases the grip; when
  * the other blade has withdrawn, [releaseIfSeparated] releases it as well.
  */
 class WeaponContactConstraint {
-    private data class Stop(val grip: WeaponGrip, val normal: Vector3, val axisFraction: Double)
+    private data class Stop(val grip: WeaponGrip, val normal: Vector3)
     private var stop: Stop? = null
-
     val constrained: Boolean get() = stop != null
-
-    fun lock(rawGrip: WeaponGrip, contactGrip: WeaponGrip, normal: Vector3, playerAxisFraction: Double = 0.5): WeaponGrip {
-        // Validate both values; raw is intentionally not replaced or returned as the SDK pose.
-        playerBlade(rawGrip)
-        require(playerAxisFraction.isFinite() && playerAxisFraction in 0.0..1.0)
-        stop = Stop(contactGrip, requireNotNull(normal.normalizedOrNull()), playerAxisFraction)
+    fun lock(rawGrip: WeaponGrip, contactGrip: WeaponGrip, normal: Vector3): WeaponGrip {
+        DaoBladeShape.shape.at(rawGrip)
+        stop=Stop(contactGrip,requireNotNull(normal.normalizedOrNull()))
         return contactGrip
     }
-
-    fun apply(rawGrip: WeaponGrip): WeaponGrip {
-        val held = stop ?: return rawGrip
-        val heldBlade = playerBlade(held.grip)
-        val rawBlade = playerBlade(rawGrip)
-        val heldPoint = heldBlade.base * (1.0 - held.axisFraction) + heldBlade.tip * held.axisFraction
-        val rawPoint = rawBlade.base * (1.0 - held.axisFraction) + rawBlade.tip * held.axisFraction
-        if ((rawPoint - heldPoint).dot(held.normal) >= RELEASE_WITHDRAWAL_METERS) {
-            reset()
-            return rawGrip
-        }
-        return held.grip
+    // Release requires the other complete shape and a safe route, unavailable at observation time.
+    fun apply(rawGrip: WeaponGrip): WeaponGrip = stop?.grip ?: rawGrip
+    /** Natural translation or rotation exit; the raw whole blade and its route must clear. */
+    fun releaseForPlayerWithdrawal(enemy:BladeShapeSweep,rawGrip:WeaponGrip?):Boolean {
+        val held=stop ?: return false;val raw=rawGrip ?: return false
+        val a=DaoBladeShape.shape.at(held.grip);val b=DaoBladeShape.shape.at(raw)
+        // A changed real hand may naturally leave contact in any direction. Do not
+        // reinterpret 25mm of one-normal retreat as a prerequisite for a proved clear path.
+        // Stationary enemy-driven catchup retains its existing 25mm hysteresis below.
+        if(a.indices.maxOf {i->maxOf(a[i].base.distanceTo(b[i].base),a[i].tip.distanceTo(b[i].tip))}<=ACTIVE_EXIT_SPATIAL_TOLERANCE)return false
+        return releaseIfSeparated(enemy,clearanceMeters=ACTIVE_EXIT_SPATIAL_TOLERANCE,rawGrip=raw)
     }
-
-    fun releaseIfSeparated(enemyBlade: BladeSegment, clearanceMeters: Double = RELEASE_WITHDRAWAL_METERS, rawGrip: WeaponGrip? = null): Boolean {
-        require(clearanceMeters.isFinite() && clearanceMeters >= 0.0)
-        val held = stop ?: return false
-        val player = playerBlade(held.grip)
-        val pair = requireNotNull(closestSegmentPoints(player.base, player.tip, enemyBlade.base, enemyBlade.tip))
-        if (pair.first.distanceTo(pair.second) <= player.radiusMeters + enemyBlade.radiusMeters + clearanceMeters) return false
-        // Catching the real hand must itself be collision-free; a separated held blade
-        // does not prove the raw hand's route has cleared the withdrawing enemy dao.
-        if (rawGrip != null && firstRigidBladeContact(held.grip, rawGrip, BladeSweep(enemyBlade, enemyBlade)) != null) return false
-        reset()
-        return true
+    fun releaseIfSeparated(enemy:BladeShapeSweep,clearanceMeters:Double=RELEASE_WITHDRAWAL_METERS,rawGrip:WeaponGrip?=null):Boolean {
+        require(clearanceMeters.isFinite() && clearanceMeters>=0.0)
+        val held=stop ?: return false;val raw=rawGrip ?: return false
+        val player=DaoBladeShape.shape;val rawParts=player.at(raw);val enemyParts=enemy.shape.at(enemy.current)
+        val rawClear=rawParts.all {p->enemyParts.all {e->
+            val pair=checkNotNull(closestSegmentPoints(p.base,p.tip,e.base,e.tip))
+            pair.first.distanceTo(pair.second)>p.radiusMeters+e.radiusMeters+clearanceMeters+enemy.pathErrorMeters
+        }}
+        if(!rawClear)return false
+        val catchup=BladeShapeSweep(player,held.grip,raw,0.0);val stationaryEnemy=enemy.copy(previous=enemy.current)
+        // t=0 contact is retained as contact. Only an all-time nonpenetration certificate
+        // permits catchup; a clear target alone never permits crossing either whole blade.
+        if(!separatingBladeShapePairs(catchup,stationaryEnemy,held.normal))return false
+        reset();return true
     }
-
-    fun reset() { stop = null }
+    fun reset() { stop=null }
 }
 
-private fun BladeSweep.atFraction(fraction: Double) = BladeSegment(
-    previous.base * (1.0 - fraction) + current.base * fraction,
-    previous.tip * (1.0 - fraction) + current.tip * fraction,
-    previous.radiusMeters * (1.0 - fraction) + current.radiusMeters * fraction,
-)
 
 private val PLAYER_BLADE_BASE = Vector3(0.022, 0.0, -0.129)
 private val PLAYER_BLADE_TIP = Vector3(0.0532, 0.0, -0.849)
 private const val PLAYER_BLADE_RADIUS_METERS = 0.012
-// Authored tip length is 0.850665 m; bound the complete rigid span from the grip.
-private const val PLAYER_GRIP_RADIUS_METERS = 0.851
-private const val RIGID_ARC_ERROR_METERS = 0.0005
 private const val RELEASE_WITHDRAWAL_METERS = 0.025
+
+// Same numerical spatial tolerance as the capsule CCD/separating certificates, not a new motion-grade gate.
+private const val ACTIVE_EXIT_SPATIAL_TOLERANCE=1e-7

@@ -1,0 +1,338 @@
+{
+  "same_stage_units": "metres, identity EnvironmentHero_Root; no new scale or scene placement",
+  "source_bounds": {
+    "min_m": [
+      -10.866999626159668,
+      -0.11999999731779099,
+      -13.217499732971191
+    ],
+    "max_m": [
+      11.1850004196167,
+      11.177310943603516,
+      2.9170000553131104
+    ],
+    "size_m": [
+      22.052000045776367,
+      11.297310940921307,
+      16.1344997882843
+    ]
+  },
+  "candidate_bounds": {
+    "min_m": [
+      -10.866999626159668,
+      -0.11999999731779099,
+      -13.217499732971191
+    ],
+    "max_m": [
+      11.1850004196167,
+      11.177310943603516,
+      2.9170000553131104
+    ],
+    "size_m": [
+      22.052000045776367,
+      11.297310940921307,
+      16.1344997882843
+    ]
+  },
+  "bounds_exact": true,
+  "all_original_node_world_transforms_exact": 64,
+  "anchors": [
+    {
+      "node": 0,
+      "name": "EH_CombatClearCenter",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -2.4000000953674316,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 9,
+      "name": "EH_Light_CourtMoon",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -4.0,
+        7.0,
+        -2.0,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 10,
+      "name": "EH_Light_Lantern_01",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -2.1500000953674316,
+        2.700000047683716,
+        -4.699999809265137,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 11,
+      "name": "EH_Light_Lantern_02",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        2.1500000953674316,
+        2.700000047683716,
+        -4.699999809265137,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 12,
+      "name": "EH_Light_Lantern_03",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -4.03000020980835,
+        2.25,
+        0.5600000023841858,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 13,
+      "name": "EH_Light_Lantern_04",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        4.03000020980835,
+        2.25,
+        -1.3200000524520874,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 16,
+      "name": "EH_ReceiverOrigin",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 37,
+      "name": "EnvironmentHero_Root",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 40,
+      "name": "EH_OneWindowReplacement_Root",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -2.5,
+        0.0,
+        -5.51,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 53,
+      "name": "NativeFightEntrance_Root",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 58,
+      "name": "LanternSurface_front_left",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -2.15,
+        2.7,
+        -4.78,
+        1.0
+      ],
+      "candidate_exact": true
+    },
+    {
+      "node": 63,
+      "name": "LanternSurface_front_right",
+      "world_matrix_column_major": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        2.15,
+        2.7,
+        -4.78,
+        1.0
+      ],
+      "candidate_exact": true
+    }
+  ],
+  "unchanged_ground_meshes": [
+    5,
+    8
+  ],
+  "unchanged_ground_proof": "Original mesh5/8 descriptors, all referenced attributes/index streams and node transforms remain exact; included in9test non-target assertion.",
+  "only_replaced_index_domains": [
+    [
+      22,
+      0
+    ],
+    [
+      36,
+      0
+    ],
+    [
+      36,
+      1
+    ]
+  ],
+  "original_BIN_prefix_preserved": true,
+  "bounds_method": "Offline world-space bounds of active referenced triangles; relative source/candidate protection, not SDK getVisualBounds readback."
+}

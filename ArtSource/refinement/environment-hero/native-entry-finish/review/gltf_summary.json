@@ -1,0 +1,60 @@
+{
+  "validator_version": "2.0.0-dev.3.10",
+  "models": [
+    {
+      "label": "baseline_png",
+      "errors": 0,
+      "warnings": 4,
+      "infos": 131,
+      "new_timber_missing_TBN": 0,
+      "codes": {
+        "UNUSED_OBJECT": 129,
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+        "UNUSED_MESH_TANGENT": 2
+      }
+    },
+    {
+      "label": "baseline_ktx",
+      "errors": 0,
+      "warnings": 10,
+      "infos": 135,
+      "new_timber_missing_TBN": 0,
+      "codes": {
+        "UNSUPPORTED_EXTENSION": 1,
+        "VALUE_NOT_IN_LIST": 3,
+        "UNUSED_OBJECT": 132,
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+        "UNUSED_MESH_TANGENT": 2,
+        "IMAGE_UNRECOGNIZED_FORMAT": 3
+      }
+    },
+    {
+      "label": "png",
+      "errors": 0,
+      "warnings": 4,
+      "infos": 134,
+      "new_timber_missing_TBN": 0,
+      "codes": {
+        "UNUSED_OBJECT": 132,
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+        "UNUSED_MESH_TANGENT": 2
+      }
+    },
+    {
+      "label": "ktx",
+      "errors": 0,
+      "warnings": 10,
+      "infos": 138,
+      "new_timber_missing_TBN": 0,
+      "codes": {
+        "UNSUPPORTED_EXTENSION": 1,
+        "VALUE_NOT_IN_LIST": 3,
+        "UNUSED_OBJECT": 135,
+        "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+        "UNUSED_MESH_TANGENT": 2,
+        "IMAGE_UNRECOGNIZED_FORMAT": 3
+      }
+    }
+  ],
+  "baseline_warning_fingerprints_exact": true
+}

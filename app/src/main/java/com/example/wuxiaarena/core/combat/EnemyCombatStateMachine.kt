@@ -141,6 +141,7 @@ class EnemyCombatStateMachine(
     private var nextAttackId = 1L
     private var nextPauseId = 1L
     private var hitDurationNanos = HIT_DURATION
+    private var recoveryDurationNanos = 0L
 
     /** Reads attack readiness using the caller's range decision without advancing state. */
     fun canStartAttack(targetInRange: Boolean): Boolean =
@@ -201,7 +202,9 @@ class EnemyCombatStateMachine(
         breakGuard: Boolean = false,
         armGuard: Boolean = false,
         counterDirection: AttackDirection = AttackDirection.OVERHEAD,
+        sourceReturnNanos:Long=0L,
     ): List<EnemyCombatEvent> {
+        require(sourceReturnNanos>=0L && sourceReturnNanos<=Long.MAX_VALUE-maxOf(HIT_DURATION,hitDurationNanos)) {"Source return must fit the hit clock"}
         require(damage > 0) { "damage must be positive" }
         if (pauseReason != null || phase == EnemyPhase.DEAD) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
@@ -229,7 +232,7 @@ class EnemyCombatStateMachine(
                 0L
             }
             cancelAttack(AttackCancelReason.PLAYER_HIT, events)
-            hitDurationNanos = maxOf(HIT_DURATION, remainingParry)
+            hitDurationNanos = maxOf(HIT_DURATION,remainingParry)+sourceReturnNanos
             hitReaction = HitReaction.PLAYER_HIT
             changePhase(EnemyPhase.HIT, events)
             events += EnemyCombatEvent.HitReactionStarted(HitReaction.PLAYER_HIT, hitDurationNanos, simulationNanos)
@@ -268,7 +271,9 @@ class EnemyCombatStateMachine(
         trackingReady: Boolean,
         actionReady: Boolean,
         confirmedPauseId: Long?,
+        sourceRecoveryNanos:Long=0L,
     ): List<EnemyCombatEvent> {
+        require(sourceRecoveryNanos>=0L && sourceRecoveryNanos<=Long.MAX_VALUE-simulationNanos) { "Source recovery must fit the simulation clock" }
         val reason = pauseReason ?: return emptyList()
         val pauseId = checkNotNull(currentPauseId)
         if (!trackingReady || !actionReady || confirmedPauseId != pauseId) return emptyList()
@@ -277,7 +282,8 @@ class EnemyCombatStateMachine(
             cancelAttack(AttackCancelReason.TRACKING_INTERRUPTION, events)
             endGuard(events)
             hitReaction = null
-            changePhase(EnemyPhase.IDLE, events)
+            recoveryDurationNanos=sourceRecoveryNanos
+            changePhase(if(sourceRecoveryNanos>0L)EnemyPhase.RECOVERING else EnemyPhase.IDLE, events)
         }
         pauseReason = null
         currentPauseId = null
@@ -296,6 +302,7 @@ class EnemyCombatStateMachine(
         hitReaction = null
         attack = null
         hitDurationNanos = HIT_DURATION
+        recoveryDurationNanos=0L
         return listOf(EnemyCombatEvent.RoundReset())
     }
 
@@ -303,7 +310,7 @@ class EnemyCombatStateMachine(
         EnemyPhase.PREPARING -> checkNotNull(attack).direction.preparationNanos
         EnemyPhase.STARTUP -> checkNotNull(attack).direction.startupNanos
         EnemyPhase.ACTIVE -> checkNotNull(attack).direction.activeNanos
-        EnemyPhase.RECOVERING -> checkNotNull(attack).direction.recoveryNanos
+        EnemyPhase.RECOVERING -> recoveryDurationNanos
         EnemyPhase.HIT -> hitDurationNanos
         EnemyPhase.IDLE, EnemyPhase.DEAD -> error("phase has no timed transition")
     }
@@ -363,6 +370,7 @@ class EnemyCombatStateMachine(
             changePhase(EnemyPhase.HIT, events)
             events += EnemyCombatEvent.HitReactionStarted(HitReaction.PARRIED, hitDurationNanos, simulationNanos)
         } else {
+            recoveryDurationNanos=current.direction.recoveryNanos
             changePhase(EnemyPhase.RECOVERING, events)
         }
     }

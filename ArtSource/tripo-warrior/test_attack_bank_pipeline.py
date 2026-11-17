@@ -76,6 +76,190 @@ class AttackBankContracts(unittest.TestCase):
         result['buffers'][0]['byteLength'] = len(packed)
         return result, bytes(packed)
 
+    def unconstrained_veteran_pair(self, folder=None):
+        """Build ephemeral pre-constraint fixtures through the canonical stages.
+
+        Historical candidate GLBs are not tracked fixtures. Start from the
+        current pinned raw and real clips, never an already constrained bank.
+        """
+        manifest = self.original_manifest
+        target_row = next(row for row in manifest['characters'] if row['id'] == 'veteran')
+        source_path, target, target_binary = library.pinned_source(target_row)
+        self.assertFalse(target.get('animations'))
+        _, grip, grip_binary = library.pinned_source(target_row['grip_source'])
+        native = library.sample_native_hands(target, grip, grip_binary,
+                                            target_row['grip_source'].get('time_seconds', 2.117))
+        # prepare_character records clip paths relative to its canonical source
+        # root. Keep these generated files under that root and always clean up.
+        if folder is None:
+            temporary = tempfile.TemporaryDirectory(prefix='.recipe3-test-', dir=library.HERE)
+            self.addCleanup(temporary.cleanup)
+            folder = Path(temporary.name)
+        else:
+            folder = Path(folder)
+        clips, timelines = [], {}
+        contracts = library.attack_source_contracts(manifest['attack_source'])
+        for key in ('motion_source', 'locomotion_source', 'attack_source'):
+            family = manifest[key]
+            _, rig, rig_binary = library.pinned_source(family)
+            for entry in family['clips']:
+                _, motion, binary = library.pinned_source(entry)
+                tracks = library.validate_source_clip(
+                    motion, binary, rig, rig_binary, family['contract'], entry['name'],
+                    contracts[entry['name']] if family['contract'] == 'attack78' else None)
+                if family['contract'] in {'attack78', 'locomotion78'}:
+                    timelines[entry['name']] = list(next(iter(tracks.values()))[0])
+                output, _ = library.retarget_clip(
+                    motion, binary, rig, target, target_binary, native, entry['name'],
+                    source_contract=family['contract'])
+                path = folder / (entry['name'] + '.glb')
+                path.write_bytes(output)
+                clips.append((entry['name'], path, hashlib.sha256(output).hexdigest()))
+        body, combined = folder / 'body.glb', folder / 'combined.glb'
+        library.prepare_character(
+            source_path, target_row['source_sha256'], clips, body, combined,
+            folder / 'alignment.json', height=target_row['height_metres'],
+            grip_frame=target_row.get('grip_frame'),
+            finger_rotation_offsets=target_row.get('finger_rotation_offsets'),
+            canonical_grounding_clips=timelines, weapon_source=manifest['weapon_source'])
+        return body, combined
+
+    def test_prepared_tangents_allow_same_path_rebuilt_twice_and_reject_actual_reapplication(self):
+        solver, recipe = library.prepared_wrist_contract(self.original_manifest)
+        temporary = tempfile.TemporaryDirectory(prefix='.tangent-rebuild-test-', dir=library.HERE)
+        self.addCleanup(temporary.cleanup)
+        folder = Path(temporary.name)
+        stale_report = folder / 'combined_tangent_review'
+        stale_report.mkdir()
+        sentinel = stale_report / 'sentinel.txt'
+        sentinel.write_bytes(b'previous diagnostic must remain untouched')
+        stale_output = folder / 'combined_tangent.glb'
+        stale_output.write_bytes(b'previous output must remain untouched')
+        records, outputs, inputs = [], [], []
+        for iteration in range(2):
+            body, combined = self.unconstrained_veteran_pair(folder=folder)
+            solver.apply_prepared_character('veteran', body, combined, recipe)
+            inputs.append(hashlib.sha256(combined.read_bytes()).hexdigest())
+            document, binary = library.read_glb(combined)
+            before = {clip['name']: library.animation_signature(document, binary, clip)
+                      for clip in document['animations']}
+            record = library.apply_prepared_tangents('veteran', combined,
+                self.original_manifest['prepared_tangents'], library.HERE)
+            self.assertTrue(record['applied'])
+            self.assertEqual(record['stage'], 'prepared_png_after_wrist_before_texture_v1')
+            self.assertTrue(record['preservation']['pass'])
+            self.assertEqual(sum(row['split_vertices'] for row in record['primitives']), 134)
+            after, packed = library.read_glb(combined)
+            self.assertEqual({clip['name']: library.animation_signature(after, packed, clip)
+                              for clip in after['animations']}, before)
+            self.assertEqual(len(before), 10)
+            for field in ('nodes', 'skins', 'animations', 'materials', 'images', 'textures', 'samplers'):
+                self.assertEqual(document.get(field), after.get(field), field)
+            records.append(record)
+            outputs.append(combined.read_bytes())
+            self.assertEqual(list(folder.glob('.combined-tangent-*')), [])
+            self.assertEqual(sentinel.read_bytes(), b'previous diagnostic must remain untouched')
+            self.assertEqual(stale_output.read_bytes(), b'previous output must remain untouched')
+        self.assertEqual(inputs[0], inputs[1])
+        self.assertEqual(outputs[0], outputs[1])
+        self.assertEqual(records[0], records[1])
+        before_failure = combined.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'Morph/existing tangent'):
+            library.apply_prepared_tangents('veteran', combined,
+                self.original_manifest['prepared_tangents'], library.HERE)
+        self.assertEqual(combined.read_bytes(), before_failure)
+        self.assertEqual(list(folder.glob('.combined-tangent-*')), [])
+        self.rebuild_evidence = {
+            'canonical_prepared_inputs_sha256': inputs,
+            'outputs_sha256': [hashlib.sha256(data).hexdigest() for data in outputs],
+            'normalized_report_sha256': [library.canonical_hash(record) for record in records],
+            'same_parent_and_output_path': True,
+            'actual_raw_retarget_recipe3_builds': 2,
+            'outputs_bytes_equal': outputs[0] == outputs[1],
+            'normalized_reports_equal': records[0] == records[1],
+            'stale_diagnostics_and_output_preserved': True,
+            'real_existing_TANGENT_rejected_with_original_bytes_unchanged': True,
+            'temporary_workspaces_remaining': 0,
+        }
+
+    def test_recipe3_applies_once_to_real_raw_prepared_pair(self):
+        solver, recipe = library.prepared_wrist_contract(self.original_manifest)
+        self.assertEqual(recipe['schema_version'], 3)
+        self.assertEqual(recipe['right_wrist']['key_steel_budget_metres'], 5e-6)
+        self.assertEqual(recipe['right_wrist']['subkey_steel_budget_metres'], .001)
+        asset = solver.load_prepared_left_asset(recipe['prepared_left_arm'])
+        body, combined = self.unconstrained_veteran_pair()
+        before = [library.read_glb(path) for path in (body, combined)]
+        report = solver.apply_prepared_character('veteran', body, combined, recipe)
+        self.assertTrue(report['applied'])
+        self.assertEqual(report['prepared_left_asset'], recipe['prepared_left_arm'])
+        banks = []
+        for path, (original, binary), proof in zip((body, combined), before, report['assets']):
+            document, packed = library.read_glb(path)
+            self.assertEqual(packed[:len(binary)], binary)
+            for field in ('nodes', 'skins', 'meshes', 'materials', 'images', 'textures',
+                          'samplers', 'scenes', 'scene'):
+                self.assertEqual(document.get(field), original.get(field), field)
+            self.assertEqual(solver.left_asset_rig_contract(document, packed), asset['rig_contract'])
+            banks.append({clip['name']: library.animation_signature(document, packed, clip)
+                          for clip in document['animations']})
+            self.assertEqual(len(banks[-1]), 10)
+            right = proof['right_wrist']
+            self.assertLessEqual(right['key_full_steel_max_m'], recipe['right_wrist']['key_steel_budget_metres'])
+            self.assertLessEqual(right['subkey_full_steel_max_m'], recipe['right_wrist']['subkey_steel_budget_metres'])
+            self.assertEqual(proof['prepared_left']['approved_rotation_streams'], 9)
+            self.assertTrue(proof['reactions']['applied'])
+            self.assertEqual(set(proof['reactions']['clips']), {'hit_body', 'hit_head', 'hit_side'})
+            self.assertLessEqual(proof['reactions']['full_steel_endpoint_max_m'], 1e-6)
+            self.assertTrue(proof['reactions']['all_other7_clips_exact'])
+            names = {node['name']: index for index, node in enumerate(document['nodes'])}
+            for clip, entry in asset['clips'].items():
+                for bone, row in entry['rotations'].items():
+                    sampler = solver.left_asset_channel(document, clip, names[bone], 'rotation')
+                    for role, fingerprint in (('input', 'time_payload_sha256'),
+                                              ('output', 'rotation_payload_sha256')):
+                        actual = library.accessor_bytes(document, packed, sampler[role])
+                        self.assertEqual(hashlib.sha256(actual).hexdigest(), row[fingerprint])
+            for old, new in zip(original['animations'], document['animations']):
+                self.assertEqual(old['name'], new['name'])
+                self.assertEqual(old['channels'], new['channels'])
+                for channel in old['channels']:
+                    name = original['nodes'][channel['target']['node']]['name']
+                    allowed_left = old['name'] in asset['clips'] and name in solver.LEFT_ASSET_BONES
+                    allowed_right = (old['name'] == recipe['right_wrist']['clip'] and
+                                     name in recipe['right_wrist']['arm_bones'])
+                    allowed_reaction = old['name'] in recipe['prepared_reaction_guard']['playback_windows']
+                    if not allowed_reaction and (channel['target']['path'] != 'rotation' or not (allowed_left or allowed_right)):
+                        index = channel['sampler']
+                        self.assertEqual(old['samplers'][index], new['samplers'][index])
+        self.assertEqual(banks[0], banks[1])
+
+    def test_old_top_level_recipe1_is_rejected_before_any_asset_read(self):
+        solver, recipe = library.prepared_wrist_contract(self.original_manifest)
+        self.assertEqual(recipe['schema_version'], 3)
+        old = copy.deepcopy(recipe['right_wrist'])
+        self.assertEqual(old['schema_version'], 1)
+        with mock.patch.object(solver, 'read_glb') as read, \
+                mock.patch.object(solver, 'load_prepared_left_asset') as read_left:
+            with self.assertRaisesRegex(ValueError, 'right_wrist'):
+                solver.apply_prepared_character('veteran', Path('missing-body.glb'),
+                                                Path('missing-combined.glb'), old)
+            read.assert_not_called()
+            read_left.assert_not_called()
+
+    def test_old_recipe2_is_rejected_before_any_asset_read(self):
+        solver, recipe = library.prepared_wrist_contract(self.original_manifest)
+        old = copy.deepcopy(recipe)
+        old['schema_version'] = 2
+        old.pop('prepared_reaction_guard')
+        with mock.patch.object(solver, 'read_glb') as read, \
+                mock.patch.object(solver, 'load_prepared_left_asset') as read_left:
+            with self.assertRaises(ValueError):
+                solver.apply_prepared_character('veteran', Path('missing-body.glb'),
+                                                Path('missing-combined.glb'), old)
+            read.assert_not_called()
+            read_left.assert_not_called()
+
     def test_prepared_wrist_requires_actual_combined_steel_before_writing(self):
         solver, recipe = library.prepared_wrist_contract(self.manifest)
         original, binary = library.read_glb(library.HERE / 'library/veteran_prepared_png.glb')
@@ -274,7 +458,7 @@ class AttackBankContracts(unittest.TestCase):
             library.validate_texture_encoding(None)
 
     def test_runtime_encoding_and_player_source_are_mandatory_binding_inputs(self):
-        for field in ('runtime_texture_encoding', 'player_weapon_source'):
+        for field in ('runtime_texture_encoding', 'prepared_tangents', 'player_weapon_source'):
             broken = copy.deepcopy(self.manifest)
             del broken[field]
             with self.assertRaises(ValueError, msg=field):
@@ -284,6 +468,11 @@ class AttackBankContracts(unittest.TestCase):
         changed['player_weapon_source']['source_sha256'] = '0' * 64
         self.assertNotEqual(original, library.canonical_hash(library.production_binding(changed)))
         with self.assertRaisesRegex(ValueError, 'player_weapon_source'):
+            library.validate_manifest(changed)
+        changed = copy.deepcopy(self.manifest)
+        changed['prepared_tangents']['tools']['mikktspace.mjs']['source_sha256'] = '0' * 64
+        self.assertNotEqual(original, library.canonical_hash(library.production_binding(changed)))
+        with self.assertRaisesRegex(ValueError, 'tool identity changed'):
             library.validate_manifest(changed)
 
     def test_attack78_world_transfer_and_native_weapon_fingers(self):
@@ -330,6 +519,8 @@ class AttackBankContracts(unittest.TestCase):
         candidate = json.loads((library.HERE.parent / 'refinement/combat-direction/overhead-v9-candidate/motion_library.json').read_text())
         # Keep the historical source grid while satisfying today's prepared-space admission contract.
         candidate['prepared_wrist_constraint'] = copy.deepcopy(self.manifest['prepared_wrist_constraint'])
+        candidate['prepared_tangents'] = copy.deepcopy(self.manifest['prepared_tangents'])
+        candidate['runtime_texture_encoding'] = copy.deepcopy(self.manifest['runtime_texture_encoding'])
         self.bind_phase_rows(candidate)
         library.validate_manifest(candidate)
         attack = candidate['attack_source']

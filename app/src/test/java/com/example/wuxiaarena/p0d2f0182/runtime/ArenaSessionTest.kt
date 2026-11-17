@@ -253,6 +253,7 @@ class ArenaSessionTest {
         assertEquals(TrialResult.FIGHTING, session.viewState.result)
         assertEquals(0L, session.viewState.simulationNanos)
         val attackStartedAt = 6_800_000_000L
+        freshTracking(state,session,2L,attackStartedAt-1L,1L)
         session.onTick(attackStartedAt)
         val preparing = session.viewState
         val attackId = requireNotNull(preparing.attackId)
@@ -307,13 +308,14 @@ class ArenaSessionTest {
         session.onTick(4_000_000_000L)
         assertEquals(TrialResult.FIGHTING, session.viewState.result)
         assertEquals(0L, session.viewState.simulationNanos)
+        freshTracking(state,session,2L,4_799_999_999L,1L)
         session.onTick(4_800_000_000L)
         session.onTick(4_900_000_000L)
         val beforePause = session.viewState
         assertEquals(EnemyPhase.PREPARING, beforePause.phase)
 
         val pause = TrackingEvent.Discontinuity(
-            ObservationStamp(2, 4_900_000_001L, 1, InputOrigin.PICO),
+            ObservationStamp(4, 4_900_000_001L, 1, InputOrigin.PICO),
             TrackingTarget.ALL,
             DiscontinuityReason.USER_PAUSED,
         )
@@ -327,12 +329,12 @@ class ArenaSessionTest {
         session.onTick(50_000_000_000L)
         assertEquals(beforePause.simulationNanos, session.viewState.simulationNanos)
 
-        val newHand = handEvent.copy(stamp = ObservationStamp(3, 50_000_000_001L, 1, InputOrigin.PICO))
+        val newHand = handEvent.copy(stamp = ObservationStamp(5, 50_000_000_001L, 1, InputOrigin.PICO))
         assertTrue(state.accept(newHand))
         session.onTrackingEvent(newHand, true, state.snapshot)
         assertFalse(session.viewState.resumeReady)
         assertFalse(session.confirmResume(pauseId))
-        val newHead = headEvent.copy(stamp = ObservationStamp(4, 50_000_000_002L, 1, InputOrigin.PICO))
+        val newHead = headEvent.copy(stamp = ObservationStamp(6, 50_000_000_002L, 1, InputOrigin.PICO))
         assertTrue(state.accept(newHead))
         session.onTrackingEvent(newHead, true, state.snapshot)
         assertTrue(session.viewState.inputReady)
@@ -346,6 +348,7 @@ class ArenaSessionTest {
         assertEquals(null, session.viewState.pauseReason)
         assertFalse(session.confirmResume(pauseId))
 
+        freshTracking(state,session,7L,99_999_999_999L,1L)
         session.onTick(100_000_000_000L)
         assertEquals(beforePause.simulationNanos, session.viewState.simulationNanos)
         assertEquals(beforePause.phaseElapsedNanos, session.viewState.phaseElapsedNanos)
@@ -428,6 +431,7 @@ class ArenaSessionTest {
         session.onTick(4_000_000_000L)
         assertEquals(TrialResult.FIGHTING, session.viewState.result)
         assertEquals(0L, session.viewState.simulationNanos)
+        freshTracking(state,session,5L,4_799_999_999L,2L)
         session.onTick(4_800_000_000L)
         assertEquals(EnemyPhase.PREPARING, session.viewState.phase)
         assertEquals(800_000_000L, session.viewState.simulationNanos)
@@ -435,5 +439,14 @@ class ArenaSessionTest {
         assertEquals(1, events.filterIsInstance<EnemyCombatEvent.RoundReset>().size)
         assertEquals(1, events.filterIsInstance<EnemyCombatEvent.AttackStarted>().size)
         assertEquals(2, failures.size)
+    }
+    /** Complete real observations after synthetic long timer gaps; no stale pose rebasing. */
+    private fun freshTracking(state:TrackingState,session:ArenaSession,sequence:Long,receivedAt:Long,epoch:Long) {
+        val events=listOf(headEvent.copy(stamp=ObservationStamp(sequence,receivedAt,epoch,InputOrigin.PICO)),
+            handEvent.copy(stamp=ObservationStamp(sequence+1,receivedAt,epoch,InputOrigin.PICO)))
+        for(event in events) {
+            val accepted=state.accept(event);assertTrue(accepted)
+            session.onTrackingEvent(event,accepted,state.snapshot)
+        }
     }
 }

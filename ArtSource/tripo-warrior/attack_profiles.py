@@ -199,6 +199,16 @@ def mesh_proxy_calibration(document, binary, world, landmarks, parents):
     mesh_nodes = [node for node in document['nodes'] if 'mesh' in node]
     if len(mesh_nodes) != 1 or mesh_nodes[0].get('skin') != 0:
         raise ValueError('proxy calibration requires the one prepared skinned body mesh')
+    active = set()
+    pending = list(document['scenes'][document.get('scene', 0)]['nodes'])
+    while pending:
+        index = pending.pop()
+        if index in active:
+            continue
+        active.add(index)
+        pending.extend(document['nodes'][index].get('children', []))
+    if not any(document['nodes'][index] is mesh_nodes[0] for index in active):
+        raise ValueError('proxy calibration mesh must belong to the active default scene')
     mesh = document['meshes'][mesh_nodes[0]['mesh']]
     body_indices = mesh.get('extras', {}).get('body_primitive_indices')
     if (not isinstance(body_indices, list) or not body_indices or
@@ -440,8 +450,9 @@ def validate_attack_phase_contract(row):
     return dict(markers), list(runtime)
 
 
-def export_attack_profiles(document, binary, attack_clips, attack_contracts, locomotion_contract, body_coverage_contract):
-    """Return schema-3 motion and hurt anchors with one final-idle mesh calibration.
+def export_attack_profiles(document, binary, attack_clips, attack_contracts, locomotion_contract, body_coverage_contract,
+                           common_player_points, blade_shape_support_radius_m):
+    """Return schema-4 full-Grip motion and hurt anchors with one final-idle mesh calibration.
 
     Blade markers follow the same R_Hand mount used to bake rigid weapon skinning.
     Radius selection and player-view LEFT/RIGHT classification belong to the caller.
@@ -510,7 +521,7 @@ def export_attack_profiles(document, binary, attack_clips, attack_contracts, loc
                             'animation_semantics_sha256': animation_signature(document, binary, animation),
                             'samples': [profile_sample(document, tracks, time, parents, order, landmarks, offsets)
                                         for time in times]}
-    return {
+    result = {
         'schema_version': 3, 'units': 'metres', 'space': 'prepared actor root',
         'axes': {'up': '+Y', 'forward': '+Z', 'actor_left': '+X'},
         'landmark_nodes': dict(LANDMARKS),
@@ -527,3 +538,7 @@ def export_attack_profiles(document, binary, attack_clips, attack_contracts, loc
         'source_contract': source_contract, 'locomotion': locomotion, 'attacks': profiles,
         'reactions': export_reaction_profiles(document, binary, root, parents, order, landmarks, offsets),
     }
+    from blade_grip_profiles import refine_blade_grip_profiles
+    result, _ = refine_blade_grip_profiles(document, binary, result,
+                                          common_player_points, blade_shape_support_radius_m)
+    return result

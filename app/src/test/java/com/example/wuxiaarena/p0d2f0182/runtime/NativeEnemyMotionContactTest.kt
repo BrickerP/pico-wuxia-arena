@@ -6,6 +6,8 @@ import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.combat.BladePlanBenchmark
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.InputOrigin
@@ -63,6 +65,9 @@ class NativeEnemyMotionContactTest {
         val firstContact = fixture.session.viewState
         val heldBlade = playerBlade(requireNotNull(firstContact.playerWeaponGrip))
         val firstImpact = fixture.impacts().single()
+        val source=ArenaSession::class.java.getDeclaredMethod("effectiveEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(fixture.session,0L) as EnemyPoseFrame
+        @Suppress("UNCHECKED_CAST") val domain=ArenaSession::class.java.getDeclaredMethod("steelRecoverySamples",AttackPoseSample::class.java).apply {isAccessible=true}.invoke(fixture.session,source.pose) as List<AttackPoseSample>
+        BladePlanBenchmark.record("actual_walking_pressure",checkNotNull(firstContact.enemyPosition),firstContact.enemyYawRadians.toDouble(),source.pose,fixture.rawGrip,firstImpact.normal,domain)
         val originSide = (requireNotNull(firstContact.enemyPosition) - firstImpact.point).dot(firstImpact.normal)
         val geometryTolerance = 0.0006 // 0.5 mm actor-curve envelope plus contact roundoff.
         var sourceAdvanced = false
@@ -74,9 +79,14 @@ class NativeEnemyMotionContactTest {
             fixture.tick(10_000_000L)
             val state = fixture.session.viewState
             val player = playerBlade(requireNotNull(state.playerWeaponGrip))
-            val (playerAxis, enemyAxis) = requireNotNull(closestSegmentPoints(player.base, player.tip,
-                requireNotNull(state.enemyBladeBase), requireNotNull(state.enemyBladeTip)))
-            val separation = playerAxis.distanceTo(enemyAxis) - player.radiusMeters - 0.0125
+            val stagePose=ArenaSession::class.java.getDeclaredMethod("enemyAttackPose",java.lang.Long.TYPE)
+                .apply { isAccessible=true }.invoke(fixture.session,0L) as AttackPoseSample
+            val playerParts=DaoBladeShape.shape.at(requireNotNull(state.playerWeaponGrip))
+            val enemyParts=DaoBladeShape.shape.at(stagePose.bladeGrip)
+            val separation=playerParts.minOf { p -> enemyParts.minOf { e ->
+                val pair=requireNotNull(closestSegmentPoints(p.base,p.tip,e.base,e.tip))
+                pair.first.distanceTo(pair.second)-p.radiusMeters-e.radiusMeters
+            } }
             assertTrue("Persistent steel must not overlap after ${(index + 1) * 10} ms; signed gap=$separation",
                 separation >= -geometryTolerance)
             val origin = requireNotNull(state.enemyPosition)
@@ -119,7 +129,7 @@ class NativeEnemyMotionContactTest {
         println("STEEL_RELEASE idle sourceResumedMs=$sourceResumedMillis retreatMm=${requireNotNull(afterPressure.enemyPosition).distanceTo(requireNotNull(firstContact.enemyPosition))*1000} maximumVirtualOffsetMm=${maximumVirtualOffset*1000}")
         assertEquals("Player grip must never be projected to make room for the enemy", 0.0, maximumVirtualOffset, 0.0)
         val withdrawn = requireNotNull(afterPressure.enemyPosition)
-        repeat(200) {
+        repeat(4200) {
             fixture.tick(10_000_000L)
             assertEquals("A static latch cannot farm impacts", 1, fixture.impacts().size)
             assertEquals(100, fixture.session.viewState.health)

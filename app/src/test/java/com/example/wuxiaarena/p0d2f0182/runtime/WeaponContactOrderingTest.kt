@@ -10,6 +10,7 @@ import com.example.wuxiaarena.core.combat.PlayerMotionFrame
 import com.example.wuxiaarena.core.combat.QualifiedSwing
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import kotlin.math.sqrt
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
@@ -116,7 +117,7 @@ class WeaponContactOrderingTest {
     private class Fixture(active: Boolean = false) {
         private val session = ArenaSession(logMessage = {}, logFailure = { _, error -> throw error })
         private val query = ArenaSession::class.java.getDeclaredMethod("queryContact", PlayerMotionFrame::class.java,
-            PlayerMotionFrame::class.java, AttackPoseSample::class.java, AttackPoseSample::class.java).apply { isAccessible = true }
+            PlayerMotionFrame::class.java, AttackPoseSample::class.java, AttackPoseSample::class.java,java.lang.Long.TYPE).apply { isAccessible = true }
 
         init {
             if (active) {
@@ -130,7 +131,7 @@ class WeaponContactOrderingTest {
         }
 
         fun query(from: PlayerMotionFrame, to: PlayerMotionFrame, before: AttackPoseSample, after: AttackPoseSample): Result? {
-            val value = query.invoke(session, from, to, before, after) ?: return null
+            val value = query.invoke(session, from, to, before, after,10_000_000L) ?: return null
             fun field(name: String): Any = requireNotNull(value.javaClass.getDeclaredField(name).apply { isAccessible = true }.get(value))
             return Result(field("contact") as BladeContact, field("steel") as Boolean,
                 field("zone") as HitZone, field("playerAttack") as Boolean)
@@ -151,11 +152,17 @@ class WeaponContactOrderingTest {
     private fun bodyAt(x: Double) = EnemyContactPose(Vector3(x, 2.4, -0.4),
         Vector3(x, 0.5, -0.4), Vector3(x, 1.4, -0.4))
 
-    private fun pose(body: EnemyContactPose, steelX: Double) = AttackPoseSample(0.0, body,
-        Vector3(steelX, 1.0, -0.4), Vector3(steelX, 1.4, -0.4))
-
-    private fun incoming(body: EnemyContactPose, z: Double, bottom: Double, top: Double) = AttackPoseSample(0.0, body,
-        Vector3(0.0, bottom, z), Vector3(0.0, top, z))
+    private fun pose(body:EnemyContactPose,steelX:Double):AttackPoseSample {
+        val g=WeaponGrip(Vector3(steelX,1.2,0.0),IDENTITY);val axis=playerBlade(g)
+        return AttackPoseSample(0.0,body,axis.base,axis.tip,g,0.0)
+    }
+    private fun incoming(body:EnemyContactPose,z:Double,bottom:Double,top:Double):AttackPoseSample {
+        // Two explicitly authored full-rigid fixtures: above-head or downward torso span.
+        val q=if(bottom>1.5)Quaternion(sqrt(.5),0.0,0.0,sqrt(.5)) else Quaternion(-sqrt(.5),0.0,0.0,sqrt(.5))
+        val y=if(bottom>1.5)bottom-.129 else top+.129
+        val g=WeaponGrip(Vector3(0.0,y,z),q);val axis=playerBlade(g)
+        return AttackPoseSample(0.0,body,axis.base,axis.tip,g,0.0)
+    }
 
     private companion object {
         val IDENTITY = Quaternion(0.0, 0.0, 0.0, 1.0)

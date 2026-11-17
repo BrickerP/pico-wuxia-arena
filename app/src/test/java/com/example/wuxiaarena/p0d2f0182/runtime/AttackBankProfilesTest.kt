@@ -4,6 +4,14 @@ import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.combat.firstBladeShapeBodyContact
+import com.example.wuxiaarena.core.combat.BladeShapeSweep
+import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.BladeSweep
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertThrows
@@ -19,16 +27,13 @@ class AttackBankProfilesTest {
 
     private fun ms(value: Long) = value * 1_000_000L
 
-    private fun pose(time: Double, offset: Double = 0.0) = AttackPoseSample(
-        time,
-        EnemyContactPose(
-            Vector3(1.0 + offset, 2.0, 3.0),
-            Vector3(4.0 + offset, 5.0, 6.0),
-            Vector3(7.0 + offset, 8.0, 9.0),
-        ),
-        Vector3(10.0 + offset, 11.0, 12.0),
-        Vector3(13.0 + offset, 14.0, 15.0),
-    )
+    private fun pose(time:Double,offset:Double=0.0):AttackPoseSample {
+        val grip=WeaponGrip(Vector3(10.0+offset,11.0,12.0),Quaternion(0.0,0.0,0.0,1.0))
+        val axis=playerBlade(grip)
+        return AttackPoseSample(time,EnemyContactPose(Vector3(1.0+offset,2.0,3.0),
+            Vector3(4.0+offset,5.0,6.0),Vector3(7.0+offset,8.0,9.0)),
+            axis.base,axis.tip,grip,0.0)
+    }
 
     private fun profile(
         clip: String = "attack_overhead",
@@ -39,13 +44,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33", AttackBankProfileData.bindingSha256)
-        assertEquals("871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2", AttackBankProfileData.bindingSha256)
+        assertEquals("5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("32de662655acb458a6e7f09b62ae5741a5d1ad5968b1a72c35d439d8f25260e7", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -61,17 +66,15 @@ class AttackBankProfilesTest {
             assertTrue(character.modelSha256.matches(Regex("[0-9a-f]{64}")))
             assertTrue(character.profileSha256.matches(Regex("[0-9a-f]{64}")))
             assertEquals(AttackDirection.entries.toSet(), character.attacks.keys)
+            val role=asset.substringAfterLast('/').substringBefore('.')
+            for(reaction in listOf(character.reactions.body,character.reactions.head,character.reactions.side))PreservedProfileSeeds.verify("$role/${reaction.clip}",reaction.samples)
             for ((direction, clip) in clips) {
                 val profile = AttackBankProfiles.forAsset(asset, direction)
                 assertSame(character.attacks.getValue(direction), profile)
                 assertEquals(clip, profile.clip)
                 assertEquals(phaseTimes(direction), profile.sourcePhaseSeconds)
-                val expectedSamples = when {
-                    direction == AttackDirection.OVERHEAD -> 211
-                    asset == "asset://models/opponents/veteran.glb" && direction == AttackDirection.LEFT -> 130
-                    else -> 106
-                }
-                assertEquals(expectedSamples, profile.samples.size)
+                val role=asset.substringAfterLast('/').substringBefore('.')
+                PreservedProfileSeeds.verify("$role/${profile.clip}",profile.samples)
                 assertEquals(0.0, profile.samples.first().sourceSeconds, 0.0)
                 assertEquals(1.75, profile.samples.last().sourceSeconds, 0.0)
                 assertTrue(profile.samples.zipWithNext().all { (before, after) -> before.sourceSeconds < after.sourceSeconds })
@@ -132,7 +135,11 @@ class AttackBankProfilesTest {
         val profile = profile()
         val sample = profile.sample(0.875)
         val expected = pose(0.875, 3.5)
-        assertEquals(expected, sample)
+        assertEquals(expected.sourceSeconds,sample.sourceSeconds,0.0)
+        for((a,b) in listOf(expected.contact.head to sample.contact.head,expected.contact.bodyBottom to sample.contact.bodyBottom,
+            expected.contact.bodyTop to sample.contact.bodyTop,expected.bladeBase to sample.bladeBase,expected.bladeTip to sample.bladeTip))assertPoint(a,b,1e-12)
+        assertEquals(expected.bladeGrip,sample.bladeGrip)
+        assertEquals(expected.bladeGripInterpolationErrorToNextMeters,sample.bladeGripInterpolationErrorToNextMeters,0.0)
         assertSame(profile.samples.first(), profile.sample(0.0))
         assertSame(profile.samples.last(), profile.sample(1.75))
     }
@@ -265,12 +272,17 @@ class AttackBankProfilesTest {
 
     @Test
     fun defenseFeedbackProjectsToTheRealEnemyBladeAndClampsToItsEndpoints() {
-        val sample = pose(1.0)
-        assertEquals(Vector3(11.0, 12.0, 13.0), sample.nearestBladePoint(Vector3(10.0, 14.0, 12.0)))
-        assertEquals(sample.bladeBase, sample.nearestBladePoint(Vector3(0.0, 0.0, 0.0)))
-        assertEquals(sample.bladeTip, sample.nearestBladePoint(Vector3(100.0, 100.0, 100.0)))
-        val collapsed = sample.copy(bladeTip = sample.bladeBase)
-        assertEquals(sample.bladeBase, collapsed.nearestBladePoint(Vector3(0.0, 0.0, 0.0)))
+        val sample=pose(1.0)
+        val parts=DaoBladeShape.shape.at(sample.bladeGrip)
+        for(part in parts) {
+            val axis=part.tip-part.base
+            assertPoint(part.base,com.example.wuxiaarena.core.math.closestPoint(part.base-axis,part.base,part.tip))
+            assertPoint(part.tip,com.example.wuxiaarena.core.math.closestPoint(part.tip+axis,part.base,part.tip))
+            val body=BladeSegment(part.base,part.base,.001)
+            val witness=checkNotNull(firstBladeShapeBodyContact(BladeShapeSweep(DaoBladeShape.shape,sample.bladeGrip,sample.bladeGrip,0.0),BladeSweep(body,body)))
+            val selected=parts[witness.playerPartIndex]
+            assertTrue(witness.contact.playerPoint.distanceTo(com.example.wuxiaarena.core.math.closestPoint(witness.contact.playerPoint,selected.base,selected.tip))<=selected.radiusMeters+1e-7)
+        }
     }
 
     @Test
@@ -278,8 +290,9 @@ class AttackBankProfilesTest {
         val origin = Vector3(0.2, 0.028, -1.3) + Vector3(-0.03, 0.0, -0.04)
         for (opponent in arenaOpponents) {
             val locomotion = opponent.locomotionProfile()
-            assertEquals(361, locomotion.idle.samples.size)
-            assertEquals(369, locomotion.walk.samples.size)
+            val role=opponent.asset.substringAfterLast('/').substringBefore('.')
+            PreservedProfileSeeds.verify("$role/idle",locomotion.idle.samples)
+            PreservedProfileSeeds.verify("$role/walk",locomotion.walk.samples)
             assertEquals(6, locomotion.stepEvents.size)
             assertEquals(1.45, locomotion.strideMeters, 0.0)
             for (moving in listOf(false, true)) for (gait in listOf(-2.9, -0.4, 0.0, 0.4, 1.45, 2.9)) {

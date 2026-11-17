@@ -1,0 +1,226 @@
+{
+  "decision": "approved",
+  "binding_sha256": "7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6",
+  "characters": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 56443344,
+          "sha256": "767ebf1580ee26579a41715aed02c035d7d13db81eefa08ae7785fe114c48faa"
+        },
+        {
+          "file": "base_prepared_png.glb",
+          "bytes": 59536464,
+          "sha256": "4fc0cb53478a9e4636981265218932691033a3774ceed06c4b1e5a7e3531bb4c"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 26047876,
+          "sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "90777f7e0711deca2391274935d0cf1a1e2a653d6c1ab0c63a1ab89b1ff91a4b",
+        "turn": "4de8d15d68c77db67951e6b94f51475c62021059be7c4e4cec88d45796325f62",
+        "hit_body": "0a7e36f9dacec45a39b7fc1eb11fcf845fedb446baf38da735e64d9828b170ab",
+        "hit_head": "1c8aa51c800c3a9c28f3eae07dbd7db17286779e50a71f62fa0d8fc6e3284fa5",
+        "hit_side": "229d65c53a41e40542b21b06292f70b31a39a1364929e24cee1a6b8f0672a050",
+        "idle": "c53cb8185c579e8ac8ddaa164e4f25a0d3e4e827f2c7030b38bbc924a390274e",
+        "walk": "03d1beb66df9b06742febf3aa42d6f9e1a5698fb2a6c662d76105b729c67967a",
+        "attack_overhead": "d8c2e82bb40d1bac3b173037afa9f690649afe2aae7526b03e000baf7641df40",
+        "attack_left": "55d3d6d146f68f92595638839111d32dbf9759058f5481f9894f312679574135",
+        "attack_right": "43a7ee335db8e65b15818ab9200b6c27f8cb0b7d2daba13eb235112876592e79"
+      },
+      "clip_semantic_signatures": {
+        "fall": "f1c60b10cca80a329adeee5a56c5dc84cb8be3ab3e00a8783862e2539afb566e",
+        "turn": "6dc6358f9dc8dd41fea83065cece4d779ec558b9484489727c7d9a0de73aae8d",
+        "hit_body": "a64328719ade8314546e0d3256e466911d1cda446f04cc85f5784d7b8924ecda",
+        "hit_head": "313ac48448e596065fffa30b9fba48480181ecfb046063d0932e8f12ea4eabb9",
+        "hit_side": "b485702e911477406cbad967f9227c134fa7d144cd60091328658eee4129a707",
+        "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+        "walk": "6fa7d2b97c7c14dac44b15867ec83b01b4616222c3f3ef46ccb5abe30ad270d8",
+        "attack_overhead": "d508d28f18230d44470868dc8c04d62dd18a93c89c72ee0889b8a7a4807f34c9",
+        "attack_left": "dbaa22fd5d24d3f65f27c53fc87de02ca0cd09f63e68c6377d7213ace8540662",
+        "attack_right": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52"
+      },
+      "texture_encoding_manifest_sha256": "1751cc2c3c0faec4a53931af7dcb6bfd375799da707bea5f0215bba974376d43",
+      "attack_profiles_sha256": "32de662655acb458a6e7f09b62ae5741a5d1ad5968b1a72c35d439d8f25260e7"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 16178852,
+          "sha256": "d76cbbc12548c10c596229fe92e21fdc517dc41fb3171752592c97656c9357ae"
+        },
+        {
+          "file": "indigo_prepared_png.glb",
+          "bytes": 19271924,
+          "sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 15088200,
+          "sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "ee1fe2532e2946e1f5ef34c657d5227d5141dec2485570c201f37186338d1ddb",
+        "turn": "a4bfb270f90d50035a2160aad510e40af8a341ce474a5369d57dd558eb76c78e",
+        "hit_body": "174fa093fd1fa2be9c09305088d4873d4ae8575846dab7c25b5b77361fac5cb1",
+        "hit_head": "9d647745e9fa7cdcaa8c27f7f10d900e1da6ae1811b435ced910789cd843287c",
+        "hit_side": "fcd1dce1837ed7395ffe07f893f42ce5fec14b566b5ccbc35544f34d8f9738d6",
+        "idle": "e2ecc07033fc487152a5797884adf1f18dde97a95dd07e4c9a0ac209ba6c24a0",
+        "walk": "d622c648529317b37d770274149e7e0268489dd93cebf12942d784a8f41a26ac",
+        "attack_overhead": "8a408b06e05effd10c8df3932a7c08463bc038d679fa80b7846ef2f0f35b9dc9",
+        "attack_left": "05b8d0f7dcd8ca01b4babe16c9409a7a4acdf7351d4f813933a8b5f71bc6c43e",
+        "attack_right": "3ae0cd76946eee170b26967775566853556eb8a99be8c6c5de3a091b2457adc0"
+      },
+      "clip_semantic_signatures": {
+        "fall": "17f803154177a35b793a843b0e4d1ef5207a2b96ee81258ac5e9c6d4ff107c3a",
+        "turn": "a450693f79da85046ffbc767bba0c6a648aaa650f299ae63f688d03fd9dd7453",
+        "hit_body": "c6373be5aa755fad0cc85694619b5602d9191d124fd8e3d9463546d572e6210b",
+        "hit_head": "66346e8faf6ba03b6dcd8d19657ef7e6e4ec935fe8b06f03cd3fe241ea812647",
+        "hit_side": "dbcea4f5ab0f2639bee05a5824bbb6e35730aa7bf6db41339c4507dd468ba185",
+        "idle": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
+        "walk": "d191785c021037b499a5ab1a5ad5b49f30cdcbb9398b278ce0b56f29dd4c4854",
+        "attack_overhead": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
+        "attack_left": "f8a92d155561c8a4c1f49f9c0bdae4cee4d78f61fc79344a544d4e1f3797b4bd",
+        "attack_right": "4ed042687010668cbfd135f540bc5d3e437ed044507e8389b09138c906119b7c"
+      },
+      "texture_encoding_manifest_sha256": "78dd01ec9ce5bce7a9a2ba58c0a2ea83f162432575a8981eedae99bbb9ddc615",
+      "attack_profiles_sha256": "e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 38959728,
+          "sha256": "efb1429e01273f9c27cf3ce23afd36c43b3dcffb3f1a2b9674a0783aa4f28077"
+        },
+        {
+          "file": "veteran_prepared_png.glb",
+          "bytes": 42052784,
+          "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 30932248,
+          "sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "52f562634e0a50c93327761bc63f7e2aca582bbe030f275f9b8cd5c867735262",
+        "turn": "3e7139ddcc127af7cc387039560da1ad6ff51010d07a5d742a9983d58b5f41f2",
+        "hit_body": "4ff797f525fef2444a0704ace126f717c5bac515dadff9e300fb8425c5807ce7",
+        "hit_head": "6892d926003492f72935c223ecb44b40280353868f98e4e41541e058be376907",
+        "hit_side": "5975697b72dbc633ad99339d1683da00fda825a7f23a5c8f68fe2af16690b97f",
+        "idle": "ab0d3c025548051d21e783c895608983a66b4539588ee7d12b7e030fb50f5744",
+        "walk": "cfb7856f9361d65d2f4f2aeced43948e870b1dbdd6a56277ef1fc70ce9e4b8e9",
+        "attack_overhead": "2f184abd723d896c17f5e3177de6f076420abcc72cd6a80ffa73307359847496",
+        "attack_left": "d24d15e350d05b0d3cefbf683cecf843bc7a166653632773cdc67ea3336fbf12",
+        "attack_right": "7d4404a3d2dae88f07840c9f2db0cd4f4133612805efd34a62bc1a5253452fdf"
+      },
+      "clip_semantic_signatures": {
+        "fall": "8289550fb8e87d4a40e6443e9a7214ed4dcd692e2d42eddec7a9b6ee27b1192c",
+        "turn": "48f21c373116743712126a55ba07b34f885f1bcb8b1cc051ba4724b769e4a8b8",
+        "hit_body": "07e1c2d1dcaa952e3faac0f092f91583ef5875e90d5e281003612fb74b41f2c4",
+        "hit_head": "969f9293aaf6b23a74dc3deee4ac133d4055f9e11cdf4e2251664ae5f4aa164d",
+        "hit_side": "045f804ffd1e6922215c1de4a3b6d1b1a0453ce73b4be3a760c1451cbeb34d7c",
+        "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+        "walk": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
+        "attack_overhead": "d08b75e40bd176b59a44aea8e48cdc9f554d07b8a54dee0283db008ecf0d4d5c",
+        "attack_left": "9dfb4737b1e4fcf00e8eb392a3d1cb52b2a8ce8c7b7bb9d20138184e1934a136",
+        "attack_right": "cccae52863c7d8f2ee795611f11b1ec603d81eafde0333e74d6f8a57d76909cd"
+      },
+      "texture_encoding_manifest_sha256": "c816871200490d589b649bb1d377b5704130240b6ca45827fae77469ab204a51",
+      "attack_profiles_sha256": "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170"
+    }
+  ],
+  "player_weapon": {
+    "schema_version": 1,
+    "source": {
+      "source": "../refinement/weapon/stage2/dao_grip_refined.glb",
+      "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
+    },
+    "runtime_texture_encoding": {
+      "format": "KHR_texture_basisu",
+      "settings": {
+        "codec": "uastc",
+        "uastc_quality": 3,
+        "threads": 2,
+        "zstd": 18,
+        "mipmap_filter": "lanczos4",
+        "full_mips": true,
+        "normal_mode": false,
+        "normalize": false,
+        "rdo": false,
+        "orientation": "top-left",
+        "pixel_resize": {
+          "default_max_dimension": 1024,
+          "filter": "explicit-axis-lanczos4-v1",
+          "upsample": false
+        },
+        "mip_source": {
+          "same_axis": "ktx-cli-generate-mipmap",
+          "different_axes": "explicit-axis-lanczos4-v1"
+        },
+        "axis_mips": {
+          "version": 1,
+          "precision": "float64",
+          "support": 4,
+          "centers": "half-pixel",
+          "antialias": "support-scaled-by-source/target",
+          "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+          "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+          "alpha_filter": "linear-straight",
+          "quantization": "clip-0-1-round-half-up-uint8",
+          "top": "runtime-sized-domain-filtered-pixels"
+        }
+      },
+      "helper": {
+        "source": "../refinement/pbr-compression/compress_pbr.py",
+        "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
+      },
+      "encoder": {
+        "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "source_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+        "version": "ktx version: v4.4.2",
+        "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+      },
+      "release_identity": {
+        "source": "../refinement/pbr-compression/tooling/download-identity.json",
+        "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
+      },
+      "host_python": {
+        "source": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+        "source_sha256": "bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e",
+        "version": "3.9.6",
+        "pillow_version": "11.3.0",
+        "numpy_version": "2.0.2"
+      }
+    },
+    "output": {
+      "file": "dao_grip.glb",
+      "bytes": 4332212,
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+    },
+    "texture_encoding_manifest": {
+      "file": "dao_grip_texture_encoding.json",
+      "sha256": "a69fd3ba0621937d38160f4f8588bce616d7da2b191019777a9cc51e6ad1ca12"
+    },
+    "manifest_sha256": "a00f17481dee8a1d2901b0c10cd7c8f02c7baf88bb052b9f5583e23bdc6bdc18"
+  },
+  "scope": "Root development integration after compactHEAD peak PBR review and actual canonical output inspection. Attacks/locomotion exact to reviewed hero bank; three hurt sources intentionally guard-based/grounded. EOF normalization has identical AST; fresh formal publication must reproduce exact reviewed model/profile bytes. Not native fight/overall art/Space Pro acceptance.",
+  "reviewed_candidate_binding": "f8b1a32631d0fbe8277fbffd7723529d25f96d5524c38ed5aa636cedf10ebdee",
+  "equivalent_source_change": "Only trailing EOF whitespace; AST identical.",
+  "known_risks": [
+    "Native freeze removal requires same-APK real input trial.",
+    "Skin remains smooth/young; overall modeling still unaccepted.",
+    "Body contact remains HEAD/torso until skinned proxy integration."
+  ]
+}

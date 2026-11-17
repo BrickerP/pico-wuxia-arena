@@ -1,0 +1,315 @@
+{
+  "schema": "pico-native-entry-production-closure-v1",
+  "status": "minimal_source_and_inputs_closed_pending_Root_native_adoption",
+  "handoff_sha256": "3b926143947f0207cc5664c4c6f9793e0d3756ca6a13ae47afad7adc52f636c3",
+  "no_artifacts_temp_files_required": true,
+  "defaults_read_immutable_repo_sources": true,
+  "producer_source_minimum": {
+    "ArtSource/refinement/environment-hero/native-entry-finish/build_entry.py": {
+      "sha256": "2528e9002f5adb10e6b7809a1528279714d83c2c33329f0c941ffb8922981310",
+      "bytes": 8937
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/compose_entry.py": {
+      "sha256": "90080b202e234dffdb2498e6074fc87d22cd2f10e2e6750e026bf1d13dd4bbd9",
+      "bytes": 7727
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/render_entry.py": {
+      "sha256": "389ab727dc6ae7617f726019f5e15d5e50bfe524e42f2a23a3d4bb9245c739df",
+      "bytes": 3680
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/verify_entry.py": {
+      "sha256": "e4e9488f42dee675ffb6dbc7d5d1f58b1c6a27848fd5945844138b5c5fe38287",
+      "bytes": 7445
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/validate_entry.mjs": {
+      "sha256": "cdd860d51d7bc0f4d69ee97f089fe78812e5d4b057e4553921e76aca556bdd0c",
+      "bytes": 2249
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/finalize_entry.py": {
+      "sha256": "efc635fb2a2e0c8eba21c0884e4b2d7ccc6b03478757e1dad28e4bf494bbb253",
+      "bytes": 4846
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/REBUILD.md": {
+      "sha256": "8c3ea7d1332255306aa5399b1a75001951abebcac59a56b3bc58552fbcbe5197",
+      "bytes": 5587
+    }
+  },
+  "shared_inputs_already_in_repo": {
+    "ArtSource/refinement/hand-poses/run_blender.py": {
+      "sha256": "5fe11e476c54833b3399cf0df8a4992894ef2e587a3c56b3a7e383aa89cde5a1",
+      "bytes": 898,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/method-study-2026-11-12/build_window_sample.py": {
+      "sha256": "956412bd78fe905867efd1fd79e3c9a00a5db37ff8d3d11859dc57064c4fd6d5",
+      "bytes": 23567,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/verify_environment.py": {
+      "sha256": "32428f030c15d5b7b6194252a137bd8b98cb76e8dd00e4f59a38927b3b4bbc54",
+      "bytes": 6897,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/stage2/create_candidate.py": {
+      "sha256": "cbeabf52ab60a504b0e2357e06aa4ed28d4ceb21924d874c600472ba4a229d15",
+      "bytes": 17222,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/single-window-integration-2026-11-12/build_courtyard.py": {
+      "sha256": "40d37e22ba3ee1203a8969b1a7b508ae317eadadc46c91e963a7daee86d107a8",
+      "bytes": 14183,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/facade-polish/build_facade.py": {
+      "sha256": "b118c66222b30c6e15373e912a0c1ef155743c4ce732b9e4df7c35d89b2ddccd",
+      "bytes": 19163,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/stage2/render_review.py": {
+      "sha256": "c629a7f8c29a4e025a371e156c35fda8b56240841475d3813762e6170f21915e",
+      "bytes": 5388,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/pbr-compression/tooling/gltf-validator/package.json": {
+      "sha256": "305561156ebddbe79ffddf43dcbc73ca436b129eda25b563d31ab08b157f5843",
+      "bytes": 67,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/pbr-compression/tooling/gltf-validator/package-lock.json": {
+      "sha256": "f4d4115c424eb0f7c5da395f93045e9d5c66842679f13ed45c76a27e30409ea0",
+      "bytes": 513,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb": {
+      "sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "bytes": 39262132,
+      "already_tracked": true
+    },
+    "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_ktx.glb": {
+      "sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+      "bytes": 40059936,
+      "already_tracked": true
+    }
+  },
+  "publish_outputs": {
+    "ArtSource/refinement/environment-hero/native-entry-finish/courtyard_entry_finish_png.glb": {
+      "sha256": "dfc6cf82ff58f4f845305eefb9180cf5a9868741b667fe89dec8e9e2cb6db04c",
+      "bytes": 39753032
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/courtyard_entry_finish_ktx.glb": {
+      "sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+      "bytes": 40550840
+    }
+  },
+  "review_receipts": {
+    "ArtSource/refinement/environment-hero/native-entry-finish/construction.json": {
+      "sha256": "f9156700c48cd4341cd12358c78dfcc17d1a86068305e0f80793cf3334a6ede8",
+      "bytes": 5600
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/composition.json": {
+      "sha256": "2200f03fb7ae358be670bdfb13b88913133a9e8d93082a775ed641f65b84386e",
+      "bytes": 2803
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/handoff.json": {
+      "sha256": "3b926143947f0207cc5664c4c6f9793e0d3756ca6a13ae47afad7adc52f636c3",
+      "bytes": 11020
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/size-anchor-proof.json": {
+      "sha256": "c4fec482d076ccb6b25f9339cf1549c1d1e9318b0fb259c46e80a3b2ef9870a7",
+      "bytes": 5803
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/verification.json": {
+      "sha256": "7f6d7278b83997acfb5a8b7798cc7a3143e4081e6ec6e6b5d533667de386a464",
+      "bytes": 216
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/gltf_summary.json": {
+      "sha256": "74db64f5753bab174aca26f84d4b03bac0cfd91e151473561bf1146b92128ad1",
+      "bytes": 1429
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/png_gltf_validator.json": {
+      "sha256": "982e6c8c472a0fccfbf8b35362697c7e3a6b1c8f666c2630845aa84eb16c2bc8",
+      "bytes": 39442
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/ktx_gltf_validator.json": {
+      "sha256": "a10d7ac1ec3481bbc0f7c0c1057ea4886759bb125813b0ab0a6971b1aad83503",
+      "bytes": 40740
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/render_manifest.json": {
+      "sha256": "cd6764393605aeb3d15251556ff4ec78100dcf0205522f46dca31543e9629757",
+      "bytes": 2367
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/player_1p65_before.png": {
+      "sha256": "a19c90a9578a912bd0e1b763e8d871602bc987d6bda2e4db138a2056fbbf2cd0",
+      "bytes": 1265757
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/player_1p65_after.png": {
+      "sha256": "fcbb0f17f20e479252e167930b86386a9cdf792b17fc97b1ba9b91ab0dacebba",
+      "bytes": 1270402
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/player_1p65_comparison.png": {
+      "sha256": "c6baf7be5ef9e85c40f68299c8723d23c0a3cd0d706c1664abd765acac707d22",
+      "bytes": 1327545
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/joint_oblique_before.png": {
+      "sha256": "54da5cf979ecba3ac495b2b8e0e916780e6476b30c761ad0696e187da5fa6df5",
+      "bytes": 1184888
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/joint_oblique_after.png": {
+      "sha256": "3f674219a7ac1b27d05fb8a3c8cdf55f1775b5ae3177744df94bfa2512988206",
+      "bytes": 1208734
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/joint_oblique_comparison.png": {
+      "sha256": "65b75725f5cf9eaac996619a236576ed875ea8df707ecf2a9df9200545a5ff7b",
+      "bytes": 1438987
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/foot_oblique_before.png": {
+      "sha256": "34de70523750fbfbebe6b667502b3b61ce2217370308ab52b6851064457f7125",
+      "bytes": 1222401
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/foot_oblique_after.png": {
+      "sha256": "71d3cbe55692398c057336829d353876ed2e50a00b10b97062829ab6978f13dd",
+      "bytes": 1246515
+    },
+    "ArtSource/refinement/environment-hero/native-entry-finish/review/foot_oblique_comparison.png": {
+      "sha256": "da1b8ce2e617fb579d62e273b5e90e3afc7fcb5777b5224e0d7a056cec17b779",
+      "bytes": 1455323
+    }
+  },
+  "optional_generated_workbench": {
+    "entry_module.glb": {
+      "sha256": "c0198444d20dee20f83f335ef6d95e2677c82a40061cfc8e9b2c6e732caa82b4",
+      "bytes": 2419720,
+      "needed_as_source_input": false,
+      "reason": "generated by build_entry before composition"
+    },
+    "entry_finish_full_scene.blend": {
+      "sha256": "26c86da0b6494a4b256f864aff16704c8c32ea63cae9be2eabd67e3c9dce0b0c",
+      "bytes": 44011789,
+      "needed_as_source_input": false,
+      "reason": "editable whole-scene output; canonical source rebuild uses pinned two complete GLBs and code"
+    }
+  },
+  "excluded_from_minimal_publication": [
+    "review/corrected_specimen_output.txt",
+    "review/final_float_safe_output.txt",
+    "__pycache__/"
+  ],
+  "runtime_adoption": {
+    "destination": "app/src/main/assets/models/courtyard_hero.glb",
+    "expected_before_sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+    "candidate_file": "ArtSource/refinement/environment-hero/native-entry-finish/courtyard_entry_finish_ktx.glb",
+    "candidate_sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+    "candidate_bytes": 40550840,
+    "only_runtime_asset_replacement": true,
+    "code_light_IBL_anchor_UI_change": false,
+    "root_must_verify_actual_packaged_asset_sha": true
+  },
+  "source_generation_order": [
+    "build_entry reads fixed d935 PNG; uses material29/30 embedded images; emits module",
+    "compose_entry reads fixed repository d935 PNG+c7 KTX; emits both complete candidates, no app read/write",
+    "render_entry imports same fixed PNG and complete candidate, inherited stage2 night setup; no character/app/artifacts input",
+    "verify_entry validates fixed sources+both outputs; validate_entry baseline also uses fixed c7 repository source",
+    "finalize_entry seals generated full scene and same-camera images"
+  ],
+  "commands": {
+    "rebuild": "python3 ArtSource/refinement/hand-poses/run_blender.py --background --factory-startup --threads 2 --python-exit-code 1 --python ArtSource/refinement/environment-hero/native-entry-finish/build_entry.py",
+    "verify": "python3 ArtSource/refinement/environment-hero/native-entry-finish/verify_entry.py",
+    "gltf": "node ArtSource/refinement/environment-hero/native-entry-finish/validate_entry.mjs",
+    "seal": "python3 ArtSource/refinement/environment-hero/native-entry-finish/finalize_entry.py",
+    "root_adopt_after_precondition": "cp ArtSource/refinement/environment-hero/native-entry-finish/courtyard_entry_finish_ktx.glb app/src/main/assets/models/courtyard_hero.glb"
+  },
+  "toolchain_prerequisites": {
+    "Blender": "4.5.15 LTS, existing run_blender wrapper uses installed host binary; not a shipped asset or artifacts dependency",
+    "Python": "3.9.6 host verified; NumPy2.0.2, Pillow11.3.0; Blender has its own bundled bpy/mathutils",
+    "Node": "existing Node22",
+    "gltf-validator": "2.0.0-dev.3.10, tracked package.json/package-lock.json; npm ci --prefix ArtSource/refinement/pbr-compression/tooling/gltf-validator restores installation, no vendored node_modules needed"
+  },
+  "size_and_anchor_proof": {
+    "sha256": "c4fec482d076ccb6b25f9339cf1549c1d1e9318b0fb259c46e80a3b2ef9870a7",
+    "bytes": 5803,
+    "file": "size-anchor-proof.json",
+    "bounds_exact": true,
+    "original_nodes_world_transforms_exact": 64,
+    "anchor_count": 12,
+    "method": "Offline active triangle bounds, original world transforms and semantic/index-stream preservation; not native bounds readback."
+  },
+  "quality_gates": {
+    "existing_structural_tests": {
+      "status": "passed",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "Full private scene/non-target/solid construction/PBR stream checks; not native appearance or terminal performance."
+    },
+    "gltf_summary": {
+      "validator_version": "2.0.0-dev.3.10",
+      "models": [
+        {
+          "label": "baseline_png",
+          "errors": 0,
+          "warnings": 4,
+          "infos": 131,
+          "new_timber_missing_TBN": 0,
+          "codes": {
+            "UNUSED_OBJECT": 129,
+            "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+            "UNUSED_MESH_TANGENT": 2
+          }
+        },
+        {
+          "label": "baseline_ktx",
+          "errors": 0,
+          "warnings": 10,
+          "infos": 135,
+          "new_timber_missing_TBN": 0,
+          "codes": {
+            "UNSUPPORTED_EXTENSION": 1,
+            "VALUE_NOT_IN_LIST": 3,
+            "UNUSED_OBJECT": 132,
+            "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+            "UNUSED_MESH_TANGENT": 2,
+            "IMAGE_UNRECOGNIZED_FORMAT": 3
+          }
+        },
+        {
+          "label": "png",
+          "errors": 0,
+          "warnings": 4,
+          "infos": 134,
+          "new_timber_missing_TBN": 0,
+          "codes": {
+            "UNUSED_OBJECT": 132,
+            "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+            "UNUSED_MESH_TANGENT": 2
+          }
+        },
+        {
+          "label": "ktx",
+          "errors": 0,
+          "warnings": 10,
+          "infos": 138,
+          "new_timber_missing_TBN": 0,
+          "codes": {
+            "UNSUPPORTED_EXTENSION": 1,
+            "VALUE_NOT_IN_LIST": 3,
+            "UNUSED_OBJECT": 135,
+            "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+            "UNUSED_MESH_TANGENT": 2,
+            "IMAGE_UNRECOGNIZED_FORMAT": 3
+          }
+        }
+      ],
+      "baseline_warning_fingerprints_exact": true
+    },
+    "no_new_art_or_camera_runs_in_this_closure_task": true
+  },
+  "formal_assets_modified_by_this_task": false,
+  "docs06_temporarily_frozen_by_Root": true,
+  "remaining": [
+    "Root copy/packaged KTX identity and actual native view with7f",
+    "native TBN/visual material and gameplay composition review",
+    "Space Pro memory/frame-time/comfort"
+  ],
+  "closure_task_actions": "Only private dependency paths/metadata/readme were updated; no Blender launch, image rendering, formal asset/app/Git/device change. docs06 remains frozen at Root request."
+}

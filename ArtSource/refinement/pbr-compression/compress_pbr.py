@@ -24,13 +24,14 @@ SETTINGS = {
     "codec": "uastc", "uastc_quality": 3, "threads": 2,
     "zstd": 18, "mipmap_filter": "lanczos4", "full_mips": True,
     "normal_mode": False, "normalize": False, "rdo": False,
-    "orientation": "top-left", "pixel_resize": False,
+    "orientation": "top-left", "pixel_resize": {"default_max_dimension": 1024,
+        "filter": "explicit-axis-lanczos4-v1", "upsample": False},
     "mip_source": {"same_axis": "ktx-cli-generate-mipmap", "different_axes": "explicit-axis-lanczos4-v1"},
     "axis_mips": {"version": 1, "precision": "float64", "support": 4,
                   "centers": "half-pixel", "antialias": "support-scaled-by-source/target",
                   "sequence": "S-then-T-recursive-unquantized-clipped-linear",
                   "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF", "alpha_filter": "linear-straight",
-                  "quantization": "clip-0-1-round-half-up-uint8", "top": "original-decoded-pixels"},
+                  "quantization": "clip-0-1-round-half-up-uint8", "top": "runtime-sized-domain-filtered-pixels"},
 }
 WRAPS = {10497: "wrap", 33071: "clamp"}
 ENCODER_SHA = "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37"
@@ -161,6 +162,42 @@ def ktx_header(data):
                                             for i in range(levels))}
 
 
+def image_resize_limits(doc, material_overrides=None):
+    """Resolve real material texture slots; shared images cannot have two budgets."""
+    overrides = {} if material_overrides is None else material_overrides
+    require(isinstance(overrides, dict) and all(isinstance(prefix, str) and prefix
+            and type(limit) is int and limit == 2048 for prefix, limit in overrides.items()),
+            "material overrides require nonempty prefixes with a 2048 maximum")
+    used = {primitive["material"] for mesh in doc.get("meshes", [])
+            for primitive in mesh.get("primitives", []) if "material" in primitive}
+    matched = set()
+    limits = [set() for _ in doc.get("images", [])]
+    for index, material in enumerate(doc.get("materials", [])):
+        selected = [prefix for prefix in overrides if material.get("name", "").startswith(prefix)]
+        if index in used:
+            matched.update(selected)
+        maximum = overrides[selected[0]] if selected else 1024
+        slots = [(material.get("pbrMetallicRoughness", {}), "baseColorTexture"),
+                 (material.get("pbrMetallicRoughness", {}), "metallicRoughnessTexture"),
+                 (material, "normalTexture"), (material, "occlusionTexture"), (material, "emissiveTexture")]
+        for owner, key in slots:
+            if key in owner:
+                texture = doc["textures"][owner[key]["index"]]
+                limits[texture["source"]].add(maximum)
+    require(matched == set(overrides), "material override prefix did not match a rendered material: "
+            + ", ".join(sorted(set(overrides) - matched)))
+    for index, choices in enumerate(limits):
+        require(len(choices) == 1, f"image {index} has conflicting material resize budgets or no material")
+    return [next(iter(choices)) for choices in limits]
+
+
+def runtime_size(size, maximum):
+    """Preserve aspect ratio within a four-pixel block, never upscale source pixels."""
+    require(type(maximum) is int and maximum >= 4 and maximum % 4 == 0, "invalid maximum dimension")
+    scale = min(1.0, maximum / max(size))
+    return tuple(max(4, int(dimension * scale) // 4 * 4) for dimension in size)
+
+
 def check_ktx(data, domain, size):
     h = ktx_header(data)
     require((h["width"], h["height"]) == tuple(size), "image dimensions changed")
@@ -193,10 +230,11 @@ def semantic_snapshot(doc, compressed):
     return doc
 
 
-def verify_preserved(source, candidate):
+def verify_preserved(source, candidate, material_overrides=None):
     src, sb = load_glb(source)
     dst, db = load_glb(candidate)
     contracts = image_contracts(src)
+    limits = image_resize_limits(src, material_overrides)
     require(semantic_snapshot(src, False) == semantic_snapshot(dst, True), "non-image glTF semantics changed")
     images = {image["bufferView"] for image in src["images"]}
     for i in range(len(src["bufferViews"])):
@@ -206,7 +244,7 @@ def verify_preserved(source, candidate):
     for i, contract in enumerate(contracts):
         require(dst["images"][i]["mimeType"] == "image/ktx2", "not embedded KTX2")
         with Image.open(io.BytesIO(view_bytes(src, sb, src["images"][i]["bufferView"]))) as image:
-            size = image.size
+            size = runtime_size(image.size, limits[i])
         data = view_bytes(dst, db, dst["images"][i]["bufferView"])
         report.append(check_ktx(data, contract["domain"], size))
     return {"non_image_bufferViews_byte_identical": len(src["bufferViews"]) - len(images),
@@ -292,15 +330,34 @@ def axis_mips(image, domain, wrap_s, wrap_t):
     return levels
 
 
-def encode_image(raw, contract, encoder, identity, cache):
+def resize_for_runtime(image, contract, maximum):
+    target = runtime_size(image.size, maximum)
+    if target == image.size:
+        return image.copy()
+    linear = np.asarray(image, dtype=np.float64) / 255.0
+    if contract["domain"] == "srgb":
+        rgb = linear[:, :, :3]
+        linear[:, :, :3] = np.where(rgb <= .04045, rgb / 12.92, ((rgb + .055) / 1.055) ** 2.4)
+    linear = _resample_axis(_resample_axis(linear, target[0], 1, contract["wrap_s"]),
+                            target[1], 0, contract["wrap_t"])
+    linear = np.clip(linear, 0.0, 1.0)
+    if contract["domain"] == "srgb":
+        rgb = linear[:, :, :3]
+        linear[:, :, :3] = np.where(rgb <= .0031308, rgb * 12.92, 1.055 * rgb ** (1 / 2.4) - .055)
+    return Image.fromarray(np.floor(np.clip(linear, 0.0, 1.0) * 255.0 + .5).astype(np.uint8))
+
+
+def encode_image(raw, contract, encoder, identity, cache, maximum=1024):
     with Image.open(io.BytesIO(raw)) as image:
         require(image.format in ("PNG", "JPEG") and image.mode in ("RGB", "RGBA"), "require RGB/RGBA PNG/JPEG")
         require(getattr(image, "n_frames", 1) == 1, "animated image unsupported")
         require(image.width % 4 == image.height % 4 == 0, "image dimensions not divisible by four")
         image.load()
-        mode, size = image.mode, image.size
-        pixels_sha = sha(image.tobytes())
-        source_image = image.copy()
+        mode, source_size = image.mode, image.size
+        source_pixels_sha = sha(image.tobytes())
+        source_image = resize_for_runtime(image, contract, maximum)
+        size = source_image.size
+        pixels_sha = sha(source_image.tobytes())
     explicit = contract["wrap_s"] != contract["wrap_t"]
     mip_provenance = {"source": SETTINGS["mip_source"]["different_axes" if explicit else "same_axis"],
                       "wrap_s": contract["wrap_s"], "wrap_t": contract["wrap_t"]}
@@ -344,6 +401,8 @@ def encode_image(raw, contract, encoder, identity, cache):
     header = check_ktx(data, contract["domain"], size)
     validation = run([encoder, "validate", "--gltf-basisu", "--warnings-as-errors", cached])
     return data, {**contract, "source_sha256": sha(raw), "decoded_pixels_sha256": pixels_sha,
+                  "source_width": source_size[0], "source_height": source_size[1],
+                  "source_decoded_pixels_sha256": source_pixels_sha, "maximum_dimension": maximum,
                   "source_mode": mode, "width": size[0], "height": size[1], "sha256": sha(data),
                   "ktx2_bytes": len(data), "ktx2": header, "validation": validation,
                   "mip_provenance": mip_provenance, "mip_inputs": cache_record["mip_inputs"],
@@ -351,18 +410,20 @@ def encode_image(raw, contract, encoder, identity, cache):
                                                   else ["<losslessly-decoded-source.png>"]) + ["<output.ktx2>"], "cache_key": key}
 
 
-def build(source, expected_sha, output, encoder, cache):
+def build(source, expected_sha, output, encoder, cache, material_overrides=None):
+    encoder = Path(encoder).resolve()
     raw = source.read_bytes()
     require(sha(raw) == expected_sha, "source SHA256 does not match pin")
     require(source.resolve() != output.resolve() and not output.exists(), "output must be a new private candidate file")
     doc, binary = load_glb(raw)
     contracts = image_contracts(doc)
+    limits = image_resize_limits(doc, material_overrides)
     identity = encoder_identity(encoder)
     cache.mkdir(parents=True, exist_ok=True)
     replacements, records = {}, []
     for i, (image, contract) in enumerate(zip(doc["images"], contracts)):
         print(f"encoding image {i + 1}/{len(contracts)} {image.get('name', '')} {contract}", flush=True)
-        data, record = encode_image(view_bytes(doc, binary, image["bufferView"]), contract, encoder, identity, cache)
+        data, record = encode_image(view_bytes(doc, binary, image["bufferView"]), contract, encoder, identity, cache, limits[i])
         replacements[image["bufferView"]] = data
         records.append({"image": i, "name": image.get("name"), **record})
     dst = copy.deepcopy(doc)
@@ -378,13 +439,14 @@ def build(source, expected_sha, output, encoder, cache):
         texture["extensions"] = {BASIS: {"source": texture.pop("source")}}
     dst["extensionsUsed"] = dst["extensionsRequired"] = [BASIS]
     candidate = write_glb(dst, bytes(packed))
-    verification = verify_preserved(raw, candidate)
+    verification = verify_preserved(raw, candidate, material_overrides)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_bytes(candidate)
     report = {"schema": 1, "status": "offline_validated_private_candidate_native_validation_pending",
               "input": {"path": str(source.resolve()), "sha256": expected_sha, "bytes": len(raw)},
               "output": {"path": str(output.resolve()), "sha256": sha(candidate), "bytes": len(candidate)},
-              "encoder": identity, "settings": SETTINGS, "images": records, "preservation": verification,
+              "encoder": identity, "settings": SETTINGS, "material_overrides": material_overrides or {},
+              "images": records, "preservation": verification,
               "decoder": {"name": "Pillow", "version": PIL.__version__},
               "native_gpu_format_and_memory_measured": False,
               "notice": "KTX2 bytes and estimated block bytes are not native GPU memory measurements; no OOM claim."}
@@ -400,9 +462,11 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--encoder", type=Path, required=True)
     parser.add_argument("--cache", type=Path, default=Path(__file__).resolve().parent / "cache")
+    parser.add_argument("--material-overrides-json", default="{}")
     args = parser.parse_args()
     try:
-        build(args.input, args.sha256, args.output, args.encoder, args.cache)
+        build(args.input, args.sha256, args.output, args.encoder, args.cache,
+              json.loads(args.material_overrides_json))
     except (ValueError, KeyError, IndexError, TypeError, struct.error, OSError) as error:
         parser.exit(1, f"compression rejected: {error}\n")
 

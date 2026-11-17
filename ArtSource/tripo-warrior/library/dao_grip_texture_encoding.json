@@ -28,7 +28,11 @@
     "normalize": false,
     "rdo": false,
     "orientation": "top-left",
-    "pixel_resize": false,
+    "pixel_resize": {
+      "default_max_dimension": 1024,
+      "filter": "explicit-axis-lanczos4-v1",
+      "upsample": false
+    },
     "mip_source": {
       "same_axis": "ktx-cli-generate-mipmap",
       "different_axes": "explicit-axis-lanczos4-v1"
@@ -43,9 +47,10 @@
       "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
       "alpha_filter": "linear-straight",
       "quantization": "clip-0-1-round-half-up-uint8",
-      "top": "original-decoded-pixels"
+      "top": "runtime-sized-domain-filtered-pixels"
     }
   },
+  "material_overrides": {},
   "images": [
     {
       "image": 0,
@@ -58,6 +63,10 @@
       "wrap_t": "wrap",
       "source_sha256": "5bcdeadadbc0e61f560fda7a705ea4f304d0fafb2492a803e0b3df0660a8e217",
       "decoded_pixels_sha256": "cba92353d19207d8f6e9ecd4dc4160df0ef4f833a9df34aaec1c5775e5388885",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "cba92353d19207d8f6e9ecd4dc4160df0ef4f833a9df34aaec1c5775e5388885",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -95,7 +104,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -122,7 +131,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "125a4f98823fdd94dca51d08a9acebbf5b6ae6c699fa363be437bb07ac5a42c1"
+      "cache_key": "ba9835e3bda066ad6ed4ed898b1261341a955d38902875d1fbbe89df212e25b4"
     },
     {
       "image": 1,
@@ -135,6 +144,10 @@
       "wrap_t": "wrap",
       "source_sha256": "46704495d2418e6215483eba7f0b0cfc56d5a200cac9b6b15c32bdc64d48d002",
       "decoded_pixels_sha256": "010d9e86faf4a5493d7ab72afcaf65b21df45b5df53777944464d5859e42fdec",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "010d9e86faf4a5493d7ab72afcaf65b21df45b5df53777944464d5859e42fdec",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -172,7 +185,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -199,7 +212,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "f7494f9f84e945da1eec357c9aeb61c56cd88f94a2ad2184f4bb0c30bcd78666"
+      "cache_key": "bf1046b738da83f94899036600c3170b0dcea8712a86290ea6df9a95a2443087"
     },
     {
       "image": 2,
@@ -212,6 +225,10 @@
       "wrap_t": "wrap",
       "source_sha256": "7f98aa074835f7b782cf980348cad87db528bef0218064a66fda02980ef6af0d",
       "decoded_pixels_sha256": "7e315a7a72729fea89436108958db1c012581cd90d5b01224a86990609e524b8",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "7e315a7a72729fea89436108958db1c012581cd90d5b01224a86990609e524b8",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -249,7 +266,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -276,7 +293,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "566dca5d253ec7ae435e4e71780d9865f5efb083976a77e9effac6560c25eb66"
+      "cache_key": "8c0f156724c87965a27f11bb7220290596ef610e9fae7189ebf484384f4e7c66"
     },
     {
       "image": 3,
@@ -289,6 +306,10 @@
       "wrap_t": "wrap",
       "source_sha256": "0e362069a0d2ff35bcf05bcf93e25580b97770b315e4e865e5d15f67b202d856",
       "decoded_pixels_sha256": "2331ad722cd798c946a15751b7bec9420c2332f7fe0b58d43fc7a38265564e07",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "2331ad722cd798c946a15751b7bec9420c2332f7fe0b58d43fc7a38265564e07",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -326,7 +347,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -353,7 +374,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "e4af429fbeabc9fe7b9541c2b4151144197f3779c31fe57dbbd031530f62bae0"
+      "cache_key": "1965b1a0ef01b3e9ace53481b3d064e51fdba9c1aff0b0eae8f11c7f06f00c75"
     },
     {
       "image": 4,
@@ -366,6 +387,10 @@
       "wrap_t": "wrap",
       "source_sha256": "818f78407f8008af0d0d3066df2401ca3ffac994ab5a1f875c8e3fbbd54f3d11",
       "decoded_pixels_sha256": "d11b19369a1bfd167469395e1f6b82c849bf12ab52e2a061aa9420db75e9f2ca",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "d11b19369a1bfd167469395e1f6b82c849bf12ab52e2a061aa9420db75e9f2ca",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -403,7 +428,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -430,7 +455,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "326f8e62050bb2485c0ed15b53fe76f1a342057b1c5cd5c86d5ac042445faac4"
+      "cache_key": "12f3512ec836b539f9aad1a999c440f9bbdd82436c9defa885273ea31a41c5d9"
     },
     {
       "image": 5,
@@ -443,6 +468,10 @@
       "wrap_t": "wrap",
       "source_sha256": "0f80d7a3308dba2dc4ca2c985569a9ce30f6c5757a0006a74ce63dab07fd8a70",
       "decoded_pixels_sha256": "42cff1ab1438b85449f90ff3d4f3d89db7060c389929ffa8601ec62ed34dcb9f",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "42cff1ab1438b85449f90ff3d4f3d89db7060c389929ffa8601ec62ed34dcb9f",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -480,7 +509,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -507,7 +536,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "88f40abfe5d7ea023331d7152f0e5e1daa6d5630f278e7ddb91255a7401724dd"
+      "cache_key": "4f6d5ed02f6ad3f6e84129f35b81532a179f85be9814cace5af7afa4027dfefe"
     },
     {
       "image": 6,
@@ -520,6 +549,10 @@
       "wrap_t": "wrap",
       "source_sha256": "91eb5243146767bbd752103533424363f8585cb1d203fe4779780c02b168c0f8",
       "decoded_pixels_sha256": "f395936953199b8cb360f6c7ed3a6aa487b0e2657008337b73dc808c716651a9",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "f395936953199b8cb360f6c7ed3a6aa487b0e2657008337b73dc808c716651a9",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -557,7 +590,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -584,7 +617,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "8286f3b5a3f38f225fec418c1a6ac12a28b6dce75406bcbf90d5d3f14458e70c"
+      "cache_key": "e0e57ab9ae3eba075a296a471fda9e63ac2ac2df36222caafda4c060cd7c68b1"
     },
     {
       "image": 7,
@@ -597,6 +630,10 @@
       "wrap_t": "wrap",
       "source_sha256": "a3e7d822fc99479d823606a3abbe36cd817b1ac0468f6e4ff61a7cc8d6e35213",
       "decoded_pixels_sha256": "5f05b7a91f8c4c8b85415be769af1e5d6bfb21f6c90d612e982fedb95604ca42",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "5f05b7a91f8c4c8b85415be769af1e5d6bfb21f6c90d612e982fedb95604ca42",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -634,7 +671,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -661,7 +698,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "4929ad561b5f0678fc7345462de90be3eec59f8db24cc49a6094752b581a71db"
+      "cache_key": "f4989cab08e00004e618f8bcc57f385fe02a046ba37ff68a57b4e93803a2eb0b"
     },
     {
       "image": 8,
@@ -674,6 +711,10 @@
       "wrap_t": "wrap",
       "source_sha256": "27d82f50501a02ce1d2ec81014ebdb2f26b6a346939a38e08badead7df30d9ee",
       "decoded_pixels_sha256": "a16429f135ed78c9c6d2002cc3c5fe0d2c646061e8da80766300165637442427",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "a16429f135ed78c9c6d2002cc3c5fe0d2c646061e8da80766300165637442427",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -711,7 +752,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -738,7 +779,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "c41f0560de4b507528643639070e97d316c19be275d902ee4a0d0c2190799906"
+      "cache_key": "b3f0198216936b01705a06ffbf1cc79891380d349675b1183e65bcbabb21ce90"
     },
     {
       "image": 9,
@@ -751,6 +792,10 @@
       "wrap_t": "wrap",
       "source_sha256": "c1479a8eb4fa37e0747384d6fa69fa90f0745b11c748cb2abb293032b410498b",
       "decoded_pixels_sha256": "29584a287d39deb3e13d18899ac0f0a2b57d3a3cf46a1c94564778fe0cdc1a60",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "29584a287d39deb3e13d18899ac0f0a2b57d3a3cf46a1c94564778fe0cdc1a60",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -788,7 +833,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -815,7 +860,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "061a477a06e3d916ff3a23a16adbcb5d410a5fc41b2d70d41296010572797e12"
+      "cache_key": "627552ec3a938933c9c0cf64d02bfdcf85e50490378a784a3708d2d80b050daf"
     },
     {
       "image": 10,
@@ -828,6 +873,10 @@
       "wrap_t": "wrap",
       "source_sha256": "abf987ca6183c153f2d2a8ce2cd36cd9debebd706243c6e1498914b105514c1b",
       "decoded_pixels_sha256": "2b451b5348c5f63002c2a76bff3eab8408ace209d09e555b2b4bb0bc0c452632",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "2b451b5348c5f63002c2a76bff3eab8408ace209d09e555b2b4bb0bc0c452632",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -865,7 +914,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -892,7 +941,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "73c859606d93b56a6911923a08373637c985811d8a0ac322cc608283c9ac1763"
+      "cache_key": "104063af2fe3621c064793d45ba65d492f518ba8cf6cd4b4e29d8635273cc52d"
     },
     {
       "image": 11,
@@ -905,6 +954,10 @@
       "wrap_t": "wrap",
       "source_sha256": "a4edfe2c8765bb265dc127163c32aa2a6abb0b9de453fc1c67c426385a9adef1",
       "decoded_pixels_sha256": "8665f8ac32e57fa071331f1fc290a6fcab24d421d9a60bf5911db2c586259c05",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "8665f8ac32e57fa071331f1fc290a6fcab24d421d9a60bf5911db2c586259c05",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -942,7 +995,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -969,7 +1022,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "a88156eed996cf625906d9e78f58c83aac537f2a29c8d18477cdf87e8a0a7274"
+      "cache_key": "b5d4a57c6b1562dbc7dda9bb57c14dcf0364e86b9a54070689377d20be039ce6"
     },
     {
       "image": 12,
@@ -982,6 +1035,10 @@
       "wrap_t": "wrap",
       "source_sha256": "b4a154c7de15d05da672739c584c90980d577d4222e8aa53d9a99d7f488d2be6",
       "decoded_pixels_sha256": "864fd4d6a5ff003ba900f4cca564aaab9afb45a42a4fe7057336cb391c9cc49a",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "864fd4d6a5ff003ba900f4cca564aaab9afb45a42a4fe7057336cb391c9cc49a",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1019,7 +1076,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -1046,7 +1103,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "f3c75343281abc20b08c19d6f3bf76af327ccc040090f6444b027db8fe48ebee"
+      "cache_key": "012cb78364c632bb69898e495993af15ad41d3700cce1fac71ac0a62c8187543"
     },
     {
       "image": 13,
@@ -1059,6 +1116,10 @@
       "wrap_t": "wrap",
       "source_sha256": "d36420df58d9be21e613478b970e0173ce7ebc43669a0a119a20c9d3696faeba",
       "decoded_pixels_sha256": "a7d44a83e605f22e7d454984723944b097d84f27ecd02d1854c1e45c385815a2",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "a7d44a83e605f22e7d454984723944b097d84f27ecd02d1854c1e45c385815a2",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1096,7 +1157,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -1123,7 +1184,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "50dac8673f4cfea9a921ebabe0b7f4169ef1d59f10798afd606d71f9c552e79b"
+      "cache_key": "e37b02e853bca037274ced7d55e58135a8eb5f310169ed1f58ddb57f7e69caf7"
     },
     {
       "image": 14,
@@ -1136,6 +1197,10 @@
       "wrap_t": "wrap",
       "source_sha256": "82b4ee19d9ff2aae1e5980ffe66223665d3d7c317ed049e776c90c6f7e8b66cc",
       "decoded_pixels_sha256": "ee12c4f47173e0931cd93e0de232b3342b568a9b253397f637dda4da4bb1a66e",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "ee12c4f47173e0931cd93e0de232b3342b568a9b253397f637dda4da4bb1a66e",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1173,7 +1238,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -1200,7 +1265,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "7fb4cbd59857f48c5c131462b3c06f118fe6126ebdb8c535229e478fe918c55e"
+      "cache_key": "05a68e191b25e1ef363ac7466532c18ead70ce968ca48a4f55d947252605f345"
     },
     {
       "image": 15,
@@ -1213,6 +1278,10 @@
       "wrap_t": "wrap",
       "source_sha256": "72f3e91497e745ebf67cd184b3afd40100ce22b478d99d948fbfa04b835243bb",
       "decoded_pixels_sha256": "9945890eaf691631ee0bfd5a6bc1ed18b3965bafda3197ff22e3d6e5881702fe",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "9945890eaf691631ee0bfd5a6bc1ed18b3965bafda3197ff22e3d6e5881702fe",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1250,7 +1319,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -1277,7 +1346,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "a4730fe4cde4de2f29e17f91583a93469ed4607ceacab099eb87c0368175f39b"
+      "cache_key": "1a9f1095e79866a9740e9040366db5e603ebe4206cee27ef7e6e2e31bc7f2a1c"
     },
     {
       "image": 16,
@@ -1290,6 +1359,10 @@
       "wrap_t": "wrap",
       "source_sha256": "81bcc6cffa8856b86e7b1670eb65ec7b76ebf77bafae62cf84ed4ecf3ed1917a",
       "decoded_pixels_sha256": "9370aabb28e57c612a5be1c5e16d0d4a933f12699b2d3e79988db562f025d1b8",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "9370aabb28e57c612a5be1c5e16d0d4a933f12699b2d3e79988db562f025d1b8",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1327,7 +1400,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_SRGB",
@@ -1354,7 +1427,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "224d6038bf5fe0103e71dd1806fc1bb8f466a838daf5fa66f5aee865c295ddf5"
+      "cache_key": "6d3e2839cbc827b1b7821403c572c2f8a813601707002eeb8f0fb9d7e0ff7210"
     },
     {
       "image": 17,
@@ -1367,6 +1440,10 @@
       "wrap_t": "wrap",
       "source_sha256": "af46f4b8937146166472b132da2f912772aa089cc08f63b7da3b3c3a51797fb3",
       "decoded_pixels_sha256": "621bc0c7d21bff737d2868a3772ea4ba9c0c5102da5956daf65d3871af423b04",
+      "source_width": 1024,
+      "source_height": 1024,
+      "source_decoded_pixels_sha256": "621bc0c7d21bff737d2868a3772ea4ba9c0c5102da5956daf65d3871af423b04",
+      "maximum_dimension": 1024,
       "source_mode": "RGB",
       "width": 1024,
       "height": 1024,
@@ -1404,7 +1481,7 @@
         }
       ],
       "command_template": [
-        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/tripo-warrior/../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
         "create",
         "--format",
         "R8G8B8_UNORM",
@@ -1431,7 +1508,7 @@
         "<losslessly-decoded-source.png>",
         "<output.ktx2>"
       ],
-      "cache_key": "2710b5ec6c798816fba9378992f489b47718517baaf99302755927815a32ed22"
+      "cache_key": "1a489bc41e67c0ecff93239442cc09323033f708253899d94a45acc11fdbad18"
     }
   ],
   "preservation": {
@@ -1726,7 +1803,7 @@
   },
   "helper": {
     "source": "../refinement/pbr-compression/compress_pbr.py",
-    "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+    "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
   },
   "release_identity": {
     "source": "../refinement/pbr-compression/tooling/download-identity.json",

@@ -20,119 +20,119 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 55126688,
-          "sha256": "6417dec7f1113091775c4786420fd32f325366ba6cb7da581c1994d9d9aec4e5"
+          "bytes": 56443344,
+          "sha256": "767ebf1580ee26579a41715aed02c035d7d13db81eefa08ae7785fe114c48faa"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 58219808,
-          "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6"
+          "bytes": 59536464,
+          "sha256": "4fc0cb53478a9e4636981265218932691033a3774ceed06c4b1e5a7e3531bb4c"
         },
         {
           "file": "base.glb",
-          "bytes": 75769044,
-          "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3"
+          "bytes": 26047876,
+          "sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38"
         }
       ],
       "runtime_texture_encoding": {
         "file": "base_texture_encoding.json",
-        "sha256": "1a31de5d90659a5b20e499516e464b2da2c6c2a09df0657a581c824f6ef4165b",
-        "prepared_png_sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
-        "encoded_sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
+        "sha256": "1751cc2c3c0faec4a53931af7dcb6bfd375799da707bea5f0215bba974376d43",
+        "prepared_png_sha256": "4fc0cb53478a9e4636981265218932691033a3774ceed06c4b1e5a7e3531bb4c",
+        "encoded_sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2587,
-          "accessors_semantics_and_payloads_unchanged": 2587,
+          "non_image_bufferViews_byte_identical": 3292,
+          "accessors_semantics_and_payloads_unchanged": 3292,
           "non_image_json_semantics_identical": true,
           "images": [
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 1,
               "dfd_transfer": 2,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 1,
               "dfd_transfer": 2,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
@@ -439,7 +439,7 @@
       },
       "attack_profiles": {
         "file": "base_attack_profiles.json",
-        "sha256": "ea9bba5ff97d8bb0a5c65a3d22803a484f88910b35e230fff1d07dbbc663a542"
+        "sha256": "32de662655acb458a6e7f09b62ae5741a5d1ad5968b1a72c35d439d8f25260e7"
       }
     },
     {
@@ -462,74 +462,74 @@
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 14862948,
-          "sha256": "eb79718e716f6d017455f552a296c11a0313c6b65b39868bc388c5d17edec152"
+          "bytes": 16178852,
+          "sha256": "d76cbbc12548c10c596229fe92e21fdc517dc41fb3171752592c97656c9357ae"
         },
         {
           "file": "indigo_prepared_png.glb",
-          "bytes": 17956016,
-          "sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680"
+          "bytes": 19271924,
+          "sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db"
         },
         {
           "file": "indigo.glb",
-          "bytes": 43931240,
-          "sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e"
+          "bytes": 15088200,
+          "sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6"
         }
       ],
       "runtime_texture_encoding": {
         "file": "indigo_texture_encoding.json",
-        "sha256": "bf2d66e50789db88062bab85b7b56a296c9d9e71456decf364742efff787dfc3",
-        "prepared_png_sha256": "e774a315d4d0df21ffcdeb478731ce2c703eb441b78a049d1fa563ce48599680",
-        "encoded_sha256": "0c148e95021ce33dd2ed4b94f0934010508faa64a654f5d09a7477a7aeabda6e",
+        "sha256": "78dd01ec9ce5bce7a9a2ba58c0a2ea83f162432575a8981eedae99bbb9ddc615",
+        "prepared_png_sha256": "63cd00c2e50e758fbdf455a3f0f6d44a88e6879e4eb8f6438910b812a46c21db",
+        "encoded_sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2561,
-          "accessors_semantics_and_payloads_unchanged": 2561,
+          "non_image_bufferViews_byte_identical": 3266,
+          "accessors_semantics_and_payloads_unchanged": 3266,
           "non_image_json_semantics_identical": true,
           "images": [
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 1,
               "dfd_transfer": 2,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
@@ -806,7 +806,7 @@
       },
       "attack_profiles": {
         "file": "indigo_attack_profiles.json",
-        "sha256": "447c572d0199175678072147555fa2b57a1a3288487203e32d8798a8bf252379"
+        "sha256": "e95b93c847c9e778bbf71d9b52c0f52af53b70703b1915cbfa4fecfa3b1c5908"
       }
     },
     {
@@ -829,74 +829,164 @@
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 14354052,
-          "sha256": "a7df5cefc5be1af60e51a3903c5ec4034bb0244bc4e8c7da3561a93f2c0cdc55"
+          "bytes": 38959728,
+          "sha256": "efb1429e01273f9c27cf3ce23afd36c43b3dcffb3f1a2b9674a0783aa4f28077"
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 17447128,
-          "sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161"
+          "bytes": 45733888,
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
         },
         {
           "file": "veteran.glb",
-          "bytes": 45357856,
-          "sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a"
+          "bytes": 34616152,
+          "sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
         }
       ],
       "runtime_texture_encoding": {
         "file": "veteran_texture_encoding.json",
-        "sha256": "15fea8161f02054b4d52c29ac6d99240bd4a8d560f603c74d36f08888612336b",
-        "prepared_png_sha256": "4c83f73fe4fde130627c7d9f97c47fdb83734b65a761fb09a6165378ae25d161",
-        "encoded_sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
+        "sha256": "6ec93a10ca029a6d2f6b444a1bd22a3c85c59881330a54897584d92af037d242",
+        "prepared_png_sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+        "encoded_sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2525,
-          "accessors_semantics_and_payloads_unchanged": 2525,
+          "non_image_bufferViews_byte_identical": 3312,
+          "accessors_semantics_and_payloads_unchanged": 3308,
           "non_image_json_semantics_identical": true,
           "images": [
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 1,
               "dfd_transfer": 2,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
             },
             {
               "vk_format": 0,
               "type_size": 1,
-              "width": 4096,
-              "height": 4096,
+              "width": 1024,
+              "height": 1024,
               "depth": 0,
               "layers": 0,
               "faces": 1,
-              "levels": 13,
+              "levels": 11,
               "supercompression": 2,
               "dfd_model": 166,
               "dfd_primaries": 0,
               "dfd_transfer": 1,
-              "level_uncompressed_bytes": 22369648
+              "level_uncompressed_bytes": 1398128
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 1024,
+              "height": 1024,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 11,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 0,
+              "dfd_transfer": 1,
+              "level_uncompressed_bytes": 1398128
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 1024,
+              "height": 1024,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 11,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 1,
+              "dfd_transfer": 2,
+              "level_uncompressed_bytes": 1398128
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 1024,
+              "height": 1024,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 11,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 0,
+              "dfd_transfer": 1,
+              "level_uncompressed_bytes": 1398128
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 2048,
+              "height": 2048,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 12,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 0,
+              "dfd_transfer": 1,
+              "level_uncompressed_bytes": 5592432
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 2048,
+              "height": 2048,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 12,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 1,
+              "dfd_transfer": 2,
+              "level_uncompressed_bytes": 5592432
+            },
+            {
+              "vk_format": 0,
+              "type_size": 1,
+              "width": 2048,
+              "height": 2048,
+              "depth": 0,
+              "layers": 0,
+              "faces": 1,
+              "levels": 12,
+              "supercompression": 2,
+              "dfd_model": 166,
+              "dfd_primaries": 0,
+              "dfd_transfer": 1,
+              "level_uncompressed_bytes": 5592432
             },
             {
               "vk_format": 0,
@@ -1173,7 +1263,7 @@
       },
       "attack_profiles": {
         "file": "veteran_attack_profiles.json",
-        "sha256": "ece940cd3fc7dc1a25e7c488ea39a459572f4317f2a008e0e9679e4ab71f6f33"
+        "sha256": "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263"
       }
     }
   ],
@@ -1196,7 +1286,11 @@
         "normalize": false,
         "rdo": false,
         "orientation": "top-left",
-        "pixel_resize": false,
+        "pixel_resize": {
+          "default_max_dimension": 1024,
+          "filter": "explicit-axis-lanczos4-v1",
+          "upsample": false
+        },
         "mip_source": {
           "same_axis": "ktx-cli-generate-mipmap",
           "different_axes": "explicit-axis-lanczos4-v1"
@@ -1211,12 +1305,12 @@
           "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
           "alpha_filter": "linear-straight",
           "quantization": "clip-0-1-round-half-up-uint8",
-          "top": "original-decoded-pixels"
+          "top": "runtime-sized-domain-filtered-pixels"
         }
       },
       "helper": {
         "source": "../refinement/pbr-compression/compress_pbr.py",
-        "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+        "source_sha256": "2a1e75b2fadbd8c8f74a129e5618dacf1e41b38ee8f78a364a8632142481f44d"
       },
       "encoder": {
         "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -1243,8 +1337,8 @@
     },
     "texture_encoding_manifest": {
       "file": "dao_grip_texture_encoding.json",
-      "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab"
+      "sha256": "a69fd3ba0621937d38160f4f8588bce616d7da2b191019777a9cc51e6ad1ca12"
     },
-    "manifest_sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f"
+    "manifest_sha256": "a00f17481dee8a1d2901b0c10cd7c8f02c7baf88bb052b9f5583e23bdc6bdc18"
   }
 }

@@ -6,6 +6,14 @@ import com.example.wuxiaarena.core.combat.EnemyCombatStateMachine
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
+import com.example.wuxiaarena.core.combat.WeaponGrip
+import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.DaoBladeShape
+import com.example.wuxiaarena.core.combat.firstBladeShapeBodyContact
+import com.example.wuxiaarena.core.combat.BladeShapeSweep
+import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.BladeSweep
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
@@ -22,9 +30,10 @@ class AttackPhaseClockTest {
         direction.startupNanos, direction.activeNanos, direction.recoveryNanos)
 
     private fun profile(direction: AttackDirection, cue: Double = 1.0): AttackProfile {
-        fun sample(time: Double) = AttackPoseSample(time,
-            EnemyContactPose(Vector3(time, 1.6, 0.0), Vector3(time, .55, 0.0), Vector3(time, 1.4, 0.0)),
-            Vector3(time, 1.0, .2), Vector3(time, 1.5, 1.0))
+        fun sample(time:Double):AttackPoseSample {
+            val grip=WeaponGrip(Vector3(time,1.0,.2),Quaternion(0.0,0.0,0.0,1.0));val axis=playerBlade(grip)
+            return AttackPoseSample(time,EnemyContactPose(Vector3(time,1.6,0.0),Vector3(time,.55,0.0),Vector3(time,1.4,0.0)),axis.base,axis.tip,grip,0.0)
+        }
         return AttackProfile("attack_${direction.name.lowercase()}",
             if (direction == AttackDirection.OVERHEAD) overheadTimes else sideTimes,
             cue, listOf(sample(0.0), sample(1.75)))

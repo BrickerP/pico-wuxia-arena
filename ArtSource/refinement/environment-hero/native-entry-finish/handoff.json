@@ -1,0 +1,296 @@
+{
+  "schema": "pico-full-scene-native-entry-finish-v1",
+  "status": "private_full_scene_specimen_for_Root_visual_review_not_native_acceptance",
+  "outputs": {
+    "png": {
+      "file": "courtyard_entry_finish_png.glb",
+      "sha256": "dfc6cf82ff58f4f845305eefb9180cf5a9868741b667fe89dec8e9e2cb6db04c",
+      "bytes": 39753032,
+      "source_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "removed": [
+        {
+          "mesh": 22,
+          "primitive": 0,
+          "removed_triangles": 76,
+          "kept_index_sha256": "e149fe81e268552c07e16777f31b4409f91daa3751f0d8868fa45425e9eb71f1"
+        },
+        {
+          "mesh": 36,
+          "primitive": 0,
+          "removed_triangles": 550,
+          "kept_index_sha256": "38fbaa5c3d36061fedaad66cac2d306d7afab5d597b44b1f24a6e6fb12b4fd99"
+        },
+        {
+          "mesh": 36,
+          "primitive": 1,
+          "removed_triangles": 20,
+          "kept_index_sha256": "45601c667c595b2bb9e87fe7a7e93f7edac31d43d2f642d042a603f5ca01b52e"
+        }
+      ],
+      "budget": {
+        "node_expanded_triangles": 253296,
+        "unique_mesh_triangles": 186032,
+        "active_unique_meshes": 42,
+        "unique_position_stream_vertices": 351990,
+        "unique_attribute_buffer_bytes": 14868624,
+        "unique_index_buffer_bytes": 1269084,
+        "primitive_node_submission_upper_estimate": 121,
+        "materials": 32,
+        "images": 50
+      }
+    },
+    "ktx": {
+      "file": "courtyard_entry_finish_ktx.glb",
+      "sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+      "bytes": 40550840,
+      "source_sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+      "removed": [
+        {
+          "mesh": 22,
+          "primitive": 0,
+          "removed_triangles": 76,
+          "kept_index_sha256": "e149fe81e268552c07e16777f31b4409f91daa3751f0d8868fa45425e9eb71f1"
+        },
+        {
+          "mesh": 36,
+          "primitive": 0,
+          "removed_triangles": 550,
+          "kept_index_sha256": "38fbaa5c3d36061fedaad66cac2d306d7afab5d597b44b1f24a6e6fb12b4fd99"
+        },
+        {
+          "mesh": 36,
+          "primitive": 1,
+          "removed_triangles": 20,
+          "kept_index_sha256": "45601c667c595b2bb9e87fe7a7e93f7edac31d43d2f642d042a603f5ca01b52e"
+        }
+      ],
+      "budget": {
+        "node_expanded_triangles": 253296,
+        "unique_mesh_triangles": 186032,
+        "active_unique_meshes": 42,
+        "unique_position_stream_vertices": 351990,
+        "unique_attribute_buffer_bytes": 14868624,
+        "unique_index_buffer_bytes": 1269084,
+        "primitive_node_submission_upper_estimate": 121,
+        "materials": 32,
+        "images": 50
+      }
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "Full private scene/non-target/solid construction/PBR stream checks; not native appearance or terminal performance."
+  },
+  "gltf_validation": {
+    "validator_version": "2.0.0-dev.3.10",
+    "models": [
+      {
+        "label": "baseline_png",
+        "errors": 0,
+        "warnings": 4,
+        "infos": 131,
+        "new_timber_missing_TBN": 0,
+        "codes": {
+          "UNUSED_OBJECT": 129,
+          "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+          "UNUSED_MESH_TANGENT": 2
+        }
+      },
+      {
+        "label": "baseline_ktx",
+        "errors": 0,
+        "warnings": 10,
+        "infos": 135,
+        "new_timber_missing_TBN": 0,
+        "codes": {
+          "UNSUPPORTED_EXTENSION": 1,
+          "VALUE_NOT_IN_LIST": 3,
+          "UNUSED_OBJECT": 132,
+          "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+          "UNUSED_MESH_TANGENT": 2,
+          "IMAGE_UNRECOGNIZED_FORMAT": 3
+        }
+      },
+      {
+        "label": "png",
+        "errors": 0,
+        "warnings": 4,
+        "infos": 134,
+        "new_timber_missing_TBN": 0,
+        "codes": {
+          "UNUSED_OBJECT": 132,
+          "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+          "UNUSED_MESH_TANGENT": 2
+        }
+      },
+      {
+        "label": "ktx",
+        "errors": 0,
+        "warnings": 10,
+        "infos": 138,
+        "new_timber_missing_TBN": 0,
+        "codes": {
+          "UNSUPPORTED_EXTENSION": 1,
+          "VALUE_NOT_IN_LIST": 3,
+          "UNUSED_OBJECT": 135,
+          "MESH_PRIMITIVE_GENERATED_TANGENT_SPACE": 4,
+          "UNUSED_MESH_TANGENT": 2,
+          "IMAGE_UNRECOGNIZED_FORMAT": 3
+        }
+      }
+    ],
+    "baseline_warning_fingerprints_exact": true
+  },
+  "images": {
+    "player_1p65": "review/player_1p65_comparison.png",
+    "joint_oblique": "review/joint_oblique_comparison.png",
+    "foot_oblique": "review/foot_oblique_comparison.png"
+  },
+  "replacement_scope": "Only two existing main entry posts and two old three-part brackets; existing door leaves/frames/paper/bronze/stone seats/windows/lanterns/ground unchanged.",
+  "visible_work": [
+    "chamfered solid directional-grain posts seated in original stone sockets",
+    "true through-rail seats and shouldered corbel tenons",
+    "190mm closed profiled ox-leg braces, real side recesses and bearing saddles",
+    "two bounded real wear cuts per post; original PBR materials reused"
+  ],
+  "correction": "Localized boolean/bevel float32 cleanup: remove the smallest wear notch, weld only new parts within10um, dissolve sub-micron degenerate edges and triangulate before export. Closed-solid and strict final triangle checks retained; explicit TBN uses existing canonical helper. Final after views rerendered.",
+  "public_scene_modified": false,
+  "device_or_shared_gradle_run": false,
+  "git_history_or_index_modified": false,
+  "limits": [
+    "Normal player-distance change is restrained; local timber shape/connection is visibly improved, not overall art approval.",
+    "No terminal load, native TBN/lighting or Space Pro performance evidence.",
+    "Offline fixed lighting is the inherited stage2 recipe; not a calibration of the runtime7f IBL.",
+    "Existing source material grain/normal maps remain; no new scanned wood or texture detail claimed."
+  ],
+  "files": {
+    "build_entry.py": {
+      "sha256": "2528e9002f5adb10e6b7809a1528279714d83c2c33329f0c941ffb8922981310",
+      "bytes": 8937
+    },
+    "compose_entry.py": {
+      "sha256": "90080b202e234dffdb2498e6074fc87d22cd2f10e2e6750e026bf1d13dd4bbd9",
+      "bytes": 7727
+    },
+    "render_entry.py": {
+      "sha256": "389ab727dc6ae7617f726019f5e15d5e50bfe524e42f2a23a3d4bb9245c739df",
+      "bytes": 3680
+    },
+    "verify_entry.py": {
+      "sha256": "e4e9488f42dee675ffb6dbc7d5d1f58b1c6a27848fd5945844138b5c5fe38287",
+      "bytes": 7445
+    },
+    "validate_entry.mjs": {
+      "sha256": "cdd860d51d7bc0f4d69ee97f089fe78812e5d4b057e4553921e76aca556bdd0c",
+      "bytes": 2249
+    },
+    "finalize_entry.py": {
+      "sha256": "efc635fb2a2e0c8eba21c0884e4b2d7ccc6b03478757e1dad28e4bf494bbb253",
+      "bytes": 4846
+    },
+    "entry_module.glb": {
+      "sha256": "c0198444d20dee20f83f335ef6d95e2677c82a40061cfc8e9b2c6e732caa82b4",
+      "bytes": 2419720
+    },
+    "construction.json": {
+      "sha256": "f9156700c48cd4341cd12358c78dfcc17d1a86068305e0f80793cf3334a6ede8",
+      "bytes": 5600
+    },
+    "courtyard_entry_finish_png.glb": {
+      "sha256": "dfc6cf82ff58f4f845305eefb9180cf5a9868741b667fe89dec8e9e2cb6db04c",
+      "bytes": 39753032
+    },
+    "courtyard_entry_finish_ktx.glb": {
+      "sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+      "bytes": 40550840
+    },
+    "entry_finish_full_scene.blend": {
+      "sha256": "26c86da0b6494a4b256f864aff16704c8c32ea63cae9be2eabd67e3c9dce0b0c",
+      "bytes": 44011789
+    },
+    "composition.json": {
+      "sha256": "2200f03fb7ae358be670bdfb13b88913133a9e8d93082a775ed641f65b84386e",
+      "bytes": 2803
+    },
+    "REBUILD.md": {
+      "sha256": "8c3ea7d1332255306aa5399b1a75001951abebcac59a56b3bc58552fbcbe5197",
+      "bytes": 5587
+    },
+    "review/verification.json": {
+      "sha256": "7f6d7278b83997acfb5a8b7798cc7a3143e4081e6ec6e6b5d533667de386a464",
+      "bytes": 216
+    },
+    "review/gltf_summary.json": {
+      "sha256": "74db64f5753bab174aca26f84d4b03bac0cfd91e151473561bf1146b92128ad1",
+      "bytes": 1429
+    },
+    "review/png_gltf_validator.json": {
+      "sha256": "982e6c8c472a0fccfbf8b35362697c7e3a6b1c8f666c2630845aa84eb16c2bc8",
+      "bytes": 39442
+    },
+    "review/ktx_gltf_validator.json": {
+      "sha256": "a10d7ac1ec3481bbc0f7c0c1057ea4886759bb125813b0ab0a6971b1aad83503",
+      "bytes": 40740
+    },
+    "review/render_manifest.json": {
+      "sha256": "cd6764393605aeb3d15251556ff4ec78100dcf0205522f46dca31543e9629757",
+      "bytes": 2367
+    },
+    "review/player_1p65_before.png": {
+      "sha256": "a19c90a9578a912bd0e1b763e8d871602bc987d6bda2e4db138a2056fbbf2cd0",
+      "bytes": 1265757
+    },
+    "review/player_1p65_after.png": {
+      "sha256": "fcbb0f17f20e479252e167930b86386a9cdf792b17fc97b1ba9b91ab0dacebba",
+      "bytes": 1270402
+    },
+    "review/player_1p65_comparison.png": {
+      "sha256": "c6baf7be5ef9e85c40f68299c8723d23c0a3cd0d706c1664abd765acac707d22",
+      "bytes": 1327545
+    },
+    "review/joint_oblique_before.png": {
+      "sha256": "54da5cf979ecba3ac495b2b8e0e916780e6476b30c761ad0696e187da5fa6df5",
+      "bytes": 1184888
+    },
+    "review/joint_oblique_after.png": {
+      "sha256": "3f674219a7ac1b27d05fb8a3c8cdf55f1775b5ae3177744df94bfa2512988206",
+      "bytes": 1208734
+    },
+    "review/joint_oblique_comparison.png": {
+      "sha256": "65b75725f5cf9eaac996619a236576ed875ea8df707ecf2a9df9200545a5ff7b",
+      "bytes": 1438987
+    },
+    "review/foot_oblique_before.png": {
+      "sha256": "34de70523750fbfbebe6b667502b3b61ce2217370308ab52b6851064457f7125",
+      "bytes": 1222401
+    },
+    "review/foot_oblique_after.png": {
+      "sha256": "71d3cbe55692398c057336829d353876ed2e50a00b10b97062829ab6978f13dd",
+      "bytes": 1246515
+    },
+    "review/foot_oblique_comparison.png": {
+      "sha256": "da1b8ce2e617fb579d62e273b5e90e3afc7fcb5777b5224e0d7a056cec17b779",
+      "bytes": 1455323
+    },
+    "size-anchor-proof.json": {
+      "sha256": "c4fec482d076ccb6b25f9339cf1549c1d1e9318b0fb259c46e80a3b2ef9870a7",
+      "bytes": 5803
+    }
+  },
+  "production_closure": "production-closure.json",
+  "fixed_producer_inputs": {
+    "png": {
+      "file": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_png.glb",
+      "sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d"
+    },
+    "ktx": {
+      "file": "ArtSource/refinement/environment-hero/native-ground-polish/lantern-hero/refined/surface-finish/composition/courtyard_lantern_surface_ktx.glb",
+      "sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78"
+    }
+  },
+  "root_review": "Root accepted local ox-leg/bearing volume improvement for native combination review; no overall art/native acceptance."
+}

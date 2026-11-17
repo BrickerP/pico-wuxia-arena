@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.AttackDirection
+import com.example.wuxiaarena.core.combat.*
+import com.example.wuxiaarena.core.math.closestSegmentPoints
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
@@ -97,21 +98,34 @@ class HurtPoseContinuityTest {
         fixture.tick(hold / 2)
         assertTrue(fixture.session.viewState.hitStop)
         assertEquals(incoming, fixture.pose())
-        fixture.tick(hold - hold / 2 + 100_000_000L)
+        val withdrawal=ArenaSession::class.java.getDeclaredField("steelWithdrawal").apply {isAccessible=true}.get(fixture.session)
+        val plan=withdrawal?.let {it.javaClass.getDeclaredField("plan").apply {isAccessible=true}.get(it) as ActorWithdrawalPlan}
+        val remainingStop=ArenaSession::class.java.getDeclaredField("hitStopNanos").apply {isAccessible=true}.getLong(fixture.session)
+        // Probe inside this geometry's actual finite route, not an assumed >100ms route.
+        val routeProbe=if(plan!=null)minOf(20_000_000L,(plan.durationSeconds*1e9/4).toLong()) else 10_000_000L
+        fixture.tick(remainingStop+routeProbe)
         val state = fixture.session.viewState
         assertEquals(EnemyPhase.HIT, state.phase)
         assertEquals(profile.clip, state.enemyPoseClip)
-        assertEquals(incoming.sourceSeconds, requireNotNull(state.enemyPoseSourceSeconds), 1e-9)
-        assertTrue("The actor withdraws while its actual contact source is held",
-            requireNotNull(state.enemyPosition).distanceTo(requireNotNull(stateAtContact.enemyPosition)) > 0.0 ||
-                state.enemyYawRadians != stateAtContact.enemyYawRadians)
+        if(plan!=null) {
+            assertEquals(incoming.sourceSeconds,requireNotNull(state.enemyPoseSourceSeconds),1e-9)
+            assertTrue("An active actor route holds its source while moving the complete actor",
+                requireNotNull(state.enemyPosition).distanceTo(requireNotNull(stateAtContact.enemyPosition))>0.0 || state.enemyYawRadians!=stateAtContact.enemyYawRadians)
+        } else {
+            assertTrue("Without a required actor route, the same clip may unload directly after hit stop",requireNotNull(state.enemyPoseSourceSeconds)<=incoming.sourceSeconds)
+            assertTrue(incoming.sourceSeconds-requireNotNull(state.enemyPoseSourceSeconds)<=.06)
+        }
         assertEquals(profile.sample(requireNotNull(state.enemyPoseSourceSeconds)).inStage(requireNotNull(state.enemyPosition) + state.enemyRecoilOffset,
             state.enemyYawRadians), fixture.pose())
-        var retreated: ArenaViewState? = null
+        var retreated:ArenaViewState?=state.takeIf {checkNotNull(it.enemyPoseSourceSeconds)<incoming.sourceSeconds}
         repeat(120) {
             if (retreated == null) {
                 fixture.tick(25_000_000L)
                 val next = fixture.session.viewState
+                val player=DaoBladeShape.shape.at(checkNotNull(next.playerWeaponGrip))
+                val enemy=DaoBladeShape.shape.at(fixture.pose().bladeGrip)
+                val gap=player.minOf {a->enemy.minOf {b->val pair=checkNotNull(closestSegmentPoints(a.base,a.tip,b.base,b.tip));pair.first.distanceTo(pair.second)-a.radiusMeters-b.radiusMeters}}
+                assertTrue("Recovery may never pass one complete blade through the other: $gap",gap>=-1e-7)
                 if (next.enemyPoseClip == profile.clip && requireNotNull(next.enemyPoseSourceSeconds) < incoming.sourceSeconds)
                     retreated = next
             }

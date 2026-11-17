@@ -68,7 +68,7 @@ internal class SceneLighting private constructor(private val rig: Entity) : Auto
                 throw CancellationException("Lighting scene was disposed during environment loading")
             }
             val texture = checkNotNull(pending)
-            rig.components.set(StageEnvironmentLightingComponent(ImageBasedLightSource.Single(texture), 4f))
+            rig.components.set(StageEnvironmentLightingComponent(ImageBasedLightSource.Single(texture), 7f))
             environment = texture
             pending = null
         } catch (error: Exception) {
