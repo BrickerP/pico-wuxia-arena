@@ -15,7 +15,9 @@
 
 模拟器瞄准更新会晚于宿主鼠标事件到达。实际试验中先点击再等姿态曾没有Start；必须先取得当前运行的SDK rawRight朝向到位，再发送真实trigger。宿主事件发送成功不等于应用已接受。
 
-桌面工具 `scripts/native_emulator_{front,pointer,hold_key}.swift` 只作用已确认的QEMU PID/窗口；点击前及hover后重新核前台、标题、命中owner和按键释放。菜单不存在或目标不符就停止该次操作。图像按窗口ID或设备FOV捕获，不录其他聊天或桌面区域；录像帧数不等于终端渲染帧率。
+桌面工具`scripts/native_emulator_{front,pointer,hold_key}.swift`只作用已确认QEMU PID/窗口。front现等真实CG onscreen/AX焦点/前台，不能只看frontPID；跨工具可能被Codex Space收回，恢复/输入/录制在同一outer exec。process_targeted mouse move曾报0但5条新SDK q完全不变，Root改为同click有owner校验的foreground_hid，实际q到位误差约0.000003°；3个错误PID/越界/时长负例均拒绝。Shift键仍为进程定向，实际位置已到(0.278,1.4,−0.45)，异步末样本不能按固定0.3秒断失败。新65ac实际Start/49输入/13接触已证明，但第二场锁住，01继续修。
+
+点击前及hover后重新核前台、标题、命中owner和按键释放。菜单不存在或目标不符就停止该次操作。图像按窗口ID或设备FOV捕获，不录其他聊天或桌面区域；录像帧数不等于终端渲染帧率。
 
 日志收件须同时绑定已安装APK、当前应用PID、LOAD/开始事件和源资产。高层日志可能回放旧运行；96条齐全或统计相同也不能证明来自新包。失败流保留，按实际新进程取证，观察超时不得自行重启尚在运行的工作。
 

@@ -39,6 +39,7 @@ from prepare_rigged_warrior import (
     world_matrix,
 )
 from attack_profiles import sample_track
+from prepared_tangents import validate_prepared_tangents, apply_prepared_tangents
 
 
 def pinned_source(entry):
@@ -663,6 +664,7 @@ def validate_manifest(manifest):
     if manifest.get('schema_version') != 3:
         raise ValueError('the canonical ten-clip bank requires manifest schema_version 3; v2 is retired')
     validate_texture_encoding(manifest.get('runtime_texture_encoding'))
+    validate_prepared_tangents(manifest, HERE)
     player_weapon = manifest.get('player_weapon_source')
     if (not isinstance(player_weapon, dict) or set(player_weapon) != {'source', 'source_sha256'} or
             player_weapon['source_sha256'] != 'a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637'):
@@ -896,6 +898,12 @@ def build_library(manifest_path, candidate_dir=None):
                     path = output_folder / output['file']
                     output.update(bytes=path.stat().st_size,
                                   sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            tangent_report = apply_prepared_tangents(character['id'], prepared_png,
+                manifest['prepared_tangents'], HERE)
+            record['prepared_tangents'] = tangent_report
+            if tangent_report['applied']:
+                record['outputs'][-1].update(bytes=prepared_png.stat().st_size,
+                    sha256=hashlib.sha256(prepared_png.read_bytes()).hexdigest())
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']
                 animation['source_sha256'] = source['source_sha256']
@@ -933,6 +941,7 @@ def build_library(manifest_path, candidate_dir=None):
                           (stem + '_texture_encoding.json', encoding_bytes)))
             signatures = hand_track_signatures(document, binary)
             request['characters'].append({'id': character['id'], 'outputs': record['outputs'],
+                                            'prepared_tangents': tangent_report,
                                            'hand_track_signatures': signatures,
                                            'clip_semantic_signatures': {clip['name']: animation_signature(document, binary, clip)
                                                                         for clip in document['animations']},

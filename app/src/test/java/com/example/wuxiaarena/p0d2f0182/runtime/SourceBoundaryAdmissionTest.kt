@@ -93,7 +93,7 @@ class SourceBoundaryAdmissionTest {
    val session=fixture(player)
    val combat=EnemyCombatStateMachine();combat.advanceBy(800_000_000L,true);combat.tryStartAttack(AttackDirection.RIGHT,true);combat.advanceBy(423_076_923L,true)
    set(session,"combat",combat)
-   val incoming=ArenaSession::class.java.getDeclaredMethod("effectiveEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(session,0L) as EnemyPoseFrame
+   val incoming=ArenaSession::class.java.getDeclaredMethod("selectedEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(session,0L) as EnemyPoseFrame
    if(session.javaClass.declaredFields.any {it.name=="acceptedEnemySource"})set(session,"acceptedEnemySource",incoming)
    val frame=(field(session,"simulationMotion") as PlayerMotionFrame).copy(strike=MotionStrike(71,HitZone.BODY,1.0,MotionContact(HitZone.BODY,Vector3(0.0,1.1,-1.3),Vector3(1.0,0.0,0.0))))
    val events=mutableListOf<EnemyCombatEvent>()
@@ -206,10 +206,15 @@ class SourceBoundaryAdmissionTest {
    assertEquals(.5,checkNotNull(session.viewState.enemyPoseSourceSeconds),1e-9)
    val cancellations=events.filterIsInstance<EnemyCombatEvent.AttackCancelled>()
    assertEquals(1,cancellations.size);assertEquals(oldId,cancellations.single().attackId)
-   // No current motion frame exists immediately after confirmation. It must not
-   // advance the visual source until fresh accepted tracking establishes baseline.
-   session.onTick(now);session.onTick(now+10_000_000L)
+   // No current motion frame exists immediately after confirmation. The first
+   // tick validates the complete already-confirmed observations before any motion.
+   session.onTick(now)
    assertEquals(.5,checkNotNull(session.viewState.enemyPoseSourceSeconds),1e-9)
+   // Confirmation already has complete fresh observations. The first tick may
+   // safely rebase those without a stroke; the next tick queries a true 1x return.
+   assertNotNull(fieldOrNull(session,"simulationMotion"))
+   session.onTick(now+10_000_000L)
+   assertEquals(.49,checkNotNull(session.viewState.enemyPoseSourceSeconds),1e-9)
    repeat(65) {now+=10_000_000L;send(head());send(hand(player));session.onTick(now)}
    assertEquals(EnemyPhase.IDLE,combat.phase)
    assertNull(fieldOrNull(session,"heldEnemySourceJoin"))

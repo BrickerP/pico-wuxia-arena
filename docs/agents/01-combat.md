@@ -6,13 +6,15 @@
 
 - 唯一仓库：`/Users/yupeng/projects/personal/pico-wuxia-arena`。Kotlin + Spatial SDK6.1.9，Space Pro / OS6，Full Stage。
 - 开发提交 `37d0ebf4` 已推送，见[草稿PR #13](https://github.com/BrickerP/pico-wuxia-arena/pull/13)。草稿尚未合入main，不能称已完成。
-- 正式角色binding `7af35f02`，当前APK `ddacc7a6`；544 JVM、71 Blender产线及42贴图编码检查通过。
+- 正式角色binding `7af35f02`。实战基线ddacc7a6已发布；本地源交接修复4dacc6a0与8c木构的APK65ac2091过558正式测试；实际65秒/49输入/13接触仅打到第二场，indigo45/125时缺回守势而锁住，未通过。当前产线又发布纯T修复c8cd395d/veteran af74e574，基于同10clip，待新包配对；65ac实物仍属旧7af bank。71 Blender产线与42贴图编码结果仍属同一未改角色bank。
 - 同包原生输入已实际开始比赛，15次接触，前两敌倒下并进入第三轮Boss。Boss150HP、玩家100HP时出现约16.267秒锁刀；完整胜利和重开未通过。
 - 原生画面与55秒实战录像：`ArtSource/refinement/presentation/native-compact-reaction-2026-11-17.*`。该录像无音轨，不证明GPU帧率或音效震动。
 
 ## Root评审与P0任务
 
-`native-steel-release/blade-chain-runtime/native-escape-repair-ddac/` 是当前修复目录，以下相对路径均位于 `ArtSource/refinement/combat-direction/`。
+当前返修目录是`native-steel-release/blade-chain-runtime/native-escape-repair-65ac/`，ddac封件保留。以下相对路径均位于`ArtSource/refinement/combat-direction/`。
+
+Root真实65秒录制已收（app PID9084，Start20:50:17.471 accepted）。最后BLOCK13在20:50:41.137；随后attack_right@1.0481423844624762→idle@1.227366357被准入拒绝，钢端点变化1.120825860m。Root退回“已修好”结论：旧ContactRecovery局部退刀结束后未真正回guard，逻辑却IDLE。当前01须收敛到已有authored SourceReturn，1×走完真实守势才允许恢复/下一招，不能放宽容差或恢复跳刀绕过。原始失败图/片/日志在artifacts/native-source-authority-2026-11-17/real-trial-02/。
 
 Boss冻结源为已持有walk切换idle：同actor/held下idle钢刀间隙约−0.160mm，walk约+0.184mm，而原查询数值包络约0.0023mm。安全释放后直接换动画源会重新穿入；必须修正实际显示与物理所用源的交接，不能放宽碰撞容差或推开玩家手。
 
@@ -40,7 +42,9 @@ Root在同一模拟器分别装入baseline `6f57ac4d` 与optimized `804c26f0`，
 
 这些是模拟器进程的CPU测量，分配/GC计数可能含其他线程；保留冷启动和全部不利样本，不算Space Pro预算通过。高层日志曾回放旧运行，已按真实PID、LOAD和装包SHA辨别，失败流保留。原始收据在 `artifacts/native-body-shadow-2026-11-17/`；测后2个源码逐字恢复、5个诊断源码及bin撤回，正式伤害入口没有更换。
 
-下一件由身体路负责 `full-mesh/lazy-bone-bvh/`：保留完整indexed surface和现CCD/sourceE，以保守骨影响bounds剪枝、按需精确蒙皮。权重sum不一定等于1，必须显式包住实际sum区间、actor origin及外向舍入；不可加大物理形体或误差预算。缓存精确绑定clip/source bits、actor、geometry/motion，并覆盖异常未完成写入。先交host完整witness逐bit对照与坏例，再由Root测Android同一数据集。冻结baseline/optimized不覆盖。
+`full-mesh/lazy-bone-bvh/`已交保守骨影响bounds和按需精确蒙皮，393个host完整witness逐bit一致。Root另测PID17483/APK4a990246，96条记录结果一致，但warm中位16.948/P95 57.102/最慢76.164ms，并未比pooled版本整体更快；加载约2.038s，heap delta27.75MB，GC0不等于预算通过。初始120秒只观察67条后结束采集，未重启同一benchmark；之后按同PID取完整单次快照。所有临时接线已撤回。
+
+当前身体路续做`lazy-bone-bvh/android-profile-revision/`：按逐case线程CPU及FK/refit/剩余成本定位一个热点再改，保留完整indexed surface和现CCD/sourceE。权重sum不一定等于1，必须显式包住实际sum区间、actor origin及外向舍入；不可加大物理形体或误差预算。缓存精确绑定clip/source bits、actor、geometry/motion，并覆盖异常未完成写入。先交host完整witness逐bit对照与坏例，再由Root测Android同一数据集。冻结baseline/optimized不覆盖。
 
 ## 出口验收
 

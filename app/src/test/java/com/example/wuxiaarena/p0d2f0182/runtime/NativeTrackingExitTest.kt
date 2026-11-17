@@ -57,7 +57,27 @@ class NativeTrackingExitTest {
             .newInstance(profile,AttackDirection.RIGHT,.5073453745454546,907211557663L,600_000_000L)
         set(session,"contactRecovery",recovery);set(session,"enemyMotionNanos",907264579797L)
         // The recorded a88 state already accepted this exact recovery source.
-        set(session,"acceptedEnemySource",EnemyPoseFrame(profile.clip,expected))
+        val clockFrame=ArenaSession::class.java.getDeclaredMethod("selectedEnemyPose",java.lang.Long.TYPE)
+            .apply {isAccessible=true}.invoke(session,0L) as EnemyPoseFrame
+        // The old JDI source witness has sub-nanosecond TOI interpolation precision;
+        // this injected runtime clock is integer nanoseconds. Keep the original
+        // exact witness assertion above and certify their numerical equivalence.
+        // Nearest integer-nanosecond clock uncertainty mapped through the actual
+        // recorded retreat formula; no runtime time/geometry tolerance is widened.
+        val sourceQuantum=.5e-9*.06/(.18*((600_000_000L-35_000_000L)/1e9))
+        assertTrue(kotlin.math.abs(clockFrame.pose.sourceSeconds-f.sourceSeconds)<=sourceQuantum)
+        val lo=profile.samples.last {it.sourceSeconds<=f.sourceSeconds}
+        val hi=profile.samples.first {it.sourceSeconds>f.sourceSeconds}
+        assertTrue(clockFrame.pose.sourceSeconds in lo.sourceSeconds..hi.sourceSeconds)
+        val qa=checkNotNull(lo.bladeGrip.rotation.normalizedOrNull());val qb=checkNotNull(hi.bladeGrip.rotation.normalizedOrNull())
+        val angle=2*kotlin.math.acos(kotlin.math.abs(qa.x*qb.x+qa.y*qb.y+qa.z*qb.z+qa.w*qb.w).coerceIn(0.0,1.0))
+        val radius=DaoBladeShape.shape.gripRadius+DaoBladeShape.shape.parts.maxOf {it.radiusMeters}
+        val velocity=(lo.bladeGrip.position.distanceTo(hi.bladeGrip.position)+radius*angle)/(hi.sourceSeconds-lo.sourceSeconds)
+        val quantizedPointBound=velocity*sourceQuantum+64*Math.ulp(2.0)
+        val oldSteel=DaoBladeShape.shape.at(expected.bladeGrip)
+        val clockSteel=DaoBladeShape.shape.at(clockFrame.pose.bladeGrip)
+        assertTrue(oldSteel.indices.all {i->maxOf(oldSteel[i].base.distanceTo(clockSteel[i].base),oldSteel[i].tip.distanceTo(clockSteel[i].tip))<=quantizedPointBound})
+        set(session,"acceptedEnemySource",clockFrame)
         session.onTick(now)
         val beforeHealth=session.viewState.health;val beforePlayer=session.viewState.playerHealth
         val raw=f.raw[7]

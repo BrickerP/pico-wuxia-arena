@@ -30043,6 +30043,9 @@
       }
     ]
   },
+  "prepared_tangents": {
+    "applied": false
+  },
   "id": "indigo",
   "name": "青衫护院",
   "retargeting": [

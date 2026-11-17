@@ -428,7 +428,56 @@
     }
   },
   "production_review": {
-    "source": "../refinement/combat-direction/reaction-guard-continuity/head-refinement/root-production-review.json",
-    "source_sha256": "d6681fab2393e79741d4503e3adb4547f8a479e1b3f1efc83036b69c66b7540e"
+    "source": "../refinement/character/veteran-head-refinement/tangent-finish/root-production-review.json",
+    "source_sha256": "33d070b8a3568c52ea7c7a5b6e39713eeab4962b9ebae0127f8d4e095b005a96"
+  },
+  "prepared_tangents": {
+    "stage": "prepared_png_after_wrist_before_texture_v1",
+    "targets": [
+      "veteran"
+    ],
+    "implementation": {
+      "source": "prepared_tangents.py",
+      "source_sha256": "6ce842ca31efc37f997d96b22de1fcaba4473258fe37038d3f9dbe9771292581"
+    },
+    "tools": {
+      "build_tangents.mjs": {
+        "source": "../tooling/mikktspace/build_tangents.mjs",
+        "source_sha256": "d44a7b7b33c4c926a78484b6a0392236cee982c1a3fd356d53bfc4af177d6723"
+      },
+      "glb_io.mjs": {
+        "source": "../tooling/mikktspace/glb_io.mjs",
+        "source_sha256": "c1ca3f5539e77d898e38e77a6b1c8e43ca8f3552cdf7bc9fc3f8209e53ce00b9"
+      },
+      "mikktspace.mjs": {
+        "source": "../tooling/mikktspace/mikktspace.mjs",
+        "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+      },
+      "geometry_contract.json": {
+        "source": "../tooling/mikktspace/geometry_contract.json",
+        "source_sha256": "a36a1fff85f9453c69d56a2bcb59c9cff247ab1d087e2e612061cc4922df2175"
+      },
+      "degenerate_policy.json": {
+        "source": "../tooling/mikktspace/degenerate_policy.json",
+        "source_sha256": "aac181096d4fa7ffc2e5a079e4bc4d9ddd2fa293e4a2ae343b3d999c7df95710"
+      },
+      "licenses/MikkTSpace-original-zlib-notice.txt": {
+        "source": "../tooling/mikktspace/licenses/MikkTSpace-original-zlib-notice.txt",
+        "source_sha256": "9ae731b25215baa2b2d6047bf537fb2312f2003a6a05d3d4552010455b1e9fb0"
+      },
+      "licenses/mikktspace-wasm-MIT.txt": {
+        "source": "../tooling/mikktspace/licenses/mikktspace-wasm-MIT.txt",
+        "source_sha256": "28159675e3ae5d17f9f9349e1ff9323001cfba3ee068cf1c197afc9418c17653"
+      },
+      "licenses/three-MIT.txt": {
+        "source": "../tooling/mikktspace/licenses/three-MIT.txt",
+        "source_sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+      }
+    },
+    "host_node": {
+      "source": "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+      "source_sha256": "245e0321af97d3c21dd4e7104457334dfe3c3ba7982d0db75363e354565f8cbb",
+      "version": "v22.22.1"
+    }
   }
 }

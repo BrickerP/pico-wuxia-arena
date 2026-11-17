@@ -77,7 +77,7 @@
             1.7176018200460235,
             0.13228755972809392
           ],
-          "vertex_count": 7851,
+          "vertex_count": 7857,
           "joint_names": [
             "Head",
             "FacialBone",
@@ -96,7 +96,7 @@
             1.323257229203454,
             0.20099398598511709
           ],
-          "vertex_count": 3956,
+          "vertex_count": 3964,
           "joint_names": [
             "Hip",
             "Waist",
@@ -159187,7 +159187,7 @@
     }
   },
   "character_id": "veteran",
-  "model_sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
+  "model_sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",

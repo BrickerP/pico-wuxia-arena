@@ -834,23 +834,23 @@
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 42052784,
-          "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+          "bytes": 45733888,
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
         },
         {
           "file": "veteran.glb",
-          "bytes": 30932248,
-          "sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d"
+          "bytes": 34616152,
+          "sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
         }
       ],
       "runtime_texture_encoding": {
         "file": "veteran_texture_encoding.json",
-        "sha256": "c816871200490d589b649bb1d377b5704130240b6ca45827fae77469ab204a51",
-        "prepared_png_sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b",
-        "encoded_sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
+        "sha256": "6ec93a10ca029a6d2f6b444a1bd22a3c85c59881330a54897584d92af037d242",
+        "prepared_png_sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+        "encoded_sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 3277,
-          "accessors_semantics_and_payloads_unchanged": 3273,
+          "non_image_bufferViews_byte_identical": 3312,
+          "accessors_semantics_and_payloads_unchanged": 3308,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -1263,7 +1263,7 @@
       },
       "attack_profiles": {
         "file": "veteran_attack_profiles.json",
-        "sha256": "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170"
+        "sha256": "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263"
       }
     }
   ],

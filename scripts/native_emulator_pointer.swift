@@ -1,6 +1,5 @@
-// Moves target the selected emulator process. A trigger click requires its
-// verified foreground viewport; process-only clicks did not trigger its UI.
-// https://developer.apple.com/documentation/coregraphics/cgevent/posttopid(_:)
+// All mouse events use the verified foreground emulator. Process-only motion
+// can leave QEMU's physical cursor unchanged while reporting successful posts.
 import AppKit
 import ApplicationServices
 import CoreGraphics
@@ -42,16 +41,17 @@ func perform() throws {
         throw Failure(description: "selected window is not owned by this emulator or point is outside its bounds; no event posted")
     }
     let click = args[2] == "click"
-    func validateClickTarget() throws {
+    func validatePointerTarget(_ position: CGPoint) throws {
         guard NSWorkspace.shared.frontmostApplication?.processIdentifier == pid,
+              owned[kCGWindowIsOnscreen as String] as? Bool == true,
               !CGEventSource.buttonState(.combinedSessionState, button: .left) else {
-            throw Failure(description: "click needs the foreground emulator with no physical button held")
+            throw Failure(description: "pointer input needs the visible foreground emulator with no physical button held")
         }
         var focused: CFTypeRef?
         let application = AXUIElementCreateApplication(pid)
         guard AXUIElementCopyAttributeValue(application, kAXFocusedWindowAttribute as CFString, &focused) == .success,
               let focused, CFGetTypeID(focused) == AXUIElementGetTypeID() else {
-            throw Failure(description: "focused emulator window unavailable; no click posted")
+            throw Failure(description: "focused emulator window unavailable; no pointer event posted")
         }
         var title: CFTypeRef?
         let focusedWindow = unsafeBitCast(focused, to: AXUIElement.self)
@@ -59,16 +59,16 @@ func perform() throws {
               let title = title as? String,
               title.hasPrefix("PICO Emulator - ") ||
                 (title == "PicoExtendedWindow" && owned[kCGWindowName as String] as? String == "PicoExtendedWindow") else {
-            throw Failure(description: "click needs the emulator viewport or its explicitly selected settings window")
+            throw Failure(description: "pointer input needs the emulator viewport or its explicitly selected settings window")
         }
         var hit: AXUIElement?
         var owner: pid_t = 0
-        guard AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(x), Float(y), &hit) == .success,
+        guard AXUIElementCopyElementAtPosition(AXUIElementCreateSystemWide(), Float(position.x), Float(position.y), &hit) == .success,
               let hit, AXUIElementGetPid(hit, &owner) == .success, owner == pid else {
-            throw Failure(description: "click point is covered by another app; no click posted")
+            throw Failure(description: "pointer point is covered by another app; no event posted")
         }
     }
-    if click { try validateClickTarget() }
+    try validatePointerTarget(point)
     func event(_ type: CGEventType, at position: CGPoint) throws -> CGEvent {
         guard let value = CGEvent(mouseEventSource: nil, mouseType: type, mouseCursorPosition: position, mouseButton: .left) else { throw Failure(description: "event allocation failed") }
         value.flags = []
@@ -86,22 +86,22 @@ func perform() throws {
             while Date() < deadline { RunLoop.current.run(until: min(deadline, Date().addingTimeInterval(0.005))) }
             let eased = fraction * fraction * fraction * (10 + fraction * (-15 + 6 * fraction))
             let position = CGPoint(x: point.x + (end.x - point.x) * eased, y: point.y + (end.y - point.y) * eased)
-            try event(.mouseMoved, at: position).postToPid(pid)
+            try validatePointerTarget(position)
+            try event(.mouseMoved, at: position).post(tap: .cghidEventTap)
         }
-        print("POSTED delivery=process_targeted pid=\(pid) window=\(windowID) action=stroke samples=\(steps + 1) seconds=\(duration); verify SDK trajectory separately")
+        print("POSTED delivery=foreground_hid pid=\(pid) window=\(windowID) action=stroke samples=\(steps + 1) seconds=\(duration); verify SDK trajectory separately")
         return
     }
-    if click { try event(.mouseMoved, at: point).post(tap: .cghidEventTap) }
-    else { try event(.mouseMoved, at: point).postToPid(pid) }
+    try event(.mouseMoved, at: point).post(tap: .cghidEventTap)
     if click {
         // Publish the hover ray before the trigger consumes it.
         RunLoop.current.run(until: Date().addingTimeInterval(0.1))
-        try validateClickTarget()
+        try validatePointerTarget(point)
         let up = try event(.leftMouseUp, at: point)
         defer { up.post(tap: .cghidEventTap) }
         try event(.leftMouseDown, at: point).post(tap: .cghidEventTap)
         RunLoop.current.run(until: Date().addingTimeInterval(0.1))
     }
-    print("POSTED delivery=\(click ? "foreground_hid" : "process_targeted") pid=\(pid) window=\(windowID) action=\(args[2]) x=\(x) y=\(y); observe actual result")
+    print("POSTED delivery=foreground_hid pid=\(pid) window=\(windowID) action=\(args[2]) x=\(x) y=\(y); observe actual result")
 }
 do { try perform() } catch { fputs("\(error)\n", stderr); exit(3) }

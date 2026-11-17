@@ -174,7 +174,12 @@ class SourceReturnBodyContinuityTest {
     }
     private fun local(s:ArenaSession)=ArenaSession::class.java.getDeclaredMethod("effectiveEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(s,0L) as EnemyPoseFrame
     private fun stage(s:ArenaSession)=ArenaSession::class.java.getDeclaredMethod("enemyAttackPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(s,0L) as AttackPoseSample
-    private fun acceptCurrent(s:ArenaSession) {set(s,"acceptedEnemySource",local(s));set(s,"acceptedSourceEpoch",field(s,"sourceEpoch") as Long)}
+    private fun acceptCurrent(s:ArenaSession) {
+        // This fixture injects a timeline; initialize its corresponding accepted
+        // source rather than reading the previously rendered authority.
+        val source=ArenaSession::class.java.getDeclaredMethod("selectedEnemyPose",java.lang.Long.TYPE).apply {isAccessible=true}.invoke(s,0L) as EnemyPoseFrame
+        set(s,"acceptedEnemySource",source);set(s,"acceptedSourceEpoch",field(s,"sourceEpoch") as Long)
+    }
     private fun advance(s:ArenaSession,delta:Long) {
         val frame=field(s,"simulationMotion") as PlayerMotionFrame
         ArenaSession::class.java.getDeclaredMethod("advanceEnemy",java.lang.Long.TYPE,MutableList::class.java,java.lang.Long.TYPE,PlayerMotionFrame::class.java)

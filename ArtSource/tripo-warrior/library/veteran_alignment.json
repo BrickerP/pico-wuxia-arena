@@ -401,13 +401,13 @@
     },
     {
       "file": "veteran_prepared_png.glb",
-      "bytes": 42052784,
-      "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+      "bytes": 45733888,
+      "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
     },
     {
       "file": "veteran.glb",
-      "bytes": 30932248,
-      "sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d"
+      "bytes": 34616152,
+      "sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
     }
   ],
   "finger_rotation_calibration": {
@@ -30402,6 +30402,280 @@
       }
     ]
   },
+  "prepared_tangents": {
+    "applied": true,
+    "stage": "prepared_png_after_wrist_before_texture_v1",
+    "status": "PASS",
+    "input": {
+      "file": "veteran_prepared_png.glb",
+      "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+    },
+    "geometry_contract_sha256": "9bc0c3b528a45eaf1ee486b5e5c1f7a294cd95a05383ec75acc88d308736e1a1",
+    "algorithm": "MikkTSpace + 1 explicit source-validated degenerate UV corner",
+    "generator": {
+      "name": "Three0.185.1 bundled MikkTSpace WASM",
+      "module_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac",
+      "glTF_w_conversion": "negate Mikk W exactly, per official API",
+      "space": "mesh-local P/N/UV of prepared PNG; scene normalization retained",
+      "module": {
+        "source": "../tooling/mikktspace/mikktspace.mjs",
+        "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+      }
+    },
+    "primitives": [
+      {
+        "primitive": 0,
+        "material": "tripo_material_d077622d-e63a-48d6-964b-8c388d5934ae",
+        "corners": 66177,
+        "maximum_unit_error": 1.578446178207571e-07,
+        "maximum_source_normal_error": 1.2481641409323174e-07,
+        "maximum_abs_normal_dot_tangent": 6.715136728008275e-06,
+        "exact_zero_UV_faces": 1,
+        "exact_zero_geometric_faces": 0,
+        "mirrored_UV_faces": 22058,
+        "degenerate_UV_face_ids": [
+          4108
+        ],
+        "bad_corner_count": 0,
+        "first_bad_corners": [],
+        "pass": true,
+        "pure_mikk_bad_corner_count": 1,
+        "explicit_degenerate_corner_repairs": [
+          {
+            "corner": 12326,
+            "face": 4108,
+            "source_normal": [
+              -0.7542074918746948,
+              -0.4617045819759369,
+              -0.4669046401977539
+            ],
+            "source_positions": [
+              [
+                -0.08610564470291138,
+                0.27984338998794556,
+                -0.09784719347953796
+              ],
+              [
+                -0.08610565215349197,
+                0.28767117857933044,
+                -0.09001944959163666
+              ],
+              [
+                -0.08610565215349197,
+                0.2857142686843872,
+                -0.09197639673948288
+              ]
+            ],
+            "source_uv": [
+              [
+                0.2931020259857178,
+                0.9812909960746765
+              ],
+              [
+                0.2888277769088745,
+                0.9800919890403748
+              ],
+              [
+                0.2898963391780853,
+                0.9803917407989502
+              ]
+            ],
+            "UV_determinant": 0,
+            "old_glTF_mikk_tangent": [
+              1,
+              0,
+              0,
+              1
+            ],
+            "new_tangent": [
+              0.656618058681488,
+              -0.5355778336524963,
+              -0.5310453176498413,
+              1
+            ],
+            "chosen_edge": {
+              "corners": [
+                0,
+                1
+              ],
+              "delta_u": -0.004274249076843262,
+              "positive_u_derivative": [
+                1.7431320884497836e-06,
+                -1.8313833475112915,
+                -1.831372857093811
+              ],
+              "projected_unit": [
+                0.656618058681488,
+                -0.5355778336524963,
+                -0.5310453176498413
+              ]
+            },
+            "all_projected_U_edges": [
+              {
+                "corners": [
+                  0,
+                  1
+                ],
+                "delta_u": -0.004274249076843262,
+                "positive_u_derivative": [
+                  1.7431320884497836e-06,
+                  -1.8313833475112915,
+                  -1.831372857093811
+                ],
+                "projected_unit": [
+                  0.656618058681488,
+                  -0.5355778336524963,
+                  -0.5310453176498413
+                ]
+              },
+              {
+                "corners": [
+                  2,
+                  0
+                ],
+                "delta_u": 0.0032056868076324463,
+                "positive_u_derivative": [
+                  2.3241759663505945e-06,
+                  -1.8313950300216675,
+                  -1.831369400024414
+                ],
+                "projected_unit": [
+                  0.6566179990768433,
+                  -0.5355817079544067,
+                  -0.5310413837432861
+                ]
+              },
+              {
+                "corners": [
+                  1,
+                  2
+                ],
+                "delta_u": 0.0010685622692108154,
+                "positive_u_derivative": [
+                  0,
+                  -1.8313485383987427,
+                  -1.8313833475112915
+                ],
+                "projected_unit": [
+                  0.6566181182861328,
+                  -0.5355662703514099,
+                  -0.531056821346283
+                ]
+              }
+            ],
+            "handedness_unchanged": true,
+            "policy": "Root-approved exact-zero-UV corner only; maximum-|dU| source edge projected to original N, no averaging",
+            "source_vertex": 28170
+          }
+        ],
+        "original_vertices": 33194,
+        "referenced_vertices": 29096,
+        "unreferenced_vertices_preserved": 4098,
+        "split_vertices": 62
+      },
+      {
+        "primitive": 1,
+        "material": "continuous_sleeve_source_cloth",
+        "corners": 5970,
+        "maximum_unit_error": 1.303346336412048e-07,
+        "maximum_source_normal_error": 4.0570453885280244e-08,
+        "maximum_abs_normal_dot_tangent": 1.2829072870701452e-07,
+        "exact_zero_UV_faces": 0,
+        "exact_zero_geometric_faces": 0,
+        "mirrored_UV_faces": 1940,
+        "degenerate_UV_face_ids": [],
+        "bad_corner_count": 0,
+        "first_bad_corners": [],
+        "pass": true,
+        "pure_mikk_bad_corner_count": 0,
+        "explicit_degenerate_corner_repairs": [],
+        "original_vertices": 1065,
+        "referenced_vertices": 1065,
+        "unreferenced_vertices_preserved": 0,
+        "split_vertices": 55
+      },
+      {
+        "primitive": 2,
+        "material": "tripo_left_cap_blackiron_oldbronze",
+        "corners": 6300,
+        "maximum_unit_error": 1.33197683327424e-07,
+        "maximum_source_normal_error": 4.571132539155087e-08,
+        "maximum_abs_normal_dot_tangent": 1.3068071673671966e-06,
+        "exact_zero_UV_faces": 0,
+        "exact_zero_geometric_faces": 0,
+        "mirrored_UV_faces": 2100,
+        "degenerate_UV_face_ids": [],
+        "bad_corner_count": 0,
+        "first_bad_corners": [],
+        "pass": true,
+        "pure_mikk_bad_corner_count": 0,
+        "explicit_degenerate_corner_repairs": [],
+        "original_vertices": 1791,
+        "referenced_vertices": 1791,
+        "unreferenced_vertices_preserved": 0,
+        "split_vertices": 3
+      },
+      {
+        "primitive": 3,
+        "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+        "corners": 35280,
+        "maximum_unit_error": 1.5770459049768704e-07,
+        "maximum_source_normal_error": 4.234701567185084e-08,
+        "maximum_abs_normal_dot_tangent": 2.388988801449443e-06,
+        "exact_zero_UV_faces": 0,
+        "exact_zero_geometric_faces": 0,
+        "mirrored_UV_faces": 11760,
+        "degenerate_UV_face_ids": [],
+        "bad_corner_count": 0,
+        "first_bad_corners": [],
+        "pass": true,
+        "pure_mikk_bad_corner_count": 0,
+        "explicit_degenerate_corner_repairs": [],
+        "original_vertices": 8279,
+        "referenced_vertices": 8279,
+        "unreferenced_vertices_preserved": 0,
+        "split_vertices": 2
+      },
+      {
+        "primitive": 4,
+        "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+        "corners": 1440,
+        "maximum_unit_error": 1.1616292550087337e-07,
+        "maximum_source_normal_error": 3.19651711766511e-08,
+        "maximum_abs_normal_dot_tangent": 1.0716675780120255e-07,
+        "exact_zero_UV_faces": 0,
+        "exact_zero_geometric_faces": 0,
+        "mirrored_UV_faces": 470,
+        "degenerate_UV_face_ids": [],
+        "bad_corner_count": 0,
+        "first_bad_corners": [],
+        "pass": true,
+        "pure_mikk_bad_corner_count": 0,
+        "explicit_degenerate_corner_repairs": [],
+        "original_vertices": 288,
+        "referenced_vertices": 288,
+        "unreferenced_vertices_preserved": 0,
+        "split_vertices": 12
+      }
+    ],
+    "preservation": {
+      "pass": true,
+      "original_BIN_prefix_exact": true,
+      "root_JSON_except_appended_storage_exact": true,
+      "original_accessors_and_views_exact": true,
+      "mesh_and_primitive_metadata_exact": true,
+      "indexed_corner_attributes_exact": 100,
+      "indexed_attribute_corner_rows_checked": 706365,
+      "nodes_skins_animations_images_materials_JSON_exact": true,
+      "animation_sampler_accessors_exact": 4680,
+      "static_indexed_corner_contract_exact": true
+    },
+    "output": {
+      "file": "veteran_prepared_png.glb",
+      "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+      "bytes": 45733888
+    }
+  },
   "id": "veteran",
   "name": "玄甲守擂",
   "retargeting": [
@@ -30869,17 +31143,17 @@
   },
   "prepared_png": {
     "file": "veteran_prepared_png.glb",
-    "bytes": 42052784,
-    "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+    "bytes": 45733888,
+    "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
   },
   "runtime_texture_encoding": {
     "file": "veteran_texture_encoding.json",
-    "sha256": "c816871200490d589b649bb1d377b5704130240b6ca45827fae77469ab204a51",
-    "prepared_png_sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b",
-    "encoded_sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
+    "sha256": "6ec93a10ca029a6d2f6b444a1bd22a3c85c59881330a54897584d92af037d242",
+    "prepared_png_sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+    "encoded_sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
     "preservation": {
-      "non_image_bufferViews_byte_identical": 3277,
-      "accessors_semantics_and_payloads_unchanged": 3273,
+      "non_image_bufferViews_byte_identical": 3312,
+      "accessors_semantics_and_payloads_unchanged": 3308,
       "non_image_json_semantics_identical": true,
       "images": [
         {
@@ -31292,6 +31566,6 @@
   },
   "attack_profiles": {
     "file": "veteran_attack_profiles.json",
-    "sha256": "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170"
+    "sha256": "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263"
   }
 }

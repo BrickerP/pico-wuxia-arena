@@ -10,7 +10,7 @@ import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.combat.WeaponGrip
 
 internal object AttackBankProfileData {
-    const val bindingSha256 = "7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6"
+    const val bindingSha256 = "c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2"
     val characters: Map<String, CharacterAttackProfiles> = mapOf(
         "asset://models/opponents/base.glb" to CharacterAttackProfiles(
             modelSha256 = "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38",
@@ -113,8 +113,8 @@ internal object AttackBankProfileData {
             ),
         ),
         "asset://models/opponents/veteran.glb" to CharacterAttackProfiles(
-            modelSha256 = "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d",
-            profileSha256 = "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170",
+            modelSha256 = "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
+            profileSha256 = "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263",
             attacks = mapOf(
                 // Animation semantics SHA-256 d08b75e40bd176b59a44aea8e48cdc9f554d07b8a54dee0283db008ecf0d4d5c
                 AttackDirection.OVERHEAD to AttackProfile(

@@ -96,6 +96,9 @@ class EnemyIdleClockTest {
         fixture.observe(50_000_000_001L)
         assertTrue(fixture.session.confirmResume(pause))
         assertEquals(before, fixture.session.viewState.enemyPoseSourceSeconds)
+        // Resume cannot rebuild physics from a 50s-old pose. Supply real accepted
+        // observations just before the baseline tick; it still cannot catch up.
+        fixture.observe(99_999_999_999L)
         fixture.session.onTick(100_000_000_000L)
         assertEquals(before, fixture.session.viewState.enemyPoseSourceSeconds)
         fixture.session.onTick(100_100_000_000L)

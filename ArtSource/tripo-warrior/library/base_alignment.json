@@ -30047,6 +30047,9 @@
       }
     ]
   },
+  "prepared_tangents": {
+    "applied": false
+  },
   "id": "base",
   "name": "试刀客",
   "retargeting": [

@@ -119,7 +119,7 @@ class SteelRecoveryDomainTest {
         for(sample in idle.samples)assertEquals("Idle key ${sample.sourceSeconds} must remain in its full loop",
             sample,selected.single { it.sourceSeconds==sample.sourceSeconds })
         assertEquals(idle.samples.size+1,selected.size)
-        assertEquals(idle.samples.first(),selected.first())
+        assertEquals("The actual current owner starts the certified future domain",current,selected.first())
         assertEquals(idle.samples.last(),selected.last())
     }
 

@@ -64,6 +64,7 @@ def canonical_hash(value):
 def production_binding(manifest):
     return {'schema_version': 3, 'prepared_wrist_constraint': manifest['prepared_wrist_constraint'],
             'blade_grip_sampling': BLADE_GRIP_PROFILE_POLICY,
+            'prepared_tangents': manifest['prepared_tangents'],
             'motion_source': manifest['motion_source'],
             'locomotion_source': manifest['locomotion_source'],
             'body_coverage_calibration': manifest['body_coverage_calibration'],

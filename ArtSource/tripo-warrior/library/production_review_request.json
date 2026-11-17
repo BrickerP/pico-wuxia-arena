@@ -25,6 +25,55 @@
       "field": "required blade_grip position_m, rotation_xyzw, interpolation_error_to_next_m",
       "runtime_packing_doubles": 24
     },
+    "prepared_tangents": {
+      "stage": "prepared_png_after_wrist_before_texture_v1",
+      "targets": [
+        "veteran"
+      ],
+      "implementation": {
+        "source": "prepared_tangents.py",
+        "source_sha256": "6ce842ca31efc37f997d96b22de1fcaba4473258fe37038d3f9dbe9771292581"
+      },
+      "tools": {
+        "build_tangents.mjs": {
+          "source": "../tooling/mikktspace/build_tangents.mjs",
+          "source_sha256": "d44a7b7b33c4c926a78484b6a0392236cee982c1a3fd356d53bfc4af177d6723"
+        },
+        "glb_io.mjs": {
+          "source": "../tooling/mikktspace/glb_io.mjs",
+          "source_sha256": "c1ca3f5539e77d898e38e77a6b1c8e43ca8f3552cdf7bc9fc3f8209e53ce00b9"
+        },
+        "mikktspace.mjs": {
+          "source": "../tooling/mikktspace/mikktspace.mjs",
+          "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+        },
+        "geometry_contract.json": {
+          "source": "../tooling/mikktspace/geometry_contract.json",
+          "source_sha256": "a36a1fff85f9453c69d56a2bcb59c9cff247ab1d087e2e612061cc4922df2175"
+        },
+        "degenerate_policy.json": {
+          "source": "../tooling/mikktspace/degenerate_policy.json",
+          "source_sha256": "aac181096d4fa7ffc2e5a079e4bc4d9ddd2fa293e4a2ae343b3d999c7df95710"
+        },
+        "licenses/MikkTSpace-original-zlib-notice.txt": {
+          "source": "../tooling/mikktspace/licenses/MikkTSpace-original-zlib-notice.txt",
+          "source_sha256": "9ae731b25215baa2b2d6047bf537fb2312f2003a6a05d3d4552010455b1e9fb0"
+        },
+        "licenses/mikktspace-wasm-MIT.txt": {
+          "source": "../tooling/mikktspace/licenses/mikktspace-wasm-MIT.txt",
+          "source_sha256": "28159675e3ae5d17f9f9349e1ff9323001cfba3ee068cf1c197afc9418c17653"
+        },
+        "licenses/three-MIT.txt": {
+          "source": "../tooling/mikktspace/licenses/three-MIT.txt",
+          "source_sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
+        }
+      },
+      "host_node": {
+        "source": "/Users/yupeng/.nvm/versions/node/v22.22.1/bin/node",
+        "source_sha256": "245e0321af97d3c21dd4e7104457334dfe3c3ba7982d0db75363e354565f8cbb",
+        "version": "v22.22.1"
+      }
+    },
     "motion_source": {
       "source": "expanded/base/tripo-out/461fea24-rig-e7df779b/model.glb",
       "source_sha256": "b25da49650aa6ff9cdaf09053c1e891a38a1c8297d03ee3630eccbf1eb85e8d6",
@@ -568,7 +617,7 @@
       }
     ]
   },
-  "binding_sha256": "7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6",
+  "binding_sha256": "c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2",
   "source_contract_evidence": {
     "idle": {
       "canonical_clip": "attack_overhead",
@@ -667,6 +716,9 @@
           "sha256": "5e312d830715575e2d6b74b57320d05c226336082049f6981ba81f78b2704b38"
         }
       ],
+      "prepared_tangents": {
+        "applied": false
+      },
       "hand_track_signatures": {
         "fall": "90777f7e0711deca2391274935d0cf1a1e2a653d6c1ab0c63a1ab89b1ff91a4b",
         "turn": "4de8d15d68c77db67951e6b94f51475c62021059be7c4e4cec88d45796325f62",
@@ -713,6 +765,9 @@
           "sha256": "09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6"
         }
       ],
+      "prepared_tangents": {
+        "applied": false
+      },
       "hand_track_signatures": {
         "fall": "ee1fe2532e2946e1f5ef34c657d5227d5141dec2485570c201f37186338d1ddb",
         "turn": "a4bfb270f90d50035a2160aad510e40af8a341ce474a5369d57dd558eb76c78e",
@@ -750,15 +805,289 @@
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 42052784,
-          "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+          "bytes": 45733888,
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923"
         },
         {
           "file": "veteran.glb",
-          "bytes": 30932248,
-          "sha256": "42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d"
+          "bytes": 34616152,
+          "sha256": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b"
         }
       ],
+      "prepared_tangents": {
+        "applied": true,
+        "stage": "prepared_png_after_wrist_before_texture_v1",
+        "status": "PASS",
+        "input": {
+          "file": "veteran_prepared_png.glb",
+          "sha256": "f434212756725ae2ffdf985b1ce14bde9bdc792188ab8f750d17710cc5ea583b"
+        },
+        "geometry_contract_sha256": "9bc0c3b528a45eaf1ee486b5e5c1f7a294cd95a05383ec75acc88d308736e1a1",
+        "algorithm": "MikkTSpace + 1 explicit source-validated degenerate UV corner",
+        "generator": {
+          "name": "Three0.185.1 bundled MikkTSpace WASM",
+          "module_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac",
+          "glTF_w_conversion": "negate Mikk W exactly, per official API",
+          "space": "mesh-local P/N/UV of prepared PNG; scene normalization retained",
+          "module": {
+            "source": "../tooling/mikktspace/mikktspace.mjs",
+            "source_sha256": "f415ebd2f7bbe4ac06439be40d2ca4a11bb17123009bb33582176b1b21a14dac"
+          }
+        },
+        "primitives": [
+          {
+            "primitive": 0,
+            "material": "tripo_material_d077622d-e63a-48d6-964b-8c388d5934ae",
+            "corners": 66177,
+            "maximum_unit_error": 1.578446178207571e-07,
+            "maximum_source_normal_error": 1.2481641409323174e-07,
+            "maximum_abs_normal_dot_tangent": 6.715136728008275e-06,
+            "exact_zero_UV_faces": 1,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 22058,
+            "degenerate_UV_face_ids": [
+              4108
+            ],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 1,
+            "explicit_degenerate_corner_repairs": [
+              {
+                "corner": 12326,
+                "face": 4108,
+                "source_normal": [
+                  -0.7542074918746948,
+                  -0.4617045819759369,
+                  -0.4669046401977539
+                ],
+                "source_positions": [
+                  [
+                    -0.08610564470291138,
+                    0.27984338998794556,
+                    -0.09784719347953796
+                  ],
+                  [
+                    -0.08610565215349197,
+                    0.28767117857933044,
+                    -0.09001944959163666
+                  ],
+                  [
+                    -0.08610565215349197,
+                    0.2857142686843872,
+                    -0.09197639673948288
+                  ]
+                ],
+                "source_uv": [
+                  [
+                    0.2931020259857178,
+                    0.9812909960746765
+                  ],
+                  [
+                    0.2888277769088745,
+                    0.9800919890403748
+                  ],
+                  [
+                    0.2898963391780853,
+                    0.9803917407989502
+                  ]
+                ],
+                "UV_determinant": 0,
+                "old_glTF_mikk_tangent": [
+                  1,
+                  0,
+                  0,
+                  1
+                ],
+                "new_tangent": [
+                  0.656618058681488,
+                  -0.5355778336524963,
+                  -0.5310453176498413,
+                  1
+                ],
+                "chosen_edge": {
+                  "corners": [
+                    0,
+                    1
+                  ],
+                  "delta_u": -0.004274249076843262,
+                  "positive_u_derivative": [
+                    1.7431320884497836e-06,
+                    -1.8313833475112915,
+                    -1.831372857093811
+                  ],
+                  "projected_unit": [
+                    0.656618058681488,
+                    -0.5355778336524963,
+                    -0.5310453176498413
+                  ]
+                },
+                "all_projected_U_edges": [
+                  {
+                    "corners": [
+                      0,
+                      1
+                    ],
+                    "delta_u": -0.004274249076843262,
+                    "positive_u_derivative": [
+                      1.7431320884497836e-06,
+                      -1.8313833475112915,
+                      -1.831372857093811
+                    ],
+                    "projected_unit": [
+                      0.656618058681488,
+                      -0.5355778336524963,
+                      -0.5310453176498413
+                    ]
+                  },
+                  {
+                    "corners": [
+                      2,
+                      0
+                    ],
+                    "delta_u": 0.0032056868076324463,
+                    "positive_u_derivative": [
+                      2.3241759663505945e-06,
+                      -1.8313950300216675,
+                      -1.831369400024414
+                    ],
+                    "projected_unit": [
+                      0.6566179990768433,
+                      -0.5355817079544067,
+                      -0.5310413837432861
+                    ]
+                  },
+                  {
+                    "corners": [
+                      1,
+                      2
+                    ],
+                    "delta_u": 0.0010685622692108154,
+                    "positive_u_derivative": [
+                      0,
+                      -1.8313485383987427,
+                      -1.8313833475112915
+                    ],
+                    "projected_unit": [
+                      0.6566181182861328,
+                      -0.5355662703514099,
+                      -0.531056821346283
+                    ]
+                  }
+                ],
+                "handedness_unchanged": true,
+                "policy": "Root-approved exact-zero-UV corner only; maximum-|dU| source edge projected to original N, no averaging",
+                "source_vertex": 28170
+              }
+            ],
+            "original_vertices": 33194,
+            "referenced_vertices": 29096,
+            "unreferenced_vertices_preserved": 4098,
+            "split_vertices": 62
+          },
+          {
+            "primitive": 1,
+            "material": "continuous_sleeve_source_cloth",
+            "corners": 5970,
+            "maximum_unit_error": 1.303346336412048e-07,
+            "maximum_source_normal_error": 4.0570453885280244e-08,
+            "maximum_abs_normal_dot_tangent": 1.2829072870701452e-07,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 1940,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 1065,
+            "referenced_vertices": 1065,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 55
+          },
+          {
+            "primitive": 2,
+            "material": "tripo_left_cap_blackiron_oldbronze",
+            "corners": 6300,
+            "maximum_unit_error": 1.33197683327424e-07,
+            "maximum_source_normal_error": 4.571132539155087e-08,
+            "maximum_abs_normal_dot_tangent": 1.3068071673671966e-06,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 2100,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 1791,
+            "referenced_vertices": 1791,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 3
+          },
+          {
+            "primitive": 3,
+            "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+            "corners": 35280,
+            "maximum_unit_error": 1.5770459049768704e-07,
+            "maximum_source_normal_error": 4.234701567185084e-08,
+            "maximum_abs_normal_dot_tangent": 2.388988801449443e-06,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 11760,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 8279,
+            "referenced_vertices": 8279,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 2
+          },
+          {
+            "primitive": 4,
+            "material": "HeroHead_tripo_node_9fdbd2f7-01b2-456f-8f39-05e75d5e8744_material",
+            "corners": 1440,
+            "maximum_unit_error": 1.1616292550087337e-07,
+            "maximum_source_normal_error": 3.19651711766511e-08,
+            "maximum_abs_normal_dot_tangent": 1.0716675780120255e-07,
+            "exact_zero_UV_faces": 0,
+            "exact_zero_geometric_faces": 0,
+            "mirrored_UV_faces": 470,
+            "degenerate_UV_face_ids": [],
+            "bad_corner_count": 0,
+            "first_bad_corners": [],
+            "pass": true,
+            "pure_mikk_bad_corner_count": 0,
+            "explicit_degenerate_corner_repairs": [],
+            "original_vertices": 288,
+            "referenced_vertices": 288,
+            "unreferenced_vertices_preserved": 0,
+            "split_vertices": 12
+          }
+        ],
+        "preservation": {
+          "pass": true,
+          "original_BIN_prefix_exact": true,
+          "root_JSON_except_appended_storage_exact": true,
+          "original_accessors_and_views_exact": true,
+          "mesh_and_primitive_metadata_exact": true,
+          "indexed_corner_attributes_exact": 100,
+          "indexed_attribute_corner_rows_checked": 706365,
+          "nodes_skins_animations_images_materials_JSON_exact": true,
+          "animation_sampler_accessors_exact": 4680,
+          "static_indexed_corner_contract_exact": true
+        },
+        "output": {
+          "file": "veteran_prepared_png.glb",
+          "sha256": "bea4844a185880d80a63aa00acf1f0a647668807e4e7d5e3c298fc02ea0c6923",
+          "bytes": 45733888
+        }
+      },
       "hand_track_signatures": {
         "fall": "52f562634e0a50c93327761bc63f7e2aca582bbe030f275f9b8cd5c867735262",
         "turn": "3e7139ddcc127af7cc387039560da1ad6ff51010d07a5d742a9983d58b5f41f2",
@@ -783,8 +1112,8 @@
         "attack_left": "9dfb4737b1e4fcf00e8eb392a3d1cb52b2a8ce8c7b7bb9d20138184e1934a136",
         "attack_right": "cccae52863c7d8f2ee795611f11b1ec603d81eafde0333e74d6f8a57d76909cd"
       },
-      "texture_encoding_manifest_sha256": "c816871200490d589b649bb1d377b5704130240b6ca45827fae77469ab204a51",
-      "attack_profiles_sha256": "db185e253e2ebc0613de31be47d4955b7ffc646f03ac1562ce32fe8aad612170"
+      "texture_encoding_manifest_sha256": "6ec93a10ca029a6d2f6b444a1bd22a3c85c59881330a54897584d92af037d242",
+      "attack_profiles_sha256": "60c8019d45f8f0650986aac2875cb3c4def3936143fe6e4e48263d21b0bd5263"
     }
   ],
   "player_weapon": {

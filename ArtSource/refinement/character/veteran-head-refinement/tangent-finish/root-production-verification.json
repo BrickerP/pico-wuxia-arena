@@ -1,0 +1,41 @@
+{
+  "scope": "Canonical production preservation and source checks; no native material quality acceptance",
+  "binding": "c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2",
+  "veteran_runtime": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
+  "tests": {
+    "Blender": 80,
+    "Node": 24,
+    "profile_JVM": 17,
+    "failures": 0,
+    "skips": 0,
+    "full_JVM": 558
+  },
+  "typed_generation_check": true,
+  "profile_preservation_file": "ArtSource/refinement/character/veteran-head-refinement/tangent-finish/root-profile-preservation.json",
+  "profile_preservation_sha256": "1ab0cc24061294bc92220a992f130256a7db226fdcbdabd410d1e5851098f1ec",
+  "all_ten_clips_and_hand_tracks_exact": true,
+  "native_material_AB": "pending",
+  "known_visual_limits": [
+    "Skin looks young/bright",
+    "480tri neck extension has collapsed UV; local unwrap/refinement privately authorized",
+    "DAO tangents unchanged"
+  ],
+  "compiled_APK": {
+    "status": "development_build_native_c8cd_material_and_full_match_unverified",
+    "base_commit": "c75490731964ecedc4c8f5ee81b95c63c37a5f83",
+    "working_tree_uncommitted": true,
+    "apk_sha256": "0ce4b259bb77a901472b7b66a7f4f66f7dfe7ebb2a3fd4091c161abe7ba8f49f",
+    "bytes": 126765541,
+    "zip_overhead": 64868,
+    "binding": "c8cd395d6c3779d688410f1e334d694d94884ce508e9c5309a4a8113e17cf8e2",
+    "veteran": "af74e57427aa23bfc2bbd80ee33593799c8f280da0e65232f74db17c6d5dcc7b",
+    "tests": {
+      "tests": 558,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "models_profiles_matched": 22,
+    "known_gameplay_blocker": "65ac actual indigo contact recovery exits before authored guard; same poses in c8cd. Repair ongoing."
+  }
+}
