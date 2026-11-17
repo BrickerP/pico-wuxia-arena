@@ -25,7 +25,7 @@ Root退回旧仰天/翻刀HEAD；现recipe3身体gain0.35、颈头0.11，胸约1
 
 ## Root下一任务
 
-审核 `current-production/production.patch` 与vendor闭包，只接入唯一 `prepare_character_library.py`：wrist/recipe3之后、KTX之前。公共工具、配置及依赖进入production binding，再生成私有候选、核10clip/轮廓/刀与身体校准、审批并正式发布。不得另建导出器、自动沿用旧授权或直接替换正式GLB。
+已退回并修正固定诊断目录阻断复建的问题；`current-production/review-revision/handoff.json`保留两次真实raw→recipe3同路径重建、产物/规范化报告一致及失败保全证据。Root下一步审核该revision的`production.patch`与原vendor闭包，只接入唯一 `prepare_character_library.py`：wrist/recipe3之后、KTX之前。公共工具、配置及依赖进入production binding，再生成私有候选、核10clip/轮廓/刀与身体校准、审批并正式发布。不得另建导出器、自动沿用旧授权或直接替换正式GLB。
 
 发布后以同视角、同头/手Pose及同配光做原生材质对照。切线修复只证明法线贴图解释更明确，只有实际画面能判断皮肤、布料和金属质感是否改善。若仍不足，下一件围绕现有脸部/衣料PBR细节制作，不扩大角色数量或新玩法。
 

@@ -38,13 +38,13 @@ main素材提交9cf3f35及旧release各有独立身份，旧包通关不代表�
 
 **身体精度。** 完整38389三角候选不消费正式伤害。两次独立模拟器进程各96条同请求，日志记录结果一致；优化版热身中位14.508ms、P95 42.640ms、最慢109.387ms，仍未准入。冷/暖/GC和不利样本均保留。临时2源码逐字恢复、5诊断源码和bin删除，设备恢复ddac。下一件保留完整surface做保守BVH/按需蒙皮，不以低模假碰换速度，详见[01](agents/01-combat.md)。
 
-**角色材质。** 当前Mikk切线候选保10clip，只补五个body primitive，DAO及零权joint警告保留。Root要求修正同输出目录复建被旧诊断目录阻断的问题，再走唯一产线审批发布和原生A/B；尚无视觉品质通过，详见[03](agents/03-art.md)。
+**角色材质。** 当前Mikk切线候选保10clip，只补五个body primitive，DAO及零权joint警告保留。同输出目录复建被旧诊断目录阻断的问题已按Root意见返修，两次真实raw→recipe3重建同bytes/报告；仍须走唯一产线审批发布和原生A/B，尚无视觉品质通过，详见[03](agents/03-art.md)。
 
-**场景体积。** 新柱和190mm曲木承托 `8c44106f` 过9项保护，尺寸、64原节点和12锚点保留；Root接受局部实体改善，尚未装入当前ddac包。原生KTX/TBN和整场效果仍待审，详见[06](agents/06-environment.md)。
+**场景体积。** 新柱和190mm曲木承托 `8c44106f` 过9项保护，尺寸、64原节点和12锚点保留；Root接受局部实体改善，已装入7897b9c4并实际看到原生准备态，图见`presentation/native-entry-2026-11-17.png`；该包Kotlin与ddac相同，只变场景，完整新组合交战/TBN细节及整场品质仍待审，详见[06](agents/06-environment.md)。
 
 ## 当前正式资产身份
 
-下表按当前实际文件计算，对应ddac检查点；不含尚未采用的切线/木构候选。
+角色/手刀沿用ddac正式bank；场景已升级为7897组合实测的8c44106f。切线候选尚未发布；完整新组合战斗待P0修后重验。
 
 | Asset | SHA256 |
 | --- | --- |
@@ -52,7 +52,7 @@ main素材提交9cf3f35及旧release各有独立身份，旧包通关不代表�
 | indigo | `09d516f2086df8020121152322f3468c87e3461ed276b0994001a87bdcaf73b6` |
 | veteran | `42e89a297ba523ce0bf8943bcdfe0ebc6699ea9e52526c34d3638980f69e6c5d` |
 | dao_grip | `db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0` |
-| courtyard | `c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78` |
+| courtyard | `8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151` |
 | right_hand | `199c228cb4e0bdca0f8236cd225773ecc4560b60b8d2950ca8156e44ec5f0b64` |
 | left_hand | `0295c147673a5cf15b4265cbfcb83391d2fa399b8be778c54ecc789fc61c46f7` |
 

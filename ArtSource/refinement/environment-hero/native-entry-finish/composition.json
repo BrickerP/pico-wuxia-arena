@@ -1,0 +1,81 @@
+{
+  "status": "private_full_scene_first_specimen",
+  "module_sha256": "c0198444d20dee20f83f335ef6d95e2677c82a40061cfc8e9b2c6e732caa82b4",
+  "outputs": {
+    "png": {
+      "file": "courtyard_entry_finish_png.glb",
+      "sha256": "dfc6cf82ff58f4f845305eefb9180cf5a9868741b667fe89dec8e9e2cb6db04c",
+      "bytes": 39753032,
+      "source_sha256": "d935d8185dff6750838bc1d5d98c0b1f07bdce4b0a25249e42957bc501fbe06d",
+      "removed": [
+        {
+          "mesh": 22,
+          "primitive": 0,
+          "removed_triangles": 76,
+          "kept_index_sha256": "e149fe81e268552c07e16777f31b4409f91daa3751f0d8868fa45425e9eb71f1"
+        },
+        {
+          "mesh": 36,
+          "primitive": 0,
+          "removed_triangles": 550,
+          "kept_index_sha256": "38fbaa5c3d36061fedaad66cac2d306d7afab5d597b44b1f24a6e6fb12b4fd99"
+        },
+        {
+          "mesh": 36,
+          "primitive": 1,
+          "removed_triangles": 20,
+          "kept_index_sha256": "45601c667c595b2bb9e87fe7a7e93f7edac31d43d2f642d042a603f5ca01b52e"
+        }
+      ],
+      "budget": {
+        "node_expanded_triangles": 253296,
+        "unique_mesh_triangles": 186032,
+        "active_unique_meshes": 42,
+        "unique_position_stream_vertices": 351990,
+        "unique_attribute_buffer_bytes": 14868624,
+        "unique_index_buffer_bytes": 1269084,
+        "primitive_node_submission_upper_estimate": 121,
+        "materials": 32,
+        "images": 50
+      }
+    },
+    "ktx": {
+      "file": "courtyard_entry_finish_ktx.glb",
+      "sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+      "bytes": 40550840,
+      "source_sha256": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+      "removed": [
+        {
+          "mesh": 22,
+          "primitive": 0,
+          "removed_triangles": 76,
+          "kept_index_sha256": "e149fe81e268552c07e16777f31b4409f91daa3751f0d8868fa45425e9eb71f1"
+        },
+        {
+          "mesh": 36,
+          "primitive": 0,
+          "removed_triangles": 550,
+          "kept_index_sha256": "38fbaa5c3d36061fedaad66cac2d306d7afab5d597b44b1f24a6e6fb12b4fd99"
+        },
+        {
+          "mesh": 36,
+          "primitive": 1,
+          "removed_triangles": 20,
+          "kept_index_sha256": "45601c667c595b2bb9e87fe7a7e93f7edac31d43d2f642d042a603f5ca01b52e"
+        }
+      ],
+      "budget": {
+        "node_expanded_triangles": 253296,
+        "unique_mesh_triangles": 186032,
+        "active_unique_meshes": 42,
+        "unique_position_stream_vertices": 351990,
+        "unique_attribute_buffer_bytes": 14868624,
+        "unique_index_buffer_bytes": 1269084,
+        "primitive_node_submission_upper_estimate": 121,
+        "materials": 32,
+        "images": 50
+      }
+    }
+  },
+  "materials_images_textures_unchanged": true
+}

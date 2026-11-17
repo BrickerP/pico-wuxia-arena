@@ -1,0 +1,278 @@
+{
+  "parts": [
+    {
+      "part": "HeroEntry_Post_-1",
+      "center_xz": [
+        -1.4,
+        -5.24
+      ],
+      "foot_m": [
+        0.23,
+        0.29
+      ],
+      "height_m": 4.615,
+      "max_depth_m": 0.36,
+      "width_m": 0.23,
+      "rail_seats": [
+        2.85,
+        3.15,
+        4.8
+      ],
+      "corbel_mortise": true,
+      "grain_stage": [
+        0,
+        1,
+        0
+      ],
+      "edge_radius_m": 0.004
+    },
+    {
+      "part": "HeroEntry_OxLeg_-1",
+      "profile_stage_zy": [
+        [
+          -5.067,
+          2.8
+        ],
+        [
+          -5.067,
+          2.98
+        ],
+        [
+          -4.715,
+          2.98
+        ],
+        [
+          -4.715,
+          2.905
+        ],
+        [
+          -4.745,
+          2.858
+        ],
+        [
+          -4.79,
+          2.825
+        ],
+        [
+          -4.85,
+          2.795
+        ],
+        [
+          -4.9,
+          2.752
+        ],
+        [
+          -4.943,
+          2.695
+        ],
+        [
+          -4.98,
+          2.62
+        ],
+        [
+          -5.015,
+          2.56
+        ],
+        [
+          -5.052,
+          2.536
+        ],
+        [
+          -5.067,
+          2.548
+        ]
+      ],
+      "thickness_m": 0.19,
+      "real_side_recess_depth_m": 0.0075,
+      "bearing_top_y_m": 3.02,
+      "tenon_m": [
+        0.11,
+        0.194,
+        0.22
+      ],
+      "socket_clearance_m": 0.001,
+      "grain_stage": [
+        0,
+        0,
+        1
+      ],
+      "edge_radius_m": 0.005
+    },
+    {
+      "part": "HeroEntry_Post_1",
+      "center_xz": [
+        1.4,
+        -5.24
+      ],
+      "foot_m": [
+        0.23,
+        0.29
+      ],
+      "height_m": 4.615,
+      "max_depth_m": 0.36,
+      "width_m": 0.23,
+      "rail_seats": [
+        2.85,
+        3.15,
+        4.8
+      ],
+      "corbel_mortise": true,
+      "grain_stage": [
+        0,
+        1,
+        0
+      ],
+      "edge_radius_m": 0.004
+    },
+    {
+      "part": "HeroEntry_OxLeg_1",
+      "profile_stage_zy": [
+        [
+          -5.067,
+          2.8
+        ],
+        [
+          -5.067,
+          2.98
+        ],
+        [
+          -4.715,
+          2.98
+        ],
+        [
+          -4.715,
+          2.905
+        ],
+        [
+          -4.745,
+          2.858
+        ],
+        [
+          -4.79,
+          2.825
+        ],
+        [
+          -4.85,
+          2.795
+        ],
+        [
+          -4.9,
+          2.752
+        ],
+        [
+          -4.943,
+          2.695
+        ],
+        [
+          -4.98,
+          2.62
+        ],
+        [
+          -5.015,
+          2.56
+        ],
+        [
+          -5.052,
+          2.536
+        ],
+        [
+          -5.067,
+          2.548
+        ]
+      ],
+      "thickness_m": 0.19,
+      "real_side_recess_depth_m": 0.0075,
+      "bearing_top_y_m": 3.02,
+      "tenon_m": [
+        0.11,
+        0.194,
+        0.22
+      ],
+      "socket_clearance_m": 0.001,
+      "grain_stage": [
+        0,
+        0,
+        1
+      ],
+      "edge_radius_m": 0.005
+    }
+  ],
+  "topology": {
+    "HeroEntry_Post_-1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.32043623457186277,
+      "cleaned_vertices": 2,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 4.521807372981357e-09
+    },
+    "HeroEntry_OxLeg_-1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.01674075545383741,
+      "cleaned_vertices": 24,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 1.4224567621567985e-06
+    },
+    "HeroEntry_HiddenShoulderedTenon_-1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0046941884777339125,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 4.605323624673474e-07
+    },
+    "HeroEntry_BearingSaddle_-1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0043948375605756184,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 7.368579645117279e-06
+    },
+    "HeroEntry_WedgeKey_-1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0002793983650584052,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 1.8421585536998464e-06
+    },
+    "HeroEntry_Post_1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.32043379153463825,
+      "cleaned_vertices": 2,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 2.744299898438385e-09
+    },
+    "HeroEntry_OxLeg_1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0167407554174445,
+      "cleaned_vertices": 24,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 1.4224605138224433e-06
+    },
+    "HeroEntry_HiddenShoulderedTenon_1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0046941884777339125,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 4.605323624673474e-07
+    },
+    "HeroEntry_BearingSaddle_1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0043948375605756184,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 7.368579645117279e-06
+    },
+    "HeroEntry_WedgeKey_1": {
+      "non_manifold_edges": 0,
+      "volume_m3": 0.0002793983650584052,
+      "cleaned_vertices": 0,
+      "float_safety_merge_m": 1e-05,
+      "min_triangle_twice_area_m2": 1.8421585536998464e-06
+    }
+  },
+  "materials": [
+    "Method | CC0 directional wood .8m",
+    "Method | original endgrain .25m"
+  ],
+  "textures_added": 0,
+  "coordinate_stage_to_blender": "X,-Z,Y"
+}

@@ -4,11 +4,11 @@
 
 ## 正式场景与配光
 
-开发提交 `37d0ebf4`，见[草稿PR #13](https://github.com/BrickerP/pico-wuxia-arena/pull/13)。当前正式 `app/src/main/assets/models/courtyard_hero.glb` 为 `c7f2e2b2`，249958展开三角，32材质/50图，提交估算119；完整灯笼庭院已在ddac实战显示。
+开发提交 `37d0ebf4`，见[草稿PR #13](https://github.com/BrickerP/pico-wuxia-arena/pull/13)。此前ddac采用c7场景。当前工作树`app/src/main/assets/models/courtyard_hero.glb`已采用8c44106f木构场景，253296展开三角、32材质/50图、提交估算121；统一包7897b9c4构建/安装后，通过设备显示截图实际看到完整Full Stage准备态。源码Kotlin与ddac逐文件相同，仅场景替换，未冒称新完整战斗通过。实图/身份见`ArtSource/refinement/presentation/native-entry-2026-11-17.png/json`。
 
 实际庭院HDR形成的IBL `7d970ca4`、强度指数7f已进入同包。三朝向对照里2f收益太弱；8f有层次但灰亮、夜间对比不足。7f属于当前组合，不能称整体材质、刀面反射或Space Pro表现通过。
 
-## 主门实体木构：Root接受局部体积改善，待原生采用
+## 主门实体木构：Root接受局部体积改善，原生准备态已显示
 
 目录：`ArtSource/refinement/environment-hero/native-entry-finish/`。最新交接 `handoff.json`，发布闭包 `production-closure.json`。
 
@@ -22,8 +22,8 @@ Root已实际看1.65m正常视角、侧向梁柱和柱脚对照。190mm厚曲木
 
 ## Root下一任务与验收
 
-1. 核正式资产仍为c7，再按闭包审核完整候选及源码；采用时只更换上述完整KTX，不混入代码/灯光/UI/锚点变更。
-2. 核新APK内实际资产SHA，以同SDK头/手姿态及当前7f配光看原生入口体积、TBN和加载。离线图不能替代此项。
+1. 已核c7前置身份及全闭包、Root重跑9项保护；只更换完整KTX，代码/灯光/UI/锚点未改。
+2. 已核新APK的19GLB/3profile与源一致，Root实际审过设备准备态。宿主窗口截图黑、空间截图参数不受支持的失败均保留，改用设备显示截图取得实图；不据日志判视觉通过。法线细节/严格同pose材质对照仍需后续专项。
 3. 和角色/刀具组合审实际战斗画面；保留湿石、灯笼纸罩、夜间明暗层次，避免全局提亮掩盖材质问题。
 4. 原生完整流程、Space Pro加载/内存/性能/舒适度仍待验；面数在预算内或提交估算较低不是终端验收。
 

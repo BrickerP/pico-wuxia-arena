@@ -1,0 +1,31 @@
+{
+  "apk_sha256": "7897b9c490da745a046578ea9fbd86e487f99907136738701e6b2b64f9ee8678",
+  "bytes": 125059889,
+  "base_commit": "09c32bfdba7093e7330677ef83ed4cd5d8e8cc49",
+  "kotlin_exact_ddac": true,
+  "changed_runtime_asset": "models/courtyard_hero.glb",
+  "scene_sha256": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+  "binding": "7af35f02b8092c0b541d75b263f333f41d8a43689b8a931bb5fc33e48e0569c6",
+  "packaged_models_profiles_matched": [
+    19,
+    3
+  ],
+  "temporary_body_probe_absent": true,
+  "status": "native_READY_scene_visible_not_full_combat_acceptance",
+  "media": {
+    "file": "ArtSource/refinement/presentation/native-entry-2026-11-17.png",
+    "sha256": "627697690bc15a321e601ccaaea0c38e2c7b8535cf3b7479ababcaeab7944404",
+    "capture": "pico-cli capture screenshot default device display",
+    "dimensions": [
+      2160,
+      2158
+    ]
+  },
+  "root_review": {
+    "local_timber_volume": "accepted_scoped_improvement",
+    "overall_material_art_quality": "not_accepted",
+    "host_capture_black": "preserved_private_negative_not_app_black_proof",
+    "spatial_flag_capture": "unsupported_by_emulator_screencap",
+    "new_full_match_validation": false
+  }
+}

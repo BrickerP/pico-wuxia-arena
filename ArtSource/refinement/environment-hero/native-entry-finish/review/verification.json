@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "tests": 9,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "scope": "Full private scene/non-target/solid construction/PBR stream checks; not native appearance or terminal performance."
+}

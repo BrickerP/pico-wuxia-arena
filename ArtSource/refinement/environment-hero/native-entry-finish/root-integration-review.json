@@ -1,0 +1,19 @@
+{
+  "status": "accepted_local_geometry_native_READY_seen_not_final_art_acceptance",
+  "before": "c7f2e2b2833cdd84fbc73918fdcd2f9036dee582a46c29d8db67df806e77fc78",
+  "after": "8c44106f40bf1225e82c46b32c439abeeb0e88c67ab5d232f202b26e291ce151",
+  "scope": "Only main-door timber. Layout/lights/IBL/UI/anchors unchanged. Root reviewed all three actual fixed-view comparisons and ran9 verification tests.",
+  "offline_evidence": [
+    "review/player_1p65_comparison.png",
+    "review/joint_oblique_comparison.png",
+    "review/foot_oblique_comparison.png"
+  ],
+  "native_validation": {
+    "apk_sha256": "7897b9c490da745a046578ea9fbd86e487f99907136738701e6b2b64f9ee8678",
+    "image": "ArtSource/refinement/presentation/native-entry-2026-11-17.png",
+    "visible": "Full Stage READY with courtyard/base opponent/hands/UI; local timber present",
+    "complete_match": false
+  },
+  "formal_publication": "ready_for_development_checkpoint",
+  "remaining": "Wood material realism and whole-scene art direction remain unaccepted."
+}
