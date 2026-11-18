@@ -10,20 +10,20 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-**成品 Demo 未完成。** 当前只有一道门，写在 [docs/agents/README.md](docs/agents/README.md)：先让钢交叠在 220ms 内回守，再让刀的显示和判定共用一个网格形状，然后用同一个 APK 打完三轮并重开。旧包录像不能代替这一包。
+**原生模拟器已完成三场通关与重开；Space Pro 真机尚未验收。** 同一个 APK 使用虚拟右手柄交手，取得 1010 分、剩余 80 气血，点击再挑战后重新进入首场倒计时。[试玩下载与录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18) · [验收清单](docs/acceptance.md)
 
 ## 当前交付
 
 | 内容 | 当前事实 |
 | --- | --- |
-| 最新main画面 | [新手部原生右持](ArtSource/refinement/presentation/native-hand-joints-right-2026-11-17.png)、[精确版本与未验收项](ArtSource/refinement/presentation/native-hand-joints-2026-11-17.json)。当前Left尚未端内验收 |
+| 手部历史对照 | [11 月 17 日右持刀](ArtSource/refinement/presentation/native-hand-joints-right-2026-11-17.png)、[对应版本与未验收项](ArtSource/refinement/presentation/native-hand-joints-2026-11-17.json)。本轮也只验证右持。 |
 | 已公开组合画面 | [7abefa5准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[57f7版本与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
-| 最新main APK | SHA256 `c5c28446ea443d14a3ce7d96fd4abb5f48aa5a81666f5f9f3c60a881a33cb9b6`，221191753 B；设备安装包SHA及19个GLB核对，467测试，0失败/错误/跳过 |
+| 本轮 APK | 原生代码 `1244f83`；234289759 B，设备安装包 SHA256 `dcafb901aa8e8f61fdfe25fd0cc4e5bfc6644ec2ab58aebefce605c2c44a1527`。473 项单测、6 项刀面几何检查通过。 |
 | 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
 | 拼刀 | 解析卸力优先。证不出来、再次接触或连续不可证查询改为一次最长 220ms 的强制回守，然后把刀交还跟踪。同一次重叠不连打出伤。玩家手不吃敌人的强制位移 |
-| 当前阻断 | **刀的形状仍是 12mm 单胶囊**，静态刀面局部漏覆盖约 45mm。下一提交只做网格分段，并让显示、CCD、恢复读它。手部、衣片、Tripo、IBL 暂停 |
+| 玩家刀与当前验收 | 正式刀面已派生七个半径 6 mm 的接触体，5533 个 Steel 顶点的最大外侧距离为 0.416 mm。当前验证真实交手后的收势、胜负与重开，见[验收清单](docs/acceptance.md)。 |
 | 手与场景 | Right `199c228c…` / Left `0295c147…`，各6222三角；闭握局部关节弧面改善，整体手品质未过。庭院 `c7f2e2b2…`；Tripo厚甲和场景IBL仍未装入本APK |
-| 当前公开下载 | [有限拼刀卸力开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)固定源码 `7abefa5` / APK `57f7cb12…`，5附件SHA/大小/状态已核；不含最新199c/0295手与技能误触修复 |
+| 上一版公开下载 | [11 月 17 日开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)，固定源码 `7abefa5` / APK `57f7cb12…`。 |
 
 录像保持原始时间流和帧数。主机窗口帧率不是 PICO 渲染性能，无声录像不能判断卡肉。弹反、头闪、技能、处决和 Space Pro 排在三轮通关之后。[当前门](docs/acceptance.md)只认正在构建的这一包。[目标](docs/agents/README.md)是 Codex 的唯一派工单。
 
@@ -40,6 +40,8 @@ pico-cli app launch com.example.wuxiaarena.p0d2f0182 --activity .platform.Launch
 APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有设备命令使用同一个device-id。Root统一共享构建、正式资产、安装、截图、录制与发布。
 
 模拟器使用 **Right Controller Mode**，启用 **Controller Button Mode**，关闭 **Keyboard Mode** 文本模式。Shift+W/A/S/D/Q/E移动虚拟手柄，鼠标改变朝向与空间射线；攻击、格挡、弹反、闪避和技能经动作判定，按钮用于实际UI。没有Activity按键动作宏或HMD派生假手路径。
+
+刚开启手柄时，如果手背和刀挡住视野，先不要开始试炼。点主视口的空白处，朝正前方，用 **Shift+D** 把右手移到右侧，**Shift+Q** 下移，**Shift+W** 前移，直到握柄在右下方、能完整看清对手。本轮模拟器实测右手相对头部向右 28 cm、向下 31 cm、向前 45 cm，头到握点约 61 cm；虚拟右手和刀柄的位置均与 SDK 握点一致。这只用于复现同一视角，不是游戏或真机的持刀限制。
 
 ## 既有体验与制作范围
 

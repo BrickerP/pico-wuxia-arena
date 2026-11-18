@@ -1,6 +1,6 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.Hand
@@ -42,7 +42,7 @@ class ReadyHandSelectionTest {
         assertVector(requireNotNull(f.left.position), grip.position)
         val hand = requireNotNull(presentedPlayerHandTransform(f.snapshot, grip, Hand.LEFT))
         assertEquals(grip.position, hand.position)
-        assertVector(playerBlade(grip).base, f.arena.viewState.playerBladeBase)
+        assertVector(playerBladeAxis(grip).base, f.arena.viewState.playerBladeBase)
         assertTrue(f.arena.startTrial())
     }
 

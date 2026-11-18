@@ -7,6 +7,7 @@ import com.example.wuxiaarena.core.combat.CombatImpactKind
 import com.example.wuxiaarena.core.combat.EnemyCombatEvent
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
+import com.example.wuxiaarena.core.combat.playerBlade
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.ObservationStamp
@@ -23,6 +24,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.PI
 import kotlin.math.sqrt
+import kotlin.math.abs
 
 class IncomingBladeContactTest {
     private val zero = Vector3(0.0, 0.0, 0.0)
@@ -128,8 +130,13 @@ class IncomingBladeContactTest {
             // fabricated head-to-enemy direction. Both rendered blades must witness it.
             val state = fixture.session.viewState
             assertEquals(1.0, impact.normal.length(), 1e-9)
-            assertTrue(impact.point.distanceTo(closestPoint(impact.point,
-                requireNotNull(state.playerBladeBase), requireNotNull(state.playerBladeTip))) <= 0.013)
+            val playerSurfaceDistance = playerBlade(requireNotNull(state.playerWeaponGrip)).minOf { part ->
+                abs(impact.point.distanceTo(closestPoint(impact.point, part.base, part.tip)) - part.radiusMeters)
+            }
+            // The player now has real 6mm lanes, not the old 12mm center axis.
+            // Keep only the existing 0.5mm rigid chord allowance at the witness.
+            assertTrue("$direction impact must lie on the actual chain surface: $playerSurfaceDistance",
+                playerSurfaceDistance <= 0.000501)
             assertTrue(impact.point.distanceTo(closestPoint(impact.point,
                 requireNotNull(state.enemyBladeBase), requireNotNull(state.enemyBladeTip))) <= 0.013)
             assertEquals(1.0, requireNotNull(impact.tangent).length(), 1e-9)

@@ -9,6 +9,7 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
+import com.example.wuxiaarena.core.combat.playerBladeAxis
 import com.example.wuxiaarena.core.input.DiscontinuityReason
 import com.example.wuxiaarena.core.input.TrackingTarget
 import com.example.wuxiaarena.core.input.Hand
@@ -61,7 +62,7 @@ class NativeBladeInteractionTest {
         assertTrue(impact.kind == CombatImpactKind.BLOCK || impact.kind == CombatImpactKind.PARRY)
         assertEquals(priorHealth, fixture.session.viewState.playerHealth)
         val held = requireNotNull(fixture.session.viewState.playerWeaponGrip)
-        val blade = playerBlade(held)
+        val blade = playerBladeAxis(held)
         assertEquals(blade.base, fixture.session.viewState.playerBladeBase)
         assertEquals(blade.tip, fixture.session.viewState.playerBladeTip)
         assertNotEquals(fixture.hand, held.position)
@@ -84,6 +85,33 @@ class NativeBladeInteractionTest {
             it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
         })
         assertEquals(1, fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().count { it.attackId == attackId })
+    }
+
+    @Test
+    fun lateSteelContactFinishesTheCurrentRecoveryBeforeReturningToIdle() {
+        val fixture = Fixture()
+        fixture.start()
+        fixture.seek { it.phase == EnemyPhase.RECOVERING && requireNotNull(it.phaseRemainingNanos) <= 260_000_000L }
+        val attackId = requireNotNull(fixture.session.viewState.attackId)
+        val profile = arenaOpponents.first().attackProfile(requireNotNull(fixture.session.viewState.attackDirection))
+        val impact = fixture.crossCurrentEnemyBlade()
+        assertEquals(CombatImpactKind.BLOCK, impact.kind)
+        var last = fixture.session.viewState
+        assertEquals(EnemyPhase.RECOVERING, last.phase)
+        assertTrue(requireNotNull(last.phaseRemainingNanos) < 260_000_000L)
+        repeat(600) {
+            fixture.tick(5_000_000L)
+            val next = fixture.session.viewState
+            if (next.phase == EnemyPhase.IDLE) {
+                assertEquals("The last visible attack sample must be within one 5ms tick of guard",
+                    profile.sourcePhaseSeconds.last(), requireNotNull(last.enemyPoseSourceSeconds), .015)
+                assertEquals(1, fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().count { it.attackId == attackId })
+                return
+            }
+            assertEquals(EnemyPhase.RECOVERING, next.phase)
+            last = next
+        }
+        throw AssertionError("The late contact did not release the recovering attack")
     }
 
     @Test
@@ -113,10 +141,18 @@ class NativeBladeInteractionTest {
         val source = requireNotNull(contact.enemyPoseSourceSeconds)
         val direction = requireNotNull(contact.enemyPoseDirection)
         val profile = arenaOpponents[contact.roundNumber - 1].attackProfile(direction)
-        val expected = profile.sample(source).inStage(requireNotNull(contact.enemyPosition) + contact.enemyRecoilOffset,
-            contact.enemyYawRadians)
-        assertTrue(expected.bladeBase.distanceTo(requireNotNull(contact.enemyBladeBase)) < 1e-8)
-        assertTrue(expected.bladeTip.distanceTo(requireNotNull(contact.enemyBladeTip)) < 1e-8)
+        assertTrue("Contact must occur inside the actual active source interval",
+            source > profile.sourcePhaseSeconds[2] && source < profile.sourcePhaseSeconds[3])
+        assertTrue("The source witness must exercise interpolation between authored keys",
+            profile.samples.none { kotlin.math.abs(it.sourceSeconds - source) < 1e-9 })
+        fun assertSourcePose(state: ArenaViewState) {
+            assertEquals(contact.enemyPoseClip, state.enemyPoseClip)
+            val expected = profile.sample(requireNotNull(state.enemyPoseSourceSeconds)).inStage(
+                requireNotNull(state.enemyPosition) + state.enemyRecoilOffset, state.enemyYawRadians)
+            assertTrue(expected.bladeBase.distanceTo(requireNotNull(state.enemyBladeBase)) < 1e-8)
+            assertTrue(expected.bladeTip.distanceTo(requireNotNull(state.enemyBladeTip)) < 1e-8)
+        }
+        assertSourcePose(contact)
 
         fixture.tick(CombatFeedbackProfile.hitStopNanos(impact) + 10_000_000L)
         assertEquals(source, requireNotNull(fixture.session.viewState.enemyPoseSourceSeconds), 1e-9)
@@ -125,15 +161,49 @@ class NativeBladeInteractionTest {
         // asserting that the same clip can unload and continue from its actual TOI.
         fixture.hand = requireNotNull(contact.playerWeaponGrip).position + impact.normal * 0.15
         fixture.tick(35_000_000L)
-        val retreated = fixture.session.viewState
-        assertEquals(contact.enemyPoseClip, retreated.enemyPoseClip)
-        val nextSource = requireNotNull(retreated.enemyPoseSourceSeconds)
-        assertTrue("Recovery must start from the actual witness, not a preset key", nextSource < source)
-        assertTrue(source - nextSource <= 0.06)
-        val nextExpected = profile.sample(nextSource).inStage(requireNotNull(retreated.enemyPosition) + retreated.enemyRecoilOffset,
-            retreated.enemyYawRadians)
-        assertTrue(nextExpected.bladeBase.distanceTo(requireNotNull(retreated.enemyBladeBase)) < 1e-8)
-        assertTrue(nextExpected.bladeTip.distanceTo(requireNotNull(retreated.enemyBladeTip)) < 1e-8)
+        var retreated = fixture.session.viewState
+        var elapsedAfterHitStop = 45_000_000L
+        var previousSource = requireNotNull(retreated.enemyPoseSourceSeconds)
+        val step = 5_000_000L
+        val holdLimit = 220_000_000L
+        val contactStop = 35_000_000L
+        val maximumSourceStep = .06 * step /
+            ((requireNotNull(contact.phaseRemainingNanos) - contactStop) * .18)
+        fun advanceRecovery() {
+            fixture.tick(step)
+            elapsedAfterHitStop += step
+            retreated = fixture.session.viewState
+            assertSourcePose(retreated)
+            val currentSource = requireNotNull(retreated.enemyPoseSourceSeconds)
+            assertTrue("Recovery cannot jump away from the real TOI witness",
+                currentSource <= previousSource + 1e-9 && currentSource >= source - .06 - 1e-9)
+            assertTrue("The original recovery must retreat continuously at its authored source rate",
+                previousSource - currentSource <= maximumSourceStep + 1e-9)
+            previousSource = currentSource
+            assertEquals("One overlap cannot replay a steel impact", 1,
+                fixture.events.filterIsInstance<CombatImpact>().count {
+                    it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
+                })
+            assertEquals(contact.health, retreated.health)
+            assertEquals(contact.playerHealth, retreated.playerHealth)
+        }
+        // A whole-face chain can make the immediate actor exit unprovable. The
+        // existing 220 ms return must then release the hand before the same clip
+        // resumes its original 35 ms contact stop and continuous retreat.
+        while (elapsedAfterHitStop < holdLimit) advanceRecovery()
+        val released = requireNotNull(retreated.playerWeaponGrip)
+        assertEquals("Unprovable contact must return the real hand within 220 ms", fixture.hand, released.position)
+        val trackedRotation = requireNotNull(fixture.rotation.normalizedOrNull())
+        val releasedRotation = requireNotNull(released.rotation.normalizedOrNull())
+        assertEquals("Returning the hand must also preserve its tracked orientation", 1.0, kotlin.math.abs(
+            trackedRotation.x * releasedRotation.x + trackedRotation.y * releasedRotation.y +
+                trackedRotation.z * releasedRotation.z + trackedRotation.w * releasedRotation.w), 1e-12)
+        val resumeDeadline = holdLimit + contactStop + step
+        while (previousSource >= source && elapsedAfterHitStop < resumeDeadline) advanceRecovery()
+        assertTrue("Recovery must resume from the actual witness within the bounded return, not freeze forever",
+            previousSource < source)
+        assertTrue(source - previousSource <= 0.06)
+        assertSourcePose(retreated)
     }
 
     @Test
@@ -205,16 +275,16 @@ class NativeBladeInteractionTest {
             val state = session.viewState
             requireNotNull(state.enemyBladeBase)
             requireNotNull(state.enemyBladeTip)
-            val setupDirection = requireNotNull(state.attackDirection)
-            val setupProfile = arenaOpponents[state.roundNumber - 1].attackProfile(setupDirection)
-            val setupTime = setupProfile.sourceSeconds(state.phase, state.phaseElapsedNanos + 80_000_000L,
-                requireNotNull(state.phaseRemainingNanos) - 80_000_000L)
-            val setupPose = setupProfile.sample(setupTime).inStage(requireNotNull(state.enemyPosition), state.enemyYawRadians)
+            val selectPose = ArenaSession::class.java.getDeclaredMethod("enemyAttackPose", java.lang.Long.TYPE)
+                .apply { isAccessible = true }
+            val setupPose = selectPose.invoke(session, 80_000_000L) as AttackPoseSample
             val base = setupPose.bladeBase
             val tip = setupPose.bladeTip
             val midpoint = (base + tip) * 0.5
-            val localMidpoint = (playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation)).let { it.base + it.tip }) * 0.5
-            val playerAxis = requireNotNull(rotation.rotate(Vector3(0.0312, 0.0, -0.72)))
+            val localParts = playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), rotation))
+            val reference = localParts.maxBy { it.base.distanceTo(it.tip) }
+            val localMidpoint = (reference.base + reference.tip) * 0.5
+            val playerAxis = reference.tip - reference.base
             val normal = requireNotNull((tip - base).cross(playerAxis).normalizedOrNull())
             val centerGrip = midpoint - localMidpoint
             // Establish a valid history outside steel before crossing it at normal controller speed.
@@ -225,13 +295,7 @@ class NativeBladeInteractionTest {
             }?.let { return it }
             // Aim the raw endpoint at the next real source sample. The overhead dao
             // descends substantially during these 20 ms; an old midpoint would be a miss.
-            val beforeCrossing = session.viewState
-            val direction = requireNotNull(beforeCrossing.attackDirection)
-            val profile = arenaOpponents[beforeCrossing.roundNumber - 1].attackProfile(direction)
-            val nextTime = profile.sourceSeconds(beforeCrossing.phase,
-                beforeCrossing.phaseElapsedNanos + 20_000_000L,
-                requireNotNull(beforeCrossing.phaseRemainingNanos) - 20_000_000L)
-            val nextPose = profile.sample(nextTime).inStage(requireNotNull(beforeCrossing.enemyPosition), beforeCrossing.enemyYawRadians)
+            val nextPose = selectPose.invoke(session, 20_000_000L) as AttackPoseSample
             hand = (nextPose.bladeBase + nextPose.bladeTip) * 0.5 - localMidpoint
             tick(20_000_000L)
             return events.filterIsInstance<CombatImpact>().lastOrNull {
