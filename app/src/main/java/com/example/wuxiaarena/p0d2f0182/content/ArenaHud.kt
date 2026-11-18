@@ -798,7 +798,13 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.result == TrialResult.DEFEAT -> R.string.arena_hint_defeat
         state.pauseReason != null -> R.string.arena_hint_paused
         !state.inputReady -> R.string.arena_status_waiting_observations
-        state.result == TrialResult.READY -> R.string.arena_hint_ready
+        state.result == TrialResult.READY || state.result == TrialResult.COUNTDOWN && state.readyGuard != null ->
+            when (state.readyGuard) {
+                AttackDirection.LEFT -> R.string.arena_guard_set_left
+                AttackDirection.RIGHT -> R.string.arena_guard_set_right
+                AttackDirection.OVERHEAD -> R.string.arena_guard_set_high
+                null -> R.string.arena_hint_ready
+            }
         state.result == TrialResult.COUNTDOWN -> R.string.arena_hint_countdown
         state.executing -> R.string.arena_hint_executing
         state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
@@ -806,7 +812,12 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.frontArmored && state.counterOpen -> R.string.arena_armor_open
         state.frontArmored && state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_armor_thrust
         state.frontArmored && state.phase in setOf(EnemyPhase.RECOVERING, EnemyPhase.IDLE) -> R.string.arena_armor_tactic
-        state.phase == EnemyPhase.PREPARING -> R.string.arena_hint_preparing
+        state.readyGuard != null && state.readyGuard == state.attackDirection -> R.string.arena_guard_aligned
+        state.phase == EnemyPhase.PREPARING -> when (state.attackDirection) {
+            AttackDirection.LEFT -> R.string.arena_guard_prepare_left
+            AttackDirection.RIGHT -> R.string.arena_guard_prepare_right
+            else -> R.string.arena_hint_preparing
+        }
         state.phase == EnemyPhase.STARTUP -> R.string.arena_hint_startup
         state.phase == EnemyPhase.ACTIVE -> R.string.arena_hint_active
         state.phase == EnemyPhase.RECOVERING -> R.string.arena_hint_recovering

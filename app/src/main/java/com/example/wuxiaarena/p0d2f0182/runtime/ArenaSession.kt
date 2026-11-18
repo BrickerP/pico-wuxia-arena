@@ -125,6 +125,7 @@ internal data class ArenaViewState(
     val enemyRecoilOffset: Vector3 = Vector3(0.0, 0.0, 0.0),
     val playerBladeTipSpeed: Double = 0.0,
     val playerBladeAtRest: Boolean = true,
+    val readyGuard: AttackDirection? = null,
     val playerMotionGeneration: Long = 0L,
     val enemyBladeBase: Vector3? = null,
     val enemyBladeTip: Vector3? = null,
@@ -325,6 +326,10 @@ internal class ArenaSession(
                 playerBladeTip = latestMotion?.bladeTip,
                 playerBladeTipSpeed = latestMotion?.bladeTipSpeed ?: 0.0,
                 playerBladeAtRest = latestMotion?.bladeAtRest ?: true,
+                readyGuard = if (actionReady && combat.pauseReason == null &&
+                    (result == TrialResult.READY || result == TrialResult.COUNTDOWN ||
+                        result == TrialResult.FIGHTING && (combat.phase == EnemyPhase.PREPARING || combat.phase == EnemyPhase.STARTUP))
+                ) latestMotion?.takeIf { it.bladeAtRest && it.swing == null }?.guardDirection else null,
                 playerMotionGeneration = latestMotion?.motionGeneration ?: motion.motionGeneration,
                 playerHeadPosition = snapshot?.head?.pose?.position,
                 motionReleaseRequired = releaseRequired,

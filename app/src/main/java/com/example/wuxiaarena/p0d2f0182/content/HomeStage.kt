@@ -139,8 +139,8 @@ private class SceneOwner(
             state.roundGeneration,
             terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT,
             inputReady = state.inputReady && state.headQuality != TrackingQuality.SOURCE_REPORTED_INVALID,
-            head = state.playerHeadPosition,
-            enemy = state.enemyPosition,
+            head = latestPlayerSnapshot?.head?.pose?.position,
+            headRotation = latestPlayerSnapshot?.head?.pose?.rotation,
             fullHeightMeters = fullControlHeightMeters.toDouble(),
         )
         placeControlPanel(parent)
