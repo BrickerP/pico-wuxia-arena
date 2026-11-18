@@ -3,6 +3,8 @@ package com.example.wuxiaarena.p0d2f0182.runtime
 import com.example.wuxiaarena.core.combat.ActorWithdrawalPlan
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.BladeSegment
+import com.example.wuxiaarena.core.combat.EnemyCombatStateMachine
+import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.WeaponGrip
 import com.example.wuxiaarena.core.combat.playerBlade
 import com.example.wuxiaarena.core.math.Quaternion
@@ -132,6 +134,23 @@ class SteelRecoveryDomainTest {
         assertEquals(idle.samples.last(),selected.last())
     }
 
+    @Test fun steelContactAfterAMissCertifiesTheRemainingAttackTail() {
+        val session = ArenaSession(logMessage = {})
+        val combat = EnemyCombatStateMachine()
+        combat.advanceBy(800_000_000L, true)
+        combat.tryStartAttack(direction, true)
+        combat.advanceBy(direction.preparationNanos + direction.startupNanos + direction.activeNanos + 123_456_789L, true)
+        assertEquals(EnemyPhase.RECOVERING, combat.phase)
+        ArenaSession::class.java.getDeclaredField("combat").apply { isAccessible = true }.set(session, combat)
+        val current = profile.sample(profile.sourceSeconds(combat.phase, combat.phaseElapsedNanos, combat.nanosUntilPhaseTransition))
+        val end = profile.sourcePhaseSeconds.last()
+        val selected = invokeSelection(session, current)
+        assertEquals(current, selected.first())
+        assertEquals(profile.sample(end), selected.last())
+        assertEquals(profile.samples.filter { it.sourceSeconds > current.sourceSeconds && it.sourceSeconds < end },
+            selected.drop(1).dropLast(1))
+    }
+
     private data class ContactFixture(val player:List<BladeSegment>,val normal:Vector3)
     private fun contactFixture(current:AttackPoseSample):ContactFixture {
         val pose=current.inStage(origin,0f)
@@ -158,8 +177,8 @@ class SteelRecoveryDomainTest {
     private fun select(profile:AttackProfile,current:AttackPoseSample):List<AttackPoseSample> {
         val session=ArenaSession(logMessage={},logFailure={_,e->throw e})
         val clazz=ArenaSession::class.java.declaredClasses.single { it.simpleName=="ContactRecovery" }
-        val constructor=clazz.declaredConstructors.single { it.parameterTypes.size==5 }.apply { isAccessible=true }
-        val recovery=constructor.newInstance(profile,direction,contactSeconds,0L,direction.recoveryNanos)
+        val constructor=clazz.declaredConstructors.single { it.parameterTypes.size==4 }.apply { isAccessible=true }
+        val recovery=constructor.newInstance(profile,direction,contactSeconds,direction.recoveryNanos)
         ArenaSession::class.java.getDeclaredField("contactRecovery").apply { isAccessible=true }.set(session,recovery)
         return invokeSelection(session,current)
     }

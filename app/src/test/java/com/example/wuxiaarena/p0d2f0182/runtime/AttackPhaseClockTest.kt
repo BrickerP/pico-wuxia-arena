@@ -134,8 +134,8 @@ class AttackPhaseClockTest {
 
     private fun installRecovery(session: ArenaSession, profile: AttackProfile, direction: AttackDirection, source: Double) {
         val type = ArenaSession::class.java.declaredClasses.single { it.simpleName == "ContactRecovery" }
-        val constructor = type.declaredConstructors.single { it.parameterCount == 5 }.apply { isAccessible = true }
-        field(session, "contactRecovery", constructor.newInstance(profile, direction, source, 0L, direction.recoveryNanos))
+        val constructor = type.declaredConstructors.single { it.parameterCount == 4 }.apply { isAccessible = true }
+        field(session, "contactRecovery", constructor.newInstance(profile, direction, source, direction.recoveryNanos))
     }
 
     private fun field(session: ArenaSession, name: String, value: Any) {

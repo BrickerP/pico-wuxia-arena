@@ -159,7 +159,10 @@ internal class ArenaSession(
     private var contactQueryFailures = 0
     private var contactUncertainReceipt: Long? = null
     private data class ContactRecovery(val profile: AttackProfile, val direction: AttackDirection,
-        val sourceSeconds: Double, val startedAtNanos: Long, val durationNanos: Long)
+        val sourceSeconds: Double, val durationNanos: Long) {
+        val bendNanos = CONTACT_STOP_NANOS + ((durationNanos - CONTACT_STOP_NANOS) * 0.18).toLong()
+        val retreatSource = maxOf(profile.sourcePhaseSeconds.first(), sourceSeconds - 0.06)
+    }
 
     private var consumedStrikeId = -1L
     private var result = TrialResult.READY
@@ -763,15 +766,17 @@ internal class ArenaSession(
 
     private fun steelRecoverySamples(current: AttackPoseSample): List<AttackPoseSample> {
         val recovery = contactRecovery
-        val samples = if (recovery != null) {
-            val profile = recovery.profile
-            val retreat = maxOf(profile.sourcePhaseSeconds.first(), recovery.sourceSeconds - 0.06)
-            // Only this retreat and the following return-to-guard can still play.
-            // Preserve the exact interpolated retreat, not its preceding windup key.
-            listOf(profile.sample(retreat), profile.sample(profile.sourcePhaseSeconds.last())) + profile.samples.filter {
-                it.sourceSeconds >= retreat && it.sourceSeconds <= profile.sourcePhaseSeconds.last()
+        val opponent = arenaOpponents[roundNumber - 1]
+        val profile = recovery?.profile ?: if (combat.phase == EnemyPhase.RECOVERING)
+            opponent.attackProfile(checkNotNull(combat.currentAttackDirection)) else null
+        val samples = if (profile != null) {
+            val start = if (recovery != null && combat.phaseElapsedNanos < recovery.bendNanos)
+                recovery.retreatSource else current.sourceSeconds
+            val end = profile.sourcePhaseSeconds.last()
+            listOf(profile.sample(start), profile.sample(end)) + profile.samples.filter {
+                it.sourceSeconds in start..end
             }
-        } else arenaOpponents[roundNumber - 1].locomotionProfile().idle.samples
+        } else opponent.locomotionProfile().idle.samples
         // Give the current non-key TOI witness priority over an equal-time stored key.
         return (listOf(current) + samples).sortedBy { it.sourceSeconds }.distinctBy { it.sourceSeconds }
     }
@@ -802,8 +807,8 @@ internal class ArenaSession(
         if (maximum == 0L) return maximum
         val recovery = contactRecovery
         if (recovery != null) {
-            val elapsed = enemyMotionNanos - recovery.startedAtNanos
-            val bend = CONTACT_STOP_NANOS + ((recovery.durationNanos - CONTACT_STOP_NANOS) * 0.18).toLong()
+            val elapsed = combat.phaseElapsedNanos
+            val bend = recovery.bendNanos
             var result = if (elapsed < CONTACT_STOP_NANOS) minOf(maximum, CONTACT_STOP_NANOS - elapsed)
                 else if (elapsed < bend) minOf(maximum, bend - elapsed) else maximum
             val start = checkNotNull(effectiveEnemyPose()).pose.sourceSeconds
@@ -978,19 +983,16 @@ internal class ArenaSession(
             score += 30
             notifyFeedback(CombatFeedback.PARRY)
         }
-        val direction = contactRecovery?.direction ?: combat.currentAttackDirection
-        val pose = enemyAttackPose()
+        val direction = combat.currentAttackDirection
         val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
         if (active) {
             resolvedContactId = id
             collect(combat.resolveActiveAttack(checkNotNull(id), outcome), events)
-        }
-        // Same clip returns from the actual source witness; never jump to a preset contact key.
-        if (direction != null && pose != null) {
-            contactRecovery = ContactRecovery(arenaOpponents[roundNumber - 1].attackProfile(direction), direction,
-                pose.sourceSeconds, enemyMotionNanos,
-                if (outcome == AttackOutcome.PARRIED) 550_000_000L else direction.recoveryNanos)
+            if (direction != null && poseFrame != null) {
+                contactRecovery = ContactRecovery(arenaOpponents[roundNumber - 1].attackProfile(direction),
+                    direction, poseFrame.pose.sourceSeconds, checkNotNull(combat.nanosUntilPhaseTransition))
+            }
         }
         heldEnemyPoseFrame = poseFrame
         heldEnemyAttackOffsets = attackOffsets
@@ -1131,9 +1133,9 @@ internal class ArenaSession(
         steelWithdrawal?.takeIf { !it.complete }?.let { return it.source }
         val recovery = contactRecovery
         if (recovery != null) {
-            val elapsed = (enemyMotionNanos + aheadNanos - recovery.startedAtNanos - CONTACT_STOP_NANOS).coerceAtLeast(0L)
+            val elapsed = (combat.phaseElapsedNanos + aheadNanos - CONTACT_STOP_NANOS).coerceAtLeast(0L)
             val progress = (elapsed.toDouble() / (recovery.durationNanos - CONTACT_STOP_NANOS)).coerceIn(0.0, 1.0)
-            val retreat = maxOf(recovery.profile.sourcePhaseSeconds.first(), recovery.sourceSeconds - 0.06)
+            val retreat = recovery.retreatSource
             val source = if (progress < 0.18) recovery.sourceSeconds + (retreat - recovery.sourceSeconds) * progress / 0.18
                 else retreat + (recovery.profile.sourcePhaseSeconds.last() - retreat) * (progress - 0.18) / 0.82
             return EnemyPoseFrame(recovery.profile.clip, recovery.profile.sample(source))
