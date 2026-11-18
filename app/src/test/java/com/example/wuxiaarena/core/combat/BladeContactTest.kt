@@ -12,6 +12,24 @@ import kotlin.math.sqrt
 
 class BladeContactTest {
     @Test
+    fun aSeparatedProjectionDoesNotSuppressUnrepresentableGeometry() {
+        val a = stationary(point(Vector3(Double.MAX_VALUE, 0.0, 0.0), 0.01))
+        val b = stationary(point(Vector3(-Double.MAX_VALUE, 0.0, 0.0), 0.01))
+        assertThrows(IllegalArgumentException::class.java) { firstBladeContact(a, b) }
+    }
+
+    @Test
+    fun projectionsIncludeTheRoundoffRegionAtLargeStageOffsets() {
+        val translated = 1e8
+        val a = stationary(point(Vector3(translated, 0.0, 0.0), .005))
+        val b = stationary(point(Vector3(translated + .0100002, 0.0, 0.0), .005))
+        val contact = requireNotNull(firstBladeContact(a, b))
+        assertEquals(0.0, contact.fraction, 0.0)
+        assertTrue(contact.separationMeters > 0.0)
+        assertTrue(contact.separationMeters <= contact.errorBoundMeters)
+    }
+
+    @Test
     fun highSpeedThinBladesCrossBetweenSeparatedFrameEndpoints() {
         val player = BladeSweep(horizontal(-2.0), horizontal(2.0))
         val enemy = stationary(vertical(0.0))
