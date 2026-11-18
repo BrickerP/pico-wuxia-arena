@@ -63,7 +63,7 @@ internal fun evadedBladeAtPose(blade: BladeSegment, oldHead: Vector3, head: Vect
 }
 internal enum class CombatFeedback {
     HIT, HEADSHOT, GUARDED_HIT, CUT_DEFLECTED, ARMOR_STOP, BLOCK, PARRY, DODGE, PLAYER_HIT,
-    GUARD_BREAK, SKILL, EXECUTION, LOW_STAMINA, LOW_FOCUS, OUT_OF_RANGE, TIMEOUT,
+    GUARD_BREAK, SKILL, EXECUTION, LOW_STAMINA, LOW_FOCUS, OUT_OF_RANGE, TIMEOUT, GRAZE,
 }
 
 internal data class ArenaViewState(
@@ -1083,6 +1083,15 @@ internal class ArenaSession(
         val strike = frame.strike ?: return
         if (strike.id <= consumedStrikeId) return
         consumedStrikeId = strike.id
+        val swing = frame.swing ?: return
+        val grip = frame.weaponGrip ?: return
+        if (!combat.counterOpen && !swing.committedAt(grip)) {
+            combo = 0
+            lastHitAt = -1L
+            notifyFeedback(CombatFeedback.GRAZE)
+            emitImpact(CombatImpactKind.GRAZE, strike.contact, 0.24, frame.hand, events, zone = strike.zone)
+            return
+        }
         if (stamina < 12.0) {
             notifyFeedback(CombatFeedback.LOW_STAMINA)
             return
@@ -1093,11 +1102,11 @@ internal class ArenaSession(
         val base = if (headshot) 30.0 else 25.0
         val damage = (base * strike.power * (1.0 + (nextCombo - 1) * 0.10)).roundToInt()
         val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
-        val frontalLine = frame.swing?.let { frontalCutLine(it.travel, frame.headPosition - enemy, enemyYaw) }
+        val frontalLine = frontalCutLine(swing.travel, frame.headPosition - enemy, enemyYaw)
         val openingThrust = combat.frontArmored && frontalLine != null && strike.zone == HitZone.BODY &&
-            frame.weaponGrip?.let { frame.swing?.thrustAt(it, enemyYaw) } == true
+            swing.thrustAt(grip, enemyYaw)
         val cutLine = if (openingThrust) CutLine.THRUST else frontalLine
-        dealDamage(damage, frame.swing != null && cutLine == null, kind, (if (headshot) 15 else 10) * nextCombo,
+        dealDamage(damage, cutLine == null, kind, (if (headshot) 15 else 10) * nextCombo,
             events, strike.contact, frame.hand, zone = strike.zone, cutLine = cutLine, nextCombo = nextCombo, openingThrust = openingThrust)
     }
 
@@ -1180,7 +1189,7 @@ internal class ArenaSession(
         hitStopNanos = maxOf(hitStopNanos, stop)
         if (stop > 0L) hitStopAwaitingPresentation = true
         if (fatal) deathHitStopNanos = hitStopNanos
-        if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK ||
+        if (kind == CombatImpactKind.GRAZE || kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK ||
             kind == CombatImpactKind.GUARDED_HIT && appliedDamage == 0) return
         val away = contact.normal * -1.0
         val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }

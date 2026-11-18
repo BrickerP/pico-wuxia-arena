@@ -26,6 +26,7 @@ internal object CombatFeedbackProfile {
     /** Material chooses the contact texture. Anatomical and lethal results add emphasis. */
     fun accent(impact: CombatImpact): ImpactAccent {
         val (peak, frequency, duration) = when (impact.kind) {
+            CombatImpactKind.GRAZE -> Triple(85, 130, 12)
             CombatImpactKind.SOFT_HIT -> Triple(160, 100, 26)
             CombatImpactKind.HARD_HIT -> Triple(205, 240, 12)
             CombatImpactKind.GUARDED_HIT -> Triple(165, 165, 20)
@@ -67,6 +68,7 @@ internal object CombatFeedbackProfile {
     fun hitStopNanos(impact: CombatImpact): Long = when {
         impact.fatal -> 150_000_000L
         else -> when (impact.kind) {
+            CombatImpactKind.GRAZE -> 0L
             CombatImpactKind.SOFT_HIT -> if (impact.zone == HitZone.HEAD) 90_000_000L else 70_000_000L
             CombatImpactKind.HARD_HIT -> 85_000_000L
             CombatImpactKind.GUARDED_HIT -> 30_000_000L

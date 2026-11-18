@@ -35,7 +35,11 @@ data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val body
     }
 }
 
-data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, val gripOrigin: Vector3) {
+data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, val gripOrigin: Vector3,
+    val fromGuard: Boolean = false) {
+    fun committedAt(contactGrip: WeaponGrip): Boolean =
+        fromGuard || contactGrip.position.distanceTo(gripOrigin) >= 0.05
+
     internal fun thrustAt(grip: WeaponGrip, enemyYaw: Float): Boolean {
         val toward = Vector3(-kotlin.math.sin(enemyYaw.toDouble()), 0.0, -kotlin.math.cos(enemyYaw.toDouble()))
         val displacement = grip.position - gripOrigin
@@ -118,6 +122,8 @@ class PlayerCombatResolver {
     private var nextStrikeId = 1L
     private var qualifiedSwing: QualifiedSwing? = null
     private var currentGuard: AttackDirection? = null
+    private var steadyGuardSince: Long? = null
+    private var strokeFromGuard = false
     private var guardEnteredAt: Long? = null
     private var fastGuardAt: Long? = null
     private var attackId: Long? = null
@@ -207,7 +213,13 @@ class PlayerCombatResolver {
         val contact = contactZone(sample, old, contactPose)
         val inside = contactZone(sample, null, contactPose) != null
         val direction = movement.normalizedOrNull()
-        updateStroke(sample, speed, direction, inside)
+        val leavingSteadyGuard = speed > REST_SPEED && !weaponConstraint.constrained && steadyGuardSince?.let {
+            elapsedSince(old.stamp.receivedAtNanos, it) >= REST_RELEASE
+        } == true
+        if (leavingSteadyGuard) {
+            startStroke(old)
+            strokeFromGuard = true
+        } else updateStroke(sample, speed, direction, inside)
         strokeTravel += distance
         val origin = strokeOrigin
         if (qualifiedSwing == null && origin != null && speed >= MIN_STRIKE_SPEED && strokeTravel >= MIN_STRIKE_TRAVEL &&
@@ -217,7 +229,7 @@ class PlayerCombatResolver {
             val travel = if (tipTravel.dot(tipTravel) >= baseTravel.dot(baseTravel)) tipTravel else baseTravel
             if (travel.length() >= MIN_STRIKE_DISPLACEMENT) {
                 qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4), travel,
-                    origin.observedGripPosition)
+                    origin.observedGripPosition, strokeFromGuard)
                 lastStrikeAt = sample.stamp.receivedAtNanos
             }
         }
@@ -286,6 +298,8 @@ class PlayerCombatResolver {
     fun constrainWeapon(frame: PlayerMotionFrame, grip: WeaponGrip, contact: BladeContact): PlayerMotionFrame {
         val raw = frame.rawWeaponGrip ?: grip
         weaponConstraint.lock(raw, grip, contact.normal, contact.playerPoint)
+        steadyGuardSince = null
+        strokeFromGuard = false
         val blade = playerBladeAxis(grip)
         previous = previous?.copy(base = blade.base, tip = blade.tip, rotation = grip.rotation)
         strokeHasHit = true
@@ -338,6 +352,8 @@ class PlayerCombatResolver {
         outsideSince = null
         lastStrikeAt = null
         currentGuard = null
+        steadyGuardSince = null
+        strokeFromGuard = false
         guardEnteredAt = null
         fastGuardAt = null
         attackId = null
@@ -381,6 +397,7 @@ class PlayerCombatResolver {
 
     private fun startStroke(sample: BladeSample) {
         strokeOrigin = sample
+        strokeFromGuard = false
         qualifiedSwing = null
         strokeTravel = 0.0
         strokeHasHit = false
@@ -390,6 +407,9 @@ class PlayerCombatResolver {
 
     private fun updateGuard(sample: BladeSample, head: Vector3, enemy: Vector3, speed: Double, moving: Boolean) {
         val direction = guardDirection(sample.base, sample.tip, head, enemy)
+        steadyGuardSince = if (direction == null || speed > REST_SPEED || weaponConstraint.constrained) null
+            else if (direction == currentGuard) steadyGuardSince ?: sample.stamp.receivedAtNanos
+            else sample.stamp.receivedAtNanos
         if (direction != currentGuard) {
             currentGuard = direction
             guardEnteredAt = if (direction == null) null else sample.stamp.receivedAtNanos

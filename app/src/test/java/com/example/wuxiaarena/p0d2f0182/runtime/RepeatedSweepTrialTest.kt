@@ -85,10 +85,16 @@ class RepeatedSweepTrialTest {
         val state = session.viewState
         val outcomes = impacts.groupingBy { it.kind }.eachCount()
         val summary = "arm=$armTravel, round=${state.roundNumber}, result=${state.result}, HP=${state.health}, cleanDeflections=$cleanDeflections, impacts=$outcomes"
-        assertTrue("The player must actually reach an opponent: $summary", impacts.any { it.appliedDamage > 0 })
         println(summary)
         assertEquals(summary, TrialResult.DEFEAT, state.result)
-        assertTrue("The opponent must visibly defend the repeated cut without suffering chip damage: $summary",
-            cleanDeflections > 0)
+        if (armTravel == 0.0) {
+            assertTrue("The rotating blade must physically graze the opponent: $summary",
+                impacts.any { it.kind == CombatImpactKind.GRAZE })
+            assertTrue(summary, impacts.none { it.appliedDamage > 0 })
+            assertEquals(summary, 100, state.health)
+        } else {
+            assertTrue("Committed cuts can still deal damage: $summary", impacts.any { it.appliedDamage > 0 })
+            assertTrue("The opponent must guard against repeated committed cuts: $summary", cleanDeflections > 0)
+        }
     }
 }

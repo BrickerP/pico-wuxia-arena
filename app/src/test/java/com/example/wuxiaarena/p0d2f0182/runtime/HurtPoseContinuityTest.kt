@@ -35,7 +35,7 @@ class HurtPoseContinuityTest {
                 val turn = sqrt(.5)
                 fixture.rotation = Quaternion(0.0, -turn, 0.0, turn)
             }
-            val from = if (zone == HitZone.HEAD) Vector3(-1.35, y, -1.26) else Vector3(-.35, y, -.4)
+            val from = if (zone == HitZone.HEAD) Vector3(-1.35, y, -1.26) else Vector3(-.45, y, -.4)
             val to = if (zone == HitZone.HEAD) Vector3(-.35, y, -1.26) else Vector3(.35, y, -.4)
             fixture.tick(20_000_000L, from)
             val idle = fixture.pose()

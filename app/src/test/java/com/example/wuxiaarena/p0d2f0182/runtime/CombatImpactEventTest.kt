@@ -9,6 +9,8 @@ import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.ObservationStamp
 import com.example.wuxiaarena.core.input.ObservedPose
+import com.example.wuxiaarena.core.input.TrackingEvent
+import com.example.wuxiaarena.core.input.TrackingState
 import com.example.wuxiaarena.core.input.PoseObservation
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.math.Quaternion
@@ -21,6 +23,55 @@ import org.junit.Test
 class CombatImpactEventTest {
     private val enemy = Vector3(0.0, 0.0, -1.2)
     private val rotation = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+    @Test fun rotatingAnUnpreparedWristTouchesOnceWithoutDamagingOrStoppingTheOpponent() {
+        val frame = rotatingCut(0.0)
+        val session = ArenaSession(logMessage = {}, logFailure = { _, failure -> throw failure })
+        session.setEnemyGeometry(enemy, 2.0)
+        val before = session.viewState
+        val events = mutableListOf<EnemyCombatEvent>()
+        repeat(2) { applyMotion(session, frame, events) }
+        val impact = events.filterIsInstance<CombatImpact>().single()
+        assertEquals(CombatImpactKind.GRAZE, impact.kind)
+        assertEquals(requireNotNull(frame.strike).contact.point, impact.point)
+        assertEquals(0, impact.appliedDamage)
+        assertTrue(events.none { it is EnemyCombatEvent.EnemyDamaged || it is EnemyCombatEvent.HitReactionStarted })
+        val after = session.viewState
+        assertEquals(before.health, after.health)
+        assertEquals(before.score, after.score)
+        assertEquals(before.focus, after.focus)
+        assertEquals(before.combo, after.combo)
+        assertEquals(false, after.hitStop)
+    }
+
+    @Test fun theSameCutWithAShortHandAdvanceStillHits() {
+        val frame = rotatingCut(.062)
+        val session = ArenaSession(logMessage = {}, logFailure = { _, failure -> throw failure })
+        session.setEnemyGeometry(enemy, 2.0)
+        val events = mutableListOf<EnemyCombatEvent>()
+        applyMotion(session, frame, events)
+        val hit = events.filterIsInstance<CombatImpact>().single()
+        assertEquals(CombatImpactKind.SOFT_HIT, hit.kind)
+        assertTrue(hit.appliedDamage >= 25)
+        assertTrue(session.viewState.hitStop)
+    }
+
+    private fun rotatingCut(advance: Double): PlayerMotionFrame {
+        val resolver = PlayerCombatResolver()
+        val tracking = TrackingState(Hand.RIGHT)
+        var sequence = 0L
+        fun observe(time: Long, yaw: Double, z: Double): PlayerMotionFrame {
+            fun stamp() = ObservationStamp(sequence++, time, 1L, InputOrigin.SYNTHETIC)
+            val head = ObservedPose(Vector3(0.0, 1.6, 0.0), rotation)
+            val hand = ObservedPose(Vector3(0.0, .95, z),
+                Quaternion(0.0, kotlin.math.sin(yaw / 2), 0.0, kotlin.math.cos(yaw / 2)))
+            assertTrue(tracking.accept(TrackingEvent.Head(stamp(), head)))
+            assertTrue(tracking.accept(TrackingEvent.Controllers(stamp(), null, hand)))
+            return requireNotNull(resolver.observe(tracking.snapshot, enemy))
+        }
+        assertEquals(null, observe(0, .85, -.38).guardDirection)
+        return observe(100_000_000L, 0.0, -.38 - advance).also { requireNotNull(it.strike) }
+    }
 
     @Test
     fun aLaterUiPromptCannotReplaceAnAcceptedContactInTheSameBatch() {

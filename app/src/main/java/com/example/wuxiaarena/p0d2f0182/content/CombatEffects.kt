@@ -90,14 +90,15 @@ internal class CombatEffects private constructor(
                 emitForce(slot, impact, scale, now, age)
             } else {
                 val family = when (impact.kind) {
-                    CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT -> ContactEffectFamily.SOFT
+                    CombatImpactKind.SOFT_HIT, CombatImpactKind.PLAYER_HIT, CombatImpactKind.GRAZE -> ContactEffectFamily.SOFT
                     else -> ContactEffectFamily.METAL
                 }
-                val accepted = particles.emit(family, impact.point, impact.normal, impact.tangent, now, age,
+                val tangent = impact.tangent.takeUnless { impact.kind == CombatImpactKind.GRAZE }
+                val accepted = particles.emit(family, impact.point, impact.normal, tangent, now, age,
                     parry = impact.kind == CombatImpactKind.PARRY, size = scale,
                     softBodyCut = impact.kind == CombatImpactKind.SOFT_HIT && impact.zone == HitZone.BODY)
                 // Receipt evidence only: a consumed event does not prove SDK pixels or native input.
-                val mode = if (ContactBasis.from(impact.normal, impact.tangent) != null) "core_particles" else "core_only"
+                val mode = if (ContactBasis.from(impact.normal, tangent) != null) "core_particles" else "core_only"
                 Log.i(TAG, "Contact consumed id=${impact.id} kind=${impact.kind} family=$family " +
                     "accepted=$accepted mode=$mode ageNs=$age round=${state.roundGeneration} origin=${state.inputOrigin}")
             }
