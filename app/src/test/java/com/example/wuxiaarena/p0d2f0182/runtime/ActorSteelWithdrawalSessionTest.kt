@@ -123,7 +123,7 @@ class ActorSteelWithdrawalSessionTest {
     @Test fun expiredReceiptCannotRearmOrDamageDuringWithdrawal() {
         val f=ActiveFixture(7);f.contact();f.advance(200_000_000L)
         @Suppress("UNCHECKED_CAST") val queue=field(f.session,"pendingMotion") as ArrayDeque<PlayerMotionFrame>
-        queue.addLast(f.frame.copy(receivedAtNanos=0L,swing=QualifiedSwing(8,1.0,Vector3(0.2,0.0,0.0))))
+        queue.addLast(f.frame.copy(receivedAtNanos=0L,swing=QualifiedSwing(8,1.0,Vector3(0.2,0.0,0.0), Vector3(0.0,0.0,0.0))))
         ArenaSession::class.java.getDeclaredMethod("advanceFight",java.lang.Long.TYPE,java.lang.Long.TYPE,MutableList::class.java)
             .apply { isAccessible=true }.invoke(f.session,10_000_000L,1_000_000_000L,f.events)
         assertTrue(queue.isEmpty());assertEquals(7L,field(f.session,"consumedStrikeId"))
@@ -195,7 +195,7 @@ class ActorSteelWithdrawalSessionTest {
             }
             assertEquals("Fixture must touch the actual chain without a buried second part",-1e-9,gap,1e-7)
             val blade=playerBladeAxis(grip)
-            frame=PlayerMotionFrame(0L,blade.base,blade.tip,0.0,null,false,Vector3(0.0,1.6,0.0),rawWeaponGrip=grip,weaponGrip=grip,swing=swingId?.let { QualifiedSwing(it,1.0,Vector3(0.2,0.0,0.0)) })
+            frame=PlayerMotionFrame(0L,blade.base,blade.tip,0.0,null,false,Vector3(0.0,1.6,0.0),rawWeaponGrip=grip,weaponGrip=grip,swing=swingId?.let { QualifiedSwing(it,1.0,Vector3(0.2,0.0,0.0), Vector3(0.0,0.0,0.0)) })
             set(session,"simulationMotion",frame);set(session,"latestMotion",frame)
             assertEquals(EnemyPhase.ACTIVE,combat.phase)
         }

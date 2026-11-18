@@ -21,6 +21,7 @@ import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.combat.AttackOutcome
 import com.example.wuxiaarena.core.combat.CutLine
 import com.example.wuxiaarena.core.combat.frontalCutLine
+import com.example.wuxiaarena.core.math.closestSegmentPoints
 import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
@@ -47,8 +48,21 @@ import kotlin.math.roundToInt
 typealias HandPosePresenter = (TrackingSnapshot?) -> Unit
 
 internal enum class TrialResult { READY, COUNTDOWN, FIGHTING, ROUND_CLEAR, VICTORY, DEFEAT }
+
+private fun playerBodyCapsule(zone: HitZone, head: Vector3) = if (zone == HitZone.HEAD) BladeSegment(head, head, 0.16)
+    else BladeSegment(head + Vector3(0.0, -1.05, 0.0), head + Vector3(0.0, -0.23, 0.0), 0.24)
+
+internal fun evadedBladeAtPose(blade: BladeSegment, oldHead: Vector3, head: Vector3): Boolean {
+    if (oldHead.distanceTo(head) < 0.08) return false
+    fun touches(zone: HitZone, at: Vector3): Boolean {
+        val body = playerBodyCapsule(zone, at)
+        val points = closestSegmentPoints(blade.base, blade.tip, body.base, body.tip) ?: return false
+        return points.first.distanceTo(points.second) <= blade.radiusMeters + body.radiusMeters
+    }
+    return HitZone.entries.any { touches(it, oldHead) } && HitZone.entries.none { touches(it, head) }
+}
 internal enum class CombatFeedback {
-    HIT, HEADSHOT, GUARDED_HIT, CUT_DEFLECTED, BLOCK, PARRY, DODGE, PLAYER_HIT,
+    HIT, HEADSHOT, GUARDED_HIT, CUT_DEFLECTED, ARMOR_STOP, BLOCK, PARRY, DODGE, PLAYER_HIT,
     GUARD_BREAK, SKILL, EXECUTION, LOW_STAMINA, LOW_FOCUS, OUT_OF_RANGE, TIMEOUT,
 }
 
@@ -65,6 +79,8 @@ internal data class ArenaViewState(
     val health: Int,
     val initialHealth: Int,
     val guarding: Boolean,
+    val frontArmored: Boolean = false,
+    val counterOpen: Boolean = false,
     val hitReaction: HitReaction?,
     val pauseReason: PauseReason?,
     val pauseId: Long?,
@@ -200,6 +216,7 @@ internal class ArenaSession(
     private var enemyGaitMeters = 0.0
     private var enemyMoveDirection = 0f
     private var observedAttackId: Long? = null
+    private var attackStartHead: Vector3? = null
     private var attackSequenceIndex = 0
     private var resolvedContactId: Long? = null
     private var roundGeneration = 0L
@@ -259,6 +276,7 @@ internal class ArenaSession(
                 health = combat.health,
                 initialHealth = initialHealth,
                 guarding = combat.guarding,
+                frontArmored = combat.frontArmored, counterOpen = combat.counterOpen,
                 hitReaction = combat.hitReaction,
                 pauseReason = combat.pauseReason,
                 pauseId = combat.currentPauseId,
@@ -651,7 +669,7 @@ internal class ArenaSession(
                     val held = motion.constrainWeapon(atContact, grip, candidate.contact)
                     latestMotion = held
                     simulationMotion = held
-                    resolveSteelContact(candidate.contact, held, events)
+                    resolveSteelContact(candidate.contact, atContact, events)
                     beginSteelWithdrawal(candidate.contact, grip)
                 } else if (candidate.playerAttack) {
                     val blade = grip?.let(::playerBladeAxis)
@@ -672,6 +690,13 @@ internal class ArenaSession(
                 // Contacts transition the attack or start hit stop; cannot repeatedly consume t=0.
                 if (hitStopNanos > 0L || hitStopAwaitingPresentation) break
             } else {
+                if (combat.frontArmored && combat.phase == EnemyPhase.ACTIVE && after != null) {
+                    val oldHead = attackStartHead
+                    if (oldHead != null && evadedBladeAtPose(after.blade(), oldHead, toFrame.headPosition)) {
+                        combat.currentAttackId?.let(combat::recordEvadedBlade)
+                        attackStartHead = null
+                    }
+                }
                 collect(combat.advanceBy(interval, currentTargetInRange() == true, nextAttackDirection()), events)
                 recoilElapsedNanos = (recoilElapsedNanos + interval).coerceAtMost(RECOIL_DURATION)
                 enemyMotionNanos += interval
@@ -920,9 +945,7 @@ internal class ArenaSession(
         // Enemy damage is live only during ACTIVE, but both visible weapons remain solid.
         if (combat.phase == EnemyPhase.ACTIVE && resolvedContactId != combat.currentAttackId) {
             fun body(zone: HitZone): BladeContact? {
-                fun capsule(head: Vector3) = if (zone == HitZone.HEAD) BladeSegment(head, head, 0.16)
-                    else BladeSegment(head + Vector3(0.0, -1.05, 0.0), head + Vector3(0.0, -0.23, 0.0), 0.24)
-                return firstBladeContact(enemySweep, BladeSweep(capsule(from.headPosition), capsule(to.headPosition)))?.let {
+                return firstBladeContact(enemySweep, BladeSweep(playerBodyCapsule(zone, from.headPosition), playerBodyCapsule(zone, to.headPosition)))?.let {
                     it.copy(playerPoint = it.enemyPoint, enemyPoint = it.playerPoint, normal = it.normal * -1.0,
                         relativeDisplacement = it.relativeDisplacement * -1.0)
                 }
@@ -968,7 +991,9 @@ internal class ArenaSession(
         val active = combat.phase in setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE) && id != null && direction != null
         val outcome = if (active && combat.phase == EnemyPhase.ACTIVE) motion.resolveDefense(checkNotNull(id), checkNotNull(direction), target,
             frame.receivedAtNanos, contact) else AttackOutcome.BLOCKED
-        resolveContactOutcome(outcome, contact, HitZone.BODY, frame.hand, events, active)
+        val matchedGuard = combat.phase == EnemyPhase.ACTIVE && direction != null && frame.guardDirection == direction &&
+            frame.guardEnteredAtNanos?.let { it <= frame.receivedAtNanos } == true && frame.bladeAtRest && frame.swing == null
+        resolveContactOutcome(outcome, contact, HitZone.BODY, frame.hand, events, active, matchedGuard)
     }
 
     private fun resolveBodyContact(contact: BladeContact, zone: HitZone, events: MutableList<EnemyCombatEvent>) {
@@ -977,15 +1002,17 @@ internal class ArenaSession(
     }
 
     private fun resolveContactOutcome(initialOutcome: AttackOutcome, contact: BladeContact, zone: HitZone,
-        hand: Hand, events: MutableList<EnemyCombatEvent>, active: Boolean) {
+        hand: Hand, events: MutableList<EnemyCombatEvent>, active: Boolean, matchedGuard: Boolean = false) {
         val outcome = initialOutcome
         val id = combat.currentAttackId
         if (active && (id == null || resolvedContactId == id)) return
         if (outcome == AttackOutcome.BLOCKED) {
             // Steel still arrests the weapons at zero stamina; it cannot create an unobserved body hit.
             stamina = (stamina - 28.0).coerceAtLeast(0.0)
-            focus = (focus + 10.0).coerceAtMost(100.0)
-            score += 5
+            if (matchedGuard) {
+                focus = (focus + 10.0).coerceAtMost(100.0)
+                score += 5
+            }
             notifyFeedback(CombatFeedback.BLOCK)
         } else if (outcome == AttackOutcome.PARRIED) {
             stamina = (stamina - 6.0).coerceAtLeast(0.0)
@@ -998,7 +1025,7 @@ internal class ArenaSession(
         val attackOffsets = captureAttackOffsets()
         if (active) {
             resolvedContactId = id
-            collect(combat.resolveActiveAttack(checkNotNull(id), outcome), events)
+            collect(combat.resolveActiveAttack(checkNotNull(id), outcome, matchedGuard), events)
             if (direction != null && poseFrame != null) {
                 contactRecovery = ContactRecovery(arenaOpponents[roundNumber - 1].attackProfile(direction),
                     direction, poseFrame.pose.sourceSeconds, checkNotNull(combat.nanosUntilPhaseTransition))
@@ -1052,8 +1079,11 @@ internal class ArenaSession(
         val damage = (base * strike.power * (1.0 + (nextCombo - 1) * 0.10)).roundToInt()
         val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
         val cutLine = frame.swing?.let { frontalCutLine(it.travel, frame.headPosition - enemy, enemyYaw) }
+        val openingThrust = strike.zone == HitZone.BODY && cutLine == CutLine.THRUST && frame.swing?.gripTravel?.let {
+            -(it.x * kotlin.math.sin(enemyYaw.toDouble()) + it.z * kotlin.math.cos(enemyYaw.toDouble())) >= 0.10
+        } == true
         dealDamage(damage, frame.swing != null && cutLine == null, kind, (if (headshot) 15 else 10) * nextCombo,
-            events, strike.contact, frame.hand, zone = strike.zone, cutLine = cutLine, nextCombo = nextCombo)
+            events, strike.contact, frame.hand, zone = strike.zone, cutLine = cutLine, nextCombo = nextCombo, openingThrust = openingThrust)
     }
 
     private fun dealDamage(
@@ -1067,13 +1097,14 @@ internal class ArenaSession(
         zone: HitZone = HitZone.BODY,
         cutLine: CutLine? = null,
         nextCombo: Int = 0,
+        openingThrust: Boolean = false,
     ) {
         val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT
         val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
         val outcome = combat.receivePlayerHit(
             damage, breakGuard,
-            counterDirection = nextAttackDirection(), cutLine = cutLine,
+            counterDirection = nextAttackDirection(), cutLine = cutLine, openingThrust = openingThrust,
         )
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
         heldEnemyPoseFrame = poseFrame
@@ -1098,6 +1129,7 @@ internal class ArenaSession(
         }
         val guarded = damageResult.guarded
         notifyFeedback(when {
+            normal && combat.frontArmored && damageResult.appliedDamage == 0 -> CombatFeedback.ARMOR_STOP
             normal && guarded && damageResult.appliedDamage == 0 -> CombatFeedback.CUT_DEFLECTED
             normal && guarded -> CombatFeedback.GUARDED_HIT
             else -> kind
@@ -1187,6 +1219,7 @@ internal class ArenaSession(
         for (event in incoming) {
             when (event) {
                 is EnemyCombatEvent.AttackStarted -> {
+                    attackStartHead = simulationMotion?.headPosition
                     steelContactLatched = false
                     steelWithdrawal = null
                     steelGuardReleased = false
@@ -1200,6 +1233,7 @@ internal class ArenaSession(
                     motion.beginEnemyAttack(event.attackId)
                 }
                 is EnemyCombatEvent.AttackResolved -> {
+                    if (event.outcome == AttackOutcome.MISSED && combat.counterOpen) notifyFeedback(CombatFeedback.DODGE)
                     if (event.outcome == AttackOutcome.HIT_PLAYER) {
                         playerHealth = (playerHealth - if (matchNanos < staggerUntil) 30 else 20).coerceAtLeast(0)
                         combo = 0
@@ -1295,7 +1329,8 @@ internal class ArenaSession(
         check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
         roundGeneration++
         initialHealth = 100 + (roundNumber - 1) * 25
-        combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L)
+        combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L,
+            frontArmored = arenaOpponents[roundNumber - 1].frontArmored)
         resetCombatContactIdentity()
         enemyHitZone = null
         enemyPosition = enemySpawn

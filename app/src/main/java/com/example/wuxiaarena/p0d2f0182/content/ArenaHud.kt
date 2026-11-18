@@ -801,6 +801,9 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.executing -> R.string.arena_hint_executing
         state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
         state.result == TrialResult.ROUND_CLEAR -> R.string.arena_hint_round_clear
+        state.frontArmored && state.counterOpen -> R.string.arena_armor_open
+        state.frontArmored && state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_armor_thrust
+        state.frontArmored && state.phase in setOf(EnemyPhase.RECOVERING, EnemyPhase.IDLE) -> R.string.arena_armor_tactic
         state.phase == EnemyPhase.PREPARING -> R.string.arena_hint_preparing
         state.phase == EnemyPhase.STARTUP -> R.string.arena_hint_startup
         state.phase == EnemyPhase.ACTIVE -> R.string.arena_hint_active
@@ -835,6 +838,7 @@ private fun feedbackLabel(state: ArenaViewState): String? {
                 CombatFeedback.HEADSHOT -> R.string.arena_feedback_headshot
                 CombatFeedback.GUARDED_HIT -> R.string.arena_feedback_guarded_hit
                 CombatFeedback.CUT_DEFLECTED -> R.string.arena_feedback_cut_deflected
+                CombatFeedback.ARMOR_STOP -> R.string.arena_armor_stop
                 CombatFeedback.BLOCK -> R.string.arena_feedback_block
                 CombatFeedback.PARRY -> R.string.arena_feedback_parry
                 CombatFeedback.DODGE -> R.string.arena_feedback_dodge

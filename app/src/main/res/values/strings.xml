@@ -89,6 +89,10 @@
     <string name="arena_feedback_headshot">要害命中</string>
     <string name="arena_feedback_guarded_hit">对手护身 · 伤害减弱</string>
     <string name="arena_feedback_cut_deflected">刀路被封 · 改走另一刀路或等收势</string>
+    <string name="arena_armor_stop">斩中正甲 · 未造成伤害</string>
+    <string name="arena_armor_tactic">正甲未开 · 架住来刀或绕侧</string>
+    <string name="arena_armor_open">甲门已开 · 立刻还刀</string>
+    <string name="arena_armor_thrust">双臂上举 · 向前刺入胸腹</string>
     <string name="arena_feedback_block">格挡成功</string>
     <string name="arena_feedback_parry">弹反成功 · 反击良机</string>
     <string name="arena_feedback_dodge">闪避成功</string>

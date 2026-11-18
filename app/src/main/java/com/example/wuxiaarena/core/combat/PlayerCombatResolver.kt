@@ -35,7 +35,7 @@ data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val body
     }
 }
 
-data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3)
+data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, val gripTravel: Vector3)
 
 data class MotionStrike(val id: Long, val zone: HitZone, val power: Double, val contact: MotionContact)
 
@@ -85,6 +85,7 @@ class PlayerCombatResolver {
 
     private data class BladeSample(
         val stamp: ObservationStamp,
+        val observedGripPosition: Vector3,
         val base: Vector3,
         val tip: Vector3,
         val rotation: Quaternion,
@@ -162,7 +163,7 @@ class PlayerCombatResolver {
         if (!base.isFinite() || !tip.isFinite() || base.distanceTo(tip) !in 0.70..0.74) {
             return clearUnavailable()
         }
-        val sample = BladeSample(hand.stamp, base, tip, rotation)
+        val sample = BladeSample(hand.stamp, handPosition, base, tip, rotation)
         val old = previous
         if (old == null) return establish(sample, headPosition, enemyPosition, contactPose, rawGrip)
         if (sample.stamp.sequence == old.stamp.sequence) {
@@ -204,7 +205,8 @@ class PlayerCombatResolver {
             val baseTravel = base - origin.base
             val travel = if (tipTravel.dot(tipTravel) >= baseTravel.dot(baseTravel)) tipTravel else baseTravel
             if (travel.length() >= MIN_STRIKE_DISPLACEMENT) {
-                qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4), travel)
+                qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4), travel,
+                    handPosition - origin.observedGripPosition)
                 lastStrikeAt = sample.stamp.receivedAtNanos
             }
         }
