@@ -15,6 +15,22 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_overhead_shoulder_carries_the_blade_down_from_above(self):
+        from attack_profiles import animation_tracks, hierarchy, pose_world
+        for actor in ('base', 'indigo', 'veteran'):
+            with self.subTest(actor=actor):
+                doc, binary = library.read_glb(library.HERE / 'library' / (actor + '.glb'))
+                names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
+                _, parents, order = hierarchy(doc)
+                clip = next(a for a in doc['animations'] if a['name'] == 'attack_overhead')
+                tracks, _ = animation_tracks(doc, binary, clip)
+                poses = [pose_world(doc, tracks, t, parents, order) for t in (.65, .725, 5/6, 31/30)]
+                for pose in poses:
+                    elbow, wrist, middle = [pose[names[n]].translation for n in ('R_Forearm','R_Hand','R_Mid1')]
+                    self.assertLess(math.degrees((wrist-elbow).angle(middle-wrist)), 74.1)
+                tip = names['Blade_Tip']
+                self.assertGreater(poses[-2][tip].translation.y - poses[-1][tip].translation.y, 1.)
+
     def test_guard_and_attack_endpoints_keep_one_palm_and_blade_frame(self):
         from attack_profiles import animation_tracks, hierarchy, pose_world
         for actor in ('base', 'indigo', 'veteran'):

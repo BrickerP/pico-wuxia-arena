@@ -3,12 +3,12 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "base_prepared_png.glb",
-    "sha256": "42d5697366e0533afd9fa257a3887e8547e98d1f01ba9f479be0f214bbd7ac25",
+    "sha256": "1ebd16acff1556bcdcdc857ae53d02b311ef9947389f0402f2ee569d049a3cf3",
     "bytes": 58292620
   },
   "output": {
     "path": "base.glb",
-    "sha256": "af8462b0ab8bbe4b631c019a32accfa24ff1c977a069a65f0f5eebf3fdae44cc",
+    "sha256": "582a24f5e1f6e9731793c15a3a301fde8fc5872de298cbb403471a2ac213691b",
     "bytes": 75841856
   },
   "encoder": {
@@ -2680,7 +2680,7 @@
     "hit_side": "e9d4fb026329fde6c78163c0a6e89086280542589adf5652b26cc88b9b276909",
     "idle": "5233efa68f4c7509ab68bb2ac258f7fb646617cf2db397957bda1565ef7829c0",
     "walk": "ff14df4262141762010743b0bc60e4cfa076f0ae83a27fd3343892aed6529646",
-    "attack_overhead": "5e2286d471a69042c22842ec51db0aece6e9654149c2bdda548397249d2b9d24",
+    "attack_overhead": "3fc942411df15bf17cd0bb07ea1ac01408306edb7f6e3d2e717f7a7e429d54ea",
     "attack_left": "294195af35ebc3aac6f466ad3b8668d1167bb3aff4ac746ac6237261ff0381ce",
     "attack_right": "f0bab1a3b7bc3fbdceb979ed307918a468675fb0b910732b8639d4d2620a24e5"
   }
