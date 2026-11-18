@@ -413,7 +413,7 @@
   "prepared_wrist_constraint": {
     "implementation": {
       "source": "target_wrist_constraint.py",
-      "source_sha256": "4fa988869297209ab42ce4b9b397c9f36d190a35282abfb4eb1f998bdcf80a8d"
+      "source_sha256": "ef3d9b094505df5b3ca6920614c0048c5a7e9904469317edb2ce086258f4f757"
     },
     "recipe": {
       "source": "../refinement/combat-direction/natural-guard/candidate/family-clearance-v2/left-elbow/target-wrist-constraint/canonical-integration/strict-steel/constraint_recipe.json",
@@ -421,7 +421,7 @@
     }
   },
   "production_review": {
-    "source": "../refinement/combat-direction/natural-guard/integration/clearance-v2/combined-left-right/production_review.json",
-    "source_sha256": "c14f6b1928fdb656b2aac90181b32d0023d488e57f4ebe4404b4fb19c03f15dd"
+    "source": "empty-hand-production-review.json",
+    "source_sha256": "41722e74614a7c1167cba789704aa8f0596933c81b7ce9c8794fc194d292b524"
   }
 }

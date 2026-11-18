@@ -27109,7 +27109,7 @@
           ]
         ]
       },
-      "animation_semantics_sha256": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
+      "animation_semantics_sha256": "e21e279da01f3cddf5835d5d2943703109eb6ed5018043434051dd09abc31e43",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -54441,7 +54441,7 @@
         200000000,
         716666667
       ],
-      "animation_semantics_sha256": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
+      "animation_semantics_sha256": "322503a226ecadec0712266deeef342f1956ffa988689dbf5de018b0102ded80",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -70079,7 +70079,7 @@
         200000000,
         600000000
       ],
-      "animation_semantics_sha256": "3d17f0117c7fa9e0825299015365d7ef0c87d3068c55c406770d6918fde8478a",
+      "animation_semantics_sha256": "b3d86c737a12f43536d7f1d05cdbfb46a599a88195d62b6617e3bfdc2e17025e",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -79723,7 +79723,7 @@
         200000000,
         600000000
       ],
-      "animation_semantics_sha256": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36",
+      "animation_semantics_sha256": "bbf4a9b48175d96c0f0bee99bfd93296822e3b3a08cebe802f36ea5292c187b4",
       "samples": [
         {
           "time_seconds": 0.0,
@@ -87583,7 +87583,7 @@
         0.05,
         0.72
       ],
-      "animation_semantics_sha256": "6d2beb5b809ceb046c522b22b61cd8049d0ca99ea379eb7239cf66886dc52ec6",
+      "animation_semantics_sha256": "c1aae7ebf1b29e5ec9ecbc540d1f3a96120f395bc7f1a6273f5350346a069066",
       "samples": [
         {
           "time_seconds": 0.03333333507180214,
@@ -93369,7 +93369,7 @@
         0.05,
         0.72
       ],
-      "animation_semantics_sha256": "64bad3f679a4c695abbb0658af5a8288d3b2c42aa540a3bf0375ff0305d4062e",
+      "animation_semantics_sha256": "7cede93dcc56665b77a1b0f3c3d2de548b63d50be9024494e6741d2d00b22af8",
       "samples": [
         {
           "time_seconds": 0.03333333507180214,
@@ -101671,7 +101671,7 @@
         0.05,
         1.18
       ],
-      "animation_semantics_sha256": "3ffc92616a1bcd82ed3ba1a3a65faa5568f3e39e4a5338d63d3fa7366a382b6f",
+      "animation_semantics_sha256": "4a0ba913d37e71e84bc32110a5039c4e7ebe327c1c07ee9d66c017eab0e07ddf",
       "samples": [
         {
           "time_seconds": 0.03333333507180214,
@@ -107301,7 +107301,7 @@
     }
   },
   "character_id": "veteran",
-  "model_sha256": "9a392e2e93f81d3d4764d66c0d1bebbefb07406c5a5365d91d983e8e140db74a",
+  "model_sha256": "95e816b4d41d9ceefcca5eeb2d02ecb80722305e10eabfec5136eb1c7e11e6fc",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",

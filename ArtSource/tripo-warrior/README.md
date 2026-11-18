@@ -6,7 +6,7 @@
 
 ## 当前正式组
 
-当前正式binding为 `b03f55e6ee89e551ff2a3933a351a96fff077f8b6ad42adf441d40dcfab4a79f`。`motion_library.json`是唯一正式输入，Root已将三角色、profile、玩家刀及对应typed运行身份成组发布。base选用连续头颈raw `34ce3a60…`，indigo／veteran沿各自既有目标rig。
+当前角色组的输入标识为 `e5934e1383e46af48af9fa454add9f19d1f5c2c21c03e2b7407a92ec857c0c37`，由 `motion_library.json` 和同组审批记录校验。三个目标骨架各自在已重定向的动作中修正空手腕：以肘到腕、腕到中指根的方向检查反折；右斩和上劈回收时让空手前臂避开头胸。没有修改持刀右手；右腕在守势和左斩中的反折仍待重编。玩家刀、敌刀和头身代理的原有轨迹保持一致。
 
 本地 `7e1368fe…` APK已在模拟器Full Stage显示新base头／眼／颈、canonical idle、玩家刀和场景；约27秒完成场景与人物附着，未报NO_MEMORY。相比前一767bc0af包，仅控制面板pose两行调整，实际图确认完整且不挡脸刀；311项组合测试为该调整前结果，调整后仅重建与原生视觉验。三轮切换、近距材质、实际过渡与Space Pro内存／性能仍未验收。构建和版本证据见[验收清单](../../docs/acceptance.md)，公开GitHub预发行仍是旧包。
 

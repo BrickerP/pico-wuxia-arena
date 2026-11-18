@@ -870,20 +870,17 @@ def build_library(manifest_path, candidate_dir=None):
             wrist_report = wrist_solver.apply_prepared_character(character['id'],
                 output_folder / (stem + '_body.glb'), prepared_png, wrist_recipe)
             record['prepared_wrist_constraint'] = wrist_report
-            if wrist_report['applied']:
-                constrained_doc, constrained_binary = read_glb(prepared_png)
-                final_signatures = {clip['name']: animation_signature(constrained_doc, constrained_binary, clip)
-                                    for clip in constrained_doc['animations']}
-                for animation in record['animations']:
-                    previous = animation['keyframe_semantics_sha256']
-                    final = final_signatures[animation['name']]
-                    if previous != final:
-                        animation['pre_prepared_wrist_constraint_semantics_sha256'] = previous
-                        animation['keyframe_semantics_sha256'] = final
-                for output in record['outputs']:
-                    path = output_folder / output['file']
-                    output.update(bytes=path.stat().st_size,
-                                  sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+            final_signatures = wrist_solver.prepare_empty_hands(output_folder / (stem + '_body.glb'), prepared_png)
+            for animation in record['animations']:
+                previous = animation['keyframe_semantics_sha256']
+                final = final_signatures[animation['name']]
+                if previous != final:
+                    animation['pre_prepared_wrist_constraint_semantics_sha256'] = previous
+                    animation['keyframe_semantics_sha256'] = final
+            for output in record['outputs']:
+                path = output_folder / output['file']
+                output.update(bytes=path.stat().st_size,
+                              sha256=hashlib.sha256(path.read_bytes()).hexdigest())
             for animation, source in zip(record['animations'], retargeting):
                 animation['source_glb'] = source['source']
                 animation['source_sha256'] = source['source_sha256']

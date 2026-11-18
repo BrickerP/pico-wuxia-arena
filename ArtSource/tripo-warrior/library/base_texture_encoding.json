@@ -3,13 +3,13 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "base_prepared_png.glb",
-    "sha256": "057c6ea9b8a7671689da1040623db68761ed3c37e31b6366def6329b77b902a6",
-    "bytes": 58219808
+    "sha256": "a72c46167d0040a1ba23faf24e6bef57ecfaaf840b9e233a8772026bcd59e080",
+    "bytes": 58259992
   },
   "output": {
     "path": "base.glb",
-    "sha256": "871b5521c181815c20e7cb0ebb76f87e20091d6a813a76c7f676f0789bbfeaf3",
-    "bytes": 75769044
+    "sha256": "9faeed605b3ea2e9f216747cf5f78a4fb567a014c303a146d03aee5051a15d8f",
+    "bytes": 75809228
   },
   "encoder": {
     "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -2255,8 +2255,8 @@
     }
   ],
   "preservation": {
-    "non_image_bufferViews_byte_identical": 2587,
-    "accessors_semantics_and_payloads_unchanged": 2587,
+    "non_image_bufferViews_byte_identical": 2609,
+    "accessors_semantics_and_payloads_unchanged": 2609,
     "non_image_json_semantics_identical": true,
     "images": [
       {
@@ -2673,15 +2673,15 @@
     "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
   },
   "animation_semantic_signatures": {
-    "fall": "f1c60b10cca80a329adeee5a56c5dc84cb8be3ab3e00a8783862e2539afb566e",
-    "turn": "6dc6358f9dc8dd41fea83065cece4d779ec558b9484489727c7d9a0de73aae8d",
-    "hit_body": "f6ef606d166d51daebbc33bd64cfb245d4187ceb34a9ae8cd78ef633a76d53e1",
-    "hit_head": "292ac8f637a3c2f040116ee850a076b252957182e0b0435daed4acdac8795084",
-    "hit_side": "784f03b504a714871442e29546e7fe03928ea2a54e8478fc53d72dc22a6a0479",
+    "fall": "8a59e8f8feff3803048248699f7e6cc1141bb4dd44afce97d6970d95ae438c6a",
+    "turn": "9688f47cc783f05dd4ab93aebb53fa4aa21907fbfe07b56ec0685f24d9af3e28",
+    "hit_body": "a022035f4e7d21779fa6c50eb2d6ed2c98ef5987f1400a5381b847634b91a858",
+    "hit_head": "008817cdd8ca3e525813f9d385358eed07004250a39e9e8118e272d43051021a",
+    "hit_side": "e9d4fb026329fde6c78163c0a6e89086280542589adf5652b26cc88b9b276909",
     "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
-    "walk": "6fa7d2b97c7c14dac44b15867ec83b01b4616222c3f3ef46ccb5abe30ad270d8",
-    "attack_overhead": "d508d28f18230d44470868dc8c04d62dd18a93c89c72ee0889b8a7a4807f34c9",
-    "attack_left": "dbaa22fd5d24d3f65f27c53fc87de02ca0cd09f63e68c6377d7213ace8540662",
-    "attack_right": "198db7609db18b3117e2d138edb53a4f375bc429c28e3884960e6af3d2790d52"
+    "walk": "e25a66d3ff8fff1dc30565417754f4da20219574bd2555ef99274cb03ca352ac",
+    "attack_overhead": "aef7eb2ed159290c7806fafe776a9aad172a086b0dca990c07d6a337598aa62e",
+    "attack_left": "8f92348ee4dcb8b7c51c16ea24efcc131de918996c0cb7a207c47cb32126ac27",
+    "attack_right": "df6c2ee26f66f4658ca0a99094bff090b6325d2d8258ee1686aa5fdd3343c8c9"
   }
 }
