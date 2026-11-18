@@ -20,28 +20,28 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 55199500,
-          "sha256": "bb0b2bc22c9d5fbd3fa6e44683f437421f17ebb5b760bb91ec5d8e0aecffce1b"
+          "bytes": 55202744,
+          "sha256": "fc98296ec1fe7cf0354d560605b0a7f3973847eecb4470b7e3b9c913952462c9"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 58292620,
-          "sha256": "1ebd16acff1556bcdcdc857ae53d02b311ef9947389f0402f2ee569d049a3cf3"
+          "bytes": 58295864,
+          "sha256": "d5f8d8475442343166f1acf67f4f0d4488f7372609b96111c8f0db2ccb5de733"
         },
         {
           "file": "base.glb",
-          "bytes": 75841856,
-          "sha256": "582a24f5e1f6e9731793c15a3a301fde8fc5872de298cbb403471a2ac213691b"
+          "bytes": 75845100,
+          "sha256": "9f519ecd9dec145c01d0b91db2123558de101f5a4e1cebd9082c83c3d82e5a8e"
         }
       ],
       "runtime_texture_encoding": {
         "file": "base_texture_encoding.json",
-        "sha256": "ec45b87cbacf4af7b237b6c543152a15d9d4a45afbc8da199efb9e60574920ea",
-        "prepared_png_sha256": "1ebd16acff1556bcdcdc857ae53d02b311ef9947389f0402f2ee569d049a3cf3",
-        "encoded_sha256": "582a24f5e1f6e9731793c15a3a301fde8fc5872de298cbb403471a2ac213691b",
+        "sha256": "e9bd8919e670e8bfb673d44579bcf73f2fa9a327fc557bafc9c8bd73e08618d5",
+        "prepared_png_sha256": "d5f8d8475442343166f1acf67f4f0d4488f7372609b96111c8f0db2ccb5de733",
+        "encoded_sha256": "9f519ecd9dec145c01d0b91db2123558de101f5a4e1cebd9082c83c3d82e5a8e",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2624,
-          "accessors_semantics_and_payloads_unchanged": 2624,
+          "non_image_bufferViews_byte_identical": 2625,
+          "accessors_semantics_and_payloads_unchanged": 2625,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -439,7 +439,7 @@
       },
       "attack_profiles": {
         "file": "base_attack_profiles.json",
-        "sha256": "e7154b060c290499e3718ed6c0c48691a72be0a04ac1ea4f2f6cd14ca3024bc5"
+        "sha256": "00885d485e306b95a3822e03d096a2407528061a78141e5b1c2eb5de24b98702"
       }
     },
     {
@@ -462,28 +462,28 @@
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 14935752,
-          "sha256": "9f971cf4b46d5d6f0c31e2704f2284e737ac12cb75ae29213e068642e444ffe3"
+          "bytes": 14938992,
+          "sha256": "904fa2edb20fe2d6b9a9bf5d62f7881dc4551fead4f9036d9545831b2e45566d"
         },
         {
           "file": "indigo_prepared_png.glb",
-          "bytes": 18028824,
-          "sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6"
+          "bytes": 18032060,
+          "sha256": "3a16e5c166af00432ed3725e5210b4ce272540ef641f64b2cd286b07f71b87b3"
         },
         {
           "file": "indigo.glb",
-          "bytes": 44004044,
-          "sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f"
+          "bytes": 44007284,
+          "sha256": "84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3"
         }
       ],
       "runtime_texture_encoding": {
         "file": "indigo_texture_encoding.json",
-        "sha256": "26ca52d0cc627533dc61dc070459b704e041e1d4740388378e2bd3f9be216c88",
-        "prepared_png_sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6",
-        "encoded_sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f",
+        "sha256": "7886eb01f9535bd4c8d5e47f20d22d209145047e523603ff587c7c08b232dc96",
+        "prepared_png_sha256": "3a16e5c166af00432ed3725e5210b4ce272540ef641f64b2cd286b07f71b87b3",
+        "encoded_sha256": "84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2598,
-          "accessors_semantics_and_payloads_unchanged": 2598,
+          "non_image_bufferViews_byte_identical": 2599,
+          "accessors_semantics_and_payloads_unchanged": 2599,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -806,7 +806,7 @@
       },
       "attack_profiles": {
         "file": "indigo_attack_profiles.json",
-        "sha256": "ebda1699a27bb58366676457886d54b17aec1237660fc0bf6d6b644f900c520a"
+        "sha256": "be2ff43b9c415ec429983d55d5dbb7c8e2286e048741f187ee0189541268c48a"
       }
     },
     {
@@ -829,28 +829,28 @@
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 14428184,
-          "sha256": "d6361c0df957e011cbc5e9c5c8051a1da62873c67c69e6c6fa5ff7dedfceccb5"
+          "bytes": 14431432,
+          "sha256": "2f3af49d66478c8e55bda6024b5bd20c9ae04a96eb594270c805c334a19f6cbc"
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 17521260,
-          "sha256": "ac32663ec50625f3bc283086ec96c40468f1b48b505e460e42b0c24933fe8f44"
+          "bytes": 17524508,
+          "sha256": "28568e810edfbfc5be5ea1fe5ad62b7a37722722149a83608905105c5a9a2a25"
         },
         {
           "file": "veteran.glb",
-          "bytes": 45431988,
-          "sha256": "3e703ebbb2ce1672260aa240d9d20eacc25b0d7925ed783f800ee4528248d88e"
+          "bytes": 45435232,
+          "sha256": "8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d"
         }
       ],
       "runtime_texture_encoding": {
         "file": "veteran_texture_encoding.json",
-        "sha256": "0eaca88c5754772c5ad2c6b5e8fd5b8b4cc7bca30d5d11bb02b8034663ad723d",
-        "prepared_png_sha256": "ac32663ec50625f3bc283086ec96c40468f1b48b505e460e42b0c24933fe8f44",
-        "encoded_sha256": "3e703ebbb2ce1672260aa240d9d20eacc25b0d7925ed783f800ee4528248d88e",
+        "sha256": "c741192a883f9ebe8a1a1773c8449eaadd2ab8bc6804e323d461395a24adfa9a",
+        "prepared_png_sha256": "28568e810edfbfc5be5ea1fe5ad62b7a37722722149a83608905105c5a9a2a25",
+        "encoded_sha256": "8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2562,
-          "accessors_semantics_and_payloads_unchanged": 2562,
+          "non_image_bufferViews_byte_identical": 2563,
+          "accessors_semantics_and_payloads_unchanged": 2563,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -1173,7 +1173,7 @@
       },
       "attack_profiles": {
         "file": "veteran_attack_profiles.json",
-        "sha256": "89964df77d781de0516aa3782ee97a3df3928f5eb29c9b6470465fefc9667691"
+        "sha256": "997984e61fdced7e738f8e090bbd877f176b069d28aa35df1a69b9ae9085ab97"
       }
     }
   ],

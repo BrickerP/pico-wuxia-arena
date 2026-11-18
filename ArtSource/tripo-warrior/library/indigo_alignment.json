@@ -131,7 +131,7 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "b8c8c665c8eda07b8ab9122cb636233d48ef9a7cc53ca01c16557317237685b5",
+      "keyframe_semantics_sha256": "ff7bd35ee75d581669e28455a2e6a4f2d9505c46ca8c5f94111ac35442e65f4d",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "c7d246b805951c28add3f97e1e953fd8377d1c61243985594f2cdbb383141219",
       "pre_prepared_wrist_constraint_semantics_sha256": "71e7c49a36e51e84cbe022d332b6440fb224d4a85277cc1a803a970e2279b68d",
@@ -392,18 +392,18 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 14935752,
-      "sha256": "9f971cf4b46d5d6f0c31e2704f2284e737ac12cb75ae29213e068642e444ffe3"
+      "bytes": 14938992,
+      "sha256": "904fa2edb20fe2d6b9a9bf5d62f7881dc4551fead4f9036d9545831b2e45566d"
     },
     {
       "file": "indigo_prepared_png.glb",
-      "bytes": 18028824,
-      "sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6"
+      "bytes": 18032060,
+      "sha256": "3a16e5c166af00432ed3725e5210b4ce272540ef641f64b2cd286b07f71b87b3"
     },
     {
       "file": "indigo.glb",
-      "bytes": 44004044,
-      "sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f"
+      "bytes": 44007284,
+      "sha256": "84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3"
     }
   ],
   "finger_rotation_calibration": {
@@ -30287,17 +30287,17 @@
   },
   "prepared_png": {
     "file": "indigo_prepared_png.glb",
-    "bytes": 18028824,
-    "sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6"
+    "bytes": 18032060,
+    "sha256": "3a16e5c166af00432ed3725e5210b4ce272540ef641f64b2cd286b07f71b87b3"
   },
   "runtime_texture_encoding": {
     "file": "indigo_texture_encoding.json",
-    "sha256": "26ca52d0cc627533dc61dc070459b704e041e1d4740388378e2bd3f9be216c88",
-    "prepared_png_sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6",
-    "encoded_sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f",
+    "sha256": "7886eb01f9535bd4c8d5e47f20d22d209145047e523603ff587c7c08b232dc96",
+    "prepared_png_sha256": "3a16e5c166af00432ed3725e5210b4ce272540ef641f64b2cd286b07f71b87b3",
+    "encoded_sha256": "84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3",
     "preservation": {
-      "non_image_bufferViews_byte_identical": 2598,
-      "accessors_semantics_and_payloads_unchanged": 2598,
+      "non_image_bufferViews_byte_identical": 2599,
+      "accessors_semantics_and_payloads_unchanged": 2599,
       "non_image_json_semantics_identical": true,
       "images": [
         {
@@ -30620,6 +30620,6 @@
   },
   "attack_profiles": {
     "file": "indigo_attack_profiles.json",
-    "sha256": "ebda1699a27bb58366676457886d54b17aec1237660fc0bf6d6b644f900c520a"
+    "sha256": "be2ff43b9c415ec429983d55d5dbb7c8e2286e048741f187ee0189541268c48a"
   }
 }
