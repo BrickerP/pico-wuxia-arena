@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.content
 
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
 import kotlin.math.hypot
 
 /** One stable container-space anchor for the existing full-height terminal controls. */
@@ -21,7 +22,7 @@ internal class TerminalControlPlacement {
         terminal: Boolean,
         inputReady: Boolean,
         head: Vector3?,
-        enemy: Vector3?,
+        headRotation: Quaternion?,
         fullHeightMeters: Double,
     ): TerminalControlPose? {
         // A late old state must not clear or replace a newer terminal anchor.
@@ -30,23 +31,26 @@ internal class TerminalControlPlacement {
             this.generation = generation
             pose = null
         }
-        if (!terminal || !inputReady || head == null || enemy == null ||
-            !head.isFinite() || !enemy.isFinite() || !fullHeightMeters.isFinite() || fullHeightMeters <= 0.0
+        if (!terminal || !inputReady || head == null || headRotation == null ||
+            !head.isFinite() || !fullHeightMeters.isFinite() || fullHeightMeters <= 0.0
         ) {
             pose = null
             return null
         }
-        val dx = enemy.x - head.x
-        val dz = enemy.z - head.z
-        val distance = hypot(dx, dz)
-        if (!distance.isFinite() || distance <= 1e-6) {
+        val gaze = headRotation.rotate(Vector3(0.0, 0.0, -1.0))
+        if (gaze == null) {
             pose = null
             return null
         }
         pose?.let { return it }
-        val forward = Vector3(dx / distance, 0.0, dz / distance)
-        val right = Vector3(-forward.z, 0.0, forward.x)
-        val position = head + forward * 0.85 - right * 0.18 +
+        val horizontal = hypot(gaze.x, gaze.z)
+        val forward = if (horizontal > 1e-6) {
+            Vector3(gaze.x / horizontal, 0.0, gaze.z / horizontal)
+        } else {
+            val right = headRotation.rotate(Vector3(1.0, 0.0, 0.0)) ?: return null
+            Vector3(right.z, 0.0, -right.x).normalizedOrNull() ?: return null
+        }
+        val position = head + forward * 0.85 +
             Vector3(0.0, -(fullHeightMeters / 2.0 + 0.08), 0.0)
         if (!position.isFinite() || !listOf(position.x, position.y, position.z).all { it.toFloat().isFinite() }) {
             return null
