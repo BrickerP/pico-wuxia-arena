@@ -216,6 +216,7 @@ internal class ArenaSession(
     private var playerHandPresenter: HandPosePresenter? = null
     private var arenaPresenter: ArenaPresenter? = null
     private var latestTrackingSnapshot: TrackingSnapshot? = null
+    private var handPresentationPending = false
     private var lastAcceptedStamp: ObservationStamp? = null
     private var actionRequiredAfterSequence = -1L
     private var actionBaseline: ActionBaseline? = null
@@ -227,14 +228,17 @@ internal class ArenaSession(
         val handContinuity: Long,
     )
 
+    private fun canUseActionInput(snapshot: TrackingSnapshot?): Boolean =
+        sceneAvailable && enemyPosition != null && snapshot?.hasRequiredObservations == true &&
+            actionBaseline != null && actionBaseline == snapshot.actionIdentity()
+
     val viewState: ArenaViewState
         get() {
             val snapshot = latestTrackingSnapshot
             val hand = snapshot?.let { if (it.dominantHand == Hand.LEFT) it.left else it.right }
             val inputReady = snapshot?.hasRequiredObservations == true
             val sceneReady = sceneAvailable && enemyPosition != null
-            val actionReady = sceneReady && inputReady && actionBaseline != null &&
-                actionBaseline == snapshot?.actionIdentity()
+            val actionReady = canUseActionInput(snapshot)
             val targetInRange = currentTargetInRange()
             val motionReady = result == TrialResult.FIGHTING && combat.pauseReason == null && actionReady
             val releaseRequired = motionReady && latestMotion?.releaseRequired == true
@@ -349,13 +353,17 @@ internal class ArenaSession(
 
     /** The input owner calls this once after all drains, using its receipt clock. */
     fun onTick(nowNanos: Long, uiFrameNanos: Long? = null) {
+        if (handPresentationPending) {
+            handPresentationPending = false
+            presentHand(latestTrackingSnapshot)
+        }
         val targetInRange = currentTargetInRange()
         val terminal = result == TrialResult.VICTORY || result == TrialResult.DEFEAT
         val canAdvance = if (result == TrialResult.READY || result == TrialResult.ROUND_CLEAR) {
-            val state = viewState
-            combat.pauseReason == null && state.inputReady && state.sceneReady
+            combat.pauseReason == null && latestTrackingSnapshot?.hasRequiredObservations == true &&
+                sceneAvailable && enemyPosition != null
         } else {
-            targetInRange != null && combat.pauseReason == null && viewState.actionReady
+            targetInRange != null && combat.pauseReason == null && canUseActionInput(latestTrackingSnapshot)
         }
         if ((!trialStarted && result != TrialResult.READY) || terminal || !canAdvance) {
             lastTickTime = null
@@ -1266,7 +1274,7 @@ internal class ArenaSession(
     }
 
     private fun beginNextRound(events: MutableList<EnemyCombatEvent>) {
-        val resumeRequired = combat.pauseReason != null || !viewState.actionReady
+        val resumeRequired = combat.pauseReason != null || !canUseActionInput(latestTrackingSnapshot)
         roundNumber++
         clearEnemyContactPlayback()
         enemyMotionNanos = 0L
@@ -1480,9 +1488,11 @@ internal class ArenaSession(
                 }
             }
         }
+        val deferPresentation = uiFrameNanos != null && hadReadyInput && snapshot.hasRequiredObservations &&
+            (event is TrackingEvent.Head || event is TrackingEvent.Controllers) && events.isEmpty()
         hadReadyInput = snapshot.hasRequiredObservations
-        // Visual hands consume both accepted sides, including invalidation snapshots.
-        presentHand(snapshot)
+        handPresentationPending = deferPresentation
+        if (!deferPresentation) presentHand(snapshot)
         if (!snapshot.hasRequiredObservations) {
             lastTickTime = null
             lastReportedHead = null
@@ -1494,12 +1504,12 @@ internal class ArenaSession(
             return
         }
         if (!newlyAccepted) {
-            publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
+            if (!deferPresentation) publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
             return
         }
         establishActionBaseline()
         val target = enemyPosition
-        if (sceneAvailable && target != null && viewState.actionReady) {
+        if (target != null && canUseActionInput(snapshot)) {
             val frame = try { motion.observe(snapshot, target, checkNotNull(enemyContactPose())) }
                 catch (uncertain: BladeContactUncertainException) {
                     if (contactQueryFailures++ < 4) logMessage("Player contact query held: ${uncertain.message}")
@@ -1523,7 +1533,7 @@ internal class ArenaSession(
         }
         reportedWaiting = false
         logInput(event, snapshot)
-        publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
+        if (!deferPresentation || events.isNotEmpty()) publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
     }
 
     private fun establishActionBaseline() {
