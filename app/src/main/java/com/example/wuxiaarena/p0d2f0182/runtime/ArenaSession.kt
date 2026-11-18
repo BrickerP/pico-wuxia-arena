@@ -518,6 +518,7 @@ internal class ArenaSession(
         var remaining = delta
         var consumed = 0L
         var stopped = false
+        var approachBlocked = false
         fun frameAt(fraction: Double, receiptNanos: Long): PlayerMotionFrame =
             interpolateMotionFrame(initial, target, fraction, receiptNanos)
         // Zero-time observations still need steel-before-body ordering.
@@ -606,17 +607,24 @@ internal class ArenaSession(
                 continue
             }
             val maximum = minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, 10_000_000L)
-            val interval = nextPoseInterval(maximum)
+            val approach = !approachBlocked && maximum > 0L && steelContactLatched &&
+                combat.phase == EnemyPhase.IDLE && !motion.weaponConstrained &&
+                currentTargetInRange() == false && simulationMotion?.weaponGrip != null && target.weaponGrip != null
+            val interval = nextPoseInterval(maximum, approach)
             val fromFrame = simulationMotion ?: initial
             val toFrame = if (stopped) fromFrame else frameAt(if (delta == 0L) 1.0 else (consumed + interval).toDouble() / delta, receiptStartNanos + consumed + interval)
             val actorBefore = captureEnemyLocomotion()
             val before = enemyAttackPose()
-            moveEnemy(interval, toFrame.headPosition)
+            moveEnemy(interval, toFrame.headPosition, approach)
             val after = enemyAttackPose(interval)
             val candidate = try {
                 queryContact(fromFrame, toFrame, before, after)
             } catch (uncertain: BladeContactUncertainException) {
                 restoreEnemyLocomotion(actorBefore)
+                if (approach) {
+                    approachBlocked = true
+                    continue
+                }
                 uncertainHoldNanos += remaining
                 if (uncertainHoldNanos < STEEL_HOLD_LIMIT_NANOS) {
                     if (contactQueryFailures++ < 4) logMessage("Contact query held previous pose: ${uncertain.message}")
@@ -629,6 +637,11 @@ internal class ArenaSession(
                 collect(combat.advanceBy(remaining, currentTargetInRange() == true, nextAttackDirection()), events)
                 enemyMotionNanos += remaining
                 return false
+            }
+            if (approach && (before == null || after == null || candidate?.steel == true)) {
+                restoreEnemyLocomotion(actorBefore)
+                approachBlocked = true
+                continue
             }
             uncertainHoldNanos = 0L
             zeroQuery = false
@@ -646,7 +659,7 @@ internal class ArenaSession(
             if (candidate != null) {
                 val advance = (interval * candidate.contact.fraction).toLong().coerceIn(0L, interval)
                 restoreEnemyLocomotion(actorBefore)
-                if (advance > 0L) moveEnemy(advance, fromFrame.headPosition * (1.0 - candidate.contact.fraction) + toFrame.headPosition * candidate.contact.fraction)
+                if (advance > 0L) moveEnemy(advance, fromFrame.headPosition * (1.0 - candidate.contact.fraction) + toFrame.headPosition * candidate.contact.fraction, approach)
                 collect(combat.advanceBy(advance, currentTargetInRange() == true, nextAttackDirection()), events)
                 recoilElapsedNanos = (recoilElapsedNanos + advance).coerceAtMost(RECOIL_DURATION)
                 enemyMotionNanos += advance
@@ -843,7 +856,7 @@ internal class ArenaSession(
 
     // Split at source sample keys and contact recovery bends. Both blade endpoints
     // are linear inside these intervals; rigid player rotations have their own sagitta bound.
-    private fun nextPoseInterval(maximum: Long): Long {
+    private fun nextPoseInterval(maximum: Long, approach: Boolean): Long {
         if (maximum == 0L) return maximum
         val recovery = contactRecovery
         if (recovery != null) {
@@ -862,7 +875,7 @@ internal class ArenaSession(
         }
         if (combat.phase == EnemyPhase.IDLE) {
             val actor = captureEnemyLocomotion()
-            moveEnemy(maximum)
+            moveEnemy(maximum, allowLatchedApproach = approach)
             val gaitDelta = enemyGaitMeters - actor.gait
             restoreEnemyLocomotion(actor)
             val locomotion = arenaOpponents[roundNumber - 1].locomotionProfile()
@@ -1315,7 +1328,8 @@ internal class ArenaSession(
         enemyMoveDirection = value.direction
     }
 
-    private fun moveEnemy(delta: Long, headPosition: Vector3? = simulationMotion?.headPosition ?: latestTrackingSnapshot?.head?.pose?.position) {
+    private fun moveEnemy(delta: Long, headPosition: Vector3? = simulationMotion?.headPosition ?: latestTrackingSnapshot?.head?.pose?.position,
+        allowLatchedApproach: Boolean = false) {
         if (delta == 0L) return
         enemyMoveDirection = 0f
         val head = headPosition ?: return
@@ -1323,14 +1337,15 @@ internal class ArenaSession(
         if (hitStopNanos > 0L || combat.phase != EnemyPhase.IDLE) return
         val toward = Vector3(head.x - enemy.x, 0.0, head.z - enemy.z)
         val distance = toward.length()
-        if (distance > 0.01 && !(steelContactLatched && steelWithdrawal?.complete == true && distance > 1.35)) {
+        if (steelContactLatched && !allowLatchedApproach && distance > enemyReachMeters) return
+        if (distance > 0.01 && (allowLatchedApproach || !(steelContactLatched && steelWithdrawal?.complete == true && distance > 1.35))) {
             val desiredYaw = atan2(toward.x, toward.z)
             val turn = atan2(kotlin.math.sin(desiredYaw - enemyYaw), kotlin.math.cos(desiredYaw - enemyYaw))
             enemyYaw += turn.coerceIn(-delta / 1_000_000_000.0, delta / 1_000_000_000.0).toFloat()
         }
         // A settled pressure episode may face the player, but must not walk back
         // into the same motionless blade and repeat its withdrawal indefinitely.
-        if (steelContactLatched) return
+        if (steelContactLatched && !allowLatchedApproach) return
         val direction = toward.normalizedOrNull() ?: return
         // Native slash reaches about 1.2 m from the actor. Leave the remaining contact allowance to the body volume.
         val desired = 1.30

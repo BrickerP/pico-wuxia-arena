@@ -31,6 +31,33 @@ import kotlin.math.sqrt
 
 /** Real prepared attack samples and normal tracking receipts exercise the native session. */
 class NativeBladeInteractionTest {
+    @Test fun releasedSteelOutsideReachResumesWalkingAfterASlowWithdrawal() {
+        val fixture = Fixture(-1.677393948)
+        val idle = fixture.session.viewState
+        val midpoint = (requireNotNull(idle.enemyBladeBase) + requireNotNull(idle.enemyBladeTip)) * .5
+        val local = playerBlade(WeaponGrip(Vector3(0.0, 0.0, 0.0), fixture.rotation)).maxBy { it.base.distanceTo(it.tip) }
+        fixture.hand = midpoint - (local.base + local.tip) * .5
+        fixture.start()
+        for (name in listOf("steelContactLatched", "steelGuardReleased")) {
+            ArenaSession::class.java.getDeclaredField(name).apply { isAccessible = true }.setBoolean(fixture.session, true)
+        }
+        val origin = fixture.session.viewState.enemyPosition
+        repeat(40) { fixture.tick(10_000_000) }
+        assertEquals("Walking into the stationary blade must be vetoed", origin, fixture.session.viewState.enemyPosition)
+        assertEquals(false, fixture.session.viewState.targetInRange)
+        assertTrue(fixture.events.none { it is CombatImpact })
+        repeat(160) {
+            fixture.hand += Vector3(0.0, 0.0, .002)
+            fixture.tick(10_000_000)
+            if (fixture.session.viewState.phase == EnemyPhase.PREPARING) {
+                assertEquals(true, fixture.session.viewState.targetInRange)
+                assertEquals(fixture.hand, fixture.session.viewState.playerWeaponGrip?.position)
+                assertTrue(fixture.events.none { it is CombatImpact })
+                return
+            }
+        }
+        throw AssertionError("A released opponent never re-entered reach of the stationary head")
+    }
     @Test
     fun startupGuardRequiresTheContactedPartOfTheEnemyBladeToAdvance() {
         val before = arenaOpponents.first().attackProfile(AttackDirection.OVERHEAD).samples.first()
@@ -243,7 +270,7 @@ class NativeBladeInteractionTest {
         assertEquals(paused.enemyPoseSourceSeconds, fixture.session.viewState.enemyPoseSourceSeconds)
     }
 
-    private class Fixture {
+    private class Fixture(private val spawnZ: Double = -1.3) {
         val session = ArenaSession(logMessage = {}, logFailure = { _, error -> throw error })
         val events = mutableListOf<EnemyCombatEvent>()
         val tracking = TrackingState(Hand.RIGHT)
@@ -254,7 +281,7 @@ class NativeBladeInteractionTest {
 
         init {
             session.setArenaPresenter { _, batch -> events.addAll(batch) }
-            session.setEnemyGeometry(Vector3(0.0, 0.0, -1.3), 1.55)
+            session.setEnemyGeometry(Vector3(0.0, 0.0, spawnZ), 1.55)
             observe()
         }
 
