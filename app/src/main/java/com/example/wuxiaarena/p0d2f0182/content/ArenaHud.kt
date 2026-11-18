@@ -502,11 +502,13 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                         AttackDirectionSeal(
                             state.attackDirection,
                             arenaIncomingSealScale(state.phase, state.phaseElapsedNanos,
-                                state.attackDirection?.preparationNanos ?: 0L),
+                                state.phaseElapsedNanos + (state.phaseRemainingNanos ?: 0L)),
                         )
                     }
                 }
-                if (state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
+                val armorCueVisible = state.frontArmored && (state.counterOpen ||
+                    state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD)
+                if (!armorCueVisible && state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
                     (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
                 } else {

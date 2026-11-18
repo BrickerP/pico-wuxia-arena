@@ -4,6 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.math.Quaternion
 
 class ArmoredOpponentTest {
     private fun boss() = EnemyCombatStateMachine(150, frontArmored = true)
@@ -118,5 +120,31 @@ class ArmoredOpponentTest {
             assertNotNull(machine.currentAttackId)
             assertEquals(25, cut(machine, line = null))
         }
+    }
+
+    @Test fun shoulderLiftIsReadableAtTheRecordedForwardContactTime() {
+        val machine = boss()
+        start(machine, AttackDirection.OVERHEAD)
+        machine.advanceBy(990_000_000L, true)
+        assertEquals(EnemyPhase.PREPARING, machine.phase)
+        assertEquals(210_000_000L, machine.nanosUntilPhaseTransition)
+        assertEquals(0, cut(machine, CutLine.CROSS))
+        machine.receivePlayerHit(damage = 30, cutLine = CutLine.CROSS, zone = HitZone.HEAD)
+        assertEquals(120, machine.health)
+        val firstOpponent = EnemyCombatStateMachine()
+        start(firstOpponent, AttackDirection.OVERHEAD)
+        firstOpponent.advanceBy(AttackDirection.OVERHEAD.preparationNanos, true)
+        assertEquals(EnemyPhase.STARTUP, firstOpponent.phase)
+    }
+
+    @Test fun aFrontalWristSweepDoesNotPierceButAForwardPointCanFollowThrough() {
+        val start = Vector3(.25, 1.4, -.35)
+        val slash = QualifiedSwing(1L, 1.0, Vector3(.13, .01, -.03), start)
+        val forward = Quaternion(0.0, 0.0, 0.0, 1.0)
+        assertEquals(false, slash.thrustAt(WeaponGrip(start, forward), 0f))
+        assertEquals(false, slash.thrustAt(WeaponGrip(start + Vector3(.20, 0.0, -.11), forward), 0f))
+        assertEquals(true, slash.thrustAt(WeaponGrip(start + Vector3(.01, 0.0, -.13), forward), 0f))
+        assertEquals(false, slash.thrustAt(WeaponGrip(start + Vector3(.01, 0.0, -.13),
+            Quaternion(0.0, 1.0, 0.0, 0.0)), 0f))
     }
 }

@@ -1078,10 +1078,10 @@ internal class ArenaSession(
         val base = if (headshot) 30.0 else 25.0
         val damage = (base * strike.power * (1.0 + (nextCombo - 1) * 0.10)).roundToInt()
         val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
-        val cutLine = frame.swing?.let { frontalCutLine(it.travel, frame.headPosition - enemy, enemyYaw) }
-        val openingThrust = strike.zone == HitZone.BODY && cutLine == CutLine.THRUST && frame.swing?.gripTravel?.let {
-            -(it.x * kotlin.math.sin(enemyYaw.toDouble()) + it.z * kotlin.math.cos(enemyYaw.toDouble())) >= 0.10
-        } == true
+        val frontalLine = frame.swing?.let { frontalCutLine(it.travel, frame.headPosition - enemy, enemyYaw) }
+        val openingThrust = combat.frontArmored && frontalLine != null && strike.zone == HitZone.BODY &&
+            frame.weaponGrip?.let { frame.swing?.thrustAt(it, enemyYaw) } == true
+        val cutLine = if (openingThrust) CutLine.THRUST else frontalLine
         dealDamage(damage, frame.swing != null && cutLine == null, kind, (if (headshot) 15 else 10) * nextCombo,
             events, strike.contact, frame.hand, zone = strike.zone, cutLine = cutLine, nextCombo = nextCombo, openingThrust = openingThrust)
     }
@@ -1104,7 +1104,7 @@ internal class ArenaSession(
         val attackOffsets = captureAttackOffsets()
         val outcome = combat.receivePlayerHit(
             damage, breakGuard,
-            counterDirection = nextAttackDirection(), cutLine = cutLine, openingThrust = openingThrust,
+            counterDirection = nextAttackDirection(), cutLine = cutLine, openingThrust = openingThrust, zone = zone,
         )
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
         heldEnemyPoseFrame = poseFrame
@@ -1129,7 +1129,7 @@ internal class ArenaSession(
         }
         val guarded = damageResult.guarded
         notifyFeedback(when {
-            normal && combat.frontArmored && damageResult.appliedDamage == 0 -> CombatFeedback.ARMOR_STOP
+            normal && combat.frontArmored && zone == HitZone.BODY && damageResult.appliedDamage == 0 -> CombatFeedback.ARMOR_STOP
             normal && guarded && damageResult.appliedDamage == 0 -> CombatFeedback.CUT_DEFLECTED
             normal && guarded -> CombatFeedback.GUARDED_HIT
             else -> kind

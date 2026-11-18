@@ -233,14 +233,15 @@ class EnemyCombatStateMachine(
         counterDirection: AttackDirection = AttackDirection.OVERHEAD,
         cutLine: CutLine?,
         openingThrust: Boolean = false,
+        zone: HitZone = HitZone.BODY,
     ): List<EnemyCombatEvent> {
         require(damage > 0) { "damage must be positive" }
         if (pauseReason != null || phase == EnemyPhase.DEAD) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
-        val thrustOpening = openingThrust && cutLine == CutLine.THRUST &&
-            phase == EnemyPhase.PREPARING && currentAttackDirection == AttackDirection.OVERHEAD
-        val armorStops = frontArmored && cutLine != null && !breakGuard && !counterOpen && !thrustOpening
-        if (breakGuard || counterOpen || thrustOpening) endGuard(events)
+        val raisedArms = frontArmored && phase == EnemyPhase.PREPARING && currentAttackDirection == AttackDirection.OVERHEAD
+        val openingHit = raisedArms && (zone == HitZone.HEAD || openingThrust && cutLine == CutLine.THRUST)
+        val armorStops = frontArmored && zone == HitZone.BODY && cutLine != null && !breakGuard && !counterOpen && !openingHit
+        if (breakGuard || counterOpen || openingHit) endGuard(events)
         val holdingReadGuard = guarding && (phase == EnemyPhase.IDLE || phase == EnemyPhase.PREPARING)
         val covered = holdingReadGuard && cutLine != null && cutLine == lastLandedLine
         val guarded = guarding || armorStops
@@ -345,7 +346,8 @@ class EnemyCombatStateMachine(
     }
 
     private fun phaseDuration(): Long = when (phase) {
-        EnemyPhase.PREPARING -> checkNotNull(attack).direction.preparationNanos
+        EnemyPhase.PREPARING -> if (frontArmored && currentAttackDirection == AttackDirection.OVERHEAD)
+            1_200_000_000L else checkNotNull(attack).direction.preparationNanos
         EnemyPhase.STARTUP -> checkNotNull(attack).direction.startupNanos
         EnemyPhase.ACTIVE -> checkNotNull(attack).direction.activeNanos
         EnemyPhase.RECOVERING -> checkNotNull(attack).direction.recoveryNanos
