@@ -1,5 +1,13 @@
 # 原生刀客对决验收
 
+**已发布的同包对照：[架势提示与再挑战](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-arena-preview-2026-11-18)**（代码 `47aaf2c`，APK SHA256 `22ea58d3cbeaa34a33505ace04173fd9b78dd24252faa861fdb759b850b1911c`）。
+
+- [跟随对手位置的攻防实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-victory.mp4)：829 分，余血 100，三场通关。Boss 有四次软命中，不代表出现了弹反。[同进程重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-replay.mp4)进入首场倒计时。
+- [固定左右横扫](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-fixed-sweep.mp4)：也能打通三场，782 分、余血 80，无弹反。**流程通过，抗重复挥刀的玩法验收不通过。**
+- 此包在固定交战开局八秒的应用空间帧回调间隔 P50 48.34 ms、P95 83.61 ms、最大 279.45 ms。**不能称为流畅。** 尚无 Space Pro 实机帧时。
+
+以下为较早版本的证据，不代表当前包。
+
 **11 月 18 日原包的流程可达，可玩性不通过。** 下表原包通关记录保留作为负例。
 进攻负例是在同一站位反复做两方向的横扫；它不应稳定通关。正例须能打出合法横斩，并能看懂敌人挡住或露出破绽的原因。
 左右玩家手、敌人持刀手与空手分别看张开、握刀、起手、接触及回收的手背和掌面；单看握点位置不足以证明关节正确。
@@ -17,7 +25,7 @@
 
 2026-11-18：[原包与连续录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)。原生代码 `1244f83`，安装包 SHA256 `dcafb901aa8e8f61fdfe25fd0cc4e5bfc6644ec2ab58aebefce605c2c44a1527`。
 
-## 修复候选（未发布）
+## 第一轮修复对照
 
 | 检查项 | 证据与判定 |
 | --- | --- |
