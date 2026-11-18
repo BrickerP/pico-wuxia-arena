@@ -17,6 +17,7 @@ import com.example.wuxiaarena.p0d2f0182.runtime.ObserveTracking
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaSession
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedbackProfile
 import com.example.wuxiaarena.p0d2f0182.runtime.shouldPublishHudState
+import com.example.wuxiaarena.p0d2f0182.runtime.shouldPublishControlState
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatHapticContacts
 import com.example.wuxiaarena.p0d2f0182.runtime.InputControlResult
 import com.example.wuxiaarena.p0d2f0182.runtime.TrackingControls
@@ -48,6 +49,7 @@ fun mainApp(scope: SpatialAppScope) =
                 val haptics = rememberUpdatedState(LocalHandControllerHaptic.current)
                 val hapticContacts = remember(arena) { CombatHapticContacts() }
                 val viewState = remember { mutableStateOf(arena.viewState) }
+                val controlState = remember { mutableStateOf(arena.viewState) }
                 val trackingControls = remember { mutableStateOf<TrackingControls?>(null) }
                 val enemyPresenter = remember { mutableStateOf<ArenaPresenter?>(null) }
                 val pendingControl = remember { mutableStateOf<PendingControlRequest?>(null) }
@@ -56,6 +58,7 @@ fun mainApp(scope: SpatialAppScope) =
                     arena.setArenaPresenter { state, events ->
                         val previous = viewState.value
                         if (shouldPublishHudState(previous, state)) viewState.value = state
+                        if (shouldPublishControlState(controlState.value, state)) controlState.value = state
                         val pending = pendingControl.value
                         val completed = when (pending?.kind) {
                             PendingControlKind.PAUSE -> state.pauseReason != null
@@ -110,11 +113,11 @@ fun mainApp(scope: SpatialAppScope) =
                         presenter?.invoke(arena.viewState, emptyList())
                     },
                     controlsHeightDp = arenaControlPanelHeightDp(
-                        viewState.value.result, viewState.value.pauseReason,
+                        controlState.value.result, controlState.value.pauseReason,
                     ),
                     controlsPanel = {
                         ArenaControlPanel(
-                            state = viewState.value,
+                            state = controlState.value,
                             controlsAvailable = trackingControls.value != null,
                             controlPending = pendingControl.value != null,
                             isRanchuHost = Build.HARDWARE == "ranchu",

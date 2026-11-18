@@ -1,5 +1,6 @@
 package com.example.wuxiaarena.core.combat
 
+import com.example.wuxiaarena.core.math.Vector3
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -8,6 +9,49 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class EnemyCombatStateMachineTest {
+    @Test
+    fun aReadCrossCutStopsDuringPreparationButLandsAfterACommittedStroke() {
+        val machine = EnemyCombatStateMachine()
+        fun cut() = machine.receivePlayerHit(cutLine = CutLine.CROSS)
+            .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage
+        assertEquals(25, cut())
+        machine.advanceBy(ms(300), true)
+        assertEquals(0, cut())
+        assertEquals(EnemyPhase.PREPARING, machine.phase)
+        val direction = requireNotNull(machine.currentAttackDirection)
+        machine.advanceBy(direction.preparationNanos + direction.startupNanos + direction.activeNanos, true)
+        assertEquals(EnemyPhase.RECOVERING, machine.phase)
+        assertEquals(25, cut())
+    }
+
+    @Test
+    fun parryingOrFlankingBeatsAReadGuardWithoutChangingTheCut() {
+        val cross = Vector3(.25, -.04, .05)
+        for (sign in listOf(1.0, -1.0)) {
+            assertEquals(CutLine.CROSS, frontalCutLine(cross * sign, Vector3(0.0, 0.0, 1.0), 0f))
+        }
+        val flank = frontalCutLine(cross, Vector3(1.0, 0.0, 0.0), 0f)
+        assertNull(flank)
+        val machine = EnemyCombatStateMachine()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        machine.advanceBy(ms(300), true)
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        val flankHit = machine.receivePlayerHit(breakGuard = flank == null, cutLine = flank)
+            .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+        assertEquals(25, flankHit.appliedDamage)
+        machine.advanceBy(ms(300), true)
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        machine.advanceBy(ms(300), true)
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        val direction = requireNotNull(machine.currentAttackDirection)
+        machine.advanceBy(direction.preparationNanos + direction.startupNanos, true)
+        resolve(machine, AttackOutcome.PARRIED)
+        assertEquals(HitReaction.PARRIED, machine.hitReaction)
+        val riposte = machine.receivePlayerHit(cutLine = CutLine.CROSS)
+            .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+        assertEquals(25, riposte.appliedDamage)
+    }
+
     private fun ms(value: Long) = value * 1_000_000L
 
     private fun start(machine: EnemyCombatStateMachine, direction: AttackDirection = AttackDirection.LEFT) {
@@ -95,7 +139,7 @@ class EnemyCombatStateMachineTest {
         val pauseId = machine.currentPauseId
         assertEquals(ms(100), machine.nanosUntilPhaseTransition)
         assertTrue(machine.advanceBy(ms(5000), true).isEmpty())
-        assertTrue(machine.receivePlayerHit().isEmpty())
+        assertTrue(machine.receivePlayerHit(cutLine = CutLine.CROSS).isEmpty())
         assertTrue(resolve(machine, AttackOutcome.BLOCKED).isEmpty())
         assertEquals(beforePause, machine.simulationNanos)
         assertEquals(ms(100), machine.nanosUntilPhaseTransition)
@@ -165,24 +209,24 @@ class EnemyCombatStateMachineTest {
     @Test
     fun repeatedHitsCauseVisibleGuardAndAnUninterruptedCounterattack() {
         val machine = EnemyCombatStateMachine()
-        val first = machine.receivePlayerHit().filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+        val first = machine.receivePlayerHit(cutLine = CutLine.CROSS).filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
         assertEquals(25, first.appliedDamage)
         assertFalse(first.guarded)
         assertEquals(75, machine.health)
 
         machine.advanceBy(ms(200), true)
-        val second = machine.receivePlayerHit()
-        assertTrue(second.any { it is EnemyCombatEvent.GuardChanged && it.active })
-        assertEquals(10, second.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
+        val second = machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        assertFalse(machine.guarding)
+        assertEquals(25, second.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
         assertEquals(ms(200), machine.phaseElapsedNanos)
         machine.advanceBy(ms(100), true)
         assertEquals(EnemyPhase.PREPARING, machine.phase)
         assertTrue(machine.guarding)
         machine.advanceBy(ms(100), true)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(200), true)
-        machine.receivePlayerHit()
-        assertEquals(45, machine.health)
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        assertEquals(50, machine.health)
         assertEquals(EnemyPhase.PREPARING, machine.phase)
 
         machine.advanceBy(ms(430), true)
@@ -191,25 +235,38 @@ class EnemyCombatStateMachineTest {
         machine.advanceBy(ms(200), true)
         assertEquals(EnemyPhase.RECOVERING, machine.phase)
         assertFalse(machine.guarding)
-        assertEquals(25, machine.receivePlayerHit().filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
+        assertEquals(25, machine.receivePlayerHit(cutLine = CutLine.CROSS).filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
+    }
+
+    private fun readyGuardedIdle(machine: EnemyCombatStateMachine) {
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
+        machine.advanceBy(ms(300), true, AttackDirection.LEFT)
+        assertEquals(EnemyPhase.PREPARING, machine.phase)
+        val direction = requireNotNull(machine.currentAttackDirection)
+        machine.advanceBy(direction.preparationNanos + direction.startupNanos +
+            direction.activeNanos + direction.recoveryNanos, true)
+        assertEquals(EnemyPhase.IDLE, machine.phase)
+        assertTrue(machine.guarding)
     }
 
     @Test
     fun anArmedIdleGuardStartsExactlyOneCounterInTheSuppliedDirection() {
         for (direction in AttackDirection.entries) {
             val machine = EnemyCombatStateMachine()
-            val events = machine.receivePlayerHit(armGuard = true, counterDirection = direction)
+            readyGuardedIdle(machine)
+            val began = machine.simulationNanos
+            val events = machine.receivePlayerHit(cutLine = CutLine.CROSS, counterDirection = direction)
             val started = events.filterIsInstance<EnemyCombatEvent.AttackStarted>().single()
 
             assertEquals(direction, started.direction)
             assertTrue(started.counterattack)
-            assertEquals(0L, started.atNanos)
+            assertEquals(began, started.atNanos)
             assertEquals(direction, machine.currentAttackDirection)
             assertEquals(EnemyPhase.PREPARING, machine.phase)
-            assertEquals(90, machine.health)
+            assertEquals(75, machine.health)
             assertTrue(machine.guarding)
 
-            val repeated = machine.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.OVERHEAD)
+            val repeated = machine.receivePlayerHit(cutLine = CutLine.CROSS, counterDirection = AttackDirection.OVERHEAD)
             assertTrue(repeated.none { it is EnemyCombatEvent.AttackStarted })
             assertEquals(started.attackId, machine.currentAttackId)
             assertEquals(direction, machine.currentAttackDirection)
@@ -219,9 +276,9 @@ class EnemyCombatStateMachineTest {
     @Test
     fun delayedGuardCounterUsesTheDirectionAtTheHitBoundary() {
         val machine = EnemyCombatStateMachine()
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(100), true)
-        machine.receivePlayerHit(counterDirection = AttackDirection.LEFT)
+        machine.receivePlayerHit(cutLine = CutLine.CROSS, counterDirection = AttackDirection.LEFT)
 
         val beforeBoundary = machine.advanceBy(ms(200) - 1, true, AttackDirection.LEFT)
         assertTrue(beforeBoundary.none { it is EnemyCombatEvent.AttackStarted })
@@ -236,24 +293,27 @@ class EnemyCombatStateMachineTest {
 
     @Test
     fun aLethalOrPausedArmedGuardDoesNotStartACounterattack() {
-        val lethal = EnemyCombatStateMachine(initialHealth = 10)
-        val death = lethal.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.RIGHT)
+        val lethal = EnemyCombatStateMachine(initialHealth = 35)
+        readyGuardedIdle(lethal)
+        val death = lethal.receivePlayerHit(cutLine = CutLine.VERTICAL, counterDirection = AttackDirection.RIGHT)
         assertEquals(EnemyPhase.DEAD, lethal.phase)
         assertNull(lethal.currentAttackDirection)
         assertTrue(death.none { it is EnemyCombatEvent.AttackStarted })
 
         val paused = EnemyCombatStateMachine()
+        readyGuardedIdle(paused)
         paused.pauseByPlayer()
-        assertTrue(paused.receivePlayerHit(armGuard = true, counterDirection = AttackDirection.RIGHT).isEmpty())
-        assertEquals(100, paused.health)
-        assertFalse(paused.guarding)
+        assertTrue(paused.receivePlayerHit(cutLine = CutLine.CROSS, counterDirection = AttackDirection.RIGHT).isEmpty())
+        assertEquals(75, paused.health)
+        assertTrue(paused.guarding)
         assertNull(paused.currentAttackId)
     }
 
     @Test
     fun anArmedIdleGuardKeepsTheExistingDefaultCounterDirection() {
         val machine = EnemyCombatStateMachine()
-        val started = machine.receivePlayerHit(armGuard = true)
+        readyGuardedIdle(machine)
+        val started = machine.receivePlayerHit(cutLine = CutLine.CROSS)
             .filterIsInstance<EnemyCombatEvent.AttackStarted>().single()
 
         assertEquals(AttackDirection.OVERHEAD, started.direction)
@@ -263,13 +323,13 @@ class EnemyCombatStateMachineTest {
     @Test
     fun guardDoesNotPreventDeathOrAllowACancelledCounterattackToContinue() {
         val machine = EnemyCombatStateMachine(initialHealth = 55)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(200), true)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(200), true)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(200), true)
-        val lethal = machine.receivePlayerHit()
+        val lethal = machine.receivePlayerHit(cutLine = CutLine.VERTICAL)
 
         assertEquals(0, machine.health)
         assertEquals(EnemyPhase.DEAD, machine.phase)
@@ -279,25 +339,25 @@ class EnemyCombatStateMachineTest {
     }
 
     @Test
-    fun fastIndependentHitsCanStillDefeatTheEnemyBeforeTheCounterIsActive() {
+    fun repeatedIdenticalHitsDoNotDefeatTheCounterBeforeItIsActive() {
         val machine = EnemyCombatStateMachine()
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         repeat(8) {
             machine.advanceBy(ms(100), true)
-            machine.receivePlayerHit()
+            machine.receivePlayerHit(cutLine = CutLine.CROSS)
         }
 
         assertEquals(ms(800), machine.simulationNanos)
-        assertEquals(0, machine.health)
-        assertEquals(EnemyPhase.DEAD, machine.phase)
+        assertEquals(25, machine.health)
+        assertEquals(EnemyPhase.PREPARING, machine.phase)
     }
 
     @Test
     fun parryEndsGuardAndTheFirstCounterHitKeepsTheRemainingStagger() {
         val machine = EnemyCombatStateMachine()
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(100), true)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(930), true)
         assertEquals(EnemyPhase.ACTIVE, machine.phase)
         assertTrue(machine.guarding)
@@ -306,13 +366,13 @@ class EnemyCombatStateMachineTest {
         assertTrue(parry.any { it is EnemyCombatEvent.GuardChanged && !it.active })
         assertEquals(HitReaction.PARRIED, machine.hitReaction)
         machine.advanceBy(ms(100), true)
-        val hit = machine.receivePlayerHit()
+        val hit = machine.receivePlayerHit(cutLine = CutLine.CROSS)
         assertEquals(25, hit.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
         assertEquals(ms(450), hit.filterIsInstance<EnemyCombatEvent.HitReactionStarted>().single().durationNanos)
         machine.advanceBy(ms(450) - 1, true)
         assertEquals(EnemyPhase.HIT, machine.phase)
         machine.advanceBy(1, true)
-        assertEquals(EnemyPhase.IDLE, machine.phase)
+        assertEquals(EnemyPhase.PREPARING, machine.phase)
     }
 
     @Test
@@ -321,7 +381,7 @@ class EnemyCombatStateMachineTest {
         start(machine)
         machine.advanceBy(ms(730), true)
         val parry = resolve(machine, AttackOutcome.PARRIED)
-        val hit = machine.receivePlayerHit()
+        val hit = machine.receivePlayerHit(cutLine = CutLine.CROSS)
 
         assertEquals(parry.first().atNanos, hit.first().atNanos)
         assertEquals(25, hit.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
@@ -354,7 +414,7 @@ class EnemyCombatStateMachineTest {
         machine.interruptTracking()
 
         assertTrue(resolve(machine, AttackOutcome.PARRIED).isEmpty())
-        assertTrue(machine.receivePlayerHit().isEmpty())
+        assertTrue(machine.receivePlayerHit(cutLine = CutLine.CROSS).isEmpty())
         assertEquals(interruptedAt, machine.simulationNanos)
         assertEquals(100, machine.health)
     }
@@ -389,9 +449,9 @@ class EnemyCombatStateMachineTest {
     @Test
     fun aGuardedHitWithNoTargetReturnsToIdleWithoutAForcedAttack() {
         val machine = EnemyCombatStateMachine()
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         machine.advanceBy(ms(100), true)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         val events = machine.advanceBy(ms(200), false)
 
         assertEquals(EnemyPhase.IDLE, machine.phase)
@@ -403,7 +463,7 @@ class EnemyCombatStateMachineTest {
     fun deathRemainsTerminalAcrossTrackingPauseUntilRoundReset() {
         val machine = EnemyCombatStateMachine(initialHealth = 25)
         start(machine)
-        machine.receivePlayerHit()
+        machine.receivePlayerHit(cutLine = CutLine.CROSS)
         assertEquals(EnemyPhase.DEAD, machine.phase)
         val stoppedAt = machine.simulationNanos
         val pause = machine.interruptTracking().filterIsInstance<EnemyCombatEvent.PauseChanged>().single()
@@ -415,7 +475,7 @@ class EnemyCombatStateMachineTest {
         assertNull(resumed.current)
         assertEquals(stoppedAt, machine.simulationNanos)
         assertEquals(0, machine.health)
-        assertTrue(machine.receivePlayerHit().isEmpty())
+        assertTrue(machine.receivePlayerHit(cutLine = CutLine.CROSS).isEmpty())
         assertEquals(EnemyPhase.DEAD, machine.phase)
 
         assertEquals(listOf(EnemyCombatEvent.RoundReset()), machine.resetRound())

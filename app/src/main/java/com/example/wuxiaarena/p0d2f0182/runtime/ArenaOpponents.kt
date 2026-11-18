@@ -12,12 +12,13 @@ internal data class ArenaOpponent(
     val name: String,
     val asset: String,
     val bodyImpact: CombatImpactKind = CombatImpactKind.SOFT_HIT,
+    val frontArmored: Boolean = false,
 )
 
 internal val arenaOpponents = listOf(
     ArenaOpponent("试刀客", "asset://models/opponents/base.glb"),
     ArenaOpponent("青衫护院", "asset://models/opponents/indigo.glb"),
-    ArenaOpponent("玄甲守擂", "asset://models/opponents/veteran.glb", CombatImpactKind.HARD_HIT),
+    ArenaOpponent("玄甲守擂", "asset://models/opponents/veteran.glb", CombatImpactKind.HARD_HIT, frontArmored = true),
 )
 
 /** A source selection shared by native playback and actor-local body/blade consumers. */

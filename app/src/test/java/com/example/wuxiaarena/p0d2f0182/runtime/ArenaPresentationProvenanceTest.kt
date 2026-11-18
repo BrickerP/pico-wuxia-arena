@@ -41,9 +41,19 @@ class ArenaPresentationProvenanceTest {
         assertEquals(handStamp, states.last().diagnosticHandStamp)
         // A new head receipt retains the real preceding hand stamp rather than inventing one.
         val nextHead = TrackingEvent.Head(ObservationStamp(3, 11_000, 0, InputOrigin.DESKTOP), head.pose)
+        val before = states.size
         arena.onTrackingEvent(nextHead, tracking.accept(nextHead), tracking.snapshot, uiFrameNanos = 12_000)
-        assertEquals("tracking_head", states.last().diagnosticPublishSource)
-        assertEquals(handStamp, states.last().diagnosticHandStamp)
+        val lastHands = hands.copy(stamp = handStamp.copy(sequence = 4, receivedAtNanos = 11_500))
+        arena.onTrackingEvent(lastHands, tracking.accept(lastHands), tracking.snapshot, uiFrameNanos = 12_000)
+        assertEquals(before, states.size)
+        tick(12_100, 12_000)
+        assertEquals(before + 1, states.size)
+        assertEquals("tick", states.last().diagnosticPublishSource)
+        assertEquals(lastHands.stamp, states.last().diagnosticHandStamp)
+        val lost = hands.copy(stamp = handStamp.copy(sequence = 5, receivedAtNanos = 12_500), right = null)
+        arena.onTrackingEvent(lost, tracking.accept(lost), tracking.snapshot, uiFrameNanos = 13_000)
+        assertEquals(before + 2, states.size)
+        assertEquals(false, states.last().inputReady)
     }
 
     @Test fun AUiBatchIsNeverRetainedByLaterSceneCallsOrDirectSnapshots() {

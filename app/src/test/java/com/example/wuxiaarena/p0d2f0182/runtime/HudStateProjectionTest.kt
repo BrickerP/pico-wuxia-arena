@@ -13,6 +13,17 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class HudStateProjectionTest {
+    @Test fun fightingControlsOnlyRedrawForTheirOwnStateChanges() {
+        val fight = state.copy(result = TrialResult.FIGHTING, inputReady = true, pauseReason = null)
+        val strike = fight.copy(score = fight.score + 25, health = fight.health - 25, feedback = CombatFeedback.HIT)
+        assertTrue(shouldPublishHudState(fight, strike))
+        assertFalse(shouldPublishControlState(fight, strike))
+        assertTrue(shouldPublishControlState(fight, strike.copy(result = TrialResult.VICTORY)))
+        assertTrue(shouldPublishControlState(fight, strike.copy(roundGeneration = fight.roundGeneration + 1)))
+        assertTrue(shouldPublishControlState(fight, strike.copy(inputReady = false)))
+        assertTrue(shouldPublishControlState(fight, strike.copy(pauseReason = PauseReason.USER)))
+    }
+
     private val state = ArenaSession(logMessage = {}, logFailure = { _, error -> throw error }).viewState.copy(
         result = TrialResult.FIGHTING, pauseReason = null, inputReady = true,
         phase = EnemyPhase.PREPARING, attackDirection = AttackDirection.OVERHEAD,

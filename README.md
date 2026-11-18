@@ -10,7 +10,7 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-**原生模拟器已完成三场通关与重开；Space Pro 真机尚未验收。** 同一个 APK 使用虚拟右手柄交手，取得 1010 分、剩余 80 气血，点击再挑战后重新进入首场倒计时。[试玩下载与录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18) · [验收清单](docs/acceptance.md)
+**当前版本未通过可玩性评审。** 11 月 18 日的原生包能通关和重开，但连续来回横扫就可击败三名对手，手腕与手指形变不自然，交战明显卡顿。[流程复现包与录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)仅保留作修复前对照。参赛质量和 Space Pro 体验均未验收，见[验收清单](docs/acceptance.md)。
 
 ## 当前交付
 

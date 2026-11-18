@@ -146,7 +146,7 @@ class WeaponContactOrderingTest {
 
     private fun distantWeaponFrame(head: Vector3): PlayerMotionFrame = frame(5.0).copy(headPosition = head)
 
-    private fun swing() = QualifiedSwing(1L, 1.0)
+    private fun swing() = QualifiedSwing(1L, 1.0, Vector3(0.2, 0.0, 0.0), Vector3(0.0,0.0,0.0))
 
     private fun bodyAt(x: Double) = EnemyContactPose(Vector3(x, 2.4, -0.4),
         Vector3(x, 0.5, -0.4), Vector3(x, 1.4, -0.4))

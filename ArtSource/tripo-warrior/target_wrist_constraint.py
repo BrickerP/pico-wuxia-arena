@@ -350,3 +350,65 @@ def apply_prepared_character(character_id, body_path, png_path, recipe):
         'body_and_combined_share_wrist_reference': True,
         'assets': [entry[2] for entry in prepared],
     }
+
+
+def bake_empty_hand(doc, binary):
+    _, parents, order = hierarchy(doc)
+    names = {node.get('name'): index for index, node in enumerate(doc['nodes'])}
+    fore, hand, middle = [names[name] for name in ('L_Forearm', 'L_Hand', 'L_Mid1')]
+    limit = math.radians(38)
+    for clip in doc['animations']:
+        tracks, times = animation_tracks(doc, binary, clip, require_attack_range=False)
+        grid = set(times) | {frame / 60 for frame in range(math.ceil(min(times)*60), math.floor(max(times)*60)+1)}
+        grid = sorted({struct.unpack('<f', struct.pack('<f', time))[0] for time in grid})
+        curves = {hand: []}
+        if clip['name'] in ('attack_right', 'attack_overhead'):
+            curves[fore] = []
+        for time in grid:
+            world = pose_world(doc, tracks, time, parents, order)
+            lower = world[hand].translation - world[fore].translation
+            palm = world[middle].translation - world[hand].translation
+            require(min(lower.length, palm.length) > 1e-5, 'Empty-hand rig has a degenerate palm or forearm')
+            swing = lower.normalized().rotation_difference(palm.normalized())
+            fixed = {}
+            if swing.angle > limit:
+                turn = Quaternion().slerp(swing.inverted(), 1-limit/swing.angle)
+                fixed[hand] = (world[fore].to_quaternion().inverted() @ turn @ world[hand].to_quaternion()).normalized()
+            bend_start, bend_length, outward = ((.55, .68, .10) if clip['name'] == 'attack_right'
+                                                else (1.03, .62, .065))
+            if fore in curves and bend_start < time < bend_start + bend_length:
+                envelope = math.sin(math.pi*(time-bend_start)/bend_length)**2
+                turn = lower.rotation_difference(lower + Vector((outward, 0, .025))*envelope)
+                fixed[fore] = (world[parents[fore]].to_quaternion().inverted() @ turn @ world[fore].to_quaternion()).normalized()
+            for index, curve in curves.items():
+                if index in fixed:
+                    quat = fixed[index]
+                    row = (quat.x, quat.y, quat.z, quat.w)
+                else:
+                    row = tuple(sample_track(tracks[index, 'rotation'], time, True))
+                if curve and sum(a*b for a,b in zip(row,curve[-1])) < 0:
+                    row = tuple(-v for v in row)
+                curve.append(row)
+        binary, times_index = append_accessor(doc, binary, [(time,) for time in grid], 'SCALAR')
+        for channel in clip['channels']:
+            index = channel['target']['node']
+            if channel['target']['path'] == 'rotation' and index in curves:
+                binary, values = append_accessor(doc, binary, curves[index], 'VEC4')
+                channel['sampler'] = len(clip['samplers'])
+                clip['samplers'].append({'input':times_index, 'output':values, 'interpolation':'LINEAR'})
+    return binary
+
+
+def prepare_empty_hands(body_path, combined_path):
+    outputs = []
+    signatures = None
+    for path in (body_path, combined_path):
+        doc, binary = read_glb(path)
+        binary = bake_empty_hand(doc, binary)
+        current = {a['name']:animation_signature(doc, binary, a) for a in doc['animations']}
+        require(signatures is None or signatures == current, 'Body and mounted weapon have different animation curves')
+        signatures = current
+        outputs.append((path, encode_glb(doc, binary)))
+    for path, data in outputs:
+        path.write_bytes(data)
+    return signatures

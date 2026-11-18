@@ -1,5 +1,10 @@
 package com.example.wuxiaarena.core.combat
 
+import com.example.wuxiaarena.core.math.Vector3
+import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
+
 private const val NANOS_PER_MILLISECOND = 1_000_000L
 private const val IDLE_DELAY = 800L * NANOS_PER_MILLISECOND
 private const val HIT_DURATION = 300L * NANOS_PER_MILLISECOND
@@ -31,6 +36,23 @@ enum class AttackDirection(
 enum class EnemyPhase { IDLE, PREPARING, STARTUP, ACTIVE, RECOVERING, HIT, DEAD }
 enum class HitReaction { PLAYER_HIT, PARRIED }
 enum class AttackOutcome { BLOCKED, PARRIED, HIT_PLAYER, MISSED }
+
+enum class CutLine { CROSS, VERTICAL, THRUST }
+
+internal fun frontalCutLine(travel: Vector3, towardPlayer: Vector3, enemyYaw: Float): CutLine? {
+    val sine = sin(enemyYaw.toDouble())
+    val cosine = cos(enemyYaw.toDouble())
+    val front = towardPlayer.x * sine + towardPlayer.z * cosine
+    val side = towardPlayer.x * cosine - towardPlayer.z * sine
+    if (front <= 0.0 || abs(side) > front) return null
+    val across = abs(travel.x * cosine - travel.z * sine)
+    val forward = abs(travel.x * sine + travel.z * cosine)
+    return when {
+        abs(travel.y) > across && abs(travel.y) >= forward -> CutLine.VERTICAL
+        forward > across -> CutLine.THRUST
+        else -> CutLine.CROSS
+    }
+}
 enum class AttackCancelReason { PLAYER_HIT, TRACKING_INTERRUPTION, ENEMY_DEFEATED }
 enum class PauseReason { USER, TRACKING_INTERRUPTION }
 
@@ -100,6 +122,7 @@ sealed interface EnemyCombatEvent {
 class EnemyCombatStateMachine(
     private val initialHealth: Int = 100,
     private val idleDelayNanos: Long = IDLE_DELAY,
+    val frontArmored: Boolean = false,
 ) {
     init {
         require(initialHealth > 0) { "initial health must be positive" }
@@ -135,12 +158,20 @@ class EnemyCombatStateMachine(
         val id: Long,
         val direction: AttackDirection,
         var resolved: Boolean = false,
+        var evaded: Boolean = false,
     )
 
     private var attack: Attack? = null
     private var nextAttackId = 1L
     private var nextPauseId = 1L
     private var hitDurationNanos = HIT_DURATION
+    private var lastLandedLine: CutLine? = null
+    var counterOpen: Boolean = false
+        private set
+
+    internal fun recordEvadedBlade(attackId: Long) {
+        if (phase == EnemyPhase.ACTIVE && attack?.id == attackId) attack?.evaded = true
+    }
 
     /** Reads attack readiness using the caller's range decision without advancing state. */
     fun canStartAttack(targetInRange: Boolean): Boolean =
@@ -199,30 +230,41 @@ class EnemyCombatStateMachine(
     fun receivePlayerHit(
         damage: Int = NORMAL_DAMAGE,
         breakGuard: Boolean = false,
-        armGuard: Boolean = false,
         counterDirection: AttackDirection = AttackDirection.OVERHEAD,
+        cutLine: CutLine?,
+        openingThrust: Boolean = false,
     ): List<EnemyCombatEvent> {
         require(damage > 0) { "damage must be positive" }
         if (pauseReason != null || phase == EnemyPhase.DEAD) return emptyList()
         val events = mutableListOf<EnemyCombatEvent>()
-        if (breakGuard) endGuard(events)
-        if (!breakGuard && !guarding && (armGuard || phase == EnemyPhase.HIT && hitReaction == HitReaction.PLAYER_HIT)) {
-            guarding = true
-            events += EnemyCombatEvent.GuardChanged(true, simulationNanos)
+        val thrustOpening = openingThrust && cutLine == CutLine.THRUST &&
+            phase == EnemyPhase.PREPARING && currentAttackDirection == AttackDirection.OVERHEAD
+        val armorStops = frontArmored && cutLine != null && !breakGuard && !counterOpen && !thrustOpening
+        if (breakGuard || counterOpen || thrustOpening) endGuard(events)
+        val holdingReadGuard = guarding && (phase == EnemyPhase.IDLE || phase == EnemyPhase.PREPARING)
+        val covered = holdingReadGuard && cutLine != null && cutLine == lastLandedLine
+        val guarded = guarding || armorStops
+        val nominal = when {
+            covered || armorStops -> 0
+            guarding -> maxOf(1, (damage.toLong() * GUARDED_DAMAGE / NORMAL_DAMAGE).toInt())
+            else -> damage
         }
-        val nominal = if (guarding) maxOf(1, (damage.toLong() * GUARDED_DAMAGE / NORMAL_DAMAGE).toInt()) else damage
         val before = health
         health = maxOf(0, health - nominal)
-        events += EnemyCombatEvent.EnemyDamaged(nominal, before - health, before, health, guarding, simulationNanos)
+        if (nominal > 0) {
+            lastLandedLine = cutLine
+            counterOpen = false
+        }
+        events += EnemyCombatEvent.EnemyDamaged(nominal, before - health, before, health, guarded, simulationNanos)
 
         if (health == 0) {
             cancelAttack(AttackCancelReason.ENEMY_DEFEATED, events)
             endGuard(events)
             hitReaction = null
             changePhase(EnemyPhase.DEAD, events)
-        } else if (guarding && phase == EnemyPhase.IDLE && armGuard) {
+        } else if (covered && phase == EnemyPhase.IDLE) {
             startAttack(counterDirection, true, events)
-        } else if (!guarding) {
+        } else if (!guarded && !(phase == EnemyPhase.HIT && hitReaction == HitReaction.PLAYER_HIT && cutLine != null)) {
             val remainingParry = if (phase == EnemyPhase.HIT && hitReaction == HitReaction.PARRIED) {
                 hitDurationNanos - phaseElapsedNanos
             } else {
@@ -238,12 +280,12 @@ class EnemyCombatStateMachine(
     }
 
     /** The result must belong to the current attack; a miss is emitted at the window end. */
-    fun resolveActiveAttack(attackId: Long, outcome: AttackOutcome): List<EnemyCombatEvent> {
+    fun resolveActiveAttack(attackId: Long, outcome: AttackOutcome, matchedGuard: Boolean = false): List<EnemyCombatEvent> {
         require(outcome != AttackOutcome.MISSED) { "misses are resolved when the active window ends" }
         val canResolve = phase == EnemyPhase.ACTIVE ||
             outcome in setOf(AttackOutcome.BLOCKED, AttackOutcome.PARRIED) && phase in setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP)
         if (pauseReason != null || !canResolve || attack?.id != attackId) return emptyList()
-        return mutableListOf<EnemyCombatEvent>().also { resolveAttack(outcome, it) }
+        return mutableListOf<EnemyCombatEvent>().also { resolveAttack(outcome, it, matchedGuard) }
     }
 
     fun pauseByPlayer(): List<EnemyCombatEvent> {
@@ -256,6 +298,7 @@ class EnemyCombatStateMachine(
 
     /** Each call is a new discontinuity; callers must deduplicate repeated source reports. */
     fun interruptTracking(): List<EnemyCombatEvent> {
+        counterOpen = false
         val previous = pauseReason
         val pauseId = allocatePauseId()
         pauseReason = PauseReason.TRACKING_INTERRUPTION
@@ -290,6 +333,8 @@ class EnemyCombatStateMachine(
         phaseElapsedNanos = 0L
         simulationNanos = 0L
         health = initialHealth
+        lastLandedLine = null
+        counterOpen = false
         guarding = false
         pauseReason = null
         currentPauseId = null
@@ -319,10 +364,12 @@ class EnemyCombatStateMachine(
             EnemyPhase.ACTIVE -> resolveAttack(AttackOutcome.MISSED, events)
             EnemyPhase.RECOVERING -> {
                 attack = null
+                if (targetInRange && lastLandedLine != null) prepareReadGuard(events)
                 changePhase(EnemyPhase.IDLE, events)
             }
             EnemyPhase.HIT -> {
                 hitReaction = null
+                if (targetInRange && lastLandedLine != null) prepareReadGuard(events)
                 if (guarding && targetInRange) {
                     startAttack(counterDirection, true, events)
                 } else {
@@ -342,6 +389,7 @@ class EnemyCombatStateMachine(
         check(nextAttackId < Long.MAX_VALUE) { "attack identifier overflow" }
         val current = Attack(nextAttackId++, direction)
         attack = current
+        if (lastLandedLine != null) prepareReadGuard(events)
         events += EnemyCombatEvent.AttackStarted(current.id, direction, counterattack, simulationNanos)
         changePhase(EnemyPhase.PREPARING, events)
     }
@@ -351,8 +399,10 @@ class EnemyCombatStateMachine(
         return nextPauseId++
     }
 
-    private fun resolveAttack(outcome: AttackOutcome, events: MutableList<EnemyCombatEvent>) {
+    private fun resolveAttack(outcome: AttackOutcome, events: MutableList<EnemyCombatEvent>, matchedGuard: Boolean = false) {
         val current = checkNotNull(attack)
+        counterOpen = frontArmored && phase == EnemyPhase.ACTIVE && (outcome == AttackOutcome.PARRIED ||
+            outcome == AttackOutcome.BLOCKED && matchedGuard || outcome == AttackOutcome.MISSED && current.evaded)
         current.resolved = true
         events += EnemyCombatEvent.AttackResolved(current.id, outcome, simulationNanos)
         endGuard(events)
@@ -382,7 +432,15 @@ class EnemyCombatStateMachine(
         }
     }
 
+    private fun prepareReadGuard(events: MutableList<EnemyCombatEvent>) {
+        if (!guarding) {
+            guarding = true
+            events += EnemyCombatEvent.GuardChanged(true, simulationNanos)
+        }
+    }
+
     private fun changePhase(next: EnemyPhase, events: MutableList<EnemyCombatEvent>) {
+        if (next != EnemyPhase.HIT && next != EnemyPhase.RECOVERING) counterOpen = false
         val previous = phase
         phase = next
         phaseElapsedNanos = 0L

@@ -38,7 +38,10 @@ class BladeContactUncertainException(val earliestUnresolvedFraction: Double, mes
  * Earliest conservative capsule contact for two linearly moving segments.
  *
  * The distance function is Lipschitz with the maximum of the four relative endpoint
- * displacements. Intervals are visited in time order and discarded only with a distance
+ * displacements. A coordinate projection can reject the entire sweep when even its
+ * minimum gap exceeds the root midpoint's half-travel allowance plus spatial error.
+ * The four linear endpoints bound every material point, including at intermediate times.
+ * Intervals are visited in time order and discarded only with a distance
  * lower bound or a separating-plane certificate. The final interval spans at most 0.1 µm
  * of relative motion (plus roundoff); its start is returned. Consequently a real crossing
  * cannot tunnel between samples, but a near miss within [BladeContact.errorBoundMeters]
@@ -51,22 +54,25 @@ fun firstBladeContact(playerSweep: BladeSweep, enemySweep: BladeSweep): BladeCon
     val playerTipDelta = playerSweep.current.tip - playerSweep.previous.tip
     val enemyBaseDelta = enemySweep.current.base - enemySweep.previous.base
     val enemyTipDelta = enemySweep.current.tip - enemySweep.previous.tip
-    val relativeDeltas = listOf(
-        playerBaseDelta - enemyBaseDelta, playerBaseDelta - enemyTipDelta,
-        playerTipDelta - enemyBaseDelta, playerTipDelta - enemyTipDelta,
-    )
     val radiusDelta = (playerSweep.current.radiusMeters - playerSweep.previous.radiusMeters) +
         (enemySweep.current.radiusMeters - enemySweep.previous.radiusMeters)
-    val lipschitz = relativeDeltas.maxOf { it.length() } + abs(radiusDelta)
+    val lipschitz = maxOf(
+        maxOf(playerBaseDelta.distanceTo(enemyBaseDelta), playerBaseDelta.distanceTo(enemyTipDelta)),
+        maxOf(playerTipDelta.distanceTo(enemyBaseDelta), playerTipDelta.distanceTo(enemyTipDelta)),
+    ) + abs(radiusDelta)
     require(lipschitz.isFinite()) { "Blade relative motion exceeds finite geometry range" }
-    val endpoints = listOf(playerSweep.previous, playerSweep.current, enemySweep.previous, enemySweep.current)
-    val coordinateScale = endpoints.maxOf { maxOf(
-        abs(it.base.x), abs(it.base.y), abs(it.base.z),
-        abs(it.tip.x), abs(it.tip.y), abs(it.tip.z), it.radiusMeters, 1.0,
-    ) }
+    val coordinateScale = maxOf(1.0,
+        maxOf(playerSweep.previous.coordinateScale(), playerSweep.current.coordinateScale()),
+        maxOf(enemySweep.previous.coordinateScale(), enemySweep.current.coordinateScale()))
     val roundoff = 64.0 * Math.ulp(coordinateScale)
     val spatialError = maxOf(CONTACT_SPATIAL_ERROR_METERS, roundoff)
     val errorBound = spatialError + 3.0 * roundoff
+    val broadClearance = maxOf(playerSweep.previous.radiusMeters, playerSweep.current.radiusMeters) +
+        maxOf(enemySweep.previous.radiusMeters, enemySweep.current.radiusMeters) + errorBound + lipschitz * 0.5
+    if (coordinateScale <= Double.MAX_VALUE / 16 && (
+        separatedOnAxis(playerSweep, enemySweep, broadClearance) { it.x } ||
+            separatedOnAxis(playerSweep, enemySweep, broadClearance) { it.y } ||
+            separatedOnAxis(playerSweep, enemySweep, broadClearance) { it.z })) return null
     var evaluations = 0
     var earliestUnresolvedFraction = 0.0
 
@@ -143,6 +149,26 @@ private data class BladeSample(
 )
 
 private data class BladeInterval(val left: BladeSample, val right: BladeSample)
+
+private fun BladeSegment.coordinateScale(): Double = maxOf(radiusMeters,
+    maxOf(abs(base.x), abs(base.y), abs(base.z)), maxOf(abs(tip.x), abs(tip.y), abs(tip.z)))
+
+private inline fun separatedOnAxis(player: BladeSweep, enemy: BladeSweep, clearance: Double,
+    component: (Vector3) -> Double): Boolean {
+    val playerStart = component(player.previous.base)
+    val playerEnd = component(player.previous.tip)
+    val playerNextStart = component(player.current.base)
+    val playerNextEnd = component(player.current.tip)
+    val enemyStart = component(enemy.previous.base)
+    val enemyEnd = component(enemy.previous.tip)
+    val enemyNextStart = component(enemy.current.base)
+    val enemyNextEnd = component(enemy.current.tip)
+    val positive = minOf(minOf(playerStart, playerEnd), minOf(playerNextStart, playerNextEnd)) -
+        maxOf(maxOf(enemyStart, enemyEnd), maxOf(enemyNextStart, enemyNextEnd))
+    if (positive > clearance) return true
+    return minOf(minOf(enemyStart, enemyEnd), minOf(enemyNextStart, enemyNextEnd)) -
+        maxOf(maxOf(playerStart, playerEnd), maxOf(playerNextStart, playerNextEnd)) > clearance
+}
 
 private fun separatedThroughout(left: BladeSample, right: BladeSample, normal: Vector3, error: Double): Boolean {
     // At a fixed material-point pair, projection minus radius is linear in time.

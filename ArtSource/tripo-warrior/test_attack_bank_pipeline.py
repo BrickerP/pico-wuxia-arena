@@ -15,6 +15,21 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_published_empty_wrist_does_not_fold_into_the_forearm(self):
+        from attack_profiles import animation_tracks, hierarchy, pose_world
+        for actor in ('base', 'indigo', 'veteran'):
+            doc, binary = library.read_glb(library.HERE / 'library' / (actor + '.glb'))
+            _, parents, order = hierarchy(doc)
+            names = {node.get('name'): index for index, node in enumerate(doc['nodes'])}
+            for clip, time in (('attack_right', .65), ('attack_left', .75), ('attack_overhead', 1.25)):
+                with self.subTest(actor=actor, clip=clip, time=time):
+                    action = next(a for a in doc['animations'] if a['name'] == clip)
+                    tracks, _ = animation_tracks(doc, binary, action)
+                    world = pose_world(doc, tracks, time, parents, order)
+                    elbow, wrist, knuckle = [world[names[n]].translation for n in
+                                              ('L_Forearm', 'L_Hand', 'L_Mid1')]
+                    self.assertLessEqual(math.degrees((wrist-elbow).angle(knuckle-wrist)), 38.1)
+
     def setUp(self):
         self.manifest = json.loads((library.HERE / 'motion_library.json').read_text())
         self.original_manifest = copy.deepcopy(self.manifest)
