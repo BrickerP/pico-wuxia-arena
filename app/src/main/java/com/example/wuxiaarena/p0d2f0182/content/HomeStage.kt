@@ -6,18 +6,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import com.pico.spatial.core.ecs.AttachmentPanelComponent
 import com.pico.spatial.core.ecs.GroundShadowComponent
 import com.pico.spatial.core.ecs.ModelComponent
+import com.pico.spatial.core.ecs.LookAtComponent
+import com.pico.spatial.core.ecs.LookAtForwardDirection
 import com.pico.spatial.core.ecs.PointLightComponent
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.TransformComponent
@@ -30,7 +28,6 @@ import com.pico.spatial.ui.foundation.content.SpatialViewAttachments
 import com.pico.spatial.ui.platform.LengthUnit
 import com.pico.spatial.ui.platform.LocalPhysicalLengthConverter
 import com.example.wuxiaarena.core.combat.WeaponGrip
-import com.example.wuxiaarena.p0d2f0182.R
 import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.input.TrackingSnapshot
@@ -66,6 +63,7 @@ private const val CONTROL_PANEL_ID = "trial-control"
 private const val STATUS_PANEL_ID = "combat-status"
 private const val HUD_WORLD_SCALE = 1.4f
 private const val STATUS_WORLD_SCALE = 1.65f
+private val DAMAGE_PANEL_IDS = List(DamagePopupTimeline.SLOT_COUNT) { "contact-damage-$it" }
 private const val ENEMY_STAGE_Z = -2.4f
 
 private class SceneOwner(
@@ -74,6 +72,7 @@ private class SceneOwner(
     private val sceneScope: CoroutineScope,
     private val onPlayerHandPresenter: (HandPosePresenter?) -> Unit,
     private val onEnemyPresenter: (ArenaPresenter?) -> Unit,
+    private val damageTextStates: List<DamagePopupTextState>,
 ) {
     var root: Entity? = null
     var playerWeapon: Entity? = null
@@ -113,10 +112,10 @@ private class SceneOwner(
     var bladeTrail: PlayerBladeTrail? = null
     var contactLight: Entity? = null
     val panelAnchors = mutableMapOf<String, Entity>()
-    var damageGlyphs: DamageGlyphRenderer? = null
-    val accessibleDamage = mutableStateOf<DamagePopupContent?>(null)
+    val damageAnchors = mutableListOf<Entity>()
     private val damageTimeline = DamagePopupTimeline()
     private var damageUnavailable = false
+    var damageWorldScale = 1f
     var statusWorldPosition: Vector3? = null
     var statusWorldRotation: Quat = Quat.identity()
     var statusPanelY = 2.15f
@@ -406,14 +405,32 @@ private class SceneOwner(
 
     private fun presentDamagePopups(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         if (damageUnavailable) return
-        val glyphs = damageGlyphs ?: return
+        val parent = root ?: return
         try {
             val active = state.sceneReady && state.inputReady && state.pauseReason == null &&
                 (state.result == TrialResult.FIGHTING || state.result == TrialResult.ROUND_CLEAR)
             val frames = damageTimeline.update(state.roundGeneration, state.roundNumber, active,
                 state.simulationNanos, System.nanoTime(), state.playerHeadPosition, events)
-            accessibleDamage.value = frames.maxByOrNull { it.content.impactId }?.content
-            glyphs.present(frames)
+            for ((index, anchor) in damageAnchors.withIndex()) {
+                val frame = frames.firstOrNull { it.slot == index }
+                val text = damageTextStates[index]
+                text.content = frame?.content
+                text.opacity = frame?.opacity ?: 0f
+                if (!anchor.valid) continue
+                if (frame == null) {
+                    anchor.enabled = false
+                    continue
+                }
+                val point = Vector3(frame.position.x.toFloat(), frame.position.y.toFloat(), frame.position.z.toFloat())
+                check(point.x.isFinite() && point.y.isFinite() && point.z.isFinite()) {
+                    "Damage contact exceeds the Stage presentation range"
+                }
+                val transform = checkNotNull(anchor.components[TransformComponent::class.java])
+                transform.setPosition(parent.convertPositionFrom(point, null))
+                val scale = damageWorldScale * frame.scale
+                transform.setScaleVector(Vector3(scale, scale, scale))
+                anchor.enabled = true
+            }
         } catch (error: Exception) {
             damageUnavailable = true
             clearDamagePopups()
@@ -423,9 +440,16 @@ private class SceneOwner(
 
     private fun clearDamagePopups() {
         damageTimeline.clear()
-        accessibleDamage.value = null
-        try { damageGlyphs?.present(emptyList()) } catch (error: Exception) {
-            Log.w(TAG, "Unable to hide damage readout", error)
+        damageTextStates.forEach {
+            it.content = null
+            it.opacity = 0f
+        }
+        for (anchor in damageAnchors) {
+            try {
+                if (anchor.valid) anchor.enabled = false
+            } catch (error: Exception) {
+                Log.w(TAG, "Unable to hide damage readout", error)
+            }
         }
     }
 
@@ -556,10 +580,7 @@ private class SceneOwner(
             return
         }
         clearDamagePopups()
-        try { damageGlyphs?.close() } catch (error: Exception) {
-            Log.w(TAG, "Damage glyph cleanup failed", error)
-        }
-        damageGlyphs = null
+        damageAnchors.clear()
         damageUnavailable = false
         statusWorldPosition = null
         statusWorldRotation = Quat.identity()
@@ -656,10 +677,10 @@ internal fun HomeStage(
     controlsPanel: @Composable () -> Unit,
     statusPanel: @Composable () -> Unit,
 ) {
-    val resources = LocalContext.current.resources
+    val damageTextStates = remember { List(DamagePopupTimeline.SLOT_COUNT) { DamagePopupTextState() } }
     val sceneScope = rememberCoroutineScope()
     val owner = remember { SceneOwner(onEnemyGeometry, onOpponentChange, sceneScope,
-        onPlayerHandPresenter, onEnemyPresenter) }
+        onPlayerHandPresenter, onEnemyPresenter, damageTextStates) }
     val currentControls = rememberUpdatedState(controlsPanel)
     val currentStatus = rememberUpdatedState(statusPanel)
     val currentControlHeight = rememberUpdatedState(controlsHeightDp)
@@ -669,6 +690,7 @@ internal fun HomeStage(
     val statusHeightMeters = converter.dpToLength(260.dp, LengthUnit.Meters) * STATUS_WORLD_SCALE
     val statusPosition = Vector3(0f, maxOf(2.15f, 1.95f + statusHeightMeters / 2f), ENEMY_STAGE_Z)
     owner.statusPanelY = statusPosition.y
+    owner.damageWorldScale = 0.18f / converter.dpToLength(128.dp, LengthUnit.Meters)
     val panels = remember<AttachmentPanelBuilder.() -> Unit> {
         {
             AttachmentPanel(CONTROL_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
@@ -677,16 +699,12 @@ internal fun HomeStage(
                 }
             }
             AttachmentPanel(STATUS_PANEL_ID, alignment = AttachmentPanelComponent.Alignment.CENTER) {
-                Box(Modifier.size(width = 500.dp, height = 260.dp).semantics {
-                    owner.accessibleDamage.value?.let { damage ->
-                        stateDescription = resources.getString(when {
-                            damage.fatal -> R.string.arena_damage_fatal_description
-                            damage.guarded -> R.string.arena_damage_guarded_description
-                            damage.headHit -> R.string.arena_damage_head_description
-                            else -> R.string.arena_damage_description
-                        }, damage.amount)
-                    }
-                }) { currentStatus.value() }
+                Box(Modifier.size(width = 500.dp, height = 260.dp)) { currentStatus.value() }
+            }
+            for ((index, id) in DAMAGE_PANEL_IDS.withIndex()) {
+                AttachmentPanel(id, alignment = AttachmentPanelComponent.Alignment.CENTER) {
+                    DamagePopupText(damageTextStates[index])
+                }
             }
         }
     }
@@ -731,13 +749,27 @@ internal fun HomeStage(
                 owner.panelAnchors[id] = anchor
                 check(anchor.addChild(panel)) { "Could not attach $id" }
             }
-            try {
-                owner.damageGlyphs = DamageGlyphRenderer(root).also { renderer ->
-                    renderer.initialize(listOf(resources.getString(R.string.arena_ui_damage_fatal),
-                        resources.getString(R.string.arena_ui_damage_head), resources.getString(R.string.arena_ui_damage_guarded)))
+            for (id in DAMAGE_PANEL_IDS) {
+                val panel = checkNotNull(attachments.entity(id)) { "Missing attachment $id" }
+                val anchor = Entity()
+                try {
+                    check(root.addChild(anchor)) { "Could not attach damage anchor $id" }
+                    owner.damageAnchors += anchor
+                    anchor.enabled = false
+                    check(anchor.addChild(panel)) { "Could not attach damage label $id" }
+                    anchor.components.set(LookAtComponent().apply {
+                        alignLocalUpToWorldUp = true
+                        lookAtForwardDirection = LookAtForwardDirection.POSITIVE_Z
+                        setViewerAsTarget()
+                    })
+                } catch (error: Exception) {
+                    try {
+                        if (anchor.valid) anchor.destroy()
+                    } catch (cleanup: Exception) {
+                        error.addSuppressed(cleanup)
+                    }
+                    throw error
                 }
-            } catch (error: Exception) {
-                Log.w(TAG, "Could not initialize native damage glyphs", error)
             }
             owner.placeControlPanel(root)
             placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity(), STATUS_WORLD_SCALE)
