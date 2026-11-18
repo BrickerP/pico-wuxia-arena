@@ -1,6 +1,10 @@
 # 原生刀客对决验收
 
-**已发布的同包对照：[架势提示与再挑战](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-arena-preview-2026-11-18)**（代码 `47aaf2c`，APK SHA256 `22ea58d3cbeaa34a33505ace04173fd9b78dd24252faa861fdb759b850b1911c`）。
+**最新动作对照：[送刀、短腕切与轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-committed-cut-2026-11-18)**（APK `1353185f…`）。同一包、同一原生入口，固定握点 64 次左右摆动：24 次轻擦、0 有效伤害，首敌仍为 100/100，玩家 0 分。主动送手：4 次有效命中，打败首敌，第二场落败、145 分。[实伤](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/committed-cut.mp4) · [轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/fixed-wrist-graze.mp4)。这些证据没有显示新版三场通关。
+
+场景单变量：119→87 个不透明图元实例；固定开局八秒，空间帧间隔 P50 48.34→40.96 ms、P95 83.61→66.96 ms、最大 279.45→156.70 ms。单次、接触数和宿主负载并非完全一致。不能将改善折算为头显帧率，或称卡顿已消失。
+
+**上一版对照：[架势提示与再挑战](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-arena-preview-2026-11-18)**（代码 `47aaf2c`，APK SHA256 `22ea58d3cbeaa34a33505ace04173fd9b78dd24252faa861fdb759b850b1911c`）。
 
 - [跟随对手位置的攻防实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-victory.mp4)：829 分，余血 100，三场通关。Boss 有四次软命中，不代表出现了弹反。[同进程重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-replay.mp4)进入首场倒计时。
 - [固定左右横扫](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-preview-2026-11-18/native-arena-fixed-sweep.mp4)：也能打通三场，782 分、余血 80，无弹反。**流程通过，抗重复挥刀的玩法验收不通过。**
