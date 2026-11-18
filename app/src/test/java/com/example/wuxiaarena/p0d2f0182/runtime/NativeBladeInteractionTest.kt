@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
 import com.example.wuxiaarena.core.combat.AttackDirection
+import com.example.wuxiaarena.core.combat.BladeContact
 import com.example.wuxiaarena.core.combat.AttackOutcome
 import com.example.wuxiaarena.core.combat.CombatImpact
 import com.example.wuxiaarena.core.combat.CombatImpactKind
@@ -30,6 +31,20 @@ import kotlin.math.sqrt
 
 /** Real prepared attack samples and normal tracking receipts exercise the native session. */
 class NativeBladeInteractionTest {
+    @Test
+    fun startupGuardRequiresTheContactedPartOfTheEnemyBladeToAdvance() {
+        val before = arenaOpponents.first().attackProfile(AttackDirection.OVERHEAD).samples.first()
+        val inward = Vector3(.01, 0.0, 0.0)
+        val after = before.copy(bladeBase = before.bladeBase + inward, bladeTip = before.bladeTip - inward)
+        val normal = Vector3(1.0, 0.0, 0.0)
+        val touch = BladeContact(.5, before.bladeBase, before.bladeBase,
+            normal, inward * -1.0, .5, .1, 0.0, 0.0)
+        assertTrue(startupBladeClosesOnGuard(before, after, touch))
+        assertFalse(startupBladeClosesOnGuard(before, after, touch.copy(enemyAxisFraction = .9)))
+        assertFalse(startupBladeClosesOnGuard(before, after, touch.copy(relativeDisplacement = inward)))
+        assertFalse(startupBladeClosesOnGuard(before, before, touch))
+    }
+
     @Test
     fun correctlyOrientedGuardWithoutSteelContactCannotParry() {
         val fixture = Fixture()
@@ -76,11 +91,14 @@ class NativeBladeInteractionTest {
         fixture.start()
         fixture.seek { it.phase == EnemyPhase.ACTIVE }
         val attackId = requireNotNull(fixture.session.viewState.attackId)
-        fixture.crossCurrentEnemyBlade()
+        val impact = fixture.crossCurrentEnemyBlade()
+        val afterImpact = fixture.session.viewState
+        assertEquals(if (impact.kind == CombatImpactKind.PARRY) 94 else 72, afterImpact.playerStamina)
         val count = fixture.events.filterIsInstance<CombatImpact>().count {
             it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
         }
         repeat(5) { fixture.session.onTick(fixture.now) }
+        assertEquals(afterImpact.playerStamina, fixture.session.viewState.playerStamina)
         assertEquals(count, fixture.events.filterIsInstance<CombatImpact>().count {
             it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
         })
@@ -97,6 +115,8 @@ class NativeBladeInteractionTest {
         val impact = fixture.crossCurrentEnemyBlade()
         assertEquals(CombatImpactKind.BLOCK, impact.kind)
         var last = fixture.session.viewState
+        assertEquals(100, last.playerStamina)
+        assertFalse(last.feedback == CombatFeedback.BLOCK)
         assertEquals(EnemyPhase.RECOVERING, last.phase)
         assertTrue(requireNotNull(last.phaseRemainingNanos) < 260_000_000L)
         repeat(600) {

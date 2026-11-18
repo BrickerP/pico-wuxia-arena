@@ -403,8 +403,12 @@ class EnemyCombatStateMachine(
 
     private fun resolveAttack(outcome: AttackOutcome, events: MutableList<EnemyCombatEvent>, matchedGuard: Boolean = false) {
         val current = checkNotNull(attack)
-        counterOpen = frontArmored && phase == EnemyPhase.ACTIVE && (outcome == AttackOutcome.PARRIED ||
-            outcome == AttackOutcome.BLOCKED && matchedGuard || outcome == AttackOutcome.MISSED && current.evaded)
+        counterOpen = frontArmored && when (outcome) {
+            AttackOutcome.BLOCKED -> matchedGuard && (phase == EnemyPhase.STARTUP || phase == EnemyPhase.ACTIVE)
+            AttackOutcome.PARRIED -> phase == EnemyPhase.ACTIVE
+            AttackOutcome.MISSED -> phase == EnemyPhase.ACTIVE && current.evaded
+            AttackOutcome.HIT_PLAYER -> false
+        }
         current.resolved = true
         events += EnemyCombatEvent.AttackResolved(current.id, outcome, simulationNanos)
         endGuard(events)

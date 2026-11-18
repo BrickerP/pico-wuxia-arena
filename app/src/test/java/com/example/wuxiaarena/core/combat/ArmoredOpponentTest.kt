@@ -73,6 +73,18 @@ class ArmoredOpponentTest {
         }
     }
 
+    @Test fun bracingAgainstTheCommittedStartupStrokeAllowsOnlyOneCounter() {
+        for (braced in listOf(false, true)) {
+            val machine = boss()
+            val id = start(machine)
+            machine.advanceBy(AttackDirection.LEFT.preparationNanos + AttackDirection.LEFT.startupNanos - 1L, true)
+            assertEquals(EnemyPhase.STARTUP, machine.phase)
+            machine.resolveActiveAttack(id, AttackOutcome.BLOCKED, matchedGuard = braced)
+            assertEquals(if (braced) 25 else 0, cut(machine))
+            assertEquals(0, cut(machine))
+        }
+    }
+
     @Test fun evasionOnlyOpensTheSameAttackWhenItActuallyMisses() {
         val machine = boss()
         val id = active(machine)
