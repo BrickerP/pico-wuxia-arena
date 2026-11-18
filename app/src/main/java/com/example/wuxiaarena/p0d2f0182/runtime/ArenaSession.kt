@@ -669,7 +669,7 @@ internal class ArenaSession(
                     val held = motion.constrainWeapon(atContact, grip, candidate.contact)
                     latestMotion = held
                     simulationMotion = held
-                    resolveSteelContact(candidate.contact, atContact, events)
+                    resolveSteelContact(candidate.contact, atContact, checkNotNull(before), checkNotNull(after), events)
                     beginSteelWithdrawal(candidate.contact, grip)
                 } else if (candidate.playerAttack) {
                     val blade = grip?.let(::playerBladeAxis)
@@ -984,16 +984,21 @@ internal class ArenaSession(
         motion.beginEnemyAttack(id)
     }
 
-    private fun resolveSteelContact(contact: BladeContact, frame: PlayerMotionFrame, events: MutableList<EnemyCombatEvent>) {
+    private fun resolveSteelContact(contact: BladeContact, frame: PlayerMotionFrame, before: AttackPoseSample,
+        after: AttackPoseSample, events: MutableList<EnemyCombatEvent>) {
         val id = combat.currentAttackId
         val direction = combat.currentAttackDirection
         val target = enemyPosition ?: return
-        val active = combat.phase in setOf(EnemyPhase.PREPARING, EnemyPhase.STARTUP, EnemyPhase.ACTIVE) && id != null && direction != null
-        val outcome = if (active && combat.phase == EnemyPhase.ACTIVE) motion.resolveDefense(checkNotNull(id), checkNotNull(direction), target,
+        val phase = combat.phase
+        val interruptible = id != null && direction != null &&
+            (phase == EnemyPhase.PREPARING || phase == EnemyPhase.STARTUP || phase == EnemyPhase.ACTIVE)
+        val outcome = if (interruptible && phase == EnemyPhase.ACTIVE) motion.resolveDefense(checkNotNull(id), checkNotNull(direction), target,
             frame.receivedAtNanos, contact) else AttackOutcome.BLOCKED
-        val matchedGuard = combat.phase == EnemyPhase.ACTIVE && direction != null && frame.guardDirection == direction &&
+        val braced = direction != null && frame.guardDirection == direction &&
             frame.guardEnteredAtNanos?.let { it <= frame.receivedAtNanos } == true && frame.bladeAtRest && frame.swing == null
-        resolveContactOutcome(outcome, contact, HitZone.BODY, frame.hand, events, active, matchedGuard)
+        val matchedGuard = braced && (phase == EnemyPhase.ACTIVE || phase == EnemyPhase.STARTUP &&
+            startupBladeClosesOnGuard(before, after, contact))
+        resolveContactOutcome(outcome, contact, HitZone.BODY, frame.hand, events, interruptible, matchedGuard)
     }
 
     private fun resolveBodyContact(contact: BladeContact, zone: HitZone, events: MutableList<EnemyCombatEvent>) {
@@ -1002,11 +1007,12 @@ internal class ArenaSession(
     }
 
     private fun resolveContactOutcome(initialOutcome: AttackOutcome, contact: BladeContact, zone: HitZone,
-        hand: Hand, events: MutableList<EnemyCombatEvent>, active: Boolean, matchedGuard: Boolean = false) {
+        hand: Hand, events: MutableList<EnemyCombatEvent>, interruptible: Boolean, matchedGuard: Boolean = false) {
         val outcome = initialOutcome
         val id = combat.currentAttackId
-        if (active && (id == null || resolvedContactId == id)) return
-        if (outcome == AttackOutcome.BLOCKED) {
+        if (interruptible && (id == null || resolvedContactId == id)) return
+        val defended = interruptible && (combat.phase == EnemyPhase.ACTIVE || matchedGuard)
+        if (outcome == AttackOutcome.BLOCKED && defended) {
             // Steel still arrests the weapons at zero stamina; it cannot create an unobserved body hit.
             stamina = (stamina - 28.0).coerceAtLeast(0.0)
             if (matchedGuard) {
@@ -1020,10 +1026,14 @@ internal class ArenaSession(
             score += 30
             notifyFeedback(CombatFeedback.PARRY)
         }
+        if (outcome == AttackOutcome.BLOCKED || outcome == AttackOutcome.PARRIED) {
+            val defense = if (!defended) "TOUCH" else if (outcome == AttackOutcome.PARRIED) "PARRY" else "BLOCK"
+            logMessage("Steel impact id=$nextImpactId attack=$id phase=${combat.phase} defense=$defense braced=$matchedGuard")
+        }
         val direction = combat.currentAttackDirection
         val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
-        if (active) {
+        if (interruptible) {
             resolvedContactId = id
             collect(combat.resolveActiveAttack(checkNotNull(id), outcome, matchedGuard), events)
             if (direction != null && poseFrame != null) {

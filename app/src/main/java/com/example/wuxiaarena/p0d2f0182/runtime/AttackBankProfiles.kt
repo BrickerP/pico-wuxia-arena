@@ -1,6 +1,7 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
 import com.example.wuxiaarena.core.combat.AttackDirection
+import com.example.wuxiaarena.core.combat.BladeContact
 import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.math.Vector3
@@ -43,6 +44,14 @@ internal data class AttackPoseSample(
             bladeTip = point(bladeTip),
         )
     }
+}
+
+internal fun startupBladeClosesOnGuard(before: AttackPoseSample, after: AttackPoseSample,
+    contact: BladeContact): Boolean {
+    val along = contact.enemyAxisFraction
+    val displacement = (after.bladeBase - before.bladeBase) * (1.0 - along) +
+        (after.bladeTip - before.bladeTip) * along
+    return displacement.dot(contact.normal) > 0.0 && contact.relativeDisplacement.dot(contact.normal) < 0.0
 }
 
 internal fun samplePose(samples: List<AttackPoseSample>, sourceSeconds: Double): AttackPoseSample {
