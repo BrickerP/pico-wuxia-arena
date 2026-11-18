@@ -870,7 +870,7 @@ def build_library(manifest_path, candidate_dir=None):
             wrist_report = wrist_solver.apply_prepared_character(character['id'],
                 output_folder / (stem + '_body.glb'), prepared_png, wrist_recipe)
             record['prepared_wrist_constraint'] = wrist_report
-            final_signatures = wrist_solver.prepare_empty_hands(output_folder / (stem + '_body.glb'), prepared_png)
+            final_signatures = wrist_solver.prepare_character_hands(output_folder / (stem + '_body.glb'), prepared_png)
             for animation in record['animations']:
                 previous = animation['keyframe_semantics_sha256']
                 final = final_signatures[animation['name']]
