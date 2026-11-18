@@ -176,6 +176,7 @@ internal class CombatAudio(
     private fun queueImpact(impact: CombatImpact, state: ArenaViewState) {
         if (!impact.strength.isFinite() || !impact.point.isFinite()) return
         val cue = when (impact.kind) {
+            CombatImpactKind.GRAZE -> Cue.WHOOSH
             CombatImpactKind.SOFT_HIT -> Cue.SOFT_HIT
             CombatImpactKind.HARD_HIT -> Cue.HARD_HIT
             CombatImpactKind.GUARDED_HIT -> Cue.GUARDED_HIT

@@ -111,7 +111,8 @@ class ActorSteelWithdrawalSessionTest {
     @Test fun aFreshAcceptedHitInterruptsTheOlderSteelRecovery() {
         val f=ActiveFixture(7);f.contact();f.advance(200_000_000L)
         val hit=MotionContact(HitZone.BODY,Vector3(0.0,1.2,-1.3),Vector3(0.0,0.0,1.0))
-        val next=f.frame.copy(strike=MotionStrike(8,HitZone.BODY,1.0,hit))
+        val next=f.frame.copy(strike=MotionStrike(8,HitZone.BODY,1.0,hit),
+            swing=QualifiedSwing(8,1.0,Vector3(.12,0.0,0.0),f.grip.position-Vector3(.08,0.0,0.0)))
         ArenaSession::class.java.getDeclaredMethod("applyPlayerMotion",PlayerMotionFrame::class.java,MutableList::class.java)
             .apply { isAccessible=true }.invoke(f.session,next,f.events)
         assertTrue(f.combat.health<100)

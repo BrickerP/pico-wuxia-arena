@@ -403,7 +403,7 @@ class EnemyCombatStateMachine(
 
     private fun resolveAttack(outcome: AttackOutcome, events: MutableList<EnemyCombatEvent>, matchedGuard: Boolean = false) {
         val current = checkNotNull(attack)
-        counterOpen = frontArmored && when (outcome) {
+        counterOpen = when (outcome) {
             AttackOutcome.BLOCKED -> matchedGuard && (phase == EnemyPhase.STARTUP || phase == EnemyPhase.ACTIVE)
             AttackOutcome.PARRIED -> phase == EnemyPhase.ACTIVE
             AttackOutcome.MISSED -> phase == EnemyPhase.ACTIVE && current.evaded

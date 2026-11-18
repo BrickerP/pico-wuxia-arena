@@ -39,13 +39,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("3af3db4bda95b31a0d68aef432833199f0f49d929a0e08a539e61a8ef4bf949d", AttackBankProfileData.bindingSha256)
-        assertEquals("582a24f5e1f6e9731793c15a3a301fde8fc5872de298cbb403471a2ac213691b", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("e7154b060c290499e3718ed6c0c48691a72be0a04ac1ea4f2f6cd14ca3024bc5", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("ebda1699a27bb58366676457886d54b17aec1237660fc0bf6d6b644f900c520a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("3e703ebbb2ce1672260aa240d9d20eacc25b0d7925ed783f800ee4528248d88e", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("89964df77d781de0516aa3782ee97a3df3928f5eb29c9b6470465fefc9667691", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("e5de3e4a767c5f1cf0c022b94e1d4c9a02fc034c856f33313000cdd8b391c29d", AttackBankProfileData.bindingSha256)
+        assertEquals("9f519ecd9dec145c01d0b91db2123558de101f5a4e1cebd9082c83c3d82e5a8e", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("00885d485e306b95a3822e03d096a2407528061a78141e5b1c2eb5de24b98702", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("be2ff43b9c415ec429983d55d5dbb7c8e2286e048741f187ee0189541268c48a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("997984e61fdced7e738f8e090bbd877f176b069d28aa35df1a69b9ae9085ab97", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test
@@ -310,8 +310,12 @@ class AttackBankProfilesTest {
             // motion may differ from the source's near-fixed wrist; allow 2 mm
             // (under 0.3% of this dao's length), while checking the rigid mount.
             val idleWeaponMotionBudgetMeters = .002
-            assertTrue(start.bladeBase.distanceTo(peak.bladeBase) < idleWeaponMotionBudgetMeters)
-            assertTrue(start.bladeTip.distanceTo(peak.bladeTip) < idleWeaponMotionBudgetMeters)
+            for (sample in profile.idle.samples) {
+                val baseTravel = start.bladeBase.distanceTo(sample.bladeBase)
+                val tipTravel = start.bladeTip.distanceTo(sample.bladeTip)
+                assertTrue("${opponent.name} idle@${sample.sourceSeconds}s base=$baseTravel tip=$tipTravel m",
+                    maxOf(baseTravel, tipTravel) < idleWeaponMotionBudgetMeters)
+            }
             assertPoint(peak.bladeBase - start.bladeBase, peak.bladeTip - start.bladeTip, 1e-6)
             assertEquals(start.bladeBase.distanceTo(start.bladeTip), peak.bladeBase.distanceTo(peak.bladeTip), 1e-6)
             assertEquals(profile.idle.samples.first().contact, profile.idle.samples.last().contact)

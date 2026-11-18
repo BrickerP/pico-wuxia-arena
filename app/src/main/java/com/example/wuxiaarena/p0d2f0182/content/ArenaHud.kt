@@ -851,6 +851,7 @@ private fun feedbackLabel(state: ArenaViewState): String? {
                 CombatFeedback.HEADSHOT -> R.string.arena_feedback_headshot
                 CombatFeedback.GUARDED_HIT -> R.string.arena_feedback_guarded_hit
                 CombatFeedback.CUT_DEFLECTED -> R.string.arena_feedback_cut_deflected
+                CombatFeedback.GRAZE -> R.string.arena_feedback_graze
                 CombatFeedback.ARMOR_STOP -> R.string.arena_armor_stop
                 CombatFeedback.BLOCK -> R.string.arena_feedback_block
                 CombatFeedback.PARRY -> R.string.arena_feedback_parry

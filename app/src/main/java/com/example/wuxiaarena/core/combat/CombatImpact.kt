@@ -4,7 +4,7 @@ import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.core.math.Vector3
 
 enum class CombatImpactKind {
-    SOFT_HIT, HARD_HIT, GUARDED_HIT, BLOCK, PARRY, PLAYER_HIT, SKILL, EXECUTION,
+    SOFT_HIT, HARD_HIT, GUARDED_HIT, BLOCK, PARRY, PLAYER_HIT, SKILL, EXECUTION, GRAZE,
 }
 
 /** A resolved physical contact, expressed in Stage metres and emitted once. */

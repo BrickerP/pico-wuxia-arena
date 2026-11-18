@@ -399,6 +399,36 @@ def bake_empty_hand(doc, binary):
     return binary
 
 
+def stabilize_breathing_grip(doc, tracks, times, curves, names, parents, order):
+    upper, fore, hand = [names[name] for name in BONES]
+    curves[fore] = []
+    for frame, time in enumerate(times):
+        local = sampled_locals(doc, tracks, time)
+        original = exact_worlds(doc, local, parents, order)[hand].translation
+        for joint in (upper, hand):
+            row = curves[joint][frame]
+            local[joint][1] = Quaternion((row[3], *row[:3]))
+        worlds = exact_worlds(doc, local, parents, order)
+        if frame == 0:
+            original_start = original
+            guard = worlds[hand]
+        if 0 < frame < len(times) - 1:
+            target = guard.translation + (original - original_start)
+            solve_arm(doc, local, target, worlds[fore].translation, names, parents, order)
+            set_world_rotation(local, hand, guard.to_quaternion(), exact_worlds(doc, local, parents, order), parents)
+        for joint in (upper, fore, hand):
+            quat = local[joint][1]
+            row = (quat.x, quat.y, quat.z, quat.w)
+            if joint == fore and frame in (0, len(times) - 1):
+                row = tracks[fore, 'rotation'][1][0 if frame == 0 else -1]
+            if frame and sum(a*b for a,b in zip(curves[joint][frame-1], row)) < 0:
+                row = tuple(-v for v in row)
+            if joint == fore:
+                curves[joint].append(row)
+            else:
+                curves[joint][frame] = row
+
+
 def author_mounted_wrist(doc, binary, tip_local, clip):
     _, parents, order = hierarchy(doc)
     names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
@@ -430,6 +460,8 @@ def author_mounted_wrist(doc, binary, tip_local, clip):
             if curves[index] and sum(x*y for x,y in zip(curves[index][-1], row)) < 0:
                 row = tuple(-value for value in row)
             curves[index].append(row)
+    if clip['name'] == 'idle':
+        stabilize_breathing_grip(doc, tracks, times, curves, names, parents, order)
     binary, grid = append_accessor(doc, binary, [(t,) for t in times], 'SCALAR')
     for channel in clip['channels']:
         index = channel['target']['node']

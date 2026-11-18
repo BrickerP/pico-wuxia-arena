@@ -16,6 +16,28 @@ import org.junit.Test
 import kotlin.math.sqrt
 
 class PlayerDefenseSnapshotTest {
+    @Test fun aSettledGuardAllowsOneWristCutAndCannotArmTheNextReversal() {
+        val fixture = Fixture()
+        val grip = Vector3(-.22, 1.6, -.50)
+        val start = fixture.observe(0L, grip)
+        assertEquals(AttackDirection.OVERHEAD, start.guardDirection)
+        for (time in listOf(60L, 120L, 180L)) fixture.observe(time * 1_000_000L, grip)
+        fun yaw(radians: Double) = Quaternion(0.0, kotlin.math.sin(radians / 2), 0.0, kotlin.math.cos(radians / 2))
+        val wristCut = fixture.observe(260_000_000L, grip, yaw(-.38))
+        val first = requireNotNull(wristCut.swing)
+        assertTrue(first.fromGuard)
+        assertTrue(first.committedAt(requireNotNull(wristCut.weaponGrip)))
+        fixture.observe(340_000_000L, grip, yaw(0.0))
+        for (time in listOf(420L, 500L, 580L, 660L)) {
+            assertNull(fixture.observe(time * 1_000_000L, grip, yaw(0.0)).guardDirection)
+        }
+        val reversal = fixture.observe(740_000_000L, grip, yaw(-.7))
+        val next = requireNotNull(reversal.swing)
+        assertTrue(next.id > first.id)
+        assertEquals(false, next.fromGuard)
+        assertEquals(false, next.committedAt(requireNotNull(reversal.weaponGrip)))
+    }
+
     @Test
     fun laterQueuedGuardEntryCannotUpgradeAnEarlierStaticGuardToParry() {
         val fixture = Fixture()
@@ -64,11 +86,11 @@ class PlayerDefenseSnapshotTest {
         private var sequence = 0L
         private val rotation = Quaternion(0.0, -sqrt(0.5), 0.0, sqrt(0.5))
 
-        fun observe(now: Long, position: Vector3): PlayerMotionFrame {
+        fun observe(now: Long, position: Vector3, handRotation: Quaternion = rotation): PlayerMotionFrame {
             fun stamp() = ObservationStamp(sequence++, now, 1L, InputOrigin.PICO)
             assertTrue(tracking.accept(TrackingEvent.Head(stamp(),
                 ObservedPose(Vector3(0.0, 1.6, 0.0), Quaternion(0.0, 0.0, 0.0, 1.0)))))
-            assertTrue(tracking.accept(TrackingEvent.Controllers(stamp(), null, ObservedPose(position, rotation))))
+            assertTrue(tracking.accept(TrackingEvent.Controllers(stamp(), null, ObservedPose(position, handRotation))))
             return requireNotNull(resolver.observe(tracking.snapshot, enemy))
         }
     }

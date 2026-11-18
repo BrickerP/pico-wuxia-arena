@@ -65,7 +65,7 @@
     <string name="arena_state_defeat">本次落败</string>
     <string name="arena_technique_title">刀术要诀</string>
     <string name="arena_technique_strike">进刀</string>
-    <string name="arena_technique_strike_detail">抬手蓄刀，挥斩或前刺，让刀锋切过对手。</string>
+    <string name="arena_technique_strike_detail">挥斩或前刺时，持刀手也随刀送出。架稳再斩，短腕切也能命中。</string>
     <string name="arena_technique_guard">架刀</string>
     <string name="arena_technique_guard_detail">横刀护在头前。来锋将至时迅速成架，可迎刀弹反。</string>
     <string name="arena_technique_dodge">避锋</string>
@@ -86,6 +86,7 @@
     <string name="arena_phase_countdown">准备</string>
     <string name="arena_phase_round_clear">休整</string>
     <string name="arena_feedback_hit">刀锋命中</string>
+    <string name="arena_feedback_graze">擦过 · 送手出刀，或架稳再斩</string>
     <string name="arena_feedback_headshot">要害命中</string>
     <string name="arena_feedback_guarded_hit">对手护身 · 伤害减弱</string>
     <string name="arena_feedback_cut_deflected">刀路被封 · 改走另一刀路或等收势</string>

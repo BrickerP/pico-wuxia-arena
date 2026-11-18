@@ -3,13 +3,13 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "veteran_prepared_png.glb",
-    "sha256": "ac32663ec50625f3bc283086ec96c40468f1b48b505e460e42b0c24933fe8f44",
-    "bytes": 17521260
+    "sha256": "28568e810edfbfc5be5ea1fe5ad62b7a37722722149a83608905105c5a9a2a25",
+    "bytes": 17524508
   },
   "output": {
     "path": "veteran.glb",
-    "sha256": "3e703ebbb2ce1672260aa240d9d20eacc25b0d7925ed783f800ee4528248d88e",
-    "bytes": 45431988
+    "sha256": "8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d",
+    "bytes": 45435232
   },
   "encoder": {
     "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -1666,8 +1666,8 @@
     }
   ],
   "preservation": {
-    "non_image_bufferViews_byte_identical": 2562,
-    "accessors_semantics_and_payloads_unchanged": 2562,
+    "non_image_bufferViews_byte_identical": 2563,
+    "accessors_semantics_and_payloads_unchanged": 2563,
     "non_image_json_semantics_identical": true,
     "images": [
       {
@@ -2014,7 +2014,7 @@
     "hit_body": "c1aae7ebf1b29e5ec9ecbc540d1f3a96120f395bc7f1a6273f5350346a069066",
     "hit_head": "7cede93dcc56665b77a1b0f3c3d2de548b63d50be9024494e6741d2d00b22af8",
     "hit_side": "4a0ba913d37e71e84bc32110a5039c4e7ebe327c1c07ee9d66c017eab0e07ddf",
-    "idle": "15bf742756bb8b030e441d6e9611b7c6ed13c52f05ff2af0e0a3358f51e04993",
+    "idle": "2d6543f3d0d05e5ad717099d0753905ad78e85adb0c3ce4aa21c66e03c6a7aa0",
     "walk": "8ed4c1a47bdc286dc9f3f0ae218465cc363b810f04a1d96210fbdca16c881eb2",
     "attack_overhead": "136a8f34c1f6493f508359fa6b9c9c486da84c5e7a13b7255e2fdabd03dac43c",
     "attack_left": "5be4ccb4bf9ab0a06999a9faaeafa6f1a23960efc2ae3a1667196abf6ef20ed9",
