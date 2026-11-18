@@ -131,9 +131,10 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+      "keyframe_semantics_sha256": "15bf742756bb8b030e441d6e9611b7c6ed13c52f05ff2af0e0a3358f51e04993",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "e0ff4fc269a77d5051368fa1af718d1b906432a54bc4e61decca3105635e7eb2",
+      "pre_prepared_wrist_constraint_semantics_sha256": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
       "retargeted_clip_sha256": "c3446a4abaa4e5b7e5f99d4147bb534765715cedb0dc205cfdb3eba94b554d30"
     },
     {
@@ -149,7 +150,7 @@
         "LINEAR",
         "STEP"
       ],
-      "keyframe_semantics_sha256": "e21e279da01f3cddf5835d5d2943703109eb6ed5018043434051dd09abc31e43",
+      "keyframe_semantics_sha256": "8ed4c1a47bdc286dc9f3f0ae218465cc363b810f04a1d96210fbdca16c881eb2",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "192b2d51f629c61a56fb70b2741e6272aadcc8bb58998e8e96cb9f0385a9dc50",
       "pre_prepared_wrist_constraint_semantics_sha256": "11cf03bf747407a53854fedcbc92ec202387e790499eb6d5ff97ca311f3b7432",
@@ -167,7 +168,7 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "322503a226ecadec0712266deeef342f1956ffa988689dbf5de018b0102ded80",
+      "keyframe_semantics_sha256": "5f4e67a046ea780294cb4ae8c03e3c5f17c1bc9089c5693cda58b8ea190a8ef9",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "c7530578c024230a8f5b9d88cb7fbc48cf7cbb8d5d324044549c4e3763d0e7d3",
       "pre_prepared_wrist_constraint_semantics_sha256": "dd474fcf6df1c332e6a75084a0439d77d774f255d85186f4c95eddf633d0925e",
@@ -185,7 +186,7 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "8b537561a0e286e8b8ed81e03b130446eb631eb8cc86751133f262cd686564e6",
+      "keyframe_semantics_sha256": "5be4ccb4bf9ab0a06999a9faaeafa6f1a23960efc2ae3a1667196abf6ef20ed9",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "20c68babedb9696a8d24d487c55a37969517731a0bd39aee90ed9459e87e7374",
       "pre_prepared_wrist_constraint_semantics_sha256": "032a552e6f9ce62293882637119cfb67d5a4ef5269a94151e0399dcc99eeaeaf",
@@ -203,7 +204,7 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "bbf4a9b48175d96c0f0bee99bfd93296822e3b3a08cebe802f36ea5292c187b4",
+      "keyframe_semantics_sha256": "0a1cb1e881cf52ae49a18707ab2959bd3b13661835dd790ae039e9af40f29c4d",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "d5e527ab81c7a7212cb04068d2bb98aefad49640ec3a3b598e33a71bd4d057c0",
       "pre_prepared_wrist_constraint_semantics_sha256": "87b20c452046c9d1faa58479ea2830a3e6b4146423657fcdd2f3afdea31def36",
@@ -391,18 +392,18 @@
   "outputs": [
     {
       "file": "veteran_body.glb",
-      "bytes": 14400228,
-      "sha256": "49e3cc7c1d922010307a804c736df0754a095c913dd7d8e5e68edbc1988e666c"
+      "bytes": 14428180,
+      "sha256": "9fa023a34c6628961877ed58f3fd9ee7c0745e6cb2f53bda96c05e19099a05f4"
     },
     {
       "file": "veteran_prepared_png.glb",
-      "bytes": 17493304,
-      "sha256": "4be13e758ddc9e5608f39d6742523f82b30db6de15fbb148dbda559fd99458c3"
+      "bytes": 17521260,
+      "sha256": "4c8213ee8948a0481e907544a1c3f522f94331c5889ce3b0f15ddd086152017d"
     },
     {
       "file": "veteran.glb",
-      "bytes": 45404032,
-      "sha256": "0539571e913920d745b6e52035011909f60a3c05115a7800c640d2882578aae6"
+      "bytes": 45431984,
+      "sha256": "9cdaf7f7f35b49920380758001b346c238e16d16f277d8753c1e2e5dffb7b756"
     }
   ],
   "finger_rotation_calibration": {
@@ -30373,17 +30374,17 @@
   },
   "prepared_png": {
     "file": "veteran_prepared_png.glb",
-    "bytes": 17493304,
-    "sha256": "4be13e758ddc9e5608f39d6742523f82b30db6de15fbb148dbda559fd99458c3"
+    "bytes": 17521260,
+    "sha256": "4c8213ee8948a0481e907544a1c3f522f94331c5889ce3b0f15ddd086152017d"
   },
   "runtime_texture_encoding": {
     "file": "veteran_texture_encoding.json",
-    "sha256": "3175835dfb873598940f84fe7d54026102fd25ea6c52c337239526cb3bf36383",
-    "prepared_png_sha256": "4be13e758ddc9e5608f39d6742523f82b30db6de15fbb148dbda559fd99458c3",
-    "encoded_sha256": "0539571e913920d745b6e52035011909f60a3c05115a7800c640d2882578aae6",
+    "sha256": "088c31b57059e37396b9543c7c16f3f24eb74be2f08713e8d5bbd4aabbbbbfbe",
+    "prepared_png_sha256": "4c8213ee8948a0481e907544a1c3f522f94331c5889ce3b0f15ddd086152017d",
+    "encoded_sha256": "9cdaf7f7f35b49920380758001b346c238e16d16f277d8753c1e2e5dffb7b756",
     "preservation": {
-      "non_image_bufferViews_byte_identical": 2550,
-      "accessors_semantics_and_payloads_unchanged": 2550,
+      "non_image_bufferViews_byte_identical": 2562,
+      "accessors_semantics_and_payloads_unchanged": 2562,
       "non_image_json_semantics_identical": true,
       "images": [
         {
@@ -30706,6 +30707,6 @@
   },
   "attack_profiles": {
     "file": "veteran_attack_profiles.json",
-    "sha256": "e8fe46265ea79d987a10e7852a9edf034f6e874f62450cba45ac938067790391"
+    "sha256": "227a050ec72d15afbbb088ee0971b472c1f5be360e05c6290cdc3a00b6d5fa80"
   }
 }

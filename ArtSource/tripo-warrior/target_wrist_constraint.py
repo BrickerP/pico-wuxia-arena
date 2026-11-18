@@ -399,21 +399,21 @@ def bake_empty_hand(doc, binary):
     return binary
 
 
-def author_left_cut_wrist(doc, binary, tip_local):
+def author_mounted_wrist(doc, binary, tip_local, clip):
     _, parents, order = hierarchy(doc)
     names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
     upper, fore, hand, knuckle = [names[name] for name in ('R_Upperarm', 'R_Forearm', 'R_Hand', 'R_Mid1')]
-    clip = next(clip for clip in doc['animations'] if clip['name'] == 'attack_left')
-    tracks, original = animation_tracks(doc, binary, clip)
+    tracks, original = animation_tracks(doc, binary, clip, require_attack_range=False)
     times = sorted({struct.unpack('<f', struct.pack('<f', t))[0] for t in
-                    list(original) + [frame/60 for frame in range(106)]})
+                    list(original) + [frame/60 for frame in range(math.ceil(min(original)*60), math.floor(max(original)*60)+1)]})
     curves = {upper: [], hand: []}
     for time in times:
         world = pose_world(doc, tracks, time, parents, order)
         shoulder, elbow, wrist, middle = [world[i].translation for i in (upper, fore, hand, knuckle)]
         lower, palm = wrist - elbow, middle - wrist
         turn = palm.rotation_difference(lower)
-        weight = amount(time, (.04, .40, 1.14, 1.67))
+        weight = (1. - amount(time, (.10, .42, 1.21, 1.69))
+                  if clip['name'] in ('attack_overhead', 'attack_right') else 1.)
         straightening = Quaternion().slerp(turn, weight * max(0., 1. - math.radians(55) / max(turn.angle, 1e-8)))
         tip = world[hand] @ tip_local
         rotated_tip = wrist + straightening @ (tip - wrist)
@@ -450,7 +450,9 @@ def prepare_character_hands(body_path, combined_path):
     for path in (body_path, combined_path):
         doc, binary = read_glb(path)
         binary = bake_empty_hand(doc, binary)
-        binary = author_left_cut_wrist(doc, binary, tip_local)
+        for clip in doc['animations']:
+            if clip['name'] in ('idle', 'walk', 'attack_left', 'attack_right', 'attack_overhead'):
+                binary = author_mounted_wrist(doc, binary, tip_local, clip)
         current = {a['name']:animation_signature(doc, binary, a) for a in doc['animations']}
         require(signatures is None or signatures == current, 'Body and mounted weapon have different animation curves')
         signatures = current
