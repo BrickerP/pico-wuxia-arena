@@ -399,12 +399,58 @@ def bake_empty_hand(doc, binary):
     return binary
 
 
-def prepare_empty_hands(body_path, combined_path):
+def author_left_cut_wrist(doc, binary, tip_local):
+    _, parents, order = hierarchy(doc)
+    names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
+    upper, fore, hand, knuckle = [names[name] for name in ('R_Upperarm', 'R_Forearm', 'R_Hand', 'R_Mid1')]
+    clip = next(clip for clip in doc['animations'] if clip['name'] == 'attack_left')
+    tracks, original = animation_tracks(doc, binary, clip)
+    times = sorted({struct.unpack('<f', struct.pack('<f', t))[0] for t in
+                    list(original) + [frame/60 for frame in range(106)]})
+    curves = {upper: [], hand: []}
+    for time in times:
+        world = pose_world(doc, tracks, time, parents, order)
+        shoulder, elbow, wrist, middle = [world[i].translation for i in (upper, fore, hand, knuckle)]
+        lower, palm = wrist - elbow, middle - wrist
+        turn = palm.rotation_difference(lower)
+        weight = amount(time, (.04, .40, 1.14, 1.67))
+        straightening = Quaternion().slerp(turn, weight * max(0., 1. - math.radians(55) / max(turn.angle, 1e-8)))
+        tip = world[hand] @ tip_local
+        rotated_tip = wrist + straightening @ (tip - wrist)
+        aim = (rotated_tip - shoulder).rotation_difference(tip - shoulder)
+        for index, delta in ((upper, aim), (hand, straightening)):
+            if weight == 0.:
+                row = tuple(sample_track(tracks[index, 'rotation'], time, True))
+            else:
+                quat = (world[parents[index]].to_quaternion().inverted() @ delta @ world[index].to_quaternion()).normalized()
+                row = (quat.x, quat.y, quat.z, quat.w)
+            if curves[index] and sum(x*y for x,y in zip(curves[index][-1], row)) < 0:
+                row = tuple(-value for value in row)
+            curves[index].append(row)
+    binary, grid = append_accessor(doc, binary, [(t,) for t in times], 'SCALAR')
+    for channel in clip['channels']:
+        index = channel['target']['node']
+        if channel['target']['path'] == 'rotation' and index in curves:
+            binary, values = append_accessor(doc, binary, curves[index], 'VEC4')
+            channel['sampler'] = len(clip['samplers'])
+            clip['samplers'].append({'input':grid, 'output':values, 'interpolation':'LINEAR'})
+    return binary
+
+
+def prepare_character_hands(body_path, combined_path):
+    mounted, mounted_binary = read_glb(combined_path)
+    _, parents, order = hierarchy(mounted)
+    names = {node.get('name'): i for i, node in enumerate(mounted['nodes'])}
+    clip = next(a for a in mounted['animations'] if a['name'] == 'attack_left')
+    tracks, _ = animation_tracks(mounted, mounted_binary, clip)
+    world = pose_world(mounted, tracks, 0., parents, order)
+    tip_local = world[names['R_Hand']].inverted() @ world[names['Blade_Tip']].translation
     outputs = []
     signatures = None
     for path in (body_path, combined_path):
         doc, binary = read_glb(path)
         binary = bake_empty_hand(doc, binary)
+        binary = author_left_cut_wrist(doc, binary, tip_local)
         current = {a['name']:animation_signature(doc, binary, a) for a in doc['animations']}
         require(signatures is None or signatures == current, 'Body and mounted weapon have different animation curves')
         signatures = current

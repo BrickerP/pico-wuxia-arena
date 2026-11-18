@@ -35,7 +35,18 @@ data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val body
     }
 }
 
-data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, val gripTravel: Vector3)
+data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, val gripOrigin: Vector3) {
+    internal fun thrustAt(grip: WeaponGrip, enemyYaw: Float): Boolean {
+        val toward = Vector3(-kotlin.math.sin(enemyYaw.toDouble()), 0.0, -kotlin.math.cos(enemyYaw.toDouble()))
+        val displacement = grip.position - gripOrigin
+        val forward = displacement.dot(toward)
+        if (forward < 0.10 || forward * forward < 0.5 * displacement.dot(displacement)) return false
+        val axis = playerBladeAxis(grip)
+        val blade = axis.tip - axis.base
+        val pointForward = blade.dot(toward)
+        return pointForward > 0.0 && pointForward * pointForward >= 0.5 * blade.dot(blade)
+    }
+}
 
 data class MotionStrike(val id: Long, val zone: HitZone, val power: Double, val contact: MotionContact)
 
@@ -206,7 +217,7 @@ class PlayerCombatResolver {
             val travel = if (tipTravel.dot(tipTravel) >= baseTravel.dot(baseTravel)) tipTravel else baseTravel
             if (travel.length() >= MIN_STRIKE_DISPLACEMENT) {
                 qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4), travel,
-                    handPosition - origin.observedGripPosition)
+                    origin.observedGripPosition)
                 lastStrikeAt = sample.stamp.receivedAtNanos
             }
         }

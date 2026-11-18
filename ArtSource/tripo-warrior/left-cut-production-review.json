@@ -1,0 +1,228 @@
+{
+  "binding_sha256": "b9f40eba1d84c7c4d2049022c9e587b117c168193c9b4727fb26f1e5b5cd852b",
+  "characters": [
+    {
+      "id": "base",
+      "outputs": [
+        {
+          "file": "base_body.glb",
+          "bytes": 55171528,
+          "sha256": "0702c37414966b5893d2ad1ba5180a6182454aba9417c9b21e1c286299670554"
+        },
+        {
+          "file": "base_prepared_png.glb",
+          "bytes": 58264652,
+          "sha256": "fb60554febed169aad9e9226db84b50ebd9505c9b527ec18a688fb27352d8973"
+        },
+        {
+          "file": "base.glb",
+          "bytes": 75813888,
+          "sha256": "a15678464505fe01f5decfe8f6ea2a599a8c8a9db6a74211325fa1b6757694c3"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "cf998adefca7a2a131e779c50c61db20e314c415d11025f0d931a9a57b8c7181",
+        "turn": "24b04d1fa21d37834d1d11182c9a1d11ef0c789e839ddb3142172464b013d317",
+        "hit_body": "c371f4b7f9ac3995dbba02eea1ccf30c119bc9e6f123749bd870ba0efa9d67bb",
+        "hit_head": "34e6d0a77074022933fa011339c94a420195765c1a57d69a0610e98179f25de3",
+        "hit_side": "3355da2ec9dbaedd18e3f6212f644b0187045bba2b41bc92a4170ffdff74d340",
+        "idle": "c53cb8185c579e8ac8ddaa164e4f25a0d3e4e827f2c7030b38bbc924a390274e",
+        "walk": "0d3c6370a4ce6b30e1fef97b474e32db9f1a048c516ac753aac8e17afd1ad56e",
+        "attack_overhead": "8ef04c11c906a64155f36d6b9417dba7e9f3ad906599cb29b42b4e8e289d5e9e",
+        "attack_left": "db5514681be485952efd6fded4a4c7aaf77850ba25f7fd731f640719701352a7",
+        "attack_right": "4e540c15e53b46ef1ea5b8d7da69c818d45995c4544481d1d2ebab9c0bc25c39"
+      },
+      "clip_semantic_signatures": {
+        "fall": "8a59e8f8feff3803048248699f7e6cc1141bb4dd44afce97d6970d95ae438c6a",
+        "turn": "9688f47cc783f05dd4ab93aebb53fa4aa21907fbfe07b56ec0685f24d9af3e28",
+        "hit_body": "a022035f4e7d21779fa6c50eb2d6ed2c98ef5987f1400a5381b847634b91a858",
+        "hit_head": "008817cdd8ca3e525813f9d385358eed07004250a39e9e8118e272d43051021a",
+        "hit_side": "e9d4fb026329fde6c78163c0a6e89086280542589adf5652b26cc88b9b276909",
+        "idle": "74d673c159e8e44bb0aa7659ec886bd5b7e4bc747a0918cb59a21796e5f404ab",
+        "walk": "e25a66d3ff8fff1dc30565417754f4da20219574bd2555ef99274cb03ca352ac",
+        "attack_overhead": "aef7eb2ed159290c7806fafe776a9aad172a086b0dca990c07d6a337598aa62e",
+        "attack_left": "43f258b2300727aec4c3f911df7a0ac7fb941392bb2e0ad584c1feea851b9025",
+        "attack_right": "df6c2ee26f66f4658ca0a99094bff090b6325d2d8258ee1686aa5fdd3343c8c9"
+      },
+      "texture_encoding_manifest_sha256": "216aecbf6c0caa3f58482ad05ff6fd1ea1ffd992de19a02f3eeeb47990a517f6",
+      "attack_profiles_sha256": "7d0a939b5327e74d04abdef9cebae39cc6f47c7cfd7e40a3d25e004b7b2db100"
+    },
+    {
+      "id": "indigo",
+      "outputs": [
+        {
+          "file": "indigo_body.glb",
+          "bytes": 14907784,
+          "sha256": "bf8e346469f451dc12b409de87c7139c4ff557686b8700732b919f924c5a0ada"
+        },
+        {
+          "file": "indigo_prepared_png.glb",
+          "bytes": 18000856,
+          "sha256": "9cb005ea2d258ec3517e5a93c0c16c8fc475a25fd06abe8712d90387c7fe9321"
+        },
+        {
+          "file": "indigo.glb",
+          "bytes": 43976076,
+          "sha256": "255e50bc1b56dc57af6b67abb871b44e802af3e955acdeac35a2a714385553a4"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "59c150722b3eca93cd0bac4bfdeea4be8a5e839ad82e7b42e5ceddb467a079ba",
+        "turn": "9ebd2c4a52b91eb92bcadf406e47744f91b1ae1c7876bc4aa0cf4277f9af4095",
+        "hit_body": "be2f508e6cbc0f32a1d63e872e2511eb6e1838d436264725ba5e52942adf2b88",
+        "hit_head": "09e09f1857cf6bce6ca4aa96662a3eb1495a830c6f6b8b8a284bf882bb845df5",
+        "hit_side": "415b1291b6a5d814878cc4768f06ef2928f225adeeeb32d7518e82314b78b04b",
+        "idle": "c5a1762585315ac3331d605a3e909f243eec10091e4986cad4c9ea151d288dd4",
+        "walk": "85db1cb5bcee4beeb66a2f0ba91aed2e1a14cf926abc52e116c893455714c541",
+        "attack_overhead": "2ac46bf6e441cc4aac63c490add2f2ed8719920c9ad8824163883cc39986b292",
+        "attack_left": "b227b7d99167746b1379df59dd4bf13114bd5e3d22e9d56798126a2d598fc8a3",
+        "attack_right": "b00441d0455954a3e7f2a7941ffa55cadfac65e144bdb2c780c0a8983a4dad6d"
+      },
+      "clip_semantic_signatures": {
+        "fall": "9b4ec786d9805d56d62fd02fcc304506732532fdc9308fc260cf9e6eebf7c38d",
+        "turn": "8deb53ea53a6ac1c4a81d70cf136ea749c54728aafa562a88a3d699b1ffef085",
+        "hit_body": "d8512318f1f3bf57d5622334826a7236127d4f240801a83d3f1009e030aa8356",
+        "hit_head": "279cb7fb02fe24e75f80c61128ddc3c55f9ff9e4b62d7911b6c7a5930ee29c26",
+        "hit_side": "963f46a0ae4184661b6d16bda44b9e3c67ce5cf94a34ab4bf65cb7ddd20c7176",
+        "idle": "a77939d34c8711b9bd6f0d40116831b0395e69ff558b942e8724a1e88436342d",
+        "walk": "e2b5e2f3349f74d101e5b596eb6b67ed1c76a593f75ed3bf96bfde7b06e5af51",
+        "attack_overhead": "98e1de5dd7b9936c8f7372a3b97e09e022d1e1d8e95662241c8824785b4d7db5",
+        "attack_left": "6943502ab895d21be0f13a642b4f7a8610ae9bff2a552823a527b0b8a2f6709e",
+        "attack_right": "47e960a9ccaf1f05c40cfb16a33e876b87baf1dc1434d2a21b857c826b50b257"
+      },
+      "texture_encoding_manifest_sha256": "6c26838462fda0228873061a483ed88c6656ad795a4f143aa71c8ec192d0ab15",
+      "attack_profiles_sha256": "830b34168b3922054fec3e2e4121789ad0f2e58effc19668ff89647e0f52530c"
+    },
+    {
+      "id": "veteran",
+      "outputs": [
+        {
+          "file": "veteran_body.glb",
+          "bytes": 14400228,
+          "sha256": "49e3cc7c1d922010307a804c736df0754a095c913dd7d8e5e68edbc1988e666c"
+        },
+        {
+          "file": "veteran_prepared_png.glb",
+          "bytes": 17493304,
+          "sha256": "4be13e758ddc9e5608f39d6742523f82b30db6de15fbb148dbda559fd99458c3"
+        },
+        {
+          "file": "veteran.glb",
+          "bytes": 45404032,
+          "sha256": "0539571e913920d745b6e52035011909f60a3c05115a7800c640d2882578aae6"
+        }
+      ],
+      "hand_track_signatures": {
+        "fall": "074f74a8c84077f59f778d32c3f49af5742e1ff7dd285db8495ca22da0926db3",
+        "turn": "02cfcb0127357f3f755cab6a89231356a109b9d2efdd6c554df054a06b46d10c",
+        "hit_body": "22529dae9cf579ae7b20cf763fb82b4eef20ad964ec03432af675624f7bc245f",
+        "hit_head": "364cfa1e90da88f80f407e4564e21047651f9690153068d49692d2ddd39dd73e",
+        "hit_side": "7d88da3479a2a2e8db304ec2777ff627b12820ff6e0f057ca177913083be1527",
+        "idle": "ab0d3c025548051d21e783c895608983a66b4539588ee7d12b7e030fb50f5744",
+        "walk": "f92b52beec4b73e023f68a14a9445f645fb5010f5d2ef65e9c508c88bc51318d",
+        "attack_overhead": "1eb51b3c0984172c19205cc38a4df512abd9a34156f60476d0ad10aedb88ab2d",
+        "attack_left": "93cba19531a76469785491c993f3ef2cece6d9eb4d7c3708b099a48770905fe4",
+        "attack_right": "4da2a7dc9ff21d9c18ed6d90d3d87cb11edb6c90cf819c32fe7fd0da1d26c1c7"
+      },
+      "clip_semantic_signatures": {
+        "fall": "e455c4d8a891a648c219f05065e26d7f9512357bba90a36ca17c0aeb32b3f172",
+        "turn": "4cb99e15ded6775ba905ff2f7dd8deb427e5447a267e0add48ad0a48496f8194",
+        "hit_body": "c1aae7ebf1b29e5ec9ecbc540d1f3a96120f395bc7f1a6273f5350346a069066",
+        "hit_head": "7cede93dcc56665b77a1b0f3c3d2de548b63d50be9024494e6741d2d00b22af8",
+        "hit_side": "4a0ba913d37e71e84bc32110a5039c4e7ebe327c1c07ee9d66c017eab0e07ddf",
+        "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
+        "walk": "e21e279da01f3cddf5835d5d2943703109eb6ed5018043434051dd09abc31e43",
+        "attack_overhead": "322503a226ecadec0712266deeef342f1956ffa988689dbf5de018b0102ded80",
+        "attack_left": "8b537561a0e286e8b8ed81e03b130446eb631eb8cc86751133f262cd686564e6",
+        "attack_right": "bbf4a9b48175d96c0f0bee99bfd93296822e3b3a08cebe802f36ea5292c187b4"
+      },
+      "texture_encoding_manifest_sha256": "3175835dfb873598940f84fe7d54026102fd25ea6c52c337239526cb3bf36383",
+      "attack_profiles_sha256": "e8fe46265ea79d987a10e7852a9edf034f6e874f62450cba45ac938067790391"
+    }
+  ],
+  "player_weapon": {
+    "schema_version": 1,
+    "source": {
+      "source": "../refinement/weapon/stage2/dao_grip_refined.glb",
+      "source_sha256": "a09ba1f7f857d099effe6dd44c0970cbf9cf030fb4397b50007502e3e197b637"
+    },
+    "runtime_texture_encoding": {
+      "format": "KHR_texture_basisu",
+      "settings": {
+        "codec": "uastc",
+        "uastc_quality": 3,
+        "threads": 2,
+        "zstd": 18,
+        "mipmap_filter": "lanczos4",
+        "full_mips": true,
+        "normal_mode": false,
+        "normalize": false,
+        "rdo": false,
+        "orientation": "top-left",
+        "pixel_resize": false,
+        "mip_source": {
+          "same_axis": "ktx-cli-generate-mipmap",
+          "different_axes": "explicit-axis-lanczos4-v1"
+        },
+        "axis_mips": {
+          "version": 1,
+          "precision": "float64",
+          "support": 4,
+          "centers": "half-pixel",
+          "antialias": "support-scaled-by-source/target",
+          "sequence": "S-then-T-recursive-unquantized-clipped-linear",
+          "color_filter": "IEC-sRGB-EOTF-linear-filter-OETF",
+          "alpha_filter": "linear-straight",
+          "quantization": "clip-0-1-round-half-up-uint8",
+          "top": "original-decoded-pixels"
+        }
+      },
+      "helper": {
+        "source": "../refinement/pbr-compression/compress_pbr.py",
+        "source_sha256": "ba05ede986707b9924181e944079f7770252a96d1a40bdb3f412246c021277c4"
+      },
+      "encoder": {
+        "source": "../refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
+        "source_sha256": "abd30109cbf84859b2f34951f7967e801111abadaac588468d98ed075100ad37",
+        "version": "ktx version: v4.4.2",
+        "libktx_sha256": "bd26f0747b7a800384b7b3c9221dafeb3943ef565a560ab98238cade597c0947"
+      },
+      "release_identity": {
+        "source": "../refinement/pbr-compression/tooling/download-identity.json",
+        "source_sha256": "ffba59d24c91dab8b30da6758969674d071f0e5328da4a7571130a141756a57a"
+      },
+      "host_python": {
+        "source": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+        "source_sha256": "bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e",
+        "version": "3.9.6",
+        "pillow_version": "11.3.0",
+        "numpy_version": "2.0.2"
+      }
+    },
+    "output": {
+      "file": "dao_grip.glb",
+      "bytes": 4332212,
+      "sha256": "db28d4269cacb45db2cedf4f564d03538484d6471f7b20966b9399ba697f69d0"
+    },
+    "texture_encoding_manifest": {
+      "file": "dao_grip_texture_encoding.json",
+      "sha256": "96beab73e8a84d03f416ce740e38a1250e046b9e7bae750f2beb257242d7a8ab"
+    },
+    "manifest_sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f"
+  },
+  "decision": "approved",
+  "scope": "Left cut mounted-hand path for base, indigo and veteran. Guard entry/exit and remaining nine clips preserved. Visible blade and collision derive from the same encoded model.",
+  "acceptance": {
+    "sample_hz": 60,
+    "poses": 318,
+    "tested_clip": "attack_left",
+    "corrected_interval_seconds": [
+      0.4,
+      1.14
+    ],
+    "maximum_wrist_bend_degrees_in_interval": 55.01,
+    "steel_to_body_crossing_frames": 0,
+    "hand_or_forearm_to_core_crossing_frames": 0,
+    "device_validation": "pending"
+  }
+}

@@ -15,6 +15,25 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_left_cut_wrist_and_crossing_direction(self):
+        from attack_profiles import animation_tracks, hierarchy, pose_world
+        for actor in ('base', 'indigo', 'veteran'):
+            with self.subTest(actor=actor):
+                doc, binary = library.read_glb(library.HERE / 'library' / (actor + '.glb'))
+                names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
+                _, parents, order = hierarchy(doc)
+                clip = next(a for a in doc['animations'] if a['name'] == 'attack_left')
+                tracks, _ = animation_tracks(doc, binary, clip)
+                for time in (.40, .65, 5/6, .90, 1.10):
+                    world = pose_world(doc, tracks, time, parents, order)
+                    elbow, wrist, knuckle = [world[names[name]].translation
+                                              for name in ('R_Forearm', 'R_Hand', 'R_Mid1')]
+                    self.assertLess(math.degrees((wrist-elbow).angle(knuckle-wrist)), 55.1)
+                    if time == .90:
+                        self.assertLess(world[names['Blade_Tip']].translation.x, -.50)
+                    if time == 1.10:
+                        self.assertGreater(world[names['Blade_Tip']].translation.x, .50)
+
     def test_published_empty_wrist_does_not_fold_into_the_forearm(self):
         from attack_profiles import animation_tracks, hierarchy, pose_world
         for actor in ('base', 'indigo', 'veteran'):
