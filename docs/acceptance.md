@@ -15,4 +15,15 @@
 
 录像保留原始时间顺序，记录 APK 标识；宿主录屏只用于评估可见动作，不用于估算头显帧率。
 
-2026-11-18：[本轮 APK 与连续录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)。原生代码 `1244f83`，安装包 SHA256 `dcafb901aa8e8f61fdfe25fd0cc4e5bfc6644ec2ab58aebefce605c2c44a1527`。落点依旧要看画面：深色刀身叠在屋檐和深色衣料上时轮廓不够清楚，右手校准后可见，但左手外观与实体触感仍待验。
+2026-11-18：[原包与连续录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)。原生代码 `1244f83`，安装包 SHA256 `dcafb901aa8e8f61fdfe25fd0cc4e5bfc6644ec2ab58aebefce605c2c44a1527`。
+
+## 修复候选（未发布）
+
+| 检查项 | 证据与判定 |
+| --- | --- |
+| 玩家手 | [同机位左右手：旧闭握、新闭握、新空手](../ArtSource/refinement/presentation/native-player-grip-pose-comparison-2026-11-18.jpg)。每只手闭握的非相邻三角面自交 136→0，柄芯交叉 10→0。指腹仍与表层缠绳局部相交，关节外观和材质未作最终验收。 |
+| 对手 | [三招空手腕对照](../ArtSource/refinement/presentation/opponent-empty-wrist-2026-11-18.jpg)。三名对手重导，4,281 行碰撞采样未变；原有老兵前臂/胸甲一处相交仍在。持刀右腕的候选未过刀路/穿插检查，没有采用。 |
+| 同样横扫 64 次 | 原包通关 1010 分、余血 80。候选 A（`70e9b4bd`）仍通关 767 分、余血 60，失败。候选 B（`08b48fce`）一轮首场落败、35 分；只能证明这条轨迹不保证赢。这局没到第三人，不能证明其护甲玩法可读或好玩。 |
+| 流畅度 | **未通过。** 同机同段、首敌固定动作 10 秒：原包→A 的应用空间帧间隔 P50 39.08→42.28 ms，P95 88.03→79.08 ms，最大 106.71→348.31 ms。最慢帧中 relayout 的 Binder 调用用了 323.7 ms。这不是 GPU 帧率，亦不能用作 B 或头显的成绩。 |
+
+候选 B 的原生代码为 `dd04b19`。能完成一局、甲敌能挡住一刀，以及玩家觉得招式顺畅可信，是三项不同的验收。
