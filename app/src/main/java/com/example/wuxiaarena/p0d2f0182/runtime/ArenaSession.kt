@@ -19,6 +19,8 @@ import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.combat.AttackOutcome
+import com.example.wuxiaarena.core.combat.CutLine
+import com.example.wuxiaarena.core.combat.frontalCutLine
 import com.example.wuxiaarena.core.combat.HitZone
 import com.example.wuxiaarena.core.combat.PlayerCombatResolver
 import com.example.wuxiaarena.core.combat.PlayerMotionFrame
@@ -46,7 +48,7 @@ typealias HandPosePresenter = (TrackingSnapshot?) -> Unit
 
 internal enum class TrialResult { READY, COUNTDOWN, FIGHTING, ROUND_CLEAR, VICTORY, DEFEAT }
 internal enum class CombatFeedback {
-    HIT, HEADSHOT, GUARDED_HIT, BLOCK, PARRY, DODGE, PLAYER_HIT,
+    HIT, HEADSHOT, GUARDED_HIT, CUT_DEFLECTED, BLOCK, PARRY, DODGE, PLAYER_HIT,
     GUARD_BREAK, SKILL, EXECUTION, LOW_STAMINA, LOW_FOCUS, OUT_OF_RANGE, TIMEOUT,
 }
 
@@ -1044,15 +1046,14 @@ internal class ArenaSession(
             return
         }
         stamina -= 12.0
-        combo = if (lastHitAt >= 0L && matchNanos - lastHitAt <= COMBO_WINDOW) minOf(combo + 1, 5) else 1
-        lastHitAt = matchNanos
+        val nextCombo = if (lastHitAt >= 0L && matchNanos - lastHitAt <= COMBO_WINDOW) minOf(combo + 1, 5) else 1
         val headshot = strike.zone == HitZone.HEAD
         val base = if (headshot) 30.0 else 25.0
-        val damage = (base * strike.power * (1.0 + (combo - 1) * 0.10)).roundToInt()
+        val damage = (base * strike.power * (1.0 + (nextCombo - 1) * 0.10)).roundToInt()
         val kind = if (headshot) CombatFeedback.HEADSHOT else CombatFeedback.HIT
-        dealDamage(damage, headshot && combo >= 3, kind, (if (headshot) 15 else 10) * combo,
-            events, strike.contact, frame.hand, zone = strike.zone)
-        focus = (focus + 12.0).coerceAtMost(100.0)
+        val cutLine = frame.swing?.let { frontalCutLine(it.travel, frame.headPosition - enemy, enemyYaw) }
+        dealDamage(damage, frame.swing != null && cutLine == null, kind, (if (headshot) 15 else 10) * nextCombo,
+            events, strike.contact, frame.hand, zone = strike.zone, cutLine = cutLine, nextCombo = nextCombo)
     }
 
     private fun dealDamage(
@@ -1064,13 +1065,15 @@ internal class ArenaSession(
         contact: MotionContact,
         hand: Hand,
         zone: HitZone = HitZone.BODY,
+        cutLine: CutLine? = null,
+        nextCombo: Int = 0,
     ) {
         val normal = kind == CombatFeedback.HIT || kind == CombatFeedback.HEADSHOT
         val poseFrame = effectiveEnemyPose()
         val attackOffsets = captureAttackOffsets()
         val outcome = combat.receivePlayerHit(
-            damage, breakGuard, armGuard = normal && combo >= 2 && !breakGuard,
-            counterDirection = nextAttackDirection(),
+            damage, breakGuard,
+            counterDirection = nextAttackDirection(), cutLine = cutLine,
         )
         if (outcome.none { it is EnemyCombatEvent.EnemyDamaged }) return
         heldEnemyPoseFrame = poseFrame
@@ -1078,7 +1081,13 @@ internal class ArenaSession(
         if (outcome.any { it is EnemyCombatEvent.HitReactionStarted && it.reaction == HitReaction.PLAYER_HIT }) {
             enemyHitZone = zone
         }
-        score += points
+        val damageResult = outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+        if (normal) {
+            combo = if (damageResult.guarded) 0 else nextCombo
+            lastHitAt = if (damageResult.guarded) -1L else matchNanos
+            if (!damageResult.guarded) focus = (focus + 12.0).coerceAtMost(100.0)
+        }
+        if (!damageResult.guarded) score += points
         if (kind == CombatFeedback.SKILL) {
             val enemy = enemyPosition
             val head = latestTrackingSnapshot?.head?.pose?.position
@@ -1087,9 +1096,12 @@ internal class ArenaSession(
                 if (away != null) enemyPosition = enemy + away * 0.35
             }
         }
-        val damageResult = outcome.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
         val guarded = damageResult.guarded
-        notifyFeedback(if (normal && guarded) CombatFeedback.GUARDED_HIT else kind)
+        notifyFeedback(when {
+            normal && guarded && damageResult.appliedDamage == 0 -> CombatFeedback.CUT_DEFLECTED
+            normal && guarded -> CombatFeedback.GUARDED_HIT
+            else -> kind
+        })
         collect(outcome, events)
         val impactKind = when {
             kind == CombatFeedback.SKILL -> CombatImpactKind.SKILL
@@ -1121,7 +1133,8 @@ internal class ArenaSession(
         hitStopNanos = maxOf(hitStopNanos, stop)
         if (stop > 0L) hitStopAwaitingPresentation = true
         if (fatal) deathHitStopNanos = hitStopNanos
-        if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK) return
+        if (kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK ||
+            kind == CombatImpactKind.GUARDED_HIT && appliedDamage == 0) return
         val away = contact.normal * -1.0
         val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }
         val direction = Vector3(away.x, 0.0, away.z).normalizedOrNull()

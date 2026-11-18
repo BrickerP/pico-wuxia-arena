@@ -35,7 +35,7 @@ data class EnemyContactPose(val head: Vector3, val bodyBottom: Vector3, val body
     }
 }
 
-data class QualifiedSwing(val id: Long, val power: Double)
+data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3)
 
 data class MotionStrike(val id: Long, val zone: HitZone, val power: Double, val contact: MotionContact)
 
@@ -197,12 +197,16 @@ class PlayerCombatResolver {
         val direction = movement.normalizedOrNull()
         updateStroke(sample, speed, direction, inside)
         strokeTravel += distance
-        val displacement = strokeOrigin?.let { maxOf(it.tip.distanceTo(tip), it.base.distanceTo(base)) } ?: 0.0
-        if (qualifiedSwing == null && speed >= MIN_STRIKE_SPEED && strokeTravel >= MIN_STRIKE_TRAVEL &&
-            displacement >= MIN_STRIKE_DISPLACEMENT &&
+        val origin = strokeOrigin
+        if (qualifiedSwing == null && origin != null && speed >= MIN_STRIKE_SPEED && strokeTravel >= MIN_STRIKE_TRAVEL &&
             elapsedSince(sample.stamp.receivedAtNanos, lastStrikeAt) >= STRIKE_COOLDOWN && nextStrikeId < Long.MAX_VALUE) {
-            qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4))
-            lastStrikeAt = sample.stamp.receivedAtNanos
+            val tipTravel = tip - origin.tip
+            val baseTravel = base - origin.base
+            val travel = if (tipTravel.dot(tipTravel) >= baseTravel.dot(baseTravel)) tipTravel else baseTravel
+            if (travel.length() >= MIN_STRIKE_DISPLACEMENT) {
+                qualifiedSwing = QualifiedSwing(nextStrikeId++, (speed / 2.2).coerceIn(1.0, 1.4), travel)
+                lastStrikeAt = sample.stamp.receivedAtNanos
+            }
         }
         val swing = qualifiedSwing?.takeIf { speed >= MIN_STRIKE_SPEED }
             ?.copy(power = (speed / 2.2).coerceIn(1.0, 1.4))

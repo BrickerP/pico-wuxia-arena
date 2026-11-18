@@ -88,6 +88,7 @@
     <string name="arena_feedback_hit">刀锋命中</string>
     <string name="arena_feedback_headshot">要害命中</string>
     <string name="arena_feedback_guarded_hit">对手护身 · 伤害减弱</string>
+    <string name="arena_feedback_cut_deflected">刀路被封 · 改走另一刀路或等收势</string>
     <string name="arena_feedback_block">格挡成功</string>
     <string name="arena_feedback_parry">弹反成功 · 反击良机</string>
     <string name="arena_feedback_dodge">闪避成功</string>
@@ -102,7 +103,7 @@
     <string name="arena_status_executing">斩决进行中</string>
     <string name="arena_status_execution_ready">对手已虚弱 · 可双手收刀前推处决</string>
     <string name="arena_status_skill_ready">气势已满 · 可双手收刀前推破势</string>
-    <string name="arena_status_enemy_guard">对手护身 · 先弹反或破势</string>
+    <string name="arena_status_enemy_guard">对手护身 · 留意先前的刀路</string>
     <string name="arena_status_countdown">调整站位与架势</string>
     <string name="arena_status_round_transition">下一场即将开始</string>
     <string name="arena_hint_ready">先读起手，再迎刀反击</string>
