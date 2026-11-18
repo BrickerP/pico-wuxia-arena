@@ -168,7 +168,7 @@
       "interpolation_modes": [
         "LINEAR"
       ],
-      "keyframe_semantics_sha256": "744e596735bd2e111fb63e33519a5b3e9feb0cb77849e9e5fb9ae49ca2e22312",
+      "keyframe_semantics_sha256": "d5e6b4807a22890afc101f63ee9ab1b3c0684b26d62d9319e6c4af68d0518c42",
       "max_default_local_matrix_difference": 0.0,
       "source_keyframe_semantics_sha256": "0bcaf588cae8035b53dd42f681b8893563adc03c793f44e860c888176cb95cb6",
       "pre_prepared_wrist_constraint_semantics_sha256": "09fc93f5beb7b670b963f6ed455050f1e2ffd2316f6d5218fe989dd05fdffec6",
@@ -392,18 +392,18 @@
   "outputs": [
     {
       "file": "indigo_body.glb",
-      "bytes": 14935756,
-      "sha256": "02826a66ba5b19e5f9dbd9eedeb2e8a8c1b3d835fad58f0c6d6f230381a1aac0"
+      "bytes": 14935752,
+      "sha256": "9f971cf4b46d5d6f0c31e2704f2284e737ac12cb75ae29213e068642e444ffe3"
     },
     {
       "file": "indigo_prepared_png.glb",
       "bytes": 18028824,
-      "sha256": "d5999632ce962b3422df506c083fcfcf6efe07c611145728582a9553fb7ac08b"
+      "sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6"
     },
     {
       "file": "indigo.glb",
-      "bytes": 44004048,
-      "sha256": "e9d8c4292929e400367ce4cad19f3c7573ad874c590fb36a7c34e13b9ced2efa"
+      "bytes": 44004044,
+      "sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f"
     }
   ],
   "finger_rotation_calibration": {
@@ -30288,13 +30288,13 @@
   "prepared_png": {
     "file": "indigo_prepared_png.glb",
     "bytes": 18028824,
-    "sha256": "d5999632ce962b3422df506c083fcfcf6efe07c611145728582a9553fb7ac08b"
+    "sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6"
   },
   "runtime_texture_encoding": {
     "file": "indigo_texture_encoding.json",
-    "sha256": "37bfc1662d6f9fbd11f948ace15be38e464c01fbc01acdc7aece3be75f7b603e",
-    "prepared_png_sha256": "d5999632ce962b3422df506c083fcfcf6efe07c611145728582a9553fb7ac08b",
-    "encoded_sha256": "e9d8c4292929e400367ce4cad19f3c7573ad874c590fb36a7c34e13b9ced2efa",
+    "sha256": "26ca52d0cc627533dc61dc070459b704e041e1d4740388378e2bd3f9be216c88",
+    "prepared_png_sha256": "5196caf61955390e14973191a3e320108dd211b20055c18c06dd1a459f5c07e6",
+    "encoded_sha256": "9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f",
     "preservation": {
       "non_image_bufferViews_byte_identical": 2598,
       "accessors_semantics_and_payloads_unchanged": 2598,
@@ -30620,6 +30620,6 @@
   },
   "attack_profiles": {
     "file": "indigo_attack_profiles.json",
-    "sha256": "4a4da5b2b7ad603f5e70b753444062131e53546cd22ae851c45b9089e7bf6bae"
+    "sha256": "ebda1699a27bb58366676457886d54b17aec1237660fc0bf6d6b644f900c520a"
   }
 }

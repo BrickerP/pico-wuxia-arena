@@ -41,6 +41,8 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 模拟器使用 **Right Controller Mode**，启用 **Controller Button Mode**，关闭 **Keyboard Mode** 文本模式。Shift+W/A/S/D/Q/E移动虚拟手柄，鼠标改变朝向与空间射线；攻击、格挡、弹反、闪避和技能经动作判定，按钮用于实际UI。没有Activity按键动作宏或HMD派生假手路径。
 
+要在模拟器里侧身躲刀，开局后关闭 **Controller Button Mode**，用不带 Shift 的 A/D 移动头部；带 Shift 的 A/D 移动的是虚拟手。需要点结算按钮时重新启用 Controller Button Mode。头显上直接移动身体。
+
 刚开启手柄时，如果手背和刀挡住视野，先不要开始试炼。点主视口的空白处，朝正前方，用 **Shift+D** 把右手移到右侧，**Shift+Q** 下移，**Shift+W** 前移，直到握柄在右下方、能完整看清对手。本轮模拟器实测右手相对头部向右 28 cm、向下 31 cm、向前 45 cm，头到握点约 61 cm；虚拟右手和刀柄的位置均与 SDK 握点一致。这只用于复现同一视角，不是游戏或真机的持刀限制。
 
 ## 既有体验与制作范围

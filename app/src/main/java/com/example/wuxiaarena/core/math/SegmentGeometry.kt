@@ -15,7 +15,7 @@ internal fun closestSegmentPoints(a0: Vector3, a1: Vector3, b0: Vector3, b1: Vec
     val bo = bUnit.dot(offset)
     val ao = aUnit.dot(offset)
     val ab = aUnit.dot(bUnit)
-    if (!listOf(bo, ao, ab).all { it.isFinite() }) return null
+    if (!bo.isFinite() || !ao.isFinite() || !ab.isFinite()) return null
     if (aLength == 0.0) return a0 to (b0 + bUnit * bo.coerceIn(0.0, bLength))
     if (bLength == 0.0) return (a0 + aUnit * (-ao).coerceIn(0.0, aLength)) to b0
     // The cross-product form avoids aa*bb-ab*ab cancellation for thin, almost parallel blades.

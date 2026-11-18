@@ -414,12 +414,15 @@ def author_mounted_wrist(doc, binary, tip_local, clip):
         turn = palm.rotation_difference(lower)
         weight = (1. - amount(time, (.10, .42, 1.21, 1.69))
                   if clip['name'] in ('attack_overhead', 'attack_right') else 1.)
-        straightening = Quaternion().slerp(turn, weight * max(0., 1. - math.radians(55) / max(turn.angle, 1e-8)))
+        correction = weight * max(0., 1. - math.radians(55) / max(turn.angle, 1e-8))
+        if clip['name'] == 'attack_overhead':
+            correction = max(correction, 1. - math.radians(74) / max(turn.angle, 1e-8))
+        straightening = Quaternion().slerp(turn, correction)
         tip = world[hand] @ tip_local
         rotated_tip = wrist + straightening @ (tip - wrist)
         aim = (rotated_tip - shoulder).rotation_difference(tip - shoulder)
         for index, delta in ((upper, aim), (hand, straightening)):
-            if weight == 0.:
+            if weight == 0. and correction == 0.:
                 row = tuple(sample_track(tracks[index, 'rotation'], time, True))
             else:
                 quat = (world[parents[index]].to_quaternion().inverted() @ delta @ world[index].to_quaternion()).normalized()

@@ -39,13 +39,13 @@ class AttackBankProfilesTest {
 
     @Test
     fun generatedDataMatchesThePublishedCanonicalBankIdentity() {
-        assertEquals("3759afe8562140978c2ba131a8b4389e704bade9abf7eab72cf38f48b76e2e7f", AttackBankProfileData.bindingSha256)
-        assertEquals("af8462b0ab8bbe4b631c019a32accfa24ff1c977a069a65f0f5eebf3fdae44cc", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
-        assertEquals("3cde1074b75935ec352ea7341bd225c5f20923c7ba5a71789cdf26b87fd8d889", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
-        assertEquals("e9d8c4292929e400367ce4cad19f3c7573ad874c590fb36a7c34e13b9ced2efa", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
-        assertEquals("4a4da5b2b7ad603f5e70b753444062131e53546cd22ae851c45b9089e7bf6bae", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
-        assertEquals("9cdaf7f7f35b49920380758001b346c238e16d16f277d8753c1e2e5dffb7b756", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
-        assertEquals("227a050ec72d15afbbb088ee0971b472c1f5be360e05c6290cdc3a00b6d5fa80", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
+        assertEquals("3af3db4bda95b31a0d68aef432833199f0f49d929a0e08a539e61a8ef4bf949d", AttackBankProfileData.bindingSha256)
+        assertEquals("582a24f5e1f6e9731793c15a3a301fde8fc5872de298cbb403471a2ac213691b", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").modelSha256)
+        assertEquals("e7154b060c290499e3718ed6c0c48691a72be0a04ac1ea4f2f6cd14ca3024bc5", AttackBankProfileData.characters.getValue("asset://models/opponents/base.glb").profileSha256)
+        assertEquals("9045f73821f7e7ab3618c4e421369c82224d99c294af1cdccaff29d4a731e41f", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").modelSha256)
+        assertEquals("ebda1699a27bb58366676457886d54b17aec1237660fc0bf6d6b644f900c520a", AttackBankProfileData.characters.getValue("asset://models/opponents/indigo.glb").profileSha256)
+        assertEquals("3e703ebbb2ce1672260aa240d9d20eacc25b0d7925ed783f800ee4528248d88e", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").modelSha256)
+        assertEquals("89964df77d781de0516aa3782ee97a3df3928f5eb29c9b6470465fefc9667691", AttackBankProfileData.characters.getValue("asset://models/opponents/veteran.glb").profileSha256)
     }
 
     @Test

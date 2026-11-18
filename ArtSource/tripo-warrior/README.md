@@ -6,7 +6,7 @@
 
 ## 当前正式组
 
-当前角色组的输入标识为 `3759afe8562140978c2ba131a8b4389e704bade9abf7eab72cf38f48b76e2e7f`，由 `motion_library.json` 和同组审批记录校验。三个目标骨架各自在已重定向的动作中修正空手腕，并在守势、走动与左斩中用肩带动持刀手。三路来招的起点与收势末端保留同一守势握点、刀根和刀尖；右斩和上劈的出刀中段不改。碰撞刀轨从最终模型重新导出。[守势正面与斜面](../refinement/presentation/mounted-guard-wrist-2026-11-18.jpg) · [左斩实际蒙皮对照](../refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg)。
+当前角色组输入标识为 `3af3db4bda95b31a0d68aef432833199f0f49d929a0e08a539e61a8ef4bf949d`，由 `motion_library.json` 和同组审批记录校验。三个目标骨架各自在已重定向的动作中修正空手腕，并在守势、走动与左斩中用肩带动持刀手。上劈蓄势与落刀时也由肩腕配合，刀尖保留从上而下的进攻弧线；右斩中段未改。三路来招的起点与收势末端保持相同的握点、刀根和刀尖。碰撞刀轨从最终模型重新导出。[守势对照](../refinement/presentation/mounted-guard-wrist-2026-11-18.jpg) · [左斩对照](../refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg) · [上劈对照](../refinement/presentation/overhead-wrist-2026-11-18.jpg)。
 
 本地 `7e1368fe…` APK已在模拟器Full Stage显示新base头／眼／颈、canonical idle、玩家刀和场景；约27秒完成场景与人物附着，未报NO_MEMORY。相比前一767bc0af包，仅控制面板pose两行调整，实际图确认完整且不挡脸刀；311项组合测试为该调整前结果，调整后仅重建与原生视觉验。三轮切换、近距材质、实际过渡与Space Pro内存／性能仍未验收。构建和版本证据见[验收清单](../../docs/acceptance.md)，公开GitHub预发行仍是旧包。
 

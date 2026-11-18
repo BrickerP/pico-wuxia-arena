@@ -11,31 +11,33 @@ import kotlin.math.sin
 
 /** A virtual Stage grip. SDK observations remain separate and are never modified. */
 data class WeaponGrip(val position: Vector3, val rotation: Quaternion) {
+    internal val unitRotation = requireNotNull(rotation.normalizedOrNull()) { "Weapon grip must be finite" }
     init {
-        require(position.isFinite() && rotation.normalizedOrNull() != null) { "Weapon grip must be finite" }
+        require(position.isFinite()) { "Weapon grip must be finite" }
     }
+    internal fun place(local: Vector3): Vector3 = position + unitRotation.rotateUnit(local)
 }
 
 /** The sole player contact shape, rigidly placed from the asset-derived local capsules. */
-fun playerBlade(grip: WeaponGrip): List<BladeSegment> = PlayerBladeShape.capsules.map { local ->
-    BladeSegment(grip.position + checkNotNull(grip.rotation.rotate(local.base)),
-        grip.position + checkNotNull(grip.rotation.rotate(local.tip)), local.radiusMeters)
+fun playerBlade(grip: WeaponGrip): List<BladeSegment> = placedBlade(grip, 0.0)
+
+private fun placedBlade(grip: WeaponGrip, sagitta: Double): List<BladeSegment> = PlayerBladeShape.capsules.map { local ->
+    BladeSegment(grip.place(local.base), grip.place(local.tip), local.radiusMeters + sagitta)
 }
 
 data class BladeAxis(val base: Vector3, val tip: Vector3)
 
 /** Unchanged motion/trail landmarks only. This axis is never a collision capsule. */
 fun playerBladeAxis(grip: WeaponGrip) = BladeAxis(
-    grip.position + checkNotNull(grip.rotation.rotate(PLAYER_BLADE_BASE)),
-    grip.position + checkNotNull(grip.rotation.rotate(PLAYER_BLADE_TIP)),
+    grip.place(PLAYER_BLADE_BASE), grip.place(PLAYER_BLADE_TIP),
 )
 
 fun interpolateGrip(from: WeaponGrip, to: WeaponGrip, fraction: Double): WeaponGrip {
     require(fraction.isFinite() && fraction in 0.0..1.0)
     if (fraction == 0.0) return from
     if (fraction == 1.0) return to
-    val a = checkNotNull(from.rotation.normalizedOrNull())
-    val b = checkNotNull(to.rotation.normalizedOrNull())
+    val a = from.unitRotation
+    val b = to.unitRotation
     val dot = a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
     val sign = if (dot < 0.0) -1.0 else 1.0
     val angle = acos(abs(dot).coerceIn(0.0, 1.0))
@@ -66,26 +68,23 @@ fun firstRigidBladeContact(
     currentGrip: WeaponGrip,
     enemySweep: BladeSweep,
 ): BladeContact? {
-    val a = checkNotNull(previousGrip.rotation.normalizedOrNull())
-    val b = checkNotNull(currentGrip.rotation.normalizedOrNull())
+    val a = previousGrip.unitRotation
+    val b = currentGrip.unitRotation
     val angle = 2.0 * acos(abs(a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w).coerceIn(0.0, 1.0))
     val gripRadius = PlayerBladeShape.gripRadius
-    val maximumStep = 2.0 * acos(1.0 - RIGID_ARC_ERROR_METERS / gripRadius)
-    val steps = ceil(angle / maximumStep).toInt().coerceAtLeast(1)
+    val steps = ceil(angle / maximumRigidStep).toInt().coerceAtLeast(1)
     val sagitta = gripRadius * (1.0 - cos(angle / steps / 2.0))
-    var previousBlade = playerBlade(previousGrip)
+    var previousBlade = placedBlade(previousGrip, sagitta)
     for (index in 0 until steps) {
         val start = index.toDouble() / steps
         val end = (index + 1).toDouble() / steps
-        val currentBlade = playerBlade(interpolateGrip(previousGrip, currentGrip, end))
+        val currentBlade = if (previousGrip == currentGrip) previousBlade
+            else placedBlade(interpolateGrip(previousGrip, currentGrip, end), sagitta)
         val other = BladeSweep(enemySweep.atFraction(start), enemySweep.atFraction(end))
         var earliest: BladeContact? = null
         var unresolved: BladeContactUncertainException? = null
         for (part in previousBlade.indices) {
-            val playerSweep = BladeSweep(
-                previousBlade[part].copy(radiusMeters = previousBlade[part].radiusMeters + sagitta),
-                currentBlade[part].copy(radiusMeters = currentBlade[part].radiusMeters + sagitta),
-            )
+            val playerSweep = BladeSweep(previousBlade[part], currentBlade[part])
             try {
                 firstBladeContact(playerSweep, other)?.let { contact ->
                     if (earliest == null || contact.fraction < checkNotNull(earliest).fraction) earliest = contact
@@ -186,4 +185,5 @@ private fun BladeSweep.atFraction(fraction: Double) = BladeSegment(
 private val PLAYER_BLADE_BASE = Vector3(0.022, 0.0, -0.129)
 private val PLAYER_BLADE_TIP = Vector3(0.0532, 0.0, -0.849)
 private const val RIGID_ARC_ERROR_METERS = 0.0005
+private val maximumRigidStep = 2.0 * acos(1.0 - RIGID_ARC_ERROR_METERS / PlayerBladeShape.gripRadius)
 private const val RELEASE_WITHDRAWAL_METERS = 0.025
