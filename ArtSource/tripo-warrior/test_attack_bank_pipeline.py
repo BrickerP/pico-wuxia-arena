@@ -15,6 +15,26 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_guard_and_attack_endpoints_keep_one_palm_and_blade_frame(self):
+        from attack_profiles import animation_tracks, hierarchy, pose_world
+        for actor in ('base', 'indigo', 'veteran'):
+            doc, binary = library.read_glb(library.HERE / 'library' / (actor + '.glb'))
+            _, parents, order = hierarchy(doc)
+            names = {node.get('name'): i for i, node in enumerate(doc['nodes'])}
+            clips = {a['name']: a for a in doc['animations']}
+            reference = None
+            for name in ('idle', 'walk', 'attack_left', 'attack_right', 'attack_overhead'):
+                tracks, times = animation_tracks(doc, binary, clips[name], False)
+                for time in (min(times), max(times)):
+                    with self.subTest(actor=actor, clip=name, time=time):
+                        pose = pose_world(doc, tracks, time, parents, order)
+                        elbow, wrist, middle = [pose[names[key]].translation for key in ('R_Forearm','R_Hand','R_Mid1')]
+                        self.assertLess(math.degrees((wrist-elbow).angle(middle-wrist)), 55.1)
+                        markers = [pose[names[key]].translation for key in ('R_Hand','Grip','Blade_Base','Blade_Tip')]
+                        if reference is None:
+                            reference = markers
+                        self.assertLess(max((a-b).length for a,b in zip(markers, reference)), 1e-5)
+
     def test_left_cut_wrist_and_crossing_direction(self):
         from attack_profiles import animation_tracks, hierarchy, pose_world
         for actor in ('base', 'indigo', 'veteran'):

@@ -3,13 +3,13 @@
   "status": "offline_validated_private_candidate_native_validation_pending",
   "input": {
     "path": "veteran_prepared_png.glb",
-    "sha256": "4be13e758ddc9e5608f39d6742523f82b30db6de15fbb148dbda559fd99458c3",
-    "bytes": 17493304
+    "sha256": "4c8213ee8948a0481e907544a1c3f522f94331c5889ce3b0f15ddd086152017d",
+    "bytes": 17521260
   },
   "output": {
     "path": "veteran.glb",
-    "sha256": "0539571e913920d745b6e52035011909f60a3c05115a7800c640d2882578aae6",
-    "bytes": 45404032
+    "sha256": "9cdaf7f7f35b49920380758001b346c238e16d16f277d8753c1e2e5dffb7b756",
+    "bytes": 45431984
   },
   "encoder": {
     "path": "/Users/yupeng/projects/personal/pico-wuxia-arena/ArtSource/refinement/pbr-compression/tooling/extracted/KTX-Software-4.4.2-Darwin-arm64-tools.pkg/Payload/usr/local/bin/ktx",
@@ -1666,8 +1666,8 @@
     }
   ],
   "preservation": {
-    "non_image_bufferViews_byte_identical": 2550,
-    "accessors_semantics_and_payloads_unchanged": 2550,
+    "non_image_bufferViews_byte_identical": 2562,
+    "accessors_semantics_and_payloads_unchanged": 2562,
     "non_image_json_semantics_identical": true,
     "images": [
       {
@@ -2014,10 +2014,10 @@
     "hit_body": "c1aae7ebf1b29e5ec9ecbc540d1f3a96120f395bc7f1a6273f5350346a069066",
     "hit_head": "7cede93dcc56665b77a1b0f3c3d2de548b63d50be9024494e6741d2d00b22af8",
     "hit_side": "4a0ba913d37e71e84bc32110a5039c4e7ebe327c1c07ee9d66c017eab0e07ddf",
-    "idle": "ca20aea2d259d72bee251f3665e09315d1d0c53328d7570c35b3883672ba0e5f",
-    "walk": "e21e279da01f3cddf5835d5d2943703109eb6ed5018043434051dd09abc31e43",
-    "attack_overhead": "322503a226ecadec0712266deeef342f1956ffa988689dbf5de018b0102ded80",
-    "attack_left": "8b537561a0e286e8b8ed81e03b130446eb631eb8cc86751133f262cd686564e6",
-    "attack_right": "bbf4a9b48175d96c0f0bee99bfd93296822e3b3a08cebe802f36ea5292c187b4"
+    "idle": "15bf742756bb8b030e441d6e9611b7c6ed13c52f05ff2af0e0a3358f51e04993",
+    "walk": "8ed4c1a47bdc286dc9f3f0ae218465cc363b810f04a1d96210fbdca16c881eb2",
+    "attack_overhead": "5f4e67a046ea780294cb4ae8c03e3c5f17c1bc9089c5693cda58b8ea190a8ef9",
+    "attack_left": "5be4ccb4bf9ab0a06999a9faaeafa6f1a23960efc2ae3a1667196abf6ef20ed9",
+    "attack_right": "0a1cb1e881cf52ae49a18707ab2959bd3b13661835dd790ae039e9af40f29c4d"
   }
 }

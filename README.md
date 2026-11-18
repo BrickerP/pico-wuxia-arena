@@ -10,19 +10,19 @@
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
 
-**当前版本未通过可玩性评审。** 11 月 18 日的原生包能通关和重开，但连续来回横扫就可击败三名对手，手腕与手指形变不自然，交战明显卡顿。[流程复现包与录像](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)仅保留作修复前对照。参赛质量和 Space Pro 体验均未验收，见[验收清单](docs/acceptance.md)。
+**[下载原生开发预览与实战录像](https://github.com/BrickerP/pico-wuxia-arena/releases)**：按发布时间选最新一版，在 Assets 中下载 APK。每版标明具体改动和仍有的问题。参赛手感与 Space Pro 真机体验尚未验收。
 
 ## 当前交付
 
 | 内容 | 当前事实 |
 | --- | --- |
-| 手部历史对照 | [11 月 17 日右持刀](ArtSource/refinement/presentation/native-hand-joints-right-2026-11-17.png)、[对应版本与未验收项](ArtSource/refinement/presentation/native-hand-joints-2026-11-17.json)。本轮也只验证右持。 |
+| 玩家手部 | [上排右手、下排左手的握姿对照](ArtSource/refinement/presentation/native-player-grip-pose-comparison-2026-11-18.jpg)。左右手均做过原生持刀检查；手感另验。 |
 | 已公开组合画面 | [7abefa5准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[57f7版本与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
-| 本轮 APK | 原生代码 `1244f83`；234289759 B，设备安装包 SHA256 `dcafb901aa8e8f61fdfe25fd0cc4e5bfc6644ec2ab58aebefce605c2c44a1527`。473 项单测、6 项刀面几何检查通过。 |
+| 版本对照 | [流程复现版](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)保留了左右扫通关的反例；[握姿与守势](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-grip-2026-11-18)改了双手；[玄甲反击窗口](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-counter-window-2026-11-18)扩大上举时的命中机会。 |
 | 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
 | 拼刀 | 解析卸力优先。证不出来、再次接触或连续不可证查询改为一次最长 220ms 的强制回守，然后把刀交还跟踪。同一次重叠不连打出伤。玩家手不吃敌人的强制位移 |
 | 玩家刀与当前验收 | 正式刀面已派生七个半径 6 mm 的接触体，5533 个 Steel 顶点的最大外侧距离为 0.416 mm。当前验证真实交手后的收势、胜负与重开，见[验收清单](docs/acceptance.md)。 |
-| 手与场景 | Right `199c228c…` / Left `0295c147…`，各6222三角；闭握局部关节弧面改善，整体手品质未过。庭院 `c7f2e2b2…`；Tripo厚甲和场景IBL仍未装入本APK |
+| 敌人动作 | [持刀右臂左斩](ArtSource/refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg)与[守势前后对照](ArtSource/refinement/presentation/mounted-guard-wrist-2026-11-18.jpg)。刀的接触轨迹从同版模型重新导出。 |
 | 上一版公开下载 | [11 月 17 日开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)，固定源码 `7abefa5` / APK `57f7cb12…`。 |
 
 录像保持原始时间流和帧数。主机窗口帧率不是 PICO 渲染性能，无声录像不能判断卡肉。弹反、头闪、技能、处决和 Space Pro 排在三轮通关之后。[当前门](docs/acceptance.md)只认正在构建的这一包。[目标](docs/agents/README.md)是 Codex 的唯一派工单。
