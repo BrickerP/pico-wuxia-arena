@@ -18,7 +18,7 @@ data class Vector3(val x: Double, val y: Double, val z: Double) {
         x * other.y - y * other.x,
     )
     fun length(): Double = hypot(hypot(x, y), z)
-    fun distanceTo(other: Vector3): Double = (this - other).length()
+    fun distanceTo(other: Vector3): Double = hypot(hypot(x - other.x, y - other.y), z - other.z)
 
     fun normalizedOrNull(): Vector3? {
         if (!isFinite()) return null
@@ -42,9 +42,18 @@ data class Quaternion(val x: Double, val y: Double, val z: Double, val w: Double
     fun rotate(vector: Vector3): Vector3? {
         val rotation = normalizedOrNull() ?: return null
         if (!vector.isFinite()) return null
-        val imaginary = Vector3(rotation.x, rotation.y, rotation.z)
-        val twiceCross = imaginary.cross(vector) * 2.0
-        return (vector + twiceCross * rotation.w + imaginary.cross(twiceCross)).takeIf { it.isFinite() }
+        return rotation.rotateUnit(vector).takeIf { it.isFinite() }
+    }
+
+    internal fun rotateUnit(vector: Vector3): Vector3 {
+        val twiceCrossX = (y * vector.z - z * vector.y) * 2.0
+        val twiceCrossY = (z * vector.x - x * vector.z) * 2.0
+        val twiceCrossZ = (x * vector.y - y * vector.x) * 2.0
+        return Vector3(
+            vector.x + twiceCrossX * w + (y * twiceCrossZ - z * twiceCrossY),
+            vector.y + twiceCrossY * w + (z * twiceCrossX - x * twiceCrossZ),
+            vector.z + twiceCrossZ * w + (x * twiceCrossY - y * twiceCrossX),
+        )
     }
 
     fun normalizedOrNull(): Quaternion? {
