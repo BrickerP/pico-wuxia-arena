@@ -126,6 +126,10 @@
     <string name="arena_lesson_counter_shoulders">两肩有空 · 压低还刀</string>
     <string name="arena_guard_prepare_right">右路来刀 · 在右侧立刀相迎</string>
     <string name="arena_guard_aligned">刀位已对准 · 等来刀相接</string>
+    <string name="arena_indigo_guard_left">刀从左扫肋 · 沉手护左肋</string>
+    <string name="arena_indigo_guard_right">刀从右扫肋 · 沉手护右肋</string>
+    <string name="arena_indigo_rib_adjust">方向已对 · 把刀收回肋侧</string>
+    <string name="arena_indigo_rib_set">已护住肋前 · 稳住等刀扫来</string>
     <string name="arena_hint_countdown">稳住身位 · 等候刀客起势</string>
     <string name="arena_hint_idle">刀客接近 · 举刀护住头部</string>
     <string name="arena_hint_preparing">观察刀路 · 举刀准备迎锋</string>
