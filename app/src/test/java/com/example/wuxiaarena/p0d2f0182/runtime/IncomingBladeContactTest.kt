@@ -31,6 +31,43 @@ class IncomingBladeContactTest {
     private val body = EnemyContactPose(Vector3(0.0, 1.6, 0.0), zero, Vector3(0.0, 1.2, 0.0))
 
     @Test
+    fun steppingOutOfTheIndigoOverheadEarnsItsOrdinaryRecoveryWindow() {
+        for (stepAside in listOf(false, true)) {
+            val fixture = Fixture()
+            fixture.hand = Vector3(.48, 1.05, .12)
+            fixture.start()
+            // Advance only the unrelated first opponent; round two uses its own model, tracking and clock.
+            ArenaSession::class.java.getDeclaredMethod("beginNextRound", MutableList::class.java)
+                .apply { isAccessible = true }.invoke(fixture.session, mutableListOf<EnemyCombatEvent>())
+            val round = fixture.session.viewState
+            assertEquals(2, round.roundNumber)
+            assertEquals(125, round.initialHealth)
+            assertTrue(fixture.session.beginOpponentChange(round.roundGeneration, round.roundNumber))
+            fixture.session.setEnemyGeometry(Vector3(0.0, 0.0, -1.3), 1.55)
+            fixture.seek { it.phase == EnemyPhase.PREPARING }
+            assertEquals(AttackDirection.OVERHEAD, fixture.session.viewState.attackDirection)
+            val attack = requireNotNull(fixture.session.viewState.attackId)
+            repeat(20) {
+                if (stepAside) fixture.head += Vector3(.016, 0.0, 0.0)
+                fixture.tick(20_000_000L, fixture.head + Vector3(.48, -.55, .12))
+            }
+            fixture.seek { it.phase == EnemyPhase.RECOVERING }
+            val state = fixture.session.viewState
+            val resolved = fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().single { it.attackId == attack }
+            if (stepAside) {
+                assertEquals(AttackOutcome.MISSED, resolved.outcome)
+                assertEquals(CombatFeedback.DODGE, state.feedback)
+                assertEquals(100, state.playerHealth)
+                assertEquals(AttackDirection.OVERHEAD.recoveryNanos, state.phaseRemainingNanos)
+            } else {
+                assertEquals(AttackOutcome.HIT_PLAYER, resolved.outcome)
+                assertTrue(state.playerHealth < 100)
+            }
+            assertEquals(stepAside, state.counterOpen)
+        }
+    }
+
+    @Test
     fun exactContactKeyUsesArrivingMotionEvenWhenTheNextKeyRecoils() {
         val attack = profile(listOf(
             pose(0.0, Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0)),
@@ -156,6 +193,7 @@ class IncomingBladeContactTest {
         val session = ArenaSession(logMessage = {}, logFailure = { _, error -> throw error })
         val events = mutableListOf<EnemyCombatEvent>()
         var hand = Vector3(0.3, 1.0, 0.0)
+        var head = Vector3(0.0, 1.6, 0.0)
         var rotation = Quaternion(0.0, 0.0, 0.0, 1.0)
         private val tracking = TrackingState(Hand.RIGHT)
         private var now = 1_000_000_000L
@@ -172,7 +210,7 @@ class IncomingBladeContactTest {
                 assertTrue(accepted)
                 session.onTrackingEvent(event, accepted, tracking.snapshot)
             }
-            send(TrackingEvent.Head(stamp(), ObservedPose(Vector3(0.0, 1.6, 0.0), Quaternion(0.0, 0.0, 0.0, 1.0))))
+            send(TrackingEvent.Head(stamp(), ObservedPose(head, Quaternion(0.0, 0.0, 0.0, 1.0))))
             send(TrackingEvent.Controllers(stamp(), ObservedPose(Vector3(0.9, 0.6, 0.2), Quaternion(0.0, 0.0, 0.0, 1.0)),
                 ObservedPose(hand, rotation)))
         }

@@ -507,9 +507,8 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                         )
                     }
                 }
-                val duelCueVisible = state.frontArmored && (state.counterOpen ||
-                    state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD) ||
-                    state.roundNumber == 1 && (state.phase == EnemyPhase.PREPARING || state.counterOpen)
+                val duelCueVisible = state.counterOpen || state.phase == EnemyPhase.PREPARING &&
+                    (state.roundNumber == 1 || state.frontArmored && state.attackDirection == AttackDirection.OVERHEAD)
                 if (!duelCueVisible && state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
                     (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
@@ -821,7 +820,7 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
         state.result == TrialResult.ROUND_CLEAR -> R.string.arena_hint_round_clear
         state.frontArmored && state.counterOpen -> R.string.arena_armor_open
-        state.roundNumber == 1 && state.counterOpen -> when (state.counterTargetHint) {
+        state.counterOpen -> when (state.counterTargetHint) {
             CounterTargetHint.WITHDRAW -> R.string.arena_lesson_withdraw_to_shoulder
             CounterTargetHint.LEFT_SHOULDER -> R.string.arena_lesson_counter_left
             CounterTargetHint.RIGHT_SHOULDER -> R.string.arena_lesson_counter_right
@@ -841,7 +840,7 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         }
         state.phase == EnemyPhase.STARTUP -> R.string.arena_hint_startup
         state.phase == EnemyPhase.ACTIVE -> R.string.arena_hint_active
-        state.phase == EnemyPhase.RECOVERING -> R.string.arena_hint_recovering
+        state.phase == EnemyPhase.RECOVERING -> if (state.roundNumber == 2) R.string.arena_hint_watch_recovery else R.string.arena_hint_recovering
         state.phase == EnemyPhase.HIT && state.hitReaction == HitReaction.PARRIED -> R.string.arena_hint_parried
         state.phase == EnemyPhase.HIT -> R.string.arena_hint_hit
         else -> R.string.arena_hint_idle
