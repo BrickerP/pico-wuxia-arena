@@ -799,11 +799,12 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.result == TrialResult.DEFEAT -> R.string.arena_hint_defeat
         state.pauseReason != null -> R.string.arena_hint_paused
         !state.inputReady -> R.string.arena_status_waiting_observations
+        state.highGuardNeedsRetraction -> R.string.arena_lesson_draw_in
         state.result == TrialResult.READY || state.result == TrialResult.COUNTDOWN && state.readyGuard != null ->
             when (state.readyGuard) {
                 AttackDirection.LEFT -> R.string.arena_guard_set_left
                 AttackDirection.RIGHT -> R.string.arena_guard_set_right
-                AttackDirection.OVERHEAD -> R.string.arena_guard_set_high
+                AttackDirection.OVERHEAD -> if (state.roundNumber == 1) R.string.arena_lesson_high_set else R.string.arena_guard_set_high
                 null -> R.string.arena_hint_ready
             }
         state.result == TrialResult.COUNTDOWN -> R.string.arena_hint_countdown
@@ -814,6 +815,8 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.roundNumber == 1 && state.counterOpen -> R.string.arena_lesson_counter
         state.frontArmored && state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_armor_thrust
         state.frontArmored && state.phase in setOf(EnemyPhase.RECOVERING, EnemyPhase.IDLE) -> R.string.arena_armor_tactic
+        state.roundNumber == 1 && state.readyGuard == AttackDirection.OVERHEAD &&
+            state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_lesson_high_set
         state.readyGuard != null && state.readyGuard == state.attackDirection -> R.string.arena_guard_aligned
         state.phase == EnemyPhase.PREPARING -> when (state.attackDirection) {
             AttackDirection.LEFT -> R.string.arena_guard_prepare_left

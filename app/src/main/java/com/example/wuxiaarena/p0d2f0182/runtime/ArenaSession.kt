@@ -49,6 +49,16 @@ typealias HandPosePresenter = (TrackingSnapshot?) -> Unit
 
 internal enum class TrialResult { READY, COUNTDOWN, FIGHTING, ROUND_CLEAR, VICTORY, DEFEAT }
 
+internal fun lessonHighGuardOverextended(head: Vector3, enemy: Vector3, grip: Vector3, bladeTip: Vector3): Boolean {
+    val x = enemy.x - head.x
+    val z = enemy.z - head.z
+    val range = hypot(x, z)
+    if (range <= 0.0) return false
+    val gripDepth = (grip.x - head.x) * x + (grip.z - head.z) * z
+    val tipDepth = (bladeTip.x - head.x) * x + (bladeTip.z - head.z) * z
+    return gripDepth > 0.23 * range && tipDepth > 0.93 * range
+}
+
 private fun playerBodyCapsule(zone: HitZone, head: Vector3) = if (zone == HitZone.HEAD) BladeSegment(head, head, 0.16)
     else BladeSegment(head + Vector3(0.0, -1.05, 0.0), head + Vector3(0.0, -0.23, 0.0), 0.24)
 
@@ -126,6 +136,7 @@ internal data class ArenaViewState(
     val playerBladeTipSpeed: Double = 0.0,
     val playerBladeAtRest: Boolean = true,
     val readyGuard: AttackDirection? = null,
+    val highGuardNeedsRetraction: Boolean = false,
     val playerMotionGeneration: Long = 0L,
     val enemyBladeBase: Vector3? = null,
     val enemyBladeTip: Vector3? = null,
@@ -262,6 +273,12 @@ internal class ArenaSession(
             val targetInRange = currentTargetInRange()
             val motionReady = result == TrialResult.FIGHTING && combat.pauseReason == null && actionReady
             val releaseRequired = motionReady && latestMotion?.releaseRequired == true
+            val coachingGuard = if (actionReady && combat.pauseReason == null &&
+                (result == TrialResult.READY || result == TrialResult.COUNTDOWN ||
+                    result == TrialResult.FIGHTING && (combat.phase == EnemyPhase.PREPARING || combat.phase == EnemyPhase.STARTUP))
+            ) latestMotion?.takeIf { it.bladeAtRest && it.swing == null } else null
+            val guardGrip = coachingGuard?.weaponGrip
+            val enemy = enemyPosition
             val selectedPose = effectiveEnemyPose()
             val enemyAttackPose = enemyAttackPose()
             return ArenaViewState(
@@ -326,10 +343,11 @@ internal class ArenaSession(
                 playerBladeTip = latestMotion?.bladeTip,
                 playerBladeTipSpeed = latestMotion?.bladeTipSpeed ?: 0.0,
                 playerBladeAtRest = latestMotion?.bladeAtRest ?: true,
-                readyGuard = if (actionReady && combat.pauseReason == null &&
-                    (result == TrialResult.READY || result == TrialResult.COUNTDOWN ||
-                        result == TrialResult.FIGHTING && (combat.phase == EnemyPhase.PREPARING || combat.phase == EnemyPhase.STARTUP))
-                ) latestMotion?.takeIf { it.bladeAtRest && it.swing == null }?.guardDirection else null,
+                readyGuard = coachingGuard?.guardDirection,
+                highGuardNeedsRetraction = roundNumber == 1 && coachingGuard?.guardDirection == AttackDirection.OVERHEAD &&
+                    (result != TrialResult.FIGHTING || combat.currentAttackDirection == AttackDirection.OVERHEAD) &&
+                    guardGrip != null && enemy != null &&
+                    lessonHighGuardOverextended(coachingGuard.headPosition, enemy, guardGrip.position, coachingGuard.bladeTip),
                 playerMotionGeneration = latestMotion?.motionGeneration ?: motion.motionGeneration,
                 playerHeadPosition = snapshot?.head?.pose?.position,
                 motionReleaseRequired = releaseRequired,
