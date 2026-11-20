@@ -105533,7 +105533,7 @@
     }
   },
   "character_id": "base",
-  "model_sha256": "9f519ecd9dec145c01d0b91db2123558de101f5a4e1cebd9082c83c3d82e5a8e",
+  "model_sha256": "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",

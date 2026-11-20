@@ -2,6 +2,8 @@
 
 **11 月 20 日当前开发预览：[接刀还锋 APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-shoulder-counter-2026-11-20/arena.apk)。** 首敌真正被挡住后，提示玩家先收手、从空出的肩侧回击。发布包能进入准备页；宿主窗口遮挡导致本次开始点击未送达，尚无此包胜负记录。
 
+攻防基准由一正一反两条轨迹组成。正例使用 50 Hz 合成头手观察，经正式输入和战斗判定，先架住首敌再沿肩线还击、对第二人改变刀路、在玄甲上举时进刀；通过三场并重新开始。演练约 69 秒，右握点到肩的最大距离约 69 cm。这证明当前源码中的三场路线可达，不证明 PICO 模拟器、头显或真人已经打通此包。维护者可单跑 `./gradlew :app:testDebugUnitTest --tests '*DeliberateDuelTrialTest'`；重复横扫的反例见 `RepeatedSweepTrialTest`。正常发版无需为同一包反复重跑。
+
 | 对局里要看什么 | 对应版本的证据 |
 | --- | --- |
 | 读招是否真的有效 | [收刀迎锋：首刀实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-compact-guard-2026-11-20/compact-guard.mp4)。在有效下劈期发生 `BLOCK / braced=true`，随后第一次还刀碰到收势中的钢刃，不算命中。该局打过首敌，第二场落败、150 分，并成功重开。 |

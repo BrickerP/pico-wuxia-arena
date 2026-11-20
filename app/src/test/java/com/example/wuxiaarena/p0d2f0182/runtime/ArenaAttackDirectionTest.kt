@@ -26,7 +26,11 @@ class ArenaAttackDirectionTest {
     fun normalEntryUsesAllThreeDirectionsAndResolvesEachAttackOnlyOnce() {
         val fixture = Fixture()
         fixture.start()
-        repeat(150) { fixture.tick(50_000_000L) }
+        val completedCycle = (0 until 240).any {
+            fixture.tick(50_000_000L)
+            fixture.events.count { it is EnemyCombatEvent.AttackStarted } >= 4
+        }
+        assertTrue("The next attack should start after a complete three-direction cycle", completedCycle)
 
         val started = fixture.events.filterIsInstance<EnemyCombatEvent.AttackStarted>().take(3)
         assertEquals(listOf(AttackDirection.OVERHEAD, AttackDirection.LEFT, AttackDirection.RIGHT), started.map { it.direction })

@@ -107301,7 +107301,7 @@
     }
   },
   "character_id": "veteran",
-  "model_sha256": "8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d",
+  "model_sha256": "35499d130ef054f4cf1493ebe28ba4bdb25d98c9c97cd9d5008be8c38688f1d8",
   "directions": {
     "OVERHEAD": {
       "incoming_guard_side": "OVERHEAD",

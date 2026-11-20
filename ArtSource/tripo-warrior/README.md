@@ -6,7 +6,7 @@
 
 ## 当前正式组
 
-当前角色组输入标识为 `e5de3e4a767c5f1cf0c022b94e1d4c9a02fc034c856f33313000cdd8b391c29d`，由 `motion_library.json` 和同组审批记录校验。三个目标骨架各自在已重定向的动作中修正空手腕，并在守势、走动与左斩中用肩带动持刀手。上劈蓄势与落刀时也由肩腕配合，刀尖保留从上而下的进攻弧线；右斩中段未改。三路来招的起点与收势末端保持相同的握点、刀根和刀尖。待机呼吸时，肩肘随身体的起伏做补偿，持刀手留在同一守势，只保留原角色的微小平移；三人的完整钢刀位移均小于 2 mm。碰撞刀轨从最终模型重新导出。[守势对照](../refinement/presentation/mounted-guard-wrist-2026-11-18.jpg) · [左斩对照](../refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg) · [上劈对照](../refinement/presentation/overhead-wrist-2026-11-18.jpg)。
+当前角色组输入标识为 `644d9f10afadb7af9bf4421be9940fa28fd9df144f8c8429b3a6b51c56b9e641`，由 `motion_library.json` 和同组审批记录校验。三个目标骨架各自在已重定向的动作中修正空手腕，并在守势、走动与左斩中用肩带动持刀手。上劈蓄势与落刀时也由肩腕配合，刀尖保留从上而下的进攻弧线；右斩中段未改。三路来招的起点与收势末端保持相同的握点、刀根和刀尖。待机呼吸时，肩肘随身体的起伏做补偿，持刀手留在同一守势，只保留原角色的微小平移；三人的完整钢刀位移均小于 2 mm。倒地收尾时持刀手落到躯干外侧，刀刃不再停在脸里；根、脚和既有死亡时长均保留。[倒地近景对照](../refinement/presentation/settled-fall-blade-2026-11-20.jpg)。碰撞刀轨从最终模型重新导出。[守势对照](../refinement/presentation/mounted-guard-wrist-2026-11-18.jpg) · [左斩对照](../refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg) · [上劈对照](../refinement/presentation/overhead-wrist-2026-11-18.jpg)。
 
 本地 `7e1368fe…` APK已在模拟器Full Stage显示新base头／眼／颈、canonical idle、玩家刀和场景；约27秒完成场景与人物附着，未报NO_MEMORY。相比前一767bc0af包，仅控制面板pose两行调整，实际图确认完整且不挡脸刀；311项组合测试为该调整前结果，调整后仅重建与原生视觉验。三轮切换、近距材质、实际过渡与Space Pro内存／性能仍未验收。构建和版本证据见[验收清单](../../docs/acceptance.md)，公开GitHub预发行仍是旧包。
 

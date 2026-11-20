@@ -472,6 +472,43 @@ def author_mounted_wrist(doc, binary, tip_local, clip):
     return binary
 
 
+def author_settled_sword_arm(doc, binary):
+    _,parents,order=hierarchy(doc)
+    names={n.get('name'):i for i,n in enumerate(doc['nodes'])}
+    upper=names['R_Upperarm']
+    hand=names['R_Hand']
+    clip=next(a for a in doc['animations'] if a['name']=='fall')
+    tracks,timeline=animation_tracks(doc,binary,clip,False)
+    grid=sorted(set(timeline)|{struct.unpack('<f',struct.pack('<f',f/60))[0]
+                               for f in range(math.ceil(min(timeline)*60),math.floor(max(timeline)*60)+1)})
+    rotations={upper:[],hand:[]}
+    for t in grid:
+        amount=smooth((t-1.60)/.24)
+        fixes={}
+        if amount:
+            world=pose_world(doc,tracks,t,parents,order)
+            reach=world[hand].translation-world[upper].translation
+            delta=reach.rotation_difference(reach+Vector((-.025,0.,.22))*amount)
+            yaw=Quaternion(Vector((0.,1.,0.)),math.radians(-36)*amount)
+            fixes[upper]=(world[parents[upper]].to_quaternion().inverted() @ delta @ world[upper].to_quaternion()).normalized()
+            fixes[hand]=(world[parents[hand]].to_quaternion().inverted() @ delta.inverted() @ yaw @ world[hand].to_quaternion()).normalized()
+        for index,rot in rotations.items():
+            track=tracks[index,'rotation']
+            if index in fixes:
+                q=fixes[index];row=(q.x,q.y,q.z,q.w)
+            else:
+                row=track[1][track[0].index(t)] if t in track[0] else sample_track(track,t,True)
+            if rot and sum(a*b for a,b in zip(rot[-1],row))<0: row=tuple(-x for x in row)
+            rot.append(row)
+    binary,inp=append_accessor(doc,binary,[(t,) for t in grid],'SCALAR')
+    for index,rot in rotations.items():
+        binary,out=append_accessor(doc,binary,rot,'VEC4')
+        channel=next(c for c in clip['channels'] if c['target']=={'node':index,'path':'rotation'})
+        channel['sampler']=len(clip['samplers'])
+        clip['samplers'].append({'input':inp,'output':out,'interpolation':'LINEAR'})
+    return binary
+
+
 def prepare_character_hands(body_path, combined_path):
     mounted, mounted_binary = read_glb(combined_path)
     _, parents, order = hierarchy(mounted)
@@ -488,6 +525,7 @@ def prepare_character_hands(body_path, combined_path):
         for clip in doc['animations']:
             if clip['name'] in ('idle', 'walk', 'attack_left', 'attack_right', 'attack_overhead'):
                 binary = author_mounted_wrist(doc, binary, tip_local, clip)
+        binary = author_settled_sword_arm(doc, binary)
         current = {a['name']:animation_signature(doc, binary, a) for a in doc['animations']}
         require(signatures is None or signatures == current, 'Body and mounted weapon have different animation curves')
         signatures = current

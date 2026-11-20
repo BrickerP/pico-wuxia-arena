@@ -15,6 +15,45 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_settled_fall_blade_clears_the_face(self):
+        from attack_profiles import animation_tracks, hierarchy, pose_world, skin_attribute
+        from mathutils.bvhtree import BVHTree
+        import numpy as np
+        for actor in ('base', 'indigo', 'veteran'):
+            doc, binary = library.read_glb(library.HERE / 'library' / (actor + '.glb'))
+            skin = doc['skins'][0]
+            inv_bind = skin_attribute(doc, binary, skin['inverseBindMatrices']).reshape(-1,4,4).transpose(0,2,1)
+            bones = np.array([doc['nodes'][i]['name'] for i in skin['joints']])
+            mesh = doc['meshes'][0]
+            _, parents, order = hierarchy(doc)
+            clip = next(a for a in doc['animations'] if a['name'] == 'fall')
+            tracks, times = animation_tracks(doc, binary, clip, False)
+            for t in (2.40, max(times)):
+                with self.subTest(actor=actor, time=t):
+                    world = pose_world(doc, tracks, t, parents, order)
+                    palette = np.array([world[i] for i in skin['joints']]) @ inv_bind
+                    head, steel = [], []
+                    for i, prim in enumerate(mesh['primitives']):
+                        attr = prim['attributes']
+                        joints = skin_attribute(doc, binary, attr['JOINTS_0']).astype(int)
+                        weights = skin_attribute(doc, binary, attr['WEIGHTS_0'])
+                        faces = skin_attribute(doc, binary, prim['indices']).reshape(-1,3).astype(int)
+                        if i in mesh['extras']['body_primitive_indices']:
+                            names = bones[joints[np.arange(len(joints)),weights.argmax(axis=1)]]
+                            faces = faces[np.isin(names[faces], ('Head','FacialBone','L_Eye','R_Eye')).any(axis=1)]
+                            target = head
+                        elif doc['materials'][prim['material']]['name'].startswith('Steel |'):
+                            target = steel
+                        else:
+                            continue
+                        if not len(faces):
+                            continue
+                        pos = skin_attribute(doc, binary, attr['POSITION'])
+                        points = np.einsum('vi,vijk,vk->vj',weights,palette[joints],np.c_[pos,np.ones(len(pos))])[:,:3]
+                        target.append(BVHTree.FromPolygons(points.tolist(),faces.tolist(),all_triangles=True))
+                    self.assertTrue(head and steel)
+                    self.assertFalse(any(face.overlap(blade) for face in head for blade in steel))
+
     def test_overhead_shoulder_carries_the_blade_down_from_above(self):
         from attack_profiles import animation_tracks, hierarchy, pose_world
         for actor in ('base', 'indigo', 'veteran'):
