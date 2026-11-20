@@ -2,6 +2,12 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
+**[下载「还锋与收势」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/arena.apk)** · [本包在 PICO Emulator 中的准备画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/ready-display.png) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
+
+安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。原地左右摆腕而不送手或稳架，只会轻擦。面对第三名玄甲刀客，看他何时举刀露隙。
+
+已验证此包在 PICO Emulator 挂载首敌并进入准备态。受限头手轨迹可经正式战斗判定打通并重开；此包的原生三场胜局与 Space Pro 真机手感尚待验收。[按版本查看证据](docs/acceptance.md)。
+
 ## 两条独立工作线
 
 **参赛原生Demo：源码 → APK → PICO Emulator → Space Pro。** 本次Demo采用同一SDK头手观察与战斗判定，原生任务不能用HTML、Three.js或浏览器试玩替代开发和设备验收。
@@ -9,8 +15,6 @@
 **独立探索原型：[prototype/web-v0.18](prototype/web-v0.18/README.md)。** 允许`web/**`独立PR继续探索、美术和敌群试验；现有v0.34–v0.37成果及未来Web版本有明确归属。它们不计为原生完成度，也不自动扩进当前短PVE Demo。选中的资产/动作/玩法须经过原生移植和验证。
 
 两线保留各自产物，不互相覆盖；Root统一审核。详见[协作边界](docs/collaboration-boundaries.md)。
-
-**[下载原生开发预览与实战录像](https://github.com/BrickerP/pico-wuxia-arena/releases)**：按发布时间选最新一版，在 Assets 中下载 APK。每版标明具体改动和仍有的问题。参赛手感与 Space Pro 真机体验尚未验收。
 
 ## 当前交付
 
