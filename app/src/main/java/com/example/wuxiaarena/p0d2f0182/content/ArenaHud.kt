@@ -506,9 +506,10 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                         )
                     }
                 }
-                val armorCueVisible = state.frontArmored && (state.counterOpen ||
-                    state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD)
-                if (!armorCueVisible && state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
+                val duelCueVisible = state.frontArmored && (state.counterOpen ||
+                    state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD) ||
+                    state.roundNumber == 1 && (state.phase == EnemyPhase.PREPARING || state.counterOpen)
+                if (!duelCueVisible && state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady &&
                     (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
                 } else {
@@ -810,12 +811,14 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
         state.result == TrialResult.ROUND_CLEAR -> R.string.arena_hint_round_clear
         state.frontArmored && state.counterOpen -> R.string.arena_armor_open
+        state.roundNumber == 1 && state.counterOpen -> R.string.arena_lesson_counter
         state.frontArmored && state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_armor_thrust
         state.frontArmored && state.phase in setOf(EnemyPhase.RECOVERING, EnemyPhase.IDLE) -> R.string.arena_armor_tactic
         state.readyGuard != null && state.readyGuard == state.attackDirection -> R.string.arena_guard_aligned
         state.phase == EnemyPhase.PREPARING -> when (state.attackDirection) {
             AttackDirection.LEFT -> R.string.arena_guard_prepare_left
             AttackDirection.RIGHT -> R.string.arena_guard_prepare_right
+            AttackDirection.OVERHEAD -> if (state.roundNumber == 1) R.string.arena_lesson_high_guard else R.string.arena_hint_preparing
             else -> R.string.arena_hint_preparing
         }
         state.phase == EnemyPhase.STARTUP -> R.string.arena_hint_startup

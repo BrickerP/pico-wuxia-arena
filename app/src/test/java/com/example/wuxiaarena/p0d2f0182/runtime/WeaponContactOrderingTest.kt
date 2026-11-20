@@ -124,7 +124,7 @@ class WeaponContactOrderingTest {
                 val combat = field.get(session) as EnemyCombatStateMachine
                 combat.advanceBy(800_000_000L, true)
                 combat.tryStartAttack(AttackDirection.OVERHEAD, true)
-                combat.advanceBy(AttackDirection.OVERHEAD.preparationNanos + AttackDirection.OVERHEAD.startupNanos, true)
+                combat.advanceBy(requireNotNull(combat.nanosUntilPhaseTransition) + AttackDirection.OVERHEAD.startupNanos, true)
                 assertEquals(EnemyPhase.ACTIVE, combat.phase)
             }
         }
