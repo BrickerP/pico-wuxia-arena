@@ -1,6 +1,9 @@
 # 原生刀客对决验收
 
-**当前发布：[还锋与收势](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-arena-finish-2026-11-20)**，APK SHA256 `7a8d8380acc8d18a4ee4244657095a0c09ffd72f447fe774ab07435c63c10be3`。设备安装包身份一致，[从模拟器直接截取的画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/ready-display.png)确认庭院、首敌、玩家持刀手和开始按钮均可见。[倒地刀刃穿脸修复前后](../ArtSource/refinement/presentation/settled-fall-blade-2026-11-20.jpg)：只改倒地收尾，其余九段动作不变。尚无本包原生胜负记录。
+**当前发布：[侧身护肋](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-rib-guard-2026-11-20)**，APK SHA256 `b2dfb947bdc7a5d66fbd366bb5573d9666a3b46b7fbecb740e15cd16440844af`。安装并加载首敌，[设备截图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/ready-display.png)已确认。修复前，持刀方向虽匹配，刀身却在实际来刀上方；新提示按正式侧斩的高度引导玩家护肋。两项定向回归通过。视口未接收开始操作，尚无本包的原生侧架与胜局证据。
+
+- [青衫还击：第二场交锋实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-three-duel-counters-2026-11-20/second-window.mp4)（`4f57e0eb`）：首敌被击败，第二场 180 分落败，敌人剩 13/125。没有在该局记录到第二场匹配稳架或闪避开窗。
+- [还锋与收势：连续对局与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/device-duel.mp4)（`7a8d8380`）：首场落败、25 分，敌人剩 9/100；同进程再挑战、开始新局。另一次对局首敌被击败，第二场 165 分落败。两局都未打通三场。[倒地刀刃对照](../ArtSource/refinement/presentation/settled-fall-blade-2026-11-20.jpg)只对应模型收尾改动。
 
 上一版[接刀还锋](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-shoulder-counter-2026-11-20)加入了还击时的空侧提示。当时宿主窗口覆盖了模拟器，开始点击未送达，不记作一局。
 
