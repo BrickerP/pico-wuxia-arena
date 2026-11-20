@@ -737,7 +737,7 @@ internal class ArenaSession(
                 // Contacts transition the attack or start hit stop; cannot repeatedly consume t=0.
                 if (hitStopNanos > 0L || hitStopAwaitingPresentation) break
             } else {
-                if ((combat.teachesDefense || combat.frontArmored) && combat.phase == EnemyPhase.ACTIVE && after != null) {
+                if (combat.phase == EnemyPhase.ACTIVE && after != null) {
                     val oldHead = attackStartHead
                     if (oldHead != null && evadedBladeAtPose(after.blade(), oldHead, toFrame.headPosition)) {
                         combat.currentAttackId?.let(combat::recordEvadedBlade)

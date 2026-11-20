@@ -132,6 +132,7 @@
     <string name="arena_hint_startup">来锋将至 · 快速架刀或闪身</string>
     <string name="arena_hint_active">刀锋已至 · 格挡或避开</string>
     <string name="arena_hint_recovering">收势露隙 · 趁机进刀</string>
+    <string name="arena_hint_watch_recovery">对手收刀 · 留意下一招</string>
     <string name="arena_hint_parried">弹反得势 · 趁隙还刀</string>
     <string name="arena_hint_hit">对手失衡 · 追刀后留神反击</string>
     <string name="arena_hint_executing">斩决收势中 · 待动作完成</string>

@@ -126,6 +126,33 @@ class EnemyCombatStateMachineTest {
     }
 
     @Test
+    fun secondOpponentGrantsOneOrdinaryLengthCounterOnlyForAnEarnedDefense() {
+        for ((outcome, evidence) in listOf(AttackOutcome.BLOCKED to true, AttackOutcome.BLOCKED to false,
+            AttackOutcome.PARRIED to true, AttackOutcome.MISSED to true, AttackOutcome.MISSED to false,
+            AttackOutcome.HIT_PLAYER to false)) {
+            val opponent = EnemyCombatStateMachine(initialHealth = 125)
+            start(opponent, AttackDirection.RIGHT)
+            opponent.advanceBy(AttackDirection.RIGHT.preparationNanos + AttackDirection.RIGHT.startupNanos, true)
+            val attack = requireNotNull(opponent.currentAttackId)
+            if (outcome == AttackOutcome.MISSED) {
+                if (evidence) opponent.recordEvadedBlade(attack)
+                assertFalse(opponent.counterOpen)
+                opponent.advanceBy(AttackDirection.RIGHT.activeNanos, true)
+            } else opponent.resolveActiveAttack(attack, outcome, matchedGuard = evidence)
+            assertEquals("$outcome evidence=$evidence", evidence, opponent.counterOpen)
+            assertEquals(if (outcome == AttackOutcome.PARRIED) ms(550) else AttackDirection.RIGHT.recoveryNanos,
+                opponent.nanosUntilPhaseTransition)
+            if (evidence) {
+                opponent.receivePlayerHit(cutLine = CutLine.CROSS)
+                assertEquals(100, opponent.health)
+                assertFalse(opponent.counterOpen)
+                assertTrue(opponent.resolveActiveAttack(attack, AttackOutcome.BLOCKED, matchedGuard = true).isEmpty())
+                assertFalse(opponent.counterOpen)
+            }
+        }
+    }
+
+    @Test
     fun allThreeAttacksFollowTheirBoundariesAndMissOnlyAfterTheActiveWindow() {
         for (direction in AttackDirection.entries) {
             val machine = EnemyCombatStateMachine()
