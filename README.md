@@ -2,9 +2,9 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
-**[下载「还锋与收势」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/arena.apk)** · [本包在 PICO Emulator 中的准备画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/ready-display.png) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
+**[下载「侧身护肋」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/arena.apk)** · [本包在 PICO Emulator 中的准备画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/ready-display.png) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
 
-安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。原地左右摆腕而不送手或稳架，只会轻擦。面对第三名玄甲刀客，看他何时举刀露隙。
+安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。第二场青衫侧斩走肋部，按提示降低握刀手，不要只护头。面对第三名玄甲刀客，看他何时举刀露隙。原地左右摆腕而不送手或稳架，只会轻擦。
 
 已验证此包在 PICO Emulator 挂载首敌并进入准备态。受限头手轨迹可经正式战斗判定打通并重开；此包的原生三场胜局与 Space Pro 真机手感尚待验收。[按版本查看证据](docs/acceptance.md)。
 
