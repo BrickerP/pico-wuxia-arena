@@ -63,6 +63,69 @@ class EnemyCombatStateMachineTest {
         machine.resolveActiveAttack(checkNotNull(machine.currentAttackId), outcome)
 
     @Test
+    fun firstOpponentShowsTwoCompleteTellsEvenIfTheFirstWindupIsInterrupted() {
+        val machine = EnemyCombatStateMachine(teachesDefense = true)
+        val direction = AttackDirection.LEFT
+        start(machine, direction)
+        machine.advanceBy(ms(100), true)
+        resolve(machine, AttackOutcome.BLOCKED)
+        assertFalse(machine.counterOpen)
+        assertEquals(direction.recoveryNanos, machine.nanosUntilPhaseTransition)
+        machine.advanceBy(direction.recoveryNanos, true)
+
+        repeat(2) {
+            start(machine, direction)
+            machine.advanceBy(ms(1400) - 1L, true)
+            assertEquals(EnemyPhase.PREPARING, machine.phase)
+            assertEquals(1L, machine.nanosUntilPhaseTransition)
+            machine.advanceBy(1L + direction.startupNanos + direction.activeNanos, true)
+            assertFalse("An unattended miss cannot teach a successful dodge", machine.counterOpen)
+            assertEquals(direction.recoveryNanos, machine.nanosUntilPhaseTransition)
+            machine.advanceBy(direction.recoveryNanos, true)
+        }
+        start(machine, direction)
+        assertEquals(direction.preparationNanos, machine.nanosUntilPhaseTransition)
+        machine.resetRound()
+        start(machine, direction)
+        assertEquals(ms(1400), machine.nanosUntilPhaseTransition)
+    }
+
+    @Test
+    fun onlyARealDefenseEarnsTheFirstOpponentsExtraTimeForOneRiposte() {
+        for (outcome in listOf(AttackOutcome.BLOCKED, AttackOutcome.PARRIED, AttackOutcome.MISSED)) {
+            val machine = EnemyCombatStateMachine(teachesDefense = true)
+            start(machine)
+            machine.advanceBy(ms(1400) + AttackDirection.LEFT.startupNanos, true)
+            val id = requireNotNull(machine.currentAttackId)
+            if (outcome == AttackOutcome.MISSED) {
+                machine.recordEvadedBlade(id)
+                machine.advanceBy(AttackDirection.LEFT.activeNanos, true)
+            } else {
+                machine.resolveActiveAttack(id, outcome, matchedGuard = outcome == AttackOutcome.BLOCKED)
+            }
+            assertTrue(machine.counterOpen)
+            assertEquals(ms(1200), machine.nanosUntilPhaseTransition)
+            machine.advanceBy(ms(1000), true)
+            machine.pauseByPlayer()
+            machine.advanceBy(ms(2400), true)
+            assertEquals(ms(200), machine.nanosUntilPhaseTransition)
+            machine.tryResume(true, true, machine.currentPauseId)
+            val hit = machine.receivePlayerHit(cutLine = CutLine.CROSS)
+                .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single()
+            assertEquals(25, hit.appliedDamage)
+            assertFalse(machine.counterOpen)
+            assertTrue(machine.resolveActiveAttack(id, AttackOutcome.BLOCKED, matchedGuard = true).isEmpty())
+            assertFalse(machine.counterOpen)
+        }
+
+        val ordinary = EnemyCombatStateMachine(initialHealth = 125)
+        start(ordinary)
+        ordinary.advanceBy(AttackDirection.LEFT.preparationNanos + AttackDirection.LEFT.startupNanos, true)
+        ordinary.resolveActiveAttack(requireNotNull(ordinary.currentAttackId), AttackOutcome.BLOCKED, matchedGuard = true)
+        assertEquals(AttackDirection.LEFT.recoveryNanos, ordinary.nanosUntilPhaseTransition)
+    }
+
+    @Test
     fun allThreeAttacksFollowTheirBoundariesAndMissOnlyAfterTheActiveWindow() {
         for (direction in AttackDirection.entries) {
             val machine = EnemyCombatStateMachine()

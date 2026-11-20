@@ -11,6 +11,9 @@ private const val HIT_DURATION = 300L * NANOS_PER_MILLISECOND
 private const val PARRY_DURATION = 550L * NANOS_PER_MILLISECOND
 private const val NORMAL_DAMAGE = 25
 private const val GUARDED_DAMAGE = 10
+private const val LESSON_WINDUPS = 2
+private const val LESSON_PREPARATION_NANOS = 1_400_000_000L
+private const val LESSON_COUNTER_NANOS = 1_200_000_000L
 
 /** Directions are named from the player's point of view. */
 enum class AttackDirection(
@@ -123,6 +126,7 @@ class EnemyCombatStateMachine(
     private val initialHealth: Int = 100,
     private val idleDelayNanos: Long = IDLE_DELAY,
     val frontArmored: Boolean = false,
+    val teachesDefense: Boolean = false,
 ) {
     init {
         require(initialHealth > 0) { "initial health must be positive" }
@@ -159,10 +163,12 @@ class EnemyCombatStateMachine(
         val direction: AttackDirection,
         var resolved: Boolean = false,
         var evaded: Boolean = false,
+        var recoveryNanos: Long = direction.recoveryNanos,
     )
 
     private var attack: Attack? = null
     private var nextAttackId = 1L
+    private var lessonWindupsLeft = if (teachesDefense) LESSON_WINDUPS else 0
     private var nextPauseId = 1L
     private var hitDurationNanos = HIT_DURATION
     private var lastLandedLine: CutLine? = null
@@ -330,6 +336,7 @@ class EnemyCombatStateMachine(
     }
 
     fun resetRound(): List<EnemyCombatEvent> {
+        lessonWindupsLeft = if (teachesDefense) LESSON_WINDUPS else 0
         phase = EnemyPhase.IDLE
         phaseElapsedNanos = 0L
         simulationNanos = 0L
@@ -346,11 +353,14 @@ class EnemyCombatStateMachine(
     }
 
     private fun phaseDuration(): Long = when (phase) {
-        EnemyPhase.PREPARING -> if (frontArmored && currentAttackDirection == AttackDirection.OVERHEAD)
-            1_200_000_000L else checkNotNull(attack).direction.preparationNanos
+        EnemyPhase.PREPARING -> when {
+            lessonWindupsLeft > 0 -> LESSON_PREPARATION_NANOS
+            frontArmored && currentAttackDirection == AttackDirection.OVERHEAD -> 1_200_000_000L
+            else -> checkNotNull(attack).direction.preparationNanos
+        }
         EnemyPhase.STARTUP -> checkNotNull(attack).direction.startupNanos
         EnemyPhase.ACTIVE -> checkNotNull(attack).direction.activeNanos
-        EnemyPhase.RECOVERING -> checkNotNull(attack).direction.recoveryNanos
+        EnemyPhase.RECOVERING -> checkNotNull(attack).recoveryNanos
         EnemyPhase.HIT -> hitDurationNanos
         EnemyPhase.IDLE, EnemyPhase.DEAD -> error("phase has no timed transition")
     }
@@ -361,7 +371,10 @@ class EnemyCombatStateMachine(
         events: MutableList<EnemyCombatEvent>,
     ) {
         when (phase) {
-            EnemyPhase.PREPARING -> changePhase(EnemyPhase.STARTUP, events)
+            EnemyPhase.PREPARING -> {
+                if (lessonWindupsLeft > 0) lessonWindupsLeft--
+                changePhase(EnemyPhase.STARTUP, events)
+            }
             EnemyPhase.STARTUP -> changePhase(EnemyPhase.ACTIVE, events)
             EnemyPhase.ACTIVE -> resolveAttack(AttackOutcome.MISSED, events)
             EnemyPhase.RECOVERING -> {
@@ -410,15 +423,17 @@ class EnemyCombatStateMachine(
             AttackOutcome.HIT_PLAYER -> false
         }
         current.resolved = true
+        val lessonCounter = teachesDefense && counterOpen
         events += EnemyCombatEvent.AttackResolved(current.id, outcome, simulationNanos)
         endGuard(events)
         if (outcome == AttackOutcome.PARRIED) {
             attack = null
             hitReaction = HitReaction.PARRIED
-            hitDurationNanos = PARRY_DURATION
+            hitDurationNanos = if (lessonCounter) LESSON_COUNTER_NANOS else PARRY_DURATION
             changePhase(EnemyPhase.HIT, events)
             events += EnemyCombatEvent.HitReactionStarted(HitReaction.PARRIED, hitDurationNanos, simulationNanos)
         } else {
+            if (lessonCounter) current.recoveryNanos = LESSON_COUNTER_NANOS
             changePhase(EnemyPhase.RECOVERING, events)
         }
     }

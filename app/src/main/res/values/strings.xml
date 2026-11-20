@@ -116,6 +116,8 @@
     <string name="arena_guard_set_right">右侧已成架</string>
     <string name="arena_guard_set_high">上方已成架</string>
     <string name="arena_guard_prepare_left">左路来刀 · 在左侧立刀相迎</string>
+    <string name="arena_lesson_high_guard">刀客举刀 · 横刀护额等他落刀</string>
+    <string name="arena_lesson_counter">对手露隙 · 收手再斩</string>
     <string name="arena_guard_prepare_right">右路来刀 · 在右侧立刀相迎</string>
     <string name="arena_guard_aligned">刀位已对准 · 等来刀相接</string>
     <string name="arena_hint_countdown">稳住身位 · 等候刀客起势</string>

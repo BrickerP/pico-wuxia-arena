@@ -149,7 +149,7 @@ internal class ArenaSession(
     },
     savedBestScore: Int = 0,
 ) {
-    private var combat = EnemyCombatStateMachine()
+    private var combat = combatForRound(1)
     private var initialHealth = combat.health
     private val motion = PlayerCombatResolver()
     private val pendingMotion = ArrayDeque<PlayerMotionFrame>()
@@ -708,7 +708,7 @@ internal class ArenaSession(
                 // Contacts transition the attack or start hit stop; cannot repeatedly consume t=0.
                 if (hitStopNanos > 0L || hitStopAwaitingPresentation) break
             } else {
-                if (combat.frontArmored && combat.phase == EnemyPhase.ACTIVE && after != null) {
+                if ((combat.teachesDefense || combat.frontArmored) && combat.phase == EnemyPhase.ACTIVE && after != null) {
                     val oldHead = attackStartHead
                     if (oldHead != null && evadedBladeAtPose(after.blade(), oldHead, toFrame.headPosition)) {
                         combat.currentAttackId?.let(combat::recordEvadedBlade)
@@ -1367,9 +1367,8 @@ internal class ArenaSession(
         attackSequenceIndex = 0
         check(roundGeneration < Long.MAX_VALUE) { "round generation overflow" }
         roundGeneration++
-        initialHealth = 100 + (roundNumber - 1) * 25
-        combat = EnemyCombatStateMachine(initialHealth, 800_000_000L - (roundNumber - 1) * 100_000_000L,
-            frontArmored = arenaOpponents[roundNumber - 1].frontArmored)
+        combat = combatForRound(roundNumber)
+        initialHealth = combat.health
         resetCombatContactIdentity()
         enemyHitZone = null
         enemyPosition = enemySpawn
@@ -1439,6 +1438,10 @@ internal class ArenaSession(
     }
 
     private companion object {
+        fun combatForRound(round: Int) = EnemyCombatStateMachine(
+            100 + (round - 1) * 25, 800_000_000L - (round - 1) * 100_000_000L,
+            frontArmored = arenaOpponents[round - 1].frontArmored, teachesDefense = round == 1,
+        )
         val ATTACK_SEQUENCE = listOf(AttackDirection.OVERHEAD, AttackDirection.LEFT, AttackDirection.RIGHT)
         const val SECOND = 1_000_000_000L
         const val MATCH_DURATION = 180L * SECOND
@@ -1510,7 +1513,7 @@ internal class ArenaSession(
                 trialStarted = false
                 clearEnemyContactPlayback()
                 enemyMotionNanos = 0L
-                combat = EnemyCombatStateMachine()
+                combat = combatForRound(1)
                 resetCombatContactIdentity()
                 enemyHitZone = null
                 initialHealth = combat.health

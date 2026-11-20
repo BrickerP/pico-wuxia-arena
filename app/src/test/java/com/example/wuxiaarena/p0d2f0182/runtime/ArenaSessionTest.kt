@@ -260,7 +260,7 @@ class ArenaSessionTest {
         assertEquals(AttackDirection.OVERHEAD, preparing.attackDirection)
         assertEquals(800_000_000L, preparing.simulationNanos)
         assertEquals(0L, preparing.phaseElapsedNanos)
-        assertEquals(AttackDirection.OVERHEAD.preparationNanos, preparing.phaseRemainingNanos)
+        assertEquals(1_400_000_000L, preparing.phaseRemainingNanos)
         assertEquals(preparing.copy(diagnosticPublishSource = "tick"), presentations.last().first)
         assertEquals(
             listOf(
@@ -277,7 +277,7 @@ class ArenaSessionTest {
         assertEquals(preparing.copy(diagnosticPublishSource = "presenter_bind"), replay.single().first)
         assertTrue(replay.single().second.isEmpty())
         assertEquals(preparing, session.viewState)
-        session.onTick(attackStartedAt + AttackDirection.OVERHEAD.preparationNanos)
+        session.onTick(attackStartedAt + requireNotNull(preparing.phaseRemainingNanos))
         assertEquals(EnemyPhase.STARTUP, replay.last().first.phase)
         assertEquals(attackId, replay.last().first.attackId)
         assertEquals(
