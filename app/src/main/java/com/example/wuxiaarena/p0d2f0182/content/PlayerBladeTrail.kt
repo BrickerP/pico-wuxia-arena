@@ -29,6 +29,7 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
     private var inputOrigin: InputOrigin? = null
     private var closed = false
     private var failed = false
+    private var visible = false
     private val receipts = BladeTrailReceiptBudget()
     private val frameReceipts = BladeTrailFrameReceipt()
     private var firstPresentReceipt = false
@@ -91,6 +92,12 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
             return
         }
         try {
+            if (mesh == null && state.sceneReady && state.result == TrialResult.COUNTDOWN) {
+                val points = listOf(Vector3(0f, 0f, 0f), Vector3(.001f, 0f, 0f), Vector3(0f, .001f, .001f))
+                create(MeshModel(positions = points, triangleIndices = listOf(0, 1, 2),
+                    colors = List(3) { Color4(1f, 1f, 1f, 0f) }), boundsOf(points))
+                Log.i(TAG, "Prepared hidden blade trail during countdown")
+            }
             if (state.roundGeneration != round || state.roundNumber != opponentRound ||
                 state.dominantHand != hand || state.inputOrigin != inputOrigin
             ) {
@@ -120,7 +127,7 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
             )
             if (ribbon == null) {
                 if (receiptOpen) geometryNulls++
-                entity?.takeIf { it.valid }?.enabled = false
+                setVisible(false)
                 receipt(state, System.nanoTime(), "geometry_null")
                 return
             }
@@ -146,7 +153,7 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
                 check(existing.replaceWithMeshModel(model, bounds)) { "Blade ribbon mesh update was rejected" }
                 if (receiptOpen) replaces++
             }
-            checkNotNull(entity).enabled = true
+            setVisible(true)
             if (receiptOpen) enables++
             receipt(state, System.nanoTime(), "submitted", ribbon, model.colors?.size ?: 0,
                 if (existing == null) "create" else "replace")
@@ -178,7 +185,14 @@ internal class PlayerBladeTrail(private val root: Entity) : AutoCloseable {
 
     private fun clear() {
         history.clear()
-        entity?.takeIf { it.valid }?.enabled = false
+        setVisible(false)
+    }
+
+    private fun setVisible(value: Boolean) {
+        if (visible == value) return
+        val target = entity?.takeIf { it.valid } ?: return
+        target.enabled = value
+        visible = value
     }
 
     private fun create(model: MeshModel, bounds: BoundingBox) {

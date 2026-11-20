@@ -87,6 +87,8 @@ private class SceneOwner(
     private class LoadedOpponent(val roundNumber: Int, val entity: Entity) {
         var animator: EnemyAnimator? = null
         var ready = false
+        var placedPosition: TrackingVector3? = null
+        var placedYaw = Float.NaN
 
         fun close() {
             ready = false
@@ -119,6 +121,8 @@ private class SceneOwner(
     var statusWorldPosition: Vector3? = null
     var statusWorldRotation: Quat = Quat.identity()
     var statusPanelY = 2.15f
+    private val controlPlacement = PanelPlacement(HUD_WORLD_SCALE)
+    private val statusPlacement = PanelPlacement(STATUS_WORLD_SCALE)
     private var impactRound = -1L
     private val seenImpactLights = mutableSetOf<Long>()
     private var pulseUntil = 0L
@@ -155,10 +159,18 @@ private class SceneOwner(
         if (!enemy.valid) return
         state.enemyPosition?.let { position ->
             val displayPosition = position + state.enemyRecoilOffset
-            val transform = checkNotNull(enemy.components[TransformComponent::class.java])
-            transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))
-            val halfYaw = state.enemyYawRadians / 2f
-            transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
+            if (loaded.placedPosition != displayPosition || loaded.placedYaw != state.enemyYawRadians) {
+                val transform = checkNotNull(enemy.components[TransformComponent::class.java])
+                if (loaded.placedPosition != displayPosition) {
+                    transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))
+                    loaded.placedPosition = displayPosition
+                }
+                if (loaded.placedYaw != state.enemyYawRadians) {
+                    val halfYaw = state.enemyYawRadians / 2f
+                    transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
+                    loaded.placedYaw = state.enemyYawRadians
+                }
+            }
             panelAnchors[STATUS_PANEL_ID]?.let { anchor ->
                 val readablePosition = readableStatusPosition(position, state.playerHeadPosition, statusPanelY.toDouble())
                 val location = Vector3(readablePosition.x.toFloat(), readablePosition.y.toFloat(), readablePosition.z.toFloat())
@@ -166,7 +178,7 @@ private class SceneOwner(
                 val rotation = Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())
                 statusWorldPosition = location
                 statusWorldRotation = rotation
-                placeAttachment(parent, anchor, location, rotation, STATUS_WORLD_SCALE)
+                statusPlacement.place(parent, anchor, location, rotation)
             }
         }
         loaded.animator?.present(state)
@@ -220,8 +232,13 @@ private class SceneOwner(
             val facing = readableStatusRotation(it.position, it.capturedHead)
             Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())
         } ?: controlRotation
-        placeAttachment(parent, anchor, position, rotation)
+        controlPlacement.place(parent, anchor, position, rotation)
         recordTerminalControlBounds(parent, anchor, pose)
+    }
+
+    fun placeStatusPanel(parent: Entity, defaultPosition: Vector3) {
+        val anchor = panelAnchors[STATUS_PANEL_ID] ?: return
+        statusPlacement.place(parent, anchor, statusWorldPosition ?: defaultPosition, statusWorldRotation)
     }
 
     private fun recordTerminalControlBounds(parent: Entity, anchor: Entity, pose: TerminalControlPose?) {
@@ -567,6 +584,8 @@ private class SceneOwner(
         lastEnemySpaceEvidence = null
         enemySpaceEvidenceCount = 0
         terminalControls.clear()
+        controlPlacement.clear()
+        statusPlacement.clear()
         terminalBoundsPose = null
         terminalBoundsAttempts = 0
         terminalBoundsNextAt = 0L
@@ -720,8 +739,7 @@ internal fun HomeStage(
             val root = owner.root
             if (root != null && root.valid) {
                 owner.placeControlPanel(root)
-                val location = owner.statusWorldPosition ?: statusPosition
-                placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), location, owner.statusWorldRotation, STATUS_WORLD_SCALE)
+                owner.placeStatusPanel(root, statusPosition)
             }
         },
     ) { content, attachments ->
@@ -772,7 +790,7 @@ internal fun HomeStage(
                 }
             }
             owner.placeControlPanel(root)
-            placeAttachment(root, owner.panelAnchors.getValue(STATUS_PANEL_ID), statusPosition, Quat.identity(), STATUS_WORLD_SCALE)
+            owner.placeStatusPanel(root, statusPosition)
             model = Entity.loadSuspend(COURTYARD_ASSET)
             if (owner.root !== root) {
                 model.destroy()
@@ -929,16 +947,32 @@ private fun addPointLight(
     }
 }
 
-private fun placeAttachment(
-    root: Entity,
-    panel: Entity,
-    position: Vector3,
-    rotation: Quat,
-    scale: Float = HUD_WORLD_SCALE,
-) {
-    if (!panel.valid) return
-    val transform = checkNotNull(panel.components[TransformComponent::class.java])
-    transform.setPosition(root.convertPositionFrom(position, null))
-    transform.setQuaternion(root.convertRotationFrom(rotation, null))
-    transform.setScaleVector(Vector3(scale, scale, scale))
+private class PanelPlacement(private val scale: Float) {
+    private var lastRoot: Entity? = null
+    private var lastPanel: Entity? = null
+    private var lastPosition: Vector3? = null
+    private var lastRotation: Quat? = null
+
+    fun place(root: Entity, panel: Entity, position: Vector3, rotation: Quat) {
+        if (!panel.valid) return
+        val first = root !== lastRoot || panel !== lastPanel
+        val moved = first || lastPosition?.let { it.x == position.x && it.y == position.y && it.z == position.z } != true
+        val turned = first || lastRotation?.let { it.x == rotation.x && it.y == rotation.y && it.z == rotation.z && it.w == rotation.w } != true
+        if (!moved && !turned) return
+        val transform = checkNotNull(panel.components[TransformComponent::class.java])
+        if (moved) transform.setPosition(root.convertPositionFrom(position, null))
+        if (turned) transform.setQuaternion(root.convertRotationFrom(rotation, null))
+        if (first) transform.setScaleVector(Vector3(scale, scale, scale))
+        lastRoot = root
+        lastPanel = panel
+        lastPosition = position
+        lastRotation = rotation
+    }
+
+    fun clear() {
+        lastRoot = null
+        lastPanel = null
+        lastPosition = null
+        lastRotation = null
+    }
 }
