@@ -1,6 +1,14 @@
 # 原生刀客对决验收
 
-**最新动作对照：[送刀、短腕切与轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-committed-cut-2026-11-18)**（APK `1353185f…`）。同一包、同一原生入口，固定握点 64 次左右摆动：24 次轻擦、0 有效伤害，首敌仍为 100/100，玩家 0 分。主动送手：4 次有效命中，打败首敌，第二场落败、145 分。[实伤](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/committed-cut.mp4) · [轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/fixed-wrist-graze.mp4)。这些证据没有显示新版三场通关。
+**11 月 20 日当前开发预览：[接刀还锋 APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-shoulder-counter-2026-11-20/arena.apk)。** 首敌真正被挡住后，提示玩家先收手、从空出的肩侧回击。发布包能进入准备页；宿主窗口遮挡导致本次开始点击未送达，尚无此包胜负记录。
+
+| 对局里要看什么 | 对应版本的证据 |
+| --- | --- |
+| 读招是否真的有效 | [收刀迎锋：首刀实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-compact-guard-2026-11-20/compact-guard.mp4)。在有效下劈期发生 `BLOCK / braced=true`，随后第一次还刀碰到收势中的钢刃，不算命中。该局打过首敌，第二场落败、150 分，并成功重开。 |
+| 擦钢是否还会冒充格挡 | [擦钢与格挡声音对照](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-steel-accent-2026-11-20/touch-touch-block.wav)是制作音频，不是头显收音。对应包原生实战记录到真正的格挡和单独的轻擦事件；轻擦没有强火花或人为的全局顿帧。 |
+| 首次启动 | 首场迎刀包在这台 Mac 的模拟器上遇到一次启动无响应。系统主线程栈停留在 Android 绑定应用、加载 PICO 原生运行时；选择等待后同一进程进入 Full Stage。未归因于游戏模型，亦未声称该问题已消失。 |
+
+**动作对照：[送刀、短腕切与轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-committed-cut-2026-11-18)**（APK `1353185f…`）。同一包、同一原生入口，固定握点 64 次左右摆动：24 次轻擦、0 有效伤害，首敌仍为 100/100，玩家 0 分。主动送手：4 次有效命中，打败首敌，第二场落败、145 分。[实伤](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/committed-cut.mp4) · [轻擦](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-committed-cut-2026-11-18/fixed-wrist-graze.mp4)。这些证据没有显示新版三场通关。
 
 场景单变量：119→87 个不透明图元实例；固定开局八秒，空间帧间隔 P50 48.34→40.96 ms、P95 83.61→66.96 ms、最大 279.45→156.70 ms。单次、接触数和宿主负载并非完全一致。不能将改善折算为头显帧率，或称卡顿已消失。
 
