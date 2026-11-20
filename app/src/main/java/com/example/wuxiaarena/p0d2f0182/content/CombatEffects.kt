@@ -80,6 +80,11 @@ internal class CombatEffects private constructor(
         forceSlots.forEach { slot -> safely(slot) { slot.update(now) } }
         val reservedForce = mutableSetOf<ForceSlot>()
         for (impact in currentContactImpacts(impacts, state.simulationNanos)) {
+            if (impact.kind == CombatImpactKind.STEEL_TOUCH) {
+                Log.i(TAG, "Contact consumed id=${impact.id} kind=STEEL_TOUCH family=METAL mode=no_particles " +
+                    "round=${state.roundGeneration} origin=${state.inputOrigin}")
+                continue
+            }
             val accent = CombatFeedbackProfile.accent(impact)
             val scale = ((0.72 + 0.46 * accent.strength).toFloat() * accent.visualScale).coerceIn(0.75f, 1.5f)
             val age = state.simulationNanos - impact.atNanos

@@ -31,7 +31,7 @@ class NativeEnemyMotionContactTest {
         val fixture = Fixture()
         fixture.start()
         var observedContact = false
-        repeat(40) {
+        repeat(40) { priorTicks ->
             if (observedContact) return@repeat
             val before = fixture.session.viewState
             val beforePosition = requireNotNull(before.enemyPosition)
@@ -42,12 +42,24 @@ class NativeEnemyMotionContactTest {
             if (impacts.size > previousImpacts) {
                 val contact = fixture.session.viewState
                 val impact = impacts.last()
-                assertEquals(CombatImpactKind.BLOCK, impact.kind)
+                assertEquals(CombatImpactKind.STEEL_TOUCH, impact.kind)
+                assertEquals(0, impact.appliedDamage)
+                assertFalse(contact.hitStop)
                 assertEquals(EnemyPhase.IDLE, contact.phase)
-                val contactPosition = requireNotNull(contact.enemyPosition)
-                assertTrue("Actor must advance toward the stationary blade", contactPosition.z >= beforePosition.z)
+                val elapsedToImpact = impact.atNanos - before.simulationNanos
+                assertTrue("Contact must occur inside this interval", elapsedToImpact in 0L until 100_000_000L)
+                val witness = Fixture()
+                witness.start()
+                repeat(priorTicks) { witness.tick(100_000_000L) }
+                witness.tick(elapsedToImpact + 1_000L)
+                assertEquals(CombatImpactKind.STEEL_TOUCH, witness.impacts().single().kind)
+                val impactPosition = requireNotNull(witness.session.viewState.enemyPosition)
+                assertEquals("Actor approaches the stationary blade up to its contact time",
+                    beforePosition.z + 0.65 * elapsedToImpact / 1_000_000_000.0, impactPosition.z, 0.0006)
                 assertTrue("Actor origin must stop at TOI before the unchecked frame endpoint",
-                    contactPosition.z < fullEndpoint - 1e-6)
+                    impactPosition.z < fullEndpoint - 1e-6)
+                assertTrue("The remaining frame may withdraw from steel but cannot walk through the stopped pose",
+                    requireNotNull(contact.enemyPosition).z <= impactPosition.z + 0.0006)
                 val held = requireNotNull(contact.playerWeaponGrip)
                 assertEquals(fixture.rawGrip.position, held.position)
                 assertEquals("Every held contact part must remain at the raw tracked pose",
@@ -196,7 +208,7 @@ class NativeEnemyMotionContactTest {
         fixture.tick(300_000_000L)
         fixture.tick(40_000_000L, original.copy(position = center - first.normal * .06))
         assertEquals("A real new swing must be eligible for one new steel impact", 2, fixture.impacts().size)
-        assertTrue(fixture.impacts().last().kind in setOf(CombatImpactKind.BLOCK, CombatImpactKind.PARRY))
+        assertTrue(fixture.impacts().last().kind in setOf(CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.STEEL_TOUCH))
         assertEquals(100, fixture.session.viewState.health)
     }
 

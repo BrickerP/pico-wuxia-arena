@@ -86,6 +86,12 @@ class CombatFeedbackTimingTest {
         assertFalse(block.fatal)
         assertEquals(35_000_000L, CombatFeedbackProfile.hitStopNanos(block))
         assertEquals(95_000_000L, CombatFeedbackProfile.hitStopNanos(parry))
+        val touch = impact(CombatImpactKind.STEEL_TOUCH)
+        assertEquals(0L, CombatFeedbackProfile.hitStopNanos(touch))
+        val scrapePulse = CombatFeedbackProfile.accent(touch)
+        val blockPulse = CombatFeedbackProfile.accent(block)
+        assertTrue(scrapePulse.hapticLevel in 1 until blockPulse.hapticLevel)
+        assertTrue(scrapePulse.hapticDurationMillis in 1 until blockPulse.hapticDurationMillis)
         assertEquals(0L, CombatFeedbackProfile.hitStopNanos(impact(CombatImpactKind.PLAYER_HIT)))
     }
 

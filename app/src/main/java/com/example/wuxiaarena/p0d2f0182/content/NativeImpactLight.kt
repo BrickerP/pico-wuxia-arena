@@ -13,7 +13,8 @@ internal data class NativeImpactLight(
 
 /** Ordinary BODY feedback belongs to the real-contact core and dry fragments alone. */
 internal fun nativeImpactLight(impact: CombatImpact): NativeImpactLight? {
-    if (impact.kind == CombatImpactKind.PLAYER_HIT || impact.kind == CombatImpactKind.GRAZE) return null
+    if (impact.kind == CombatImpactKind.PLAYER_HIT || impact.kind == CombatImpactKind.GRAZE ||
+        impact.kind == CombatImpactKind.STEEL_TOUCH) return null
     if (!impact.strength.isFinite()) return null
     val accent = CombatFeedbackProfile.accent(impact)
     val strength = accent.strength.toFloat()

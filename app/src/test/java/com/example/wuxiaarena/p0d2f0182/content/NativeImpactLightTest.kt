@@ -38,8 +38,9 @@ class NativeImpactLightTest {
         assertEquals(45_000_000L, light.durationNanos)
     }
 
-    @Test fun nearHeadPlayerDamageDoesNotAddAnUnrequestedLight() {
+    @Test fun nearHeadPlayerDamageAndIncidentalSteelDoNotFlashTheScene() {
         assertNull(nativeImpactLight(hit().copy(kind = CombatImpactKind.PLAYER_HIT)))
+        assertNull(nativeImpactLight(hit().copy(kind = CombatImpactKind.STEEL_TOUCH, appliedDamage = 0)))
     }
 
     @Test fun ageBoundaryAndFutureDeliveryNeverRestartThePulse() {

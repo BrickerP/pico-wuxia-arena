@@ -136,7 +136,8 @@ internal class DamagePopupTimeline {
     private fun CombatImpactKind.damagesEnemy(): Boolean = when (this) {
         CombatImpactKind.SOFT_HIT, CombatImpactKind.HARD_HIT, CombatImpactKind.GUARDED_HIT,
         CombatImpactKind.SKILL, CombatImpactKind.EXECUTION -> true
-        CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.PLAYER_HIT, CombatImpactKind.GRAZE -> false
+        CombatImpactKind.BLOCK, CombatImpactKind.PARRY, CombatImpactKind.PLAYER_HIT,
+        CombatImpactKind.GRAZE, CombatImpactKind.STEEL_TOUCH -> false
     }
 
     companion object {

@@ -52,6 +52,7 @@ internal class CombatAudio(
         HARD_HIT(R.raw.arena_hard_hit, 0.56),
         GUARDED_HIT(R.raw.arena_guarded_hit, 0.42),
         BLOCK(R.raw.arena_block, 0.62, 4),
+        STEEL_TOUCH(R.raw.arena_steel_touch, 0.09, 1),
         PARRY(R.raw.arena_parry, 0.80, 5),
         WHOOSH(R.raw.arena_whoosh, 0.28, 1),
         PLAYER_HIT(R.raw.arena_hurt, 0.36, 4),
@@ -177,6 +178,7 @@ internal class CombatAudio(
         if (!impact.strength.isFinite() || !impact.point.isFinite()) return
         val cue = when (impact.kind) {
             CombatImpactKind.GRAZE -> Cue.WHOOSH
+            CombatImpactKind.STEEL_TOUCH -> Cue.STEEL_TOUCH
             CombatImpactKind.SOFT_HIT -> Cue.SOFT_HIT
             CombatImpactKind.HARD_HIT -> Cue.HARD_HIT
             CombatImpactKind.GUARDED_HIT -> Cue.GUARDED_HIT

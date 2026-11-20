@@ -1080,7 +1080,7 @@ internal class ArenaSession(
         heldEnemyPoseFrame = poseFrame
         heldEnemyAttackOffsets = attackOffsets
         val kind = when (outcome) {
-            AttackOutcome.BLOCKED -> CombatImpactKind.BLOCK
+            AttackOutcome.BLOCKED -> if (defended) CombatImpactKind.BLOCK else CombatImpactKind.STEEL_TOUCH
             AttackOutcome.PARRIED -> CombatImpactKind.PARRY
             AttackOutcome.HIT_PLAYER -> CombatImpactKind.PLAYER_HIT
             AttackOutcome.MISSED -> return
@@ -1088,7 +1088,12 @@ internal class ArenaSession(
         val motionContact = MotionContact(zone, if (outcome == AttackOutcome.HIT_PLAYER) contact.enemyPoint
             else (contact.playerPoint + contact.enemyPoint) * 0.5,
             contact.normal, (contact.relativeDisplacement * -1.0).normalizedOrNull())
-        emitImpact(kind, motionContact, if (outcome == AttackOutcome.PARRIED) 1.0 else 0.65, hand, events)
+        val strength = when (kind) {
+            CombatImpactKind.PARRY -> 1.0
+            CombatImpactKind.STEEL_TOUCH -> 0.20
+            else -> 0.65
+        }
+        emitImpact(kind, motionContact, strength, hand, events)
     }
 
     private fun applyPlayerMotion(frame: PlayerMotionFrame, events: MutableList<EnemyCombatEvent>) {
@@ -1220,7 +1225,8 @@ internal class ArenaSession(
         hitStopNanos = maxOf(hitStopNanos, stop)
         if (stop > 0L) hitStopAwaitingPresentation = true
         if (fatal) deathHitStopNanos = hitStopNanos
-        if (kind == CombatImpactKind.GRAZE || kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK ||
+        if (kind == CombatImpactKind.STEEL_TOUCH || kind == CombatImpactKind.GRAZE ||
+            kind == CombatImpactKind.PLAYER_HIT || kind == CombatImpactKind.BLOCK ||
             kind == CombatImpactKind.GUARDED_HIT && appliedDamage == 0) return
         val away = contact.normal * -1.0
         val awayFromPlayer = latestTrackingSnapshot?.head?.pose?.position?.let { head -> enemyPosition?.minus(head) }
