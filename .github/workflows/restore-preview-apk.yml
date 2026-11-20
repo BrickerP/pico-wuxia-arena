@@ -1,0 +1,54 @@
+name: Restore a signed preview APK
+on:
+  workflow_dispatch:
+    inputs:
+      base_tag:
+        description: "Public native preview containing the base arena.apk"
+        required: true
+        type: string
+      draft_tag:
+        description: "Draft native preview containing release-transport.zst"
+        required: true
+        type: string
+      base_sha:
+        description: "SHA-256 of the exact base APK"
+        required: true
+        type: string
+      apk_sha:
+        description: "SHA-256 of the locally signed, tested APK"
+        required: true
+        type: string
+permissions: {}
+jobs:
+  restore:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      BASE_TAG: ${{ inputs.base_tag }}
+      DRAFT_TAG: ${{ inputs.draft_tag }}
+      BASE_SHA: ${{ inputs.base_sha }}
+      APK_SHA: ${{ inputs.apk_sha }}
+    steps:
+      - name: Reconstruct and verify the signed file
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$BASE_TAG" =~ ^native-[a-z0-9-]+$ && "$DRAFT_TAG" =~ ^native-[a-z0-9-]+$ && "$BASE_TAG" != "$DRAFT_TAG" ]]
+          [[ "$BASE_SHA" =~ ^[0-9a-f]{64}$ && "$APK_SHA" =~ ^[0-9a-f]{64}$ ]]
+          cd "$RUNNER_TEMP"
+          gh release view "$BASE_TAG" --repo "$REPO" --json isDraft,assets > base.json
+          jq -e --arg digest "sha256:$BASE_SHA" '(.isDraft == false) and any(.assets[]; .name == "arena.apk" and .digest == $digest and .size <= 536870912)' base.json
+          gh release view "$DRAFT_TAG" --repo "$REPO" --json isDraft,assets > draft.json
+          jq -e '.isDraft and any(.assets[]; .name == "release-transport.zst" and .state == "uploaded" and .size <= 67108864)' draft.json
+          gh release download "$BASE_TAG" --repo "$REPO" --pattern arena.apk --dir base
+          gh release download "$DRAFT_TAG" --repo "$REPO" --pattern release-transport.zst --dir delta
+          printf '%s  base/arena.apk\n' "$BASE_SHA" | sha256sum --check -
+          (ulimit -f 524288; zstd -q -d --long=28 --patch-from=base/arena.apk delta/release-transport.zst -o arena.apk)
+          printf '%s  arena.apk\n' "$APK_SHA" | sha256sum --check -
+          [[ "$(gh release view "$DRAFT_TAG" --repo "$REPO" --json isDraft --jq '.isDraft')" == true ]]
+          gh release upload "$DRAFT_TAG" --repo "$REPO" arena.apk
