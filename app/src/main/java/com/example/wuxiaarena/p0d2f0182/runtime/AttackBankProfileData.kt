@@ -8,11 +8,11 @@ import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.math.Vector3
 
 internal object AttackBankProfileData {
-    const val bindingSha256 = "e5de3e4a767c5f1cf0c022b94e1d4c9a02fc034c856f33313000cdd8b391c29d"
+    const val bindingSha256 = "644d9f10afadb7af9bf4421be9940fa28fd9df144f8c8429b3a6b51c56b9e641"
     val characters: Map<String, CharacterAttackProfiles> = mapOf(
         "asset://models/opponents/base.glb" to CharacterAttackProfiles(
-            modelSha256 = "9f519ecd9dec145c01d0b91db2123558de101f5a4e1cebd9082c83c3d82e5a8e",
-            profileSha256 = "00885d485e306b95a3822e03d096a2407528061a78141e5b1c2eb5de24b98702",
+            modelSha256 = "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
+            profileSha256 = "1ad0e93fda89dd34a65748a4ccd1046057223026ef1704aa8488d501a84f49a4",
             attacks = mapOf(
                 // Animation semantics SHA-256 3fc942411df15bf17cd0bb07ea1ac01408306edb7f6e3d2e717f7a7e429d54ea
                 AttackDirection.OVERHEAD to AttackProfile(
@@ -61,8 +61,8 @@ internal object AttackBankProfileData {
             ),
         ),
         "asset://models/opponents/indigo.glb" to CharacterAttackProfiles(
-            modelSha256 = "84d8fe92a05f6392647fcdb74bc758fbfab006bc3374af9449056e9468080cf3",
-            profileSha256 = "be2ff43b9c415ec429983d55d5dbb7c8e2286e048741f187ee0189541268c48a",
+            modelSha256 = "2b441a3752d7b03669fe1c618b8323898012a9fd10274e0c9e4b411ffa62a8bf",
+            profileSha256 = "1d3c22aea9c3914716a0ccc8fede9048b82d0a97624d01d1b96373afc8f0523a",
             attacks = mapOf(
                 // Animation semantics SHA-256 d5e6b4807a22890afc101f63ee9ab1b3c0684b26d62d9319e6c4af68d0518c42
                 AttackDirection.OVERHEAD to AttackProfile(
@@ -111,8 +111,8 @@ internal object AttackBankProfileData {
             ),
         ),
         "asset://models/opponents/veteran.glb" to CharacterAttackProfiles(
-            modelSha256 = "8ea3ad5837d2c24b6cc0e963e12707393166ed04491507930ae64cbd50098f6d",
-            profileSha256 = "997984e61fdced7e738f8e090bbd877f176b069d28aa35df1a69b9ae9085ab97",
+            modelSha256 = "35499d130ef054f4cf1493ebe28ba4bdb25d98c9c97cd9d5008be8c38688f1d8",
+            profileSha256 = "a54887a8040cb528cdc40db90b691f9f7da50a063d9aeab521c59943af6a8fc4",
             attacks = mapOf(
                 // Animation semantics SHA-256 136a8f34c1f6493f508359fa6b9c9c486da84c5e7a13b7255e2fdabd03dac43c
                 AttackDirection.OVERHEAD to AttackProfile(
