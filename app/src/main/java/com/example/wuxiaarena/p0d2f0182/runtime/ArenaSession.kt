@@ -138,6 +138,7 @@ internal data class ArenaViewState(
     val playerBladeAtRest: Boolean = true,
     val readyGuard: AttackDirection? = null,
     val highGuardNeedsRetraction: Boolean = false,
+    val indigoGuardOnRibLine: Boolean? = null,
     val playerMotionGeneration: Long = 0L,
     val enemyBladeBase: Vector3? = null,
     val enemyBladeTip: Vector3? = null,
@@ -280,6 +281,11 @@ internal class ArenaSession(
             ) latestMotion?.takeIf { it.bladeAtRest && it.swing == null } else null
             val guardGrip = coachingGuard?.weaponGrip
             val enemy = enemyPosition
+            val side = coachingGuard?.guardDirection
+            val ribLine = if (roundNumber == 2 && result == TrialResult.FIGHTING && enemy != null &&
+                side != null && side != AttackDirection.OVERHEAD && side == combat.currentAttackDirection)
+                indigoGuardCoversRibs(side, coachingGuard.headPosition, enemy, coachingGuard.bladeBase, coachingGuard.bladeTip)
+            else null
             val selectedPose = effectiveEnemyPose()
             val enemyAttackPose = enemyAttackPose()
             val headPose = snapshot?.head?.pose
@@ -355,6 +361,7 @@ internal class ArenaSession(
                 playerBladeTipSpeed = latestMotion?.bladeTipSpeed ?: 0.0,
                 playerBladeAtRest = latestMotion?.bladeAtRest ?: true,
                 readyGuard = coachingGuard?.guardDirection,
+                indigoGuardOnRibLine = ribLine,
                 highGuardNeedsRetraction = roundNumber == 1 && coachingGuard?.guardDirection == AttackDirection.OVERHEAD &&
                     (result != TrialResult.FIGHTING || combat.currentAttackDirection == AttackDirection.OVERHEAD) &&
                     guardGrip != null && enemy != null &&
