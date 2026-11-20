@@ -91,6 +91,7 @@ internal data class ArenaViewState(
     val guarding: Boolean,
     val frontArmored: Boolean = false,
     val counterOpen: Boolean = false,
+    val counterTargetHint: CounterTargetHint? = null,
     val hitReaction: HitReaction?,
     val pauseReason: PauseReason?,
     val pauseId: Long?,
@@ -281,6 +282,15 @@ internal class ArenaSession(
             val enemy = enemyPosition
             val selectedPose = effectiveEnemyPose()
             val enemyAttackPose = enemyAttackPose()
+            val headPose = snapshot?.head?.pose
+            val head = headPose?.position
+            val facing = headPose?.rotation
+            val counterHint = when {
+                roundNumber != 1 || !motionReady || !combat.counterOpen -> null
+                motion.weaponConstrained -> CounterTargetHint.WITHDRAW
+                head != null && facing != null && enemyAttackPose != null -> lessonCounterTarget(head, facing, enemyAttackPose)
+                else -> null
+            }
             return ArenaViewState(
                 roundGeneration = roundGeneration,
                 trialStarted = trialStarted,
@@ -295,6 +305,7 @@ internal class ArenaSession(
                 initialHealth = initialHealth,
                 guarding = combat.guarding,
                 frontArmored = combat.frontArmored, counterOpen = combat.counterOpen,
+                counterTargetHint = counterHint,
                 hitReaction = combat.hitReaction,
                 pauseReason = combat.pauseReason,
                 pauseId = combat.currentPauseId,

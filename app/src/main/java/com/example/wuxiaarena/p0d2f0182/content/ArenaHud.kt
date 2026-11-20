@@ -49,6 +49,7 @@ import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.Hand
 import com.example.wuxiaarena.p0d2f0182.R
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.CounterTargetHint
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.pico.spatial.ui.design.Badge
@@ -513,8 +514,16 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                     (state.motionReleaseRequired || state.motionCharge.isFinite() && state.motionCharge > 0f)) {
                     MotionChargeHint(state)
                 } else {
-                    Text(text = phaseHint(state), style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
-                        color = ArenaUiPalette.paleAsh, maxLines = 1)
+                    val emphasizeCue = duelCueVisible && state.result == TrialResult.FIGHTING &&
+                        state.inputReady && state.pauseReason == null
+                    Text(
+                        text = phaseHint(state),
+                        style = if (emphasizeCue) PicoTheme.typography.titleSmall.copy(
+                            fontSize = 23.sp, lineHeight = 27.sp, fontWeight = FontWeight.SemiBold, shadow = HudTextShadow,
+                        ) else PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 20.sp, shadow = HudTextShadow),
+                        color = if (emphasizeCue) ArenaUiPalette.paperIvory else ArenaUiPalette.paleAsh,
+                        maxLines = 1,
+                    )
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     ResourceMeter(stringResource(R.string.arena_resource_player), state.playerHealth, 100,
@@ -812,7 +821,13 @@ private fun phaseHint(state: ArenaViewState): String = stringResource(
         state.result == TrialResult.ROUND_CLEAR && state.roundNumber >= state.roundCount -> R.string.arena_hint_final_clear
         state.result == TrialResult.ROUND_CLEAR -> R.string.arena_hint_round_clear
         state.frontArmored && state.counterOpen -> R.string.arena_armor_open
-        state.roundNumber == 1 && state.counterOpen -> R.string.arena_lesson_counter
+        state.roundNumber == 1 && state.counterOpen -> when (state.counterTargetHint) {
+            CounterTargetHint.WITHDRAW -> R.string.arena_lesson_withdraw_to_shoulder
+            CounterTargetHint.LEFT_SHOULDER -> R.string.arena_lesson_counter_left
+            CounterTargetHint.RIGHT_SHOULDER -> R.string.arena_lesson_counter_right
+            CounterTargetHint.SHOULDER_LINE -> R.string.arena_lesson_counter_shoulders
+            null -> R.string.arena_lesson_counter
+        }
         state.frontArmored && state.phase == EnemyPhase.PREPARING && state.attackDirection == AttackDirection.OVERHEAD -> R.string.arena_armor_thrust
         state.frontArmored && state.phase in setOf(EnemyPhase.RECOVERING, EnemyPhase.IDLE) -> R.string.arena_armor_tactic
         state.roundNumber == 1 && state.readyGuard == AttackDirection.OVERHEAD &&
