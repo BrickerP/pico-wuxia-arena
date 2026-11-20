@@ -45,6 +45,7 @@ internal class CombatHapticContacts {
         impact.kind == CombatImpactKind.PARRY -> 5
         impact.kind == CombatImpactKind.SKILL || impact.kind == CombatImpactKind.PLAYER_HIT -> 4
         impact.appliedDamage > 0 && impact.zone == HitZone.HEAD -> 3
+        impact.kind == CombatImpactKind.STEEL_TOUCH -> 1
         else -> 2
     }
 }

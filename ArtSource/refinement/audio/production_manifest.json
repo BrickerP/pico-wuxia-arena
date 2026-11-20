@@ -1,6 +1,6 @@
 {
   "baseline_git_head": "562449af40ee984ddd8ef61be5c339ac9bea2de5",
-  "generator_sha256": "2cebee813c4ef02292f1398966eafd70afd040853aa982cfb08f9b3031a32b5d",
+  "generator_sha256": "ebb785f44ceb954973141166f2f93e69d1dae469d58e66edf6e3b6c428df7ae7",
   "source_sha256": {
     "ArtSource/audio/sources/haeldb-cloth/footsteps/step_cloth1.ogg": "ac461649be5e323da29227df7633d1076a905af983e0e587905216dbf85cdb91",
     "ArtSource/audio/sources/haeldb-cloth/footsteps/step_cloth2.ogg": "32b40b43e45c7ac2eb68340f0ca39a40618aae82747ffd7457a23243a5c6d290",
@@ -153,6 +153,20 @@
       "max_sample_step": 0.481475830078125,
       "edge_step": 0.0,
       "sha256": "528f77666c6bfa82d7ad0255d0b2f74e4faed12124940a08ed629955fa4b86dd"
+    },
+    {
+      "name": "arena_steel_touch",
+      "seconds": 0.09,
+      "sample_rate": 48000,
+      "channels": 1,
+      "bits": 16,
+      "peak_dbfs": -15.39189479571978,
+      "rms_dbfs": -31.410887945596304,
+      "clipped_samples": 0,
+      "decoded_bytes": 8640,
+      "max_sample_step": 0.128662109375,
+      "edge_step": 0.0,
+      "sha256": "942916b6d0a327d083d8eabe8871525ca4319dfdb055522b4f6e53929afaf0f6"
     },
     {
       "name": "arena_step",

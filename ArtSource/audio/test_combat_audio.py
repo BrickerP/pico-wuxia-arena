@@ -28,7 +28,7 @@ def read_pcm(path):
 class CombatAudioAssetsTest(unittest.TestCase):
     def test_every_runtime_cue_is_short_unclipped_pcm(self):
         files = sorted(RAW.glob('arena_*.wav'))
-        self.assertEqual(13, len(files))
+        self.assertEqual(14, len(files))
         for path in files:
             with self.subTest(cue=path.name):
                 fmt, pcm = read_pcm(path)
@@ -39,7 +39,7 @@ class CombatAudioAssetsTest(unittest.TestCase):
                 self.assertGreater(max(map(abs, pcm)), 100)
 
     def test_contact_transients_arrive_within_25ms_and_fade_without_edge_clicks(self):
-        for name in ['hit', 'hard_hit', 'guarded_hit', 'block', 'parry', 'hurt', 'skill', 'execution']:
+        for name in ['hit', 'hard_hit', 'guarded_hit', 'block', 'steel_touch', 'parry', 'hurt', 'skill', 'execution']:
             with self.subTest(cue=name):
                 _, pcm = read_pcm(RAW / f'arena_{name}.wav')
                 self.assertGreater(max(map(abs, pcm[:1200])), 327, 'No audible contact in first 25ms')
@@ -99,7 +99,7 @@ class CombatAudioAssetsTest(unittest.TestCase):
         for page in ['kenney-impact-sounds-page.txt', 'ylmir-rain-page.txt', 'starninjas-sword-page.txt', 'haeldb-cloth-page.txt']:
             self.assertTrue((manifest.parent / 'licenses' / page).is_file(), page)
 
-    def test_minimal_sources_without_archives_rebuild_all_thirteen_published_wavs(self):
+    def test_minimal_sources_without_archives_rebuild_all_published_wavs(self):
         """Run the actual generator with only its declared sources, never formal output."""
         fixture_parent = ROOT / 'build/audio-minimal-sources'
         fixture_parent.mkdir(parents=True, exist_ok=True)

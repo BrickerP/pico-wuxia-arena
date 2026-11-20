@@ -120,6 +120,18 @@ def compose(duration, *layers):
     return result
 
 
+def steel_touch():
+    def excerpt(name, start, low, high):
+        samples = decode(SOURCES / 'starninjas-sword' / name)
+        offset = round(start * SAMPLE_RATE)
+        return filtered(samples[offset:offset + round(0.09 * SAMPLE_RATE)], low, high)
+
+    slide = excerpt('attacks/sword - StarNinjas/sword.4.ogg', .065, 1500, 6200)
+    steel = excerpt('clashes/sword_clash.5.ogg', .162, 1800, 9200)
+    return [(0.9 * air + 0.42 * ring) * min(1.0, i / 240) *
+            math.exp(-i / (0.037 * SAMPLE_RATE)) for i, (air, ring) in enumerate(zip(slide, steel))]
+
+
 def rain_loop():
     rain = filtered(decode(SOURCES / 'ylmir-rain/1.ogg'), 180, 8200)
     # Split one continuous 16s take into two 8s halves. Equal-power crossfade
@@ -156,7 +168,7 @@ def build_material():
     for i in range(len(water)): water[i] *= math.exp(-i / (0.035 * SAMPLE_RATE))
     step = compose(0.32, (source('footstep_concrete_003.ogg', 0.95, 70, 9000), 0.8, 0), (water, 0.9, 0.015))
     return {'arena_hit': soft, 'arena_hard_hit': hard, 'arena_guarded_hit': guarded,
-            'arena_block': block, 'arena_parry': parry, 'arena_hurt': hurt,
+            'arena_block': block, 'arena_steel_touch': steel_touch(), 'arena_parry': parry, 'arena_hurt': hurt,
             'arena_skill': skill, 'arena_execution': execution, 'arena_whoosh': whoosh,
             'arena_step': step, 'arena_rain': rain}
 
@@ -208,8 +220,8 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True); REVIEW.mkdir(parents=True, exist_ok=True)
     cues = build_material()
     for name, samples in cues.items():
-        samples = master(samples, 0.24 if name == 'arena_rain' else 0.48,
-                         0.065 if name == 'arena_rain' else 0.16, loop=name == 'arena_rain')
+        peak, rms_limit = {'arena_rain': (0.24, 0.065), 'arena_steel_touch': (0.17, 0.034)}.get(name, (0.48, 0.16))
+        samples = master(samples, peak, rms_limit, loop=name == 'arena_rain')
         write_pcm(OUTPUT / f'{name}.wav', samples)
     # Outcome cues remain the frozen original composition, independent of combat foley.
     for name in OUTCOME_CUES:

@@ -18,6 +18,8 @@ python3 ArtSource/audio/run_audio_tests.py --audio-only
 
 ## 来源与派生
 
+轻擦钢声 [arena_steel_touch.wav](../../app/src/main/res/raw/arena_steel_touch.wav) 长 90 ms。取 StarNinjas 挥刀录音 65–155 ms 的摩擦声及第 5 份碰刀录音 162–252 ms 的余响，跳过碰刀起始的敲击声。两层一起做带通及快速衰减；真实格挡仍使用原 620 ms 的 `arena_block.wav`。
+
 完整来源、作者、逐文件SHA256、原包SHA和许可证据页在 [sources.json](sources/sources.json)。四套均选择CC0，允许派生处理。
 
 生成器以 `SOURCE_FILES` 明确列出下列10个OGG；清单只记录实际读取的源文件，不扫描或依赖下载包里的其它素材。`upstream_archives` 的官方包URL与SHA仅保留来源证据，不要求本地ZIP存在。
@@ -30,9 +32,9 @@ python3 ArtSource/audio/run_audio_tests.py --audio-only
 | `haeldb-cloth/footsteps/` | `step_cloth1.ogg`、`step_cloth2.ogg` |
 | `ylmir-rain/` | `1.ogg` |
 
-同时保留 `sources.json`、`licenses/` 的四份许可来源文本及 `kenney-impact-sounds/License.txt`。生产13条WAV依赖这10个OGG与冻结的 `before/arena_victory.wav`、`before/arena_defeat.wav`。运行完整生成器还要 `before/baseline.json` 和7条A/B旧声：`arena_hit`、`arena_block`、`arena_parry`、`arena_hard_hit`、`arena_guarded_hit`、`arena_whoosh`、`arena_execution`。验收另核对冻结基线清单中的全部11条旧WAV，包括不参与重建的 `arena_hurt`、`arena_skill`。
+同时保留 `sources.json`、`licenses/` 的四份许可来源文本及 `kenney-impact-sounds/License.txt`。生产14条WAV依赖这10个OGG与冻结的 `before/arena_victory.wav`、`before/arena_defeat.wav`。运行完整生成器还要 `before/baseline.json` 和7条A/B旧声：`arena_hit`、`arena_block`、`arena_parry`、`arena_hard_hit`、`arena_guarded_hit`、`arena_whoosh`、`arena_execution`。验收另核对冻结基线清单中的全部11条旧WAV，包括不参与重建的 `arena_hurt`、`arena_skill`。
 
-资产专项会在 `build/audio-minimal-sources/` 下仅放10个OGG与完整生成器必需的9条旧WAV，缺省不放ZIP或其它源媒体；清空解码缓存后执行真实 `main()`，核对实际解码源集合、脚本SHA与全部13个WAV的逐字节SHA。测试不改正式音频输出。
+资产专项会在 `build/audio-minimal-sources/` 下仅放10个OGG与完整生成器必需的9条旧WAV，缺省不放ZIP或其它源媒体；清空解码缓存后执行真实 `main()`，核对实际解码源集合、脚本SHA与全部14个WAV的逐字节SHA。测试不改正式音频输出。
 
 | 来源 | 已证明范围 | 使用 |
 | --- | --- | --- |

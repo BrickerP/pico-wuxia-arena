@@ -89,9 +89,7 @@ class NativeBladeInteractionTest {
         fixture.seek { fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().any { e -> e.attackId == id } }
         val outcome = fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().single { it.attackId == id }.outcome
         assertFalse(outcome == AttackOutcome.PARRIED || outcome == AttackOutcome.BLOCKED)
-        assertTrue(fixture.events.filterIsInstance<CombatImpact>().none {
-            it.kind == CombatImpactKind.PARRY || it.kind == CombatImpactKind.BLOCK
-        })
+        assertTrue(fixture.events.filterIsInstance<CombatImpact>().none { it.kind.isSteelContact() })
     }
 
     @Test
@@ -121,14 +119,11 @@ class NativeBladeInteractionTest {
         val impact = fixture.crossCurrentEnemyBlade()
         val afterImpact = fixture.session.viewState
         assertEquals(if (impact.kind == CombatImpactKind.PARRY) 94 else 72, afterImpact.playerStamina)
-        val count = fixture.events.filterIsInstance<CombatImpact>().count {
-            it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
-        }
+        val count = fixture.events.filterIsInstance<CombatImpact>().count { it.kind.isSteelContact() }
+        assertEquals(1, count)
         repeat(5) { fixture.session.onTick(fixture.now) }
         assertEquals(afterImpact.playerStamina, fixture.session.viewState.playerStamina)
-        assertEquals(count, fixture.events.filterIsInstance<CombatImpact>().count {
-            it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
-        })
+        assertEquals(count, fixture.events.filterIsInstance<CombatImpact>().count { it.kind.isSteelContact() })
         assertEquals(1, fixture.events.filterIsInstance<EnemyCombatEvent.AttackResolved>().count { it.attackId == attackId })
     }
 
@@ -140,8 +135,10 @@ class NativeBladeInteractionTest {
         val attackId = requireNotNull(fixture.session.viewState.attackId)
         val profile = arenaOpponents.first().attackProfile(requireNotNull(fixture.session.viewState.attackDirection))
         val impact = fixture.crossCurrentEnemyBlade()
-        assertEquals(CombatImpactKind.BLOCK, impact.kind)
+        assertEquals(CombatImpactKind.STEEL_TOUCH, impact.kind)
+        assertEquals(0, impact.appliedDamage)
         var last = fixture.session.viewState
+        assertFalse(last.hitStop)
         assertEquals(100, last.playerStamina)
         assertFalse(last.feedback == CombatFeedback.BLOCK)
         assertEquals(EnemyPhase.RECOVERING, last.phase)
@@ -228,9 +225,7 @@ class NativeBladeInteractionTest {
                 previousSource - currentSource <= maximumSourceStep + 1e-9)
             previousSource = currentSource
             assertEquals("One overlap cannot replay a steel impact", 1,
-                fixture.events.filterIsInstance<CombatImpact>().count {
-                    it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
-                })
+                fixture.events.filterIsInstance<CombatImpact>().count { it.kind.isSteelContact() })
             assertEquals(contact.health, retreated.health)
             assertEquals(contact.playerHealth, retreated.playerHealth)
         }
@@ -337,17 +332,14 @@ class NativeBladeInteractionTest {
             // Establish a valid history outside steel before crossing it at normal controller speed.
             hand = centerGrip + normal * 0.20
             tick(80_000_000L)
-            events.filterIsInstance<CombatImpact>().lastOrNull {
-                it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
-            }?.let { return it }
+            events.filterIsInstance<CombatImpact>().lastOrNull { it.kind.isSteelContact() }?.let { return it }
             // Aim the raw endpoint at the next real source sample. The overhead dao
             // descends substantially during these 20 ms; an old midpoint would be a miss.
             val nextPose = selectPose.invoke(session, 20_000_000L) as AttackPoseSample
             hand = (nextPose.bladeBase + nextPose.bladeTip) * 0.5 - localMidpoint
             tick(20_000_000L)
-            return events.filterIsInstance<CombatImpact>().lastOrNull {
-                it.kind == CombatImpactKind.BLOCK || it.kind == CombatImpactKind.PARRY
-            } ?: throw AssertionError("No real steel contact; state=${session.viewState}; impacts=${events.filterIsInstance<CombatImpact>()}")
+            return events.filterIsInstance<CombatImpact>().lastOrNull { it.kind.isSteelContact() }
+                ?: throw AssertionError("No real steel contact; state=${session.viewState}; impacts=${events.filterIsInstance<CombatImpact>()}")
         }
 
         fun pause() {
@@ -361,3 +353,6 @@ class NativeBladeInteractionTest {
         }
     }
 }
+
+private fun CombatImpactKind.isSteelContact() =
+    this == CombatImpactKind.BLOCK || this == CombatImpactKind.PARRY || this == CombatImpactKind.STEEL_TOUCH

@@ -17,6 +17,18 @@ import org.junit.Test
 /** Exercises the production consumer against an output recorder, never a second event policy. */
 class CombatAudioTest {
     @Test
+    fun incidentalSteelUsesItsOwnQuietSampleOnce() {
+        val f = Fixture()
+        val touch = contact(1, CombatImpactKind.STEEL_TOUCH).copy(strength = .2)
+        f.present(events = listOf(touch))
+        f.present(events = listOf(touch, contact(2, CombatImpactKind.BLOCK)))
+        val scrape = f.output.plays.single { it.sample == R.raw.arena_steel_touch }
+        val block = f.output.plays.single { it.sample == R.raw.arena_block }
+        assertTrue(scrape.left > 0f && scrape.left < block.left)
+        assertEquals(0, f.output.count(R.raw.arena_parry))
+    }
+
+    @Test
     fun firstBatchConsumesUnorderedIdsAndDeduplicatesEachContact() {
         val f = Fixture()
         val batch = listOf(contact(9), contact(2, CombatImpactKind.BLOCK), contact(9), contact(4, CombatImpactKind.PARRY))
