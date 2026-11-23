@@ -150,7 +150,10 @@ internal data class ArenaViewState(
     val diagnosticUiFrameNanos: Long? = null,
     val diagnosticPublishSource: String = "snapshot",
     val diagnosticHandStamp: ObservationStamp? = null,
-)
+) {
+    val defeatedOpponents: Int
+        get() = (roundNumber - if (health > 0) 1 else 0).coerceIn(0, roundCount)
+}
 
 internal typealias ArenaPresenter = (ArenaViewState, List<EnemyCombatEvent>) -> Unit
 

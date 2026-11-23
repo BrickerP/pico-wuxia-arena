@@ -73,9 +73,11 @@
     <string name="arena_technique_skill">破势</string>
     <string name="arena_technique_skill_detail">双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。</string>
     <string name="arena_settlement_score">得分 %1$d · 最佳 %2$d</string>
-    <string name="arena_settlement_detail">连战 %1$d/%2$d 场 · 余血 %3$d</string>
+    <string name="arena_settlement_detail">击败 %1$d/%2$d 名对手 · 自身气血 %3$d</string>
     <string name="arena_victory_detail">试炼尽破，刀势已成。可再挑战刷新得分。</string>
+    <string name="arena_defeat_timeout_detail">时间已尽 · %1$s剩余气血 %2$d/%3$d</string>
     <string name="arena_defeat_detail">调整架势与节奏，再战一局。</string>
+    <string name="arena_opponent_remaining_health">%1$s剩余气血 %2$d/%3$d</string>
     <string name="arena_round_time">第 %1$d/%2$d 场 · %3$02d:%4$02d</string>
     <string name="arena_resource_enemy">刀客气血</string>
     <string name="arena_resource_player">自身气血</string>
