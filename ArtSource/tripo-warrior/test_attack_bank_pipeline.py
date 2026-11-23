@@ -15,6 +15,70 @@ from test_attack_profiles import attack_contracts, float32
 
 
 class AttackBankContracts(unittest.TestCase):
+    def test_first_opponents_closed_hand_stays_on_the_handle_surface(self):
+        import numpy as np
+        from mathutils.bvhtree import BVHTree
+        from attack_profiles import animation_tracks, hierarchy, pose_world, skin_attribute
+
+        bank = library.HERE / 'library'
+        doc, binary = library.read_glb(bank / 'base.glb')
+        alignment = json.loads((bank / 'base_alignment.json').read_text())
+        components = {part['source_node']: part['target_primitive']
+                      for part in alignment['weapon_binding']['primitive_sources']}
+        skin = doc['skins'][0]
+        names = np.array([doc['nodes'][node]['name'] for node in skin['joints']])
+        inverse = skin_attribute(doc, binary, skin['inverseBindMatrices']).reshape(-1,4,4).transpose(0,2,1)
+        parents, order = hierarchy(doc)[1:]
+        tracks, _ = animation_tracks(doc, binary, next(c for c in doc['animations'] if c['name'] == 'idle'), require_attack_range=False)
+        world = pose_world(doc, tracks, 0., parents, order)
+        palette = np.array([world[node] for node in skin['joints']]) @ inverse
+
+        def posed(primitive):
+            mesh = doc['meshes'][0]['primitives'][primitive]
+            attr = mesh['attributes']
+            vertices = skin_attribute(doc, binary, attr['POSITION'])
+            joints = skin_attribute(doc, binary, attr['JOINTS_0']).astype(int)
+            weights = skin_attribute(doc, binary, attr['WEIGHTS_0'])
+            xyz = np.einsum('vi,vijk,vk->vj', weights, palette[joints], np.c_[vertices, np.ones(len(vertices))])[:, :3]
+            faces = skin_attribute(doc, binary, mesh['indices']).reshape(-1,3).astype(int)
+            return xyz, faces, names[joints[np.arange(len(joints)), weights.argmax(axis=1)]]
+
+        core, faces, _ = posed(components['Handle core'])
+        triangles = core[faces]
+        core_tree = BVHTree.FromPolygons(core.tolist(), faces.tolist(), all_triangles=True)
+        wrap, wrap_faces, _ = posed(components['Grip | cord wrap'])
+        wrap_tree = BVHTree.FromPolygons(wrap.tolist(), wrap_faces.tolist(), all_triangles=True)
+        hand_samples = []
+        pad_nearest = {}
+        for index in alignment['body_primitive_indices']:
+            points, body_faces, dominant = posed(index)
+            hand = np.isin(dominant, [n for n in names if n == 'R_Hand' or n.startswith(
+                ('R_Index','R_Mid','R_Ring','R_Pinky','R_Thumb'))])
+            local_faces = body_faces[hand[body_faces].all(axis=1)]
+            if not len(local_faces):
+                continue
+            tri = points[local_faces]
+            hand_samples.extend((points[hand], tri.mean(axis=1), ((tri + np.roll(tri, 1, axis=1)) * .5).reshape(-1,3)))
+            for finger in ('Index','Mid','Ring','Pinky'):
+                tips = points[dominant == 'R_' + finger + '3']
+                if len(tips):
+                    gap = min(wrap_tree.find_nearest(p)[3] for p in tips)
+                    pad_nearest[finger] = min(pad_nearest.get(finger, float('inf')), gap)
+        self.assertEqual({'Index','Mid','Ring','Pinky'}, set(pad_nearest))
+        self.assertLess(max(pad_nearest.values()), .002)
+        samples = np.concatenate(hand_samples)
+        bounds = ((samples >= core.min(axis=0)) & (samples <= core.max(axis=0))).all(axis=1)
+        for point in samples[bounds]:
+            if core_tree.find_nearest(point)[3] <= .001:
+                continue
+            rays = triangles - point
+            rays /= np.maximum(np.linalg.norm(rays, axis=2, keepdims=True), 1e-15)
+            a, b, c = np.moveaxis(rays, 1, 0)
+            numerator = np.sum(a * np.cross(b,c), axis=1)
+            denominator = 1 + np.sum(a*b + b*c + c*a, axis=1)
+            self.assertLess(abs(np.arctan2(numerator, denominator).sum()), math.pi,
+                            'Right hand sinks more than 1 mm into the solid handle')
+
     def test_settled_fall_blade_clears_the_face(self):
         from attack_profiles import animation_tracks, hierarchy, pose_world, skin_attribute
         from mathutils.bvhtree import BVHTree

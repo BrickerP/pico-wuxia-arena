@@ -10,6 +10,15 @@ import kotlin.math.sin
 class BladeTrailGeometryTest {
     private val geometry = BladeTrailGeometry()
 
+    @Test fun countdownMeshIsValidAndTransparentBeforeActualBladeSamplesArrive() {
+        val seed = hiddenBladeTrailSeed()
+        com.pico.spatial.core.ecs.resource.MeshModel.validateOrThrow(seed)
+        assertEquals(seed.positions.size, requireNotNull(seed.colors).size)
+        assertTrue(requireNotNull(seed.colors).all { it.alpha == 0f })
+        assertNull(sample(0.0, 0L))
+        assertTrue(requireNotNull(sample(0.1, 10_000_000L)).alphas.any { it > 0f })
+    }
+
     @Test fun measuredTipBandHasTransparentEdgesAndFiniteTriangles() {
         assertNull(sample(0.0, 0L))
         val ribbon = requireNotNull(sample(0.1, 10_000_000L))
