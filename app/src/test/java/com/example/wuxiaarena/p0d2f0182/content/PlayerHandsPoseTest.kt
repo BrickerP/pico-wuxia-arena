@@ -12,6 +12,7 @@ import com.example.wuxiaarena.core.input.ObservedPose
 import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -21,6 +22,25 @@ import org.junit.Test
 
 class PlayerHandsPoseTest {
     private val identity = Quaternion(0.0, 0.0, 0.0, 1.0)
+
+    @Test
+    fun bothResultsHideGearAcrossHandCallbacksAndRestartUsesTheLatestTracking() {
+        val input = PlayerModelInput()
+        val grip = WeaponGrip(Vector3(0.2, 1.2, -0.4), identity)
+        for (result in listOf(TrialResult.VICTORY, TrialResult.DEFEAT)) {
+            input.tracking = snapshot(Hand.RIGHT)
+            input.result = result
+            for (observed in listOf(checkNotNull(input.tracking), snapshot(Hand.LEFT))) {
+                input.tracking = observed
+                assertSame(observed, input.tracking)
+                assertNull(input.modelSnapshot)
+                for (hand in Hand.entries) assertNull(presentedPlayerHandTransform(input.modelSnapshot, grip, hand))
+            }
+            input.result = TrialResult.COUNTDOWN
+            assertSame(input.tracking, input.modelSnapshot)
+            for (hand in Hand.entries) assertNotNull(presentedPlayerHandTransform(input.modelSnapshot, grip, hand))
+        }
+    }
 
     @Test
     fun rawGripPoseNormalizesRotationWithoutChangingPosition() {

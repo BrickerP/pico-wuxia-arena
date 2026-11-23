@@ -1,8 +1,10 @@
 # 原生刀客对决验收
 
-**当前发布：[首挥刀光](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ready-trail-2026-11-23)**，APK SHA256 `8690e9b19beaf99fc13ca5667b7064d7f1e1ce9cad028d408595f3949c270e14`。刀光在倒计时提前准备，挥动时仍按真实刀轨绘制。上版的手指和弹反改动包含在此包中。
+**当前发布：[握刀与退场](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-after-duel-2026-11-23)**，APK SHA256 `5dc4b80e742c5ac573751cb190ec1537f3330a0ffa1fcdd59cb610d87bf8ac1a`。青衫、玄甲的右手分别贴合原有柄面。两人共 2,862 行刀、头、身采样保持一致。[青衫前后对照](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/indigo-grip.jpg) · [玄甲前后对照](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/veteran-grip.jpg)。终局收起游戏中的玩家手套与刀，保留系统射线；败局存活的敌人收势后退，点「再挑战」可立即重开。33 项相关定向测试通过。
 
-[本包连续 22.8 秒原生交锋](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/first-exchange.mp4)记录首敌下劈被稳架截住、随后还击命中。设备首挥记录为 `create=0, replace=1`。同机首场固定 8 秒，应用空间帧间隔中位 34.53 ms、P95 71.61 ms、最长 201.26 ms，187 个间隔中 48 个超过 50 ms。[原始统计](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/opening-8s.csv)。两包各测一次，动作和宿主负载有差异。游戏仍会卡顿。本次输入在第一场中断，未取得本包第二场、Boss 或胜后重开的实录。
+**[首挥刀光](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ready-trail-2026-11-23)**，APK SHA256 `8690e9b19beaf99fc13ca5667b7064d7f1e1ce9cad028d408595f3949c270e14`。刀光在倒计时提前准备，挥动时仍按真实刀轨绘制。上版的手指和弹反改动包含在此包中。
+
+[本包连续 22.8 秒原生交锋](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/first-exchange.mp4)记录首敌下劈被稳架截住、随后还击命中。设备首挥记录为 `create=0, replace=1`。同机首场固定 8 秒，应用空间帧间隔中位 34.53 ms、P95 71.61 ms、最长 201.26 ms，187 个间隔中 48 个超过 50 ms。[原始统计](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/opening-8s.csv)。两包各测一次，动作和宿主负载有差异。游戏仍会卡顿。[同包三场连续实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/three-duels-boss-9hp.mp4)打败试刀客和青衫，玄甲剩 9/150 时玩家落败，结算 325 分，同进程随后重新进入首场倒计时。
 
 **[青衫还刀与握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-indigo-grip-2026-11-23)**，APK SHA256 `8a5e26d675cb5d9c9a68c9f50ecb5bc320961bfa8e93511afacf803b317b588e`。正式试刀客调整 11 根右指骨，1,419 行刀身、头和身体采样与上版一致。[三视图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/grip-comparison.jpg)上排为原握姿，下排为新握姿。青衫真正弹反后的还击窗口由 0.55 秒延长到 1.2 秒，并提示撤手或肩侧；错过后仍会重新架防。
 

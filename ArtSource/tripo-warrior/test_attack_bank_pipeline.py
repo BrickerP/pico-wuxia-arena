@@ -16,13 +16,21 @@ from test_attack_profiles import attack_contracts, float32
 
 class AttackBankContracts(unittest.TestCase):
     def test_first_opponents_closed_hand_stays_on_the_handle_surface(self):
+        self.check_closed_grip('base')
+
+    def test_indigo_and_veteran_fits_preserve_their_own_handle_contact(self):
+        for actor in ('indigo', 'veteran'):
+            with self.subTest(actor=actor):
+                self.check_closed_grip(actor)
+
+    def check_closed_grip(self, actor):
         import numpy as np
         from mathutils.bvhtree import BVHTree
         from attack_profiles import animation_tracks, hierarchy, pose_world, skin_attribute
 
         bank = library.HERE / 'library'
-        doc, binary = library.read_glb(bank / 'base.glb')
-        alignment = json.loads((bank / 'base_alignment.json').read_text())
+        doc, binary = library.read_glb(bank / (actor + '.glb'))
+        alignment = json.loads((bank / (actor + '_alignment.json')).read_text())
         components = {part['source_node']: part['target_primitive']
                       for part in alignment['weapon_binding']['primitive_sources']}
         skin = doc['skins'][0]
@@ -41,26 +49,34 @@ class AttackBankContracts(unittest.TestCase):
             weights = skin_attribute(doc, binary, attr['WEIGHTS_0'])
             xyz = np.einsum('vi,vijk,vk->vj', weights, palette[joints], np.c_[vertices, np.ones(len(vertices))])[:, :3]
             faces = skin_attribute(doc, binary, mesh['indices']).reshape(-1,3).astype(int)
-            return xyz, faces, names[joints[np.arange(len(joints)), weights.argmax(axis=1)]]
+            return xyz, faces, names[joints[np.arange(len(joints)), weights.argmax(axis=1)]], joints, weights
 
-        core, faces, _ = posed(components['Handle core'])
+        core, faces, *_ = posed(components['Handle core'])
         triangles = core[faces]
         core_tree = BVHTree.FromPolygons(core.tolist(), faces.tolist(), all_triangles=True)
-        wrap, wrap_faces, _ = posed(components['Grip | cord wrap'])
+        wrap, wrap_faces, *_ = posed(components['Grip | cord wrap'])
         wrap_tree = BVHTree.FromPolygons(wrap.tolist(), wrap_faces.tolist(), all_triangles=True)
         hand_samples = []
         pad_nearest = {}
         for index in alignment['body_primitive_indices']:
-            points, body_faces, dominant = posed(index)
+            points, body_faces, dominant, joints, weights = posed(index)
             hand = np.isin(dominant, [n for n in names if n == 'R_Hand' or n.startswith(
                 ('R_Index','R_Mid','R_Ring','R_Pinky','R_Thumb'))])
             local_faces = body_faces[hand[body_faces].all(axis=1)]
             if not len(local_faces):
                 continue
-            tri = points[local_faces]
-            hand_samples.extend((points[hand], tri.mean(axis=1), ((tri + np.roll(tri, 1, axis=1)) * .5).reshape(-1,3)))
+            selected, faces = np.unique(local_faces, return_inverse=True)
+            faces = faces.reshape(-1,3)
+            edges = np.unique(np.sort(np.concatenate((faces[:, [0,1]], faces[:, [1,2]], faces[:, [2,0]])), axis=1), axis=0)
+            palette_weights = np.zeros((len(selected), len(names)))
+            np.add.at(palette_weights, (np.arange(len(selected))[:,None], joints[selected]), weights[selected])
+            local_points = points[selected]
+            samples = np.concatenate((local_points, local_points[faces].mean(axis=1), local_points[edges].mean(axis=1)))
+            labels = names[np.concatenate((palette_weights, palette_weights[faces].mean(axis=1),
+                                           palette_weights[edges].mean(axis=1))).argmax(axis=1)]
+            hand_samples.append(samples)
             for finger in ('Index','Mid','Ring','Pinky'):
-                tips = points[dominant == 'R_' + finger + '3']
+                tips = samples[labels == 'R_' + finger + '3']
                 if len(tips):
                     gap = min(wrap_tree.find_nearest(p)[3] for p in tips)
                     pad_nearest[finger] = min(pad_nearest.get(finger, float('inf')), gap)

@@ -2,11 +2,11 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
-**[下载「首挥刀光」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/arena.apk)** · [本包首场实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/first-exchange.mp4) · [试刀客握姿三视图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/grip-comparison.jpg) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
+**[下载「握刀与退场」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/arena.apk)** · [青衫握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/indigo-grip.jpg) · [玄甲握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/veteran-grip.jpg) · [上版三场实战](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/three-duels-boss-9hp.mp4)
 
 安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。第二场青衫侧斩走肋部，按提示降低握刀手，不要只护头。面对第三名玄甲刀客，看他何时举刀露隙。原地左右摆腕而不送手或稳架，只会轻擦。
 
-本版调整试刀客的右手握柄与青衫弹反后的还击机会。模拟器虚拟手初始位置见下方操作说明。三场胜局与 Space Pro 实机手感仍待验证。[按版本查看证据](docs/acceptance.md)。
+三名对手已分别调整右手握柄。落败时对手收刀后退，结果面板保留系统射线用于再挑战。模拟器虚拟手初始位置见下方操作说明。三场胜局与 Space Pro 实机手感仍待验证。[按版本查看证据](docs/acceptance.md)。
 
 ## 两条独立工作线
 

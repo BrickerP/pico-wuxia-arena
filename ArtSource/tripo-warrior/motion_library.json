@@ -152,49 +152,57 @@
         1.0
       ],
       "finger_rotation_offsets": {
-        "R_Ring2": {
-          "x_degrees": -1.5,
-          "z_degrees": 0.0
-        },
         "R_Ring1": {
-          "x_degrees": -7.5,
-          "z_degrees": 3.0
-        },
-        "R_Mid2": {
-          "x_degrees": 0.0,
+          "x_degrees": 2.0,
           "z_degrees": 6.0
         },
-        "R_Thumb3": {
+        "R_Ring2": {
           "x_degrees": -1.5,
-          "z_degrees": -3.0
+          "z_degrees": 5.75
+        },
+        "R_Mid1": {
+          "x_degrees": 0.0,
+          "z_degrees": -0.5
+        },
+        "R_Mid2": {
+          "x_degrees": -0.25,
+          "z_degrees": 6.5
+        },
+        "R_Mid3": {
+          "x_degrees": -2.5,
+          "z_degrees": -5.75
+        },
+        "R_Thumb1": {
+          "x_degrees": 1.5,
+          "z_degrees": 2.5
         },
         "R_Thumb2": {
           "x_degrees": 1.5,
           "z_degrees": 1.5
         },
-        "R_Thumb1": {
-          "x_degrees": 1.5,
-          "z_degrees": 1.5
-        },
-        "R_Index3": {
-          "x_degrees": 1.5,
-          "z_degrees": 3.0
+        "R_Thumb3": {
+          "x_degrees": -1.5,
+          "z_degrees": -3.0
         },
         "R_Index2": {
           "x_degrees": -1.5,
           "z_degrees": 6.0
         },
-        "R_Index1": {
-          "x_degrees": -1.5,
-          "z_degrees": 0.0
-        },
-        "R_Pinky2": {
+        "R_Index3": {
           "x_degrees": 1.5,
-          "z_degrees": 0.0
+          "z_degrees": 3.0
         },
         "R_Pinky1": {
-          "x_degrees": -4.5,
-          "z_degrees": 12.0
+          "x_degrees": 3.5,
+          "z_degrees": 16.0
+        },
+        "R_Pinky2": {
+          "x_degrees": 7.25,
+          "z_degrees": 0.0
+        },
+        "R_Pinky3": {
+          "x_degrees": 0.5,
+          "z_degrees": -4.5
         }
       }
     },
@@ -229,33 +237,65 @@
         1.0
       ],
       "finger_rotation_offsets": {
+        "R_Ring1": {
+          "x_degrees": -6.0,
+          "z_degrees": 0.0
+        },
         "R_Ring2": {
-          "x_degrees": -3.0,
-          "z_degrees": -1.5
+          "x_degrees": -5.91091,
+          "z_degrees": -2.66625
+        },
+        "R_Ring3": {
+          "x_degrees": -6.65667,
+          "z_degrees": 5.76493
         },
         "R_Mid1": {
           "x_degrees": 1.5,
           "z_degrees": 0.0
         },
-        "R_Thumb3": {
-          "x_degrees": -6.0,
-          "z_degrees": 0.0
+        "R_Mid2": {
+          "x_degrees": -4.85699,
+          "z_degrees": -8.57156
+        },
+        "R_Mid3": {
+          "x_degrees": 1.83561,
+          "z_degrees": 3.86233
+        },
+        "R_Thumb1": {
+          "x_degrees": 26.23881,
+          "z_degrees": -8.23519
         },
         "R_Thumb2": {
-          "x_degrees": 7.5,
-          "z_degrees": 1.5
+          "x_degrees": 13.92024,
+          "z_degrees": -6.53096
         },
-        "R_Index2": {
-          "x_degrees": -1.5,
-          "z_degrees": 3.0
+        "R_Thumb3": {
+          "x_degrees": -20.74977,
+          "z_degrees": 8.22524
         },
         "R_Index1": {
-          "x_degrees": -4.5,
+          "x_degrees": 6.0,
           "z_degrees": 0.0
         },
+        "R_Index2": {
+          "x_degrees": 16.5,
+          "z_degrees": 3.0
+        },
+        "R_Index3": {
+          "x_degrees": -3.22885,
+          "z_degrees": -9.08772
+        },
+        "R_Pinky1": {
+          "x_degrees": -8.36727,
+          "z_degrees": 11.65551
+        },
         "R_Pinky2": {
-          "x_degrees": -1.5,
-          "z_degrees": 0.0
+          "x_degrees": 2.82102,
+          "z_degrees": 10.91489
+        },
+        "R_Pinky3": {
+          "x_degrees": 27.0,
+          "z_degrees": -1.4
         }
       }
     }
@@ -446,6 +486,6 @@
   },
   "production_review": {
     "source": "character-hands-production-review.json",
-    "source_sha256": "70bc4b44701863f1434bdc331b959cc87e8e67965aaec58622ff468ba0a66dba"
+    "source_sha256": "910bee85a0192941c1d4e3943d8315ee322d1a7fedea1ef7318b212aac1d097c"
   }
 }
