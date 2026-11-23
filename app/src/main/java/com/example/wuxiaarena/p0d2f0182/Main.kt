@@ -23,6 +23,7 @@ import com.example.wuxiaarena.p0d2f0182.runtime.InputControlResult
 import com.example.wuxiaarena.p0d2f0182.runtime.TrackingControls
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatAudio
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
+import com.example.wuxiaarena.p0d2f0182.ui.ArenaHudScales
 import com.example.wuxiaarena.core.input.Hand
 import com.pico.spatial.ui.platform.LocalHandControllerHaptic
 import com.pico.spatial.ui.platform.HandController
@@ -49,6 +50,7 @@ fun mainApp(scope: SpatialAppScope) =
                 val haptics = rememberUpdatedState(LocalHandControllerHaptic.current)
                 val hapticContacts = remember(arena) { CombatHapticContacts() }
                 val viewState = remember { mutableStateOf(arena.viewState) }
+                val hudScales = remember(arena) { ArenaHudScales() }
                 val controlState = remember { mutableStateOf(arena.viewState) }
                 val trackingControls = remember { mutableStateOf<TrackingControls?>(null) }
                 val enemyPresenter = remember { mutableStateOf<ArenaPresenter?>(null) }
@@ -56,6 +58,7 @@ fun mainApp(scope: SpatialAppScope) =
 
                 DisposableEffect(arena, audio) {
                     arena.setArenaPresenter { state, events ->
+                        hudScales.update(state)
                         val previous = viewState.value
                         if (shouldPublishHudState(previous, state)) viewState.value = state
                         if (shouldPublishControlState(controlState.value, state)) controlState.value = state
@@ -165,7 +168,7 @@ fun mainApp(scope: SpatialAppScope) =
                             },
                         )
                     },
-                    statusPanel = { ArenaStatusPanel(viewState.value) },
+                    statusPanel = { ArenaStatusPanel(viewState.value, hudScales) },
                 )
             }
         }

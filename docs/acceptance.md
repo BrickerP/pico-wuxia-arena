@@ -1,7 +1,8 @@
 # 原生刀客对决验收
 
-**当前发布：[侧身护肋](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-rib-guard-2026-11-20)**，APK SHA256 `b2dfb947bdc7a5d66fbd366bb5573d9666a3b46b7fbecb740e15cd16440844af`。安装并加载首敌，[设备截图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/ready-display.png)已确认。修复前，持刀方向虽匹配，刀身却在实际来刀上方；新提示按正式侧斩的高度引导玩家护肋。两项定向回归通过。视口未接收开始操作，尚无本包的原生侧架与胜局证据。
+**当前发布：[战斗提示动效](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hud-motion-2026-11-23)**，APK SHA256 `4d9b747924a01007f7423764b9c101b070592c54b4837a59f3be6a0f691007b8`。方向章和命中文字由绘制层更新缩放；时间单独推进时，状态板不再因为缩放而重新组合。19 项相关测试通过。交战帧间隔、三场胜局及真机体验另验。
 
+- **侧身护肋实战**（`b2dfb947`，11 月 23 日）。[连续交锋、第二场落败和重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/rib-second-restart.mp4)。首场稳架接刀，打败试刀客；第二场对青衫打出实际弹反，下一次还击被护住。同进程重新进入第一场倒计时。[另一次首场实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/rib-guard-exchange.mp4)保留了架刀后约 1.2 秒还击命中的过程。
 - [青衫还击：第二场交锋实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-three-duel-counters-2026-11-20/second-window.mp4)（`4f57e0eb`）：首敌被击败，第二场 180 分落败，敌人剩 13/125。没有在该局记录到第二场匹配稳架或闪避开窗。
 - [还锋与收势：连续对局与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-arena-finish-2026-11-20/device-duel.mp4)（`7a8d8380`）：首场落败、25 分，敌人剩 9/100；同进程再挑战、开始新局。另一次对局首敌被击败，第二场 165 分落败。两局都未打通三场。[倒地刀刃对照](../ArtSource/refinement/presentation/settled-fall-blade-2026-11-20.jpg)只对应模型收尾改动。
 

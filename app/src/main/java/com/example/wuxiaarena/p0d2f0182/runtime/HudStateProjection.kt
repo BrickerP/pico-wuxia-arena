@@ -1,7 +1,5 @@
 package com.example.wuxiaarena.p0d2f0182.runtime
 
-import com.example.wuxiaarena.core.combat.EnemyPhase
-
 internal fun shouldPublishControlState(previous: ArenaViewState, state: ArenaViewState): Boolean {
     if (previous.result != TrialResult.FIGHTING || state.result != TrialResult.FIGHTING ||
         previous.pauseReason != null || state.pauseReason != null) return shouldPublishHudState(previous, state)
@@ -11,20 +9,10 @@ internal fun shouldPublishControlState(previous: ArenaViewState, state: ArenaVie
         previous.inputOrigin != state.inputOrigin
 }
 
-/** Suppress pose-only HUD updates while preserving the simulation clock used by visible accents. */
 internal fun shouldPublishHudState(previous: ArenaViewState, state: ArenaViewState): Boolean {
-    val visible = state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady
-    val usesPhaseClock = visible && when (state.phase) {
-        EnemyPhase.PREPARING -> (state.attackDirection?.preparationNanos ?: 0L) > 0L
-        EnemyPhase.HIT -> when (state.feedback) {
-            CombatFeedback.HIT, CombatFeedback.HEADSHOT, CombatFeedback.GUARDED_HIT, CombatFeedback.PARRY -> true
-            else -> false
-        }
-        else -> false
-    }
     val hudComparable = state.copy(
         simulationNanos = previous.simulationNanos,
-        phaseElapsedNanos = if (usesPhaseClock) state.phaseElapsedNanos else previous.phaseElapsedNanos,
+        phaseElapsedNanos = previous.phaseElapsedNanos,
         phaseRemainingNanos = previous.phaseRemainingNanos,
         enemyPosition = previous.enemyPosition,
         enemyYawRadians = previous.enemyYawRadians,
