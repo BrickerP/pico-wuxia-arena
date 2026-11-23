@@ -20,16 +20,17 @@
 
 | 内容 | 当前事实 |
 | --- | --- |
-| 玩家手部 | [上排右手、下排左手的握姿对照](ArtSource/refinement/presentation/native-player-grip-pose-comparison-2026-11-18.jpg)。左右手均做过原生持刀检查；手感另验。 |
-| 已公开组合画面 | [7abefa5准备态](ArtSource/refinement/presentation/native-contact-polish-ready-2026-11-17.png)、[45秒交战](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.mp4)、[57f7版本与边界](ArtSource/refinement/presentation/native-contact-polish-2026-11-17.json) |
+| 前台交战帧时 | 同机首敌上劈、稳架与还击的前台五秒，应用空间帧间隔 P95 从 83.98 ms 降到 56.72 ms。整局仍有可见长帧。 [数据](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-head-motion-2026-11-23/opening-frame-intervals.csv) |
+| 玩家手部 | 在准备界面切换惯用手。[左手持刀](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/left-grip-ready.png) · [右手持刀、左掌张开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/ready-natural-hands.png)。当前包沿用同一双手资产与握点。斜向收刀时个别角度仍可看见袖管的平截面。 |
+| 模拟器实战 | 713 分、余血 20、击败 3/3。青衫战确认三次闪避，玄甲战确认一次弹反，胜后同进程重新开局。[本包完整实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-head-motion-2026-11-23/three-duels-victory.mp4) |
 | 版本对照 | [流程复现版](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-2026-11-18)保留了左右扫通关的反例；[握姿与守势](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-grip-2026-11-18)改了双手；[玄甲反击窗口](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-counter-window-2026-11-18)扩大上举时的命中机会。 |
 | 动作 | 三角色共享自然守势/呼吸；修正 RIGHT 空手回收及 veteran LEFT 末端约束；726 个声明范围内有限姿态未检出被测非邻接核心/Steel交叉。这不覆盖全衣料、连续时间或最终GPU蒙皮 |
 | 拼刀 | 解析卸力优先。证不出来、再次接触或连续不可证查询改为一次最长 220ms 的强制回守，然后把刀交还跟踪。同一次重叠不连打出伤。玩家手不吃敌人的强制位移 |
 | 玩家刀与当前验收 | 正式刀面已派生七个半径 6 mm 的接触体，5533 个 Steel 顶点的最大外侧距离为 0.416 mm。当前验证真实交手后的收势、胜负与重开，见[验收清单](docs/acceptance.md)。 |
 | 敌人动作 | [持刀右臂左斩](ArtSource/refinement/presentation/duel-rightcut-wrist-2026-11-18.jpg)与[守势前后对照](ArtSource/refinement/presentation/mounted-guard-wrist-2026-11-18.jpg)。刀的接触轨迹从同版模型重新导出。 |
-| 上一版公开下载 | [11 月 17 日开发预览](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-contact-polish-2026-11-17)，固定源码 `7abefa5` / APK `57f7cb12…`。 |
+| 上一版公开下载 | [试炼战绩](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-result-2026-11-23)，源码 `ce2d7c2`，APK SHA256 `1298c636…`。 |
 
-录像保持原始时间流和帧数。主机窗口帧率不是 PICO 渲染性能，无声录像不能判断卡肉。弹反、头闪、技能、处决和 Space Pro 排在三轮通关之后。[当前门](docs/acceptance.md)只认正在构建的这一包。[目标](docs/agents/README.md)是 Codex 的唯一派工单。
+通关录像保留设备原始视频流。受击触感和音画同步需在头显中体验。各发布包的画面与帧时见[验收清单](docs/acceptance.md)，协作范围见[当前目标](docs/agents/README.md)。
 
 ## 构建与模拟器
 
@@ -53,11 +54,11 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 ## 既有体验与制作范围
 
-准备→三秒倒计时→三轮攻防与补给→胜利/失败→重新挑战。已接入生命、体力、气势、连击、得分与最佳成绩；挥刀/前刺、架刀/弹反、身法、蓄力破势与低血处决仍须按验收清单逐项完成真实运行证明。
+从准备界面进入三秒倒计时，依次挑战三名对手，结算后可重新挑战。生命、体力、气势、连击和得分随战斗更新。本包录到了格挡、还击、闪避、弹反与通关。双手蓄力破势和低血处决未在这局演示。
 
 参考Blade & Sorcery、荣耀战魂的空间攻防，影之刃零、鬼武者、只狼的蓄势/接触/收势，黑神话悟空的成年写实骨相、交领束带、刀具、木作与湿石材。骑马与砍杀、天国拯救仅提供可信尺度和空间感参考，本Demo不扩开放世界。
 
-正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前binding为`51807084b2d6abd2cc322e2225d6afa42f25db0eae48c57c4d85dbf6193abd33`，base为`871b5521…`、indigo为`0c148e95…`、veteran为`9a392e2e…`。OVERHEAD为211键/120Hz；veteran LEFT准备曲线130键，其余左右各106键，时序不变。正式producer验证逐clip精确时间网格与末端约束；生成数据来自同一份模型。
+正式三角色、刀、双手与唯一courtyard位于`app/src/main/assets/models/`。每名敌人78骨、10clip，KTX2/mips；待机、六步步法、三攻击与HIT渲染/接触共享采样。当前 binding 为 `3ed4cb55900c606877c29204ffb347cece9ac929c17bbe8b7519dfbc8eb48a7c`，base 为 `58741ce7…`、indigo 为 `fe3c330b…`、veteran 为 `d5898b17…`。OVERHEAD为211键/120Hz；veteran LEFT准备曲线130键，其余左右各106键，时序不变。正式producer验证逐clip精确时间网格与末端约束；生成数据来自同一份模型。
 
 ## 工程入口
 
