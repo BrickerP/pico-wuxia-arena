@@ -77,7 +77,8 @@ private class SceneOwner(
     var root: Entity? = null
     var playerWeapon: Entity? = null
     var playerHands: PlayerHands? = null
-    private var latestPlayerSnapshot: TrackingSnapshot? = null
+    private val playerInput = PlayerModelInput()
+    private val defeatRetreat = DefeatRetreat()
     private var playerPoseEvidenceCount = 0
     private var enemySpaceEvidenceCount = 0
     private var lastEnemySpaceEvidence: Triple<TrackingVector3, Float, String?>? = null
@@ -134,18 +135,21 @@ private class SceneOwner(
     fun presentArena(state: ArenaViewState, events: List<EnemyCombatEvent>) {
         val parent = root ?: return
         if (!parent.valid) return
+        playerInput.result = state.result
         presentPlayerWeapon(state)
         terminalControls.update(
             state.roundGeneration,
-            terminal = state.result == TrialResult.VICTORY || state.result == TrialResult.DEFEAT,
+            terminal = playerInput.showingResults,
             inputReady = state.inputReady && state.headQuality != TrackingQuality.SOURCE_REPORTED_INVALID,
-            head = latestPlayerSnapshot?.head?.pose?.position,
-            headRotation = latestPlayerSnapshot?.head?.pose?.rotation,
+            head = playerInput.tracking?.head?.pose?.position,
+            headRotation = playerInput.tracking?.head?.pose?.rotation,
             fullHeightMeters = fullControlHeightMeters.toDouble(),
         )
         placeControlPanel(parent)
         requestOpponent(state, parent)
-        weather?.update(System.nanoTime(), state.sceneReady)
+        val now = System.nanoTime()
+        weather?.update(now, state.sceneReady)
+        val retreat = defeatRetreat.update(state, now)
         presentImpactLight(state, events)
         effects?.present(state, events)
         bladeTrail?.present(state)
@@ -154,13 +158,13 @@ private class SceneOwner(
         val enemy = loaded.entity
         if (!enemy.valid) return
         state.enemyPosition?.let { position ->
-            val displayPosition = position + state.enemyRecoilOffset
+            val displayPosition = retreat?.position ?: (position + state.enemyRecoilOffset)
             val transform = checkNotNull(enemy.components[TransformComponent::class.java])
             transform.setPosition(parent.convertPositionFrom(Vector3(displayPosition.x.toFloat(), displayPosition.y.toFloat(), displayPosition.z.toFloat()), null))
             val halfYaw = state.enemyYawRadians / 2f
             transform.setQuaternion(parent.convertRotationFrom(Quat(0f, sin(halfYaw), 0f, cos(halfYaw)), null))
             panelAnchors[STATUS_PANEL_ID]?.let { anchor ->
-                val readablePosition = readableStatusPosition(position, state.playerHeadPosition, statusPanelY.toDouble())
+                val readablePosition = readableStatusPosition(retreat?.position ?: position, state.playerHeadPosition, statusPanelY.toDouble())
                 val location = Vector3(readablePosition.x.toFloat(), readablePosition.y.toFloat(), readablePosition.z.toFloat())
                 val facing = readableStatusRotation(readablePosition, state.playerHeadPosition)
                 val rotation = Quat(facing.x.toFloat(), facing.y.toFloat(), facing.z.toFloat(), facing.w.toFloat())
@@ -169,14 +173,14 @@ private class SceneOwner(
                 placeAttachment(parent, anchor, location, rotation, STATUS_WORLD_SCALE)
             }
         }
-        loaded.animator?.present(state)
-        recordEnemySpaceEvidence(parent, enemy, state)
+        loaded.animator?.present(state, retreat)
+        if (retreat == null) recordEnemySpaceEvidence(parent, enemy, state)
     }
 
     /** Container-space root readback only: this does not measure animated/skinned blade points. */
     private fun recordEnemySpaceEvidence(parent: Entity, enemy: Entity, state: ArenaViewState) {
         if (enemySpaceEvidenceCount >= 2 || !state.sceneReady || state.enemyPoseClip == null) return
-        val snapshot = latestPlayerSnapshot?.takeIf { it.hasRequiredObservations } ?: return
+        val snapshot = playerInput.tracking?.takeIf { it.hasRequiredObservations } ?: return
         val origin = state.enemyPosition ?: return
         val expectedRoot = origin + state.enemyRecoilOffset
         val key = Triple(expectedRoot, state.enemyYawRadians, state.enemyPoseClip)
@@ -490,10 +494,10 @@ private class SceneOwner(
 
     /** SDK input remains a cache and the independent off-hand path, never the equipped pose writer. */
     fun presentPlayerHand(snapshot: TrackingSnapshot?) {
-        val equippedChanged = latestPlayerSnapshot?.dominantHand != snapshot?.dominantHand
-        latestPlayerSnapshot = snapshot
+        val equippedChanged = playerInput.tracking?.dominantHand != snapshot?.dominantHand
+        playerInput.tracking = snapshot
         try {
-            playerHands?.presentInput(snapshot)
+            playerHands?.presentInput(playerInput.modelSnapshot)
         } catch (error: Exception) {
             Log.w(TAG, "Player-hand input presentation failed", error)
         }
@@ -507,7 +511,7 @@ private class SceneOwner(
         val parent = root ?: return
         val weapon = playerWeapon ?: return
         if (!parent.valid || !weapon.valid) return
-        val snapshot = latestPlayerSnapshot
+        val snapshot = playerInput.modelSnapshot
         val grip = state.playerWeaponGrip.takeIf {
             state.inputReady && state.sceneReady && snapshot?.hasRequiredObservations == true &&
                 snapshot.dominantHand == state.dominantHand
@@ -562,7 +566,9 @@ private class SceneOwner(
     }
 
     fun release() {
-        latestPlayerSnapshot = null
+        playerInput.tracking = null
+        playerInput.result = TrialResult.READY
+        defeatRetreat.reset()
         lastPlayerPoseEvidence = null
         lastEnemySpaceEvidence = null
         enemySpaceEvidenceCount = 0

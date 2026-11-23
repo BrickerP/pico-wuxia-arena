@@ -1,5 +1,5 @@
 {
-  "binding_sha256": "5295ae635c74ff66f8798b3e3363f47a2f39791cec0d2dba608e5d2ffa67fe32",
+  "binding_sha256": "3ed4cb55900c606877c29204ffb347cece9ac929c17bbe8b7519dfbc8eb48a7c",
   "characters": [
     {
       "id": "base",
@@ -52,92 +52,92 @@
       "outputs": [
         {
           "file": "indigo_body.glb",
-          "bytes": 14946380,
-          "sha256": "4352bf64cfd715ec60326d5c4e0c8112e4e625717c69ecceb4cbfab7ef584d1d"
+          "bytes": 14984904,
+          "sha256": "563d68ebb2d811fcdce605ad86aea06a4a7ef6d5c198a78fa8dfa95474fae4c7"
         },
         {
           "file": "indigo_prepared_png.glb",
-          "bytes": 18039452,
-          "sha256": "7afcde0d0ce26c598ed8e419cf7835e1acd5158e483f9a5bee32b636a55eac10"
+          "bytes": 18077972,
+          "sha256": "983d240b303ecf68fee0b48a6b27e1403b3617b227060c59a520e2907c8a2280"
         },
         {
           "file": "indigo.glb",
-          "bytes": 44014672,
-          "sha256": "2b441a3752d7b03669fe1c618b8323898012a9fd10274e0c9e4b411ffa62a8bf"
+          "bytes": 44053196,
+          "sha256": "fe3c330beab2e10e1d0a9e35b022dd6cb1972568793af519635aa0e8a98436ad"
         }
       ],
       "hand_track_signatures": {
-        "fall": "f071c953f2f11958d515fbb0a0297e25aab00e68925c719fb6835fd7f2483586",
-        "turn": "9ebd2c4a52b91eb92bcadf406e47744f91b1ae1c7876bc4aa0cf4277f9af4095",
-        "hit_body": "be2f508e6cbc0f32a1d63e872e2511eb6e1838d436264725ba5e52942adf2b88",
-        "hit_head": "09e09f1857cf6bce6ca4aa96662a3eb1495a830c6f6b8b8a284bf882bb845df5",
-        "hit_side": "415b1291b6a5d814878cc4768f06ef2928f225adeeeb32d7518e82314b78b04b",
-        "idle": "eeffcc1bcc33e25875e7b83417fbe37b4b12c4618402a28f32786e4c9725a0bf",
-        "walk": "56b736d7dc7797db114bf155a414be1fc2ba2acbc063a496c56b2b94f43d008e",
-        "attack_overhead": "4437e2c42b685773fa97fe3b4ec98f39ee92df7bed9630d078f7afb347ec6f6c",
-        "attack_left": "9f350eb2661368af8bfbb7f937701301317767b43954b99044eeeb511e7b13e1",
-        "attack_right": "b036b7b9863cf4e0694a871c10a26519ac2f8a440efb8c0640b584e6dc73e5b6"
+        "fall": "d63bfebaeae70a195eb0e1bc86702b8bb50f15680cf89e900871d0cbe6d84e64",
+        "turn": "de21ed98320fc0ca19f20cce7ab7898dfef36052dc8f4f1eb0ad2495baf75aa8",
+        "hit_body": "263c2b8a26dec12fb0033b688263f4f218eebd3b8b0dd48c45b985f467cf8f60",
+        "hit_head": "18c63d9b93538c53e9f4ec00693fe6589343a019b837809fa0191b6a7d151a39",
+        "hit_side": "00a7b6518f4d852c8f6475d91104198c44a42277804dba56d7e19eb0e60a77a3",
+        "idle": "a4e674e2c8bf94c52816122be91bb32c177c0c68eab16b76c523484ddd26a49c",
+        "walk": "f98ac944034d6f8fb79e375305de803b30b245378d20f584e552e12c7379c5c3",
+        "attack_overhead": "20dedbd61842a68fd3f45b15775e82cb9dcdabe6c15a023837ff4e33321b8a24",
+        "attack_left": "828c31c8f42b4a45800a562044748e2566385dea202a0d1dfc3da3fb80557a3a",
+        "attack_right": "89ab857dd8f0e3e7f1db4b6e469b483a930b6bf9063be8a2e1795418848b89c1"
       },
       "clip_semantic_signatures": {
-        "fall": "5a819d2dfc995418d9ae87e1f14ea0cf251d6ae532441169de8e9e9d583f6cc2",
-        "turn": "8deb53ea53a6ac1c4a81d70cf136ea749c54728aafa562a88a3d699b1ffef085",
-        "hit_body": "d8512318f1f3bf57d5622334826a7236127d4f240801a83d3f1009e030aa8356",
-        "hit_head": "279cb7fb02fe24e75f80c61128ddc3c55f9ff9e4b62d7911b6c7a5930ee29c26",
-        "hit_side": "963f46a0ae4184661b6d16bda44b9e3c67ce5cf94a34ab4bf65cb7ddd20c7176",
-        "idle": "ff7bd35ee75d581669e28455a2e6a4f2d9505c46ca8c5f94111ac35442e65f4d",
-        "walk": "20c1ad01a2e8127bd04945398bbdc014fb37d617b9eda3837890b13b415f41a6",
-        "attack_overhead": "d5e6b4807a22890afc101f63ee9ab1b3c0684b26d62d9319e6c4af68d0518c42",
-        "attack_left": "ecb874f22f51e9d7dbb1456e2434fcec1a75a0f4cee00b8e05de4c741c82415f",
-        "attack_right": "d80304c7347fe15fa583d859c4ef552d1e5565d90a0a4b1511c0d80d29bda5f1"
+        "fall": "05338e58e41461708c3c08c490faa3c36f847dcaacda371f50fe30ee846e3d46",
+        "turn": "2cc05abbaba9a689bf317636e59e008543e997f41808bf59c9b8db3776b06280",
+        "hit_body": "ce005ab51c2ae2b06757a042ed5aa754c95d5e1ab2e34bac3a91af0dd3672f6f",
+        "hit_head": "1f8f08b28c879e97054aefedbb70308de79cace0ae26388ac513baf7edef42e9",
+        "hit_side": "c3d6ab7e4367c74f7e542e59d6f44510edf671ea7eb09965f636f53e72895560",
+        "idle": "86fac4f74d5162ef0b30a8d024cbfcc4ebef22c2c2a0458ffb413f7f81fb831d",
+        "walk": "6653528447e93f85822ef992c479f05a498d1c73e22848a6ec44fbe70449f22a",
+        "attack_overhead": "79f5bb0138027fed73feb4081d0862163f34cf8eaa7952fb9356a648f591f84b",
+        "attack_left": "5d9f9a73f7b10d8c32875f7ca60a806f92b507c9377d4a2da5be660b83e6c4cc",
+        "attack_right": "62687aad7fe55d9ae402c2986481a19c187c57e6a0c92cfa4efd5b469a06e93c"
       },
-      "texture_encoding_manifest_sha256": "8b60bc0d7371034c8b606be426a50f76f17fe065f68518176a6a17f95b78c8a5",
-      "attack_profiles_sha256": "1d3c22aea9c3914716a0ccc8fede9048b82d0a97624d01d1b96373afc8f0523a"
+      "texture_encoding_manifest_sha256": "5125ef47633729f9b9a982729399071f65016e55a0cda6b3515c81500f5d6fec",
+      "attack_profiles_sha256": "5af1a725dcacb73b2e84567466ad1e2ed48bcec0a9422b9456f464e0bac44614"
     },
     {
       "id": "veteran",
       "outputs": [
         {
           "file": "veteran_body.glb",
-          "bytes": 14438824,
-          "sha256": "d7ab4a92f214360b2cf46c365a91ebe639ec896f055bfd1d8140a24c936d6b53"
+          "bytes": 14592912,
+          "sha256": "1642bbf79d1c1e241f52f317d11404a64d3fed78a08a0cd3de10af9c2b957d34"
         },
         {
           "file": "veteran_prepared_png.glb",
-          "bytes": 17531904,
-          "sha256": "b8798cc3c25edf5c2ef00f6d0ab087bb014c2fee205438a58646c4e8b5206de5"
+          "bytes": 17685992,
+          "sha256": "20259470b3d58b3f27eadb0d3af7e69752ff996dd97f9d23e12470292936a64d"
         },
         {
           "file": "veteran.glb",
-          "bytes": 45442628,
-          "sha256": "35499d130ef054f4cf1493ebe28ba4bdb25d98c9c97cd9d5008be8c38688f1d8"
+          "bytes": 45596716,
+          "sha256": "d5898b17bd3f4eb3bd9e0546e08b5c2cde24dc7c6b9de1a917f20f31016c921c"
         }
       ],
       "hand_track_signatures": {
-        "fall": "728e675df0fff36d56cc5bc094b07bd4cf04573b6a7bce1064e969bd17c23c70",
-        "turn": "02cfcb0127357f3f755cab6a89231356a109b9d2efdd6c554df054a06b46d10c",
-        "hit_body": "22529dae9cf579ae7b20cf763fb82b4eef20ad964ec03432af675624f7bc245f",
-        "hit_head": "364cfa1e90da88f80f407e4564e21047651f9690153068d49692d2ddd39dd73e",
-        "hit_side": "7d88da3479a2a2e8db304ec2777ff627b12820ff6e0f057ca177913083be1527",
-        "idle": "0230742579d376396eb514a3ff5343c5b9bd9d90c00918bc167a83c94eb97711",
-        "walk": "131ac07368eff2b6f9bf1d63dfadd04d7c3077246dabb42d3b8bba491d183c6c",
-        "attack_overhead": "1964a634623fefc1230e332515e4f2a69ce02310448206634be9484779bc5498",
-        "attack_left": "42174650b66c3cc98996d7b4054ad10d35049a1626fcdd8150bb06a3aa25a0ad",
-        "attack_right": "4ee6a9a8b38c4cfd80019d87c4ea212617077f03d6a5d7f25c3cf3c9a7910d67"
+        "fall": "36b1c8ddd77c420d9b35a6493a407f07b3c54d21977bd9611e3db4729d7e7463",
+        "turn": "f5d8fa1f9bf600c2a3b0e0818fc33c17f14d294c5bcf105e1b1226550f075b32",
+        "hit_body": "a0eadee1fa8ab7bad812e3eefbbb2faf15a940c1eeacee458538f14557f22c01",
+        "hit_head": "c6ebd76d886df9c98f14e575e35d7107be3073433e612cec72065f7d5d07c08a",
+        "hit_side": "b857c084281950591144747b7da4c2b9410ce77acee30a52162dffe74db31c17",
+        "idle": "2eefd511374e9499d7427976799ee5a383525bc083d822cca162230d1cf12531",
+        "walk": "52ceacb99e11ad9c5e31080ba5095a4a645251eba30cfed151c6c4468da7b108",
+        "attack_overhead": "98d7e41c78266cd460405a662f36ccf8ce572e9310c956f94cb129b6b4b8db36",
+        "attack_left": "082eea03085adcd88d4136d2edc6a5d9eb01e14e9d3703bf8423bc931cb6f143",
+        "attack_right": "ad4e6a132f17afa732738c164301624423c232784434935a5cd9af6bfc0b04f0"
       },
       "clip_semantic_signatures": {
-        "fall": "c9afbf40e6ed060665fb19d233e9338ecaf4c07f78f19e98fd567c82225eb960",
-        "turn": "4cb99e15ded6775ba905ff2f7dd8deb427e5447a267e0add48ad0a48496f8194",
-        "hit_body": "c1aae7ebf1b29e5ec9ecbc540d1f3a96120f395bc7f1a6273f5350346a069066",
-        "hit_head": "7cede93dcc56665b77a1b0f3c3d2de548b63d50be9024494e6741d2d00b22af8",
-        "hit_side": "4a0ba913d37e71e84bc32110a5039c4e7ebe327c1c07ee9d66c017eab0e07ddf",
-        "idle": "2d6543f3d0d05e5ad717099d0753905ad78e85adb0c3ce4aa21c66e03c6a7aa0",
-        "walk": "8ed4c1a47bdc286dc9f3f0ae218465cc363b810f04a1d96210fbdca16c881eb2",
-        "attack_overhead": "136a8f34c1f6493f508359fa6b9c9c486da84c5e7a13b7255e2fdabd03dac43c",
-        "attack_left": "5be4ccb4bf9ab0a06999a9faaeafa6f1a23960efc2ae3a1667196abf6ef20ed9",
-        "attack_right": "0a1cb1e881cf52ae49a18707ab2959bd3b13661835dd790ae039e9af40f29c4d"
+        "fall": "ca3ffbfe863e5875bae5c64c68b4415e8ebdab84799e7d0f1ab258d3a8e331b3",
+        "turn": "07fac77b71bc431f0ff684641568e12c562b3e32098b19abd9c5b2e346771b48",
+        "hit_body": "70a19c200cc79c1a1fcb91e845d045226370b5abeafc367153080486827c74f9",
+        "hit_head": "9568f4b51c260de91a6e4650ecf47c6807fa10b03190534383422d5ae4485974",
+        "hit_side": "1553223f7601101175039399b26f44de20104681bc1093d1851109907248d228",
+        "idle": "9a010cea42e4e37a716b6618cf4e9c26520c7bca1bfbaaf8ba9e21ea35c62a53",
+        "walk": "a49ee476d8ff3d14080fac914de285060c60c70c34cb492fecc71b7111041fc6",
+        "attack_overhead": "370f1c4039ca6790e2e0ce0b8434db4a2eb26bfea5b3e32855f7bd3764937fa3",
+        "attack_left": "635b4f2a6d4060f84cd137f392f72186884d5d2e1e15c621f1aa33b7db47ec4a",
+        "attack_right": "0ecc4ada0734eb914bb46c4ad775d07dfd2b3d4121616273efe2c65757eaba8a"
       },
-      "texture_encoding_manifest_sha256": "97f7b46a295f4c5da2ca0b2a12d85c78f2a9efe1381b36f9157a79fe2a82e1c0",
-      "attack_profiles_sha256": "a54887a8040cb528cdc40db90b691f9f7da50a063d9aeab521c59943af6a8fc4"
+      "texture_encoding_manifest_sha256": "6a142fd3196981871812df07e0c675276df0d68d8fa93b61a1b3efe828a7035e",
+      "attack_profiles_sha256": "bf29e627bc350dca29eab92c9fed892e7d90e3ad212cf647f6d715109381fbe6"
     }
   ],
   "player_weapon": {
@@ -211,35 +211,119 @@
     "manifest_sha256": "45db8173bfc6902ad449a131ab39c75983b52bf63cb5eec892ba9fa1a7197a6f"
   },
   "decision": "approved",
-  "scope": "First opponent only: fit the mounted hand fingers to the wooden core and cord wrap. Palm, wrist, weapon, all arm and other actor motion remain unchanged.",
+  "scope": "Individually fit indigo and veteran right finger rotations to their own dao grip. No change to the left hand, weapon path, body, collision samples, geometry, skin weights or textures.",
   "acceptance": {
-    "prior_base_sha256": "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
-    "compared_animation_channels": 2340,
-    "changed_digit_rotations": [
-      "R_Index3",
-      "R_Mid3",
-      "R_Pinky1",
-      "R_Pinky2",
-      "R_Pinky3",
-      "R_Ring1",
-      "R_Ring2",
-      "R_Ring3",
-      "R_Thumb1",
-      "R_Thumb2",
-      "R_Thumb3"
-    ],
-    "unchanged_geometry_accessors": 147,
-    "unchanged_base_collision_rows": 1419,
-    "prior_deepest_sample_mm": 11.486,
-    "after_deepest_surface_interval_mm": [
-      0.073,
-      0.114
-    ],
-    "idle_core_crossing_pairs_before": 352,
-    "idle_core_crossing_pairs_after": 12,
-    "idle_nonadjacent_crossing_pairs_before": 164,
-    "idle_nonadjacent_crossing_pairs_after": 51,
-    "idle_cross_finger_pairs_after": 0,
-    "other_actor_and_player_assets_byte_identical": true
+    "first_opponent": {
+      "prior_base_sha256": "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
+      "compared_animation_channels": 2340,
+      "changed_digit_rotations": [
+        "R_Index3",
+        "R_Mid3",
+        "R_Pinky1",
+        "R_Pinky2",
+        "R_Pinky3",
+        "R_Ring1",
+        "R_Ring2",
+        "R_Ring3",
+        "R_Thumb1",
+        "R_Thumb2",
+        "R_Thumb3"
+      ],
+      "unchanged_geometry_accessors": 147,
+      "unchanged_base_collision_rows": 1419,
+      "prior_deepest_sample_mm": 11.486,
+      "after_deepest_surface_interval_mm": [
+        0.073,
+        0.114
+      ],
+      "idle_core_crossing_pairs_before": 352,
+      "idle_core_crossing_pairs_after": 12,
+      "idle_nonadjacent_crossing_pairs_before": 164,
+      "idle_nonadjacent_crossing_pairs_after": 51,
+      "idle_cross_finger_pairs_after": 0,
+      "other_actor_and_player_assets_byte_identical": true
+    },
+    "indigo": {
+      "source_sha256": "2b441a3752d7b03669fe1c618b8323898012a9fd10274e0c9e4b411ffa62a8bf",
+      "changed_right_digits": [
+        "R_Index1",
+        "R_Mid1",
+        "R_Mid2",
+        "R_Mid3",
+        "R_Pinky1",
+        "R_Pinky2",
+        "R_Pinky3",
+        "R_Ring1",
+        "R_Ring2",
+        "R_Thumb1"
+      ],
+      "unchanged_profile_rows": 1419,
+      "prior_max_core_sample_mm": 2.926,
+      "core_crossings_before_after": [
+        127,
+        0
+      ],
+      "cross_digit_pairs_before_after": [
+        107,
+        0
+      ],
+      "idle_self_pairs_before_after": [
+        138,
+        31
+      ],
+      "distal_pad_to_cord_range_mm": [
+        0.028,
+        0.872
+      ]
+    },
+    "veteran": {
+      "source_sha256": "35499d130ef054f4cf1493ebe28ba4bdb25d98c9c97cd9d5008be8c38688f1d8",
+      "changed_right_digits": [
+        "R_Index1",
+        "R_Index2",
+        "R_Index3",
+        "R_Mid2",
+        "R_Mid3",
+        "R_Pinky1",
+        "R_Pinky2",
+        "R_Pinky3",
+        "R_Ring1",
+        "R_Ring2",
+        "R_Ring3",
+        "R_Thumb1",
+        "R_Thumb2",
+        "R_Thumb3"
+      ],
+      "unchanged_profile_rows": 1443,
+      "prior_max_core_sample_mm": 11.51,
+      "remaining_max_core_surface_depth_mm": [
+        0.105,
+        0.146
+      ],
+      "core_crossings_before_after": [
+        316,
+        12
+      ],
+      "idle_self_pairs_before_after": [
+        153,
+        44
+      ],
+      "distal_pad_to_cord_range_mm": [
+        0.017,
+        0.519
+      ]
+    },
+    "free_hand_check": {
+      "poses": 818,
+      "rate_hz": 60,
+      "clips": [
+        "idle",
+        "attack_left",
+        "attack_right",
+        "attack_overhead"
+      ],
+      "empty_hand_against_steel_head_chest_overlaps": 0,
+      "preexisting_exception": "veteran attack_overhead source 1.45 s: 37 triangle pairs between the free forearm and chest armor; not a blade or hand crossing."
+    }
   }
 }

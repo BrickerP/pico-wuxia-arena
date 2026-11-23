@@ -7,8 +7,17 @@ import com.example.wuxiaarena.core.input.TrackingQuality
 import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 
 internal data class PlayerHandTransform(val position: Vector3, val rotation: Quaternion)
+
+/** The result panel still uses real tracking while the game's hand and weapon models are hidden. */
+internal class PlayerModelInput {
+    var tracking: TrackingSnapshot? = null
+    var result = TrialResult.READY
+    val showingResults get() = result == TrialResult.VICTORY || result == TrialResult.DEFEAT
+    val modelSnapshot get() = tracking.takeUnless { showingResults }
+}
 
 /**
  * Both baked hand assets use the dao's common grip origin and axes.

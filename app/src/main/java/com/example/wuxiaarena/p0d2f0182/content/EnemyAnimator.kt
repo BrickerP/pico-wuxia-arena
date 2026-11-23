@@ -3,6 +3,8 @@ package com.example.wuxiaarena.p0d2f0182.content
 import android.util.Log
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+import com.example.wuxiaarena.p0d2f0182.runtime.arenaOpponents
+import com.example.wuxiaarena.p0d2f0182.runtime.locomotionProfile
 import com.pico.spatial.core.ecs.Entity
 import com.pico.spatial.core.ecs.animation.AnimationPlayConfig
 import com.pico.spatial.core.ecs.animation.AnimationPlaybackController
@@ -54,7 +56,7 @@ internal class EnemyAnimator(enemy: Entity) {
         }
     }
 
-    fun present(state: ArenaViewState) {
+    fun present(state: ArenaViewState, retreat: DefeatRetreatFrame?) {
         if (closed || !target.valid) return
         // Every living pose, including contact hold/withdrawal, comes from the same
         // effective clip/source that generated the collision blade and body points.
@@ -64,6 +66,14 @@ internal class EnemyAnimator(enemy: Entity) {
         if (state.phase == EnemyPhase.DEAD) {
             clip = if (state.executing && state.deathElapsedSeconds < EXECUTION_RECOIL_SECONDS) "hit_head" else "fall"
             sourceSeconds = null
+        } else if (retreat != null) {
+            // Preserve the last visible pose on the frame the result panel opens.
+            if (retreat.elapsedNanos == 0L && controller != null) return
+            val locomotion = arenaOpponents[state.roundNumber - 1].locomotionProfile()
+            clip = locomotion.clip(retreat.moving)
+            sourceSeconds = locomotion.sourceSeconds(
+                retreat.moving, state.enemyGaitMeters - retreat.distanceMeters, retreat.elapsedNanos,
+            )
         } else {
             clip = state.enemyPoseClip ?: run { suspend(); return }
             sourceSeconds = state.enemyPoseSourceSeconds?.takeIf { it.isFinite() && it >= 0.0 }
@@ -76,9 +86,11 @@ internal class EnemyAnimator(enemy: Entity) {
             val next = target.playAnimation(
                 resource,
                 AnimationPlayConfig(
-                    // Living poses must match the queried frame without blending an old clip.
-                    // Preserve the existing death/fall transition lifecycle.
-                    transitionDuration = if (state.phase == EnemyPhase.DEAD) 0.12f else 0f,
+                    transitionDuration = when {
+                        state.phase == EnemyPhase.DEAD -> 0.12f
+                        retreat != null -> 0.22f
+                        else -> 0f // Combat poses must match their collision sample.
+                    },
                     transitionMode = AnimationTransitionMode.STOP_AND_CROSSFADE,
                 ),
             )
@@ -112,7 +124,7 @@ internal class EnemyAnimator(enemy: Entity) {
         val paused = true
         if (!active.isPaused()) active.pause()
         val idleSource = sourceSeconds
-        if (clip == "idle" && idleSource != null && idleEvidenceCount < 3 &&
+        if (retreat == null && clip == "idle" && idleSource != null && idleEvidenceCount < 3 &&
             (lastIdleEvidenceSeconds == null || kotlin.math.abs(idleSource - checkNotNull(lastIdleEvidenceSeconds)) >= .25)) {
             Log.i(TAG, "SharedIdlePlaybackEvidence sample=${idleEvidenceCount + 1} result=${state.result} " +
                 "requestedSourceSeconds=$idleSource sdkTimeSeconds=${active.getTime()} " +
