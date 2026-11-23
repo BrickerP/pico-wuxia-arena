@@ -39,8 +39,7 @@ import com.example.wuxiaarena.p0d2f0182.ui.ArenaUiPalette
 import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsEmulatorGuide
 import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsIncomingStrike
 import com.example.wuxiaarena.p0d2f0182.ui.arenaShowsCombo
-import com.example.wuxiaarena.p0d2f0182.ui.arenaIncomingSealScale
-import com.example.wuxiaarena.p0d2f0182.ui.arenaHitFeedbackScale
+import com.example.wuxiaarena.p0d2f0182.ui.ArenaHudScales
 import com.example.wuxiaarena.core.combat.AttackDirection
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.HitReaction
@@ -451,7 +450,7 @@ private fun MatchSummary(state: ArenaViewState) {
 }
 
 @Composable
-internal fun ArenaStatusPanel(state: ArenaViewState) {
+internal fun ArenaStatusPanel(state: ArenaViewState, scales: ArenaHudScales) {
     PicoTheme {
         // The Attachment remains 500 x 260; its outer region stays transparent.
         Box(modifier = Modifier.size(width = 500.dp, height = 260.dp)) {
@@ -500,11 +499,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                         maxLines = 1,
                     )
                     if (arenaShowsIncomingStrike(state.result, state.pauseReason, state.inputReady, state.phase)) {
-                        AttackDirectionSeal(
-                            state.attackDirection,
-                            arenaIncomingSealScale(state.phase, state.phaseElapsedNanos,
-                                state.phaseElapsedNanos + (state.phaseRemainingNanos ?: 0L)),
-                        )
+                        AttackDirectionSeal(state.attackDirection, scales)
                     }
                 }
                 val duelCueVisible = state.counterOpen || state.indigoGuardOnRibLine != null || state.phase == EnemyPhase.PREPARING &&
@@ -545,10 +540,7 @@ internal fun ArenaStatusPanel(state: ArenaViewState) {
                             Text(
                                 text = feedbackText,
                                 modifier = Modifier.weight(1f).graphicsLayer {
-                                    val emphasis = if (state.result == TrialResult.FIGHTING &&
-                                        state.pauseReason == null && state.inputReady) {
-                                        arenaHitFeedbackScale(state.phase, state.phaseElapsedNanos, state.feedback)
-                                    } else 1f
+                                    val emphasis = scales.feedback
                                     scaleX = emphasis
                                     scaleY = emphasis
                                 },
@@ -707,7 +699,7 @@ private fun RestartConfirmationDialog(
 }
 
 @Composable
-private fun AttackDirectionSeal(direction: AttackDirection?, scale: Float) {
+private fun AttackDirectionSeal(direction: AttackDirection?, scales: ArenaHudScales) {
     if (direction == null) return
     val label = stringResource(when (direction) {
         AttackDirection.LEFT -> R.string.arena_direction_left
@@ -716,7 +708,11 @@ private fun AttackDirectionSeal(direction: AttackDirection?, scale: Float) {
     })
     val description = stringResource(R.string.arena_direction_active_description, label)
     Badge(
-        modifier = Modifier.size(width = 42.dp, height = 34.dp).graphicsLayer { scaleX = scale; scaleY = scale }.semantics { contentDescription = description },
+        modifier = Modifier.size(width = 42.dp, height = 34.dp).graphicsLayer {
+            val scale = scales.telegraph
+            scaleX = scale
+            scaleY = scale
+        }.semantics { contentDescription = description },
         badgeColor = BadgeDefaults.badgeColors(
             backgroundColor = ArenaUiPalette.cinnabar,
             contentColor = ArenaUiPalette.paperIvory,

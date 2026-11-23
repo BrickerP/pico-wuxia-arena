@@ -8,6 +8,8 @@ import com.example.wuxiaarena.core.math.Quaternion
 import com.example.wuxiaarena.core.math.Vector3
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.core.input.ObservationStamp
+import com.example.wuxiaarena.p0d2f0182.ui.ArenaHudScales
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -30,11 +32,34 @@ class HudStateProjectionTest {
         phaseElapsedNanos = 0L,
     )
 
-    @Test fun preparationAndContactAccentsReceiveTheirSimulationClock() {
-        assertTrue(shouldPublishHudState(state, state.copy(phaseElapsedNanos = 80_000_000L)))
+    @Test fun theExtendedWindupAdvancesTheSealWithoutPublishingPanelContent() {
+        val scales = ArenaHudScales()
+        val start = state.copy(phaseRemainingNanos = 1_200_000_000L)
+        for (step in 0..30) {
+            val elapsed = 40_000_000L * step
+            val next = start.copy(phaseElapsedNanos = elapsed, phaseRemainingNanos = 1_200_000_000L - elapsed)
+            scales.update(next)
+            assertFalse(shouldPublishHudState(start, next))
+            assertEquals(0.94f + 0.06f * step / 30, scales.telegraph, 1e-6f)
+        }
+        assertTrue(shouldPublishHudState(start, start.copy(attackDirection = AttackDirection.LEFT)))
+    }
+
+    @Test fun hitEmphasisSettlesInItsLayerAndPausingClearsItImmediately() {
+        val scales = ArenaHudScales()
         for (feedback in listOf(CombatFeedback.HIT, CombatFeedback.HEADSHOT, CombatFeedback.GUARDED_HIT, CombatFeedback.PARRY)) {
             val hit = state.copy(phase = EnemyPhase.HIT, feedback = feedback)
-            assertTrue(shouldPublishHudState(hit, hit.copy(phaseElapsedNanos = 80_000_000L)))
+            for ((elapsed, expected) in listOf(0L to 1.04f, 80_000_000L to 1.02f, 160_000_000L to 1f, 500_000_000L to 1f)) {
+                val next = hit.copy(phaseElapsedNanos = elapsed)
+                scales.update(next)
+                assertFalse(shouldPublishHudState(hit, next))
+                assertEquals(expected, scales.feedback, 1e-6f)
+            }
+            scales.update(hit)
+            val paused = hit.copy(pauseReason = PauseReason.USER)
+            scales.update(paused)
+            assertEquals(1f, scales.feedback, 0f)
+            assertTrue(shouldPublishHudState(hit, paused))
         }
     }
 
@@ -92,7 +117,7 @@ class HudStateProjectionTest {
             pose.copy(phase = EnemyPhase.STARTUP),
             pose.copy(pauseReason = PauseReason.USER),
             pose.copy(inputReady = false),
-            pose.copy(phaseElapsedNanos = 80_000_000L),
+            pose.copy(counterOpen = true),
         )) assertTrue(shouldPublishHudState(state, visibleChange))
     }
 

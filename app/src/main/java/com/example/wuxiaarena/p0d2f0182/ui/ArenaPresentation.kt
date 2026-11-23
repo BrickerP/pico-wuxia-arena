@@ -1,10 +1,29 @@
 package com.example.wuxiaarena.p0d2f0182.ui
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.setValue
 import com.example.wuxiaarena.core.combat.EnemyPhase
 import com.example.wuxiaarena.core.combat.PauseReason
 import com.example.wuxiaarena.core.input.InputOrigin
 import com.example.wuxiaarena.p0d2f0182.runtime.TrialResult
 import com.example.wuxiaarena.p0d2f0182.runtime.CombatFeedback
+import com.example.wuxiaarena.p0d2f0182.runtime.ArenaViewState
+
+internal class ArenaHudScales {
+    var telegraph by mutableFloatStateOf(1f)
+        private set
+    var feedback by mutableFloatStateOf(1f)
+        private set
+
+    fun update(state: ArenaViewState) {
+        val active = state.result == TrialResult.FIGHTING && state.pauseReason == null && state.inputReady
+        telegraph = if (active && state.attackDirection != null) arenaIncomingSealScale(
+            state.phase, state.phaseElapsedNanos, state.phaseElapsedNanos + (state.phaseRemainingNanos ?: 0L),
+        ) else 1f
+        feedback = if (active) arenaHitFeedbackScale(state.phase, state.phaseElapsedNanos, state.feedback) else 1f
+    }
+}
 
 /** Host context selects setup help only; it never supplies tracking observations or readiness. */
 internal fun arenaShowsEmulatorGuide(inputOrigin: InputOrigin?, isRanchuHost: Boolean): Boolean =
