@@ -2,6 +2,8 @@
 
 **当前发布：[试炼战绩](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-result-2026-11-23)**，APK SHA256 `1298c636f5b91d9a146ff9202e48a9473b3f83f34707401b91c8993da2b61600`。胜负结算显示实际击败人数，落败时列出对手与余血。20 项相关定向回归通过。在模拟器独立 Android ART 进程的 61 组正式动作输入上，每版各 366 次求解；退刀 CPU 中位从 0.388 到 0.159 ms，P95 从 2.271 到 0.747 ms，每次分配计数中位从 544 到 160 KiB。此项为单次碰刀计算的测量。
 
+[本包连续交战与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/guard-result-retry.mp4)使用模拟器虚拟手柄，玩家击败试刀客，在青衫的有效攻击期稳架接刀。该局落败得 150 分，[结算卡](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/result-card.png)列出击败 1/3、自身气血 0、青衫护院剩余气血 50/125；同进程再次开始进入倒计时。
+
 **[握刀与退场](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-after-duel-2026-11-23)**，APK SHA256 `5dc4b80e742c5ac573751cb190ec1537f3330a0ffa1fcdd59cb610d87bf8ac1a`。青衫、玄甲的右手分别贴合原有柄面。两人共 2,862 行刀、头、身采样保持一致。[青衫前后对照](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/indigo-grip.jpg) · [玄甲前后对照](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/veteran-grip.jpg)。终局收起游戏中的玩家手套与刀，保留系统射线；败局存活的敌人收势后退，点「再挑战」可立即重开。33 项相关定向测试通过。
 
 已在同包 PICO Emulator 录下[从开战到落败、收势退步及再挑战的完整过程](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/defeat-and-retry.mp4)。此局刻意未挥刀，两个按钮通过模拟器内的 Android 无障碍接口点选；结算时手套与刀收起，点击再挑战后同进程回到准备态并恢复握刀。[结算画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/settlement.png)。此局仅验证败局呈现和重开。
