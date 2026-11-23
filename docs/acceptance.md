@@ -2,6 +2,8 @@
 
 **当前发布：[首挥刀光](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-ready-trail-2026-11-23)**，APK SHA256 `8690e9b19beaf99fc13ca5667b7064d7f1e1ce9cad028d408595f3949c270e14`。刀光在倒计时提前准备，挥动时仍按真实刀轨绘制。上版的手指和弹反改动包含在此包中。
 
+[本包连续 22.8 秒原生交锋](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/first-exchange.mp4)记录首敌下劈被稳架截住、随后还击命中。设备首挥记录为 `create=0, replace=1`。同机首场固定 8 秒，应用空间帧间隔中位 34.53 ms、P95 71.61 ms、最长 201.26 ms，187 个间隔中 48 个超过 50 ms。[原始统计](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/opening-8s.csv)。两包各测一次，动作和宿主负载有差异。游戏仍会卡顿。本次输入在第一场中断，未取得本包第二场、Boss 或胜后重开的实录。
+
 **[青衫还刀与握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-indigo-grip-2026-11-23)**，APK SHA256 `8a5e26d675cb5d9c9a68c9f50ecb5bc320961bfa8e93511afacf803b317b588e`。正式试刀客调整 11 根右指骨，1,419 行刀身、头和身体采样与上版一致。[三视图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/grip-comparison.jpg)上排为原握姿，下排为新握姿。青衫真正弹反后的还击窗口由 0.55 秒延长到 1.2 秒，并提示撤手或肩侧；错过后仍会重新架防。
 
 **[战斗提示动效](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hud-motion-2026-11-23)**，APK SHA256 `4d9b747924a01007f7423764b9c101b070592c54b4837a59f3be6a0f691007b8`。方向章和命中文字由绘制层更新缩放；时间单独推进时，状态板不再因为缩放而重新组合。19 项相关测试通过。[同包实战与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-hud-motion-2026-11-23/hud-second-restart.mp4)记录了打败试刀客、第二场落败及重新进入首场倒计时。[首场 8 秒采样](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-hud-motion-2026-11-23/opening-8s.csv)的应用空间帧间隔中位 44.12 ms、P95 109.41 ms、最长 314.39 ms，158 个间隔中 58 个超过 50 ms。采样时在录屏，仍有明显卡顿。三场胜局与真机体验另验。
