@@ -54,6 +54,8 @@ data class QualifiedSwing(val id: Long, val power: Double, val travel: Vector3, 
 
 data class MotionStrike(val id: Long, val zone: HitZone, val power: Double, val contact: MotionContact)
 
+internal const val MAX_HAND_SAMPLE_AGE_NANOS = 250_000_000L
+
 data class PlayerMotionFrame(
     val receivedAtNanos: Long,
     val bladeBase: Vector3,
@@ -78,6 +80,8 @@ data class PlayerMotionFrame(
     val guardEnteredAtNanos: Long? = null,
     val fastGuardAtNanos: Long? = null,
     val observationSequence: Long = -1L,
+    /** Original SDK hand time, even when the simulation samples this pose between receipts. */
+    val handReceivedAtNanos: Long = receivedAtNanos,
 )
 
 /**
@@ -281,10 +285,9 @@ class PlayerCombatResolver {
 
     /** Geometry is mandatory; guard timing only grades an actual steel witness. */
     fun resolveDefense(attackId: Long, direction: AttackDirection, enemyPosition: Vector3,
-        receivedAtNanos: Long, contact: BladeContact? = null): AttackOutcome {
-        if (contact == null || this.attackId != attackId || latestFrame == null) return AttackOutcome.MISSED
+        receivedAtNanos: Long, contact: BladeContact? = null, frame: PlayerMotionFrame? = latestFrame): AttackOutcome {
+        if (contact == null || this.attackId != attackId || frame == null) return AttackOutcome.MISSED
         if (resolvedAttackId == attackId) return resolvedOutcome
-        val frame = checkNotNull(latestFrame)
         val aligned = frame.guardDirection == direction &&
             guardDirection(frame.bladeBase, frame.bladeTip, frame.headPosition, enemyPosition) == direction
         val result = if (aligned && frame.guardEnteredAtNanos?.let { it <= receivedAtNanos && elapsedSince(receivedAtNanos, it) <= PARRY_WINDOW } == true &&
@@ -570,7 +573,7 @@ class PlayerCombatResolver {
         val BLADE_BASE = Vector3(0.022, 0.0, -0.129)
         val BLADE_TIP = Vector3(0.0532, 0.0, -0.849)
         val UP = Vector3(0.0, 1.0, 0.0)
-        const val MAX_SAMPLE_GAP = 0.25
+        const val MAX_SAMPLE_GAP = MAX_HAND_SAMPLE_AGE_NANOS / 1_000_000_000.0
         const val MAX_ROTATION_STEP = 1.25
         const val MAX_PLAUSIBLE_TIP_SPEED = 35.0
         const val MIN_STRIKE_SPEED = 0.85
