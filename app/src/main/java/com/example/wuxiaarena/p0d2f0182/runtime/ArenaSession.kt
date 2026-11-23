@@ -292,7 +292,7 @@ internal class ArenaSession(
             val head = headPose?.position
             val facing = headPose?.rotation
             val counterHint = when {
-                roundNumber != 1 || !motionReady || !combat.counterOpen -> null
+                combat.frontArmored || !motionReady || !combat.counterOpen -> null
                 motion.weaponConstrained -> CounterTargetHint.WITHDRAW
                 head != null && facing != null && enemyAttackPose != null -> lessonCounterTarget(head, facing, enemyAttackPose)
                 else -> null

@@ -8,27 +8,27 @@ import com.example.wuxiaarena.core.combat.EnemyContactPose
 import com.example.wuxiaarena.core.math.Vector3
 
 internal object AttackBankProfileData {
-    const val bindingSha256 = "644d9f10afadb7af9bf4421be9940fa28fd9df144f8c8429b3a6b51c56b9e641"
+    const val bindingSha256 = "5295ae635c74ff66f8798b3e3363f47a2f39791cec0d2dba608e5d2ffa67fe32"
     val characters: Map<String, CharacterAttackProfiles> = mapOf(
         "asset://models/opponents/base.glb" to CharacterAttackProfiles(
-            modelSha256 = "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
-            profileSha256 = "1ad0e93fda89dd34a65748a4ccd1046057223026ef1704aa8488d501a84f49a4",
+            modelSha256 = "58741ce769c411dcfaef02829eda884c909d22eb32793011791665f9d6f4cc22",
+            profileSha256 = "57558d2a23684cce324a55abce44edbcefd0cac32c4877df5b7e67a094a2d477",
             attacks = mapOf(
-                // Animation semantics SHA-256 3fc942411df15bf17cd0bb07ea1ac01408306edb7f6e3d2e717f7a7e429d54ea
+                // Animation semantics SHA-256 6e54d4838995e3055a97b18edb35217a567fec778c98160fc01d998d8b20b9d4
                 AttackDirection.OVERHEAD to AttackProfile(
                     clip = "attack_overhead",
                     sourcePhaseSeconds = listOf(0.0, 0.65, 0.8333333333333334, 1.0333333333333334, 1.75),
                     contactSourceSeconds = 1.0,
                     samples = BaseAttackSamples.overhead(),
                 ),
-                // Animation semantics SHA-256 294195af35ebc3aac6f466ad3b8668d1167bb3aff4ac746ac6237261ff0381ce
+                // Animation semantics SHA-256 f8086fe5ca208d04cd99106f03374881d9ec3c4bab61c218d417a875cdd1094f
                 AttackDirection.LEFT to AttackProfile(
                     clip = "attack_left",
                     sourcePhaseSeconds = listOf(0.0, 0.65, 0.9, 1.1, 1.75),
                     contactSourceSeconds = 1.0,
                     samples = BaseAttackSamples.left(),
                 ),
-                // Animation semantics SHA-256 f0bab1a3b7bc3fbdceb979ed307918a468675fb0b910732b8639d4d2620a24e5
+                // Animation semantics SHA-256 6a1ee49c797275319de93e6436be2e65c2e3146ed2101e65cc033d06b24ce66d
                 AttackDirection.RIGHT to AttackProfile(
                     clip = "attack_right",
                     sourcePhaseSeconds = listOf(0.0, 0.65, 0.9, 1.1, 1.75),
@@ -52,11 +52,11 @@ internal object AttackBankProfileData {
                 ),
             ),
             reactions = ReactionProfiles(
-                // Animation semantics SHA-256 a022035f4e7d21779fa6c50eb2d6ed2c98ef5987f1400a5381b847634b91a858
+                // Animation semantics SHA-256 d81c017bf3e777f854743501d9fd56998f85a9d3b2159615b09ce1799006847c
                 body = PoseClipProfile("hit_body", BaseAttackSamples.hitBody()),
-                // Animation semantics SHA-256 008817cdd8ca3e525813f9d385358eed07004250a39e9e8118e272d43051021a
+                // Animation semantics SHA-256 726c483cbc8cfa4c04609a858d42eaf3c995ea80516d6c8ac31d89c117ea911c
                 head = PoseClipProfile("hit_head", BaseAttackSamples.hitHead()),
-                // Animation semantics SHA-256 e9d4fb026329fde6c78163c0a6e89086280542589adf5652b26cc88b9b276909
+                // Animation semantics SHA-256 c449d57d378b31f199b7ab1557b47728dd8c04ffae2849cfbb41989b1d17e8e7
                 side = PoseClipProfile("hit_side", BaseAttackSamples.hitSide()),
             ),
         ),

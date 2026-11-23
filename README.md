@@ -2,11 +2,11 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
-**[下载「战斗提示动效」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-hud-motion-2026-11-23/arena.apk)** · [上版第二场弹反与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/rib-second-restart.mp4) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
+**[下载「青衫还刀与握姿」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/arena.apk)** · [试刀客握姿三视图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/grip-comparison.jpg) · [所有预览](https://github.com/BrickerP/pico-wuxia-arena/releases)
 
 安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。第二场青衫侧斩走肋部，按提示降低握刀手，不要只护头。面对第三名玄甲刀客，看他何时举刀露隙。原地左右摆腕而不送手或稳架，只会轻擦。
 
-若模拟器刚启用手柄时手掌遮住视野，在右手柄模式下用 Shift + W 把握刀手移到身前，再移至视野右下方。当前预览优化了战斗提示的绘制。上版已有第二场弹反与败后重开的连续录像；三场胜局与 Space Pro 实机手感仍待验证。[按版本查看证据](docs/acceptance.md)。
+本版调整试刀客的右手握柄与青衫弹反后的还击机会。模拟器虚拟手初始位置见下方操作说明。三场胜局与 Space Pro 实机手感仍待验证。[按版本查看证据](docs/acceptance.md)。
 
 ## 两条独立工作线
 

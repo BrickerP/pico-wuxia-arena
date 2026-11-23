@@ -1,6 +1,8 @@
 # 原生刀客对决验收
 
-**当前发布：[战斗提示动效](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hud-motion-2026-11-23)**，APK SHA256 `4d9b747924a01007f7423764b9c101b070592c54b4837a59f3be6a0f691007b8`。方向章和命中文字由绘制层更新缩放；时间单独推进时，状态板不再因为缩放而重新组合。19 项相关测试通过。交战帧间隔、三场胜局及真机体验另验。
+**当前发布：[青衫还刀与握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-indigo-grip-2026-11-23)**，APK SHA256 `8a5e26d675cb5d9c9a68c9f50ecb5bc320961bfa8e93511afacf803b317b588e`。正式试刀客调整 11 根右指骨，1,419 行刀身、头和身体采样与上版一致。[三视图](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-indigo-grip-2026-11-23/grip-comparison.jpg)上排为原握姿，下排为新握姿。青衫真正弹反后的还击窗口由 0.55 秒延长到 1.2 秒，并提示撤手或肩侧；错过后仍会重新架防。
+
+**[战斗提示动效](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-hud-motion-2026-11-23)**，APK SHA256 `4d9b747924a01007f7423764b9c101b070592c54b4837a59f3be6a0f691007b8`。方向章和命中文字由绘制层更新缩放；时间单独推进时，状态板不再因为缩放而重新组合。19 项相关测试通过。[同包实战与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-hud-motion-2026-11-23/hud-second-restart.mp4)记录了打败试刀客、第二场落败及重新进入首场倒计时。[首场 8 秒采样](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-hud-motion-2026-11-23/opening-8s.csv)的应用空间帧间隔中位 44.12 ms、P95 109.41 ms、最长 314.39 ms，158 个间隔中 58 个超过 50 ms。采样时在录屏，仍有明显卡顿。三场胜局与真机体验另验。
 
 - **侧身护肋实战**（`b2dfb947`，11 月 23 日）。[连续交锋、第二场落败和重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/rib-second-restart.mp4)。首场稳架接刀，打败试刀客；第二场对青衫打出实际弹反，下一次还击被护住。同进程重新进入第一场倒计时。[另一次首场实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-rib-guard-2026-11-20/rib-guard-exchange.mp4)保留了架刀后约 1.2 秒还击命中的过程。
 - [青衫还击：第二场交锋实录](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-three-duel-counters-2026-11-20/second-window.mp4)（`4f57e0eb`）：首敌被击败，第二场 180 分落败，敌人剩 13/125。没有在该局记录到第二场匹配稳架或闪避开窗。

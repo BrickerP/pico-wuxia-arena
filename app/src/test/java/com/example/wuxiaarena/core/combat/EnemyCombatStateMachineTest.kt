@@ -126,7 +126,7 @@ class EnemyCombatStateMachineTest {
     }
 
     @Test
-    fun secondOpponentGrantsOneOrdinaryLengthCounterOnlyForAnEarnedDefense() {
+    fun secondOpponentGrantsOneCounterOnlyForAnEarnedDefenseAndExtraTimeOnlyForAParry() {
         for ((outcome, evidence) in listOf(AttackOutcome.BLOCKED to true, AttackOutcome.BLOCKED to false,
             AttackOutcome.PARRIED to true, AttackOutcome.MISSED to true, AttackOutcome.MISSED to false,
             AttackOutcome.HIT_PLAYER to false)) {
@@ -140,7 +140,7 @@ class EnemyCombatStateMachineTest {
                 opponent.advanceBy(AttackDirection.RIGHT.activeNanos, true)
             } else opponent.resolveActiveAttack(attack, outcome, matchedGuard = evidence)
             assertEquals("$outcome evidence=$evidence", evidence, opponent.counterOpen)
-            assertEquals(if (outcome == AttackOutcome.PARRIED) ms(550) else AttackDirection.RIGHT.recoveryNanos,
+            assertEquals(if (outcome == AttackOutcome.PARRIED) ms(1200) else AttackDirection.RIGHT.recoveryNanos,
                 opponent.nanosUntilPhaseTransition)
             if (evidence) {
                 opponent.receivePlayerHit(cutLine = CutLine.CROSS)
@@ -149,6 +149,43 @@ class EnemyCombatStateMachineTest {
                 assertTrue(opponent.resolveActiveAttack(attack, AttackOutcome.BLOCKED, matchedGuard = true).isEmpty())
                 assertFalse(opponent.counterOpen)
             }
+        }
+    }
+
+    @Test
+    fun aLateIndigoRiposteCanLandOnThePreviouslyGuardedLineButCannotKeepTheGuardOpen() {
+        fun parried(armored: Boolean = false): EnemyCombatStateMachine {
+            val enemy = EnemyCombatStateMachine(initialHealth = if (armored) 150 else 125, frontArmored = armored)
+            enemy.receivePlayerHit(cutLine = CutLine.CROSS, breakGuard = armored)
+            enemy.advanceBy(ms(300), true, AttackDirection.RIGHT)
+            assertEquals(AttackDirection.RIGHT, enemy.currentAttackDirection)
+            assertTrue(enemy.guarding)
+            enemy.advanceBy(AttackDirection.RIGHT.preparationNanos + AttackDirection.RIGHT.startupNanos, true)
+            assertEquals(EnemyPhase.ACTIVE, enemy.phase)
+            resolve(enemy, AttackOutcome.PARRIED)
+            assertTrue(enemy.counterOpen)
+            return enemy
+        }
+
+        val indigo = parried()
+        indigo.advanceBy(ms(710), true)
+        val reply = indigo.receivePlayerHit(cutLine = CutLine.CROSS)
+        assertEquals(25, reply.filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
+        assertEquals(ms(300), reply.filterIsInstance<EnemyCombatEvent.HitReactionStarted>().single().durationNanos)
+        assertFalse(indigo.counterOpen)
+        indigo.advanceBy(ms(300), true)
+        assertTrue(indigo.guarding)
+        assertEquals(0, indigo.receivePlayerHit(cutLine = CutLine.CROSS)
+            .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
+
+        for ((armored, duration) in listOf(false to ms(1200), true to ms(550))) {
+            val enemy = parried(armored)
+            enemy.advanceBy(duration - 1L, true)
+            assertTrue(enemy.counterOpen)
+            enemy.advanceBy(1L, true)
+            assertFalse(enemy.counterOpen)
+            assertEquals(0, enemy.receivePlayerHit(cutLine = CutLine.CROSS)
+                .filterIsInstance<EnemyCombatEvent.EnemyDamaged>().single().appliedDamage)
         }
     }
 
