@@ -2,6 +2,10 @@
 
 **当前发布：[身位判定](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-head-motion-2026-11-23)**，APK SHA256 `c2dba544bb2a77246eedf1278499960b94d5badba109cd9a79ed95df7eb66233`。头和手来自不同时间的观测时，身体按头部轨迹更新，手部动作按手柄的原始时间结算。在同一记上劈的定向回归中，手柄不动、头部后移 45 厘米可避开；留在原地会受到 20 点伤害。此项是正式战斗代码的回归验证。
 
+**同包原生实战已通关。** 在雨夜酒馆依次击败试刀客、青衫护院、玄甲守擂。青衫战有三次确认闪避，玄甲战在有效攻击期弹反一次；结算显示击败 3/3、713 分、自身气血 20。再挑战后首敌重新加载，同一进程接受开始操作并进入倒计时。[完整录像，80.1 秒](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-head-motion-2026-11-23/three-duels-victory.mp4) · [胜利画面](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-head-motion-2026-11-23/victory.png)。
+
+此局由宿主自动操作 PICO Emulator 的虚拟头部和手柄，进入与头显相同的动作与碰撞判定。「再挑战」通过游戏内可见按钮的 Android 无障碍操作点选，重新开始由模拟器视口点击。录像保持设备原始画面、顺序和速度。同进程 8581 的开局回执是 16:51:52.377（第 2 代）与 16:53:09.904（第 5 代）；玄甲在 16:53:02.576 进入倒地状态。Space Pro 舒适度、触觉和持续性能待实机。
+
 **[试炼战绩](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-result-2026-11-23)**，APK SHA256 `1298c636f5b91d9a146ff9202e48a9473b3f83f34707401b91c8993da2b61600`。胜负结算显示实际击败人数，落败时列出对手与余血。20 项相关定向回归通过。在模拟器独立 Android ART 进程的 61 组正式动作输入上，每版各 366 次求解；退刀 CPU 中位从 0.388 到 0.159 ms，P95 从 2.271 到 0.747 ms，每次分配计数中位从 544 到 160 KiB。此项为单次碰刀计算的测量。
 
 [本包连续交战与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/guard-result-retry.mp4)使用模拟器虚拟手柄，玩家击败试刀客，在青衫的有效攻击期稳架接刀。该局落败得 150 分，[结算卡](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/result-card.png)列出击败 1/3、自身气血 0、青衫护院剩余气血 50/125；同进程再次开始进入倒计时。
