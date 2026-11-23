@@ -2,7 +2,7 @@
 
 面向 **PICO Space Pro / OS 6** 的中式写实短 PVE 刀术竞技场。采用 **Kotlin + PICO Spatial SDK 6.1.9**，在 **Full Stage** 运行。范围是一座雨夜酒馆院落、一把刀、三名顺序对手；手感优先，其次是人物与场景观感。
 
-**[下载「试炼战绩」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/arena.apk)** · [本包攻防与结算](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/guard-result-retry.mp4) · [青衫握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/indigo-grip.jpg) · [玄甲握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/veteran-grip.jpg) · [上版三场实战](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/three-duels-boss-9hp.mp4)
+**[下载「身位判定」APK](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-head-motion-2026-11-23/arena.apk)** · [前版攻防与结算](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/guard-result-retry.mp4) · [青衫握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/indigo-grip.jpg) · [玄甲握姿](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-after-duel-2026-11-23/veteran-grip.jpg) · [上版三场实战](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-ready-trail-2026-11-23/three-duels-boss-9hp.mp4)
 
 安装后点「开始试炼」。首敌上举时横刀护额，握刀手收近额侧，等来刀落下；接住后撤手，将刀降到肩线，从空出的一侧还击。第二场青衫侧斩走肋部，按提示降低握刀手，不要只护头。面对第三名玄甲刀客，看他何时举刀露隙。原地左右摆腕而不送手或稳架，只会轻擦。
 
@@ -45,7 +45,7 @@ APK为`app/build/outputs/apk/debug/app-debug.apk`。选定PICO Emulator后所有
 
 模拟器使用 **Right Controller Mode**，启用 **Controller Button Mode**，关闭 **Keyboard Mode** 文本模式。Shift+W/A/S/D/Q/E移动虚拟手柄，鼠标改变朝向与空间射线；攻击、格挡、弹反、闪避和技能经动作判定，按钮用于实际UI。没有Activity按键动作宏或HMD派生假手路径。
 
-要在模拟器里侧身，保持手柄模式，在场景视口按住 Shift 并用鼠标左键横拖，松开后再用鼠标转动握刀手。在本机当前窗口，向右拖 70 像素时，SDK 记录头部向左移动约 21 厘米，握刀手仍在原位置。闪避是否成功由实际头部轨迹与来招相交情况决定。
+要在模拟器里侧身，保持手柄模式，在场景视口按住 Shift 并用鼠标左键横拖，松开后再用鼠标转动握刀手。在视口滚动鼠标滚轮可前后移动视点。在本机当前窗口，向右拖 70 像素时，SDK 记录头部向左移动约 21 厘米，握刀手仍在原位置。闪避是否成功由实际头部轨迹与来招相交情况决定。
 
 要在模拟器里侧身躲刀，开局后关闭 **Controller Button Mode**，用不带 Shift 的 A/D 移动头部；带 Shift 的 A/D 移动的是虚拟手。需要点结算按钮时重新启用 Controller Button Mode。头显上直接移动身体。
 

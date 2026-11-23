@@ -41,6 +41,7 @@ import com.example.wuxiaarena.core.input.TrackingSnapshot
 import com.example.wuxiaarena.core.input.TrackingTarget
 import com.example.wuxiaarena.core.math.closestSegmentPoints
 import com.example.wuxiaarena.core.math.Vector3
+import com.example.wuxiaarena.core.combat.MAX_HAND_SAMPLE_AGE_NANOS
 import kotlin.math.atan2
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -169,6 +170,7 @@ internal class ArenaSession(
     private var initialHealth = combat.health
     private val motion = PlayerCombatResolver()
     private val pendingMotion = ArrayDeque<PlayerMotionFrame>()
+    private val headPath = PlayerHeadPath()
     private var latestMotion: PlayerMotionFrame? = null
     private var simulationMotion: PlayerMotionFrame? = null
     private var contactRecovery: ContactRecovery? = null
@@ -506,6 +508,7 @@ internal class ArenaSession(
         val available = (MATCH_DURATION - matchNanos).coerceAtLeast(0L)
         val interval = minOf(delta, available)
         val frameStart = now - delta
+        headPath.discardBefore(frameStart)
         val playableUntil = frameStart + interval
         if (contactUncertainReceipt?.let { it >= frameStart } == true) {
             contactUncertainReceipt = null
@@ -521,7 +524,7 @@ internal class ArenaSession(
         while (pendingMotion.isNotEmpty()) {
             if (pendingMotion.first().receivedAtNanos > playableUntil) break
             val frame = pendingMotion.removeFirst()
-            if (now.toDouble() - frame.receivedAtNanos.toDouble() > 250_000_000.0) continue
+            if (now.toDouble() - frame.receivedAtNanos.toDouble() > MAX_HAND_SAMPLE_AGE_NANOS) continue
             val offset = (frame.receivedAtNanos - frameStart).coerceIn(advanced, interval)
             val stopped = advanceEnemy(offset - advanced, events, receiptStartNanos = frameStart + advanced, endFrame = frame)
             advanced = offset
@@ -541,7 +544,11 @@ internal class ArenaSession(
             collect(combat.tryStartAttack(nextAttackDirection(), currentTargetInRange() == true), events)
             return false
         }
-        val target = endFrame?.let(motion::applyWeaponConstraint) ?: initial
+        // A clock tick may advance the body against an incoming blade. It cannot replay a hand action.
+        val target = if (endFrame != null) motion.applyWeaponConstraint(endFrame)
+            else if (initial.swing == null && initial.strike == null && !initial.skillGesture &&
+                initial.bladeBaseDelta == null && initial.bladeTipDelta == null) initial
+            else initial.copy(strike = null, swing = null, skillGesture = false, bladeBaseDelta = null, bladeTipDelta = null)
         if (target.motionGeneration != initial.motionGeneration) {
             simulationMotion = target
             latestMotion = target
@@ -558,8 +565,18 @@ internal class ArenaSession(
         var consumed = 0L
         var stopped = false
         var approachBlocked = false
+        fun trackedHead(frame: PlayerMotionFrame, time: Long): PlayerMotionFrame {
+            val position = headPath.positionAt(time, frame.headPosition)
+            return if (position == frame.headPosition) frame else frame.copy(headPosition = position)
+        }
         fun frameAt(fraction: Double, receiptNanos: Long): PlayerMotionFrame =
-            interpolateMotionFrame(initial, target, fraction, receiptNanos)
+            trackedHead(interpolateMotionFrame(initial, target, fraction, receiptNanos), receiptNanos)
+        fun stepAt(time: Long, limit: Long): Long {
+            val step = headPath.step(time, limit)
+            val handTime = if (stopped) (simulationMotion ?: initial).handReceivedAtNanos else target.handReceivedAtNanos
+            val untilHandExpiry = MAX_HAND_SAMPLE_AGE_NANOS - (time - handTime)
+            return if (untilHandExpiry > 0L && untilHandExpiry < step) untilHandExpiry else step
+        }
         // Zero-time observations still need steel-before-body ordering.
         var zeroQuery = delta == 0L && endFrame != null
         while ((remaining > 0L || zeroQuery) && result == TrialResult.FIGHTING && combat.pauseReason == null) {
@@ -589,9 +606,10 @@ internal class ArenaSession(
             }
             val withdrawal = steelWithdrawal
             if (withdrawal != null && !withdrawal.complete && remaining > 0L) {
-                val step = minOf(remaining, 10_000_000L, withdrawal.durationNanos - withdrawal.elapsedNanos)
-                val fromFrame = simulationMotion ?: initial
-                val toFrame = if (stopped) fromFrame else frameAt((consumed + step).toDouble() / delta,
+                val step = stepAt(receiptStartNanos + consumed,
+                    minOf(remaining, 10_000_000L, withdrawal.durationNanos - withdrawal.elapsedNanos))
+                val fromFrame = trackedHead(simulationMotion ?: initial, receiptStartNanos + consumed)
+                val toFrame = if (stopped) trackedHead(fromFrame, receiptStartNanos + consumed + step) else frameAt((consumed + step).toDouble() / delta,
                     receiptStartNanos + consumed + step)
                 val actorBefore = captureEnemyLocomotion()
                 val before = enemyAttackPose()
@@ -602,7 +620,7 @@ internal class ArenaSession(
                 enemyTravelMeters += previousPosition.distanceTo(next.position)
                 enemyMoveDirection = 0f
                 val after = enemyAttackPose()
-                val contact = try { queryContact(fromFrame, toFrame, before, after) }
+                val contact = try { queryContact(fromFrame, toFrame, before, after, receiptStartNanos + consumed + step) }
                 catch (uncertain: BladeContactUncertainException) {
                     restoreEnemyLocomotion(actorBefore)
                     if (contactQueryFailures++ < 4) logMessage("Actor withdrawal query unproved; forced guard retreat: ${uncertain.message}")
@@ -645,19 +663,21 @@ internal class ArenaSession(
                 zeroQuery = false
                 continue
             }
-            val maximum = minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, 10_000_000L)
+            val maximum = stepAt(receiptStartNanos + consumed,
+                minOf(remaining, combat.nanosUntilPhaseTransition ?: remaining, 10_000_000L))
             val approach = !approachBlocked && maximum > 0L && steelContactLatched &&
                 combat.phase == EnemyPhase.IDLE && !motion.weaponConstrained &&
                 currentTargetInRange() == false && simulationMotion?.weaponGrip != null && target.weaponGrip != null
             val interval = nextPoseInterval(maximum, approach)
-            val fromFrame = simulationMotion ?: initial
-            val toFrame = if (stopped) fromFrame else frameAt(if (delta == 0L) 1.0 else (consumed + interval).toDouble() / delta, receiptStartNanos + consumed + interval)
+            val fromFrame = trackedHead(simulationMotion ?: initial, receiptStartNanos + consumed)
+            val toFrame = if (stopped) trackedHead(fromFrame, receiptStartNanos + consumed + interval)
+                else frameAt(if (delta == 0L) 1.0 else (consumed + interval).toDouble() / delta, receiptStartNanos + consumed + interval)
             val actorBefore = captureEnemyLocomotion()
             val before = enemyAttackPose()
             moveEnemy(interval, toFrame.headPosition, approach)
             val after = enemyAttackPose(interval)
             val candidate = try {
-                queryContact(fromFrame, toFrame, before, after)
+                queryContact(fromFrame, toFrame, before, after, receiptStartNanos + consumed + interval)
             } catch (uncertain: BladeContactUncertainException) {
                 restoreEnemyLocomotion(actorBefore)
                 if (approach) {
@@ -989,12 +1009,13 @@ internal class ArenaSession(
     private data class IncomingContact(val contact: BladeContact, val steel: Boolean, val zone: HitZone, val playerAttack: Boolean = false)
 
     private fun queryContact(from: PlayerMotionFrame, to: PlayerMotionFrame,
-        before: AttackPoseSample?, after: AttackPoseSample?): IncomingContact? {
+        before: AttackPoseSample?, after: AttackPoseSample?, endReceiptNanos: Long): IncomingContact? {
         if (before == null || after == null || combat.phase == EnemyPhase.DEAD) return null
         val enemySweep = BladeSweep(before.blade(), after.blade())
         val gripBefore = from.weaponGrip
         val gripAfter = to.weaponGrip
-        val steel = if (gripBefore != null && gripAfter != null)
+        val handFresh = endReceiptNanos.toDouble() - to.handReceivedAtNanos.toDouble() <= MAX_HAND_SAMPLE_AGE_NANOS
+        val steel = if (handFresh && gripBefore != null && gripAfter != null)
             firstRigidBladeContact(gripBefore, gripAfter, enemySweep)?.takeUnless { contact ->
                 contact.fraction <= 1e-9 && separatingSteelSweep(gripBefore, gripAfter, enemySweep, contact.normal)
             } else null
@@ -1010,7 +1031,7 @@ internal class ArenaSession(
             for (zone in HitZone.values()) body(zone)?.let { candidates += IncomingContact(it, false, zone) }
         }
         // Outgoing damage uses the same moving body proxy and clock as the steel query.
-        if (to.swing?.id?.let { it > consumedStrikeId } == true && gripBefore != null && gripAfter != null) {
+        if (handFresh && to.swing?.id?.let { it > consumedStrikeId } == true && gripBefore != null && gripAfter != null) {
             for (zone in HitZone.values()) {
                 fun capsule(pose: EnemyContactPose) = if (zone == HitZone.HEAD) BladeSegment(pose.head, pose.head, 0.16)
                     else BladeSegment(pose.bodyBottom, pose.bodyTop, 0.24)
@@ -1050,7 +1071,7 @@ internal class ArenaSession(
         val interruptible = id != null && direction != null &&
             (phase == EnemyPhase.PREPARING || phase == EnemyPhase.STARTUP || phase == EnemyPhase.ACTIVE)
         val outcome = if (interruptible && phase == EnemyPhase.ACTIVE) motion.resolveDefense(checkNotNull(id), checkNotNull(direction), target,
-            frame.receivedAtNanos, contact) else AttackOutcome.BLOCKED
+            frame.receivedAtNanos, contact, frame) else AttackOutcome.BLOCKED
         val braced = direction != null && frame.guardDirection == direction &&
             frame.guardEnteredAtNanos?.let { it <= frame.receivedAtNanos } == true && frame.bladeAtRest && frame.swing == null
         val matchedGuard = braced && (phase == EnemyPhase.ACTIVE || phase == EnemyPhase.STARTUP &&
@@ -1315,7 +1336,10 @@ internal class ArenaSession(
                     motion.beginEnemyAttack(event.attackId)
                 }
                 is EnemyCombatEvent.AttackResolved -> {
-                    if (event.outcome == AttackOutcome.MISSED && combat.counterOpen) notifyFeedback(CombatFeedback.DODGE)
+                    if (event.outcome == AttackOutcome.MISSED && combat.counterOpen) {
+                        notifyFeedback(CombatFeedback.DODGE)
+                        logMessage("Dodge confirmed attack=${event.attackId} roundGeneration=$roundGeneration")
+                    }
                     if (event.outcome == AttackOutcome.HIT_PLAYER) {
                         playerHealth = (playerHealth - if (matchNanos < staggerUntil) 30 else 20).coerceAtLeast(0)
                         combo = 0
@@ -1462,6 +1486,8 @@ internal class ArenaSession(
 
     private fun clearMotion() {
         motion.reset()
+        headPath.clear()
+        attackStartHead = null
         latestMotion = null
         simulationMotion = null
         steelWithdrawal = null
@@ -1645,7 +1671,19 @@ internal class ArenaSession(
         establishActionBaseline()
         val target = enemyPosition
         if (target != null && canUseActionInput(snapshot)) {
-            val frame = try { motion.observe(snapshot, target, checkNotNull(enemyContactPose())) }
+            if (event is TrackingEvent.Head && result == TrialResult.FIGHTING && combat.pauseReason == null &&
+                !headPath.record(event.stamp.receivedAtNanos, checkNotNull(snapshot.head?.pose?.position))) {
+                events += combat.interruptTracking()
+                revokeActionBaseline(event.stamp.sequence)
+                publish(events, source = publishSource, uiFrameNanos = uiFrameNanos)
+                return
+            }
+            // A new head sample with an old hand moves only the body. It must not reset
+            // a latched weapon; the next real controller receipt owns its own reacquisition.
+            val hand = if (snapshot.dominantHand == Hand.LEFT) snapshot.left else snapshot.right
+            val onlyHead = event is TrackingEvent.Head && hand != null &&
+                event.stamp.receivedAtNanos - hand.stamp.receivedAtNanos > MAX_HAND_SAMPLE_AGE_NANOS
+            val frame = try { if (onlyHead) null else motion.observe(snapshot, target, checkNotNull(enemyContactPose())) }
                 catch (uncertain: BladeContactUncertainException) {
                     if (contactQueryFailures++ < 4) logMessage("Player contact query held: ${uncertain.message}")
                     contactUncertainReceipt = event.stamp.receivedAtNanos

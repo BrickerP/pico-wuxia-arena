@@ -1,6 +1,8 @@
 # 原生刀客对决验收
 
-**当前发布：[试炼战绩](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-result-2026-11-23)**，APK SHA256 `1298c636f5b91d9a146ff9202e48a9473b3f83f34707401b91c8993da2b61600`。胜负结算显示实际击败人数，落败时列出对手与余血。20 项相关定向回归通过。在模拟器独立 Android ART 进程的 61 组正式动作输入上，每版各 366 次求解；退刀 CPU 中位从 0.388 到 0.159 ms，P95 从 2.271 到 0.747 ms，每次分配计数中位从 544 到 160 KiB。此项为单次碰刀计算的测量。
+**当前发布：[身位判定](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-head-motion-2026-11-23)**，APK SHA256 `c2dba544bb2a77246eedf1278499960b94d5badba109cd9a79ed95df7eb66233`。头和手来自不同时间的观测时，身体按头部轨迹更新，手部动作按手柄的原始时间结算。在同一记上劈的定向回归中，手柄不动、头部后移 45 厘米可避开；留在原地会受到 20 点伤害。此项是正式战斗代码的回归验证。
+
+**[试炼战绩](https://github.com/BrickerP/pico-wuxia-arena/releases/tag/native-duel-result-2026-11-23)**，APK SHA256 `1298c636f5b91d9a146ff9202e48a9473b3f83f34707401b91c8993da2b61600`。胜负结算显示实际击败人数，落败时列出对手与余血。20 项相关定向回归通过。在模拟器独立 Android ART 进程的 61 组正式动作输入上，每版各 366 次求解；退刀 CPU 中位从 0.388 到 0.159 ms，P95 从 2.271 到 0.747 ms，每次分配计数中位从 544 到 160 KiB。此项为单次碰刀计算的测量。
 
 [本包连续交战与重开](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/guard-result-retry.mp4)使用模拟器虚拟手柄，玩家击败试刀客，在青衫的有效攻击期稳架接刀。该局落败得 150 分，[结算卡](https://github.com/BrickerP/pico-wuxia-arena/releases/download/native-duel-result-2026-11-23/result-card.png)列出击败 1/3、自身气血 0、青衫护院剩余气血 50/125；同进程再次开始进入倒计时。
 

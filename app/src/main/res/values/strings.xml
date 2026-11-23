@@ -69,7 +69,7 @@
     <string name="arena_technique_guard">架刀</string>
     <string name="arena_technique_guard_detail">横刀护在头前。来锋将至时迅速成架，可迎刀弹反。</string>
     <string name="arena_technique_dodge">避锋</string>
-    <string name="arena_technique_dodge_detail">看见起势后侧移或下蹲，让开原本头部位置。</string>
+    <string name="arena_technique_dodge_detail">上劈时向旁侧身，横扫时后撤让出刀路。待刀锋过去再回位还击。</string>
     <string name="arena_technique_skill">破势</string>
     <string name="arena_technique_skill_detail">双手近胸收刀，蓄势后快速前推。气势满时破势，对手虚弱时处决。</string>
     <string name="arena_settlement_score">得分 %1$d · 最佳 %2$d</string>
