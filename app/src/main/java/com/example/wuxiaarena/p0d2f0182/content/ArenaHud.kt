@@ -429,20 +429,22 @@ private fun MatchSummary(state: ArenaViewState) {
     }
     Text(
         text = stringResource(R.string.arena_settlement_detail,
-            state.roundNumber.coerceIn(1, state.roundCount.coerceAtLeast(1)), state.roundCount,
+            state.defeatedOpponents, state.roundCount,
             state.playerHealth.coerceAtLeast(0)),
         style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
         color = ArenaUiPalette.mutedInk,
         maxLines = 2,
     )
     Text(
-        text = stringResource(
-            when {
-                state.result == TrialResult.DEFEAT && state.feedback == CombatFeedback.TIMEOUT -> R.string.arena_feedback_timeout
-                state.result == TrialResult.VICTORY -> R.string.arena_victory_detail
-                else -> R.string.arena_defeat_detail
-            },
-        ),
+        text = if (state.result == TrialResult.VICTORY) {
+            stringResource(R.string.arena_victory_detail)
+        } else {
+            stringResource(
+                if (state.feedback == CombatFeedback.TIMEOUT) R.string.arena_defeat_timeout_detail
+                else R.string.arena_opponent_remaining_health,
+                state.enemyName, state.health, state.initialHealth,
+            )
+        },
         style = PicoTheme.typography.labelMedium.copy(fontSize = 16.sp, lineHeight = 22.sp),
         color = ArenaUiPalette.inkBlack,
         maxLines = 3,

@@ -15,6 +15,15 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class HudStateProjectionTest {
+    @Test fun losingCountsOnlyPreviouslyDefeatedOpponents() {
+        assertEquals(0, state.copy(result = TrialResult.DEFEAT, roundNumber = 1, health = 100).defeatedOpponents)
+        assertEquals(2, state.copy(result = TrialResult.DEFEAT, roundNumber = 3, health = 9).defeatedOpponents)
+    }
+
+    @Test fun aDefeatedFinalOpponentIsCountedInTheVictorySummary() {
+        assertEquals(3, state.copy(result = TrialResult.VICTORY, roundNumber = 3, health = 0).defeatedOpponents)
+    }
+
     @Test fun fightingControlsOnlyRedrawForTheirOwnStateChanges() {
         val fight = state.copy(result = TrialResult.FIGHTING, inputReady = true, pauseReason = null)
         val strike = fight.copy(score = fight.score + 25, health = fight.health - 25, feedback = CombatFeedback.HIT)

@@ -32,6 +32,7 @@ class ActorWithdrawalPlan private constructor(
         private const val MAX_YAW=PI/2
         private const val MAX_RETREAT=.35
         private data class Range(val lo:Double,val hi:Double)
+        private val fullYaw = listOf(Range(0.0, MAX_YAW))
         fun create(origin:Vector3,yawRadians:Double,heldLocalBlade:BladeSegment,playerBlade:List<BladeSegment>,
             normal:Vector3,recoveryLocalBlades:List<BladeSegment>):ActorWithdrawalPlan? {
             if(!origin.isFinite() || !yawRadians.isFinite() || !normal.isFinite() || normal.length()<1e-9 || recoveryLocalBlades.isEmpty() || playerBlade.isEmpty())return null
@@ -67,21 +68,32 @@ class ActorWithdrawalPlan private constructor(
                     val t=playerAxis*exitSign
                     val exitLimit=playerBlade.maxOf { maxOf(it.base.dot(t),it.tip.dot(t))+it.radiusMeters }+
                         heldLocalBlade.radiusMeters+CLEARANCE
-                    var allowed=listOf(Range(0.0,MAX_YAW))
+                    val tu=t.dot(away)
+                    var allowed=fullYaw
                     for(hull in hulls) {
-                        var behind=listOf(Range(0.0,MAX_YAW));var beyond=listOf(Range(0.0,MAX_YAW))
+                        var behind=fullYaw;var beyond=fullYaw
                         for(p in hull) {
-                            val c=n.x*p.x+n.z*p.z
-                            val s=sign*(n.x*p.z-n.z*p.x)
-                            val constant=n.dot(origin)-normalRetreat*(INITIAL_RETREAT+h)+n.y*p.y
-                            behind=intersect(behind,trig(-(c+normalRetreat*h),-(s-normalRetreat*k),constant-(initialLimit-CLEARANCE)))
-                            val tu=t.dot(away)
-                            val tc=t.x*p.x+t.z*p.z-tu*h
-                            val ts=sign*(t.x*p.z-t.z*p.x)+tu*k
-                            val constantExit=t.dot(origin)+tu*(INITIAL_RETREAT+h)+t.y*p.y
-                            beyond=intersect(beyond,trig(tc,ts,exitLimit-constantExit))
+                            if (behind.isEmpty() && beyond.isEmpty()) break
+                            if (behind.isNotEmpty()) {
+                                val c=n.x*p.x+n.z*p.z
+                                val s=sign*(n.x*p.z-n.z*p.x)
+                                val constant=n.dot(origin)-normalRetreat*(INITIAL_RETREAT+h)+n.y*p.y
+                                behind=intersect(behind,trig(-(c+normalRetreat*h),-(s-normalRetreat*k),constant-(initialLimit-CLEARANCE)))
+                            }
+                            if (beyond.isNotEmpty()) {
+                                val tc=t.x*p.x+t.z*p.z-tu*h
+                                val ts=sign*(t.x*p.z-t.z*p.x)+tu*k
+                                val constantExit=t.dot(origin)+tu*(INITIAL_RETREAT+h)+t.y*p.y
+                                beyond=intersect(beyond,trig(tc,ts,exitLimit-constantExit))
+                            }
                         }
-                        allowed=intersect(allowed,merge(behind+beyond))
+                        val hullYaw = when {
+                            behind === fullYaw || beyond === fullYaw -> fullYaw
+                            behind.isEmpty() -> beyond
+                            beyond.isEmpty() -> behind
+                            else -> merge(behind + beyond)
+                        }
+                        allowed=intersect(allowed,hullYaw)
                         if(allowed.isEmpty())break
                     }
                     val angle=allowed.firstOrNull()?.lo ?: continue
@@ -127,20 +139,43 @@ class ActorWithdrawalPlan private constructor(
         }
         private fun trig(a:Double,b:Double,c:Double):List<Range> {
             val r=hypot(a,b)
-            if(r<1e-12)return if(c<=1e-10)listOf(Range(0.0,MAX_YAW)) else emptyList()
+            if(r<1e-12)return if(c<=1e-10)fullYaw else emptyList()
             if(c>r+1e-10)return emptyList()
-            if(c< -r)return listOf(Range(0.0,MAX_YAW))
+            if(c< -r)return fullYaw
             val phase=atan2(b,a);val offset=acos((c/r).coerceIn(-1.0,1.0))
             val cuts=mutableListOf(0.0,MAX_YAW)
-            for(k in -1..1)for(x in listOf(phase-offset+2*PI*k,phase+offset+2*PI*k))if(x>0 && x<MAX_YAW)cuts+=x
+            for(k in -1..1) {
+                val low = phase-offset+2*PI*k
+                val high = phase+offset+2*PI*k
+                if(low>0 && low<MAX_YAW)cuts+=low
+                if(high>0 && high<MAX_YAW)cuts+=high
+            }
+            if(cuts.size==2) {
+                val mid=MAX_YAW*.5
+                return if(a*cos(mid)+b*sin(mid)>=c-1e-10) fullYaw else emptyList()
+            }
             cuts.sort();val out=mutableListOf<Range>()
             for(i in 0 until cuts.lastIndex){val lo=cuts[i];val hi=cuts[i+1];val mid=(lo+hi)*.5;if(a*cos(mid)+b*sin(mid)>=c-1e-10)out+=Range(lo,hi)}
             return merge(out)
         }
         private fun intersect(a:List<Range>,b:List<Range>):List<Range> {
+            if(a.isEmpty() || b.isEmpty())return emptyList()
+            if(a === fullYaw)return b
+            if(b === fullYaw)return a
+            if(a.size==1 && b.size==1) {
+                val x=a[0];val y=b[0]
+                val lo=maxOf(x.lo,y.lo);val hi=minOf(x.hi,y.hi)
+                return when {
+                    hi<lo-1e-12 -> emptyList()
+                    lo==x.lo && hi==x.hi -> a
+                    lo==y.lo && hi==y.hi -> b
+                    else -> listOf(Range(lo,hi.coerceAtLeast(lo)))
+                }
+            }
             val out=mutableListOf<Range>();for(x in a)for(y in b){val lo=maxOf(x.lo,y.lo);val hi=minOf(x.hi,y.hi);if(hi>=lo-1e-12)out+=Range(lo,hi.coerceAtLeast(lo))};return merge(out)
         }
         private fun merge(input:List<Range>):List<Range> {
+            if(input.size<2)return input
             val out=mutableListOf<Range>();for(r in input.sortedBy { it.lo }){val p=out.lastOrNull();if(p!=null && r.lo<=p.hi+1e-12)out[out.lastIndex]=Range(p.lo,maxOf(p.hi,r.hi))else out+=r};return out
         }
     }
