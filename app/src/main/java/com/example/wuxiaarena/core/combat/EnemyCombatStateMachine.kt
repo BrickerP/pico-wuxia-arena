@@ -13,7 +13,7 @@ private const val NORMAL_DAMAGE = 25
 private const val GUARDED_DAMAGE = 10
 private const val LESSON_WINDUPS = 2
 private const val LESSON_PREPARATION_NANOS = 1_400_000_000L
-private const val LESSON_COUNTER_NANOS = 1_200_000_000L
+private const val EXTENDED_COUNTER_NANOS = 1_200_000_000L
 
 /** Directions are named from the player's point of view. */
 enum class AttackDirection(
@@ -273,7 +273,8 @@ class EnemyCombatStateMachine(
             startAttack(counterDirection, true, events)
         } else if (!guarded && !(phase == EnemyPhase.HIT && hitReaction == HitReaction.PLAYER_HIT && cutLine != null)) {
             val remainingParry = if (phase == EnemyPhase.HIT && hitReaction == HitReaction.PARRIED) {
-                hitDurationNanos - phaseElapsedNanos
+                val stagger = if (teachesDefense) hitDurationNanos else minOf(hitDurationNanos, PARRY_DURATION)
+                (stagger - phaseElapsedNanos).coerceAtLeast(0L)
             } else {
                 0L
             }
@@ -429,11 +430,11 @@ class EnemyCombatStateMachine(
         if (outcome == AttackOutcome.PARRIED) {
             attack = null
             hitReaction = HitReaction.PARRIED
-            hitDurationNanos = if (lessonCounter) LESSON_COUNTER_NANOS else PARRY_DURATION
+            hitDurationNanos = if (!frontArmored && counterOpen) EXTENDED_COUNTER_NANOS else PARRY_DURATION
             changePhase(EnemyPhase.HIT, events)
             events += EnemyCombatEvent.HitReactionStarted(HitReaction.PARRIED, hitDurationNanos, simulationNanos)
         } else {
-            if (lessonCounter) current.recoveryNanos = LESSON_COUNTER_NANOS
+            if (lessonCounter) current.recoveryNanos = EXTENDED_COUNTER_NANOS
             changePhase(EnemyPhase.RECOVERING, events)
         }
     }

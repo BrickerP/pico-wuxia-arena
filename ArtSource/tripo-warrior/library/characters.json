@@ -20,28 +20,28 @@
       "outputs": [
         {
           "file": "base_body.glb",
-          "bytes": 55210136,
-          "sha256": "ccfb75b09cf11e103dc6d6552b112a3c0cfc9e1d2f5626774978d916e000ebff"
+          "bytes": 55325700,
+          "sha256": "59ec2f03ded66da441a172ad84652804fdb43ee5a2790c15c86b219936dfc461"
         },
         {
           "file": "base_prepared_png.glb",
-          "bytes": 58303256,
-          "sha256": "87163c1ebd07b9db19bcae07a9ab189dc95c79b165f92a2c1520e96cd8946446"
+          "bytes": 58418824,
+          "sha256": "48acba7b0a5e37b27d6c14b0555002320a7d0abfc076aa2211e28e22a66ed43b"
         },
         {
           "file": "base.glb",
-          "bytes": 75852492,
-          "sha256": "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780"
+          "bytes": 75968060,
+          "sha256": "58741ce769c411dcfaef02829eda884c909d22eb32793011791665f9d6f4cc22"
         }
       ],
       "runtime_texture_encoding": {
         "file": "base_texture_encoding.json",
-        "sha256": "ede35b678d464bc0b37df01054fbb25e9456e213e8cfc5836cb2d22020d13c6d",
-        "prepared_png_sha256": "87163c1ebd07b9db19bcae07a9ab189dc95c79b165f92a2c1520e96cd8946446",
-        "encoded_sha256": "97843974c1a2bbae5a7b49522cb2c09b0d810d823fbd29e003777c8caae5f780",
+        "sha256": "6d54dc73ad17dc0c19fa42da6088df2fc7635b9aad2c219ee602210f9e5ad470",
+        "prepared_png_sha256": "48acba7b0a5e37b27d6c14b0555002320a7d0abfc076aa2211e28e22a66ed43b",
+        "encoded_sha256": "58741ce769c411dcfaef02829eda884c909d22eb32793011791665f9d6f4cc22",
         "preservation": {
-          "non_image_bufferViews_byte_identical": 2628,
-          "accessors_semantics_and_payloads_unchanged": 2628,
+          "non_image_bufferViews_byte_identical": 2688,
+          "accessors_semantics_and_payloads_unchanged": 2688,
           "non_image_json_semantics_identical": true,
           "images": [
             {
@@ -439,7 +439,7 @@
       },
       "attack_profiles": {
         "file": "base_attack_profiles.json",
-        "sha256": "1ad0e93fda89dd34a65748a4ccd1046057223026ef1704aa8488d501a84f49a4"
+        "sha256": "57558d2a23684cce324a55abce44edbcefd0cac32c4877df5b7e67a094a2d477"
       }
     },
     {
